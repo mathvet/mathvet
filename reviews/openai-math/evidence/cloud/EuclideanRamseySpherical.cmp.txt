@@ -1,0 +1,21 @@
+CMP OAI.EuclideanRamsey.ramsey_cospherical [thm] ok
+CMP OAI.EuclideanRamsey.Ramsey [def] ok
+CMP OAI.EuclideanRamsey.Congruent [def] ok
+CMP OAI.EuclideanRamsey.Space [def] ok
+@Chal.EuclideanRamsey.ramsey_cospherical : ∀ {s d : ℕ} (a : Fin s → Chal.EuclideanRamsey.Space d),
+  Function.Injective a → Chal.EuclideanRamsey.Ramsey a → EuclideanGeometry.Cospherical (Set.range a)
+@[reducible] def Chal.EuclideanRamsey.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.EuclideanRamsey.Congruent : {s d D : ℕ} →
+  (Fin s → Chal.EuclideanRamsey.Space d) → (Fin s → Chal.EuclideanRamsey.Space D) → Prop :=
+fun {s d D} a b => ∀ (i j : Fin s), dist (b i) (b j) = dist (a i) (a j)
+def Chal.EuclideanRamsey.Ramsey : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → Prop :=
+fun {s d} a =>
+  ∀ (r : ℕ),
+    2 ≤ r →
+      ∃ D,
+        1 ≤ D ∧
+          ∀ (c : Chal.EuclideanRamsey.Space D → Fin r),
+            ∃ b, Chal.EuclideanRamsey.Congruent a b ∧ ∃ k, ∀ (i : Fin s), c (b i) = k
+'OAI.EuclideanRamsey.ramsey_cospherical' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EuclideanRamseySpherical comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
