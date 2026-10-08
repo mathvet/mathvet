@@ -14,3 +14,9 @@ Notes on individual logs:
 - `TalagrandDiscreteConvexity.cmp.txt` (`exceptional`, a `def … := by` tactic block) and `RealL1Renorming.cmp.txt`
   (`instNormedSpaceRealRealL1._aux_1`, an auxiliary definition generated while elaborating an instance) each report one
   closure `VALUE_MISMATCH` of the same re-elaboration kind as HardSphere; Comparator accepted both.
+- `SATSharpness.cmp.txt` and `ThreeStateTreeClauses.cmp.txt` report `errors=1` and `SHADOW-DIFF` because the checker's
+  declaration scanner produced an invalid `#print` line (a name captured with a trailing dot; a `def _root_.…` declared
+  inside a namespace). The closure comparison itself (16 and 25 constants, 0 problems) and Comparator are clean; the
+  scanner is fixed (2026-10-08).
+- `DixmierAllDiscrete.cmp.txt` and `ForestSpace.cmp.txt` report type mismatches on definitions and their auxiliary
+  proofs; Comparator accepted both. `*.mismatch-debug.txt` files (when present) show both elaborations side by side.
