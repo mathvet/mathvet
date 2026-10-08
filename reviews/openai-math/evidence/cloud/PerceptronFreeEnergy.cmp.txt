@@ -1,0 +1,173 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_PerceptronFreeEnergy.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SphericalPerceptronFreeEnergy.main [thm] ok
+CMP OAI.SphericalPerceptronFreeEnergy.pressure [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.hamiltonian [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.patternField [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Spin [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.patternCount [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Patterns [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.sphereLaw [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.unitSphereLaw [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.unitSphereLaw._proof_3 [thm] ok
+CMP OAI.SphericalPerceptronFreeEnergy.unitSphereLaw._proof_2 [thm] ok
+CMP OAI.SphericalPerceptronFreeEnergy.unitSphereLaw._proof_1 [thm] ok
+CMP OAI.SphericalPerceptronFreeEnergy.patternLaw [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.expectedPressure [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.variationalValue [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.entropy [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.entropy._proof_1 [thm] ok
+CMP OAI.SphericalPerceptronFreeEnergy.tailIntegral [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Trial.toFun [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Trial [ind] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Trial.mk [ctor] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Time [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.timeLaw [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.controlValue [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.controlPayoff [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.controlCost [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.instMeasurableSpaceBrownianPath [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.BrownianPath [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.brownianEval [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.Progressive [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.usualBrownianSigma [def] ok
+CMP OAI.SphericalPerceptronFreeEnergy.nullSigma [def] ok
+Chal.SphericalPerceptronFreeEnergy.main : ∀ (P : MeasureTheory.Measure Chal.SphericalPerceptronFreeEnergy.BrownianPath)
+  [MeasureTheory.IsProbabilityMeasure P],
+  ProbabilityTheory.IsBrownianReal Chal.SphericalPerceptronFreeEnergy.brownianEval P →
+    ∀ (α β : ℝ),
+      0 < α →
+        0 < β →
+          ∀ (φ : BoundedContinuousFunction ℝ ℝ),
+            ∃ p,
+              Chal.SphericalPerceptronFreeEnergy.variationalValue P α β φ = ↑p ∧
+                Filter.Tendsto (fun N => Chal.SphericalPerceptronFreeEnergy.expectedPressure α β φ (N + 1)) Filter.atTop
+                    (nhds p) ∧
+                  ∀ (ε : ℝ),
+                    0 < ε →
+                      Filter.Tendsto
+                        (fun N =>
+                          (Chal.SphericalPerceptronFreeEnergy.patternLaw α (N + 1))
+                            {g | ε < |Chal.SphericalPerceptronFreeEnergy.pressure α β φ (N + 1) g - p|})
+                        Filter.atTop (nhds 0)
+@[reducible] def Chal.SphericalPerceptronFreeEnergy.Time : Set ℝ :=
+unitInterval
+@[reducible] def Chal.SphericalPerceptronFreeEnergy.BrownianPath : Type :=
+C(NNReal, ℝ)
+@[reducible] def Chal.SphericalPerceptronFreeEnergy.Spin : ℕ → Type :=
+fun N => EuclideanSpace ℝ (Fin N)
+def Chal.SphericalPerceptronFreeEnergy.patternCount : ℝ → ℕ → ℕ :=
+fun α N => ⌊α * ↑N⌋₊
+@[reducible] def Chal.SphericalPerceptronFreeEnergy.Patterns : ℝ → ℕ → Type :=
+fun α N => Fin (Chal.SphericalPerceptronFreeEnergy.patternCount α N) → Fin N → ℝ
+def Chal.SphericalPerceptronFreeEnergy.patternLaw : (α : ℝ) →
+  (N : ℕ) → MeasureTheory.Measure (Chal.SphericalPerceptronFreeEnergy.Patterns α N) :=
+fun α N => MeasureTheory.Measure.pi fun x => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1
+def Chal.SphericalPerceptronFreeEnergy.unitSphereLaw : (N : ℕ) → MeasureTheory.Measure ↑(Metric.sphere 0 1) :=
+fun N =>
+  have s := MeasureTheory.volume.toSphere;
+  (s Set.univ)⁻¹ • s
+def Chal.SphericalPerceptronFreeEnergy.sphereLaw : (N : ℕ) →
+  MeasureTheory.Measure (Chal.SphericalPerceptronFreeEnergy.Spin N) :=
+fun N => MeasureTheory.Measure.map (fun x => √↑N • ↑x) (Chal.SphericalPerceptronFreeEnergy.unitSphereLaw N)
+def Chal.SphericalPerceptronFreeEnergy.patternField : {α : ℝ} →
+  {N : ℕ} →
+    Chal.SphericalPerceptronFreeEnergy.Patterns α N →
+      Fin (Chal.SphericalPerceptronFreeEnergy.patternCount α N) → Chal.SphericalPerceptronFreeEnergy.Spin N → ℝ :=
+fun {α} {N} g a x => (∑ i, g a i * x.ofLp i) / √↑N
+def Chal.SphericalPerceptronFreeEnergy.hamiltonian : (α : ℝ) →
+  BoundedContinuousFunction ℝ ℝ →
+    (N : ℕ) → Chal.SphericalPerceptronFreeEnergy.Patterns α N → Chal.SphericalPerceptronFreeEnergy.Spin N → ℝ :=
+fun α φ N g x => ∑ a, φ (Chal.SphericalPerceptronFreeEnergy.patternField g a x)
+def Chal.SphericalPerceptronFreeEnergy.pressure : (α : ℝ) →
+  ℝ → BoundedContinuousFunction ℝ ℝ → (N : ℕ) → Chal.SphericalPerceptronFreeEnergy.Patterns α N → ℝ :=
+fun α β φ N g =>
+  Real.log
+      (∫ (x : Chal.SphericalPerceptronFreeEnergy.Spin N),
+        Real.exp
+          (β *
+            Chal.SphericalPerceptronFreeEnergy.hamiltonian α φ N g x) ∂Chal.SphericalPerceptronFreeEnergy.sphereLaw N) /
+    ↑N
+def Chal.SphericalPerceptronFreeEnergy.expectedPressure : ℝ → ℝ → BoundedContinuousFunction ℝ ℝ → ℕ → ℝ :=
+fun α β φ N =>
+  ∫ (g : Chal.SphericalPerceptronFreeEnergy.Patterns α N),
+    Chal.SphericalPerceptronFreeEnergy.pressure α β φ N g ∂Chal.SphericalPerceptronFreeEnergy.patternLaw α N
+structure Chal.SphericalPerceptronFreeEnergy.Trial : Type
+number of parameters: 0
+fields:
+  Chal.SphericalPerceptronFreeEnergy.Trial.toFun : ↑Chal.SphericalPerceptronFreeEnergy.Time → ℝ
+  Chal.SphericalPerceptronFreeEnergy.Trial.monotone : Monotone self.toFun
+  Chal.SphericalPerceptronFreeEnergy.Trial.measurable : Measurable self.toFun
+  Chal.SphericalPerceptronFreeEnergy.Trial.nonneg : ∀ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time), 0 ≤ self.toFun t
+  Chal.SphericalPerceptronFreeEnergy.Trial.le_one : ∀ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time), self.toFun t ≤ 1
+constructor:
+  Chal.SphericalPerceptronFreeEnergy.Trial.mk (toFun : ↑Chal.SphericalPerceptronFreeEnergy.Time → ℝ)
+    (monotone : Monotone toFun) (measurable : Measurable toFun)
+    (nonneg : ∀ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time), 0 ≤ toFun t)
+    (le_one : ∀ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time), toFun t ≤ 1) : Chal.SphericalPerceptronFreeEnergy.Trial
+def Chal.SphericalPerceptronFreeEnergy.timeLaw : MeasureTheory.Measure ↑Chal.SphericalPerceptronFreeEnergy.Time :=
+MeasureTheory.Measure.comap Subtype.val MeasureTheory.volume
+def Chal.SphericalPerceptronFreeEnergy.tailIntegral : Chal.SphericalPerceptronFreeEnergy.Trial →
+  ↑Chal.SphericalPerceptronFreeEnergy.Time → ℝ :=
+fun m t =>
+  ∫ (s : ↑Chal.SphericalPerceptronFreeEnergy.Time) in Set.Ici t, m.toFun s ∂Chal.SphericalPerceptronFreeEnergy.timeLaw
+def Chal.SphericalPerceptronFreeEnergy.entropy : Chal.SphericalPerceptronFreeEnergy.Trial → ENNReal :=
+fun m =>
+  (∫⁻ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time),
+      (ENNReal.ofReal (Chal.SphericalPerceptronFreeEnergy.tailIntegral m t))⁻¹ -
+        (ENNReal.ofReal (1 - ↑t))⁻¹ ∂Chal.SphericalPerceptronFreeEnergy.timeLaw) /
+    2
+def Chal.SphericalPerceptronFreeEnergy.brownianEval : NNReal → Chal.SphericalPerceptronFreeEnergy.BrownianPath → ℝ :=
+fun t ω => ω t
+@[instance_reducible] def Chal.SphericalPerceptronFreeEnergy.nullSigma : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  MeasurableSpace Chal.SphericalPerceptronFreeEnergy.BrownianPath :=
+fun P => MeasurableSpace.generateFrom {s | P s = 0}
+@[instance_reducible] def Chal.SphericalPerceptronFreeEnergy.usualBrownianSigma : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  ↑Chal.SphericalPerceptronFreeEnergy.Time → MeasurableSpace Chal.SphericalPerceptronFreeEnergy.BrownianPath :=
+fun P t =>
+  ⨅ s,
+    (⨆ r, MeasurableSpace.comap (Chal.SphericalPerceptronFreeEnergy.brownianEval ↑r) (borel ℝ)) ⊔
+      Chal.SphericalPerceptronFreeEnergy.nullSigma P
+def Chal.SphericalPerceptronFreeEnergy.Progressive : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  (↑Chal.SphericalPerceptronFreeEnergy.Time → Chal.SphericalPerceptronFreeEnergy.BrownianPath → ℝ) → Prop :=
+fun P v => ∀ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time), Measurable fun p => v (↑p.1) p.2
+def Chal.SphericalPerceptronFreeEnergy.controlCost : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  Chal.SphericalPerceptronFreeEnergy.Trial →
+    (↑Chal.SphericalPerceptronFreeEnergy.Time → Chal.SphericalPerceptronFreeEnergy.BrownianPath → ℝ) → ENNReal :=
+fun P m v =>
+  ∫⁻ (ω : Chal.SphericalPerceptronFreeEnergy.BrownianPath),
+    ∫⁻ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time),
+      ENNReal.ofReal (m.toFun t * v t ω ^ 2) ∂Chal.SphericalPerceptronFreeEnergy.timeLaw ∂P
+def Chal.SphericalPerceptronFreeEnergy.controlPayoff : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  BoundedContinuousFunction ℝ ℝ →
+    Chal.SphericalPerceptronFreeEnergy.Trial →
+      (↑Chal.SphericalPerceptronFreeEnergy.Time → Chal.SphericalPerceptronFreeEnergy.BrownianPath → ℝ) → ℝ :=
+fun P f m v =>
+  ∫ (ω : Chal.SphericalPerceptronFreeEnergy.BrownianPath),
+      f
+        (Chal.SphericalPerceptronFreeEnergy.brownianEval 1 ω +
+          ∫ (t : ↑Chal.SphericalPerceptronFreeEnergy.Time),
+            m.toFun t * v t ω ∂Chal.SphericalPerceptronFreeEnergy.timeLaw) ∂P -
+    (Chal.SphericalPerceptronFreeEnergy.controlCost P m v).toReal / 2
+def Chal.SphericalPerceptronFreeEnergy.controlValue : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  BoundedContinuousFunction ℝ ℝ → Chal.SphericalPerceptronFreeEnergy.Trial → ℝ :=
+fun P f m =>
+  sSup
+    {a |
+      ∃ v,
+        Chal.SphericalPerceptronFreeEnergy.Progressive P v ∧
+          Chal.SphericalPerceptronFreeEnergy.controlCost P m v < ⊤ ∧
+            a = Chal.SphericalPerceptronFreeEnergy.controlPayoff P f m v}
+def Chal.SphericalPerceptronFreeEnergy.variationalValue : MeasureTheory.Measure
+    Chal.SphericalPerceptronFreeEnergy.BrownianPath →
+  ℝ → ℝ → BoundedContinuousFunction ℝ ℝ → EReal :=
+fun P α β φ =>
+  ⨅ m,
+    ↑(α * Chal.SphericalPerceptronFreeEnergy.controlValue P (β • φ) m) + ↑(Chal.SphericalPerceptronFreeEnergy.entropy m)
+'OAI.SphericalPerceptronFreeEnergy.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PerceptronFreeEnergy comparator-style: ok=32 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
