@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T05:39:22Z",
+  "generated": "2026-10-08T06:44:38Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -45,9 +45,13 @@
   "comparator_pass": [
    "CannonGeometricAction",
    "CirculantHadamard",
-   "EntangledGames"
+   "EntangledGames",
+   "PlaneColoring"
   ],
-  "comparator_sandboxed_pass": [],
+  "comparator_sandboxed_pass": [
+   "CirculantHadamard",
+   "PlaneColoring"
+  ],
   "comparator_running": [
    "ErdosReciprocal"
   ],
@@ -2230,7 +2234,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CirculantHadamard.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CirculantHadamard.json",
    "lean_sha256": "397ec4f1ab8e02877f4a4d0b5a12d0c9b26a06bf768999479210b365c3acb647",
-   "machine_check": "comparator-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 89,
    "closure": "ok",
@@ -2252,12 +2256,16 @@
     "CirculantHadamard.challenge.txt",
     "CirculantHadamard.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T06:40:43Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "CirculantHadamard.comparator.txt",
+    "CirculantHadamard.log",
+    "CirculantHadamard.cmp.txt"
+   ]
   },
   {
    "challenge": "ClassicalON",
@@ -12361,7 +12369,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PlaneColoring.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PlaneColoring.json",
    "lean_sha256": "868e71b127ba5bc82474130618483289ac29cc58c45898eb0216199080c9dc37",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -12373,12 +12381,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T06:33:25Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "PlaneColoring.comparator.txt",
+    "PlaneColoring.log",
+    "PlaneColoring.cmp.txt"
+   ]
   },
   {
    "challenge": "PolycyclicRecognition",

@@ -1,0 +1,6 @@
+OAI.Problem160.properColoring_seven : OAI.Problem160.ProperColoring 7
+'OAI.Problem160.properColoring_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Problem160.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.Problem160.ProperColoring : ℕ → Prop :=
+fun k => ∃ c, ∀ (x y : OAI.Problem160.Plane), dist x y = 1 → c x ≠ c y

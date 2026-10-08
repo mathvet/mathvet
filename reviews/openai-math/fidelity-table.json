@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T05:39:22Z",
+  "generated": "2026-10-08T06:44:38Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -45,9 +45,13 @@
   "comparator_pass": [
    "CannonGeometricAction",
    "CirculantHadamard",
-   "EntangledGames"
+   "EntangledGames",
+   "PlaneColoring"
   ],
-  "comparator_sandboxed_pass": [],
+  "comparator_sandboxed_pass": [
+   "CirculantHadamard",
+   "PlaneColoring"
+  ],
   "comparator_running": [
    "ErdosReciprocal"
   ],
@@ -2993,7 +2997,7 @@
    "definitions_to_check": [],
    "external_packages": [],
    "cone_lines_max": 30336,
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "lab_scope_note": "The Hadwiger–Nelson problem asks for the fewest colors needed to color the plane so that points at distance one have different colors. The formalized results prove that five colors do not suffice and that seven colors do suffice. The lower bound applies to arbitrary colorings, with no measurability or continuity assumption; the upper bound includes every boundary point of the coloring regions.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/158.md",
    "overview_entry": "family 158 in overview.pdf / CONTENTS.md",
@@ -3496,7 +3500,7 @@
    "definitions_to_check": [],
    "external_packages": [],
    "cone_lines_max": 9773,
-   "machine_check": "comparator-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "lab_scope_note": "The formalization proves the circulant Hadamard conjecture in exact form: a real circulant Hadamard matrix of positive order $n$ exists exactly when $n=1$ or $n=4$. Explicit witnesses are supplied for both orders, with no restriction on prime factors.\n\nIt also proves the even-length part of the Barker-sequence consequence. A positive even-length sign sequence whose nonzero aperiodic autocorrelations have absolute value at most one must have length $2$ or $4$. The paper's classification of odd Barker lengths is outside this selected additional statement.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/179.md",
    "overview_entry": "family 179 in overview.pdf / CONTENTS.md",

@@ -1,0 +1,13 @@
+OAI.CirculantHadamard.exists_iff_order_one_or_four : ∀ (n : ℕ),
+  0 < n → (OAI.CirculantHadamard.ExistsRealCirculantHadamard n ↔ n = 1 ∨ n = 4)
+'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.CirculantHadamard.IsSign.{u} : {R : Type u} → [One R] → [Neg R] → R → Prop :=
+fun {R} [One R] [Neg R] x => x = 1 ∨ x = -1
+@[reducible] def OAI.CirculantHadamard.RealMatrix : ℕ → Type :=
+fun n => Matrix (Fin n) (Fin n) ℝ
+def OAI.CirculantHadamard.IsCirculant : {n : ℕ} → OAI.CirculantHadamard.RealMatrix n → Prop :=
+fun {n} H => ∃ h, ∀ (i j : Fin n), H i j = h (j - i)
+def OAI.CirculantHadamard.IsSignHadamard : {n : ℕ} → OAI.CirculantHadamard.RealMatrix n → Prop :=
+fun {n} H => (∀ (i j : Fin n), OAI.CirculantHadamard.IsSign (H i j)) ∧ H * Matrix.transpose H = ↑n • 1
+def OAI.CirculantHadamard.ExistsRealCirculantHadamard : ℕ → Prop :=
+fun n => ∃ H, OAI.CirculantHadamard.IsCirculant H ∧ OAI.CirculantHadamard.IsSignHadamard H
