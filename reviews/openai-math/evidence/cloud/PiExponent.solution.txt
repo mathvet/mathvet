@@ -1,0 +1,3 @@
+OAI.PiExponent.main : (∀ (ν : ℝ), 2 < ν → ∃ Q, 2 ≤ Q ∧ ∀ (p q : ℤ), Q ≤ q → ↑q ^ (-ν) ≤ |Real.pi - ↑p / ↑q|) ∧
+  sSup {ν | 0 < ν ∧ {r | 2 ≤ r.den ∧ 0 < |Real.pi - ↑r| ∧ |Real.pi - ↑r| < ↑r.den ^ (-ν)}.Infinite} = 2
+'OAI.PiExponent.main' depends on axioms: [propext, Classical.choice, Quot.sound]

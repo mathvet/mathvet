@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T07:33:18Z",
+  "generated": "2026-10-08T08:21:13Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -46,14 +46,31 @@
    "CannonGeometricAction",
    "CirculantHadamard",
    "EntangledGames",
+   "EvenBarker",
+   "GotsmanLinial",
+   "InterpolatedFactors",
+   "KServer",
    "MahlerConjecture",
-   "PlaneColoring"
+   "MassAction",
+   "PiExponent",
+   "PlaneColoring",
+   "ThompsonNonamenability",
+   "TorsionFreeZeroDivisors"
   ],
   "comparator_sandboxed_pass": [
    "CannonGeometricAction",
    "CirculantHadamard",
+   "EntangledGames",
+   "EvenBarker",
+   "GotsmanLinial",
+   "InterpolatedFactors",
+   "KServer",
    "MahlerConjecture",
-   "PlaneColoring"
+   "MassAction",
+   "PiExponent",
+   "PlaneColoring",
+   "ThompsonNonamenability",
+   "TorsionFreeZeroDivisors"
   ],
   "comparator_running": [
    "ErdosReciprocal"
@@ -5219,7 +5236,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EntangledGames.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EntangledGames.json",
    "lean_sha256": "b3957e18f10af74244e7a2fc1b6cf12b14c9dc4b036f7ffe2ef2b2810e6697c0",
-   "machine_check": "comparator-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 265,
    "closure": "ok",
@@ -5241,12 +5258,16 @@
     "EntangledGames.challenge.txt",
     "EntangledGames.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:01:08Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "EntangledGames.comparator.txt",
+    "EntangledGames.log",
+    "EntangledGames.cmp.txt"
+   ]
   },
   {
    "challenge": "EntropyPhotonNumber",
@@ -5700,7 +5721,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EvenBarker.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EvenBarker.json",
    "lean_sha256": "b4b6dbaa8ed4503d6381f4062818815e7c8474de4592e6a1b3f42057a86e25b2",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -5712,12 +5733,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:17:15Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "EvenBarker.comparator.txt",
+    "EvenBarker.log",
+    "EvenBarker.cmp.txt"
+   ]
   },
   {
    "challenge": "ExactFourier",
@@ -7019,7 +7044,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GotsmanLinial.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GotsmanLinial.json",
    "lean_sha256": "5c63b62186354758cea448deb11dfd42a0e729a2260c6ef5b7df1c0be3b5dcfc",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 29,
    "closure": "ok",
@@ -7040,12 +7065,16 @@
     "GotsmanLinial.challenge.txt",
     "GotsmanLinial.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:43:39Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "GotsmanLinial.comparator.txt",
+    "GotsmanLinial.log",
+    "GotsmanLinial.cmp.txt"
+   ]
   },
   {
    "challenge": "GrahamSpherical",
@@ -8164,7 +8193,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/InterpolatedFactors.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/InterpolatedFactors.json",
    "lean_sha256": "95135846cd09796d3caa45d4e22d3a273ca831050b1c14ef1007c078987d6b31",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 1073,
    "closure": "ok",
@@ -8185,12 +8214,16 @@
     "InterpolatedFactors.challenge.txt",
     "InterpolatedFactors.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:07:51Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "InterpolatedFactors.comparator.txt",
+    "InterpolatedFactors.log",
+    "InterpolatedFactors.cmp.txt"
+   ]
   },
   {
    "challenge": "InvariantIsing",
@@ -8792,7 +8825,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KServer.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KServer.json",
    "lean_sha256": "e6ae7349a69c21a8466e6c8e02fe5572dba7ea9eaece17133041d1c2495daa6f",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -8804,12 +8837,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:11:23Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "KServer.comparator.txt",
+    "KServer.log",
+    "KServer.cmp.txt"
+   ]
   },
   {
    "challenge": "KadisonRingrose",
@@ -9981,7 +10018,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MassAction.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MassAction.json",
    "lean_sha256": "7fc1497663e433a087203ad3778bc85b81c48588ba4df9e3ff949a23782a0000",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": null,
    "closure": "ok",
@@ -10000,12 +10037,16 @@
     "MassAction.log",
     "MassAction.cmp.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:08:33Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "MassAction.comparator.txt",
+    "MassAction.log",
+    "MassAction.cmp.txt"
+   ]
   },
   {
    "challenge": "MatchingAffineLift",
@@ -11964,7 +12005,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PiExponent.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PiExponent.json",
    "lean_sha256": "6b50d65255870bd4e482b2e552640febe791397577bb7a87a8783c5544bd0b03",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 3432,
    "closure": "ok",
@@ -11985,12 +12026,16 @@
     "PiExponent.challenge.txt",
     "PiExponent.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:56:12Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "PiExponent.comparator.txt",
+    "PiExponent.log",
+    "PiExponent.cmp.txt"
+   ]
   },
   {
    "challenge": "PinchedKahler",
@@ -16605,7 +16650,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThompsonNonamenability.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThompsonNonamenability.json",
    "lean_sha256": "ffe66b3d35e17a81e46fb9ef0109f1ee79b199a0b36da82d946f79efdbe606a1",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 87,
    "closure": "ok",
@@ -16626,12 +16671,16 @@
     "ThompsonNonamenability.challenge.txt",
     "ThompsonNonamenability.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:48:50Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "ThompsonNonamenability.comparator.txt",
+    "ThompsonNonamenability.log",
+    "ThompsonNonamenability.cmp.txt"
+   ]
   },
   {
    "challenge": "ThorpFirstReciprocal",
@@ -17111,7 +17160,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TorsionFreeZeroDivisors.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TorsionFreeZeroDivisors.json",
    "lean_sha256": "f0fa4b50cb7bab116b37c75a74fdea60fb206a35f2b0590157468c054dfec3c2",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -17123,12 +17172,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:57:01Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "TorsionFreeZeroDivisors.comparator.txt",
+    "TorsionFreeZeroDivisors.log",
+    "TorsionFreeZeroDivisors.cmp.txt"
+   ]
   },
   {
    "challenge": "TotientAsymptotic",

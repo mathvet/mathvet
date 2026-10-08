@@ -1,0 +1,57 @@
+CMP OAI.KServer.main_theorem [thm] ok
+CMP OAI.KServer.MainStatement [def] ok
+CMP OAI.KServer.optimalCost [def] ok
+CMP OAI.KServer.serviceCost [def] ok
+CMP OAI.KServer.serviceCost._f [def] ok
+CMP OAI.KServer.serve [def] ok
+CMP OAI.KServer.Configuration [def] ok
+CMP OAI.KServer.serviceCost.match_1 [def] ok
+CMP OAI.KServer.expectedCost [def] ok
+CMP OAI.KServer.pathProbability [def] ok
+CMP OAI.KServer.pathProbability._f [def] ok
+CMP OAI.KServer.Policy [def] ok
+CMP OAI.KServer.LabelDistribution [def] ok
+Chal.KServer.main_theorem : Chal.KServer.MainStatement
+@[reducible] def Chal.KServer.Configuration.{u} : ℕ → Type u → Type u :=
+fun k X => Fin k → X
+def Chal.KServer.LabelDistribution : ℕ → Type :=
+fun k => { probability // (∀ (label : Fin k), 0 ≤ probability label) ∧ ∑ label, probability label = 1 }
+@[reducible] def Chal.KServer.Policy.{u} : ℕ → Type u → Type u :=
+fun k X => List (X × Fin k) → X → Chal.KServer.LabelDistribution k
+def Chal.KServer.serve.{u} : {k : ℕ} →
+  {X : Type u} → Chal.KServer.Configuration k X → Fin k → X → Chal.KServer.Configuration k X :=
+fun {k} {X} s label request => Function.update s label request
+def Chal.KServer.serviceCost.{u} : {k : ℕ} →
+  {X : Type u} →
+    [MetricSpace X] → Chal.KServer.Configuration k X → (requests : List X) → (Fin requests.length → Fin k) → ℝ :=
+fun {k} {X} [MetricSpace X] s x x_1 =>
+  List.brecOn (motive := fun x => Chal.KServer.Configuration k X → (Fin x.length → Fin k) → ℝ) x
+    Chal.KServer.serviceCost._f s x_1
+def Chal.KServer.pathProbability.{u} : {k : ℕ} →
+  {X : Type u} → Chal.KServer.Policy k X → List (X × Fin k) → (requests : List X) → (Fin requests.length → Fin k) → ℝ :=
+fun {k} {X} A history x x_1 =>
+  List.brecOn (motive := fun x => List (X × Fin k) → (Fin x.length → Fin k) → ℝ) x (Chal.KServer.pathProbability._f A)
+    history x_1
+def Chal.KServer.expectedCost.{u} : {k : ℕ} →
+  {X : Type u} → [MetricSpace X] → Chal.KServer.Policy k X → Chal.KServer.Configuration k X → List X → ℝ :=
+fun {k} {X} [MetricSpace X] A s requests =>
+  ∑ labels, Chal.KServer.pathProbability A [] requests labels * Chal.KServer.serviceCost s requests labels
+def Chal.KServer.optimalCost.{u} : {k : ℕ} →
+  {X : Type u} → [MetricSpace X] → Chal.KServer.Configuration k X → List X → ℝ :=
+fun {k} {X} [MetricSpace X] s requests => sInf (Set.range (Chal.KServer.serviceCost s requests))
+def Chal.KServer.MainStatement.{u} : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (k : ℕ),
+      2 ≤ k →
+        ∀ (X : Type u) (x : MetricSpace X),
+          (∃ embedding, Function.Injective embedding) →
+            ∀ (s : Chal.KServer.Configuration k X),
+              ∃ A B,
+                0 ≤ B ∧
+                  (Function.Injective s → B = 0) ∧
+                    ∀ (requests : List X),
+                      Chal.KServer.expectedCost A s requests ≤
+                        C * Real.log (↑k + 1) ^ 2 * Chal.KServer.optimalCost s requests + B
+'OAI.KServer.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KServer comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

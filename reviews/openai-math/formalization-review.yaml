@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T07:33:18Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T08:21:13Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 5 accepted by the
-    real Comparator, of which 4 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 13 accepted by the
+    real Comparator, of which 13 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3148,8 +3148,8 @@ alignment:
     module: OAI.NumberTheory.PiExponent.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PiExponent.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 020 — Squarefree quartics and power-free polynomial values: Positive density of power-free polynomial
       values (the lab''s own result label); paper ''Squarefree values of quartics and power-free values of polynomials'',
       theorem thm:density (build/sections/01-introduction.tex:20)'
@@ -3902,7 +3902,8 @@ alignment:
     module: OAI.Combinatorics.KServer.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KServer.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 110 — Optimal-order randomized $k$-server on arbitrary metrics: Uniform bit algorithm for the
       squared-logarithmic $k$-server bound (the lab''s own result label); paper ''Uniform computation of the squared-logarithmic
       k-server bound'', theorem thm:main (build/source/sections/01-introduction.tex:21)'
@@ -4187,8 +4188,8 @@ alignment:
     module: OAI.Combinatorics.GotsmanLinial.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GotsmanLinial.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 128 — A factor-two approximation for shortest common superstring: Polynomial-time 2-approximation
       for shortest common superstring (the lab''s own result label); paper ''A Polynomial-Time 2-Approximation for
       Shortest Common Superstring'', theorem thm:main (build/sections/01-introduction.tex:5)'
@@ -4470,8 +4471,8 @@ alignment:
     module: OAI.Analysis.MassAction.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MassAction.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 149 — headline claim as stated in the overview: Proves the permanence conjecture for every finite
       weakly reversible mass-action system with fixed positive rate constants. Every positive stoichiometric compatibility
       class, even an unbounded one, has a common compact convex forward-invariant absorbing set. All positive trajectories
@@ -4886,7 +4887,8 @@ alignment:
     module: OAI.LinearAlgebra.Barker.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EvenBarker.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 180 — Barnette''s Hamiltonian-cycle conjecture: Barnette''s Hamiltonian-cycle conjecture (the
       lab''s own result label); paper ''Paired states and Hamiltonian cycles in cubic bipartite planar graphs'',
       theorem thm:main (build/paper.tex:79)'
@@ -5102,7 +5104,8 @@ alignment:
     module: OAI.Algebra.GroupRing.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TorsionFreeZeroDivisors.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 197 — Nonsofic groups and group-ring counterexamples: Group-ring determinant counterexample
       (the lab''s own result label); paper ''A Counterexample to the Group-Ring Determinant Conjecture'', theorem
       thm:main (build/main.tex:90)'
@@ -5997,8 +6000,8 @@ alignment:
     module: OAI.GroupTheory.Thompson.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThompsonNonamenability.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 249 — A finitely generated counterexample to Eilenberg--Ganea: Counterexample to the Eilenberg–Ganea
       conjecture (the lab''s own result label); paper ''A finitely generated counterexample to the Eilenberg–Ganea
       conjecture'', theorem thm:main (build/sections/introduction.tex:15)'
@@ -6466,8 +6469,8 @@ alignment:
     module: OAI.Probability.EntangledGames.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EntangledGames.json;
-      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
-      full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 279 — Exact quantum factoring over a fixed finite gate set: Exact quantum factoring over a fixed
       finite gate set (the lab''s own result label); paper ''Exact quantum factoring over a fixed finite gate set'',
       theorem thm:main (build/sections/01-introduction.tex:10)'
@@ -6539,8 +6542,8 @@ alignment:
     module: OAI.Analysis.InterpolatedFactors.Interpolation
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/InterpolatedFactors.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 288 — Kadison''s similarity conjecture: Kadison''s similarity theorem and uniform hyperreflexivity
       (the lab''s own result label); paper ''Kadison''s similarity theorem through uniform derivation estimates'',
       theorem thm:similarity (build/sections/introduction.tex:15)'
@@ -7473,7 +7476,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T07:33:18Z'
+    generated: '2026-10-08T08:21:13Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7513,13 +7516,30 @@ mathvet:
     - CannonGeometricAction
     - CirculantHadamard
     - EntangledGames
+    - EvenBarker
+    - GotsmanLinial
+    - InterpolatedFactors
+    - KServer
     - MahlerConjecture
+    - MassAction
+    - PiExponent
     - PlaneColoring
+    - ThompsonNonamenability
+    - TorsionFreeZeroDivisors
     comparator_sandboxed_pass:
     - CannonGeometricAction
     - CirculantHadamard
+    - EntangledGames
+    - EvenBarker
+    - GotsmanLinial
+    - InterpolatedFactors
+    - KServer
     - MahlerConjecture
+    - MassAction
+    - PiExponent
     - PlaneColoring
+    - ThompsonNonamenability
+    - TorsionFreeZeroDivisors
     comparator_running:
     - ErdosReciprocal
     build_in_progress:
@@ -7690,7 +7710,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 94948
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/017.md
     audit_part: 1
   - family: '020'
@@ -8445,7 +8465,7 @@ mathvet:
       exactly'
     external_packages: []
     cone_lines_max: 50260
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/110.md
     audit_part: 1
   - family: '111'
@@ -8712,7 +8732,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 4022
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/127.md
     audit_part: 1
   - family: '128'
@@ -9002,7 +9022,7 @@ mathvet:
       derivative at t = 0, harmless for forward solutions of a polynomial field)'
     external_packages: []
     cone_lines_max: 7758
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/149.md
     audit_part: 3
   - family: '150'
@@ -9702,7 +9722,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 44340
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/196.md
     audit_part: 2
   - family: '197'
@@ -10461,7 +10481,7 @@ mathvet:
       (Group structure is existentially provided inside the theorem).'
     external_packages: []
     cone_lines_max: 9457
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/248.md
     audit_part: 2
   - family: '249'
@@ -10971,7 +10991,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 7234
-    machine_check: comparator-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/277.md
     audit_part: 2
   - family: '279'
@@ -11068,7 +11088,7 @@ mathvet:
       but not Mathlib''s `VonNeumannAlgebra`-with-trace.'
     external_packages: []
     cone_lines_max: 26804
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/287.md
     audit_part: 2
   - family: '288'

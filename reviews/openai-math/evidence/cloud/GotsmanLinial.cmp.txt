@@ -1,0 +1,48 @@
+CMP OAI.LeanBlast.GotsmanLinial.gotsmanLinialStatement [thm] ok
+CMP OAI.LeanBlast.GotsmanLinial.GotsmanLinialStatement [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.GotsmanLinialStatement._proof_1 [thm] ok
+CMP OAI.LeanBlast.GotsmanLinial.polynomialThreshold [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.polynomialValue [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.cubeCoord [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.Cube [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.thresholdSign [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.averageSensitivity [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.averageSensitivity._proof_1 [thm] ok
+CMP OAI.LeanBlast.GotsmanLinial.sensitiveVertices [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.flip [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.IsMultilinear [def] ok
+Chal.LeanBlast.GotsmanLinial.gotsmanLinialStatement : Chal.LeanBlast.GotsmanLinial.GotsmanLinialStatement
+@[reducible] def Chal.LeanBlast.GotsmanLinial.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.LeanBlast.GotsmanLinial.cubeCoord : {n : ℕ} → Chal.LeanBlast.GotsmanLinial.Cube n → Fin n → ℝ :=
+fun {n} x i => if x i = true then 1 else -1
+def Chal.LeanBlast.GotsmanLinial.flip : {n : ℕ} →
+  Fin n → Chal.LeanBlast.GotsmanLinial.Cube n → Chal.LeanBlast.GotsmanLinial.Cube n :=
+fun {n} i x => Function.update x i !x i
+def Chal.LeanBlast.GotsmanLinial.thresholdSign : ℝ → ℝ :=
+fun t => if 0 ≤ t then 1 else -1
+def Chal.LeanBlast.GotsmanLinial.sensitiveVertices : {n : ℕ} →
+  (Chal.LeanBlast.GotsmanLinial.Cube n → ℝ) → Fin n → Finset (Chal.LeanBlast.GotsmanLinial.Cube n) :=
+fun {n} f i => {x | f x ≠ f (Chal.LeanBlast.GotsmanLinial.flip i x)}
+def Chal.LeanBlast.GotsmanLinial.averageSensitivity : {n : ℕ} → (Chal.LeanBlast.GotsmanLinial.Cube n → ℝ) → ℝ :=
+fun {n} f => ∑ i, ↑(Chal.LeanBlast.GotsmanLinial.sensitiveVertices f i).card / 2 ^ n
+def Chal.LeanBlast.GotsmanLinial.IsMultilinear : {n : ℕ} → MvPolynomial (Fin n) ℝ → Prop :=
+fun {n} p => ∀ m ∈ p.support, ∀ (i : Fin n), m i ≤ 1
+def Chal.LeanBlast.GotsmanLinial.polynomialValue : {n : ℕ} →
+  MvPolynomial (Fin n) ℝ → Chal.LeanBlast.GotsmanLinial.Cube n → ℝ :=
+fun {n} p x => (MvPolynomial.eval (Chal.LeanBlast.GotsmanLinial.cubeCoord x)) p
+def Chal.LeanBlast.GotsmanLinial.polynomialThreshold : {n : ℕ} →
+  MvPolynomial (Fin n) ℝ → Chal.LeanBlast.GotsmanLinial.Cube n → ℝ :=
+fun {n} p x => Chal.LeanBlast.GotsmanLinial.thresholdSign (Chal.LeanBlast.GotsmanLinial.polynomialValue p x)
+def Chal.LeanBlast.GotsmanLinial.GotsmanLinialStatement : Prop :=
+∀ (n d : ℕ),
+  1 ≤ n →
+    1 ≤ d →
+      d ≤ n →
+        ∀ (p : MvPolynomial (Fin n) ℝ),
+          Chal.LeanBlast.GotsmanLinial.IsMultilinear p →
+            p.totalDegree ≤ d →
+              Chal.LeanBlast.GotsmanLinial.averageSensitivity (Chal.LeanBlast.GotsmanLinial.polynomialThreshold p) ≤
+                8 * ↑d * √↑n
+'OAI.LeanBlast.GotsmanLinial.gotsmanLinialStatement' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GotsmanLinial comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
