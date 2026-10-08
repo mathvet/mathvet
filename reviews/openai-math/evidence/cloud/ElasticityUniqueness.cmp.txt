@@ -1,0 +1,123 @@
+CMP OAI.Elasticity.global_uniqueness [thm] ok
+CMP OAI.Elasticity.MainClaim [def] ok
+CMP OAI.Elasticity.DN [def] ok
+CMP OAI.Elasticity.SameTrace [def] ok
+CMP OAI.Elasticity.SmoothJets [def] ok
+CMP OAI.Elasticity.Ambient._proof_3 [thm] ok
+CMP OAI.Elasticity.V [def] ok
+CMP OAI.Elasticity.X [def] ok
+CMP OAI.Elasticity.coordDeriv [def] ok
+CMP OAI.Elasticity.coordVector [def] ok
+CMP OAI.Elasticity.Admissible._proof_2 [thm] ok
+CMP OAI.Elasticity.Ambient._proof_2 [thm] ok
+CMP OAI.Elasticity.Ambient._proof_1 [thm] ok
+CMP OAI.Elasticity.Ambient [def] ok
+CMP OAI.Elasticity.TestJets [def] ok
+CMP OAI.Elasticity.H1 [def] ok
+CMP OAI.Elasticity.dirichletSolution [def] ok
+CMP OAI.Elasticity.WeakSolution [def] ok
+CMP OAI.Elasticity.energy [def] ok
+CMP OAI.Elasticity.strain [def] ok
+CMP OAI.Elasticity.div [def] ok
+CMP OAI.Elasticity.HasZeroTrace [def] ok
+CMP OAI.Elasticity.trace [def] ok
+CMP OAI.Elasticity.BoundaryData [def] ok
+CMP OAI.Elasticity.Admissible [def] ok
+CMP OAI.Elasticity.Admissible._proof_1 [thm] ok
+CMP OAI.Elasticity.SmoothUpTo [def] ok
+CMP OAI.Elasticity.Domain [def] ok
+CMP OAI.Elasticity.SmoothBoundary [def] ok
+CMP OAI.Elasticity.SmoothBoundary._proof_1 [thm] ok
+Chal.Elasticity.global_uniqueness : Chal.Elasticity.MainClaim
+@[reducible] def Chal.Elasticity.X : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.Elasticity.V : Type :=
+Chal.Elasticity.X
+def Chal.Elasticity.coordVector : Fin 3 → Chal.Elasticity.X :=
+fun i => EuclideanSpace.single i 1
+def Chal.Elasticity.SmoothBoundary : Set Chal.Elasticity.X → Prop :=
+fun Ω =>
+  ∀ x ∈ frontier Ω,
+    ∃ e,
+      x ∈ e.source ∧
+        ContDiffOn ℝ (↑⊤) (↑e) e.source ∧
+          ContDiffOn ℝ (↑⊤) (↑e.symm) e.target ∧ (↑e x).ofLp 0 = 0 ∧ ∀ y ∈ e.source, y ∈ Ω ↔ 0 < (↑e y).ofLp 0
+def Chal.Elasticity.Domain : Set Chal.Elasticity.X → Prop :=
+fun Ω => IsOpen Ω ∧ IsConnected Ω ∧ Bornology.IsBounded Ω ∧ Chal.Elasticity.SmoothBoundary Ω
+def Chal.Elasticity.SmoothUpTo : Set Chal.Elasticity.X → (Chal.Elasticity.X → ℝ) → Prop :=
+fun Ω f => ∃ U, IsOpen U ∧ closure Ω ⊆ U ∧ ContDiffOn ℝ (↑⊤) f U
+def Chal.Elasticity.Admissible : Set Chal.Elasticity.X → (Chal.Elasticity.X → ℝ) → (Chal.Elasticity.X → ℝ) → Prop :=
+fun Ω lam mu =>
+  Chal.Elasticity.SmoothUpTo Ω lam ∧
+    Chal.Elasticity.SmoothUpTo Ω mu ∧ ∀ x ∈ closure Ω, 0 < mu x ∧ 0 < 3 * lam x + 2 * mu x
+@[reducible] def Chal.Elasticity.Ambient : Set Chal.Elasticity.X → Type :=
+fun Ω =>
+  ↥(MeasureTheory.Lp Chal.Elasticity.V 2 (MeasureTheory.volume.restrict Ω)) ×
+    (Fin 3 → ↥(MeasureTheory.Lp Chal.Elasticity.V 2 (MeasureTheory.volume.restrict Ω)))
+def Chal.Elasticity.coordDeriv : (Chal.Elasticity.X → Chal.Elasticity.V) →
+  Fin 3 → Chal.Elasticity.X → Chal.Elasticity.V :=
+fun f i x => (fderiv ℝ f x) (Chal.Elasticity.coordVector i)
+def Chal.Elasticity.SmoothJets : (Ω : Set Chal.Elasticity.X) → Set (Chal.Elasticity.Ambient Ω) :=
+fun Ω =>
+  {j |
+    ∃ f,
+      ∃ (hf : MeasureTheory.MemLp f 2 (MeasureTheory.volume.restrict Ω)) (hd :
+        ∀ (i : Fin 3), MeasureTheory.MemLp (Chal.Elasticity.coordDeriv f i) 2 (MeasureTheory.volume.restrict Ω)),
+        ContDiff ℝ (↑⊤) f ∧
+          j.1 = MeasureTheory.MemLp.toLp f hf ∧
+            j.2 = fun i => MeasureTheory.MemLp.toLp (Chal.Elasticity.coordDeriv f i) ⋯}
+def Chal.Elasticity.TestJets : (Ω : Set Chal.Elasticity.X) → Set (Chal.Elasticity.Ambient Ω) :=
+fun Ω =>
+  {j |
+    ∃ f,
+      ∃ (hf : MeasureTheory.MemLp f 2 (MeasureTheory.volume.restrict Ω)) (hd :
+        ∀ (i : Fin 3), MeasureTheory.MemLp (Chal.Elasticity.coordDeriv f i) 2 (MeasureTheory.volume.restrict Ω)),
+        ContDiff ℝ (↑⊤) f ∧
+          HasCompactSupport f ∧
+            tsupport f ⊆ Ω ∧
+              j.1 = MeasureTheory.MemLp.toLp f hf ∧
+                j.2 = fun i => MeasureTheory.MemLp.toLp (Chal.Elasticity.coordDeriv f i) ⋯}
+@[reducible] def Chal.Elasticity.H1 : Set Chal.Elasticity.X → Type :=
+fun Ω => { j // j ∈ closure (Chal.Elasticity.SmoothJets Ω) }
+def Chal.Elasticity.HasZeroTrace : (Ω : Set Chal.Elasticity.X) → Chal.Elasticity.H1 Ω → Prop :=
+fun Ω u => ↑u ∈ closure (Chal.Elasticity.TestJets Ω)
+def Chal.Elasticity.SameTrace : (Ω : Set Chal.Elasticity.X) → Chal.Elasticity.H1 Ω → Chal.Elasticity.H1 Ω → Prop :=
+fun Ω u v => ↑u - ↑v ∈ closure (Chal.Elasticity.TestJets Ω)
+@[reducible] def Chal.Elasticity.BoundaryData : Set Chal.Elasticity.X → Type :=
+fun Ω => Quot (Chal.Elasticity.SameTrace Ω)
+def Chal.Elasticity.trace : (Ω : Set Chal.Elasticity.X) → Chal.Elasticity.H1 Ω → Chal.Elasticity.BoundaryData Ω :=
+fun Ω u => Quot.mk (Chal.Elasticity.SameTrace Ω) u
+def Chal.Elasticity.div : (Ω : Set Chal.Elasticity.X) → Chal.Elasticity.H1 Ω → Chal.Elasticity.X → ℝ :=
+fun Ω u x => ∑ i, (↑↑((↑u).2 i) x).ofLp i
+def Chal.Elasticity.strain : (Ω : Set Chal.Elasticity.X) →
+  Chal.Elasticity.H1 Ω → Chal.Elasticity.X → Fin 3 → Fin 3 → ℝ :=
+fun Ω u x i j => ((↑↑((↑u).2 j) x).ofLp i + (↑↑((↑u).2 i) x).ofLp j) / 2
+def Chal.Elasticity.energy : (Ω : Set Chal.Elasticity.X) →
+  (Chal.Elasticity.X → ℝ) → (Chal.Elasticity.X → ℝ) → Chal.Elasticity.H1 Ω → Chal.Elasticity.H1 Ω → ℝ :=
+fun Ω lam mu u v =>
+  ∫ (x : Chal.Elasticity.X) in Ω,
+    lam x * Chal.Elasticity.div Ω u x * Chal.Elasticity.div Ω v x +
+      2 * mu x * ∑ i, ∑ j, Chal.Elasticity.strain Ω u x i j * Chal.Elasticity.strain Ω v x i j
+def Chal.Elasticity.WeakSolution : (Ω : Set Chal.Elasticity.X) →
+  (Chal.Elasticity.X → ℝ) → (Chal.Elasticity.X → ℝ) → Chal.Elasticity.H1 Ω → Prop :=
+fun Ω lam mu u =>
+  ∀ (v : Chal.Elasticity.H1 Ω), Chal.Elasticity.HasZeroTrace Ω v → Chal.Elasticity.energy Ω lam mu u v = 0
+def Chal.Elasticity.dirichletSolution : (Ω : Set Chal.Elasticity.X) →
+  (Chal.Elasticity.X → ℝ) → (Chal.Elasticity.X → ℝ) → Chal.Elasticity.BoundaryData Ω → Chal.Elasticity.H1 Ω :=
+fun Ω lam mu f =>
+  if h : ∃ u, Chal.Elasticity.trace Ω u = f ∧ Chal.Elasticity.WeakSolution Ω lam mu u then Classical.choose h
+  else Quot.out f
+def Chal.Elasticity.DN : (Ω : Set Chal.Elasticity.X) →
+  (Chal.Elasticity.X → ℝ) →
+    (Chal.Elasticity.X → ℝ) → Chal.Elasticity.BoundaryData Ω → Chal.Elasticity.BoundaryData Ω → ℝ :=
+fun Ω lam mu f g => Chal.Elasticity.energy Ω lam mu (Chal.Elasticity.dirichletSolution Ω lam mu f) (Quot.out g)
+def Chal.Elasticity.MainClaim : Prop :=
+∀ (Ω : Set Chal.Elasticity.X),
+  Chal.Elasticity.Domain Ω →
+    ∀ (lam₁ mu₁ lam₂ mu₂ : Chal.Elasticity.X → ℝ),
+      Chal.Elasticity.Admissible Ω lam₁ mu₁ →
+        Chal.Elasticity.Admissible Ω lam₂ mu₂ →
+          Chal.Elasticity.DN Ω lam₁ mu₁ = Chal.Elasticity.DN Ω lam₂ mu₂ →
+            (∀ x ∈ Ω, lam₁ x = lam₂ x) ∧ ∀ x ∈ Ω, mu₁ x = mu₂ x
+'OAI.Elasticity.global_uniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ElasticityUniqueness comparator-style: ok=30 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
