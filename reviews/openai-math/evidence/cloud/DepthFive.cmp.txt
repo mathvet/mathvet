@@ -1,0 +1,159 @@
+CMP OAI.Problem335.main [thm] ok
+CMP OAI.Problem335.upperGateBound [def] ok
+CMP OAI.Problem335.ceilDiv [def] ok
+CMP OAI.Problem335.ceilSqrt [def] ok
+CMP OAI.Problem335.circuitSize [def] ok
+CMP OAI.Problem335.Depth5Circuit.upperCount [def] ok
+CMP OAI.Problem335.Depth5Circuit [ind] ok
+CMP OAI.Problem335.Depth5Circuit.mk [ctor] ok
+CMP OAI.Problem335.d5LeafDegree [def] ok
+CMP OAI.Problem335.d5LeafDegree.match_1 [def] ok
+CMP OAI.Problem335.D5Leaf.casesOn [def] ok
+CMP OAI.Problem335.D5Leaf.rec [rec] ok
+CMP OAI.Problem335.D5Leaf.variable [ctor] ok
+CMP OAI.Problem335.D5Leaf [ind] ok
+CMP OAI.Problem335.D5Leaf.scalar [ctor] ok
+CMP OAI.Problem335.Depth5Circuit.middleCount [def] ok
+CMP OAI.Problem335.Depth5Circuit.lowerCount [def] ok
+CMP OAI.Problem335.Depth5Circuit.bottomCount [def] ok
+CMP OAI.Problem335.Depth5Circuit.leafCount [def] ok
+CMP OAI.Problem335.imm [def] ok
+CMP OAI.Problem335.immLayer [def] ok
+CMP OAI.Problem335.circuitValue [def] ok
+CMP OAI.Problem335.Depth5Circuit.outputInputs [def] ok
+CMP OAI.Problem335.upperValue [def] ok
+CMP OAI.Problem335.Depth5Circuit.upperInputs [def] ok
+CMP OAI.Problem335.middleValue [def] ok
+CMP OAI.Problem335.Depth5Circuit.middleInputs [def] ok
+CMP OAI.Problem335.lowerValue [def] ok
+CMP OAI.Problem335.Depth5Circuit.lowerInputs [def] ok
+CMP OAI.Problem335.bottomValue [def] ok
+CMP OAI.Problem335.Depth5Circuit.bottomInputs [def] ok
+CMP OAI.Problem335.Depth5Circuit.leaves [def] ok
+CMP OAI.Problem335.d5LeafValue [def] ok
+Chal.Problem335.main : (∃ threshold,
+    ∀ (size : ℕ),
+      threshold ≤ size →
+        ∀ (circuit : Chal.Problem335.Depth5Circuit ℂ size),
+          Chal.Problem335.circuitValue circuit = Chal.Problem335.imm ℂ size →
+            ↑size ^ (√↑size / 400) ≤ ↑(Chal.Problem335.circuitSize circuit)) ∧
+  (∃ threshold,
+      ∀ (FieldType : Type u_1) [inst : Field FieldType] [CharZero FieldType] (size : ℕ),
+        threshold ≤ size →
+          ∀ (circuit : Chal.Problem335.Depth5Circuit FieldType size),
+            Chal.Problem335.circuitValue circuit = Chal.Problem335.imm FieldType size →
+              ↑size ^ (√↑size / 400) ≤ ↑(Chal.Problem335.circuitSize circuit)) ∧
+    ∀ (FieldType : Type u_1) [inst : Field FieldType] (size : ℕ),
+      2 ≤ size →
+        ∃ circuit,
+          Chal.Problem335.circuitValue circuit = Chal.Problem335.imm FieldType size ∧
+            Chal.Problem335.circuitSize circuit ≤ Chal.Problem335.upperGateBound size ∧
+              ↑(Chal.Problem335.upperGateBound size) ≤ ↑size ^ (√↑size + 4)
+inductive Chal.Problem335.D5Leaf.{u} : Type u → ℕ → Type u
+number of parameters: 2
+constructors:
+Chal.Problem335.D5Leaf.scalar : {K : Type u} → {n : ℕ} → K → Chal.Problem335.D5Leaf K n
+Chal.Problem335.D5Leaf.variable : {K : Type u} → {n : ℕ} → Fin n × Fin n × Fin n → Chal.Problem335.D5Leaf K n
+def Chal.Problem335.d5LeafDegree.{u} : {K : Type u} → {n : ℕ} → Chal.Problem335.D5Leaf K n → ℕ :=
+fun {K} {n} x =>
+  match x with
+  | Chal.Problem335.D5Leaf.scalar a => 0
+  | Chal.Problem335.D5Leaf.variable a => 1
+structure Chal.Problem335.Depth5Circuit.{u} (K : Type u) [CommSemiring K] (n : ℕ) : Type u
+number of parameters: 3
+fields:
+  Chal.Problem335.Depth5Circuit.leafCount : ℕ
+  Chal.Problem335.Depth5Circuit.leaves : Fin self.leafCount → Chal.Problem335.D5Leaf K n
+  Chal.Problem335.Depth5Circuit.bottomCount : ℕ
+  Chal.Problem335.Depth5Circuit.bottomInputs : Fin self.bottomCount → List (K × Fin self.leafCount)
+  Chal.Problem335.Depth5Circuit.bottomDegree : Fin self.bottomCount → ℕ
+  Chal.Problem335.Depth5Circuit.bottomHomogeneous : ∀ (i : Fin self.bottomCount),
+      ∀ entry ∈ self.bottomInputs i, Chal.Problem335.d5LeafDegree (self.leaves entry.2) = self.bottomDegree i
+  Chal.Problem335.Depth5Circuit.bottomEmpty : ∀ (i : Fin self.bottomCount),
+      self.bottomInputs i = [] → self.bottomDegree i = 0
+  Chal.Problem335.Depth5Circuit.lowerCount : ℕ
+  Chal.Problem335.Depth5Circuit.lowerInputs : Fin self.lowerCount → List (Fin self.bottomCount)
+  Chal.Problem335.Depth5Circuit.middleCount : ℕ
+  Chal.Problem335.Depth5Circuit.middleInputs : Fin self.middleCount → List (K × Fin self.lowerCount)
+  Chal.Problem335.Depth5Circuit.middleDegree : Fin self.middleCount → ℕ
+  Chal.Problem335.Depth5Circuit.middleHomogeneous : ∀ (i : Fin self.middleCount),
+      ∀ entry ∈ self.middleInputs i, (List.map self.bottomDegree (self.lowerInputs entry.2)).sum = self.middleDegree i
+  Chal.Problem335.Depth5Circuit.middleEmpty : ∀ (i : Fin self.middleCount),
+      self.middleInputs i = [] → self.middleDegree i = 0
+  Chal.Problem335.Depth5Circuit.upperCount : ℕ
+  Chal.Problem335.Depth5Circuit.upperInputs : Fin self.upperCount → List (Fin self.middleCount)
+  Chal.Problem335.Depth5Circuit.outputInputs : List (K × Fin self.upperCount)
+  Chal.Problem335.Depth5Circuit.outputDegree : ℕ
+  Chal.Problem335.Depth5Circuit.outputHomogeneous : ∀ entry ∈ self.outputInputs,
+      (List.map self.middleDegree (self.upperInputs entry.2)).sum = self.outputDegree
+  Chal.Problem335.Depth5Circuit.outputEmpty : self.outputInputs = [] → self.outputDegree = 0
+constructor:
+  Chal.Problem335.Depth5Circuit.mk.{u} {K : Type u} [CommSemiring K] {n : ℕ} (leafCount : ℕ)
+    (leaves : Fin leafCount → Chal.Problem335.D5Leaf K n) (bottomCount : ℕ)
+    (bottomInputs : Fin bottomCount → List (K × Fin leafCount)) (bottomDegree : Fin bottomCount → ℕ)
+    (bottomHomogeneous :
+      ∀ (i : Fin bottomCount), ∀ entry ∈ bottomInputs i, Chal.Problem335.d5LeafDegree (leaves entry.2) = bottomDegree i)
+    (bottomEmpty : ∀ (i : Fin bottomCount), bottomInputs i = [] → bottomDegree i = 0) (lowerCount : ℕ)
+    (lowerInputs : Fin lowerCount → List (Fin bottomCount)) (middleCount : ℕ)
+    (middleInputs : Fin middleCount → List (K × Fin lowerCount)) (middleDegree : Fin middleCount → ℕ)
+    (middleHomogeneous :
+      ∀ (i : Fin middleCount),
+        ∀ entry ∈ middleInputs i, (List.map bottomDegree (lowerInputs entry.2)).sum = middleDegree i)
+    (middleEmpty : ∀ (i : Fin middleCount), middleInputs i = [] → middleDegree i = 0) (upperCount : ℕ)
+    (upperInputs : Fin upperCount → List (Fin middleCount)) (outputInputs : List (K × Fin upperCount))
+    (outputDegree : ℕ)
+    (outputHomogeneous : ∀ entry ∈ outputInputs, (List.map middleDegree (upperInputs entry.2)).sum = outputDegree)
+    (outputEmpty : outputInputs = [] → outputDegree = 0) : Chal.Problem335.Depth5Circuit K n
+def Chal.Problem335.d5LeafValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] → {n : ℕ} → Chal.Problem335.D5Leaf K n → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} x =>
+  match x with
+  | Chal.Problem335.D5Leaf.scalar a => MvPolynomial.C a
+  | Chal.Problem335.D5Leaf.variable i => MvPolynomial.X i
+def Chal.Problem335.bottomValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] →
+    {n : ℕ} → (c : Chal.Problem335.Depth5Circuit K n) → Fin c.bottomCount → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} c i =>
+  (List.map (fun entry => MvPolynomial.C entry.1 * Chal.Problem335.d5LeafValue (c.leaves entry.2))
+      (c.bottomInputs i)).sum
+def Chal.Problem335.lowerValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] →
+    {n : ℕ} → (c : Chal.Problem335.Depth5Circuit K n) → Fin c.lowerCount → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} c i => (List.map (fun j => Chal.Problem335.bottomValue c j) (c.lowerInputs i)).prod
+def Chal.Problem335.middleValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] →
+    {n : ℕ} → (c : Chal.Problem335.Depth5Circuit K n) → Fin c.middleCount → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} c i =>
+  (List.map (fun entry => MvPolynomial.C entry.1 * Chal.Problem335.lowerValue c entry.2) (c.middleInputs i)).sum
+def Chal.Problem335.upperValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] →
+    {n : ℕ} → (c : Chal.Problem335.Depth5Circuit K n) → Fin c.upperCount → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} c i => (List.map (fun j => Chal.Problem335.middleValue c j) (c.upperInputs i)).prod
+def Chal.Problem335.circuitValue.{u} : {K : Type u} →
+  [inst : CommSemiring K] → {n : ℕ} → Chal.Problem335.Depth5Circuit K n → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun {K} [CommSemiring K] {n} c =>
+  (List.map (fun entry => MvPolynomial.C entry.1 * Chal.Problem335.upperValue c entry.2) c.outputInputs).sum
+def Chal.Problem335.circuitSize.{u} : {K : Type u} →
+  [inst : CommSemiring K] → {n : ℕ} → Chal.Problem335.Depth5Circuit K n → ℕ :=
+fun {K} [CommSemiring K] {n} c => c.leafCount + c.bottomCount + c.lowerCount + c.middleCount + c.upperCount + 1
+def Chal.Problem335.immLayer.{u} : (K : Type u) →
+  [inst : CommSemiring K] → (n : ℕ) → Fin n → Matrix (Fin n) (Fin n) (MvPolynomial (Fin n × Fin n × Fin n) K) :=
+fun K [CommSemiring K] n t i j => MvPolynomial.X (t, i, j)
+def Chal.Problem335.imm.{u} : (K : Type u) →
+  [inst : CommSemiring K] → (n : ℕ) → MvPolynomial (Fin n × Fin n × Fin n) K :=
+fun K [CommSemiring K] n =>
+  if h : 0 < n then
+    have matrices := List.ofFn fun t => Chal.Problem335.immLayer K n t;
+    matrices.prod ⟨0, h⟩ ⟨0, h⟩
+  else 0
+def Chal.Problem335.ceilSqrt : ℕ → ℕ :=
+fun n => n.sqrt + if n.sqrt ^ 2 = n then 0 else 1
+def Chal.Problem335.ceilDiv : ℕ → ℕ → ℕ :=
+fun n t => (n + t - 1) / t
+def Chal.Problem335.upperGateBound : ℕ → ℕ :=
+fun n =>
+  have t := Chal.Problem335.ceilSqrt n;
+  have r := Chal.Problem335.ceilDiv n t;
+  2 * n ^ 3 + r * n ^ 2 + r * n ^ (t + 1) + n ^ (r - 1) + 1
+'OAI.Problem335.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DepthFive comparator-style: ok=33 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
