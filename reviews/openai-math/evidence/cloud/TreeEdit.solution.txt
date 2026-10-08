@@ -1,0 +1,35 @@
+OAI.TreeEdit.binary_torus : OAI.TreeEdit.BinaryLowerBound
+'OAI.TreeEdit.binary_torus' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.TreeEdit.EditStep.{u} : {α : Type u} → List α → List α → Prop
+number of parameters: 1
+constructors:
+OAI.TreeEdit.EditStep.insert : ∀ {α : Type u} (p q : List α) (a : α), OAI.TreeEdit.EditStep (p ++ q) (p ++ a :: q)
+OAI.TreeEdit.EditStep.delete : ∀ {α : Type u} (p q : List α) (a : α), OAI.TreeEdit.EditStep (p ++ a :: q) (p ++ q)
+OAI.TreeEdit.EditStep.substitute : ∀ {α : Type u} (p q : List α) (a b : α),
+  OAI.TreeEdit.EditStep (p ++ a :: q) (p ++ b :: q)
+inductive OAI.TreeEdit.EditScript.{u} : {α : Type u} → List α → List α → ℕ → Prop
+number of parameters: 1
+constructors:
+OAI.TreeEdit.EditScript.nil : ∀ {α : Type u} (x : List α), OAI.TreeEdit.EditScript x x 0
+OAI.TreeEdit.EditScript.cons : ∀ {α : Type u} {x y z : List α} {n : ℕ},
+  OAI.TreeEdit.EditStep x y → OAI.TreeEdit.EditScript y z n → OAI.TreeEdit.EditScript x z (n + 1)
+def OAI.TreeEdit.ed.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => sInf {n | OAI.TreeEdit.EditScript x y n}
+@[reducible] def OAI.TreeEdit.RealL1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+def OAI.TreeEdit.distortion : (W : Finset (List Bool)) → (↥W → ↥OAI.TreeEdit.RealL1) → ℝ :=
+fun W f =>
+  sSup {r | ∃ x y, x ≠ y ∧ r = dist (f x) (f y) / ↑(OAI.TreeEdit.ed ↑x ↑y)} *
+    sSup {r | ∃ x y, x ≠ y ∧ r = ↑(OAI.TreeEdit.ed ↑x ↑y) / dist (f x) (f y)}
+def OAI.TreeEdit.c1 : Finset (List Bool) → ℝ :=
+fun W => sInf {D | ∃ f, Function.Injective f ∧ OAI.TreeEdit.distortion W f = D}
+def OAI.TreeEdit.BinaryLowerBound : Prop :=
+∃ c,
+  0 < c ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∃ n ≤ d,
+            ∃ W,
+              2 ≤ W.card ∧
+                (∀ w ∈ W, w.length = n) ∧ Real.exp (c * √(Real.log ↑d * Real.log (Real.log ↑d))) ≤ OAI.TreeEdit.c1 W
