@@ -1,0 +1,128 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SignedSweepMoment.lean:169:8: warning: declaration uses `sorry`
+OAI.SignedSweeps.signed_occurrence_moment_bound : ∃ η₀,
+  0 < η₀ ∧
+    ∀ (η : ℝ),
+      0 < η →
+        η < η₀ →
+          ∃ κ₀,
+            0 < κ₀ ∧
+              κ₀ < η / 256 ∧
+                ∀ (κ : ℝ),
+                  0 < κ →
+                    κ < κ₀ →
+                      ∃ r,
+                        1 ≤ r ∧
+                          ∀ (d : ℕ),
+                            1 ≤ d →
+                              ∀ (lam : OAI.SignedSweeps.Partition (2 ^ d)) (u v l : ℕ) (h : u + v + l = 2 ^ d)
+                                (α : OAI.SignedSweeps.Partition u) (β : OAI.SignedSweeps.Partition v)
+                                (γ : OAI.SignedSweeps.Partition l),
+                                OAI.SignedSweeps.SignedOccurrence h α β γ lam →
+                                  OAI.SignedSweeps.logMoment (OAI.SignedSweeps.weightedMoment lam r) ≤
+                                    ↑(OAI.SignedSweeps.coefficient η d * OAI.SignedSweeps.signedEntropy α β +
+                                        OAI.SignedSweeps.remainderBudget κ d l)
+@[reducible] def OAI.SignedSweeps.Partition : ℕ → Type :=
+fun n => { lam // lam.card = n }
+@[reducible] def OAI.SignedSweeps.SymmetricGroup : ℕ → Type :=
+fun n => Equiv.Perm (Fin n)
+def OAI.SignedSweeps.Partition.transpose : {n : ℕ} → OAI.SignedSweeps.Partition n → OAI.SignedSweeps.Partition n :=
+fun {n} lam => ⟨(↑lam).transpose, ⋯⟩
+def OAI.SignedSweeps.Partition.tableau : {n : ℕ} → (lam : OAI.SignedSweeps.Partition n) → ↥(↑lam).cells ≃ Fin n :=
+fun {n} lam => Fintype.equivFinOfCardEq ⋯
+def OAI.SignedSweeps.Partition.rowOf : {n : ℕ} → OAI.SignedSweeps.Partition n → Fin n → ℕ :=
+fun {n} lam x => (↑(lam.tableau.symm x)).1
+def OAI.SignedSweeps.Partition.colOf : {n : ℕ} → OAI.SignedSweeps.Partition n → Fin n → ℕ :=
+fun {n} lam x => (↑(lam.tableau.symm x)).2
+def OAI.SignedSweeps.fiberSubgroup.{u_1, u_2} : {A : Type u_1} → {C : Type u_2} → (A → C) → Subgroup (Equiv.Perm A) :=
+fun {A} {C} f => { carrier := {g | ∀ (x : A), f (g x) = f x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.SignedSweeps.rowSubgroup : {n : ℕ} →
+  OAI.SignedSweeps.Partition n → Subgroup (OAI.SignedSweeps.SymmetricGroup n) :=
+fun {n} lam => OAI.SignedSweeps.fiberSubgroup lam.rowOf
+def OAI.SignedSweeps.colSubgroup : {n : ℕ} →
+  OAI.SignedSweeps.Partition n → Subgroup (OAI.SignedSweeps.SymmetricGroup n) :=
+fun {n} lam => OAI.SignedSweeps.fiberSubgroup lam.colOf
+@[reducible] def OAI.SignedSweeps.RegularSpace : ℕ → Type :=
+fun n => EuclideanSpace ℂ (OAI.SignedSweeps.SymmetricGroup n)
+def OAI.SignedSweeps.regularIsometry : {n : ℕ} →
+  OAI.SignedSweeps.SymmetricGroup n → OAI.SignedSweeps.RegularSpace n ≃ₗᵢ[ℂ] OAI.SignedSweeps.RegularSpace n :=
+fun {n} g => LinearIsometryEquiv.piLpCongrLeft 2 ℂ ℂ (Equiv.mulLeft g)
+def OAI.SignedSweeps.regularRepresentation : (n : ℕ) →
+  Representation ℂ (OAI.SignedSweeps.SymmetricGroup n) (OAI.SignedSweeps.RegularSpace n) :=
+fun n => { toFun := fun g => ↑(OAI.SignedSweeps.regularIsometry g).toLinearEquiv, map_one' := ⋯, map_mul' := ⋯ }
+def OAI.SignedSweeps.polytabloid : {n : ℕ} → OAI.SignedSweeps.Partition n → OAI.SignedSweeps.RegularSpace n :=
+fun {n} lam => ∑ c, ∑ a, ↑↑(Equiv.Perm.sign ↑c) • EuclideanSpace.single (↑c * ↑a) 1
+def OAI.SignedSweeps.spechtSubrepresentation : {n : ℕ} →
+  OAI.SignedSweeps.Partition n → Subrepresentation (OAI.SignedSweeps.regularRepresentation n) :=
+fun {n} lam =>
+  {
+    toSubmodule :=
+      Submodule.span ℂ
+        (Set.range fun g => ((OAI.SignedSweeps.regularRepresentation n) g) (OAI.SignedSweeps.polytabloid lam)),
+    apply_mem_toSubmodule := ⋯ }
+def OAI.SignedSweeps.Specht : {n : ℕ} → OAI.SignedSweeps.Partition n → Type :=
+fun {n} lam => ↥(OAI.SignedSweeps.spechtSubrepresentation lam).toSubmodule
+def OAI.SignedSweeps.spechtRepresentation : {n : ℕ} →
+  (lam : OAI.SignedSweeps.Partition n) →
+    Representation ℂ (OAI.SignedSweeps.SymmetricGroup n) (OAI.SignedSweeps.Specht lam) :=
+fun {n} lam => (OAI.SignedSweeps.spechtSubrepresentation lam).toRepresentation
+def OAI.SignedSweeps.spechtDimension : {n : ℕ} → OAI.SignedSweeps.Partition n → ℕ :=
+fun {n} lam => Module.finrank ℂ (OAI.SignedSweeps.Specht lam)
+def OAI.SignedSweeps.blockEmbedding : {u v l n : ℕ} →
+  u + v + l = n →
+    OAI.SignedSweeps.SymmetricGroup u →
+      OAI.SignedSweeps.SymmetricGroup v → OAI.SignedSweeps.SymmetricGroup l → OAI.SignedSweeps.SymmetricGroup n :=
+fun {u v l n} h a b c =>
+  have e := ((finSumFinEquiv.sumCongr (Equiv.refl (Fin l))).trans finSumFinEquiv).trans (finCongr h);
+  e.permCongr ((Equiv.Perm.sumCongr a b).sumCongr c)
+def OAI.SignedSweeps.SignedOccurrence : {u v l n : ℕ} →
+  u + v + l = n →
+    OAI.SignedSweeps.Partition u →
+      OAI.SignedSweeps.Partition v → OAI.SignedSweeps.Partition l → OAI.SignedSweeps.Partition n → Prop :=
+fun {u v l n} h α β γ lam =>
+  ∃ f,
+    Function.Injective ⇑f ∧
+      ∀ (a : OAI.SignedSweeps.SymmetricGroup u) (b : OAI.SignedSweeps.SymmetricGroup v)
+        (c : OAI.SignedSweeps.SymmetricGroup l)
+        (x :
+          TensorProduct ℂ (TensorProduct ℂ (OAI.SignedSweeps.Specht α) (OAI.SignedSweeps.Specht β.transpose))
+            (OAI.SignedSweeps.Specht γ)),
+        f
+            ((TensorProduct.map
+                (TensorProduct.map ((OAI.SignedSweeps.spechtRepresentation α) a)
+                  ((OAI.SignedSweeps.spechtRepresentation β.transpose) b))
+                ((OAI.SignedSweeps.spechtRepresentation γ) c))
+              x) =
+          ((OAI.SignedSweeps.spechtRepresentation lam) (OAI.SignedSweeps.blockEmbedding h a b c)) (f x)
+@[reducible] def OAI.SignedSweeps.BinaryPositions : ℕ → Type :=
+fun d => Fin d → Fin 2
+def OAI.SignedSweeps.positionsEquiv : (d : ℕ) → OAI.SignedSweeps.BinaryPositions d ≃ Fin (2 ^ d) :=
+fun d => Fintype.equivFinOfCardEq ⋯
+def OAI.SignedSweeps.coordinateSubgroup : (d : ℕ) → Fin d → Subgroup (OAI.SignedSweeps.SymmetricGroup (2 ^ d)) :=
+fun d i => OAI.SignedSweeps.fiberSubgroup fun x j => (OAI.SignedSweeps.positionsEquiv d).symm x ↑j
+def OAI.SignedSweeps.layerOperator : {d : ℕ} →
+  (lam : OAI.SignedSweeps.Partition (2 ^ d)) → Fin d → OAI.SignedSweeps.Specht lam →ₗ[ℂ] OAI.SignedSweeps.Specht lam :=
+fun {d} lam i =>
+  (↑(Fintype.card ↥(OAI.SignedSweeps.coordinateSubgroup d i)))⁻¹ • ∑ g, (OAI.SignedSweeps.spechtRepresentation lam) ↑g
+def OAI.SignedSweeps.sweepOperator : {d : ℕ} →
+  (lam : OAI.SignedSweeps.Partition (2 ^ d)) → OAI.SignedSweeps.Specht lam →ₗ[ℂ] OAI.SignedSweeps.Specht lam :=
+fun {d} lam => (List.ofFn (OAI.SignedSweeps.layerOperator lam)).reverse.prod
+def OAI.SignedSweeps.positiveSquare.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℂ E] → [FiniteDimensional ℂ E] → (E →ₗ[ℂ] E) → E →ₗ[ℂ] E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [FiniteDimensional ℂ E] T => LinearMap.adjoint T * T
+def OAI.SignedSweeps.sweepSquare : {d : ℕ} →
+  (lam : OAI.SignedSweeps.Partition (2 ^ d)) → OAI.SignedSweeps.Specht lam →ₗ[ℂ] OAI.SignedSweeps.Specht lam :=
+fun {d} lam => OAI.SignedSweeps.positiveSquare (OAI.SignedSweeps.sweepOperator lam)
+def OAI.SignedSweeps.weightedMoment : {d : ℕ} → OAI.SignedSweeps.Partition (2 ^ d) → ℕ → ℝ :=
+fun {d} lam r =>
+  ↑(OAI.SignedSweeps.spechtDimension lam) *
+    ((LinearMap.trace ℂ (OAI.SignedSweeps.Specht lam)) (OAI.SignedSweeps.sweepSquare lam ^ r)).re
+def OAI.SignedSweeps.logMoment : ℝ → EReal :=
+fun x => if x = 0 then ⊥ else ↑(Real.log x)
+def OAI.SignedSweeps.signedEntropy : {u v : ℕ} → OAI.SignedSweeps.Partition u → OAI.SignedSweeps.Partition v → ℝ :=
+fun {u v} α β => (List.map (fun a => ↑a * Real.log ((↑u + ↑v) / ↑a)) ((↑α).rowLens ++ (↑β).rowLens)).sum
+def OAI.SignedSweeps.coefficient : ℝ → ℕ → ℝ :=
+fun a d => a * (1 - 1 / (2 * √↑d))
+def OAI.SignedSweeps.remainderBudget : ℝ → ℕ → ℕ → ℝ :=
+fun κ d l =>
+  if l = 0 then 0 else max 0 (OAI.SignedSweeps.coefficient κ d * ↑l * Real.log ↑(2 ^ d) - ↑l * Real.log (↑(2 ^ d) / ↑l))

@@ -1,0 +1,105 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_EgyptianFractions.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Problem337.prescribed_denominator_corollary [thm] ok
+CMP OAI.Problem337.prescribedSlope [def] ok
+CMP OAI.Problem337.v [def] ok
+CMP OAI.Problem337.missingDenominators [def] ok
+CMP OAI.Problem337.D [def] ok
+CMP OAI.Problem337.IsOneExpansion [def] ok
+CMP OAI.Problem337.missing_denominator_semantics [thm] ok
+CMP OAI.Problem337.quantitative_marked_length [thm] ok
+CMP OAI.Problem337.every_exact_marker_occurs [thm] ok
+CMP OAI.Problem337.exact_marker_padding [thm] ok
+CMP OAI.Problem337.counting_double_log_order [thm] ok
+CMP OAI.Problem337.F [def] ok
+CMP OAI.Problem337.OneExpansions [def] ok
+CMP OAI.Problem337.one_expansions_finite_and_bounded [thm] ok
+CMP OAI.Problem337.main_double_log_order [thm] ok
+CMP OAI.Problem337.maxEgyptianLength [def] ok
+CMP OAI.Problem337.egyptianLength [def] ok
+CMP OAI.Problem337.egyptianLengths [def] ok
+CMP OAI.Problem337.IsEgyptianExpansion [def] ok
+CMP OAI.Problem337.egyptian_length_is_minimum [thm] ok
+Chal.Problem337.egyptian_length_is_minimum : ∀ (a b : ℕ),
+  1 ≤ a →
+    a < b →
+      (∃ n, Chal.Problem337.IsEgyptianExpansion (↑a / ↑b) n) ∧
+        ∀ (k : ℕ), (∃ n, Chal.Problem337.IsEgyptianExpansion (↑a / ↑b) n) → Chal.Problem337.egyptianLength a b ≤ k
+Chal.Problem337.main_double_log_order : ∃ c1 c2,
+  0 < c1 ∧
+    0 < c2 ∧
+      ∃ b0,
+        ∀ (b : ℕ),
+          b0 ≤ b →
+            c1 * Real.log (Real.log ↑b) ≤ ↑(Chal.Problem337.maxEgyptianLength b) ∧
+              ↑(Chal.Problem337.maxEgyptianLength b) ≤ c2 * Real.log (Real.log ↑b)
+Chal.Problem337.one_expansions_finite_and_bounded : (∀ (k : ℕ),
+    (Chal.Problem337.OneExpansions k).Finite ∧ Chal.Problem337.F k ≤ k ^ (2 ^ k - 1)) ∧
+  ∀ (k : ℕ) (n : Fin k → ℕ), Chal.Problem337.IsOneExpansion n → ∀ (i : Fin k), n i ≤ k ^ 2 ^ ↑i
+Chal.Problem337.counting_double_log_order : ∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∃ k0,
+        ∀ (k : ℕ),
+          k0 ≤ k →
+            c * ↑k ≤ Real.log (Real.log ↑(Chal.Problem337.F k)) ∧ Real.log (Real.log ↑(Chal.Problem337.F k)) ≤ C * ↑k
+Chal.Problem337.exact_marker_padding : ∀ (r : ℕ),
+  3 ≤ r →
+    ∀ (n : Fin r → ℕ),
+      Chal.Problem337.IsOneExpansion n →
+        ∀ (m : ℕ), (∃ i, n i = m) → ∃ n', Chal.Problem337.IsOneExpansion n' ∧ ∃ i, n' i = m
+Chal.Problem337.every_exact_marker_occurs : ∀ (m : ℕ), 2 ≤ m → ∃ k, m ∈ Chal.Problem337.D k
+Chal.Problem337.quantitative_marked_length : ∀ (ε : ℝ),
+  0 < ε →
+    ∃ mε,
+      2 ≤ mε ∧
+        ∀ (m : ℕ),
+          mε ≤ m →
+            ∃ k n,
+              Chal.Problem337.IsOneExpansion n ∧ (∃ i, n i = m) ∧ ↑k ≤ (257 / Real.log 2 + ε) * Real.log (Real.log ↑m)
+Chal.Problem337.missing_denominator_semantics : ∀ (k : ℕ),
+  (Chal.Problem337.D k).Finite ∧
+    (∃ m, m ∈ Chal.Problem337.missingDenominators k) ∧
+      2 ≤ Chal.Problem337.v k ∧
+        Chal.Problem337.v k ∉ Chal.Problem337.D k ∧
+          (∀ (m : ℕ), 2 ≤ m → m < Chal.Problem337.v k → m ∈ Chal.Problem337.D k) ∧
+            (1 ≤ k → Chal.Problem337.v k ≤ 1 + k ^ 2 ^ (k - 1))
+Chal.Problem337.prescribed_denominator_corollary : (∃ k0,
+    ∀ (k : ℕ),
+      k0 ≤ k → Real.exp (Real.exp (↑k / 600)) ≤ ↑(Chal.Problem337.v k) ∧ Chal.Problem337.v k ≤ 1 + k ^ 2 ^ (k - 1)) ∧
+  (Real.log 2 / 257 ≤ Filter.liminf Chal.Problem337.prescribedSlope Filter.atTop ∧
+      Filter.liminf Chal.Problem337.prescribedSlope Filter.atTop ≤
+          Filter.limsup Chal.Problem337.prescribedSlope Filter.atTop ∧
+        Filter.limsup Chal.Problem337.prescribedSlope Filter.atTop ≤ Real.log 2) ∧
+    ∀ c < Real.log 2 / 257, ∃ k0, ∀ (k : ℕ), k0 ≤ k → Real.exp (Real.exp (c * ↑k)) ≤ ↑(Chal.Problem337.v k)
+def Chal.Problem337.IsEgyptianExpansion : {k : ℕ} → ℚ → (Fin k → ℕ) → Prop :=
+fun {k} x n => (∀ (i : Fin k), 2 ≤ n i) ∧ StrictMono n ∧ ∑ i, 1 / ↑(n i) = x
+def Chal.Problem337.egyptianLengths : ℕ → ℕ → Set ℕ :=
+fun a b => {k | ∃ n, Chal.Problem337.IsEgyptianExpansion (↑a / ↑b) n}
+def Chal.Problem337.egyptianLength : ℕ → ℕ → ℕ :=
+fun a b => sInf (Chal.Problem337.egyptianLengths a b)
+def Chal.Problem337.maxEgyptianLength : ℕ → ℕ :=
+fun b => (Finset.range b).sup fun a => if 1 ≤ a then Chal.Problem337.egyptianLength a b else 0
+def Chal.Problem337.IsOneExpansion : {k : ℕ} → (Fin k → ℕ) → Prop :=
+fun {k} n => (∀ (i : Fin k), 1 ≤ n i) ∧ StrictMono n ∧ ∑ i, 1 / ↑(n i) = 1
+def Chal.Problem337.OneExpansions : (k : ℕ) → Set (Fin k → ℕ) :=
+fun k => {n | Chal.Problem337.IsOneExpansion n}
+def Chal.Problem337.F : ℕ → ℕ :=
+fun k => (Chal.Problem337.OneExpansions k).ncard
+def Chal.Problem337.D : ℕ → Set ℕ :=
+fun k => {m | 2 ≤ m ∧ ∃ n, Chal.Problem337.IsOneExpansion n ∧ ∃ i, n i = m}
+def Chal.Problem337.missingDenominators : ℕ → Set ℕ :=
+fun k => {m | 2 ≤ m} \ Chal.Problem337.D k
+def Chal.Problem337.v : ℕ → ℕ :=
+fun k => sInf (Chal.Problem337.missingDenominators k)
+def Chal.Problem337.prescribedSlope : ℕ → ℝ :=
+fun k => Real.log (Real.log ↑(Chal.Problem337.v k)) / ↑k
+'OAI.Problem337.egyptian_length_is_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.main_double_log_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.one_expansions_finite_and_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.counting_double_log_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.exact_marker_padding' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.every_exact_marker_occurs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.quantitative_marked_length' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.missing_denominator_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem337.prescribed_denominator_corollary' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EgyptianFractions comparator-style: ok=20 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

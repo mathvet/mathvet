@@ -1,0 +1,29 @@
+== provenance: mathvet cloud run
+machine: Linux 6.18.44-fc-v80 x86_64, 4 vCPU, 15 GB RAM, Ubuntu 24.04
+kernel lsm: 
+sandbox: landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+comparator: ca04cfc  lean4export: v4.34.0
+upstream: openai/math adc7f1241b42e322a6451854ab7e4b4c146bf78a
+session: https://claude.ai/code/session_01P99Twd9AjnSnk73iUgdJw4
+== EgyptianFractions comparator start 2026-10-08T18:15:51Z landrun=/root/.local/bin/landrun
+Building ComparatorChallenges.EgyptianFractions
+⚠ [8924/8924] Built ComparatorChallenges.EgyptianFractions (9.5s)
+warning: ComparatorChallenges/EgyptianFractions.lean:48:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:57:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:64:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:71:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:78:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:85:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:89:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:98:8: declaration uses `sorry`
+warning: ComparatorChallenges/EgyptianFractions.lean:107:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem337.egyptian_length_is_minimum, OAI.Problem337.main_double_log_order, OAI.Problem337.one_expansions_finite_and_bounded, OAI.Problem337.counting_double_log_order, OAI.Problem337.exact_marker_padding, OAI.Problem337.every_exact_marker_occurs, OAI.Problem337.quantitative_marked_length, OAI.Problem337.missing_denominator_semantics, OAI.Problem337.prescribed_denominator_corollary, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.EgyptianFractions
+Building OAI.NumberTheory.EgyptianFractions.Main
+Build completed successfully (9213 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem337.egyptian_length_is_minimum, OAI.Problem337.main_double_log_order, OAI.Problem337.one_expansions_finite_and_bounded, OAI.Problem337.counting_double_log_order, OAI.Problem337.exact_marker_padding, OAI.Problem337.every_exact_marker_occurs, OAI.Problem337.quantitative_marked_length, OAI.Problem337.missing_denominator_semantics, OAI.Problem337.prescribed_denominator_corollary, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.NumberTheory.EgyptianFractions.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T18:18:54Z

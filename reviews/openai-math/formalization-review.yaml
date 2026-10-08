@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T18:19:51Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T18:38:30Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 308 accepted by
-    the real Comparator, of which 308 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 313 accepted by
+    the real Comparator, of which 313 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3209,7 +3209,8 @@ alignment:
     module: OAI.NumberTheory.EgyptianFractions.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EgyptianFractions.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 025 — Erd\H{o}s’s short Egyptian-fraction conjecture: Optimal order of the shortest Egyptian-fraction
       expansions (the lab''s own result label); paper ''Short Egyptian fractions'', theorem thm:main (build/introduction.tex:16)'
     lean: OAI.ShortEgyptian.main
@@ -3261,7 +3262,8 @@ alignment:
     module: OAI.AlgebraicGeometry.PlaneCurves.Nagata
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Nagata.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 039 — Nagata''s conjecture and maximal Seshadri constants: Eventual maximal Seshadri constants
       (the lab''s own result label); paper ''Maximal Seshadri constants on arbitrary polarized surfaces'', theorem
       thm:main (build/sections/introduction.tex:31)'
@@ -6014,7 +6016,8 @@ alignment:
     module: OAI.Probability.SignedSweeps.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SignedSweepMoment.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 238 — Optimal logarithmic mixing of the Thorp shuffle: One-sided angle bound for signed spin
       types (the lab''s own result label); paper ''Signed tensor densities and diagram budgets for the Thorp shuffle'',
       theorem ten:spin:main (build/sections/00-introduction.tex:48)'
@@ -6315,7 +6318,8 @@ alignment:
     module: OAI.Topology.ArtinGroups.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HarmonicArtin.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 255 — Quasi-isometric rigidity of virtually polycyclic groups: Quasi-isometric recognition of
       virtually polycyclic groups and solvable lattices (the lab''s own result label); paper ''Quasi-isometric recognition
       of virtually polycyclic groups'', theorem thm:recognition (build/introduction.tex:10)'
@@ -7303,7 +7307,8 @@ alignment:
     module: OAI.Geometry.IsometricImmersion.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IsometricImmersion.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 337 — Cartan--Hadamard isoperimetry and CAT$(0)$ fillings: Optimality of the Euclidean filling
       coefficient (the lab''s own result label); paper ''Sharp integral fillings in CAT(0) spaces'', theorem thm:main
       (build/sections/01-introduction.tex:26)'
@@ -7770,7 +7775,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T18:19:51Z'
+    generated: '2026-10-08T18:38:30Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7889,6 +7894,7 @@ mathvet:
     - DuttaDomain
     - DyadicAvoidance
     - EditDistance
+    - EgyptianFractions
     - EilenbergGanea
     - ElasticityUniqueness
     - EntangledGames
@@ -7933,6 +7939,7 @@ mathvet:
     - HadamardCubeFiber
     - HalvingLines
     - HardSphere
+    - HarmonicArtin
     - HarmonicGrowth
     - HeilbronnTriangle
     - Heisenberg
@@ -7951,6 +7958,7 @@ mathvet:
     - InterpolatedFactors
     - IrrationalTriangleBilliard
     - IsingFiniteness
+    - IsometricImmersion
     - KLInvariance
     - KMedianRefinedRecovery
     - KMedianThreshold
@@ -7986,6 +7994,7 @@ mathvet:
     - MetricEntropyDuality
     - MetricKMedian
     - MidpointLenses
+    - Nagata
     - Naimark
     - NavierStokesAlternating
     - NavierStokesVelocity
@@ -8049,6 +8058,7 @@ mathvet:
     - ShortEgyptianFractions
     - SidorenkoCounterexample
     - SignedFiniteBand
+    - SignedSweepMoment
     - SingleFold
     - SingletonLoopMatching
     - SmoothInitialForm
@@ -8198,6 +8208,7 @@ mathvet:
     - DuttaDomain
     - DyadicAvoidance
     - EditDistance
+    - EgyptianFractions
     - EilenbergGanea
     - ElasticityUniqueness
     - EntangledGames
@@ -8242,6 +8253,7 @@ mathvet:
     - HadamardCubeFiber
     - HalvingLines
     - HardSphere
+    - HarmonicArtin
     - HarmonicGrowth
     - HeilbronnTriangle
     - Heisenberg
@@ -8260,6 +8272,7 @@ mathvet:
     - InterpolatedFactors
     - IrrationalTriangleBilliard
     - IsingFiniteness
+    - IsometricImmersion
     - KLInvariance
     - KMedianRefinedRecovery
     - KMedianThreshold
@@ -8295,6 +8308,7 @@ mathvet:
     - MetricEntropyDuality
     - MetricKMedian
     - MidpointLenses
+    - Nagata
     - Naimark
     - NavierStokesAlternating
     - NavierStokesVelocity
@@ -8358,6 +8372,7 @@ mathvet:
     - ShortEgyptianFractions
     - SidorenkoCounterexample
     - SignedFiniteBand
+    - SignedSweepMoment
     - SingleFold
     - SingletonLoopMatching
     - SmoothInitialForm
@@ -12592,7 +12607,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 56586
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/334.md
     audit_part: 3
   - family: '337'

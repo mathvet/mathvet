@@ -1,0 +1,36 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_IsometricImmersion.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SmoothLocal.Geometry.exists_local_metric_without_local_immersion [thm] ok
+CMP OAI.SmoothLocal.Geometry.Ambient [def] ok
+CMP OAI.SmoothLocal.Geometry.square [def] ok
+CMP OAI.SmoothLocal.Geometry.Coord [def] ok
+CMP OAI.SmoothLocal.Geometry.LocalSmoothPositive [def] ok
+CMP OAI.SmoothLocal.Geometry.coordinateSquareOpen [def] ok
+CMP OAI.SmoothLocal.ODE.coordinate_square_isOpen [thm] ok
+Chal.SmoothLocal.Geometry.exists_local_metric_without_local_immersion : ∃ g,
+  Chal.SmoothLocal.Geometry.LocalSmoothPositive Chal.SmoothLocal.Geometry.coordinateSquareOpen g ∧
+    ∀ (U : TopologicalSpace.Opens Chal.SmoothLocal.Geometry.Coord) (hUS : ↑U ⊆ Chal.SmoothLocal.Geometry.square),
+      0 ∈ U →
+        ∀ (F : ↥U → Chal.SmoothLocal.Geometry.Ambient),
+          ¬(ContMDiff (modelWithCornersSelf ℝ Chal.SmoothLocal.Geometry.Coord)
+                (modelWithCornersSelf ℝ Chal.SmoothLocal.Geometry.Ambient) (↑⊤) F ∧
+              ∀ (p : ↥U) (v w : Chal.SmoothLocal.Geometry.Coord),
+                inner ℝ ((mfderiv% F p) v) ((mfderiv% F p) w) = v ⬝ᵥ (g ⟨↑p, ⋯⟩).mulVec w)
+@[reducible] def Chal.SmoothLocal.Geometry.Coord : Type :=
+Fin 2 → ℝ
+@[reducible] def Chal.SmoothLocal.Geometry.Ambient : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.SmoothLocal.Geometry.square : Set Chal.SmoothLocal.Geometry.Coord :=
+{p | ∀ (i : Fin 2), p i ∈ Set.Ioo (-1) 1}
+def Chal.SmoothLocal.Geometry.LocalSmoothPositive : (U : TopologicalSpace.Opens Chal.SmoothLocal.Geometry.Coord) →
+  (↥U → Matrix (Fin 2) (Fin 2) ℝ) → Prop :=
+fun U g =>
+  (∀ (i j : Fin 2),
+      ContMDiff (modelWithCornersSelf ℝ Chal.SmoothLocal.Geometry.Coord) (modelWithCornersSelf ℝ ℝ) ↑⊤ fun p =>
+        g p i j) ∧
+    ∀ (p : ↥U), (g p).PosDef
+def Chal.SmoothLocal.Geometry.coordinateSquareOpen : TopologicalSpace.Opens Chal.SmoothLocal.Geometry.Coord :=
+{ carrier := Chal.SmoothLocal.Geometry.square, is_open' := Chal.SmoothLocal.ODE.coordinate_square_isOpen }
+'OAI.SmoothLocal.Geometry.exists_local_metric_without_local_immersion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== IsometricImmersion comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0

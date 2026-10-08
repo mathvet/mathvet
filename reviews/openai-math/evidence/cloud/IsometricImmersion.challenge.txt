@@ -1,0 +1,25 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_IsometricImmersion.lean:46:8: warning: declaration uses `sorry`
+OAI.SmoothLocal.Geometry.exists_local_metric_without_local_immersion : ∃ g,
+  OAI.SmoothLocal.Geometry.LocalSmoothPositive OAI.SmoothLocal.Geometry.coordinateSquareOpen g ∧
+    ∀ (U : TopologicalSpace.Opens OAI.SmoothLocal.Geometry.Coord) (hUS : ↑U ⊆ OAI.SmoothLocal.Geometry.square),
+      0 ∈ U →
+        ∀ (F : ↥U → OAI.SmoothLocal.Geometry.Ambient),
+          ¬(ContMDiff (modelWithCornersSelf ℝ OAI.SmoothLocal.Geometry.Coord)
+                (modelWithCornersSelf ℝ OAI.SmoothLocal.Geometry.Ambient) (↑⊤) F ∧
+              ∀ (p : ↥U) (v w : OAI.SmoothLocal.Geometry.Coord),
+                inner ℝ ((mfderiv% F p) v) ((mfderiv% F p) w) = v ⬝ᵥ (g ⟨↑p, ⋯⟩).mulVec w)
+@[reducible] def OAI.SmoothLocal.Geometry.Coord : Type :=
+Fin 2 → ℝ
+@[reducible] def OAI.SmoothLocal.Geometry.Ambient : Type :=
+EuclideanSpace ℝ (Fin 3)
+def OAI.SmoothLocal.Geometry.square : Set OAI.SmoothLocal.Geometry.Coord :=
+{p | ∀ (i : Fin 2), p i ∈ Set.Ioo (-1) 1}
+def OAI.SmoothLocal.Geometry.LocalSmoothPositive : (U : TopologicalSpace.Opens OAI.SmoothLocal.Geometry.Coord) →
+  (↥U → Matrix (Fin 2) (Fin 2) ℝ) → Prop :=
+fun U g =>
+  (∀ (i j : Fin 2),
+      ContMDiff (modelWithCornersSelf ℝ OAI.SmoothLocal.Geometry.Coord) (modelWithCornersSelf ℝ ℝ) ↑⊤ fun p =>
+        g p i j) ∧
+    ∀ (p : ↥U), (g p).PosDef
+def OAI.SmoothLocal.Geometry.coordinateSquareOpen : TopologicalSpace.Opens OAI.SmoothLocal.Geometry.Coord :=
+{ carrier := OAI.SmoothLocal.Geometry.square, is_open' := OAI.SmoothLocal.ODE.coordinate_square_isOpen }
