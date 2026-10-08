@@ -1,0 +1,118 @@
+CMP OAI.ExactModuli.exact_example [thm] ok
+CMP OAI.ExactModuli.AUC [def] ok
+CMP OAI.ExactModuli.oneSidedModulus [def] ok
+CMP OAI.ExactModuli.D [def] ok
+CMP OAI.ExactModuli.Cofinite [def] ok
+CMP OAI.ExactModuli.EquivalentNorm [def] ok
+CMP OAI.ExactModuli.averagedModulus [def] ok
+CMP OAI.ExactModuli.H [def] ok
+CMP OAI.ExactModuli.averagedIncrement [def] ok
+CMP OAI.ExactModuli.averagedIncrement._proof_1 [thm] ok
+CMP OAI.ExactModuli.Daugavet [def] ok
+CMP OAI.ExactModuli.Daugavet._proof_3 [thm] ok
+CMP OAI.ExactModuli.Daugavet._proof_2 [thm] ok
+CMP OAI.ExactModuli.Daugavet._proof_1 [thm] ok
+CMP OAI.ExactModuli.UnitSliceProperty [def] ok
+CMP OAI.ExactModuli.MeasurePrecompactBall [def] ok
+CMP OAI.ExactModuli.measureDistance [def] ok
+CMP OAI.ExactModuli.measureDistance._proof_1 [thm] ok
+CMP OAI.ExactModuli.MeasurePrecompactBall._proof_2 [thm] ok
+CMP OAI.ExactModuli.MeasurePrecompactBall._proof_1 [thm] ok
+CMP OAI.ExactModuli.kwMeasure [def] ok
+CMP OAI.ExactModuli.KWOmega [def] ok
+CMP OAI.ExactModuli.kadets_werner_existence [thm] ok
+CMP OAI.ExactModuli.exact_main [thm] ok
+@Chal.ExactModuli.exact_main : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω)
+  [MeasureTheory.IsProbabilityMeasure μ] (E : Submodule ℝ ↥(MeasureTheory.Lp ℝ 1 μ)),
+  IsClosed ↑E →
+    ¬FiniteDimensional ℝ ↥E →
+      Chal.ExactModuli.MeasurePrecompactBall μ E →
+        Chal.ExactModuli.Daugavet ↥E →
+          (∀ (x : ↥E),
+              ‖x‖ = 1 →
+                ∀ (t : ℝ),
+                  0 < t →
+                    Chal.ExactModuli.H (normSeminorm ℝ ↥E) x t = max (t / 2) (t - 1) ∧
+                      Chal.ExactModuli.D (normSeminorm ℝ ↥E) x t = max 0 (t - 2)) ∧
+            (∀ (t : ℝ),
+                0 < t →
+                  Chal.ExactModuli.averagedModulus (normSeminorm ℝ ↥E) t = max (t / 2) (t - 1) ∧
+                    Chal.ExactModuli.oneSidedModulus (normSeminorm ℝ ↥E) t = max 0 (t - 2)) ∧
+              ∀ (N : Seminorm ℝ ↥E), Chal.ExactModuli.EquivalentNorm N → ¬Chal.ExactModuli.AUC N
+Chal.ExactModuli.kadets_werner_existence : ∃ E,
+  IsClosed ↑E ∧
+    ¬FiniteDimensional ℝ ↥E ∧
+      Chal.ExactModuli.MeasurePrecompactBall Chal.ExactModuli.kwMeasure E ∧
+        Chal.ExactModuli.UnitSliceProperty ↥E ∧ Chal.ExactModuli.Daugavet ↥E
+Chal.ExactModuli.exact_example : ∃ E,
+  IsClosed ↑E ∧
+    ¬FiniteDimensional ℝ ↥E ∧
+      Chal.ExactModuli.MeasurePrecompactBall Chal.ExactModuli.kwMeasure E ∧
+        Chal.ExactModuli.UnitSliceProperty ↥E ∧
+          Chal.ExactModuli.Daugavet ↥E ∧
+            (∀ (x : ↥E),
+                ‖x‖ = 1 →
+                  ∀ (t : ℝ),
+                    0 < t →
+                      Chal.ExactModuli.H (normSeminorm ℝ ↥E) x t = max (t / 2) (t - 1) ∧
+                        Chal.ExactModuli.D (normSeminorm ℝ ↥E) x t = max 0 (t - 2)) ∧
+              (∀ (t : ℝ),
+                  0 < t →
+                    Chal.ExactModuli.averagedModulus (normSeminorm ℝ ↥E) t = max (t / 2) (t - 1) ∧
+                      Chal.ExactModuli.oneSidedModulus (normSeminorm ℝ ↥E) t = max 0 (t - 2)) ∧
+                ∀ (N : Seminorm ℝ ↥E), Chal.ExactModuli.EquivalentNorm N → ¬Chal.ExactModuli.AUC N
+def Chal.ExactModuli.Cofinite.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Submodule ℝ X → Prop :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] F => IsClosed ↑F ∧ FiniteDimensional ℝ (X ⧸ F)
+def Chal.ExactModuli.averagedIncrement.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → X → ℝ → X → ℝ :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N x t y => (N (x + t • y) + N (x - t • y)) / 2 - 1
+def Chal.ExactModuli.H.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → X → ℝ → ℝ :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N x t =>
+  sSup
+    {r |
+      ∃ F,
+        Chal.ExactModuli.Cofinite F ∧ r = sInf {a | ∃ y ∈ F, 1 ≤ N y ∧ a = Chal.ExactModuli.averagedIncrement N x t y}}
+def Chal.ExactModuli.D.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → X → ℝ → ℝ :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N x t =>
+  sSup {r | ∃ F, Chal.ExactModuli.Cofinite F ∧ r = sInf {a | ∃ y ∈ F, N y = 1 ∧ a = N (x + t • y) - 1}}
+def Chal.ExactModuli.averagedModulus.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N t => sInf {r | ∃ x, N x = 1 ∧ r = Chal.ExactModuli.H N x t}
+def Chal.ExactModuli.oneSidedModulus.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N t => sInf {r | ∃ x, N x = 1 ∧ r = Chal.ExactModuli.D N x t}
+def Chal.ExactModuli.EquivalentNorm.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N => ∃ a b, 0 < a ∧ 0 < b ∧ ∀ (x : X), a * ‖x‖ ≤ N x ∧ N x ≤ b * ‖x‖
+def Chal.ExactModuli.AUC.{uX} : {X : Type uX} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] N => ∀ (t : ℝ), 0 < t → 0 < Chal.ExactModuli.oneSidedModulus N t
+def Chal.ExactModuli.Daugavet.{uX} : (X : Type uX) → [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] =>
+  ∀ (ell : X →L[ℝ] ℝ) (v : X), ‖ContinuousLinearMap.id ℝ X + ell.smulRight v‖ = 1 + ‖ell.smulRight v‖
+def Chal.ExactModuli.measureDistance.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    (μ : MeasureTheory.Measure Ω) → ↥(MeasureTheory.Lp ℝ 1 μ) → ↥(MeasureTheory.Lp ℝ 1 μ) → ℝ :=
+fun {Ω} [MeasurableSpace Ω] μ f g => sInf {a | 0 < a ∧ μ.real {ω | a < |↑↑f ω - ↑↑g ω|} < a}
+def Chal.ExactModuli.MeasurePrecompactBall.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → (μ : MeasureTheory.Measure Ω) → Submodule ℝ ↥(MeasureTheory.Lp ℝ 1 μ) → Prop :=
+fun {Ω} [MeasurableSpace Ω] μ E =>
+  ∀ (ε : ℝ), 0 < ε → ∃ s, ∀ (y : ↥E), ‖y‖ ≤ 1 → ∃ b ∈ s, Chal.ExactModuli.measureDistance μ (↑y) b < ε
+def Chal.ExactModuli.UnitSliceProperty.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] =>
+  ∀ (w : X),
+    ‖w‖ = 1 →
+      ∀ (ell : X →L[ℝ] ℝ) (α : ℝ),
+        (∃ u, ‖u‖ ≤ 1 ∧ α < ell u) → ∀ (ρ : ℝ), 0 < ρ → ∃ y, ‖y‖ = 1 ∧ α < ell y ∧ 2 - ρ ≤ ‖w + y‖
+@[reducible] def Chal.ExactModuli.KWOmega : Type :=
+ℕ → ↑unitInterval
+def Chal.ExactModuli.kwMeasure : MeasureTheory.Measure Chal.ExactModuli.KWOmega :=
+MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume
+'OAI.ExactModuli.exact_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ExactModuli.kadets_werner_existence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ExactModuli.exact_example' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DaugavetModuli comparator-style: ok=24 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
