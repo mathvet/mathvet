@@ -1,0 +1,30 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ComplexCancellation.lean:25:8: warning: declaration uses `sorry`
+OAI.ComplexCancellation.main : OAI.ComplexCancellation.MainStatement
+@[reducible] def OAI.ComplexCancellation.P : Type :=
+MvPolynomial (Fin 5) ℂ
+def OAI.ComplexCancellation.p : OAI.ComplexCancellation.P :=
+MvPolynomial.X 0
+def OAI.ComplexCancellation.s : OAI.ComplexCancellation.P :=
+MvPolynomial.X 1
+def OAI.ComplexCancellation.u : OAI.ComplexCancellation.P :=
+MvPolynomial.X 2
+def OAI.ComplexCancellation.F : OAI.ComplexCancellation.P :=
+MvPolynomial.X 3
+def OAI.ComplexCancellation.J : OAI.ComplexCancellation.P :=
+MvPolynomial.X 4
+def OAI.ComplexCancellation.x : OAI.ComplexCancellation.P :=
+OAI.ComplexCancellation.s ^ 2 + OAI.ComplexCancellation.u ^ 3 +
+  OAI.ComplexCancellation.p ^ 2 * OAI.ComplexCancellation.F
+def OAI.ComplexCancellation.H : OAI.ComplexCancellation.P :=
+OAI.ComplexCancellation.x ^ 2 * OAI.ComplexCancellation.F -
+      (1 + 2 * OAI.ComplexCancellation.s * OAI.ComplexCancellation.x) * OAI.ComplexCancellation.J -
+    OAI.ComplexCancellation.p ^ 2 * OAI.ComplexCancellation.J ^ 2 -
+  OAI.ComplexCancellation.p * OAI.ComplexCancellation.u
+@[reducible] def OAI.ComplexCancellation.A : Type :=
+OAI.ComplexCancellation.P ⧸ Ideal.span {OAI.ComplexCancellation.H}
+def OAI.ComplexCancellation.MainStatement : Prop :=
+Algebra.FiniteType ℂ OAI.ComplexCancellation.A ∧
+  IsDomain OAI.ComplexCancellation.A ∧
+    ringKrullDim OAI.ComplexCancellation.A = 4 ∧
+      Nonempty (Polynomial OAI.ComplexCancellation.A ≃ₐ[ℂ] MvPolynomial (Fin 5) ℂ) ∧
+        ¬Nonempty (OAI.ComplexCancellation.A ≃ₐ[ℂ] MvPolynomial (Fin 4) ℂ)
