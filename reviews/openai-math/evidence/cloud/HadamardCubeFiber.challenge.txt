@@ -1,0 +1,26 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_HadamardCubeFiber.lean:28:6: warning: declaration uses `sorry`
+@OAI.HadamardSix.rowRatio_cubeFiber_sum_zero : ∀ {H : OAI.HadamardSix.Matrix6},
+  OAI.HadamardSix.IsComplexHadamard H →
+    OAI.HadamardSix.IsComplexHadamard (OAI.HadamardSix.entrywiseSquare H) →
+      ∀ {i j : OAI.HadamardSix.Index},
+        i ≠ j →
+          ∀ (a b : ℂ),
+            a ≠ b →
+              (∀ (k : OAI.HadamardSix.Index),
+                  OAI.HadamardSix.rowRatio H i j k ^ 3 = a ∨ OAI.HadamardSix.rowRatio H i j k ^ 3 = b) →
+                ∑ k ∈ OAI.HadamardSix.cubeFiber (OAI.HadamardSix.rowRatio H i j) a, H i k * star (H j k) = 0
+@[reducible] def OAI.HadamardSix.Index : Type :=
+Fin 6
+@[reducible] def OAI.HadamardSix.Matrix6 : Type :=
+Matrix OAI.HadamardSix.Index OAI.HadamardSix.Index ℂ
+def OAI.HadamardSix.Unimodular : OAI.HadamardSix.Matrix6 → Prop :=
+fun H => ∀ (i j : OAI.HadamardSix.Index), ‖H i j‖ = 1
+def OAI.HadamardSix.IsComplexHadamard : OAI.HadamardSix.Matrix6 → Prop :=
+fun H => OAI.HadamardSix.Unimodular H ∧ Matrix.conjTranspose H * H = 6 • 1
+def OAI.HadamardSix.entrywiseSquare : OAI.HadamardSix.Matrix6 → OAI.HadamardSix.Matrix6 :=
+fun H i j => H i j ^ 2
+def OAI.HadamardSix.cubeFiber : (OAI.HadamardSix.Index → ℂ) → ℂ → Finset OAI.HadamardSix.Index :=
+fun v z => {i | v i ^ 3 = z}
+def OAI.HadamardSix.rowRatio : OAI.HadamardSix.Matrix6 →
+  OAI.HadamardSix.Index → OAI.HadamardSix.Index → OAI.HadamardSix.Index → ℂ :=
+fun H i j k => H i k * star (H j k)
