@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T17:07:53Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T17:50:40Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 291 accepted by
-    the real Comparator, of which 291 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 300 accepted by
+    the real Comparator, of which 300 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3364,7 +3364,8 @@ alignment:
     module: OAI.Analysis.SymmetricDomains.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SymmetricDomains.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 058 — headline claim as stated in the overview: Proves the Koll\''ar--Pardon conjecture: the
       semialgebraic universal covers of connected normal projective complex varieties are exactly products $D\times\mathbb
       C^m\times F$, with $D$ bounded symmetric and $F$ simply connected, normal, and projective. A universal cover
@@ -4205,7 +4206,8 @@ alignment:
     module: OAI.Combinatorics.KMedianRecovery.Refined.Recovery
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KMedianRefinedRecovery.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 125 — The approximation threshold for metric $k$-median: Exact approximation threshold under
       $P\ne NP$ (the lab''s own result label); paper ''The approximation threshold for metric k-median'', theorem
       thm:main (build/sections/introduction.tex:25)'
@@ -4535,7 +4537,8 @@ alignment:
     module: OAI.Dynamics.StandardMap.EntropyEndpoint
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/StandardMapEntropy.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 146 — Sinai''s positive-entropy conjecture for the standard map: Positive Lyapunov exponents
       and entropy (the lab''s own result label); paper ''Positive Metric Entropy for the Standard Map at Large Parameters'',
       theorem main:entropy (build/sections/introduction.tex:15)'
@@ -5227,7 +5230,8 @@ alignment:
     module: OAI.RingTheory.Multiplicity.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DuttaDomain.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 194 — headline claim as stated in the overview: Proves $e(R)\le e(S)$ for every flat local homomorphism
       of nonzero Noetherian local rings, where $e$ is Hilbert--Samuel multiplicity. This resolves Lech''s conjecture
       in every dimension and characteristic.'
@@ -5449,7 +5453,8 @@ alignment:
     module: OAI.Probability.FKMaps.Convergence
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FKCRT.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 211 — headline claim as stated in the overview: Critical Fortuin--Kasteleyn planar maps converge
       to Liouville quantum gravity spheres for $0<q\le4$ and to the Brownian continuum random tree for $q>4$, establishing
       the surface-to-tree geometric transition. For FK--Ising and spanning-tree-weighted maps, stationary random
@@ -5793,7 +5798,8 @@ alignment:
     module: OAI.Probability.SLE.LowerPositivity
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SLELowerPositivity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 230 — headline claim as stated in the overview: Resolves Schramm’s Hausdorff-measure question
       for chordal $\mathrm{SLE}_\kappa$, $0<\kappa<8$. The explicit gauge $r^d(\log\log(1/r))^{(2-d)/2}$, $d=1+\kappa/8$,
       gives almost surely positive finite measure to every trace segment $\gamma([s,t])$ with $0<s<t<\infty$, and
@@ -5906,7 +5912,8 @@ alignment:
     module: OAI.Combinatorics.StripMass.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalStripMass.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 237 — The three-quarter diameter exponent for honeycomb walks: Finiteness of critical bridge
       mass and first length moments (the lab''s own result label); paper ''Polynomial vacuum representations and
       bridge mass for honeycomb walks'', theorem thm:pv:bridge (build/sections/introduction.tex:34)'
@@ -6566,7 +6573,8 @@ alignment:
     module: OAI.MathematicalPhysics.Heisenberg.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Heisenberg.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 271 — headline claim as stated in the overview: Proves Bloch''s $T^{3/2}$ law with its exact
       coefficient for three-dimensional quantum Heisenberg ferromagnets at every positive quantum spin, allowing
       nonnegative symmetric finite-range couplings whose support generates $\mathbb Z^3$. The thermodynamic limit
@@ -6928,7 +6936,8 @@ alignment:
     module: OAI.Analysis.Kaplansky.StableFiniteness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyStableFiniteness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 295 — The Kadison--Ringrose cohomology conjecture: Bounded primitives for all Hochschild cocycles
       of degree at least two (the lab''s own result label); paper ''Vanishing of higher bounded Hochschild cohomology'',
       theorem thm:main (build/sections/01-introduction.tex:47)'
@@ -7753,7 +7762,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T17:07:53Z'
+    generated: '2026-10-08T17:50:40Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7848,6 +7857,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalSK
+    - CriticalStripMass
     - CriticalZ3
     - CrouzeixHilbert
     - CycleDecomposition
@@ -7866,6 +7876,7 @@ mathvet:
     - Dixmier
     - DixmierAllDiscrete
     - DoublingHilbert
+    - DuttaDomain
     - DyadicAvoidance
     - EditDistance
     - EilenbergGanea
@@ -7882,6 +7893,7 @@ mathvet:
     - EvenBarker
     - ExactFourier
     - ExactQuantumFactoring
+    - FKCRT
     - FactorGeneration
     - FillingCoefficient
     - FiniteCircle
@@ -7912,6 +7924,7 @@ mathvet:
     - HardSphere
     - HarmonicGrowth
     - HeilbronnTriangle
+    - Heisenberg
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
@@ -7928,12 +7941,14 @@ mathvet:
     - IrrationalTriangleBilliard
     - IsingFiniteness
     - KLInvariance
+    - KMedianRefinedRecovery
     - KMedianThreshold
     - KServer
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
     - KaplanskyQuasitrace
+    - KaplanskyStableFiniteness
     - Kervaire
     - Laughlin
     - LaughlinGap
@@ -8008,6 +8023,7 @@ mathvet:
     - SATVariance
     - SKFullSupport
     - SKValue
+    - SLELowerPositivity
     - Saxl
     - SecondKahnKalai
     - SelfSimilar
@@ -8032,6 +8048,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapEntropy
     - StandardMapLyapunov
     - SteinitzBergstrom
     - StrictMeans
@@ -8042,6 +8059,7 @@ mathvet:
     - SubsphereCurrent
     - Superstring
     - SwitchChain
+    - SymmetricDomains
     - SymmetricMahlerEquality
     - SymmetricPolar
     - Tachikawa
@@ -8140,6 +8158,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalSK
+    - CriticalStripMass
     - CriticalZ3
     - CrouzeixHilbert
     - CycleDecomposition
@@ -8158,6 +8177,7 @@ mathvet:
     - Dixmier
     - DixmierAllDiscrete
     - DoublingHilbert
+    - DuttaDomain
     - DyadicAvoidance
     - EditDistance
     - EilenbergGanea
@@ -8174,6 +8194,7 @@ mathvet:
     - EvenBarker
     - ExactFourier
     - ExactQuantumFactoring
+    - FKCRT
     - FactorGeneration
     - FillingCoefficient
     - FiniteCircle
@@ -8204,6 +8225,7 @@ mathvet:
     - HardSphere
     - HarmonicGrowth
     - HeilbronnTriangle
+    - Heisenberg
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
@@ -8220,12 +8242,14 @@ mathvet:
     - IrrationalTriangleBilliard
     - IsingFiniteness
     - KLInvariance
+    - KMedianRefinedRecovery
     - KMedianThreshold
     - KServer
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
     - KaplanskyQuasitrace
+    - KaplanskyStableFiniteness
     - Kervaire
     - Laughlin
     - LaughlinGap
@@ -8300,6 +8324,7 @@ mathvet:
     - SATVariance
     - SKFullSupport
     - SKValue
+    - SLELowerPositivity
     - Saxl
     - SecondKahnKalai
     - SelfSimilar
@@ -8324,6 +8349,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapEntropy
     - StandardMapLyapunov
     - SteinitzBergstrom
     - StrictMeans
@@ -8334,6 +8360,7 @@ mathvet:
     - SubsphereCurrent
     - Superstring
     - SwitchChain
+    - SymmetricDomains
     - SymmetricMahlerEquality
     - SymmetricPolar
     - Tachikawa
@@ -8788,7 +8815,7 @@ mathvet:
       point of a holomorphic involution); plausible, standard-looking
     external_packages: []
     cone_lines_max: 48720
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/058.md
     audit_part: 1
   - family: '071'
@@ -10539,7 +10566,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 53953
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/194.md
     audit_part: 2
   - family: '196'
@@ -10724,7 +10751,7 @@ mathvet:
       notion.'
     external_packages: []
     cone_lines_max: 40208
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/211.md
     audit_part: 2
   - family: '212'
@@ -10984,7 +11011,7 @@ mathvet:
       but a hand-written definition of SLE.'
     external_packages: []
     cone_lines_max: 45103
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/230.md
     audit_part: 2
   - family: '231'
@@ -11694,7 +11721,7 @@ mathvet:
       notion of a KMS state or quantum spin system.'
     external_packages: []
     cone_lines_max: 25400
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/271.md
     audit_part: 2
   - family: '272'

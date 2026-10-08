@@ -1,0 +1,59 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SymmetricDomains.lean:47:8: warning: declaration uses `sorry`
+@OAI.Release061.main : ∀ {n : ℕ} (V U : Set (OAI.Release061.Affine n)),
+  OAI.Release061.IsAffineAlgebraic V →
+    U ⊆ V →
+      IsOpen (Subtype.val ⁻¹' U) →
+        IsConnected U →
+          OAI.Release061.IsSemialgebraic U →
+            Bornology.IsBounded U →
+              ∀ (Γ : Type u_1) [inst : Group Γ] [inst_1 : TopologicalSpace Γ] [DiscreteTopology Γ]
+                [inst_3 : MulAction Γ ↑U] [ProperSMul Γ ↑U] [CompactSpace (Quotient (MulAction.orbitRel Γ ↑U))],
+                (∀ (γ : Γ), OAI.Release061.HolomorphicOnSubset U fun p => ↑(γ • p)) →
+                  OAI.Release061.IsSmooth U ∧
+                    ∃ m D, OAI.Release061.IsBoundedSymmetricDomain D ∧ Nonempty (OAI.Release061.Biholomorph U D)
+@[reducible] def OAI.Release061.Affine : ℕ → Type :=
+fun n => Fin n → ℂ
+def OAI.Release061.realCoordinates : {n : ℕ} → OAI.Release061.Affine n → Fin n ⊕ Fin n → ℝ :=
+fun {n} z => Sum.elim (fun j => (z j).re) fun j => (z j).im
+def OAI.Release061.IsAffineAlgebraic : {n : ℕ} → Set (OAI.Release061.Affine n) → Prop :=
+fun {n} V => ∃ P, V = {z | ∀ p ∈ P, (MvPolynomial.eval z) p = 0}
+inductive OAI.Release061.IsSemialgebraic : {n : ℕ} → Set (OAI.Release061.Affine n) → Prop
+number of parameters: 1
+constructors:
+OAI.Release061.IsSemialgebraic.zero : ∀ {n : ℕ} (p : MvPolynomial (Fin n ⊕ Fin n) ℝ),
+  OAI.Release061.IsSemialgebraic {z | (MvPolynomial.eval (OAI.Release061.realCoordinates z)) p = 0}
+OAI.Release061.IsSemialgebraic.positive : ∀ {n : ℕ} (p : MvPolynomial (Fin n ⊕ Fin n) ℝ),
+  OAI.Release061.IsSemialgebraic {z | 0 < (MvPolynomial.eval (OAI.Release061.realCoordinates z)) p}
+OAI.Release061.IsSemialgebraic.compl : ∀ {n : ℕ} {S : Set (OAI.Release061.Affine n)},
+  OAI.Release061.IsSemialgebraic S → OAI.Release061.IsSemialgebraic Sᶜ
+OAI.Release061.IsSemialgebraic.union : ∀ {n : ℕ} {S T : Set (OAI.Release061.Affine n)},
+  OAI.Release061.IsSemialgebraic S → OAI.Release061.IsSemialgebraic T → OAI.Release061.IsSemialgebraic (S ∪ T)
+def OAI.Release061.HolomorphicOnSubset : {n m : ℕ} →
+  (S : Set (OAI.Release061.Affine n)) → (↑S → OAI.Release061.Affine m) → Prop :=
+fun {n m} S f => ∀ (p : ↑S), ∃ W, IsOpen W ∧ ↑p ∈ W ∧ ∃ F, AnalyticOnNhd ℂ F W ∧ ∀ (q : ↑S), ↑q ∈ W → F ↑q = f q
+structure OAI.Release061.Biholomorph {n m : ℕ} (S : Set (OAI.Release061.Affine n)) (T : Set (OAI.Release061.Affine m)) :
+  Type
+number of parameters: 4
+fields:
+  OAI.Release061.Biholomorph.toHomeomorph : ↑S ≃ₜ ↑T
+  OAI.Release061.Biholomorph.holomorphic_toFun : OAI.Release061.HolomorphicOnSubset S fun p => ↑(self.toHomeomorph p)
+  OAI.Release061.Biholomorph.holomorphic_invFun : OAI.Release061.HolomorphicOnSubset T fun q =>
+      ↑(self.toHomeomorph.symm q)
+constructor:
+  OAI.Release061.Biholomorph.mk {n m : ℕ} {S : Set (OAI.Release061.Affine n)} {T : Set (OAI.Release061.Affine m)}
+    (toHomeomorph : ↑S ≃ₜ ↑T) (holomorphic_toFun : OAI.Release061.HolomorphicOnSubset S fun p => ↑(toHomeomorph p))
+    (holomorphic_invFun : OAI.Release061.HolomorphicOnSubset T fun q => ↑(toHomeomorph.symm q)) :
+    OAI.Release061.Biholomorph S T
+def OAI.Release061.IsSmooth : {n : ℕ} → Set (OAI.Release061.Affine n) → Prop :=
+fun {n} S =>
+  ∀ (p : ↑S),
+    ∃ m, ∃ W ⊆ S, IsOpen (Subtype.val ⁻¹' W) ∧ ↑p ∈ W ∧ ∃ D, IsOpen D ∧ Nonempty (OAI.Release061.Biholomorph W D)
+def OAI.Release061.IsBoundedSymmetricDomain : {n : ℕ} → Set (OAI.Release061.Affine n) → Prop :=
+fun {n} D =>
+  IsOpen D ∧
+    IsConnected D ∧
+      Bornology.IsBounded D ∧
+        ∀ (p : ↑D),
+          ∃ σ,
+            Function.Involutive ⇑σ.toHomeomorph ∧
+              σ.toHomeomorph p = p ∧ ∃ W, IsOpen W ∧ p ∈ W ∧ ∀ q ∈ W, σ.toHomeomorph q = q → q = p

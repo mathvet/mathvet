@@ -1,5 +1,4 @@
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserOddExtensions.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserOddExtensions.lean:129:22: error(lean.unknownIdentifier): Unknown constant `instDecidablePairwiseCoeFinsetOfDecidableEqOfDecidableRel`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserOddExtensions.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.RyserOdd.eventualOddFailures_and_infinite [thm] ok
 CMP OAI.RyserOdd.Specification.ExplicitFailureAt [def] ok
 CMP OAI.RyserCoveringCounterexample.coverNumber [def] ok
@@ -69,4 +68,4 @@ fun rank =>
                     (rank - 1) * Chal.RyserCoveringCounterexample.matchingNumber hypergraph <
                       Chal.RyserCoveringCounterexample.coverNumber hypergraph
 'OAI.RyserOdd.eventualOddFailures_and_infinite' depends on axioms: [propext, Classical.choice, Quot.sound]
-== RyserOddExtensions comparator-style: ok=12 problems=0 errors=1 | SHADOW-DIFF(see RyserOddExtensions.standalone.norm vs RyserOddExtensions.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
+== RyserOddExtensions comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

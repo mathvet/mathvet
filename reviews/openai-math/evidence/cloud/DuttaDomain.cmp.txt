@@ -1,0 +1,73 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_DuttaDomain.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Lech.dutta_domain [thm] ok
+CMP OAI.Lech.DuttaDomainClaim [def] ok
+CMP OAI.Lech.multiplicity [def] ok
+CMP OAI.Lech.normalizedColength [def] ok
+CMP OAI.Lech.colength [def] ok
+CMP OAI.Lech.colength._proof_1 [thm] ok
+CMP OAI.Lech.dimension [def] ok
+CMP OAI.Lech.duttaMultiplicity [def] ok
+CMP OAI.Lech.duttaSequence [def] ok
+CMP OAI.Lech.frobeniusComplex [def] ok
+CMP OAI.Lech.frobeniusComplex._proof_3 [thm] ok
+CMP OAI.Lech.frobeniusComplex._proof_2 [thm] ok
+CMP OAI.Lech.frobeniusComplex._proof_1 [thm] ok
+CMP OAI.Lech.shortEuler [def] ok
+CMP OAI.Lech.shortEuler._proof_2 [thm] ok
+CMP OAI.Lech.shortEuler._proof_1 [thm] ok
+CMP OAI.Lech.DuttaDomainClaim._proof_1 [thm] ok
+CMP OAI.Lech.IsShortComplex [ind] ok
+CMP OAI.Lech.IsShortComplex.mk [ctor] ok
+Chal.Lech.dutta_domain : Chal.Lech.DuttaDomainClaim
+def Chal.Lech.dimension.{u_1} : (A : Type u_1) → [CommRing A] → ℕ :=
+fun A [CommRing A] => (WithBot.unbotD 0 (ringKrullDim A)).toNat
+def Chal.Lech.colength.{u_1} : (A : Type u_1) → [inst : CommRing A] → [IsLocalRing A] → ℕ → ℕ :=
+fun A [CommRing A] [IsLocalRing A] N => (Module.length A (A ⧸ IsLocalRing.maximalIdeal A ^ N)).toNat
+def Chal.Lech.normalizedColength.{u_1} : (A : Type u_1) → [inst : CommRing A] → [IsLocalRing A] → ℕ → ℝ :=
+fun A [CommRing A] [IsLocalRing A] N =>
+  ↑(Chal.Lech.dimension A).factorial * ↑(Chal.Lech.colength A N) / ↑N ^ Chal.Lech.dimension A
+def Chal.Lech.multiplicity.{u_1} : (A : Type u_1) → [inst : CommRing A] → [IsLocalRing A] → ℝ :=
+fun A [CommRing A] [IsLocalRing A] => Filter.atTop.limUnder (Chal.Lech.normalizedColength A)
+structure Chal.Lech.IsShortComplex.{u} (R : Type u) [CommRing R] (F : CochainComplex (ModuleCat R) ℤ) : Prop
+number of parameters: 3
+fields:
+  Chal.Lech.IsShortComplex.term_free : ∀ (i : ℤ), Module.Free R ↑(F.X i)
+  Chal.Lech.IsShortComplex.term_finite : ∀ (i : ℤ), Module.Finite R ↑(F.X i)
+  Chal.Lech.IsShortComplex.bounded : ∀ (i : ℤ),
+      i < -↑(Chal.Lech.dimension R) ∨ 0 < i → CategoryTheory.Limits.IsZero (F.X i)
+  Chal.Lech.IsShortComplex.homology_finite_length : ∀ (i : ℤ), IsFiniteLength R ↑(HomologicalComplex.homology F i)
+  Chal.Lech.IsShortComplex.homology_zero_nonzero : ¬CategoryTheory.Limits.IsZero (HomologicalComplex.homology F 0)
+constructor:
+  Chal.Lech.IsShortComplex.mk.{u} {R : Type u} [CommRing R] {F : CochainComplex (ModuleCat R) ℤ}
+    (term_free : ∀ (i : ℤ), Module.Free R ↑(F.X i)) (term_finite : ∀ (i : ℤ), Module.Finite R ↑(F.X i))
+    (bounded : ∀ (i : ℤ), i < -↑(Chal.Lech.dimension R) ∨ 0 < i → CategoryTheory.Limits.IsZero (F.X i))
+    (homology_finite_length : ∀ (i : ℤ), IsFiniteLength R ↑(HomologicalComplex.homology F i))
+    (homology_zero_nonzero : ¬CategoryTheory.Limits.IsZero (HomologicalComplex.homology F 0)) :
+    Chal.Lech.IsShortComplex R F
+def Chal.Lech.frobeniusComplex.{u} : (R : Type u) →
+  [inst : CommRing R] →
+    (p : ℕ) →
+      [Fact (Nat.Prime p)] → [CharP R p] → ℕ → CochainComplex (ModuleCat R) ℤ → CochainComplex (ModuleCat R) ℤ :=
+fun R [CommRing R] p [Fact (Nat.Prime p)] [CharP R p] n F =>
+  ((ModuleCat.extendScalars (iterateFrobenius R p n)).mapHomologicalComplex (ComplexShape.up ℤ)).obj F
+def Chal.Lech.shortEuler.{u} : (R : Type u) → [inst : CommRing R] → CochainComplex (ModuleCat R) ℤ → ℝ :=
+fun R [CommRing R] F =>
+  ∑ i ∈ Finset.range (Chal.Lech.dimension R + 1),
+    (-1) ^ i * ↑(Module.length R ↑(HomologicalComplex.homology F (-↑i))).toNat
+def Chal.Lech.duttaSequence.{u} : (R : Type u) →
+  [inst : CommRing R] → (p : ℕ) → [Fact (Nat.Prime p)] → [CharP R p] → CochainComplex (ModuleCat R) ℤ → ℕ → ℝ :=
+fun R [CommRing R] p [Fact (Nat.Prime p)] [CharP R p] F n =>
+  ↑p ^ (-(↑n * ↑(Chal.Lech.dimension R))) * Chal.Lech.shortEuler R (Chal.Lech.frobeniusComplex R p n F)
+def Chal.Lech.duttaMultiplicity.{u} : (R : Type u) →
+  [inst : CommRing R] → (p : ℕ) → [Fact (Nat.Prime p)] → [CharP R p] → CochainComplex (ModuleCat R) ℤ → ℝ :=
+fun R [CommRing R] p [Fact (Nat.Prime p)] [CharP R p] F => Filter.atTop.limUnder (Chal.Lech.duttaSequence R p F)
+def Chal.Lech.DuttaDomainClaim.{u} : Prop :=
+∀ (D : Type u) [inst : CommRing D] [IsNoetherianRing D] [inst_2 : IsLocalRing D] [IsDomain D]
+  [IsAdicComplete (IsLocalRing.maximalIdeal D) D] (p : ℕ) [inst_5 : Fact (Nat.Prime p)] [inst_6 : CharP D p]
+  (F : CochainComplex (ModuleCat D) ℤ),
+  Chal.Lech.IsShortComplex D F →
+    (∀ (n : ℕ) (i : ℤ), IsFiniteLength D ↑(HomologicalComplex.homology (Chal.Lech.frobeniusComplex D p n F) i)) ∧
+      Filter.Tendsto (Chal.Lech.duttaSequence D p F) Filter.atTop (nhds (Chal.Lech.duttaMultiplicity D p F)) ∧
+        Chal.Lech.multiplicity D ≤ Chal.Lech.duttaMultiplicity D p F
+'OAI.Lech.dutta_domain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DuttaDomain comparator-style: ok=19 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

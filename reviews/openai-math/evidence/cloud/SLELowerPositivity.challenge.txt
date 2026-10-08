@@ -1,0 +1,81 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SLELowerPositivity.lean:78:8: warning: declaration uses `sorry`
+OAI.SLEExactGauge.sourceLowerMain_proved : OAI.SLEExactGauge.SourceLowerMainTarget
+def OAI.SLEExactGauge.dimension : ℝ → ℝ :=
+fun κ => 1 + κ / 8
+def OAI.SLEExactGauge.codimension : ℝ → ℝ :=
+fun κ => ↑2 - OAI.SLEExactGauge.dimension κ
+def OAI.SLEExactGauge.upperHalfPlane : Set ℂ :=
+{z | 0 < z.im}
+def OAI.SLEExactGauge.survivingDomain : (NNReal → ℂ) → NNReal → Set ℂ :=
+fun γ t =>
+  {z |
+    z ∈ OAI.SLEExactGauge.upperHalfPlane \ γ '' Set.Icc 0 t ∧
+      ¬Bornology.IsBounded (connectedComponentIn (OAI.SLEExactGauge.upperHalfPlane \ γ '' Set.Icc 0 t) z)}
+def OAI.SLEExactGauge.IsCapacityTwoWitness : (NNReal → ℝ) → (NNReal → ℂ) → (NNReal → ℂ → ℂ) → (NNReal → ℂ → ℂ) → Prop :=
+fun U γ G F =>
+  Continuous γ ∧
+    γ 0 = 0 ∧
+      (∀ (t : NNReal), 0 ≤ (γ t).im) ∧
+        (∀ (t : NNReal), DifferentiableOn ℂ (G t) (OAI.SLEExactGauge.survivingDomain γ t)) ∧
+          (∀ (t : NNReal), DifferentiableOn ℂ (F t) OAI.SLEExactGauge.upperHalfPlane) ∧
+            (∀ (t : NNReal),
+                Set.MapsTo (G t) (OAI.SLEExactGauge.survivingDomain γ t) OAI.SLEExactGauge.upperHalfPlane) ∧
+              (∀ (t : NNReal),
+                  Set.MapsTo (F t) OAI.SLEExactGauge.upperHalfPlane (OAI.SLEExactGauge.survivingDomain γ t)) ∧
+                (∀ (t : NNReal), ∀ z ∈ OAI.SLEExactGauge.survivingDomain γ t, F t (G t z) = z) ∧
+                  (∀ (t : NNReal), ∀ z ∈ OAI.SLEExactGauge.upperHalfPlane, G t (F t z) = z) ∧
+                    (∀ z ∈ OAI.SLEExactGauge.upperHalfPlane, G 0 z = z) ∧
+                      (∀ (t : NNReal),
+                          ∀ z ∈ OAI.SLEExactGauge.survivingDomain γ t,
+                            HasDerivWithinAt (fun u => G u.toNNReal z) (2 / (G t z - ↑(U t))) (Set.Ici 0) ↑t) ∧
+                        (∀ (t : NNReal),
+                            Filter.Tendsto (fun z => z * (G t z - z))
+                              (Filter.cocompact ℂ ⊓ Filter.principal (OAI.SLEExactGauge.survivingDomain γ t))
+                              (nhds (2 * ↑↑t))) ∧
+                          ∀ (t : NNReal),
+                            Filter.Tendsto (fun y => F t (↑(U t) + ↑y * Complex.I)) (nhdsWithin 0 (Set.Ioi 0))
+                              (nhds (γ t))
+def OAI.SLEExactGauge.IsCapacityTwoTrace : (NNReal → ℝ) → (NNReal → ℂ) → Prop :=
+fun U γ => ∃ G F, OAI.SLEExactGauge.IsCapacityTwoWitness U γ G F
+def OAI.SLEExactGauge.IsOrdinaryChordalSLE.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → ℝ → (Ω → NNReal → ℂ) → MeasureTheory.Measure Ω → Prop :=
+fun {Ω} [MeasurableSpace Ω] κ γ P =>
+  (∀ (t : NNReal), Measurable fun ω => γ ω t) ∧
+    ∃ B,
+      ProbabilityTheory.IsBrownianReal B P ∧
+        ∀ᵐ (ω : Ω) ∂P, OAI.SLEExactGauge.IsCapacityTwoTrace (fun t => √κ * B t ω) (γ ω)
+structure OAI.SLEExactGauge.IsGauge (h : ℝ → ℝ) : Prop
+number of parameters: 1
+fields:
+  OAI.SLEExactGauge.IsGauge.continuousOn : ContinuousOn h (Set.Ici 0)
+  OAI.SLEExactGauge.IsGauge.monotoneOn : MonotoneOn h (Set.Ici 0)
+  OAI.SLEExactGauge.IsGauge.zero : h 0 = 0
+  OAI.SLEExactGauge.IsGauge.positive : ∀ (r : ℝ), 0 < r → 0 < h r
+constructor:
+  OAI.SLEExactGauge.IsGauge.mk {h : ℝ → ℝ} (continuousOn : ContinuousOn h (Set.Ici 0))
+    (monotoneOn : MonotoneOn h (Set.Ici 0)) (zero : h 0 = 0) (positive : ∀ (r : ℝ), 0 < r → 0 < h r) :
+    OAI.SLEExactGauge.IsGauge h
+def OAI.SLEExactGauge.hFormula : ℝ → ℝ → ℝ :=
+fun κ r => r ^ OAI.SLEExactGauge.dimension κ * Real.log (Real.log (1 / r)) ^ (OAI.SLEExactGauge.codimension κ / ↑2)
+def OAI.SLEExactGauge.HasSmallRadiusFormula : (ℝ → ℝ) → (ℝ → ℝ) → Prop :=
+fun h f => h =ᶠ[nhdsWithin 0 (Set.Ioi 0)] f
+def OAI.SLEExactGauge.extendedGauge : (ℝ → ℝ) → ENNReal → ENNReal :=
+fun h r => ENNReal.ofReal (h r.toReal)
+def OAI.SLEExactGauge.hausdorffGauge : (ℝ → ℝ) → MeasureTheory.Measure ℂ :=
+fun h => MeasureTheory.Measure.mkMetric (OAI.SLEExactGauge.extendedGauge h)
+def OAI.SLEExactGauge.segment : (NNReal → ℂ) → NNReal → NNReal → Set ℂ :=
+fun γ s t => γ '' Set.Icc s t
+def OAI.SLEExactGauge.SourceLowerMainTarget.{v_lower} : Prop :=
+∀ (Ω : Type v_lower) (x : MeasurableSpace Ω) (P : MeasureTheory.Measure Ω),
+  MeasureTheory.IsProbabilityMeasure P →
+    ∀ (κ : ℝ),
+      0 < κ →
+        κ < ↑8 →
+          ∀ (γ : Ω → NNReal → ℂ),
+            OAI.SLEExactGauge.IsOrdinaryChordalSLE κ γ P →
+              ∀ (h : ℝ → ℝ),
+                OAI.SLEExactGauge.IsGauge h →
+                  OAI.SLEExactGauge.HasSmallRadiusFormula h (OAI.SLEExactGauge.hFormula κ) →
+                    ∀ᵐ (ω : Ω) ∂P,
+                      ∀ (s t : NNReal),
+                        0 < s → s < t → 0 < (OAI.SLEExactGauge.hausdorffGauge h) (OAI.SLEExactGauge.segment (γ ω) s t)

@@ -1,0 +1,76 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SymmetricDomains.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Release061.main [thm] ok
+CMP OAI.Release061.Biholomorph [ind] ok
+CMP OAI.Release061.Biholomorph.mk [ctor] ok
+CMP OAI.Release061.HolomorphicOnSubset [def] ok
+CMP OAI.Release061.Affine [def] ok
+CMP OAI.Release061.IsBoundedSymmetricDomain [def] ok
+CMP OAI.Release061.Biholomorph.toHomeomorph [def] ok
+CMP OAI.Release061.IsSmooth [def] ok
+CMP OAI.Release061.IsSemialgebraic [ind] ok
+CMP OAI.Release061.IsSemialgebraic.union [ctor] ok
+CMP OAI.Release061.IsSemialgebraic.compl [ctor] ok
+CMP OAI.Release061.IsSemialgebraic.positive [ctor] ok
+CMP OAI.Release061.realCoordinates [def] ok
+CMP OAI.Release061.IsSemialgebraic.zero [ctor] ok
+CMP OAI.Release061.IsAffineAlgebraic [def] ok
+@Chal.Release061.main : ∀ {n : ℕ} (V U : Set (Chal.Release061.Affine n)),
+  Chal.Release061.IsAffineAlgebraic V →
+    U ⊆ V →
+      IsOpen (Subtype.val ⁻¹' U) →
+        IsConnected U →
+          Chal.Release061.IsSemialgebraic U →
+            Bornology.IsBounded U →
+              ∀ (Γ : Type u_1) [inst : Group Γ] [inst_1 : TopologicalSpace Γ] [DiscreteTopology Γ]
+                [inst_3 : MulAction Γ ↑U] [ProperSMul Γ ↑U] [CompactSpace (Quotient (MulAction.orbitRel Γ ↑U))],
+                (∀ (γ : Γ), Chal.Release061.HolomorphicOnSubset U fun p => ↑(γ • p)) →
+                  Chal.Release061.IsSmooth U ∧
+                    ∃ m D, Chal.Release061.IsBoundedSymmetricDomain D ∧ Nonempty (Chal.Release061.Biholomorph U D)
+@[reducible] def Chal.Release061.Affine : ℕ → Type :=
+fun n => Fin n → ℂ
+def Chal.Release061.realCoordinates : {n : ℕ} → Chal.Release061.Affine n → Fin n ⊕ Fin n → ℝ :=
+fun {n} z => Sum.elim (fun j => (z j).re) fun j => (z j).im
+def Chal.Release061.IsAffineAlgebraic : {n : ℕ} → Set (Chal.Release061.Affine n) → Prop :=
+fun {n} V => ∃ P, V = {z | ∀ p ∈ P, (MvPolynomial.eval z) p = 0}
+inductive Chal.Release061.IsSemialgebraic : {n : ℕ} → Set (Chal.Release061.Affine n) → Prop
+number of parameters: 1
+constructors:
+Chal.Release061.IsSemialgebraic.zero : ∀ {n : ℕ} (p : MvPolynomial (Fin n ⊕ Fin n) ℝ),
+  Chal.Release061.IsSemialgebraic {z | (MvPolynomial.eval (Chal.Release061.realCoordinates z)) p = 0}
+Chal.Release061.IsSemialgebraic.positive : ∀ {n : ℕ} (p : MvPolynomial (Fin n ⊕ Fin n) ℝ),
+  Chal.Release061.IsSemialgebraic {z | 0 < (MvPolynomial.eval (Chal.Release061.realCoordinates z)) p}
+Chal.Release061.IsSemialgebraic.compl : ∀ {n : ℕ} {S : Set (Chal.Release061.Affine n)},
+  Chal.Release061.IsSemialgebraic S → Chal.Release061.IsSemialgebraic Sᶜ
+Chal.Release061.IsSemialgebraic.union : ∀ {n : ℕ} {S T : Set (Chal.Release061.Affine n)},
+  Chal.Release061.IsSemialgebraic S → Chal.Release061.IsSemialgebraic T → Chal.Release061.IsSemialgebraic (S ∪ T)
+def Chal.Release061.HolomorphicOnSubset : {n m : ℕ} →
+  (S : Set (Chal.Release061.Affine n)) → (↑S → Chal.Release061.Affine m) → Prop :=
+fun {n m} S f => ∀ (p : ↑S), ∃ W, IsOpen W ∧ ↑p ∈ W ∧ ∃ F, AnalyticOnNhd ℂ F W ∧ ∀ (q : ↑S), ↑q ∈ W → F ↑q = f q
+structure Chal.Release061.Biholomorph {n m : ℕ} (S : Set (Chal.Release061.Affine n))
+  (T : Set (Chal.Release061.Affine m)) : Type
+number of parameters: 4
+fields:
+  Chal.Release061.Biholomorph.toHomeomorph : ↑S ≃ₜ ↑T
+  Chal.Release061.Biholomorph.holomorphic_toFun : Chal.Release061.HolomorphicOnSubset S fun p => ↑(self.toHomeomorph p)
+  Chal.Release061.Biholomorph.holomorphic_invFun : Chal.Release061.HolomorphicOnSubset T fun q =>
+      ↑(self.toHomeomorph.symm q)
+constructor:
+  Chal.Release061.Biholomorph.mk {n m : ℕ} {S : Set (Chal.Release061.Affine n)} {T : Set (Chal.Release061.Affine m)}
+    (toHomeomorph : ↑S ≃ₜ ↑T) (holomorphic_toFun : Chal.Release061.HolomorphicOnSubset S fun p => ↑(toHomeomorph p))
+    (holomorphic_invFun : Chal.Release061.HolomorphicOnSubset T fun q => ↑(toHomeomorph.symm q)) :
+    Chal.Release061.Biholomorph S T
+def Chal.Release061.IsSmooth : {n : ℕ} → Set (Chal.Release061.Affine n) → Prop :=
+fun {n} S =>
+  ∀ (p : ↑S),
+    ∃ m, ∃ W ⊆ S, IsOpen (Subtype.val ⁻¹' W) ∧ ↑p ∈ W ∧ ∃ D, IsOpen D ∧ Nonempty (Chal.Release061.Biholomorph W D)
+def Chal.Release061.IsBoundedSymmetricDomain : {n : ℕ} → Set (Chal.Release061.Affine n) → Prop :=
+fun {n} D =>
+  IsOpen D ∧
+    IsConnected D ∧
+      Bornology.IsBounded D ∧
+        ∀ (p : ↑D),
+          ∃ σ,
+            Function.Involutive ⇑σ.toHomeomorph ∧
+              σ.toHomeomorph p = p ∧ ∃ W, IsOpen W ∧ p ∈ W ∧ ∀ q ∈ W, σ.toHomeomorph q = q → q = p
+'OAI.Release061.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SymmetricDomains comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

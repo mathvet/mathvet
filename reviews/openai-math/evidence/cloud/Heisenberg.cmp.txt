@@ -1,0 +1,238 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_Heisenberg.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Heisenberg.spontaneous_magnetization [thm] ok
+CMP OAI.Heisenberg.Site [def] ok
+CMP OAI.Heisenberg.spinZ [def] ok
+CMP OAI.Heisenberg.localUnit [def] ok
+CMP OAI.Heisenberg.localUnit._proof_1 [thm] ok
+CMP OAI.Heisenberg.matrixUnit [def] ok
+CMP OAI.Heisenberg.configPerm [def] ok
+CMP OAI.Heisenberg.configPerm._proof_2 [thm] ok
+CMP OAI.Heisenberg.Configuration._proof_1 [thm] ok
+CMP OAI.Heisenberg.Configuration [def] ok
+CMP OAI.Heisenberg.Level [def] ok
+CMP OAI.Heisenberg.configPerm._proof_1 [thm] ok
+CMP OAI.Heisenberg.l2Reindex [def] ok
+CMP OAI.Heisenberg.l2Reindex._proof_12 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_11 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_10 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_7 [thm] ok
+CMP OAI.Heisenberg.L2._proof_1 [thm] ok
+CMP OAI.Heisenberg.L2 [def] ok
+CMP OAI.Heisenberg.l2Reindex._proof_9 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_8 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_2 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_6 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_5 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_1 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_4 [thm] ok
+CMP OAI.Heisenberg.l2Reindex._proof_3 [thm] ok
+CMP OAI.Heisenberg.l2Projection [def] ok
+CMP OAI.Heisenberg.l2Projection._proof_7 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_6 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_2 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_5 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_1 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_4 [thm] ok
+CMP OAI.Heisenberg.l2Projection._proof_3 [thm] ok
+CMP OAI.Heisenberg.matrixUnit._proof_1 [thm] ok
+CMP OAI.Heisenberg.SpinOperator._proof_2 [thm] ok
+CMP OAI.Heisenberg.SpinOperator._proof_1 [thm] ok
+CMP OAI.Heisenberg.SpinHilbert [def] ok
+CMP OAI.Heisenberg.SpinOperator [def] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_15 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_7 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_2 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_14 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_13 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_1 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_12 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_11 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_10 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_9 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_8 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_6 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_5 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_3 [thm] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra._proof_4 [thm] ok
+CMP OAI.Heisenberg.QuasiLocal [def] ok
+CMP OAI.Heisenberg.quasiLocalAlgebra [def] ok
+CMP OAI.Heisenberg.magneticLevel [def] ok
+CMP OAI.Heisenberg.translation._proof_14 [thm] ok
+CMP OAI.Heisenberg.spinZ._proof_1 [thm] ok
+CMP OAI.Heisenberg.State.functional [def] ok
+CMP OAI.Heisenberg.State [ind] ok
+CMP OAI.Heisenberg.State.mk [ctor] ok
+CMP OAI.Heisenberg.IsKMS [def] ok
+CMP OAI.Heisenberg.dynamics [def] ok
+CMP OAI.Heisenberg.box [def] ok
+CMP OAI.Heisenberg.finiteDynamics [def] ok
+CMP OAI.Heisenberg.hamiltonian [def] ok
+CMP OAI.Heisenberg.spinY [def] ok
+CMP OAI.Heisenberg.spinMinus [def] ok
+CMP OAI.Heisenberg.spinPlus [def] ok
+CMP OAI.Heisenberg.translation._proof_15 [thm] ok
+CMP OAI.Heisenberg.spinY._proof_1 [thm] ok
+CMP OAI.Heisenberg.spinX [def] ok
+CMP OAI.Heisenberg.spinX._proof_1 [thm] ok
+CMP OAI.Heisenberg.volumeEdges [def] ok
+CMP OAI.Heisenberg.NearestNeighbor [def] ok
+CMP OAI.Heisenberg.hamiltonian._proof_1 [thm] ok
+CMP OAI.Heisenberg.finiteDynamics._proof_1 [thm] ok
+CMP OAI.Heisenberg.dynamics._proof_1 [thm] ok
+CMP OAI.Heisenberg.TranslationInvariant._proof_1 [thm] ok
+CMP OAI.Heisenberg.TranslationInvariant [def] ok
+CMP OAI.Heisenberg.translation [def] ok
+CMP OAI.Heisenberg.translation._proof_17 [thm] ok
+CMP OAI.Heisenberg.translation._proof_16 [thm] ok
+CMP OAI.Heisenberg.translation._proof_12 [thm] ok
+CMP OAI.Heisenberg.translation._proof_9 [thm] ok
+CMP OAI.Heisenberg.translation._proof_11 [thm] ok
+CMP OAI.Heisenberg.translation._proof_10 [thm] ok
+CMP OAI.Heisenberg.operatorRelabel [def] ok
+CMP OAI.Heisenberg.operatorRelabel._proof_1 [thm] ok
+CMP OAI.Heisenberg.translation._proof_7 [thm] ok
+CMP OAI.Heisenberg.translation._proof_13 [thm] ok
+CMP OAI.Heisenberg.translation._proof_8 [thm] ok
+CMP OAI.Heisenberg.translation._proof_6 [thm] ok
+CMP OAI.Heisenberg.translation._proof_1 [thm] ok
+CMP OAI.Heisenberg.translation._proof_5 [thm] ok
+CMP OAI.Heisenberg.translation._proof_4 [thm] ok
+CMP OAI.Heisenberg.translation._proof_3 [thm] ok
+CMP OAI.Heisenberg.translation._proof_2 [thm] ok
+CMP OAI.Heisenberg.DynamicsConverges [def] ok
+Chal.Heisenberg.spontaneous_magnetization : ∀ (d ℓ : ℕ),
+  3 ≤ d →
+    1 ≤ ℓ →
+      Chal.Heisenberg.DynamicsConverges d ℓ ∧
+        ∃ β₀,
+          0 < β₀ ∧
+            ∀ (β : ℝ),
+              β₀ ≤ β →
+                ∃ ω,
+                  Chal.Heisenberg.TranslationInvariant ω ∧
+                    Chal.Heisenberg.IsKMS β ω ∧
+                      (ω.functional (Chal.Heisenberg.spinZ d ℓ 0)).im = 0 ∧
+                        ↑ℓ / 8 ≤ (ω.functional (Chal.Heisenberg.spinZ d ℓ 0)).re
+@[reducible] def Chal.Heisenberg.L2.{u} : (ι : Type u) → AddSubgroup (PreLp fun x => ℂ) :=
+fun ι => lp (fun x => ℂ) 2
+def Chal.Heisenberg.l2Reindex.{u, v} : {ι : Type u} →
+  {κ : Type v} → ι ≃ κ → ↥(Chal.Heisenberg.L2 ι) ≃ₗᵢ[ℂ] ↥(Chal.Heisenberg.L2 κ) :=
+fun {ι} {κ} e =>
+  { toFun := fun f => ⟨fun j => ↑f (e.symm j), ⋯⟩, map_add' := ⋯, map_smul' := ⋯,
+    invFun := fun f => ⟨fun i => ↑f (e i), ⋯⟩, left_inv := ⋯, right_inv := ⋯, norm_map' := ⋯ }
+def Chal.Heisenberg.l2Projection.{u} : {ι : Type u} →
+  (ι → Prop) → ↥(Chal.Heisenberg.L2 ι) →L[ℂ] ↥(Chal.Heisenberg.L2 ι) :=
+fun {ι} p =>
+  let f := { toFun := fun v => ⟨fun i => if p i then ↑v i else 0, ⋯⟩, map_add' := ⋯, map_smul' := ⋯ };
+  f.mkContinuous 1 ⋯
+@[reducible] def Chal.Heisenberg.Site : ℕ → Type :=
+fun d => Fin d → ℤ
+@[reducible] def Chal.Heisenberg.Level : ℕ → Type :=
+fun ℓ => Fin (ℓ + 1)
+@[reducible] def Chal.Heisenberg.Configuration : ℕ → ℕ → Type :=
+fun d ℓ => Chal.Heisenberg.Site d →₀ Chal.Heisenberg.Level ℓ
+@[reducible] def Chal.Heisenberg.SpinHilbert : (d ℓ : ℕ) → AddSubgroup (PreLp fun x => ℂ) :=
+fun d ℓ => Chal.Heisenberg.L2 (Chal.Heisenberg.Configuration d ℓ)
+@[reducible] def Chal.Heisenberg.SpinOperator : ℕ → ℕ → Type :=
+fun d ℓ => ↥(Chal.Heisenberg.SpinHilbert d ℓ) →L[ℂ] ↥(Chal.Heisenberg.SpinHilbert d ℓ)
+def Chal.Heisenberg.configPerm : (d ℓ : ℕ) →
+  Chal.Heisenberg.Site d → Equiv.Perm (Chal.Heisenberg.Level ℓ) → Equiv.Perm (Chal.Heisenberg.Configuration d ℓ) :=
+fun d ℓ x σ =>
+  { toFun := fun c => Finsupp.update c x (σ (c x)), invFun := fun c => Finsupp.update c x ((Equiv.symm σ) (c x)),
+    left_inv := ⋯, right_inv := ⋯ }
+def Chal.Heisenberg.matrixUnit : (d ℓ : ℕ) →
+  Chal.Heisenberg.Site d → Chal.Heisenberg.Level ℓ → Chal.Heisenberg.Level ℓ → Chal.Heisenberg.SpinOperator d ℓ :=
+fun d ℓ x a b =>
+  (Chal.Heisenberg.l2Projection fun c => c x = a) ∘SL
+    ↑↑(Chal.Heisenberg.l2Reindex (Chal.Heisenberg.configPerm d ℓ x (Equiv.swap a b)))
+def Chal.Heisenberg.operatorRelabel : (d ℓ : ℕ) →
+  Equiv.Perm (Chal.Heisenberg.Site d) → Chal.Heisenberg.SpinOperator d ℓ ≃⋆ₐ[ℂ] Chal.Heisenberg.SpinOperator d ℓ :=
+fun d ℓ e => (Chal.Heisenberg.l2Reindex (Finsupp.equivCongrLeft e)).conjStarAlgEquiv
+def Chal.Heisenberg.quasiLocalAlgebra : (d ℓ : ℕ) → StarSubalgebra ℂ (Chal.Heisenberg.SpinOperator d ℓ) :=
+fun d ℓ => (StarAlgebra.adjoin ℂ {A | ∃ x a b, A = Chal.Heisenberg.matrixUnit d ℓ x a b}).topologicalClosure
+@[reducible] def Chal.Heisenberg.QuasiLocal : (d ℓ : ℕ) → StarSubalgebra ℂ (Chal.Heisenberg.SpinOperator d ℓ) :=
+fun d ℓ => Chal.Heisenberg.quasiLocalAlgebra d ℓ
+def Chal.Heisenberg.localUnit : (d ℓ : ℕ) →
+  Chal.Heisenberg.Site d → Chal.Heisenberg.Level ℓ → Chal.Heisenberg.Level ℓ → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x a b => ⟨Chal.Heisenberg.matrixUnit d ℓ x a b, ⋯⟩
+def Chal.Heisenberg.translation : (d ℓ : ℕ) →
+  Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) →⋆ₐ[ℂ] ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x =>
+  have l2Reindex_apply := @Chal.Heisenberg.translation._proof_2;
+  have l2Projection_apply := @Chal.Heisenberg.translation._proof_4;
+  have matrixUnit_apply := ⋯;
+  have l2Reindex_symm_apply := @Chal.Heisenberg.translation._proof_6;
+  have relabel_matrixUnit := ⋯;
+  have relabel_mem := ⋯;
+  let f := (Chal.Heisenberg.operatorRelabel d ℓ (Equiv.addLeft x)).toStarAlgHom;
+  (f.comp (Chal.Heisenberg.quasiLocalAlgebra d ℓ).subtype).codRestrict (Chal.Heisenberg.quasiLocalAlgebra d ℓ) ⋯
+def Chal.Heisenberg.magneticLevel : (ℓ : ℕ) → Chal.Heisenberg.Level ℓ → ℝ :=
+fun ℓ k => ↑↑k - ↑ℓ / 2
+def Chal.Heisenberg.spinZ : (d ℓ : ℕ) → Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => ∑ k, ↑(Chal.Heisenberg.magneticLevel ℓ k) • Chal.Heisenberg.localUnit d ℓ x k k
+def Chal.Heisenberg.spinPlus : (d ℓ : ℕ) → Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x =>
+  ∑ k,
+    ↑√(↑ℓ / 2 * (↑ℓ / 2 + 1) -
+            Chal.Heisenberg.magneticLevel ℓ k.castSucc * (Chal.Heisenberg.magneticLevel ℓ k.castSucc + 1)) •
+      Chal.Heisenberg.localUnit d ℓ x k.succ k.castSucc
+def Chal.Heisenberg.spinMinus : (d ℓ : ℕ) → Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => star (Chal.Heisenberg.spinPlus d ℓ x)
+def Chal.Heisenberg.spinX : (d ℓ : ℕ) → Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => (1 / 2) • (Chal.Heisenberg.spinPlus d ℓ x + Chal.Heisenberg.spinMinus d ℓ x)
+def Chal.Heisenberg.spinY : (d ℓ : ℕ) → Chal.Heisenberg.Site d → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => (1 / (2 * Complex.I)) • (Chal.Heisenberg.spinPlus d ℓ x - Chal.Heisenberg.spinMinus d ℓ x)
+def Chal.Heisenberg.NearestNeighbor : {d : ℕ} → Chal.Heisenberg.Site d → Chal.Heisenberg.Site d → Prop :=
+fun {d} x y => ∑ i, |x i - y i| = 1
+def Chal.Heisenberg.volumeEdges : {d : ℕ} →
+  Finset (Chal.Heisenberg.Site d) → Finset (Chal.Heisenberg.Site d × Chal.Heisenberg.Site d) :=
+fun {d} Λ => {p ∈ Λ ×ˢ Λ | Chal.Heisenberg.NearestNeighbor p.1 p.2 ∧ WellOrderingRel p.1 p.2}
+def Chal.Heisenberg.hamiltonian : (d ℓ : ℕ) → Finset (Chal.Heisenberg.Site d) → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ Λ =>
+  -∑ e ∈ Chal.Heisenberg.volumeEdges Λ,
+      (Chal.Heisenberg.spinX d ℓ e.1 * Chal.Heisenberg.spinX d ℓ e.2 +
+          Chal.Heisenberg.spinY d ℓ e.1 * Chal.Heisenberg.spinY d ℓ e.2 +
+        Chal.Heisenberg.spinZ d ℓ e.1 * Chal.Heisenberg.spinZ d ℓ e.2)
+def Chal.Heisenberg.box : (d : ℕ) → ℕ → Finset (Chal.Heisenberg.Site d) :=
+fun d n => Fintype.piFinset fun x => Finset.Icc (-↑n) ↑n
+def Chal.Heisenberg.finiteDynamics : (d ℓ : ℕ) →
+  Finset (Chal.Heisenberg.Site d) → ℝ → ↥(Chal.Heisenberg.QuasiLocal d ℓ) → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ Λ t A =>
+  NormedSpace.exp ((Complex.I * ↑t) • Chal.Heisenberg.hamiltonian d ℓ Λ) * A *
+    NormedSpace.exp (-(Complex.I * ↑t) • Chal.Heisenberg.hamiltonian d ℓ Λ)
+def Chal.Heisenberg.dynamics : (d ℓ : ℕ) → ℝ → ↥(Chal.Heisenberg.QuasiLocal d ℓ) → ↥(Chal.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ t A => Filter.atTop.limUnder fun n => Chal.Heisenberg.finiteDynamics d ℓ (Chal.Heisenberg.box d n) t A
+def Chal.Heisenberg.DynamicsConverges : ℕ → ℕ → Prop :=
+fun d ℓ =>
+  ∀ (t : ℝ) (A : ↥(Chal.Heisenberg.QuasiLocal d ℓ)),
+    Filter.Tendsto (fun n => Chal.Heisenberg.finiteDynamics d ℓ (Chal.Heisenberg.box d n) t A) Filter.atTop
+      (nhds (Chal.Heisenberg.dynamics d ℓ t A))
+structure Chal.Heisenberg.State (d ℓ : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.Heisenberg.State.functional : ↥(Chal.Heisenberg.QuasiLocal d ℓ) →L[ℂ] ℂ
+  Chal.Heisenberg.State.normalized : self.functional 1 = 1
+  Chal.Heisenberg.State.positive : ∀ (A : ↥(Chal.Heisenberg.QuasiLocal d ℓ)),
+      (self.functional (star A * A)).im = 0 ∧ 0 ≤ (self.functional (star A * A)).re
+constructor:
+  Chal.Heisenberg.State.mk {d ℓ : ℕ} (functional : ↥(Chal.Heisenberg.QuasiLocal d ℓ) →L[ℂ] ℂ)
+    (normalized : functional 1 = 1)
+    (positive :
+      ∀ (A : ↥(Chal.Heisenberg.QuasiLocal d ℓ)), (functional (star A * A)).im = 0 ∧ 0 ≤ (functional (star A * A)).re) :
+    Chal.Heisenberg.State d ℓ
+def Chal.Heisenberg.TranslationInvariant : {d ℓ : ℕ} → Chal.Heisenberg.State d ℓ → Prop :=
+fun {d ℓ} ω =>
+  ∀ (x : Chal.Heisenberg.Site d) (A : ↥(Chal.Heisenberg.QuasiLocal d ℓ)),
+    ω.functional ((Chal.Heisenberg.translation d ℓ x) A) = ω.functional A
+def Chal.Heisenberg.IsKMS : {d ℓ : ℕ} → ℝ → Chal.Heisenberg.State d ℓ → Prop :=
+fun {d ℓ} β ω =>
+  0 < β ∧
+    ∀ (A B : ↥(Chal.Heisenberg.QuasiLocal d ℓ)),
+      ∃ F,
+        ContinuousOn F {z | 0 ≤ z.im ∧ z.im ≤ β} ∧
+          DifferentiableOn ℂ F {z | 0 < z.im ∧ z.im < β} ∧
+            (∃ C, ∀ (z : ℂ), 0 ≤ z.im → z.im ≤ β → ‖F z‖ ≤ C) ∧
+              (∀ (t : ℝ), F ↑t = ω.functional (A * Chal.Heisenberg.dynamics d ℓ t B)) ∧
+                ∀ (t : ℝ), F (↑t + Complex.I * ↑β) = ω.functional (Chal.Heisenberg.dynamics d ℓ t B * A)
+'OAI.Heisenberg.spontaneous_magnetization' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Heisenberg comparator-style: ok=101 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
