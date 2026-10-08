@@ -1,0 +1,4 @@
+OAI.EuclideanFiveColor.no_proper_five_coloring : ¬∃ c, OAI.EuclideanFiveColor.ProperColoring 5 c
+'OAI.EuclideanFiveColor.no_proper_five_coloring' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.EuclideanFiveColor.ProperColoring : (k : ℕ) → (ℂ → Fin k) → Prop :=
+fun k c => ∀ (x y : ℂ), ‖x - y‖ = 1 → c x ≠ c y

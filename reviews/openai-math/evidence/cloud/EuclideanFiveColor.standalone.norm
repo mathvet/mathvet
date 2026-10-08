@@ -1,0 +1,1 @@
+OAI.EuclideanFiveColor.no_proper_five_coloring : ¬∃ coloring, OAI.EuclideanFiveColor.ProperColoring 5 coloring def OAI.EuclideanFiveColor.ProperColoring : (colorCount : ℕ) → (ℂ → Fin colorCount) → Prop := fun colorCount coloring => ∀ (point otherPoint : ℂ), ‖point - otherPoint‖ = 1 → coloring point ≠ coloring otherPoint 
