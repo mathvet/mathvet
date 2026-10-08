@@ -1,0 +1,87 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_KLInvariance.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.KLInvariance.combinatorial_invariance [thm] ok
+CMP OAI.KLInvariance.klPolynomial [def] ok
+CMP OAI.KLInvariance.klFamilies [def] ok
+CMP OAI.KLInvariance.NormalizedKL [ind] ok
+CMP OAI.KLInvariance.NormalizedKL.mk [ctor] ok
+CMP OAI.KLInvariance.Interval [def] ok
+CMP OAI.KLInvariance.BruhatLE [def] ok
+CMP OAI.KLInvariance.BruhatStep [def] ok
+CMP OAI.KLInvariance.rankDifference [def] ok
+CMP OAI.KLInvariance.PolynomialFamilies [def] ok
+CMP OAI.KLInvariance.klFamilies._proof_1 [thm] ok
+CMP OAI.KLInvariance.intervalOrder [def] ok
+CMP OAI.KLInvariance.intervalOrder._proof_4 [thm] ok
+CMP OAI.KLInvariance.intervalOrder._proof_3 [thm] ok
+CMP OAI.KLInvariance.intervalOrder._proof_2 [thm] ok
+CMP OAI.KLInvariance.intervalOrder._proof_1 [thm] ok
+@Chal.KLInvariance.combinatorial_invariance : ∀ {B : Type u_1} {W : Type u_2} [inst : Group W] {M : CoxeterMatrix B}
+  {B' : Type u_3} {W' : Type u_4} [inst_1 : Group W'] {M' : CoxeterMatrix B'} (cs : CoxeterSystem M W)
+  (cs' : CoxeterSystem M' W') {u b : W} {u' b' : W'},
+  Chal.KLInvariance.BruhatLE cs u b →
+    Chal.KLInvariance.BruhatLE cs' u' b' →
+      ∀ (ι : Chal.KLInvariance.Interval cs u b ≃o Chal.KLInvariance.Interval cs' u' b'),
+        Chal.KLInvariance.klPolynomial cs u b = Chal.KLInvariance.klPolynomial cs' u' b'
+def Chal.KLInvariance.BruhatStep.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Prop :=
+fun {B} {W} [Group W] {M} cs x y => cs.length x < cs.length y ∧ ∃ t, cs.IsReflection t ∧ y = t * x
+def Chal.KLInvariance.BruhatLE.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Prop :=
+fun {B} {W} [Group W] {M} cs => Relation.ReflTransGen (Chal.KLInvariance.BruhatStep cs)
+def Chal.KLInvariance.Interval.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Type (max 0 v) :=
+fun {B} {W} [Group W] {M} cs u b => { x // Chal.KLInvariance.BruhatLE cs u x ∧ Chal.KLInvariance.BruhatLE cs x b }
+def Chal.KLInvariance.rankDifference.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → ℕ :=
+fun {B} {W} [Group W] {M} cs x y => cs.length y - cs.length x
+@[reducible] def Chal.KLInvariance.PolynomialFamilies.{v} : Type v → Type v :=
+fun W => (W → W → Polynomial ℤ) × (W → W → Polynomial ℤ)
+structure Chal.KLInvariance.NormalizedKL.{u, v} {B : Type u} {W : Type v} [Group W] {M : CoxeterMatrix B}
+  (cs : CoxeterSystem M W) (RP : Chal.KLInvariance.PolynomialFamilies W) : Prop
+number of parameters: 6
+fields:
+  Chal.KLInvariance.NormalizedKL.R_diagonal : ∀ (x : W), RP.1 x x = 1
+  Chal.KLInvariance.NormalizedKL.R_zero : ∀ (x y : W), ¬Chal.KLInvariance.BruhatLE cs x y → RP.1 x y = 0
+  Chal.KLInvariance.NormalizedKL.R_recursion : ∀ (x y : W) (i : B),
+      cs.length (cs.simple i * y) < cs.length y →
+        RP.1 x y =
+          if cs.length (cs.simple i * x) < cs.length x then RP.1 (cs.simple i * x) (cs.simple i * y)
+          else (Polynomial.X - 1) * RP.1 x (cs.simple i * y) + Polynomial.X * RP.1 (cs.simple i * x) (cs.simple i * y)
+  Chal.KLInvariance.NormalizedKL.P_diagonal : ∀ (x : W), RP.2 x x = 1
+  Chal.KLInvariance.NormalizedKL.P_zero : ∀ (x y : W), ¬Chal.KLInvariance.BruhatLE cs x y → RP.2 x y = 0
+  Chal.KLInvariance.NormalizedKL.P_degree : ∀ (x y : W),
+      Chal.KLInvariance.BruhatLE cs x y → x ≠ y → 2 * (RP.2 x y).natDegree < Chal.KLInvariance.rankDifference cs x y
+  Chal.KLInvariance.NormalizedKL.reciprocity : ∀ (x y : W),
+      Chal.KLInvariance.BruhatLE cs x y →
+        Polynomial.reflect (Chal.KLInvariance.rankDifference cs x y) (RP.2 x y) =
+          ∑ᶠ (z : Chal.KLInvariance.Interval cs x y), RP.1 x ↑z * RP.2 (↑z) y
+constructor:
+  Chal.KLInvariance.NormalizedKL.mk.{u, v} {B : Type u} {W : Type v} [Group W] {M : CoxeterMatrix B}
+    {cs : CoxeterSystem M W} {RP : Chal.KLInvariance.PolynomialFamilies W} (R_diagonal : ∀ (x : W), RP.1 x x = 1)
+    (R_zero : ∀ (x y : W), ¬Chal.KLInvariance.BruhatLE cs x y → RP.1 x y = 0)
+    (R_recursion :
+      ∀ (x y : W) (i : B),
+        cs.length (cs.simple i * y) < cs.length y →
+          RP.1 x y =
+            if cs.length (cs.simple i * x) < cs.length x then RP.1 (cs.simple i * x) (cs.simple i * y)
+            else
+              (Polynomial.X - 1) * RP.1 x (cs.simple i * y) + Polynomial.X * RP.1 (cs.simple i * x) (cs.simple i * y))
+    (P_diagonal : ∀ (x : W), RP.2 x x = 1) (P_zero : ∀ (x y : W), ¬Chal.KLInvariance.BruhatLE cs x y → RP.2 x y = 0)
+    (P_degree :
+      ∀ (x y : W),
+        Chal.KLInvariance.BruhatLE cs x y → x ≠ y → 2 * (RP.2 x y).natDegree < Chal.KLInvariance.rankDifference cs x y)
+    (reciprocity :
+      ∀ (x y : W),
+        Chal.KLInvariance.BruhatLE cs x y →
+          Polynomial.reflect (Chal.KLInvariance.rankDifference cs x y) (RP.2 x y) =
+            ∑ᶠ (z : Chal.KLInvariance.Interval cs x y), RP.1 x ↑z * RP.2 (↑z) y) :
+    Chal.KLInvariance.NormalizedKL cs RP
+def Chal.KLInvariance.klFamilies.{u, v} : {B : Type u} →
+  {W : Type v} →
+    [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → Chal.KLInvariance.PolynomialFamilies W :=
+fun {B} {W} [Group W] {M} cs => Classical.epsilon (Chal.KLInvariance.NormalizedKL cs)
+def Chal.KLInvariance.klPolynomial.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Polynomial ℤ :=
+fun {B} {W} [Group W] {M} cs x y => (Chal.KLInvariance.klFamilies cs).2 x y
+'OAI.KLInvariance.combinatorial_invariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KLInvariance comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
