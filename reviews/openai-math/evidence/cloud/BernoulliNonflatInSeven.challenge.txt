@@ -1,0 +1,59 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_BernoulliNonflatInSeven.lean:78:8: warning: declaration uses `sorry`
+OAI.Bernoulli.nonflat_in_seven : ∃ u,
+  OAI.Bernoulli.GlobalMinimizer u ∧ OAI.Bernoulli.Nonzero u ∧ OAI.Bernoulli.OneHomogeneous u ∧ ¬OAI.Bernoulli.Flat u
+@[reducible] def OAI.Bernoulli.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def OAI.Bernoulli.Test : {d : ℕ} → Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} D φ => ContDiff ℝ (↑⊤) φ ∧ HasCompactSupport φ ∧ tsupport φ ⊆ D
+def OAI.Bernoulli.WeakGradient : {d : ℕ} →
+  Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → (OAI.Bernoulli.Space d → OAI.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  ∀ (φ : OAI.Bernoulli.Space d → ℝ),
+    OAI.Bernoulli.Test D φ →
+      ∀ (h : OAI.Bernoulli.Space d),
+        ∫ (x : OAI.Bernoulli.Space d) in D, u x * (fderiv ℝ φ x) h =
+          -∫ (x : OAI.Bernoulli.Space d) in D, inner ℝ (G x) h * φ x
+def OAI.Bernoulli.H1 : {d : ℕ} →
+  Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → (OAI.Bernoulli.Space d → OAI.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  MeasureTheory.MemLp u 2 (MeasureTheory.volume.restrict D) ∧
+    MeasureTheory.MemLp G 2 (MeasureTheory.volume.restrict D) ∧ OAI.Bernoulli.WeakGradient D u G
+def OAI.Bernoulli.H10 : {d : ℕ} →
+  Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → (OAI.Bernoulli.Space d → OAI.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  OAI.Bernoulli.H1 D u G ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ φ,
+          OAI.Bernoulli.Test D φ ∧
+            MeasureTheory.eLpNorm (fun x => u x - φ x) 2 (MeasureTheory.volume.restrict D) < ENNReal.ofReal ε ∧
+              MeasureTheory.eLpNorm (fun x => G x - gradient φ x) 2 (MeasureTheory.volume.restrict D) < ENNReal.ofReal ε
+def OAI.Bernoulli.H1Loc : {d : ℕ} →
+  Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → (OAI.Bernoulli.Space d → OAI.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  ∀ (c : OAI.Bernoulli.Space d) (r : ℝ), 0 < r → Metric.closedBall c r ⊆ D → OAI.Bernoulli.H1 (Metric.ball c r) u G
+def OAI.Bernoulli.energy : {d : ℕ} →
+  Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → (OAI.Bernoulli.Space d → OAI.Bernoulli.Space d) → ℝ :=
+fun {d} D u G => ∫ (x : OAI.Bernoulli.Space d) in D, ‖G x‖ ^ 2 + if 0 < u x then 1 else 0
+def OAI.Bernoulli.LocalMinimizer : {d : ℕ} → Set (OAI.Bernoulli.Space d) → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} D u =>
+  IsOpen D ∧
+    ∃ G,
+      OAI.Bernoulli.H1Loc D u G ∧
+        (∀ᵐ (x : OAI.Bernoulli.Space d) ∂MeasureTheory.volume.restrict D, 0 ≤ u x) ∧
+          ∀ (c : OAI.Bernoulli.Space d) (r : ℝ),
+            0 < r →
+              Metric.closedBall c r ⊆ D →
+                ∀ (v : OAI.Bernoulli.Space d → ℝ) (V : OAI.Bernoulli.Space d → OAI.Bernoulli.Space d),
+                  OAI.Bernoulli.H1 (Metric.ball c r) v V →
+                    (∀ᵐ (x : OAI.Bernoulli.Space d) ∂MeasureTheory.volume.restrict (Metric.ball c r), 0 ≤ v x) →
+                      (OAI.Bernoulli.H10 (Metric.ball c r) (fun x => v x - u x) fun x => V x - G x) →
+                        OAI.Bernoulli.energy (Metric.ball c r) u G ≤ OAI.Bernoulli.energy (Metric.ball c r) v V
+def OAI.Bernoulli.GlobalMinimizer : {d : ℕ} → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => OAI.Bernoulli.LocalMinimizer Set.univ u
+def OAI.Bernoulli.OneHomogeneous : {d : ℕ} → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ∀ (r : ℝ), 0 < r → ∀ᵐ (x : OAI.Bernoulli.Space d), u (r • x) = r * u x
+def OAI.Bernoulli.Nonzero : {d : ℕ} → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ¬u =ᵐ[MeasureTheory.volume] fun x => 0
+def OAI.Bernoulli.Flat : {d : ℕ} → (OAI.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ∃ e, ‖e‖ = 1 ∧ ∀ᵐ (x : OAI.Bernoulli.Space d), u x = max (inner ℝ x e) 0

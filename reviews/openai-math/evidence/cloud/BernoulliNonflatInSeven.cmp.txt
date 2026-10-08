@@ -1,0 +1,82 @@
+CMP OAI.Bernoulli.nonflat_in_seven [thm] ok
+CMP OAI.Bernoulli.Flat [def] ok
+CMP OAI.Bernoulli.LocalMinimizer._proof_1 [thm] ok
+CMP OAI.Bernoulli.WeakGradient._proof_2 [thm] ok
+CMP OAI.Bernoulli.WeakGradient._proof_1 [thm] ok
+CMP OAI.Bernoulli.Space [def] ok
+CMP OAI.Bernoulli.WeakGradient._proof_3 [thm] ok
+CMP OAI.Bernoulli.OneHomogeneous [def] ok
+CMP OAI.Bernoulli.Nonzero [def] ok
+CMP OAI.Bernoulli.GlobalMinimizer [def] ok
+CMP OAI.Bernoulli.LocalMinimizer [def] ok
+CMP OAI.Bernoulli.energy [def] ok
+CMP OAI.Bernoulli.H10 [def] ok
+CMP OAI.Bernoulli.H10._proof_1 [thm] ok
+CMP OAI.Bernoulli.Test [def] ok
+CMP OAI.Bernoulli.H1 [def] ok
+CMP OAI.Bernoulli.WeakGradient [def] ok
+CMP OAI.Bernoulli.H1Loc [def] ok
+Chal.Bernoulli.nonflat_in_seven : ∃ u,
+  Chal.Bernoulli.GlobalMinimizer u ∧ Chal.Bernoulli.Nonzero u ∧ Chal.Bernoulli.OneHomogeneous u ∧ ¬Chal.Bernoulli.Flat u
+@[reducible] def Chal.Bernoulli.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.Bernoulli.Test : {d : ℕ} → Set (Chal.Bernoulli.Space d) → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} D φ => ContDiff ℝ (↑⊤) φ ∧ HasCompactSupport φ ∧ tsupport φ ⊆ D
+def Chal.Bernoulli.WeakGradient : {d : ℕ} →
+  Set (Chal.Bernoulli.Space d) →
+    (Chal.Bernoulli.Space d → ℝ) → (Chal.Bernoulli.Space d → Chal.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  ∀ (φ : Chal.Bernoulli.Space d → ℝ),
+    Chal.Bernoulli.Test D φ →
+      ∀ (h : Chal.Bernoulli.Space d),
+        ∫ (x : Chal.Bernoulli.Space d) in D, u x * (fderiv ℝ φ x) h =
+          -∫ (x : Chal.Bernoulli.Space d) in D, inner ℝ (G x) h * φ x
+def Chal.Bernoulli.H1 : {d : ℕ} →
+  Set (Chal.Bernoulli.Space d) →
+    (Chal.Bernoulli.Space d → ℝ) → (Chal.Bernoulli.Space d → Chal.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  MeasureTheory.MemLp u 2 (MeasureTheory.volume.restrict D) ∧
+    MeasureTheory.MemLp G 2 (MeasureTheory.volume.restrict D) ∧ Chal.Bernoulli.WeakGradient D u G
+def Chal.Bernoulli.H10 : {d : ℕ} →
+  Set (Chal.Bernoulli.Space d) →
+    (Chal.Bernoulli.Space d → ℝ) → (Chal.Bernoulli.Space d → Chal.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  Chal.Bernoulli.H1 D u G ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ φ,
+          Chal.Bernoulli.Test D φ ∧
+            MeasureTheory.eLpNorm (fun x => u x - φ x) 2 (MeasureTheory.volume.restrict D) < ENNReal.ofReal ε ∧
+              MeasureTheory.eLpNorm (fun x => G x - gradient φ x) 2 (MeasureTheory.volume.restrict D) < ENNReal.ofReal ε
+def Chal.Bernoulli.H1Loc : {d : ℕ} →
+  Set (Chal.Bernoulli.Space d) →
+    (Chal.Bernoulli.Space d → ℝ) → (Chal.Bernoulli.Space d → Chal.Bernoulli.Space d) → Prop :=
+fun {d} D u G =>
+  ∀ (c : Chal.Bernoulli.Space d) (r : ℝ), 0 < r → Metric.closedBall c r ⊆ D → Chal.Bernoulli.H1 (Metric.ball c r) u G
+def Chal.Bernoulli.energy : {d : ℕ} →
+  Set (Chal.Bernoulli.Space d) → (Chal.Bernoulli.Space d → ℝ) → (Chal.Bernoulli.Space d → Chal.Bernoulli.Space d) → ℝ :=
+fun {d} D u G => ∫ (x : Chal.Bernoulli.Space d) in D, ‖G x‖ ^ 2 + if 0 < u x then 1 else 0
+def Chal.Bernoulli.LocalMinimizer : {d : ℕ} → Set (Chal.Bernoulli.Space d) → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} D u =>
+  IsOpen D ∧
+    ∃ G,
+      Chal.Bernoulli.H1Loc D u G ∧
+        (∀ᵐ (x : Chal.Bernoulli.Space d) ∂MeasureTheory.volume.restrict D, 0 ≤ u x) ∧
+          ∀ (c : Chal.Bernoulli.Space d) (r : ℝ),
+            0 < r →
+              Metric.closedBall c r ⊆ D →
+                ∀ (v : Chal.Bernoulli.Space d → ℝ) (V : Chal.Bernoulli.Space d → Chal.Bernoulli.Space d),
+                  Chal.Bernoulli.H1 (Metric.ball c r) v V →
+                    (∀ᵐ (x : Chal.Bernoulli.Space d) ∂MeasureTheory.volume.restrict (Metric.ball c r), 0 ≤ v x) →
+                      (Chal.Bernoulli.H10 (Metric.ball c r) (fun x => v x - u x) fun x => V x - G x) →
+                        Chal.Bernoulli.energy (Metric.ball c r) u G ≤ Chal.Bernoulli.energy (Metric.ball c r) v V
+def Chal.Bernoulli.GlobalMinimizer : {d : ℕ} → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => Chal.Bernoulli.LocalMinimizer Set.univ u
+def Chal.Bernoulli.OneHomogeneous : {d : ℕ} → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ∀ (r : ℝ), 0 < r → ∀ᵐ (x : Chal.Bernoulli.Space d), u (r • x) = r * u x
+def Chal.Bernoulli.Nonzero : {d : ℕ} → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ¬u =ᵐ[MeasureTheory.volume] fun x => 0
+def Chal.Bernoulli.Flat : {d : ℕ} → (Chal.Bernoulli.Space d → ℝ) → Prop :=
+fun {d} u => ∃ e, ‖e‖ = 1 ∧ ∀ᵐ (x : Chal.Bernoulli.Space d), u x = max (inner ℝ x e) 0
+'OAI.Bernoulli.nonflat_in_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BernoulliNonflatInSeven comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
