@@ -1,0 +1,19 @@
+OAI.SimpleFInftyOvergroups.main : ∀ (G : Type u_1) [inst : Group G] [Group.FG G],
+  OAI.SimpleFInftyOvergroups.HasDecidableWordProblem G →
+    ∃ H x, Nontrivial H ∧ IsSimpleGroup H ∧ OAI.SimpleFInftyOvergroups.HasTypeFInfty H ∧ ∃ f, Function.Injective ⇑f
+'OAI.SimpleFInftyOvergroups.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.SimpleFInftyOvergroups.evalWord.{u} : {G : Type u} →
+  [Group G] → {n : ℕ} → (Fin n → G) → List (Fin n × Bool) → G :=
+fun {G} [Group G] {n} g w => (List.map (fun x => if x.2 = true then g x.1 else (g x.1)⁻¹) w).prod
+def OAI.SimpleFInftyOvergroups.HasDecidableWordProblem.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ n g, Subgroup.closure (Set.range g) = ⊤ ∧ ComputablePred fun w => OAI.SimpleFInftyOvergroups.evalWord g w = 1
+def OAI.SimpleFInftyOvergroups.HasTypeFInfty.{u} : (H : Type u) → [Group H] → Prop :=
+fun H [Group H] =>
+  ∃ X topology cw,
+    T2Space X ∧
+      ConnectedSpace X ∧
+        Topology.RelCWComplex.FiniteType Set.univ ∧
+          ∃ x,
+            Nonempty (H ≃* FundamentalGroup X x) ∧
+              ∃ E coverTopology p, IsCoveringMap p ∧ Function.Surjective p ∧ ContractibleSpace E

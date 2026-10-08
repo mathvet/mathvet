@@ -1,0 +1,11 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SimpleAmenable.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SimpleAmenable.main [thm] ok
+CMP OAI.SimpleAmenable.FolnerAmenable [def] ok
+Chal.SimpleAmenable.main : ∃ G x,
+  Infinite G ∧ Group.IsFinitelyPresented G ∧ IsSimpleGroup G ∧ Chal.SimpleAmenable.FolnerAmenable G
+def Chal.SimpleAmenable.FolnerAmenable.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (K : Finset G) (ε : ℝ),
+    0 < ε → ∃ D, D.Nonempty ∧ ∀ g ∈ K, ↑(symmDiff (Finset.image (fun d => g * d) D) D).card < ε * ↑D.card
+'OAI.SimpleAmenable.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SimpleAmenable comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

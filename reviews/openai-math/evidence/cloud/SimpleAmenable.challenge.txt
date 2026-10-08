@@ -1,0 +1,7 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SimpleAmenable.lean:15:8: warning: declaration uses `sorry`
+OAI.SimpleAmenable.main : ∃ G x,
+  Infinite G ∧ Group.IsFinitelyPresented G ∧ IsSimpleGroup G ∧ OAI.SimpleAmenable.FolnerAmenable G
+def OAI.SimpleAmenable.FolnerAmenable.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (K : Finset G) (ε : ℝ),
+    0 < ε → ∃ D, D.Nonempty ∧ ∀ g ∈ K, ↑(symmDiff (Finset.image (fun d => g * d) D) D).card < ε * ↑D.card

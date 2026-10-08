@@ -1,0 +1,639 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CylinderCovering.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CylinderCovering.fourPaperMain [thm] ok
+CMP OAI.CylinderCovering.RadialSweep.ActualSweepStatement [def] ok
+CMP OAI.CylinderCovering.RadialSweep.weightedArea [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.β [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data [ind] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.mk [ctor] ok
+CMP OAI.CylinderCovering.RadialSweep.Space [def] ok
+CMP OAI.TriangularCovering.Space [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.α [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.w [def] ok
+CMP OAI.CylinderCovering.RadialSweep.kappa._proof_1 [thm] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.R [def] ok
+CMP OAI.CylinderCovering.RadialSweep.kappa [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.b [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.a [def] ok
+CMP OAI.CylinderCovering.RadialSweep.actualCost [def] ok
+CMP OAI.CylinderCovering.RadialSweep.actualBase [def] ok
+CMP OAI.CylinderCovering.RadialSweep.localSweep [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.e [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.p₀ [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.L [def] ok
+CMP OAI.CylinderCovering.RadialRiemann.cell [def] ok
+CMP OAI.CylinderCovering.RadialRiemann.point [def] ok
+CMP OAI.CylinderCovering.RadialRiemann.step [def] ok
+CMP OAI.CylinderCovering.RadialSweep.direction [def] ok
+CMP OAI.TriangularCovering.projection [def] ok
+CMP OAI.TriangularCovering.H._proof_1 [thm] ok
+CMP OAI.TriangularCovering.area [def] ok
+CMP OAI.TriangularCovering.area._proof_1 [thm] ok
+CMP OAI.CylinderCovering.RadialSweep.cylinder [def] ok
+CMP OAI.CylinderCovering.RadialSweep.sweep [def] ok
+CMP OAI.CylinderCovering.RadialSweep.frozenBase [def] ok
+CMP OAI.CylinderCovering.RadialSweep.frozenTriangle [def] ok
+CMP OAI.CylinderCovering.RadialSweep.frozenVertices [def] ok
+CMP OAI.CylinderCovering.RadialSweep.coordinateMap [def] ok
+CMP OAI.CylinderCovering.RadialSweep.midpoint [def] ok
+CMP OAI.CylinderCovering.RadialSweep.rightEdge [def] ok
+CMP OAI.CylinderCovering.RadialSweep.radialError [def] ok
+CMP OAI.CylinderCovering.RadialSweep.scalarBound [def] ok
+CMP OAI.CylinderCovering.RadialSweep.Data.lam [def] ok
+CMP OAI.CylinderCovering.RadialRiemann.capMax [def] ok
+CMP OAI.CylinderCovering.RadialSweep.leftTip [def] ok
+CMP OAI.CylinderCovering.RadialSweep.collar [def] ok
+CMP OAI.CylinderCovering.RadialSweep.collar._proof_1 [thm] ok
+CMP OAI.CylinderCovering.RadialSweep.ActualSweepStatement._proof_1 [thm] ok
+CMP OAI.CylinderCovering.RadialRiemann.IsTagged [def] ok
+CMP OAI.CylinderCovering.RadialSweep.AlignedStatement [def] ok
+CMP OAI.TriangularCovering.totalArea [def] ok
+CMP OAI.TriangularCovering.TriCylinder.base [def] ok
+CMP OAI.TriangularCovering.TriCylinder [ind] ok
+CMP OAI.TriangularCovering.TriCylinder.mk [ctor] ok
+CMP OAI.TriangularCovering.TriCylinder.carrier [def] ok
+CMP OAI.TriangularCovering.TriCylinder.axis [def] ok
+CMP OAI.CylinderCovering.RadialSweep.frozenArea [def] ok
+CMP OAI.CylinderCovering.RegularOpenCounterexampleStatement [def] ok
+CMP OAI.CylinderCovering.relativeCost [def] ok
+CMP OAI.RuledApproximation.Cylinder.axis [def] ok
+CMP OAI.RuledApproximation.Cylinder [ind] ok
+CMP OAI.RuledApproximation.Cylinder.mk [ctor] ok
+CMP OAI.RuledApproximation.Space [def] ok
+CMP OAI.CylinderCovering.shadowArea [def] ok
+CMP OAI.CylinderCovering.Space [def] ok
+CMP OAI.RuledApproximation.Cylinder.area [def] ok
+CMP OAI.RuledApproximation.Cylinder.base [def] ok
+CMP OAI.RuledApproximation.Cylinder.area._proof_2 [thm] ok
+CMP OAI.RuledApproximation.Cylinder.area._proof_1 [thm] ok
+CMP OAI.CylinderCovering.RegularTriangularCounterexampleStatement._proof_1 [thm] ok
+CMP OAI.CylinderCovering.minimumShadowArea [def] ok
+CMP OAI.RuledApproximation.familyArea [def] ok
+CMP OAI.RuledApproximation.familySet [def] ok
+CMP OAI.RuledApproximation.Cylinder.carrier [def] ok
+CMP OAI.RuledApproximation.Cylinder.openBounded [def] ok
+CMP OAI.CylinderCovering.IsRegularTetrahedron [def] ok
+CMP OAI.CylinderCovering.RegularParallelogramCounterexampleStatement [def] ok
+CMP OAI.RuledApproximation.Cylinder.parallelogram [def] ok
+CMP OAI.RuledApproximation.IsParallelogram [def] ok
+CMP OAI.RuledApproximation.NilpotentC1Statement [def] ok
+CMP OAI.RuledApproximation.secondPhysicalMap [def] ok
+CMP OAI.RuledApproximation.firstPhysicalMap._proof_1 [thm] ok
+CMP OAI.RuledApproximation.vec3 [def] ok
+CMP OAI.RuledApproximation.vec2._proof_1 [thm] ok
+CMP OAI.RuledApproximation.firstPhysicalMap [def] ok
+CMP OAI.RuledApproximation.physicalWeight [def] ok
+CMP OAI.RuledApproximation.axial._proof_1 [thm] ok
+CMP OAI.RuledApproximation.Plane [def] ok
+CMP OAI.RuledApproximation.NilpotentC1Statement._proof_3 [thm] ok
+CMP OAI.RuledApproximation.NilpotentC1Statement._proof_2 [thm] ok
+CMP OAI.RuledApproximation.auxiliaryCylinder [def] ok
+CMP OAI.RuledApproximation.axial [def] ok
+CMP OAI.RuledApproximation.physicalRuled [def] ok
+CMP OAI.RuledApproximation.IsSquareTile [def] ok
+CMP OAI.RuledApproximation.unitSquare [def] ok
+CMP OAI.RuledApproximation.NilpotentC1Statement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.SmoothNear [def] ok
+CMP OAI.RuledApproximation.HyperbolicStatement [def] ok
+CMP OAI.RuledApproximation.weight [def] ok
+CMP OAI.RuledApproximation.HyperbolicStatement._proof_2 [thm] ok
+CMP OAI.RuledApproximation.HyperbolicStatement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.ruled [def] ok
+CMP OAI.RuledApproximation.HasFiniteCover [def] ok
+CMP OAI.RuledApproximation.HyperbolicAt [def] ok
+CMP OAI.CylinderCovering.AngularExplicitStatement [def] ok
+CMP OAI.TriangularCovering.ExplicitAngularStatement [def] ok
+CMP OAI.TriangularCovering.relativeCost [def] ok
+CMP OAI.TriangularCovering.shadowArea [def] ok
+CMP OAI.TriangularCovering.K [def] ok
+CMP OAI.TriangularCovering.point [def] ok
+CMP OAI.TriangularCovering.H [def] ok
+CMP OAI.TriangularCovering.AngularAreaStatement._proof_2 [thm] ok
+CMP OAI.TriangularCovering.AngularAreaStatement._proof_1 [thm] ok
+CMP OAI.TriangularCovering.lowerAngularIndex._proof_1 [thm] ok
+CMP OAI.TriangularCovering.Covers [def] ok
+CMP OAI.TriangularCovering.ExplicitAngularFamily [def] ok
+CMP OAI.TriangularCovering.upperAngularBase [def] ok
+CMP OAI.TriangularCovering.lowerAngularBase._proof_1 [thm] ok
+CMP OAI.TriangularCovering.triangle [def] ok
+CMP OAI.TriangularCovering.upperAngularAxis [def] ok
+CMP OAI.TriangularCovering.beta [def] ok
+CMP OAI.TriangularCovering.alpha._proof_1 [thm] ok
+CMP OAI.TriangularCovering.alpha [def] ok
+CMP OAI.TriangularCovering.tiltW [def] ok
+CMP OAI.TriangularCovering.tiltV._proof_1 [thm] ok
+CMP OAI.TriangularCovering.unit [def] ok
+CMP OAI.TriangularCovering.n [def] ok
+CMP OAI.TriangularCovering.mesh [def] ok
+CMP OAI.TriangularCovering.step [def] ok
+CMP OAI.TriangularCovering.step._proof_1 [thm] ok
+CMP OAI.TriangularCovering.cutoff [def] ok
+CMP OAI.TriangularCovering.cutoffCoeff [def] ok
+CMP OAI.TriangularCovering.d [def] ok
+CMP OAI.TriangularCovering.d._proof_1 [thm] ok
+CMP OAI.TriangularCovering.η [def] ok
+CMP OAI.TriangularCovering.η._proof_1 [thm] ok
+CMP OAI.TriangularCovering.upperVertices [def] ok
+CMP OAI.TriangularCovering.upperAngularIndex [def] ok
+CMP OAI.TriangularCovering.lowerAngularIndex._proof_2 [thm] ok
+CMP OAI.TriangularCovering.lowerAngularBase [def] ok
+CMP OAI.TriangularCovering.lowerAngularAxis [def] ok
+CMP OAI.TriangularCovering.tiltV [def] ok
+CMP OAI.TriangularCovering.lowerVertices [def] ok
+CMP OAI.TriangularCovering.lowerAngularIndex [def] ok
+CMP OAI.TriangularCovering.ExplicitAngularStatement._proof_1 [thm] ok
+CMP OAI.TriangularCovering.A_min [def] ok
+CMP OAI.TriangularCovering.AngularAreaStatement [def] ok
+CMP OAI.TriangularCovering.normalizedTerm [def] ok
+CMP OAI.TriangularCovering.speedSq [def] ok
+Chal.CylinderCovering.fourPaperMain : Chal.CylinderCovering.AngularExplicitStatement ∧
+  Chal.RuledApproximation.HyperbolicStatement ∧
+    Chal.RuledApproximation.NilpotentC1Statement ∧
+      Chal.CylinderCovering.RegularParallelogramCounterexampleStatement ∧
+        Chal.CylinderCovering.RegularOpenCounterexampleStatement ∧
+          Chal.CylinderCovering.RadialSweep.AlignedStatement ∧ Chal.CylinderCovering.RadialSweep.ActualSweepStatement
+@[reducible] def Chal.TriangularCovering.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.TriangularCovering.H : ℝ :=
+√2
+def Chal.TriangularCovering.point : ℝ → ℝ → ℝ → Chal.TriangularCovering.Space :=
+fun x y t => !₂[x, y, Chal.TriangularCovering.H * t]
+def Chal.TriangularCovering.K : Set Chal.TriangularCovering.Space :=
+{z | ∃ x y t, 0 ≤ t ∧ t ≤ 1 ∧ |x| ≤ 1 - t ∧ |y| ≤ t ∧ z = Chal.TriangularCovering.point x y t}
+def Chal.TriangularCovering.projection : Chal.TriangularCovering.Space →
+  Chal.TriangularCovering.Space → Chal.TriangularCovering.Space :=
+fun u z => z - inner ℝ u z • u
+def Chal.TriangularCovering.area : Set Chal.TriangularCovering.Space → ℝ :=
+fun B => ((MeasureTheory.Measure.euclideanHausdorffMeasure 2) B).toReal
+def Chal.TriangularCovering.shadowArea : Chal.TriangularCovering.Space → ℝ :=
+fun u => Chal.TriangularCovering.area (Chal.TriangularCovering.projection u '' Chal.TriangularCovering.K)
+def Chal.TriangularCovering.A_min : ℝ :=
+sInf {a | ∃ u, ‖u‖ = 1 ∧ a = Chal.TriangularCovering.shadowArea u}
+structure Chal.TriangularCovering.TriCylinder : Type
+number of parameters: 0
+fields:
+  Chal.TriangularCovering.TriCylinder.axis : Chal.TriangularCovering.Space
+  Chal.TriangularCovering.TriCylinder.base : Set Chal.TriangularCovering.Space
+  Chal.TriangularCovering.TriCylinder.unit_axis : ‖self.axis‖ = 1
+  Chal.TriangularCovering.TriCylinder.perpendicular : ∀ z ∈ self.base, inner ℝ self.axis z = 0
+  Chal.TriangularCovering.TriCylinder.triangular : ∃ v, AffineIndependent ℝ v ∧ self.base = (convexHull ℝ) (Set.range v)
+  Chal.TriangularCovering.TriCylinder.compact : IsCompact self.base
+  Chal.TriangularCovering.TriCylinder.convex : Convex ℝ self.base
+  Chal.TriangularCovering.TriCylinder.measurable : MeasurableSet self.base
+  Chal.TriangularCovering.TriCylinder.finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) self.base ≠ ⊤
+constructor:
+  Chal.TriangularCovering.TriCylinder.mk (axis : Chal.TriangularCovering.Space)
+    (base : Set Chal.TriangularCovering.Space) (unit_axis : ‖axis‖ = 1) (perpendicular : ∀ z ∈ base, inner ℝ axis z = 0)
+    (triangular : ∃ v, AffineIndependent ℝ v ∧ base = (convexHull ℝ) (Set.range v)) (compact : IsCompact base)
+    (convex : Convex ℝ base) (measurable : MeasurableSet base)
+    (finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) base ≠ ⊤) : Chal.TriangularCovering.TriCylinder
+def Chal.TriangularCovering.TriCylinder.carrier : Chal.TriangularCovering.TriCylinder →
+  Set Chal.TriangularCovering.Space :=
+fun c => {z | ∃ b ∈ c.base, ∃ r, z = b + r • c.axis}
+def Chal.TriangularCovering.Covers : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → Prop :=
+fun {m} c => ∀ z ∈ Chal.TriangularCovering.K, ∃ i, z ∈ (c i).carrier
+def Chal.TriangularCovering.totalArea : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, Chal.TriangularCovering.area (c i).base
+def Chal.TriangularCovering.relativeCost : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, Chal.TriangularCovering.area (c i).base / Chal.TriangularCovering.shadowArea (c i).axis
+def Chal.TriangularCovering.n : ℝ → ℕ :=
+fun ε => ⌈2 / ε ^ 2⌉₊
+def Chal.TriangularCovering.η : ℝ :=
+1 / 1000
+def Chal.TriangularCovering.alpha : ℝ → ℝ → ℝ :=
+fun a b => (1 + a * b) / 4
+def Chal.TriangularCovering.beta : ℝ → ℝ → ℝ :=
+fun a b => (a + b) / 4
+def Chal.TriangularCovering.d : ℝ → ℝ :=
+fun q => q ^ 2 * (1 + q ^ 2) / 16
+def Chal.TriangularCovering.cutoffCoeff : ℝ → ℝ → ℝ :=
+fun a b => Chal.TriangularCovering.η + max (Chal.TriangularCovering.d a) (Chal.TriangularCovering.d b)
+def Chal.TriangularCovering.step : ℕ → ℝ :=
+fun N => 2 / ↑N
+def Chal.TriangularCovering.mesh : ℕ → ℕ → ℝ :=
+fun N i => -1 + ↑i * Chal.TriangularCovering.step N
+def Chal.TriangularCovering.cutoff : ℝ → ℝ → ℝ → ℝ :=
+fun ε a b => 1 / 2 + ε ^ 2 * Chal.TriangularCovering.cutoffCoeff a b
+def Chal.TriangularCovering.speedSq : ℝ → ℝ → ℝ :=
+fun a b => Chal.TriangularCovering.alpha a b ^ 2 + 2 * Chal.TriangularCovering.beta a b ^ 2
+def Chal.TriangularCovering.normalizedTerm : ℝ → ℝ → ℝ → ℝ :=
+fun ε a b => (b - a) * Chal.TriangularCovering.cutoff ε a b ^ 2 / √(1 + ε ^ 2 * Chal.TriangularCovering.speedSq a b)
+def Chal.TriangularCovering.unit : Chal.TriangularCovering.Space → Chal.TriangularCovering.Space :=
+fun v => ‖v‖⁻¹ • v
+def Chal.TriangularCovering.tiltV : ℝ → ℝ → ℝ → Chal.TriangularCovering.Space :=
+fun ε A B => !₂[1, ε * A, Chal.TriangularCovering.H * ε * B]
+def Chal.TriangularCovering.tiltW : ℝ → ℝ → ℝ → Chal.TriangularCovering.Space :=
+fun ε A B => !₂[-ε * A, 1, Chal.TriangularCovering.H * ε * B]
+def Chal.TriangularCovering.lowerVertices : ℝ → ℝ → ℝ → Fin 3 → Chal.TriangularCovering.Space :=
+fun a b T =>
+  ![Chal.TriangularCovering.point 0 0 0, Chal.TriangularCovering.point 0 (a * T) T,
+    Chal.TriangularCovering.point 0 (b * T) T]
+def Chal.TriangularCovering.upperVertices : ℝ → ℝ → ℝ → Fin 3 → Chal.TriangularCovering.Space :=
+fun a b T =>
+  ![Chal.TriangularCovering.point 0 0 1, Chal.TriangularCovering.point (a * T) 0 (1 - T),
+    Chal.TriangularCovering.point (b * T) 0 (1 - T)]
+@[reducible] def Chal.TriangularCovering.Planar.Coord : Type :=
+Fin 2 → ℝ
+def Chal.TriangularCovering.Planar.standard : Set Chal.TriangularCovering.Planar.Coord :=
+{x | 0 ≤ x 0 ∧ 0 ≤ x 1 ∧ x 0 + x 1 ≤ 1}
+def Chal.TriangularCovering.Planar.vertices : Fin 3 → Chal.TriangularCovering.Planar.Coord :=
+![0, ![1, 0], ![0, 1]]
+def Chal.TriangularCovering.triangle.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [_root_.Module ℝ E] → E → E → E → Set E :=
+fun {E} [AddCommGroup E] [_root_.Module ℝ E] a b c => (convexHull ℝ) (Set.range ![a, b, c])
+def Chal.TriangularCovering.lowerAngularIndex : {N : ℕ} → Fin N → Fin (2 * N) :=
+fun {N} j => Fin.cast ⋯ (Fin.castAdd N j)
+def Chal.TriangularCovering.upperAngularIndex : {N : ℕ} → Fin N → Fin (2 * N) :=
+fun {N} j => Fin.cast ⋯ (Fin.natAdd N j)
+def Chal.TriangularCovering.lowerAngularAxis : ℝ → ℕ → Chal.TriangularCovering.Space :=
+fun ε j =>
+  have a := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) j;
+  have b := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) (j + 1);
+  Chal.TriangularCovering.unit
+    (Chal.TriangularCovering.tiltV ε (Chal.TriangularCovering.alpha a b) (Chal.TriangularCovering.beta a b))
+def Chal.TriangularCovering.upperAngularAxis : ℝ → ℕ → Chal.TriangularCovering.Space :=
+fun ε j =>
+  have a := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) j;
+  have b := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) (j + 1);
+  Chal.TriangularCovering.unit
+    (Chal.TriangularCovering.tiltW ε (Chal.TriangularCovering.alpha a b) (Chal.TriangularCovering.beta a b))
+def Chal.TriangularCovering.lowerAngularBase : ℝ → ℕ → Set Chal.TriangularCovering.Space :=
+fun ε j =>
+  have a := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) j;
+  have b := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) (j + 1);
+  have v := Chal.TriangularCovering.lowerVertices a b (Chal.TriangularCovering.cutoff ε a b);
+  Chal.TriangularCovering.projection (Chal.TriangularCovering.lowerAngularAxis ε j) ''
+    Chal.TriangularCovering.triangle (v 0) (v 1) (v 2)
+def Chal.TriangularCovering.upperAngularBase : ℝ → ℕ → Set Chal.TriangularCovering.Space :=
+fun ε j =>
+  have a := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) j;
+  have b := Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) (j + 1);
+  have v := Chal.TriangularCovering.upperVertices a b (Chal.TriangularCovering.cutoff ε a b);
+  Chal.TriangularCovering.projection (Chal.TriangularCovering.upperAngularAxis ε j) ''
+    Chal.TriangularCovering.triangle (v 0) (v 1) (v 2)
+def Chal.TriangularCovering.ExplicitAngularFamily : (ε : ℝ) →
+  (Fin (2 * Chal.TriangularCovering.n ε) → Chal.TriangularCovering.TriCylinder) → Prop :=
+fun ε c =>
+  ∀ (j : Fin (Chal.TriangularCovering.n ε)),
+    (c (Chal.TriangularCovering.lowerAngularIndex j)).axis = Chal.TriangularCovering.lowerAngularAxis ε ↑j ∧
+      (c (Chal.TriangularCovering.lowerAngularIndex j)).base = Chal.TriangularCovering.lowerAngularBase ε ↑j ∧
+        (c (Chal.TriangularCovering.upperAngularIndex j)).axis = Chal.TriangularCovering.upperAngularAxis ε ↑j ∧
+          (c (Chal.TriangularCovering.upperAngularIndex j)).base = Chal.TriangularCovering.upperAngularBase ε ↑j
+def Chal.TriangularCovering.AngularAreaStatement : Prop :=
+∀ (ε : ℝ),
+  0 < ε →
+    ε ≤ 1 →
+      ∃ c,
+        Chal.TriangularCovering.ExplicitAngularFamily ε c ∧
+          Chal.TriangularCovering.totalArea c / Chal.TriangularCovering.H =
+              ∑ j,
+                Chal.TriangularCovering.normalizedTerm ε (Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) ↑j)
+                  (Chal.TriangularCovering.mesh (Chal.TriangularCovering.n ε) (↑j + 1)) ∧
+            |Chal.TriangularCovering.totalArea c / Chal.TriangularCovering.H - (1 / 2 - 13 / 6000 * ε ^ 2)| ≤ 2 * ε ^ 4
+def Chal.TriangularCovering.ExplicitAngularStatement : Prop :=
+Chal.TriangularCovering.A_min = Chal.TriangularCovering.H ∧
+  ∀ (ε : ℝ),
+    0 < ε →
+      ε ≤ 1 / 2000 →
+        ∃ c,
+          Chal.TriangularCovering.ExplicitAngularFamily ε c ∧
+            Chal.TriangularCovering.Covers c ∧
+              |Chal.TriangularCovering.totalArea c / Chal.TriangularCovering.H - (1 / 2 - 13 / 6000 * ε ^ 2)| ≤
+                  2 * ε ^ 4 ∧
+                Chal.TriangularCovering.totalArea c < Chal.TriangularCovering.A_min / 2 ∧
+                  Chal.TriangularCovering.relativeCost c < 1 / 2
+@[reducible] def Chal.RuledApproximation.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.RuledApproximation.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.RuledApproximation.vec2 : ℝ → ℝ → Chal.RuledApproximation.Plane :=
+fun x y => !₂[x, y]
+def Chal.RuledApproximation.vec3 : ℝ → ℝ → ℝ → Chal.RuledApproximation.Space :=
+fun x y z => !₂[x, y, z]
+def Chal.RuledApproximation.axial : ℝ → Chal.RuledApproximation.Plane → Chal.RuledApproximation.Space :=
+fun s p => Chal.RuledApproximation.vec3 s (p.ofLp 0) (p.ofLp 1)
+def Chal.RuledApproximation.IsParallelogram.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [_root_.Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [_root_.Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s ∈ Set.Icc 0 1, ∃ t ∈ Set.Icc 0 1, x = c + s • u + t • v}
+structure Chal.RuledApproximation.Cylinder : Type
+number of parameters: 0
+fields:
+  Chal.RuledApproximation.Cylinder.axis : Chal.RuledApproximation.Space
+  Chal.RuledApproximation.Cylinder.unit_axis : ‖self.axis‖ = 1
+  Chal.RuledApproximation.Cylinder.base : Set ↥(ℝ ∙ self.axis)ᗮ
+constructor:
+  Chal.RuledApproximation.Cylinder.mk (axis : Chal.RuledApproximation.Space) (unit_axis : ‖axis‖ = 1)
+    (base : Set ↥(ℝ ∙ axis)ᗮ) : Chal.RuledApproximation.Cylinder
+def Chal.RuledApproximation.Cylinder.carrier : Chal.RuledApproximation.Cylinder → Set Chal.RuledApproximation.Space :=
+fun C => {x | ∃ b ∈ C.base, ∃ t, x = ↑b + t • C.axis}
+def Chal.RuledApproximation.Cylinder.area : Chal.RuledApproximation.Cylinder → ℝ :=
+fun C => MeasureTheory.volume.real C.base
+def Chal.RuledApproximation.Cylinder.parallelogram : Chal.RuledApproximation.Cylinder → Prop :=
+fun C => Chal.RuledApproximation.IsParallelogram C.base
+def Chal.RuledApproximation.Cylinder.openBounded : Chal.RuledApproximation.Cylinder → Prop :=
+fun C => IsOpen C.base ∧ Bornology.IsBounded C.base ∧ MeasurableSet C.base
+def Chal.RuledApproximation.familySet : {n : ℕ} →
+  (Fin n → Chal.RuledApproximation.Cylinder) → Set Chal.RuledApproximation.Space :=
+fun {n} C => ⋃ i, (C i).carrier
+def Chal.RuledApproximation.familyArea : {n : ℕ} → (Fin n → Chal.RuledApproximation.Cylinder) → ℝ :=
+fun {n} C => ∑ i, (C i).area
+def Chal.RuledApproximation.HasFiniteCover : (Chal.RuledApproximation.Cylinder → Prop) →
+  Set Chal.RuledApproximation.Space → ℝ → Prop :=
+fun shape S A =>
+  ∃ n C,
+    (∀ (i : Fin n), shape (C i)) ∧ S ⊆ Chal.RuledApproximation.familySet C ∧ Chal.RuledApproximation.familyArea C ≤ A
+def Chal.RuledApproximation.SmoothNear : WithTop ℕ∞ →
+  Set Chal.RuledApproximation.Plane → (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → Prop :=
+fun n D v => ∃ U, IsOpen U ∧ D ⊆ U ∧ ContDiffOn ℝ n v U
+def Chal.RuledApproximation.HyperbolicAt : ℝ →
+  (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → Chal.RuledApproximation.Plane → Prop :=
+fun L v p =>
+  ∃ lam,
+    0 < L * lam ∧
+      L * lam < 1 ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) lam ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) (-lam)
+def Chal.RuledApproximation.weight : Chal.RuledApproximation.Plane → ℝ :=
+fun v => 1 / √(1 + ‖v‖ ^ 2)
+def Chal.RuledApproximation.physicalWeight : ℝ → Chal.RuledApproximation.Plane → ℝ :=
+fun h w => 1 / √(1 + w.ofLp 0 ^ 2 + h ^ 2 * w.ofLp 1 ^ 2)
+def Chal.RuledApproximation.ruled : Set Chal.RuledApproximation.Plane →
+  (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → ℝ → Set Chal.RuledApproximation.Space :=
+fun D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ r, |r| ≤ L ∧ z = Chal.RuledApproximation.vec3 (p.ofLp 0 + r * (v p).ofLp 0) (p.ofLp 1 + r * (v p).ofLp 1) r}
+def Chal.RuledApproximation.physicalRuled : ℝ →
+  Set Chal.RuledApproximation.Plane →
+    (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → ℝ → Set Chal.RuledApproximation.Space :=
+fun h D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ s,
+        |s| ≤ L ∧ z = Chal.RuledApproximation.vec3 s (p.ofLp 0 + s * (v p).ofLp 0) (h * (p.ofLp 1 + s * (v p).ofLp 1))}
+def Chal.RuledApproximation.HyperbolicStatement : Prop :=
+∀ (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) (L : ℝ),
+  IsCompact D →
+    Chal.RuledApproximation.SmoothNear 1 D v →
+      0 < L →
+        (∀ p ∈ D, Chal.RuledApproximation.HyperbolicAt L v p) →
+          ∀ (e : ℝ),
+            0 < e →
+              Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.parallelogram
+                (Chal.RuledApproximation.ruled D v L)
+                ((∫ (p : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.weight (v p)) + e)
+def Chal.RuledApproximation.unitSquare : Set Chal.RuledApproximation.Plane :=
+{x | ∀ (i : Fin 2), |x.ofLp i| ≤ 1 / 2}
+def Chal.RuledApproximation.IsSquareTile : Set Chal.RuledApproximation.Plane → Prop :=
+fun T => ∃ c R a, 0 < a ∧ T = (fun x => c + a • R x) '' Chal.RuledApproximation.unitSquare
+def Chal.RuledApproximation.auxiliaryCylinder : Set Chal.RuledApproximation.Plane →
+  Chal.RuledApproximation.Plane → Set Chal.RuledApproximation.Space :=
+fun T g => {z | ∃ s, ∃ b ∈ T, z = Chal.RuledApproximation.axial s (b + s • g)}
+def Chal.RuledApproximation.firstPhysicalMap : ℝ → Chal.RuledApproximation.Space → Chal.RuledApproximation.Space :=
+fun h z => Chal.RuledApproximation.vec3 (z.ofLp 0) (z.ofLp 1) (h * z.ofLp 2)
+def Chal.RuledApproximation.secondPhysicalMap : ℝ → ℝ → Chal.RuledApproximation.Space → Chal.RuledApproximation.Space :=
+fun h a z => Chal.RuledApproximation.vec3 (z.ofLp 1) (z.ofLp 0) (h * (a - z.ofLp 2))
+@[reducible] def Chal.CylinderCovering.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.CylinderCovering.IsRegularTetrahedron : Set Chal.CylinderCovering.Space → Prop :=
+fun K =>
+  ∃ v,
+    AffineIndependent ℝ v ∧
+      ∃ edge, 0 < edge ∧ (∀ (i j : Fin 4), i ≠ j → dist (v i) (v j) = edge) ∧ K = (convexHull ℝ) (Set.range v)
+def Chal.CylinderCovering.shadowArea : Set Chal.CylinderCovering.Space → Chal.CylinderCovering.Space → ℝ :=
+fun K u => Chal.TriangularCovering.area (Chal.TriangularCovering.projection u '' K)
+def Chal.CylinderCovering.minimumShadowArea : Set Chal.CylinderCovering.Space → ℝ :=
+fun K => sInf {a | ∃ u, ‖u‖ = 1 ∧ a = Chal.CylinderCovering.shadowArea K u}
+def Chal.CylinderCovering.triangularCovers : {n : ℕ} →
+  Set Chal.CylinderCovering.Space → (Fin n → Chal.TriangularCovering.TriCylinder) → Prop :=
+fun {n} K C => ∀ x ∈ K, ∃ i, x ∈ (C i).carrier
+def Chal.CylinderCovering.triangularRelativeCost : {n : ℕ} →
+  Set Chal.CylinderCovering.Space → (Fin n → Chal.TriangularCovering.TriCylinder) → ℝ :=
+fun {n} K C => ∑ i, Chal.TriangularCovering.area (C i).base / Chal.CylinderCovering.shadowArea K (C i).axis
+def Chal.CylinderCovering.relativeCost : {n : ℕ} →
+  Set Chal.CylinderCovering.Space → (Fin n → Chal.RuledApproximation.Cylinder) → ℝ :=
+fun {n} K C => ∑ i, (C i).area / Chal.CylinderCovering.shadowArea K (C i).axis
+def Chal.CylinderCovering.AngularExplicitStatement : Prop :=
+Chal.TriangularCovering.AngularAreaStatement ∧ Chal.TriangularCovering.ExplicitAngularStatement
+def Chal.CylinderCovering.RegularTriangularCounterexampleStatement : Prop :=
+∀ (K : Set Chal.CylinderCovering.Space),
+  Chal.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      Chal.CylinderCovering.triangularCovers K C ∧
+        Chal.TriangularCovering.totalArea C < Chal.CylinderCovering.minimumShadowArea K / 2 ∧
+          Chal.CylinderCovering.triangularRelativeCost K C < 1 / 2
+def Chal.CylinderCovering.RegularParallelogramCounterexampleStatement : Prop :=
+∀ (K : Set Chal.CylinderCovering.Space),
+  Chal.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      (∀ (i : Fin n), (C i).parallelogram) ∧
+        K ⊆ Chal.RuledApproximation.familySet C ∧
+          Chal.RuledApproximation.familyArea C < Chal.CylinderCovering.minimumShadowArea K / 2 ∧
+            Chal.CylinderCovering.relativeCost K C < 1 / 2
+def Chal.CylinderCovering.RegularOpenCounterexampleStatement : Prop :=
+∀ (K : Set Chal.CylinderCovering.Space),
+  Chal.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      (∀ (i : Fin n), (C i).openBounded) ∧
+        K ⊆ Chal.RuledApproximation.familySet C ∧
+          Chal.RuledApproximation.familyArea C < Chal.CylinderCovering.minimumShadowArea K / 2 ∧
+            Chal.CylinderCovering.relativeCost K C < 1 / 2
+def Chal.RuledApproximation.NilpotentC1Statement : Prop :=
+∀ (D : Set Chal.RuledApproximation.Plane) (G : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane),
+  IsCompact D →
+    Chal.RuledApproximation.SmoothNear 1 D G →
+      (∀ b ∈ D, fderiv ℝ G b ∘SL fderiv ℝ G b = 0) →
+        ∀ (h eps : ℝ),
+          0 < h →
+            0 < eps →
+              ∃ n T g,
+                (∀ (i : Fin n), Chal.RuledApproximation.IsSquareTile (T i)) ∧
+                  Chal.RuledApproximation.physicalRuled 1 D G 1 ⊆
+                      ⋃ i, Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                    ∑ i, MeasureTheory.volume.real (T i) * Chal.RuledApproximation.physicalWeight h (g i) ≤
+                        (∫ (b : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.physicalWeight h (G b)) +
+                          eps ∧
+                      ∀ (a : ℝ),
+                        ∃ C₁ C₂,
+                          ∀ (i : Fin n),
+                            (C₁ i).parallelogram ∧
+                              (C₂ i).parallelogram ∧
+                                (C₁ i).carrier =
+                                    Chal.RuledApproximation.firstPhysicalMap h ''
+                                      Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                  (C₂ i).carrier =
+                                      Chal.RuledApproximation.secondPhysicalMap h a ''
+                                        Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                    (C₁ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          Chal.RuledApproximation.physicalWeight h (g i) ∧
+                                      (C₂ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          Chal.RuledApproximation.physicalWeight h (g i)
+def Chal.CylinderCovering.RadialRiemann.step : ℝ → ℝ → ℕ → ℝ :=
+fun a b N => (b - a) / ↑N
+def Chal.CylinderCovering.RadialRiemann.point : ℝ → ℝ → ℕ → ℕ → ℝ :=
+fun a b N i => a + ↑i * Chal.CylinderCovering.RadialRiemann.step a b N
+def Chal.CylinderCovering.RadialRiemann.cell : ℝ → ℝ → (N : ℕ) → Fin N → Set ℝ :=
+fun a b N i =>
+  Set.Icc (Chal.CylinderCovering.RadialRiemann.point a b N ↑i)
+    (Chal.CylinderCovering.RadialRiemann.point a b N (↑i + 1))
+def Chal.CylinderCovering.RadialRiemann.IsTagged : ℝ → ℝ → (N : ℕ) → (Fin N → ℝ) → Prop :=
+fun a b N tag => ∀ (i : Fin N), tag i ∈ Chal.CylinderCovering.RadialRiemann.cell a b N i
+def Chal.CylinderCovering.RadialRiemann.capMax : (ℝ → ℝ) → ℝ → ℝ → (N : ℕ) → Fin N → ℝ :=
+fun R a b N i => sSup (R '' Chal.CylinderCovering.RadialRiemann.cell a b N i)
+@[reducible] def Chal.CylinderCovering.RadialSweep.Space : Type :=
+Chal.TriangularCovering.Space
+structure Chal.CylinderCovering.RadialSweep.Data : Type
+number of parameters: 0
+fields:
+  Chal.CylinderCovering.RadialSweep.Data.e : Chal.CylinderCovering.RadialSweep.Space
+  Chal.CylinderCovering.RadialSweep.Data.a : Chal.CylinderCovering.RadialSweep.Space
+  Chal.CylinderCovering.RadialSweep.Data.b : Chal.CylinderCovering.RadialSweep.Space
+  Chal.CylinderCovering.RadialSweep.Data.p₀ : Chal.CylinderCovering.RadialSweep.Space
+  Chal.CylinderCovering.RadialSweep.Data.α : ℝ
+  Chal.CylinderCovering.RadialSweep.Data.β : ℝ
+  Chal.CylinderCovering.RadialSweep.Data.L : ℝ
+  Chal.CylinderCovering.RadialSweep.Data.R : ℝ → ℝ
+  Chal.CylinderCovering.RadialSweep.Data.lam : ℝ → ℝ
+  Chal.CylinderCovering.RadialSweep.Data.w : ℝ → Chal.CylinderCovering.RadialSweep.Space
+  Chal.CylinderCovering.RadialSweep.Data.interval_nonempty : self.α < self.β
+  Chal.CylinderCovering.RadialSweep.Data.length_pos : 0 < self.L
+  Chal.CylinderCovering.RadialSweep.Data.normal_unit : ‖self.e‖ = 1
+  Chal.CylinderCovering.RadialSweep.Data.a_perp : inner ℝ self.e self.a = 0
+  Chal.CylinderCovering.RadialSweep.Data.b_perp : inner ℝ self.e self.b = 0
+  Chal.CylinderCovering.RadialSweep.Data.origin_perp : inner ℝ self.e self.p₀ = 0
+  Chal.CylinderCovering.RadialSweep.Data.independent : LinearIndependent ℝ ![self.a, self.b]
+  Chal.CylinderCovering.RadialSweep.Data.cap_continuous : ContinuousOn self.R (Set.Icc self.α self.β)
+  Chal.CylinderCovering.RadialSweep.Data.cap_nonneg : ∀ t ∈ Set.Icc self.α self.β, 0 ≤ self.R t
+  Chal.CylinderCovering.RadialSweep.Data.scalar_continuous : ContinuousOn self.lam (Set.Icc self.α self.β)
+  Chal.CylinderCovering.RadialSweep.Data.velocity_continuous : ContinuousOn self.w (Set.Icc self.α self.β)
+  Chal.CylinderCovering.RadialSweep.Data.velocity_perp : ∀ t ∈ Set.Icc self.α self.β, inner ℝ self.e (self.w t) = 0
+  Chal.CylinderCovering.RadialSweep.Data.aligned : ∀ t ∈ Set.Icc self.α self.β,
+      HasDerivWithinAt self.w (self.lam t • (self.a + t • self.b)) (Set.Icc self.α self.β) t
+constructor:
+  Chal.CylinderCovering.RadialSweep.Data.mk (e a b p₀ : Chal.CylinderCovering.RadialSweep.Space) (α β L : ℝ)
+    (R lam : ℝ → ℝ) (w : ℝ → Chal.CylinderCovering.RadialSweep.Space) (interval_nonempty : α < β) (length_pos : 0 < L)
+    (normal_unit : ‖e‖ = 1) (a_perp : inner ℝ e a = 0) (b_perp : inner ℝ e b = 0) (origin_perp : inner ℝ e p₀ = 0)
+    (independent : LinearIndependent ℝ ![a, b]) (cap_continuous : ContinuousOn R (Set.Icc α β))
+    (cap_nonneg : ∀ t ∈ Set.Icc α β, 0 ≤ R t) (scalar_continuous : ContinuousOn lam (Set.Icc α β))
+    (velocity_continuous : ContinuousOn w (Set.Icc α β)) (velocity_perp : ∀ t ∈ Set.Icc α β, inner ℝ e (w t) = 0)
+    (aligned : ∀ t ∈ Set.Icc α β, HasDerivWithinAt w (lam t • (a + t • b)) (Set.Icc α β) t) :
+    Chal.CylinderCovering.RadialSweep.Data
+def Chal.CylinderCovering.RadialSweep.sweep : Chal.CylinderCovering.RadialSweep.Data →
+  Set Chal.CylinderCovering.RadialSweep.Space :=
+fun D =>
+  {z |
+    ∃ t ∈ Set.Icc D.α D.β, ∃ ρ ∈ Set.Icc 0 (D.R t), ∃ s, |s| ≤ D.L ∧ z = D.p₀ + ρ • (D.a + t • D.b) + s • (D.e + D.w t)}
+def Chal.CylinderCovering.RadialSweep.kappa : Chal.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => √(inner ℝ D.a D.a * inner ℝ D.b D.b - inner ℝ D.a D.b ^ 2)
+def Chal.CylinderCovering.RadialSweep.direction : Chal.CylinderCovering.RadialSweep.Data →
+  ℝ → Chal.CylinderCovering.RadialSweep.Space :=
+fun D t => ‖D.e + D.w t‖⁻¹ • (D.e + D.w t)
+def Chal.CylinderCovering.RadialSweep.weightedArea : Chal.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => Chal.CylinderCovering.RadialSweep.kappa D * ∫ (t : ℝ) in D.α..D.β, D.R t ^ 2 / (2 * √(1 + ‖D.w t‖ ^ 2))
+def Chal.CylinderCovering.RadialSweep.scalarBound : Chal.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => sSup ((fun t => |D.lam t|) '' Set.Icc D.α D.β)
+def Chal.CylinderCovering.RadialSweep.radialError : Chal.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => D.L * Chal.CylinderCovering.RadialSweep.scalarBound D
+def Chal.CylinderCovering.RadialSweep.collar : Chal.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => 3 * Chal.CylinderCovering.RadialSweep.radialError D + 1
+def Chal.CylinderCovering.RadialSweep.midpoint : Chal.CylinderCovering.RadialSweep.Data → (N : ℕ) → Fin N → ℝ :=
+fun D N i =>
+  (Chal.CylinderCovering.RadialRiemann.point D.α D.β N ↑i +
+      Chal.CylinderCovering.RadialRiemann.point D.α D.β N (↑i + 1)) /
+    2
+def Chal.CylinderCovering.RadialSweep.leftTip : Chal.CylinderCovering.RadialSweep.Data → ℕ → ℝ :=
+fun D N => -Chal.CylinderCovering.RadialSweep.collar D * Chal.CylinderCovering.RadialRiemann.step D.α D.β N
+def Chal.CylinderCovering.RadialSweep.rightEdge : Chal.CylinderCovering.RadialSweep.Data → (N : ℕ) → Fin N → ℝ :=
+fun D N i =>
+  Chal.CylinderCovering.RadialRiemann.capMax D.R D.α D.β N i +
+    Chal.CylinderCovering.RadialSweep.radialError D * Chal.CylinderCovering.RadialRiemann.step D.α D.β N
+def Chal.CylinderCovering.RadialSweep.coordinateMap : Chal.CylinderCovering.RadialSweep.Data →
+  ℝ × ℝ → Chal.CylinderCovering.RadialSweep.Space :=
+fun D p => D.p₀ + p.1 • D.a + p.2 • D.b
+def Chal.CylinderCovering.RadialSweep.frozenVertices : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Fin 3 → Chal.CylinderCovering.RadialSweep.Space :=
+fun D N i =>
+  have l := Chal.CylinderCovering.RadialSweep.leftTip D N;
+  have r := Chal.CylinderCovering.RadialSweep.rightEdge D N i;
+  have m := Chal.CylinderCovering.RadialSweep.midpoint D N i;
+  have d := Chal.CylinderCovering.RadialRiemann.step D.α D.β N;
+  ![Chal.CylinderCovering.RadialSweep.coordinateMap D (l, m * l),
+    Chal.CylinderCovering.RadialSweep.coordinateMap D (r, m * r - d / 2 * (r - l)),
+    Chal.CylinderCovering.RadialSweep.coordinateMap D (r, m * r + d / 2 * (r - l))]
+def Chal.CylinderCovering.RadialSweep.frozenTriangle : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Set Chal.CylinderCovering.RadialSweep.Space :=
+fun D N i => (convexHull ℝ) (Set.range (Chal.CylinderCovering.RadialSweep.frozenVertices D N i))
+def Chal.CylinderCovering.RadialSweep.frozenBase : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → Set Chal.CylinderCovering.RadialSweep.Space :=
+fun D N tag i =>
+  Chal.TriangularCovering.projection (Chal.CylinderCovering.RadialSweep.direction D (tag i)) ''
+    Chal.CylinderCovering.RadialSweep.frozenTriangle D N i
+def Chal.CylinderCovering.RadialSweep.frozenArea : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → ℝ :=
+fun D N tag i =>
+  Chal.CylinderCovering.RadialSweep.kappa D * Chal.CylinderCovering.RadialRiemann.step D.α D.β N *
+      (Chal.CylinderCovering.RadialRiemann.capMax D.R D.α D.β N i +
+          (Chal.CylinderCovering.RadialSweep.radialError D + Chal.CylinderCovering.RadialSweep.collar D) *
+            Chal.CylinderCovering.RadialRiemann.step D.α D.β N) ^
+        2 /
+    (2 * √(1 + ‖D.w (tag i)‖ ^ 2))
+def Chal.CylinderCovering.RadialSweep.localSweep : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Set Chal.CylinderCovering.RadialSweep.Space :=
+fun D N i =>
+  {z |
+    ∃ t ∈ Chal.CylinderCovering.RadialRiemann.cell D.α D.β N i,
+      ∃ ρ ∈ Set.Icc 0 (D.R t), ∃ s, |s| ≤ D.L ∧ z = D.p₀ + ρ • (D.a + t • D.b) + s • (D.e + D.w t)}
+def Chal.CylinderCovering.RadialSweep.actualBase : Chal.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → Set Chal.CylinderCovering.RadialSweep.Space :=
+fun D N tag i =>
+  Chal.TriangularCovering.projection (Chal.CylinderCovering.RadialSweep.direction D (tag i)) ''
+    Chal.CylinderCovering.RadialSweep.localSweep D N i
+def Chal.CylinderCovering.RadialSweep.cylinder : Chal.CylinderCovering.RadialSweep.Space →
+  Set Chal.CylinderCovering.RadialSweep.Space → Set Chal.CylinderCovering.RadialSweep.Space :=
+fun u B => {z | ∃ b ∈ B, ∃ s, z = b + s • u}
+def Chal.CylinderCovering.RadialSweep.actualCost : Chal.CylinderCovering.RadialSweep.Data → (N : ℕ) → (Fin N → ℝ) → ℝ :=
+fun D N tag => ∑ i, Chal.TriangularCovering.area (Chal.CylinderCovering.RadialSweep.actualBase D N tag i)
+def Chal.CylinderCovering.RadialSweep.AlignedStatement : Prop :=
+∀ (D : Chal.CylinderCovering.RadialSweep.Data) (tag : (N : ℕ) → Fin N → ℝ),
+  (∀ (N : ℕ), Chal.CylinderCovering.RadialRiemann.IsTagged D.α D.β N (tag N)) →
+    ∃ C,
+      (∀ (N : ℕ),
+          0 < N →
+            (∀ (i : Fin N),
+                (C N i).axis = Chal.CylinderCovering.RadialSweep.direction D (tag N i) ∧
+                  (C N i).base = Chal.CylinderCovering.RadialSweep.frozenBase D N (tag N) i ∧
+                    Chal.TriangularCovering.area (C N i).base =
+                      Chal.CylinderCovering.RadialSweep.frozenArea D N (tag N) i) ∧
+              ∀ z ∈ Chal.CylinderCovering.RadialSweep.sweep D, ∃ i, z ∈ (C N i).carrier) ∧
+        Filter.Tendsto (fun N => Chal.TriangularCovering.totalArea (C N)) Filter.atTop
+          (nhds (Chal.CylinderCovering.RadialSweep.weightedArea D))
+def Chal.CylinderCovering.RadialSweep.ActualSweepStatement : Prop :=
+∀ (D : Chal.CylinderCovering.RadialSweep.Data) (tag : (N : ℕ) → Fin N → ℝ),
+  (∀ (N : ℕ), Chal.CylinderCovering.RadialRiemann.IsTagged D.α D.β N (tag N)) →
+    (∀ (N : ℕ),
+        0 < N →
+          (∀ (i : Fin N),
+              ‖Chal.CylinderCovering.RadialSweep.direction D (tag N i)‖ = 1 ∧
+                IsCompact (Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ∧
+                  MeasurableSet (Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ∧
+                    (MeasureTheory.Measure.euclideanHausdorffMeasure 2)
+                          (Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ≠
+                        ⊤ ∧
+                      (∀ z ∈ Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i,
+                          inner ℝ (Chal.CylinderCovering.RadialSweep.direction D (tag N i)) z = 0) ∧
+                        Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i ⊆
+                          Chal.CylinderCovering.RadialSweep.frozenBase D N (tag N) i) ∧
+            ∀ z ∈ Chal.CylinderCovering.RadialSweep.sweep D,
+              ∃ i,
+                z ∈
+                  Chal.CylinderCovering.RadialSweep.cylinder (Chal.CylinderCovering.RadialSweep.direction D (tag N i))
+                    (Chal.CylinderCovering.RadialSweep.actualBase D N (tag N) i)) ∧
+      (∀ (ε : ℝ),
+          0 < ε →
+            ∀ᶠ (N : ℕ) in Filter.atTop,
+              Chal.CylinderCovering.RadialSweep.actualCost D N (tag N) ≤
+                Chal.CylinderCovering.RadialSweep.weightedArea D + ε) ∧
+        Filter.limsup (fun N => Chal.CylinderCovering.RadialSweep.actualCost D N (tag N)) Filter.atTop ≤
+          Chal.CylinderCovering.RadialSweep.weightedArea D
+'OAI.CylinderCovering.fourPaperMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CylinderCovering comparator-style: ok=146 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

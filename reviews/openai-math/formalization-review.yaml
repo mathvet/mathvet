@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T19:06:38Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T19:27:02Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 319 accepted by
-    the real Comparator, of which 319 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 326 accepted by
+    the real Comparator, of which 326 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3802,7 +3802,8 @@ alignment:
     module: OAI.Geometry.CylinderCovering.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CylinderCovering.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 100 — A counterexample to Bang''s cylinder-covering bound: Explicit triangular-cylinder cover
       below half area (the lab''s own result label); paper ''Finite angular cylinder covers below the half-area
       bound'', theorem thm:counterexample (build/sections/introduction.tex:32)'
@@ -5339,7 +5340,8 @@ alignment:
     module: OAI.Algebra.AuslanderReiten.All
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/AuslanderReiten.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 199 — Counterexamples to conjectures of Auslander--Reiten, Tachikawa, and Nakayama: Tachikawa
       counterexample (the lab''s own result label); paper ''A counterexample to Tachikawa''s second conjecture'',
       theorem thm:main (build/sections/introduction.tex:23)'
@@ -5545,7 +5547,8 @@ alignment:
     module: OAI.Probability.UnimodularPercolation.CayleyMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CayleyPercolation.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 215 — Massive continuum limits and exact mass asymptotics for planar $O(n)$ models: Exponential
       correlation decay for classical $O(n)$ models (the lab''s own result label); paper ''Exponential decay in
       two-dimensional classical O(n) models'', theorem thm:main (build/main.tex:76)'
@@ -5707,7 +5710,8 @@ alignment:
     module: OAI.Probability.SKBarriers.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKBarriers.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 227 — The dynamical phase transition in the Sherrington--Kirkpatrick model: Spectral-gap bound
       throughout the high-temperature SK phase (the lab''s own result label); paper ''A spectral gap throughout
       the high-temperature Sherrington–Kirkpatrick phase'', theorem thm:main (build/sections/introduction.tex:33)'
@@ -6239,7 +6243,8 @@ alignment:
     module: OAI.GroupTheory.SimpleOvergroups.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SimpleOvergroups.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 250 — The Boone--Higman conjecture and higher finiteness: Universal group of type $F_\infty$
       (the lab''s own result label); paper ''A universal group of type F∞'', theorem thm:main (build/sections/introduction.tex:10)'
     lean: OAI.UniversalFInfinity.universal_group_of_type_FInfinity
@@ -6296,7 +6301,8 @@ alignment:
     module: OAI.GroupTheory.SimpleAmenable.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SimpleAmenable.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 254 — Classifying spaces and geometric obstructions for Artin groups: Artin group with no geometric
       $\mathrm{CAT}(0)$ action (the lab''s own result label); paper ''An Artin group with no geometric CAT(0) action'',
       theorem thm:main (build/sections/introduction.tex:61)'
@@ -7539,7 +7545,8 @@ alignment:
     module: OAI.Analysis.BiholderTransport.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BiholderTransport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 360 — Villani’s convexity conjecture and regular optimal transport: Convex injectivity domains
       under weak MTW (the lab''s own result label); paper ''Global Support and Convex Injectivity Domains under
       Weak MTW'', theorem thm:main (build/sections/introduction.tex:47)'
@@ -7781,7 +7788,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T19:06:38Z'
+    generated: '2026-10-08T19:27:02Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7826,6 +7833,7 @@ mathvet:
     - ArtinCAT0
     - AsymptoticallyMinimalLittlewood
     - AtomicGaussian
+    - AuslanderReiten
     - BackwardIntertwiners
     - BalancedBoxRouting
     - BalancedThreeStack
@@ -7834,6 +7842,7 @@ mathvet:
     - BassTorsionFree
     - BassTrace
     - BernoulliNonflatInSeven
+    - BiholderTransport
     - BinaryEditLower
     - BinaryMatching
     - BinarySweep
@@ -7853,6 +7862,7 @@ mathvet:
     - CHObstruction
     - CKSBondiPenrose
     - CannonGeometricAction
+    - CayleyPercolation
     - CharacterCriterion
     - ChoicelessPolynomialTime
     - CirculantHadamard
@@ -7883,6 +7893,7 @@ mathvet:
     - CriticalZ3
     - CrouzeixHilbert
     - CycleDecomposition
+    - CylinderCovering
     - DaugavetModuli
     - DeligneDrinfeld
     - DepthFive
@@ -8053,6 +8064,7 @@ mathvet:
     - RyserOddExtensions
     - SATSharpness
     - SATVariance
+    - SKBarriers
     - SKFullSupport
     - SKValue
     - SLELowerPositivity
@@ -8070,6 +8082,8 @@ mathvet:
     - SidorenkoCounterexample
     - SignedFiniteBand
     - SignedSweepMoment
+    - SimpleAmenable
+    - SimpleOvergroups
     - SingleFold
     - SingleLatticeCovering
     - SingletonLoopMatching
@@ -8146,6 +8160,7 @@ mathvet:
     - ArtinCAT0
     - AsymptoticallyMinimalLittlewood
     - AtomicGaussian
+    - AuslanderReiten
     - BackwardIntertwiners
     - BalancedBoxRouting
     - BalancedThreeStack
@@ -8154,6 +8169,7 @@ mathvet:
     - BassTorsionFree
     - BassTrace
     - BernoulliNonflatInSeven
+    - BiholderTransport
     - BinaryEditLower
     - BinaryMatching
     - BinarySweep
@@ -8173,6 +8189,7 @@ mathvet:
     - CHObstruction
     - CKSBondiPenrose
     - CannonGeometricAction
+    - CayleyPercolation
     - CharacterCriterion
     - ChoicelessPolynomialTime
     - CirculantHadamard
@@ -8203,6 +8220,7 @@ mathvet:
     - CriticalZ3
     - CrouzeixHilbert
     - CycleDecomposition
+    - CylinderCovering
     - DaugavetModuli
     - DeligneDrinfeld
     - DepthFive
@@ -8373,6 +8391,7 @@ mathvet:
     - RyserOddExtensions
     - SATSharpness
     - SATVariance
+    - SKBarriers
     - SKFullSupport
     - SKValue
     - SLELowerPositivity
@@ -8390,6 +8409,8 @@ mathvet:
     - SidorenkoCounterexample
     - SignedFiniteBand
     - SignedSweepMoment
+    - SimpleAmenable
+    - SimpleOvergroups
     - SingleFold
     - SingleLatticeCovering
     - SingletonLoopMatching
@@ -10870,7 +10891,7 @@ mathvet:
       `hV G := sInf {|∂A| / |A| : A finite nonempty}` (outer vertex boundary). Standard but hand-written.'
     external_packages: []
     cone_lines_max: 151059
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/214.md
     audit_part: 2
   - family: '215'
@@ -11496,7 +11517,7 @@ mathvet:
       for discrete groups) but not Mathlib''s notion, and the group is existentially chosen.'
     external_packages: []
     cone_lines_max: 84848
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/253.md
     audit_part: 2
   - family: '254'

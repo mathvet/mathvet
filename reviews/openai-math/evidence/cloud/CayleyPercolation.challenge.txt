@@ -1,0 +1,69 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CayleyPercolation.lean:68:8: warning: declaration uses `sorry`
+@OAI.Percolation.arbitrary_cayley : ∀ {Λ : Type u_1} [inst : Group Λ] [Group.FG Λ],
+  ¬OAI.Percolation.AmenableGroup Λ →
+    ∀ (S : Finset Λ),
+      (∀ s ∈ S, s⁻¹ ∈ S) →
+        Subgroup.closure ↑S = ⊤ →
+          1 ∉ S →
+            OAI.Percolation.OperatorBounded (OAI.Percolation.cayleyGraph S)
+                (OAI.Percolation.pc (OAI.Percolation.cayleyGraph S)) ∧
+              OAI.Percolation.pc (OAI.Percolation.cayleyGraph S) <
+                  OAI.Percolation.ptwo (OAI.Percolation.cayleyGraph S) ∧
+                OAI.Percolation.ptwo (OAI.Percolation.cayleyGraph S) ≤
+                    OAI.Percolation.pu (OAI.Percolation.cayleyGraph S) ∧
+                  (∃ p₁ p₂,
+                      OAI.Percolation.pc (OAI.Percolation.cayleyGraph S) < p₁ ∧
+                        p₁ < p₂ ∧
+                          p₂ < 1 ∧
+                            ∀ᵐ (labels : OAI.Percolation.CayleyEdge S → ↑unitInterval) ∂OAI.Percolation.labelLaw,
+                              ∀ p ∈ Set.Icc p₁ p₂,
+                                (OAI.Percolation.infiniteClusters (OAI.Percolation.cayleyGraph S)
+                                    (OAI.Percolation.openEdges labels p)).Infinite) ∧
+                    ∀ (p : ↑unitInterval),
+                      OAI.Percolation.pc (OAI.Percolation.cayleyGraph S) < p →
+                        p < OAI.Percolation.pu (OAI.Percolation.cayleyGraph S) →
+                          ∀ᵐ (ω : Set (OAI.Percolation.CayleyEdge S)) ∂OAI.Percolation.law p,
+                            (OAI.Percolation.infiniteClusters (OAI.Percolation.cayleyGraph S) ω).Infinite
+@[reducible] def OAI.Percolation.BondGraph.{u, v} : Type u → Type v → Type (max v u) :=
+fun V E => E → Sym2 V
+def OAI.Percolation.Conn.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Set E → V → V → Prop :=
+fun {V} {E} G ω x y => Relation.ReflTransGen (fun a b => ∃ e ∈ ω, G e = s(a, b)) x y
+def OAI.Percolation.cluster.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Set E → V → Set V :=
+fun {V} {E} G ω x => {y | OAI.Percolation.Conn G ω x y}
+def OAI.Percolation.infiniteClusters.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Set E → Set (Set V) :=
+fun {V} {E} G ω => {C | C.Infinite ∧ ∃ x, C = OAI.Percolation.cluster G ω x}
+def OAI.Percolation.law.{v} : {E : Type v} → ↑unitInterval → MeasureTheory.Measure (Set E) :=
+fun {E} p => ProbabilityTheory.setBernoulli Set.univ p
+def OAI.Percolation.pc.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | 0 < (OAI.Percolation.law p) {ω | (OAI.Percolation.infiniteClusters G ω).Nonempty}}
+def OAI.Percolation.pu.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | (OAI.Percolation.law p) {ω | ∃! C, C ∈ OAI.Percolation.infiniteClusters G ω} = 1}
+def OAI.Percolation.twoPoint.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → V → V → ℝ :=
+fun {V} {E} G p x y => ((OAI.Percolation.law p) {ω | OAI.Percolation.Conn G ω x y}).toReal
+@[reducible] def OAI.Percolation.Hilbert.{u} : (V : Type u) → AddSubgroup (PreLp fun x => ℂ) :=
+fun V => lp (fun x => ℂ) 2
+def OAI.Percolation.HasKernel.{u, v} : {V : Type u} →
+  {E : Type v} →
+    [DecidableEq V] →
+      OAI.Percolation.BondGraph V E →
+        ↑unitInterval → (↥(OAI.Percolation.Hilbert V) →L[ℂ] ↥(OAI.Percolation.Hilbert V)) → Prop :=
+fun {V} {E} [DecidableEq V] G p A => ∀ (x y : V), ↑(A (lp.single 2 y 1)) x = ↑(OAI.Percolation.twoPoint G p x y)
+def OAI.Percolation.OperatorBounded.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → Prop :=
+fun {V} {E} G p => ∃ A, OAI.Percolation.HasKernel G p A
+def OAI.Percolation.ptwo.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sSup {p | OAI.Percolation.OperatorBounded G p}
+def OAI.Percolation.labelLaw.{v} : {E : Type v} → MeasureTheory.Measure (E → ↑unitInterval) :=
+fun {E} => MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume
+def OAI.Percolation.openEdges.{v} : {E : Type v} → (E → ↑unitInterval) → ↑unitInterval → Set E :=
+fun {E} labels p => {e | labels e ≤ p}
+def OAI.Percolation.AmenableGroup.{u} : (Λ : Type u) → [Group Λ] → Prop :=
+fun Λ [Group Λ] =>
+  ∀ (K : Finset Λ) (ε : ℝ), 0 < ε → ∃ A, A.Nonempty ∧ ∀ g ∈ K, ↑(Finset.image (fun x => x * g) A \ A).card < ε * ↑A.card
+def OAI.Percolation.CayleyEdge.{u} : {Λ : Type u} → [Group Λ] → Finset Λ → Type (max 0 u) :=
+fun {Λ} [Group Λ] S => { e // ∃ x, ∃ s ∈ S, e = s(x, x * s) }
+def OAI.Percolation.cayleyGraph.{u} : {Λ : Type u} →
+  [inst : Group Λ] → (S : Finset Λ) → OAI.Percolation.BondGraph Λ (OAI.Percolation.CayleyEdge S) :=
+fun {Λ} [Group Λ] S => Subtype.val

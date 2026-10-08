@@ -1,0 +1,84 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SKBarriers.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SK.main [thm] ok
+CMP OAI.SK.discreteBadMass [def] ok
+CMP OAI.SK.gibbs [def] ok
+CMP OAI.SK.partition [def] ok
+CMP OAI.SK.hamiltonian [def] ok
+CMP OAI.SK.spin [def] ok
+CMP OAI.SK.Edge [def] ok
+CMP OAI.SK.Config [def] ok
+CMP OAI.SK.Disorder [def] ok
+CMP OAI.SK.timeScale [def] ok
+CMP OAI.SK.kappa [def] ok
+CMP OAI.SK.kappa._proof_1 [thm] ok
+CMP OAI.SK.discreteDistance [def] ok
+CMP OAI.SK.discreteKernel [def] ok
+CMP OAI.SK.discreteKernel._f [def] ok
+CMP OAI.SK.heatBath [def] ok
+CMP OAI.SK.heatBath._proof_1 [thm] ok
+CMP OAI.SK.localField [def] ok
+CMP OAI.SK.coupling [def] ok
+CMP OAI.SK.discreteKernel.match_1 [def] ok
+CMP OAI.SK.continuousBadMass._proof_1 [thm] ok
+CMP OAI.SK.disorderLaw [def] ok
+CMP OAI.SK.continuousBadMass [def] ok
+CMP OAI.SK.continuousDistance [def] ok
+CMP OAI.SK.continuousKernel [def] ok
+Chal.SK.main : ∀ (β : ℝ),
+  1 < β →
+    Filter.Tendsto (Chal.SK.continuousBadMass β) Filter.atTop (nhds 1) ∧
+      Filter.Tendsto (Chal.SK.discreteBadMass β) Filter.atTop (nhds 1)
+@[reducible] def Chal.SK.Config : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.SK.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def Chal.SK.Disorder : ℕ → Type :=
+fun n => Chal.SK.Edge n → ℝ
+def Chal.SK.spin : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.SK.hamiltonian : {n : ℕ} → Chal.SK.Disorder n → Chal.SK.Config n → ℝ :=
+fun {n} J x => (∑ e, J e * Chal.SK.spin (x (↑e).1) * Chal.SK.spin (x (↑e).2)) / √↑n
+def Chal.SK.partition : {n : ℕ} → ℝ → Chal.SK.Disorder n → ℝ :=
+fun {n} β J => ∑ x, Real.exp (β * Chal.SK.hamiltonian J x)
+def Chal.SK.gibbs : {n : ℕ} → ℝ → Chal.SK.Disorder n → Chal.SK.Config n → ℝ :=
+fun {n} β J x => Real.exp (β * Chal.SK.hamiltonian J x) / Chal.SK.partition β J
+def Chal.SK.coupling : {n : ℕ} → Chal.SK.Disorder n → Fin n → Fin n → ℝ :=
+fun {n} J i j => if h : i < j then J ⟨(i, j), h⟩ else if h : j < i then J ⟨(j, i), h⟩ else 0
+def Chal.SK.localField : {n : ℕ} → Chal.SK.Disorder n → Chal.SK.Config n → Fin n → ℝ :=
+fun {n} J x i => (∑ j, Chal.SK.coupling J i j * Chal.SK.spin (x j)) / √↑n
+def Chal.SK.heatBath : {n : ℕ} → ℝ → Chal.SK.Disorder n → Chal.SK.Config n → Chal.SK.Config n → ℝ :=
+fun {n} β J x y =>
+  (∑ i,
+      if Function.update x i (y i) = y then
+        Real.exp (β * Chal.SK.spin (y i) * Chal.SK.localField J x i) / (2 * Real.cosh (β * Chal.SK.localField J x i))
+      else 0) /
+    ↑n
+def Chal.SK.discreteKernel : {n : ℕ} → ℝ → Chal.SK.Disorder n → ℕ → Chal.SK.Config n → Chal.SK.Config n → ℝ :=
+fun {n} β J x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => Chal.SK.Config n → Chal.SK.Config n → ℝ) x (Chal.SK.discreteKernel._f β J) x_1 x_2
+def Chal.SK.continuousKernel : {n : ℕ} → ℝ → Chal.SK.Disorder n → ℝ → Chal.SK.Config n → Chal.SK.Config n → ℝ :=
+fun {n} β J t x y => ∑' (k : ℕ), Real.exp (-↑n * t) * (↑n * t) ^ k / ↑k.factorial * Chal.SK.discreteKernel β J k x y
+def Chal.SK.discreteDistance : {n : ℕ} → ℝ → Chal.SK.Disorder n → Chal.SK.Config n → ℕ → ℝ :=
+fun {n} β J x k => 1 / 2 * ∑ y, |Chal.SK.discreteKernel β J k x y - Chal.SK.gibbs β J y|
+def Chal.SK.continuousDistance : {n : ℕ} → ℝ → Chal.SK.Disorder n → Chal.SK.Config n → ℝ → ℝ :=
+fun {n} β J x t => 1 / 2 * ∑ y, |Chal.SK.continuousKernel β J t x y - Chal.SK.gibbs β J y|
+def Chal.SK.disorderLaw : (n : ℕ) → MeasureTheory.Measure (Chal.SK.Disorder n) :=
+fun n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1
+def Chal.SK.kappa : ℝ :=
+1 / 10000
+def Chal.SK.timeScale : ℕ → ℝ :=
+fun n => Real.exp (↑n ^ Chal.SK.kappa)
+def Chal.SK.continuousBadMass : ℝ → ℕ → ℝ :=
+fun β n =>
+  ∫ (J : Chal.SK.Disorder n),
+    ∑ x,
+      if 1 / 4 < Chal.SK.continuousDistance β J x (Chal.SK.timeScale n) then Chal.SK.gibbs β J x
+      else 0 ∂Chal.SK.disorderLaw n
+def Chal.SK.discreteBadMass : ℝ → ℕ → ℝ :=
+fun β n =>
+  ∫ (J : Chal.SK.Disorder n),
+    ∑ x,
+      if 1 / 4 < Chal.SK.discreteDistance β J x ⌊Chal.SK.timeScale n⌋₊ then Chal.SK.gibbs β J x
+      else 0 ∂Chal.SK.disorderLaw n
+'OAI.SK.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SKBarriers comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
