@@ -1,0 +1,24 @@
+OAI.QuarticPowerFree.allDegrees : ∀ (f : Polynomial ℤ),
+  Irreducible (Polynomial.map (Int.castRingHom ℚ) f) →
+    4 ≤ f.natDegree →
+      OAI.QuarticPowerFree.LocallyAdmissible f (f.natDegree - 2) →
+        OAI.QuarticPowerFree.DensityStatement f (f.natDegree - 2)
+'OAI.QuarticPowerFree.allDegrees' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.QuarticPowerFree.PowerFree : ℕ → ℤ → Prop :=
+fun k a => ∀ (p : ℕ), Nat.Prime p → ¬↑p ^ k ∣ a
+def OAI.QuarticPowerFree.rho : Polynomial ℤ → ℕ → ℕ :=
+fun f q => {a ∈ Finset.range q | ↑q ∣ Polynomial.eval (↑a) f}.card
+def OAI.QuarticPowerFree.count : Polynomial ℤ → ℕ → ℝ → ℕ :=
+fun f k X => {n ∈ Finset.Icc 1 ⌊X⌋₊ | OAI.QuarticPowerFree.PowerFree k (Polynomial.eval (↑n) f)}.card
+def OAI.QuarticPowerFree.LocallyAdmissible : Polynomial ℤ → ℕ → Prop :=
+fun f k => ∀ (p : ℕ), Nat.Prime p → OAI.QuarticPowerFree.rho f (p ^ k) < p ^ k
+def OAI.QuarticPowerFree.localFactor : Polynomial ℤ → ℕ → Nat.Primes → ℝ :=
+fun f k p => 1 - ↑(OAI.QuarticPowerFree.rho f (↑p ^ k)) / ↑↑p ^ k
+def OAI.QuarticPowerFree.densityConstant : Polynomial ℤ → ℕ → ℝ :=
+fun f k => ∏' (p : Nat.Primes), OAI.QuarticPowerFree.localFactor f k p
+def OAI.QuarticPowerFree.DensityStatement : Polynomial ℤ → ℕ → Prop :=
+fun f k =>
+  Multipliable (OAI.QuarticPowerFree.localFactor f k) ∧
+    0 < OAI.QuarticPowerFree.densityConstant f k ∧
+      (fun X => ↑(OAI.QuarticPowerFree.count f k X) - OAI.QuarticPowerFree.densityConstant f k * X) =o[Filter.atTop]
+        fun X => X

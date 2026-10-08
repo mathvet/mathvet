@@ -1,0 +1,33 @@
+CMP OAI.QuarticPowerFree.allDegrees [thm] ok
+CMP OAI.QuarticPowerFree.DensityStatement [def] ok
+CMP OAI.QuarticPowerFree.count [def] ok
+CMP OAI.QuarticPowerFree.PowerFree [def] ok
+CMP OAI.QuarticPowerFree.densityConstant [def] ok
+CMP OAI.QuarticPowerFree.localFactor [def] ok
+CMP OAI.QuarticPowerFree.rho [def] ok
+CMP OAI.QuarticPowerFree.LocallyAdmissible [def] ok
+Chal.QuarticPowerFree.allDegrees : ∀ (f : Polynomial ℤ),
+  Irreducible (Polynomial.map (Int.castRingHom ℚ) f) →
+    4 ≤ f.natDegree →
+      Chal.QuarticPowerFree.LocallyAdmissible f (f.natDegree - 2) →
+        Chal.QuarticPowerFree.DensityStatement f (f.natDegree - 2)
+def Chal.QuarticPowerFree.PowerFree : ℕ → ℤ → Prop :=
+fun k a => ∀ (p : ℕ), Nat.Prime p → ¬↑p ^ k ∣ a
+def Chal.QuarticPowerFree.rho : Polynomial ℤ → ℕ → ℕ :=
+fun f q => {a ∈ Finset.range q | ↑q ∣ Polynomial.eval (↑a) f}.card
+def Chal.QuarticPowerFree.count : Polynomial ℤ → ℕ → ℝ → ℕ :=
+fun f k X => {n ∈ Finset.Icc 1 ⌊X⌋₊ | Chal.QuarticPowerFree.PowerFree k (Polynomial.eval (↑n) f)}.card
+def Chal.QuarticPowerFree.LocallyAdmissible : Polynomial ℤ → ℕ → Prop :=
+fun f k => ∀ (p : ℕ), Nat.Prime p → Chal.QuarticPowerFree.rho f (p ^ k) < p ^ k
+def Chal.QuarticPowerFree.localFactor : Polynomial ℤ → ℕ → Nat.Primes → ℝ :=
+fun f k p => 1 - ↑(Chal.QuarticPowerFree.rho f (↑p ^ k)) / ↑↑p ^ k
+def Chal.QuarticPowerFree.densityConstant : Polynomial ℤ → ℕ → ℝ :=
+fun f k => ∏' (p : Nat.Primes), Chal.QuarticPowerFree.localFactor f k p
+def Chal.QuarticPowerFree.DensityStatement : Polynomial ℤ → ℕ → Prop :=
+fun f k =>
+  Multipliable (Chal.QuarticPowerFree.localFactor f k) ∧
+    0 < Chal.QuarticPowerFree.densityConstant f k ∧
+      (fun X => ↑(Chal.QuarticPowerFree.count f k X) - Chal.QuarticPowerFree.densityConstant f k * X) =o[Filter.atTop]
+        fun X => X
+'OAI.QuarticPowerFree.allDegrees' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PowerFreeValues comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
