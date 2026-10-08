@@ -1,0 +1,37 @@
+CMP OAI.Brennan.Sharp.sharp_endpoints [thm] ok
+CMP OAI.Brennan.Sharp.SharpEndpointStatement [def] ok
+CMP OAI.Brennan.Sharp.koebeDomain [def] ok
+CMP OAI.Brennan.disk [def] ok
+CMP OAI.Brennan.koebeMap [def] ok
+CMP OAI.Brennan.Sharp.SharpEndpointStatement._proof_3 [thm] ok
+CMP OAI.Brennan.Sharp.koebeInverse [def] ok
+CMP OAI.Brennan.Sharp.SharpEndpointStatement._proof_2 [thm] ok
+CMP OAI.Brennan.Sharp.SharpEndpointStatement._proof_1 [thm] ok
+CMP OAI.Brennan.Sharp.areaMoment [def] ok
+CMP OAI.Brennan.Schlicht [def] ok
+CMP OAI.Brennan.UnivalentOn [def] ok
+Chal.Brennan.Sharp.sharp_endpoints : Chal.Brennan.Sharp.SharpEndpointStatement
+def Chal.Brennan.disk : Set ℂ :=
+Metric.ball 0 1
+def Chal.Brennan.UnivalentOn : (ℂ → ℂ) → Set ℂ → Prop :=
+fun f U => DifferentiableOn ℂ f U ∧ Set.InjOn f U
+def Chal.Brennan.Schlicht : (ℂ → ℂ) → Prop :=
+fun f => Chal.Brennan.UnivalentOn f Chal.Brennan.disk ∧ f 0 = 0 ∧ deriv f 0 = 1
+def Chal.Brennan.koebeMap : ℂ → ℂ :=
+fun z => z / (1 - z) ^ 2
+def Chal.Brennan.Sharp.koebeDomain : Set ℂ :=
+Chal.Brennan.koebeMap '' Chal.Brennan.disk
+def Chal.Brennan.Sharp.koebeInverse : ℂ → ℂ :=
+Function.invFunOn Chal.Brennan.koebeMap Chal.Brennan.disk
+def Chal.Brennan.Sharp.areaMoment : (ℂ → ℂ) → Set ℂ → ℝ → ENNReal :=
+fun f U t => ∫⁻ (z : ℂ) in U, ENNReal.ofReal (‖deriv f z‖ ^ t)
+def Chal.Brennan.Sharp.SharpEndpointStatement : Prop :=
+Chal.Brennan.Schlicht Chal.Brennan.koebeMap ∧
+  Chal.Brennan.Sharp.areaMoment Chal.Brennan.koebeMap Chal.Brennan.disk (-2) = ⊤ ∧
+    Chal.Brennan.Sharp.areaMoment Chal.Brennan.koebeMap Chal.Brennan.disk (2 / 3) = ⊤ ∧
+      ¬MeasureTheory.IntegrableOn (fun z => ‖deriv Chal.Brennan.Sharp.koebeInverse z‖ ^ 4)
+            Chal.Brennan.Sharp.koebeDomain MeasureTheory.volume ∧
+        ¬MeasureTheory.IntegrableOn (fun z => ‖deriv Chal.Brennan.Sharp.koebeInverse z‖ ^ (4 / 3))
+            Chal.Brennan.Sharp.koebeDomain MeasureTheory.volume
+'OAI.Brennan.Sharp.sharp_endpoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BrennanSharp comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
