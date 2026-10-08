@@ -1,0 +1,26 @@
+CMP OAI.Problem344.large_gaps_and_ratio_density [thm] ok
+CMP OAI.Problem344.ratioIncreaseIndices [def] ok
+CMP OAI.Problem344.primeAt [def] ok
+CMP OAI.Problem344.lowerAsymptoticDensity [def] ok
+CMP OAI.Problem344.initialCount [def] ok
+CMP OAI.LargePrimeGaps.largeGapIndices [def] ok
+CMP OAI.LargePrimeGaps.prime [def] ok
+Chal.Problem344.large_gaps_and_ratio_density : (∀ (C : ℝ),
+    0 < C → ∃ c, 0 < c ∧ ∃ N₀, ∀ (N : ℕ), N₀ ≤ N → c * ↑N ≤ ↑(Chal.LargePrimeGaps.largeGapIndices C N).card) ∧
+  0 < Chal.Problem344.lowerAsymptoticDensity Chal.Problem344.ratioIncreaseIndices
+def Chal.LargePrimeGaps.prime : ℕ → ℕ :=
+fun n => Nat.nth Nat.Prime (n - 1)
+def Chal.LargePrimeGaps.largeGapIndices : ℝ → ℕ → Finset ℕ :=
+fun C N =>
+  {n ∈ Finset.Icc 1 N |
+    C * Real.log ↑(Chal.LargePrimeGaps.prime n) < ↑(Chal.LargePrimeGaps.prime (n + 1)) - ↑(Chal.LargePrimeGaps.prime n)}
+def Chal.Problem344.primeAt : ℕ → ℕ :=
+fun n => Nat.nth Nat.Prime (n - 1)
+def Chal.Problem344.initialCount : Set ℕ → ℕ → ℕ :=
+fun A N => {n ∈ Finset.Icc 1 N | n ∈ A}.card
+def Chal.Problem344.lowerAsymptoticDensity : Set ℕ → ℝ :=
+fun A => sSup {d | ∃ N0, ∀ (N : ℕ), N0 ≤ N → d ≤ ↑(Chal.Problem344.initialCount A N) / ↑N}
+def Chal.Problem344.ratioIncreaseIndices : Set ℕ :=
+{n | 1 ≤ n ∧ ↑(Chal.Problem344.primeAt n) / ↑n < ↑(Chal.Problem344.primeAt (n + 1)) / ↑(n + 1)}
+'OAI.Problem344.large_gaps_and_ratio_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PrimeGaps comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
