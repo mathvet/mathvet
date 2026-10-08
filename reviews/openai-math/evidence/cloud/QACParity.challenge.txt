@@ -1,0 +1,62 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_QACParity.lean:71:8: warning: declaration uses `sorry`
+OAI.QAC.parity_lower_bound : OAI.QAC.ParityStatement
+@[reducible] def OAI.QAC.Bit : Type :=
+Fin 2
+@[reducible] def OAI.QAC.Word : ℕ → Type :=
+fun N => Fin N → OAI.QAC.Bit
+@[reducible] def OAI.QAC.Operator : ℕ → Type :=
+fun N => Matrix (OAI.QAC.Word N) (OAI.QAC.Word N) ℂ
+@[reducible] def OAI.QAC.QubitOperator : Type :=
+Matrix OAI.QAC.Bit OAI.QAC.Bit ℂ
+def OAI.QAC.tensorMatrix : {N : ℕ} → (Fin N → OAI.QAC.QubitOperator) → OAI.QAC.Operator N :=
+fun {N} a x y => ∏ i, a i (x i) (y i)
+inductive OAI.QAC.Gate : ℕ → Type
+number of parameters: 1
+constructors:
+OAI.QAC.Gate.local : {N : ℕ} → Fin N → ↥(Matrix.unitaryGroup OAI.QAC.Bit ℂ) → OAI.QAC.Gate N
+OAI.QAC.Gate.toffoli : {N : ℕ} → (controls : Finset (Fin N)) → (target : Fin N) → target ∉ controls → OAI.QAC.Gate N
+def OAI.QAC.Gate.support : {N : ℕ} → OAI.QAC.Gate N → Finset (Fin N) :=
+fun {N} x =>
+  match x with
+  | OAI.QAC.Gate.local q u => {q}
+  | OAI.QAC.Gate.toffoli c t hne => insert t c
+def OAI.QAC.Gate.toffoliWord : {N : ℕ} → Finset (Fin N) → Fin N → OAI.QAC.Word N → OAI.QAC.Word N :=
+fun {N} c t x => if ∀ i ∈ c, x i = 1 then Function.update x t (1 - x t) else x
+def OAI.QAC.Gate.matrix : {N : ℕ} → OAI.QAC.Gate N → OAI.QAC.Operator N :=
+fun {N} x =>
+  match x with
+  | OAI.QAC.Gate.local q u => OAI.QAC.tensorMatrix fun i => if i = q then ↑u else 1
+  | OAI.QAC.Gate.toffoli c t hne => fun x y => if x = OAI.QAC.Gate.toffoliWord c t y then 1 else 0
+structure OAI.QAC.PhysicalLayer (N : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.QAC.PhysicalLayer.gates : List (OAI.QAC.Gate N)
+  OAI.QAC.PhysicalLayer.disjoint : List.Pairwise (fun A B => Disjoint A.support B.support) self.gates
+constructor:
+  OAI.QAC.PhysicalLayer.mk {N : ℕ} (gates : List (OAI.QAC.Gate N))
+    (disjoint : List.Pairwise (fun A B => Disjoint A.support B.support) gates) : OAI.QAC.PhysicalLayer N
+def OAI.QAC.physicalLayerMatrix : {N : ℕ} → OAI.QAC.PhysicalLayer N → OAI.QAC.Operator N :=
+fun {N} L => (List.map OAI.QAC.Gate.matrix L.gates).prod
+def OAI.QAC.physicalCircuitMatrix : {N : ℕ} → List (OAI.QAC.PhysicalLayer N) → OAI.QAC.Operator N :=
+fun {N} layers => (List.map OAI.QAC.physicalLayerMatrix layers).reverse.prod
+def OAI.QAC.inputWord : {n N : ℕ} → OAI.QAC.Word n → OAI.QAC.Word N :=
+fun {n N} x i => if h : ↑i < n then x ⟨↑i, h⟩ else 0
+def OAI.QAC.parity : {n : ℕ} → OAI.QAC.Word n → OAI.QAC.Bit :=
+fun {n} x => ∑ i, x i
+def OAI.QAC.successProbability : {n N : ℕ} → OAI.QAC.Operator N → Fin N → OAI.QAC.Word n → ℝ :=
+fun {n N} W out x => ∑ y, if y out = OAI.QAC.parity x then Complex.normSq (W y (OAI.QAC.inputWord x)) else 0
+def OAI.QAC.ParityStatement : Prop :=
+∀ (d : ℕ) (c ε : ℝ),
+  1 ≤ c →
+    0 < ε →
+      ε ≤ 1 / 2 →
+        ∃ n₀,
+          ∀ n ≥ n₀,
+            ∀ (N : ℕ),
+              n ≤ N →
+                ↑N ≤ ↑n ^ c →
+                  ∀ (layers : List (OAI.QAC.PhysicalLayer N)),
+                    layers.length ≤ d →
+                      ∀ (out : Fin N),
+                        ¬∀ (x : OAI.QAC.Word n),
+                            1 / 2 + ε ≤ OAI.QAC.successProbability (OAI.QAC.physicalCircuitMatrix layers) out x
