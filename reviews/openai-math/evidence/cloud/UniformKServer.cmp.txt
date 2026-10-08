@@ -1,0 +1,294 @@
+CMP OAI.UniformKServer.uniform_squared_logarithmic_main [thm] ok
+CMP OAI.UniformKServer.UniformAlgorithmClaim [def] ok
+CMP OAI.UniformKServer.offlineCost [def] ok
+CMP OAI.UniformKServer.costAlong [def] ok
+CMP OAI.UniformKServer.costAlong._f [def] ok
+CMP OAI.UniformKServer.serve [def] ok
+CMP OAI.UniformKServer.Configuration [def] ok
+CMP OAI.UniformKServer.RationalMetric.distance [def] ok
+CMP OAI.UniformKServer.RationalMetric [ind] ok
+CMP OAI.UniformKServer.RationalMetric.mk [ctor] ok
+CMP OAI.UniformKServer.costAlong.match_1 [def] ok
+CMP OAI.UniformKServer.History [def] ok
+CMP OAI.UniformKServer.UniformAlgorithmClaim._proof_2 [thm] ok
+CMP OAI.UniformKServer.machineExpectedCost [def] ok
+CMP OAI.UniformKServer.machineExpectedCost._f [def] ok
+CMP OAI.UniformKServer.selectedLabel [def] ok
+CMP OAI.UniformKServer.selectedLabel._proof_1 [thm] ok
+CMP OAI.UniformKServer.outputValue [def] ok
+CMP OAI.UniformKServer.MachineState.outputRev [def] ok
+CMP OAI.UniformKServer.MachineState [ind] ok
+CMP OAI.UniformKServer.MachineState.mk [ctor] ok
+CMP OAI.UniformKServer.BitMachine.tapes [def] ok
+CMP OAI.UniformKServer.BitMachine [ind] ok
+CMP OAI.UniformKServer.BitMachine.mk [ctor] ok
+CMP OAI.UniformKServer.BitAction [ind] ok
+CMP OAI.UniformKServer.BitAction.mk [ctor] ok
+CMP OAI.UniformKServer.HeadMove [ind] ok
+CMP OAI.UniformKServer.HeadMove.right [ctor] ok
+CMP OAI.UniformKServer.HeadMove.stay [ctor] ok
+CMP OAI.UniformKServer.HeadMove.left [ctor] ok
+CMP OAI.UniformKServer.BitTape [ind] ok
+CMP OAI.UniformKServer.BitTape.mk [ctor] ok
+CMP OAI.UniformKServer.BitMachine.controls [def] ok
+CMP OAI.UniformKServer.bitValue [def] ok
+CMP OAI.UniformKServer.bitValue._f [def] ok
+CMP OAI.UniformKServer.BitTape.ofWord.match_1 [def] ok
+CMP OAI.UniformKServer.requestStep [def] ok
+CMP OAI.UniformKServer.natCode [def] ok
+CMP OAI.UniformKServer.BitMachine.install [def] ok
+CMP OAI.UniformKServer.MachineState.work [def] ok
+CMP OAI.UniformKServer.BitTape.ofWord [def] ok
+CMP OAI.UniformKServer.BitTape.blank [def] ok
+CMP OAI.UniformKServer.MachineState.control [def] ok
+CMP OAI.UniformKServer.BitMachine.run [def] ok
+CMP OAI.UniformKServer.BitMachine.step [def] ok
+CMP OAI.UniformKServer.BitAction.yield [def] ok
+CMP OAI.UniformKServer.BitAction.emit [def] ok
+CMP OAI.UniformKServer.BitMachine.step.match_1 [def] ok
+CMP OAI.UniformKServer.BitAction.workMove [def] ok
+CMP OAI.UniformKServer.BitTape.right [def] ok
+CMP OAI.UniformKServer.BitAction.write [def] ok
+CMP OAI.UniformKServer.BitTape.left [def] ok
+CMP OAI.UniformKServer.BitAction.inputMove [def] ok
+CMP OAI.UniformKServer.BitTape.shift [def] ok
+CMP OAI.UniformKServer.BitTape.head [def] ok
+CMP OAI.UniformKServer.BitTape.shift.match_1 [def] ok
+CMP OAI.UniformKServer.BitTape.shift.match_3 [def] ok
+CMP OAI.UniformKServer.HeadMove.casesOn [def] ok
+CMP OAI.UniformKServer.HeadMove.rec [rec] ok
+CMP OAI.UniformKServer.BitAction.control [def] ok
+CMP OAI.UniformKServer.MachineState.input [def] ok
+CMP OAI.UniformKServer.BitMachine.transition [def] ok
+CMP OAI.UniformKServer.MachineState.yielded [def] ok
+CMP OAI.UniformKServer.requestBudget [def] ok
+CMP OAI.UniformKServer.polynomialBudget [def] ok
+CMP OAI.UniformKServer.machineExpectedCost.match_1 [def] ok
+CMP OAI.UniformKServer.Reachable [ind] ok
+CMP OAI.UniformKServer.Reachable.next [ctor] ok
+CMP OAI.UniformKServer.instanceCode [def] ok
+CMP OAI.UniformKServer.rationalCode [def] ok
+CMP OAI.UniformKServer.Reachable.boot [ctor] ok
+CMP OAI.UniformKServer.boot [def] ok
+CMP OAI.UniformKServer.BitMachine.initial [def] ok
+CMP OAI.UniformKServer.BitMachine.start [def] ok
+Chal.UniformKServer.uniform_squared_logarithmic_main : Chal.UniformKServer.UniformAlgorithmClaim
+structure Chal.UniformKServer.RationalMetric (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.UniformKServer.RationalMetric.distance : Fin n → Fin n → ℚ
+  Chal.UniformKServer.RationalMetric.nonneg : ∀ (x y : Fin n), 0 ≤ self.distance x y
+  Chal.UniformKServer.RationalMetric.eq_zero : ∀ (x y : Fin n), self.distance x y = 0 ↔ x = y
+  Chal.UniformKServer.RationalMetric.symm : ∀ (x y : Fin n), self.distance x y = self.distance y x
+  Chal.UniformKServer.RationalMetric.triangle : ∀ (x y z : Fin n),
+      self.distance x z ≤ self.distance x y + self.distance y z
+constructor:
+  Chal.UniformKServer.RationalMetric.mk {n : ℕ} (distance : Fin n → Fin n → ℚ)
+    (nonneg : ∀ (x y : Fin n), 0 ≤ distance x y) (eq_zero : ∀ (x y : Fin n), distance x y = 0 ↔ x = y)
+    (symm : ∀ (x y : Fin n), distance x y = distance y x)
+    (triangle : ∀ (x y z : Fin n), distance x z ≤ distance x y + distance y z) : Chal.UniformKServer.RationalMetric n
+@[reducible] def Chal.UniformKServer.Configuration : ℕ → ℕ → Type :=
+fun n k => Fin k → Fin n
+@[reducible] def Chal.UniformKServer.History : ℕ → ℕ → Type :=
+fun n k => List (Fin n × Fin k)
+def Chal.UniformKServer.serve : {n k : ℕ} →
+  Chal.UniformKServer.Configuration n k → Fin n → Fin k → Chal.UniformKServer.Configuration n k :=
+fun {n k} s r j => Function.update s j r
+def Chal.UniformKServer.costAlong : {n k : ℕ} →
+  Chal.UniformKServer.RationalMetric n → Chal.UniformKServer.Configuration n k → Chal.UniformKServer.History n k → ℝ :=
+fun {n k} d x x_1 =>
+  List.brecOn (motive := fun x => Chal.UniformKServer.Configuration n k → ℝ) x_1 (Chal.UniformKServer.costAlong._f d) x
+def Chal.UniformKServer.offlineCost : {n k : ℕ} →
+  Chal.UniformKServer.RationalMetric n → Chal.UniformKServer.Configuration n k → List (Fin n) → ℝ :=
+fun {n k} d s w => sInf {c | ∃ h, List.map Prod.fst h = w ∧ c = Chal.UniformKServer.costAlong d s h}
+inductive Chal.UniformKServer.HeadMove : Type
+number of parameters: 0
+constructors:
+Chal.UniformKServer.HeadMove.left : Chal.UniformKServer.HeadMove
+Chal.UniformKServer.HeadMove.stay : Chal.UniformKServer.HeadMove
+Chal.UniformKServer.HeadMove.right : Chal.UniformKServer.HeadMove
+structure Chal.UniformKServer.BitTape : Type
+number of parameters: 0
+fields:
+  Chal.UniformKServer.BitTape.left : List (Option Bool)
+  Chal.UniformKServer.BitTape.head : Option Bool
+  Chal.UniformKServer.BitTape.right : List (Option Bool)
+constructor:
+  Chal.UniformKServer.BitTape.mk (left : List (Option Bool)) (head : Option Bool) (right : List (Option Bool)) :
+    Chal.UniformKServer.BitTape
+def Chal.UniformKServer.BitTape.blank : Chal.UniformKServer.BitTape :=
+{ left := [], head := none, right := [] }
+def Chal.UniformKServer.BitTape.ofWord : List Bool → Chal.UniformKServer.BitTape :=
+fun w =>
+  match w with
+  | [] => Chal.UniformKServer.BitTape.blank
+  | b :: bs => { left := [], head := some b, right := List.map some bs }
+def Chal.UniformKServer.BitTape.shift : Chal.UniformKServer.BitTape →
+  Chal.UniformKServer.HeadMove → Chal.UniformKServer.BitTape :=
+fun T x =>
+  match x with
+  | Chal.UniformKServer.HeadMove.stay => T
+  | Chal.UniformKServer.HeadMove.left =>
+    match T.left with
+    | [] => { left := [], head := none, right := T.head :: T.right }
+    | a :: as => { left := as, head := a, right := T.head :: T.right }
+  | Chal.UniformKServer.HeadMove.right =>
+    match T.right with
+    | [] => { left := T.head :: T.left, head := none, right := [] }
+    | a :: as => { left := T.head :: T.left, head := a, right := as }
+structure Chal.UniformKServer.BitAction (q m : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.UniformKServer.BitAction.control : Fin q
+  Chal.UniformKServer.BitAction.inputMove : Chal.UniformKServer.HeadMove
+  Chal.UniformKServer.BitAction.write : Fin m → Option Bool
+  Chal.UniformKServer.BitAction.workMove : Fin m → Chal.UniformKServer.HeadMove
+  Chal.UniformKServer.BitAction.emit : Option Bool
+  Chal.UniformKServer.BitAction.yield : Bool
+constructor:
+  Chal.UniformKServer.BitAction.mk {q m : ℕ} (control : Fin q) (inputMove : Chal.UniformKServer.HeadMove)
+    (write : Fin m → Option Bool) (workMove : Fin m → Chal.UniformKServer.HeadMove) (emit : Option Bool)
+    (yield : Bool) : Chal.UniformKServer.BitAction q m
+structure Chal.UniformKServer.BitMachine : Type
+number of parameters: 0
+fields:
+  Chal.UniformKServer.BitMachine.controls : ℕ
+  Chal.UniformKServer.BitMachine.tapes : ℕ
+  Chal.UniformKServer.BitMachine.start : Fin self.controls
+  Chal.UniformKServer.BitMachine.transition : Fin self.controls →
+      Option Bool → (Fin self.tapes → Option Bool) → Bool → Chal.UniformKServer.BitAction self.controls self.tapes
+constructor:
+  Chal.UniformKServer.BitMachine.mk (controls tapes : ℕ) (start : Fin controls)
+    (transition :
+      Fin controls → Option Bool → (Fin tapes → Option Bool) → Bool → Chal.UniformKServer.BitAction controls tapes) :
+    Chal.UniformKServer.BitMachine
+structure Chal.UniformKServer.MachineState (M : Chal.UniformKServer.BitMachine) : Type
+number of parameters: 1
+fields:
+  Chal.UniformKServer.MachineState.control : Fin M.controls
+  Chal.UniformKServer.MachineState.input : Chal.UniformKServer.BitTape
+  Chal.UniformKServer.MachineState.work : Fin M.tapes → Chal.UniformKServer.BitTape
+  Chal.UniformKServer.MachineState.outputRev : List Bool
+  Chal.UniformKServer.MachineState.yielded : Bool
+constructor:
+  Chal.UniformKServer.MachineState.mk {M : Chal.UniformKServer.BitMachine} (control : Fin M.controls)
+    (input : Chal.UniformKServer.BitTape) (work : Fin M.tapes → Chal.UniformKServer.BitTape) (outputRev : List Bool)
+    (yielded : Bool) : Chal.UniformKServer.MachineState M
+def Chal.UniformKServer.BitMachine.initial : (M : Chal.UniformKServer.BitMachine) →
+  List Bool → Chal.UniformKServer.MachineState M :=
+fun M input =>
+  { control := M.start, input := Chal.UniformKServer.BitTape.ofWord input,
+    work := fun x => Chal.UniformKServer.BitTape.blank, outputRev := [], yielded := false }
+def Chal.UniformKServer.BitMachine.step : (M : Chal.UniformKServer.BitMachine) →
+  Chal.UniformKServer.MachineState M → Bool → Chal.UniformKServer.MachineState M :=
+fun M s coin =>
+  if s.yielded = true then s
+  else
+    have a := M.transition s.control s.input.head (fun i => (s.work i).head) coin;
+    { control := a.control, input := s.input.shift a.inputMove,
+      work := fun i =>
+        (have __src := s.work i;
+            { left := __src.left, head := a.write i, right := __src.right }).shift
+          (a.workMove i),
+      outputRev :=
+        match a.emit with
+        | none => s.outputRev
+        | some b => b :: s.outputRev,
+      yielded := a.yield }
+def Chal.UniformKServer.BitMachine.run : (M : Chal.UniformKServer.BitMachine) →
+  Chal.UniformKServer.MachineState M → List Bool → Chal.UniformKServer.MachineState M :=
+fun M s coins => List.foldl M.step s coins
+def Chal.UniformKServer.BitMachine.install : (M : Chal.UniformKServer.BitMachine) →
+  Chal.UniformKServer.MachineState M → List Bool → Chal.UniformKServer.MachineState M :=
+fun M s input =>
+  { control := s.control, input := Chal.UniformKServer.BitTape.ofWord input, work := s.work, outputRev := [],
+    yielded := false }
+def Chal.UniformKServer.natCode : ℕ → List Bool :=
+fun a => List.replicate a.bits.length true ++ [false] ++ a.bits
+def Chal.UniformKServer.rationalCode : ℚ → List Bool :=
+fun a => decide (a.num < 0) :: (Chal.UniformKServer.natCode a.num.natAbs ++ Chal.UniformKServer.natCode a.den)
+def Chal.UniformKServer.instanceCode : {n k : ℕ} →
+  Chal.UniformKServer.RationalMetric n → Chal.UniformKServer.Configuration n k → List Bool :=
+fun {n k} d s =>
+  Chal.UniformKServer.natCode n ++ Chal.UniformKServer.natCode k ++
+      (List.ofFn fun x => (List.ofFn fun y => Chal.UniformKServer.rationalCode (d.distance x y)).flatten).flatten ++
+    (List.ofFn fun j => Chal.UniformKServer.natCode (↑(s j) + 1)).flatten
+def Chal.UniformKServer.bitValue : List Bool → ℕ :=
+fun x => List.brecOn x Chal.UniformKServer.bitValue._f
+def Chal.UniformKServer.outputValue : {M : Chal.UniformKServer.BitMachine} → Chal.UniformKServer.MachineState M → ℕ :=
+fun {M} s => Chal.UniformKServer.bitValue s.outputRev.reverse
+def Chal.UniformKServer.polynomialBudget : ℕ → ℕ → ℕ → ℕ :=
+fun c e x => c * (x + 1) ^ e
+def Chal.UniformKServer.requestBudget : ℕ → ℕ → ℕ → ℕ → ℕ :=
+fun c e L t => Chal.UniformKServer.polynomialBudget c e (L + Nat.clog 2 (t + 1))
+def Chal.UniformKServer.boot : {n k : ℕ} →
+  (M : Chal.UniformKServer.BitMachine) →
+    ℕ →
+      ℕ →
+        Chal.UniformKServer.RationalMetric n →
+          Chal.UniformKServer.Configuration n k → Chal.UniformKServer.MachineState M :=
+fun {n k} M c e d s =>
+  M.run (M.initial (Chal.UniformKServer.instanceCode d s))
+    (List.replicate (Chal.UniformKServer.polynomialBudget c e (Chal.UniformKServer.instanceCode d s).length) false)
+def Chal.UniformKServer.requestStep : {n : ℕ} →
+  (M : Chal.UniformKServer.BitMachine) →
+    (c e L t : ℕ) →
+      Chal.UniformKServer.MachineState M →
+        Fin n → (Fin (Chal.UniformKServer.requestBudget c e L t) → Bool) → Chal.UniformKServer.MachineState M :=
+fun {n} M c e L t s r coins => M.run (M.install s (Chal.UniformKServer.natCode (↑r + 1))) (List.ofFn coins)
+inductive Chal.UniformKServer.Reachable : {n k : ℕ} →
+  (M : Chal.UniformKServer.BitMachine) →
+    ℕ →
+      ℕ →
+        Chal.UniformKServer.RationalMetric n →
+          Chal.UniformKServer.Configuration n k → ℕ → Chal.UniformKServer.MachineState M → Prop
+number of parameters: 7
+constructors:
+Chal.UniformKServer.Reachable.boot : ∀ {n k : ℕ} {M : Chal.UniformKServer.BitMachine} {c e : ℕ}
+  {d : Chal.UniformKServer.RationalMetric n} {s : Chal.UniformKServer.Configuration n k},
+  Chal.UniformKServer.Reachable M c e d s 0 (Chal.UniformKServer.boot M c e d s)
+Chal.UniformKServer.Reachable.next : ∀ {n k : ℕ} {M : Chal.UniformKServer.BitMachine} {c e : ℕ}
+  {d : Chal.UniformKServer.RationalMetric n} {s : Chal.UniformKServer.Configuration n k} {t : ℕ}
+  {z : Chal.UniformKServer.MachineState M},
+  Chal.UniformKServer.Reachable M c e d s t z →
+    ∀ (r : Fin n)
+      (bits : Fin (Chal.UniformKServer.requestBudget c e (Chal.UniformKServer.instanceCode d s).length (t + 1)) → Bool),
+      Chal.UniformKServer.Reachable M c e d s (t + 1)
+        (Chal.UniformKServer.requestStep M c e (Chal.UniformKServer.instanceCode d s).length (t + 1) z r bits)
+def Chal.UniformKServer.selectedLabel : {M : Chal.UniformKServer.BitMachine} →
+  {k : ℕ} → 0 < k → Chal.UniformKServer.MachineState M → Fin k :=
+fun {M} {k} hk s => ⟨Chal.UniformKServer.outputValue s % k, ⋯⟩
+def Chal.UniformKServer.machineExpectedCost : {n k : ℕ} →
+  (M : Chal.UniformKServer.BitMachine) →
+    ℕ →
+      ℕ →
+        ℕ →
+          Chal.UniformKServer.RationalMetric n →
+            0 < k → ℕ → Chal.UniformKServer.MachineState M → Chal.UniformKServer.Configuration n k → List (Fin n) → ℝ :=
+fun {n k} M c e L d hk x x_1 x_2 x_3 =>
+  List.brecOn (motive := fun x => ℕ → Chal.UniformKServer.MachineState M → Chal.UniformKServer.Configuration n k → ℝ)
+    x_3 (Chal.UniformKServer.machineExpectedCost._f M c e L d hk) x x_1 x_2
+def Chal.UniformKServer.UniformAlgorithmClaim : Prop :=
+∃ M c e C,
+  0 < c ∧
+    0 < C ∧
+      ∀ (n k : ℕ),
+        3 ≤ n →
+          ∀ (hk : 2 ≤ k),
+            k < n →
+              ∀ (d : Chal.UniformKServer.RationalMetric n) (s : Chal.UniformKServer.Configuration n k),
+                have L := (Chal.UniformKServer.instanceCode d s).length;
+                (Chal.UniformKServer.boot M c e d s).yielded = true ∧
+                  (∀ (t : ℕ) (z : Chal.UniformKServer.MachineState M),
+                      Chal.UniformKServer.Reachable M c e d s t z →
+                        ∀ (r : Fin n) (bits : Fin (Chal.UniformKServer.requestBudget c e L (t + 1)) → Bool),
+                          have z' := Chal.UniformKServer.requestStep M c e L (t + 1) z r bits;
+                          z'.yielded = true ∧ Chal.UniformKServer.outputValue z' < k) ∧
+                    ∃ B,
+                      0 ≤ B ∧
+                        ∀ (w : List (Fin n)),
+                          Chal.UniformKServer.machineExpectedCost M c e L d ⋯ 0 (Chal.UniformKServer.boot M c e d s) s
+                              w ≤
+                            C * Real.log (↑k + 1) ^ 2 * Chal.UniformKServer.offlineCost d s w + B
+'OAI.UniformKServer.uniform_squared_logarithmic_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== UniformKServer comparator-style: ok=74 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
