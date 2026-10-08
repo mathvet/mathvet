@@ -1,0 +1,83 @@
+CMP OAI.ThreeState.poisson_supercritical [thm] ok
+CMP OAI.ThreeState.poissonAdvantage [def] ok
+CMP OAI.ThreeState.poissonAdvantage._proof_1 [thm] ok
+CMP OAI.ThreeState.poissonLaw [def] ok
+CMP OAI.ThreeState.poissonOffspring [def] ok
+CMP OAI.ThreeState.poissonOffspring._proof_1 [thm] ok
+CMP OAI.ThreeState.observedLaw [def] ok
+CMP OAI.ThreeState.observedLaw._f [def] ok
+CMP OAI.ThreeState.channelPMF [def] ok
+CMP OAI.ThreeState.channelPMF._proof_1 [thm] ok
+CMP OAI.ThreeState.channel [def] ok
+CMP OAI.ThreeState.channel._proof_1 [thm] ok
+CMP OAI.ThreeState.Admissible._proof_1 [thm] ok
+CMP OAI.ThreeState.Spin [def] ok
+CMP OAI.ThreeState.Admissible [def] ok
+CMP OAI.ThreeState.iidList [def] ok
+CMP OAI.ThreeState.iidList._f [def] ok
+CMP OAI.ThreeState.Observation.match_1 [def] ok
+CMP OAI.ThreeState.observedLaw.match_1 [def] ok
+CMP OAI.ThreeState.Observation [def] ok
+CMP OAI.ThreeState.Observation._f [def] ok
+CMP OAI.ThreeState.advantage [def] ok
+CMP OAI.ThreeState.posterior [def] ok
+CMP OAI.ThreeState.marginal [def] ok
+CMP OAI.ThreeState.uniformSpin [def] ok
+CMP OAI.ThreeState.uniformSpin._proof_1 [thm] ok
+CMP OAI.ThreeState.Reconstructs [def] ok
+CMP OAI.ThreeState.regular_supercritical [thm] ok
+CMP OAI.ThreeState.regularAdvantage [def] ok
+CMP OAI.ThreeState.regularLaw [def] ok
+Chal.ThreeState.regular_supercritical : ∀ (b : ℕ),
+  2 ≤ b →
+    ∀ (lam : ℝ) (h : Chal.ThreeState.Admissible lam),
+      1 < ↑b * lam ^ 2 → Chal.ThreeState.Reconstructs (Chal.ThreeState.regularAdvantage b lam h)
+Chal.ThreeState.poisson_supercritical : ∀ (d : ℝ) (hd : 1 < d) (lam : ℝ) (h : Chal.ThreeState.Admissible lam),
+  1 < d * lam ^ 2 → Chal.ThreeState.Reconstructs (Chal.ThreeState.poissonAdvantage d hd lam h)
+@[reducible] def Chal.ThreeState.Spin : Type :=
+Fin 3
+def Chal.ThreeState.Admissible : ℝ → Prop :=
+fun lam => -(1 / 2) ≤ lam ∧ lam ≤ 1
+def Chal.ThreeState.channel : ℝ → Chal.ThreeState.Spin → Chal.ThreeState.Spin → ℝ :=
+fun lam i j => if i = j then (1 + 2 * lam) / 3 else (1 - lam) / 3
+def Chal.ThreeState.Observation : ℕ → Type :=
+fun x => Nat.brecOn x Chal.ThreeState.Observation._f
+def Chal.ThreeState.channelPMF : (lam : ℝ) →
+  Chal.ThreeState.Admissible lam → Chal.ThreeState.Spin → PMF Chal.ThreeState.Spin :=
+fun lam h i => PMF.ofFintype (fun j => ENNReal.ofReal (Chal.ThreeState.channel lam i j)) ⋯
+def Chal.ThreeState.iidList.{u_1} : {α : Type u_1} → PMF α → ℕ → PMF (List α) :=
+fun {α} p x => Nat.brecOn x (Chal.ThreeState.iidList._f p)
+def Chal.ThreeState.observedLaw : PMF ℕ →
+  (lam : ℝ) → Chal.ThreeState.Admissible lam → (n : ℕ) → Chal.ThreeState.Spin → PMF (Chal.ThreeState.Observation n) :=
+fun offspring lam h x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.ThreeState.Spin → PMF (Chal.ThreeState.Observation x)) x
+    (Chal.ThreeState.observedLaw._f offspring lam h) x_1
+def Chal.ThreeState.uniformSpin : PMF Chal.ThreeState.Spin :=
+PMF.ofFintype (fun x => 1 / 3) Chal.ThreeState.uniformSpin._proof_1
+def Chal.ThreeState.marginal.{u_1} : {α : Type u_1} → (Chal.ThreeState.Spin → PMF α) → PMF α :=
+fun {α} law => Chal.ThreeState.uniformSpin.bind law
+def Chal.ThreeState.posterior.{u_1} : {α : Type u_1} → (Chal.ThreeState.Spin → PMF α) → α → Chal.ThreeState.Spin → ℝ :=
+fun {α} law y i =>
+  if (Chal.ThreeState.marginal law) y = 0 then 1 / 3
+  else ((law i) y).toReal / (3 * ((Chal.ThreeState.marginal law) y).toReal)
+def Chal.ThreeState.advantage.{u_1} : {α : Type u_1} → (Chal.ThreeState.Spin → PMF α) → ℝ :=
+fun {α} law =>
+  ∑' (y : α), ((Chal.ThreeState.marginal law) y).toReal * ((∑ i, |Chal.ThreeState.posterior law y i - 1 / 3|) / 2)
+def Chal.ThreeState.regularLaw : ℕ →
+  (lam : ℝ) → Chal.ThreeState.Admissible lam → (n : ℕ) → Chal.ThreeState.Spin → PMF (Chal.ThreeState.Observation n) :=
+fun b lam h n => Chal.ThreeState.observedLaw (PMF.pure b) lam h n
+def Chal.ThreeState.poissonOffspring : (d : ℝ) → 0 ≤ d → PMF ℕ :=
+fun d hd => ⟨fun k => ENNReal.ofReal (Real.exp (-d) * d ^ k / ↑k.factorial), ⋯⟩
+def Chal.ThreeState.poissonLaw : (d : ℝ) →
+  0 ≤ d →
+    (lam : ℝ) → Chal.ThreeState.Admissible lam → (n : ℕ) → Chal.ThreeState.Spin → PMF (Chal.ThreeState.Observation n) :=
+fun d hd lam h n => Chal.ThreeState.observedLaw (Chal.ThreeState.poissonOffspring d hd) lam h n
+def Chal.ThreeState.regularAdvantage : ℕ → (lam : ℝ) → Chal.ThreeState.Admissible lam → ℕ → ℝ :=
+fun b lam h n => Chal.ThreeState.advantage (Chal.ThreeState.regularLaw b lam h n)
+def Chal.ThreeState.poissonAdvantage : (d : ℝ) → 1 < d → (lam : ℝ) → Chal.ThreeState.Admissible lam → ℕ → ℝ :=
+fun d hd lam h n => Chal.ThreeState.advantage (Chal.ThreeState.poissonLaw d ⋯ lam h n)
+def Chal.ThreeState.Reconstructs : (ℕ → ℝ) → Prop :=
+fun a => ∃ L, 0 < L ∧ Filter.Tendsto a Filter.atTop (nhds L)
+'OAI.ThreeState.regular_supercritical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ThreeState.poisson_supercritical' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ThreeStateSupercritical comparator-style: ok=30 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

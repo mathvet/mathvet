@@ -1,0 +1,52 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ThreeStateSupercritical.lean:98:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ThreeStateSupercritical.lean:102:8: warning: declaration uses `sorry`
+OAI.ThreeState.regular_supercritical : ∀ (b : ℕ),
+  2 ≤ b →
+    ∀ (lam : ℝ) (h : OAI.ThreeState.Admissible lam),
+      1 < ↑b * lam ^ 2 → OAI.ThreeState.Reconstructs (OAI.ThreeState.regularAdvantage b lam h)
+OAI.ThreeState.poisson_supercritical : ∀ (d : ℝ) (hd : 1 < d) (lam : ℝ) (h : OAI.ThreeState.Admissible lam),
+  1 < d * lam ^ 2 → OAI.ThreeState.Reconstructs (OAI.ThreeState.poissonAdvantage d hd lam h)
+@[reducible] def OAI.ThreeState.Spin : Type :=
+Fin 3
+def OAI.ThreeState.Admissible : ℝ → Prop :=
+fun lam => -(1 / 2) ≤ lam ∧ lam ≤ 1
+def OAI.ThreeState.channel : ℝ → OAI.ThreeState.Spin → OAI.ThreeState.Spin → ℝ :=
+fun lam i j => if i = j then (1 + 2 * lam) / 3 else (1 - lam) / 3
+def OAI.ThreeState.Observation : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThreeState.Observation._f
+def OAI.ThreeState.channelPMF : (lam : ℝ) →
+  OAI.ThreeState.Admissible lam → OAI.ThreeState.Spin → PMF OAI.ThreeState.Spin :=
+fun lam h i => PMF.ofFintype (fun j => ENNReal.ofReal (OAI.ThreeState.channel lam i j)) ⋯
+def OAI.ThreeState.iidList.{u_1} : {α : Type u_1} → PMF α → ℕ → PMF (List α) :=
+fun {α} p x => Nat.brecOn x (OAI.ThreeState.iidList._f p)
+def OAI.ThreeState.observedLaw : PMF ℕ →
+  (lam : ℝ) → OAI.ThreeState.Admissible lam → (n : ℕ) → OAI.ThreeState.Spin → PMF (OAI.ThreeState.Observation n) :=
+fun offspring lam h x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.ThreeState.Spin → PMF (OAI.ThreeState.Observation x)) x
+    (OAI.ThreeState.observedLaw._f offspring lam h) x_1
+def OAI.ThreeState.uniformSpin : PMF OAI.ThreeState.Spin :=
+PMF.ofFintype (fun x => 1 / 3) OAI.ThreeState.uniformSpin._proof_1
+def OAI.ThreeState.marginal.{u_1} : {α : Type u_1} → (OAI.ThreeState.Spin → PMF α) → PMF α :=
+fun {α} law => OAI.ThreeState.uniformSpin.bind law
+def OAI.ThreeState.posterior.{u_1} : {α : Type u_1} → (OAI.ThreeState.Spin → PMF α) → α → OAI.ThreeState.Spin → ℝ :=
+fun {α} law y i =>
+  if (OAI.ThreeState.marginal law) y = 0 then 1 / 3
+  else ((law i) y).toReal / (3 * ((OAI.ThreeState.marginal law) y).toReal)
+def OAI.ThreeState.advantage.{u_1} : {α : Type u_1} → (OAI.ThreeState.Spin → PMF α) → ℝ :=
+fun {α} law =>
+  ∑' (y : α), ((OAI.ThreeState.marginal law) y).toReal * ((∑ i, |OAI.ThreeState.posterior law y i - 1 / 3|) / 2)
+def OAI.ThreeState.regularLaw : ℕ →
+  (lam : ℝ) → OAI.ThreeState.Admissible lam → (n : ℕ) → OAI.ThreeState.Spin → PMF (OAI.ThreeState.Observation n) :=
+fun b lam h n => OAI.ThreeState.observedLaw (PMF.pure b) lam h n
+def OAI.ThreeState.poissonOffspring : (d : ℝ) → 0 ≤ d → PMF ℕ :=
+fun d hd => ⟨fun k => ENNReal.ofReal (Real.exp (-d) * d ^ k / ↑k.factorial), ⋯⟩
+def OAI.ThreeState.poissonLaw : (d : ℝ) →
+  0 ≤ d →
+    (lam : ℝ) → OAI.ThreeState.Admissible lam → (n : ℕ) → OAI.ThreeState.Spin → PMF (OAI.ThreeState.Observation n) :=
+fun d hd lam h n => OAI.ThreeState.observedLaw (OAI.ThreeState.poissonOffspring d hd) lam h n
+def OAI.ThreeState.regularAdvantage : ℕ → (lam : ℝ) → OAI.ThreeState.Admissible lam → ℕ → ℝ :=
+fun b lam h n => OAI.ThreeState.advantage (OAI.ThreeState.regularLaw b lam h n)
+def OAI.ThreeState.poissonAdvantage : (d : ℝ) → 1 < d → (lam : ℝ) → OAI.ThreeState.Admissible lam → ℕ → ℝ :=
+fun d hd lam h n => OAI.ThreeState.advantage (OAI.ThreeState.poissonLaw d ⋯ lam h n)
+def OAI.ThreeState.Reconstructs : (ℕ → ℝ) → Prop :=
+fun a => ∃ L, 0 < L ∧ Filter.Tendsto a Filter.atTop (nhds L)
