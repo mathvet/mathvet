@@ -1,0 +1,135 @@
+@OAI.PureTypeSystem.weak_implies_strong : ∀ {S : Type u_1} (P : OAI.PureTypeSystem.Specification S),
+  OAI.PureTypeSystem.SystemWeaklyNormalizing P → OAI.PureTypeSystem.SystemStronglyNormalizing P
+'OAI.PureTypeSystem.weak_implies_strong' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.PureTypeSystem.Expr.{u} : Type u → Type u
+number of parameters: 1
+constructors:
+OAI.PureTypeSystem.Expr.var : {Sorts : Type u} → ℕ → OAI.PureTypeSystem.Expr Sorts
+OAI.PureTypeSystem.Expr.sort : {Sorts : Type u} → Sorts → OAI.PureTypeSystem.Expr Sorts
+OAI.PureTypeSystem.Expr.app : {Sorts : Type u} →
+  OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts
+OAI.PureTypeSystem.Expr.lam : {Sorts : Type u} →
+  OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts
+OAI.PureTypeSystem.Expr.pi : {Sorts : Type u} →
+  OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts → OAI.PureTypeSystem.Expr Sorts
+def OAI.PureTypeSystem.Expr.liftRen : (ℕ → ℕ) → ℕ → ℕ :=
+fun ρ x =>
+  match x with
+  | 0 => 0
+  | n.succ => ρ n + 1
+def OAI.PureTypeSystem.Expr.rename.{u} : {S : Type u} →
+  (ℕ → ℕ) → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S :=
+fun {S} ρ x =>
+  OAI.PureTypeSystem.Expr.brecOn (motive := fun x => (ℕ → ℕ) → OAI.PureTypeSystem.Expr S) x
+    OAI.PureTypeSystem.Expr.rename._f ρ
+def OAI.PureTypeSystem.Expr.liftSub.{u} : {S : Type u} →
+  (ℕ → OAI.PureTypeSystem.Expr S) → ℕ → OAI.PureTypeSystem.Expr S :=
+fun {S} σ x =>
+  match x with
+  | 0 => OAI.PureTypeSystem.Expr.var 0
+  | n.succ => OAI.PureTypeSystem.Expr.rename Nat.succ (σ n)
+def OAI.PureTypeSystem.Expr.subst.{u} : {S : Type u} →
+  (ℕ → OAI.PureTypeSystem.Expr S) → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S :=
+fun {S} σ x =>
+  OAI.PureTypeSystem.Expr.brecOn (motive := fun x => (ℕ → OAI.PureTypeSystem.Expr S) → OAI.PureTypeSystem.Expr S) x
+    OAI.PureTypeSystem.Expr.subst._f σ
+def OAI.PureTypeSystem.Expr.single.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → ℕ → OAI.PureTypeSystem.Expr S :=
+fun {S} a x =>
+  match x with
+  | 0 => a
+  | n.succ => OAI.PureTypeSystem.Expr.var n
+def OAI.PureTypeSystem.Expr.instantiate.{u} : {S : Type u} →
+  OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S :=
+fun {S} b a => OAI.PureTypeSystem.Expr.subst a.single b
+structure OAI.PureTypeSystem.Specification.{u} (S : Type u) : Type u
+number of parameters: 1
+fields:
+  OAI.PureTypeSystem.Specification.axioms : S → S → Prop
+  OAI.PureTypeSystem.Specification.rule : S → S → S → Prop
+constructor:
+  OAI.PureTypeSystem.Specification.mk.{u} {S : Type u} (axioms : S → S → Prop) (rule : S → S → S → Prop) :
+    OAI.PureTypeSystem.Specification S
+inductive OAI.PureTypeSystem.Beta.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S → Prop
+number of parameters: 1
+constructors:
+OAI.PureTypeSystem.Beta.head : ∀ {S : Type u} (A b a : OAI.PureTypeSystem.Expr S),
+  OAI.PureTypeSystem.Beta ((A.lam b).app a) (b.instantiate a)
+OAI.PureTypeSystem.Beta.app_left : ∀ {S : Type u} {f f' a : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta f f' → OAI.PureTypeSystem.Beta (f.app a) (f'.app a)
+OAI.PureTypeSystem.Beta.app_right : ∀ {S : Type u} {f a a' : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta a a' → OAI.PureTypeSystem.Beta (f.app a) (f.app a')
+OAI.PureTypeSystem.Beta.lam_domain : ∀ {S : Type u} {A A' b : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta A A' → OAI.PureTypeSystem.Beta (A.lam b) (A'.lam b)
+OAI.PureTypeSystem.Beta.lam_body : ∀ {S : Type u} {A b b' : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta b b' → OAI.PureTypeSystem.Beta (A.lam b) (A.lam b')
+OAI.PureTypeSystem.Beta.pi_domain : ∀ {S : Type u} {A A' B : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta A A' → OAI.PureTypeSystem.Beta (A.pi B) (A'.pi B)
+OAI.PureTypeSystem.Beta.pi_body : ∀ {S : Type u} {A B B' : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.Beta B B' → OAI.PureTypeSystem.Beta (A.pi B) (A.pi B')
+def OAI.PureTypeSystem.Converts.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S → Prop :=
+fun {S} => Relation.EqvGen OAI.PureTypeSystem.Beta
+def OAI.PureTypeSystem.Normal.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → Prop :=
+fun {S} M => ∀ (N : OAI.PureTypeSystem.Expr S), ¬OAI.PureTypeSystem.Beta M N
+def OAI.PureTypeSystem.WeaklyNormalizing.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → Prop :=
+fun {S} M => ∃ N, Relation.ReflTransGen OAI.PureTypeSystem.Beta M N ∧ OAI.PureTypeSystem.Normal N
+def OAI.PureTypeSystem.StronglyNormalizing.{u} : {S : Type u} → OAI.PureTypeSystem.Expr S → Prop :=
+fun {S} M => Acc (fun N M => OAI.PureTypeSystem.Beta M N) M
+inductive OAI.PureTypeSystem.HasType.{u} : {S : Type u} →
+  OAI.PureTypeSystem.Specification S →
+    List (OAI.PureTypeSystem.Expr S) → OAI.PureTypeSystem.Expr S → OAI.PureTypeSystem.Expr S → Prop
+number of parameters: 2
+constructors:
+OAI.PureTypeSystem.HasType.ax : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S} {s t : S},
+  P.axioms s t → OAI.PureTypeSystem.HasType P [] (OAI.PureTypeSystem.Expr.sort s) (OAI.PureTypeSystem.Expr.sort t)
+OAI.PureTypeSystem.HasType.var : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {A : OAI.PureTypeSystem.Expr S} {s : S},
+  OAI.PureTypeSystem.HasType P Γ A (OAI.PureTypeSystem.Expr.sort s) →
+    OAI.PureTypeSystem.HasType P (A :: Γ) (OAI.PureTypeSystem.Expr.var 0) (OAI.PureTypeSystem.Expr.rename Nat.succ A)
+OAI.PureTypeSystem.HasType.weaken : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {M B A : OAI.PureTypeSystem.Expr S} {s : S},
+  OAI.PureTypeSystem.HasType P Γ M B →
+    OAI.PureTypeSystem.HasType P Γ A (OAI.PureTypeSystem.Expr.sort s) →
+      OAI.PureTypeSystem.HasType P (A :: Γ) (OAI.PureTypeSystem.Expr.rename Nat.succ M)
+        (OAI.PureTypeSystem.Expr.rename Nat.succ B)
+OAI.PureTypeSystem.HasType.product : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {A B : OAI.PureTypeSystem.Expr S} {s₁ s₂ s₃ : S},
+  OAI.PureTypeSystem.HasType P Γ A (OAI.PureTypeSystem.Expr.sort s₁) →
+    OAI.PureTypeSystem.HasType P (A :: Γ) B (OAI.PureTypeSystem.Expr.sort s₂) →
+      P.rule s₁ s₂ s₃ → OAI.PureTypeSystem.HasType P Γ (A.pi B) (OAI.PureTypeSystem.Expr.sort s₃)
+OAI.PureTypeSystem.HasType.abstraction : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {A b B : OAI.PureTypeSystem.Expr S} {s : S},
+  OAI.PureTypeSystem.HasType P (A :: Γ) b B →
+    OAI.PureTypeSystem.HasType P Γ (A.pi B) (OAI.PureTypeSystem.Expr.sort s) →
+      OAI.PureTypeSystem.HasType P Γ (A.lam b) (A.pi B)
+OAI.PureTypeSystem.HasType.application : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {f a A B : OAI.PureTypeSystem.Expr S},
+  OAI.PureTypeSystem.HasType P Γ f (A.pi B) →
+    OAI.PureTypeSystem.HasType P Γ a A → OAI.PureTypeSystem.HasType P Γ (f.app a) (B.instantiate a)
+OAI.PureTypeSystem.HasType.conversion : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {M A B : OAI.PureTypeSystem.Expr S} {s : S},
+  OAI.PureTypeSystem.HasType P Γ M A →
+    OAI.PureTypeSystem.HasType P Γ B (OAI.PureTypeSystem.Expr.sort s) →
+      OAI.PureTypeSystem.Converts A B → OAI.PureTypeSystem.HasType P Γ M B
+inductive OAI.PureTypeSystem.ValidContext.{u} : {S : Type u} →
+  OAI.PureTypeSystem.Specification S → List (OAI.PureTypeSystem.Expr S) → Prop
+number of parameters: 2
+constructors:
+OAI.PureTypeSystem.ValidContext.nil : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S},
+  OAI.PureTypeSystem.ValidContext P []
+OAI.PureTypeSystem.ValidContext.cons : ∀ {S : Type u} {P : OAI.PureTypeSystem.Specification S}
+  {Γ : List (OAI.PureTypeSystem.Expr S)} {A : OAI.PureTypeSystem.Expr S} {s : S},
+  OAI.PureTypeSystem.ValidContext P Γ →
+    OAI.PureTypeSystem.HasType P Γ A (OAI.PureTypeSystem.Expr.sort s) → OAI.PureTypeSystem.ValidContext P (A :: Γ)
+def OAI.PureTypeSystem.Legal.{u} : {S : Type u} →
+  OAI.PureTypeSystem.Specification S → List (OAI.PureTypeSystem.Expr S) → OAI.PureTypeSystem.Expr S → Prop :=
+fun {S} P Γ M => ∃ A, OAI.PureTypeSystem.HasType P Γ M A ∨ OAI.PureTypeSystem.HasType P Γ A M
+def OAI.PureTypeSystem.SystemWeaklyNormalizing.{u} : {S : Type u} → OAI.PureTypeSystem.Specification S → Prop :=
+fun {S} P =>
+  ∀ (Γ : List (OAI.PureTypeSystem.Expr S)),
+    OAI.PureTypeSystem.ValidContext P Γ →
+      ∀ (M : OAI.PureTypeSystem.Expr S), OAI.PureTypeSystem.Legal P Γ M → OAI.PureTypeSystem.WeaklyNormalizing M
+def OAI.PureTypeSystem.SystemStronglyNormalizing.{u} : {S : Type u} → OAI.PureTypeSystem.Specification S → Prop :=
+fun {S} P =>
+  ∀ (Γ : List (OAI.PureTypeSystem.Expr S)),
+    OAI.PureTypeSystem.ValidContext P Γ →
+      ∀ (M : OAI.PureTypeSystem.Expr S), OAI.PureTypeSystem.Legal P Γ M → OAI.PureTypeSystem.StronglyNormalizing M

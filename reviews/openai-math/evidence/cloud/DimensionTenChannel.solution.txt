@@ -1,0 +1,32 @@
+OAI.DimensionTen.exists_channel_fin21 : ∃ Θ,
+  OAI.ChannelCompletion.PPT Θ ∧
+    OAI.ChannelCompletion.TracePreserving Θ ∧ ¬OAI.ChannelCompletion.EntanglementBreaking (Θ ∘ₗ Θ)
+'OAI.DimensionTen.exists_channel_fin21' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.ChannelCompletion.Mat : Type → Type :=
+fun n => Matrix n n ℂ
+@[reducible] def OAI.ChannelCompletion.Map : Type → Type → Type :=
+fun n m => OAI.ChannelCompletion.Mat n →ₗ[ℂ] OAI.ChannelCompletion.Mat m
+def OAI.ChannelCompletion.amplify : {n m : Type} →
+  OAI.ChannelCompletion.Map n m → {k : Type} → OAI.ChannelCompletion.Mat (k × n) → OAI.ChannelCompletion.Mat (k × m) :=
+fun {n m} F {k} X a b => F (fun i j => X (a.1, i) (b.1, j)) a.2 b.2
+def OAI.ChannelCompletion.CP : {n m : Type} → OAI.ChannelCompletion.Map n m → Prop :=
+fun {n m} F =>
+  ∀ (k : Type) [Fintype k] (X : OAI.ChannelCompletion.Mat (k × n)),
+    Matrix.PosSemidef X → Matrix.PosSemidef (OAI.ChannelCompletion.amplify F X)
+def OAI.ChannelCompletion.transposeMap : {n : Type} → OAI.ChannelCompletion.Map n n :=
+fun {n} => { toFun := Matrix.transpose, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ChannelCompletion.PPT : {n m : Type} → OAI.ChannelCompletion.Map n m → Prop :=
+fun {n m} F => OAI.ChannelCompletion.CP F ∧ OAI.ChannelCompletion.CP (OAI.ChannelCompletion.transposeMap ∘ₗ F)
+def OAI.ChannelCompletion.TracePreserving : {n m : Type} →
+  [Fintype n] → [Fintype m] → OAI.ChannelCompletion.Map n m → Prop :=
+fun {n m} [Fintype n] [Fintype m] F => ∀ (X : OAI.ChannelCompletion.Mat n), Matrix.trace (F X) = Matrix.trace X
+def OAI.ChannelCompletion.Separable : {n m : Type} → OAI.ChannelCompletion.Mat (n × m) → Prop :=
+fun {n m} Z =>
+  ∃ r A B,
+    (∀ (i : Fin r), Matrix.PosSemidef (A i)) ∧
+      (∀ (i : Fin r), Matrix.PosSemidef (B i)) ∧ Z = ∑ i, Matrix.kroneckerMap (fun x1 x2 => x1 * x2) (A i) (B i)
+def OAI.ChannelCompletion.EntanglementBreaking : {n m : Type} → OAI.ChannelCompletion.Map n m → Prop :=
+fun {n m} F =>
+  OAI.ChannelCompletion.CP F ∧
+    ∀ (k : Type) [Fintype k] (X : OAI.ChannelCompletion.Mat (k × n)),
+      Matrix.PosSemidef X → OAI.ChannelCompletion.Separable (OAI.ChannelCompletion.amplify F X)

@@ -1,0 +1,277 @@
+CMP OAI.AlgorithmicThinTrees.algorithmic_strong_thin_trees [thm] ok
+CMP OAI.AlgorithmicThinTrees.AlgorithmicStrongThinTrees [def] ok
+CMP OAI.CurrentKS.Machine.outputStack [def] ok
+CMP OAI.CurrentKS.Machine [ind] ok
+CMP OAI.CurrentKS.Machine.mk [ctor] ok
+CMP OAI.CurrentKS.Instruction [ind] ok
+CMP OAI.CurrentKS.Instruction.mk [ctor] ok
+CMP OAI.CurrentKS.StackAction [ind] ok
+CMP OAI.CurrentKS.StackAction.push [ctor] ok
+CMP OAI.CurrentKS.StackAction.pop [ctor] ok
+CMP OAI.CurrentKS.StackAction.stay [ctor] ok
+CMP OAI.CurrentKS.Machine.stackCount [def] ok
+CMP OAI.CurrentKS.Config.stacks [def] ok
+CMP OAI.CurrentKS.Config [ind] ok
+CMP OAI.CurrentKS.Config.mk [ctor] ok
+CMP OAI.AlgorithmicThinTrees.GoodOutput [def] ok
+CMP OAI.AlgorithmicThinTrees.Input.n [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.n [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput [ind] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.mk [ctor] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.n [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput [ind] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.mk [ctor] ok
+CMP OAI.StrongThinTree.MultiGraph [ind] ok
+CMP OAI.StrongThinTree.MultiGraph.mk [ctor] ok
+CMP OAI.AlgorithmicThinTrees.Input.encode.match_1 [def] ok
+CMP OAI.AlgorithmicThinTrees.Input.casesOn [def] ok
+CMP OAI.AlgorithmicThinTrees.Input.rec [rec] ok
+CMP OAI.AlgorithmicThinTrees.Input.binary [ctor] ok
+CMP OAI.AlgorithmicThinTrees.Input [ind] ok
+CMP OAI.AlgorithmicThinTrees.Input.explicit [ctor] ok
+CMP OAI.AlgorithmicThinTrees.TreeOutput [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.selected [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.edgeEquiv [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.multiplicity [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.p [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.Edge [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.graph [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.graph._proof_1 [thm] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.right [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.left [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.k [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.encodeEdges [def] ok
+CMP OAI.CurrentKS.encodeNat [def] ok
+CMP OAI.CurrentKS.frame [def] ok
+CMP OAI.CurrentKS.frame._f [def] ok
+CMP OAI.CurrentKS.frame.match_1 [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.graph [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.m [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.k [def] ok
+CMP OAI.AlgorithmicThinTrees.ThinTree [def] ok
+CMP OAI.StrongThinTree.MultiGraph.cut [def] ok
+CMP OAI.StrongThinTree.MultiGraph.right [def] ok
+CMP OAI.StrongThinTree.MultiGraph.left [def] ok
+CMP OAI.StrongThinTree.MultiGraph.SpanningTree [def] ok
+CMP OAI.StrongThinTree.MultiGraph.Connected [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.encodeEdges [def] ok
+CMP OAI.AlgorithmicThinTrees.TreeOutput.match_1 [def] ok
+CMP OAI.CurrentKS.Config.state [def] ok
+CMP OAI.AlgorithmicThinTrees.Input.length [def] ok
+CMP OAI.AlgorithmicThinTrees.Input.encode [def] ok
+CMP OAI.AlgorithmicThinTrees.BinaryInput.encode [def] ok
+CMP OAI.AlgorithmicThinTrees.ExplicitInput.encode [def] ok
+CMP OAI.CurrentKS.Machine.run [def] ok
+CMP OAI.CurrentKS.Machine.init [def] ok
+CMP OAI.CurrentKS.Machine.inputStack [def] ok
+CMP OAI.CurrentKS.Machine.initial [def] ok
+CMP OAI.CurrentKS.Machine.states [def] ok
+CMP OAI.CurrentKS.Machine.step [def] ok
+CMP OAI.CurrentKS.Instruction.actions [def] ok
+CMP OAI.CurrentKS.StackAction.apply [def] ok
+CMP OAI.CurrentKS.StackAction.apply.match_1 [def] ok
+CMP OAI.CurrentKS.StackAction.casesOn [def] ok
+CMP OAI.CurrentKS.StackAction.rec [rec] ok
+CMP OAI.CurrentKS.Instruction.next [def] ok
+CMP OAI.CurrentKS.Instruction.halt [def] ok
+CMP OAI.CurrentKS.headsCode [def] ok
+CMP OAI.CurrentKS.headsCode._f [def] ok
+CMP OAI.CurrentKS.topCode [def] ok
+CMP OAI.CurrentKS.topCode.match_1 [def] ok
+CMP OAI.CurrentKS.headsCode.match_1 [def] ok
+CMP OAI.CurrentKS.Machine.table [def] ok
+CMP OAI.CurrentKS.Machine.step.match_1 [def] ok
+CMP OAI.AlgorithmicThinTrees.Valid [def] ok
+CMP OAI.StrongThinTree.MultiGraph.EdgeConnected [def] ok
+Chal.AlgorithmicThinTrees.algorithmic_strong_thin_trees : Chal.AlgorithmicThinTrees.AlgorithmicStrongThinTrees
+structure Chal.StrongThinTree.MultiGraph (n m : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.StrongThinTree.MultiGraph.left : Fin m → Fin n
+  Chal.StrongThinTree.MultiGraph.right : Fin m → Fin n
+  Chal.StrongThinTree.MultiGraph.loopless : ∀ (e : Fin m), self.left e ≠ self.right e
+constructor:
+  Chal.StrongThinTree.MultiGraph.mk {n m : ℕ} (left right : Fin m → Fin n)
+    (loopless : ∀ (e : Fin m), left e ≠ right e) : Chal.StrongThinTree.MultiGraph n m
+def Chal.StrongThinTree.MultiGraph.cut : {n m : ℕ} →
+  Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Finset (Fin n) → Finset (Fin m) :=
+fun {n m} G T S => {e ∈ T | G.left e ∈ S ∧ G.right e ∉ S ∨ G.right e ∈ S ∧ G.left e ∉ S}
+def Chal.StrongThinTree.MultiGraph.Connected : {n m : ℕ} → Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → (G.cut T S).Nonempty
+def Chal.StrongThinTree.MultiGraph.SpanningTree : {n m : ℕ} →
+  Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => G.Connected T ∧ ∀ e ∈ T, ¬G.Connected (T.erase e)
+def Chal.StrongThinTree.MultiGraph.EdgeConnected : {n m : ℕ} → Chal.StrongThinTree.MultiGraph n m → ℕ → Prop :=
+fun {n m} G k => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → k ≤ (G.cut Finset.univ S).card
+def Chal.CurrentKS.frame : List Bool → List Bool :=
+fun x => List.brecOn x Chal.CurrentKS.frame._f
+def Chal.CurrentKS.encodeNat : ℕ → List Bool :=
+fun n => Chal.CurrentKS.frame (Computability.encodeNat n)
+inductive Chal.CurrentKS.StackAction : Type
+number of parameters: 0
+constructors:
+Chal.CurrentKS.StackAction.stay : Chal.CurrentKS.StackAction
+Chal.CurrentKS.StackAction.pop : Chal.CurrentKS.StackAction
+Chal.CurrentKS.StackAction.push : Bool → Chal.CurrentKS.StackAction
+def Chal.CurrentKS.StackAction.apply : Chal.CurrentKS.StackAction → List Bool → List Bool :=
+fun x x_1 =>
+  match x, x_1 with
+  | Chal.CurrentKS.StackAction.stay, xs => xs
+  | Chal.CurrentKS.StackAction.pop, xs => xs.tail
+  | Chal.CurrentKS.StackAction.push b, xs => b :: xs
+structure Chal.CurrentKS.Instruction (k q : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.CurrentKS.Instruction.next : Option (Fin q)
+  Chal.CurrentKS.Instruction.actions : Fin k → Chal.CurrentKS.StackAction
+constructor:
+  Chal.CurrentKS.Instruction.mk {k q : ℕ} (next : Option (Fin q)) (actions : Fin k → Chal.CurrentKS.StackAction) :
+    Chal.CurrentKS.Instruction k q
+def Chal.CurrentKS.Instruction.halt : (k q : ℕ) → Chal.CurrentKS.Instruction k q :=
+fun k q => { next := none, actions := fun x => Chal.CurrentKS.StackAction.stay }
+structure Chal.CurrentKS.Machine : Type
+number of parameters: 0
+fields:
+  Chal.CurrentKS.Machine.stackCount : ℕ
+  Chal.CurrentKS.Machine.states : ℕ
+  Chal.CurrentKS.Machine.initial : Fin self.states
+  Chal.CurrentKS.Machine.inputStack : Fin self.stackCount
+  Chal.CurrentKS.Machine.outputStack : Fin self.stackCount
+  Chal.CurrentKS.Machine.table : List (Chal.CurrentKS.Instruction self.stackCount self.states)
+constructor:
+  Chal.CurrentKS.Machine.mk (stackCount states : ℕ) (initial : Fin states) (inputStack outputStack : Fin stackCount)
+    (table : List (Chal.CurrentKS.Instruction stackCount states)) : Chal.CurrentKS.Machine
+structure Chal.CurrentKS.Config (k q : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.CurrentKS.Config.state : Option (Fin q)
+  Chal.CurrentKS.Config.stacks : Fin k → List Bool
+constructor:
+  Chal.CurrentKS.Config.mk {k q : ℕ} (state : Option (Fin q)) («stacks» : Fin k → List Bool) : Chal.CurrentKS.Config k q
+def Chal.CurrentKS.topCode : List Bool → ℕ :=
+fun x =>
+  match x with
+  | [] => 0
+  | false :: tail => 1
+  | true :: tail => 2
+def Chal.CurrentKS.headsCode : (k : ℕ) → (Fin k → List Bool) → ℕ :=
+fun x x_1 => Nat.brecOn (motive := fun x => (Fin x → List Bool) → ℕ) x Chal.CurrentKS.headsCode._f x_1
+def Chal.CurrentKS.Machine.step : (M : Chal.CurrentKS.Machine) →
+  Chal.CurrentKS.Config M.stackCount M.states → Chal.CurrentKS.Config M.stackCount M.states :=
+fun M c =>
+  match c.state with
+  | none => c
+  | some q =>
+    have instruction :=
+      M.table.getD (3 ^ M.stackCount * ↑q + Chal.CurrentKS.headsCode M.stackCount c.stacks)
+        (Chal.CurrentKS.Instruction.halt M.stackCount M.states);
+    { state := instruction.next, «stacks» := fun j => (instruction.actions j).apply (c.stacks j) }
+def Chal.CurrentKS.Machine.init : (M : Chal.CurrentKS.Machine) →
+  List Bool → Chal.CurrentKS.Config M.stackCount M.states :=
+fun M input => { state := some M.initial, «stacks» := fun j => if j = M.inputStack then input else [] }
+def Chal.CurrentKS.Machine.run : (M : Chal.CurrentKS.Machine) →
+  List Bool → ℕ → Chal.CurrentKS.Config M.stackCount M.states :=
+fun M input fuel => M.step^[fuel] (M.init input)
+structure Chal.AlgorithmicThinTrees.ExplicitInput : Type
+number of parameters: 0
+fields:
+  Chal.AlgorithmicThinTrees.ExplicitInput.n : ℕ
+  Chal.AlgorithmicThinTrees.ExplicitInput.m : ℕ
+  Chal.AlgorithmicThinTrees.ExplicitInput.k : ℕ
+  Chal.AlgorithmicThinTrees.ExplicitInput.graph : Chal.StrongThinTree.MultiGraph self.n self.m
+constructor:
+  Chal.AlgorithmicThinTrees.ExplicitInput.mk (n m k : ℕ) (graph : Chal.StrongThinTree.MultiGraph n m) :
+    Chal.AlgorithmicThinTrees.ExplicitInput
+structure Chal.AlgorithmicThinTrees.BinaryInput : Type
+number of parameters: 0
+fields:
+  Chal.AlgorithmicThinTrees.BinaryInput.n : ℕ
+  Chal.AlgorithmicThinTrees.BinaryInput.p : ℕ
+  Chal.AlgorithmicThinTrees.BinaryInput.k : ℕ
+  Chal.AlgorithmicThinTrees.BinaryInput.left : Fin self.p → Fin self.n
+  Chal.AlgorithmicThinTrees.BinaryInput.right : Fin self.p → Fin self.n
+  Chal.AlgorithmicThinTrees.BinaryInput.ordered : ∀ (i : Fin self.p), self.left i < self.right i
+  Chal.AlgorithmicThinTrees.BinaryInput.distinct : Function.Injective fun i => (self.left i, self.right i)
+  Chal.AlgorithmicThinTrees.BinaryInput.multiplicity : Fin self.p → ℕ
+constructor:
+  Chal.AlgorithmicThinTrees.BinaryInput.mk (n p k : ℕ) (left right : Fin p → Fin n)
+    (ordered : ∀ (i : Fin p), left i < right i) (distinct : Function.Injective fun i => (left i, right i))
+    (multiplicity : Fin p → ℕ) : Chal.AlgorithmicThinTrees.BinaryInput
+@[reducible] def Chal.AlgorithmicThinTrees.BinaryInput.Edge : Chal.AlgorithmicThinTrees.BinaryInput → Type :=
+fun x => (i : Fin x.p) × Fin (x.multiplicity i)
+def Chal.AlgorithmicThinTrees.BinaryInput.edgeEquiv : (x : Chal.AlgorithmicThinTrees.BinaryInput) →
+  x.Edge ≃ Fin (Fintype.card x.Edge) :=
+fun x => Fintype.equivFin x.Edge
+def Chal.AlgorithmicThinTrees.BinaryInput.graph : (x : Chal.AlgorithmicThinTrees.BinaryInput) →
+  Chal.StrongThinTree.MultiGraph x.n (Fintype.card x.Edge) :=
+fun x =>
+  { left := fun e => x.left (x.edgeEquiv.symm e).fst, right := fun e => x.right (x.edgeEquiv.symm e).fst,
+    loopless := ⋯ }
+inductive Chal.AlgorithmicThinTrees.Input : Type
+number of parameters: 0
+constructors:
+Chal.AlgorithmicThinTrees.Input.explicit : Chal.AlgorithmicThinTrees.ExplicitInput → Chal.AlgorithmicThinTrees.Input
+Chal.AlgorithmicThinTrees.Input.binary : Chal.AlgorithmicThinTrees.BinaryInput → Chal.AlgorithmicThinTrees.Input
+def Chal.AlgorithmicThinTrees.ExplicitInput.encode : Chal.AlgorithmicThinTrees.ExplicitInput → List Bool :=
+fun x =>
+  Chal.CurrentKS.encodeNat x.n ++ Chal.CurrentKS.encodeNat x.m ++ Chal.CurrentKS.encodeNat x.k ++
+    (List.ofFn fun i =>
+        Chal.CurrentKS.encodeNat ↑(x.graph.left i) ++ Chal.CurrentKS.encodeNat ↑(x.graph.right i)).flatten
+def Chal.AlgorithmicThinTrees.BinaryInput.encode : Chal.AlgorithmicThinTrees.BinaryInput → List Bool :=
+fun x =>
+  Chal.CurrentKS.encodeNat x.n ++ Chal.CurrentKS.encodeNat x.p ++ Chal.CurrentKS.encodeNat x.k ++
+    (List.ofFn fun i =>
+        Chal.CurrentKS.encodeNat ↑(x.left i) ++ Chal.CurrentKS.encodeNat ↑(x.right i) ++
+          Chal.CurrentKS.encodeNat (x.multiplicity i)).flatten
+def Chal.AlgorithmicThinTrees.Input.encode : Chal.AlgorithmicThinTrees.Input → List Bool :=
+fun x =>
+  match x with
+  | Chal.AlgorithmicThinTrees.Input.explicit x => false :: x.encode
+  | Chal.AlgorithmicThinTrees.Input.binary x => true :: x.encode
+def Chal.AlgorithmicThinTrees.Input.length : Chal.AlgorithmicThinTrees.Input → ℕ :=
+fun x => x.encode.length
+def Chal.AlgorithmicThinTrees.Input.n : Chal.AlgorithmicThinTrees.Input → ℕ :=
+fun x =>
+  match x with
+  | Chal.AlgorithmicThinTrees.Input.explicit x => x.n
+  | Chal.AlgorithmicThinTrees.Input.binary x => x.n
+def Chal.AlgorithmicThinTrees.Valid : Chal.AlgorithmicThinTrees.Input → Prop :=
+fun x =>
+  match x with
+  | Chal.AlgorithmicThinTrees.Input.explicit x => 1 ≤ x.n ∧ 1 ≤ x.k ∧ x.graph.EdgeConnected x.k
+  | Chal.AlgorithmicThinTrees.Input.binary x => 1 ≤ x.n ∧ 1 ≤ x.k ∧ x.graph.EdgeConnected x.k
+def Chal.AlgorithmicThinTrees.ThinTree : {n m : ℕ} →
+  ℝ → ℕ → Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} C k G T =>
+  G.SpanningTree T ∧
+    ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → ↑(G.cut T S).card ≤ C / ↑k * ↑(G.cut Finset.univ S).card
+def Chal.AlgorithmicThinTrees.ExplicitInput.encodeEdges : (x : Chal.AlgorithmicThinTrees.ExplicitInput) →
+  List (Fin x.m) → List Bool :=
+fun x edges => List.flatMap (fun e => Chal.CurrentKS.encodeNat ↑e) edges
+def Chal.AlgorithmicThinTrees.BinaryInput.encodeEdges : (x : Chal.AlgorithmicThinTrees.BinaryInput) →
+  List x.Edge → List Bool :=
+fun x edges => List.flatMap (fun e => Chal.CurrentKS.encodeNat ↑e.fst ++ Chal.CurrentKS.encodeNat ↑e.snd) edges
+def Chal.AlgorithmicThinTrees.BinaryInput.selected : (x : Chal.AlgorithmicThinTrees.BinaryInput) →
+  List x.Edge → Finset (Fin (Fintype.card x.Edge)) :=
+fun x edges => Finset.map x.edgeEquiv.toEmbedding edges.toFinset
+def Chal.AlgorithmicThinTrees.TreeOutput : ℝ → Chal.AlgorithmicThinTrees.Input → List Bool → Prop :=
+fun C x x_1 =>
+  match x, x_1 with
+  | Chal.AlgorithmicThinTrees.Input.explicit x, bits =>
+    ∃ edges, edges.Nodup ∧ bits = x.encodeEdges edges ∧ Chal.AlgorithmicThinTrees.ThinTree C x.k x.graph edges.toFinset
+  | Chal.AlgorithmicThinTrees.Input.binary x, bits =>
+    ∃ edges,
+      edges.Nodup ∧ bits = x.encodeEdges edges ∧ Chal.AlgorithmicThinTrees.ThinTree C x.k x.graph (x.selected edges)
+def Chal.AlgorithmicThinTrees.GoodOutput : ℝ → Chal.AlgorithmicThinTrees.Input → List Bool → Prop :=
+fun C x bits => Chal.AlgorithmicThinTrees.TreeOutput C x bits ∧ (x.n = 1 → bits = [])
+def Chal.AlgorithmicThinTrees.AlgorithmicStrongThinTrees : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ M a degree,
+      0 < a ∧
+        ∀ (x : Chal.AlgorithmicThinTrees.Input),
+          Chal.AlgorithmicThinTrees.Valid x →
+            have result := M.run x.encode (a * (x.length + 1) ^ degree);
+            result.state = none ∧ Chal.AlgorithmicThinTrees.GoodOutput C x (result.stacks M.outputStack)
+'OAI.AlgorithmicThinTrees.algorithmic_strong_thin_trees' depends on axioms: [propext, Classical.choice, Quot.sound]
+== AlgorithmicThinTrees comparator-style: ok=85 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

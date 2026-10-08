@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T09:56:35Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T10:46:24Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 51 accepted by the
-    real Comparator, of which 51 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 66 accepted by the
+    real Comparator, of which 66 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3827,7 +3827,8 @@ alignment:
     module: OAI.Computability.RandomMean.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/RandomizedMeanPayoff.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 104 — headline claim as stated in the overview: Gives deterministic algorithms using $2^{O((\log(L+2))^2)}$
       bit operations, for complete binary input length $L$, for ordinary mean-payoff games and two separate extensions.
       They compute exact values and optimal positional strategies in ordinary games, the nonnegative expectation-of-liminf
@@ -3915,7 +3916,8 @@ alignment:
     module: OAI.Combinatorics.UniformKServer.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformKServer.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 111 — One-sample matroid prophet inequalities against an almighty adversary: One-sample matroid
       prophet inequality against an almighty adversary (the lab''s own result label); paper ''One Sample Suffices
       for Matroid Prophet Inequalities against an Almighty Adversary'', theorem thm:main (build/sections/introduction.tex:24)'
@@ -4239,7 +4241,8 @@ alignment:
     module: OAI.Computability.FourierCircuit.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ExactFourier.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 130 — headline claim as stated in the overview: Gives a deterministic length-$n$ discrete Fourier
       transform algorithm using $O(n(\log n)^{1-\delta})$ operations for every $n$, with explicit $\delta=10^{-13}$.
       The model uses exact complex arithmetic, unrestricted coefficients and a supplied root of unity, and counts
@@ -4839,7 +4842,8 @@ alignment:
     module: OAI.Combinatorics.ThinTrees.AlgorithmicMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/AlgorithmicThinTrees.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 174 — Deterministic construction of strong thin spanning trees: Strong thin-tree bound (the
       lab''s own result label); paper ''The strong thin tree conjecture'', theorem thm:main (build/source/sections/introduction.tex:18)'
     lean: OAI.StrongThinTree.strongThinTree
@@ -5272,7 +5276,8 @@ alignment:
     module: OAI.RingTheory.BassTrace.TorsionFree
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BassTorsionFree.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 207 — The $\ell^1$-Bass and complex Bass trace conjectures: Complex Bass trace vanishing and
       support (the lab''s own result label); paper ''The Bass trace conjecture and the characteristic-zero Kaplansky
       idempotent conjecture'', theorem thm:bass (build/sections/01-introduction.tex:45)'
@@ -5280,7 +5285,8 @@ alignment:
     module: OAI.RingTheory.BassTrace.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BassTrace.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 207 — headline claim as stated in the overview: Proves the $\ell^1$-Bass conjecture for every
       discrete group: Hattori--Stallings traces of idempotent matrices over $\ell^1(G)$ are supported on finitely
       many finite-order conjugacy classes. The algebraic companion proves the integral Bass trace conjecture and
@@ -5990,7 +5996,8 @@ alignment:
     module: OAI.Computability.TypeSystem.Normalization
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TypeSystemNormalization.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 246 — Cannon''s conjecture: Cannon''s geometric-action conclusion (the lab''s own result label);
       paper ''A Modulus Proof of Cannon’s Conjecture'', theorem thm:main (build/main.tex:94)'
     lean: OAI.CannonRelease.cannon
@@ -6226,7 +6233,8 @@ alignment:
     module: OAI.Analysis.LiebThirring.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LiebThirring.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 262 — headline claim as stated in the overview: Proves the sharp one-dimensional Lieb--Thirring
       inequality for $1/2<\gamma<3/2$ and arbitrary finite-matrix potentials $W\ge0$ with $\int\operatorname{tr}(W^{\gamma+1/2})<\infty$:
       the optimal constant is the scalar one-bound-state value, independent of matrix size. All equality cases are
@@ -6341,7 +6349,8 @@ alignment:
     module: OAI.Analysis.Laughlin.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Laughlin.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 269 — The Laughlin gap and stability under scalar disorder: Uniform Fock-space spectral-gap
       inequality (the lab''s own result label); paper ''A Fock-space inequality and the Laughlin spectral gap'',
       theorem thm:fock (build/sections/01-introduction.tex:45)'
@@ -6413,7 +6422,8 @@ alignment:
     module: OAI.Analysis.Quantum.DimensionTen.Channel
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DimensionTenChannel.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 272 — Entanglement without secret key and the PPT-square conjecture: Dimension-ten PPT pair
       with non-entanglement-breaking composition (the lab''s own result label); paper ''Entanglement with zero distillable
       secret key in local dimension ten'', theorem thm:main-state (build/source/sections/introduction.tex:45)'
@@ -6447,7 +6457,8 @@ alignment:
     module: OAI.InformationTheory.PhotonNumber.Inequality
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EntropyPhotonNumber.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 274 — Moore''s parity conjecture for $\mathrm{QAC}^0$: Constant-depth quantum parity lower bound
       / General positive-advantage parity lower bound (the lab''s own result label); paper ''Product-projection
       localization and the QAC0 parity lower bound'', theorem thm:parity (build/sections/introduction.tex:25)'
@@ -6455,7 +6466,8 @@ alignment:
     module: OAI.InformationTheory.QuantumCircuit.Parity
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/QACParity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 274 — Moore''s parity conjecture for $\mathrm{QAC}^0$: Polynomial-size parity specialization
       / Polynomial-size quantum parity lower bound (the lab''s own result label); paper ''Regular trajectories,
       pruning and quantum parity'', theorem thm:parity (build/sections/01-introduction.tex:47)'
@@ -6544,7 +6556,8 @@ alignment:
     module: OAI.Probability.SKSupport.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKFullSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 281 — QAOA optimality for the SK model: Parisi ground-state value identities and finite Gaussian
       approximation (the lab''s own result label); paper ''QAOA attains the SK ground-state energy in the thermodynamic-first
       limit'', theorem thm:main (build/sections/01-introduction.tex:111)'
@@ -6552,7 +6565,8 @@ alignment:
     module: OAI.Probability.SKValue.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKValue.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 281 — headline claim as stated in the overview: Proves that QAOA approaches the ground-state
       energy of the Gaussian zero-field Sherrington--Kirkpatrick model when system size tends to infinity before
       circuit depth. For every accuracy, finite depth and deterministic angles independent of size and disorder
@@ -7300,7 +7314,8 @@ alignment:
     module: OAI.Geometry.HarmonicGrowth.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HarmonicGrowth.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 361 — headline claim as stated in the overview: Disproves Yau''s proposed Euclidean dimension
       bound for harmonic functions of integer growth on manifolds with nonnegative Ricci curvature. For every sufficiently
       large integer $k$, a complete smooth metric on $\mathbb R^3$ has at least $(k+2)^2$ independent harmonic functions
@@ -7513,7 +7528,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T09:56:35Z'
+    generated: '2026-10-08T10:46:24Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7550,7 +7565,10 @@ mathvet:
     - PiExponent
     - ThompsonNonamenability
     comparator_pass:
+    - AlgorithmicThinTrees
     - AsymptoticallyMinimalLittlewood
+    - BassTorsionFree
+    - BassTrace
     - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
@@ -7561,21 +7579,27 @@ mathvet:
     - CoulombRadii
     - CriticalPercolation
     - CriticalZ3
+    - DimensionTenChannel
     - DimensionTenPair
     - ElasticityUniqueness
     - EntangledGames
+    - EntropyPhotonNumber
     - EuclideanFiveColor
     - EvenBarker
+    - ExactFourier
     - ExactQuantumFactoring
     - GeneralizedStarHeight
     - GotsmanLinial
     - GroupRingDeterminant
     - HardSphere
+    - HarmonicGrowth
     - IndependentSets
     - InterpolatedFactors
     - KServer
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - Laughlin
+    - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
     - LogConcaveQuery
@@ -7588,6 +7612,10 @@ mathvet:
     - PeriodicGroup
     - PiExponent
     - PlaneColoring
+    - QACParity
+    - RandomizedMeanPayoff
+    - SKFullSupport
+    - SKValue
     - SidorenkoCounterexample
     - StrongThinTree
     - Superstring
@@ -7598,11 +7626,16 @@ mathvet:
     - ThreeMachine
     - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - TypeSystemNormalization
+    - UniformKServer
     - UniformSparsestCut
     - VlasovMaxwell
     - WeisfeilerLeman
     comparator_sandboxed_pass:
+    - AlgorithmicThinTrees
     - AsymptoticallyMinimalLittlewood
+    - BassTorsionFree
+    - BassTrace
     - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
@@ -7613,21 +7646,27 @@ mathvet:
     - CoulombRadii
     - CriticalPercolation
     - CriticalZ3
+    - DimensionTenChannel
     - DimensionTenPair
     - ElasticityUniqueness
     - EntangledGames
+    - EntropyPhotonNumber
     - EuclideanFiveColor
     - EvenBarker
+    - ExactFourier
     - ExactQuantumFactoring
     - GeneralizedStarHeight
     - GotsmanLinial
     - GroupRingDeterminant
     - HardSphere
+    - HarmonicGrowth
     - IndependentSets
     - InterpolatedFactors
     - KServer
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - Laughlin
+    - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
     - LogConcaveQuery
@@ -7640,6 +7679,10 @@ mathvet:
     - PeriodicGroup
     - PiExponent
     - PlaneColoring
+    - QACParity
+    - RandomizedMeanPayoff
+    - SKFullSupport
+    - SKValue
     - SidorenkoCounterexample
     - StrongThinTree
     - Superstring
@@ -7650,6 +7693,8 @@ mathvet:
     - ThreeMachine
     - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - TypeSystemNormalization
+    - UniformKServer
     - UniformSparsestCut
     - VlasovMaxwell
     - WeisfeilerLeman
@@ -8487,7 +8532,7 @@ mathvet:
       := List (Fin G.m) → ...`), both standard
     external_packages: []
     cone_lines_max: 27355
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/104.md
     audit_part: 1
   - family: '105'
@@ -8898,7 +8943,7 @@ mathvet:
       Fin n → Fin (n + 1 + size)`); `fourierMatrix n j k := zeta n ^ (j*k)`'
     external_packages: []
     cone_lines_max: 19103
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/130.md
     audit_part: 1
   - family: '131'
@@ -9961,7 +10006,7 @@ mathvet:
       into `ConjClasses G →₀ ℂ`; standard presentations, not Mathlib objects.'
     external_packages: []
     cone_lines_max: 24157
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/207.md
     audit_part: 2
   - family: '210'
@@ -10530,7 +10575,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 29547
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/245.md
     audit_part: 2
   - family: '246'
@@ -10850,7 +10895,7 @@ mathvet:
       are written explicitly (Γ-function formulas).'
     external_packages: []
     cone_lines_max: 13717
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/262.md
     audit_part: 2
   - family: '263'
@@ -10949,7 +10994,7 @@ mathvet:
       standard definition.'
     external_packages: []
     cone_lines_max: 124088
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/269.md
     audit_part: 2
   - family: '271'
@@ -11018,7 +11063,7 @@ mathvet:
       (outputBlock ..) (entry ρC k l).'
     external_packages: []
     cone_lines_max: 27838
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/273.md
     audit_part: 2
   - family: '274'
@@ -11038,7 +11083,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 3658
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/274.md
     audit_part: 2
   - family: '275'
@@ -11177,7 +11222,7 @@ mathvet:
       derivatives are Mathlib `deriv` (junk 0 where not differentiable).'
     external_packages: []
     cone_lines_max: 29844
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/281.md
     audit_part: 2
   - family: '287'
@@ -12095,7 +12140,7 @@ mathvet:
       degree ≤ k)'
     external_packages: []
     cone_lines_max: 36732
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/361.md
     audit_part: 3
   - family: '362'

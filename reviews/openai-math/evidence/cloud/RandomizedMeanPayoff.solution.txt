@@ -1,0 +1,124 @@
+OAI.randomized_quasipolynomial_mean_payoff : OAI.MeanPayoff.MainClaim
+'OAI.randomized_quasipolynomial_mean_payoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MeanPayoff.Game : Type
+number of parameters: 0
+fields:
+  OAI.MeanPayoff.Game.n : ℕ
+  OAI.MeanPayoff.Game.positive : 0 < self.n
+  OAI.MeanPayoff.Game.m : ℕ
+  OAI.MeanPayoff.Game.tail : Fin self.m → Fin self.n
+  OAI.MeanPayoff.Game.head : Fin self.m → Fin self.n
+  OAI.MeanPayoff.Game.maxOwner : Fin self.n → Bool
+  OAI.MeanPayoff.Game.weight : Fin self.m → ℤ
+  OAI.MeanPayoff.Game.total : ∀ (v : Fin self.n), ∃ e, self.tail e = v
+constructor:
+  OAI.MeanPayoff.Game.mk (n : ℕ) (positive : 0 < n) (m : ℕ) (tail head : Fin m → Fin n) (maxOwner : Fin n → Bool)
+    (weight : Fin m → ℤ) (total : ∀ (v : Fin n), ∃ e, tail e = v) : OAI.MeanPayoff.Game
+def OAI.MeanPayoff.Strategy : OAI.MeanPayoff.Game → Type :=
+fun G => List (Fin G.m) → (v : Fin G.n) → { e // G.tail e = v }
+def OAI.MeanPayoff.move : (G : OAI.MeanPayoff.Game) →
+  OAI.MeanPayoff.Strategy G → OAI.MeanPayoff.Strategy G → Fin G.n → List (Fin G.m) → Fin G.m :=
+fun G σ τ v history => if G.maxOwner v = true then ↑(σ history v) else ↑(τ history v)
+def OAI.MeanPayoff.position : (G : OAI.MeanPayoff.Game) →
+  OAI.MeanPayoff.Strategy G → OAI.MeanPayoff.Strategy G → Fin G.n → ℕ → Fin G.n × List (Fin G.m) :=
+fun G σ τ start x => Nat.brecOn x (OAI.MeanPayoff.position._f G σ τ start)
+def OAI.MeanPayoff.play : (G : OAI.MeanPayoff.Game) →
+  OAI.MeanPayoff.Strategy G → OAI.MeanPayoff.Strategy G → Fin G.n → ℕ → Fin G.m :=
+fun G σ τ start t =>
+  have p := OAI.MeanPayoff.position G σ τ start t;
+  OAI.MeanPayoff.move G σ τ p.1 p.2
+def OAI.MeanPayoff.meanPayoff : (G : OAI.MeanPayoff.Game) → (ℕ → Fin G.m) → ℝ :=
+fun G π => Filter.liminf (fun T => (∑ j ∈ Finset.range T, ↑(G.weight (π j))) / ↑T) Filter.atTop
+def OAI.MeanPayoff.Winning : (G : OAI.MeanPayoff.Game) → Fin G.n → Prop :=
+fun G v => ∃ σ, ∀ (τ : OAI.MeanPayoff.Strategy G), 0 ≤ OAI.MeanPayoff.meanPayoff G (OAI.MeanPayoff.play G σ τ v)
+def OAI.MeanPayoff.encodeNat : ℕ → List Bool :=
+fun n =>
+  have bits := (n + 1).bits;
+  List.replicate bits.length true ++ [false] ++ bits
+def OAI.MeanPayoff.encodeInt : ℤ → List Bool :=
+fun z => decide (z < 0) :: OAI.MeanPayoff.encodeNat z.natAbs
+def OAI.MeanPayoff.input : OAI.MeanPayoff.Game → List Bool :=
+fun G =>
+  OAI.MeanPayoff.encodeNat G.n ++ OAI.MeanPayoff.encodeNat G.m ++ List.ofFn G.maxOwner ++
+    (List.ofFn fun e =>
+        OAI.MeanPayoff.encodeNat (↑(G.tail e) + 1) ++ OAI.MeanPayoff.encodeNat (↑(G.head e) + 1) ++
+          OAI.MeanPayoff.encodeInt (G.weight e)).flatten
+@[reducible] def OAI.MeanPayoff.Symbol : Type :=
+Option Bool
+inductive OAI.MeanPayoff.Direction : Type
+number of parameters: 0
+constructors:
+OAI.MeanPayoff.Direction.left : OAI.MeanPayoff.Direction
+OAI.MeanPayoff.Direction.stay : OAI.MeanPayoff.Direction
+OAI.MeanPayoff.Direction.right : OAI.MeanPayoff.Direction
+def OAI.MeanPayoff.Direction.offset : OAI.MeanPayoff.Direction → ℤ :=
+fun x =>
+  match x with
+  | OAI.MeanPayoff.Direction.left => -1
+  | OAI.MeanPayoff.Direction.stay => 0
+  | OAI.MeanPayoff.Direction.right => 1
+structure OAI.MeanPayoff.Action (q : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.MeanPayoff.Action.next : Fin q
+  OAI.MeanPayoff.Action.write : Fin 3 → OAI.MeanPayoff.Symbol
+  OAI.MeanPayoff.Action.shift : Fin 3 → OAI.MeanPayoff.Direction
+constructor:
+  OAI.MeanPayoff.Action.mk {q : ℕ} (next : Fin q) (write : Fin 3 → OAI.MeanPayoff.Symbol)
+    (shift : Fin 3 → OAI.MeanPayoff.Direction) : OAI.MeanPayoff.Action q
+structure OAI.MeanPayoff.Machine : Type
+number of parameters: 0
+fields:
+  OAI.MeanPayoff.Machine.states : ℕ
+  OAI.MeanPayoff.Machine.start : Fin self.states
+  OAI.MeanPayoff.Machine.transition : Fin self.states →
+      (Fin 3 → OAI.MeanPayoff.Symbol) → Bool → Option (OAI.MeanPayoff.Action self.states)
+constructor:
+  OAI.MeanPayoff.Machine.mk (states : ℕ) (start : Fin states)
+    (transition : Fin states → (Fin 3 → OAI.MeanPayoff.Symbol) → Bool → Option (OAI.MeanPayoff.Action states)) :
+    OAI.MeanPayoff.Machine
+structure OAI.MeanPayoff.Configuration (M : OAI.MeanPayoff.Machine) : Type
+number of parameters: 1
+fields:
+  OAI.MeanPayoff.Configuration.control : Option (Fin M.states)
+  OAI.MeanPayoff.Configuration.head : Fin 3 → ℤ
+  OAI.MeanPayoff.Configuration.tape : Fin 3 → ℤ → OAI.MeanPayoff.Symbol
+constructor:
+  OAI.MeanPayoff.Configuration.mk {M : OAI.MeanPayoff.Machine} (control : Option (Fin M.states)) (head : Fin 3 → ℤ)
+    (tape : Fin 3 → ℤ → OAI.MeanPayoff.Symbol) : OAI.MeanPayoff.Configuration M
+def OAI.MeanPayoff.initial : (M : OAI.MeanPayoff.Machine) → List Bool → OAI.MeanPayoff.Configuration M :=
+fun M code =>
+  { control := some M.start, head := fun x => 0, tape := fun k j => if k = 0 ∧ 0 ≤ j then code[j.toNat]? else none }
+def OAI.MeanPayoff.step : (M : OAI.MeanPayoff.Machine) →
+  OAI.MeanPayoff.Configuration M → Bool → OAI.MeanPayoff.Configuration M :=
+fun M c bit =>
+  match c.control with
+  | none => c
+  | some s =>
+    match M.transition s (fun k => c.tape k (c.head k)) bit with
+    | none => { control := none, head := c.head, tape := c.tape }
+    | some a =>
+      { control := some a.next, head := fun k => c.head k + (a.shift k).offset,
+        tape := fun k => Function.update (c.tape k) (c.head k) (a.write k) }
+def OAI.MeanPayoff.run : (M : OAI.MeanPayoff.Machine) → List Bool → (ℕ → Bool) → ℕ → OAI.MeanPayoff.Configuration M :=
+fun M code random x => Nat.brecOn x (OAI.MeanPayoff.run._f M code random)
+def OAI.MeanPayoff.padBits : {T : ℕ} → (Fin T → Bool) → ℕ → Bool :=
+fun {T} bits j => if h : j < T then bits ⟨j, h⟩ else false
+def OAI.MeanPayoff.result : (M : OAI.MeanPayoff.Machine) →
+  OAI.MeanPayoff.Game → (T : ℕ) → (Fin T → Bool) → OAI.MeanPayoff.Configuration M :=
+fun M G T bits => OAI.MeanPayoff.run M (OAI.MeanPayoff.input G) (OAI.MeanPayoff.padBits bits) T
+def OAI.MeanPayoff.CorrectOutput : OAI.MeanPayoff.Game →
+  {M : OAI.MeanPayoff.Machine} → OAI.MeanPayoff.Configuration M → Prop :=
+fun G {M} c =>
+  c.control = none ∧
+    (∀ (v : Fin G.n), c.tape 2 ↑↑v = some true ↔ OAI.MeanPayoff.Winning G v) ∧
+      (∀ (v : Fin G.n), c.tape 2 ↑↑v = some false ↔ ¬OAI.MeanPayoff.Winning G v) ∧
+        ∀ (j : ℤ), j < 0 ∨ ↑G.n ≤ j → c.tape 2 j = none
+def OAI.MeanPayoff.MainClaim : Prop :=
+∃ M C,
+  0 < C ∧
+    ∀ (G : OAI.MeanPayoff.Game),
+      ∃ T,
+        ↑T ≤ 2 ^ (C * Real.logb 2 (↑(OAI.MeanPayoff.input G).length + 2) ^ 2) ∧
+          (∀ (bits : Fin T → Bool), (OAI.MeanPayoff.result M G T bits).control = none) ∧
+            7 * 2 ^ T ≤ 8 * {bits | OAI.MeanPayoff.CorrectOutput G (OAI.MeanPayoff.result M G T bits)}.card

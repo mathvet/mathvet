@@ -1,0 +1,205 @@
+CMP OAI.SKValue.value_consequences [thm] ok
+CMP OAI.SKValue.parisi [def] ok
+CMP OAI.SKValue.OrderParameter.coeff [def] ok
+CMP OAI.SKValue.OrderParameter [ind] ok
+CMP OAI.SKValue.OrderParameter.mk [ctor] ok
+CMP OAI.SKValue.controlPayoff._proof_1 [thm] ok
+CMP OAI.SKValue.phi [def] ok
+CMP OAI.SKValue.controlPayoff [def] ok
+CMP OAI.SKValue.BrownianSpace.B [def] ok
+CMP OAI.SKValue.BrownianSpace [ind] ok
+CMP OAI.SKValue.BrownianSpace.mk [ctor] ok
+CMP OAI.SKValue.BrownianSpace.Ω [def] ok
+CMP OAI.SKValue.BrownianSpace.μ [def] ok
+CMP OAI.SKValue.BrownianSpace.measurableSpace [def] ok
+CMP OAI.SKValue.Admissible [def] ok
+CMP OAI.SKValue.shiftedFiltration [def] ok
+CMP OAI.SKValue.shiftedFiltration._proof_1 [thm] ok
+CMP OAI.SKValue.BrownianSpace.filtration._proof_1 [thm] ok
+CMP OAI.SKValue.groundStateValue [def] ok
+CMP OAI.SKValue.groundStateSequence [def] ok
+CMP OAI.SKValue.hamiltonian [def] ok
+CMP OAI.SKValue.spin [def] ok
+CMP OAI.SKValue.gaussianProduct [def] ok
+CMP OAI.SKValue.standardGaussian [def] ok
+CMP OAI.SKValue.FiniteGaussianConclusion [def] ok
+CMP OAI.SKValue.curvature [def] ok
+CMP OAI.SKValue.gradient [def] ok
+CMP OAI.SKValue.shiftedCoefficientSum [def] ok
+CMP OAI.SKValue.coefficientB [def] ok
+CMP OAI.SKValue.coordinate [def] ok
+CMP OAI.SKValue.coordinate._proof_1 [thm] ok
+CMP OAI.SKValue.roundedSign [def] ok
+CMP OAI.SKValue.eulerPath [def] ok
+CMP OAI.SKValue.euler [def] ok
+CMP OAI.SKValue.euler._f [def] ok
+CMP OAI.SKValue.meshTime [def] ok
+CMP OAI.SKValue.stepSize [def] ok
+CMP OAI.SKValue.euler.match_1 [def] ok
+CMP OAI.SKValue.coefficientA [def] ok
+CMP OAI.SKValue.gaussianIncrement [def] ok
+CMP OAI.SKValue.rawCoefficient [def] ok
+CMP OAI.SKValue.normalizer [def] ok
+CMP OAI.SKValue.ScalarValueConclusion [def] ok
+CMP OAI.SKValue.IsDiffusion._proof_1 [thm] ok
+CMP OAI.SKValue.BrownianSpace.filtration [def] ok
+CMP OAI.SKValue.BrownianSpace.measurable [thm] ok
+CMP OAI.SKValue.gradientStopped [def] ok
+CMP OAI.SKValue.IsDiffusion [def] ok
+CMP OAI.SKValue.IsMinimizer [def] ok
+Chal.SKValue.value_consequences : (∀ (W : Chal.SKValue.BrownianSpace) (γ : Chal.SKValue.OrderParameter)
+    (X : ℝ → W.Ω → ℝ),
+    Chal.SKValue.IsMinimizer W γ → Chal.SKValue.IsDiffusion W γ X → Chal.SKValue.ScalarValueConclusion W γ X) ∧
+  (∀ (W : Chal.SKValue.BrownianSpace) (γ : Chal.SKValue.OrderParameter) (X : ℝ → W.Ω → ℝ) (T : ℝ),
+      0 < T →
+        T < 1 →
+          Chal.SKValue.IsMinimizer W γ →
+            Chal.SKValue.IsDiffusion W γ X → Chal.SKValue.FiniteGaussianConclusion W γ X T) ∧
+    ∀ (W : Chal.SKValue.BrownianSpace) (γ : Chal.SKValue.OrderParameter),
+      Chal.SKValue.IsMinimizer W γ → Chal.SKValue.groundStateValue = Chal.SKValue.parisi W γ
+def Chal.SKValue.standardGaussian : MeasureTheory.Measure ℝ :=
+ProbabilityTheory.gaussianReal 0 1
+def Chal.SKValue.gaussianProduct : (ι : Type) → [Fintype ι] → MeasureTheory.Measure (ι → ℝ) :=
+fun ι [Fintype ι] => MeasureTheory.Measure.pi fun x => Chal.SKValue.standardGaussian
+def Chal.SKValue.coordinate : (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun N j z => z ⟨j % (N + 1), ⋯⟩
+def Chal.SKValue.stepSize : ℝ → ℕ → ℝ :=
+fun T N => T / ↑N
+def Chal.SKValue.meshTime : ℝ → ℕ → ℕ → ℝ :=
+fun T N j => ↑j * Chal.SKValue.stepSize T N
+def Chal.SKValue.euler : ℝ → (N : ℕ) → (ℝ → ℝ) → (ℝ → ℝ → ℝ) → (Fin (N + 1) → ℝ) → ℕ → ℝ :=
+fun T N γ u z x => Nat.brecOn x (Chal.SKValue.euler._f T N γ u z)
+structure Chal.SKValue.OrderParameter : Type
+number of parameters: 0
+fields:
+  Chal.SKValue.OrderParameter.coeff : ℝ → ℝ
+  Chal.SKValue.OrderParameter.nonneg : ∀ t ∈ Set.Ico 0 1, 0 ≤ self.coeff t
+  Chal.SKValue.OrderParameter.monotone : MonotoneOn self.coeff (Set.Ico 0 1)
+  Chal.SKValue.OrderParameter.rightContinuous : ∀ t ∈ Set.Ico 0 1, ContinuousWithinAt self.coeff (Set.Ici t) t
+  Chal.SKValue.OrderParameter.integrable : MeasureTheory.IntegrableOn self.coeff (Set.Ioc 0 1) MeasureTheory.volume
+constructor:
+  Chal.SKValue.OrderParameter.mk (coeff : ℝ → ℝ) (nonneg : ∀ t ∈ Set.Ico 0 1, 0 ≤ coeff t)
+    (monotone : MonotoneOn coeff (Set.Ico 0 1))
+    (rightContinuous : ∀ t ∈ Set.Ico 0 1, ContinuousWithinAt coeff (Set.Ici t) t)
+    (integrable : MeasureTheory.IntegrableOn coeff (Set.Ioc 0 1) MeasureTheory.volume) : Chal.SKValue.OrderParameter
+structure Chal.SKValue.BrownianSpace : Type 1
+number of parameters: 0
+fields:
+  Chal.SKValue.BrownianSpace.Ω : Type
+  Chal.SKValue.BrownianSpace.measurableSpace : MeasurableSpace self.Ω
+  Chal.SKValue.BrownianSpace.μ : MeasureTheory.Measure self.Ω
+  Chal.SKValue.BrownianSpace.probability : MeasureTheory.IsProbabilityMeasure self.μ
+  Chal.SKValue.BrownianSpace.B : NNReal → self.Ω → ℝ
+  Chal.SKValue.BrownianSpace.measurable : ∀ (t : NNReal), MeasureTheory.StronglyMeasurable (self.B t)
+  Chal.SKValue.BrownianSpace.brownian : ProbabilityTheory.IsBrownianReal self.B self.μ
+constructor:
+  Chal.SKValue.BrownianSpace.mk (Ω : Type) (measurableSpace : MeasurableSpace Ω) (μ : MeasureTheory.Measure Ω)
+    (probability : MeasureTheory.IsProbabilityMeasure μ) (B : NNReal → Ω → ℝ)
+    (measurable : ∀ (t : NNReal), MeasureTheory.StronglyMeasurable (B t))
+    (brownian : ProbabilityTheory.IsBrownianReal B μ) : Chal.SKValue.BrownianSpace
+def Chal.SKValue.BrownianSpace.filtration : (W : Chal.SKValue.BrownianSpace) →
+  MeasureTheory.Filtration NNReal W.measurableSpace :=
+fun W => MeasureTheory.Filtration.natural W.B ⋯
+def Chal.SKValue.shiftedFiltration : (W : Chal.SKValue.BrownianSpace) →
+  ℝ → MeasureTheory.Filtration NNReal W.measurableSpace :=
+fun W t => MeasureTheory.Filtration.natural (fun s ω => W.B (t.toNNReal + s) ω - W.B t.toNNReal ω) ⋯
+def Chal.SKValue.Admissible : (W : Chal.SKValue.BrownianSpace) → ℝ → (NNReal → W.Ω → ℝ) → Prop :=
+fun W t α => MeasureTheory.IsProgressive (Chal.SKValue.shiftedFiltration W t) α ∧ ∀ (s : NNReal) (ω : W.Ω), |α s ω| ≤ 1
+def Chal.SKValue.controlPayoff : (W : Chal.SKValue.BrownianSpace) →
+  Chal.SKValue.OrderParameter → ℝ → ℝ → (NNReal → W.Ω → ℝ) → ℝ :=
+fun W γ t x α =>
+  ∫ (ω : W.Ω),
+    |x + W.B 1 ω - W.B t.toNNReal ω + ∫ (s : ℝ) in 0..1 - t, γ.coeff (t + s) * α s.toNNReal ω| -
+      1 / 2 * ∫ (s : ℝ) in 0..1 - t, γ.coeff (t + s) * α s.toNNReal ω ^ 2 ∂W.μ
+def Chal.SKValue.phi : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => sSup {r | ∃ α, Chal.SKValue.Admissible W t α ∧ r = Chal.SKValue.controlPayoff W γ t x α}
+def Chal.SKValue.gradient : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => deriv (Chal.SKValue.phi W γ t) x
+def Chal.SKValue.curvature : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => deriv (Chal.SKValue.gradient W γ t) x
+def Chal.SKValue.parisi : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ :=
+fun W γ => Chal.SKValue.phi W γ 0 0 - 1 / 2 * ∫ (t : ℝ) in 0..1, t * γ.coeff t
+def Chal.SKValue.IsMinimizer : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → Prop :=
+fun W γ => ∀ (η : Chal.SKValue.OrderParameter), Chal.SKValue.parisi W γ ≤ Chal.SKValue.parisi W η
+def Chal.SKValue.IsDiffusion : (W : Chal.SKValue.BrownianSpace) → Chal.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → Prop :=
+fun W γ X =>
+  (MeasureTheory.Adapted W.filtration fun t ω => X (min (↑t) 1) ω) ∧
+    ∀ᵐ (ω : W.Ω) ∂W.μ,
+      ContinuousOn (fun t => X t ω) (Set.Icc 0 1) ∧
+        ∀ t ∈ Set.Icc 0 1, X t ω = W.B t.toNNReal ω + ∫ (s : ℝ) in 0..t, γ.coeff s * Chal.SKValue.gradient W γ s (X s ω)
+def Chal.SKValue.spin : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.SKValue.hamiltonian : (n : ℕ) → (Fin n × Fin n → ℝ) → (Fin n → Bool) → ℝ :=
+fun n J σ => (√↑n)⁻¹ * ∑ i, ∑ j, if i < j then J (i, j) * Chal.SKValue.spin (σ i) * Chal.SKValue.spin (σ j) else 0
+def Chal.SKValue.groundStateSequence : ℕ → ℝ :=
+fun n =>
+  (↑n)⁻¹ *
+    ∫ (J : Fin n × Fin n → ℝ),
+      sSup (Set.range (Chal.SKValue.hamiltonian n J)) ∂Chal.SKValue.gaussianProduct (Fin n × Fin n)
+def Chal.SKValue.groundStateValue : ℝ :=
+Filter.atTop.limUnder Chal.SKValue.groundStateSequence
+def Chal.SKValue.gradientStopped : (W : Chal.SKValue.BrownianSpace) →
+  Chal.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → (W.Ω → ℝ) → NNReal → W.Ω → ℝ :=
+fun W γ X U t ω => if ↑t < 1 then Chal.SKValue.gradient W γ (↑t) (X (↑t) ω) else U ω
+def Chal.SKValue.ScalarValueConclusion : (W : Chal.SKValue.BrownianSpace) →
+  Chal.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → Prop :=
+fun W γ X =>
+  Filter.Tendsto Chal.SKValue.groundStateSequence Filter.atTop (nhds Chal.SKValue.groundStateValue) ∧
+    ∃ U,
+      MeasureTheory.Martingale (Chal.SKValue.gradientStopped W γ X U) W.filtration W.μ ∧
+        (∀ᵐ (ω : W.Ω) ∂W.μ,
+            |U ω| ≤ 1 ∧
+              U ω ^ 2 = 1 ∧
+                Filter.Tendsto (fun t => Chal.SKValue.gradient W γ t (X t ω)) (nhdsWithin 1 (Set.Iio 1)) (nhds (U ω))) ∧
+          Filter.Tendsto (fun t => ∫ (ω : W.Ω), (Chal.SKValue.gradient W γ t (X t ω) - U ω) ^ 2 ∂W.μ)
+              (nhdsWithin 1 (Set.Iio 1)) (nhds 0) ∧
+            Chal.SKValue.groundStateValue = ∫ (ω : W.Ω), |X 1 ω| ∂W.μ - ∫ (t : ℝ) in 0..1, t * γ.coeff t ∧
+              Chal.SKValue.groundStateValue = ∫ (ω : W.Ω), U ω * W.B 1 ω ∂W.μ ∧
+                Chal.SKValue.groundStateValue =
+                    ∫ (t : ℝ) in 0..1, ∫ (ω : W.Ω), Chal.SKValue.curvature W γ t (X t ω) ∂W.μ ∧
+                  IntervalIntegrable (fun t => ∫ (ω : W.Ω), Chal.SKValue.curvature W γ t (X t ω) ∂W.μ)
+                    MeasureTheory.volume 0 1
+def Chal.SKValue.eulerPath : Chal.SKValue.BrownianSpace →
+  Chal.SKValue.OrderParameter → ℝ → (N : ℕ) → (Fin (N + 1) → ℝ) → ℕ → ℝ :=
+fun W γ T N z j => Chal.SKValue.euler T N γ.coeff (Chal.SKValue.gradient W γ) z j
+def Chal.SKValue.rawCoefficient : Chal.SKValue.BrownianSpace →
+  Chal.SKValue.OrderParameter → ℝ → (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N j z => Chal.SKValue.curvature W γ (Chal.SKValue.meshTime T N j) (Chal.SKValue.eulerPath W γ T N z j)
+def Chal.SKValue.normalizer : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N j =>
+  (√(∫ (z : Fin (N + 1) → ℝ),
+        Chal.SKValue.rawCoefficient W γ T N j z ^ 2 ∂Chal.SKValue.gaussianProduct (Fin (N + 1))))⁻¹
+def Chal.SKValue.gaussianIncrement : Chal.SKValue.BrownianSpace →
+  Chal.SKValue.OrderParameter → ℝ → (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N j z =>
+  Chal.SKValue.normalizer W γ T N j * Chal.SKValue.rawCoefficient W γ T N j z * Chal.SKValue.coordinate N j z
+def Chal.SKValue.roundedSign : Chal.SKValue.BrownianSpace →
+  Chal.SKValue.OrderParameter → ℝ → (N : ℕ) → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N z =>
+  (Chal.SKValue.gradient W γ T (Chal.SKValue.eulerPath W γ T N z N) +
+        2 * ↑(ProbabilityTheory.cdf Chal.SKValue.standardGaussian) (Chal.SKValue.coordinate N N z) -
+      1).sign
+def Chal.SKValue.coefficientA : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N j =>
+  if j = 0 then 0
+  else
+    ∫ (z : Fin (N + 1) → ℝ),
+      Chal.SKValue.roundedSign W γ T N z *
+        Chal.SKValue.gaussianIncrement W γ T N (j - 1) z ∂Chal.SKValue.gaussianProduct (Fin (N + 1))
+def Chal.SKValue.coefficientB : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N i =>
+  ∫ (z : Fin (N + 1) → ℝ),
+    Chal.SKValue.roundedSign W γ T N z * Chal.SKValue.coordinate N (i - 1) z ∂Chal.SKValue.gaussianProduct (Fin (N + 1))
+def Chal.SKValue.shiftedCoefficientSum : Chal.SKValue.BrownianSpace → Chal.SKValue.OrderParameter → ℝ → ℕ → ℝ :=
+fun W γ T N =>
+  ∑ j ∈ Finset.range (N + 1), Chal.SKValue.coefficientA W γ T N j * Chal.SKValue.coefficientB W γ T N (j + 1)
+def Chal.SKValue.FiniteGaussianConclusion : (W : Chal.SKValue.BrownianSpace) →
+  Chal.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → ℝ → Prop :=
+fun W γ X T =>
+  (∀ᶠ (N : ℕ) in Filter.atTop, ∀ j < N, 0 < Chal.SKValue.normalizer W γ T N j) ∧
+    Filter.Tendsto (Chal.SKValue.shiftedCoefficientSum W γ T) Filter.atTop
+        (nhds (∫ (t : ℝ) in 0..T, ∫ (ω : W.Ω), Chal.SKValue.curvature W γ t (X t ω) ∂W.μ)) ∧
+      Filter.Tendsto (fun S => ∫ (t : ℝ) in 0..S, ∫ (ω : W.Ω), Chal.SKValue.curvature W γ t (X t ω) ∂W.μ)
+        (nhdsWithin 1 (Set.Iio 1)) (nhds Chal.SKValue.groundStateValue)
+'OAI.SKValue.value_consequences' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SKValue comparator-style: ok=49 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

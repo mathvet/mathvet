@@ -1,0 +1,188 @@
+OAI.AlgorithmicThinTrees.algorithmic_strong_thin_trees : OAI.AlgorithmicThinTrees.AlgorithmicStrongThinTrees
+'OAI.AlgorithmicThinTrees.algorithmic_strong_thin_trees' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.StrongThinTree.MultiGraph (n m : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.StrongThinTree.MultiGraph.left : Fin m → Fin n
+  OAI.StrongThinTree.MultiGraph.right : Fin m → Fin n
+  OAI.StrongThinTree.MultiGraph.loopless : ∀ (e : Fin m), self.left e ≠ self.right e
+constructor:
+  OAI.StrongThinTree.MultiGraph.mk {n m : ℕ} (left right : Fin m → Fin n) (loopless : ∀ (e : Fin m), left e ≠ right e) :
+    OAI.StrongThinTree.MultiGraph n m
+def OAI.StrongThinTree.MultiGraph.cut : {n m : ℕ} →
+  OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Finset (Fin n) → Finset (Fin m) :=
+fun {n m} G T S => {e ∈ T | G.left e ∈ S ∧ G.right e ∉ S ∨ G.right e ∈ S ∧ G.left e ∉ S}
+def OAI.StrongThinTree.MultiGraph.Connected : {n m : ℕ} → OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → (G.cut T S).Nonempty
+def OAI.StrongThinTree.MultiGraph.SpanningTree : {n m : ℕ} →
+  OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => G.Connected T ∧ ∀ e ∈ T, ¬G.Connected (T.erase e)
+def OAI.StrongThinTree.MultiGraph.EdgeConnected : {n m : ℕ} → OAI.StrongThinTree.MultiGraph n m → ℕ → Prop :=
+fun {n m} G k => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → k ≤ (G.cut Finset.univ S).card
+def OAI.CurrentKS.frame : List Bool → List Bool :=
+fun x => List.brecOn x OAI.CurrentKS.frame._f
+def OAI.CurrentKS.encodeNat : ℕ → List Bool :=
+fun n => OAI.CurrentKS.frame (Computability.encodeNat n)
+inductive OAI.CurrentKS.StackAction : Type
+number of parameters: 0
+constructors:
+OAI.CurrentKS.StackAction.stay : OAI.CurrentKS.StackAction
+OAI.CurrentKS.StackAction.pop : OAI.CurrentKS.StackAction
+OAI.CurrentKS.StackAction.push : Bool → OAI.CurrentKS.StackAction
+def OAI.CurrentKS.StackAction.apply : OAI.CurrentKS.StackAction → List Bool → List Bool :=
+fun x x_1 =>
+  match x, x_1 with
+  | OAI.CurrentKS.StackAction.stay, xs => xs
+  | OAI.CurrentKS.StackAction.pop, xs => xs.tail
+  | OAI.CurrentKS.StackAction.push b, xs => b :: xs
+structure OAI.CurrentKS.Instruction (k q : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.CurrentKS.Instruction.next : Option (Fin q)
+  OAI.CurrentKS.Instruction.actions : Fin k → OAI.CurrentKS.StackAction
+constructor:
+  OAI.CurrentKS.Instruction.mk {k q : ℕ} (next : Option (Fin q)) (actions : Fin k → OAI.CurrentKS.StackAction) :
+    OAI.CurrentKS.Instruction k q
+def OAI.CurrentKS.Instruction.halt : (k q : ℕ) → OAI.CurrentKS.Instruction k q :=
+fun k q => { next := none, actions := fun x => OAI.CurrentKS.StackAction.stay }
+structure OAI.CurrentKS.Machine : Type
+number of parameters: 0
+fields:
+  OAI.CurrentKS.Machine.stackCount : ℕ
+  OAI.CurrentKS.Machine.states : ℕ
+  OAI.CurrentKS.Machine.initial : Fin self.states
+  OAI.CurrentKS.Machine.inputStack : Fin self.stackCount
+  OAI.CurrentKS.Machine.outputStack : Fin self.stackCount
+  OAI.CurrentKS.Machine.table : List (OAI.CurrentKS.Instruction self.stackCount self.states)
+constructor:
+  OAI.CurrentKS.Machine.mk (stackCount states : ℕ) (initial : Fin states) (inputStack outputStack : Fin stackCount)
+    (table : List (OAI.CurrentKS.Instruction stackCount states)) : OAI.CurrentKS.Machine
+structure OAI.CurrentKS.Config (k q : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.CurrentKS.Config.state : Option (Fin q)
+  OAI.CurrentKS.Config.stacks : Fin k → List Bool
+constructor:
+  OAI.CurrentKS.Config.mk {k q : ℕ} (state : Option (Fin q)) («stacks» : Fin k → List Bool) : OAI.CurrentKS.Config k q
+def OAI.CurrentKS.topCode : List Bool → ℕ :=
+fun x =>
+  match x with
+  | [] => 0
+  | false :: tail => 1
+  | true :: tail => 2
+def OAI.CurrentKS.headsCode : (k : ℕ) → (Fin k → List Bool) → ℕ :=
+fun x x_1 => Nat.brecOn (motive := fun x => (Fin x → List Bool) → ℕ) x OAI.CurrentKS.headsCode._f x_1
+def OAI.CurrentKS.Machine.step : (M : OAI.CurrentKS.Machine) →
+  OAI.CurrentKS.Config M.stackCount M.states → OAI.CurrentKS.Config M.stackCount M.states :=
+fun M c =>
+  match c.state with
+  | none => c
+  | some q =>
+    have instruction :=
+      M.table.getD (3 ^ M.stackCount * ↑q + OAI.CurrentKS.headsCode M.stackCount c.stacks)
+        (OAI.CurrentKS.Instruction.halt M.stackCount M.states);
+    { state := instruction.next, «stacks» := fun j => (instruction.actions j).apply (c.stacks j) }
+def OAI.CurrentKS.Machine.init : (M : OAI.CurrentKS.Machine) → List Bool → OAI.CurrentKS.Config M.stackCount M.states :=
+fun M input => { state := some M.initial, «stacks» := fun j => if j = M.inputStack then input else [] }
+def OAI.CurrentKS.Machine.run : (M : OAI.CurrentKS.Machine) →
+  List Bool → ℕ → OAI.CurrentKS.Config M.stackCount M.states :=
+fun M input fuel => M.step^[fuel] (M.init input)
+structure OAI.AlgorithmicThinTrees.ExplicitInput : Type
+number of parameters: 0
+fields:
+  OAI.AlgorithmicThinTrees.ExplicitInput.n : ℕ
+  OAI.AlgorithmicThinTrees.ExplicitInput.m : ℕ
+  OAI.AlgorithmicThinTrees.ExplicitInput.k : ℕ
+  OAI.AlgorithmicThinTrees.ExplicitInput.graph : OAI.StrongThinTree.MultiGraph self.n self.m
+constructor:
+  OAI.AlgorithmicThinTrees.ExplicitInput.mk (n m k : ℕ) (graph : OAI.StrongThinTree.MultiGraph n m) :
+    OAI.AlgorithmicThinTrees.ExplicitInput
+structure OAI.AlgorithmicThinTrees.BinaryInput : Type
+number of parameters: 0
+fields:
+  OAI.AlgorithmicThinTrees.BinaryInput.n : ℕ
+  OAI.AlgorithmicThinTrees.BinaryInput.p : ℕ
+  OAI.AlgorithmicThinTrees.BinaryInput.k : ℕ
+  OAI.AlgorithmicThinTrees.BinaryInput.left : Fin self.p → Fin self.n
+  OAI.AlgorithmicThinTrees.BinaryInput.right : Fin self.p → Fin self.n
+  OAI.AlgorithmicThinTrees.BinaryInput.ordered : ∀ (i : Fin self.p), self.left i < self.right i
+  OAI.AlgorithmicThinTrees.BinaryInput.distinct : Function.Injective fun i => (self.left i, self.right i)
+  OAI.AlgorithmicThinTrees.BinaryInput.multiplicity : Fin self.p → ℕ
+constructor:
+  OAI.AlgorithmicThinTrees.BinaryInput.mk (n p k : ℕ) (left right : Fin p → Fin n)
+    (ordered : ∀ (i : Fin p), left i < right i) (distinct : Function.Injective fun i => (left i, right i))
+    (multiplicity : Fin p → ℕ) : OAI.AlgorithmicThinTrees.BinaryInput
+@[reducible] def OAI.AlgorithmicThinTrees.BinaryInput.Edge : OAI.AlgorithmicThinTrees.BinaryInput → Type :=
+fun x => (i : Fin x.p) × Fin (x.multiplicity i)
+def OAI.AlgorithmicThinTrees.BinaryInput.edgeEquiv : (x : OAI.AlgorithmicThinTrees.BinaryInput) →
+  x.Edge ≃ Fin (Fintype.card x.Edge) :=
+fun x => Fintype.equivFin x.Edge
+def OAI.AlgorithmicThinTrees.BinaryInput.graph : (x : OAI.AlgorithmicThinTrees.BinaryInput) →
+  OAI.StrongThinTree.MultiGraph x.n (Fintype.card x.Edge) :=
+fun x =>
+  { left := fun e => x.left (x.edgeEquiv.symm e).fst, right := fun e => x.right (x.edgeEquiv.symm e).fst,
+    loopless := ⋯ }
+inductive OAI.AlgorithmicThinTrees.Input : Type
+number of parameters: 0
+constructors:
+OAI.AlgorithmicThinTrees.Input.explicit : OAI.AlgorithmicThinTrees.ExplicitInput → OAI.AlgorithmicThinTrees.Input
+OAI.AlgorithmicThinTrees.Input.binary : OAI.AlgorithmicThinTrees.BinaryInput → OAI.AlgorithmicThinTrees.Input
+def OAI.AlgorithmicThinTrees.ExplicitInput.encode : OAI.AlgorithmicThinTrees.ExplicitInput → List Bool :=
+fun x =>
+  OAI.CurrentKS.encodeNat x.n ++ OAI.CurrentKS.encodeNat x.m ++ OAI.CurrentKS.encodeNat x.k ++
+    (List.ofFn fun i => OAI.CurrentKS.encodeNat ↑(x.graph.left i) ++ OAI.CurrentKS.encodeNat ↑(x.graph.right i)).flatten
+def OAI.AlgorithmicThinTrees.BinaryInput.encode : OAI.AlgorithmicThinTrees.BinaryInput → List Bool :=
+fun x =>
+  OAI.CurrentKS.encodeNat x.n ++ OAI.CurrentKS.encodeNat x.p ++ OAI.CurrentKS.encodeNat x.k ++
+    (List.ofFn fun i =>
+        OAI.CurrentKS.encodeNat ↑(x.left i) ++ OAI.CurrentKS.encodeNat ↑(x.right i) ++
+          OAI.CurrentKS.encodeNat (x.multiplicity i)).flatten
+def OAI.AlgorithmicThinTrees.Input.encode : OAI.AlgorithmicThinTrees.Input → List Bool :=
+fun x =>
+  match x with
+  | OAI.AlgorithmicThinTrees.Input.explicit x => false :: x.encode
+  | OAI.AlgorithmicThinTrees.Input.binary x => true :: x.encode
+def OAI.AlgorithmicThinTrees.Input.length : OAI.AlgorithmicThinTrees.Input → ℕ :=
+fun x => x.encode.length
+def OAI.AlgorithmicThinTrees.Input.n : OAI.AlgorithmicThinTrees.Input → ℕ :=
+fun x =>
+  match x with
+  | OAI.AlgorithmicThinTrees.Input.explicit x => x.n
+  | OAI.AlgorithmicThinTrees.Input.binary x => x.n
+def OAI.AlgorithmicThinTrees.Valid : OAI.AlgorithmicThinTrees.Input → Prop :=
+fun x =>
+  match x with
+  | OAI.AlgorithmicThinTrees.Input.explicit x => 1 ≤ x.n ∧ 1 ≤ x.k ∧ x.graph.EdgeConnected x.k
+  | OAI.AlgorithmicThinTrees.Input.binary x => 1 ≤ x.n ∧ 1 ≤ x.k ∧ x.graph.EdgeConnected x.k
+def OAI.AlgorithmicThinTrees.ThinTree : {n m : ℕ} → ℝ → ℕ → OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} C k G T =>
+  G.SpanningTree T ∧
+    ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → ↑(G.cut T S).card ≤ C / ↑k * ↑(G.cut Finset.univ S).card
+def OAI.AlgorithmicThinTrees.ExplicitInput.encodeEdges : (x : OAI.AlgorithmicThinTrees.ExplicitInput) →
+  List (Fin x.m) → List Bool :=
+fun x edges => List.flatMap (fun e => OAI.CurrentKS.encodeNat ↑e) edges
+def OAI.AlgorithmicThinTrees.BinaryInput.encodeEdges : (x : OAI.AlgorithmicThinTrees.BinaryInput) →
+  List x.Edge → List Bool :=
+fun x edges => List.flatMap (fun e => OAI.CurrentKS.encodeNat ↑e.fst ++ OAI.CurrentKS.encodeNat ↑e.snd) edges
+def OAI.AlgorithmicThinTrees.BinaryInput.selected : (x : OAI.AlgorithmicThinTrees.BinaryInput) →
+  List x.Edge → Finset (Fin (Fintype.card x.Edge)) :=
+fun x edges => Finset.map x.edgeEquiv.toEmbedding edges.toFinset
+def OAI.AlgorithmicThinTrees.TreeOutput : ℝ → OAI.AlgorithmicThinTrees.Input → List Bool → Prop :=
+fun C x x_1 =>
+  match x, x_1 with
+  | OAI.AlgorithmicThinTrees.Input.explicit x, bits =>
+    ∃ edges, edges.Nodup ∧ bits = x.encodeEdges edges ∧ OAI.AlgorithmicThinTrees.ThinTree C x.k x.graph edges.toFinset
+  | OAI.AlgorithmicThinTrees.Input.binary x, bits =>
+    ∃ edges,
+      edges.Nodup ∧ bits = x.encodeEdges edges ∧ OAI.AlgorithmicThinTrees.ThinTree C x.k x.graph (x.selected edges)
+def OAI.AlgorithmicThinTrees.GoodOutput : ℝ → OAI.AlgorithmicThinTrees.Input → List Bool → Prop :=
+fun C x bits => OAI.AlgorithmicThinTrees.TreeOutput C x bits ∧ (x.n = 1 → bits = [])
+def OAI.AlgorithmicThinTrees.AlgorithmicStrongThinTrees : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ M a degree,
+      0 < a ∧
+        ∀ (x : OAI.AlgorithmicThinTrees.Input),
+          OAI.AlgorithmicThinTrees.Valid x →
+            have result := M.run x.encode (a * (x.length + 1) ^ degree);
+            result.state = none ∧ OAI.AlgorithmicThinTrees.GoodOutput C x (result.stacks M.outputStack)

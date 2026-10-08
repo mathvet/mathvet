@@ -1,0 +1,55 @@
+== LiebThirring  module=OAI.Analysis.LiebThirring.Main  start=2026-10-08T09:38:52Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8961] Built OAI.Analysis.LiebThirring.Model (10s)
+✔ [8925/8961] Built OAI.Analysis.LiebThirring.MatrixOrder (19s)
+✔ [8926/8961] Built OAI.Analysis.LiebThirring.ResolventCalculus (13s)
+✔ [8927/8961] Built OAI.Analysis.LiebThirring.MatrixTangent (10s)
+✔ [8928/8961] Built OAI.Analysis.LiebThirring.FieldLimit (18s)
+✔ [8929/8961] Built OAI.Analysis.LiebThirring.RankOne (18s)
+✔ [8930/8961] Built OAI.Analysis.LiebThirring.FieldRegularity (17s)
+✔ [8931/8961] Built OAI.Analysis.LiebThirring.FieldPrimitive (21s)
+✔ [8932/8961] Built OAI.Analysis.LiebThirring.ActionPenalty (9.4s)
+✔ [8933/8961] Built OAI.Analysis.LiebThirring.BoundaryValues (11s)
+✔ [8934/8961] Built OAI.Analysis.LiebThirring.ActionBounds (12s)
+✔ [8935/8961] Built OAI.Analysis.LiebThirring.BoundState (13s)
+✔ [8936/8961] Built OAI.Analysis.LiebThirring.CubeFlags (15s)
+✔ [8937/8961] Built OAI.Analysis.LiebThirring.FlagGeometry (17s)
+✔ [8938/8961] Built OAI.Analysis.LiebThirring.FiniteParity (24s)
+✔ [8939/8961] Built OAI.Analysis.LiebThirring.GenericPosition (13s)
+✔ [8940/8961] Built OAI.Analysis.LiebThirring.EquivariantFlags (15s)
+✔ [8941/8961] Built OAI.Analysis.LiebThirring.InitialOrbit (19s)
+✔ [8942/8961] Built OAI.Analysis.LiebThirring.FreeLocus (14s)
+✔ [8943/8961] Built OAI.Analysis.LiebThirring.BoundaryParity (23s)
+✔ [8944/8961] Built OAI.Analysis.LiebThirring.Continuation (21s)
+✔ [8945/8961] Built OAI.Analysis.LiebThirring.RowSigns (16s)
+✔ [8946/8961] Built OAI.Analysis.LiebThirring.MatrixFlow (21s)
+✔ [8947/8961] Built OAI.Analysis.LiebThirring.FlowContinuation (13s)
+✔ [8948/8961] Built OAI.Analysis.LiebThirring.FieldFlow (11s)
+✔ [8949/8961] Built OAI.Analysis.LiebThirring.ConnectingPath (13s)
+✔ [8950/8961] Built OAI.Analysis.LiebThirring.IntervalAction (14s)
+✔ [8951/8961] Built OAI.Analysis.LiebThirring.Gamma (10s)
+✔ [8952/8961] Built OAI.Analysis.LiebThirring.QuadraticForms (10s)
+✔ [8953/8961] Built OAI.Analysis.LiebThirring.CutoffEnergy (14s)
+✔ [8954/8961] Built OAI.Analysis.LiebThirring.SobolevProjection (42s)
+✔ [8955/8961] Built OAI.Analysis.LiebThirring.EnergyAlgebra (10s)
+✔ [8956/8961] Built OAI.Analysis.LiebThirring.FlagApproximation (10s)
+✔ [8957/8961] Built OAI.Analysis.LiebThirring.SpectralTrials (9.9s)
+✔ [8958/8961] Built OAI.Analysis.LiebThirring.ComplexFamilies (9.9s)
+✔ [8959/8961] Built OAI.Analysis.LiebThirring.MomentBound (10s)
+✔ [8960/8961] Built OAI.Analysis.LiebThirring.ExtremizerMass (10s)
+✔ [8961/8961] Built OAI.Analysis.LiebThirring.Main (9.1s)
+Build completed successfully (8961 jobs).
+== build rc=0 seconds=593
+{"theorems": ["OAI.SharpLiebThirring.sharp_lieb_thirring"], "defs": ["OAI.SharpLiebThirring.H1", "OAI.SharpLiebThirring.l2Pairing", "OAI.SharpLiebThirring.schrodingerForm", "OAI.SharpLiebThirring.IsNegativeEigenfunction", "OAI.SharpLiebThirring.IsOrthonormalFamily", "OAI.SharpLiebThirring.negativeMoment", "OAI.SharpLiebThirring.oneStateMoment", "OAI.SharpLiebThirring.Admissible", "OAI.SharpLiebThirring.potentialMass", "OAI.SharpLiebThirring.semiclassicalConstant", "OAI.SharpLiebThirring.sharpConstant", "OAI.SharpLiebThirring.optimalConstant", "OAI.SharpLiebThirring.oneStateConstant", "OAI.SharpLiebThirring.equalityPotential", "OAI.SharpLiebThirring.MainClaim"], "json_theorems": ["OAI.SharpLiebThirring.sharp_lieb_thirring"], "missing_from_parse": []}
+AXIOMS: 'OAI.SharpLiebThirring.sharp_lieb_thirring' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T09:49:14Z

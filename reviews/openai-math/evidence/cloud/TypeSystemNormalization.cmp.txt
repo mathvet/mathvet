@@ -1,0 +1,188 @@
+CMP OAI.PureTypeSystem.weak_implies_strong [thm] ok
+CMP OAI.PureTypeSystem.SystemStronglyNormalizing [def] ok
+CMP OAI.PureTypeSystem.StronglyNormalizing [def] ok
+CMP OAI.PureTypeSystem.Beta [ind] ok
+CMP OAI.PureTypeSystem.Beta.pi_body [ctor] ok
+CMP OAI.PureTypeSystem.Expr.pi [ctor] ok
+CMP OAI.PureTypeSystem.Expr [ind] ok
+CMP OAI.PureTypeSystem.Expr.lam [ctor] ok
+CMP OAI.PureTypeSystem.Expr.app [ctor] ok
+CMP OAI.PureTypeSystem.Expr.sort [ctor] ok
+CMP OAI.PureTypeSystem.Expr.var [ctor] ok
+CMP OAI.PureTypeSystem.Beta.pi_domain [ctor] ok
+CMP OAI.PureTypeSystem.Beta.lam_body [ctor] ok
+CMP OAI.PureTypeSystem.Beta.lam_domain [ctor] ok
+CMP OAI.PureTypeSystem.Beta.app_right [ctor] ok
+CMP OAI.PureTypeSystem.Beta.app_left [ctor] ok
+CMP OAI.PureTypeSystem.Beta.head [ctor] ok
+CMP OAI.PureTypeSystem.Expr.instantiate [def] ok
+CMP OAI.PureTypeSystem.Expr.single [def] ok
+CMP OAI.PureTypeSystem.Expr.liftRen.match_1 [def] ok
+CMP OAI.PureTypeSystem.Expr.subst [def] ok
+CMP OAI.PureTypeSystem.Expr.subst._f [def] ok
+CMP OAI.PureTypeSystem.Expr.liftSub [def] ok
+CMP OAI.PureTypeSystem.Expr.rename [def] ok
+CMP OAI.PureTypeSystem.Expr.rename._f [def] ok
+CMP OAI.PureTypeSystem.Expr.liftRen [def] ok
+CMP OAI.PureTypeSystem.Expr.rename.match_1 [def] ok
+CMP OAI.PureTypeSystem.Expr.casesOn [def] ok
+CMP OAI.PureTypeSystem.Expr.rec [rec] ok
+CMP OAI.PureTypeSystem.Expr.below [def] ok
+CMP OAI.PureTypeSystem.Expr.brecOn [def] ok
+CMP OAI.PureTypeSystem.Expr.brecOn.go [def] ok
+CMP OAI.PureTypeSystem.Legal [def] ok
+CMP OAI.PureTypeSystem.HasType [ind] ok
+CMP OAI.PureTypeSystem.HasType.conversion [ctor] ok
+CMP OAI.PureTypeSystem.Converts [def] ok
+CMP OAI.PureTypeSystem.Specification [ind] ok
+CMP OAI.PureTypeSystem.Specification.mk [ctor] ok
+CMP OAI.PureTypeSystem.HasType.application [ctor] ok
+CMP OAI.PureTypeSystem.HasType.abstraction [ctor] ok
+CMP OAI.PureTypeSystem.HasType.product [ctor] ok
+CMP OAI.PureTypeSystem.Specification.rule [def] ok
+CMP OAI.PureTypeSystem.HasType.weaken [ctor] ok
+CMP OAI.PureTypeSystem.HasType.var [ctor] ok
+CMP OAI.PureTypeSystem.HasType.ax [ctor] ok
+CMP OAI.PureTypeSystem.Specification.axioms [def] ok
+CMP OAI.PureTypeSystem.ValidContext [ind] ok
+CMP OAI.PureTypeSystem.ValidContext.cons [ctor] ok
+CMP OAI.PureTypeSystem.ValidContext.nil [ctor] ok
+CMP OAI.PureTypeSystem.SystemWeaklyNormalizing [def] ok
+CMP OAI.PureTypeSystem.WeaklyNormalizing [def] ok
+CMP OAI.PureTypeSystem.Normal [def] ok
+@Chal.PureTypeSystem.weak_implies_strong : ∀ {S : Type u_1} (P : Chal.PureTypeSystem.Specification S),
+  Chal.PureTypeSystem.SystemWeaklyNormalizing P → Chal.PureTypeSystem.SystemStronglyNormalizing P
+inductive Chal.PureTypeSystem.Expr.{u} : Type u → Type u
+number of parameters: 1
+constructors:
+Chal.PureTypeSystem.Expr.var : {Sorts : Type u} → ℕ → Chal.PureTypeSystem.Expr Sorts
+Chal.PureTypeSystem.Expr.sort : {Sorts : Type u} → Sorts → Chal.PureTypeSystem.Expr Sorts
+Chal.PureTypeSystem.Expr.app : {Sorts : Type u} →
+  Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts
+Chal.PureTypeSystem.Expr.lam : {Sorts : Type u} →
+  Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts
+Chal.PureTypeSystem.Expr.pi : {Sorts : Type u} →
+  Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts → Chal.PureTypeSystem.Expr Sorts
+def Chal.PureTypeSystem.Expr.liftRen : (ℕ → ℕ) → ℕ → ℕ :=
+fun ρ x =>
+  match x with
+  | 0 => 0
+  | n.succ => ρ n + 1
+def Chal.PureTypeSystem.Expr.rename.{u} : {S : Type u} →
+  (ℕ → ℕ) → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S :=
+fun {S} ρ x =>
+  Chal.PureTypeSystem.Expr.brecOn (motive := fun x => (ℕ → ℕ) → Chal.PureTypeSystem.Expr S) x
+    Chal.PureTypeSystem.Expr.rename._f ρ
+def Chal.PureTypeSystem.Expr.liftSub.{u} : {S : Type u} →
+  (ℕ → Chal.PureTypeSystem.Expr S) → ℕ → Chal.PureTypeSystem.Expr S :=
+fun {S} σ x =>
+  match x with
+  | 0 => Chal.PureTypeSystem.Expr.var 0
+  | n.succ => Chal.PureTypeSystem.Expr.rename Nat.succ (σ n)
+def Chal.PureTypeSystem.Expr.subst.{u} : {S : Type u} →
+  (ℕ → Chal.PureTypeSystem.Expr S) → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S :=
+fun {S} σ x =>
+  Chal.PureTypeSystem.Expr.brecOn (motive := fun x => (ℕ → Chal.PureTypeSystem.Expr S) → Chal.PureTypeSystem.Expr S) x
+    Chal.PureTypeSystem.Expr.subst._f σ
+def Chal.PureTypeSystem.Expr.single.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → ℕ → Chal.PureTypeSystem.Expr S :=
+fun {S} a x =>
+  match x with
+  | 0 => a
+  | n.succ => Chal.PureTypeSystem.Expr.var n
+def Chal.PureTypeSystem.Expr.instantiate.{u} : {S : Type u} →
+  Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S :=
+fun {S} b a => Chal.PureTypeSystem.Expr.subst a.single b
+structure Chal.PureTypeSystem.Specification.{u} (S : Type u) : Type u
+number of parameters: 1
+fields:
+  Chal.PureTypeSystem.Specification.axioms : S → S → Prop
+  Chal.PureTypeSystem.Specification.rule : S → S → S → Prop
+constructor:
+  Chal.PureTypeSystem.Specification.mk.{u} {S : Type u} (axioms : S → S → Prop) (rule : S → S → S → Prop) :
+    Chal.PureTypeSystem.Specification S
+inductive Chal.PureTypeSystem.Beta.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S → Prop
+number of parameters: 1
+constructors:
+Chal.PureTypeSystem.Beta.head : ∀ {S : Type u} (A b a : Chal.PureTypeSystem.Expr S),
+  Chal.PureTypeSystem.Beta ((A.lam b).app a) (b.instantiate a)
+Chal.PureTypeSystem.Beta.app_left : ∀ {S : Type u} {f f' a : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta f f' → Chal.PureTypeSystem.Beta (f.app a) (f'.app a)
+Chal.PureTypeSystem.Beta.app_right : ∀ {S : Type u} {f a a' : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta a a' → Chal.PureTypeSystem.Beta (f.app a) (f.app a')
+Chal.PureTypeSystem.Beta.lam_domain : ∀ {S : Type u} {A A' b : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta A A' → Chal.PureTypeSystem.Beta (A.lam b) (A'.lam b)
+Chal.PureTypeSystem.Beta.lam_body : ∀ {S : Type u} {A b b' : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta b b' → Chal.PureTypeSystem.Beta (A.lam b) (A.lam b')
+Chal.PureTypeSystem.Beta.pi_domain : ∀ {S : Type u} {A A' B : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta A A' → Chal.PureTypeSystem.Beta (A.pi B) (A'.pi B)
+Chal.PureTypeSystem.Beta.pi_body : ∀ {S : Type u} {A B B' : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.Beta B B' → Chal.PureTypeSystem.Beta (A.pi B) (A.pi B')
+def Chal.PureTypeSystem.Converts.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S → Prop :=
+fun {S} => Relation.EqvGen Chal.PureTypeSystem.Beta
+def Chal.PureTypeSystem.Normal.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → Prop :=
+fun {S} M => ∀ (N : Chal.PureTypeSystem.Expr S), ¬Chal.PureTypeSystem.Beta M N
+def Chal.PureTypeSystem.WeaklyNormalizing.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → Prop :=
+fun {S} M => ∃ N, Relation.ReflTransGen Chal.PureTypeSystem.Beta M N ∧ Chal.PureTypeSystem.Normal N
+def Chal.PureTypeSystem.StronglyNormalizing.{u} : {S : Type u} → Chal.PureTypeSystem.Expr S → Prop :=
+fun {S} M => Acc (fun N M => Chal.PureTypeSystem.Beta M N) M
+inductive Chal.PureTypeSystem.HasType.{u} : {S : Type u} →
+  Chal.PureTypeSystem.Specification S →
+    List (Chal.PureTypeSystem.Expr S) → Chal.PureTypeSystem.Expr S → Chal.PureTypeSystem.Expr S → Prop
+number of parameters: 2
+constructors:
+Chal.PureTypeSystem.HasType.ax : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S} {s t : S},
+  P.axioms s t → Chal.PureTypeSystem.HasType P [] (Chal.PureTypeSystem.Expr.sort s) (Chal.PureTypeSystem.Expr.sort t)
+Chal.PureTypeSystem.HasType.var : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {A : Chal.PureTypeSystem.Expr S} {s : S},
+  Chal.PureTypeSystem.HasType P Γ A (Chal.PureTypeSystem.Expr.sort s) →
+    Chal.PureTypeSystem.HasType P (A :: Γ) (Chal.PureTypeSystem.Expr.var 0) (Chal.PureTypeSystem.Expr.rename Nat.succ A)
+Chal.PureTypeSystem.HasType.weaken : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {M B A : Chal.PureTypeSystem.Expr S} {s : S},
+  Chal.PureTypeSystem.HasType P Γ M B →
+    Chal.PureTypeSystem.HasType P Γ A (Chal.PureTypeSystem.Expr.sort s) →
+      Chal.PureTypeSystem.HasType P (A :: Γ) (Chal.PureTypeSystem.Expr.rename Nat.succ M)
+        (Chal.PureTypeSystem.Expr.rename Nat.succ B)
+Chal.PureTypeSystem.HasType.product : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {A B : Chal.PureTypeSystem.Expr S} {s₁ s₂ s₃ : S},
+  Chal.PureTypeSystem.HasType P Γ A (Chal.PureTypeSystem.Expr.sort s₁) →
+    Chal.PureTypeSystem.HasType P (A :: Γ) B (Chal.PureTypeSystem.Expr.sort s₂) →
+      P.rule s₁ s₂ s₃ → Chal.PureTypeSystem.HasType P Γ (A.pi B) (Chal.PureTypeSystem.Expr.sort s₃)
+Chal.PureTypeSystem.HasType.abstraction : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {A b B : Chal.PureTypeSystem.Expr S} {s : S},
+  Chal.PureTypeSystem.HasType P (A :: Γ) b B →
+    Chal.PureTypeSystem.HasType P Γ (A.pi B) (Chal.PureTypeSystem.Expr.sort s) →
+      Chal.PureTypeSystem.HasType P Γ (A.lam b) (A.pi B)
+Chal.PureTypeSystem.HasType.application : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {f a A B : Chal.PureTypeSystem.Expr S},
+  Chal.PureTypeSystem.HasType P Γ f (A.pi B) →
+    Chal.PureTypeSystem.HasType P Γ a A → Chal.PureTypeSystem.HasType P Γ (f.app a) (B.instantiate a)
+Chal.PureTypeSystem.HasType.conversion : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {M A B : Chal.PureTypeSystem.Expr S} {s : S},
+  Chal.PureTypeSystem.HasType P Γ M A →
+    Chal.PureTypeSystem.HasType P Γ B (Chal.PureTypeSystem.Expr.sort s) →
+      Chal.PureTypeSystem.Converts A B → Chal.PureTypeSystem.HasType P Γ M B
+inductive Chal.PureTypeSystem.ValidContext.{u} : {S : Type u} →
+  Chal.PureTypeSystem.Specification S → List (Chal.PureTypeSystem.Expr S) → Prop
+number of parameters: 2
+constructors:
+Chal.PureTypeSystem.ValidContext.nil : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S},
+  Chal.PureTypeSystem.ValidContext P []
+Chal.PureTypeSystem.ValidContext.cons : ∀ {S : Type u} {P : Chal.PureTypeSystem.Specification S}
+  {Γ : List (Chal.PureTypeSystem.Expr S)} {A : Chal.PureTypeSystem.Expr S} {s : S},
+  Chal.PureTypeSystem.ValidContext P Γ →
+    Chal.PureTypeSystem.HasType P Γ A (Chal.PureTypeSystem.Expr.sort s) → Chal.PureTypeSystem.ValidContext P (A :: Γ)
+def Chal.PureTypeSystem.Legal.{u} : {S : Type u} →
+  Chal.PureTypeSystem.Specification S → List (Chal.PureTypeSystem.Expr S) → Chal.PureTypeSystem.Expr S → Prop :=
+fun {S} P Γ M => ∃ A, Chal.PureTypeSystem.HasType P Γ M A ∨ Chal.PureTypeSystem.HasType P Γ A M
+def Chal.PureTypeSystem.SystemWeaklyNormalizing.{u} : {S : Type u} → Chal.PureTypeSystem.Specification S → Prop :=
+fun {S} P =>
+  ∀ (Γ : List (Chal.PureTypeSystem.Expr S)),
+    Chal.PureTypeSystem.ValidContext P Γ →
+      ∀ (M : Chal.PureTypeSystem.Expr S), Chal.PureTypeSystem.Legal P Γ M → Chal.PureTypeSystem.WeaklyNormalizing M
+def Chal.PureTypeSystem.SystemStronglyNormalizing.{u} : {S : Type u} → Chal.PureTypeSystem.Specification S → Prop :=
+fun {S} P =>
+  ∀ (Γ : List (Chal.PureTypeSystem.Expr S)),
+    Chal.PureTypeSystem.ValidContext P Γ →
+      ∀ (M : Chal.PureTypeSystem.Expr S), Chal.PureTypeSystem.Legal P Γ M → Chal.PureTypeSystem.StronglyNormalizing M
+'OAI.PureTypeSystem.weak_implies_strong' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TypeSystemNormalization comparator-style: ok=52 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

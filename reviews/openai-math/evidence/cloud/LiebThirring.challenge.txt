@@ -1,0 +1,82 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LiebThirring.lean:94:8: warning: declaration uses `sorry`
+OAI.SharpLiebThirring.sharp_lieb_thirring : OAI.SharpLiebThirring.MainClaim
+structure OAI.SharpLiebThirring.H1 : Type
+number of parameters: 0
+fields:
+  OAI.SharpLiebThirring.H1.val : ℝ → ℂ
+  OAI.SharpLiebThirring.H1.grad : ℝ → ℂ
+  OAI.SharpLiebThirring.H1.val_memLp : MeasureTheory.MemLp self.val 2 MeasureTheory.volume
+  OAI.SharpLiebThirring.H1.grad_memLp : MeasureTheory.MemLp self.grad 2 MeasureTheory.volume
+  OAI.SharpLiebThirring.H1.weak_derivative : ∀ (φ : ℝ → ℂ),
+      ContDiff ℝ (↑⊤) φ → HasCompactSupport φ → ∫ (x : ℝ), self.val x * deriv φ x = -∫ (x : ℝ), self.grad x * φ x
+constructor:
+  OAI.SharpLiebThirring.H1.mk (val grad : ℝ → ℂ) (val_memLp : MeasureTheory.MemLp val 2 MeasureTheory.volume)
+    (grad_memLp : MeasureTheory.MemLp grad 2 MeasureTheory.volume)
+    (weak_derivative :
+      ∀ (φ : ℝ → ℂ),
+        ContDiff ℝ (↑⊤) φ → HasCompactSupport φ → ∫ (x : ℝ), val x * deriv φ x = -∫ (x : ℝ), grad x * φ x) :
+    OAI.SharpLiebThirring.H1
+def OAI.SharpLiebThirring.l2Pairing : OAI.SharpLiebThirring.H1 → OAI.SharpLiebThirring.H1 → ℂ :=
+fun u v => ∫ (x : ℝ), star (u.val x) * v.val x
+def OAI.SharpLiebThirring.schrodingerForm : (ℝ → ℝ) → OAI.SharpLiebThirring.H1 → OAI.SharpLiebThirring.H1 → ℂ :=
+fun W u v => (∫ (x : ℝ), star (u.grad x) * v.grad x) - ∫ (x : ℝ), ↑(W x) * star (u.val x) * v.val x
+def OAI.SharpLiebThirring.IsNegativeEigenfunction : (ℝ → ℝ) → ℝ → OAI.SharpLiebThirring.H1 → Prop :=
+fun W k u =>
+  0 < k ∧
+    ∀ (v : OAI.SharpLiebThirring.H1),
+      OAI.SharpLiebThirring.schrodingerForm W v u = -↑(k ^ 2) * OAI.SharpLiebThirring.l2Pairing v u
+def OAI.SharpLiebThirring.IsOrthonormalFamily : {N : ℕ} → (Fin N → OAI.SharpLiebThirring.H1) → Prop :=
+fun {N} u => ∀ (i j : Fin N), OAI.SharpLiebThirring.l2Pairing (u i) (u j) = if i = j then 1 else 0
+def OAI.SharpLiebThirring.negativeMoment : ℝ → (ℝ → ℝ) → ENNReal :=
+fun γ W =>
+  ⨆ N,
+    ⨆ u,
+      ⨆ k,
+        ⨆ (_ : OAI.SharpLiebThirring.IsOrthonormalFamily u),
+          ⨆ (_ : ∀ (i : Fin N), OAI.SharpLiebThirring.IsNegativeEigenfunction W (k i) (u i)),
+            ∑ i, ENNReal.ofReal (k i) ^ (2 * γ)
+def OAI.SharpLiebThirring.oneStateMoment : ℝ → (ℝ → ℝ) → ENNReal :=
+fun γ W =>
+  ⨆ u,
+    ⨆ k,
+      ⨆ (_ : OAI.SharpLiebThirring.l2Pairing u u = 1),
+        ⨆ (_ : OAI.SharpLiebThirring.IsNegativeEigenfunction W k u), ENNReal.ofReal k ^ (2 * γ)
+def OAI.SharpLiebThirring.Admissible : ℝ → (ℝ → ℝ) → Prop :=
+fun γ W => (∀ᵐ (x : ℝ), 0 ≤ W x) ∧ MeasureTheory.MemLp W (ENNReal.ofReal (γ + 1 / 2)) MeasureTheory.volume
+def OAI.SharpLiebThirring.potentialMass : ℝ → (ℝ → ℝ) → ENNReal :=
+fun γ W => ∫⁻ (x : ℝ), ENNReal.ofReal (W x) ^ (γ + 1 / 2)
+def OAI.SharpLiebThirring.semiclassicalConstant : ℝ → ℝ :=
+fun γ => Real.Gamma (γ + 1) / (2 * √Real.pi * Real.Gamma (γ + 3 / 2))
+def OAI.SharpLiebThirring.sharpConstant : ℝ → ℝ :=
+fun γ => 2 * ((γ - 1 / 2) / (γ + 1 / 2)) ^ (γ - 1 / 2) * OAI.SharpLiebThirring.semiclassicalConstant γ
+def OAI.SharpLiebThirring.optimalConstant : ℝ → ENNReal :=
+fun γ =>
+  ⨆ W,
+    ⨆ (_ : OAI.SharpLiebThirring.Admissible γ W),
+      ⨆ (_ : 0 < OAI.SharpLiebThirring.potentialMass γ W),
+        OAI.SharpLiebThirring.negativeMoment γ W / OAI.SharpLiebThirring.potentialMass γ W
+def OAI.SharpLiebThirring.oneStateConstant : ℝ → ENNReal :=
+fun γ =>
+  ⨆ W,
+    ⨆ (_ : OAI.SharpLiebThirring.Admissible γ W),
+      ⨆ (_ : 0 < OAI.SharpLiebThirring.potentialMass γ W),
+        OAI.SharpLiebThirring.oneStateMoment γ W / OAI.SharpLiebThirring.potentialMass γ W
+def OAI.SharpLiebThirring.equalityPotential : ℝ → ℝ → ℝ :=
+fun γ x =>
+  have r := (γ - 1 / 2)⁻¹;
+  (r + 1) * (Real.cosh (r * x))⁻¹ ^ 2
+def OAI.SharpLiebThirring.MainClaim : Prop :=
+∀ (γ : ℝ),
+  1 / 2 < γ →
+    γ < 3 / 2 →
+      (∀ (W : ℝ → ℝ),
+          OAI.SharpLiebThirring.Admissible γ W →
+            OAI.SharpLiebThirring.negativeMoment γ W ≤
+              ENNReal.ofReal (OAI.SharpLiebThirring.sharpConstant γ) * OAI.SharpLiebThirring.potentialMass γ W) ∧
+        OAI.SharpLiebThirring.optimalConstant γ = ENNReal.ofReal (OAI.SharpLiebThirring.sharpConstant γ) ∧
+          OAI.SharpLiebThirring.oneStateConstant γ = ENNReal.ofReal (OAI.SharpLiebThirring.sharpConstant γ) ∧
+            OAI.SharpLiebThirring.Admissible γ (OAI.SharpLiebThirring.equalityPotential γ) ∧
+              0 < OAI.SharpLiebThirring.potentialMass γ (OAI.SharpLiebThirring.equalityPotential γ) ∧
+                OAI.SharpLiebThirring.negativeMoment γ (OAI.SharpLiebThirring.equalityPotential γ) =
+                  ENNReal.ofReal (OAI.SharpLiebThirring.sharpConstant γ) *
+                    OAI.SharpLiebThirring.potentialMass γ (OAI.SharpLiebThirring.equalityPotential γ)

@@ -1,0 +1,38 @@
+== QACParity  module=OAI.InformationTheory.QuantumCircuit.Parity  start=2026-10-08T09:56:22Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8944] Built OAI.InformationTheory.QuantumCircuit.Model (12s)
+✔ [8925/8944] Built OAI.InformationTheory.QuantumCircuit.Basic (10s)
+✔ [8926/8944] Built OAI.InformationTheory.QuantumCircuit.ProductProjection (12s)
+✔ [8927/8944] Built OAI.InformationTheory.QuantumCircuit.Polynomial (15s)
+✔ [8928/8944] Built OAI.InformationTheory.QuantumCircuit.ScaleInduction (20s)
+✔ [8929/8944] Built OAI.InformationTheory.QuantumCircuit.Circuit (10s)
+✔ [8930/8944] Built OAI.InformationTheory.QuantumCircuit.Asymptotics (11s)
+✔ [8931/8944] Built OAI.InformationTheory.QuantumCircuit.Count (9.1s)
+✔ [8932/8944] Built OAI.InformationTheory.QuantumCircuit.DepthZero (13s)
+✔ [8933/8944] Built OAI.InformationTheory.QuantumCircuit.Spectral (13s)
+✔ [8934/8944] Built OAI.InformationTheory.QuantumCircuit.Transition (10s)
+✔ [8935/8944] Built OAI.InformationTheory.QuantumCircuit.Reflection (11s)
+✔ [8936/8944] Built OAI.InformationTheory.QuantumCircuit.Toffoli (11s)
+✔ [8937/8944] Built OAI.InformationTheory.QuantumCircuit.Backward (12s)
+✔ [8938/8944] Built OAI.InformationTheory.QuantumCircuit.Physical (12s)
+✔ [8939/8944] Built OAI.InformationTheory.QuantumCircuit.Localization (12s)
+✔ [8940/8944] Built OAI.InformationTheory.QuantumCircuit.Computational (12s)
+✔ [8941/8944] Built OAI.InformationTheory.QuantumCircuit.Ancilla (8.7s)
+✔ [8942/8944] Built OAI.InformationTheory.QuantumCircuit.ParityTrace (9.9s)
+✔ [8943/8944] Built OAI.InformationTheory.QuantumCircuit.Measurement (12s)
+✔ [8944/8944] Built OAI.InformationTheory.QuantumCircuit.Parity (11s)
+Build completed successfully (8944 jobs).
+== build rc=0 seconds=171
+{"theorems": ["OAI.QAC.parity_lower_bound"], "defs": ["OAI.QAC.Bit", "OAI.QAC.Word", "OAI.QAC.Operator", "OAI.QAC.QubitOperator", "OAI.QAC.tensorMatrix", "OAI.QAC.Gate", "OAI.QAC.Gate.support", "OAI.QAC.Gate.toffoliWord", "OAI.QAC.Gate.matrix", "OAI.QAC.PhysicalLayer", "OAI.QAC.physicalLayerMatrix", "OAI.QAC.physicalCircuitMatrix", "OAI.QAC.inputWord", "OAI.QAC.parity", "OAI.QAC.successProbability", "OAI.QAC.ParityStatement"], "json_theorems": ["OAI.QAC.parity_lower_bound"], "missing_from_parse": []}
+AXIOMS: 'OAI.QAC.parity_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T09:59:47Z
