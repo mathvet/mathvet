@@ -1,0 +1,52 @@
+CMP OAI.TalagrandThreshold.talagrand_expectation_threshold_equivalence [thm] ok
+CMP OAI.TalagrandThreshold.q [def] ok
+CMP OAI.TalagrandThreshold.integralFeasible [def] ok
+CMP OAI.TalagrandThreshold.Small [def] ok
+CMP OAI.TalagrandThreshold.Small._proof_1 [thm] ok
+CMP OAI.TalagrandThreshold.cost [def] ok
+CMP OAI.TalagrandThreshold.Family [def] ok
+CMP OAI.TalagrandThreshold.Covers [def] ok
+CMP OAI.TalagrandThreshold.qf [def] ok
+CMP OAI.TalagrandThreshold.fractionalFeasible [def] ok
+CMP OAI.TalagrandThreshold.FractionalSmall [def] ok
+CMP OAI.TalagrandThreshold.fracCost [def] ok
+CMP OAI.TalagrandThreshold.FractionalCover [def] ok
+CMP OAI.TalagrandThreshold.Increasing [def] ok
+@Chal.TalagrandThreshold.talagrand_expectation_threshold_equivalence : ∀ {α : Type u_1} [inst : Fintype α]
+  [DecidableEq α] [Nonempty α] (F : Chal.TalagrandThreshold.Family α),
+  Finset.Nonempty F →
+    F ≠ Finset.univ →
+      Chal.TalagrandThreshold.Increasing F → Chal.TalagrandThreshold.qf F ≤ 25 * 512 ^ 4 * Chal.TalagrandThreshold.q F
+@[reducible] def Chal.TalagrandThreshold.Family.{u_1} : Type u_1 → Type u_1 :=
+fun α => Finset (Finset α)
+def Chal.TalagrandThreshold.cost.{u_1} : {α : Type u_1} → ℝ → Chal.TalagrandThreshold.Family α → ℝ :=
+fun {α} p G => ∑ S ∈ G, p ^ S.card
+def Chal.TalagrandThreshold.Covers.{u_1} : {α : Type u_1} →
+  Chal.TalagrandThreshold.Family α → Chal.TalagrandThreshold.Family α → Prop :=
+fun {α} G F => ∀ H ∈ F, ∃ S ∈ G, S ⊆ H
+def Chal.TalagrandThreshold.Small.{u_1} : {α : Type u_1} → ℝ → Chal.TalagrandThreshold.Family α → Prop :=
+fun {α} p F => ∃ G, Chal.TalagrandThreshold.Covers G F ∧ Chal.TalagrandThreshold.cost p G ≤ 1 / 2
+def Chal.TalagrandThreshold.fracCost.{u_1} : {α : Type u_1} → [Fintype α] → ℝ → (Finset α → ℝ) → ℝ :=
+fun {α} [Fintype α] p g => ∑ S, g S * p ^ S.card
+def Chal.TalagrandThreshold.FractionalCover.{u_1} : {α : Type u_1} →
+  Chal.TalagrandThreshold.Family α → (Finset α → ℝ) → Prop :=
+fun {α} F g => (∀ (S : Finset α), 0 ≤ g S ∧ g S ≤ 1) ∧ ∀ H ∈ F, 1 ≤ ∑ S ∈ H.powerset, g S
+def Chal.TalagrandThreshold.FractionalSmall.{u_1} : {α : Type u_1} →
+  [Fintype α] → ℝ → Chal.TalagrandThreshold.Family α → Prop :=
+fun {α} [Fintype α] p F =>
+  ∃ g, Chal.TalagrandThreshold.FractionalCover F g ∧ Chal.TalagrandThreshold.fracCost p g ≤ 1 / 2
+def Chal.TalagrandThreshold.Increasing.{u_1} : {α : Type u_1} → Chal.TalagrandThreshold.Family α → Prop :=
+fun {α} F => ∀ H ∈ F, ∀ (K : Finset α), H ⊆ K → K ∈ F
+def Chal.TalagrandThreshold.integralFeasible.{u_1} : {α : Type u_1} → Chal.TalagrandThreshold.Family α → Set ℝ :=
+fun {α} F => {p | 0 ≤ p ∧ p ≤ 1 ∧ Chal.TalagrandThreshold.Small p F}
+def Chal.TalagrandThreshold.fractionalFeasible.{u_1} : {α : Type u_1} →
+  [Fintype α] → Chal.TalagrandThreshold.Family α → Set ℝ :=
+fun {α} [Fintype α] F => {p | 0 ≤ p ∧ p ≤ 1 ∧ Chal.TalagrandThreshold.FractionalSmall p F}
+def Chal.TalagrandThreshold.q.{u_1} : {α : Type u_1} → Chal.TalagrandThreshold.Family α → ℝ :=
+fun {α} F => sSup (Chal.TalagrandThreshold.integralFeasible F)
+def Chal.TalagrandThreshold.qf.{u_1} : {α : Type u_1} → [Fintype α] → Chal.TalagrandThreshold.Family α → ℝ :=
+fun {α} [Fintype α] F => sSup (Chal.TalagrandThreshold.fractionalFeasible F)
+'OAI.TalagrandThreshold.talagrand_expectation_threshold_equivalence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== TalagrandExpectationThreshold comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext, 

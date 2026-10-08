@@ -1,0 +1,48 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SmoothInitialForm.lean:35:8: warning: declaration uses `sorry`
+OAI.PermanentBorder.smooth_initial_form_lower_bound : ∀ (d r : ℕ) (g : OAI.PermanentBorder.Poly (Fin d))
+  (a : Fin d → ℂ),
+  2 ≤ d →
+    2 ≤ r →
+      (MvPolynomial.homogeneousComponent r)
+            ((OAI.PermanentBorder.affineSubstitution a fun i j => if i = j then 1 else 0) g) ≠
+          0 →
+        (∀ j < r,
+            (MvPolynomial.homogeneousComponent j)
+                ((OAI.PermanentBorder.affineSubstitution a fun i j => if i = j then 1 else 0) g) =
+              0) →
+          (∀ (y : Fin d → ℂ),
+              (MvPolynomial.eval y)
+                    ((MvPolynomial.homogeneousComponent r)
+                      ((OAI.PermanentBorder.affineSubstitution a fun i j => if i = j then 1 else 0) g)) =
+                  0 →
+                (∀ (i : Fin d),
+                    (MvPolynomial.eval y)
+                        ((MvPolynomial.pderiv i)
+                          ((MvPolynomial.homogeneousComponent r)
+                            ((OAI.PermanentBorder.affineSubstitution a fun i j => if i = j then 1 else 0) g))) =
+                      0) →
+                  y = 0) →
+            ∀ (n : ℕ),
+              (OAI.PermanentBorder.HasBorderDeterminant n g → ↑(r - 1) * ↑(d - 1) / (4 * Real.exp 1) ≤ ↑n) ∧
+                (OAI.PermanentBorder.HasExactDeterminant n g → ↑(r - 1) * ↑(d - 1) / (4 * Real.exp 1) ≤ ↑n)
+@[reducible] def OAI.PermanentBorder.Poly.{u_1} : Type u_1 → Type (max 0 u_1) :=
+fun σ => MvPolynomial σ ℂ
+def OAI.PermanentBorder.affineMatrixPolynomial.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → (n : ℕ) → Matrix (Fin n) (Fin n) ℂ → (σ → Matrix (Fin n) (Fin n) ℂ) → OAI.PermanentBorder.Poly σ :=
+fun {σ} [Fintype σ] n A₀ A =>
+  Matrix.det fun i j => MvPolynomial.C (A₀ i j) + ∑ v, MvPolynomial.C (A v i j) * MvPolynomial.X v
+def OAI.PermanentBorder.HasBorderDeterminant.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → ℕ → OAI.PermanentBorder.Poly σ → Prop :=
+fun {σ} [Fintype σ] n p =>
+  0 < n ∧
+    ∃ A₀ A,
+      ∀ (d : σ →₀ ℕ),
+        Filter.Tendsto (fun j => (OAI.PermanentBorder.affineMatrixPolynomial n (A₀ j) (A j)).coeff d) Filter.atTop
+          (nhds (p.coeff d))
+def OAI.PermanentBorder.HasExactDeterminant.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → ℕ → OAI.PermanentBorder.Poly σ → Prop :=
+fun {σ} [Fintype σ] n p => 0 < n ∧ ∃ A₀ A, OAI.PermanentBorder.affineMatrixPolynomial n A₀ A = p
+def OAI.PermanentBorder.affineSubstitution.{u_1, u_2} : {σ : Type u_1} →
+  {τ : Type u_2} → [Fintype τ] → (σ → ℂ) → (σ → τ → ℂ) → OAI.PermanentBorder.Poly σ →ₐ[ℂ] OAI.PermanentBorder.Poly τ :=
+fun {σ} {τ} [Fintype τ] b B =>
+  MvPolynomial.aeval fun v => MvPolynomial.C (b v) + ∑ w, MvPolynomial.C (B v w) * MvPolynomial.X w

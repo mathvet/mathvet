@@ -1,0 +1,55 @@
+CMP OAI.Problem313.sharp_threshold_width [thm] ok
+CMP OAI.Problem313.graphQuantile [def] ok
+CMP OAI.Problem313.graphMean [def] ok
+CMP OAI.Problem313.boolReal [def] ok
+CMP OAI.Problem313.boolReal.match_1 [def] ok
+CMP OAI.Problem313.graphWeight [def] ok
+CMP OAI.Problem313.GraphEdge [def] ok
+CMP OAI.Problem313.GraphConfig [def] ok
+CMP OAI.Problem313.NontrivialGraphProperty [def] ok
+CMP OAI.Problem313.IncreasingGraphProperty [def] ok
+CMP OAI.Problem313.ConfigLE [def] ok
+CMP OAI.Problem313.VertexInvariant [def] ok
+CMP OAI.Problem313.permuteConfig [def] ok
+CMP OAI.Problem313.permEdge [def] ok
+CMP OAI.Problem313.permEdge._proof_1 [thm] ok
+Chal.Problem313.sharp_threshold_width : ∀ (n : ℕ) (f : Chal.Problem313.GraphConfig n → Bool) (ε : ℝ),
+  2 ≤ n →
+    Chal.Problem313.VertexInvariant f →
+      Chal.Problem313.IncreasingGraphProperty f →
+        Chal.Problem313.NontrivialGraphProperty f →
+          0 < ε →
+            ε < 1 / 2 →
+              Chal.Problem313.graphQuantile (1 - ε) f - Chal.Problem313.graphQuantile ε f ≤
+                2 ^ 19 / Real.log ↑n ^ 2 * Real.log (1 / (2 * ε))
+@[reducible] def Chal.Problem313.GraphEdge : ℕ → Type :=
+fun n => { e // e.card = 2 }
+@[reducible] def Chal.Problem313.GraphConfig : ℕ → Type :=
+fun n => Chal.Problem313.GraphEdge n → Bool
+def Chal.Problem313.permEdge : {n : ℕ} →
+  Equiv.Perm (Fin n) → Chal.Problem313.GraphEdge n → Chal.Problem313.GraphEdge n :=
+fun {n} π e => ⟨Finset.map (Equiv.toEmbedding π) ↑e, ⋯⟩
+def Chal.Problem313.permuteConfig : {n : ℕ} →
+  Equiv.Perm (Fin n) → Chal.Problem313.GraphConfig n → Chal.Problem313.GraphConfig n :=
+fun {n} π x e => x (Chal.Problem313.permEdge (Equiv.symm π) e)
+def Chal.Problem313.VertexInvariant : {n : ℕ} → (Chal.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => ∀ (π : Equiv.Perm (Fin n)) (x : Chal.Problem313.GraphConfig n), f (Chal.Problem313.permuteConfig π x) = f x
+def Chal.Problem313.ConfigLE : {n : ℕ} → Chal.Problem313.GraphConfig n → Chal.Problem313.GraphConfig n → Prop :=
+fun {n} x y => ∀ (e : Chal.Problem313.GraphEdge n), x e = true → y e = true
+def Chal.Problem313.IncreasingGraphProperty : {n : ℕ} → (Chal.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => ∀ (x y : Chal.Problem313.GraphConfig n), Chal.Problem313.ConfigLE x y → f x = true → f y = true
+def Chal.Problem313.NontrivialGraphProperty : {n : ℕ} → (Chal.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => (∃ x, f x = true) ∧ ∃ x, f x = false
+def Chal.Problem313.boolReal : Bool → ℝ :=
+fun b =>
+  match b with
+  | false => 0
+  | true => 1
+def Chal.Problem313.graphWeight : {n : ℕ} → ℝ → Chal.Problem313.GraphConfig n → ℝ :=
+fun {n} p x => ∏ e, if x e = true then p else 1 - p
+def Chal.Problem313.graphMean : {n : ℕ} → ℝ → (Chal.Problem313.GraphConfig n → Bool) → ℝ :=
+fun {n} p f => ∑ x, Chal.Problem313.graphWeight p x * Chal.Problem313.boolReal (f x)
+def Chal.Problem313.graphQuantile : {n : ℕ} → ℝ → (Chal.Problem313.GraphConfig n → Bool) → ℝ :=
+fun {n} a f => sInf {p | p ∈ Set.Icc 0 1 ∧ Chal.Problem313.graphMean p f ≥ a}
+'OAI.Problem313.sharp_threshold_width' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SharpThreshold comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

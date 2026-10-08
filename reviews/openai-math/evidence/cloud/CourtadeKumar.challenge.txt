@@ -1,0 +1,66 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CourtadeKumar.lean:69:8: warning: declaration uses `sorry`
+OAI.LeanBlast.CourtadeKumar.courtadeKumarAndAttainment : OAI.LeanBlast.CourtadeKumar.FullStatement
+@[reducible] def OAI.LeanBlast.GotsmanLinial.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.LeanBlast.CourtadeKumar.Cube : ℕ → Type :=
+fun n => OAI.LeanBlast.GotsmanLinial.Cube n
+def OAI.LeanBlast.CourtadeKumar.cubeAverage : {n : ℕ} → (OAI.LeanBlast.CourtadeKumar.Cube n → ℝ) → ℝ :=
+fun {n} g => (∑ x, g x) / 2 ^ n
+def OAI.LeanBlast.CourtadeKumar.ell : ℝ :=
+Real.log 2
+def OAI.LeanBlast.CourtadeKumar.bitFlipKernel : {n : ℕ} →
+  ℝ → OAI.LeanBlast.CourtadeKumar.Cube n → OAI.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε x y => ∏ i, if x i = y i then 1 - ε else ε
+def OAI.LeanBlast.CourtadeKumar.jointProbability : {n : ℕ} →
+  ℝ → (OAI.LeanBlast.CourtadeKumar.Cube n → Bool) → Bool → OAI.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε f b y =>
+  OAI.LeanBlast.CourtadeKumar.cubeAverage fun x =>
+    if f x = b then OAI.LeanBlast.CourtadeKumar.bitFlipKernel ε x y else 0
+def OAI.LeanBlast.CourtadeKumar.functionMarginal : {n : ℕ} →
+  ℝ → (OAI.LeanBlast.CourtadeKumar.Cube n → Bool) → Bool → ℝ :=
+fun {n} ε f b => ∑ y, OAI.LeanBlast.CourtadeKumar.jointProbability ε f b y
+def OAI.LeanBlast.CourtadeKumar.observationMarginal : {n : ℕ} →
+  ℝ → (OAI.LeanBlast.CourtadeKumar.Cube n → Bool) → OAI.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε f y => ∑ b, OAI.LeanBlast.CourtadeKumar.jointProbability ε f b y
+def OAI.LeanBlast.CourtadeKumar.xlogx : ℝ → ℝ :=
+fun t => t * Real.log t
+def OAI.LeanBlast.CourtadeKumar.binaryEntropy : ℝ → ℝ :=
+fun ε =>
+  -(OAI.LeanBlast.CourtadeKumar.xlogx ε + OAI.LeanBlast.CourtadeKumar.xlogx (1 - ε)) / OAI.LeanBlast.CourtadeKumar.ell
+def OAI.LeanBlast.CourtadeKumar.mutualInformation : {n : ℕ} → ℝ → (OAI.LeanBlast.CourtadeKumar.Cube n → Bool) → ℝ :=
+fun {n} ε f =>
+  (∑ b,
+      ∑ y,
+        if 0 < OAI.LeanBlast.CourtadeKumar.jointProbability ε f b y then
+          OAI.LeanBlast.CourtadeKumar.jointProbability ε f b y *
+            Real.log
+              (OAI.LeanBlast.CourtadeKumar.jointProbability ε f b y /
+                (OAI.LeanBlast.CourtadeKumar.functionMarginal ε f b *
+                  OAI.LeanBlast.CourtadeKumar.observationMarginal ε f y))
+        else 0) /
+    OAI.LeanBlast.CourtadeKumar.ell
+def OAI.LeanBlast.CourtadeKumar.dictator : {n : ℕ} → Fin n → OAI.LeanBlast.CourtadeKumar.Cube n → Bool :=
+fun {n} i x => x i
+def OAI.LeanBlast.CourtadeKumar.complementDictator : {n : ℕ} → Fin n → OAI.LeanBlast.CourtadeKumar.Cube n → Bool :=
+fun {n} i x => !x i
+def OAI.LeanBlast.CourtadeKumar.CourtadeKumarStatement : Prop :=
+∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (ε : ℝ),
+      0 ≤ ε →
+        ε ≤ 1 / 2 →
+          ∀ (f : OAI.LeanBlast.CourtadeKumar.Cube n → Bool),
+            OAI.LeanBlast.CourtadeKumar.mutualInformation ε f ≤ 1 - OAI.LeanBlast.CourtadeKumar.binaryEntropy ε
+def OAI.LeanBlast.CourtadeKumar.DictatorAttainmentStatement : Prop :=
+∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (ε : ℝ),
+      0 ≤ ε →
+        ε ≤ 1 / 2 →
+          ∀ (i : Fin n),
+            OAI.LeanBlast.CourtadeKumar.mutualInformation ε (OAI.LeanBlast.CourtadeKumar.dictator i) =
+                1 - OAI.LeanBlast.CourtadeKumar.binaryEntropy ε ∧
+              OAI.LeanBlast.CourtadeKumar.mutualInformation ε (OAI.LeanBlast.CourtadeKumar.complementDictator i) =
+                1 - OAI.LeanBlast.CourtadeKumar.binaryEntropy ε
+def OAI.LeanBlast.CourtadeKumar.FullStatement : Prop :=
+OAI.LeanBlast.CourtadeKumar.CourtadeKumarStatement ∧ OAI.LeanBlast.CourtadeKumar.DictatorAttainmentStatement

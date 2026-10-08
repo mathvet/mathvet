@@ -1,0 +1,17 @@
+CMP OAI.CliqueFreeLog.logarithmic_independence_bound [thm] ok
+CMP OAI.CliqueFreeLog.averageDegree [def] ok
+CMP OAI.CliqueFreeLog.averageDegree._proof_1 [thm] ok
+Chal.CliqueFreeLog.logarithmic_independence_bound : ∀ (r : ℕ),
+  4 ≤ r →
+    ∃ c,
+      0 < c ∧
+        ∀ {V : Type} [inst : Fintype V] (G : SimpleGraph V),
+          G.CliqueFree r →
+            2 ≤ Chal.CliqueFreeLog.averageDegree G →
+              c * ↑(Fintype.card V) * Real.log (Chal.CliqueFreeLog.averageDegree G) /
+                  Chal.CliqueFreeLog.averageDegree G ≤
+                ↑G.indepNum
+def Chal.CliqueFreeLog.averageDegree.{u_1} : {V : Type u_1} → [Fintype V] → SimpleGraph V → ℝ :=
+fun {V} [Fintype V] G => 2 * ↑G.edgeFinset.card / ↑(Fintype.card V)
+'OAI.CliqueFreeLog.logarithmic_independence_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CliqueFreeLog comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

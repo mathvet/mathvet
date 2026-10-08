@@ -1,0 +1,64 @@
+CMP OAI.TwoWayComplementation.explicit_family_main [thm] ok
+CMP OAI.TwoWayComplementation.TwoNFA.Deterministic [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA.transition [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA [ind] ok
+CMP OAI.TwoWayComplementation.TwoNFA.mk [ctor] ok
+CMP OAI.TwoWayComplementation.sourceLanguage [def] ok
+CMP OAI.TwoWayComplementation.relationProduct [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA.language [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA.language._proof_2 [thm] ok
+CMP OAI.TwoWayComplementation.TwoNFA.initial [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA.step [def] ok
+CMP OAI.TwoWayComplementation.tapeSymbol [def] ok
+CMP OAI.TwoWayComplementation.tapeSymbol._proof_3 [thm] ok
+CMP OAI.TwoWayComplementation.tapeSymbol._proof_2 [thm] ok
+CMP OAI.TwoWayComplementation.TwoNFA.step.match_1 [def] ok
+CMP OAI.TwoWayComplementation.relStar [def] ok
+CMP OAI.TwoWayComplementation.relStar.match_1 [def] ok
+CMP OAI.TwoWayComplementation.TwoNFA.accepting [def] ok
+Chal.TwoWayComplementation.explicit_family_main : ∀ (n : ℕ),
+  4 ≤ n →
+    ∃ A,
+      A.language = Chal.TwoWayComplementation.sourceLanguage (Fin (n - 2)) ∧
+        (∀ (Q : Type u_1) [inst : Fintype Q]
+            (B : Chal.TwoWayComplementation.TwoNFA (SetRel (Fin (n - 2)) (Fin (n - 2))) Q),
+            B.language = A.languageᶜ → 1 / 2 * 2 ^ ((n - 4) / 127) - 1 ≤ ↑(Fintype.card Q)) ∧
+          (131 ≤ n →
+            ∀ (Q : Type u_2) [inst : Fintype Q]
+              (D : Chal.TwoWayComplementation.TwoNFA (SetRel (Fin (n - 2)) (Fin (n - 2))) Q),
+              D.Deterministic → D.language = A.language → 1 / 2 * 2 ^ ((n - 4) / 127) ≤ ↑(Fintype.card Q))
+def Chal.TwoWayComplementation.relStar.{u_1} : {α : Type u_1} → SetRel α α → SetRel α α :=
+fun {α} R => {(x, y) | Relation.ReflTransGen (fun a b => (a, b) ∈ R) x y}
+structure Chal.TwoWayComplementation.TwoNFA.{u_1, u_2} (Sigma : Type u_1) (Q : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  Chal.TwoWayComplementation.TwoNFA.initial : Q
+  Chal.TwoWayComplementation.TwoNFA.accepting : Set Q
+  Chal.TwoWayComplementation.TwoNFA.transition : Q → Fin 2 ⊕ Sigma → Set (Q × Fin 3)
+constructor:
+  Chal.TwoWayComplementation.TwoNFA.mk.{u_1, u_2} {Sigma : Type u_1} {Q : Type u_2} (initial : Q) (accepting : Set Q)
+    (transition : Q → Fin 2 ⊕ Sigma → Set (Q × Fin 3)) : Chal.TwoWayComplementation.TwoNFA Sigma Q
+def Chal.TwoWayComplementation.tapeSymbol.{u_1} : {Sigma : Type u_1} →
+  (w : List Sigma) → Fin (w.length + 2) → Fin 2 ⊕ Sigma :=
+fun {Sigma} w p =>
+  if hleft : ↑p = 0 then Sum.inl 0 else if hright : ↑p = w.length + 1 then Sum.inl 1 else Sum.inr w[↑p - 1]
+def Chal.TwoWayComplementation.TwoNFA.step.{u_1, u_2} : {Sigma : Type u_1} →
+  {Q : Type u_2} →
+    Chal.TwoWayComplementation.TwoNFA Sigma Q →
+      (w : List Sigma) → SetRel (Q × Fin (w.length + 2)) (Q × Fin (w.length + 2)) :=
+fun {Sigma} {Q} A w =>
+  {(c, d) |
+    ∃ move, (d.1, move) ∈ A.transition c.1 (Chal.TwoWayComplementation.tapeSymbol w c.2) ∧ ↑↑d.2 = ↑↑c.2 + ↑↑move - 1}
+def Chal.TwoWayComplementation.TwoNFA.language.{u_1, u_2} : {Sigma : Type u_1} →
+  {Q : Type u_2} → Chal.TwoWayComplementation.TwoNFA Sigma Q → Set (List Sigma) :=
+fun {Sigma} {Q} A =>
+  {w | ∃ c, c.1 ∈ A.accepting ∧ ((A.initial, ⟨0, ⋯⟩), c) ∈ Chal.TwoWayComplementation.relStar (A.step w)}
+def Chal.TwoWayComplementation.TwoNFA.Deterministic.{u_1, u_2} : {Sigma : Type u_1} →
+  {Q : Type u_2} → Chal.TwoWayComplementation.TwoNFA Sigma Q → Prop :=
+fun {Sigma} {Q} A => ∀ (q : Q) (symbol : Fin 2 ⊕ Sigma), (A.transition q symbol).Subsingleton
+def Chal.TwoWayComplementation.relationProduct.{u_1} : {H : Type u_1} → List (SetRel H H) → SetRel H H :=
+fun {H} w => List.foldr SetRel.comp SetRel.id w
+def Chal.TwoWayComplementation.sourceLanguage.{u_1} : (H : Type u_1) → Set (List (SetRel H H)) :=
+fun H => {w | Set.Nonempty (Chal.TwoWayComplementation.relationProduct w)}
+'OAI.TwoWayComplementation.explicit_family_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TwoWayDeterminization comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

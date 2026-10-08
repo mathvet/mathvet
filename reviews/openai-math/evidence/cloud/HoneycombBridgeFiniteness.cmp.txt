@@ -1,0 +1,106 @@
+CMP OAI.PolynomialVacuumBridge.Corridor.finite_bridge_sums [thm] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.FiniteBridgeSums [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.confinedMass [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.InLogCorridor [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.position [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.position._proof_2 [thm] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.position._proof_1 [thm] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.position.match_1 [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex.casesOn [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex.rec [rec] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex.down [ctor] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex [ind] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex.up [ctor] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.BridgePath.vertices [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.BridgePath [ind] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.BridgePath.mk [ctor] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.layer [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.adjacent [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.adjacent.match_1 [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.adjacent._sparseCasesOn_2 [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.Vertex.ctorIdx [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.adjacent._sparseCasesOn_1 [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.weight [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.criticalActivity [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.criticalActivity._proof_1 [thm] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.ConfinedBridgePath [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.bridgeMass [def] ok
+CMP OAI.PolynomialVacuumBridge.Corridor.firstLengthWeight [def] ok
+Chal.PolynomialVacuumBridge.Corridor.finite_bridge_sums : Chal.PolynomialVacuumBridge.Corridor.FiniteBridgeSums
+inductive Chal.PolynomialVacuumBridge.Corridor.Vertex : Type
+number of parameters: 0
+constructors:
+Chal.PolynomialVacuumBridge.Corridor.Vertex.up : ℤ → ℤ → Chal.PolynomialVacuumBridge.Corridor.Vertex
+Chal.PolynomialVacuumBridge.Corridor.Vertex.down : ℤ → ℤ → Chal.PolynomialVacuumBridge.Corridor.Vertex
+def Chal.PolynomialVacuumBridge.Corridor.position : Chal.PolynomialVacuumBridge.Corridor.Vertex → ℝ × ℝ :=
+fun x =>
+  match x with
+  | Chal.PolynomialVacuumBridge.Corridor.Vertex.up i j => (↑i + ↑j / 2, (↑j + 1 / 3) * (√3 / 2))
+  | Chal.PolynomialVacuumBridge.Corridor.Vertex.down i j => (↑i + ↑j / 2 + 1 / 2, (↑j + 2 / 3) * (√3 / 2))
+def Chal.PolynomialVacuumBridge.Corridor.adjacent : Chal.PolynomialVacuumBridge.Corridor.Vertex →
+  Chal.PolynomialVacuumBridge.Corridor.Vertex → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | Chal.PolynomialVacuumBridge.Corridor.Vertex.up i j, Chal.PolynomialVacuumBridge.Corridor.Vertex.down k l =>
+    k = i ∧ l = j - 1 ∨ k = i ∧ l = j ∨ k = i - 1 ∧ l = j
+  | Chal.PolynomialVacuumBridge.Corridor.Vertex.down k l, Chal.PolynomialVacuumBridge.Corridor.Vertex.up i j =>
+    k = i ∧ l = j - 1 ∨ k = i ∧ l = j ∨ k = i - 1 ∧ l = j
+  | x, x_2 => False
+def Chal.PolynomialVacuumBridge.Corridor.criticalActivity : ℝ :=
+(2 * Real.cos (Real.pi / 8))⁻¹
+def Chal.PolynomialVacuumBridge.Corridor.layer : Chal.PolynomialVacuumBridge.Corridor.Vertex → ℤ :=
+fun vertex =>
+  Chal.PolynomialVacuumBridge.Corridor.Vertex.rec (fun x vertical => vertical) (fun x vertical => vertical) vertex
+structure Chal.PolynomialVacuumBridge.Corridor.BridgePath (h : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.vertices : List Chal.PolynomialVacuumBridge.Corridor.Vertex
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.distinct : self.vertices.Nodup
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.connected : List.IsChain Chal.PolynomialVacuumBridge.Corridor.adjacent
+      self.vertices
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.source : self.vertices.head? =
+      some (Chal.PolynomialVacuumBridge.Corridor.Vertex.up 0 0)
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.terminal : ∃ i,
+      self.vertices.getLast? = some (Chal.PolynomialVacuumBridge.Corridor.Vertex.down i (↑h - 1))
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.inStrip : ∀ v ∈ self.vertices,
+      0 ≤ Chal.PolynomialVacuumBridge.Corridor.layer v ∧ Chal.PolynomialVacuumBridge.Corridor.layer v < ↑h
+constructor:
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath.mk {h : ℕ}
+    (vertices : List Chal.PolynomialVacuumBridge.Corridor.Vertex) (distinct : vertices.Nodup)
+    (connected : List.IsChain Chal.PolynomialVacuumBridge.Corridor.adjacent vertices)
+    (source : vertices.head? = some (Chal.PolynomialVacuumBridge.Corridor.Vertex.up 0 0))
+    (terminal : ∃ i, vertices.getLast? = some (Chal.PolynomialVacuumBridge.Corridor.Vertex.down i (↑h - 1)))
+    (inStrip :
+      ∀ v ∈ vertices,
+        0 ≤ Chal.PolynomialVacuumBridge.Corridor.layer v ∧ Chal.PolynomialVacuumBridge.Corridor.layer v < ↑h) :
+    Chal.PolynomialVacuumBridge.Corridor.BridgePath h
+def Chal.PolynomialVacuumBridge.Corridor.weight : {h : ℕ} → Chal.PolynomialVacuumBridge.Corridor.BridgePath h → ℝ :=
+fun {h} p => Chal.PolynomialVacuumBridge.Corridor.criticalActivity ^ p.vertices.length
+def Chal.PolynomialVacuumBridge.Corridor.firstLengthWeight : {h : ℕ} →
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath h → ℝ :=
+fun {h} p => ↑p.vertices.length * Chal.PolynomialVacuumBridge.Corridor.weight p
+def Chal.PolynomialVacuumBridge.Corridor.bridgeMass : ℕ → ℝ :=
+fun h => ∑' (p : Chal.PolynomialVacuumBridge.Corridor.BridgePath h), Chal.PolynomialVacuumBridge.Corridor.weight p
+def Chal.PolynomialVacuumBridge.Corridor.InLogCorridor : {h : ℕ} →
+  Chal.PolynomialVacuumBridge.Corridor.BridgePath h → Prop :=
+fun {h} p => ∀ v ∈ p.vertices, |(Chal.PolynomialVacuumBridge.Corridor.position v).1| ≤ ↑h * Real.log ↑h ^ 2
+def Chal.PolynomialVacuumBridge.Corridor.ConfinedBridgePath : ℕ → Type :=
+fun h => { p // Chal.PolynomialVacuumBridge.Corridor.InLogCorridor p }
+def Chal.PolynomialVacuumBridge.Corridor.confinedMass : ℕ → ℝ :=
+fun h =>
+  ∑' (p : Chal.PolynomialVacuumBridge.Corridor.ConfinedBridgePath h), Chal.PolynomialVacuumBridge.Corridor.weight ↑p
+def Chal.PolynomialVacuumBridge.Corridor.FiniteBridgeSums : Prop :=
+∀ (h : ℕ),
+  1 ≤ h →
+    Summable Chal.PolynomialVacuumBridge.Corridor.weight ∧
+      Summable Chal.PolynomialVacuumBridge.Corridor.firstLengthWeight ∧
+        (Summable fun p =>
+            Chal.PolynomialVacuumBridge.Corridor.firstLengthWeight p /
+              Chal.PolynomialVacuumBridge.Corridor.bridgeMass h) ∧
+          (Summable fun p => Chal.PolynomialVacuumBridge.Corridor.weight ↑p) ∧
+            (Summable fun p => Chal.PolynomialVacuumBridge.Corridor.firstLengthWeight ↑p) ∧
+              Summable fun p =>
+                Chal.PolynomialVacuumBridge.Corridor.firstLengthWeight ↑p /
+                  Chal.PolynomialVacuumBridge.Corridor.confinedMass h
+'OAI.PolynomialVacuumBridge.Corridor.finite_bridge_sums' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HoneycombBridgeFiniteness comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

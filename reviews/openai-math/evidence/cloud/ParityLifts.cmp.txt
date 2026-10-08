@@ -1,0 +1,246 @@
+CMP OAI.ParityWL.parity_reduction [thm] ok
+CMP OAI.ParityWL.ParityReductionStatement [def] ok
+CMP OAI.ParityWL.samePureHistogram [def] ok
+CMP OAI.ParityWL.separateColor [def] ok
+CMP OAI.ParityWL.separateColor._f [def] ok
+CMP OAI.ParityWL.atomicType [def] ok
+CMP OAI.ParityWL.AtomicType [def] ok
+CMP OAI.ParityWL.jointColor.match_1 [def] ok
+CMP OAI.ParityWL.SeparateColor [def] ok
+CMP OAI.ParityWL.SeparateColor._f [def] ok
+CMP OAI.ParityWL.JointColor.match_1 [def] ok
+CMP OAI.ParityWL.jointColor [def] ok
+CMP OAI.ParityWL.jointColor._f [def] ok
+CMP OAI.ParityWL.JointColor [def] ok
+CMP OAI.ParityWL.JointColor._f [def] ok
+CMP OAI.ParityWL.bagParameter.match_1 [def] ok
+CMP OAI.ParityWL.Convention.casesOn [def] ok
+CMP OAI.ParityWL.Convention.rec [rec] ok
+CMP OAI.ParityWL.Convention.separate [ctor] ok
+CMP OAI.ParityWL.Convention [ind] ok
+CMP OAI.ParityWL.Convention.joint [ctor] ok
+CMP OAI.ParityWL.detectionRound [def] ok
+CMP OAI.ParityWL.sameHistogram [def] ok
+CMP OAI.ParityWL.PureWLEquivalent [def] ok
+CMP OAI.ParityWL.ChoiceSystem.Successful [def] ok
+CMP OAI.ParityWL.ChoiceSystem.rightLabel [def] ok
+CMP OAI.ParityWL.ChoiceSystem [ind] ok
+CMP OAI.ParityWL.ChoiceSystem.mk [ctor] ok
+CMP OAI.ParityWL.MainPair [def] ok
+CMP OAI.ParityWL.ChoiceSystem.Label [def] ok
+CMP OAI.ParityWL.ChoiceSystem.Domain [def] ok
+CMP OAI.ParityWL.ChoiceSystem.leftLabel [def] ok
+CMP OAI.ParityWL.starLift [def] ok
+CMP OAI.ParityWL.starParity [def] ok
+CMP OAI.ParityWL.Helper [def] ok
+CMP OAI.ParityWL.Bit [def] ok
+CMP OAI.ParityWL.TemplateVertex [def] ok
+CMP OAI.ParityWL.baseProjection [def] ok
+CMP OAI.ParityWL.baseProjection._proof_1 [thm] ok
+CMP OAI.ParityWL.baseType [def] ok
+CMP OAI.ParityWL.baseType.match_1 [def] ok
+CMP OAI.ParityWL.BaseVertex [def] ok
+CMP OAI.ParityWL.template [def] ok
+CMP OAI.ParityWL.template._proof_2 [thm] ok
+CMP OAI.ParityWL.templateAdj [def] ok
+CMP OAI.ParityWL.helperIncident [def] ok
+CMP OAI.ParityWL.templateAdj.match_1 [def] ok
+CMP OAI.ParityWL.template._proof_1 [thm] ok
+CMP OAI.ParityWL.baseGraph [def] ok
+CMP OAI.ParityWL.BaseArc [ind] ok
+CMP OAI.ParityWL.BaseArc.third [ctor] ok
+CMP OAI.ParityWL.BaseArc.right [ctor] ok
+CMP OAI.ParityWL.BaseArc.left [ctor] ok
+CMP OAI.ParityWL.BaseArc.main [ctor] ok
+CMP OAI.ParityWL.liftGraph [def] ok
+CMP OAI.ParityWL.liftGraph._proof_4 [thm] ok
+CMP OAI.ParityWL.liftGraph._proof_2 [thm] ok
+CMP OAI.ParityWL.Tag [def] ok
+CMP OAI.ParityWL.LiftVertex [def] ok
+CMP OAI.ParityWL.liftGraph._proof_1 [thm] ok
+CMP OAI.ParityWL.liftGraph._proof_3 [thm] ok
+CMP OAI.ParityWL.zeroLift [def] ok
+CMP OAI.ParityWL.WLEquivalent [def] ok
+CMP OAI.ParityWL.orderFactor [def] ok
+CMP OAI.ParityWL.ChoiceSystem.SizeAtMost [def] ok
+CMP OAI.ParityWL.ChoiceSystem.labelFintype [def] ok
+CMP OAI.ParityWL.ChoiceSystem.domainFintype [def] ok
+CMP OAI.ParityWL.tagFintype [def] ok
+CMP OAI.ParityWL.tagFintype._proof_1 [thm] ok
+CMP OAI.ParityWL.bagParameter [def] ok
+Chal.ParityWL.parity_reduction : Chal.ParityWL.ParityReductionStatement
+@[reducible] def Chal.ParityWL.Bit : Type :=
+ZMod 2
+@[reducible] def Chal.ParityWL.MainPair : ℕ → Type :=
+fun t => { p // p.1 < p.2 }
+@[reducible] def Chal.ParityWL.Helper : ℕ → Type :=
+fun t => { q // q.2 ≠ (↑q.1).1 ∧ q.2 ≠ (↑q.1).2 }
+@[reducible] def Chal.ParityWL.TemplateVertex : ℕ → Type :=
+fun t => Fin t ⊕ Chal.ParityWL.Helper t
+structure Chal.ParityWL.ChoiceSystem (t : ℕ) : Type 1
+number of parameters: 1
+fields:
+  Chal.ParityWL.ChoiceSystem.Domain : Fin t → Type
+  Chal.ParityWL.ChoiceSystem.domainFintype : (i : Fin t) → Fintype (self.Domain i)
+  Chal.ParityWL.ChoiceSystem.Label : Chal.ParityWL.MainPair t → Type
+  Chal.ParityWL.ChoiceSystem.labelFintype : (p : Chal.ParityWL.MainPair t) → Fintype (self.Label p)
+  Chal.ParityWL.ChoiceSystem.leftLabel : (p : Chal.ParityWL.MainPair t) → self.Domain (↑p).1 → self.Label p
+  Chal.ParityWL.ChoiceSystem.rightLabel : (p : Chal.ParityWL.MainPair t) → self.Domain (↑p).2 → self.Label p
+constructor:
+  Chal.ParityWL.ChoiceSystem.mk {t : ℕ} (Domain : Fin t → Type) (domainFintype : (i : Fin t) → Fintype (Domain i))
+    (Label : Chal.ParityWL.MainPair t → Type) (labelFintype : (p : Chal.ParityWL.MainPair t) → Fintype (Label p))
+    (leftLabel : (p : Chal.ParityWL.MainPair t) → Domain (↑p).1 → Label p)
+    (rightLabel : (p : Chal.ParityWL.MainPair t) → Domain (↑p).2 → Label p) : Chal.ParityWL.ChoiceSystem t
+def Chal.ParityWL.ChoiceSystem.Successful : {t : ℕ} → Chal.ParityWL.ChoiceSystem t → Prop :=
+fun {t} C => ∃ d, ∀ (p : Chal.ParityWL.MainPair t), C.leftLabel p (d (↑p).1) = C.rightLabel p (d (↑p).2)
+def Chal.ParityWL.ChoiceSystem.SizeAtMost : {t : ℕ} → Chal.ParityWL.ChoiceSystem t → ℕ → Prop :=
+fun {t} C A =>
+  (∀ (i : Fin t), Fintype.card (C.Domain i) ≤ A) ∧ ∀ (p : Chal.ParityWL.MainPair t), Fintype.card (C.Label p) ≤ A
+def Chal.ParityWL.helperIncident : {t : ℕ} → Chal.ParityWL.Helper t → Fin t → Prop :=
+fun {t} h i => i = (↑(↑h).1).1 ∨ i = (↑(↑h).1).2 ∨ i = (↑h).2
+def Chal.ParityWL.templateAdj : {t : ℕ} → Chal.ParityWL.TemplateVertex t → Chal.ParityWL.TemplateVertex t → Prop :=
+fun {t} x x_1 =>
+  match x, x_1 with
+  | Sum.inl i, Sum.inl j => i ≠ j
+  | Sum.inl i, Sum.inr h => Chal.ParityWL.helperIncident h i
+  | Sum.inr h, Sum.inl i => Chal.ParityWL.helperIncident h i
+  | Sum.inr val, Sum.inr val_1 => False
+def Chal.ParityWL.template : (t : ℕ) → SimpleGraph (Chal.ParityWL.TemplateVertex t) :=
+fun t => { Adj := Chal.ParityWL.templateAdj, symm := ⋯, loopless := ⋯ }
+@[reducible] def Chal.ParityWL.BaseVertex : {t : ℕ} → Chal.ParityWL.ChoiceSystem t → Type :=
+fun {t} C => (i : Fin t) × C.Domain i ⊕ (h : Chal.ParityWL.Helper t) × C.Label (↑h).1
+def Chal.ParityWL.baseType : {t : ℕ} →
+  {C : Chal.ParityWL.ChoiceSystem t} → Chal.ParityWL.BaseVertex C → Chal.ParityWL.TemplateVertex t :=
+fun {t} {C} x =>
+  match x with
+  | Sum.inl x => Sum.inl x.fst
+  | Sum.inr x => Sum.inr x.fst
+inductive Chal.ParityWL.BaseArc : {t : ℕ} →
+  (C : Chal.ParityWL.ChoiceSystem t) → Chal.ParityWL.BaseVertex C → Chal.ParityWL.BaseVertex C → Prop
+number of parameters: 2
+constructors:
+Chal.ParityWL.BaseArc.main : ∀ {t : ℕ} {C : Chal.ParityWL.ChoiceSystem t} (p : Chal.ParityWL.MainPair t)
+  (d : C.Domain (↑p).1) (e : C.Domain (↑p).2),
+  C.leftLabel p d = C.rightLabel p e → Chal.ParityWL.BaseArc C (Sum.inl ⟨(↑p).1, d⟩) (Sum.inl ⟨(↑p).2, e⟩)
+Chal.ParityWL.BaseArc.left : ∀ {t : ℕ} {C : Chal.ParityWL.ChoiceSystem t} (h : Chal.ParityWL.Helper t)
+  (d : C.Domain (↑(↑h).1).1), Chal.ParityWL.BaseArc C (Sum.inr ⟨h, C.leftLabel (↑h).1 d⟩) (Sum.inl ⟨(↑(↑h).1).1, d⟩)
+Chal.ParityWL.BaseArc.right : ∀ {t : ℕ} {C : Chal.ParityWL.ChoiceSystem t} (h : Chal.ParityWL.Helper t)
+  (e : C.Domain (↑(↑h).1).2), Chal.ParityWL.BaseArc C (Sum.inr ⟨h, C.rightLabel (↑h).1 e⟩) (Sum.inl ⟨(↑(↑h).1).2, e⟩)
+Chal.ParityWL.BaseArc.third : ∀ {t : ℕ} {C : Chal.ParityWL.ChoiceSystem t} (h : Chal.ParityWL.Helper t)
+  (q : C.Label (↑h).1) (f : C.Domain (↑h).2), Chal.ParityWL.BaseArc C (Sum.inr ⟨h, q⟩) (Sum.inl ⟨(↑h).2, f⟩)
+def Chal.ParityWL.baseGraph : {t : ℕ} → (C : Chal.ParityWL.ChoiceSystem t) → SimpleGraph (Chal.ParityWL.BaseVertex C) :=
+fun {t} C => SimpleGraph.fromRel (Chal.ParityWL.BaseArc C)
+def Chal.ParityWL.baseProjection : {t : ℕ} →
+  (C : Chal.ParityWL.ChoiceSystem t) → Chal.ParityWL.baseGraph C →g Chal.ParityWL.template t :=
+fun {t} C => { toFun := Chal.ParityWL.baseType, map_rel' := ⋯ }
+def Chal.ParityWL.Tag : {A : Type} → [Fintype A] → SimpleGraph A → (A → Chal.ParityWL.Bit) → A → Type :=
+fun {A} [Fintype A] T b a => { z // ∑ v, z v = b a }
+@[reducible] def Chal.ParityWL.LiftVertex : {A V : Type} →
+  [Fintype A] → (T : SimpleGraph A) → (G : SimpleGraph V) → G →g T → (A → Chal.ParityWL.Bit) → Type :=
+fun {A V} [Fintype A] T G τ b => (u : V) × Chal.ParityWL.Tag T b (τ u)
+def Chal.ParityWL.liftGraph : {A V : Type} →
+  [inst : Fintype A] →
+    (T : SimpleGraph A) →
+      (G : SimpleGraph V) →
+        (τ : G →g T) → (b : A → Chal.ParityWL.Bit) → SimpleGraph (Chal.ParityWL.LiftVertex T G τ b) :=
+fun {A V} [Fintype A] T G τ b =>
+  { Adj := fun u v => ∃ (h : G.Adj u.fst v.fst), ↑u.snd ⟨τ v.fst, ⋯⟩ = ↑v.snd ⟨τ u.fst, ⋯⟩, symm := ⋯, loopless := ⋯ }
+def Chal.ParityWL.starParity : (t : ℕ) → Chal.ParityWL.TemplateVertex t → Chal.ParityWL.Bit :=
+fun t a => if ∃ i, ↑i = 0 ∧ a = Sum.inl i then 1 else 0
+def Chal.ParityWL.zeroLift : {t : ℕ} →
+  (C : Chal.ParityWL.ChoiceSystem t) →
+    SimpleGraph
+      (Chal.ParityWL.LiftVertex (Chal.ParityWL.template t) (Chal.ParityWL.baseGraph C) (Chal.ParityWL.baseProjection C)
+        fun x => 0) :=
+fun {t} C =>
+  Chal.ParityWL.liftGraph (Chal.ParityWL.template t) (Chal.ParityWL.baseGraph C) (Chal.ParityWL.baseProjection C)
+    fun x => 0
+def Chal.ParityWL.starLift : {t : ℕ} →
+  (C : Chal.ParityWL.ChoiceSystem t) →
+    SimpleGraph
+      (Chal.ParityWL.LiftVertex (Chal.ParityWL.template t) (Chal.ParityWL.baseGraph C) (Chal.ParityWL.baseProjection C)
+        (Chal.ParityWL.starParity t)) :=
+fun {t} C =>
+  Chal.ParityWL.liftGraph (Chal.ParityWL.template t) (Chal.ParityWL.baseGraph C) (Chal.ParityWL.baseProjection C)
+    (Chal.ParityWL.starParity t)
+inductive Chal.ParityWL.Convention : Type
+number of parameters: 0
+constructors:
+Chal.ParityWL.Convention.joint : Chal.ParityWL.Convention
+Chal.ParityWL.Convention.separate : Chal.ParityWL.Convention
+def Chal.ParityWL.bagParameter : Chal.ParityWL.Convention → ℕ → ℕ :=
+fun c k =>
+  match c with
+  | Chal.ParityWL.Convention.joint => k + 1
+  | Chal.ParityWL.Convention.separate => k
+def Chal.ParityWL.detectionRound : Chal.ParityWL.Convention → ℕ :=
+fun x =>
+  match x with
+  | Chal.ParityWL.Convention.joint => 2
+  | Chal.ParityWL.Convention.separate => 1
+def Chal.ParityWL.orderFactor : ℕ → ℕ :=
+fun t => t * 2 ^ (t - 2 + 3 * (t - 1).choose 2) + 12 * t.choose 3
+@[reducible] def Chal.ParityWL.AtomicType : ℕ → Type :=
+fun k => Fin k → Fin k → Bool × Bool
+def Chal.ParityWL.JointColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (Chal.ParityWL.JointColor._f k)
+def Chal.ParityWL.SeparateColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (Chal.ParityWL.SeparateColor._f k)
+def Chal.ParityWL.atomicType : {V : Type} → SimpleGraph V → {k : ℕ} → (Fin k → V) → Chal.ParityWL.AtomicType k :=
+fun {V} G {k} x i j => (decide (x i = x j), decide (G.Adj (x i) (x j)))
+def Chal.ParityWL.jointColor : {V : Type} →
+  [Fintype V] → SimpleGraph V → (k r : ℕ) → (Fin k → V) → Chal.ParityWL.JointColor k r :=
+fun {V} [Fintype V] G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → V) → Chal.ParityWL.JointColor k x) x (Chal.ParityWL.jointColor._f G k) x_1
+def Chal.ParityWL.separateColor : {V : Type} →
+  [Fintype V] → SimpleGraph V → (k r : ℕ) → (Fin k → V) → Chal.ParityWL.SeparateColor k r :=
+fun {V} [Fintype V] G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → V) → Chal.ParityWL.SeparateColor k x) x (Chal.ParityWL.separateColor._f G k)
+    x_1
+def Chal.ParityWL.sameHistogram : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → Chal.ParityWL.Convention → ℕ → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k r =>
+  match c with
+  | Chal.ParityWL.Convention.joint =>
+    Multiset.map (Chal.ParityWL.jointColor G k r) Finset.univ.val =
+      Multiset.map (Chal.ParityWL.jointColor H k r) Finset.univ.val
+  | Chal.ParityWL.Convention.separate =>
+    Multiset.map (Chal.ParityWL.separateColor G k r) Finset.univ.val =
+      Multiset.map (Chal.ParityWL.separateColor H k r) Finset.univ.val
+def Chal.ParityWL.samePureHistogram : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → Chal.ParityWL.Convention → ℕ → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k r =>
+  match c with
+  | Chal.ParityWL.Convention.joint =>
+    Multiset.map (fun x => Chal.ParityWL.jointColor (G ⊕g H) k r (Sum.inl ∘ x)) Finset.univ.val =
+      Multiset.map (fun x => Chal.ParityWL.jointColor (G ⊕g H) k r (Sum.inr ∘ x)) Finset.univ.val
+  | Chal.ParityWL.Convention.separate =>
+    Multiset.map (fun x => Chal.ParityWL.separateColor (G ⊕g H) k r (Sum.inl ∘ x)) Finset.univ.val =
+      Multiset.map (fun x => Chal.ParityWL.separateColor (G ⊕g H) k r (Sum.inr ∘ x)) Finset.univ.val
+def Chal.ParityWL.WLEquivalent : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → Chal.ParityWL.Convention → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k => ∀ (r : ℕ), Chal.ParityWL.sameHistogram G H c k r
+def Chal.ParityWL.PureWLEquivalent : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → Chal.ParityWL.Convention → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k => ∀ (r : ℕ), Chal.ParityWL.samePureHistogram G H c k r
+def Chal.ParityWL.ParityReductionStatement : Prop :=
+∀ (k : ℕ),
+  4 ≤ k →
+    ∀ (c : Chal.ParityWL.Convention) (C : Chal.ParityWL.ChoiceSystem (Chal.ParityWL.bagParameter c k)),
+      let T := Chal.ParityWL.template (Chal.ParityWL.bagParameter c k);
+      let G := Chal.ParityWL.baseGraph C;
+      have τ := Chal.ParityWL.baseProjection C;
+      let V₀ := Chal.ParityWL.LiftVertex T G τ fun x => 0;
+      let V₁ := Chal.ParityWL.LiftVertex T G τ (Chal.ParityWL.starParity (Chal.ParityWL.bagParameter c k));
+      Fintype.card V₀ = Fintype.card V₁ ∧
+        (∀ (A : ℕ),
+            1 ≤ A → C.SizeAtMost A → Fintype.card V₀ ≤ A * Chal.ParityWL.orderFactor (Chal.ParityWL.bagParameter c k)) ∧
+          (Chal.ParityWL.WLEquivalent (Chal.ParityWL.zeroLift C) (Chal.ParityWL.starLift C) c k ↔ ¬C.Successful) ∧
+            (Chal.ParityWL.PureWLEquivalent (Chal.ParityWL.zeroLift C) (Chal.ParityWL.starLift C) c k ↔ ¬C.Successful) ∧
+              (C.Successful →
+                ¬Chal.ParityWL.sameHistogram (Chal.ParityWL.zeroLift C) (Chal.ParityWL.starLift C) c k
+                      (Chal.ParityWL.detectionRound c) ∧
+                  ¬Chal.ParityWL.samePureHistogram (Chal.ParityWL.zeroLift C) (Chal.ParityWL.starLift C) c k
+                      (Chal.ParityWL.detectionRound c))
+'OAI.ParityWL.parity_reduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ParityLifts comparator-style: ok=70 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

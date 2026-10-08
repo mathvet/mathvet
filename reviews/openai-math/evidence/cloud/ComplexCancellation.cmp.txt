@@ -1,0 +1,45 @@
+CMP OAI.ComplexCancellation.main [thm] ok
+CMP OAI.ComplexCancellation.MainStatement [def] ok
+CMP OAI.ComplexCancellation.MainStatement._proof_1 [thm] ok
+CMP OAI.ComplexCancellation.H [def] ok
+CMP OAI.ComplexCancellation.u [def] ok
+CMP OAI.ComplexCancellation.p._proof_1 [thm] ok
+CMP OAI.ComplexCancellation.P [def] ok
+CMP OAI.ComplexCancellation.p [def] ok
+CMP OAI.ComplexCancellation.J [def] ok
+CMP OAI.ComplexCancellation.s [def] ok
+CMP OAI.ComplexCancellation.H._proof_1 [thm] ok
+CMP OAI.ComplexCancellation.F [def] ok
+CMP OAI.ComplexCancellation.x [def] ok
+CMP OAI.ComplexCancellation.A [def] ok
+Chal.ComplexCancellation.main : Chal.ComplexCancellation.MainStatement
+@[reducible] def Chal.ComplexCancellation.P : Type :=
+MvPolynomial (Fin 5) ℂ
+def Chal.ComplexCancellation.p : Chal.ComplexCancellation.P :=
+MvPolynomial.X 0
+def Chal.ComplexCancellation.s : Chal.ComplexCancellation.P :=
+MvPolynomial.X 1
+def Chal.ComplexCancellation.u : Chal.ComplexCancellation.P :=
+MvPolynomial.X 2
+def Chal.ComplexCancellation.F : Chal.ComplexCancellation.P :=
+MvPolynomial.X 3
+def Chal.ComplexCancellation.J : Chal.ComplexCancellation.P :=
+MvPolynomial.X 4
+def Chal.ComplexCancellation.x : Chal.ComplexCancellation.P :=
+Chal.ComplexCancellation.s ^ 2 + Chal.ComplexCancellation.u ^ 3 +
+  Chal.ComplexCancellation.p ^ 2 * Chal.ComplexCancellation.F
+def Chal.ComplexCancellation.H : Chal.ComplexCancellation.P :=
+Chal.ComplexCancellation.x ^ 2 * Chal.ComplexCancellation.F -
+      (1 + 2 * Chal.ComplexCancellation.s * Chal.ComplexCancellation.x) * Chal.ComplexCancellation.J -
+    Chal.ComplexCancellation.p ^ 2 * Chal.ComplexCancellation.J ^ 2 -
+  Chal.ComplexCancellation.p * Chal.ComplexCancellation.u
+@[reducible] def Chal.ComplexCancellation.A : Type :=
+Chal.ComplexCancellation.P ⧸ Ideal.span {Chal.ComplexCancellation.H}
+def Chal.ComplexCancellation.MainStatement : Prop :=
+Algebra.FiniteType ℂ Chal.ComplexCancellation.A ∧
+  IsDomain Chal.ComplexCancellation.A ∧
+    ringKrullDim Chal.ComplexCancellation.A = 4 ∧
+      Nonempty (Polynomial Chal.ComplexCancellation.A ≃ₐ[ℂ] MvPolynomial (Fin 5) ℂ) ∧
+        ¬Nonempty (Chal.ComplexCancellation.A ≃ₐ[ℂ] MvPolynomial (Fin 4) ℂ)
+'OAI.ComplexCancellation.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ComplexCancellation comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

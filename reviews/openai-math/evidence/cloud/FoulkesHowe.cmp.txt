@@ -1,0 +1,62 @@
+CMP OAI.Problem346.canonical_foulkes_howe_surjective [thm] ok
+CMP OAI.Problem346.IsFoulkesMap [def] ok
+CMP OAI.Problem346.foulkesFormula [def] ok
+CMP OAI.Problem346.symMonomial [def] ok
+CMP OAI.Problem346.symMonomial._proof_1 [thm] ok
+CMP OAI.Problem346.symMonomialRaw [def] ok
+CMP OAI.Problem346.symMonomialRaw._proof_1 [thm] ok
+CMP OAI.Problem346.symPowSubmodule._proof_1 [thm] ok
+CMP OAI.Problem346.symPowSubmodule [def] ok
+CMP OAI.Problem346.SymPow [def] ok
+CMP OAI.Problem346.foulkesFormula._proof_6 [thm] ok
+CMP OAI.Problem346.foulkesFormula._proof_4 [thm] ok
+CMP OAI.Problem346.foulkesFormula._proof_3 [thm] ok
+CMP OAI.Problem346.foulkesFormula._proof_2 [thm] ok
+CMP OAI.Problem346.foulkesFormula._proof_5 [thm] ok
+CMP OAI.Problem346.foulkesFormula._proof_1 [thm] ok
+Chal.Problem346.canonical_foulkes_howe_surjective : ∀ (V : Type u_1) [inst : AddCommGroup V]
+  [inst_1 : _root_.Module ℂ V] [FiniteDimensional ℂ V] (a b : ℕ),
+  2 ≤ a →
+    a * (a - 1) ≤ b →
+      ∃ μ,
+        Chal.Problem346.IsFoulkesMap a b V μ ∧
+          Function.Surjective ⇑μ ∧
+            ∀
+              (ν :
+                Chal.Problem346.SymPow b (Chal.Problem346.SymPow a V) →ₗ[ℂ]
+                  Chal.Problem346.SymPow a (Chal.Problem346.SymPow b V)),
+              Chal.Problem346.IsFoulkesMap a b V ν → ν = μ
+def Chal.Problem346.symMonomialRaw.{u} : (n : ℕ) →
+  (V : Type u) → [inst : AddCommGroup V] → [inst_1 : _root_.Module ℂ V] → (Fin n → V) → SymmetricAlgebra ℂ V :=
+fun n V [AddCommGroup V] [_root_.Module ℂ V] v => ∏ i, (SymmetricAlgebra.ι ℂ V) (v i)
+def Chal.Problem346.symPowSubmodule.{u} : ℕ →
+  (V : Type u) → [inst : AddCommGroup V] → [inst_1 : _root_.Module ℂ V] → Submodule ℂ (SymmetricAlgebra ℂ V) :=
+fun n V [AddCommGroup V] [_root_.Module ℂ V] => Submodule.span ℂ (Set.range (Chal.Problem346.symMonomialRaw n V))
+@[reducible] def Chal.Problem346.SymPow.{u} : ℕ →
+  (V : Type u) → [inst : AddCommGroup V] → [_root_.Module ℂ V] → Type u :=
+fun n V [AddCommGroup V] [_root_.Module ℂ V] => ↥(Chal.Problem346.symPowSubmodule n V)
+def Chal.Problem346.symMonomial.{u} : (n : ℕ) →
+  (V : Type u) → [inst : AddCommGroup V] → [inst_1 : _root_.Module ℂ V] → (Fin n → V) → Chal.Problem346.SymPow n V :=
+fun n V [AddCommGroup V] [_root_.Module ℂ V] v => ⟨Chal.Problem346.symMonomialRaw n V v, ⋯⟩
+def Chal.Problem346.foulkesFormula.{u} : (a b : ℕ) →
+  (V : Type u) →
+    [inst : AddCommGroup V] →
+      [inst_1 : _root_.Module ℂ V] → (Fin b → Fin a → V) → Chal.Problem346.SymPow a (Chal.Problem346.SymPow b V) :=
+fun a b V [AddCommGroup V] [_root_.Module ℂ V] v =>
+  (↑a.factorial ^ b)⁻¹ •
+    ∑ σ,
+      Chal.Problem346.symMonomial a (Chal.Problem346.SymPow b V) fun i =>
+        Chal.Problem346.symMonomial b V fun j => v j ((σ j) i)
+def Chal.Problem346.IsFoulkesMap.{u} : (a b : ℕ) →
+  (V : Type u) →
+    [inst : AddCommGroup V] →
+      [inst_1 : _root_.Module ℂ V] →
+        (Chal.Problem346.SymPow b (Chal.Problem346.SymPow a V) →ₗ[ℂ]
+            Chal.Problem346.SymPow a (Chal.Problem346.SymPow b V)) →
+          Prop :=
+fun a b V [AddCommGroup V] [_root_.Module ℂ V] μ =>
+  ∀ (v : Fin b → Fin a → V),
+    μ (Chal.Problem346.symMonomial b (Chal.Problem346.SymPow a V) fun j => Chal.Problem346.symMonomial a V (v j)) =
+      Chal.Problem346.foulkesFormula a b V v
+'OAI.Problem346.canonical_foulkes_howe_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FoulkesHowe comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

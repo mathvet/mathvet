@@ -1,0 +1,200 @@
+CMP OAI.Thorp.Current.first_reciprocal_main [thm] ok
+CMP OAI.Thorp.Fourier.integrated [def] ok
+CMP OAI.Thorp.Fourier.integrated._proof_1 [thm] ok
+CMP OAI.Thorp.Block.embedding [def] ok
+CMP OAI.Thorp.Block.hom [def] ok
+CMP OAI.Thorp.Block.hom._proof_2 [thm] ok
+CMP OAI.Thorp.Block.perm [def] ok
+CMP OAI.Thorp.Block.perm._proof_2 [thm] ok
+CMP OAI.Thorp.Block.perm._proof_1 [thm] ok
+CMP OAI.Thorp.Block.hom._proof_1 [thm] ok
+CMP OAI.Thorp.Position [def] ok
+CMP OAI.Thorp.Current.exceptionalFirst [def] ok
+CMP OAI.Thorp.Specht.degree [def] ok
+CMP OAI.Thorp.Specht.Space [def] ok
+CMP OAI.Thorp.Specht.module [def] ok
+CMP OAI.Thorp.Specht.polytabloid [def] ok
+CMP OAI.Thorp.Specht.baseTabloid [def] ok
+CMP OAI.Thorp.Specht.baseTabloid._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.Tabloid [def] ok
+CMP OAI.Thorp.Specht.columnAlternator [def] ok
+CMP OAI.Thorp.Specht.complexSign [def] ok
+CMP OAI.Thorp.Specht.complexSign._proof_2 [thm] ok
+CMP OAI.Thorp.Specht.complexSign._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.tableauCol [def] ok
+CMP OAI.Thorp.Young.Cells [def] ok
+CMP OAI.Thorp.Specht.fiberGroup [def] ok
+CMP OAI.Thorp.Specht.fiberGroup._proof_3 [thm] ok
+CMP OAI.Thorp.Specht.fiberGroup._proof_2 [thm] ok
+CMP OAI.Thorp.Specht.fiberGroup._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.tabloidAction [def] ok
+CMP OAI.Thorp.Specht.tabloidAction._proof_3 [thm] ok
+CMP OAI.Thorp.Specht.tabloidAction._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.tabloidAction._proof_2 [thm] ok
+CMP OAI.Thorp.Specht.tableauRow [def] ok
+CMP OAI.Thorp.Specht.PermutationSpace.alternator [def] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep [def] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_9 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_3 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_2 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_8 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_7 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_6 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_5 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.rep._proof_4 [thm] ok
+CMP OAI.Thorp.Specht.PermutationSpace.alternator._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.tabloidRep [def] ok
+CMP OAI.Thorp.Specht.tabloidFintype [def] ok
+CMP OAI.Thorp.Specht.tabloidFinite [thm] ok
+CMP OAI.Thorp.Specht.cyclic [def] ok
+CMP OAI.Thorp.Specht.cyclic._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.canonicalTableau [def] ok
+CMP OAI.Thorp.Specht.canonicalTableau._proof_4 [thm] ok
+CMP OAI.Thorp.Young.ofPartition [def] ok
+CMP OAI.Thorp.Young.ofPartition._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.Shape [def] ok
+CMP OAI.Thorp.Specht.canonicalTableau._proof_3 [thm] ok
+CMP OAI.Thorp.Specht.canonicalTableau._proof_2 [thm] ok
+CMP OAI.Thorp.Specht.canonicalTableau._proof_1 [thm] ok
+CMP OAI.Thorp.Specht.defect [def] ok
+CMP OAI.Thorp.Young.longest [def] ok
+CMP OAI.Thorp.Specht.NShape [def] ok
+CMP OAI.Thorp.Current.C1 [def] ok
+CMP OAI.Thorp.Current.reciprocalFirst [def] ok
+Chal.Thorp.Current.first_reciprocal_main : (BddAbove (Set.range fun n => Chal.Thorp.Current.reciprocalFirst ↑n) ∧
+    (∀ (n : ℕ), 1 ≤ n → Chal.Thorp.Current.reciprocalFirst n ≤ Chal.Thorp.Current.C1) ∧
+      Filter.Tendsto Chal.Thorp.Current.exceptionalFirst Filter.atTop (nhds 0)) ∧
+  ∀ (d : ℕ),
+    3 ≤ d →
+      ∀ (e : Chal.Thorp.Position d ≃ Fin 8 × Fin (2 ^ (d - 3))) {E : Type u_1} [inst : NormedAddCommGroup E]
+        [inst_1 : InnerProductSpace ℂ E] [inst_2 : FiniteDimensional ℂ E]
+        (ρ : Representation ℂ (Equiv.Perm (Chal.Thorp.Position d)) E) [ρ.IsIrreducible],
+        (∀ (g : Equiv.Perm (Chal.Thorp.Position d)) (x y : E), inner ℂ ((ρ g) x) ((ρ g) y) = inner ℂ x y) →
+          ∀ (ν : Equiv.Perm (Chal.Thorp.Position d) → ℝ),
+            (∀ (g : Equiv.Perm (Chal.Thorp.Position d)), 0 ≤ ν g) →
+              ∑ g, ν g = 1 →
+                (∀ (i : Fin 8) (g : Equiv.Perm (Chal.Thorp.Position d)),
+                    ∑ h, ν (g * (Chal.Thorp.Block.embedding e) (Pi.mulSingle i h)) ≤
+                      4 * ↑(Fintype.card (Equiv.Perm (Fin (2 ^ (d - 3))))) /
+                        ↑(Fintype.card (Equiv.Perm (Chal.Thorp.Position d)))) →
+                  ‖LinearMap.toContinuousLinearMap (Chal.Thorp.Fourier.integrated ρ fun g => ↑(ν g))‖ ≤
+                    √(32 * Chal.Thorp.Current.C1) * ↑(Module.finrank ℂ E) ^ (-5 / 16)
+@[reducible] def Chal.Thorp.Position : ℕ → Type :=
+fun d => Fin d → Bool
+def Chal.Thorp.Block.perm.{uI, uβ} : {I : Type uI} → {β : Type uβ} → (I → Equiv.Perm β) → Equiv.Perm (I × β) :=
+fun {I} {β} p =>
+  { toFun := fun x => (x.1, (p x.1) x.2), invFun := fun x => (x.1, (p x.1)⁻¹ x.2), left_inv := ⋯, right_inv := ⋯ }
+def Chal.Thorp.Block.hom.{uI, uβ} : {I : Type uI} → {β : Type uβ} → (I → Equiv.Perm β) →* Equiv.Perm (I × β) :=
+fun {I} {β} => { toFun := Chal.Thorp.Block.perm, map_one' := ⋯, map_mul' := ⋯ }
+def Chal.Thorp.Block.embedding.{uI, uβ, uα} : {I : Type uI} →
+  {β : Type uβ} → {α : Type uα} → α ≃ I × β → (I → Equiv.Perm β) →* Equiv.Perm α :=
+fun {I} {β} {α} e => e.symm.permCongrHom.toMonoidHom.comp Chal.Thorp.Block.hom
+def Chal.Thorp.Fourier.integrated.{uG, uV} : {G : Type uG} →
+  [inst : Group G] →
+    [Fintype G] →
+      {V : Type uV} →
+        [inst_2 : AddCommGroup V] → [inst_3 : _root_.Module ℂ V] → Representation ℂ G V → (G → ℂ) → Module.End ℂ V :=
+fun {G} [Group G] [Fintype G] {V} [AddCommGroup V] [_root_.Module ℂ V] ρ f => ∑ g, f g • ρ g
+@[reducible] def Chal.Thorp.Young.Cells : YoungDiagram → Type :=
+fun D => ↥D.cells
+def Chal.Thorp.Young.rowCellsEquiv : (D : YoungDiagram) →
+  Chal.Thorp.Young.Cells D ≃ (i : Fin (D.colLen 0)) × Fin (D.rowLen ↑i) :=
+fun D =>
+  { toFun := fun x => ⟨⟨(↑x).1, ⋯⟩, ⟨(↑x).2, ⋯⟩⟩, invFun := fun x => ⟨(↑x.fst, ↑x.snd), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def Chal.Thorp.Young.ofPartition : {n : ℕ} → n.Partition → YoungDiagram :=
+fun {n} p => YoungDiagram.ofRowLens (p.parts.sort fun x1 x2 => x1 ≥ x2) ⋯
+def Chal.Thorp.Young.longest : YoungDiagram → ℕ :=
+fun D => max (D.rowLen 0) (D.colLen 0)
+def Chal.Thorp.Specht.cyclic.{uG, uE} : {G : Type uG} →
+  [inst : Group G] →
+    {E : Type uE} →
+      [inst_1 : NormedAddCommGroup E] →
+        [inst_2 : InnerProductSpace ℂ E] → (ρ : Representation ℂ G E) → E → Subrepresentation ρ :=
+fun {G} [Group G] {E} [NormedAddCommGroup E] [InnerProductSpace ℂ E] ρ e =>
+  { toSubmodule := Submodule.span ℂ (Set.range fun g => (ρ g) e), apply_mem_toSubmodule := ⋯ }
+def Chal.Thorp.Specht.PermutationSpace.rep.{uG, uX} : {G : Type uG} →
+  [inst : Group G] → {X : Type uX} → [MulAction G X] → Representation ℂ G (EuclideanSpace ℂ X) :=
+fun {G} [Group G] {X} [MulAction G X] =>
+  { toFun := fun g => { toFun := fun v => WithLp.toLp 2 fun x => v.ofLp (g⁻¹ • x), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def Chal.Thorp.Specht.PermutationSpace.alternator.{uG, uX, uH} : {G : Type uG} →
+  [inst : Group G] →
+    {X : Type uX} →
+      [MulAction G X] →
+        {H : Type uH} → [inst_2 : Group H] → [Fintype H] → (H →* G) → (H →* ℂ) → Module.End ℂ (EuclideanSpace ℂ X) :=
+fun {G} [Group G] {X} [MulAction G X] {H} [Group H] [Fintype H] ι χ =>
+  ∑ h, χ h • Chal.Thorp.Specht.PermutationSpace.rep (ι h)
+def Chal.Thorp.Specht.Tabloid.{uα} : {α : Type uα} → (α → ℕ) → Type (max 0 uα) :=
+fun {α} r => { f // ∃ g, f = r ∘ ⇑g }
+def Chal.Thorp.Specht.baseTabloid.{uα} : {α : Type uα} → (r : α → ℕ) → Chal.Thorp.Specht.Tabloid r :=
+fun {α} r => ⟨r, ⋯⟩
+def Chal.Thorp.Specht.fiberGroup.{uα} : {α : Type uα} → (α → ℕ) → Subgroup (Equiv.Perm α) :=
+fun {α} c => { carrier := {g | ∀ (x : α), c (g x) = c x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def Chal.Thorp.Specht.complexSign.{uα} : {α : Type uα} → [Fintype α] → Equiv.Perm α →* ℂ :=
+fun {α} [Fintype α] => { toFun := fun g => ↑↑(Equiv.Perm.sign g), map_one' := ⋯, map_mul' := ⋯ }
+def Chal.Thorp.Specht.tableauRow.{uα} : {α : Type uα} → (D : YoungDiagram) → α ≃ Chal.Thorp.Young.Cells D → α → ℕ :=
+fun {α} D t x => (↑(t x)).1
+def Chal.Thorp.Specht.tableauCol.{uα} : {α : Type uα} → (D : YoungDiagram) → α ≃ Chal.Thorp.Young.Cells D → α → ℕ :=
+fun {α} D t x => (↑(t x)).2
+def Chal.Thorp.Specht.tabloidRep.{uα} : {α : Type uα} →
+  (D : YoungDiagram) →
+    (t : α ≃ Chal.Thorp.Young.Cells D) →
+      Representation ℂ (Equiv.Perm α)
+        (EuclideanSpace ℂ (Chal.Thorp.Specht.Tabloid (Chal.Thorp.Specht.tableauRow D t))) :=
+fun {α} D t => Chal.Thorp.Specht.PermutationSpace.rep
+def Chal.Thorp.Specht.columnAlternator.{uα} : {α : Type uα} →
+  [Fintype α] →
+    (D : YoungDiagram) →
+      (t : α ≃ Chal.Thorp.Young.Cells D) →
+        Module.End ℂ (EuclideanSpace ℂ (Chal.Thorp.Specht.Tabloid (Chal.Thorp.Specht.tableauRow D t))) :=
+fun {α} [Fintype α] D t =>
+  Chal.Thorp.Specht.PermutationSpace.alternator
+    (Chal.Thorp.Specht.fiberGroup (Chal.Thorp.Specht.tableauCol D t)).subtype
+    (Chal.Thorp.Specht.complexSign.comp (Chal.Thorp.Specht.fiberGroup (Chal.Thorp.Specht.tableauCol D t)).subtype)
+def Chal.Thorp.Specht.polytabloid.{uα} : {α : Type uα} →
+  [Fintype α] →
+    (D : YoungDiagram) →
+      (t : α ≃ Chal.Thorp.Young.Cells D) →
+        EuclideanSpace ℂ (Chal.Thorp.Specht.Tabloid (Chal.Thorp.Specht.tableauRow D t)) :=
+fun {α} [Fintype α] D t =>
+  (Chal.Thorp.Specht.columnAlternator D t)
+    (EuclideanSpace.single (Chal.Thorp.Specht.baseTabloid (Chal.Thorp.Specht.tableauRow D t)) 1)
+def Chal.Thorp.Specht.module.{uα} : {α : Type uα} →
+  [Fintype α] →
+    (D : YoungDiagram) → (t : α ≃ Chal.Thorp.Young.Cells D) → Subrepresentation (Chal.Thorp.Specht.tabloidRep D t) :=
+fun {α} [Fintype α] D t =>
+  Chal.Thorp.Specht.cyclic (Chal.Thorp.Specht.tabloidRep D t) (Chal.Thorp.Specht.polytabloid D t)
+@[reducible] def Chal.Thorp.Specht.Shape.{uα} : (α : Type uα) → [Fintype α] → Type :=
+fun α [Fintype α] => (Fintype.card α).Partition
+def Chal.Thorp.Specht.canonicalTableau.{uα} : {α : Type uα} →
+  [inst : Fintype α] → (p : Chal.Thorp.Specht.Shape α) → α ≃ Chal.Thorp.Young.Cells (Chal.Thorp.Young.ofPartition p) :=
+fun {α} [Fintype α] p =>
+  have card_cells_eq_sum := Chal.Thorp.Specht.canonicalTableau._proof_1;
+  have rowLens_ofPartition := @Chal.Thorp.Specht.canonicalTableau._proof_2;
+  have card_ofPartition := ⋯;
+  Fintype.equivOfCardEq ⋯
+@[reducible] def Chal.Thorp.Specht.Space.{uα} : {α : Type uα} →
+  [inst : Fintype α] →
+    (p : Chal.Thorp.Specht.Shape α) →
+      Submodule ℂ
+        (EuclideanSpace ℂ
+          (Chal.Thorp.Specht.Tabloid
+            (Chal.Thorp.Specht.tableauRow (Chal.Thorp.Young.ofPartition p) (Chal.Thorp.Specht.canonicalTableau p)))) :=
+fun {α} [Fintype α] p =>
+  (Chal.Thorp.Specht.module (Chal.Thorp.Young.ofPartition p) (Chal.Thorp.Specht.canonicalTableau p)).toSubmodule
+def Chal.Thorp.Specht.degree.{uα} : {α : Type uα} → [inst : Fintype α] → Chal.Thorp.Specht.Shape α → ℕ :=
+fun {α} [Fintype α] p => Module.finrank ℂ ↥(Chal.Thorp.Specht.Space p)
+@[reducible] def Chal.Thorp.Specht.NShape : ℕ → Type :=
+fun n => Chal.Thorp.Specht.Shape (Fin n)
+def Chal.Thorp.Specht.defect : {n : ℕ} → Chal.Thorp.Specht.NShape n → ℕ :=
+fun {n} p => n - Chal.Thorp.Young.longest (Chal.Thorp.Young.ofPartition p)
+def Chal.Thorp.Current.reciprocalFirst : ℕ → ℝ :=
+fun n => ∑ p, (↑(Chal.Thorp.Specht.degree p))⁻¹
+def Chal.Thorp.Current.exceptionalFirst : ℕ → ℝ :=
+fun n => ∑ p, if 0 < Chal.Thorp.Specht.defect p then (↑(Chal.Thorp.Specht.degree p))⁻¹ else 0
+def Chal.Thorp.Current.C1 : ℝ :=
+sSup (Set.range fun n => Chal.Thorp.Current.reciprocalFirst ↑n)
+'OAI.Thorp.Current.first_reciprocal_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ThorpFirstReciprocal comparator-style: ok=64 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

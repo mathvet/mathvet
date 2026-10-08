@@ -1,0 +1,47 @@
+CMP OAI.Dixmier.current_main_theorem [thm] ok
+CMP OAI.Dixmier.CurrentMainTheorem [def] ok
+CMP OAI.Dixmier.SimilarToUnitary [def] ok
+CMP OAI.Dixmier.SimilarToUnitary._proof_1 [thm] ok
+CMP OAI.Dixmier.CurrentMainTheorem._proof_1 [thm] ok
+CMP OAI.Dixmier.Unitarizable [def] ok
+CMP OAI.Dixmier.Amenable [def] VALUE_MISMATCH
+CMP OAI.Dixmier.leftTranslate [def] TYPE_MISMATCH
+CMP OAI.Dixmier.leftTranslate._proof_1 [thm] ok
+CMP OAI.Dixmier.Amenable._proof_3 [thm] TYPE_MISMATCH
+CMP OAI.Dixmier.Amenable._proof_2 [thm] TYPE_MISMATCH
+CMP OAI.Dixmier.Amenable._proof_1 [thm] TYPE_MISMATCH
+Chal.Dixmier.current_main_theorem : Chal.Dixmier.CurrentMainTheorem
+def Chal.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group G] →
+    [inst : TopologicalSpace G] →
+      [DiscreteTopology G] → G → BoundedContinuousFunction G ℂ → BoundedContinuousFunction G ℂ :=
+fun {G} [Group G] [TopologicalSpace G] [DiscreteTopology G] g f =>
+  f.compContinuous { toFun := fun x => g⁻¹ * x, continuous_toFun := ⋯ }
+def Chal.Dixmier.Amenable.{u} : (G : Type u) → [Group G] → [inst : TopologicalSpace G] → [DiscreteTopology G] → Prop :=
+fun G [Group G] [TopologicalSpace G] [DiscreteTopology G] =>
+  ∃ m,
+    m (BoundedContinuousFunction.const G 1) = 1 ∧
+      (∀ (f : BoundedContinuousFunction G ℂ), (∀ (x : G), 0 ≤ (f x).re ∧ (f x).im = 0) → 0 ≤ (m f).re ∧ (m f).im = 0) ∧
+        ∀ (g : G) (f : BoundedContinuousFunction G ℂ), m (Chal.Dixmier.leftTranslate g f) = m f
+def Chal.Dixmier.SimilarToUnitary.{u, v} : {G : Type u} →
+  [inst : Group G] →
+    {H : Type v} → [inst_1 : NormedAddCommGroup H] → [inst_2 : InnerProductSpace ℂ H] → (G →* H →L[ℂ] H) → Prop :=
+fun {G} [Group G] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] π =>
+  ∃ S, ∀ (g : G) (x : H), ‖S ((π g) (S.symm x))‖ = ‖x‖
+def Chal.Dixmier.Unitarizable.{u, v} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (H : Type v) [inst_1 : NormedAddCommGroup H] [inst_2 : InnerProductSpace ℂ H] [CompleteSpace H]
+    (π : G →* H →L[ℂ] H), (∃ C, ∀ (g : G), ‖π g‖ ≤ C) → Chal.Dixmier.SimilarToUnitary π
+def Chal.Dixmier.CurrentMainTheorem.{u, v} : Prop :=
+∀ (G : Type u) [inst : Group G] [inst_1 : TopologicalSpace G] [inst_2 : DiscreteTopology G],
+  (Chal.Dixmier.Amenable G ↔ Chal.Dixmier.Unitarizable G) ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ¬Chal.Dixmier.Amenable G →
+          ∃ H x x_1,
+            ∃ (_ : CompleteSpace H),
+              ∃ π,
+                (Countable G → TopologicalSpace.SeparableSpace H) ∧
+                  (∀ (g : G), ‖π g‖ ≤ 1 + ε) ∧ ¬Chal.Dixmier.SimilarToUnitary π
+'OAI.Dixmier.current_main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DixmierAllDiscrete comparator-style: ok=7 problems=5 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

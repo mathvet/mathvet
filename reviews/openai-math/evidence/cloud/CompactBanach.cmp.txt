@@ -1,0 +1,21 @@
+CMP OAI.CompactBanach.main [thm] ok
+CMP OAI.CompactBanach.AdmitsBiLipschitzEmbedding [def] ok
+CMP OAI.CompactBanach.DoublingAtMost [def] ok
+Chal.CompactBanach.main : ∃ Λ,
+  ∀ (B : Type u_1) [inst : NormedAddCommGroup B] [inst_1 : NormedSpace ℝ B] [CompleteSpace B],
+    ¬FiniteDimensional ℝ B →
+      ∃ K,
+        IsCompact K ∧
+          Chal.CompactBanach.DoublingAtMost K Λ ∧
+            ∀ (E : Type u_2) [inst_3 : NormedAddCommGroup E] [inst_4 : NormedSpace ℝ E] [FiniteDimensional ℝ E],
+              ¬Chal.CompactBanach.AdmitsBiLipschitzEmbedding K E
+def Chal.CompactBanach.DoublingAtMost.{u_1} : {B : Type u_1} → [MetricSpace B] → Set B → ℕ → Prop :=
+fun {B} [MetricSpace B] K bound =>
+  ∀ (x : ↑K) (r : ℝ),
+    0 < r → ∃ centers, centers.card ≤ bound ∧ ∀ (y : ↑K), dist y x < r → ∃ c ∈ centers, dist y c < r / ↑2
+def Chal.CompactBanach.AdmitsBiLipschitzEmbedding.{u_1, u_2} : {B : Type u_1} →
+  [MetricSpace B] → Set B → (E : Type u_2) → [MetricSpace E] → Prop :=
+fun {B} [MetricSpace B] K E [MetricSpace E] =>
+  ∃ f a, 0 < a ∧ ∃ D, 1 ≤ D ∧ ∀ (x y : ↑K), a * dist x y ≤ dist (f x) (f y) ∧ dist (f x) (f y) ≤ D * a * dist x y
+'OAI.CompactBanach.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CompactBanach comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

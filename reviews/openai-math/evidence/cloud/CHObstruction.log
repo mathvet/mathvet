@@ -1,0 +1,32 @@
+== CHObstruction  module=OAI.ModelTheory.Categoricity.Main  start=2026-10-08T12:13:41Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8938] Built OAI.ModelTheory.Categoricity.Model (10s)
+✔ [8925/8938] Built OAI.ModelTheory.Categoricity.Collapse (9.5s)
+✔ [8926/8938] Built OAI.ModelTheory.Categoricity.Diagrams (10s)
+✔ [8927/8938] Built OAI.ModelTheory.Categoricity.Partition (10s)
+✔ [8928/8938] Built OAI.ModelTheory.Categoricity.Colors (9.5s)
+✔ [8929/8938] Built OAI.ModelTheory.Categoricity.EndpointDiagrams (9.2s)
+✔ [8930/8938] Built OAI.ModelTheory.Categoricity.TailBound (9.1s)
+✔ [8931/8938] Built OAI.ModelTheory.Categoricity.Arrays (15s)
+✔ [8932/8938] Built OAI.ModelTheory.Categoricity.ArrayMaps (28s)
+✔ [8933/8938] Built OAI.ModelTheory.Categoricity.ArrayEmbeddings (9.2s)
+✔ [8934/8938] Built OAI.ModelTheory.Categoricity.Subarrays (12s)
+✔ [8935/8938] Built OAI.ModelTheory.Categoricity.ArrayIsomorphisms (10s)
+✔ [8936/8938] Built OAI.ModelTheory.Categoricity.DirectedLimits (15s)
+✔ [8937/8938] Built OAI.ModelTheory.Categoricity.AEC (12s)
+✔ [8938/8938] Built OAI.ModelTheory.Categoricity.Main (10s)
+Build completed successfully (8938 jobs).
+== build rc=0 seconds=194
+{"theorems": ["OAI.CHObstruction.main"], "defs": ["OAI.CHObstruction.RelModel", "OAI.CHObstruction.RelModel.IsSubstructure", "OAI.CHObstruction.RelModel.Iso", "OAI.CHObstruction.RelModel.IsUnion", "OAI.CHObstruction.ClassData", "OAI.CHObstruction.ClassData.LSBound", "OAI.CHObstruction.ClassData.HasLSNumber", "OAI.CHObstruction.ClassData.IsAEC", "OAI.CHObstruction.ClassData.Categorical", "OAI.CHObstruction.ClassData.TwoModels", "OAI.CHObstruction.CH", "OAI.CHObstruction.hanf", "OAI.CHObstruction.endpoint", "OAI.CHObstruction.tailThreshold"], "json_theorems": ["OAI.CHObstruction.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.CHObstruction.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:17:26Z

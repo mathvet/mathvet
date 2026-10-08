@@ -1,0 +1,73 @@
+CMP OAI.RandomKSAT.variance_main [thm] ok
+CMP OAI.RandomKSAT.U [def] ok
+CMP OAI.RandomKSAT.U._proof_1 [thm] ok
+CMP OAI.RandomKSAT.T [def] ok
+CMP OAI.RandomKSAT.cap [def] ok
+CMP OAI.RandomKSAT.firstFailure [def] ok
+CMP OAI.RandomKSAT.PrefixSAT [def] ok
+CMP OAI.RandomKSAT.Satisfies [def] ok
+CMP OAI.RandomKSAT.Assignment [def] ok
+CMP OAI.RandomKSAT.Clause [def] ok
+CMP OAI.RandomKSAT.Stream [def] ok
+CMP OAI.RandomKSAT.ell [def] ok
+CMP OAI.RandomKSAT.streamLaw [def] ok
+CMP OAI.RandomKSAT.clauseLaw [def] ok
+CMP OAI.RandomKSAT.clauseMeasurableSpace [def] ok
+CMP OAI.RandomKSAT.H [def] ok
+Chal.RandomKSAT.variance_main : ∀ (k : ℕ),
+  3 ≤ k →
+    (∃ C,
+        0 ≤ C ∧
+          ∀ (n : ℕ),
+            k ≤ n →
+              ProbabilityTheory.variance Chal.RandomKSAT.H (Chal.RandomKSAT.streamLaw n k) ≤
+                C * ↑n * Chal.RandomKSAT.ell k n) ∧
+      (∀ (B : ℝ),
+          0 < B →
+            ∃ C,
+              0 ≤ C ∧
+                ∀ (n : ℕ),
+                  k ≤ n →
+                    ProbabilityTheory.variance (Chal.RandomKSAT.T B) (Chal.RandomKSAT.streamLaw n k) ≤
+                      C * ↑n * Chal.RandomKSAT.ell k n) ∧
+        ∃ c,
+          0 < c ∧
+            (∃ N,
+                ∀ (n : ℕ),
+                  N ≤ n →
+                    k ≤ n → c * ↑n ≤ ProbabilityTheory.variance Chal.RandomKSAT.H (Chal.RandomKSAT.streamLaw n k)) ∧
+              ∀ (B : ℝ),
+                Chal.RandomKSAT.U k < B →
+                  ∃ N,
+                    ∀ (n : ℕ),
+                      N ≤ n →
+                        k ≤ n →
+                          c * ↑n ≤ ProbabilityTheory.variance (Chal.RandomKSAT.T B) (Chal.RandomKSAT.streamLaw n k)
+@[reducible] def Chal.RandomKSAT.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.RandomKSAT.Clause : ℕ → ℕ → Type :=
+fun n k => (s : { s // s.card = k }) × (↥↑s → Bool)
+def Chal.RandomKSAT.Satisfies : {n k : ℕ} → Chal.RandomKSAT.Clause n k → Chal.RandomKSAT.Assignment n → Prop :=
+fun {n k} c a => ∃ v, a ↑v = c.snd v
+@[reducible] def Chal.RandomKSAT.Stream : ℕ → ℕ → Type :=
+fun n k => ℕ → Chal.RandomKSAT.Clause n k
+def Chal.RandomKSAT.clauseLaw : (n k : ℕ) → MeasureTheory.Measure (Chal.RandomKSAT.Clause n k) :=
+fun n k => ProbabilityTheory.uniformOn Set.univ
+def Chal.RandomKSAT.streamLaw : (n k : ℕ) → MeasureTheory.Measure (Chal.RandomKSAT.Stream n k) :=
+fun n k => MeasureTheory.Measure.infinitePi fun x => Chal.RandomKSAT.clauseLaw n k
+def Chal.RandomKSAT.PrefixSAT : {n k : ℕ} → Chal.RandomKSAT.Stream n k → ℕ → Prop :=
+fun {n k} ω m => ∃ a, ∀ i < m, Chal.RandomKSAT.Satisfies (ω i) a
+def Chal.RandomKSAT.firstFailure : {n k : ℕ} → Chal.RandomKSAT.Stream n k → ℕ∞ :=
+fun {n k} ω => sInf ((fun m => ↑m) '' {m | ¬Chal.RandomKSAT.PrefixSAT ω m})
+def Chal.RandomKSAT.H : {n k : ℕ} → Chal.RandomKSAT.Stream n k → ℝ :=
+fun {n k} ω => ↑(Chal.RandomKSAT.firstFailure ω).toNat
+def Chal.RandomKSAT.cap : ℕ → ℝ → ℕ :=
+fun n B => ⌊B * ↑n⌋₊
+def Chal.RandomKSAT.T : {n k : ℕ} → ℝ → Chal.RandomKSAT.Stream n k → ℝ :=
+fun {n k} B ω => ↑(min (Chal.RandomKSAT.firstFailure ω) ↑(Chal.RandomKSAT.cap n B)).toNat
+def Chal.RandomKSAT.ell : ℕ → ℕ → ℝ :=
+fun k n => if k = 3 then Real.log (Real.exp 1 * ↑n) else 1
+def Chal.RandomKSAT.U : ℕ → ℝ :=
+fun k => Real.log 2 / -Real.log (1 - (2 ^ k)⁻¹)
+'OAI.RandomKSAT.variance_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SATVariance comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,10 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_DyadicAvoidance.lean:12:8: warning: declaration uses `sorry`
+OAI.Problem310.dyadic_affine_avoidance : ∀ (η : ℝ),
+  0 < η →
+    η < 1 →
+      ∃ E ⊆ Set.Icc 0 1,
+        IsCompact E ∧
+          MeasureTheory.volume E > ENNReal.ofReal (1 - η) ∧
+            ∀ (x s : ℝ), s ≠ 0 → ∃ n, 1 ≤ n ∧ x + s * OAI.Problem310.dyadicPoint n ∉ E
+def OAI.Problem310.dyadicPoint : ℕ → ℝ :=
+fun n => 2⁻¹ ^ n

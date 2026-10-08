@@ -1,0 +1,58 @@
+== TwoWayDeterminization  module=OAI.Combinatorics.TwoWayAutomata.ExplicitFamily  start=2026-10-08T11:48:24Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8964] Built OAI.Combinatorics.TwoWayAutomata.Model (8.8s)
+✔ [8925/8964] Built OAI.Combinatorics.Automata.Model (9.7s)
+✔ [8926/8964] Built OAI.Combinatorics.TwoWayAutomata.DeterministicCore (7.7s)
+✔ [8927/8964] Built OAI.Combinatorics.TwoWayAutomata.Normalization (9.6s)
+✔ [8928/8964] Built OAI.Combinatorics.TwoWayAutomata.Relations (10s)
+✔ [8929/8964] Built OAI.Combinatorics.Automata.Normalization (10s)
+✔ [8930/8964] Built OAI.Combinatorics.Automata.Tours (8.0s)
+✔ [8931/8964] Built OAI.Combinatorics.TwoWayAutomata.TransitionBridge (9.4s)
+✔ [8932/8964] Built OAI.Combinatorics.Automata.Wiring (11s)
+✔ [8933/8964] Built OAI.Combinatorics.Automata.PathNFA (9.3s)
+✔ [8934/8964] Built OAI.Combinatorics.TwoWayAutomata.Diagram (16s)
+✔ [8935/8964] Built OAI.Combinatorics.Automata.Cells (8.2s)
+✔ [8936/8964] Built OAI.Combinatorics.Automata.Rank (9.1s)
+✔ [8937/8964] Built OAI.Combinatorics.TwoWayAutomata.Network (9.7s)
+✔ [8938/8964] Built OAI.Combinatorics.TwoWayAutomata.Classes (10s)
+✔ [8939/8964] Built OAI.Combinatorics.Automata.Network (11s)
+✔ [8940/8964] Built OAI.Combinatorics.Automata.Diagram (10s)
+✔ [8941/8964] Built OAI.Combinatorics.TwoWayAutomata.Chain (9.3s)
+✔ [8942/8964] Built OAI.Combinatorics.TwoWayAutomata.Transport (9.2s)
+✔ [8943/8964] Built OAI.Combinatorics.Automata.Diagrams (9.0s)
+✔ [8944/8964] Built OAI.Combinatorics.Automata.Corners (10s)
+✔ [8945/8964] Built OAI.Combinatorics.TwoWayAutomata.Tape (8.4s)
+✔ [8946/8964] Built OAI.Combinatorics.TwoWayAutomata.Nesting (9.3s)
+✔ [8947/8964] Built OAI.Combinatorics.Automata.Relations (9.9s)
+✔ [8948/8964] Built OAI.Combinatorics.TwoWayAutomata.Representation (8.0s)
+✔ [8949/8964] Built OAI.Combinatorics.TwoWayAutomata.Corners (8.6s)
+✔ [8950/8964] Built OAI.Combinatorics.Automata.RankLoss (9.1s)
+✔ [8951/8964] Built OAI.Combinatorics.TwoWayAutomata.RelationMonoid (8.2s)
+✔ [8952/8964] Built OAI.Combinatorics.Automata.Syntactic (7.4s)
+✔ [8953/8964] Built OAI.Combinatorics.TwoWayAutomata.Source (9.9s)
+✔ [8954/8964] Built OAI.Combinatorics.Automata.Recognition (7.0s)
+✔ [8955/8964] Built OAI.Combinatorics.TwoWayAutomata.RelationBridge (7.7s)
+✔ [8956/8964] Built OAI.Combinatorics.TwoWayAutomata.Amplification (19s)
+✔ [8957/8964] Built OAI.Combinatorics.Automata.Main (9.5s)
+✔ [8958/8964] Built OAI.Combinatorics.TwoWayAutomata.Retained (6.0s)
+✔ [8959/8964] Built OAI.Combinatorics.TwoWayAutomata.ImageBound (9.6s)
+✔ [8960/8964] Built OAI.Combinatorics.TwoWayAutomata.Recognition (7.0s)
+✔ [8961/8964] Built OAI.Combinatorics.TwoWayAutomata.Main (8.5s)
+✔ [8962/8964] Built OAI.Combinatorics.TwoWayAutomata.DeterministicTransport (7.5s)
+✔ [8963/8964] Built OAI.Combinatorics.TwoWayAutomata.DeterministicBound (8.6s)
+✔ [8964/8964] Built OAI.Combinatorics.TwoWayAutomata.ExplicitFamily (7.9s)
+Build completed successfully (8964 jobs).
+== build rc=0 seconds=169
+{"theorems": ["OAI.TwoWayComplementation.explicit_family_main"], "defs": ["OAI.TwoWayComplementation.relStar", "OAI.TwoWayComplementation.TwoNFA", "OAI.TwoWayComplementation.tapeSymbol", "OAI.TwoWayComplementation.TwoNFA.step", "OAI.TwoWayComplementation.TwoNFA.language", "OAI.TwoWayComplementation.TwoNFA.Deterministic", "OAI.TwoWayComplementation.relationProduct", "OAI.TwoWayComplementation.sourceLanguage"], "json_theorems": ["OAI.TwoWayComplementation.explicit_family_main"], "missing_from_parse": []}
+AXIOMS: 'OAI.TwoWayComplementation.explicit_family_main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:51:38Z

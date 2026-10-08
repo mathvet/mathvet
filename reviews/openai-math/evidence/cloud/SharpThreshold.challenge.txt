@@ -1,0 +1,38 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SharpThreshold.lean:51:8: warning: declaration uses `sorry`
+OAI.Problem313.sharp_threshold_width : ∀ (n : ℕ) (f : OAI.Problem313.GraphConfig n → Bool) (ε : ℝ),
+  2 ≤ n →
+    OAI.Problem313.VertexInvariant f →
+      OAI.Problem313.IncreasingGraphProperty f →
+        OAI.Problem313.NontrivialGraphProperty f →
+          0 < ε →
+            ε < 1 / 2 →
+              OAI.Problem313.graphQuantile (1 - ε) f - OAI.Problem313.graphQuantile ε f ≤
+                2 ^ 19 / Real.log ↑n ^ 2 * Real.log (1 / (2 * ε))
+@[reducible] def OAI.Problem313.GraphEdge : ℕ → Type :=
+fun n => { e // e.card = 2 }
+@[reducible] def OAI.Problem313.GraphConfig : ℕ → Type :=
+fun n => OAI.Problem313.GraphEdge n → Bool
+def OAI.Problem313.permEdge : {n : ℕ} → Equiv.Perm (Fin n) → OAI.Problem313.GraphEdge n → OAI.Problem313.GraphEdge n :=
+fun {n} π e => ⟨Finset.map (Equiv.toEmbedding π) ↑e, ⋯⟩
+def OAI.Problem313.permuteConfig : {n : ℕ} →
+  Equiv.Perm (Fin n) → OAI.Problem313.GraphConfig n → OAI.Problem313.GraphConfig n :=
+fun {n} π x e => x (OAI.Problem313.permEdge (Equiv.symm π) e)
+def OAI.Problem313.VertexInvariant : {n : ℕ} → (OAI.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => ∀ (π : Equiv.Perm (Fin n)) (x : OAI.Problem313.GraphConfig n), f (OAI.Problem313.permuteConfig π x) = f x
+def OAI.Problem313.ConfigLE : {n : ℕ} → OAI.Problem313.GraphConfig n → OAI.Problem313.GraphConfig n → Prop :=
+fun {n} x y => ∀ (e : OAI.Problem313.GraphEdge n), x e = true → y e = true
+def OAI.Problem313.IncreasingGraphProperty : {n : ℕ} → (OAI.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => ∀ (x y : OAI.Problem313.GraphConfig n), OAI.Problem313.ConfigLE x y → f x = true → f y = true
+def OAI.Problem313.NontrivialGraphProperty : {n : ℕ} → (OAI.Problem313.GraphConfig n → Bool) → Prop :=
+fun {n} f => (∃ x, f x = true) ∧ ∃ x, f x = false
+def OAI.Problem313.boolReal : Bool → ℝ :=
+fun b =>
+  match b with
+  | false => 0
+  | true => 1
+def OAI.Problem313.graphWeight : {n : ℕ} → ℝ → OAI.Problem313.GraphConfig n → ℝ :=
+fun {n} p x => ∏ e, if x e = true then p else 1 - p
+def OAI.Problem313.graphMean : {n : ℕ} → ℝ → (OAI.Problem313.GraphConfig n → Bool) → ℝ :=
+fun {n} p f => ∑ x, OAI.Problem313.graphWeight p x * OAI.Problem313.boolReal (f x)
+def OAI.Problem313.graphQuantile : {n : ℕ} → ℝ → (OAI.Problem313.GraphConfig n → Bool) → ℝ :=
+fun {n} a f => sInf {p | p ∈ Set.Icc 0 1 ∧ OAI.Problem313.graphMean p f ≥ a}

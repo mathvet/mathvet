@@ -1,0 +1,74 @@
+CMP OAI.MatchingEntropyBounds.Refined.pointwise_entropy [thm] ok
+CMP OAI.MatchingEntropyBounds.maxMatchingEntropy [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.feasibleLaws [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.mean [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.indicator [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.IsPerfectMatching [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.Incident [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.right [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph [ind] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.mk [ctor] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.left [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.Matching [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.matchingFintype [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.matchingFintype._proof_1 [thm] ok
+CMP OAI.MatchingEntropyBounds.probabilitySimplex [def] ok
+CMP OAI.MatchingEntropyBounds.entropy [def] ok
+CMP OAI.MatchingEntropyBounds.Refined.complementEntropy [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.polytope [def] ok
+@Chal.MatchingEntropyBounds.Refined.pointwise_entropy : ∀ {V : Type u_1} {E : Type u_2} [inst : Fintype V]
+  [inst_1 : Fintype E] [DecidableEq V] [inst_3 : DecidableEq E] (G : Chal.MatchingEntropyBounds.LooplessGraph V E)
+  (m : ℕ),
+  0 < m →
+    Fintype.card V = 2 * m →
+      Nonempty G.Matching →
+        ∀ x ∈ G.polytope,
+          Chal.MatchingEntropyBounds.entropy x - (2 - 2 / ↑m) * Chal.MatchingEntropyBounds.Refined.complementEntropy x ≤
+              Chal.MatchingEntropyBounds.maxMatchingEntropy G x ∧
+            Chal.MatchingEntropyBounds.maxMatchingEntropy G x ≤ Chal.MatchingEntropyBounds.entropy x
+structure Chal.MatchingEntropyBounds.LooplessGraph.{uV, uE} (V : Type uV) (E : Type uE) : Type (max uE uV)
+number of parameters: 2
+fields:
+  Chal.MatchingEntropyBounds.LooplessGraph.left : E → V
+  Chal.MatchingEntropyBounds.LooplessGraph.right : E → V
+  Chal.MatchingEntropyBounds.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  Chal.MatchingEntropyBounds.LooplessGraph.mk.{uV, uE} {V : Type uV} {E : Type uE} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : Chal.MatchingEntropyBounds.LooplessGraph V E
+def Chal.MatchingEntropyBounds.LooplessGraph.Incident.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def Chal.MatchingEntropyBounds.LooplessGraph.IsPerfectMatching.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def Chal.MatchingEntropyBounds.LooplessGraph.Matching.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → Type (max 0 uE) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+def Chal.MatchingEntropyBounds.LooplessGraph.indicator.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [DecidableEq E] → (G : Chal.MatchingEntropyBounds.LooplessGraph V E) → G.Matching → E → ℝ :=
+fun {V} {E} [DecidableEq E] G M e => if e ∈ ↑M then 1 else 0
+def Chal.MatchingEntropyBounds.LooplessGraph.polytope.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [DecidableEq E] → Chal.MatchingEntropyBounds.LooplessGraph V E → Set (E → ℝ) :=
+fun {V} {E} [DecidableEq E] G => (convexHull ℝ) (Set.range G.indicator)
+def Chal.MatchingEntropyBounds.LooplessGraph.mean.{uV, uE} : {V : Type uV} →
+  {E : Type uE} →
+    [Fintype E] → [DecidableEq E] → (G : Chal.MatchingEntropyBounds.LooplessGraph V E) → (G.Matching → ℝ) → E → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G p e => ∑ M, p M * G.indicator M e
+def Chal.MatchingEntropyBounds.probabilitySimplex.{uIndex} : (Index : Type uIndex) →
+  [Fintype Index] → Set (Index → ℝ) :=
+fun Index [Fintype Index] => {weights | (∀ (index : Index), 0 ≤ weights index) ∧ ∑ index, weights index = 1}
+def Chal.MatchingEntropyBounds.LooplessGraph.feasibleLaws.{uV, uE} : {V : Type uV} →
+  {E : Type uE} →
+    [Fintype E] →
+      [DecidableEq E] → (G : Chal.MatchingEntropyBounds.LooplessGraph V E) → (E → ℝ) → Set (G.Matching → ℝ) :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y =>
+  {p | p ∈ Chal.MatchingEntropyBounds.probabilitySimplex G.Matching ∧ G.mean p = y}
+def Chal.MatchingEntropyBounds.entropy.{uι} : {ι : Type uι} → [Fintype ι] → (ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] p => ∑ i, (p i).negMulLog
+def Chal.MatchingEntropyBounds.maxMatchingEntropy.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [Fintype E] → [DecidableEq E] → Chal.MatchingEntropyBounds.LooplessGraph V E → (E → ℝ) → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y => sSup (Chal.MatchingEntropyBounds.entropy '' G.feasibleLaws y)
+def Chal.MatchingEntropyBounds.Refined.complementEntropy.{uE} : {E : Type uE} → [Fintype E] → (E → ℝ) → ℝ :=
+fun {E} [Fintype E] x => Chal.MatchingEntropyBounds.entropy fun e => 1 - x e
+'OAI.MatchingEntropyBounds.Refined.pointwise_entropy' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatchingEntropyBounds comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

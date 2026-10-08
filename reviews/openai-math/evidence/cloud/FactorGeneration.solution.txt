@@ -1,0 +1,40 @@
+@OAI.Generator.single_generation_of_II1_separable_predual : ∀ {H : Type u_1} [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℂ H] [inst_2 : CompleteSpace H] (S : StarSubalgebra ℂ (H →L[ℂ] H)),
+  OAI.Generator.IsII1Factor S → OAI.Generator.HasSeparablePredual S → OAI.Generator.SinglyGenerated S
+'OAI.Generator.single_generation_of_II1_separable_predual' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Generator.WOTClosed.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → StarSubalgebra ℂ (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] S => IsClosed {T | T.toCLM ∈ S}
+def OAI.Generator.wstar.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → Set (H →L[ℂ] H) → StarSubalgebra ℂ (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] s =>
+  sInf {S | OAI.Generator.WOTClosed S ∧ s ⊆ ↑S}
+structure OAI.Generator.IsII1Factor.{u} {H : Type u} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+  (S : StarSubalgebra ℂ (H →L[ℂ] H)) : Prop
+number of parameters: 5
+fields:
+  OAI.Generator.IsII1Factor.nonzero : 0 ≠ 1
+  OAI.Generator.IsII1Factor.weaklyClosed : OAI.Generator.WOTClosed S
+  OAI.Generator.IsII1Factor.factor : ∀ (x : ↥S), (∀ (y : ↥S), y * x = x * y) → ∃ c, x = (algebraMap ℂ ↥S) c
+  OAI.Generator.IsII1Factor.finite : ∀ (v : ↥S), star v * v = 1 → v * star v = 1
+  OAI.Generator.IsII1Factor.diffuse : ∀ (p : ↥S),
+      IsStarProjection p → p ≠ 0 → ∃ q, IsStarProjection q ∧ q ≠ 0 ∧ q ≠ p ∧ p * q = q ∧ q * p = q
+constructor:
+  OAI.Generator.IsII1Factor.mk.{u} {H : Type u} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    {S : StarSubalgebra ℂ (H →L[ℂ] H)} (nonzero : 0 ≠ 1) (weaklyClosed : OAI.Generator.WOTClosed S)
+    (factor : ∀ (x : ↥S), (∀ (y : ↥S), y * x = x * y) → ∃ c, x = (algebraMap ℂ ↥S) c)
+    (finite : ∀ (v : ↥S), star v * v = 1 → v * star v = 1)
+    (diffuse :
+      ∀ (p : ↥S), IsStarProjection p → p ≠ 0 → ∃ q, IsStarProjection q ∧ q ≠ 0 ∧ q ≠ p ∧ p * q = q ∧ q * p = q) :
+    OAI.Generator.IsII1Factor S
+def OAI.Generator.HasSeparablePredual.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → StarSubalgebra ℂ (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] S =>
+  ∃ X x x_1, ∃ (_ : CompleteSpace X) (_ : TopologicalSpace.SeparableSpace X), Nonempty (StrongDual ℂ X ≃ₗᵢ⋆[ℂ] ↥S)
+def OAI.Generator.SinglyGenerated.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → StarSubalgebra ℂ (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] S => ∃ x ∈ S, OAI.Generator.wstar {x} = S

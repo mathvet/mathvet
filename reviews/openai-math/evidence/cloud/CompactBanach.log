@@ -1,0 +1,45 @@
+== CompactBanach  module=OAI.Geometry.DoublingHilbert.CompactBanach  start=2026-10-08T11:37:09Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8951] Built OAI.Geometry.DoublingHilbert.CompactUnion (11s)
+✔ [8925/8951] Built OAI.Geometry.DoublingHilbert.ClusterScales (11s)
+✔ [8926/8951] Built OAI.Geometry.DoublingHilbert.FiniteTargets (13s)
+✔ [8927/8951] Built OAI.Geometry.DoublingHilbert.Auerbach (13s)
+✔ [8928/8951] Built OAI.Geometry.DoublingHilbert.Model (8.7s)
+✔ [8929/8951] Built OAI.Geometry.DoublingHilbert.Extremal (10s)
+✔ [8930/8951] Built OAI.Geometry.DoublingHilbert.CompactModel (8.3s)
+✔ [8931/8951] Built OAI.Geometry.DoublingHilbert.FiniteCompactness (10s)
+✔ [8932/8951] Built OAI.Geometry.DoublingHilbert.IntrinsicCovers (8.7s)
+✔ [8933/8951] Built OAI.Geometry.DoublingHilbert.Construction (12s)
+✔ [8934/8951] Built OAI.Geometry.DoublingHilbert.CoverTransfer (9.3s)
+✔ [8935/8951] Built OAI.Geometry.DoublingHilbert.ClusterCover (9.9s)
+✔ [8936/8951] Built OAI.Geometry.DoublingHilbert.Derivatives (11s)
+✔ [8937/8951] Built OAI.Geometry.DoublingHilbert.Doubling (13s)
+✔ [8938/8951] Built OAI.Geometry.DoublingHilbert.Integration (10s)
+✔ [8939/8951] Built OAI.Geometry.DoublingHilbert.Rectangles (12s)
+✔ [8940/8951] Built OAI.Geometry.DoublingHilbert.Grids (12s)
+✔ [8941/8951] Built OAI.Geometry.DoublingHilbert.SelectedSheets (12s)
+✔ [8942/8951] Built OAI.Geometry.DoublingHilbert.Energy (20s)
+✔ [8943/8951] Built OAI.Geometry.DoublingHilbert.Crossings (12s)
+✔ [8944/8951] Built OAI.Geometry.DoublingHilbert.Main (8.0s)
+✔ [8945/8951] Built OAI.Geometry.DoublingHilbert.FiniteWitness (8.6s)
+✔ [8946/8951] Built OAI.Geometry.DoublingHilbert.CoordinateSupport (9.7s)
+✔ [8947/8951] Built OAI.Geometry.DoublingHilbert.SparseCoordinates (10s)
+✔ [8948/8951] Built OAI.Geometry.DoublingHilbert.CoordinateMap (9.8s)
+✔ [8949/8951] Built OAI.Geometry.DoublingHilbert.FinitePlacement (8.8s)
+✔ [8950/8951] Built OAI.Geometry.DoublingHilbert.ClusterPlacement (9.5s)
+✔ [8951/8951] Built OAI.Geometry.DoublingHilbert.CompactBanach (10s)
+Build completed successfully (8951 jobs).
+== build rc=0 seconds=195
+{"theorems": ["OAI.CompactBanach.main"], "defs": ["OAI.CompactBanach.DoublingAtMost", "OAI.CompactBanach.AdmitsBiLipschitzEmbedding"], "json_theorems": ["OAI.CompactBanach.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.CompactBanach.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:40:52Z

@@ -1,0 +1,14 @@
+CMP OAI.Problem310.dyadic_affine_avoidance [thm] ok
+CMP OAI.Problem310.dyadicPoint [def] ok
+CMP OAI.Problem310.dyadicPoint._proof_1 [thm] ok
+Chal.Problem310.dyadic_affine_avoidance : ∀ (η : ℝ),
+  0 < η →
+    η < 1 →
+      ∃ E ⊆ Set.Icc 0 1,
+        IsCompact E ∧
+          MeasureTheory.volume E > ENNReal.ofReal (1 - η) ∧
+            ∀ (x s : ℝ), s ≠ 0 → ∃ n, 1 ≤ n ∧ x + s * Chal.Problem310.dyadicPoint n ∉ E
+def Chal.Problem310.dyadicPoint : ℕ → ℝ :=
+fun n => 2⁻¹ ^ n
+'OAI.Problem310.dyadic_affine_avoidance' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DyadicAvoidance comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

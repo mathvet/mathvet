@@ -1,0 +1,42 @@
+CMP OAI.FixedClauseThreshold.main [thm] ok
+CMP OAI.FixedClauseThreshold.HasLimitingThreshold [def] ok
+CMP OAI.FixedClauseThreshold.properSATProbability [def] ok
+CMP OAI.FixedClauseThreshold.ProperClause [def] ok
+CMP OAI.FixedClauseThreshold.Satisfiable [def] ok
+CMP OAI.FixedClauseThreshold.Satisfies [def] ok
+CMP OAI.FixedClauseThreshold.SatisfiesClause [def] ok
+CMP OAI.FixedClauseThreshold.Assignment [def] ok
+CMP OAI.FixedClauseThreshold.Formula [def] ok
+Chal.FixedClauseThreshold.main : ∀ (k : ℕ), 3 ≤ k → Chal.FixedClauseThreshold.HasLimitingThreshold k
+@[reducible] def Chal.FixedClauseThreshold.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.FixedClauseThreshold.ProperClause : ℕ → ℕ → Type :=
+fun n k => { C // {i | (C i).isSome = true}.card = k }
+@[reducible] def Chal.FixedClauseThreshold.Formula : ℕ → ℕ → ℕ → Type :=
+fun n k m => Fin m → Chal.FixedClauseThreshold.ProperClause n k
+def Chal.FixedClauseThreshold.SatisfiesClause : {n k : ℕ} →
+  Chal.FixedClauseThreshold.Assignment n → Chal.FixedClauseThreshold.ProperClause n k → Prop :=
+fun {n k} σ C => ∃ i, ↑C i = some (σ i)
+def Chal.FixedClauseThreshold.Satisfies : {n k m : ℕ} →
+  Chal.FixedClauseThreshold.Assignment n → Chal.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} σ F => ∀ (j : Fin m), Chal.FixedClauseThreshold.SatisfiesClause σ (F j)
+def Chal.FixedClauseThreshold.Satisfiable : {n k m : ℕ} → Chal.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} F => ∃ σ, Chal.FixedClauseThreshold.Satisfies σ F
+def Chal.FixedClauseThreshold.properSATProbability : ℕ → ℕ → ℕ → ℝ :=
+fun n k m =>
+  ↑(Fintype.card { F // Chal.FixedClauseThreshold.Satisfiable F }) /
+    ↑(Fintype.card (Chal.FixedClauseThreshold.Formula n k m))
+def Chal.FixedClauseThreshold.HasLimitingThreshold : ℕ → Prop :=
+fun k =>
+  ∃ α,
+    0 < α ∧
+      (∀ (c : ℝ),
+          0 ≤ c →
+            c < α →
+              Filter.Tendsto (fun n => Chal.FixedClauseThreshold.properSATProbability n k ⌊c * ↑n⌋₊) Filter.atTop
+                (nhds 1)) ∧
+        ∀ (c : ℝ),
+          α < c →
+            Filter.Tendsto (fun n => Chal.FixedClauseThreshold.properSATProbability n k ⌊c * ↑n⌋₊) Filter.atTop (nhds 0)
+'OAI.FixedClauseThreshold.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FixedClauseThreshold comparator-style: ok=9 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

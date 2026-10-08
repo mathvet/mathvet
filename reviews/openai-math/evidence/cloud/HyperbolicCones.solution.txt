@@ -1,0 +1,51 @@
+OAI.Paper256.main_result : Module.finrank ℝ OAI.Paper256.Ambient = 23 ∧
+  OAI.Paper256.polynomial.IsHomogeneous 20 ∧
+    OAI.Paper256.polynomial.totalDegree = 20 ∧
+      (MvPolynomial.eval (OAI.Paper256.coordinates OAI.Paper256.basePoint)) OAI.Paper256.polynomial = 1 ∧
+        (∀ (x : OAI.Paper256.Ambient) (z : ℂ), (Polynomial.aeval z) (OAI.Paper256.linePolynomial x) = 0 → z.im = 0) ∧
+          ∀ (N : ℕ),
+            0 < N →
+              ∀ (L : OAI.Paper256.Ambient →ₗ[ℝ] ↥(OAI.Paper256.Sym N)),
+                OAI.Paper256.cone ≠ {x | Matrix.PosSemidef ↑(L x)}
+'OAI.Paper256.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Paper256.Mat.{u} : ℕ → Type u → Type u :=
+fun n R => Matrix (Fin n) (Fin n) R
+@[reducible] def OAI.Paper256.Sym : (n : ℕ) → AddSubgroup (OAI.Paper256.Mat n ℝ) :=
+fun n => selfAdjoint (OAI.Paper256.Mat n ℝ)
+@[reducible] def OAI.Paper256.Ambient : Type :=
+(↥(OAI.Paper256.Sym 4) × ↥(OAI.Paper256.Sym 4)) × (Fin 3 → ℝ)
+@[reducible] def OAI.Paper256.SymIndex : Type :=
+{ ij // ij.1 ≤ ij.2 }
+@[reducible] def OAI.Paper256.Coord : Type :=
+(OAI.Paper256.SymIndex ⊕ OAI.Paper256.SymIndex) ⊕ Fin 3
+def OAI.Paper256.qMatrix.{u} : {R : Type u} → [CommRing R] → (Fin 3 → R) → OAI.Paper256.Mat 3 R :=
+fun {R} [CommRing R] y i j => if i = j then y i ^ 2 + y (i + 1) ^ 2 else -(y i * y j)
+def OAI.Paper256.phi.{u} : {R : Type u} → [CommRing R] → (Fin 3 → R) → OAI.Paper256.Mat 4 R → OAI.Paper256.Mat 4 R :=
+fun {R} [CommRing R] y X i j =>
+  Fin.cases
+    (Fin.cases (OAI.Paper256.qMatrix y * Matrix.submatrix X Fin.succ Fin.succ).trace
+      (fun j => -∑ k, X 0 k.succ * OAI.Paper256.qMatrix y k j) j)
+    (fun i => Fin.cases (-∑ k, OAI.Paper256.qMatrix y i k * X k.succ 0) (fun j => X 0 0 * OAI.Paper256.qMatrix y i j) j)
+    i
+def OAI.Paper256.matrixValue.{u} : {R : Type u} →
+  [CommRing R] → OAI.Paper256.Mat 4 R → OAI.Paper256.Mat 4 R → (Fin 3 → R) → R :=
+fun {R} [CommRing R] X Z y => Matrix.det (Matrix.det X • Z - OAI.Paper256.phi y (Matrix.adjugate X))
+def OAI.Paper256.symmetricCoordinates.{u} : {R : Type u} → (OAI.Paper256.SymIndex → R) → OAI.Paper256.Mat 4 R :=
+fun {R} v i j => if h : i ≤ j then v ⟨(i, j), h⟩ else v ⟨(j, i), ⋯⟩
+def OAI.Paper256.polynomial : MvPolynomial OAI.Paper256.Coord ℝ :=
+OAI.Paper256.matrixValue (OAI.Paper256.symmetricCoordinates fun ij => MvPolynomial.X (Sum.inl (Sum.inl ij)))
+  (OAI.Paper256.symmetricCoordinates fun ij => MvPolynomial.X (Sum.inl (Sum.inr ij))) fun i =>
+  MvPolynomial.X (Sum.inr i)
+def OAI.Paper256.coordinates : OAI.Paper256.Ambient → OAI.Paper256.Coord → ℝ :=
+fun x => Sum.elim (Sum.elim (fun ij => ↑x.1.1 (↑ij).1 (↑ij).2) fun ij => ↑x.1.2 (↑ij).1 (↑ij).2) x.2
+def OAI.Paper256.basePoint : OAI.Paper256.Ambient :=
+((1, 1), 0)
+def OAI.Paper256.linePolynomial : OAI.Paper256.Ambient → Polynomial ℝ :=
+fun x =>
+  MvPolynomial.eval₂ Polynomial.C
+    (fun i =>
+      Polynomial.C (OAI.Paper256.coordinates OAI.Paper256.basePoint i) * Polynomial.X -
+        Polynomial.C (OAI.Paper256.coordinates x i))
+    OAI.Paper256.polynomial
+def OAI.Paper256.cone : Set OAI.Paper256.Ambient :=
+{x | ∀ (t : ℂ), (Polynomial.aeval t) (OAI.Paper256.linePolynomial x) = 0 → t.im = 0 ∧ 0 ≤ t.re}

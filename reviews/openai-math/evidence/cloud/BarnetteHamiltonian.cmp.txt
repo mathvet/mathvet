@@ -1,0 +1,45 @@
+CMP OAI.Barnette.main [thm] ok
+CMP OAI.Barnette.MainStatement [def] ok
+CMP OAI.Barnette.HasHamiltonianCycle [def] ok
+CMP OAI.Barnette.ThreeVertexConnected [def] ok
+CMP OAI.Barnette.Planar [def] ok
+CMP OAI.Barnette.PlaneEmbedding [ind] ok
+CMP OAI.Barnette.PlaneEmbedding.mk [ctor] ok
+Chal.Barnette.main : Chal.Barnette.MainStatement
+structure Chal.Barnette.PlaneEmbedding.{u} {V : Type u} (G : SimpleGraph V) : Type u
+number of parameters: 2
+fields:
+  Chal.Barnette.PlaneEmbedding.point : V → ℝ × ℝ
+  Chal.Barnette.PlaneEmbedding.point_injective : Function.Injective self.point
+  Chal.Barnette.PlaneEmbedding.arc : (v w : V) → G.Adj v w → Path (self.point v) (self.point w)
+  Chal.Barnette.PlaneEmbedding.arc_injective : ∀ (v w : V) (h : G.Adj v w), Function.Injective ⇑(self.arc v w h)
+  Chal.Barnette.PlaneEmbedding.arc_reverse : ∀ (v w : V) (h : G.Adj v w), self.arc w v ⋯ = (self.arc v w h).symm
+  Chal.Barnette.PlaneEmbedding.arc_avoids_vertices : ∀ (v w : V) (h : G.Adj v w) (t : ↑unitInterval) (z : V),
+      (self.arc v w h) t = self.point z → t = 0 ∧ z = v ∨ t = 1 ∧ z = w
+  Chal.Barnette.PlaneEmbedding.interiors_disjoint : ∀ (v w x y : V) (h : G.Adj v w) (k : G.Adj x y)
+      (t s : ↑unitInterval),
+      t ≠ 0 → t ≠ 1 → s ≠ 0 → s ≠ 1 → (self.arc v w h) t = (self.arc x y k) s → v = x ∧ w = y ∨ v = y ∧ w = x
+constructor:
+  Chal.Barnette.PlaneEmbedding.mk.{u} {V : Type u} {G : SimpleGraph V} (point : V → ℝ × ℝ)
+    (point_injective : Function.Injective point) (arc : (v w : V) → G.Adj v w → Path (point v) (point w))
+    (arc_injective : ∀ (v w : V) (h : G.Adj v w), Function.Injective ⇑(arc v w h))
+    (arc_reverse : ∀ (v w : V) (h : G.Adj v w), arc w v ⋯ = (arc v w h).symm)
+    (arc_avoids_vertices :
+      ∀ (v w : V) (h : G.Adj v w) (t : ↑unitInterval) (z : V), (arc v w h) t = point z → t = 0 ∧ z = v ∨ t = 1 ∧ z = w)
+    (interiors_disjoint :
+      ∀ (v w x y : V) (h : G.Adj v w) (k : G.Adj x y) (t s : ↑unitInterval),
+        t ≠ 0 → t ≠ 1 → s ≠ 0 → s ≠ 1 → (arc v w h) t = (arc x y k) s → v = x ∧ w = y ∨ v = y ∧ w = x) :
+    Chal.Barnette.PlaneEmbedding G
+def Chal.Barnette.Planar.{u} : {V : Type u} → SimpleGraph V → Prop :=
+fun {V} G => Nonempty (Chal.Barnette.PlaneEmbedding G)
+def Chal.Barnette.ThreeVertexConnected.{u} : {V : Type u} → [Fintype V] → SimpleGraph V → Prop :=
+fun {V} [Fintype V] G =>
+  4 ≤ Fintype.card V ∧ ∀ (S : Finset V), S.card ≤ 2 → (SimpleGraph.induce {v | v ∉ S} G).Connected
+def Chal.Barnette.HasHamiltonianCycle.{u} : {V : Type u} → [DecidableEq V] → SimpleGraph V → Prop :=
+fun {V} [DecidableEq V] G => ∃ v p, p.IsHamiltonianCycle
+def Chal.Barnette.MainStatement.{u} : Prop :=
+∀ (V : Type u) [inst : Fintype V] [inst_1 : DecidableEq V] (G : SimpleGraph V) [inst_2 : DecidableRel G.Adj],
+  G.IsRegularOfDegree 3 →
+    G.IsBipartite → Chal.Barnette.Planar G → Chal.Barnette.ThreeVertexConnected G → Chal.Barnette.HasHamiltonianCycle G
+'OAI.Barnette.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BarnetteHamiltonian comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

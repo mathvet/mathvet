@@ -1,0 +1,55 @@
+OAI.MetricEntropyDuality.exists_entropy_duality_counterexample_with_covers : ∀ (a b : ℝ),
+  1 ≤ a →
+    1 ≤ b →
+      ∃ n,
+        0 < n ∧
+          ∃ K,
+            OAI.MetricEntropyDuality.IsSymmetricConvexBody K ∧
+              OAI.MetricEntropyDuality.Coverable K (OAI.MetricEntropyDuality.cube (Fin n)) ∧
+                OAI.MetricEntropyDuality.Coverable
+                    (OAI.MetricEntropyDuality.polar (OAI.MetricEntropyDuality.cube (Fin n)))
+                    (a⁻¹ • OAI.MetricEntropyDuality.polar K) ∧
+                  b *
+                      Real.log
+                        ↑(OAI.MetricEntropyDuality.coveringNumber
+                            (OAI.MetricEntropyDuality.polar (OAI.MetricEntropyDuality.cube (Fin n)))
+                            (a⁻¹ • OAI.MetricEntropyDuality.polar K)) <
+                    Real.log ↑(OAI.MetricEntropyDuality.coveringNumber K (OAI.MetricEntropyDuality.cube (Fin n)))
+'OAI.MetricEntropyDuality.exists_entropy_duality_counterexample_with_covers' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@[reducible] def OAI.MetricEntropyDuality.RealSpace.{u} : Type u → Type u :=
+fun ι => ι → ℝ
+def OAI.MetricEntropyDuality.pairing.{u} : {ι : Type u} →
+  [Fintype ι] → OAI.MetricEntropyDuality.RealSpace ι → OAI.MetricEntropyDuality.RealSpace ι → ℝ :=
+fun {ι} [Fintype ι] x y => ∑ i, x i * y i
+def OAI.MetricEntropyDuality.cube.{u} : (ι : Type u) → Set (OAI.MetricEntropyDuality.RealSpace ι) :=
+fun ι => {x | ∀ (i : ι), |x i| ≤ 1}
+def OAI.MetricEntropyDuality.polar.{u} : {ι : Type u} →
+  [Fintype ι] → Set (OAI.MetricEntropyDuality.RealSpace ι) → Set (OAI.MetricEntropyDuality.RealSpace ι) :=
+fun {ι} [Fintype ι] K => {y | ∀ x ∈ K, OAI.MetricEntropyDuality.pairing x y ≤ 1}
+def OAI.MetricEntropyDuality.Covers.{u} : {ι : Type u} →
+  {M : ℕ} →
+    Set (OAI.MetricEntropyDuality.RealSpace ι) →
+      Set (OAI.MetricEntropyDuality.RealSpace ι) → (Fin M → OAI.MetricEntropyDuality.RealSpace ι) → Prop :=
+fun {ι} {M} A B centers => ∀ x ∈ A, ∃ j, x - centers j ∈ B
+def OAI.MetricEntropyDuality.Coverable.{u} : {ι : Type u} →
+  Set (OAI.MetricEntropyDuality.RealSpace ι) → Set (OAI.MetricEntropyDuality.RealSpace ι) → Prop :=
+fun {ι} A B => ∃ M centers, OAI.MetricEntropyDuality.Covers A B centers
+def OAI.MetricEntropyDuality.coveringNumber.{u} : {ι : Type u} →
+  Set (OAI.MetricEntropyDuality.RealSpace ι) → Set (OAI.MetricEntropyDuality.RealSpace ι) → ℕ :=
+fun {ι} A B => sInf {M | ∃ centers, OAI.MetricEntropyDuality.Covers A B centers}
+structure OAI.MetricEntropyDuality.IsSymmetricConvexBody.{u} {ι : Type u} [Fintype ι]
+  (K : Set (OAI.MetricEntropyDuality.RealSpace ι)) : Prop
+number of parameters: 3
+fields:
+  OAI.MetricEntropyDuality.IsSymmetricConvexBody.isCompact : IsCompact K
+  OAI.MetricEntropyDuality.IsSymmetricConvexBody.convex : Convex ℝ K
+  OAI.MetricEntropyDuality.IsSymmetricConvexBody.symmetric : ∀ (x : OAI.MetricEntropyDuality.RealSpace ι),
+      x ∈ K ↔ -x ∈ K
+  OAI.MetricEntropyDuality.IsSymmetricConvexBody.interior_nonempty : (interior K).Nonempty
+constructor:
+  OAI.MetricEntropyDuality.IsSymmetricConvexBody.mk.{u} {ι : Type u} [Fintype ι]
+    {K : Set (OAI.MetricEntropyDuality.RealSpace ι)} (isCompact : IsCompact K) (convex : Convex ℝ K)
+    (symmetric : ∀ (x : OAI.MetricEntropyDuality.RealSpace ι), x ∈ K ↔ -x ∈ K)
+    (interior_nonempty : (interior K).Nonempty) : OAI.MetricEntropyDuality.IsSymmetricConvexBody K
