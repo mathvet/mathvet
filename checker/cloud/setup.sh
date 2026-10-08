@@ -61,7 +61,7 @@ cd "$ROOT/tmp"
 ls -la "$ROOT"/tmp/lean4export/.lake/build/bin/lean4export "$ROOT"/tmp/comparator/.lake/build/bin/comparator
 
 log "Mathlib cache"
-MIRROR="${MATHVET_CACHE_MIRROR:-https://github.com/ceshanon/mathvet/releases/download/mathlib-cache-d13f23b/mathlib-cache-d13f23b.tar}"
+MIRROR="${MATHVET_CACHE_MIRROR:-https://github.com/mathvet/mathvet/releases/download/mathlib-cache-d13f23b/mathlib-cache-d13f23b.tar}"
 if [ -z "${MATHLIB_CACHE_GET_URL:-}" ] && ! curl -fsS -m 15 -o /dev/null https://cache.mathlib.org/ 2>/dev/null && [ ! -d "$HOME/.cache/mathlib" ]; then
   log "cache.mathlib.org unreachable; fetching the mirror tarball (458 MB) from GitHub releases"
   mkdir -p "$HOME/.cache" && curl -fL -o /tmp/mathlib-cache.tar "$MIRROR" && tar -xf /tmp/mathlib-cache.tar -C "$HOME/.cache" && rm -f /tmp/mathlib-cache.tar

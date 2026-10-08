@@ -41,7 +41,7 @@ checker/run_queue.sh CirculantHadamard     # rebuild and re-check a challenge yo
 
 ## Corrections and contact
 
-Open an [issue](https://github.com/ceshanon/mathvet/issues) with the family number and the challenge line you have in mind. Corrections are made in public and recorded in [CHANGELOG.md](CHANGELOG.md). MathVet takes no funding from any lab whose work it reviews; conflicts, if any arise, are disclosed here.
+Open an [issue](https://github.com/mathvet/mathvet/issues) with the family number and the challenge line you have in mind. Corrections are made in public and recorded in [CHANGELOG.md](CHANGELOG.md). MathVet takes no funding from any lab whose work it reviews; conflicts, if any arise, are disclosed here.
 
 ## License
 

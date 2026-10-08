@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T05:28:33Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T05:39:22Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -15,7 +15,7 @@ project:
   authors:
   - MathVet (math.vet)
   responsible_maintainers:
-  - MathVet maintainer, github.com/ceshanon
+  - MathVet maintainer, github.com/mathvet
   license: Apache-2.0
 repository:
   role: thin-wrapper
@@ -3010,7 +3010,7 @@ fidelity:
 review:
   status: independent third-party review — pre-referee
   reviewers:
-  - MathVet (github.com/ceshanon); no author of the reviewed formalization took part
+  - MathVet (github.com/mathvet); no author of the reviewed formalization took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
     Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-08.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
@@ -7467,12 +7467,12 @@ alignment:
 mathvet:
   schema: 1
   site: https://math.vet
-  repository: https://github.com/ceshanon/mathvet
+  repository: https://github.com/mathvet/mathvet
   status:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T05:28:33Z'
+    generated: '2026-10-08T05:39:22Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235

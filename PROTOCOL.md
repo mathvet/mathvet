@@ -8,7 +8,7 @@ Each of the 235 families with Lean in `openai/math` (commit `adc7f124`) carries 
 
 ## The sample (frozen)
 
-40 families, listed in [`reviews/openai-math/sample.txt`](https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/sample.txt) (SHA-256 in `sample.sha256`), composed of:
+40 families, listed in [`reviews/openai-math/sample.txt`](https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/sample.txt) (SHA-256 in `sample.sha256`), composed of:
 
 - **12 with certainty**: the families whose repository scope notes already document a divergence between headline and Lean (197, 261, 266, 281, 247, 262, 207, 267, 307, 157, 159, 365). They are the cases most likely to be argued about, so they are all in.
 - **14 drawn at random** from the other 79 non-`full` families.

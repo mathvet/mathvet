@@ -32,7 +32,7 @@ DOCS = ROOT / 'docs'
 UPSTREAM = 'https://github.com/openai/math'
 CLASSES = ['full', 'partial', 'weaker-statement', 'supporting-only']
 SITE = 'https://math.vet'
-REPO_URL = 'https://github.com/ceshanon/mathvet'
+REPO_URL = 'https://github.com/mathvet/mathvet'
 NOW = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
 
 sys.path.insert(0, str(ROOT / 'scripts'))
@@ -342,7 +342,7 @@ review_doc = OrderedDict([
                         'own machine checks. Every verdict is pre-referee until the referee round described in PROTOCOL.md '
                         'has been published.'),
         ('authors', ['MathVet (math.vet)']),
-        ('responsible_maintainers', ['MathVet maintainer, github.com/ceshanon']),
+        ('responsible_maintainers', ['MathVet maintainer, github.com/mathvet']),
         ('license', 'Apache-2.0'),
     ])),
     ('repository', OrderedDict([
@@ -379,7 +379,7 @@ review_doc = OrderedDict([
     ('fidelity', OrderedDict([('divergences', divergences)])),
     ('review', OrderedDict([
         ('status', 'independent third-party review — pre-referee'),
-        ('reviewers', ['MathVet (github.com/ceshanon); no author of the reviewed formalization took part']),
+        ('reviewers', ['MathVet (github.com/mathvet); no author of the reviewed formalization took part']),
         ('notes', 'Statement fidelity only: whether each Comparator challenge statement states its family\'s headline claim. '
                   'Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. '
                   f'Published {NOW.date().isoformat()}. Error-rate protocol: 40 families (12 documented divergences with '
@@ -455,7 +455,7 @@ Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure compar
 
 
 # ----------------------------------------------------------------------------- site
-SITE_LIVE = 'https://ceshanon.github.io/mathvet/'   # absolute site links in the Markdown become root-relative in the site
+SITE_LIVE = 'https://mathvet.github.io/mathvet/'   # absolute site links in the Markdown become root-relative in the site
 
 
 def md(text):

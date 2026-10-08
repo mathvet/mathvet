@@ -68,13 +68,13 @@ LAYOUT = """<!doctype html>
     <a href="{root}openai-math/" class="{table}">Fidelity table</a>
     <a href="{root}openai-math/challenges.html" class="{challenges}">Challenges</a>
     <a href="{root}protocol.html" class="{protocol}">Referee protocol</a>
-    <a href="https://github.com/ceshanon/mathvet">GitHub</a>
+    <a href="https://github.com/mathvet/mathvet">GitHub</a>
   </nav>
 </div></header>
 <main>
 {body}
 </main>
-<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="{root}protocol.html">protocol</a> has been published. Upstream commit <code>{commit}</code>; generated {generated}. Corrections: <a href="https://github.com/ceshanon/mathvet/issues">open an issue</a>.</div></footer>
+<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="{root}protocol.html">protocol</a> has been published. Upstream commit <code>{commit}</code>; generated {generated}. Corrections: <a href="https://github.com/mathvet/mathvet/issues">open an issue</a>.</div></footer>
 {extra_js}
 </body>
 </html>
@@ -106,7 +106,7 @@ TABLE_PAGE = r"""
 <thead><tr><th data-k="family">Family</th><th data-k="title">Title</th><th data-k="subject">Subject</th><th data-k="verdict">Verdict</th><th>Challenges</th><th data-k="cone_lines_max">Cone (lines)</th><th data-k="machine_check">Checked here</th></tr></thead>
 <tbody id="tb"></tbody>
 </table></div>
-<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/fidelity-table.csv">fidelity-table.csv</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/fidelity-table.json">fidelity-table.json</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/formalization-review.yaml">formalization-review.yaml</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
+<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/fidelity-table.csv">fidelity-table.csv</a> · <a href="https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/fidelity-table.json">fidelity-table.json</a> · <a href="https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/formalization-review.yaml">formalization-review.yaml</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('data').textContent);
@@ -154,13 +154,13 @@ CHALLENGES_PAGE = r"""
 <thead><tr><th data-k="challenge">Challenge</th><th data-k="family">Family</th><th data-k="family_verdict">Family verdict</th><th>Lab's result label</th><th data-k="cone_oai_lines">Cone (lines)</th><th data-k="build">Build</th><th data-k="closure">Closure</th><th data-k="comparator">Comparator (laptop, shim)</th><th data-k="cloud_comparator">Comparator (Linux VM, landrun)</th><th>Evidence</th></tr></thead>
 <tbody id="tb"></tbody>
 </table></div>
-<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.csv">challenge-status.csv</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.json">challenge-status.json</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
+<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/challenge-status.csv">challenge-status.csv</a> · <a href="https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/challenge-status.json">challenge-status.json</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('data').textContent);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let sortK='challenge',sortD=1;
-const EV='https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/evidence/lean_checks/';const EVC='https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/evidence/cloud/';
+const EV='https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/evidence/lean_checks/';const EVC='https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/evidence/cloud/';
 function rows(){const q=document.getElementById('q').value.trim().toLowerCase();const only=document.getElementById('only').checked;
  let r=DATA.filter(d=>(!only||d.machine_check!=='none')&&(!q||[d.challenge,d.family,d.solution_module,d.result_label,d.theorem_names.join(' ')].join(' ').toLowerCase().includes(q)));
  r.sort((a,b)=>{let x=a[sortK],y=b[sortK];if(typeof x==='number')return (x-y)*sortD;return String(x).localeCompare(String(y))*sortD});return r}
