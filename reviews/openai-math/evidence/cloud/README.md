@@ -20,3 +20,9 @@ Notes on individual logs:
   scanner is fixed (2026-10-08).
 - `DixmierAllDiscrete.cmp.txt` and `ForestSpace.cmp.txt` report type mismatches on definitions and their auxiliary
   proofs; Comparator accepted both. `*.mismatch-debug.txt` files (when present) show both elaborations side by side.
+- Diagnostics (`*.mismatch-debug.txt`, 2026-10-08): for DixmierAllDiscrete the only difference between the two elaborations is
+  the instance path typeclass resolution chose for the metric on ℂ (`CommCStarAlgebra.toNormedCommRing` inside the solution's
+  richer environment versus `NormedField.toNormedCommRing` in the solution itself), two definitionally equal terms; for
+  ForestSpace the printed terms are identical and the difference is invisible to the pretty-printer. The checker now reports,
+  for every structural mismatch, whether the two sides are definitionally equal (`DEFEQ`), and the summary line carries
+  `defeq_only=N`; such cases no longer count as problems.
