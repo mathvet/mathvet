@@ -1,0 +1,28 @@
+CMP OAI.ShortEgyptian.main [thm] ok
+CMP OAI.ShortEgyptian.maxMinLength [def] ok
+CMP OAI.ShortEgyptian.minLength [def] ok
+CMP OAI.ShortEgyptian.IsExpansion [def] ok
+Chal.ShortEgyptian.main : (∀ (a b : ℕ), 1 ≤ a → a < b → ∃ ns, Chal.ShortEgyptian.IsExpansion a b ns) ∧
+  ∃ c₁ c₂,
+    0 < c₁ ∧
+      0 < c₂ ∧
+        ∃ b₀,
+          2 ≤ b₀ ∧
+            ∀ (b : ℕ),
+              b₀ ≤ b →
+                c₁ * Real.log (Real.log ↑b) ≤ ↑(Chal.ShortEgyptian.maxMinLength b) ∧
+                  ↑(Chal.ShortEgyptian.maxMinLength b) ≤ c₂ * Real.log (Real.log ↑b)
+def Chal.ShortEgyptian.IsExpansion : ℕ → ℕ → List ℕ → Prop :=
+fun a b ns =>
+  List.Pairwise (fun x1 x2 => x1 < x2) ns ∧
+    (∀ n ∈ ns, 2 ≤ n) ∧
+      (List.map (fun n => 1 / n) do
+            let a ← ns
+            pure ↑a).sum =
+        ↑a / ↑b
+def Chal.ShortEgyptian.minLength : ℕ → ℕ → ℕ :=
+fun a b => sInf {k | ∃ ns, Chal.ShortEgyptian.IsExpansion a b ns ∧ ns.length = k}
+def Chal.ShortEgyptian.maxMinLength : ℕ → ℕ :=
+fun b => (Finset.Ico 1 b).sup fun a => Chal.ShortEgyptian.minLength a b
+'OAI.ShortEgyptian.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ShortEgyptianFractions comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
