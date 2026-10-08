@@ -1,0 +1,127 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VelocityHemisphere.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.DirectionalTransience.positive_probability_transience_velocity_hemisphere [thm] ok
+CMP OAI.DirectionalTransience.VelocityPaths [def] ok
+CMP OAI.DirectionalTransience.Path [def] ok
+CMP OAI.DirectionalTransience.Lattice [def] ok
+CMP OAI.DirectionalTransience.Vector [def] ok
+CMP OAI.DirectionalTransience.dot [def] ok
+CMP OAI.DirectionalTransience.TransientPaths [def] ok
+CMP OAI.DirectionalTransience.realPosition [def] ok
+CMP OAI.DirectionalTransience.annealedLaw [def] ok
+CMP OAI.DirectionalTransience.historyTransition_markov [thm] ok
+CMP OAI.DirectionalTransience.historyTransition [def] ok
+CMP OAI.DirectionalTransience.historyTransition._proof_2 [thm] ok
+CMP OAI.DirectionalTransience.historyTransition._proof_1 [thm] ok
+CMP OAI.DirectionalTransience.transition [def] ok
+CMP OAI.DirectionalTransience.transition._proof_2 [thm] ok
+CMP OAI.DirectionalTransience.step [def] ok
+CMP OAI.DirectionalTransience.Direction [def] ok
+CMP OAI.DirectionalTransience.transition._proof_1 [thm] ok
+CMP OAI.DirectionalTransience.Row [def] ok
+CMP OAI.DirectionalTransience.Environment [def] ok
+CMP OAI.DirectionalTransience.State [def] ok
+CMP OAI.DirectionalTransience.initialLaw [def] ok
+CMP OAI.DirectionalTransience.environmentLaw [def] ok
+CMP OAI.DirectionalTransience.UniformElliptic [def] ok
+CMP OAI.DirectionalTransience.UniformElliptic._proof_1 [thm] ok
+@Chal.DirectionalTransience.positive_probability_transience_velocity_hemisphere : ∀ {d : ℕ},
+  3 ≤ d →
+    ∀ (ν : MeasureTheory.Measure (Chal.DirectionalTransience.Row d)) [MeasureTheory.IsProbabilityMeasure ν],
+      Chal.DirectionalTransience.UniformElliptic ν →
+        ∀ (ℓ : Chal.DirectionalTransience.Vector d),
+          ℓ ≠ 0 →
+            0 < (Chal.DirectionalTransience.annealedLaw ν) (Chal.DirectionalTransience.TransientPaths ℓ) →
+              ∃ v,
+                v ≠ 0 ∧
+                  0 < Chal.DirectionalTransience.dot v ℓ ∧
+                    (Chal.DirectionalTransience.annealedLaw ν) (Chal.DirectionalTransience.VelocityPaths v) = 1 ∧
+                      (∀ (w : Chal.DirectionalTransience.Vector d),
+                          (Chal.DirectionalTransience.annealedLaw ν) (Chal.DirectionalTransience.VelocityPaths w) = 1 →
+                            w = v) ∧
+                        {u |
+                              Chal.DirectionalTransience.dot u u = 1 ∧
+                                (Chal.DirectionalTransience.annealedLaw ν)
+                                    (Chal.DirectionalTransience.TransientPaths u) =
+                                  1} =
+                            {u |
+                              Chal.DirectionalTransience.dot u u = 1 ∧
+                                0 <
+                                  (Chal.DirectionalTransience.annealedLaw ν)
+                                    (Chal.DirectionalTransience.TransientPaths u)} ∧
+                          {u |
+                                Chal.DirectionalTransience.dot u u = 1 ∧
+                                  0 <
+                                    (Chal.DirectionalTransience.annealedLaw ν)
+                                      (Chal.DirectionalTransience.TransientPaths u)} =
+                              {u | Chal.DirectionalTransience.dot u u = 1 ∧ 0 < Chal.DirectionalTransience.dot v u} ∧
+                            ∀ (u : Chal.DirectionalTransience.Vector d),
+                              Chal.DirectionalTransience.dot u u = 1 →
+                                Chal.DirectionalTransience.dot v u ≤ 0 →
+                                  (Chal.DirectionalTransience.annealedLaw ν)
+                                      (Chal.DirectionalTransience.TransientPaths u) =
+                                    0
+@[reducible] def Chal.DirectionalTransience.Lattice : ℕ → Type :=
+fun d => Fin d → ℤ
+@[reducible] def Chal.DirectionalTransience.Direction : ℕ → Type :=
+fun d => Fin d × Bool
+@[reducible] def Chal.DirectionalTransience.Vector : ℕ → Type :=
+fun d => Fin d → ℝ
+@[reducible] def Chal.DirectionalTransience.Row : ℕ → Type :=
+fun d => { p // ∑ e, p e = 1 }
+@[reducible] def Chal.DirectionalTransience.Environment : ℕ → Type :=
+fun d => Chal.DirectionalTransience.Lattice d → Chal.DirectionalTransience.Row d
+@[reducible] def Chal.DirectionalTransience.State : ℕ → Type :=
+fun d => Chal.DirectionalTransience.Environment d × Chal.DirectionalTransience.Lattice d
+@[reducible] def Chal.DirectionalTransience.Path : ℕ → Type :=
+fun d => ℕ → Chal.DirectionalTransience.Lattice d
+def Chal.DirectionalTransience.step : {d : ℕ} →
+  Chal.DirectionalTransience.Direction d → Chal.DirectionalTransience.Lattice d :=
+fun {d} e i => if i = e.1 then if e.2 = true then 1 else -1 else 0
+def Chal.DirectionalTransience.environmentLaw : {d : ℕ} →
+  MeasureTheory.Measure (Chal.DirectionalTransience.Row d) →
+    MeasureTheory.Measure (Chal.DirectionalTransience.Environment d) :=
+fun {d} ν => MeasureTheory.Measure.infinitePi fun x => ν
+def Chal.DirectionalTransience.UniformElliptic : {d : ℕ} →
+  MeasureTheory.Measure (Chal.DirectionalTransience.Row d) → Prop :=
+fun {d} ν =>
+  ∃ κ, 0 < κ ∧ ∀ᵐ (p : Chal.DirectionalTransience.Row d) ∂ν, ∀ (e : Chal.DirectionalTransience.Direction d), κ ≤ ↑p e
+def Chal.DirectionalTransience.transition : {d : ℕ} →
+  ProbabilityTheory.Kernel (Chal.DirectionalTransience.State d) (Chal.DirectionalTransience.State d) :=
+fun {d} =>
+  { toFun := fun z => ∑ e, ↑(↑(z.1 z.2) e) • MeasureTheory.Measure.dirac (z.1, z.2 + Chal.DirectionalTransience.step e),
+    measurable' := ⋯ }
+def Chal.DirectionalTransience.historyTransition : {d : ℕ} →
+  (n : ℕ) →
+    ProbabilityTheory.Kernel (↥(Finset.Iic n) → Chal.DirectionalTransience.State d)
+      (Chal.DirectionalTransience.State d) :=
+fun {d} n => { toFun := fun z => Chal.DirectionalTransience.transition (z ⟨n, ⋯⟩), measurable' := ⋯ }
+def Chal.DirectionalTransience.initialLaw : {d : ℕ} →
+  MeasureTheory.Measure (Chal.DirectionalTransience.Row d) →
+    MeasureTheory.Measure (Chal.DirectionalTransience.State d) :=
+fun {d} ν => MeasureTheory.Measure.map (fun ω => (ω, 0)) (Chal.DirectionalTransience.environmentLaw ν)
+def Chal.DirectionalTransience.annealedLaw : {d : ℕ} →
+  MeasureTheory.Measure (Chal.DirectionalTransience.Row d) →
+    MeasureTheory.Measure (Chal.DirectionalTransience.Path d) :=
+fun {d} ν =>
+  MeasureTheory.Measure.map (fun z n => (z n).2)
+    (ProbabilityTheory.Kernel.trajMeasure (Chal.DirectionalTransience.initialLaw ν)
+      Chal.DirectionalTransience.historyTransition)
+def Chal.DirectionalTransience.dot : {d : ℕ} →
+  Chal.DirectionalTransience.Vector d → Chal.DirectionalTransience.Vector d → ℝ :=
+fun {d} v ℓ => ∑ i, v i * ℓ i
+def Chal.DirectionalTransience.realPosition : {d : ℕ} →
+  Chal.DirectionalTransience.Lattice d → Chal.DirectionalTransience.Vector d :=
+fun {d} x i => ↑(x i)
+def Chal.DirectionalTransience.TransientPaths : {d : ℕ} →
+  Chal.DirectionalTransience.Vector d → Set (Chal.DirectionalTransience.Path d) :=
+fun {d} ℓ =>
+  {X |
+    Filter.Tendsto (fun n => Chal.DirectionalTransience.dot (Chal.DirectionalTransience.realPosition (X n)) ℓ)
+      Filter.atTop Filter.atTop}
+def Chal.DirectionalTransience.VelocityPaths : {d : ℕ} →
+  Chal.DirectionalTransience.Vector d → Set (Chal.DirectionalTransience.Path d) :=
+fun {d} v => {X | Filter.Tendsto (fun n i => ↑(X n i) / ↑n) Filter.atTop (nhds v)}
+'OAI.DirectionalTransience.positive_probability_transience_velocity_hemisphere' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== VelocityHemisphere comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0

@@ -1,0 +1,19 @@
+OAI.SharpRamseyFive.main : OAI.SharpRamseyFive.SharpBounds ∧ OAI.SharpRamseyFive.SharpExponent
+'OAI.SharpRamseyFive.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.SharpRamseyFive.RamseyProperty : ℕ → ℕ → ℕ → Prop :=
+fun s t n => ∀ (G : SimpleGraph (Fin n)), (∃ A, G.IsNClique s A) ∨ ∃ B, G.IsNIndepSet t B
+def OAI.SharpRamseyFive.ramsey : ℕ → ℕ → ℕ :=
+fun s t => sInf {n | OAI.SharpRamseyFive.RamseyProperty s t n}
+def OAI.SharpRamseyFive.SharpBounds : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ t₀,
+          ∀ (t : ℕ),
+            t₀ ≤ t →
+              ↑t ^ 4 / (Real.log ↑t).rpow (3 + ε) ≤ ↑(OAI.SharpRamseyFive.ramsey 5 t) ∧
+                ↑(OAI.SharpRamseyFive.ramsey 5 t) ≤ C * ↑t ^ 4 / Real.log ↑t ^ 3
+def OAI.SharpRamseyFive.SharpExponent : Prop :=
+Filter.Tendsto (fun t => (4 * Real.log ↑t - Real.log ↑(OAI.SharpRamseyFive.ramsey 5 t)) / Real.log (Real.log ↑t))
+  Filter.atTop (nhds 3)

@@ -1,0 +1,54 @@
+structure OAI.ElementaryPositivity.NaturalUnitIntervalGraph (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.h : Fin n → Fin n
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.increasing : Monotone self.h
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.extensive : ∀ (i : Fin n), i ≤ self.h i
+constructor:
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.mk {n : ℕ} (h : Fin n → Fin n) (increasing : Monotone h)
+    (extensive : ∀ (i : Fin n), i ≤ h i) : OAI.ElementaryPositivity.NaturalUnitIntervalGraph n
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.Edge : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → Fin n → Fin n → Prop :=
+fun {n} G i j => i < j ∧ j ≤ G.h i ∨ j < i ∧ i ≤ G.h j
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.Nondescent : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → Equiv.Perm (Fin n) → Prop :=
+fun {n} G σ => ∀ (i j : Fin n), ↑i + 1 = ↑j → σ j < σ i → G.Edge (σ i) (σ j)
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.graphInversions : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → Equiv.Perm (Fin n) → ℕ :=
+fun {n} G σ => {ij | ij.1 < ij.2 ∧ σ ij.2 < σ ij.1 ∧ G.Edge (σ ij.1) (σ ij.2)}.card
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.Proper : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → {r : ℕ} → (Fin n → Fin r) → Prop :=
+fun {n} G {r} f => ∀ (i j : Fin n), G.Edge i j → f i ≠ f j
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.coloringAscents : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → {r : ℕ} → (Fin n → Fin r) → ℕ :=
+fun {n} G {r} f => {ij | ij.1 < ij.2 ∧ G.Edge ij.1 ij.2 ∧ f ij.1 < f ij.2}.card
+def OAI.ElementaryPositivity.NaturalUnitIntervalGraph.chromatic : {n : ℕ} →
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph n → (r : ℕ) → MvPolynomial (Fin r) (Polynomial ℕ) :=
+fun {n} G r => ∑ f with G.Proper f, MvPolynomial.C (Polynomial.X ^ G.coloringAscents f) * ∏ i, MvPolynomial.X (f i)
+structure OAI.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness {n : ℕ}
+  (G : OAI.ElementaryPositivity.NaturalUnitIntervalGraph n) : Type
+number of parameters: 2
+fields:
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.theta : { σ // G.Nondescent σ } → n.Partition
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.expansion : ∀ (r : ℕ),
+      G.chromatic r =
+        ∑ σ,
+          MvPolynomial.C (Polynomial.X ^ G.graphInversions ↑σ) *
+            MvPolynomial.esymmPart (Fin r) (Polynomial ℕ) (self.theta σ)
+constructor:
+  OAI.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.mk {n : ℕ}
+    {G : OAI.ElementaryPositivity.NaturalUnitIntervalGraph n} (theta : { σ // G.Nondescent σ } → n.Partition)
+    (expansion :
+      ∀ (r : ℕ),
+        G.chromatic r =
+          ∑ σ,
+            MvPolynomial.C (Polynomial.X ^ G.graphInversions ↑σ) *
+              MvPolynomial.esymmPart (Fin r) (Polynomial ℕ) (theta σ)) :
+    G.PermutationWitness
+def OAI.elementaryPositivityWitness : (n : ℕ) →
+  (G : OAI.ElementaryPositivity.NaturalUnitIntervalGraph n) → G.PermutationWitness :=
+fun n G =>
+  {
+    theta := fun σ =>
+      OAI.ElementaryPositivity.FiniteSearch.rowPartition (OAI.ElementaryPositivity.FiniteSearch.selectedTable G ⇑↑σ),
+    expansion := ⋯ }
