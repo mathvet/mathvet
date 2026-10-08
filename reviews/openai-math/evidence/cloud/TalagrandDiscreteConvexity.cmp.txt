@@ -1,0 +1,44 @@
+CMP OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity [thm] ok
+CMP OAI.TalagrandDiscreteConvexity.exceptional [def] VALUE_MISMATCH
+CMP OAI.TalagrandDiscreteConvexity.unionTuple [def] ok
+CMP OAI.TalagrandDiscreteConvexity.Family [def] ok
+CMP OAI.TalagrandDiscreteConvexity.Small [def] ok
+CMP OAI.TalagrandDiscreteConvexity.Small._proof_1 [thm] ok
+CMP OAI.TalagrandDiscreteConvexity.cost [def] ok
+CMP OAI.TalagrandDiscreteConvexity.Covers [def] ok
+CMP OAI.TalagrandDiscreteConvexity.familyMeasure [def] ok
+CMP OAI.TalagrandDiscreteConvexity.bernoulliMass [def] ok
+Chal.TalagrandDiscreteConvexity.talagrand_discrete_convexity : ∀ (N : ℕ),
+  1 ≤ N →
+    ∀ (p : ℝ),
+      0 < p →
+        p < 1 →
+          ∀ (D : Chal.TalagrandDiscreteConvexity.Family (Fin N)),
+            1 - 1 / 2 ^ 75 ≤ Chal.TalagrandDiscreteConvexity.familyMeasure p D →
+              Chal.TalagrandDiscreteConvexity.Small p (Chal.TalagrandDiscreteConvexity.exceptional (2 ^ 75) D)
+@[reducible] def Chal.TalagrandDiscreteConvexity.Family.{u_1} : Type u_1 → Type u_1 :=
+fun α => Finset (Finset α)
+def Chal.TalagrandDiscreteConvexity.bernoulliMass.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → ℝ → Finset α → ℝ :=
+fun {α} [Fintype α] [DecidableEq α] p s => p ^ s.card * (1 - p) ^ (Finset.univ \ s).card
+def Chal.TalagrandDiscreteConvexity.familyMeasure.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → ℝ → Chal.TalagrandDiscreteConvexity.Family α → ℝ :=
+fun {α} [Fintype α] [DecidableEq α] p D => ∑ s ∈ D, Chal.TalagrandDiscreteConvexity.bernoulliMass p s
+def Chal.TalagrandDiscreteConvexity.cost.{u_1} : {α : Type u_1} → ℝ → Chal.TalagrandDiscreteConvexity.Family α → ℝ :=
+fun {α} p G => ∑ I ∈ G, p ^ I.card
+def Chal.TalagrandDiscreteConvexity.Covers.{u_1} : {α : Type u_1} →
+  Chal.TalagrandDiscreteConvexity.Family α → Chal.TalagrandDiscreteConvexity.Family α → Prop :=
+fun {α} G A => ∀ S ∈ A, ∃ I ∈ G, I ⊆ S
+def Chal.TalagrandDiscreteConvexity.Small.{u_1} : {α : Type u_1} →
+  ℝ → Chal.TalagrandDiscreteConvexity.Family α → Prop :=
+fun {α} p A => ∃ G, Chal.TalagrandDiscreteConvexity.Covers G A ∧ Chal.TalagrandDiscreteConvexity.cost p G ≤ 1 / 2
+def Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} : {α : Type u_1} →
+  [DecidableEq α] → {k : ℕ} → (Fin k → Finset α) → Finset α :=
+fun {α} [DecidableEq α] {k} f => Finset.univ.biUnion f
+def Chal.TalagrandDiscreteConvexity.exceptional.{u_1} : {α : Type u_1} →
+  [Fintype α] →
+    [DecidableEq α] → ℕ → Chal.TalagrandDiscreteConvexity.Family α → Chal.TalagrandDiscreteConvexity.Family α :=
+fun {α} [Fintype α] [DecidableEq α] k D =>
+  {S | ∀ (f : Fin k → Finset α), (∀ (j : Fin k), f j ∈ D) → ¬S ⊆ Chal.TalagrandDiscreteConvexity.unionTuple f}
+'OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TalagrandDiscreteConvexity comparator-style: ok=9 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

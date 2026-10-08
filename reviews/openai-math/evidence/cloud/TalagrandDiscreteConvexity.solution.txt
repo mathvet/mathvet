@@ -1,0 +1,32 @@
+OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity : ∀ (N : ℕ),
+  1 ≤ N →
+    ∀ (p : ℝ),
+      0 < p →
+        p < 1 →
+          ∀ (D : OAI.TalagrandDiscreteConvexity.Family (Fin N)),
+            1 - 1 / 2 ^ 75 ≤ OAI.TalagrandDiscreteConvexity.familyMeasure p D →
+              OAI.TalagrandDiscreteConvexity.Small p (OAI.TalagrandDiscreteConvexity.exceptional (2 ^ 75) D)
+'OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.TalagrandDiscreteConvexity.Family.{u_1} : Type u_1 → Type u_1 :=
+fun α => Finset (Finset α)
+def OAI.TalagrandDiscreteConvexity.bernoulliMass.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → ℝ → Finset α → ℝ :=
+fun {α} [Fintype α] [DecidableEq α] p s => p ^ s.card * (1 - p) ^ (Finset.univ \ s).card
+def OAI.TalagrandDiscreteConvexity.familyMeasure.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → ℝ → OAI.TalagrandDiscreteConvexity.Family α → ℝ :=
+fun {α} [Fintype α] [DecidableEq α] p D => ∑ s ∈ D, OAI.TalagrandDiscreteConvexity.bernoulliMass p s
+def OAI.TalagrandDiscreteConvexity.cost.{u_1} : {α : Type u_1} → ℝ → OAI.TalagrandDiscreteConvexity.Family α → ℝ :=
+fun {α} p G => ∑ I ∈ G, p ^ I.card
+def OAI.TalagrandDiscreteConvexity.Covers.{u_1} : {α : Type u_1} →
+  OAI.TalagrandDiscreteConvexity.Family α → OAI.TalagrandDiscreteConvexity.Family α → Prop :=
+fun {α} G A => ∀ S ∈ A, ∃ I ∈ G, I ⊆ S
+def OAI.TalagrandDiscreteConvexity.Small.{u_1} : {α : Type u_1} → ℝ → OAI.TalagrandDiscreteConvexity.Family α → Prop :=
+fun {α} p A => ∃ G, OAI.TalagrandDiscreteConvexity.Covers G A ∧ OAI.TalagrandDiscreteConvexity.cost p G ≤ 1 / 2
+def OAI.TalagrandDiscreteConvexity.unionTuple.{u_1} : {α : Type u_1} →
+  [DecidableEq α] → {k : ℕ} → (Fin k → Finset α) → Finset α :=
+fun {α} [DecidableEq α] {k} f => Finset.univ.biUnion f
+def OAI.TalagrandDiscreteConvexity.exceptional.{u_1} : {α : Type u_1} →
+  [Fintype α] →
+    [DecidableEq α] → ℕ → OAI.TalagrandDiscreteConvexity.Family α → OAI.TalagrandDiscreteConvexity.Family α :=
+fun {α} [Fintype α] [DecidableEq α] k D =>
+  {S | ∀ (f : Fin k → Finset α), (∀ (j : Fin k), f j ∈ D) → ¬S ⊆ OAI.TalagrandDiscreteConvexity.unionTuple f}
