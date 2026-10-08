@@ -1,0 +1,11 @@
+OAI.SingleFold.main : OAI.SingleFold.MainStatement
+'OAI.SingleFold.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.SingleFold.evalNat : {n m : ℕ} → MvPolynomial (Fin n ⊕ Fin m) ℤ → (Fin n → ℕ) → (Fin m → ℕ) → ℤ :=
+fun {n m} P a w => (MvPolynomial.eval (Sum.elim (fun i => ↑(a i)) fun j => ↑(w j))) P
+def OAI.SingleFold.Represents : {n m : ℕ} → MvPolynomial (Fin n ⊕ Fin m) ℤ → Set (Fin n → ℕ) → Prop :=
+fun {n m} P S =>
+  ∀ (a : Fin n → ℕ),
+    (a ∈ S ↔ ∃ w, OAI.SingleFold.evalNat P a w = 0) ∧
+      ∀ (w v : Fin m → ℕ), OAI.SingleFold.evalNat P a w = 0 → OAI.SingleFold.evalNat P a v = 0 → w = v
+def OAI.SingleFold.MainStatement : Prop :=
+∀ (n : ℕ), 1 ≤ n → ∀ (S : Set (Fin n → ℕ)), (REPred fun a => a ∈ S) → ∃ m, 1 ≤ m ∧ ∃ P, OAI.SingleFold.Represents P S
