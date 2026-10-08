@@ -1,0 +1,14 @@
+OAI.FiniteAlgebraicEnvelopes.main : ∀ (G : Type u_1) [inst : Group G] [Group.FG G],
+  OAI.FiniteAlgebraicEnvelopes.HasDecidableWordProblem G ↔
+    OAI.FiniteAlgebraicEnvelopes.EmbedsInFinitelyPresentedSimpleGroup G
+'OAI.FiniteAlgebraicEnvelopes.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.FiniteAlgebraicEnvelopes.Word : ℕ → Type :=
+fun n => List (Fin n × Bool)
+def OAI.FiniteAlgebraicEnvelopes.evalWord.{u} : {G : Type u} →
+  [Group G] → {n : ℕ} → (Fin n → G) → OAI.FiniteAlgebraicEnvelopes.Word n → G :=
+fun {G} [Group G] {n} s w => (List.map (fun a => if a.2 = true then s a.1 else (s a.1)⁻¹) w).prod
+def OAI.FiniteAlgebraicEnvelopes.HasDecidableWordProblem.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ n s, Subgroup.closure (Set.range s) = ⊤ ∧ ComputablePred fun w => OAI.FiniteAlgebraicEnvelopes.evalWord s w = 1
+def OAI.FiniteAlgebraicEnvelopes.EmbedsInFinitelyPresentedSimpleGroup.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] => ∃ H x, Group.IsFinitelyPresented H ∧ IsSimpleGroup H ∧ ∃ f, Function.Injective ⇑f

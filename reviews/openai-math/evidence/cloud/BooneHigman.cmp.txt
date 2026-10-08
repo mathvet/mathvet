@@ -1,0 +1,29 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_BooneHigman.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.FiniteAlgebraicEnvelopes.main [thm] ok
+CMP OAI.FiniteAlgebraicEnvelopes.EmbedsInFinitelyPresentedSimpleGroup [def] ok
+CMP OAI.FiniteAlgebraicEnvelopes.HasDecidableWordProblem [def] ok
+CMP OAI.FiniteAlgebraicEnvelopes.evalWord [def] ok
+CMP OAI.FiniteAlgebraicEnvelopes.Word [def] ok
+Chal.FiniteAlgebraicEnvelopes.main : ∀ (GroupType : Type u_1) [inst : Group GroupType] [Group.FG GroupType],
+  Chal.FiniteAlgebraicEnvelopes.HasDecidableWordProblem GroupType ↔
+    Chal.FiniteAlgebraicEnvelopes.EmbedsInFinitelyPresentedSimpleGroup GroupType
+@[reducible] def Chal.FiniteAlgebraicEnvelopes.Word : ℕ → Type :=
+fun generatorCount => List (Fin generatorCount × Bool)
+def Chal.FiniteAlgebraicEnvelopes.evalWord.{u} : {GroupType : Type u} →
+  [Group GroupType] →
+    {generatorCount : ℕ} →
+      (Fin generatorCount → GroupType) → Chal.FiniteAlgebraicEnvelopes.Word generatorCount → GroupType :=
+fun {GroupType} [Group GroupType] {generatorCount} generators word =>
+  (List.map (fun letter => if letter.2 = true then generators letter.1 else (generators letter.1)⁻¹) word).prod
+def Chal.FiniteAlgebraicEnvelopes.HasDecidableWordProblem.{u} : (GroupType : Type u) → [Group GroupType] → Prop :=
+fun GroupType [Group GroupType] =>
+  ∃ generatorCount generators,
+    Subgroup.closure (Set.range generators) = ⊤ ∧
+      ComputablePred fun word => Chal.FiniteAlgebraicEnvelopes.evalWord generators word = 1
+def Chal.FiniteAlgebraicEnvelopes.EmbedsInFinitelyPresentedSimpleGroup.{u} : (GroupType : Type u) →
+  [Group GroupType] → Prop :=
+fun GroupType [Group GroupType] =>
+  ∃ TargetGroup x,
+    Group.IsFinitelyPresented TargetGroup ∧ IsSimpleGroup TargetGroup ∧ ∃ embedding, Function.Injective ⇑embedding
+'OAI.FiniteAlgebraicEnvelopes.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BooneHigman comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
