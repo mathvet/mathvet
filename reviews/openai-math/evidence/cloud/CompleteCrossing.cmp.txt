@@ -1,0 +1,154 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CompleteCrossing.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Paper170.complete_graph_crossing_number [thm] ok
+CMP OAI.Paper170.hill [def] ok
+CMP OAI.Paper170.completeGraph [def] ok
+CMP OAI.Paper170.completeGraph._proof_2 [thm] ok
+CMP OAI.Paper170.CompleteEdge [def] ok
+CMP OAI.Paper170.completeGraph._proof_1 [thm] ok
+CMP OAI.Paper170.Graph.mk [ctor] ok
+CMP OAI.Paper170.Graph [ind] ok
+CMP OAI.Paper170.ordinaryCrossingNumber [def] ok
+CMP OAI.Paper170.crossingCount [def] ok
+CMP OAI.Paper170.AdmissibleDrawing.crossings_finite [thm] ok
+CMP OAI.Paper170.AdmissibleDrawing.toContinuousDrawing [def] ok
+CMP OAI.Paper170.AdmissibleDrawing [ind] ok
+CMP OAI.Paper170.AdmissibleDrawing.mk [ctor] ok
+CMP OAI.Paper170.ProperCrossing [ind] ok
+CMP OAI.Paper170.ProperCrossing.mk [ctor] ok
+CMP OAI.Paper170.Plane [def] ok
+CMP OAI.Paper170.edgeInterior [def] ok
+CMP OAI.Paper170.ContinuousDrawing.edge [def] ok
+CMP OAI.Paper170.ContinuousDrawing [ind] ok
+CMP OAI.Paper170.ContinuousDrawing.mk [ctor] ok
+CMP OAI.Paper170.Graph.dst [def] ok
+CMP OAI.Paper170.Graph.src [def] ok
+CMP OAI.Paper170.ContinuousDrawing.vertex [def] ok
+CMP OAI.Paper170.crossingPoints [def] ok
+Chal.Paper170.complete_graph_crossing_number : ∀ (order : ℕ),
+  3 ≤ order → Chal.Paper170.ordinaryCrossingNumber (Chal.Paper170.completeGraph order) = Chal.Paper170.hill order
+@[reducible] def Chal.Paper170.Plane : Type :=
+ℝ × ℝ
+structure Chal.Paper170.Graph (Vertex Edge : Type) : Type
+number of parameters: 2
+fields:
+  Chal.Paper170.Graph.src : Edge → Vertex
+  Chal.Paper170.Graph.dst : Edge → Vertex
+  Chal.Paper170.Graph.loopless : ∀ (edge : Edge), self.src edge ≠ self.dst edge
+  Chal.Paper170.Graph.simple : ∀ (edge other : Edge),
+      self.src edge = self.src other ∧ self.dst edge = self.dst other ∨
+          self.src edge = self.dst other ∧ self.dst edge = self.src other →
+        edge = other
+constructor:
+  Chal.Paper170.Graph.mk {Vertex Edge : Type} (src dst : Edge → Vertex)
+    (loopless : ∀ (edge : Edge), src edge ≠ dst edge)
+    (simple :
+      ∀ (edge other : Edge),
+        src edge = src other ∧ dst edge = dst other ∨ src edge = dst other ∧ dst edge = src other → edge = other) :
+    Chal.Paper170.Graph Vertex Edge
+@[reducible] def Chal.Paper170.CompleteEdge : ℕ → Type :=
+fun order => { pair // pair.1 < pair.2 }
+def Chal.Paper170.completeGraph : (order : ℕ) → Chal.Paper170.Graph (Fin order) (Chal.Paper170.CompleteEdge order) :=
+fun order => { src := fun edge => (↑edge).1, dst := fun edge => (↑edge).2, loopless := ⋯, simple := ⋯ }
+structure Chal.Paper170.ContinuousDrawing {Vertex Edge : Type} (graph : Chal.Paper170.Graph Vertex Edge) : Type
+number of parameters: 3
+fields:
+  Chal.Paper170.ContinuousDrawing.vertex : Vertex → Chal.Paper170.Plane
+  Chal.Paper170.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  Chal.Paper170.ContinuousDrawing.edge : (edge : Edge) →
+      Path (self.vertex (graph.src edge)) (self.vertex (graph.dst edge))
+  Chal.Paper170.ContinuousDrawing.edge_injective : ∀ (selected : Edge), Function.Injective ⇑(self.edge selected)
+  Chal.Paper170.ContinuousDrawing.interior_avoids_vertices : ∀ (selected : Edge),
+      ∀ time ∈ Set.Ioo 0 1, ∀ (other : Vertex), (self.edge selected) time ≠ self.vertex other
+constructor:
+  Chal.Paper170.ContinuousDrawing.mk {Vertex Edge : Type} {graph : Chal.Paper170.Graph Vertex Edge}
+    (vertex : Vertex → Chal.Paper170.Plane) (vertex_injective : Function.Injective vertex)
+    (edge : (edge : Edge) → Path (vertex (graph.src edge)) (vertex (graph.dst edge)))
+    (edge_injective : ∀ (selected : Edge), Function.Injective ⇑(edge selected))
+    (interior_avoids_vertices :
+      ∀ (selected : Edge), ∀ time ∈ Set.Ioo 0 1, ∀ (other : Vertex), (edge selected) time ≠ vertex other) :
+    Chal.Paper170.ContinuousDrawing graph
+def Chal.Paper170.edgeInterior : {Vertex Edge : Type} →
+  {graph : Chal.Paper170.Graph Vertex Edge} → Chal.Paper170.ContinuousDrawing graph → Edge → Set Chal.Paper170.Plane :=
+fun {Vertex Edge} {graph} drawing edge => ⇑(drawing.edge edge) '' Set.Ioo 0 1
+structure Chal.Paper170.ProperCrossing (first second : Set Chal.Paper170.Plane) (point : Chal.Paper170.Plane) : Prop
+number of parameters: 3
+fields:
+  Chal.Paper170.ProperCrossing.chart_exists : ∃ chart,
+      point ∈ chart.source ∧
+        ↑chart point = (0, 0) ∧
+          ↑chart '' (chart.source ∩ first) = chart.target ∩ {image | image.2 = 0} ∧
+            ↑chart '' (chart.source ∩ second) = chart.target ∩ {image | image.1 = 0}
+constructor:
+  Chal.Paper170.ProperCrossing.mk {first second : Set Chal.Paper170.Plane} {point : Chal.Paper170.Plane}
+    (chart_exists :
+      ∃ chart,
+        point ∈ chart.source ∧
+          ↑chart point = (0, 0) ∧
+            ↑chart '' (chart.source ∩ first) = chart.target ∩ {image | image.2 = 0} ∧
+              ↑chart '' (chart.source ∩ second) = chart.target ∩ {image | image.1 = 0}) :
+    Chal.Paper170.ProperCrossing first second point
+def Chal.Paper170.crossingPoints : {Vertex Edge : Type} →
+  {graph : Chal.Paper170.Graph Vertex Edge} → Chal.Paper170.ContinuousDrawing graph → Set Chal.Paper170.Plane :=
+fun {Vertex Edge} {graph} drawing =>
+  {point |
+    ∃ edge other,
+      edge ≠ other ∧ point ∈ Chal.Paper170.edgeInterior drawing edge ∧ point ∈ Chal.Paper170.edgeInterior drawing other}
+structure Chal.Paper170.AdmissibleDrawing {Vertex Edge : Type} (graph : Chal.Paper170.Graph Vertex Edge) : Type
+number of parameters: 3
+parents:
+  Chal.Paper170.AdmissibleDrawing.toContinuousDrawing : Chal.Paper170.ContinuousDrawing graph
+fields:
+  Chal.Paper170.ContinuousDrawing.vertex : Vertex → Chal.Paper170.Plane
+  Chal.Paper170.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  Chal.Paper170.ContinuousDrawing.edge : (edge : Edge) →
+      Path (self.vertex (graph.src edge)) (self.vertex (graph.dst edge))
+  Chal.Paper170.ContinuousDrawing.edge_injective : ∀ (selected : Edge), Function.Injective ⇑(self.edge selected)
+  Chal.Paper170.ContinuousDrawing.interior_avoids_vertices : ∀ (selected : Edge),
+      ∀ time ∈ Set.Ioo 0 1, ∀ (other : Vertex), (self.edge selected) time ≠ self.vertex other
+  Chal.Paper170.AdmissibleDrawing.crossings_finite : (Chal.Paper170.crossingPoints self.toContinuousDrawing).Finite
+  Chal.Paper170.AdmissibleDrawing.crossings_proper : ∀ (edge other : Edge),
+      edge ≠ other →
+        ∀ point ∈ Chal.Paper170.edgeInterior self.toContinuousDrawing edge,
+          point ∈ Chal.Paper170.edgeInterior self.toContinuousDrawing other →
+            Chal.Paper170.ProperCrossing (Chal.Paper170.edgeInterior self.toContinuousDrawing edge)
+              (Chal.Paper170.edgeInterior self.toContinuousDrawing other) point
+  Chal.Paper170.AdmissibleDrawing.no_triples : ∀ (first second third : Edge),
+      first ≠ second →
+        first ≠ third →
+          second ≠ third →
+            Chal.Paper170.edgeInterior self.toContinuousDrawing first ∩
+                  Chal.Paper170.edgeInterior self.toContinuousDrawing second ∩
+                Chal.Paper170.edgeInterior self.toContinuousDrawing third =
+              ∅
+constructor:
+  Chal.Paper170.AdmissibleDrawing.mk {Vertex Edge : Type} {graph : Chal.Paper170.Graph Vertex Edge}
+    (toContinuousDrawing : Chal.Paper170.ContinuousDrawing graph)
+    (crossings_finite : (Chal.Paper170.crossingPoints toContinuousDrawing).Finite)
+    (crossings_proper :
+      ∀ (edge other : Edge),
+        edge ≠ other →
+          ∀ point ∈ Chal.Paper170.edgeInterior toContinuousDrawing edge,
+            point ∈ Chal.Paper170.edgeInterior toContinuousDrawing other →
+              Chal.Paper170.ProperCrossing (Chal.Paper170.edgeInterior toContinuousDrawing edge)
+                (Chal.Paper170.edgeInterior toContinuousDrawing other) point)
+    (no_triples :
+      ∀ (first second third : Edge),
+        first ≠ second →
+          first ≠ third →
+            second ≠ third →
+              Chal.Paper170.edgeInterior toContinuousDrawing first ∩
+                    Chal.Paper170.edgeInterior toContinuousDrawing second ∩
+                  Chal.Paper170.edgeInterior toContinuousDrawing third =
+                ∅) :
+    Chal.Paper170.AdmissibleDrawing graph
+field notation resolution order:
+  Chal.Paper170.AdmissibleDrawing, Chal.Paper170.ContinuousDrawing
+def Chal.Paper170.crossingCount : {Vertex Edge : Type} →
+  {graph : Chal.Paper170.Graph Vertex Edge} → Chal.Paper170.AdmissibleDrawing graph → ℕ :=
+fun {Vertex Edge} {graph} drawing => ⋯.toFinset.card
+def Chal.Paper170.ordinaryCrossingNumber : {Vertex Edge : Type} → Chal.Paper170.Graph Vertex Edge → ℕ :=
+fun {Vertex Edge} graph => sInf (Set.range Chal.Paper170.crossingCount)
+def Chal.Paper170.hill : ℕ → ℕ :=
+fun order => order / 2 * ((order - 1) / 2) * ((order - 2) / 2) * ((order - 3) / 2) / 4
+'OAI.Paper170.complete_graph_crossing_number' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CompleteCrossing comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
