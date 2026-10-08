@@ -1,0 +1,34 @@
+CMP OAI.DirectCrouzeix.uniform_sharpness [thm] ok
+CMP OAI.DirectCrouzeix.UniversalBound [def] ok
+CMP OAI.DirectCrouzeix.rangeMaximum [def] ok
+CMP OAI.DirectCrouzeix.numericalRange [def] ok
+CMP OAI.DirectCrouzeix.numericalRange._proof_4 [thm] ok
+CMP OAI.DirectCrouzeix.numericalRange._proof_3 [thm] ok
+CMP OAI.DirectCrouzeix.numericalRange._proof_2 [thm] ok
+CMP OAI.DirectCrouzeix.numericalRange._proof_1 [thm] ok
+CMP OAI.DirectCrouzeix.polynomialValue [def] ok
+CMP OAI.DirectCrouzeix.tensorEvaluation [def] ok
+CMP OAI.DirectCrouzeix.complete_crouzeix [thm] ok
+Chal.DirectCrouzeix.complete_crouzeix : Chal.DirectCrouzeix.UniversalBound 2
+Chal.DirectCrouzeix.uniform_sharpness : ∀ (c : ℝ), Chal.DirectCrouzeix.UniversalBound c → 2 ≤ c
+def Chal.DirectCrouzeix.numericalRange : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Set ℂ :=
+fun {n} A => {z | ∃ u, ‖u‖ = 1 ∧ inner ℂ u ((Matrix.toEuclideanCLM A) u) = z}
+def Chal.DirectCrouzeix.polynomialValue : {m d : ℕ} →
+  (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℂ → Matrix (Fin m) (Fin m) ℂ :=
+fun {m d} B z => ∑ k, z ^ ↑k • B k
+def Chal.DirectCrouzeix.tensorEvaluation : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → Matrix (Fin n × Fin m) (Fin n × Fin m) ℂ :=
+fun {n m d} A B => ∑ k, Matrix.kroneckerMap (fun x1 x2 => x1 * x2) (A ^ ↑k) (B k)
+def Chal.DirectCrouzeix.rangeMaximum : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℝ :=
+fun {n m d} A B => sSup ((fun z => ‖Chal.DirectCrouzeix.polynomialValue B z‖) '' Chal.DirectCrouzeix.numericalRange A)
+def Chal.DirectCrouzeix.UniversalBound : ℝ → Prop :=
+fun c =>
+  ∀ (n m d : ℕ),
+    0 < n →
+      0 < m →
+        ∀ (A : Matrix (Fin n) (Fin n) ℂ) (B : Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ),
+          ‖Chal.DirectCrouzeix.tensorEvaluation A B‖ ≤ c * Chal.DirectCrouzeix.rangeMaximum A B
+'OAI.DirectCrouzeix.complete_crouzeix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.DirectCrouzeix.uniform_sharpness' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DirectCrouzeix comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

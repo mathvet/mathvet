@@ -1,0 +1,22 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_DirectCrouzeix.lean:34:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_DirectCrouzeix.lean:37:8: warning: declaration uses `sorry`
+OAI.DirectCrouzeix.complete_crouzeix : OAI.DirectCrouzeix.UniversalBound 2
+OAI.DirectCrouzeix.uniform_sharpness : ∀ (c : ℝ), OAI.DirectCrouzeix.UniversalBound c → 2 ≤ c
+def OAI.DirectCrouzeix.numericalRange : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Set ℂ :=
+fun {n} A => {z | ∃ u, ‖u‖ = 1 ∧ inner ℂ u ((Matrix.toEuclideanCLM A) u) = z}
+def OAI.DirectCrouzeix.polynomialValue : {m d : ℕ} →
+  (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℂ → Matrix (Fin m) (Fin m) ℂ :=
+fun {m d} B z => ∑ k, z ^ ↑k • B k
+def OAI.DirectCrouzeix.tensorEvaluation : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → Matrix (Fin n × Fin m) (Fin n × Fin m) ℂ :=
+fun {n m d} A B => ∑ k, Matrix.kroneckerMap (fun x1 x2 => x1 * x2) (A ^ ↑k) (B k)
+def OAI.DirectCrouzeix.rangeMaximum : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℝ :=
+fun {n m d} A B => sSup ((fun z => ‖OAI.DirectCrouzeix.polynomialValue B z‖) '' OAI.DirectCrouzeix.numericalRange A)
+def OAI.DirectCrouzeix.UniversalBound : ℝ → Prop :=
+fun c =>
+  ∀ (n m d : ℕ),
+    0 < n →
+      0 < m →
+        ∀ (A : Matrix (Fin n) (Fin n) ℂ) (B : Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ),
+          ‖OAI.DirectCrouzeix.tensorEvaluation A B‖ ≤ c * OAI.DirectCrouzeix.rangeMaximum A B
