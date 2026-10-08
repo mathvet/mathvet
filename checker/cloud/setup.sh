@@ -11,9 +11,21 @@ mkdir -p "$ROOT/tmp" "$HOME/.local/bin"
 log(){ echo "== $(date -u +%FT%TZ) $*"; }
 
 log "tools"; command -v jq >/dev/null || (apt-get update -qq && apt-get install -y -qq jq) || sudo apt-get install -y -qq jq || true
-log "elan + toolchain v4.34.1"
-if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain leanprover/lean4:v4.34.1; fi
-elan toolchain install leanprover/lean4:v4.34.1 2>&1 | tail -1 || true
+log "elan (binary from GitHub releases; no toolchain yet)"
+if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none; fi
+# Toolchains: elan normally downloads from releases.lean-lang.org, which cloud environments do not allow by default; the same
+# archives are GitHub release assets (allowed), so fetch those and register them with `elan toolchain link`.
+link_toolchain() {  # $1 = version tag like v4.34.1
+  local v="$1" name="leanprover/lean4:$1" dir="$HOME/.elan/toolchains/leanprover--lean4---$1"
+  if elan toolchain list 2>/dev/null | grep -q "lean4---$v"; then echo "toolchain $v present"; return 0; fi
+  local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux_x86_64;; aarch64|arm64) a=linux_aarch64;; esac
+  command -v zstd >/dev/null || (apt-get install -y -qq zstd >/dev/null 2>&1 || sudo apt-get install -y -qq zstd >/dev/null 2>&1 || true)
+  mkdir -p "$dir" && curl -fL -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst" \
+    && tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1 && rm -f "/tmp/lean-$v.tar.zst" \
+    && elan toolchain link "$name" "$dir" && echo "linked $name"
+}
+link_toolchain v4.34.1 && elan default leanprover/lean4:v4.34.1 >/dev/null 2>&1
+lean --version
 
 log "openai/math @ $COMMIT (sparse: lean/ only, ~1.7 GB)"
 if [ ! -f "$UP/lean/lakefile.lean" ]; then
@@ -25,8 +37,10 @@ git -C "$UP" rev-parse HEAD
 log "landrun (Landlock sandbox used by Comparator)"
 if ! command -v landrun >/dev/null; then
   arch=$(uname -m); case "$arch" in x86_64) a=x86_64;; aarch64|arm64) a=arm64;; *) a=$arch;; esac
-  url=$(curl -fsSL https://api.github.com/repos/Zouuup/landrun/releases/latest | grep -o 'https://[^"]*' | grep -i -E "linux.*(${a}|amd64)" | grep -i -E 'tar.gz|tgz' | head -1)
-  if [ -n "$url" ]; then curl -fsSL -o /tmp/landrun.tgz "$url" && tar xzf /tmp/landrun.tgz -C /tmp && f=$(find /tmp -maxdepth 2 -type f -name landrun | head -1) && install -m755 "$f" "$HOME/.local/bin/landrun"; fi
+  case "$a" in x86_64) la=amd64;; *) la=arm64;; esac
+  url=$(curl -fsSL https://api.github.com/repos/Zouuup/landrun/releases/latest | grep -o 'https://[^"]*' | grep "landrun-linux-$la" | head -1)
+  [ -z "$url" ] && url="https://github.com/Zouuup/landrun/releases/latest/download/landrun-linux-$la"
+  curl -fsSL -o /tmp/landrun "$url" && install -m755 /tmp/landrun "$HOME/.local/bin/landrun" && echo "landrun from $url"
   if ! command -v landrun >/dev/null && command -v go >/dev/null; then GOBIN="$HOME/.local/bin" go install github.com/zouuup/landrun/cmd/landrun@latest; fi
 fi
 LANDRUN_STATUS="unavailable"
@@ -40,7 +54,7 @@ cd "$ROOT/tmp"
 [ -d lean4export ] || git clone -q https://github.com/leanprover/lean4export
 [ -d comparator ] || git clone -q https://github.com/leanprover/comparator
 ( cd lean4export && git fetch -q --tags && best=""; for t in $(git tag | sort -V); do case "$(git show $t:lean-toolchain 2>/dev/null)" in *v4.34*) best=$t;; esac; done; [ -n "$best" ] && git checkout -q "$best"; echo "lean4export at $(git describe --tags --always) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
-( cd comparator && echo "comparator at $(git rev-parse --short HEAD) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
+( cd comparator && echo "comparator at $(git rev-parse --short HEAD) toolchain $(cat lean-toolchain)"; link_toolchain "$(sed 's/.*://' lean-toolchain)"; lake build 2>&1 | tail -1 )
 ls -la "$ROOT"/tmp/lean4export/.lake/build/bin/lean4export "$ROOT"/tmp/comparator/.lake/build/bin/comparator
 
 log "Mathlib cache"
