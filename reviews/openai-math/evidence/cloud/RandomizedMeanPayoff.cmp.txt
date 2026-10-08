@@ -1,0 +1,182 @@
+CMP OAI.randomized_quasipolynomial_mean_payoff [thm] ok
+CMP OAI.MeanPayoff.MainClaim [def] ok
+CMP OAI.MeanPayoff.CorrectOutput [def] ok
+CMP OAI.MeanPayoff.Winning [def] ok
+CMP OAI.MeanPayoff.play [def] ok
+CMP OAI.MeanPayoff.move [def] ok
+CMP OAI.MeanPayoff.Game.tail [def] ok
+CMP OAI.MeanPayoff.Game [ind] ok
+CMP OAI.MeanPayoff.Game.mk [ctor] ok
+CMP OAI.MeanPayoff.Game.n [def] ok
+CMP OAI.MeanPayoff.Game.m [def] ok
+CMP OAI.MeanPayoff.Game.maxOwner [def] ok
+CMP OAI.MeanPayoff.Strategy [def] ok
+CMP OAI.MeanPayoff.position [def] ok
+CMP OAI.MeanPayoff.position._f [def] ok
+CMP OAI.MeanPayoff.Game.head [def] ok
+CMP OAI.MeanPayoff.position.match_1 [def] ok
+CMP OAI.MeanPayoff.meanPayoff [def] ok
+CMP OAI.MeanPayoff.Game.weight [def] ok
+CMP OAI.MeanPayoff.initial._proof_1 [thm] ok
+CMP OAI.MeanPayoff.Configuration.tape [def] ok
+CMP OAI.MeanPayoff.Configuration [ind] ok
+CMP OAI.MeanPayoff.Configuration.mk [ctor] ok
+CMP OAI.MeanPayoff.Symbol [def] ok
+CMP OAI.MeanPayoff.Machine.states [def] ok
+CMP OAI.MeanPayoff.Machine [ind] ok
+CMP OAI.MeanPayoff.Machine.mk [ctor] ok
+CMP OAI.MeanPayoff.Action [ind] ok
+CMP OAI.MeanPayoff.Action.mk [ctor] ok
+CMP OAI.MeanPayoff.Direction [ind] ok
+CMP OAI.MeanPayoff.Direction.right [ctor] ok
+CMP OAI.MeanPayoff.Direction.stay [ctor] ok
+CMP OAI.MeanPayoff.Direction.left [ctor] ok
+CMP OAI.MeanPayoff.Configuration.control [def] ok
+CMP OAI.MeanPayoff.result [def] ok
+CMP OAI.MeanPayoff.padBits [def] ok
+CMP OAI.MeanPayoff.input [def] ok
+CMP OAI.MeanPayoff.encodeInt [def] ok
+CMP OAI.MeanPayoff.encodeNat [def] ok
+CMP OAI.MeanPayoff.run [def] ok
+CMP OAI.MeanPayoff.run._f [def] ok
+CMP OAI.MeanPayoff.step [def] ok
+CMP OAI.MeanPayoff.Action.write [def] ok
+CMP OAI.MeanPayoff.Action.shift [def] ok
+CMP OAI.MeanPayoff.Direction.offset [def] ok
+CMP OAI.MeanPayoff.Direction.offset.match_1 [def] ok
+CMP OAI.MeanPayoff.Direction.casesOn [def] ok
+CMP OAI.MeanPayoff.Direction.rec [rec] ok
+CMP OAI.MeanPayoff.Action.next [def] ok
+CMP OAI.MeanPayoff.Configuration.head [def] ok
+CMP OAI.MeanPayoff.Machine.transition [def] ok
+CMP OAI.MeanPayoff.step.match_1 [def] ok
+CMP OAI.MeanPayoff.step.match_3 [def] ok
+CMP OAI.MeanPayoff.initial [def] ok
+CMP OAI.MeanPayoff.Machine.start [def] ok
+CMP OAI.MeanPayoff.MainClaim._proof_1 [thm] ok
+Chal.randomized_quasipolynomial_mean_payoff : Chal.MeanPayoff.MainClaim
+structure Chal.MeanPayoff.Game : Type
+number of parameters: 0
+fields:
+  Chal.MeanPayoff.Game.n : ℕ
+  Chal.MeanPayoff.Game.positive : 0 < self.n
+  Chal.MeanPayoff.Game.m : ℕ
+  Chal.MeanPayoff.Game.tail : Fin self.m → Fin self.n
+  Chal.MeanPayoff.Game.head : Fin self.m → Fin self.n
+  Chal.MeanPayoff.Game.maxOwner : Fin self.n → Bool
+  Chal.MeanPayoff.Game.weight : Fin self.m → ℤ
+  Chal.MeanPayoff.Game.total : ∀ (v : Fin self.n), ∃ e, self.tail e = v
+constructor:
+  Chal.MeanPayoff.Game.mk (n : ℕ) (positive : 0 < n) (m : ℕ) (tail head : Fin m → Fin n) (maxOwner : Fin n → Bool)
+    (weight : Fin m → ℤ) (total : ∀ (v : Fin n), ∃ e, tail e = v) : Chal.MeanPayoff.Game
+def Chal.MeanPayoff.Strategy : Chal.MeanPayoff.Game → Type :=
+fun G => List (Fin G.m) → (v : Fin G.n) → { e // G.tail e = v }
+def Chal.MeanPayoff.move : (G : Chal.MeanPayoff.Game) →
+  Chal.MeanPayoff.Strategy G → Chal.MeanPayoff.Strategy G → Fin G.n → List (Fin G.m) → Fin G.m :=
+fun G σ τ v history => if G.maxOwner v = true then ↑(σ history v) else ↑(τ history v)
+def Chal.MeanPayoff.position : (G : Chal.MeanPayoff.Game) →
+  Chal.MeanPayoff.Strategy G → Chal.MeanPayoff.Strategy G → Fin G.n → ℕ → Fin G.n × List (Fin G.m) :=
+fun G σ τ start x => Nat.brecOn x (Chal.MeanPayoff.position._f G σ τ start)
+def Chal.MeanPayoff.play : (G : Chal.MeanPayoff.Game) →
+  Chal.MeanPayoff.Strategy G → Chal.MeanPayoff.Strategy G → Fin G.n → ℕ → Fin G.m :=
+fun G σ τ start t =>
+  have p := Chal.MeanPayoff.position G σ τ start t;
+  Chal.MeanPayoff.move G σ τ p.1 p.2
+def Chal.MeanPayoff.meanPayoff : (G : Chal.MeanPayoff.Game) → (ℕ → Fin G.m) → ℝ :=
+fun G π => Filter.liminf (fun T => (∑ j ∈ Finset.range T, ↑(G.weight (π j))) / ↑T) Filter.atTop
+def Chal.MeanPayoff.Winning : (G : Chal.MeanPayoff.Game) → Fin G.n → Prop :=
+fun G v => ∃ σ, ∀ (τ : Chal.MeanPayoff.Strategy G), 0 ≤ Chal.MeanPayoff.meanPayoff G (Chal.MeanPayoff.play G σ τ v)
+def Chal.MeanPayoff.encodeNat : ℕ → List Bool :=
+fun n =>
+  have bits := (n + 1).bits;
+  List.replicate bits.length true ++ [false] ++ bits
+def Chal.MeanPayoff.encodeInt : ℤ → List Bool :=
+fun z => decide (z < 0) :: Chal.MeanPayoff.encodeNat z.natAbs
+def Chal.MeanPayoff.input : Chal.MeanPayoff.Game → List Bool :=
+fun G =>
+  Chal.MeanPayoff.encodeNat G.n ++ Chal.MeanPayoff.encodeNat G.m ++ List.ofFn G.maxOwner ++
+    (List.ofFn fun e =>
+        Chal.MeanPayoff.encodeNat (↑(G.tail e) + 1) ++ Chal.MeanPayoff.encodeNat (↑(G.head e) + 1) ++
+          Chal.MeanPayoff.encodeInt (G.weight e)).flatten
+@[reducible] def Chal.MeanPayoff.Symbol : Type :=
+Option Bool
+inductive Chal.MeanPayoff.Direction : Type
+number of parameters: 0
+constructors:
+Chal.MeanPayoff.Direction.left : Chal.MeanPayoff.Direction
+Chal.MeanPayoff.Direction.stay : Chal.MeanPayoff.Direction
+Chal.MeanPayoff.Direction.right : Chal.MeanPayoff.Direction
+def Chal.MeanPayoff.Direction.offset : Chal.MeanPayoff.Direction → ℤ :=
+fun x =>
+  match x with
+  | Chal.MeanPayoff.Direction.left => -1
+  | Chal.MeanPayoff.Direction.stay => 0
+  | Chal.MeanPayoff.Direction.right => 1
+structure Chal.MeanPayoff.Action (q : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.MeanPayoff.Action.next : Fin q
+  Chal.MeanPayoff.Action.write : Fin 3 → Chal.MeanPayoff.Symbol
+  Chal.MeanPayoff.Action.shift : Fin 3 → Chal.MeanPayoff.Direction
+constructor:
+  Chal.MeanPayoff.Action.mk {q : ℕ} (next : Fin q) (write : Fin 3 → Chal.MeanPayoff.Symbol)
+    (shift : Fin 3 → Chal.MeanPayoff.Direction) : Chal.MeanPayoff.Action q
+structure Chal.MeanPayoff.Machine : Type
+number of parameters: 0
+fields:
+  Chal.MeanPayoff.Machine.states : ℕ
+  Chal.MeanPayoff.Machine.start : Fin self.states
+  Chal.MeanPayoff.Machine.transition : Fin self.states →
+      (Fin 3 → Chal.MeanPayoff.Symbol) → Bool → Option (Chal.MeanPayoff.Action self.states)
+constructor:
+  Chal.MeanPayoff.Machine.mk (states : ℕ) (start : Fin states)
+    (transition : Fin states → (Fin 3 → Chal.MeanPayoff.Symbol) → Bool → Option (Chal.MeanPayoff.Action states)) :
+    Chal.MeanPayoff.Machine
+structure Chal.MeanPayoff.Configuration (M : Chal.MeanPayoff.Machine) : Type
+number of parameters: 1
+fields:
+  Chal.MeanPayoff.Configuration.control : Option (Fin M.states)
+  Chal.MeanPayoff.Configuration.head : Fin 3 → ℤ
+  Chal.MeanPayoff.Configuration.tape : Fin 3 → ℤ → Chal.MeanPayoff.Symbol
+constructor:
+  Chal.MeanPayoff.Configuration.mk {M : Chal.MeanPayoff.Machine} (control : Option (Fin M.states)) (head : Fin 3 → ℤ)
+    (tape : Fin 3 → ℤ → Chal.MeanPayoff.Symbol) : Chal.MeanPayoff.Configuration M
+def Chal.MeanPayoff.initial : (M : Chal.MeanPayoff.Machine) → List Bool → Chal.MeanPayoff.Configuration M :=
+fun M code =>
+  { control := some M.start, head := fun x => 0, tape := fun k j => if k = 0 ∧ 0 ≤ j then code[j.toNat]? else none }
+def Chal.MeanPayoff.step : (M : Chal.MeanPayoff.Machine) →
+  Chal.MeanPayoff.Configuration M → Bool → Chal.MeanPayoff.Configuration M :=
+fun M c bit =>
+  match c.control with
+  | none => c
+  | some s =>
+    match M.transition s (fun k => c.tape k (c.head k)) bit with
+    | none => { control := none, head := c.head, tape := c.tape }
+    | some a =>
+      { control := some a.next, head := fun k => c.head k + (a.shift k).offset,
+        tape := fun k => Function.update (c.tape k) (c.head k) (a.write k) }
+def Chal.MeanPayoff.run : (M : Chal.MeanPayoff.Machine) →
+  List Bool → (ℕ → Bool) → ℕ → Chal.MeanPayoff.Configuration M :=
+fun M code random x => Nat.brecOn x (Chal.MeanPayoff.run._f M code random)
+def Chal.MeanPayoff.padBits : {T : ℕ} → (Fin T → Bool) → ℕ → Bool :=
+fun {T} bits j => if h : j < T then bits ⟨j, h⟩ else false
+def Chal.MeanPayoff.result : (M : Chal.MeanPayoff.Machine) →
+  Chal.MeanPayoff.Game → (T : ℕ) → (Fin T → Bool) → Chal.MeanPayoff.Configuration M :=
+fun M G T bits => Chal.MeanPayoff.run M (Chal.MeanPayoff.input G) (Chal.MeanPayoff.padBits bits) T
+def Chal.MeanPayoff.CorrectOutput : Chal.MeanPayoff.Game →
+  {M : Chal.MeanPayoff.Machine} → Chal.MeanPayoff.Configuration M → Prop :=
+fun G {M} c =>
+  c.control = none ∧
+    (∀ (v : Fin G.n), c.tape 2 ↑↑v = some true ↔ Chal.MeanPayoff.Winning G v) ∧
+      (∀ (v : Fin G.n), c.tape 2 ↑↑v = some false ↔ ¬Chal.MeanPayoff.Winning G v) ∧
+        ∀ (j : ℤ), j < 0 ∨ ↑G.n ≤ j → c.tape 2 j = none
+def Chal.MeanPayoff.MainClaim : Prop :=
+∃ M C,
+  0 < C ∧
+    ∀ (G : Chal.MeanPayoff.Game),
+      ∃ T,
+        ↑T ≤ 2 ^ (C * Real.logb 2 (↑(Chal.MeanPayoff.input G).length + 2) ^ 2) ∧
+          (∀ (bits : Fin T → Bool), (Chal.MeanPayoff.result M G T bits).control = none) ∧
+            7 * 2 ^ T ≤ 8 * {bits | Chal.MeanPayoff.CorrectOutput G (Chal.MeanPayoff.result M G T bits)}.card
+'OAI.randomized_quasipolynomial_mean_payoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RandomizedMeanPayoff comparator-style: ok=56 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
