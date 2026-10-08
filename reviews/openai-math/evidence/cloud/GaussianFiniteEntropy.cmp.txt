@@ -1,0 +1,356 @@
+CMP OAI.RepeatedLocalization.FiniteEntropy.finite_expected_regularization [thm] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement._proof_2 [thm] ok
+CMP OAI.RepeatedLocalization.initialCube._proof_1 [thm] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.attempts [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.run [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.run._f [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.State.cell [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.State [ind] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.State.mk [ctor] ok
+CMP OAI.RepeatedLocalization.Coordinate [def] ok
+CMP OAI.RepeatedLocalization.Cell [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.State.event [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.attemptLetter [def] ok
+CMP OAI.RepeatedLocalization.cellSet [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.FirstHeavy [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Descendant [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Heavy [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.threshold [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Letter [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.State.stopped [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.state [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.update [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.branch [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.residual [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.branch.match_1 [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Log [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.run.match_1 [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Terminates [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.depth [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.terminalLog [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.terminalCell [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.terminalLaw [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.Regular [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.logMeasurableSpace [def] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement._proof_1 [thm] ok
+CMP OAI.RepeatedLocalization.FiniteEntropy.uniformCell [def] ok
+Chal.RepeatedLocalization.FiniteEntropy.finite_expected_regularization : Chal.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement
+@[reducible] def Chal.RepeatedLocalization.Coordinate : ℕ → Type :=
+fun n => Fin n → ℝ
+@[reducible] def Chal.RepeatedLocalization.GaussianBlock : ℕ → Type :=
+fun n => Fin (n / 16) → Fin (n + 1) → ℝ
+@[reducible] def Chal.RepeatedLocalization.Label : ℕ → Type :=
+fun n => Fin (n / 16) → ℝ
+@[reducible] def Chal.RepeatedLocalization.History : ℕ → ℕ → Type :=
+fun N t => Fin t → Fin N
+@[reducible] def Chal.RepeatedLocalization.Cell : ℕ → Type :=
+fun n => (J : ℕ) × (Fin n → Fin (2 ^ J))
+def Chal.RepeatedLocalization.initialCube : (n : ℕ) → Set (Chal.RepeatedLocalization.Coordinate n) :=
+fun n => Set.univ.pi fun x => Set.Ico (-1 / (2 * √↑n)) (1 / (2 * √↑n))
+def Chal.RepeatedLocalization.cubePrior : (n : ℕ) → MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) :=
+fun n => MeasureTheory.volume[|Chal.RepeatedLocalization.initialCube n]
+def Chal.RepeatedLocalization.chart : {n : ℕ} → Chal.RepeatedLocalization.Coordinate n → Fin (n + 1) → ℝ :=
+fun {n} z i => Fin.lastCases (√(1 - ∑ a, z a ^ 2)) z i
+def Chal.RepeatedLocalization.cellSet : {n : ℕ} →
+  Chal.RepeatedLocalization.Cell n → Set (Chal.RepeatedLocalization.Coordinate n) :=
+fun {n} Q =>
+  {z |
+    ∀ (a : Fin n),
+      -1 / (2 * √↑n) + ↑↑(Q.snd a) / (√↑n * 2 ^ Q.fst) ≤ z a ∧
+        z a < -1 / (2 * √↑n) + (↑↑(Q.snd a) + 1) / (√↑n * 2 ^ Q.fst)}
+def Chal.RepeatedLocalization.rootCell : (n : ℕ) → Chal.RepeatedLocalization.Cell n :=
+fun n => ⟨0, fun x => 0⟩
+def Chal.RepeatedLocalization.gaussianBlockLaw : (n : ℕ) →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.GaussianBlock n) :=
+fun n => MeasureTheory.Measure.pi fun x => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1
+def Chal.RepeatedLocalization.exactLabel : {n : ℕ} →
+  Chal.RepeatedLocalization.GaussianBlock n →
+    Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.Label n :=
+fun {n} X z row => ∑ a, X row a * Chal.RepeatedLocalization.chart z a
+structure Chal.RepeatedLocalization.BlockRule (n N : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.RepeatedLocalization.BlockRule.prob : Chal.RepeatedLocalization.GaussianBlock n ×
+        Chal.RepeatedLocalization.Label n →
+      Fin N → ℝ
+  Chal.RepeatedLocalization.BlockRule.measurable_prob : ∀ (w : Fin N), Measurable fun data => self.prob data w
+  Chal.RepeatedLocalization.BlockRule.nonneg : ∀
+      (data : Chal.RepeatedLocalization.GaussianBlock n × Chal.RepeatedLocalization.Label n) (w : Fin N),
+      0 ≤ self.prob data w
+  Chal.RepeatedLocalization.BlockRule.sum_one : ∀
+      (data : Chal.RepeatedLocalization.GaussianBlock n × Chal.RepeatedLocalization.Label n), ∑ w, self.prob data w = 1
+constructor:
+  Chal.RepeatedLocalization.BlockRule.mk {n N : ℕ}
+    (prob : Chal.RepeatedLocalization.GaussianBlock n × Chal.RepeatedLocalization.Label n → Fin N → ℝ)
+    (measurable_prob : ∀ (w : Fin N), Measurable fun data => prob data w)
+    (nonneg :
+      ∀ (data : Chal.RepeatedLocalization.GaussianBlock n × Chal.RepeatedLocalization.Label n) (w : Fin N),
+        0 ≤ prob data w)
+    (sum_one :
+      ∀ (data : Chal.RepeatedLocalization.GaussianBlock n × Chal.RepeatedLocalization.Label n), ∑ w, prob data w = 1) :
+    Chal.RepeatedLocalization.BlockRule n N
+@[reducible] def Chal.RepeatedLocalization.Rules : ℕ → ℕ → ℕ → Type :=
+fun n N t => (i : Fin t) → Chal.RepeatedLocalization.History N ↑i → Chal.RepeatedLocalization.BlockRule n N
+def Chal.RepeatedLocalization.past : {N t : ℕ} →
+  Chal.RepeatedLocalization.History N t → (i : Fin t) → Chal.RepeatedLocalization.History N ↑i :=
+fun {N t} w i j => w ⟨↑j, ⋯⟩
+def Chal.RepeatedLocalization.through : {N t : ℕ} →
+  Chal.RepeatedLocalization.History N t → (i : Fin t) → Chal.RepeatedLocalization.History N (↑i + 1) :=
+fun {N t} w i j => w ⟨↑j, ⋯⟩
+def Chal.RepeatedLocalization.blockProbability : {n N : ℕ} →
+  Chal.RepeatedLocalization.BlockRule n N → Chal.RepeatedLocalization.Coordinate n → Fin N → ℝ :=
+fun {n N} rule z w =>
+  ∫ (X : Chal.RepeatedLocalization.GaussianBlock n),
+    rule.prob (X, Chal.RepeatedLocalization.exactLabel X z) w ∂Chal.RepeatedLocalization.gaussianBlockLaw n
+def Chal.RepeatedLocalization.historyLikelihood : {n N t : ℕ} →
+  Chal.RepeatedLocalization.Rules n N t →
+    Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.History N t → ℝ :=
+fun {n N t} rules z w =>
+  ∏ i, Chal.RepeatedLocalization.blockProbability (rules i (Chal.RepeatedLocalization.past w i)) z (w i)
+def Chal.RepeatedLocalization.experimentLaw : {n N t : ℕ} →
+  Chal.RepeatedLocalization.Rules n N t →
+    MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n × Chal.RepeatedLocalization.History N t) :=
+fun {n N t} rules =>
+  ∑ w,
+    MeasureTheory.Measure.map (fun z => (z, w))
+      ((Chal.RepeatedLocalization.cubePrior n).withDensity fun z =>
+        ENNReal.ofReal (Chal.RepeatedLocalization.historyLikelihood rules z w))
+@[reducible] def Chal.RepeatedLocalization.Disclosure : ℕ → ℕ → ℕ → Type :=
+fun n N t =>
+  (i : Fin t) →
+    Chal.RepeatedLocalization.Coordinate n →
+      Chal.RepeatedLocalization.History N (↑i + 1) → Chal.RepeatedLocalization.Cell n
+def Chal.RepeatedLocalization.ValidDisclosure : {n N t : ℕ} → Chal.RepeatedLocalization.Disclosure n N t → Prop :=
+fun {n N t} Q =>
+  (∀ (i : Fin t), Measurable fun zh => Q i zh.1 zh.2) ∧
+    (∀ (i : Fin t), (Set.range fun zh => Q i zh.1 zh.2).Finite) ∧
+      (∀ z ∈ Chal.RepeatedLocalization.initialCube n,
+          ∀ (w : Chal.RepeatedLocalization.History N t) (i : Fin t),
+            z ∈ Chal.RepeatedLocalization.cellSet (Q i z (Chal.RepeatedLocalization.through w i)) ∧
+              Chal.RepeatedLocalization.cellSet (Q i z (Chal.RepeatedLocalization.through w i)) ⊆
+                Chal.RepeatedLocalization.initialCube n) ∧
+        ∀ z ∈ Chal.RepeatedLocalization.initialCube n,
+          ∀ (w : Chal.RepeatedLocalization.History N t) (i j : Fin t),
+            i ≤ j →
+              Chal.RepeatedLocalization.cellSet (Q j z (Chal.RepeatedLocalization.through w j)) ⊆
+                Chal.RepeatedLocalization.cellSet (Q i z (Chal.RepeatedLocalization.through w i))
+def Chal.RepeatedLocalization.transcriptMap : {n N t : ℕ} →
+  Chal.RepeatedLocalization.Disclosure n N t →
+    Chal.RepeatedLocalization.Coordinate n × Chal.RepeatedLocalization.History N t →
+      Chal.RepeatedLocalization.Coordinate n ×
+        Chal.RepeatedLocalization.History N t × (Fin t → Chal.RepeatedLocalization.Cell n) :=
+fun {n N t} Q zw => (zw.1, zw.2, fun i => Q i zw.1 (Chal.RepeatedLocalization.through zw.2 i))
+def Chal.RepeatedLocalization.augmentedLaw : {n N t : ℕ} →
+  Chal.RepeatedLocalization.Rules n N t →
+    Chal.RepeatedLocalization.Disclosure n N t →
+      MeasureTheory.Measure
+        (Chal.RepeatedLocalization.Coordinate n ×
+          Chal.RepeatedLocalization.History N t × (Fin t → Chal.RepeatedLocalization.Cell n)) :=
+fun {n N t} rules Q =>
+  MeasureTheory.Measure.map (Chal.RepeatedLocalization.transcriptMap Q) (Chal.RepeatedLocalization.experimentLaw rules)
+def Chal.RepeatedLocalization.mutualInformation.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    [inst : MeasurableSpace α] → [inst_1 : MeasurableSpace β] → MeasureTheory.Measure (α × β) → ENNReal :=
+fun {α} {β} [MeasurableSpace α] [MeasurableSpace β] μ =>
+  InformationTheory.klDiv μ ((MeasureTheory.Measure.map Prod.fst μ).prod (MeasureTheory.Measure.map Prod.snd μ))
+def Chal.RepeatedLocalization.finalLevel : {n N t : ℕ} →
+  Chal.RepeatedLocalization.Disclosure n N t →
+    Chal.RepeatedLocalization.Coordinate n × Chal.RepeatedLocalization.History N t → ℕ :=
+fun {n N t} Q zw =>
+  if ht : 0 < t then
+    have i := ⟨t - 1, ⋯⟩;
+    (Q i zw.1 (Chal.RepeatedLocalization.through zw.2 i)).fst
+  else 0
+def Chal.RepeatedLocalization.MainStatement : Prop :=
+∃ c,
+  0 < c ∧
+    ∃ n₀,
+      ∀ (C₀ : ℝ),
+        0 < C₀ →
+          ∃ C,
+            0 < C ∧
+              ∀ (n N t : ℕ),
+                n₀ ≤ n →
+                  1 ≤ N →
+                    ∀ (rules : Chal.RepeatedLocalization.Rules n N t),
+                      (2 / ↑(n / 8) + Real.exp (-c * ↑(n / 16))) * Real.log ↑N ≤ C₀ * (↑n + 1) →
+                        ∃ Q,
+                          Chal.RepeatedLocalization.ValidDisclosure Q ∧
+                            Chal.RepeatedLocalization.mutualInformation
+                                  (Chal.RepeatedLocalization.augmentedLaw rules Q) ≤
+                                ENNReal.ofReal (C * (↑n + 1) * ↑t) ∧
+                              ∫ (zw : Chal.RepeatedLocalization.Coordinate n × Chal.RepeatedLocalization.History N t),
+                                  ↑(Chal.RepeatedLocalization.finalLevel Q
+                                      zw) ∂Chal.RepeatedLocalization.experimentLaw rules ≤
+                                C * ↑t
+def Chal.RepeatedLocalization.FiniteEntropy.uniformCell : {n : ℕ} →
+  Chal.RepeatedLocalization.Cell n → MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) :=
+fun {n} Q => MeasureTheory.volume[|Chal.RepeatedLocalization.cellSet Q]
+def Chal.RepeatedLocalization.FiniteEntropy.Descendant : {n : ℕ} →
+  Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Cell n → Prop :=
+fun {n} Q R => Q.fst ≤ R.fst ∧ Chal.RepeatedLocalization.cellSet R ⊆ Chal.RepeatedLocalization.cellSet Q
+def Chal.RepeatedLocalization.FiniteEntropy.threshold : ℕ → ℕ → ℝ :=
+fun n h => 2 ^ (-↑n * ↑h / 2)
+def Chal.RepeatedLocalization.FiniteEntropy.Heavy : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Cell n → Prop :=
+fun {n} P Q R =>
+  Chal.RepeatedLocalization.FiniteEntropy.Descendant Q R ∧
+    Q.fst < R.fst ∧
+      Chal.RepeatedLocalization.FiniteEntropy.threshold n (R.fst - Q.fst) <
+        (P (Chal.RepeatedLocalization.cellSet R)).toReal
+def Chal.RepeatedLocalization.FiniteEntropy.FirstHeavy : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Cell n → Prop :=
+fun {n} P Q R =>
+  Chal.RepeatedLocalization.FiniteEntropy.Heavy P Q R ∧
+    ∀ (E : Chal.RepeatedLocalization.Cell n),
+      Chal.RepeatedLocalization.FiniteEntropy.Heavy P Q E →
+        Chal.RepeatedLocalization.FiniteEntropy.Descendant E R → E = R
+def Chal.RepeatedLocalization.FiniteEntropy.residual : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Set (Chal.RepeatedLocalization.Coordinate n) :=
+fun {n} P Q => Chal.RepeatedLocalization.cellSet Q \ ⋃ R, Chal.RepeatedLocalization.cellSet ↑R
+@[reducible] def Chal.RepeatedLocalization.FiniteEntropy.Letter : ℕ → Type :=
+fun n => Option (Chal.RepeatedLocalization.Cell n)
+@[reducible] def Chal.RepeatedLocalization.FiniteEntropy.Log : ℕ → Type :=
+fun n => List (Chal.RepeatedLocalization.FiniteEntropy.Letter n)
+def Chal.RepeatedLocalization.FiniteEntropy.branch : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.FiniteEntropy.Letter n → Set (Chal.RepeatedLocalization.Coordinate n) :=
+fun {n} P Q x =>
+  match x with
+  | none => Chal.RepeatedLocalization.FiniteEntropy.residual P Q
+  | some R =>
+    if Chal.RepeatedLocalization.FiniteEntropy.FirstHeavy P Q R then Chal.RepeatedLocalization.cellSet R else ∅
+def Chal.RepeatedLocalization.FiniteEntropy.attemptLetter : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.FiniteEntropy.Letter n :=
+fun {n} P Q z =>
+  if h : ∃ R, Chal.RepeatedLocalization.FiniteEntropy.FirstHeavy P Q R ∧ z ∈ Chal.RepeatedLocalization.cellSet R then
+    some h.choose
+  else none
+structure Chal.RepeatedLocalization.FiniteEntropy.State (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.RepeatedLocalization.FiniteEntropy.State.cell : Chal.RepeatedLocalization.Cell n
+  Chal.RepeatedLocalization.FiniteEntropy.State.event : Set (Chal.RepeatedLocalization.Coordinate n)
+  Chal.RepeatedLocalization.FiniteEntropy.State.stopped : Bool
+constructor:
+  Chal.RepeatedLocalization.FiniteEntropy.State.mk {n : ℕ} (cell : Chal.RepeatedLocalization.Cell n)
+    (event : Set (Chal.RepeatedLocalization.Coordinate n)) (stopped : Bool) :
+    Chal.RepeatedLocalization.FiniteEntropy.State n
+def Chal.RepeatedLocalization.FiniteEntropy.update : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.FiniteEntropy.State n →
+      Chal.RepeatedLocalization.FiniteEntropy.Letter n → Chal.RepeatedLocalization.FiniteEntropy.State n :=
+fun {n} P s a =>
+  if s.stopped = true then s
+  else
+    have μ := P[|s.event];
+    have E := Chal.RepeatedLocalization.FiniteEntropy.branch μ s.cell a;
+    { cell := Option.getD a s.cell, event := s.event ∩ E,
+      stopped := if a = none then decide (1 / 2 ≤ (μ E).toReal) else false }
+def Chal.RepeatedLocalization.FiniteEntropy.state : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.FiniteEntropy.Log n → Chal.RepeatedLocalization.FiniteEntropy.State n :=
+fun {n} P Q h =>
+  List.foldl (Chal.RepeatedLocalization.FiniteEntropy.update P)
+    { cell := Q, event := Chal.RepeatedLocalization.cellSet Q, stopped := false } h
+def Chal.RepeatedLocalization.FiniteEntropy.run : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      ℕ → Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.FiniteEntropy.Log n :=
+fun {n} P Q x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.FiniteEntropy.Log n)
+    x (Chal.RepeatedLocalization.FiniteEntropy.run._f P Q) x_1
+def Chal.RepeatedLocalization.FiniteEntropy.Terminates : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Coordinate n → Prop :=
+fun {n} P Q z =>
+  ∃ N,
+    (Chal.RepeatedLocalization.FiniteEntropy.state P Q (Chal.RepeatedLocalization.FiniteEntropy.run P Q N z)).stopped =
+      true
+def Chal.RepeatedLocalization.FiniteEntropy.attempts : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Coordinate n → ℕ :=
+fun {n} P Q z => if h : Chal.RepeatedLocalization.FiniteEntropy.Terminates P Q z then Nat.find h else 0
+def Chal.RepeatedLocalization.FiniteEntropy.terminalLog : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.Coordinate n → Chal.RepeatedLocalization.FiniteEntropy.Log n :=
+fun {n} P Q z =>
+  Chal.RepeatedLocalization.FiniteEntropy.run P Q (Chal.RepeatedLocalization.FiniteEntropy.attempts P Q z) z
+def Chal.RepeatedLocalization.FiniteEntropy.terminalCell : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.FiniteEntropy.Log n → Chal.RepeatedLocalization.Cell n :=
+fun {n} P Q h => (Chal.RepeatedLocalization.FiniteEntropy.state P Q h).cell
+def Chal.RepeatedLocalization.FiniteEntropy.terminalLaw : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n →
+      Chal.RepeatedLocalization.FiniteEntropy.Log n → MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) :=
+fun {n} P Q h => P[|{z | Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q z = h}]
+def Chal.RepeatedLocalization.FiniteEntropy.depth : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) →
+    Chal.RepeatedLocalization.Cell n → Chal.RepeatedLocalization.Coordinate n → ℕ :=
+fun {n} P Q z =>
+  (Chal.RepeatedLocalization.FiniteEntropy.terminalCell P Q
+        (Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q z)).fst -
+    Q.fst
+def Chal.RepeatedLocalization.FiniteEntropy.Regular : {n : ℕ} →
+  MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n) → Chal.RepeatedLocalization.Cell n → Prop :=
+fun {n} P Q =>
+  P (Chal.RepeatedLocalization.cellSet Q) = 1 ∧
+    ∀ (R : Chal.RepeatedLocalization.Cell n),
+      Chal.RepeatedLocalization.FiniteEntropy.Descendant Q R →
+        Q.fst < R.fst →
+          (P (Chal.RepeatedLocalization.cellSet R)).toReal ≤
+            2 * Chal.RepeatedLocalization.FiniteEntropy.threshold n (R.fst - Q.fst)
+def Chal.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement : Prop :=
+∃ n₀,
+  ∀ (n : ℕ),
+    n₀ ≤ n →
+      ∀ (Q : Chal.RepeatedLocalization.Cell n) (P : MeasureTheory.Measure (Chal.RepeatedLocalization.Coordinate n)),
+        MeasureTheory.IsProbabilityMeasure P →
+          P.AbsolutelyContinuous (Chal.RepeatedLocalization.FiniteEntropy.uniformCell Q) →
+            InformationTheory.klDiv P (Chal.RepeatedLocalization.FiniteEntropy.uniformCell Q) ≠ ⊤ →
+              (∀ᵐ (z : Chal.RepeatedLocalization.Coordinate n) ∂P,
+                  Chal.RepeatedLocalization.FiniteEntropy.Terminates P Q z) ∧
+                Measurable (Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q) ∧
+                  (∀ (h : Chal.RepeatedLocalization.FiniteEntropy.Log n),
+                      P {z | Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q z = h} ≠ 0 →
+                        Chal.RepeatedLocalization.FiniteEntropy.Descendant Q
+                            (Chal.RepeatedLocalization.FiniteEntropy.terminalCell P Q h) ∧
+                          Chal.RepeatedLocalization.FiniteEntropy.Regular
+                            (Chal.RepeatedLocalization.FiniteEntropy.terminalLaw P Q h)
+                            (Chal.RepeatedLocalization.FiniteEntropy.terminalCell P Q h)) ∧
+                    MeasureTheory.Integrable (fun z => ↑(Chal.RepeatedLocalization.FiniteEntropy.depth P Q z)) P ∧
+                      MeasureTheory.Integrable (fun z => ↑(Chal.RepeatedLocalization.FiniteEntropy.attempts P Q z)) P ∧
+                        ∫ (z : Chal.RepeatedLocalization.Coordinate n),
+                              ↑(Chal.RepeatedLocalization.FiniteEntropy.attempts P Q z) ∂P ≤
+                            2 *
+                              (1 +
+                                ∫ (z : Chal.RepeatedLocalization.Coordinate n),
+                                  ↑(Chal.RepeatedLocalization.FiniteEntropy.depth P Q z) ∂P) ∧
+                          ∫⁻ (z : Chal.RepeatedLocalization.Coordinate n),
+                                InformationTheory.klDiv
+                                  (Chal.RepeatedLocalization.FiniteEntropy.terminalLaw P Q
+                                    (Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q z))
+                                  (Chal.RepeatedLocalization.FiniteEntropy.uniformCell
+                                    (Chal.RepeatedLocalization.FiniteEntropy.terminalCell P Q
+                                      (Chal.RepeatedLocalization.FiniteEntropy.terminalLog P Q z))) ∂P +
+                              ENNReal.ofReal
+                                (Real.log 2 / 4 * ↑n *
+                                  ∫ (z : Chal.RepeatedLocalization.Coordinate n),
+                                    ↑(Chal.RepeatedLocalization.FiniteEntropy.depth P Q z) ∂P) ≤
+                            InformationTheory.klDiv P (Chal.RepeatedLocalization.FiniteEntropy.uniformCell Q) +
+                              ENNReal.ofReal (2 / Real.exp 1)
+'OAI.RepeatedLocalization.FiniteEntropy.finite_expected_regularization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== GaussianFiniteEntropy comparator-style: ok=37 problems=0 errors=0 | no-shadowing | [propext, 
