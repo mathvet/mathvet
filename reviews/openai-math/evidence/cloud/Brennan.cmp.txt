@@ -1,0 +1,55 @@
+CMP OAI.Brennan.main_theorem [thm] ok
+CMP OAI.Brennan.MainStatement [def] ok
+CMP OAI.Brennan.UnivalentOn [def] ok
+CMP OAI.Brennan.MainStatement._proof_2 [thm] ok
+CMP OAI.Brennan.MainStatement._proof_1 [thm] ok
+CMP OAI.Brennan.disk [def] ok
+CMP OAI.Brennan.SphericalBoundaryNontrivial [def] ok
+CMP OAI.Brennan.spectrum [def] ok
+CMP OAI.Brennan.beta [def] ok
+CMP OAI.Brennan.integralMean [def] ok
+CMP OAI.Brennan.integralMean._proof_1 [thm] ok
+CMP OAI.Brennan.Schlicht [def] ok
+Chal.Brennan.main_theorem : Chal.Brennan.MainStatement
+def Chal.Brennan.disk : Set ℂ :=
+Metric.ball 0 1
+def Chal.Brennan.UnivalentOn : (ℂ → ℂ) → Set ℂ → Prop :=
+fun f U => DifferentiableOn ℂ f U ∧ Set.InjOn f U
+def Chal.Brennan.Schlicht : (ℂ → ℂ) → Prop :=
+fun f => Chal.Brennan.UnivalentOn f Chal.Brennan.disk ∧ f 0 = 0 ∧ deriv f 0 = 1
+def Chal.Brennan.integralMean : (ℂ → ℂ) → ℝ → ℝ → ℝ :=
+fun f t r => (2 * Real.pi)⁻¹ * ∫ (θ : ℝ) in -Real.pi..Real.pi, ‖deriv f (↑r * Complex.exp (↑θ * Complex.I))‖ ^ t
+def Chal.Brennan.beta : (ℂ → ℂ) → ℝ → EReal :=
+fun f t =>
+  Filter.limsup (fun r => ↑(Real.log (Chal.Brennan.integralMean f t r) / Real.log (1 / (1 - r))))
+    (nhdsWithin 1 (Set.Iio 1))
+def Chal.Brennan.spectrum : ℝ → EReal :=
+fun t => sSup {b | ∃ f, Chal.Brennan.Schlicht f ∧ Chal.Brennan.beta f t = b}
+def Chal.Brennan.SphericalBoundaryNontrivial : Set ℂ → Prop :=
+fun W => (frontier (OnePoint.some '' W)).Nontrivial
+def Chal.Brennan.MainStatement : Prop :=
+(∀ (ε : ℝ),
+    0 < ε →
+      ∃ C,
+        ∀ (f : ℂ → ℂ),
+          Chal.Brennan.Schlicht f →
+            ∀ (r : ℝ), 1 / 2 ≤ r → r < 1 → Chal.Brennan.integralMean f (-2) r ≤ C * (1 - r) ^ (-1 - ε)) ∧
+  Chal.Brennan.spectrum (-2) = 1 ∧
+    (∀ (W : Set ℂ),
+        IsOpen W →
+          IsConnected W →
+            SimplyConnectedSpace ↑W →
+              Chal.Brennan.SphericalBoundaryNontrivial W →
+                ∀ (φ : ℂ → ℂ),
+                  DifferentiableOn ℂ φ W →
+                    Set.BijOn φ W Chal.Brennan.disk →
+                      ∀ (s : ℝ),
+                        4 / 3 < s →
+                          s < 4 → MeasureTheory.IntegrableOn (fun z => ‖deriv φ z‖ ^ s) W MeasureTheory.volume) ∧
+      ∀ (f : ℂ → ℂ),
+        Chal.Brennan.UnivalentOn f Chal.Brennan.disk →
+          ∀ (t : ℝ),
+            -2 < t →
+              t < 2 / 3 → MeasureTheory.IntegrableOn (fun z => ‖deriv f z‖ ^ t) Chal.Brennan.disk MeasureTheory.volume
+'OAI.Brennan.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Brennan comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
