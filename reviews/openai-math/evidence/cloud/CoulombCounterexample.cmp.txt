@@ -1,0 +1,106 @@
+CMP OAI.Problem356.coulomb_counterexample_and_equal_infima [thm] ok
+CMP OAI.Problem356.HasFullCoulombConclusion [def] ok
+CMP OAI.Problem356.FiniteMongeApproximation [def] ok
+CMP OAI.Problem356.kantorovichValue [def] ok
+CMP OAI.Problem356.coulombCost [def] ok
+CMP OAI.Problem356.tripleThd [def] ok
+CMP OAI.Problem356.E3 [def] ok
+CMP OAI.Problem356.Triple [def] ok
+CMP OAI.Problem356.tripleSnd [def] ok
+CMP OAI.Problem356.tripleFst [def] ok
+CMP OAI.Problem356.invDistance [def] ok
+CMP OAI.Problem356.IsThreeCoupling [def] ok
+CMP OAI.Problem356.graphCost [def] ok
+CMP OAI.Problem356.Preserves [def] ok
+CMP OAI.Problem356.densityMeasure [def] ok
+CMP OAI.Problem356.densityMeasure._proof_2 [thm] ok
+CMP OAI.Problem356.densityMeasure._proof_1 [thm] ok
+CMP OAI.Problem356.mongeValue [def] ok
+CMP OAI.Problem356.HasCoulombCounterexample [def] ok
+CMP OAI.Problem356.NoMongeOptimizer [def] ok
+CMP OAI.Problem356.KantorovichAttained [def] ok
+CMP OAI.Problem356.IsSmoothCompactProbabilityDensity [def] ok
+Chal.Problem356.coulomb_counterexample_and_equal_infima : ∃ rho, Chal.Problem356.HasFullCoulombConclusion rho
+@[reducible] def Chal.Problem356.E3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.Problem356.Triple : Type :=
+Chal.Problem356.E3 × Chal.Problem356.E3 × Chal.Problem356.E3
+def Chal.Problem356.tripleFst : Chal.Problem356.Triple → Chal.Problem356.E3 :=
+fun t => t.1
+def Chal.Problem356.tripleSnd : Chal.Problem356.Triple → Chal.Problem356.E3 :=
+fun t => t.2.1
+def Chal.Problem356.tripleThd : Chal.Problem356.Triple → Chal.Problem356.E3 :=
+fun t => t.2.2
+def Chal.Problem356.invDistance : Chal.Problem356.E3 → Chal.Problem356.E3 → ENNReal :=
+fun x y => (ENNReal.ofReal ‖x - y‖)⁻¹
+def Chal.Problem356.coulombCost : Chal.Problem356.Triple → ENNReal :=
+fun t =>
+  Chal.Problem356.invDistance (Chal.Problem356.tripleFst t) (Chal.Problem356.tripleSnd t) +
+      Chal.Problem356.invDistance (Chal.Problem356.tripleFst t) (Chal.Problem356.tripleThd t) +
+    Chal.Problem356.invDistance (Chal.Problem356.tripleSnd t) (Chal.Problem356.tripleThd t)
+def Chal.Problem356.IsThreeCoupling : MeasureTheory.Measure Chal.Problem356.E3 →
+  MeasureTheory.Measure Chal.Problem356.Triple → Prop :=
+fun mu pi =>
+  MeasureTheory.IsProbabilityMeasure pi ∧
+    MeasureTheory.Measure.map Chal.Problem356.tripleFst pi = mu ∧
+      MeasureTheory.Measure.map Chal.Problem356.tripleSnd pi = mu ∧
+        MeasureTheory.Measure.map Chal.Problem356.tripleThd pi = mu
+def Chal.Problem356.densityMeasure : (Chal.Problem356.E3 → ℝ) → MeasureTheory.Measure Chal.Problem356.E3 :=
+fun rho => MeasureTheory.volume.withDensity fun x => ENNReal.ofReal (rho x)
+def Chal.Problem356.Preserves : MeasureTheory.Measure Chal.Problem356.E3 →
+  (Chal.Problem356.E3 → Chal.Problem356.E3) → Prop :=
+fun mu T => Measurable T ∧ MeasureTheory.Measure.map T mu = mu
+def Chal.Problem356.graphCost : MeasureTheory.Measure Chal.Problem356.E3 →
+  (Chal.Problem356.E3 → Chal.Problem356.E3) → (Chal.Problem356.E3 → Chal.Problem356.E3) → ENNReal :=
+fun mu T2 T3 => ∫⁻ (x : Chal.Problem356.E3), Chal.Problem356.coulombCost (x, T2 x, T3 x) ∂mu
+def Chal.Problem356.kantorovichValue : MeasureTheory.Measure Chal.Problem356.E3 → ENNReal :=
+fun mu =>
+  ⨅ pi,
+    ⨅ (_ : Chal.Problem356.IsThreeCoupling mu pi), ∫⁻ (t : Chal.Problem356.Triple), Chal.Problem356.coulombCost t ∂pi
+def Chal.Problem356.mongeValue : MeasureTheory.Measure Chal.Problem356.E3 → ENNReal :=
+fun mu =>
+  ⨅ T2,
+    ⨅ T3,
+      ⨅ (_ : Chal.Problem356.Preserves mu T2),
+        ⨅ (_ : Chal.Problem356.Preserves mu T3), Chal.Problem356.graphCost mu T2 T3
+def Chal.Problem356.IsSmoothCompactProbabilityDensity : (Chal.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  (∀ (x : Chal.Problem356.E3), 0 ≤ rho x) ∧
+    ContDiff ℝ (↑⊤) rho ∧
+      HasCompactSupport rho ∧
+        (ContDiff ℝ ↑⊤ fun x => √(rho x)) ∧
+          (HasCompactSupport fun x => √(rho x)) ∧ ∫ (x : Chal.Problem356.E3), rho x = 1
+def Chal.Problem356.KantorovichAttained : MeasureTheory.Measure Chal.Problem356.E3 → Prop :=
+fun mu =>
+  ∃ pi,
+    Chal.Problem356.IsThreeCoupling mu pi ∧
+      ∫⁻ (t : Chal.Problem356.Triple), Chal.Problem356.coulombCost t ∂pi = Chal.Problem356.kantorovichValue mu
+def Chal.Problem356.NoMongeOptimizer : MeasureTheory.Measure Chal.Problem356.E3 → Prop :=
+fun mu =>
+  ∀ (T2 T3 : Chal.Problem356.E3 → Chal.Problem356.E3),
+    Chal.Problem356.Preserves mu T2 →
+      Chal.Problem356.Preserves mu T3 → Chal.Problem356.kantorovichValue mu < Chal.Problem356.graphCost mu T2 T3
+def Chal.Problem356.FiniteMongeApproximation : MeasureTheory.Measure Chal.Problem356.E3 → Prop :=
+fun mu =>
+  ∀ (epsilon : ℝ),
+    0 < epsilon →
+      ∃ T2 T3,
+        Chal.Problem356.Preserves mu T2 ∧
+          Chal.Problem356.Preserves mu T3 ∧
+            Chal.Problem356.graphCost mu T2 T3 < ⊤ ∧
+              Chal.Problem356.graphCost mu T2 T3 ≤ Chal.Problem356.kantorovichValue mu + ENNReal.ofReal epsilon
+def Chal.Problem356.HasCoulombCounterexample : (Chal.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  Chal.Problem356.IsSmoothCompactProbabilityDensity rho ∧
+    MeasureTheory.IsProbabilityMeasure (Chal.Problem356.densityMeasure rho) ∧
+      Chal.Problem356.kantorovichValue (Chal.Problem356.densityMeasure rho) < ⊤ ∧
+        Chal.Problem356.KantorovichAttained (Chal.Problem356.densityMeasure rho) ∧
+          Chal.Problem356.NoMongeOptimizer (Chal.Problem356.densityMeasure rho)
+def Chal.Problem356.HasFullCoulombConclusion : (Chal.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  Chal.Problem356.HasCoulombCounterexample rho ∧
+    Chal.Problem356.mongeValue (Chal.Problem356.densityMeasure rho) =
+        Chal.Problem356.kantorovichValue (Chal.Problem356.densityMeasure rho) ∧
+      Chal.Problem356.FiniteMongeApproximation (Chal.Problem356.densityMeasure rho)
+'OAI.Problem356.coulomb_counterexample_and_equal_infima' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CoulombCounterexample comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
