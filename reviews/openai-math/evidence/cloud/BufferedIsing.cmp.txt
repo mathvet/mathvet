@@ -1,0 +1,125 @@
+CMP OAI.BufferedIsing.finite_graph_comparison [thm] ok
+CMP OAI.BufferedIsing.mixtureProb [def] ok
+CMP OAI.BufferedIsing.conditionalProb [def] ok
+CMP OAI.BufferedIsing.AgreesOn [def] ok
+CMP OAI.BufferedIsing.Spins [def] ok
+CMP OAI.BufferedIsing.constrainedSum [def] ok
+CMP OAI.BufferedIsing.weight [def] ok
+CMP OAI.BufferedIsing.energy [def] ok
+CMP OAI.BufferedIsing.FiniteGraph.right [def] ok
+CMP OAI.BufferedIsing.FiniteGraph [ind] ok
+CMP OAI.BufferedIsing.FiniteGraph.mk [ctor] ok
+CMP OAI.BufferedIsing.FiniteGraph.left [def] ok
+CMP OAI.BufferedIsing.spin [def] ok
+CMP OAI.BufferedIsing.FiniteGraph.coupling [def] ok
+CMP OAI.BufferedIsing.qZero [def] ok
+CMP OAI.BufferedIsing.fkWeight [def] ok
+CMP OAI.BufferedIsing.keptEdges [def] ok
+CMP OAI.BufferedIsing.clusterCount [def] ok
+CMP OAI.BufferedIsing.comparisonSetoid [def] ok
+CMP OAI.BufferedIsing.comparisonRel [def] ok
+CMP OAI.BufferedIsing.KeptVertex [def] ok
+CMP OAI.BufferedIsing.fkWeight._proof_1 [thm] ok
+@Chal.BufferedIsing.finite_graph_comparison : ∀ {n m : ℕ} (G : Chal.BufferedIsing.FiniteGraph n m) (h : Fin n → ℝ)
+  (I J F : Finset (Fin n)),
+  Disjoint I J →
+    Disjoint I F →
+      Disjoint J F →
+        ∀ (i j : Chal.BufferedIsing.KeptVertex F),
+          ↑i ∈ I →
+            ↑j ∈ J →
+              ∀ (a τ : Chal.BufferedIsing.Spins n) (mix mix' : Chal.BufferedIsing.Spins n → ℝ),
+                (∀ (b : Chal.BufferedIsing.Spins n), 0 ≤ mix b) →
+                  (∀ (b : Chal.BufferedIsing.Spins n), 0 ≤ mix' b) →
+                    ∑ b, mix b = 1 →
+                      ∑ b, mix' b = 1 →
+                        Real.exp (-4 * Real.artanh (Chal.BufferedIsing.qZero G I J F i j)) ≤
+                            Chal.BufferedIsing.mixtureProb G h I J F a τ mix /
+                              Chal.BufferedIsing.mixtureProb G h I J F a τ mix' ∧
+                          Chal.BufferedIsing.mixtureProb G h I J F a τ mix /
+                              Chal.BufferedIsing.mixtureProb G h I J F a τ mix' ≤
+                            Real.exp (4 * Real.artanh (Chal.BufferedIsing.qZero G I J F i j))
+structure Chal.BufferedIsing.FiniteGraph (n m : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.BufferedIsing.FiniteGraph.left : Fin m → Fin n
+  Chal.BufferedIsing.FiniteGraph.right : Fin m → Fin n
+  Chal.BufferedIsing.FiniteGraph.coupling : Fin m → ℝ
+  Chal.BufferedIsing.FiniteGraph.coupling_nonneg : ∀ (e : Fin m), 0 ≤ self.coupling e
+  Chal.BufferedIsing.FiniteGraph.no_loops : ∀ (e : Fin m), self.left e ≠ self.right e
+constructor:
+  Chal.BufferedIsing.FiniteGraph.mk {n m : ℕ} (left right : Fin m → Fin n) (coupling : Fin m → ℝ)
+    (coupling_nonneg : ∀ (e : Fin m), 0 ≤ coupling e) (no_loops : ∀ (e : Fin m), left e ≠ right e) :
+    Chal.BufferedIsing.FiniteGraph n m
+@[reducible] def Chal.BufferedIsing.Spins : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.BufferedIsing.spin : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.BufferedIsing.energy : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m → (Fin n → ℝ) → Chal.BufferedIsing.Spins n → ℝ :=
+fun {n m} G h σ =>
+  ∑ e, G.coupling e * Chal.BufferedIsing.spin (σ (G.left e)) * Chal.BufferedIsing.spin (σ (G.right e)) +
+    ∑ v, h v * Chal.BufferedIsing.spin (σ v)
+def Chal.BufferedIsing.weight : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m → (Fin n → ℝ) → Chal.BufferedIsing.Spins n → ℝ :=
+fun {n m} G h σ => Real.exp (Chal.BufferedIsing.energy G h σ)
+def Chal.BufferedIsing.AgreesOn : {n : ℕ} →
+  Finset (Fin n) → Chal.BufferedIsing.Spins n → Chal.BufferedIsing.Spins n → Prop :=
+fun {n} S σ τ => ∀ v ∈ S, σ v = τ v
+def Chal.BufferedIsing.constrainedSum : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m → (Fin n → ℝ) → (Chal.BufferedIsing.Spins n → Prop) → ℝ :=
+fun {n m} G h P => ∑ σ, if P σ then Chal.BufferedIsing.weight G h σ else 0
+def Chal.BufferedIsing.conditionalProb : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m →
+    (Fin n → ℝ) →
+      Finset (Fin n) →
+        Finset (Fin n) →
+          Finset (Fin n) → Chal.BufferedIsing.Spins n → Chal.BufferedIsing.Spins n → Chal.BufferedIsing.Spins n → ℝ :=
+fun {n m} G h I J F a b τ =>
+  (Chal.BufferedIsing.constrainedSum G h fun σ =>
+      Chal.BufferedIsing.AgreesOn I σ a ∧ Chal.BufferedIsing.AgreesOn J σ b ∧ Chal.BufferedIsing.AgreesOn F σ τ) /
+    Chal.BufferedIsing.constrainedSum G h fun σ => Chal.BufferedIsing.AgreesOn J σ b ∧ Chal.BufferedIsing.AgreesOn F σ τ
+def Chal.BufferedIsing.keptEdges : {n m : ℕ} → Chal.BufferedIsing.FiniteGraph n m → Finset (Fin n) → Finset (Fin m) :=
+fun {n m} G F => {e | G.left e ∉ F ∧ G.right e ∉ F}
+@[reducible] def Chal.BufferedIsing.KeptVertex : {n : ℕ} → Finset (Fin n) → Type :=
+fun {n} F => { v // v ∉ F }
+def Chal.BufferedIsing.comparisonRel : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m →
+    Finset (Fin n) →
+      Finset (Fin n) →
+        (F : Finset (Fin n)) →
+          Finset (Fin m) → Chal.BufferedIsing.KeptVertex F → Chal.BufferedIsing.KeptVertex F → Prop :=
+fun {n m} G I J F ω u v =>
+  ↑u ∈ I ∧ ↑v ∈ I ∨ ↑u ∈ J ∧ ↑v ∈ J ∨ ∃ e ∈ ω, G.left e = ↑u ∧ G.right e = ↑v ∨ G.left e = ↑v ∧ G.right e = ↑u
+def Chal.BufferedIsing.comparisonSetoid : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m →
+    Finset (Fin n) →
+      Finset (Fin n) → (F : Finset (Fin n)) → Finset (Fin m) → Setoid (Chal.BufferedIsing.KeptVertex F) :=
+fun {n m} G I J F ω => Relation.EqvGen.setoid (Chal.BufferedIsing.comparisonRel G I J F ω)
+def Chal.BufferedIsing.clusterCount : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m → Finset (Fin n) → Finset (Fin n) → Finset (Fin n) → Finset (Fin m) → ℕ :=
+fun {n m} G I J F ω => Nat.card (Quotient (Chal.BufferedIsing.comparisonSetoid G I J F ω))
+def Chal.BufferedIsing.fkWeight : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m → Finset (Fin n) → Finset (Fin n) → Finset (Fin n) → Finset (Fin m) → ℝ :=
+fun {n m} G I J F ω =>
+  2 ^ Chal.BufferedIsing.clusterCount G I J F ω *
+    ∏ e ∈ Chal.BufferedIsing.keptEdges G F,
+      if e ∈ ω then 1 - Real.exp (-2 * G.coupling e) else Real.exp (-2 * G.coupling e)
+def Chal.BufferedIsing.qZero : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m →
+    Finset (Fin n) →
+      Finset (Fin n) → (F : Finset (Fin n)) → Chal.BufferedIsing.KeptVertex F → Chal.BufferedIsing.KeptVertex F → ℝ :=
+fun {n m} G I J F i j =>
+  (∑ ω ∈ (Chal.BufferedIsing.keptEdges G F).powerset,
+      if (Chal.BufferedIsing.comparisonSetoid G I J F ω) i j then Chal.BufferedIsing.fkWeight G I J F ω else 0) /
+    ∑ ω ∈ (Chal.BufferedIsing.keptEdges G F).powerset, Chal.BufferedIsing.fkWeight G I J F ω
+def Chal.BufferedIsing.mixtureProb : {n m : ℕ} →
+  Chal.BufferedIsing.FiniteGraph n m →
+    (Fin n → ℝ) →
+      Finset (Fin n) →
+        Finset (Fin n) →
+          Finset (Fin n) →
+            Chal.BufferedIsing.Spins n → Chal.BufferedIsing.Spins n → (Chal.BufferedIsing.Spins n → ℝ) → ℝ :=
+fun {n m} G h I J F a τ mix => ∑ b, mix b * Chal.BufferedIsing.conditionalProb G h I J F a b τ
+'OAI.BufferedIsing.finite_graph_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BufferedIsing comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
