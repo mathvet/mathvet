@@ -1,0 +1,101 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_IsingFiniteness.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.IsingPerceptron.variationalValue_real_of_continuous [thm] ok
+CMP OAI.IsingPerceptron.variationalValue [def] ok
+CMP OAI.IsingPerceptron.isingEntropy [def] ok
+CMP OAI.IsingPerceptron.fieldRecursion._proof_1 [thm] ok
+CMP OAI.IsingPerceptron.OverlapPath.val [def] ok
+CMP OAI.IsingPerceptron.OverlapPath [ind] ok
+CMP OAI.IsingPerceptron.OverlapPath.mk [ctor] ok
+CMP OAI.IsingPerceptron.pathMeasure [def] ok
+CMP OAI.IsingPerceptron.stepFunction [def] ok
+CMP OAI.IsingPerceptron.FieldStep.value [def] ok
+CMP OAI.IsingPerceptron.FieldStep [ind] ok
+CMP OAI.IsingPerceptron.FieldStep.mk [ctor] ok
+CMP OAI.IsingPerceptron.Partition.levels [def] ok
+CMP OAI.IsingPerceptron.Partition [ind] ok
+CMP OAI.IsingPerceptron.Partition.mk [ctor] ok
+CMP OAI.IsingPerceptron.FieldStep.partition [def] ok
+CMP OAI.IsingPerceptron.Partition.cut [def] ok
+CMP OAI.IsingPerceptron.fieldRecursion [def] ok
+CMP OAI.IsingPerceptron.gaussianTransform [def] ok
+CMP OAI.IsingPerceptron.stepAt [def] ok
+CMP OAI.IsingPerceptron.patternFunctional [def] ok
+CMP OAI.IsingPerceptron.uniformPattern [def] ok
+CMP OAI.IsingPerceptron.cellAverage [def] ok
+@Chal.IsingPerceptron.variationalValue_real_of_continuous : ∀ {α : ℝ},
+  0 ≤ α →
+    ∀ {f : ℝ → ℝ}, Continuous f → (∃ K, ∀ (x : ℝ), |f x| ≤ K) → ∃ p, Chal.IsingPerceptron.variationalValue α f = ↑p
+def Chal.IsingPerceptron.gaussianTransform : ℝ → ℝ → (ℝ → ℝ) → ℝ → ℝ :=
+fun s d U x =>
+  if d = 0 then ∫ (z : ℝ), U (x + √s * z) ∂ProbabilityTheory.gaussianReal 0 1
+  else Real.log (∫ (z : ℝ), Real.exp (d * U (x + √s * z)) ∂ProbabilityTheory.gaussianReal 0 1) / d
+structure Chal.IsingPerceptron.Partition : Type
+number of parameters: 0
+fields:
+  Chal.IsingPerceptron.Partition.levels : ℕ
+  Chal.IsingPerceptron.Partition.positive : 0 < self.levels
+  Chal.IsingPerceptron.Partition.cut : Fin (self.levels + 1) → ℝ
+  Chal.IsingPerceptron.Partition.ordered : StrictMono self.cut
+  Chal.IsingPerceptron.Partition.first : self.cut ⟨0, ⋯⟩ = 0
+  Chal.IsingPerceptron.Partition.last : self.cut ⟨self.levels, ⋯⟩ = 1
+constructor:
+  Chal.IsingPerceptron.Partition.mk (levels : ℕ) (positive : 0 < levels) (cut : Fin (levels + 1) → ℝ)
+    (ordered : StrictMono cut) (first : cut ⟨0, ⋯⟩ = 0) (last : cut ⟨levels, ⋯⟩ = 1) : Chal.IsingPerceptron.Partition
+structure Chal.IsingPerceptron.FieldStep : Type
+number of parameters: 0
+fields:
+  Chal.IsingPerceptron.FieldStep.partition : Chal.IsingPerceptron.Partition
+  Chal.IsingPerceptron.FieldStep.value : Fin self.partition.levels → ℝ
+  Chal.IsingPerceptron.FieldStep.nonneg : ∀ (i : Fin self.partition.levels), 0 ≤ self.value i
+  Chal.IsingPerceptron.FieldStep.ordered : Monotone self.value
+constructor:
+  Chal.IsingPerceptron.FieldStep.mk (partition : Chal.IsingPerceptron.Partition) (value : Fin partition.levels → ℝ)
+    (nonneg : ∀ (i : Fin partition.levels), 0 ≤ value i) (ordered : Monotone value) : Chal.IsingPerceptron.FieldStep
+def Chal.IsingPerceptron.stepAt : Chal.IsingPerceptron.FieldStep → ℕ → ℝ :=
+fun h i => if hi : i < h.partition.levels then h.value ⟨i, hi⟩ else 0
+def Chal.IsingPerceptron.stepFunction : Chal.IsingPerceptron.FieldStep → ℝ → ℝ :=
+fun h u => ∑ i, if h.partition.cut i.castSucc < u ∧ u < h.partition.cut i.succ then h.value i else 0
+def Chal.IsingPerceptron.fieldRecursion : Chal.IsingPerceptron.FieldStep → ℝ :=
+fun h =>
+  let k := h.partition.levels;
+  have increments :=
+    List.ofFn fun i =>
+      (Chal.IsingPerceptron.stepAt h ↑i - if ↑i = 0 then 0 else Chal.IsingPerceptron.stepAt h (↑i - 1),
+        h.partition.cut i.castSucc);
+  List.foldr (fun sd U => Chal.IsingPerceptron.gaussianTransform sd.1 sd.2 U)
+    (fun x => Real.log (Real.cosh x) - Chal.IsingPerceptron.stepAt h (k - 1) / 2) increments 0
+def Chal.IsingPerceptron.pathMeasure : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Ioo 0 1)
+structure Chal.IsingPerceptron.OverlapPath : Type
+number of parameters: 0
+fields:
+  Chal.IsingPerceptron.OverlapPath.val : ℝ →ₘ[Chal.IsingPerceptron.pathMeasure] ℝ
+  Chal.IsingPerceptron.OverlapPath.admissible : ∃ q,
+      q =ᵐ[Chal.IsingPerceptron.pathMeasure] ↑self.val ∧
+        MonotoneOn q (Set.Ioo 0 1) ∧ ∀ u ∈ Set.Ioo 0 1, q u ∈ Set.Icc 0 1
+constructor:
+  Chal.IsingPerceptron.OverlapPath.mk (val : ℝ →ₘ[Chal.IsingPerceptron.pathMeasure] ℝ)
+    (admissible :
+      ∃ q,
+        q =ᵐ[Chal.IsingPerceptron.pathMeasure] ↑val ∧
+          MonotoneOn q (Set.Ioo 0 1) ∧ ∀ u ∈ Set.Ioo 0 1, q u ∈ Set.Icc 0 1) :
+    Chal.IsingPerceptron.OverlapPath
+def Chal.IsingPerceptron.cellAverage : Chal.IsingPerceptron.OverlapPath → ℕ → ℕ → ℝ :=
+fun q k i => ↑k * ∫ (u : ℝ) in Set.Ioo (↑i / ↑k) ((↑i + 1) / ↑k), ↑q.val u ∂Chal.IsingPerceptron.pathMeasure
+def Chal.IsingPerceptron.uniformPattern : (ℝ → ℝ) → Chal.IsingPerceptron.OverlapPath → ℕ → ℝ :=
+fun f q n =>
+  have k := n + 1;
+  have levelVal := fun i => if i < k then Chal.IsingPerceptron.cellAverage q k i else 1;
+  have increments := List.ofFn fun i => (levelVal ↑i - if ↑i = 0 then 0 else levelVal (↑i - 1), ↑↑i / ↑k);
+  List.foldr (fun sd U => Chal.IsingPerceptron.gaussianTransform sd.1 sd.2 U) f increments 0
+def Chal.IsingPerceptron.patternFunctional : (ℝ → ℝ) → Chal.IsingPerceptron.OverlapPath → ℝ :=
+fun f q => Filter.atTop.limUnder (Chal.IsingPerceptron.uniformPattern f q)
+def Chal.IsingPerceptron.isingEntropy : Chal.IsingPerceptron.OverlapPath → EReal :=
+fun q =>
+  ⨆ h,
+    ↑(Chal.IsingPerceptron.fieldRecursion h +
+        (∫ (u : ℝ), Chal.IsingPerceptron.stepFunction h u * ↑q.val u ∂Chal.IsingPerceptron.pathMeasure) / 2)
+def Chal.IsingPerceptron.variationalValue : ℝ → (ℝ → ℝ) → EReal :=
+fun α f => ⨅ q, ↑(α * Chal.IsingPerceptron.patternFunctional f q) + Chal.IsingPerceptron.isingEntropy q
+'OAI.IsingPerceptron.variationalValue_real_of_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+== IsingFiniteness comparator-style: ok=23 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
