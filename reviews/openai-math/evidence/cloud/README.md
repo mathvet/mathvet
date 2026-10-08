@@ -9,3 +9,5 @@ Notes on individual logs:
   are tactic blocks, which re-elaborate differently inside the solution's environment. Comparator, which compares the compiled
   challenge module with the solution for structural identity of every reachable constant, accepted the solution; see
   `checker/README.md` for why Comparator's verdict is the authority here.
+- `BassTrace.cmp.txt` reports `SHADOW-DIFF` for the same reason as ThorpRemaining (printer `_root_.` prefixes; the session ran
+  the checker version from before the fix). Closure comparison 90 constants, 0 problems; Comparator accepted.
