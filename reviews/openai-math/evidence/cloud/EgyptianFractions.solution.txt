@@ -1,0 +1,83 @@
+OAI.Problem337.egyptian_length_is_minimum : ∀ (a b : ℕ),
+  1 ≤ a →
+    a < b →
+      (∃ n, OAI.Problem337.IsEgyptianExpansion (↑a / ↑b) n) ∧
+        ∀ (k : ℕ), (∃ n, OAI.Problem337.IsEgyptianExpansion (↑a / ↑b) n) → OAI.Problem337.egyptianLength a b ≤ k
+'OAI.Problem337.egyptian_length_is_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.main_double_log_order : ∃ c1 c2,
+  0 < c1 ∧
+    0 < c2 ∧
+      ∃ b0,
+        ∀ (b : ℕ),
+          b0 ≤ b →
+            c1 * Real.log (Real.log ↑b) ≤ ↑(OAI.Problem337.maxEgyptianLength b) ∧
+              ↑(OAI.Problem337.maxEgyptianLength b) ≤ c2 * Real.log (Real.log ↑b)
+'OAI.Problem337.main_double_log_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.one_expansions_finite_and_bounded : (∀ (k : ℕ),
+    (OAI.Problem337.OneExpansions k).Finite ∧ OAI.Problem337.F k ≤ k ^ (2 ^ k - 1)) ∧
+  ∀ (k : ℕ) (n : Fin k → ℕ), OAI.Problem337.IsOneExpansion n → ∀ (i : Fin k), n i ≤ k ^ 2 ^ ↑i
+'OAI.Problem337.one_expansions_finite_and_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.counting_double_log_order : ∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∃ k0,
+        ∀ (k : ℕ),
+          k0 ≤ k →
+            c * ↑k ≤ Real.log (Real.log ↑(OAI.Problem337.F k)) ∧ Real.log (Real.log ↑(OAI.Problem337.F k)) ≤ C * ↑k
+'OAI.Problem337.counting_double_log_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.exact_marker_padding : ∀ (r : ℕ),
+  3 ≤ r →
+    ∀ (n : Fin r → ℕ),
+      OAI.Problem337.IsOneExpansion n →
+        ∀ (m : ℕ), (∃ i, n i = m) → ∃ n', OAI.Problem337.IsOneExpansion n' ∧ ∃ i, n' i = m
+'OAI.Problem337.exact_marker_padding' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.every_exact_marker_occurs : ∀ (m : ℕ), 2 ≤ m → ∃ k, m ∈ OAI.Problem337.D k
+'OAI.Problem337.every_exact_marker_occurs' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.quantitative_marked_length : ∀ (ε : ℝ),
+  0 < ε →
+    ∃ mε,
+      2 ≤ mε ∧
+        ∀ (m : ℕ),
+          mε ≤ m →
+            ∃ k n,
+              OAI.Problem337.IsOneExpansion n ∧ (∃ i, n i = m) ∧ ↑k ≤ (257 / Real.log 2 + ε) * Real.log (Real.log ↑m)
+'OAI.Problem337.quantitative_marked_length' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.missing_denominator_semantics : ∀ (k : ℕ),
+  (OAI.Problem337.D k).Finite ∧
+    (∃ m, m ∈ OAI.Problem337.missingDenominators k) ∧
+      2 ≤ OAI.Problem337.v k ∧
+        OAI.Problem337.v k ∉ OAI.Problem337.D k ∧
+          (∀ (m : ℕ), 2 ≤ m → m < OAI.Problem337.v k → m ∈ OAI.Problem337.D k) ∧
+            (1 ≤ k → OAI.Problem337.v k ≤ 1 + k ^ 2 ^ (k - 1))
+'OAI.Problem337.missing_denominator_semantics' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem337.prescribed_denominator_corollary : (∃ k0,
+    ∀ (k : ℕ),
+      k0 ≤ k → Real.exp (Real.exp (↑k / 600)) ≤ ↑(OAI.Problem337.v k) ∧ OAI.Problem337.v k ≤ 1 + k ^ 2 ^ (k - 1)) ∧
+  (Real.log 2 / 257 ≤ Filter.liminf OAI.Problem337.prescribedSlope Filter.atTop ∧
+      Filter.liminf OAI.Problem337.prescribedSlope Filter.atTop ≤
+          Filter.limsup OAI.Problem337.prescribedSlope Filter.atTop ∧
+        Filter.limsup OAI.Problem337.prescribedSlope Filter.atTop ≤ Real.log 2) ∧
+    ∀ c < Real.log 2 / 257, ∃ k0, ∀ (k : ℕ), k0 ≤ k → Real.exp (Real.exp (c * ↑k)) ≤ ↑(OAI.Problem337.v k)
+'OAI.Problem337.prescribed_denominator_corollary' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Problem337.IsEgyptianExpansion : {k : ℕ} → ℚ → (Fin k → ℕ) → Prop :=
+fun {k} x n => (∀ (i : Fin k), 2 ≤ n i) ∧ StrictMono n ∧ ∑ i, 1 / ↑(n i) = x
+def OAI.Problem337.egyptianLengths : ℕ → ℕ → Set ℕ :=
+fun a b => {k | ∃ n, OAI.Problem337.IsEgyptianExpansion (↑a / ↑b) n}
+def OAI.Problem337.egyptianLength : ℕ → ℕ → ℕ :=
+fun a b => sInf (OAI.Problem337.egyptianLengths a b)
+def OAI.Problem337.maxEgyptianLength : ℕ → ℕ :=
+fun b => (Finset.range b).sup fun a => if 1 ≤ a then OAI.Problem337.egyptianLength a b else 0
+def OAI.Problem337.IsOneExpansion : {k : ℕ} → (Fin k → ℕ) → Prop :=
+fun {k} n => (∀ (i : Fin k), 1 ≤ n i) ∧ StrictMono n ∧ ∑ i, 1 / ↑(n i) = 1
+def OAI.Problem337.OneExpansions : (k : ℕ) → Set (Fin k → ℕ) :=
+fun k => {n | OAI.Problem337.IsOneExpansion n}
+def OAI.Problem337.F : ℕ → ℕ :=
+fun k => (OAI.Problem337.OneExpansions k).ncard
+def OAI.Problem337.D : ℕ → Set ℕ :=
+fun k => {m | 2 ≤ m ∧ ∃ n, OAI.Problem337.IsOneExpansion n ∧ ∃ i, n i = m}
+def OAI.Problem337.missingDenominators : ℕ → Set ℕ :=
+fun k => {m | 2 ≤ m} \ OAI.Problem337.D k
+def OAI.Problem337.v : ℕ → ℕ :=
+fun k => sInf (OAI.Problem337.missingDenominators k)
+def OAI.Problem337.prescribedSlope : ℕ → ℝ :=
+fun k => Real.log (Real.log ↑(OAI.Problem337.v k)) / ↑k
