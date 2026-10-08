@@ -1,0 +1,60 @@
+== WeisfeilerLeman  module=OAI.Computability.WeisfeilerLeman.Main  start=2026-10-08T08:28:22Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8966] Built OAI.Computability.WeisfeilerLeman.Model (10s)
+✔ [8925/8966] Built OAI.Computability.WeisfeilerLeman.Colors (9.9s)
+✔ [8926/8966] Built OAI.Computability.WeisfeilerLeman.Offsets (10s)
+✔ [8927/8966] Built OAI.Computability.WeisfeilerLeman.Wrapping (11s)
+✔ [8928/8966] Built OAI.Computability.WeisfeilerLeman.Frames (11s)
+✔ [8929/8966] Built OAI.Computability.WeisfeilerLeman.Consistency (12s)
+✔ [8930/8966] Built OAI.Computability.WeisfeilerLeman.Extension (11s)
+✔ [8931/8966] Built OAI.Computability.WeisfeilerLeman.Readouts (12s)
+✔ [8932/8966] Built OAI.Computability.WeisfeilerLeman.Pebbles (11s)
+✔ [8933/8966] Built OAI.Computability.WeisfeilerLeman.Gadgets (12s)
+✔ [8934/8966] Built OAI.Computability.WeisfeilerLeman.Marking (15s)
+✔ [8935/8966] Built OAI.Computability.WeisfeilerLeman.Padding (11s)
+✔ [8936/8966] Built OAI.Computability.WeisfeilerLeman.Enumeration (12s)
+✔ [8937/8966] Built OAI.Computability.WeisfeilerLeman.Circuits (12s)
+✔ [8938/8966] Built OAI.Computability.WeisfeilerLeman.Turing (10s)
+✔ [8939/8966] Built OAI.Computability.WeisfeilerLeman.Stacks (10s)
+✔ [8940/8966] Built OAI.Computability.WeisfeilerLeman.Sweep (12s)
+✔ [8941/8966] Built OAI.Computability.WeisfeilerLeman.TapeCompiler (11s)
+✔ [8942/8966] Built OAI.Computability.WeisfeilerLeman.Programs (12s)
+✔ [8943/8966] Built OAI.Computability.WeisfeilerLeman.Arithmetic (10s)
+✔ [8944/8966] Built OAI.Computability.WeisfeilerLeman.Expressions (14s)
+✔ [8945/8966] Built OAI.Computability.WeisfeilerLeman.Predicates (11s)
+✔ [8946/8966] Built OAI.Computability.WeisfeilerLeman.Digits (12s)
+✔ [8947/8966] Built OAI.Computability.WeisfeilerLeman.Tableau (14s)
+✔ [8948/8966] Built OAI.Computability.WeisfeilerLeman.Simulation (11s)
+✔ [8949/8966] Built OAI.Computability.WeisfeilerLeman.GraphFormula (15s)
+✔ [8950/8966] Built OAI.Computability.WeisfeilerLeman.Writer (14s)
+✔ [8951/8966] Built OAI.Computability.WeisfeilerLeman.MatrixWriter (18s)
+✔ [8952/8966] Built OAI.Computability.WeisfeilerLeman.MatrixBounds (12s)
+✔ [8953/8966] Built OAI.Computability.WeisfeilerLeman.TapePair (12s)
+✔ [8954/8966] Built OAI.Computability.WeisfeilerLeman.Consumer (12s)
+✔ [8955/8966] Built OAI.Computability.WeisfeilerLeman.Universal (18s)
+✔ [8956/8966] Built OAI.Computability.WeisfeilerLeman.Interpreter (13s)
+✔ [8957/8966] Built OAI.Computability.WeisfeilerLeman.BoundedRun (12s)
+✔ [8958/8966] Built OAI.Computability.WeisfeilerLeman.Diagonal (13s)
+✔ [8959/8966] Built OAI.Computability.WeisfeilerLeman.Transducer (12s)
+✔ [8960/8966] Built OAI.Computability.WeisfeilerLeman.SparseSearch (12s)
+✔ [8961/8966] Built OAI.Computability.WeisfeilerLeman.SparseStore (12s)
+✔ [8962/8966] Built OAI.Computability.WeisfeilerLeman.RAMMemory (14s)
+✔ [8963/8966] Built OAI.Computability.WeisfeilerLeman.RAMInstruction (16s)
+✔ [8964/8966] Built OAI.Computability.WeisfeilerLeman.RAMSimulation (13s)
+✔ [8965/8966] Built OAI.Computability.WeisfeilerLeman.RAMBounds (17s)
+✔ [8966/8966] Built OAI.Computability.WeisfeilerLeman.Main (10s)
+Build completed successfully (8966 jobs).
+== build rc=0 seconds=567
+{"theorems": ["OAI.WLTime.unconditional_time_lower_bound"], "defs": ["OAI.WLTime.Convention", "OAI.WLTime.Graph", "OAI.WLTime.Graph.adj", "OAI.WLTime.Graph.diameterTwo", "OAI.WLTime.AtomicColor", "OAI.WLTime.Color", "OAI.WLTime.tupleColor", "OAI.WLTime.histogram", "OAI.WLTime.Equivalent", "OAI.WLTime.encodeNat", "OAI.WLTime.matrixBits", "OAI.WLTime.encodePair", "OAI.WLTime.Move", "OAI.WLTime.Move.displacement", "OAI.WLTime.TM", "OAI.WLTime.TM.Config", "OAI.WLTime.TM.symbol", "OAI.WLTime.TM.initial", "OAI.WLTime.TM.halted", "OAI.WLTime.TM.step", "OAI.WLTime.TM.run", "OAI.WLTime.TM.halts", "OAI.WLTime.TM.time", "OAI.WLTime.TM.accepts", "OAI.WLTime.TM.outputs", "OAI.WLTime.Word", "OAI.WLTime.wordBits", "OAI.WLTime.registerBits", "OAI.WLTime.WordOperation", "OAI.WLTime.RAMInstruction", "OAI.WLTime.WordWidth", "OAI.WLTime.RAM", "OAI.WLTime.RAM.Config", "OAI.WLTime.RAM.packedWord", "OAI.WLTime.RAM.initial", "OAI.WLTime.RAM.execute", "OAI.WLTime.RAM.step", "OAI.WLTime.RAM.run", "OAI.WLTime.RAM.halts", "OAI.WLTime.RAM.time", "OAI.WLTime.RAM.accepts", "OAI.WLTime.Model", "OAI.WLTime.Model.halts", "OAI.WLTime.Model.accepts", "OAI.WLTime.Model.time", "OAI.WLTime.InputClass", "OAI.WLTime.InputClass.contains", "OAI.WLTime.Decides", "OAI.WLTime.worstTime", "OAI.WLTime.MainClaim"], "json_theorems": ["OAI.WLTime.unconditional_time_lower_bound"], "missing_from_parse": []}
+AXIOMS: 'OAI.WLTime.unconditional_time_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T08:38:17Z
