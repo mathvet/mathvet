@@ -1,0 +1,10 @@
+CMP OAI.SquareDifference.power_saving [thm] ok
+CMP OAI.SquareDifference.IsSquareDifferenceFree [def] ok
+Chal.SquareDifference.power_saving : ∃ c C,
+  0 < c ∧
+    ∀ (N : ℕ),
+      1 ≤ N → ∀ A ⊆ Finset.Icc 1 ↑N, Chal.SquareDifference.IsSquareDifferenceFree A → ↑A.card ≤ C * ↑N ^ (1 - c)
+def Chal.SquareDifference.IsSquareDifferenceFree : Finset ℤ → Prop :=
+fun A => ∀ a ∈ A, ∀ b ∈ A, ∀ (m : ℕ), 1 ≤ m → a - b ≠ ↑m ^ 2
+'OAI.SquareDifference.power_saving' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SquareDifference comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
