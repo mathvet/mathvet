@@ -1,0 +1,80 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_NodalLength.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SharpNodal.Main [thm] ok
+CMP OAI.SharpNodal.MainStatement [def] ok
+CMP OAI.SharpNodal.nodalLength [def] ok
+CMP OAI.SharpNodal.nodalSet [def] ok
+CMP OAI.SharpNodal.nodalLength._proof_1 [thm] ok
+CMP OAI.SharpNodal.laplaceBeltrami [def] ok
+CMP OAI.SharpNodal.coordinateMetric [def] ok
+CMP OAI.SharpNodal.coordinateMetric._proof_2 [thm] ok
+CMP OAI.SharpNodal.Plane [def] ok
+CMP OAI.SharpNodal.coordinateMetric._proof_1 [thm] ok
+CMP OAI.SharpNodal.coordPartial [def] ok
+CMP OAI.SharpNodal.coordinateDensity [def] ok
+@Chal.SharpNodal.Main : ∀ {M : Type u_1} [inst : MetricSpace M] [inst_1 : ChartedSpace Chal.SharpNodal.Plane M]
+  [inst_2 : IsManifold (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) (↑⊤) M]
+  [inst_3 : Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x]
+  [CompactSpace M] [ConnectedSpace M]
+  [IsContMDiffRiemannianBundle (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) (↑⊤) Chal.SharpNodal.Plane fun x =>
+      TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x]
+  [IsRiemannianManifold (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) M], Chal.SharpNodal.MainStatement M
+@[reducible] def Chal.SharpNodal.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.SharpNodal.coordinateMetric.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] →
+    [inst_1 : ChartedSpace Chal.SharpNodal.Plane M] →
+      [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] →
+        M → Chal.SharpNodal.Plane → Matrix (Fin 2) (Fin 2) ℝ :=
+fun {M} [MetricSpace M] [ChartedSpace Chal.SharpNodal.Plane M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] x y i j =>
+  inner ℝ ((mfderiv% ↑(chartAt Chal.SharpNodal.Plane x).symm y) (EuclideanSpace.single i 1))
+    ((mfderiv% ↑(chartAt Chal.SharpNodal.Plane x).symm y) (EuclideanSpace.single j 1))
+def Chal.SharpNodal.coordinateDensity.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] →
+    [inst_1 : ChartedSpace Chal.SharpNodal.Plane M] →
+      [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] →
+        M → Chal.SharpNodal.Plane → ℝ :=
+fun {M} [MetricSpace M] [ChartedSpace Chal.SharpNodal.Plane M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] x y =>
+  √(Chal.SharpNodal.coordinateMetric x y).det
+def Chal.SharpNodal.coordPartial : (Chal.SharpNodal.Plane → ℝ) → Fin 2 → Chal.SharpNodal.Plane → ℝ :=
+fun f i y => (fderiv ℝ f y) (EuclideanSpace.single i 1)
+def Chal.SharpNodal.laplaceBeltrami.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] →
+    [inst_1 : ChartedSpace Chal.SharpNodal.Plane M] →
+      [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] →
+        (M → ℝ) → M → ℝ :=
+fun {M} [MetricSpace M] [ChartedSpace Chal.SharpNodal.Plane M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] u x =>
+  (Chal.SharpNodal.coordinateDensity x (↑(chartAt Chal.SharpNodal.Plane x) x))⁻¹ *
+    ∑ i,
+      Chal.SharpNodal.coordPartial
+        (fun y =>
+          Chal.SharpNodal.coordinateDensity x y *
+            ∑ j,
+              (Chal.SharpNodal.coordinateMetric x y)⁻¹ i j *
+                Chal.SharpNodal.coordPartial (u ∘ ↑(chartAt Chal.SharpNodal.Plane x).symm) j y)
+        i (↑(chartAt Chal.SharpNodal.Plane x) x)
+def Chal.SharpNodal.nodalSet.{u_1} : {M : Type u_1} → (M → ℝ) → Set M :=
+fun {M} u => {x | u x = 0}
+def Chal.SharpNodal.nodalLength.{u_1} : {M : Type u_1} → [MetricSpace M] → (M → ℝ) → ENNReal :=
+fun {M} [MetricSpace M] u => (MeasureTheory.Measure.hausdorffMeasure 1) (Chal.SharpNodal.nodalSet u)
+def Chal.SharpNodal.MainStatement.{u_2} : (M : Type u_2) →
+  [inst : MetricSpace M] →
+    [inst_1 : ChartedSpace Chal.SharpNodal.Plane M] →
+      [IsManifold (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) (↑⊤) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] → Prop :=
+fun M [MetricSpace M] [ChartedSpace Chal.SharpNodal.Plane M]
+    [IsManifold (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) (↑⊤) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) x] =>
+  ∃ C,
+    0 ≤ C ∧
+      ∀ (lam : ℝ),
+        0 < lam →
+          ∀ (u : M → ℝ),
+            ContMDiff (modelWithCornersSelf ℝ Chal.SharpNodal.Plane) (modelWithCornersSelf ℝ ℝ) (↑⊤) u →
+              u ≠ 0 →
+                (∀ (x : M), -Chal.SharpNodal.laplaceBeltrami u x = lam * u x) →
+                  Chal.SharpNodal.nodalLength u ≤ ENNReal.ofReal (C * √lam)
+'OAI.SharpNodal.Main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== NodalLength comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
