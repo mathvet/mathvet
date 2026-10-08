@@ -1,0 +1,124 @@
+CMP OAI.EntropyPhotonNumber.entropy_photon_number_inequality [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy [def] ok
+CMP OAI.EntropyPhotonNumber.State.op [def] ok
+CMP OAI.EntropyPhotonNumber.State [ind] ok
+CMP OAI.EntropyPhotonNumber.State.mk [ctor] ok
+CMP OAI.EntropyPhotonNumber.entry [def] ok
+CMP OAI.EntropyPhotonNumber.numberKet [def] ok
+CMP OAI.EntropyPhotonNumber.Fock._proof_1 [thm] ok
+CMP OAI.EntropyPhotonNumber.NumberIndex [def] ok
+CMP OAI.EntropyPhotonNumber.Fock [def] ok
+CMP OAI.EntropyPhotonNumber.entry._proof_2 [thm] ok
+CMP OAI.EntropyPhotonNumber.entry._proof_1 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_8 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_7 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_6 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_4 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_5 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_3 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_2 [thm] ok
+CMP OAI.EntropyPhotonNumber.entropy._proof_1 [thm] ok
+CMP OAI.EntropyPhotonNumber.gInv [def] ok
+CMP OAI.EntropyPhotonNumber.g [def] ok
+CMP OAI.EntropyPhotonNumber.IsBeamSplitterOutput [def] ok
+CMP OAI.EntropyPhotonNumber.outputBlock [def] ok
+CMP OAI.EntropyPhotonNumber.splitRight [def] ok
+CMP OAI.EntropyPhotonNumber.SectorSplit [def] ok
+CMP OAI.EntropyPhotonNumber.splitLeft [def] ok
+CMP OAI.EntropyPhotonNumber.beamCoefficient [def] ok
+CMP OAI.EntropyPhotonNumber.oneModeBeamCoefficient [def] ok
+CMP OAI.EntropyPhotonNumber.FiniteEnergy [def] ok
+CMP OAI.EntropyPhotonNumber.totalNumber [def] ok
+Chal.EntropyPhotonNumber.entropy_photon_number_inequality : ∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (ρA ρB ρC : Chal.EntropyPhotonNumber.State n),
+      Chal.EntropyPhotonNumber.FiniteEnergy ρA →
+        Chal.EntropyPhotonNumber.FiniteEnergy ρB →
+          ∀ η ∈ Set.Icc 0 1,
+            Chal.EntropyPhotonNumber.IsBeamSplitterOutput η ρA ρB ρC →
+              η * Chal.EntropyPhotonNumber.gInv (Chal.EntropyPhotonNumber.entropy ρA / ↑n) +
+                  (1 - η) * Chal.EntropyPhotonNumber.gInv (Chal.EntropyPhotonNumber.entropy ρB / ↑n) ≤
+                Chal.EntropyPhotonNumber.gInv (Chal.EntropyPhotonNumber.entropy ρC / ↑n)
+@[reducible] def Chal.EntropyPhotonNumber.NumberIndex : ℕ → Type :=
+fun n => Fin n → ℕ
+@[reducible] def Chal.EntropyPhotonNumber.Fock : (n : ℕ) → AddSubgroup (PreLp fun x => ℂ) :=
+fun n => lp (fun x => ℂ) 2
+def Chal.EntropyPhotonNumber.numberKet : {n : ℕ} →
+  Chal.EntropyPhotonNumber.NumberIndex n → ↥(Chal.EntropyPhotonNumber.Fock n) :=
+fun {n} k => lp.single 2 k 1
+def Chal.EntropyPhotonNumber.entry : {n : ℕ} →
+  (↥(Chal.EntropyPhotonNumber.Fock n) →L[ℂ] ↥(Chal.EntropyPhotonNumber.Fock n)) →
+    Chal.EntropyPhotonNumber.NumberIndex n → Chal.EntropyPhotonNumber.NumberIndex n → ℂ :=
+fun {n} T k l => inner ℂ (Chal.EntropyPhotonNumber.numberKet k) (T (Chal.EntropyPhotonNumber.numberKet l))
+structure Chal.EntropyPhotonNumber.State (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.EntropyPhotonNumber.State.op : ↥(Chal.EntropyPhotonNumber.Fock n) →L[ℂ] ↥(Chal.EntropyPhotonNumber.Fock n)
+  Chal.EntropyPhotonNumber.State.positive : self.op.IsPositive
+  Chal.EntropyPhotonNumber.State.trace_one : HasSum (fun k => (Chal.EntropyPhotonNumber.entry self.op k k).re) 1
+constructor:
+  Chal.EntropyPhotonNumber.State.mk {n : ℕ}
+    (op : ↥(Chal.EntropyPhotonNumber.Fock n) →L[ℂ] ↥(Chal.EntropyPhotonNumber.Fock n)) (positive : op.IsPositive)
+    (trace_one : HasSum (fun k => (Chal.EntropyPhotonNumber.entry op k k).re) 1) : Chal.EntropyPhotonNumber.State n
+def Chal.EntropyPhotonNumber.totalNumber : {n : ℕ} → Chal.EntropyPhotonNumber.NumberIndex n → ℕ :=
+fun {n} k => ∑ j, k j
+def Chal.EntropyPhotonNumber.FiniteEnergy : {n : ℕ} → Chal.EntropyPhotonNumber.State n → Prop :=
+fun {n} ρ => Summable fun k => ↑(Chal.EntropyPhotonNumber.totalNumber k) * (Chal.EntropyPhotonNumber.entry ρ.op k k).re
+def Chal.EntropyPhotonNumber.entropy : {n : ℕ} → Chal.EntropyPhotonNumber.State n → ℝ :=
+fun {n} ρ =>
+  ∑' (k : Chal.EntropyPhotonNumber.NumberIndex n),
+    (Chal.EntropyPhotonNumber.entry (cfc (fun z => -(↑z.re * ↑(Real.log z.re))) ρ.op) k k).re
+def Chal.EntropyPhotonNumber.g : ℝ → ℝ :=
+fun t => (t + 1) * Real.log (t + 1) - t * Real.log t
+def Chal.EntropyPhotonNumber.gInv : ℝ → ℝ :=
+fun s => sInf {t | 0 ≤ t ∧ s ≤ Chal.EntropyPhotonNumber.g t}
+def Chal.EntropyPhotonNumber.oneModeBeamCoefficient : ℝ → ℕ → ℕ → ℕ → ℕ → ℝ :=
+fun η k e a b =>
+  if k + e = a + b then
+    √(↑k.factorial * ↑e.factorial / (↑a.factorial * ↑b.factorial)) *
+      ∑ p ∈ Finset.range (a + 1),
+        ∑ q ∈ Finset.range (b + 1),
+          if p + q = k then ↑(a.choose p) * ↑(b.choose q) * √η ^ p * (-√(1 - η)) ^ (a - p) * √(1 - η) ^ q * √η ^ (b - q)
+          else 0
+  else 0
+def Chal.EntropyPhotonNumber.beamCoefficient : {n : ℕ} →
+  ℝ →
+    Chal.EntropyPhotonNumber.NumberIndex n →
+      Chal.EntropyPhotonNumber.NumberIndex n →
+        Chal.EntropyPhotonNumber.NumberIndex n → Chal.EntropyPhotonNumber.NumberIndex n → ℝ :=
+fun {n} η k e a b => ∏ j, Chal.EntropyPhotonNumber.oneModeBeamCoefficient η (k j) (e j) (a j) (b j)
+@[reducible] def Chal.EntropyPhotonNumber.SectorSplit : {n : ℕ} →
+  Chal.EntropyPhotonNumber.NumberIndex n → Chal.EntropyPhotonNumber.NumberIndex n → Type :=
+fun {n} k e => (j : Fin n) → Fin (k j + e j + 1)
+def Chal.EntropyPhotonNumber.splitLeft : {n : ℕ} →
+  {k e : Chal.EntropyPhotonNumber.NumberIndex n} →
+    Chal.EntropyPhotonNumber.SectorSplit k e → Chal.EntropyPhotonNumber.NumberIndex n :=
+fun {n} {k e} a j => ↑(a j)
+def Chal.EntropyPhotonNumber.splitRight : {n : ℕ} →
+  {k e : Chal.EntropyPhotonNumber.NumberIndex n} →
+    Chal.EntropyPhotonNumber.SectorSplit k e → Chal.EntropyPhotonNumber.NumberIndex n :=
+fun {n} {k e} a j => k j + e j - ↑(a j)
+def Chal.EntropyPhotonNumber.outputBlock : {n : ℕ} →
+  ℝ →
+    Chal.EntropyPhotonNumber.State n →
+      Chal.EntropyPhotonNumber.State n →
+        Chal.EntropyPhotonNumber.NumberIndex n →
+          Chal.EntropyPhotonNumber.NumberIndex n → Chal.EntropyPhotonNumber.NumberIndex n → ℂ :=
+fun {n} η ρA ρB k l e =>
+  ∑ a,
+    ∑ b,
+      ↑(Chal.EntropyPhotonNumber.beamCoefficient η k e (Chal.EntropyPhotonNumber.splitLeft a)
+                (Chal.EntropyPhotonNumber.splitRight a)) *
+            Chal.EntropyPhotonNumber.entry ρA.op (Chal.EntropyPhotonNumber.splitLeft a)
+              (Chal.EntropyPhotonNumber.splitLeft b) *
+          Chal.EntropyPhotonNumber.entry ρB.op (Chal.EntropyPhotonNumber.splitRight a)
+            (Chal.EntropyPhotonNumber.splitRight b) *
+        ↑(Chal.EntropyPhotonNumber.beamCoefficient η l e (Chal.EntropyPhotonNumber.splitLeft b)
+            (Chal.EntropyPhotonNumber.splitRight b))
+def Chal.EntropyPhotonNumber.IsBeamSplitterOutput : {n : ℕ} →
+  ℝ → Chal.EntropyPhotonNumber.State n → Chal.EntropyPhotonNumber.State n → Chal.EntropyPhotonNumber.State n → Prop :=
+fun {n} η ρA ρB ρC =>
+  ∀ (k l : Chal.EntropyPhotonNumber.NumberIndex n),
+    HasSum (Chal.EntropyPhotonNumber.outputBlock η ρA ρB k l) (Chal.EntropyPhotonNumber.entry ρC.op k l)
+'OAI.EntropyPhotonNumber.entropy_photon_number_inequality' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EntropyPhotonNumber comparator-style: ok=31 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
