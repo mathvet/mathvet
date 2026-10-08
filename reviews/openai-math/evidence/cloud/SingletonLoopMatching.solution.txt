@@ -1,0 +1,112 @@
+OAI.LoopMatching.fullEndpoint : OAI.LoopMatching.FullEndpoint
+'OAI.LoopMatching.fullEndpoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MatchingEntropy.LooplessGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  OAI.MatchingEntropy.LooplessGraph.left : E → V
+  OAI.MatchingEntropy.LooplessGraph.right : E → V
+  OAI.MatchingEntropy.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  OAI.MatchingEntropy.LooplessGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : OAI.MatchingEntropy.LooplessGraph V E
+def OAI.MatchingEntropy.LooplessGraph.Incident.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+@[reducible] def OAI.BinaryMatching.Pair : ℕ → Type :=
+fun n => { ij // ij.1 < ij.2 }
+def OAI.BinaryMatching.completeGraph : (n : ℕ) →
+  OAI.MatchingEntropy.LooplessGraph (Fin n) (OAI.BinaryMatching.Pair n) :=
+fun n => { left := fun e => (↑e).1, right := fun e => (↑e).2, loopless := ⋯ }
+structure OAI.BinaryMatching.Record : Type
+number of parameters: 0
+fields:
+  OAI.BinaryMatching.Record.left : ℕ
+  OAI.BinaryMatching.Record.right : ℕ
+  OAI.BinaryMatching.Record.multiplicity : ℕ
+constructor:
+  OAI.BinaryMatching.Record.mk (left right multiplicity : ℕ) : OAI.BinaryMatching.Record
+structure OAI.BinaryMatching.Input : Type
+number of parameters: 0
+fields:
+  OAI.BinaryMatching.Input.n : ℕ
+  OAI.BinaryMatching.Input.records : List OAI.BinaryMatching.Record
+  OAI.BinaryMatching.Input.valid : ∀ e ∈ self.records, e.left < e.right ∧ e.right < self.n
+  OAI.BinaryMatching.Input.unique : (List.map (fun e => (e.left, e.right)) self.records).Nodup
+constructor:
+  OAI.BinaryMatching.Input.mk (n : ℕ) (records : List OAI.BinaryMatching.Record)
+    (valid : ∀ e ∈ records, e.left < e.right ∧ e.right < n)
+    (unique : (List.map (fun e => (e.left, e.right)) records).Nodup) : OAI.BinaryMatching.Input
+def OAI.BinaryMatching.multiplicity : (G : OAI.BinaryMatching.Input) → OAI.BinaryMatching.Pair G.n → ℕ :=
+fun G e =>
+  match List.find? (fun r => decide (r.left = ↑(↑e).1) && decide (r.right = ↑(↑e).2)) G.records with
+  | none => 0
+  | some r => r.multiplicity
+def OAI.BinaryMatching.encodeNat : ℕ → List Bool :=
+fun n => List.replicate n.bits.length false ++ true :: n.bits
+def OAI.BinaryMatching.encodeRecord : OAI.BinaryMatching.Record → List Bool :=
+fun r =>
+  OAI.BinaryMatching.encodeNat r.left ++ OAI.BinaryMatching.encodeNat r.right ++
+    OAI.BinaryMatching.encodeNat r.multiplicity
+def OAI.BinaryMatching.encodeInput : OAI.BinaryMatching.Input → List Bool :=
+fun G =>
+  OAI.BinaryMatching.encodeNat G.n ++ OAI.BinaryMatching.encodeNat G.records.length ++
+    List.flatMap OAI.BinaryMatching.encodeRecord G.records
+structure OAI.LoopMatching.LoopRecord : Type
+number of parameters: 0
+fields:
+  OAI.LoopMatching.LoopRecord.vertex : ℕ
+  OAI.LoopMatching.LoopRecord.multiplicity : ℕ
+constructor:
+  OAI.LoopMatching.LoopRecord.mk (vertex multiplicity : ℕ) : OAI.LoopMatching.LoopRecord
+structure OAI.LoopMatching.Input : Type
+number of parameters: 0
+fields:
+  OAI.LoopMatching.Input.ordinary : OAI.BinaryMatching.Input
+  OAI.LoopMatching.Input.loops : List OAI.LoopMatching.LoopRecord
+  OAI.LoopMatching.Input.valid : ∀ e ∈ self.loops, e.vertex < self.ordinary.n
+  OAI.LoopMatching.Input.unique : (List.map OAI.LoopMatching.LoopRecord.vertex self.loops).Nodup
+constructor:
+  OAI.LoopMatching.Input.mk (ordinary : OAI.BinaryMatching.Input) (loops : List OAI.LoopMatching.LoopRecord)
+    (valid : ∀ e ∈ loops, e.vertex < ordinary.n) (unique : (List.map OAI.LoopMatching.LoopRecord.vertex loops).Nodup) :
+    OAI.LoopMatching.Input
+@[reducible] def OAI.LoopMatching.Input.n : OAI.LoopMatching.Input → ℕ :=
+fun G => G.ordinary.n
+def OAI.LoopMatching.loopMultiplicity : (G : OAI.LoopMatching.Input) → Fin G.n → ℕ :=
+fun G v =>
+  match List.find? (fun r => r.vertex == ↑v) G.loops with
+  | none => 0
+  | some r => r.multiplicity
+def OAI.LoopMatching.IsPartialMatching : (n : ℕ) → Finset (OAI.BinaryMatching.Pair n) → Prop :=
+fun n M =>
+  ∀ (v : Fin n),
+    ∀ e ∈ M,
+      ∀ f ∈ M,
+        (OAI.BinaryMatching.completeGraph n).Incident v e → (OAI.BinaryMatching.completeGraph n).Incident v f → e = f
+@[reducible] def OAI.LoopMatching.PartialMatching : ℕ → Type :=
+fun n => { M // OAI.LoopMatching.IsPartialMatching n M }
+def OAI.LoopMatching.loopVertices : {n : ℕ} → OAI.LoopMatching.PartialMatching n → Finset (Fin n) :=
+fun {n} M => {v | ∀ e ∈ ↑M, ¬(OAI.BinaryMatching.completeGraph n).Incident v e}
+def OAI.LoopMatching.weight : (G : OAI.LoopMatching.Input) → OAI.LoopMatching.PartialMatching G.n → ℕ :=
+fun G M =>
+  (∏ e ∈ ↑M, OAI.BinaryMatching.multiplicity G.ordinary e) *
+    ∏ v ∈ OAI.LoopMatching.loopVertices M, OAI.LoopMatching.loopMultiplicity G v
+def OAI.LoopMatching.count : OAI.LoopMatching.Input → ℕ :=
+fun G => ∑ M, OAI.LoopMatching.weight G M
+def OAI.LoopMatching.encodeLoopRecord : OAI.LoopMatching.LoopRecord → List Bool :=
+fun r => OAI.BinaryMatching.encodeNat r.vertex ++ OAI.BinaryMatching.encodeNat r.multiplicity
+def OAI.LoopMatching.encodeInput : OAI.LoopMatching.Input → List Bool :=
+fun G =>
+  OAI.BinaryMatching.encodeInput G.ordinary ++ OAI.BinaryMatching.encodeNat G.loops.length ++
+    List.flatMap OAI.LoopMatching.encodeLoopRecord G.loops
+def OAI.LoopMatching.encodeOutput : ℕ × ℕ → List Bool :=
+fun a => OAI.BinaryMatching.encodeNat a.1 ++ OAI.BinaryMatching.encodeNat a.2
+def OAI.LoopMatching.FullEndpoint : Prop :=
+∃ A machine,
+  (∀ (k : machine.tm.K), Finite (machine.tm.Γ k)) ∧
+    (∃ P,
+        ∀ (G : OAI.LoopMatching.Input),
+          (OAI.LoopMatching.encodeOutput (A G)).length ≤ Polynomial.eval (OAI.LoopMatching.encodeInput G).length P) ∧
+      ∀ (G : OAI.LoopMatching.Input),
+        0 < (A G).2 ∧
+          (A G).1 ≤ (A G).2 * OAI.LoopMatching.count G ∧
+            (A G).2 * OAI.LoopMatching.count G ≤ 2 ^ (18 * G.n) * (A G).1 ∧ ((A G).1 = 0 ↔ OAI.LoopMatching.count G = 0)
