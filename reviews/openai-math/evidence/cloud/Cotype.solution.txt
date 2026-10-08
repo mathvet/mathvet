@@ -1,0 +1,43 @@
+@OAI.Cotype.mainTarget_proved : ∀ {X : Type u_1} [inst : NormedAddCommGroup X] [inst_1 : NormedSpace ℝ X]
+  [inst_2 : CompleteSpace X] [inst_3 : Nontrivial X], OAI.Cotype.MainTarget X
+'OAI.Cotype.mainTarget_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Cotype.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+def OAI.Cotype.sign : Bool → ℝ :=
+fun b => if b = true then -1 else 1
+def OAI.Cotype.average.{u, v} : {ι : Type u} →
+  [Fintype ι] → {E : Type v} → [inst : AddCommMonoid E] → [Module ℝ E] → (ι → E) → E :=
+fun {ι} [Fintype ι] {E} [AddCommMonoid E] [Module ℝ E] f => (↑(Fintype.card ι))⁻¹ • ∑ i, f i
+def OAI.Cotype.cubeL2.{u} : (E : Type u) → [NormedAddCommGroup E] → {n : ℕ} → (OAI.Cotype.Cube n → E) → ℝ :=
+fun E [NormedAddCommGroup E] {n} f => √(OAI.Cotype.average fun ε => ‖f ε‖ ^ 2)
+def OAI.Cotype.rademacherSum.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (Fin n → E) → OAI.Cotype.Cube n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} x ε => ∑ i, OAI.Cotype.sign (ε i) • x i
+def OAI.Cotype.moment.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (OAI.Cotype.Cube n → E) → Fin n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} f i => OAI.Cotype.average fun ε => OAI.Cotype.sign (ε i) • f ε
+def OAI.Cotype.radProjection.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (OAI.Cotype.Cube n → E) → OAI.Cotype.Cube n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} f => OAI.Cotype.rademacherSum E (OAI.Cotype.moment E f)
+def OAI.Cotype.KConvex.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] =>
+  ∃ K,
+    0 ≤ K ∧
+      ∀ (n : ℕ) (f : OAI.Cotype.Cube n → E),
+        OAI.Cotype.cubeL2 E (OAI.Cotype.radProjection E f) ≤ K * OAI.Cotype.cubeL2 E f
+def OAI.Cotype.HasCotype.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] q =>
+  2 ≤ q ∧
+    ∃ C,
+      0 ≤ C ∧
+        ∀ (n : ℕ) (x : Fin n → E), (∑ i, ‖x i‖ ^ q) ^ (1 / q) ≤ C * OAI.Cotype.cubeL2 E (OAI.Cotype.rademacherSum E x)
+def OAI.Cotype.FiniteCotype.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] => ∃ q, OAI.Cotype.HasCotype E q
+def OAI.Cotype.ApproximationProperty.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] =>
+  ∀ (M : Set E), IsCompact M → ∀ (δ : ℝ), 0 < δ → ∃ S, FiniteDimensional ℝ ↥(↑S).range ∧ ∀ x ∈ M, ‖S x - x‖ < δ
+def OAI.Cotype.MainTarget.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → [CompleteSpace E] → [Nontrivial E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E] [Nontrivial E] =>
+  OAI.Cotype.ApproximationProperty E →
+    (OAI.Cotype.KConvex E ↔ OAI.Cotype.FiniteCotype E ∧ OAI.Cotype.FiniteCotype (E →L[ℝ] ℝ))
