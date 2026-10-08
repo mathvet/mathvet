@@ -26,3 +26,7 @@ Notes on individual logs:
   ForestSpace the printed terms are identical and the difference is invisible to the pretty-printer. The checker now reports,
   for every structural mismatch, whether the two sides are definitionally equal (`DEFEQ`), and the summary line carries
   `defeq_only=N`; such cases no longer count as problems.
+- Rechecks with the definitional-equality fallback (2026-10-08): DixmierAllDiscrete and ForestSpace have 0 problems (5 and 9
+  structural differences, all definitionally equal); HardSphere's `Orbital.map` is definitionally equal and the one remaining
+  entry is an auto-generated auxiliary proof (`map._proof_3`), which the checker now reports as `AUX` (numbered per elaboration;
+  compared through the parent's value) rather than as a problem.
