@@ -1,0 +1,47 @@
+== RuledCovering  module=OAI.Geometry.RuledCovering.Main  start=2026-10-08T10:55:51Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8953] Built OAI.Geometry.RuledCovering.Model (10s)
+✔ [8925/8953] Built OAI.Geometry.RuledCovering.Lattice (9.4s)
+✔ [8926/8953] Built OAI.Geometry.RuledCovering.Projection (10s)
+✔ [8927/8953] Built OAI.Geometry.RuledCovering.Frames (8.3s)
+✔ [8928/8953] Built OAI.Geometry.RuledCovering.OuterApproximation (8.8s)
+✔ [8929/8953] Built OAI.Geometry.RuledCovering.PlanarIntegration (9.0s)
+✔ [8930/8953] Built OAI.Geometry.RuledCovering.LocalApproximation (8.2s)
+✔ [8931/8953] Built OAI.Geometry.RuledCovering.HyperbolicLattice (9.6s)
+✔ [8932/8953] Built OAI.Geometry.RuledCovering.LocalCover (8.7s)
+✔ [8933/8953] Built OAI.Geometry.RuledCovering.HyperbolicCover (11s)
+✔ [8934/8953] Built OAI.Geometry.RuledCovering.Isometries (9.1s)
+✔ [8935/8953] Built OAI.Geometry.RuledCovering.Hyperbolic (7.8s)
+✔ [8936/8953] Built OAI.Geometry.RuledCovering.SpecializedCover (10s)
+✔ [8937/8953] Built OAI.Geometry.RuledCovering.NilpotentLattice (9.3s)
+✔ [8938/8953] Built OAI.Geometry.RuledCovering.SquareCover (11s)
+✔ [8939/8953] Built OAI.Geometry.RuledCovering.Nilpotent (8.4s)
+✔ [8940/8953] Built OAI.Geometry.RuledCovering.SingularField (17s)
+✔ [8941/8953] Built OAI.Geometry.RuledCovering.SingularBounds (8.1s)
+✔ [8942/8953] Built OAI.Geometry.RuledCovering.ConeVolume (9.5s)
+✔ [8943/8953] Built OAI.Geometry.RuledCovering.SingularInverse (12s)
+✔ [8944/8953] Built OAI.Geometry.RuledCovering.TipCylinders (7.9s)
+✔ [8945/8953] Built OAI.Geometry.RuledCovering.SingularOverlap (13s)
+✔ [8946/8953] Built OAI.Geometry.RuledCovering.ConvexBases (8.7s)
+✔ [8947/8953] Built OAI.Geometry.RuledCovering.CapAsymptotics (9.1s)
+✔ [8948/8953] Built OAI.Geometry.RuledCovering.SingularGeometry (9.6s)
+✔ [8949/8953] Built OAI.Geometry.RuledCovering.SingularEnergy (8.0s)
+✔ [8950/8953] Built OAI.Geometry.RuledCovering.EnergyIntegral (9.4s)
+✔ [8951/8953] Built OAI.Geometry.RuledCovering.SingularAsymptotics (7.0s)
+✔ [8952/8953] Built OAI.Geometry.RuledCovering.Singular (8.0s)
+✔ [8953/8953] Built OAI.Geometry.RuledCovering.Main (6.8s)
+Build completed successfully (8953 jobs).
+== build rc=0 seconds=246
+{"theorems": ["OAI.RuledApproximation.fullMain"], "defs": ["OAI.RuledApproximation.Plane", "OAI.RuledApproximation.Space", "OAI.RuledApproximation.vec2", "OAI.RuledApproximation.vec3", "OAI.RuledApproximation.axial", "OAI.RuledApproximation.IsParallelogram", "OAI.RuledApproximation.IsTriangle", "OAI.RuledApproximation.Cylinder", "OAI.RuledApproximation.Cylinder.carrier", "OAI.RuledApproximation.Cylinder.area", "OAI.RuledApproximation.Cylinder.parallelogram", "OAI.RuledApproximation.Cylinder.triangle", "OAI.RuledApproximation.Cylinder.openBounded", "OAI.RuledApproximation.familySet", "OAI.RuledApproximation.familyArea", "OAI.RuledApproximation.HasFiniteCover", "OAI.RuledApproximation.SmoothNear", "OAI.RuledApproximation.HyperbolicAt", "OAI.RuledApproximation.weight", "OAI.RuledApproximation.physicalWeight", "OAI.RuledApproximation.ruled", "OAI.RuledApproximation.physicalRuled", "OAI.RuledApproximation.HyperbolicStatement", "OAI.RuledApproximation.PhysicalHyperbolicStatement", "OAI.RuledApproximation.OpenRectangleC2", "OAI.RuledApproximation.LogarithmicStatement", "OAI.RuledApproximation.ProductCellStatement", "OAI.RuledApproximation.OrthogonalGridStatement", "OAI.RuledApproximation.unitSquare", "OAI.RuledApproximation.IsSquareTile", "OAI.RuledApproximation.auxiliaryCylinder", "OAI.RuledApproximation.firstPhysicalMap", "OAI.RuledApproximation.secondPhysicalMap", "OAI.RuledApproximation.NilpotentStatement", "OAI.RuledApproximation.tetrahedron", "OAI.RuledApproximation.singularField", "OAI.RuledApproximation.ceilingPolynomial", "OAI.RuledApproximation.singularDomain", "OAI.RuledApproximation.singularLower", "OAI.RuledApproximation.singularUpper", "OAI.RuledApproximation.lowerTip", "OAI.RuledApproximation.upperTip", "OAI.RuledApproximation.singularCost", "OAI.RuledApproximation.singularCoefficient", "OAI.RuledApproximation.SingularStatement", "OAI.RuledApproximation.FullMain"], "json_theorems": ["OAI.RuledApproximation.fullMain"], "missing_from_parse": []}
+AXIOMS: 'OAI.RuledApproximation.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:00:25Z

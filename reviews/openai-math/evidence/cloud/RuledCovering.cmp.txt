@@ -1,0 +1,339 @@
+CMP OAI.RuledApproximation.fullMain [thm] ok
+CMP OAI.RuledApproximation.FullMain [def] ok
+CMP OAI.RuledApproximation.SingularStatement [def] ok
+CMP OAI.RuledApproximation.Cylinder.area [def] ok
+CMP OAI.RuledApproximation.Cylinder.base [def] ok
+CMP OAI.RuledApproximation.Cylinder [ind] ok
+CMP OAI.RuledApproximation.Cylinder.mk [ctor] ok
+CMP OAI.RuledApproximation.Space [def] ok
+CMP OAI.RuledApproximation.Cylinder.axis [def] ok
+CMP OAI.RuledApproximation.Cylinder.area._proof_2 [thm] ok
+CMP OAI.RuledApproximation.Cylinder.area._proof_1 [thm] ok
+CMP OAI.RuledApproximation.familyArea [def] ok
+CMP OAI.RuledApproximation.tetrahedron [def] ok
+CMP OAI.RuledApproximation.vec2._proof_1 [thm] ok
+CMP OAI.RuledApproximation.firstPhysicalMap._proof_1 [thm] ok
+CMP OAI.RuledApproximation.upperTip [def] ok
+CMP OAI.RuledApproximation.lowerTip [def] ok
+CMP OAI.RuledApproximation.Cylinder.carrier [def] ok
+CMP OAI.RuledApproximation.singularUpper [def] ok
+CMP OAI.RuledApproximation.singularField [def] ok
+CMP OAI.RuledApproximation.axial._proof_1 [thm] ok
+CMP OAI.RuledApproximation.vec2 [def] ok
+CMP OAI.RuledApproximation.Plane [def] ok
+CMP OAI.RuledApproximation.vec3 [def] ok
+CMP OAI.RuledApproximation.singularDomain [def] ok
+CMP OAI.RuledApproximation.singularDomain._proof_1 [thm] ok
+CMP OAI.RuledApproximation.ceilingPolynomial [def] ok
+CMP OAI.RuledApproximation.familySet [def] ok
+CMP OAI.RuledApproximation.singularLower [def] ok
+CMP OAI.RuledApproximation.physicalRuled [def] ok
+CMP OAI.RuledApproximation.Cylinder.triangle [def] ok
+CMP OAI.RuledApproximation.IsTriangle [def] ok
+CMP OAI.RuledApproximation.Cylinder.parallelogram [def] ok
+CMP OAI.RuledApproximation.IsParallelogram [def] ok
+CMP OAI.RuledApproximation.SingularStatement._proof_2 [thm] ok
+CMP OAI.RuledApproximation.singularCost [def] ok
+CMP OAI.RuledApproximation.physicalWeight [def] ok
+CMP OAI.RuledApproximation.HyperbolicStatement._proof_2 [thm] ok
+CMP OAI.RuledApproximation.HyperbolicStatement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.singularCoefficient [def] ok
+CMP OAI.RuledApproximation.singularCoefficient._proof_3 [thm] ok
+CMP OAI.RuledApproximation.singularCoefficient._proof_2 [thm] ok
+CMP OAI.RuledApproximation.singularCoefficient._proof_1 [thm] ok
+CMP OAI.RuledApproximation.SingularStatement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.NilpotentStatement [def] ok
+CMP OAI.RuledApproximation.secondPhysicalMap [def] ok
+CMP OAI.RuledApproximation.firstPhysicalMap [def] ok
+CMP OAI.RuledApproximation.auxiliaryCylinder [def] ok
+CMP OAI.RuledApproximation.axial [def] ok
+CMP OAI.RuledApproximation.IsSquareTile [def] ok
+CMP OAI.RuledApproximation.unitSquare [def] ok
+CMP OAI.RuledApproximation.NilpotentStatement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.SmoothNear [def] ok
+CMP OAI.RuledApproximation.OrthogonalGridStatement [def] ok
+CMP OAI.RuledApproximation.HasFiniteCover [def] ok
+CMP OAI.RuledApproximation.LogarithmicStatement._proof_1 [thm] ok
+CMP OAI.RuledApproximation.ProductCellStatement [def] ok
+CMP OAI.RuledApproximation.Cylinder.openBounded [def] ok
+CMP OAI.RuledApproximation.HyperbolicAt [def] ok
+CMP OAI.RuledApproximation.LogarithmicStatement [def] ok
+CMP OAI.RuledApproximation.OpenRectangleC2 [def] ok
+CMP OAI.RuledApproximation.PhysicalHyperbolicStatement [def] ok
+CMP OAI.RuledApproximation.HyperbolicStatement [def] ok
+CMP OAI.RuledApproximation.weight [def] ok
+CMP OAI.RuledApproximation.ruled [def] ok
+Chal.RuledApproximation.fullMain : Chal.RuledApproximation.FullMain
+@[reducible] def Chal.RuledApproximation.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.RuledApproximation.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.RuledApproximation.vec2 : ℝ → ℝ → Chal.RuledApproximation.Plane :=
+fun x y => !₂[x, y]
+def Chal.RuledApproximation.vec3 : ℝ → ℝ → ℝ → Chal.RuledApproximation.Space :=
+fun x y z => !₂[x, y, z]
+def Chal.RuledApproximation.axial : ℝ → Chal.RuledApproximation.Plane → Chal.RuledApproximation.Space :=
+fun s p => Chal.RuledApproximation.vec3 s (p.ofLp 0) (p.ofLp 1)
+def Chal.RuledApproximation.IsParallelogram.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [_root_.Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [_root_.Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s ∈ Set.Icc 0 1, ∃ t ∈ Set.Icc 0 1, x = c + s • u + t • v}
+def Chal.RuledApproximation.IsTriangle.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [_root_.Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [_root_.Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s t, 0 ≤ s ∧ 0 ≤ t ∧ s + t ≤ 1 ∧ x = c + s • u + t • v}
+structure Chal.RuledApproximation.Cylinder : Type
+number of parameters: 0
+fields:
+  Chal.RuledApproximation.Cylinder.axis : Chal.RuledApproximation.Space
+  Chal.RuledApproximation.Cylinder.unit_axis : ‖self.axis‖ = 1
+  Chal.RuledApproximation.Cylinder.base : Set ↥(ℝ ∙ self.axis)ᗮ
+constructor:
+  Chal.RuledApproximation.Cylinder.mk (axis : Chal.RuledApproximation.Space) (unit_axis : ‖axis‖ = 1)
+    (base : Set ↥(ℝ ∙ axis)ᗮ) : Chal.RuledApproximation.Cylinder
+def Chal.RuledApproximation.Cylinder.carrier : Chal.RuledApproximation.Cylinder → Set Chal.RuledApproximation.Space :=
+fun C => {x | ∃ b ∈ C.base, ∃ t, x = ↑b + t • C.axis}
+def Chal.RuledApproximation.Cylinder.area : Chal.RuledApproximation.Cylinder → ℝ :=
+fun C => MeasureTheory.volume.real C.base
+def Chal.RuledApproximation.Cylinder.parallelogram : Chal.RuledApproximation.Cylinder → Prop :=
+fun C => Chal.RuledApproximation.IsParallelogram C.base
+def Chal.RuledApproximation.Cylinder.triangle : Chal.RuledApproximation.Cylinder → Prop :=
+fun C => Chal.RuledApproximation.IsTriangle C.base
+def Chal.RuledApproximation.Cylinder.openBounded : Chal.RuledApproximation.Cylinder → Prop :=
+fun C => IsOpen C.base ∧ Bornology.IsBounded C.base ∧ MeasurableSet C.base
+def Chal.RuledApproximation.familySet : {n : ℕ} →
+  (Fin n → Chal.RuledApproximation.Cylinder) → Set Chal.RuledApproximation.Space :=
+fun {n} C => ⋃ i, (C i).carrier
+def Chal.RuledApproximation.familyArea : {n : ℕ} → (Fin n → Chal.RuledApproximation.Cylinder) → ℝ :=
+fun {n} C => ∑ i, (C i).area
+def Chal.RuledApproximation.HasFiniteCover : (Chal.RuledApproximation.Cylinder → Prop) →
+  Set Chal.RuledApproximation.Space → ℝ → Prop :=
+fun shape S A =>
+  ∃ n C,
+    (∀ (i : Fin n), shape (C i)) ∧ S ⊆ Chal.RuledApproximation.familySet C ∧ Chal.RuledApproximation.familyArea C ≤ A
+def Chal.RuledApproximation.SmoothNear : WithTop ℕ∞ →
+  Set Chal.RuledApproximation.Plane → (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → Prop :=
+fun n D v => ∃ U, IsOpen U ∧ D ⊆ U ∧ ContDiffOn ℝ n v U
+def Chal.RuledApproximation.HyperbolicAt : ℝ →
+  (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → Chal.RuledApproximation.Plane → Prop :=
+fun L v p =>
+  ∃ lam,
+    0 < L * lam ∧
+      L * lam < 1 ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) lam ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) (-lam)
+def Chal.RuledApproximation.weight : Chal.RuledApproximation.Plane → ℝ :=
+fun v => 1 / √(1 + ‖v‖ ^ 2)
+def Chal.RuledApproximation.physicalWeight : ℝ → Chal.RuledApproximation.Plane → ℝ :=
+fun h w => 1 / √(1 + w.ofLp 0 ^ 2 + h ^ 2 * w.ofLp 1 ^ 2)
+def Chal.RuledApproximation.ruled : Set Chal.RuledApproximation.Plane →
+  (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → ℝ → Set Chal.RuledApproximation.Space :=
+fun D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ r, |r| ≤ L ∧ z = Chal.RuledApproximation.vec3 (p.ofLp 0 + r * (v p).ofLp 0) (p.ofLp 1 + r * (v p).ofLp 1) r}
+def Chal.RuledApproximation.physicalRuled : ℝ →
+  Set Chal.RuledApproximation.Plane →
+    (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → ℝ → Set Chal.RuledApproximation.Space :=
+fun h D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ s,
+        |s| ≤ L ∧ z = Chal.RuledApproximation.vec3 s (p.ofLp 0 + s * (v p).ofLp 0) (h * (p.ofLp 1 + s * (v p).ofLp 1))}
+def Chal.RuledApproximation.HyperbolicStatement : Prop :=
+∀ (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) (L : ℝ),
+  IsCompact D →
+    Chal.RuledApproximation.SmoothNear 1 D v →
+      0 < L →
+        (∀ p ∈ D, Chal.RuledApproximation.HyperbolicAt L v p) →
+          ∀ (e : ℝ),
+            0 < e →
+              Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.parallelogram
+                (Chal.RuledApproximation.ruled D v L)
+                ((∫ (p : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.weight (v p)) + e)
+def Chal.RuledApproximation.PhysicalHyperbolicStatement : Prop :=
+∀ (h L : ℝ) (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane),
+  0 < h →
+    0 < L →
+      IsCompact D →
+        Chal.RuledApproximation.SmoothNear 1 D v →
+          (∀ p ∈ D, Chal.RuledApproximation.HyperbolicAt L v p) →
+            ∀ (e : ℝ),
+              0 < e →
+                ∀ (F : Chal.RuledApproximation.Space ≃ᵢ Chal.RuledApproximation.Space),
+                  Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.parallelogram
+                    (⇑F '' Chal.RuledApproximation.physicalRuled h D v L)
+                    ((h * ∫ (p : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.physicalWeight h (v p)) +
+                      e)
+def Chal.RuledApproximation.OpenRectangleC2 : Set Chal.RuledApproximation.Plane →
+  (Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane) → Prop :=
+fun D v =>
+  ∃ a b,
+    (∀ (i : Fin 2), a.ofLp i < b.ofLp i) ∧
+      D ⊆ {p | ∀ (i : Fin 2), p.ofLp i ∈ Set.Ioo (a.ofLp i) (b.ofLp i)} ∧
+        ContDiffOn ℝ 2 v {p | ∀ (i : Fin 2), p.ofLp i ∈ Set.Ioo (a.ofLp i) (b.ofLp i)}
+def Chal.RuledApproximation.LogarithmicStatement : Prop :=
+∀ (X k : ℝ) (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane),
+  0 < X →
+    0 < k →
+      IsCompact D →
+        MeasureTheory.volume (frontier D) = 0 →
+          Chal.RuledApproximation.OpenRectangleC2 D v →
+            (∀ p ∈ D,
+                (LinearMap.trace ℝ Chal.RuledApproximation.Plane) ↑(fderiv ℝ v p) = 0 ∧
+                  LinearMap.det ↑(fderiv ℝ v p) < 0 ∧ k * X * √(-LinearMap.det ↑(fderiv ℝ v p)) < 1) →
+              ∀ (e : ℝ),
+                0 < e →
+                  Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.openBounded
+                    (Chal.RuledApproximation.physicalRuled 1 D (fun p => k • v p) X)
+                    ((∫ (p : Chal.RuledApproximation.Plane) in D, 1 / √(1 + k ^ 2 * ‖v p‖ ^ 2)) + e)
+def Chal.RuledApproximation.ProductCellStatement : Prop :=
+∀ (h M : ℝ) (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane),
+  0 < h →
+    0 < M →
+      IsCompact D →
+        MeasureTheory.volume (frontier D) = 0 →
+          Chal.RuledApproximation.SmoothNear 1 D v →
+            (∀ p ∈ D, Chal.RuledApproximation.HyperbolicAt M v p) →
+              ∀ (e : ℝ),
+                0 < e →
+                  Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.openBounded
+                    (Chal.RuledApproximation.physicalRuled h D v M)
+                    ((h * ∫ (p : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.physicalWeight h (v p)) +
+                      e)
+def Chal.RuledApproximation.OrthogonalGridStatement : Prop :=
+∀ (D : Set Chal.RuledApproximation.Plane) (v : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane)
+  (kappa : ℝ),
+  IsCompact D →
+    MeasureTheory.volume (frontier D) = 0 →
+      Chal.RuledApproximation.SmoothNear 1 D v →
+        kappa < 1 →
+          (∀ p ∈ D,
+              (LinearMap.trace ℝ Chal.RuledApproximation.Plane) ↑(fderiv ℝ v p) = 0 ∧
+                LinearMap.det ↑(fderiv ℝ v p) < 0 ∧ ‖fderiv ℝ v p‖ ≤ kappa) →
+            ∀ (e : ℝ),
+              0 < e →
+                Chal.RuledApproximation.HasFiniteCover Chal.RuledApproximation.Cylinder.parallelogram
+                  (Chal.RuledApproximation.physicalRuled (√2) D v 1)
+                  ((√2 *
+                      ∫ (p : Chal.RuledApproximation.Plane) in D, 1 / √(1 + (v p).ofLp 0 ^ 2 + 2 * (v p).ofLp 1 ^ 2)) +
+                    e)
+def Chal.RuledApproximation.unitSquare : Set Chal.RuledApproximation.Plane :=
+{x | ∀ (i : Fin 2), |x.ofLp i| ≤ 1 / 2}
+def Chal.RuledApproximation.IsSquareTile : Set Chal.RuledApproximation.Plane → Prop :=
+fun T => ∃ c R a, 0 < a ∧ T = (fun x => c + a • R x) '' Chal.RuledApproximation.unitSquare
+def Chal.RuledApproximation.auxiliaryCylinder : Set Chal.RuledApproximation.Plane →
+  Chal.RuledApproximation.Plane → Set Chal.RuledApproximation.Space :=
+fun T g => {z | ∃ s, ∃ b ∈ T, z = Chal.RuledApproximation.axial s (b + s • g)}
+def Chal.RuledApproximation.firstPhysicalMap : ℝ → Chal.RuledApproximation.Space → Chal.RuledApproximation.Space :=
+fun h z => Chal.RuledApproximation.vec3 (z.ofLp 0) (z.ofLp 1) (h * z.ofLp 2)
+def Chal.RuledApproximation.secondPhysicalMap : ℝ → ℝ → Chal.RuledApproximation.Space → Chal.RuledApproximation.Space :=
+fun h a z => Chal.RuledApproximation.vec3 (z.ofLp 1) (z.ofLp 0) (h * (a - z.ofLp 2))
+def Chal.RuledApproximation.NilpotentStatement : Prop :=
+∀ (D : Set Chal.RuledApproximation.Plane) (G : Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane),
+  IsCompact D →
+    Chal.RuledApproximation.SmoothNear (↑⊤) D G →
+      (∀ b ∈ D, fderiv ℝ G b ∘SL fderiv ℝ G b = 0) →
+        ∀ (h eps : ℝ),
+          0 < h →
+            0 < eps →
+              ∃ n T g,
+                (∀ (i : Fin n), Chal.RuledApproximation.IsSquareTile (T i)) ∧
+                  Chal.RuledApproximation.physicalRuled 1 D G 1 ⊆
+                      ⋃ i, Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                    ∑ i, MeasureTheory.volume.real (T i) * Chal.RuledApproximation.physicalWeight h (g i) ≤
+                        (∫ (b : Chal.RuledApproximation.Plane) in D, Chal.RuledApproximation.physicalWeight h (G b)) +
+                          eps ∧
+                      ∀ (a : ℝ),
+                        ∃ C₁ C₂,
+                          ∀ (i : Fin n),
+                            (C₁ i).parallelogram ∧
+                              (C₂ i).parallelogram ∧
+                                (C₁ i).carrier =
+                                    Chal.RuledApproximation.firstPhysicalMap h ''
+                                      Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                  (C₂ i).carrier =
+                                      Chal.RuledApproximation.secondPhysicalMap h a ''
+                                        Chal.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                    (C₁ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          Chal.RuledApproximation.physicalWeight h (g i) ∧
+                                      (C₂ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          Chal.RuledApproximation.physicalWeight h (g i)
+def Chal.RuledApproximation.tetrahedron : Set Chal.RuledApproximation.Space :=
+{z | ∃ t, 0 ≤ t ∧ t ≤ 1 ∧ |z.ofLp 0| ≤ 1 - t ∧ |z.ofLp 1| ≤ t ∧ z.ofLp 2 = √2 * t}
+def Chal.RuledApproximation.singularField : ℝ → Chal.RuledApproximation.Plane → Chal.RuledApproximation.Plane :=
+fun p b =>
+  Chal.RuledApproximation.vec2 (1 / 2 / 2 * (b.ofLp 1 / (1 / 2)) ^ (p - 1) * (p + (2 - p) * (b.ofLp 0 / b.ofLp 1) ^ 2))
+    ((b.ofLp 1 / (1 / 2)) ^ (p - 2) * b.ofLp 0)
+def Chal.RuledApproximation.ceilingPolynomial : ℝ → ℝ → ℝ :=
+fun p b => b ^ 2 * (1 / 2 * p / 2 + (2 - p) / (2 * (1 / 2)) * b ^ 2)
+def Chal.RuledApproximation.singularDomain : ℝ → ℝ → ℝ → Set Chal.RuledApproximation.Plane :=
+fun p gamma c =>
+  {b |
+    c ^ gamma ≤ b.ofLp 1 ∧
+      b.ofLp 1 ≤ 2 ∧
+        |b.ofLp 0| ≤ b.ofLp 1 ∧
+          b.ofLp 1 ≤ 1 / 2 + c ^ 2 * Chal.RuledApproximation.ceilingPolynomial p (b.ofLp 0) + c ^ (5 / 2)}
+def Chal.RuledApproximation.singularLower : ℝ → ℝ → ℝ → Set Chal.RuledApproximation.Space :=
+fun p gamma c =>
+  Chal.RuledApproximation.physicalRuled (√2) (Chal.RuledApproximation.singularDomain p gamma c)
+    (fun b => c • Chal.RuledApproximation.singularField p b) 1
+def Chal.RuledApproximation.singularUpper : ℝ → ℝ → ℝ → Set Chal.RuledApproximation.Space :=
+fun p gamma c =>
+  {z |
+    ∃ b ∈ Chal.RuledApproximation.singularDomain p gamma c,
+      ∃ y,
+        |y| ≤ 1 ∧
+          z =
+            Chal.RuledApproximation.vec3 (b.ofLp 0 - c * y * (Chal.RuledApproximation.singularField p b).ofLp 0) y
+              (√2 * (1 - (b.ofLp 1 - c * y * (Chal.RuledApproximation.singularField p b).ofLp 1)))}
+def Chal.RuledApproximation.lowerTip : ℝ → Set Chal.RuledApproximation.Space :=
+fun d => {z | ∃ t, 0 ≤ t ∧ t ≤ 2 * d ∧ |z.ofLp 1| ≤ t ∧ z.ofLp 2 = √2 * t}
+def Chal.RuledApproximation.upperTip : ℝ → Set Chal.RuledApproximation.Space :=
+fun d => {z | ∃ s, 0 ≤ s ∧ s ≤ 2 * d ∧ |z.ofLp 0| ≤ s ∧ z.ofLp 2 = √2 * (1 - s)}
+def Chal.RuledApproximation.singularCost : ℝ → ℝ → ℝ → ℝ :=
+fun p gamma c =>
+  √2 *
+    ∫ (b : Chal.RuledApproximation.Plane) in Chal.RuledApproximation.singularDomain p gamma c,
+      Chal.RuledApproximation.physicalWeight (√2) (c • Chal.RuledApproximation.singularField p b)
+def Chal.RuledApproximation.singularCoefficient : ℝ → ℝ :=
+fun p => (1 / 2) ^ 4 * (2 * p ^ 2 + 10 * p - 13) / (30 * p)
+def Chal.RuledApproximation.SingularStatement : Prop :=
+∀ (p gamma : ℝ),
+  1 < p →
+    p < (√51 - 5) / 2 →
+      1 < gamma →
+        gamma < 1 / (2 - p) →
+          Chal.RuledApproximation.singularCoefficient p < 0 ∧
+            ((fun c =>
+                  2 * Chal.RuledApproximation.singularCost p gamma c + 8 * √2 * (c ^ gamma) ^ 2 -
+                    (√2 / 2 +
+                      2 * √2 * Chal.RuledApproximation.singularCoefficient p * c ^ 2)) =o[nhdsWithin 0 (Set.Ioi 0)]
+                fun c => c ^ 2) ∧
+              ∀ᶠ (c : ℝ) in nhdsWithin 0 (Set.Ioi 0),
+                ∃ n m C D B₁ B₂,
+                  (∀ (i : Fin n), (C i).parallelogram) ∧
+                    (∀ (j : Fin m), (D j).parallelogram) ∧
+                      B₁.triangle ∧
+                        B₂.triangle ∧
+                          Chal.RuledApproximation.singularLower p gamma c ⊆ Chal.RuledApproximation.familySet C ∧
+                            Chal.RuledApproximation.singularUpper p gamma c ⊆ Chal.RuledApproximation.familySet D ∧
+                              B₁.carrier = Chal.RuledApproximation.lowerTip (c ^ gamma) ∧
+                                B₂.carrier = Chal.RuledApproximation.upperTip (c ^ gamma) ∧
+                                  Chal.RuledApproximation.tetrahedron ⊆
+                                      Chal.RuledApproximation.familySet C ∪ Chal.RuledApproximation.familySet D ∪
+                                          B₁.carrier ∪
+                                        B₂.carrier ∧
+                                    Chal.RuledApproximation.familyArea C + Chal.RuledApproximation.familyArea D +
+                                          B₁.area +
+                                        B₂.area <
+                                      √2 / 2
+def Chal.RuledApproximation.FullMain : Prop :=
+Chal.RuledApproximation.HyperbolicStatement ∧
+  Chal.RuledApproximation.PhysicalHyperbolicStatement ∧
+    Chal.RuledApproximation.LogarithmicStatement ∧
+      Chal.RuledApproximation.ProductCellStatement ∧
+        Chal.RuledApproximation.OrthogonalGridStatement ∧
+          Chal.RuledApproximation.NilpotentStatement ∧ Chal.RuledApproximation.SingularStatement
+'OAI.RuledApproximation.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RuledCovering comparator-style: ok=65 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

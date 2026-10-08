@@ -1,0 +1,268 @@
+OAI.RuledApproximation.fullMain : OAI.RuledApproximation.FullMain
+'OAI.RuledApproximation.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.RuledApproximation.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def OAI.RuledApproximation.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def OAI.RuledApproximation.vec2 : ℝ → ℝ → OAI.RuledApproximation.Plane :=
+fun x y => !₂[x, y]
+def OAI.RuledApproximation.vec3 : ℝ → ℝ → ℝ → OAI.RuledApproximation.Space :=
+fun x y z => !₂[x, y, z]
+def OAI.RuledApproximation.axial : ℝ → OAI.RuledApproximation.Plane → OAI.RuledApproximation.Space :=
+fun s p => OAI.RuledApproximation.vec3 s (p.ofLp 0) (p.ofLp 1)
+def OAI.RuledApproximation.IsParallelogram.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s ∈ Set.Icc 0 1, ∃ t ∈ Set.Icc 0 1, x = c + s • u + t • v}
+def OAI.RuledApproximation.IsTriangle.{u_1} : {E : Type u_1} → [inst : AddCommGroup E] → [Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s t, 0 ≤ s ∧ 0 ≤ t ∧ s + t ≤ 1 ∧ x = c + s • u + t • v}
+structure OAI.RuledApproximation.Cylinder : Type
+number of parameters: 0
+fields:
+  OAI.RuledApproximation.Cylinder.axis : OAI.RuledApproximation.Space
+  OAI.RuledApproximation.Cylinder.unit_axis : ‖self.axis‖ = 1
+  OAI.RuledApproximation.Cylinder.base : Set ↥(ℝ ∙ self.axis)ᗮ
+constructor:
+  OAI.RuledApproximation.Cylinder.mk (axis : OAI.RuledApproximation.Space) (unit_axis : ‖axis‖ = 1)
+    (base : Set ↥(ℝ ∙ axis)ᗮ) : OAI.RuledApproximation.Cylinder
+def OAI.RuledApproximation.Cylinder.carrier : OAI.RuledApproximation.Cylinder → Set OAI.RuledApproximation.Space :=
+fun C => {x | ∃ b ∈ C.base, ∃ t, x = ↑b + t • C.axis}
+def OAI.RuledApproximation.Cylinder.area : OAI.RuledApproximation.Cylinder → ℝ :=
+fun C => MeasureTheory.volume.real C.base
+def OAI.RuledApproximation.Cylinder.parallelogram : OAI.RuledApproximation.Cylinder → Prop :=
+fun C => OAI.RuledApproximation.IsParallelogram C.base
+def OAI.RuledApproximation.Cylinder.triangle : OAI.RuledApproximation.Cylinder → Prop :=
+fun C => OAI.RuledApproximation.IsTriangle C.base
+def OAI.RuledApproximation.Cylinder.openBounded : OAI.RuledApproximation.Cylinder → Prop :=
+fun C => IsOpen C.base ∧ Bornology.IsBounded C.base ∧ MeasurableSet C.base
+def OAI.RuledApproximation.familySet : {n : ℕ} →
+  (Fin n → OAI.RuledApproximation.Cylinder) → Set OAI.RuledApproximation.Space :=
+fun {n} C => ⋃ i, (C i).carrier
+def OAI.RuledApproximation.familyArea : {n : ℕ} → (Fin n → OAI.RuledApproximation.Cylinder) → ℝ :=
+fun {n} C => ∑ i, (C i).area
+def OAI.RuledApproximation.HasFiniteCover : (OAI.RuledApproximation.Cylinder → Prop) →
+  Set OAI.RuledApproximation.Space → ℝ → Prop :=
+fun shape S A =>
+  ∃ n C, (∀ (i : Fin n), shape (C i)) ∧ S ⊆ OAI.RuledApproximation.familySet C ∧ OAI.RuledApproximation.familyArea C ≤ A
+def OAI.RuledApproximation.SmoothNear : WithTop ℕ∞ →
+  Set OAI.RuledApproximation.Plane → (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → Prop :=
+fun n D v => ∃ U, IsOpen U ∧ D ⊆ U ∧ ContDiffOn ℝ n v U
+def OAI.RuledApproximation.HyperbolicAt : ℝ →
+  (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → OAI.RuledApproximation.Plane → Prop :=
+fun L v p =>
+  ∃ lam,
+    0 < L * lam ∧
+      L * lam < 1 ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) lam ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) (-lam)
+def OAI.RuledApproximation.weight : OAI.RuledApproximation.Plane → ℝ :=
+fun v => 1 / √(1 + ‖v‖ ^ 2)
+def OAI.RuledApproximation.physicalWeight : ℝ → OAI.RuledApproximation.Plane → ℝ :=
+fun h w => 1 / √(1 + w.ofLp 0 ^ 2 + h ^ 2 * w.ofLp 1 ^ 2)
+def OAI.RuledApproximation.ruled : Set OAI.RuledApproximation.Plane →
+  (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → ℝ → Set OAI.RuledApproximation.Space :=
+fun D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ r, |r| ≤ L ∧ z = OAI.RuledApproximation.vec3 (p.ofLp 0 + r * (v p).ofLp 0) (p.ofLp 1 + r * (v p).ofLp 1) r}
+def OAI.RuledApproximation.physicalRuled : ℝ →
+  Set OAI.RuledApproximation.Plane →
+    (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → ℝ → Set OAI.RuledApproximation.Space :=
+fun h D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ s,
+        |s| ≤ L ∧ z = OAI.RuledApproximation.vec3 s (p.ofLp 0 + s * (v p).ofLp 0) (h * (p.ofLp 1 + s * (v p).ofLp 1))}
+def OAI.RuledApproximation.HyperbolicStatement : Prop :=
+∀ (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) (L : ℝ),
+  IsCompact D →
+    OAI.RuledApproximation.SmoothNear 1 D v →
+      0 < L →
+        (∀ p ∈ D, OAI.RuledApproximation.HyperbolicAt L v p) →
+          ∀ (e : ℝ),
+            0 < e →
+              OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.parallelogram
+                (OAI.RuledApproximation.ruled D v L)
+                ((∫ (p : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.weight (v p)) + e)
+def OAI.RuledApproximation.PhysicalHyperbolicStatement : Prop :=
+∀ (h L : ℝ) (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane),
+  0 < h →
+    0 < L →
+      IsCompact D →
+        OAI.RuledApproximation.SmoothNear 1 D v →
+          (∀ p ∈ D, OAI.RuledApproximation.HyperbolicAt L v p) →
+            ∀ (e : ℝ),
+              0 < e →
+                ∀ (F : OAI.RuledApproximation.Space ≃ᵢ OAI.RuledApproximation.Space),
+                  OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.parallelogram
+                    (⇑F '' OAI.RuledApproximation.physicalRuled h D v L)
+                    ((h * ∫ (p : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.physicalWeight h (v p)) + e)
+def OAI.RuledApproximation.OpenRectangleC2 : Set OAI.RuledApproximation.Plane →
+  (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → Prop :=
+fun D v =>
+  ∃ a b,
+    (∀ (i : Fin 2), a.ofLp i < b.ofLp i) ∧
+      D ⊆ {p | ∀ (i : Fin 2), p.ofLp i ∈ Set.Ioo (a.ofLp i) (b.ofLp i)} ∧
+        ContDiffOn ℝ 2 v {p | ∀ (i : Fin 2), p.ofLp i ∈ Set.Ioo (a.ofLp i) (b.ofLp i)}
+def OAI.RuledApproximation.LogarithmicStatement : Prop :=
+∀ (X k : ℝ) (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane),
+  0 < X →
+    0 < k →
+      IsCompact D →
+        MeasureTheory.volume (frontier D) = 0 →
+          OAI.RuledApproximation.OpenRectangleC2 D v →
+            (∀ p ∈ D,
+                (LinearMap.trace ℝ OAI.RuledApproximation.Plane) ↑(fderiv ℝ v p) = 0 ∧
+                  LinearMap.det ↑(fderiv ℝ v p) < 0 ∧ k * X * √(-LinearMap.det ↑(fderiv ℝ v p)) < 1) →
+              ∀ (e : ℝ),
+                0 < e →
+                  OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.openBounded
+                    (OAI.RuledApproximation.physicalRuled 1 D (fun p => k • v p) X)
+                    ((∫ (p : OAI.RuledApproximation.Plane) in D, 1 / √(1 + k ^ 2 * ‖v p‖ ^ 2)) + e)
+def OAI.RuledApproximation.ProductCellStatement : Prop :=
+∀ (h M : ℝ) (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane),
+  0 < h →
+    0 < M →
+      IsCompact D →
+        MeasureTheory.volume (frontier D) = 0 →
+          OAI.RuledApproximation.SmoothNear 1 D v →
+            (∀ p ∈ D, OAI.RuledApproximation.HyperbolicAt M v p) →
+              ∀ (e : ℝ),
+                0 < e →
+                  OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.openBounded
+                    (OAI.RuledApproximation.physicalRuled h D v M)
+                    ((h * ∫ (p : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.physicalWeight h (v p)) + e)
+def OAI.RuledApproximation.OrthogonalGridStatement : Prop :=
+∀ (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) (kappa : ℝ),
+  IsCompact D →
+    MeasureTheory.volume (frontier D) = 0 →
+      OAI.RuledApproximation.SmoothNear 1 D v →
+        kappa < 1 →
+          (∀ p ∈ D,
+              (LinearMap.trace ℝ OAI.RuledApproximation.Plane) ↑(fderiv ℝ v p) = 0 ∧
+                LinearMap.det ↑(fderiv ℝ v p) < 0 ∧ ‖fderiv ℝ v p‖ ≤ kappa) →
+            ∀ (e : ℝ),
+              0 < e →
+                OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.parallelogram
+                  (OAI.RuledApproximation.physicalRuled (√2) D v 1)
+                  ((√2 *
+                      ∫ (p : OAI.RuledApproximation.Plane) in D, 1 / √(1 + (v p).ofLp 0 ^ 2 + 2 * (v p).ofLp 1 ^ 2)) +
+                    e)
+def OAI.RuledApproximation.unitSquare : Set OAI.RuledApproximation.Plane :=
+{x | ∀ (i : Fin 2), |x.ofLp i| ≤ 1 / 2}
+def OAI.RuledApproximation.IsSquareTile : Set OAI.RuledApproximation.Plane → Prop :=
+fun T => ∃ c R a, 0 < a ∧ T = (fun x => c + a • R x) '' OAI.RuledApproximation.unitSquare
+def OAI.RuledApproximation.auxiliaryCylinder : Set OAI.RuledApproximation.Plane →
+  OAI.RuledApproximation.Plane → Set OAI.RuledApproximation.Space :=
+fun T g => {z | ∃ s, ∃ b ∈ T, z = OAI.RuledApproximation.axial s (b + s • g)}
+def OAI.RuledApproximation.firstPhysicalMap : ℝ → OAI.RuledApproximation.Space → OAI.RuledApproximation.Space :=
+fun h z => OAI.RuledApproximation.vec3 (z.ofLp 0) (z.ofLp 1) (h * z.ofLp 2)
+def OAI.RuledApproximation.secondPhysicalMap : ℝ → ℝ → OAI.RuledApproximation.Space → OAI.RuledApproximation.Space :=
+fun h a z => OAI.RuledApproximation.vec3 (z.ofLp 1) (z.ofLp 0) (h * (a - z.ofLp 2))
+def OAI.RuledApproximation.NilpotentStatement : Prop :=
+∀ (D : Set OAI.RuledApproximation.Plane) (G : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane),
+  IsCompact D →
+    OAI.RuledApproximation.SmoothNear (↑⊤) D G →
+      (∀ b ∈ D, fderiv ℝ G b ∘SL fderiv ℝ G b = 0) →
+        ∀ (h eps : ℝ),
+          0 < h →
+            0 < eps →
+              ∃ n T g,
+                (∀ (i : Fin n), OAI.RuledApproximation.IsSquareTile (T i)) ∧
+                  OAI.RuledApproximation.physicalRuled 1 D G 1 ⊆
+                      ⋃ i, OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                    ∑ i, MeasureTheory.volume.real (T i) * OAI.RuledApproximation.physicalWeight h (g i) ≤
+                        (∫ (b : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.physicalWeight h (G b)) +
+                          eps ∧
+                      ∀ (a : ℝ),
+                        ∃ C₁ C₂,
+                          ∀ (i : Fin n),
+                            (C₁ i).parallelogram ∧
+                              (C₂ i).parallelogram ∧
+                                (C₁ i).carrier =
+                                    OAI.RuledApproximation.firstPhysicalMap h ''
+                                      OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                  (C₂ i).carrier =
+                                      OAI.RuledApproximation.secondPhysicalMap h a ''
+                                        OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                    (C₁ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          OAI.RuledApproximation.physicalWeight h (g i) ∧
+                                      (C₂ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          OAI.RuledApproximation.physicalWeight h (g i)
+def OAI.RuledApproximation.tetrahedron : Set OAI.RuledApproximation.Space :=
+{z | ∃ t, 0 ≤ t ∧ t ≤ 1 ∧ |z.ofLp 0| ≤ 1 - t ∧ |z.ofLp 1| ≤ t ∧ z.ofLp 2 = √2 * t}
+def OAI.RuledApproximation.singularField : ℝ → OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane :=
+fun p b =>
+  OAI.RuledApproximation.vec2 (1 / 2 / 2 * (b.ofLp 1 / (1 / 2)) ^ (p - 1) * (p + (2 - p) * (b.ofLp 0 / b.ofLp 1) ^ 2))
+    ((b.ofLp 1 / (1 / 2)) ^ (p - 2) * b.ofLp 0)
+def OAI.RuledApproximation.ceilingPolynomial : ℝ → ℝ → ℝ :=
+fun p b => b ^ 2 * (1 / 2 * p / 2 + (2 - p) / (2 * (1 / 2)) * b ^ 2)
+def OAI.RuledApproximation.singularDomain : ℝ → ℝ → ℝ → Set OAI.RuledApproximation.Plane :=
+fun p gamma c =>
+  {b |
+    c ^ gamma ≤ b.ofLp 1 ∧
+      b.ofLp 1 ≤ 2 ∧
+        |b.ofLp 0| ≤ b.ofLp 1 ∧
+          b.ofLp 1 ≤ 1 / 2 + c ^ 2 * OAI.RuledApproximation.ceilingPolynomial p (b.ofLp 0) + c ^ (5 / 2)}
+def OAI.RuledApproximation.singularLower : ℝ → ℝ → ℝ → Set OAI.RuledApproximation.Space :=
+fun p gamma c =>
+  OAI.RuledApproximation.physicalRuled (√2) (OAI.RuledApproximation.singularDomain p gamma c)
+    (fun b => c • OAI.RuledApproximation.singularField p b) 1
+def OAI.RuledApproximation.singularUpper : ℝ → ℝ → ℝ → Set OAI.RuledApproximation.Space :=
+fun p gamma c =>
+  {z |
+    ∃ b ∈ OAI.RuledApproximation.singularDomain p gamma c,
+      ∃ y,
+        |y| ≤ 1 ∧
+          z =
+            OAI.RuledApproximation.vec3 (b.ofLp 0 - c * y * (OAI.RuledApproximation.singularField p b).ofLp 0) y
+              (√2 * (1 - (b.ofLp 1 - c * y * (OAI.RuledApproximation.singularField p b).ofLp 1)))}
+def OAI.RuledApproximation.lowerTip : ℝ → Set OAI.RuledApproximation.Space :=
+fun d => {z | ∃ t, 0 ≤ t ∧ t ≤ 2 * d ∧ |z.ofLp 1| ≤ t ∧ z.ofLp 2 = √2 * t}
+def OAI.RuledApproximation.upperTip : ℝ → Set OAI.RuledApproximation.Space :=
+fun d => {z | ∃ s, 0 ≤ s ∧ s ≤ 2 * d ∧ |z.ofLp 0| ≤ s ∧ z.ofLp 2 = √2 * (1 - s)}
+def OAI.RuledApproximation.singularCost : ℝ → ℝ → ℝ → ℝ :=
+fun p gamma c =>
+  √2 *
+    ∫ (b : OAI.RuledApproximation.Plane) in OAI.RuledApproximation.singularDomain p gamma c,
+      OAI.RuledApproximation.physicalWeight (√2) (c • OAI.RuledApproximation.singularField p b)
+def OAI.RuledApproximation.singularCoefficient : ℝ → ℝ :=
+fun p => (1 / 2) ^ 4 * (2 * p ^ 2 + 10 * p - 13) / (30 * p)
+def OAI.RuledApproximation.SingularStatement : Prop :=
+∀ (p gamma : ℝ),
+  1 < p →
+    p < (√51 - 5) / 2 →
+      1 < gamma →
+        gamma < 1 / (2 - p) →
+          OAI.RuledApproximation.singularCoefficient p < 0 ∧
+            ((fun c =>
+                  2 * OAI.RuledApproximation.singularCost p gamma c + 8 * √2 * (c ^ gamma) ^ 2 -
+                    (√2 / 2 +
+                      2 * √2 * OAI.RuledApproximation.singularCoefficient p * c ^ 2)) =o[nhdsWithin 0 (Set.Ioi 0)]
+                fun c => c ^ 2) ∧
+              ∀ᶠ (c : ℝ) in nhdsWithin 0 (Set.Ioi 0),
+                ∃ n m C D B₁ B₂,
+                  (∀ (i : Fin n), (C i).parallelogram) ∧
+                    (∀ (j : Fin m), (D j).parallelogram) ∧
+                      B₁.triangle ∧
+                        B₂.triangle ∧
+                          OAI.RuledApproximation.singularLower p gamma c ⊆ OAI.RuledApproximation.familySet C ∧
+                            OAI.RuledApproximation.singularUpper p gamma c ⊆ OAI.RuledApproximation.familySet D ∧
+                              B₁.carrier = OAI.RuledApproximation.lowerTip (c ^ gamma) ∧
+                                B₂.carrier = OAI.RuledApproximation.upperTip (c ^ gamma) ∧
+                                  OAI.RuledApproximation.tetrahedron ⊆
+                                      OAI.RuledApproximation.familySet C ∪ OAI.RuledApproximation.familySet D ∪
+                                          B₁.carrier ∪
+                                        B₂.carrier ∧
+                                    OAI.RuledApproximation.familyArea C + OAI.RuledApproximation.familyArea D +
+                                          B₁.area +
+                                        B₂.area <
+                                      √2 / 2
+def OAI.RuledApproximation.FullMain : Prop :=
+OAI.RuledApproximation.HyperbolicStatement ∧
+  OAI.RuledApproximation.PhysicalHyperbolicStatement ∧
+    OAI.RuledApproximation.LogarithmicStatement ∧
+      OAI.RuledApproximation.ProductCellStatement ∧
+        OAI.RuledApproximation.OrthogonalGridStatement ∧
+          OAI.RuledApproximation.NilpotentStatement ∧ OAI.RuledApproximation.SingularStatement
