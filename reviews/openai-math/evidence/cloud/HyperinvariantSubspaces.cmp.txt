@@ -1,0 +1,31 @@
+CMP OAI.Hyperinvariant.main_theorem [thm] ok
+CMP OAI.Hyperinvariant.FullClaim [def] ok
+CMP OAI.Hyperinvariant.strongOperatorTopology [def] ok
+CMP OAI.Hyperinvariant.commutant [def] ok
+CMP OAI.Hyperinvariant.commutant._proof_5 [thm] ok
+CMP OAI.Hyperinvariant.commutant._proof_4 [thm] ok
+CMP OAI.Hyperinvariant.commutant._proof_3 [thm] ok
+CMP OAI.Hyperinvariant.commutant._proof_2 [thm] ok
+CMP OAI.Hyperinvariant.commutant._proof_1 [thm] ok
+CMP OAI.Hyperinvariant.TransitiveCommutant [def] ok
+Chal.Hyperinvariant.main_theorem : ∀ (H : Type u_1) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H]
+  [CompleteSpace H] [TopologicalSpace.SeparableSpace H], ¬FiniteDimensional ℂ H → Chal.Hyperinvariant.FullClaim
+def Chal.Hyperinvariant.commutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Subalgebra ℂ (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T => Subalgebra.centralizer ℂ {T}
+def Chal.Hyperinvariant.TransitiveCommutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T =>
+  ∀ (K : Submodule ℂ H), IsClosed ↑K → (∀ (A : H →L[ℂ] H), A * T = T * A → ∀ x ∈ K, A x ∈ K) → K = ⊥ ∨ K = ⊤
+@[instance_reducible] def Chal.Hyperinvariant.strongOperatorTopology.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → TopologicalSpace (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] => TopologicalSpace.induced (fun A x => A x) inferInstance
+def Chal.Hyperinvariant.FullClaim.{u} : {H : Type u} → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] =>
+  ∃ T,
+    T ≠ 0 ∧
+      Filter.Tendsto (fun n => ‖T ^ n‖ ^ (1 / ↑n)) Filter.atTop (nhds 0) ∧
+        Chal.Hyperinvariant.TransitiveCommutant T ∧
+          Chal.Hyperinvariant.commutant T ≠ ⊤ ∧ IsClosed ↑(Chal.Hyperinvariant.commutant T)
+'OAI.Hyperinvariant.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HyperinvariantSubspaces comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

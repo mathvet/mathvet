@@ -1,0 +1,20 @@
+OAI.Hyperinvariant.main_theorem : ∀ (H : Type u_1) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H]
+  [CompleteSpace H] [TopologicalSpace.SeparableSpace H], ¬FiniteDimensional ℂ H → OAI.Hyperinvariant.FullClaim
+'OAI.Hyperinvariant.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Hyperinvariant.commutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Subalgebra ℂ (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T => Subalgebra.centralizer ℂ {T}
+def OAI.Hyperinvariant.TransitiveCommutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T =>
+  ∀ (K : Submodule ℂ H), IsClosed ↑K → (∀ (A : H →L[ℂ] H), A * T = T * A → ∀ x ∈ K, A x ∈ K) → K = ⊥ ∨ K = ⊤
+@[instance_reducible] def OAI.Hyperinvariant.strongOperatorTopology.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → TopologicalSpace (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] => TopologicalSpace.induced (fun A x => A x) inferInstance
+def OAI.Hyperinvariant.FullClaim.{u} : {H : Type u} → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] =>
+  ∃ T,
+    T ≠ 0 ∧
+      Filter.Tendsto (fun n => ‖T ^ n‖ ^ (1 / ↑n)) Filter.atTop (nhds 0) ∧
+        OAI.Hyperinvariant.TransitiveCommutant T ∧
+          OAI.Hyperinvariant.commutant T ≠ ⊤ ∧ IsClosed ↑(OAI.Hyperinvariant.commutant T)
