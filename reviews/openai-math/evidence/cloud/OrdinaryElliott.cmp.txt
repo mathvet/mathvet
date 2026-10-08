@@ -1,0 +1,37 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_OrdinaryElliott.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.OrdinaryCorrelations.binary_corrected_elliott [thm] ok
+CMP OAI.OrdinaryCorrelations.shiftAverage [def] ok
+CMP OAI.OrdinaryCorrelations.UniformlyNonpretentious [def] ok
+CMP OAI.OrdinaryCorrelations.distance [def] ok
+CMP OAI.OrdinaryCorrelations.distanceSq [def] ok
+CMP OAI.OrdinaryCorrelations.Multiplicative [def] ok
+CMP OAI.OrdinaryCorrelations.OneBounded [def] ok
+Chal.OrdinaryCorrelations.binary_corrected_elliott : ∀ (f₁ f₂ : ℕ → ℂ),
+  Chal.OrdinaryCorrelations.OneBounded f₁ →
+    Chal.OrdinaryCorrelations.OneBounded f₂ →
+      Chal.OrdinaryCorrelations.Multiplicative f₁ →
+        Chal.OrdinaryCorrelations.Multiplicative f₂ →
+          Chal.OrdinaryCorrelations.UniformlyNonpretentious f₁ ∨ Chal.OrdinaryCorrelations.UniformlyNonpretentious f₂ →
+            ∀ (h₁ h₂ : ℕ),
+              h₁ ≠ h₂ → Filter.Tendsto (Chal.OrdinaryCorrelations.shiftAverage f₁ f₂ h₁ h₂) Filter.atTop (nhds 0)
+def Chal.OrdinaryCorrelations.OneBounded : (ℕ → ℂ) → Prop :=
+fun f => ∀ (n : ℕ), ‖f n‖ ≤ 1
+def Chal.OrdinaryCorrelations.Multiplicative : (ℕ → ℂ) → Prop :=
+fun f => ∀ (m n : ℕ), 0 < m → 0 < n → m.Coprime n → f (m * n) = f m * f n
+def Chal.OrdinaryCorrelations.distanceSq : (ℕ → ℂ) → {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℝ → ℝ :=
+fun f {q} χ t X =>
+  ∑ p ∈ Finset.Icc 2 ⌊X⌋₊ with Nat.Prime p,
+    (1 - (f p * star (χ ↑p * Complex.exp (↑(t * Real.log ↑p) * Complex.I))).re) / ↑p
+def Chal.OrdinaryCorrelations.distance : (ℕ → ℂ) → {q : ℕ} → DirichletCharacter ℂ q → ℝ → ℝ → ℝ :=
+fun f {q} χ t X => √(Chal.OrdinaryCorrelations.distanceSq f χ t X)
+def Chal.OrdinaryCorrelations.UniformlyNonpretentious : (ℕ → ℂ) → Prop :=
+fun f =>
+  ∀ (q : ℕ),
+    0 < q →
+      ∀ (χ : DirichletCharacter ℂ q),
+        Filter.Tendsto (fun N => sInf ((fun t => Chal.OrdinaryCorrelations.distance f χ t ↑N) '' Set.Icc (-↑N) ↑N))
+          Filter.atTop Filter.atTop
+def Chal.OrdinaryCorrelations.shiftAverage : (ℕ → ℂ) → (ℕ → ℂ) → ℕ → ℕ → ℕ → ℂ :=
+fun f₁ f₂ h₁ h₂ N => (↑N)⁻¹ * ∑ n ∈ Finset.Icc 1 N, f₁ (n + h₁) * f₂ (n + h₂)
+'OAI.OrdinaryCorrelations.binary_corrected_elliott' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OrdinaryElliott comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
