@@ -1,0 +1,85 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CriticalSKMixing.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CriticalSK.critical_mixing_bounds [thm] ok
+CMP OAI.CriticalSK.discreteMixingTime [def] ok
+CMP OAI.CriticalSK.continuousMixingTime._proof_1 [thm] ok
+CMP OAI.CriticalSK.discreteDistance [def] ok
+CMP OAI.CriticalSK.discreteKernel [def] ok
+CMP OAI.CriticalSK.siteKernel [def] ok
+CMP OAI.CriticalSK.gibbs [def] ok
+CMP OAI.CriticalSK.partition [def] ok
+CMP OAI.CriticalSK.hamiltonian [def] ok
+CMP OAI.CriticalSK.spinValue [def] ok
+CMP OAI.CriticalSK.Edge [def] ok
+CMP OAI.CriticalSK.Spin [def] ok
+CMP OAI.CriticalSK.Disorder [def] ok
+CMP OAI.CriticalSK.instDecidableSameExcept [def] ok
+CMP OAI.CriticalSK.sameExcept [def] ok
+CMP OAI.CriticalSK.totalVariation [def] ok
+CMP OAI.CriticalSK.totalVariation._proof_1 [thm] ok
+CMP OAI.CriticalSK.continuousMixingTime [def] ok
+CMP OAI.CriticalSK.continuousDistance [def] ok
+CMP OAI.CriticalSK.continuousKernel [def] ok
+CMP OAI.CriticalSK.generator [def] ok
+CMP OAI.CriticalSK.continuousKernel._proof_1 [thm] ok
+CMP OAI.CriticalSK.disorderLaw [def] ok
+Chal.CriticalSK.critical_mixing_bounds : ∀ (ε : ℝ),
+  0 < ε →
+    Filter.Tendsto
+        (fun n =>
+          ((Chal.CriticalSK.disorderLaw n)
+              {W |
+                ↑n ^ (2 / 3 - ε) ≤ Chal.CriticalSK.continuousMixingTime W ∧
+                  Chal.CriticalSK.continuousMixingTime W ≤ Real.exp (ε * ↑n)}).toReal)
+        Filter.atTop (nhds 1) ∧
+      Filter.Tendsto
+        (fun n =>
+          ((Chal.CriticalSK.disorderLaw n)
+              {W |
+                ↑n ^ (5 / 3 - ε) ≤ ↑(Chal.CriticalSK.discreteMixingTime W) ∧
+                  ↑(Chal.CriticalSK.discreteMixingTime W) ≤ Real.exp (ε * ↑n)}).toReal)
+        Filter.atTop (nhds 1)
+@[reducible] def Chal.CriticalSK.Spin : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.CriticalSK.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def Chal.CriticalSK.Disorder : ℕ → Type :=
+fun n => Chal.CriticalSK.Edge n → ℝ
+def Chal.CriticalSK.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.CriticalSK.hamiltonian : {n : ℕ} → Chal.CriticalSK.Disorder n → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W x => ∑ e, W e * Chal.CriticalSK.spinValue (x (↑e).1) * Chal.CriticalSK.spinValue (x (↑e).2)
+def Chal.CriticalSK.partition : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W => ∑ x, Real.exp (Chal.CriticalSK.hamiltonian W x)
+def Chal.CriticalSK.gibbs : {n : ℕ} → Chal.CriticalSK.Disorder n → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W x => Real.exp (Chal.CriticalSK.hamiltonian W x) / Chal.CriticalSK.partition W
+def Chal.CriticalSK.disorderLaw : (n : ℕ) → MeasureTheory.Measure (Chal.CriticalSK.Disorder n) :=
+fun n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 (↑n)⁻¹
+def Chal.CriticalSK.sameExcept : {n : ℕ} → Fin n → Chal.CriticalSK.Spin n → Chal.CriticalSK.Spin n → Prop :=
+fun {n} i x y => ∀ (j : Fin n), j ≠ i → y j = x j
+def Chal.CriticalSK.siteKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Fin n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W i x y =>
+  if Chal.CriticalSK.sameExcept i x y then
+    Chal.CriticalSK.gibbs W y / ∑ z, if Chal.CriticalSK.sameExcept i x z then Chal.CriticalSK.gibbs W z else 0
+  else 0
+def Chal.CriticalSK.discreteKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W => (↑n)⁻¹ • ∑ i, Chal.CriticalSK.siteKernel W i
+def Chal.CriticalSK.generator : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W => ∑ i, (Chal.CriticalSK.siteKernel W i - 1)
+def Chal.CriticalSK.continuousKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → ℝ → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W t => NormedSpace.exp (t • Chal.CriticalSK.generator W)
+def Chal.CriticalSK.totalVariation : {n : ℕ} → Chal.CriticalSK.Disorder n → (Chal.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W p => 1 / 2 * ∑ y, |p y - Chal.CriticalSK.gibbs W y|
+def Chal.CriticalSK.continuousDistance : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W t x => Chal.CriticalSK.totalVariation W (Chal.CriticalSK.continuousKernel W t x)
+def Chal.CriticalSK.discreteDistance : {n : ℕ} → Chal.CriticalSK.Disorder n → ℕ → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W k x => Chal.CriticalSK.totalVariation W ((Chal.CriticalSK.discreteKernel W ^ k) x)
+def Chal.CriticalSK.continuousMixingTime : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W => sInf {t | 0 ≤ t ∧ ∀ (x : Chal.CriticalSK.Spin n), Chal.CriticalSK.continuousDistance W t x ≤ 1 / 4}
+def Chal.CriticalSK.discreteMixingTime : {n : ℕ} → Chal.CriticalSK.Disorder n → ℕ :=
+fun {n} W => sInf {k | ∀ (x : Chal.CriticalSK.Spin n), Chal.CriticalSK.discreteDistance W k x ≤ 1 / 4}
+'OAI.CriticalSK.critical_mixing_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CriticalSKMixing comparator-style: ok=23 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
