@@ -1,0 +1,86 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_FreeIsing.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Problem367.free_ising_factor_iff_threshold [thm] ok
+CMP OAI.Problem367.IsFactorOfIID [def] ok
+CMP OAI.Problem367.IsFactorOfIID._proof_1 [thm] ok
+CMP OAI.Problem367.TreeVertex [def] ok
+CMP OAI.Problem367.relabel [def] ok
+CMP OAI.Problem367.TreeAut.toEquiv [def] ok
+CMP OAI.Problem367.TreeAut [ind] ok
+CMP OAI.Problem367.TreeAut.mk [ctor] ok
+CMP OAI.Problem367.treeAdj [def] ok
+CMP OAI.Problem367.labelMeasure [def] ok
+CMP OAI.Problem367.uniform01 [def] ok
+CMP OAI.Problem367.HasFreeIsingLaw [def] ok
+CMP OAI.Problem367.freeCylinderWeight [def] ok
+CMP OAI.Problem367.instDecidableEqIsingSpin [def] ok
+CMP OAI.Problem367.instDecidableEqIsingSpin._proof_2 [thm] ok
+CMP OAI.Problem367.IsingSpin.ctorIdx [def] ok
+CMP OAI.Problem367.IsingSpin.casesOn [def] ok
+CMP OAI.Problem367.IsingSpin.rec [rec] ok
+CMP OAI.Problem367.IsingSpin.pos [ctor] ok
+CMP OAI.Problem367.IsingSpin [ind] ok
+CMP OAI.Problem367.IsingSpin.neg [ctor] ok
+CMP OAI.Problem367.instDecidableEqIsingSpin._proof_1 [thm] ok
+CMP OAI.Problem367.inducedEdges [def] ok
+CMP OAI.Problem367.freeCylinderWeight._proof_1 [thm] ok
+CMP OAI.Problem367.ConnectedFinset [def] ok
+CMP OAI.Problem367.isingSpinMeasurable [def] ok
+Chal.Problem367.free_ising_factor_iff_threshold : ∀ (d : ℕ) (beta : ℝ),
+  3 ≤ d → 0 ≤ beta → (Chal.Problem367.IsFactorOfIID d (Real.tanh beta) ↔ Real.tanh beta ≤ 1 / √(↑d - 1))
+@[reducible] def Chal.Problem367.TreeVertex : ℕ → Type :=
+fun d => { word // List.IsChain (fun first second => first ≠ second) word }
+def Chal.Problem367.treeAdj : {d : ℕ} → Chal.Problem367.TreeVertex d → Chal.Problem367.TreeVertex d → Prop :=
+fun {d} u v => (∃ c, ↑v = ↑u ++ [c]) ∨ ∃ c, ↑u = ↑v ++ [c]
+structure Chal.Problem367.TreeAut (d : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.Problem367.TreeAut.toEquiv : Chal.Problem367.TreeVertex d ≃ Chal.Problem367.TreeVertex d
+  Chal.Problem367.TreeAut.map_adj : ∀ (u v : Chal.Problem367.TreeVertex d),
+      Chal.Problem367.treeAdj (self.toEquiv u) (self.toEquiv v) ↔ Chal.Problem367.treeAdj u v
+constructor:
+  Chal.Problem367.TreeAut.mk {d : ℕ} (toEquiv : Chal.Problem367.TreeVertex d ≃ Chal.Problem367.TreeVertex d)
+    (map_adj :
+      ∀ (u v : Chal.Problem367.TreeVertex d),
+        Chal.Problem367.treeAdj (toEquiv u) (toEquiv v) ↔ Chal.Problem367.treeAdj u v) :
+    Chal.Problem367.TreeAut d
+def Chal.Problem367.relabel.{u_1} : {d : ℕ} →
+  {α : Type u_1} → Chal.Problem367.TreeAut d → (Chal.Problem367.TreeVertex d → α) → Chal.Problem367.TreeVertex d → α :=
+fun {d} {α} g x v => x (g.toEquiv.symm v)
+inductive Chal.Problem367.IsingSpin : Type
+number of parameters: 0
+constructors:
+Chal.Problem367.IsingSpin.neg : Chal.Problem367.IsingSpin
+Chal.Problem367.IsingSpin.pos : Chal.Problem367.IsingSpin
+@[reducible] protected def Chal.Problem367.IsingSpin.enumList : List Chal.Problem367.IsingSpin :=
+[Chal.Problem367.IsingSpin.neg, Chal.Problem367.IsingSpin.pos]
+def Chal.Problem367.uniform01 : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Icc 0 1)
+def Chal.Problem367.labelMeasure : (d : ℕ) → MeasureTheory.Measure (Chal.Problem367.TreeVertex d → ℝ) :=
+fun d => MeasureTheory.Measure.infinitePi fun x => Chal.Problem367.uniform01
+def Chal.Problem367.ConnectedFinset : {d : ℕ} → Finset (Chal.Problem367.TreeVertex d) → Prop :=
+fun {d} D =>
+  D.Nonempty ∧ ∀ u ∈ D, ∀ v ∈ D, Relation.ReflTransGen (fun x y => x ∈ D ∧ y ∈ D ∧ Chal.Problem367.treeAdj x y) u v
+def Chal.Problem367.inducedEdges : {d : ℕ} →
+  Finset (Chal.Problem367.TreeVertex d) → Finset (Chal.Problem367.TreeVertex d × Chal.Problem367.TreeVertex d) :=
+fun {d} D => {e ∈ D.product D | Chal.Problem367.treeAdj e.1 e.2 ∧ (↑e.1).length < (↑e.2).length}
+def Chal.Problem367.freeCylinderWeight : {d : ℕ} →
+  ℝ → Finset (Chal.Problem367.TreeVertex d) → (Chal.Problem367.TreeVertex d → Chal.Problem367.IsingSpin) → ENNReal :=
+fun {d} theta D eta =>
+  ENNReal.ofReal (1 / 2 * ∏ e ∈ Chal.Problem367.inducedEdges D, (1 + if eta e.1 = eta e.2 then theta else -theta) / 2)
+def Chal.Problem367.HasFreeIsingLaw : {d : ℕ} →
+  ℝ → MeasureTheory.Measure (Chal.Problem367.TreeVertex d → Chal.Problem367.IsingSpin) → Prop :=
+fun {d} theta mu =>
+  ∀ (D : Finset (Chal.Problem367.TreeVertex d)),
+    Chal.Problem367.ConnectedFinset D →
+      ∀ (eta : Chal.Problem367.TreeVertex d → Chal.Problem367.IsingSpin),
+        mu {x | ∀ v ∈ D, x v = eta v} = Chal.Problem367.freeCylinderWeight theta D eta
+def Chal.Problem367.IsFactorOfIID : ℕ → ℝ → Prop :=
+fun d theta =>
+  ∃ Phi,
+    Measurable Phi ∧
+      Chal.Problem367.HasFreeIsingLaw theta (MeasureTheory.Measure.map Phi (Chal.Problem367.labelMeasure d)) ∧
+        ∀ (g : Chal.Problem367.TreeAut d),
+          ∀ᵐ (U : Chal.Problem367.TreeVertex d → ℝ) ∂Chal.Problem367.labelMeasure d,
+            Phi (Chal.Problem367.relabel g U) = Chal.Problem367.relabel g (Phi U)
+'OAI.Problem367.free_ising_factor_iff_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FreeIsing comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
