@@ -1,0 +1,29 @@
+CMP OAI.SeymourSecondNeighborhood.exists_goodVertex [thm] ok
+CMP OAI.SeymourSecondNeighborhood.GoodVertex [def] ok
+CMP OAI.SeymourSecondNeighborhood.secondNeighbors [def] ok
+CMP OAI.SeymourSecondNeighborhood.firstNeighbors [def] ok
+CMP OAI.SeymourSecondNeighborhood.IsOriented [ind] ok
+CMP OAI.SeymourSecondNeighborhood.IsOriented.mk [ctor] ok
+@Chal.SeymourSecondNeighborhood.exists_goodVertex : ∀ {V : Type u_1} [inst : Fintype V] [inst_1 : DecidableEq V]
+  [Nonempty V] (r : V → V → Prop),
+  Chal.SeymourSecondNeighborhood.IsOriented r → ∃ v, Chal.SeymourSecondNeighborhood.GoodVertex r v
+structure Chal.SeymourSecondNeighborhood.IsOriented.{u_1} {V : Type u_1} (r : V → V → Prop) : Prop
+number of parameters: 2
+fields:
+  Chal.SeymourSecondNeighborhood.IsOriented.loopless : ∀ (v : V), ¬r v v
+  Chal.SeymourSecondNeighborhood.IsOriented.asymmetric : ∀ {u v : V}, r u v → ¬r v u
+constructor:
+  Chal.SeymourSecondNeighborhood.IsOriented.mk.{u_1} {V : Type u_1} {r : V → V → Prop} (loopless : ∀ (v : V), ¬r v v)
+    (asymmetric : ∀ {u v : V}, r u v → ¬r v u) : Chal.SeymourSecondNeighborhood.IsOriented r
+def Chal.SeymourSecondNeighborhood.firstNeighbors.{u_1} : {V : Type u_1} →
+  [Fintype V] → (V → V → Prop) → V → Finset V :=
+fun {V} [Fintype V] r v => Finset.filter (r v) Finset.univ
+def Chal.SeymourSecondNeighborhood.secondNeighbors.{u_1} : {V : Type u_1} →
+  [Fintype V] → [DecidableEq V] → (V → V → Prop) → V → Finset V :=
+fun {V} [Fintype V] [DecidableEq V] r v => {w | w ≠ v ∧ ¬r v w ∧ ∃ u, r v u ∧ r u w}
+def Chal.SeymourSecondNeighborhood.GoodVertex.{u_1} : {V : Type u_1} →
+  [Fintype V] → [DecidableEq V] → (V → V → Prop) → V → Prop :=
+fun {V} [Fintype V] [DecidableEq V] r v =>
+  (Chal.SeymourSecondNeighborhood.firstNeighbors r v).card ≤ (Chal.SeymourSecondNeighborhood.secondNeighbors r v).card
+'OAI.SeymourSecondNeighborhood.exists_goodVertex' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SeymourSecondNeighborhood comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
