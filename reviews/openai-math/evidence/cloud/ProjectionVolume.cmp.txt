@@ -1,0 +1,53 @@
+CMP OAI.Paper092.product_counterexample [thm] ok
+CMP OAI.Paper092.projectionBody [def] ok
+CMP OAI.Paper092.brightness [def] ok
+CMP OAI.Paper092.projectionVolume [def] ok
+CMP OAI.Paper092.projectionVolume._proof_3 [thm] ok
+CMP OAI.Paper092.normalHyperplane [def] ok
+CMP OAI.Paper092.Euclidean [def] ok
+CMP OAI.Paper092.projectionVolume._proof_2 [thm] ok
+CMP OAI.Paper092.projectionVolume._proof_1 [thm] ok
+CMP OAI.Paper092.projectionBody._proof_1 [thm] ok
+CMP OAI.Paper092.simplexConstant [def] ok
+CMP OAI.Paper092.normalizedProjectionVolume [def] ok
+CMP OAI.Paper092.normalizedProjectionVolume._proof_2 [thm] ok
+CMP OAI.Paper092.normalizedProjectionVolume._proof_1 [thm] ok
+CMP OAI.Paper092.productWitness [def] ok
+CMP OAI.Paper092.secondBlock [def] ok
+CMP OAI.Paper092.firstBlock [def] ok
+CMP OAI.Paper092.standardSimplex [def] ok
+Chal.Paper092.product_counterexample : (IsCompact Chal.Paper092.productWitness ∧
+    Convex ℝ Chal.Paper092.productWitness ∧ (interior Chal.Paper092.productWitness).Nonempty) ∧
+  Chal.Paper092.normalizedProjectionVolume Chal.Paper092.productWitness / Chal.Paper092.simplexConstant 20 =
+      121 * ↑(Nat.choose 20 10) / (21 * 2 ^ 20) ∧
+    Chal.Paper092.normalizedProjectionVolume Chal.Paper092.productWitness / Chal.Paper092.simplexConstant 20 =
+        22355476 / 22020096 ∧
+      1 < Chal.Paper092.normalizedProjectionVolume Chal.Paper092.productWitness / Chal.Paper092.simplexConstant 20 ∧
+        (MeasureTheory.volume (Chal.Paper092.projectionBody Chal.Paper092.productWitness)).toReal >
+          Chal.Paper092.simplexConstant 20 * (MeasureTheory.volume Chal.Paper092.productWitness).toReal ^ 19
+def Chal.Paper092.simplexConstant : ℕ → ℝ :=
+fun d => (↑d + 1) * ↑d ^ d / ↑d.factorial
+@[reducible] def Chal.Paper092.Euclidean : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.Paper092.normalHyperplane : {n : ℕ} → Chal.Paper092.Euclidean n → Submodule ℝ (Chal.Paper092.Euclidean n) :=
+fun {n} u => (ℝ ∙ u)ᗮ
+def Chal.Paper092.projectionVolume : {n : ℕ} → Set (Chal.Paper092.Euclidean n) → Chal.Paper092.Euclidean n → ENNReal :=
+fun {n} K u => MeasureTheory.volume (⇑(Chal.Paper092.normalHyperplane u).orthogonalProjectionOnto '' K)
+def Chal.Paper092.brightness : {n : ℕ} → Set (Chal.Paper092.Euclidean n) → Chal.Paper092.Euclidean n → ℝ :=
+fun {n} K u => ‖u‖ * (Chal.Paper092.projectionVolume K u).toReal
+def Chal.Paper092.projectionBody : {n : ℕ} → Set (Chal.Paper092.Euclidean n) → Set (Chal.Paper092.Euclidean n) :=
+fun {n} K => {y | ∀ (u : Chal.Paper092.Euclidean n), inner ℝ u y ≤ Chal.Paper092.brightness K u}
+def Chal.Paper092.normalizedProjectionVolume : {n : ℕ} → Set (Chal.Paper092.Euclidean n) → ℝ :=
+fun {n} K => (MeasureTheory.volume (Chal.Paper092.projectionBody K)).toReal / (MeasureTheory.volume K).toReal ^ (n - 1)
+def Chal.Paper092.standardSimplex : (n : ℕ) → Set (Chal.Paper092.Euclidean n) :=
+fun n => (convexHull ℝ) (insert 0 (Set.range fun i => EuclideanSpace.single i 1))
+def Chal.Paper092.firstBlock : Chal.Paper092.Euclidean 20 → Chal.Paper092.Euclidean 10 :=
+fun x => WithLp.toLp 2 fun i => x.ofLp (Fin.castAdd 10 i)
+def Chal.Paper092.secondBlock : Chal.Paper092.Euclidean 20 → Chal.Paper092.Euclidean 10 :=
+fun x => WithLp.toLp 2 fun i => x.ofLp (Fin.natAdd 10 i)
+def Chal.Paper092.productWitness : Set (Chal.Paper092.Euclidean 20) :=
+{x |
+  Chal.Paper092.firstBlock x ∈ Chal.Paper092.standardSimplex 10 ∧
+    Chal.Paper092.secondBlock x ∈ Chal.Paper092.standardSimplex 10}
+'OAI.Paper092.product_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ProjectionVolume comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

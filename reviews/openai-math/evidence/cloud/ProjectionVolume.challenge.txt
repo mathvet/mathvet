@@ -1,0 +1,34 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ProjectionVolume.lean:45:8: warning: declaration uses `sorry`
+OAI.Paper092.product_counterexample : (IsCompact OAI.Paper092.productWitness ∧
+    Convex ℝ OAI.Paper092.productWitness ∧ (interior OAI.Paper092.productWitness).Nonempty) ∧
+  OAI.Paper092.normalizedProjectionVolume OAI.Paper092.productWitness / OAI.Paper092.simplexConstant 20 =
+      121 * ↑(Nat.choose 20 10) / (21 * 2 ^ 20) ∧
+    OAI.Paper092.normalizedProjectionVolume OAI.Paper092.productWitness / OAI.Paper092.simplexConstant 20 =
+        22355476 / 22020096 ∧
+      1 < OAI.Paper092.normalizedProjectionVolume OAI.Paper092.productWitness / OAI.Paper092.simplexConstant 20 ∧
+        (MeasureTheory.volume (OAI.Paper092.projectionBody OAI.Paper092.productWitness)).toReal >
+          OAI.Paper092.simplexConstant 20 * (MeasureTheory.volume OAI.Paper092.productWitness).toReal ^ 19
+def OAI.Paper092.simplexConstant : ℕ → ℝ :=
+fun d => (↑d + 1) * ↑d ^ d / ↑d.factorial
+@[reducible] def OAI.Paper092.Euclidean : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def OAI.Paper092.normalHyperplane : {n : ℕ} → OAI.Paper092.Euclidean n → Submodule ℝ (OAI.Paper092.Euclidean n) :=
+fun {n} u => (ℝ ∙ u)ᗮ
+def OAI.Paper092.projectionVolume : {n : ℕ} → Set (OAI.Paper092.Euclidean n) → OAI.Paper092.Euclidean n → ENNReal :=
+fun {n} K u => MeasureTheory.volume (⇑(OAI.Paper092.normalHyperplane u).orthogonalProjectionOnto '' K)
+def OAI.Paper092.brightness : {n : ℕ} → Set (OAI.Paper092.Euclidean n) → OAI.Paper092.Euclidean n → ℝ :=
+fun {n} K u => ‖u‖ * (OAI.Paper092.projectionVolume K u).toReal
+def OAI.Paper092.projectionBody : {n : ℕ} → Set (OAI.Paper092.Euclidean n) → Set (OAI.Paper092.Euclidean n) :=
+fun {n} K => {y | ∀ (u : OAI.Paper092.Euclidean n), inner ℝ u y ≤ OAI.Paper092.brightness K u}
+def OAI.Paper092.normalizedProjectionVolume : {n : ℕ} → Set (OAI.Paper092.Euclidean n) → ℝ :=
+fun {n} K => (MeasureTheory.volume (OAI.Paper092.projectionBody K)).toReal / (MeasureTheory.volume K).toReal ^ (n - 1)
+def OAI.Paper092.standardSimplex : (n : ℕ) → Set (OAI.Paper092.Euclidean n) :=
+fun n => (convexHull ℝ) (insert 0 (Set.range fun i => EuclideanSpace.single i 1))
+def OAI.Paper092.firstBlock : OAI.Paper092.Euclidean 20 → OAI.Paper092.Euclidean 10 :=
+fun x => WithLp.toLp 2 fun i => x.ofLp (Fin.castAdd 10 i)
+def OAI.Paper092.secondBlock : OAI.Paper092.Euclidean 20 → OAI.Paper092.Euclidean 10 :=
+fun x => WithLp.toLp 2 fun i => x.ofLp (Fin.natAdd 10 i)
+def OAI.Paper092.productWitness : Set (OAI.Paper092.Euclidean 20) :=
+{x |
+  OAI.Paper092.firstBlock x ∈ OAI.Paper092.standardSimplex 10 ∧
+    OAI.Paper092.secondBlock x ∈ OAI.Paper092.standardSimplex 10}
