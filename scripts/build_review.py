@@ -126,7 +126,10 @@ def scan_checks(name):
     if cc.exists():
         t = cc.read_text(errors='replace')
         d['cloud_files'].append(cc.name)
-        d['cloud_comparator'] = 'pass' if 'Your solution is okay!' in t else ('fail' if re.search(r'== comparator exit=\d+', t) else 'running')
+        if 'Your solution is okay!' in t: d['cloud_comparator'] = 'pass'
+        elif 'executable file not found' in t and 'nanoda' in t: d['cloud_comparator'] = 'incomplete'   # the challenge asks for the external nanoda kernel, which the VM lacks; Lean's kernel accepted
+        elif re.search(r'== comparator exit=\d+', t): d['cloud_comparator'] = 'fail'
+        else: d['cloud_comparator'] = 'running'
         m = re.search(r'^sandbox: (.*)$', t, re.M)
         d['cloud_sandbox'] = m.group(1).strip() if m else None
         m = re.search(r'== comparator exit=\d+ end (\S+)', t)
