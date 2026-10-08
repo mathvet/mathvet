@@ -1,0 +1,141 @@
+OAI.RelativeGeneration.main_theorem : OAI.RelativeGeneration.MainTarget
+'OAI.RelativeGeneration.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.RelativeGeneration.WOTClosed.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) → Prop :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  IsClosed {operator | operator.toCLM ∈ algebra}
+def OAI.RelativeGeneration.wstar.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → Set (Hilbert →L[ℂ] Hilbert) → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] operators =>
+  sInf {algebra | OAI.RelativeGeneration.WOTClosed algebra ∧ operators ⊆ ↑algebra}
+structure OAI.RelativeGeneration.IsII1Factor.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+  [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) : Prop
+number of parameters: 5
+fields:
+  OAI.RelativeGeneration.IsII1Factor.nonzero : 0 ≠ 1
+  OAI.RelativeGeneration.IsII1Factor.weaklyClosed : OAI.RelativeGeneration.WOTClosed algebra
+  OAI.RelativeGeneration.IsII1Factor.factor : ∀ (element : ↥algebra),
+      (∀ (other : ↥algebra), other * element = element * other) → ∃ scalar, element = (algebraMap ℂ ↥algebra) scalar
+  OAI.RelativeGeneration.IsII1Factor.finite : ∀ (isometry : ↥algebra),
+      star isometry * isometry = 1 → isometry * star isometry = 1
+  OAI.RelativeGeneration.IsII1Factor.diffuse : ∀ (projection : ↥algebra),
+      IsStarProjection projection →
+        projection ≠ 0 →
+          ∃ subprojection,
+            IsStarProjection subprojection ∧
+              subprojection ≠ 0 ∧
+                subprojection ≠ projection ∧
+                  projection * subprojection = subprojection ∧ subprojection * projection = subprojection
+constructor:
+  OAI.RelativeGeneration.IsII1Factor.mk.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+    [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] {algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)}
+    (nonzero : 0 ≠ 1) (weaklyClosed : OAI.RelativeGeneration.WOTClosed algebra)
+    (factor :
+      ∀ (element : ↥algebra),
+        (∀ (other : ↥algebra), other * element = element * other) → ∃ scalar, element = (algebraMap ℂ ↥algebra) scalar)
+    (finite : ∀ (isometry : ↥algebra), star isometry * isometry = 1 → isometry * star isometry = 1)
+    (diffuse :
+      ∀ (projection : ↥algebra),
+        IsStarProjection projection →
+          projection ≠ 0 →
+            ∃ subprojection,
+              IsStarProjection subprojection ∧
+                subprojection ≠ 0 ∧
+                  subprojection ≠ projection ∧
+                    projection * subprojection = subprojection ∧ subprojection * projection = subprojection) :
+    OAI.RelativeGeneration.IsII1Factor algebra
+def OAI.RelativeGeneration.HasSeparablePredual.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) → Prop :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  ∃ Banach x x_1,
+    ∃ (_ : CompleteSpace Banach) (_ : TopologicalSpace.SeparableSpace Banach),
+      Nonempty (StrongDual ℂ Banach ≃ₗᵢ⋆[ℂ] ↥algebra)
+@[reducible] def OAI.RelativeGeneration.ultraweakTopology.{level} : (Hilbert : Type level) →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] → [CompleteSpace Hilbert] → TopologicalSpace (Hilbert →L[ℂ] Hilbert) :=
+fun Hilbert [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] =>
+  ⨅ left,
+    ⨅ right,
+      ⨅ (_ : Summable fun index => ‖left index‖ * ‖right index‖),
+        TopologicalSpace.induced (fun operator => ∑' (index : ℕ), inner ℂ (left index) (operator (right index)))
+          inferInstance
+@[reducible] def OAI.RelativeGeneration.algebraUltraweakTopology.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) → TopologicalSpace ↥algebra :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  TopologicalSpace.induced (fun operator => ↑operator) (OAI.RelativeGeneration.ultraweakTopology Hilbert)
+structure OAI.RelativeGeneration.IsNormalizedTrace.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+  [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert))
+  (trace : ↥algebra →L[ℂ] ℂ) : Prop
+number of parameters: 6
+fields:
+  OAI.RelativeGeneration.IsNormalizedTrace.normalized : trace 1 = 1
+  OAI.RelativeGeneration.IsNormalizedTrace.positive : ∀ (element : ↥algebra), 0 ≤ (trace (star element * element)).re
+  OAI.RelativeGeneration.IsNormalizedTrace.star_preserving : ∀ (element : ↥algebra),
+      trace (star element) = star (trace element)
+  OAI.RelativeGeneration.IsNormalizedTrace.tracial : ∀ (left right : ↥algebra),
+      trace (left * right) = trace (right * left)
+  OAI.RelativeGeneration.IsNormalizedTrace.faithful : ∀ (element : ↥algebra),
+      trace (star element * element) = 0 → element = 0
+  OAI.RelativeGeneration.IsNormalizedTrace.normal : Continuous ⇑trace
+constructor:
+  OAI.RelativeGeneration.IsNormalizedTrace.mk.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+    [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] {algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)}
+    {trace : ↥algebra →L[ℂ] ℂ} (normalized : trace 1 = 1)
+    (positive : ∀ (element : ↥algebra), 0 ≤ (trace (star element * element)).re)
+    (star_preserving : ∀ (element : ↥algebra), trace (star element) = star (trace element))
+    (tracial : ∀ (left right : ↥algebra), trace (left * right) = trace (right * left))
+    (faithful : ∀ (element : ↥algebra), trace (star element * element) = 0 → element = 0) (normal : Continuous ⇑trace) :
+    OAI.RelativeGeneration.IsNormalizedTrace algebra trace
+def OAI.RelativeGeneration.traceDistance.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) →
+          (↥algebra →L[ℂ] ℂ) → ↥(unitary ↥algebra) → ↥(unitary ↥algebra) → ℝ :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra trace left
+    right =>
+  √(trace (star (↑left - ↑right) * (↑left - ↑right))).re
+@[reducible] def OAI.RelativeGeneration.traceTopology.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) →
+          (↥algebra →L[ℂ] ℂ) → TopologicalSpace ↥(unitary ↥algebra) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra trace =>
+  TopologicalSpace.generateFrom
+    {ball |
+      ∃ center radius,
+        0 < radius ∧ ball = {point | OAI.RelativeGeneration.traceDistance algebra trace center point < radius}}
+def OAI.RelativeGeneration.relativeGeneratorLocus.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) →
+          (large : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) → Set ↥(unitary ↥large) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] small large =>
+  {element | OAI.RelativeGeneration.wstar (↑small ∪ {↑↑element}) = large}
+def OAI.RelativeGeneration.MainTarget.{level} : Prop :=
+∀ (Hilbert : Type level) [inst : NormedAddCommGroup Hilbert] [inst_1 : InnerProductSpace ℂ Hilbert]
+  [inst_2 : CompleteSpace Hilbert] (small large : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)),
+  OAI.RelativeGeneration.IsII1Factor small →
+    OAI.RelativeGeneration.IsII1Factor large →
+      ∀ (inclusion : small ≤ large),
+        (∀ (element : ↥large),
+            (∀ (member : ↥small),
+                (StarSubalgebra.inclusion inclusion) member * element =
+                  element * (StarSubalgebra.inclusion inclusion) member) →
+              ∃ scalar, element = (algebraMap ℂ ↥large) scalar) →
+          OAI.RelativeGeneration.HasSeparablePredual large →
+            ∃ trace,
+              OAI.RelativeGeneration.IsNormalizedTrace large trace ∧
+                IsGδ (OAI.RelativeGeneration.relativeGeneratorLocus small large) ∧
+                  Dense (OAI.RelativeGeneration.relativeGeneratorLocus small large)

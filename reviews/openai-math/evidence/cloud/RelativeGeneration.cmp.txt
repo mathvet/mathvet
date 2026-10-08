@@ -1,0 +1,180 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RelativeGeneration.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.RelativeGeneration.main_theorem [thm] ok
+CMP OAI.RelativeGeneration.MainTarget [def] ok
+CMP OAI.RelativeGeneration.relativeGeneratorLocus [def] ok
+CMP OAI.RelativeGeneration.wstar [def] ok
+CMP OAI.RelativeGeneration.WOTClosed [def] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_11 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_10 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_9 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_8 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_7 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_6 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_5 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_4 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_3 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_2 [thm] ok
+CMP OAI.RelativeGeneration.WOTClosed._proof_1 [thm] ok
+CMP OAI.RelativeGeneration.traceDistance._proof_4 [thm] ok
+CMP OAI.RelativeGeneration.traceDistance._proof_3 [thm] ok
+CMP OAI.RelativeGeneration.traceDistance._proof_2 [thm] ok
+CMP OAI.RelativeGeneration.traceTopology [def] ok
+CMP OAI.RelativeGeneration.traceDistance [def] ok
+CMP OAI.RelativeGeneration.traceDistance._proof_5 [thm] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_6 [thm] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_2 [thm] ok
+CMP OAI.RelativeGeneration.traceDistance._proof_1 [thm] ok
+CMP OAI.RelativeGeneration.IsNormalizedTrace [ind] ok
+CMP OAI.RelativeGeneration.IsNormalizedTrace.mk [ctor] ok
+CMP OAI.RelativeGeneration.algebraUltraweakTopology [def] ok
+CMP OAI.RelativeGeneration.ultraweakTopology [def] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual [def] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_5 [thm] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_4 [thm] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_3 [thm] ok
+CMP OAI.RelativeGeneration.HasSeparablePredual._proof_1 [thm] ok
+CMP OAI.RelativeGeneration.MainTarget._proof_1 [thm] ok
+CMP OAI.RelativeGeneration.IsII1Factor [ind] ok
+CMP OAI.RelativeGeneration.IsII1Factor.mk [ctor] ok
+Chal.RelativeGeneration.main_theorem : Chal.RelativeGeneration.MainTarget
+def Chal.RelativeGeneration.WOTClosed.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) → Prop :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  IsClosed {operator | operator.toCLM ∈ algebra}
+def Chal.RelativeGeneration.wstar.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → Set (Hilbert →L[ℂ] Hilbert) → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] operators =>
+  sInf {algebra | Chal.RelativeGeneration.WOTClosed algebra ∧ operators ⊆ ↑algebra}
+structure Chal.RelativeGeneration.IsII1Factor.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+  [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) : Prop
+number of parameters: 5
+fields:
+  Chal.RelativeGeneration.IsII1Factor.nonzero : 0 ≠ 1
+  Chal.RelativeGeneration.IsII1Factor.weaklyClosed : Chal.RelativeGeneration.WOTClosed algebra
+  Chal.RelativeGeneration.IsII1Factor.factor : ∀ (element : ↥algebra),
+      (∀ (other : ↥algebra), other * element = element * other) → ∃ scalar, element = (algebraMap ℂ ↥algebra) scalar
+  Chal.RelativeGeneration.IsII1Factor.finite : ∀ (isometry : ↥algebra),
+      star isometry * isometry = 1 → isometry * star isometry = 1
+  Chal.RelativeGeneration.IsII1Factor.diffuse : ∀ (projection : ↥algebra),
+      IsStarProjection projection →
+        projection ≠ 0 →
+          ∃ subprojection,
+            IsStarProjection subprojection ∧
+              subprojection ≠ 0 ∧
+                subprojection ≠ projection ∧
+                  projection * subprojection = subprojection ∧ subprojection * projection = subprojection
+constructor:
+  Chal.RelativeGeneration.IsII1Factor.mk.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+    [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] {algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)}
+    (nonzero : 0 ≠ 1) (weaklyClosed : Chal.RelativeGeneration.WOTClosed algebra)
+    (factor :
+      ∀ (element : ↥algebra),
+        (∀ (other : ↥algebra), other * element = element * other) → ∃ scalar, element = (algebraMap ℂ ↥algebra) scalar)
+    (finite : ∀ (isometry : ↥algebra), star isometry * isometry = 1 → isometry * star isometry = 1)
+    (diffuse :
+      ∀ (projection : ↥algebra),
+        IsStarProjection projection →
+          projection ≠ 0 →
+            ∃ subprojection,
+              IsStarProjection subprojection ∧
+                subprojection ≠ 0 ∧
+                  subprojection ≠ projection ∧
+                    projection * subprojection = subprojection ∧ subprojection * projection = subprojection) :
+    Chal.RelativeGeneration.IsII1Factor algebra
+def Chal.RelativeGeneration.HasSeparablePredual.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] → StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) → Prop :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  ∃ Banach x x_1,
+    ∃ (_ : CompleteSpace Banach) (_ : TopologicalSpace.SeparableSpace Banach),
+      Nonempty (StrongDual ℂ Banach ≃ₗᵢ⋆[ℂ] ↥algebra)
+@[reducible] def Chal.RelativeGeneration.ultraweakTopology.{level} : (Hilbert : Type level) →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] → [CompleteSpace Hilbert] → TopologicalSpace (Hilbert →L[ℂ] Hilbert) :=
+fun Hilbert [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] =>
+  ⨅ left,
+    ⨅ right,
+      ⨅ (_ : Summable fun index => ‖left index‖ * ‖right index‖),
+        TopologicalSpace.induced (fun operator => ∑' (index : ℕ), inner ℂ (left index) (operator (right index)))
+          inferInstance
+@[reducible] def Chal.RelativeGeneration.algebraUltraweakTopology.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) → TopologicalSpace ↥algebra :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra =>
+  TopologicalSpace.induced (fun operator => ↑operator) (Chal.RelativeGeneration.ultraweakTopology Hilbert)
+structure Chal.RelativeGeneration.IsNormalizedTrace.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+  [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert))
+  (trace : ↥algebra →L[ℂ] ℂ) : Prop
+number of parameters: 6
+fields:
+  Chal.RelativeGeneration.IsNormalizedTrace.normalized : trace 1 = 1
+  Chal.RelativeGeneration.IsNormalizedTrace.positive : ∀ (element : ↥algebra), 0 ≤ (trace (star element * element)).re
+  Chal.RelativeGeneration.IsNormalizedTrace.star_preserving : ∀ (element : ↥algebra),
+      trace (star element) = star (trace element)
+  Chal.RelativeGeneration.IsNormalizedTrace.tracial : ∀ (left right : ↥algebra),
+      trace (left * right) = trace (right * left)
+  Chal.RelativeGeneration.IsNormalizedTrace.faithful : ∀ (element : ↥algebra),
+      trace (star element * element) = 0 → element = 0
+  Chal.RelativeGeneration.IsNormalizedTrace.normal : Continuous ⇑trace
+constructor:
+  Chal.RelativeGeneration.IsNormalizedTrace.mk.{level} {Hilbert : Type level} [NormedAddCommGroup Hilbert]
+    [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] {algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)}
+    {trace : ↥algebra →L[ℂ] ℂ} (normalized : trace 1 = 1)
+    (positive : ∀ (element : ↥algebra), 0 ≤ (trace (star element * element)).re)
+    (star_preserving : ∀ (element : ↥algebra), trace (star element) = star (trace element))
+    (tracial : ∀ (left right : ↥algebra), trace (left * right) = trace (right * left))
+    (faithful : ∀ (element : ↥algebra), trace (star element * element) = 0 → element = 0) (normal : Continuous ⇑trace) :
+    Chal.RelativeGeneration.IsNormalizedTrace algebra trace
+def Chal.RelativeGeneration.traceDistance.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) →
+          (↥algebra →L[ℂ] ℂ) → ↥(unitary ↥algebra) → ↥(unitary ↥algebra) → ℝ :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra trace left
+    right =>
+  √(trace (star (↑left - ↑right) * (↑left - ↑right))).re
+@[reducible] def Chal.RelativeGeneration.traceTopology.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        (algebra : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) →
+          (↥algebra →L[ℂ] ℂ) → TopologicalSpace ↥(unitary ↥algebra) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] algebra trace =>
+  TopologicalSpace.generateFrom
+    {ball |
+      ∃ center radius,
+        0 < radius ∧ ball = {point | Chal.RelativeGeneration.traceDistance algebra trace center point < radius}}
+def Chal.RelativeGeneration.relativeGeneratorLocus.{level} : {Hilbert : Type level} →
+  [inst : NormedAddCommGroup Hilbert] →
+    [inst_1 : InnerProductSpace ℂ Hilbert] →
+      [inst_2 : CompleteSpace Hilbert] →
+        StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert) →
+          (large : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)) → Set ↥(unitary ↥large) :=
+fun {Hilbert} [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] small large =>
+  {element | Chal.RelativeGeneration.wstar (↑small ∪ {↑↑element}) = large}
+def Chal.RelativeGeneration.MainTarget.{level} : Prop :=
+∀ (Hilbert : Type level) [inst : NormedAddCommGroup Hilbert] [inst_1 : InnerProductSpace ℂ Hilbert]
+  [inst_2 : CompleteSpace Hilbert] (small large : StarSubalgebra ℂ (Hilbert →L[ℂ] Hilbert)),
+  Chal.RelativeGeneration.IsII1Factor small →
+    Chal.RelativeGeneration.IsII1Factor large →
+      ∀ (inclusion : small ≤ large),
+        (∀ (element : ↥large),
+            (∀ (member : ↥small),
+                (StarSubalgebra.inclusion inclusion) member * element =
+                  element * (StarSubalgebra.inclusion inclusion) member) →
+              ∃ scalar, element = (algebraMap ℂ ↥large) scalar) →
+          Chal.RelativeGeneration.HasSeparablePredual large →
+            ∃ trace,
+              Chal.RelativeGeneration.IsNormalizedTrace large trace ∧
+                IsGδ (Chal.RelativeGeneration.relativeGeneratorLocus small large) ∧
+                  Dense (Chal.RelativeGeneration.relativeGeneratorLocus small large)
+'OAI.RelativeGeneration.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RelativeGeneration comparator-style: ok=37 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
