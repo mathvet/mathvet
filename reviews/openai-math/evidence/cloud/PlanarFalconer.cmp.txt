@@ -1,0 +1,15 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_PlanarFalconer.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.PlanarFalconer.mainTarget_proved [thm] ok
+CMP OAI.PlanarFalconer.MainTarget [def] ok
+CMP OAI.PlanarFalconer.distanceSet [def] ok
+CMP OAI.PlanarFalconer.Plane [def] ok
+Chal.PlanarFalconer.mainTarget_proved : Chal.PlanarFalconer.MainTarget
+@[reducible] def Chal.PlanarFalconer.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.PlanarFalconer.distanceSet : Set Chal.PlanarFalconer.Plane → Set ℝ :=
+fun E => {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}
+def Chal.PlanarFalconer.MainTarget : Prop :=
+∀ (E : Set Chal.PlanarFalconer.Plane),
+  IsCompact E → 1 < dimH E → 0 < MeasureTheory.volume (Chal.PlanarFalconer.distanceSet E)
+'OAI.PlanarFalconer.mainTarget_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlanarFalconer comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
