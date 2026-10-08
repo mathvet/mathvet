@@ -1,0 +1,95 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CayleyPercolation.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Percolation.arbitrary_cayley [thm] ok
+CMP OAI.Percolation.law [def] ok
+CMP OAI.Percolation.labelLaw [def] ok
+CMP OAI.Percolation.openEdges [def] ok
+CMP OAI.Percolation.infiniteClusters [def] ok
+CMP OAI.Percolation.cluster [def] ok
+CMP OAI.Percolation.Conn [def] ok
+CMP OAI.Percolation.BondGraph [def] ok
+CMP OAI.Percolation.pu [def] ok
+CMP OAI.Percolation.pc._proof_1 [thm] ok
+CMP OAI.Percolation.ptwo [def] ok
+CMP OAI.Percolation.OperatorBounded [def] ok
+CMP OAI.Percolation.HasKernel [def] ok
+CMP OAI.Percolation.twoPoint [def] ok
+CMP OAI.Percolation.HasKernel._proof_2 [thm] ok
+CMP OAI.Percolation.HasKernel._proof_1 [thm] ok
+CMP OAI.Percolation.Hilbert._proof_1 [thm] ok
+CMP OAI.Percolation.Hilbert [def] ok
+CMP OAI.Percolation.pc [def] ok
+CMP OAI.Percolation.cayleyGraph [def] ok
+CMP OAI.Percolation.CayleyEdge [def] ok
+CMP OAI.Percolation.AmenableGroup [def] ok
+@Chal.Percolation.arbitrary_cayley : ∀ {Λ : Type u_1} [inst : Group Λ] [Group.FG Λ],
+  ¬Chal.Percolation.AmenableGroup Λ →
+    ∀ (S : Finset Λ),
+      (∀ s ∈ S, s⁻¹ ∈ S) →
+        Subgroup.closure ↑S = ⊤ →
+          1 ∉ S →
+            Chal.Percolation.OperatorBounded (Chal.Percolation.cayleyGraph S)
+                (Chal.Percolation.pc (Chal.Percolation.cayleyGraph S)) ∧
+              Chal.Percolation.pc (Chal.Percolation.cayleyGraph S) <
+                  Chal.Percolation.ptwo (Chal.Percolation.cayleyGraph S) ∧
+                Chal.Percolation.ptwo (Chal.Percolation.cayleyGraph S) ≤
+                    Chal.Percolation.pu (Chal.Percolation.cayleyGraph S) ∧
+                  (∃ p₁ p₂,
+                      Chal.Percolation.pc (Chal.Percolation.cayleyGraph S) < p₁ ∧
+                        p₁ < p₂ ∧
+                          p₂ < 1 ∧
+                            ∀ᵐ (labels : Chal.Percolation.CayleyEdge S → ↑unitInterval) ∂Chal.Percolation.labelLaw,
+                              ∀ p ∈ Set.Icc p₁ p₂,
+                                (Chal.Percolation.infiniteClusters (Chal.Percolation.cayleyGraph S)
+                                    (Chal.Percolation.openEdges labels p)).Infinite) ∧
+                    ∀ (p : ↑unitInterval),
+                      Chal.Percolation.pc (Chal.Percolation.cayleyGraph S) < p →
+                        p < Chal.Percolation.pu (Chal.Percolation.cayleyGraph S) →
+                          ∀ᵐ (ω : Set (Chal.Percolation.CayleyEdge S)) ∂Chal.Percolation.law p,
+                            (Chal.Percolation.infiniteClusters (Chal.Percolation.cayleyGraph S) ω).Infinite
+@[reducible] def Chal.Percolation.BondGraph.{u, v} : Type u → Type v → Type (max v u) :=
+fun V E => E → Sym2 V
+def Chal.Percolation.Conn.{u, v} : {V : Type u} →
+  {E : Type v} → Chal.Percolation.BondGraph V E → Set E → V → V → Prop :=
+fun {V} {E} G ω x y => Relation.ReflTransGen (fun a b => ∃ e ∈ ω, G e = s(a, b)) x y
+def Chal.Percolation.cluster.{u, v} : {V : Type u} →
+  {E : Type v} → Chal.Percolation.BondGraph V E → Set E → V → Set V :=
+fun {V} {E} G ω x => {y | Chal.Percolation.Conn G ω x y}
+def Chal.Percolation.infiniteClusters.{u, v} : {V : Type u} →
+  {E : Type v} → Chal.Percolation.BondGraph V E → Set E → Set (Set V) :=
+fun {V} {E} G ω => {C | C.Infinite ∧ ∃ x, C = Chal.Percolation.cluster G ω x}
+def Chal.Percolation.law.{v} : {E : Type v} → ↑unitInterval → MeasureTheory.Measure (Set E) :=
+fun {E} p => ProbabilityTheory.setBernoulli Set.univ p
+def Chal.Percolation.pc.{u, v} : {V : Type u} → {E : Type v} → Chal.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | 0 < (Chal.Percolation.law p) {ω | (Chal.Percolation.infiniteClusters G ω).Nonempty}}
+def Chal.Percolation.pu.{u, v} : {V : Type u} → {E : Type v} → Chal.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | (Chal.Percolation.law p) {ω | ∃! C, C ∈ Chal.Percolation.infiniteClusters G ω} = 1}
+def Chal.Percolation.twoPoint.{u, v} : {V : Type u} →
+  {E : Type v} → Chal.Percolation.BondGraph V E → ↑unitInterval → V → V → ℝ :=
+fun {V} {E} G p x y => ((Chal.Percolation.law p) {ω | Chal.Percolation.Conn G ω x y}).toReal
+@[reducible] def Chal.Percolation.Hilbert.{u} : (V : Type u) → AddSubgroup (PreLp fun x => ℂ) :=
+fun V => lp (fun x => ℂ) 2
+def Chal.Percolation.HasKernel.{u, v} : {V : Type u} →
+  {E : Type v} →
+    [DecidableEq V] →
+      Chal.Percolation.BondGraph V E →
+        ↑unitInterval → (↥(Chal.Percolation.Hilbert V) →L[ℂ] ↥(Chal.Percolation.Hilbert V)) → Prop :=
+fun {V} {E} [DecidableEq V] G p A => ∀ (x y : V), ↑(A (lp.single 2 y 1)) x = ↑(Chal.Percolation.twoPoint G p x y)
+def Chal.Percolation.OperatorBounded.{u, v} : {V : Type u} →
+  {E : Type v} → Chal.Percolation.BondGraph V E → ↑unitInterval → Prop :=
+fun {V} {E} G p => ∃ A, Chal.Percolation.HasKernel G p A
+def Chal.Percolation.ptwo.{u, v} : {V : Type u} → {E : Type v} → Chal.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sSup {p | Chal.Percolation.OperatorBounded G p}
+def Chal.Percolation.labelLaw.{v} : {E : Type v} → MeasureTheory.Measure (E → ↑unitInterval) :=
+fun {E} => MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume
+def Chal.Percolation.openEdges.{v} : {E : Type v} → (E → ↑unitInterval) → ↑unitInterval → Set E :=
+fun {E} labels p => {e | labels e ≤ p}
+def Chal.Percolation.AmenableGroup.{u} : (Λ : Type u) → [Group Λ] → Prop :=
+fun Λ [Group Λ] =>
+  ∀ (K : Finset Λ) (ε : ℝ), 0 < ε → ∃ A, A.Nonempty ∧ ∀ g ∈ K, ↑(Finset.image (fun x => x * g) A \ A).card < ε * ↑A.card
+def Chal.Percolation.CayleyEdge.{u} : {Λ : Type u} → [Group Λ] → Finset Λ → Type (max 0 u) :=
+fun {Λ} [Group Λ] S => { e // ∃ x, ∃ s ∈ S, e = s(x, x * s) }
+def Chal.Percolation.cayleyGraph.{u} : {Λ : Type u} →
+  [inst : Group Λ] → (S : Finset Λ) → Chal.Percolation.BondGraph Λ (Chal.Percolation.CayleyEdge S) :=
+fun {Λ} [Group Λ] S => Subtype.val
+'OAI.Percolation.arbitrary_cayley' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CayleyPercolation comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
