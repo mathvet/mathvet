@@ -1,0 +1,86 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CriticalStripMass.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CriticalStrip.critical_strip_mass [thm] ok
+CMP OAI.CriticalStrip.CriticalStripMass [def] ok
+CMP OAI.CriticalStrip.CriticalStripMass._proof_1 [thm] ok
+CMP OAI.CriticalStrip.c._proof_1 [thm] ok
+CMP OAI.CriticalStrip.moment [def] ok
+CMP OAI.CriticalStrip.K [def] ok
+CMP OAI.CriticalStrip.archWeight [def] ok
+CMP OAI.CriticalStrip.rho [def] ok
+CMP OAI.CriticalStrip.rho._proof_1 [thm] ok
+CMP OAI.CriticalStrip.up [def] ok
+CMP OAI.CriticalStrip.Triangle [def] ok
+CMP OAI.CriticalStrip.IsPath [def] ok
+CMP OAI.CriticalStrip.adjacent [def] ok
+CMP OAI.CriticalStrip.upDownAdjacent [def] ok
+CMP OAI.CriticalStrip.Comparable [def] ok
+CMP OAI.CriticalStrip.bridgeMass [def] ok
+CMP OAI.CriticalStrip.bridgeKernel [def] ok
+CMP OAI.CriticalStrip.bridgeWeight [def] ok
+CMP OAI.CriticalStrip.down [def] ok
+CMP OAI.CriticalStrip.archMass [def] ok
+CMP OAI.CriticalStrip.c [def] ok
+CMP OAI.CriticalStrip.c._proof_2 [thm] ok
+CMP OAI.CriticalStrip.StripSumsFinite [def] ok
+Chal.CriticalStrip.critical_strip_mass : Chal.CriticalStrip.CriticalStripMass
+def Chal.CriticalStrip.rho : ℝ :=
+1 / √(2 + √2)
+def Chal.CriticalStrip.c : ℝ :=
+Real.cos (3 * Real.pi / 8)
+def Chal.CriticalStrip.lambda : ℝ :=
+Real.pi / 8
+def Chal.CriticalStrip.d : ℝ :=
+Real.cos (2 * Chal.CriticalStrip.lambda)
+def Chal.CriticalStrip.C : ℝ :=
+Real.cos Chal.CriticalStrip.lambda
+def Chal.CriticalStrip.eta : ℝ :=
+2 * Chal.CriticalStrip.d - 1
+@[reducible] def Chal.CriticalStrip.Triangle : Type :=
+ℤ × ℕ × Bool
+def Chal.CriticalStrip.up : ℤ → ℕ → Chal.CriticalStrip.Triangle :=
+fun i j => (i, j, true)
+def Chal.CriticalStrip.down : ℤ → ℕ → Chal.CriticalStrip.Triangle :=
+fun i j => (i, j, false)
+def Chal.CriticalStrip.upDownAdjacent : Chal.CriticalStrip.Triangle → Chal.CriticalStrip.Triangle → Prop :=
+fun v w => v.2.2 = true ∧ w.2.2 = false ∧ (v.2.1 = w.2.1 ∧ (w.1 = v.1 ∨ w.1 + 1 = v.1) ∨ v.2.1 = w.2.1 + 1 ∧ v.1 = w.1)
+def Chal.CriticalStrip.adjacent : Chal.CriticalStrip.Triangle → Chal.CriticalStrip.Triangle → Prop :=
+fun v w => Chal.CriticalStrip.upDownAdjacent v w ∨ Chal.CriticalStrip.upDownAdjacent w v
+def Chal.CriticalStrip.IsPath : ℕ → Chal.CriticalStrip.Triangle → List Chal.CriticalStrip.Triangle → Prop :=
+fun N finish p =>
+  p.head? = some (Chal.CriticalStrip.up 0 0) ∧
+    p.getLast? = some finish ∧ p.Nodup ∧ List.IsChain Chal.CriticalStrip.adjacent p ∧ ∀ v ∈ p, v.2.1 < N
+def Chal.CriticalStrip.archWeight : ℕ → ℤ → List Chal.CriticalStrip.Triangle → ℝ :=
+fun N k p =>
+  if k ≠ 0 ∧ Chal.CriticalStrip.IsPath N (Chal.CriticalStrip.up k 0) p then Chal.CriticalStrip.rho ^ p.length else 0
+def Chal.CriticalStrip.bridgeWeight : ℕ → ℤ → List Chal.CriticalStrip.Triangle → ℝ :=
+fun N k p =>
+  if 0 < N ∧ Chal.CriticalStrip.IsPath N (Chal.CriticalStrip.down k (N - 1)) p then Chal.CriticalStrip.rho ^ p.length
+  else 0
+def Chal.CriticalStrip.K : ℕ → ℤ → ℝ :=
+fun N k => ∑' (p : List Chal.CriticalStrip.Triangle), Chal.CriticalStrip.archWeight N k p
+def Chal.CriticalStrip.bridgeKernel : ℕ → ℤ → ℝ :=
+fun N k => ∑' (p : List Chal.CriticalStrip.Triangle), Chal.CriticalStrip.bridgeWeight N k p
+def Chal.CriticalStrip.archMass : ℕ → ℝ :=
+fun N => ∑' (k : ℤ), Chal.CriticalStrip.K N k
+def Chal.CriticalStrip.bridgeMass : ℕ → ℝ :=
+fun N => ∑' (k : ℤ), Chal.CriticalStrip.bridgeKernel N k
+def Chal.CriticalStrip.moment : ℕ → ℝ :=
+fun N => ∑' (k : ℕ), (↑k + 1) * Chal.CriticalStrip.K N (↑k + 1)
+def Chal.CriticalStrip.StripSumsFinite : ℕ → Prop :=
+fun N =>
+  (∀ (k : ℤ), Summable (Chal.CriticalStrip.archWeight N k)) ∧
+    (∀ (k : ℤ), Summable (Chal.CriticalStrip.bridgeWeight N k)) ∧
+      Summable (Chal.CriticalStrip.K N) ∧
+        Summable (Chal.CriticalStrip.bridgeKernel N) ∧ Summable fun k => (↑k + 1) * Chal.CriticalStrip.K N (↑k + 1)
+def Chal.CriticalStrip.Comparable : (ℕ → ℝ) → (ℕ → ℝ) → Prop :=
+fun f g => ∃ lo hi, 0 < lo ∧ 0 < hi ∧ ∀ (N : ℕ), 1 ≤ N → lo * g N ≤ f N ∧ f N ≤ hi * g N
+def Chal.CriticalStrip.CriticalStripMass : Prop :=
+(∀ (N : ℕ), 1 ≤ N → Chal.CriticalStrip.StripSumsFinite N) ∧
+  (∀ (N : ℕ), 1 ≤ N → Chal.CriticalStrip.c * Chal.CriticalStrip.archMass N + Chal.CriticalStrip.bridgeMass N = 1) ∧
+    Chal.CriticalStrip.Comparable (fun N => Chal.CriticalStrip.moment (N + 1) - Chal.CriticalStrip.moment N)
+        Chal.CriticalStrip.bridgeMass ∧
+      (Chal.CriticalStrip.Comparable Chal.CriticalStrip.moment fun N => ↑N ^ (3 / 4)) ∧
+        (Chal.CriticalStrip.Comparable Chal.CriticalStrip.bridgeMass fun N => ↑N ^ (-(1 / 4))) ∧
+          ∀ (N : ℕ), 1 ≤ N → Chal.CriticalStrip.bridgeMass (N + 1) ≤ Chal.CriticalStrip.bridgeMass N
+'OAI.CriticalStrip.critical_strip_mass' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CriticalStripMass comparator-style: ok=23 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
