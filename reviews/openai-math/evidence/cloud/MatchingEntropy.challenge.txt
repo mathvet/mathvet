@@ -1,0 +1,51 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_MatchingEntropy.lean:58:8: warning: declaration uses `sorry`
+@OAI.MatchingEntropy.entropy_main : ∀ {V : Type u_1} {E : Type u_2} [inst : Fintype V] [inst_1 : Fintype E]
+  [DecidableEq V] [inst_3 : DecidableEq E] (G : OAI.MatchingEntropy.LooplessGraph V E) (m : ℕ),
+  0 < m →
+    Fintype.card V = 2 * m →
+      Nonempty G.Matching →
+        ∀ y ∈ G.polytope,
+          OAI.MatchingEntropy.marginalEntropy y - OAI.MatchingEntropy.maxMatchingEntropy G y ≤
+            8 * ↑m * (1 - Real.exp (-OAI.MatchingEntropy.marginalEntropy y / ↑m))
+def OAI.MatchingEntropy.probabilitySimplex.{u_1} : (Index : Type u_1) → [Fintype Index] → Set (Index → ℝ) :=
+fun Index [Fintype Index] => {weights | (∀ (index : Index), 0 ≤ weights index) ∧ ∑ index, weights index = 1}
+structure OAI.MatchingEntropy.LooplessGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  OAI.MatchingEntropy.LooplessGraph.left : E → V
+  OAI.MatchingEntropy.LooplessGraph.right : E → V
+  OAI.MatchingEntropy.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  OAI.MatchingEntropy.LooplessGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : OAI.MatchingEntropy.LooplessGraph V E
+def OAI.MatchingEntropy.LooplessGraph.Incident.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def OAI.MatchingEntropy.LooplessGraph.IsPerfectMatching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def OAI.MatchingEntropy.LooplessGraph.Matching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → Type (max 0 u_2) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+def OAI.MatchingEntropy.LooplessGraph.indicator.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [DecidableEq E] → (G : OAI.MatchingEntropy.LooplessGraph V E) → G.Matching → E → ℝ :=
+fun {V} {E} [DecidableEq E] G M e => if e ∈ ↑M then 1 else 0
+def OAI.MatchingEntropy.LooplessGraph.polytope.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [DecidableEq E] → OAI.MatchingEntropy.LooplessGraph V E → Set (E → ℝ) :=
+fun {V} {E} [DecidableEq E] G => (convexHull ℝ) (Set.range G.indicator)
+def OAI.MatchingEntropy.LooplessGraph.mean.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    [Fintype E] → [DecidableEq E] → (G : OAI.MatchingEntropy.LooplessGraph V E) → (G.Matching → ℝ) → E → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G p e => ∑ M, p M * G.indicator M e
+def OAI.MatchingEntropy.LooplessGraph.feasibleLaws.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    [Fintype E] → [DecidableEq E] → (G : OAI.MatchingEntropy.LooplessGraph V E) → (E → ℝ) → Set (G.Matching → ℝ) :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y =>
+  {p | p ∈ OAI.MatchingEntropy.probabilitySimplex G.Matching ∧ G.mean p = y}
+def OAI.MatchingEntropy.entropy.{u_3} : {ι : Type u_3} → [Fintype ι] → (ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] p => ∑ i, (p i).negMulLog
+def OAI.MatchingEntropy.marginalEntropy.{u_2} : {E : Type u_2} → [Fintype E] → (E → ℝ) → ℝ :=
+fun {E} [Fintype E] y => OAI.MatchingEntropy.entropy y
+def OAI.MatchingEntropy.maxMatchingEntropy.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [Fintype E] → [DecidableEq E] → OAI.MatchingEntropy.LooplessGraph V E → (E → ℝ) → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y => sSup (OAI.MatchingEntropy.entropy '' G.feasibleLaws y)

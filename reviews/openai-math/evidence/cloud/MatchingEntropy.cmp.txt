@@ -1,0 +1,70 @@
+CMP OAI.MatchingEntropy.entropy_main [thm] ok
+CMP OAI.MatchingEntropy.maxMatchingEntropy [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.feasibleLaws [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.mean [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.indicator [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.IsPerfectMatching [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.Incident [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.right [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph [ind] ok
+CMP OAI.MatchingEntropy.LooplessGraph.mk [ctor] ok
+CMP OAI.MatchingEntropy.LooplessGraph.left [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.Matching [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.matchingFintype [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.matchingFintype._proof_1 [thm] ok
+CMP OAI.MatchingEntropy.probabilitySimplex [def] ok
+CMP OAI.MatchingEntropy.entropy [def] ok
+CMP OAI.MatchingEntropy.marginalEntropy [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.polytope [def] ok
+@Chal.MatchingEntropy.entropy_main : ∀ {V : Type u_1} {E : Type u_2} [inst : Fintype V] [inst_1 : Fintype E]
+  [DecidableEq V] [inst_3 : DecidableEq E] (G : Chal.MatchingEntropy.LooplessGraph V E) (m : ℕ),
+  0 < m →
+    Fintype.card V = 2 * m →
+      Nonempty G.Matching →
+        ∀ y ∈ G.polytope,
+          Chal.MatchingEntropy.marginalEntropy y - Chal.MatchingEntropy.maxMatchingEntropy G y ≤
+            8 * ↑m * (1 - Real.exp (-Chal.MatchingEntropy.marginalEntropy y / ↑m))
+def Chal.MatchingEntropy.probabilitySimplex.{u_1} : (Index : Type u_1) → [Fintype Index] → Set (Index → ℝ) :=
+fun Index [Fintype Index] => {weights | (∀ (index : Index), 0 ≤ weights index) ∧ ∑ index, weights index = 1}
+structure Chal.MatchingEntropy.LooplessGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  Chal.MatchingEntropy.LooplessGraph.left : E → V
+  Chal.MatchingEntropy.LooplessGraph.right : E → V
+  Chal.MatchingEntropy.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  Chal.MatchingEntropy.LooplessGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : Chal.MatchingEntropy.LooplessGraph V E
+def Chal.MatchingEntropy.LooplessGraph.Incident.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def Chal.MatchingEntropy.LooplessGraph.IsPerfectMatching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def Chal.MatchingEntropy.LooplessGraph.Matching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → Type (max 0 u_2) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+def Chal.MatchingEntropy.LooplessGraph.indicator.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [DecidableEq E] → (G : Chal.MatchingEntropy.LooplessGraph V E) → G.Matching → E → ℝ :=
+fun {V} {E} [DecidableEq E] G M e => if e ∈ ↑M then 1 else 0
+def Chal.MatchingEntropy.LooplessGraph.polytope.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [DecidableEq E] → Chal.MatchingEntropy.LooplessGraph V E → Set (E → ℝ) :=
+fun {V} {E} [DecidableEq E] G => (convexHull ℝ) (Set.range G.indicator)
+def Chal.MatchingEntropy.LooplessGraph.mean.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    [Fintype E] → [DecidableEq E] → (G : Chal.MatchingEntropy.LooplessGraph V E) → (G.Matching → ℝ) → E → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G p e => ∑ M, p M * G.indicator M e
+def Chal.MatchingEntropy.LooplessGraph.feasibleLaws.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    [Fintype E] → [DecidableEq E] → (G : Chal.MatchingEntropy.LooplessGraph V E) → (E → ℝ) → Set (G.Matching → ℝ) :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y =>
+  {p | p ∈ Chal.MatchingEntropy.probabilitySimplex G.Matching ∧ G.mean p = y}
+def Chal.MatchingEntropy.entropy.{u_3} : {ι : Type u_3} → [Fintype ι] → (ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] p => ∑ i, (p i).negMulLog
+def Chal.MatchingEntropy.marginalEntropy.{u_2} : {E : Type u_2} → [Fintype E] → (E → ℝ) → ℝ :=
+fun {E} [Fintype E] y => Chal.MatchingEntropy.entropy y
+def Chal.MatchingEntropy.maxMatchingEntropy.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → [Fintype E] → [DecidableEq E] → Chal.MatchingEntropy.LooplessGraph V E → (E → ℝ) → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq E] G y => sSup (Chal.MatchingEntropy.entropy '' G.feasibleLaws y)
+'OAI.MatchingEntropy.entropy_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatchingEntropy comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
