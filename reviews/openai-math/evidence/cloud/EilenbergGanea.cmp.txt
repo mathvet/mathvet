@@ -1,0 +1,133 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_EilenbergGanea.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.EilenbergGanea.source_main [thm] ok
+CMP OAI.EilenbergGanea.HasClassifyingSpace [def] ok
+CMP OAI.EilenbergGanea.cohomologicalDimension [def] ok
+CMP OAI.EilenbergGanea.SourceGroup [def] ok
+CMP OAI.EilenbergGanea.height [def] ok
+CMP OAI.EilenbergGanea.height._proof_1 [thm] ok
+CMP OAI.EilenbergGanea.artinRelations [def] ok
+CMP OAI.EilenbergGanea.ArtinGroup [def] ok
+CMP OAI.EilenbergGanea.seedGraph [def] ok
+CMP OAI.EilenbergGanea.seedGraph._proof_2 [thm] ok
+CMP OAI.EilenbergGanea.properFace [def] ok
+CMP OAI.EilenbergGanea.sectorEdges [def] ok
+CMP OAI.EilenbergGanea.nextSector [def] ok
+CMP OAI.EilenbergGanea.nextSector._proof_2 [thm] ok
+CMP OAI.EilenbergGanea.boundaryLength [def] ok
+CMP OAI.EilenbergGanea.seedWord [def] ok
+CMP OAI.EilenbergGanea.seedWord.match_1 [def] ok
+CMP OAI.EilenbergGanea.Sector [def] ok
+CMP OAI.EilenbergGanea.sectorCircleEdge [def] ok
+CMP OAI.EilenbergGanea.sectorCircleEdge._proof_3 [thm] ok
+CMP OAI.EilenbergGanea.sectorCircleEdge._proof_2 [thm] ok
+CMP OAI.EilenbergGanea.sectorLetter [def] ok
+CMP OAI.EilenbergGanea.sectorLetter._proof_2 [thm] ok
+CMP OAI.EilenbergGanea.CircleEdge [def] ok
+CMP OAI.EilenbergGanea.SeedEdge [def] ok
+CMP OAI.EilenbergGanea.sectorVertices [def] ok
+CMP OAI.EilenbergGanea.edgeVertices [def] ok
+CMP OAI.EilenbergGanea.sectorStart [def] ok
+CMP OAI.EilenbergGanea.circleEnd [def] ok
+CMP OAI.EilenbergGanea.circleStart._proof_1 [thm] ok
+CMP OAI.EilenbergGanea.RoseVertex [def] ok
+CMP OAI.EilenbergGanea.circleStart [def] ok
+CMP OAI.EilenbergGanea.SeedVertex [def] ok
+CMP OAI.EilenbergGanea.edgeVertices.match_1 [def] ok
+CMP OAI.EilenbergGanea.properFace.match_1 [def] ok
+CMP OAI.EilenbergGanea.properFace._sparseCasesOn_2 [def] ok
+CMP OAI.EilenbergGanea.properFace._sparseCasesOn_1 [def] ok
+CMP OAI.EilenbergGanea.SeedCell [def] ok
+CMP OAI.EilenbergGanea.seedGraph._proof_1 [thm] ok
+Chal.EilenbergGanea.source_main : Group.FG ↥Chal.EilenbergGanea.SourceGroup ∧
+  Group.ResiduallyFinite ↥Chal.EilenbergGanea.SourceGroup ∧
+    Chal.EilenbergGanea.cohomologicalDimension ↥Chal.EilenbergGanea.SourceGroup = 2 ∧
+      Chal.EilenbergGanea.HasClassifyingSpace (↥Chal.EilenbergGanea.SourceGroup) 3 ∧
+        ¬Chal.EilenbergGanea.HasClassifyingSpace (↥Chal.EilenbergGanea.SourceGroup) 2
+def Chal.EilenbergGanea.seedWord : Bool → List (Bool × Bool) :=
+fun x =>
+  match x with
+  | false => [(false, true), (false, true), (true, false), (true, false), (true, false), (true, false), (true, false)]
+  | true =>
+    [(false, true), (false, true), (true, true), (false, false), (true, true), (false, false), (true, true),
+      (false, false)]
+def Chal.EilenbergGanea.boundaryLength : Bool → ℕ :=
+fun relation => 3 * (Chal.EilenbergGanea.seedWord relation).length
+@[reducible] def Chal.EilenbergGanea.RoseVertex : Type :=
+Option (Bool × Fin 2)
+@[reducible] def Chal.EilenbergGanea.SeedVertex : Type :=
+Chal.EilenbergGanea.RoseVertex ⊕ Bool
+@[reducible] def Chal.EilenbergGanea.CircleEdge : Type :=
+Bool × Fin 3
+@[reducible] def Chal.EilenbergGanea.Sector : Type :=
+(relation : Bool) × Fin (Chal.EilenbergGanea.boundaryLength relation)
+@[reducible] def Chal.EilenbergGanea.SeedEdge : Type :=
+Chal.EilenbergGanea.CircleEdge ⊕ Chal.EilenbergGanea.Sector
+@[reducible] def Chal.EilenbergGanea.SeedCell : Type :=
+Chal.EilenbergGanea.SeedVertex ⊕ Chal.EilenbergGanea.SeedEdge ⊕ Chal.EilenbergGanea.Sector
+def Chal.EilenbergGanea.circleStart : Chal.EilenbergGanea.CircleEdge → Chal.EilenbergGanea.RoseVertex :=
+fun edge => ![none, some (edge.1, 0), some (edge.1, 1)] edge.2
+def Chal.EilenbergGanea.circleEnd : Chal.EilenbergGanea.CircleEdge → Chal.EilenbergGanea.RoseVertex :=
+fun edge => ![some (edge.1, 0), some (edge.1, 1), none] edge.2
+def Chal.EilenbergGanea.sectorLetter : Chal.EilenbergGanea.Sector → Bool × Bool :=
+fun sector => (Chal.EilenbergGanea.seedWord sector.fst).get ⟨↑sector.snd / 3, ⋯⟩
+def Chal.EilenbergGanea.sectorCircleEdge : Chal.EilenbergGanea.Sector → Chal.EilenbergGanea.CircleEdge :=
+fun sector =>
+  ((Chal.EilenbergGanea.sectorLetter sector).1,
+    if (Chal.EilenbergGanea.sectorLetter sector).2 = true then ⟨↑sector.snd % 3, ⋯⟩ else ⟨2 - ↑sector.snd % 3, ⋯⟩)
+def Chal.EilenbergGanea.sectorStart : Chal.EilenbergGanea.Sector → Chal.EilenbergGanea.RoseVertex :=
+fun sector =>
+  if (Chal.EilenbergGanea.sectorLetter sector).2 = true then
+    Chal.EilenbergGanea.circleStart (Chal.EilenbergGanea.sectorCircleEdge sector)
+  else Chal.EilenbergGanea.circleEnd (Chal.EilenbergGanea.sectorCircleEdge sector)
+def Chal.EilenbergGanea.nextSector : Chal.EilenbergGanea.Sector → Chal.EilenbergGanea.Sector :=
+fun sector => ⟨sector.fst, ⟨(↑sector.snd + 1) % Chal.EilenbergGanea.boundaryLength sector.fst, ⋯⟩⟩
+def Chal.EilenbergGanea.edgeVertices : Chal.EilenbergGanea.SeedEdge → Finset Chal.EilenbergGanea.SeedVertex :=
+fun x =>
+  match x with
+  | Sum.inl edge => {Sum.inl (Chal.EilenbergGanea.circleStart edge), Sum.inl (Chal.EilenbergGanea.circleEnd edge)}
+  | Sum.inr sector => {Sum.inr sector.fst, Sum.inl (Chal.EilenbergGanea.sectorStart sector)}
+def Chal.EilenbergGanea.sectorEdges : Chal.EilenbergGanea.Sector → Finset Chal.EilenbergGanea.SeedEdge :=
+fun sector =>
+  {Sum.inl (Chal.EilenbergGanea.sectorCircleEdge sector), Sum.inr sector,
+    Sum.inr (Chal.EilenbergGanea.nextSector sector)}
+def Chal.EilenbergGanea.sectorVertices : Chal.EilenbergGanea.Sector → Finset Chal.EilenbergGanea.SeedVertex :=
+fun sector => (Chal.EilenbergGanea.sectorEdges sector).biUnion Chal.EilenbergGanea.edgeVertices
+def Chal.EilenbergGanea.properFace : Chal.EilenbergGanea.SeedCell → Chal.EilenbergGanea.SeedCell → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | Sum.inl vertex, Sum.inr (Sum.inl edge) => vertex ∈ Chal.EilenbergGanea.edgeVertices edge
+  | Sum.inl vertex, Sum.inr (Sum.inr sector) => vertex ∈ Chal.EilenbergGanea.sectorVertices sector
+  | Sum.inr (Sum.inl edge), Sum.inr (Sum.inr sector) => edge ∈ Chal.EilenbergGanea.sectorEdges sector
+  | x, x_2 => False
+def Chal.EilenbergGanea.seedGraph : SimpleGraph Chal.EilenbergGanea.SeedCell :=
+{ Adj := fun first second => Chal.EilenbergGanea.properFace first second ∨ Chal.EilenbergGanea.properFace second first,
+  symm := Chal.EilenbergGanea.seedGraph._proof_1, loopless := Chal.EilenbergGanea.seedGraph._proof_2 }
+def Chal.EilenbergGanea.artinRelations.{u_1} : {Vertex : Type u_1} → SimpleGraph Vertex → Set (FreeGroup Vertex) :=
+fun {Vertex} graph =>
+  {word |
+    ∃ first second,
+      graph.Adj first second ∧
+        word = FreeGroup.of first * FreeGroup.of second * (FreeGroup.of first)⁻¹ * (FreeGroup.of second)⁻¹}
+@[reducible] def Chal.EilenbergGanea.ArtinGroup.{u_1} : {Vertex : Type u_1} → SimpleGraph Vertex → Type u_1 :=
+fun {Vertex} graph => PresentedGroup (Chal.EilenbergGanea.artinRelations graph)
+def Chal.EilenbergGanea.height.{u_1} : {Vertex : Type u_1} →
+  (graph : SimpleGraph Vertex) → Chal.EilenbergGanea.ArtinGroup graph →* Multiplicative ℤ :=
+fun {Vertex} graph => PresentedGroup.toGroup ⋯
+@[reducible] def Chal.EilenbergGanea.SourceGroup : Subgroup
+  (Chal.EilenbergGanea.ArtinGroup Chal.EilenbergGanea.seedGraph) :=
+(Chal.EilenbergGanea.height Chal.EilenbergGanea.seedGraph).ker
+def Chal.EilenbergGanea.cohomologicalDimension.{u_1} : (GroupType : Type u_1) → [Group GroupType] → WithBot ℕ∞ :=
+fun GroupType [Group GroupType] => CategoryTheory.projectiveDimension ↧(Representation.trivial ℤ GroupType ℤ).asModule
+def Chal.EilenbergGanea.HasClassifyingSpace.{u, u_1} : (GroupType : Type u_1) → [Group GroupType] → ℕ → Prop :=
+fun GroupType [Group GroupType] dimension =>
+  ∃ Space x,
+    ∃ (_ : T2Space Space),
+      ∃ x_2,
+        (∀ (degree : ℕ), dimension < degree → IsEmpty (Topology.CWComplex.cell Set.univ degree)) ∧
+          PathConnectedSpace Space ∧
+            ∃ basepoint,
+              Nonempty (FundamentalGroup Space basepoint ≃* GroupType) ∧
+                ∃ Cover x_3,
+                  ContractibleSpace Cover ∧ ∃ projection, IsCoveringMap projection ∧ Function.Surjective projection
+'OAI.EilenbergGanea.source_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EilenbergGanea comparator-style: ok=39 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
