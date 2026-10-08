@@ -1,0 +1,155 @@
+CMP OAI.CriticalSK.critical_mixing_lower_bounds [thm] ok
+CMP OAI.CriticalSK.discreteMixingTime [def] ok
+CMP OAI.CriticalSK.continuousMixingTime._proof_1 [thm] ok
+CMP OAI.CriticalSK.discreteDistance [def] ok
+CMP OAI.CriticalSK.discreteKernel [def] ok
+CMP OAI.CriticalSK.siteKernel [def] ok
+CMP OAI.CriticalSK.gibbs [def] ok
+CMP OAI.CriticalSK.partition [def] ok
+CMP OAI.CriticalSK.hamiltonian [def] ok
+CMP OAI.CriticalSK.spinValue [def] ok
+CMP OAI.CriticalSK.Edge [def] ok
+CMP OAI.CriticalSK.Spin [def] ok
+CMP OAI.CriticalSK.Disorder [def] ok
+CMP OAI.CriticalSK.instDecidableSameExcept [def] ok
+CMP OAI.CriticalSK.sameExcept [def] ok
+CMP OAI.CriticalSK.totalVariation [def] ok
+CMP OAI.CriticalSK.totalVariation._proof_1 [thm] ok
+CMP OAI.CriticalSK.continuousMixingTime [def] ok
+CMP OAI.CriticalSK.continuousDistance [def] ok
+CMP OAI.CriticalSK.continuousKernel [def] ok
+CMP OAI.CriticalSK.generator [def] ok
+CMP OAI.CriticalSK.continuousKernel._proof_1 [thm] ok
+CMP OAI.CriticalSK.disorderLaw [def] ok
+CMP OAI.CriticalSK.covariance_and_linear_tests [thm] ok
+CMP OAI.CriticalSK.linearRayleigh [def] ok
+CMP OAI.CriticalSK.dirichlet [def] ok
+CMP OAI.CriticalSK.mean [def] ok
+CMP OAI.CriticalSK.linearObservable [def] ok
+CMP OAI.CriticalSK.variance [def] ok
+CMP OAI.CriticalSK.covarianceNorm [def] ok
+CMP OAI.CriticalSK.covariance [def] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_10 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_9 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_8 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_7 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_6 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_5 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_4 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_3 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_2 [thm] ok
+CMP OAI.CriticalSK.covarianceNorm._proof_1 [thm] ok
+CMP OAI.CriticalSK.realized_equilibrium_initial_states [thm] ok
+CMP OAI.CriticalSK.discreteGoodMass [def] ok
+CMP OAI.CriticalSK.continuousGoodMass [def] ok
+Chal.CriticalSK.realized_equilibrium_initial_states : (∀ (t : ℕ → ℝ),
+    (∀ (n : ℕ), 0 ≤ t n) →
+      Filter.Tendsto (fun n => t n / ↑n ^ (2 / 3)) Filter.atTop (nhds 0) →
+        ∀ (δ : ℝ),
+          0 < δ →
+            Filter.Tendsto
+              (fun n =>
+                ((Chal.CriticalSK.disorderLaw n) {W | δ ≤ |Chal.CriticalSK.continuousGoodMass W (t n) - 1|}).toReal)
+              Filter.atTop (nhds 0)) ∧
+  ∀ (k : ℕ → ℕ),
+    Filter.Tendsto (fun n => ↑(k n) / ↑n ^ (5 / 3)) Filter.atTop (nhds 0) →
+      ∀ (δ : ℝ),
+        0 < δ →
+          Filter.Tendsto
+            (fun n => ((Chal.CriticalSK.disorderLaw n) {W | δ ≤ |Chal.CriticalSK.discreteGoodMass W (k n) - 1|}).toReal)
+            Filter.atTop (nhds 0)
+Chal.CriticalSK.covariance_and_linear_tests : ∀ (M : ℕ → ℝ),
+  (∀ (n : ℕ), 0 < M n) →
+    Filter.Tendsto M Filter.atTop Filter.atTop →
+      Filter.Tendsto
+        (fun n =>
+          ((Chal.CriticalSK.disorderLaw n)
+              {W |
+                ↑n ^ (2 / 3) / M n ≤ Chal.CriticalSK.covarianceNorm W ∧
+                  Chal.CriticalSK.covarianceNorm W ≤ M n * ↑n ^ (2 / 3) ∧
+                    ↑n ^ (2 / 3) / M n ≤ Chal.CriticalSK.linearRayleigh W ∧
+                      Chal.CriticalSK.linearRayleigh W ≤ M n * ↑n ^ (2 / 3)}).toReal)
+        Filter.atTop (nhds 1)
+Chal.CriticalSK.critical_mixing_lower_bounds : ∀ (ε : ℝ),
+  0 < ε →
+    Filter.Tendsto
+        (fun n => (Chal.CriticalSK.disorderLaw n).real {W | ↑n ^ (2 / 3 - ε) ≤ Chal.CriticalSK.continuousMixingTime W})
+        Filter.atTop (nhds 1) ∧
+      Filter.Tendsto
+        (fun n => (Chal.CriticalSK.disorderLaw n).real {W | ↑n ^ (5 / 3 - ε) ≤ ↑(Chal.CriticalSK.discreteMixingTime W)})
+        Filter.atTop (nhds 1)
+@[reducible] def Chal.CriticalSK.Spin : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.CriticalSK.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def Chal.CriticalSK.Disorder : ℕ → Type :=
+fun n => Chal.CriticalSK.Edge n → ℝ
+def Chal.CriticalSK.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.CriticalSK.hamiltonian : {n : ℕ} → Chal.CriticalSK.Disorder n → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W x => ∑ e, W e * Chal.CriticalSK.spinValue (x (↑e).1) * Chal.CriticalSK.spinValue (x (↑e).2)
+def Chal.CriticalSK.partition : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W => ∑ x, Real.exp (Chal.CriticalSK.hamiltonian W x)
+def Chal.CriticalSK.gibbs : {n : ℕ} → Chal.CriticalSK.Disorder n → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W x => Real.exp (Chal.CriticalSK.hamiltonian W x) / Chal.CriticalSK.partition W
+def Chal.CriticalSK.disorderLaw : (n : ℕ) → MeasureTheory.Measure (Chal.CriticalSK.Disorder n) :=
+fun n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 (↑n)⁻¹
+def Chal.CriticalSK.sameExcept : {n : ℕ} → Fin n → Chal.CriticalSK.Spin n → Chal.CriticalSK.Spin n → Prop :=
+fun {n} i x y => ∀ (j : Fin n), j ≠ i → y j = x j
+def Chal.CriticalSK.siteKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Fin n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W i x y =>
+  if Chal.CriticalSK.sameExcept i x y then
+    Chal.CriticalSK.gibbs W y / ∑ z, if Chal.CriticalSK.sameExcept i x z then Chal.CriticalSK.gibbs W z else 0
+  else 0
+def Chal.CriticalSK.discreteKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W => (↑n)⁻¹ • ∑ i, Chal.CriticalSK.siteKernel W i
+def Chal.CriticalSK.generator : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W => ∑ i, (Chal.CriticalSK.siteKernel W i - 1)
+def Chal.CriticalSK.continuousKernel : {n : ℕ} →
+  Chal.CriticalSK.Disorder n → ℝ → Matrix (Chal.CriticalSK.Spin n) (Chal.CriticalSK.Spin n) ℝ :=
+fun {n} W t => NormedSpace.exp (t • Chal.CriticalSK.generator W)
+def Chal.CriticalSK.totalVariation : {n : ℕ} → Chal.CriticalSK.Disorder n → (Chal.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W p => 1 / 2 * ∑ y, |p y - Chal.CriticalSK.gibbs W y|
+def Chal.CriticalSK.continuousDistance : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W t x => Chal.CriticalSK.totalVariation W (Chal.CriticalSK.continuousKernel W t x)
+def Chal.CriticalSK.discreteDistance : {n : ℕ} → Chal.CriticalSK.Disorder n → ℕ → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} W k x => Chal.CriticalSK.totalVariation W ((Chal.CriticalSK.discreteKernel W ^ k) x)
+def Chal.CriticalSK.continuousMixingTime : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W => sInf {t | 0 ≤ t ∧ ∀ (x : Chal.CriticalSK.Spin n), Chal.CriticalSK.continuousDistance W t x ≤ 1 / 4}
+def Chal.CriticalSK.discreteMixingTime : {n : ℕ} → Chal.CriticalSK.Disorder n → ℕ :=
+fun {n} W => sInf {k | ∀ (x : Chal.CriticalSK.Spin n), Chal.CriticalSK.discreteDistance W k x ≤ 1 / 4}
+def Chal.CriticalSK.mean : {n : ℕ} → Chal.CriticalSK.Disorder n → (Chal.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => ∑ x, Chal.CriticalSK.gibbs W x * f x
+def Chal.CriticalSK.variance : {n : ℕ} → Chal.CriticalSK.Disorder n → (Chal.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => Chal.CriticalSK.mean W fun x => (f x - Chal.CriticalSK.mean W f) ^ 2
+def Chal.CriticalSK.dirichlet : {n : ℕ} → Chal.CriticalSK.Disorder n → (Chal.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => ∑ i, Chal.CriticalSK.mean W fun x => (f x - ∑ y, Chal.CriticalSK.siteKernel W i x y * f y) ^ 2
+def Chal.CriticalSK.linearObservable : {n : ℕ} → (Fin n → ℝ) → Chal.CriticalSK.Spin n → ℝ :=
+fun {n} a x => ∑ i, a i * Chal.CriticalSK.spinValue (x i)
+def Chal.CriticalSK.covariance : {n : ℕ} → Chal.CriticalSK.Disorder n → Matrix (Fin n) (Fin n) ℝ :=
+fun {n} W i j =>
+  Chal.CriticalSK.mean W fun x =>
+    (Chal.CriticalSK.spinValue (x i) - Chal.CriticalSK.mean W fun y => Chal.CriticalSK.spinValue (y i)) *
+      (Chal.CriticalSK.spinValue (x j) - Chal.CriticalSK.mean W fun y => Chal.CriticalSK.spinValue (y j))
+def Chal.CriticalSK.covarianceNorm : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W => ‖LinearMap.toContinuousLinearMap (Matrix.toEuclideanLin (Chal.CriticalSK.covariance W))‖
+def Chal.CriticalSK.linearRayleigh : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ :=
+fun {n} W =>
+  sSup
+    {r |
+      ∃ a,
+        a ≠ 0 ∧
+          r =
+            Chal.CriticalSK.variance W (Chal.CriticalSK.linearObservable a) /
+              Chal.CriticalSK.dirichlet W (Chal.CriticalSK.linearObservable a)}
+def Chal.CriticalSK.continuousGoodMass : {n : ℕ} → Chal.CriticalSK.Disorder n → ℝ → ℝ :=
+fun {n} W t => ∑ x, if 1 / 4 < Chal.CriticalSK.continuousDistance W t x then Chal.CriticalSK.gibbs W x else 0
+def Chal.CriticalSK.discreteGoodMass : {n : ℕ} → Chal.CriticalSK.Disorder n → ℕ → ℝ :=
+fun {n} W k => ∑ x, if 1 / 4 < Chal.CriticalSK.discreteDistance W k x then Chal.CriticalSK.gibbs W x else 0
+'OAI.CriticalSK.realized_equilibrium_initial_states' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CriticalSK.covariance_and_linear_tests' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CriticalSK.critical_mixing_lower_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CriticalSK comparator-style: ok=44 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
