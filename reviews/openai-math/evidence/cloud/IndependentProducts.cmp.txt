@@ -1,0 +1,139 @@
+CMP OAI.IndependentProducts.main_gaussian_12 [thm] ok
+CMP OAI.IndependentProducts.productSpan [def] ok
+CMP OAI.IndependentProducts.pathProduct [def] ok
+CMP OAI.IndependentProducts.pathPrefix [def] ok
+CMP OAI.IndependentProducts.pathPrefix._proof_2 [thm] ok
+CMP OAI.IndependentProducts.Vertex [def] ok
+CMP OAI.IndependentProducts.Edge [def] ok
+CMP OAI.IndependentProducts.Sample [def] ok
+CMP OAI.IndependentProducts.productSpan._proof_6 [thm] ok
+CMP OAI.IndependentProducts.productSpan._proof_5 [thm] ok
+CMP OAI.IndependentProducts.productSpan._proof_1 [thm] ok
+CMP OAI.IndependentProducts.productMeasure [def] ok
+CMP OAI.IndependentProducts.productSpan._proof_4 [thm] ok
+CMP OAI.IndependentProducts.productSpan._proof_3 [thm] ok
+CMP OAI.IndependentProducts.productSpan._proof_2 [thm] ok
+CMP OAI.IndependentProducts.gaussianSquareLaw [def] ok
+CMP OAI.IndependentProducts.averagedMidpointModulus [def] ok
+CMP OAI.IndependentProducts.averagedMidpointModulus._proof_1 [thm] ok
+CMP OAI.IndependentProducts.CofiniteSubspaces [def] ok
+CMP OAI.IndependentProducts.gaussianTail [def] ok
+CMP OAI.IndependentProducts.main_gaussian_24 [thm] ok
+CMP OAI.IndependentProducts.main_exponential [thm] ok
+CMP OAI.IndependentProducts.exponentialLaw [def] ok
+CMP OAI.IndependentProducts.excessConstant [def] ok
+CMP OAI.IndependentProducts.excessConstant._proof_1 [thm] ok
+CMP OAI.IndependentProducts.main_general [thm] ok
+CMP OAI.IndependentProducts.IsAUC [def] ok
+CMP OAI.IndependentProducts.oneSidedModulus [def] ok
+CMP OAI.IndependentProducts.IsEquivalentNorm [def] ok
+CMP OAI.IndependentProducts.MultiplierHypotheses [ind] ok
+CMP OAI.IndependentProducts.MultiplierHypotheses.mk [ctor] ok
+Chal.IndependentProducts.main_general : ∀ (μ : MeasureTheory.Measure ℝ),
+  Chal.IndependentProducts.MultiplierHypotheses μ →
+    ¬FiniteDimensional ℝ ↥(Chal.IndependentProducts.productSpan μ) ∧
+      ∀ (N : Seminorm ℝ ↥(Chal.IndependentProducts.productSpan μ)),
+        Chal.IndependentProducts.IsEquivalentNorm (↥(Chal.IndependentProducts.productSpan μ)) N →
+          ¬Chal.IndependentProducts.IsAUC (↥(Chal.IndependentProducts.productSpan μ)) N
+Chal.IndependentProducts.main_exponential : ∀ (t : ℝ),
+  0 < t →
+    7 * t / 30 * Chal.IndependentProducts.excessConstant (10 / t) ≤
+        Chal.IndependentProducts.averagedMidpointModulus
+          (↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.exponentialLaw))
+          (normSeminorm ℝ ↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.exponentialLaw)) t ∧
+      0 < 7 * t / 30 * Chal.IndependentProducts.excessConstant (10 / t)
+Chal.IndependentProducts.main_gaussian_24 : ∀ (t : ℝ),
+  0 < t →
+    Chal.IndependentProducts.gaussianTail (4 * √2 * (2 + √2) / t) / 8 ≤
+        Chal.IndependentProducts.averagedMidpointModulus
+          (↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.gaussianSquareLaw))
+          (normSeminorm ℝ ↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.gaussianSquareLaw)) t ∧
+      0 < Chal.IndependentProducts.gaussianTail (4 * √2 * (2 + √2) / t) / 8
+Chal.IndependentProducts.main_gaussian_12 : ∀ (t : ℝ),
+  0 < t →
+    Chal.IndependentProducts.gaussianTail (8 * √6 / t) / 4 ≤
+        Chal.IndependentProducts.averagedMidpointModulus
+          (↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.gaussianSquareLaw))
+          (normSeminorm ℝ ↥(Chal.IndependentProducts.productSpan Chal.IndependentProducts.gaussianSquareLaw)) t ∧
+      0 < Chal.IndependentProducts.gaussianTail (8 * √6 / t) / 4
+@[reducible] def Chal.IndependentProducts.Vertex : Type :=
+List ℕ+
+@[reducible] def Chal.IndependentProducts.Edge : Type :=
+{ v // v ≠ [] }
+@[reducible] def Chal.IndependentProducts.Sample : Type :=
+Chal.IndependentProducts.Edge → ℝ
+def Chal.IndependentProducts.productMeasure : MeasureTheory.Measure ℝ →
+  MeasureTheory.Measure Chal.IndependentProducts.Sample :=
+fun μ => MeasureTheory.Measure.infinitePi fun x => μ
+def Chal.IndependentProducts.pathPrefix : (v : Chal.IndependentProducts.Vertex) →
+  Fin (List.length v) → Chal.IndependentProducts.Edge :=
+fun v j => ⟨List.take (↑j + 1) v, ⋯⟩
+def Chal.IndependentProducts.pathProduct : Chal.IndependentProducts.Vertex → Chal.IndependentProducts.Sample → ℝ :=
+fun v ω => ∏ j, ω (Chal.IndependentProducts.pathPrefix v j)
+def Chal.IndependentProducts.productSpan : (μ : MeasureTheory.Measure ℝ) →
+  Submodule ℝ ↥(MeasureTheory.Lp ℝ 1 (Chal.IndependentProducts.productMeasure μ)) :=
+fun μ =>
+  (Submodule.span ℝ
+      {f |
+        ∃ v,
+          ↑↑f =ᵐ[Chal.IndependentProducts.productMeasure μ] Chal.IndependentProducts.pathProduct v}).topologicalClosure
+structure Chal.IndependentProducts.MultiplierHypotheses (μ : MeasureTheory.Measure ℝ) : Prop
+number of parameters: 1
+fields:
+  Chal.IndependentProducts.MultiplierHypotheses.probability : MeasureTheory.IsProbabilityMeasure μ
+  Chal.IndependentProducts.MultiplierHypotheses.positive : ∀ᵐ (w : ℝ) ∂μ, 0 < w
+  Chal.IndependentProducts.MultiplierHypotheses.nonconstant : ∀ (c : ℝ), ¬∀ᵐ (w : ℝ) ∂μ, w = c
+  Chal.IndependentProducts.MultiplierHypotheses.mean_one : ∫ (w : ℝ), w ∂μ = 1
+  Chal.IndependentProducts.MultiplierHypotheses.second_moment : MeasureTheory.MemLp (fun w => w) 2 μ
+constructor:
+  Chal.IndependentProducts.MultiplierHypotheses.mk {μ : MeasureTheory.Measure ℝ}
+    (probability : MeasureTheory.IsProbabilityMeasure μ) (positive : ∀ᵐ (w : ℝ) ∂μ, 0 < w)
+    (nonconstant : ∀ (c : ℝ), ¬∀ᵐ (w : ℝ) ∂μ, w = c) (mean_one : ∫ (w : ℝ), w ∂μ = 1)
+    (second_moment : MeasureTheory.MemLp (fun w => w) 2 μ) : Chal.IndependentProducts.MultiplierHypotheses μ
+def Chal.IndependentProducts.CofiniteSubspaces.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Set (Submodule ℝ X) :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] => {F | IsClosed ↑F ∧ FiniteDimensional ℝ (X ⧸ F)}
+def Chal.IndependentProducts.averagedMidpointModulus.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N t =>
+  sInf
+    {r |
+      ∃ x,
+        N x = 1 ∧
+          r =
+            sSup
+              {a |
+                ∃ F ∈ Chal.IndependentProducts.CofiniteSubspaces X,
+                  a = sInf {b | ∃ y ∈ F, 1 ≤ N y ∧ b = (N (x + t • y) + N (x - t • y)) / 2 - 1}}}
+def Chal.IndependentProducts.oneSidedModulus.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N t =>
+  sInf
+    {r |
+      ∃ x,
+        N x = 1 ∧
+          r =
+            sSup
+              {a |
+                ∃ F ∈ Chal.IndependentProducts.CofiniteSubspaces X,
+                  a = sInf {b | ∃ y ∈ F, N y = 1 ∧ b = N (x + t • y) - 1}}}
+def Chal.IndependentProducts.IsEquivalentNorm.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N => ∃ a b, 0 < a ∧ a ≤ b ∧ ∀ (x : X), a * ‖x‖ ≤ N x ∧ N x ≤ b * ‖x‖
+def Chal.IndependentProducts.IsAUC.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N =>
+  ∀ (t : ℝ), 0 < t → 0 < Chal.IndependentProducts.oneSidedModulus X N t
+def Chal.IndependentProducts.gaussianTail : ℝ → ℝ :=
+fun r => ((ProbabilityTheory.gaussianReal 0 1) {x | r ≤ |x|}).toReal
+def Chal.IndependentProducts.excessConstant : ℝ → ℝ :=
+fun K => 1 / 16 * ∫ (x : ℝ), max (|x| - 2 * K) 0 ∂ProbabilityTheory.gaussianReal 0 1
+def Chal.IndependentProducts.exponentialLaw : MeasureTheory.Measure ℝ :=
+ProbabilityTheory.expMeasure 1
+def Chal.IndependentProducts.gaussianSquareLaw : MeasureTheory.Measure ℝ :=
+MeasureTheory.Measure.map (fun x => x ^ 2) (ProbabilityTheory.gaussianReal 0 1)
+'OAI.IndependentProducts.main_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.IndependentProducts.main_exponential' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.IndependentProducts.main_gaussian_24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.IndependentProducts.main_gaussian_12' depends on axioms: [propext, Classical.choice, Quot.sound]
+== IndependentProducts comparator-style: ok=31 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,105 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_IndependentProducts.lean:89:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_IndependentProducts.lean:95:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_IndependentProducts.lean:102:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_IndependentProducts.lean:109:8: warning: declaration uses `sorry`
+OAI.IndependentProducts.main_general : ∀ (μ : MeasureTheory.Measure ℝ),
+  OAI.IndependentProducts.MultiplierHypotheses μ →
+    ¬FiniteDimensional ℝ ↥(OAI.IndependentProducts.productSpan μ) ∧
+      ∀ (N : Seminorm ℝ ↥(OAI.IndependentProducts.productSpan μ)),
+        OAI.IndependentProducts.IsEquivalentNorm (↥(OAI.IndependentProducts.productSpan μ)) N →
+          ¬OAI.IndependentProducts.IsAUC (↥(OAI.IndependentProducts.productSpan μ)) N
+OAI.IndependentProducts.main_exponential : ∀ (t : ℝ),
+  0 < t →
+    7 * t / 30 * OAI.IndependentProducts.excessConstant (10 / t) ≤
+        OAI.IndependentProducts.averagedMidpointModulus
+          (↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.exponentialLaw))
+          (normSeminorm ℝ ↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.exponentialLaw)) t ∧
+      0 < 7 * t / 30 * OAI.IndependentProducts.excessConstant (10 / t)
+OAI.IndependentProducts.main_gaussian_24 : ∀ (t : ℝ),
+  0 < t →
+    OAI.IndependentProducts.gaussianTail (4 * √2 * (2 + √2) / t) / 8 ≤
+        OAI.IndependentProducts.averagedMidpointModulus
+          (↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.gaussianSquareLaw))
+          (normSeminorm ℝ ↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.gaussianSquareLaw)) t ∧
+      0 < OAI.IndependentProducts.gaussianTail (4 * √2 * (2 + √2) / t) / 8
+OAI.IndependentProducts.main_gaussian_12 : ∀ (t : ℝ),
+  0 < t →
+    OAI.IndependentProducts.gaussianTail (8 * √6 / t) / 4 ≤
+        OAI.IndependentProducts.averagedMidpointModulus
+          (↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.gaussianSquareLaw))
+          (normSeminorm ℝ ↥(OAI.IndependentProducts.productSpan OAI.IndependentProducts.gaussianSquareLaw)) t ∧
+      0 < OAI.IndependentProducts.gaussianTail (8 * √6 / t) / 4
+@[reducible] def OAI.IndependentProducts.Vertex : Type :=
+List ℕ+
+@[reducible] def OAI.IndependentProducts.Edge : Type :=
+{ v // v ≠ [] }
+@[reducible] def OAI.IndependentProducts.Sample : Type :=
+OAI.IndependentProducts.Edge → ℝ
+def OAI.IndependentProducts.productMeasure : MeasureTheory.Measure ℝ →
+  MeasureTheory.Measure OAI.IndependentProducts.Sample :=
+fun μ => MeasureTheory.Measure.infinitePi fun x => μ
+def OAI.IndependentProducts.pathPrefix : (v : OAI.IndependentProducts.Vertex) →
+  Fin (List.length v) → OAI.IndependentProducts.Edge :=
+fun v j => ⟨List.take (↑j + 1) v, ⋯⟩
+def OAI.IndependentProducts.pathProduct : OAI.IndependentProducts.Vertex → OAI.IndependentProducts.Sample → ℝ :=
+fun v ω => ∏ j, ω (OAI.IndependentProducts.pathPrefix v j)
+def OAI.IndependentProducts.productSpan : (μ : MeasureTheory.Measure ℝ) →
+  Submodule ℝ ↥(MeasureTheory.Lp ℝ 1 (OAI.IndependentProducts.productMeasure μ)) :=
+fun μ =>
+  (Submodule.span ℝ
+      {f |
+        ∃ v, ↑↑f =ᵐ[OAI.IndependentProducts.productMeasure μ] OAI.IndependentProducts.pathProduct v}).topologicalClosure
+structure OAI.IndependentProducts.MultiplierHypotheses (μ : MeasureTheory.Measure ℝ) : Prop
+number of parameters: 1
+fields:
+  OAI.IndependentProducts.MultiplierHypotheses.probability : MeasureTheory.IsProbabilityMeasure μ
+  OAI.IndependentProducts.MultiplierHypotheses.positive : ∀ᵐ (w : ℝ) ∂μ, 0 < w
+  OAI.IndependentProducts.MultiplierHypotheses.nonconstant : ∀ (c : ℝ), ¬∀ᵐ (w : ℝ) ∂μ, w = c
+  OAI.IndependentProducts.MultiplierHypotheses.mean_one : ∫ (w : ℝ), w ∂μ = 1
+  OAI.IndependentProducts.MultiplierHypotheses.second_moment : MeasureTheory.MemLp (fun w => w) 2 μ
+constructor:
+  OAI.IndependentProducts.MultiplierHypotheses.mk {μ : MeasureTheory.Measure ℝ}
+    (probability : MeasureTheory.IsProbabilityMeasure μ) (positive : ∀ᵐ (w : ℝ) ∂μ, 0 < w)
+    (nonconstant : ∀ (c : ℝ), ¬∀ᵐ (w : ℝ) ∂μ, w = c) (mean_one : ∫ (w : ℝ), w ∂μ = 1)
+    (second_moment : MeasureTheory.MemLp (fun w => w) 2 μ) : OAI.IndependentProducts.MultiplierHypotheses μ
+def OAI.IndependentProducts.CofiniteSubspaces.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Set (Submodule ℝ X) :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] => {F | IsClosed ↑F ∧ FiniteDimensional ℝ (X ⧸ F)}
+def OAI.IndependentProducts.averagedMidpointModulus.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N t =>
+  sInf
+    {r |
+      ∃ x,
+        N x = 1 ∧
+          r =
+            sSup
+              {a |
+                ∃ F ∈ OAI.IndependentProducts.CofiniteSubspaces X,
+                  a = sInf {b | ∃ y ∈ F, 1 ≤ N y ∧ b = (N (x + t • y) + N (x - t • y)) / 2 - 1}}}
+def OAI.IndependentProducts.oneSidedModulus.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → ℝ → ℝ :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N t =>
+  sInf
+    {r |
+      ∃ x,
+        N x = 1 ∧
+          r =
+            sSup
+              {a |
+                ∃ F ∈ OAI.IndependentProducts.CofiniteSubspaces X,
+                  a = sInf {b | ∃ y ∈ F, N y = 1 ∧ b = N (x + t • y) - 1}}}
+def OAI.IndependentProducts.IsEquivalentNorm.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N => ∃ a b, 0 < a ∧ a ≤ b ∧ ∀ (x : X), a * ‖x‖ ≤ N x ∧ N x ≤ b * ‖x‖
+def OAI.IndependentProducts.IsAUC.{uX} : (X : Type uX) →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] N => ∀ (t : ℝ), 0 < t → 0 < OAI.IndependentProducts.oneSidedModulus X N t
+def OAI.IndependentProducts.gaussianTail : ℝ → ℝ :=
+fun r => ((ProbabilityTheory.gaussianReal 0 1) {x | r ≤ |x|}).toReal
+def OAI.IndependentProducts.excessConstant : ℝ → ℝ :=
+fun K => 1 / 16 * ∫ (x : ℝ), max (|x| - 2 * K) 0 ∂ProbabilityTheory.gaussianReal 0 1
+def OAI.IndependentProducts.exponentialLaw : MeasureTheory.Measure ℝ :=
+ProbabilityTheory.expMeasure 1
+def OAI.IndependentProducts.gaussianSquareLaw : MeasureTheory.Measure ℝ :=
+MeasureTheory.Measure.map (fun x => x ^ 2) (ProbabilityTheory.gaussianReal 0 1)
