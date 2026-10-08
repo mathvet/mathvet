@@ -1,0 +1,172 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_FKCRT.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.FKCRT.finite_fk_maps_converge_to_brownian_crt [thm] ok
+CMP OAI.FKCRT.MainStatement [def] ok
+CMP OAI.FKCRT.brownianExpectation [def] ok
+CMP OAI.FKCRT.standardExcursion [def] ok
+CMP OAI.FKCRT.standardExcursion._proof_1 [thm] ok
+CMP OAI.FKCRT.treeSpace [def] ok
+CMP OAI.FKCRT.treeProjection [def] ok
+CMP OAI.FKCRT.excursionDist [def] ok
+CMP OAI.FKCRT.fkWeight._proof_1 [thm] ok
+CMP OAI.FKCRT.ExcursionTree [def] ok
+CMP OAI.FKCRT.MetricMeasureData.mk [ctor] ok
+CMP OAI.FKCRT.MetricMeasureData [ind] ok
+CMP OAI.FKCRT.finiteExpectation [def] ok
+CMP OAI.FKCRT.mapSpace [def] ok
+CMP OAI.FKCRT.degreeMass [def] ok
+CMP OAI.FKCRT.orbit [def] ok
+CMP OAI.FKCRT.Dart [def] ok
+CMP OAI.FKCRT.Orbit [def] ok
+CMP OAI.FKCRT.degreeMass._proof_1 [thm] ok
+CMP OAI.FKCRT.rotation [def] ok
+CMP OAI.FKCRT.MapIso [def] ok
+CMP OAI.FKCRT.MapConditions [def] ok
+CMP OAI.FKCRT.spanningGraph [def] ok
+CMP OAI.FKCRT.MapIso._proof_1 [thm] ok
+CMP OAI.FKCRT.LabelledMap [def] ok
+CMP OAI.FKCRT.RootedMap [def] ok
+CMP OAI.FKCRT.Vertex [def] ok
+CMP OAI.FKCRT.Edge [def] ok
+CMP OAI.FKCRT.reversal [def] ok
+CMP OAI.FKCRT.graph [def] ok
+CMP OAI.FKCRT.partition [def] ok
+CMP OAI.FKCRT.fkWeight [def] ok
+CMP OAI.FKCRT.clusterCount [def] ok
+CMP OAI.FKCRT.instFintypeOrbit [def] ok
+CMP OAI.FKCRT.instFintypeOrbit._proof_1 [thm] ok
+CMP OAI.FKCRT.instFintypeRootedMap [def] ok
+CMP OAI.FKCRT.instFintypeRootedMap._proof_1 [thm] ok
+CMP OAI.FKCRT.IsGHPTest [def] ok
+CMP OAI.FKCRT.ghpEDist [def] ok
+CMP OAI.FKCRT.ambientCost [def] ok
+CMP OAI.FKCRT.MetricMeasureData.mass [def] ok
+CMP OAI.FKCRT.MetricMeasureData.measurableSpace [def] ok
+CMP OAI.FKCRT.MetricMeasureData.Carrier [def] ok
+CMP OAI.FKCRT.Amalgamates [def] ok
+CMP OAI.FKCRT.MetricMeasureData.distance [def] ok
+CMP OAI.FKCRT.MetricMeasureData.Valid [def] ok
+CMP OAI.FKCRT.MainStatement._proof_1 [thm] ok
+Chal.FKCRT.finite_fk_maps_converge_to_brownian_crt : Chal.FKCRT.MainStatement
+@[reducible] def Chal.FKCRT.Dart : ℕ → Type :=
+fun n => Fin (2 * (n + 1))
+@[reducible] def Chal.FKCRT.Orbit : {n : ℕ} → Equiv.Perm (Chal.FKCRT.Dart n) → Type :=
+fun {n} s => Quotient (Equiv.Perm.SameCycle.setoid s)
+def Chal.FKCRT.orbit : {n : ℕ} → (s : Equiv.Perm (Chal.FKCRT.Dart n)) → Chal.FKCRT.Dart n → Chal.FKCRT.Orbit s :=
+fun {n} s d => ⟦d⟧
+def Chal.FKCRT.spanningGraph : {n : ℕ} →
+  (a s : Equiv.Perm (Chal.FKCRT.Dart n)) → Set (Chal.FKCRT.Orbit a) → SimpleGraph (Chal.FKCRT.Orbit s) :=
+fun {n} a s A =>
+  SimpleGraph.fromRel fun v w => ∃ d, Chal.FKCRT.orbit a d ∈ A ∧ Chal.FKCRT.orbit s d = v ∧ Chal.FKCRT.orbit s (a d) = w
+def Chal.FKCRT.MapConditions : {n : ℕ} → Equiv.Perm (Chal.FKCRT.Dart n) × Equiv.Perm (Chal.FKCRT.Dart n) → Prop :=
+fun {n} P =>
+  Function.Involutive ⇑P.1 ∧
+    (∀ (d : Chal.FKCRT.Dart n), P.1 d ≠ d) ∧
+      (Chal.FKCRT.spanningGraph P.1 P.2 Set.univ).Connected ∧
+        Nat.card (Chal.FKCRT.Orbit P.2) + Nat.card (Chal.FKCRT.Orbit (P.2 * P.1)) = n + 3
+@[reducible] def Chal.FKCRT.LabelledMap : ℕ → Type :=
+fun n => { P // Chal.FKCRT.MapConditions P }
+def Chal.FKCRT.MapIso : {n : ℕ} → Chal.FKCRT.LabelledMap n → Chal.FKCRT.LabelledMap n → Prop :=
+fun {n} M N =>
+  ∃ r,
+    r 0 = 0 ∧
+      (∀ (d : Chal.FKCRT.Dart n), (↑N).1 (r d) = r ((↑M).1 d)) ∧ ∀ (d : Chal.FKCRT.Dart n), (↑N).2 (r d) = r ((↑M).2 d)
+@[reducible] def Chal.FKCRT.RootedMap : ℕ → Type :=
+fun n => Quotient (Relation.EqvGen.setoid Chal.FKCRT.MapIso)
+def Chal.FKCRT.reversal : {n : ℕ} → Chal.FKCRT.RootedMap n → Equiv.Perm (Chal.FKCRT.Dart n) :=
+fun {n} M => (↑(Quotient.out M)).1
+def Chal.FKCRT.rotation : {n : ℕ} → Chal.FKCRT.RootedMap n → Equiv.Perm (Chal.FKCRT.Dart n) :=
+fun {n} M => (↑(Quotient.out M)).2
+@[reducible] def Chal.FKCRT.Vertex : {n : ℕ} → Chal.FKCRT.RootedMap n → Type :=
+fun {n} M => Chal.FKCRT.Orbit (Chal.FKCRT.rotation M)
+@[reducible] def Chal.FKCRT.Edge : {n : ℕ} → Chal.FKCRT.RootedMap n → Type :=
+fun {n} M => Chal.FKCRT.Orbit (Chal.FKCRT.reversal M)
+def Chal.FKCRT.graph : {n : ℕ} →
+  (M : Chal.FKCRT.RootedMap n) → Set (Chal.FKCRT.Edge M) → SimpleGraph (Chal.FKCRT.Vertex M) :=
+fun {n} M A => Chal.FKCRT.spanningGraph (Chal.FKCRT.reversal M) (Chal.FKCRT.rotation M) A
+def Chal.FKCRT.clusterCount : {n : ℕ} → (M : Chal.FKCRT.RootedMap n) → Finset (Chal.FKCRT.Edge M) → ℕ :=
+fun {n} M A => Nat.card (Chal.FKCRT.graph M ↑A).ConnectedComponent
+def Chal.FKCRT.fkWeight : {n : ℕ} → ℝ → (M : Chal.FKCRT.RootedMap n) → Finset (Chal.FKCRT.Edge M) → ℝ :=
+fun {n} q M A => q.rpow (↑(Chal.FKCRT.clusterCount M A) + (↑A.card - ↑(Nat.card (Chal.FKCRT.Vertex M))) / 2)
+def Chal.FKCRT.partition : ℝ → ℕ → ℝ :=
+fun q n => ∑ M, ∑ A, Chal.FKCRT.fkWeight q M A
+structure Chal.FKCRT.MetricMeasureData : Type 1
+number of parameters: 0
+fields:
+  Chal.FKCRT.MetricMeasureData.Carrier : Type
+  Chal.FKCRT.MetricMeasureData.distance : self.Carrier → self.Carrier → ℝ
+  Chal.FKCRT.MetricMeasureData.measurableSpace : MeasurableSpace self.Carrier
+  Chal.FKCRT.MetricMeasureData.mass : MeasureTheory.Measure self.Carrier
+constructor:
+  Chal.FKCRT.MetricMeasureData.mk (Carrier : Type) (distance : Carrier → Carrier → ℝ)
+    (measurableSpace : MeasurableSpace Carrier) (mass : MeasureTheory.Measure Carrier) : Chal.FKCRT.MetricMeasureData
+def Chal.FKCRT.MetricMeasureData.Valid : Chal.FKCRT.MetricMeasureData → Prop :=
+fun X =>
+  ∃ m,
+    (∀ (x y : X.Carrier), dist x y = X.distance x y) ∧
+      CompactSpace X.Carrier ∧ X.measurableSpace = borel X.Carrier ∧ X.mass Set.univ = 1
+def Chal.FKCRT.degreeMass : {n : ℕ} → (M : Chal.FKCRT.RootedMap n) → MeasureTheory.Measure (Chal.FKCRT.Vertex M) :=
+fun {n} M =>
+  ∑ d, ENNReal.ofReal (1 / (2 * (↑n + 1))) • MeasureTheory.Measure.dirac (Chal.FKCRT.orbit (Chal.FKCRT.rotation M) d)
+def Chal.FKCRT.mapSpace : {n : ℕ} → ℝ → Chal.FKCRT.RootedMap n → Chal.FKCRT.MetricMeasureData :=
+fun {n} scale M =>
+  { Carrier := Chal.FKCRT.Vertex M, distance := fun v w => scale * ↑((Chal.FKCRT.graph M Set.univ).dist v w),
+    measurableSpace := ⊤, mass := Chal.FKCRT.degreeMass M }
+def Chal.FKCRT.Amalgamates : (X Y : Chal.FKCRT.MetricMeasureData) → PseudoMetricSpace (X.Carrier ⊕ Y.Carrier) → Prop :=
+fun X Y m =>
+  (∀ (x x' : X.Carrier), dist (Sum.inl x) (Sum.inl x') = X.distance x x') ∧
+    ∀ (y y' : Y.Carrier), dist (Sum.inr y) (Sum.inr y') = Y.distance y y'
+def Chal.FKCRT.ambientCost : (X Y : Chal.FKCRT.MetricMeasureData) →
+  PseudoMetricSpace (X.Carrier ⊕ Y.Carrier) → ENNReal :=
+fun X Y m =>
+  max (Metric.hausdorffEDist (Set.range Sum.inl) (Set.range Sum.inr))
+    (MeasureTheory.levyProkhorovEDist (MeasureTheory.Measure.map Sum.inl X.mass)
+      (MeasureTheory.Measure.map Sum.inr Y.mass))
+def Chal.FKCRT.ghpEDist : Chal.FKCRT.MetricMeasureData → Chal.FKCRT.MetricMeasureData → ENNReal :=
+fun X Y => ⨅ m, Chal.FKCRT.ambientCost X Y ↑m
+def Chal.FKCRT.IsGHPTest : (Chal.FKCRT.MetricMeasureData → ℝ) → Prop :=
+fun F =>
+  (∃ C, ∀ (X : Chal.FKCRT.MetricMeasureData), |F X| ≤ C) ∧
+    ∀ (X : Chal.FKCRT.MetricMeasureData),
+      X.Valid →
+        ∀ (ε : ℝ),
+          0 < ε →
+            ∃ δ,
+              0 < δ ∧
+                ∀ (Y : Chal.FKCRT.MetricMeasureData),
+                  Y.Valid → Chal.FKCRT.ghpEDist X Y < ENNReal.ofReal δ → |F Y - F X| < ε
+def Chal.FKCRT.excursionDist : (↑unitInterval → ℝ) → ↑unitInterval → ↑unitInterval → ℝ :=
+fun e s t => e s + e t - 2 * sInf (e '' Set.uIcc s t)
+@[reducible] def Chal.FKCRT.ExcursionTree : (↑unitInterval → ℝ) → Type :=
+fun e => Quotient (Relation.EqvGen.setoid fun s t => Chal.FKCRT.excursionDist e s t = 0)
+def Chal.FKCRT.treeProjection : (e : ↑unitInterval → ℝ) → ↑unitInterval → Chal.FKCRT.ExcursionTree e :=
+fun e t => ⟦t⟧
+def Chal.FKCRT.treeSpace : (↑unitInterval → ℝ) → Chal.FKCRT.MetricMeasureData :=
+fun e =>
+  { Carrier := Chal.FKCRT.ExcursionTree e,
+    distance := fun x y => Chal.FKCRT.excursionDist e (Quotient.out x) (Quotient.out y),
+    measurableSpace := borel (Chal.FKCRT.ExcursionTree e),
+    mass := MeasureTheory.Measure.map (Chal.FKCRT.treeProjection e) MeasureTheory.volume }
+def Chal.FKCRT.standardExcursion : {Ω : Type} → (Fin 3 → NNReal → Ω → ℝ) → Ω → ↑unitInterval → ℝ :=
+fun {Ω} B ω t => √(∑ i, (B i ⟨↑t, ⋯⟩ ω - ↑t * B i 1 ω) ^ 2)
+def Chal.FKCRT.finiteExpectation : ℝ → ℝ → ℕ → (Chal.FKCRT.MetricMeasureData → ℝ) → ℝ :=
+fun q scale n F => ∑ M, ∑ A, Chal.FKCRT.fkWeight q M A / Chal.FKCRT.partition q n * F (Chal.FKCRT.mapSpace scale M)
+def Chal.FKCRT.brownianExpectation : {Ω : Type} →
+  [inst : MeasurableSpace Ω] →
+    MeasureTheory.Measure Ω → (Fin 3 → NNReal → Ω → ℝ) → (Chal.FKCRT.MetricMeasureData → ℝ) → ℝ :=
+fun {Ω} [MeasurableSpace Ω] P B F => ∫ (ω : Ω), F (Chal.FKCRT.treeSpace (Chal.FKCRT.standardExcursion B ω)) ∂P
+def Chal.FKCRT.MainStatement : Prop :=
+∀ (q : ℝ),
+  4 < q →
+    ∃ c,
+      0 < c ∧
+        ∀ (Ω : Type) (mΩ : MeasurableSpace Ω) (P : MeasureTheory.Measure Ω),
+          MeasureTheory.IsProbabilityMeasure P →
+            ∀ (B : Fin 3 → NNReal → Ω → ℝ),
+              (∀ (i : Fin 3), ProbabilityTheory.IsBrownianReal (B i) P) →
+                ProbabilityTheory.iIndepFun (fun i ω t => B i t ω) P →
+                  ∀ (F : Chal.FKCRT.MetricMeasureData → ℝ),
+                    Chal.FKCRT.IsGHPTest F →
+                      Filter.Tendsto (fun n => Chal.FKCRT.finiteExpectation q (c / √(↑n + 1)) n F) Filter.atTop
+                        (nhds (Chal.FKCRT.brownianExpectation P B F))
+'OAI.FKCRT.finite_fk_maps_converge_to_brownian_crt' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FKCRT comparator-style: ok=47 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
