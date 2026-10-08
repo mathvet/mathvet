@@ -1,0 +1,158 @@
+CMP OAI.OneWayLiveness.main_theorem [thm] ok
+CMP OAI.OneWayLiveness.DMachine.Recognizes [def] ok
+CMP OAI.OneWayLiveness.DMachine.Accepts [def] ok
+CMP OAI.OneWayLiveness.DMachine.accepting [def] ok
+CMP OAI.OneWayLiveness.DMachine [ind] ok
+CMP OAI.OneWayLiveness.DMachine.mk [ctor] ok
+CMP OAI.OneWayLiveness.Move.right [ctor] ok
+CMP OAI.OneWayLiveness.Move [ind] ok
+CMP OAI.OneWayLiveness.Move.stay [ctor] ok
+CMP OAI.OneWayLiveness.Move.left [ctor] ok
+CMP OAI.OneWayLiveness.Symbol.right [ctor] ok
+CMP OAI.OneWayLiveness.Symbol [ind] ok
+CMP OAI.OneWayLiveness.Symbol.letter [ctor] ok
+CMP OAI.OneWayLiveness.Symbol.left [ctor] ok
+CMP OAI.OneWayLiveness.DMachine.initial [def] ok
+CMP OAI.OneWayLiveness.DMachine.Accepts._proof_2 [thm] ok
+CMP OAI.OneWayLiveness.DMachine.Step [def] ok
+CMP OAI.OneWayLiveness.Move.Rel [def] ok
+CMP OAI.OneWayLiveness.Move.Rel.match_1 [def] ok
+CMP OAI.OneWayLiveness.Move.casesOn [def] ok
+CMP OAI.OneWayLiveness.Move.rec [rec] ok
+CMP OAI.OneWayLiveness.scanned [def] ok
+CMP OAI.OneWayLiveness.scanned._proof_2 [thm] ok
+CMP OAI.OneWayLiveness.DMachine.transition [def] ok
+CMP OAI.OneWayLiveness.Configuration [def] ok
+CMP OAI.OneWayLiveness.FiniteRun [def] ok
+CMP OAI.OneWayLiveness.OWL [def] ok
+CMP OAI.OneWayLiveness.BRel.live [def] ok
+CMP OAI.OneWayLiveness.BRel.instOne [def] ok
+CMP OAI.OneWayLiveness.BRel.mk [ctor] ok
+CMP OAI.OneWayLiveness.BRel [ind] ok
+CMP OAI.OneWayLiveness.BRel.instMul [def] ok
+CMP OAI.OneWayLiveness.BRel.holds [def] ok
+CMP OAI.OneWayLiveness.Alphabet [def] ok
+CMP OAI.OneWayLiveness.NMachine.Recognizes [def] ok
+CMP OAI.OneWayLiveness.NMachine.Accepts [def] ok
+CMP OAI.OneWayLiveness.NMachine.accepting [def] ok
+CMP OAI.OneWayLiveness.NMachine [ind] ok
+CMP OAI.OneWayLiveness.NMachine.mk [ctor] ok
+CMP OAI.OneWayLiveness.NMachine.initial [def] ok
+CMP OAI.OneWayLiveness.NMachine.Step [def] ok
+CMP OAI.OneWayLiveness.NMachine.transition [def] ok
+CMP OAI.OneWayLiveness.NMachine.NoLeft [def] ok
+Chal.OneWayLiveness.main_theorem : ∀ (h : ℕ),
+  2 ≤ h →
+    (∃ N, N.NoLeft ∧ ∀ (positive : Bool), N.Recognizes positive (Chal.OneWayLiveness.OWL h)) ∧
+      ∀ (positive : Bool) (s : ℕ) (D : Chal.OneWayLiveness.DMachine (Chal.OneWayLiveness.Alphabet h) s),
+        D.Recognizes positive (Chal.OneWayLiveness.OWL h) →
+          2 ^ ((h - 2) / 31) ≤ 4 * (s + if positive = true then 2 else 1) ^ 2
+structure Chal.OneWayLiveness.BRel.{u_1} (H : Type u_1) : Type u_1
+number of parameters: 1
+fields:
+  Chal.OneWayLiveness.BRel.holds : H → H → Prop
+constructor:
+  Chal.OneWayLiveness.BRel.mk.{u_1} {H : Type u_1} (holds : H → H → Prop) : Chal.OneWayLiveness.BRel H
+def Chal.OneWayLiveness.BRel.live.{u_1} : {H : Type u_1} → List (Chal.OneWayLiveness.BRel H) → Prop :=
+fun {H} w => ∃ x y, w.prod.holds x y
+@[reducible] def Chal.OneWayLiveness.Alphabet : ℕ → Type :=
+fun h => Chal.OneWayLiveness.BRel (Fin h)
+def Chal.OneWayLiveness.OWL : (h : ℕ) → Set (List (Chal.OneWayLiveness.Alphabet h)) :=
+fun h => {w | Chal.OneWayLiveness.BRel.live w}
+inductive Chal.OneWayLiveness.Symbol.{u_1} : Type u_1 → Type u_1
+number of parameters: 1
+constructors:
+Chal.OneWayLiveness.Symbol.left : {Alpha : Type u_1} → Chal.OneWayLiveness.Symbol Alpha
+Chal.OneWayLiveness.Symbol.letter : {Alpha : Type u_1} → Alpha → Chal.OneWayLiveness.Symbol Alpha
+Chal.OneWayLiveness.Symbol.right : {Alpha : Type u_1} → Chal.OneWayLiveness.Symbol Alpha
+inductive Chal.OneWayLiveness.Move : Type
+number of parameters: 0
+constructors:
+Chal.OneWayLiveness.Move.left : Chal.OneWayLiveness.Move
+Chal.OneWayLiveness.Move.stay : Chal.OneWayLiveness.Move
+Chal.OneWayLiveness.Move.right : Chal.OneWayLiveness.Move
+def Chal.OneWayLiveness.Move.Rel : Chal.OneWayLiveness.Move → ℕ → ℕ → Prop :=
+fun x x_1 x_2 =>
+  match x, x_1, x_2 with
+  | Chal.OneWayLiveness.Move.left, i, j => j + 1 = i
+  | Chal.OneWayLiveness.Move.stay, i, j => j = i
+  | Chal.OneWayLiveness.Move.right, i, j => j = i + 1
+def Chal.OneWayLiveness.scanned.{u_1} : {Alpha : Type u_1} →
+  (w : List Alpha) → Fin (w.length + 2) → Chal.OneWayLiveness.Symbol Alpha :=
+fun {Alpha} w i =>
+  if h0 : ↑i = 0 then Chal.OneWayLiveness.Symbol.left
+  else if hi : ↑i < w.length + 1 then Chal.OneWayLiveness.Symbol.letter w[↑i - 1] else Chal.OneWayLiveness.Symbol.right
+@[reducible] def Chal.OneWayLiveness.Configuration.{u_1} : {Alpha : Type u_1} → List Alpha → ℕ → Type :=
+fun {Alpha} w n => Fin (w.length + 2) × Fin n
+structure Chal.OneWayLiveness.DMachine.{u_1} (Alpha : Type u_1) (s : ℕ) : Type u_1
+number of parameters: 2
+fields:
+  Chal.OneWayLiveness.DMachine.initial : Fin s
+  Chal.OneWayLiveness.DMachine.accepting : Set (Fin s)
+  Chal.OneWayLiveness.DMachine.transition : Fin s →
+      Chal.OneWayLiveness.Symbol Alpha → Option (Fin s × Chal.OneWayLiveness.Move)
+  Chal.OneWayLiveness.DMachine.left_boundary : ∀ (q q' : Fin s),
+      self.transition q Chal.OneWayLiveness.Symbol.left ≠ some (q', Chal.OneWayLiveness.Move.left)
+  Chal.OneWayLiveness.DMachine.right_boundary : ∀ (q q' : Fin s),
+      self.transition q Chal.OneWayLiveness.Symbol.right ≠ some (q', Chal.OneWayLiveness.Move.right)
+constructor:
+  Chal.OneWayLiveness.DMachine.mk.{u_1} {Alpha : Type u_1} {s : ℕ} (initial : Fin s) (accepting : Set (Fin s))
+    (transition : Fin s → Chal.OneWayLiveness.Symbol Alpha → Option (Fin s × Chal.OneWayLiveness.Move))
+    (left_boundary :
+      ∀ (q q' : Fin s), transition q Chal.OneWayLiveness.Symbol.left ≠ some (q', Chal.OneWayLiveness.Move.left))
+    (right_boundary :
+      ∀ (q q' : Fin s), transition q Chal.OneWayLiveness.Symbol.right ≠ some (q', Chal.OneWayLiveness.Move.right)) :
+    Chal.OneWayLiveness.DMachine Alpha s
+structure Chal.OneWayLiveness.NMachine.{u_1} (Alpha : Type u_1) (n : ℕ) : Type u_1
+number of parameters: 2
+fields:
+  Chal.OneWayLiveness.NMachine.initial : Fin n
+  Chal.OneWayLiveness.NMachine.accepting : Set (Fin n)
+  Chal.OneWayLiveness.NMachine.transition : Fin n →
+      Chal.OneWayLiveness.Symbol Alpha → Set (Fin n × Chal.OneWayLiveness.Move)
+  Chal.OneWayLiveness.NMachine.left_boundary : ∀ (q q' : Fin n),
+      (q', Chal.OneWayLiveness.Move.left) ∉ self.transition q Chal.OneWayLiveness.Symbol.left
+  Chal.OneWayLiveness.NMachine.right_boundary : ∀ (q q' : Fin n),
+      (q', Chal.OneWayLiveness.Move.right) ∉ self.transition q Chal.OneWayLiveness.Symbol.right
+constructor:
+  Chal.OneWayLiveness.NMachine.mk.{u_1} {Alpha : Type u_1} {n : ℕ} (initial : Fin n) (accepting : Set (Fin n))
+    (transition : Fin n → Chal.OneWayLiveness.Symbol Alpha → Set (Fin n × Chal.OneWayLiveness.Move))
+    (left_boundary :
+      ∀ (q q' : Fin n), (q', Chal.OneWayLiveness.Move.left) ∉ transition q Chal.OneWayLiveness.Symbol.left)
+    (right_boundary :
+      ∀ (q q' : Fin n), (q', Chal.OneWayLiveness.Move.right) ∉ transition q Chal.OneWayLiveness.Symbol.right) :
+    Chal.OneWayLiveness.NMachine Alpha n
+def Chal.OneWayLiveness.DMachine.Step.{u_1} : {Alpha : Type u_1} →
+  {s : ℕ} →
+    Chal.OneWayLiveness.DMachine Alpha s →
+      (w : List Alpha) → Chal.OneWayLiveness.Configuration w s → Chal.OneWayLiveness.Configuration w s → Prop :=
+fun {Alpha} {s} M w c c' =>
+  ∃ d, M.transition c.2 (Chal.OneWayLiveness.scanned w c.1) = some (c'.2, d) ∧ d.Rel ↑c.1 ↑c'.1
+def Chal.OneWayLiveness.NMachine.Step.{u_1} : {Alpha : Type u_1} →
+  {n : ℕ} →
+    Chal.OneWayLiveness.NMachine Alpha n →
+      (w : List Alpha) → Chal.OneWayLiveness.Configuration w n → Chal.OneWayLiveness.Configuration w n → Prop :=
+fun {Alpha} {n} M w c c' => ∃ d, (c'.2, d) ∈ M.transition c.2 (Chal.OneWayLiveness.scanned w c.1) ∧ d.Rel ↑c.1 ↑c'.1
+def Chal.OneWayLiveness.FiniteRun.{u_1} : {C : Type u_1} → Bool → (C → C → Prop) → C → C → Prop :=
+fun {C} positive step c c' => if positive = true then Relation.TransGen step c c' else Relation.ReflTransGen step c c'
+def Chal.OneWayLiveness.DMachine.Accepts.{u_1} : {Alpha : Type u_1} →
+  {s : ℕ} → Chal.OneWayLiveness.DMachine Alpha s → Bool → List Alpha → Prop :=
+fun {Alpha} {s} M positive w =>
+  ∃ c, Chal.OneWayLiveness.FiniteRun positive (M.Step w) (⟨0, ⋯⟩, M.initial) c ∧ c.2 ∈ M.accepting
+def Chal.OneWayLiveness.NMachine.Accepts.{u_1} : {Alpha : Type u_1} →
+  {n : ℕ} → Chal.OneWayLiveness.NMachine Alpha n → Bool → List Alpha → Prop :=
+fun {Alpha} {n} M positive w =>
+  ∃ c, Chal.OneWayLiveness.FiniteRun positive (M.Step w) (⟨0, ⋯⟩, M.initial) c ∧ c.2 ∈ M.accepting
+def Chal.OneWayLiveness.NMachine.NoLeft.{u_1} : {Alpha : Type u_1} →
+  {n : ℕ} → Chal.OneWayLiveness.NMachine Alpha n → Prop :=
+fun {Alpha} {n} M =>
+  ∀ (q : Fin n) (a : Chal.OneWayLiveness.Symbol Alpha) (q' : Fin n),
+    (q', Chal.OneWayLiveness.Move.left) ∉ M.transition q a
+def Chal.OneWayLiveness.NMachine.Recognizes.{u_1} : {Alpha : Type u_1} →
+  {n : ℕ} → Chal.OneWayLiveness.NMachine Alpha n → Bool → Set (List Alpha) → Prop :=
+fun {Alpha} {n} M positive L => ∀ (w : List Alpha), M.Accepts positive w ↔ w ∈ L
+def Chal.OneWayLiveness.DMachine.Recognizes.{u_1} : {Alpha : Type u_1} →
+  {s : ℕ} → Chal.OneWayLiveness.DMachine Alpha s → Bool → Set (List Alpha) → Prop :=
+fun {Alpha} {s} M positive L => ∀ (w : List Alpha), M.Accepts positive w ↔ w ∈ L
+'OAI.OneWayLiveness.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OneWayLiveness comparator-style: ok=43 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
