@@ -1,0 +1,6 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_PlaneColoring.lean:15:8: warning: declaration uses `sorry`
+OAI.Problem160.properColoring_seven : OAI.Problem160.ProperColoring 7
+@[reducible] def OAI.Problem160.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.Problem160.ProperColoring : ℕ → Prop :=
+fun k => ∃ c, ∀ (x y : OAI.Problem160.Plane), dist x y = 1 → c x ≠ c y

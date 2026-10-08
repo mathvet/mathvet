@@ -1,0 +1,10 @@
+CMP OAI.Problem160.properColoring_seven [thm] ok
+CMP OAI.Problem160.ProperColoring [def] ok
+CMP OAI.Problem160.Plane [def] ok
+Chal.Problem160.properColoring_seven : Chal.Problem160.ProperColoring 7
+@[reducible] def Chal.Problem160.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.Problem160.ProperColoring : ℕ → Prop :=
+fun k => ∃ c, ∀ (x y : Chal.Problem160.Plane), dist x y = 1 → c x ≠ c y
+'OAI.Problem160.properColoring_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlaneColoring comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
