@@ -1,0 +1,61 @@
+CMP OAI.GrahamSpherical.full_main [thm] ok
+CMP OAI.GrahamSpherical.Specification.FullAuthoredResult [def] ok
+CMP OAI.GrahamSpherical.EuclideanRamsey [def] ok
+CMP OAI.GrahamSpherical.Point [def] ok
+CMP OAI.GrahamSpherical.AvoidsCopy [def] ok
+CMP OAI.GrahamSpherical.witness [def] ok
+CMP OAI.GrahamSpherical.vertex [def] ok
+CMP OAI.GrahamSpherical.coordinates [def] ok
+CMP OAI.GrahamSpherical.v [def] ok
+CMP OAI.GrahamSpherical.parameter [def] ok
+CMP OAI.GrahamSpherical.parameter._proof_1 [thm] ok
+CMP OAI.GrahamSpherical.v._proof_1 [thm] ok
+CMP OAI.GrahamSpherical.coordinates._proof_2 [thm] ok
+CMP OAI.GrahamSpherical.u [def] ok
+CMP OAI.GrahamSpherical.coordinates._proof_1 [thm] ok
+CMP OAI.GrahamSpherical.squareCoordinate [def] ok
+CMP OAI.GrahamSpherical.squareCoordinate._proof_1 [thm] ok
+CMP OAI.GrahamSpherical.Label [def] ok
+Chal.GrahamSpherical.full_main : Chal.GrahamSpherical.Specification.FullAuthoredResult
+@[reducible] def Chal.GrahamSpherical.Point : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+@[reducible] def Chal.GrahamSpherical.Label : Type :=
+Fin 3 × Fin 4
+def Chal.GrahamSpherical.parameter : ℝ :=
+∑' (m : ℕ), 1 / 10 ^ (m + 1).factorial
+def Chal.GrahamSpherical.u : ℝ :=
+(1 - Chal.GrahamSpherical.parameter ^ 2) / (1 + Chal.GrahamSpherical.parameter ^ 2)
+def Chal.GrahamSpherical.v : ℝ :=
+2 * Chal.GrahamSpherical.parameter / (1 + Chal.GrahamSpherical.parameter ^ 2)
+def Chal.GrahamSpherical.squareCoordinate : Fin 4 → Fin 2 → ℝ :=
+fun q => if q = 0 then ![1, 0] else if q = 1 then ![-1, 0] else if q = 2 then ![0, 1] else ![0, -1]
+def Chal.GrahamSpherical.coordinates : Chal.GrahamSpherical.Label → Fin 2 → ℝ :=
+fun i =>
+  have q := Chal.GrahamSpherical.squareCoordinate i.2;
+  if i.1 = 0 then
+    ![Chal.GrahamSpherical.u * q 0 - Chal.GrahamSpherical.v * q 1,
+      Chal.GrahamSpherical.v * q 0 + Chal.GrahamSpherical.u * q 1]
+  else
+    if i.1 = 1 then
+      ![Chal.GrahamSpherical.u * q 0 + Chal.GrahamSpherical.v * q 1,
+        -Chal.GrahamSpherical.v * q 0 + Chal.GrahamSpherical.u * q 1]
+    else q
+def Chal.GrahamSpherical.vertex : Chal.GrahamSpherical.Label → Chal.GrahamSpherical.Point 2 :=
+fun i => WithLp.toLp 2 (Chal.GrahamSpherical.coordinates i)
+def Chal.GrahamSpherical.witness : Set (Chal.GrahamSpherical.Point 2) :=
+Set.range Chal.GrahamSpherical.vertex
+def Chal.GrahamSpherical.AvoidsCopy : {d n r : ℕ} →
+  Set (Chal.GrahamSpherical.Point d) → (Chal.GrahamSpherical.Point n → Fin r) → Prop :=
+fun {d n r} X color => ¬∃ f, Isometry f ∧ ∃ c, ∀ (x : ↑X), color (f x) = c
+def Chal.GrahamSpherical.EuclideanRamsey : {d : ℕ} → Set (Chal.GrahamSpherical.Point d) → Prop :=
+fun {d} X =>
+  ∀ (r : ℕ),
+    0 < r →
+      ∃ n, 0 < n ∧ ∀ (color : Chal.GrahamSpherical.Point n → Fin r), ∃ f, Isometry f ∧ ∃ c, ∀ (x : ↑X), color (f x) = c
+def Chal.GrahamSpherical.Specification.FullAuthoredResult : Prop :=
+Chal.GrahamSpherical.witness.ncard = 12 ∧
+  Chal.GrahamSpherical.witness ⊆ Metric.sphere 0 1 ∧
+    (∀ (n : ℕ), 0 < n → ∃ color, Chal.GrahamSpherical.AvoidsCopy Chal.GrahamSpherical.witness color) ∧
+      ¬Chal.GrahamSpherical.EuclideanRamsey Chal.GrahamSpherical.witness
+'OAI.GrahamSpherical.full_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GrahamSpherical comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
