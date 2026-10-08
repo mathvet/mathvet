@@ -1,0 +1,53 @@
+== FiniteCircle  module=OAI.Combinatorics.FiniteCircle.Main  start=2026-10-08T12:27:52Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8959] Built OAI.Combinatorics.FiniteCircle.Model (10s)
+✔ [8925/8959] Built OAI.Combinatorics.FiniteCircle.Edit (9.8s)
+✔ [8926/8959] Built OAI.Combinatorics.FiniteCircle.Matching (9.7s)
+✔ [8927/8959] Built OAI.Combinatorics.FiniteCircle.TaggedRows (13s)
+✔ [8928/8959] Built OAI.Combinatorics.FiniteCircle.PhaseCost (9.5s)
+✔ [8929/8959] Built OAI.Combinatorics.FiniteCircle.CircleWords (12s)
+✔ [8930/8959] Built OAI.Combinatorics.FiniteCircle.MaskSeparation (11s)
+✔ [8931/8959] Built OAI.Combinatorics.FiniteCircle.ExcludedSeparation (12s)
+✔ [8932/8959] Built OAI.Combinatorics.FiniteCircle.MaskDescent (12s)
+✔ [8933/8959] Built OAI.Combinatorics.FiniteCircle.ExcludedDescent (13s)
+✔ [8934/8959] Built OAI.Combinatorics.FiniteCircle.Primes (17s)
+✔ [8935/8959] Built OAI.Combinatorics.FiniteCircle.DeficitLower (10s)
+✔ [8936/8959] Built OAI.Combinatorics.FiniteCircle.Fourier (9.6s)
+✔ [8937/8959] Built OAI.Combinatorics.FiniteCircle.DyadicShifts (13s)
+✔ [8938/8959] Built OAI.Combinatorics.FiniteCircle.MaskBranching (9.7s)
+✔ [8939/8959] Built OAI.Combinatorics.FiniteCircle.TreeBranching (10s)
+✔ [8940/8959] Built OAI.Combinatorics.FiniteCircle.Translations (10s)
+✔ [8941/8959] Built OAI.Combinatorics.FiniteCircle.Distortion (10s)
+✔ [8942/8959] Built OAI.Combinatorics.FiniteCircle.Parameters (12s)
+✔ [8943/8959] Built OAI.Combinatorics.FiniteCircle.BinaryDistortion (12s)
+✔ [8944/8959] Built OAI.Combinatorics.FiniteCircle.BlockMatching (9.8s)
+✔ [8945/8959] Built OAI.Combinatorics.FiniteCircle.AnchorRecovery (11s)
+✔ [8946/8959] Built OAI.Combinatorics.FiniteCircle.WindowMatching (26s)
+✔ [8947/8959] Built OAI.Combinatorics.FiniteCircle.OffsetRecovery (11s)
+✔ [8948/8959] Built OAI.Combinatorics.FiniteCircle.BitCounting (9.6s)
+✔ [8949/8959] Built OAI.Combinatorics.FiniteCircle.RandomCodes (11s)
+✔ [8950/8959] Built OAI.Combinatorics.FiniteCircle.Codes (10s)
+✔ [8951/8959] Built OAI.Combinatorics.FiniteCircle.Lower (9.1s)
+✔ [8952/8959] Built OAI.Combinatorics.FiniteCircle.Windows (9.2s)
+✔ [8953/8959] Built OAI.Combinatorics.FiniteCircle.Partitions (8.9s)
+✔ [8954/8959] Built OAI.Combinatorics.FiniteCircle.Histograms (9.6s)
+✔ [8955/8959] Built OAI.Combinatorics.FiniteCircle.Separation (9.3s)
+✔ [8956/8959] Built OAI.Combinatorics.FiniteCircle.HistogramEmbedding (9.5s)
+✔ [8957/8959] Built OAI.Combinatorics.FiniteCircle.UpperParameters (14s)
+✔ [8958/8959] Built OAI.Combinatorics.FiniteCircle.Upper (9.3s)
+✔ [8959/8959] Built OAI.Combinatorics.FiniteCircle.Main (8.5s)
+Build completed successfully (8959 jobs).
+== build rc=0 seconds=422
+{"theorems": ["OAI.finiteCircle_fullMain"], "defs": ["OAI.FiniteCircle.EditStep", "OAI.FiniteCircle.EditScript", "OAI.FiniteCircle.editDistance", "OAI.FiniteCircle.lcs", "OAI.FiniteCircle.deficit", "OAI.FiniteCircle.Words", "OAI.FiniteCircle.RealL1", "OAI.FiniteCircle.distortion", "OAI.FiniteCircle.optimalDistortion", "OAI.FiniteCircle.E", "OAI.FiniteCircle.setDistortion", "OAI.FiniteCircle.alphabetSupremum", "OAI.FiniteCircle.exponentScale", "OAI.FiniteCircle.encode", "OAI.FiniteCircle.interval", "OAI.FiniteCircle.OffsetLocal", "OAI.FiniteCircle.indexSpan", "OAI.FiniteCircle.AnchorLocal", "OAI.FiniteCircle.SubstitutionBounds", "OAI.FiniteCircle.TwoCodes", "OAI.FiniteCircle.period", "OAI.FiniteCircle.circleSize", "OAI.FiniteCircle.MaskPrimes", "OAI.FiniteCircle.ExcludedPrimes", "OAI.FiniteCircle.MaskTag", "OAI.FiniteCircle.maskTags", "OAI.FiniteCircle.MaskAlphabet", "OAI.FiniteCircle.MaskState", "OAI.FiniteCircle.shiftMaskState", "OAI.FiniteCircle.maskGamma", "OAI.FiniteCircle.maskWord", "OAI.FiniteCircle.ExcludedAlphabet", "OAI.FiniteCircle.ExcludedState", "OAI.FiniteCircle.shiftExcludedState", "OAI.FiniteCircle.excludedTranslation", "OAI.FiniteCircle.excludedWord", "OAI.FiniteCircle.MaskWitness", "OAI.FiniteCircle.ExcludedWitness", "OAI.FiniteCircle.UniformUpper", "OAI.FiniteCircle.FullMain"], "json_theorems": ["OAI.finiteCircle_fullMain"], "missing_from_parse": []}
+AXIOMS: 'OAI.finiteCircle_fullMain' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:35:23Z
