@@ -1,0 +1,306 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_WeakHessian.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.WeakHessian.every_geodesic [thm] ok
+CMP OAI.WeakHessian.CurveSecondDerivativeBound [def] ok
+CMP OAI.WeakHessian.timeOne [def] ok
+CMP OAI.WeakHessian.timeOne._proof_1 [thm] ok
+CMP OAI.WeakHessian.Time [def] ok
+CMP OAI.WeakHessian.timeZero [def] ok
+CMP OAI.WeakHessian.timeZero._proof_1 [thm] ok
+CMP OAI.WeakHessian.evalReal [def] ok
+CMP OAI.WeakHessian.clampTime [def] ok
+CMP OAI.WeakHessian.clampTime._proof_1 [thm] ok
+CMP OAI.WeakHessian.Curve [def] ok
+CMP OAI.WeakHessian.IsGeodesic [def] ok
+CMP OAI.WeakHessian.WeakHessianUpperBound [def] ok
+CMP OAI.WeakHessian.gamma [def] ok
+CMP OAI.WeakHessian.gamma._proof_1 [thm] ok
+CMP OAI.WeakHessian.weakGradient [def] ok
+CMP OAI.WeakHessian.IsMinimalLocalWeakUpperGradient [def] ok
+CMP OAI.WeakHessian.IsLocalWeakUpperGradient [def] ok
+CMP OAI.WeakHessian.metricSpeed [def] ok
+CMP OAI.WeakHessian.BoundedTracks [def] ok
+CMP OAI.WeakHessian.IsTestPlan._proof_2 [thm] ok
+CMP OAI.WeakHessian.curveMeasurableSpace [def] ok
+CMP OAI.WeakHessian.IsTestPlan [def] ok
+CMP OAI.WeakHessian.IsAC2 [def] ok
+CMP OAI.WeakHessian.IsTestPlan._proof_1 [thm] ok
+CMP OAI.WeakHessian.LocallyL2 [def] ok
+CMP OAI.WeakHessian.LocallyL2._proof_1 [thm] ok
+CMP OAI.WeakHessian.weakHessian [def] ok
+CMP OAI.WeakHessian.laplacian [def] ok
+CMP OAI.WeakHessian.IsLaplacian [def] ok
+CMP OAI.WeakHessian.Sobolev [def] ok
+CMP OAI.WeakHessian.LocalSobolev [def] ok
+CMP OAI.WeakHessian.GloballyLipschitz [def] ok
+CMP OAI.WeakHessian.IsTestFunction [def] ok
+CMP OAI.WeakHessian.BoundedFunction [def] ok
+CMP OAI.WeakHessian.InLaplacianDomain [def] ok
+CMP OAI.WeakHessian.RCD [def] ok
+CMP OAI.WeakHessian.QuadraticCheegerEnergy [def] ok
+CMP OAI.WeakHessian.cheegerEnergy [def] ok
+CMP OAI.WeakHessian.localSlope [def] ok
+CMP OAI.WeakHessian.CurvatureDimension [def] ok
+CMP OAI.WeakHessian.interpolation [def] ok
+CMP OAI.WeakHessian.renyiIntegral [def] ok
+CMP OAI.WeakHessian.tauCoeff [def] ok
+CMP OAI.WeakHessian.sigmaCoeff [def] ok
+CMP OAI.WeakHessian.endpointCoupling [def] ok
+CMP OAI.WeakHessian.IsOptimalCoupling [def] ok
+CMP OAI.WeakHessian.QuadraticTransportCost [def] ok
+CMP OAI.WeakHessian.IsCoupling [def] ok
+CMP OAI.WeakHessian.HasSecondMoment [def] ok
+CMP OAI.WeakHessian.FiniteOnBoundedSets [def] ok
+CMP OAI.WeakHessian.FullSupport [def] ok
+@Chal.WeakHessian.every_geodesic : ∀ {X : Type u_1} [inst : MetricSpace X] [inst_1 : MeasurableSpace X] [BorelSpace X]
+  [CompleteSpace X] [TopologicalSpace.SeparableSpace X] (m : MeasureTheory.Measure X) (K N : ℝ),
+  1 < N →
+    Chal.WeakHessian.FullSupport m →
+      Chal.WeakHessian.FiniteOnBoundedSets m →
+        Chal.WeakHessian.RCD m K N →
+          ∀ (F G : X → ℝ),
+            Chal.WeakHessian.BoundedFunction F →
+              Chal.WeakHessian.GloballyLipschitz F →
+                Chal.WeakHessian.BoundedFunction G →
+                  Continuous G →
+                    Chal.WeakHessian.WeakHessianUpperBound m F G →
+                      ∀ (σ : Chal.WeakHessian.Curve X),
+                        Chal.WeakHessian.IsGeodesic σ → Chal.WeakHessian.CurveSecondDerivativeBound F G σ
+@[reducible] def Chal.WeakHessian.Time : Set ℝ :=
+Set.Icc 0 1
+def Chal.WeakHessian.timeZero : ↑Chal.WeakHessian.Time :=
+⟨0, Chal.WeakHessian.timeZero._proof_1⟩
+def Chal.WeakHessian.timeOne : ↑Chal.WeakHessian.Time :=
+⟨1, Chal.WeakHessian.timeOne._proof_1⟩
+def Chal.WeakHessian.clampTime : ℝ → ↑Chal.WeakHessian.Time :=
+fun t => ⟨max 0 (min 1 t), ⋯⟩
+@[reducible] def Chal.WeakHessian.Curve.{u_2} : (X : Type u_2) → [MetricSpace X] → Type (max 0 u_2) :=
+fun X [MetricSpace X] => C(↑Chal.WeakHessian.Time, X)
+def Chal.WeakHessian.evalReal.{u_1} : {X : Type u_1} → [inst : MetricSpace X] → Chal.WeakHessian.Curve X → ℝ → X :=
+fun {X} [MetricSpace X] γ t => γ (Chal.WeakHessian.clampTime t)
+def Chal.WeakHessian.IsGeodesic.{u_1} : {X : Type u_1} → [inst : MetricSpace X] → Chal.WeakHessian.Curve X → Prop :=
+fun {X} [MetricSpace X] γ =>
+  ∀ (s t : ↑Chal.WeakHessian.Time),
+    dist (γ s) (γ t) = |↑s - ↑t| * dist (γ Chal.WeakHessian.timeZero) (γ Chal.WeakHessian.timeOne)
+def Chal.WeakHessian.metricSpeed.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] → Chal.WeakHessian.Curve X → ℝ → ENNReal :=
+fun {X} [MetricSpace X] γ t =>
+  Filter.limsup
+    (fun s => ENNReal.ofReal (dist (Chal.WeakHessian.evalReal γ s) (Chal.WeakHessian.evalReal γ t) / |s - t|))
+    (nhdsWithin t {t}ᶜ)
+def Chal.WeakHessian.IsAC2.{u_1} : {X : Type u_1} → [inst : MetricSpace X] → Chal.WeakHessian.Curve X → Prop :=
+fun {X} [MetricSpace X] γ =>
+  ∃ a,
+    Measurable a ∧
+      ∫⁻ (t : ℝ) in Set.Icc 0 1, a t ^ 2 < ⊤ ∧
+        ∀ (s t : ↑Chal.WeakHessian.Time), ↑s ≤ ↑t → edist (γ s) (γ t) ≤ ∫⁻ (r : ℝ) in Set.Icc ↑s ↑t, a r
+def Chal.WeakHessian.IsTestPlan.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] →
+    [inst_1 : MeasurableSpace X] → MeasureTheory.Measure X → MeasureTheory.Measure (Chal.WeakHessian.Curve X) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m π =>
+  MeasureTheory.IsProbabilityMeasure π ∧
+    (∃ C, ∀ (t : ↑Chal.WeakHessian.Time), MeasureTheory.Measure.map (fun γ => γ t) π ≤ ↑C • m) ∧
+      (∀ᵐ (γ : Chal.WeakHessian.Curve X) ∂π, Chal.WeakHessian.IsAC2 γ) ∧
+        ∫⁻ (γ : Chal.WeakHessian.Curve X), ∫⁻ (t : ℝ) in Set.Icc 0 1, Chal.WeakHessian.metricSpeed γ t ^ 2 ∂π < ⊤
+def Chal.WeakHessian.BoundedTracks.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] → MeasureTheory.Measure (Chal.WeakHessian.Curve X) → Prop :=
+fun {X} [MetricSpace X] π =>
+  ∃ o R, 0 < R ∧ ∀ᵐ (γ : Chal.WeakHessian.Curve X) ∂π, ∀ (t : ↑Chal.WeakHessian.Time), dist (γ t) o ≤ R
+def Chal.WeakHessian.LocallyL2.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f =>
+  ∀ (o : X) (R : ℝ), 0 < R → MeasureTheory.MemLp f 2 (m.restrict (Metric.ball o R))
+def Chal.WeakHessian.IsLocalWeakUpperGradient.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f D =>
+  Chal.WeakHessian.LocallyL2 m D ∧
+    (∀ᵐ (x : X) ∂m, 0 ≤ D x) ∧
+      ∀ (π : MeasureTheory.Measure (Chal.WeakHessian.Curve X)),
+        Chal.WeakHessian.IsTestPlan m π →
+          Chal.WeakHessian.BoundedTracks π →
+            ∫⁻ (γ : Chal.WeakHessian.Curve X),
+                ENNReal.ofReal |f (γ Chal.WeakHessian.timeOne) - f (γ Chal.WeakHessian.timeZero)| ∂π ≤
+              ∫⁻ (γ : Chal.WeakHessian.Curve X),
+                ∫⁻ (t : ℝ) in Set.Icc 0 1,
+                  ENNReal.ofReal (D (Chal.WeakHessian.evalReal γ t)) * Chal.WeakHessian.metricSpeed γ t ∂π
+def Chal.WeakHessian.IsMinimalLocalWeakUpperGradient.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f D =>
+  Chal.WeakHessian.IsLocalWeakUpperGradient m f D ∧
+    ∀ (D' : X → ℝ), Chal.WeakHessian.IsLocalWeakUpperGradient m f D' → ∀ᵐ (x : X) ∂m, D x ≤ D' x
+def Chal.WeakHessian.weakGradient.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → X → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f =>
+  if h : ∃ D, Chal.WeakHessian.IsMinimalLocalWeakUpperGradient m f D then Classical.choose h else 0
+def Chal.WeakHessian.LocalSobolev.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f =>
+  Chal.WeakHessian.LocallyL2 m f ∧ ∃ D, Chal.WeakHessian.IsMinimalLocalWeakUpperGradient m f D
+def Chal.WeakHessian.Sobolev.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f =>
+  MeasureTheory.MemLp f 2 m ∧
+    Chal.WeakHessian.LocalSobolev m f ∧ MeasureTheory.MemLp (Chal.WeakHessian.weakGradient m f) 2 m
+def Chal.WeakHessian.gamma.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → X → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f g x =>
+  (Chal.WeakHessian.weakGradient m (fun y => f y + g y) x ^ 2 -
+      Chal.WeakHessian.weakGradient m (fun y => f y - g y) x ^ 2) /
+    4
+def Chal.WeakHessian.IsLaplacian.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m u L =>
+  Chal.WeakHessian.Sobolev m u ∧
+    MeasureTheory.MemLp L 2 m ∧
+      ∀ (v : X → ℝ),
+        Chal.WeakHessian.Sobolev m v → ∫ (x : X), Chal.WeakHessian.gamma m u v x ∂m = -∫ (x : X), L x * v x ∂m
+def Chal.WeakHessian.InLaplacianDomain.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m u => ∃ L, Chal.WeakHessian.IsLaplacian m u L
+def Chal.WeakHessian.laplacian.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → X → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m u =>
+  if h : ∃ L, Chal.WeakHessian.IsLaplacian m u L then Classical.choose h else 0
+def Chal.WeakHessian.BoundedFunction.{u_1} : {X : Type u_1} → (X → ℝ) → Prop :=
+fun {X} f => ∃ B, ∀ (x : X), |f x| ≤ B
+def Chal.WeakHessian.GloballyLipschitz.{u_1} : {X : Type u_1} → [MetricSpace X] → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] f => ∃ L, LipschitzWith L f
+def Chal.WeakHessian.IsTestFunction.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m g =>
+  Chal.WeakHessian.InLaplacianDomain m g ∧
+    Chal.WeakHessian.BoundedFunction g ∧
+      Chal.WeakHessian.GloballyLipschitz g ∧ Chal.WeakHessian.Sobolev m (Chal.WeakHessian.laplacian m g)
+def Chal.WeakHessian.weakHessian.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → (X → ℝ) → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m F g h =>
+  -∫ (x : X),
+        (Chal.WeakHessian.gamma m h g x + h x * Chal.WeakHessian.laplacian m g x) * Chal.WeakHessian.gamma m F g x ∂m -
+    ∫ (x : X), h x * Chal.WeakHessian.gamma m F (fun y => Chal.WeakHessian.gamma m g g y / 2) x ∂m
+def Chal.WeakHessian.WeakHessianUpperBound.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m F G =>
+  ∀ (g : X → ℝ),
+    Chal.WeakHessian.IsTestFunction m g →
+      HasCompactSupport g →
+        ∀ (h : X → ℝ),
+          Chal.WeakHessian.GloballyLipschitz h →
+            HasCompactSupport h →
+              (∀ (x : X), 0 ≤ h x) →
+                Chal.WeakHessian.weakHessian m F g h ≤ ∫ (x : X), h x * G x * Chal.WeakHessian.gamma m g g x ∂m
+def Chal.WeakHessian.localSlope.{u_1} : {X : Type u_1} → [MetricSpace X] → (X → ℝ) → X → ENNReal :=
+fun {X} [MetricSpace X] f x => Filter.limsup (fun y => ENNReal.ofReal (|f y - f x| / dist y x)) (nhdsWithin x {x}ᶜ)
+def Chal.WeakHessian.cheegerEnergy.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → ℝ) → ENNReal :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m f =>
+  if MeasureTheory.MemLp f 2 m then
+    sInf
+      {a |
+        ∃ fs,
+          (∀ (n : ℕ), Chal.WeakHessian.GloballyLipschitz (fs n) ∧ MeasureTheory.MemLp (fs n) 2 m) ∧
+            Filter.Tendsto (fun n => MeasureTheory.eLpNorm (fun x => fs n x - f x) 2 m) Filter.atTop (nhds 0) ∧
+              a = Filter.liminf (fun n => 2⁻¹ * ∫⁻ (x : X), Chal.WeakHessian.localSlope (fs n) x ^ 2 ∂m) Filter.atTop}
+  else ⊤
+def Chal.WeakHessian.QuadraticCheegerEnergy.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m =>
+  ∀ (f g : X → ℝ),
+    Chal.WeakHessian.cheegerEnergy m f < ⊤ →
+      Chal.WeakHessian.cheegerEnergy m g < ⊤ →
+        ((Chal.WeakHessian.cheegerEnergy m fun x => f x + g x) + Chal.WeakHessian.cheegerEnergy m fun x => f x - g x) =
+          2 * Chal.WeakHessian.cheegerEnergy m f + 2 * Chal.WeakHessian.cheegerEnergy m g
+def Chal.WeakHessian.sigmaCoeff : ℝ → ℝ → ℝ → ℝ → ENNReal :=
+fun K N t θ =>
+  if t ≤ 0 then 0
+  else
+    if 1 ≤ t then 1
+    else
+      if θ = 0 then ENNReal.ofReal t
+      else
+        if 0 < K then
+          if K * θ ^ 2 < N * Real.pi ^ 2 then ENNReal.ofReal (Real.sin (t * θ * √(K / N)) / Real.sin (θ * √(K / N)))
+          else ⊤
+        else
+          if K = 0 then ENNReal.ofReal t else ENNReal.ofReal (Real.sinh (t * θ * √(-K / N)) / Real.sinh (θ * √(-K / N)))
+def Chal.WeakHessian.tauCoeff : ℝ → ℝ → ℝ → ℝ → ENNReal :=
+fun K N t θ => ENNReal.ofReal t ^ (1 / N) * Chal.WeakHessian.sigmaCoeff K (N - 1) t θ ^ ((N - 1) / N)
+def Chal.WeakHessian.HasSecondMoment.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] μ => ∃ o, ∫⁻ (x : X), edist x o ^ 2 ∂μ < ⊤
+def Chal.WeakHessian.IsCoupling.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] →
+    MeasureTheory.Measure (X × X) → MeasureTheory.Measure X → MeasureTheory.Measure X → Prop :=
+fun {X} [MeasurableSpace X] q μ₀ μ₁ =>
+  MeasureTheory.Measure.map Prod.fst q = μ₀ ∧ MeasureTheory.Measure.map Prod.snd q = μ₁
+def Chal.WeakHessian.QuadraticTransportCost.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure (X × X) → ENNReal :=
+fun {X} [MetricSpace X] [MeasurableSpace X] q => ∫⁻ (p : X × X), edist p.1 p.2 ^ 2 ∂q
+def Chal.WeakHessian.IsOptimalCoupling.{u_1} : {X : Type u_1} →
+  [MetricSpace X] →
+    [inst : MeasurableSpace X] →
+      MeasureTheory.Measure (X × X) → MeasureTheory.Measure X → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] q μ₀ μ₁ =>
+  Chal.WeakHessian.IsCoupling q μ₀ μ₁ ∧
+    ∀ (q' : MeasureTheory.Measure (X × X)),
+      Chal.WeakHessian.IsCoupling q' μ₀ μ₁ →
+        Chal.WeakHessian.QuadraticTransportCost q ≤ Chal.WeakHessian.QuadraticTransportCost q'
+def Chal.WeakHessian.endpointCoupling.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] →
+    [inst_1 : MeasurableSpace X] → MeasureTheory.Measure (Chal.WeakHessian.Curve X) → MeasureTheory.Measure (X × X) :=
+fun {X} [MetricSpace X] [MeasurableSpace X] π =>
+  MeasureTheory.Measure.map (fun γ => (γ Chal.WeakHessian.timeZero, γ Chal.WeakHessian.timeOne)) π
+def Chal.WeakHessian.interpolation.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] →
+    [inst_1 : MeasurableSpace X] →
+      MeasureTheory.Measure (Chal.WeakHessian.Curve X) → ↑Chal.WeakHessian.Time → MeasureTheory.Measure X :=
+fun {X} [MetricSpace X] [MeasurableSpace X] π t => MeasureTheory.Measure.map (fun γ => γ t) π
+def Chal.WeakHessian.renyiIntegral.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → MeasureTheory.Measure X → MeasureTheory.Measure X → ℝ → ENNReal :=
+fun {X} [MeasurableSpace X] m μ N => ∫⁻ (x : X), μ.rnDeriv m x ^ (1 - 1 / N) ∂m
+def Chal.WeakHessian.CurvatureDimension.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → ℝ → ℝ → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m K N =>
+  ∀ (μ₀ μ₁ : MeasureTheory.Measure X),
+    MeasureTheory.IsProbabilityMeasure μ₀ →
+      MeasureTheory.IsProbabilityMeasure μ₁ →
+        Chal.WeakHessian.HasSecondMoment μ₀ →
+          Chal.WeakHessian.HasSecondMoment μ₁ →
+            μ₀.AbsolutelyContinuous m →
+              μ₁.AbsolutelyContinuous m →
+                ∃ π,
+                  MeasureTheory.IsProbabilityMeasure π ∧
+                    (∀ᵐ (γ : Chal.WeakHessian.Curve X) ∂π, Chal.WeakHessian.IsGeodesic γ) ∧
+                      Chal.WeakHessian.IsOptimalCoupling (Chal.WeakHessian.endpointCoupling π) μ₀ μ₁ ∧
+                        ∀ (N' : ℝ),
+                          N ≤ N' →
+                            ∀ (t : ↑Chal.WeakHessian.Time),
+                              ∫⁻ (γ : Chal.WeakHessian.Curve X),
+                                  Chal.WeakHessian.tauCoeff K N' (1 - ↑t)
+                                        (dist (γ Chal.WeakHessian.timeZero) (γ Chal.WeakHessian.timeOne)) *
+                                      μ₀.rnDeriv m (γ Chal.WeakHessian.timeZero) ^ (-1 / N') +
+                                    Chal.WeakHessian.tauCoeff K N' (↑t)
+                                        (dist (γ Chal.WeakHessian.timeZero) (γ Chal.WeakHessian.timeOne)) *
+                                      μ₁.rnDeriv m (γ Chal.WeakHessian.timeOne) ^ (-1 / N') ∂π ≤
+                                Chal.WeakHessian.renyiIntegral m (Chal.WeakHessian.interpolation π t) N'
+def Chal.WeakHessian.RCD.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → ℝ → ℝ → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m K N =>
+  Chal.WeakHessian.CurvatureDimension m K N ∧ Chal.WeakHessian.QuadraticCheegerEnergy m
+def Chal.WeakHessian.FullSupport.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m => ∀ (U : Set X), IsOpen U → U.Nonempty → 0 < m U
+def Chal.WeakHessian.FiniteOnBoundedSets.{u_1} : {X : Type u_1} →
+  [MetricSpace X] → [inst : MeasurableSpace X] → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] m => ∀ (B : Set X), Bornology.IsBounded B → m B < ⊤
+def Chal.WeakHessian.CurveSecondDerivativeBound.{u_1} : {X : Type u_1} →
+  [inst : MetricSpace X] → (X → ℝ) → (X → ℝ) → Chal.WeakHessian.Curve X → Prop :=
+fun {X} [MetricSpace X] F G σ =>
+  ∀ (φ : ℝ → ℝ),
+    ContDiff ℝ (↑⊤) φ →
+      HasCompactSupport φ →
+        tsupport φ ⊆ Set.Ioo 0 1 →
+          (∀ (t : ℝ), 0 ≤ φ t) →
+            ∫ (t : ℝ) in Set.Icc 0 1, F (Chal.WeakHessian.evalReal σ t) * deriv (deriv φ) t ≤
+              dist (σ Chal.WeakHessian.timeZero) (σ Chal.WeakHessian.timeOne) ^ 2 *
+                ∫ (t : ℝ) in Set.Icc 0 1, G (Chal.WeakHessian.evalReal σ t) * φ t
+'OAI.WeakHessian.every_geodesic' depends on axioms: [propext, Classical.choice, Quot.sound]
+== WeakHessian comparator-style: ok=52 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
