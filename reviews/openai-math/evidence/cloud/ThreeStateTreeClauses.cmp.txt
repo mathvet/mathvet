@@ -1,0 +1,83 @@
+CMP OAI.ThreeState.TreeClauses.Tree.poisson_reconstructs_above_KS [thm] ok
+CMP OAI.ThreeState.TreeClauses.poissonPMF [def] ok
+CMP OAI.ThreeState.TreeClauses.poissonPMF._proof_1 [thm] ok
+CMP OAI.ThreeState.TreeClauses.Probability.poissonWeight [def] ok
+CMP OAI.ThreeState.TreeClauses.Reconstructs [def] ok
+CMP OAI.ThreeState.TreeClauses.advantage [def] ok
+CMP OAI.ThreeState.TreeClauses.Admissible._proof_1 [thm] ok
+CMP OAI.ThreeState.TreeClauses.channelWeight._proof_1 [thm] ok
+CMP OAI.ThreeState.TreeClauses.posterior [def] ok
+CMP OAI.ThreeState.TreeClauses.marginalWeight [def] ok
+CMP OAI.ThreeState.TreeClauses.jointWeight [def] ok
+CMP OAI.ThreeState.TreeClauses.observationLaw [def] ok
+CMP OAI.ThreeState.TreeClauses.observationLaw._f [def] ok
+CMP OAI.ThreeState.TreeClauses.channel [def] ok
+CMP OAI.ThreeState.TreeClauses.channel._proof_1 [thm] ok
+CMP OAI.ThreeState.TreeClauses.channelWeight [def] ok
+CMP OAI.ThreeState.TreeClauses.Spin [def] ok
+CMP OAI.ThreeState.TreeClauses.Admissible [def] ok
+CMP OAI.ThreeState.TreeClauses.iidList [def] ok
+CMP OAI.ThreeState.TreeClauses.iidList._f [def] ok
+CMP OAI.ThreeState.TreeClauses.Observation.match_1 [def] ok
+CMP OAI.ThreeState.TreeClauses.observationLaw.match_1 [def] ok
+CMP OAI.ThreeState.TreeClauses.Observation [def] ok
+CMP OAI.ThreeState.TreeClauses.Observation._f [def] ok
+CMP OAI.ThreeState.TreeClauses.Tree.regular_reconstructs_above_KS [thm] ok
+Chal.ThreeState.TreeClauses.Tree.regular_reconstructs_above_KS : ∀ (b : ℕ) (lam : ℝ)
+  (hlam : Chal.ThreeState.TreeClauses.Admissible lam),
+  1 < ↑b * lam ^ 2 → Chal.ThreeState.TreeClauses.Reconstructs lam hlam (PMF.pure b)
+Chal.ThreeState.TreeClauses.Tree.poisson_reconstructs_above_KS : ∀ (d : NNReal) (lam : ℝ)
+  (hlam : Chal.ThreeState.TreeClauses.Admissible lam),
+  1 < ↑d * lam ^ 2 → Chal.ThreeState.TreeClauses.Reconstructs lam hlam (Chal.ThreeState.TreeClauses.poissonPMF d)
+@[reducible] def Chal.ThreeState.TreeClauses.Spin : Type :=
+Fin 3
+def Chal.ThreeState.TreeClauses.Admissible : ℝ → Prop :=
+fun lam => -(1 / 2) ≤ lam ∧ lam ≤ 1
+def Chal.ThreeState.TreeClauses.channelWeight : ℝ →
+  Chal.ThreeState.TreeClauses.Spin → Chal.ThreeState.TreeClauses.Spin → ℝ :=
+fun lam i j => if i = j then (1 + 2 * lam) / 3 else (1 - lam) / 3
+def Chal.ThreeState.TreeClauses.channel : (lam : ℝ) →
+  Chal.ThreeState.TreeClauses.Admissible lam →
+    Chal.ThreeState.TreeClauses.Spin → PMF Chal.ThreeState.TreeClauses.Spin :=
+fun lam hlam i => PMF.ofFintype (fun j => ENNReal.ofReal (Chal.ThreeState.TreeClauses.channelWeight lam i j)) ⋯
+def Chal.ThreeState.TreeClauses.Observation : ℕ → Type :=
+fun x => Nat.brecOn x Chal.ThreeState.TreeClauses.Observation._f
+def Chal.ThreeState.TreeClauses.iidList : {α : Type} → PMF α → ℕ → PMF (List α) :=
+fun {α} p x => Nat.brecOn x (Chal.ThreeState.TreeClauses.iidList._f p)
+def Chal.ThreeState.TreeClauses.observationLaw : (lam : ℝ) →
+  Chal.ThreeState.TreeClauses.Admissible lam →
+    PMF ℕ → (ℓ : ℕ) → Chal.ThreeState.TreeClauses.Spin → PMF (Chal.ThreeState.TreeClauses.Observation ℓ) :=
+fun lam hlam offspring x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.ThreeState.TreeClauses.Spin → PMF (Chal.ThreeState.TreeClauses.Observation x)) x
+    (Chal.ThreeState.TreeClauses.observationLaw._f lam hlam offspring) x_1
+def Chal.ThreeState.TreeClauses.jointWeight : (lam : ℝ) →
+  Chal.ThreeState.TreeClauses.Admissible lam →
+    PMF ℕ → (ℓ : ℕ) → Chal.ThreeState.TreeClauses.Spin → Chal.ThreeState.TreeClauses.Observation ℓ → ENNReal :=
+fun lam hlam offspring ℓ i o => 1 / 3 * (Chal.ThreeState.TreeClauses.observationLaw lam hlam offspring ℓ i) o
+def Chal.ThreeState.TreeClauses.marginalWeight : (lam : ℝ) →
+  Chal.ThreeState.TreeClauses.Admissible lam → PMF ℕ → (ℓ : ℕ) → Chal.ThreeState.TreeClauses.Observation ℓ → ENNReal :=
+fun lam hlam offspring ℓ o => ∑ i, Chal.ThreeState.TreeClauses.jointWeight lam hlam offspring ℓ i o
+def Chal.ThreeState.TreeClauses.posterior : (lam : ℝ) →
+  Chal.ThreeState.TreeClauses.Admissible lam →
+    PMF ℕ → (ℓ : ℕ) → Chal.ThreeState.TreeClauses.Observation ℓ → Chal.ThreeState.TreeClauses.Spin → ℝ :=
+fun lam hlam offspring ℓ o i =>
+  (Chal.ThreeState.TreeClauses.jointWeight lam hlam offspring ℓ i o /
+      Chal.ThreeState.TreeClauses.marginalWeight lam hlam offspring ℓ o).toReal
+def Chal.ThreeState.TreeClauses.advantage : (lam : ℝ) → Chal.ThreeState.TreeClauses.Admissible lam → PMF ℕ → ℕ → ℝ :=
+fun lam hlam offspring ℓ =>
+  ∑' (o : Chal.ThreeState.TreeClauses.Observation ℓ),
+    (Chal.ThreeState.TreeClauses.marginalWeight lam hlam offspring ℓ o).toReal *
+      ((∑ i, |Chal.ThreeState.TreeClauses.posterior lam hlam offspring ℓ o i - 1 / 3|) / 2)
+def Chal.ThreeState.TreeClauses.Reconstructs : (lam : ℝ) → Chal.ThreeState.TreeClauses.Admissible lam → PMF ℕ → Prop :=
+fun lam hlam offspring =>
+  ∃ a, 0 < a ∧ Filter.Tendsto (Chal.ThreeState.TreeClauses.advantage lam hlam offspring) Filter.atTop (nhds a)
+def Chal.ThreeState.TreeClauses.Probability.poissonWeight : ℝ → ℕ → ℝ :=
+fun rate count => Real.exp (-rate) * rate ^ count / ↑count.factorial
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ThreeStateTreeClauses.lean:195:7: error(lean.unknownIdentifier): Unknown constant `Chal.ThreeState.TreeClauses.Probability._root_.OAI.ThreeState.TreeClauses.poissonPMF`
+'OAI.ThreeState.TreeClauses.Tree.regular_reconstructs_above_KS' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.ThreeState.TreeClauses.Tree.poisson_reconstructs_above_KS' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== ThreeStateTreeClauses comparator-style: ok=25 problems=0 errors=1 | SHADOW-DIFF(see ThreeStateTreeClauses.standalone.norm vs ThreeStateTreeClauses.insolution.norm) | [propext, 
