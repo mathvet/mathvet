@@ -1,0 +1,68 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CoveringDensity.lean:113:8: warning: declaration uses `sorry`
+OAI.CoveringOrder.optimal_order : OAI.CoveringOrder.OptimalOrder
+@[reducible] def OAI.CoveringOrder.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+structure OAI.CoveringOrder.LatticeCover {n : ℕ} (K : Set (OAI.CoveringOrder.Space n)) : Type
+number of parameters: 2
+fields:
+  OAI.CoveringOrder.LatticeCover.lattice : Submodule ℤ (OAI.CoveringOrder.Space n)
+  OAI.CoveringOrder.LatticeCover.discrete : DiscreteTopology ↥self.lattice
+  OAI.CoveringOrder.LatticeCover.fullrank : IsZLattice ℝ self.lattice
+  OAI.CoveringOrder.LatticeCover.covers : ∀ (y : OAI.CoveringOrder.Space n), ∃ l, y - ↑l ∈ K
+constructor:
+  OAI.CoveringOrder.LatticeCover.mk {n : ℕ} {K : Set (OAI.CoveringOrder.Space n)}
+    (lattice : Submodule ℤ (OAI.CoveringOrder.Space n)) (discrete : DiscreteTopology ↥lattice)
+    (fullrank : IsZLattice ℝ lattice) (covers : ∀ (y : OAI.CoveringOrder.Space n), ∃ l, y - ↑l ∈ K) :
+    OAI.CoveringOrder.LatticeCover K
+def OAI.CoveringOrder.euclideanVolume : (n : ℕ) → MeasureTheory.Measure (EuclideanSpace ℝ (Fin n)) :=
+fun n => MeasureTheory.Measure.map (WithLp.toLp 2) (MeasureTheory.Measure.pi fun x => MeasureTheory.volume)
+def OAI.CoveringOrder.euclideanCovolume : {n : ℕ} → Submodule ℤ (EuclideanSpace ℝ (Fin n)) → ENNReal :=
+fun {n} lattice => MeasureTheory.addCovolume (↥lattice) (EuclideanSpace ℝ (Fin n)) (OAI.CoveringOrder.euclideanVolume n)
+def OAI.CoveringOrder.latticeDensity : {n : ℕ} →
+  {K : Set (OAI.CoveringOrder.Space n)} → OAI.CoveringOrder.LatticeCover K → ENNReal :=
+fun {n} {K} cover => (OAI.CoveringOrder.euclideanVolume n) K / OAI.CoveringOrder.euclideanCovolume cover.lattice
+def OAI.CoveringOrder.thetaL : {n : ℕ} → Set (EuclideanSpace ℝ (Fin n)) → ENNReal :=
+fun {n} K => ⨅ cover, OAI.CoveringOrder.latticeDensity cover
+@[reducible] def OAI.TranslativeCovering.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def OAI.TranslativeCovering.cube : (n : ℕ) → ℝ → Set (OAI.TranslativeCovering.Space n) :=
+fun n R => {x | ∀ (i : Fin n), -R ≤ x.ofLp i ∧ x.ofLp i ≤ R}
+def OAI.TranslativeCovering.LocallyFiniteCenters : {n : ℕ} → Set (OAI.TranslativeCovering.Space n) → Prop :=
+fun {n} X => ∀ (B : Set (OAI.TranslativeCovering.Space n)), Bornology.IsBounded B → (X ∩ B).Finite
+def OAI.TranslativeCovering.Covers : {n : ℕ} →
+  Set (OAI.TranslativeCovering.Space n) → Set (OAI.TranslativeCovering.Space n) → Prop :=
+fun {n} K X => ∀ (y : OAI.TranslativeCovering.Space n), ∃ x ∈ X, y - x ∈ K
+def OAI.TranslativeCovering.ConvexBody : {n : ℕ} → Set (OAI.TranslativeCovering.Space n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty
+def OAI.TranslativeCovering.CentrallySymmetric : {n : ℕ} → Set (OAI.TranslativeCovering.Space n) → Prop :=
+fun {n} K => ∃ z, ∀ (x : OAI.TranslativeCovering.Space n), x ∈ K ↔ 2 • z - x ∈ K
+def OAI.TranslativeCovering.upperCenterIntensity : {n : ℕ} → Set (OAI.TranslativeCovering.Space n) → ENNReal :=
+fun {n} X =>
+  Filter.limsup (fun R => ↑(X ∩ OAI.TranslativeCovering.cube n R).ncard / ENNReal.ofReal ((2 * R) ^ n)) Filter.atTop
+def OAI.TranslativeCovering.thetaT : {n : ℕ} → Set (OAI.TranslativeCovering.Space n) → ENNReal :=
+fun {n} K => ⨅ X, MeasureTheory.volume K * OAI.TranslativeCovering.upperCenterIntensity ↑X
+@[reducible] def OAI.CoveringOrder.Body : ℕ → Type :=
+fun n => { K // OAI.TranslativeCovering.ConvexBody K }
+@[reducible] def OAI.CoveringOrder.SymmetricBody : ℕ → Type :=
+fun n => { K // OAI.TranslativeCovering.CentrallySymmetric ↑K }
+def OAI.CoveringOrder.translativeSup : ℕ → ENNReal :=
+fun n => ⨆ K, OAI.TranslativeCovering.thetaT ↑K
+def OAI.CoveringOrder.symmetricTranslativeSup : ℕ → ENNReal :=
+fun n => ⨆ K, OAI.TranslativeCovering.thetaT ↑↑K
+def OAI.CoveringOrder.latticeSup : ℕ → ENNReal :=
+fun n => ⨆ K, OAI.CoveringOrder.thetaL ↑K
+def OAI.CoveringOrder.symmetricLatticeSup : ℕ → ENNReal :=
+fun n => ⨆ K, OAI.CoveringOrder.thetaL ↑↑K
+def OAI.CoveringOrder.orderBounds : ℝ → ℝ → ℕ → ENNReal → Prop :=
+fun c C n a => ENNReal.ofReal (c * ↑n * Real.log ↑n) ≤ a ∧ a ≤ ENNReal.ofReal (C * ↑n * Real.log ↑n)
+def OAI.CoveringOrder.OptimalOrder : Prop :=
+∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∃ n₀,
+        ∀ (n : ℕ),
+          n₀ ≤ n →
+            OAI.CoveringOrder.orderBounds c C n (OAI.CoveringOrder.translativeSup n) ∧
+              OAI.CoveringOrder.orderBounds c C n (OAI.CoveringOrder.symmetricTranslativeSup n) ∧
+                OAI.CoveringOrder.orderBounds c C n (OAI.CoveringOrder.latticeSup n) ∧
+                  OAI.CoveringOrder.orderBounds c C n (OAI.CoveringOrder.symmetricLatticeSup n)
