@@ -1,0 +1,103 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SLELowerPositivity.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SLEExactGauge.sourceLowerMain_proved [thm] ok
+CMP OAI.SLEExactGauge.SourceLowerMainTarget [def] ok
+CMP OAI.SLEExactGauge.segment [def] ok
+CMP OAI.SLEExactGauge.hausdorffGauge [def] ok
+CMP OAI.SLEExactGauge.extendedGauge [def] ok
+CMP OAI.SLEExactGauge.hFormula [def] ok
+CMP OAI.SLEExactGauge.codimension [def] ok
+CMP OAI.SLEExactGauge.dimension [def] ok
+CMP OAI.SLEExactGauge.dimension._proof_1 [thm] ok
+CMP OAI.SLEExactGauge.HasSmallRadiusFormula [def] ok
+CMP OAI.SLEExactGauge.IsGauge [ind] ok
+CMP OAI.SLEExactGauge.IsGauge.mk [ctor] ok
+CMP OAI.SLEExactGauge.IsOrdinaryChordalSLE [def] ok
+CMP OAI.SLEExactGauge.IsCapacityTwoTrace [def] ok
+CMP OAI.SLEExactGauge.IsCapacityTwoWitness [def] ok
+CMP OAI.SLEExactGauge.IsCapacityTwoWitness._proof_2 [thm] ok
+CMP OAI.SLEExactGauge.IsCapacityTwoWitness._proof_1 [thm] ok
+CMP OAI.SLEExactGauge.upperHalfPlane [def] ok
+CMP OAI.SLEExactGauge.survivingDomain [def] ok
+Chal.SLEExactGauge.sourceLowerMain_proved : Chal.SLEExactGauge.SourceLowerMainTarget
+def Chal.SLEExactGauge.dimension : ℝ → ℝ :=
+fun κ => 1 + κ / 8
+def Chal.SLEExactGauge.codimension : ℝ → ℝ :=
+fun κ => ↑2 - Chal.SLEExactGauge.dimension κ
+def Chal.SLEExactGauge.upperHalfPlane : Set ℂ :=
+{z | 0 < z.im}
+def Chal.SLEExactGauge.survivingDomain : (NNReal → ℂ) → NNReal → Set ℂ :=
+fun γ t =>
+  {z |
+    z ∈ Chal.SLEExactGauge.upperHalfPlane \ γ '' Set.Icc 0 t ∧
+      ¬Bornology.IsBounded (connectedComponentIn (Chal.SLEExactGauge.upperHalfPlane \ γ '' Set.Icc 0 t) z)}
+def Chal.SLEExactGauge.IsCapacityTwoWitness : (NNReal → ℝ) →
+  (NNReal → ℂ) → (NNReal → ℂ → ℂ) → (NNReal → ℂ → ℂ) → Prop :=
+fun U γ G F =>
+  Continuous γ ∧
+    γ 0 = 0 ∧
+      (∀ (t : NNReal), 0 ≤ (γ t).im) ∧
+        (∀ (t : NNReal), DifferentiableOn ℂ (G t) (Chal.SLEExactGauge.survivingDomain γ t)) ∧
+          (∀ (t : NNReal), DifferentiableOn ℂ (F t) Chal.SLEExactGauge.upperHalfPlane) ∧
+            (∀ (t : NNReal),
+                Set.MapsTo (G t) (Chal.SLEExactGauge.survivingDomain γ t) Chal.SLEExactGauge.upperHalfPlane) ∧
+              (∀ (t : NNReal),
+                  Set.MapsTo (F t) Chal.SLEExactGauge.upperHalfPlane (Chal.SLEExactGauge.survivingDomain γ t)) ∧
+                (∀ (t : NNReal), ∀ z ∈ Chal.SLEExactGauge.survivingDomain γ t, F t (G t z) = z) ∧
+                  (∀ (t : NNReal), ∀ z ∈ Chal.SLEExactGauge.upperHalfPlane, G t (F t z) = z) ∧
+                    (∀ z ∈ Chal.SLEExactGauge.upperHalfPlane, G 0 z = z) ∧
+                      (∀ (t : NNReal),
+                          ∀ z ∈ Chal.SLEExactGauge.survivingDomain γ t,
+                            HasDerivWithinAt (fun u => G u.toNNReal z) (2 / (G t z - ↑(U t))) (Set.Ici 0) ↑t) ∧
+                        (∀ (t : NNReal),
+                            Filter.Tendsto (fun z => z * (G t z - z))
+                              (Filter.cocompact ℂ ⊓ Filter.principal (Chal.SLEExactGauge.survivingDomain γ t))
+                              (nhds (2 * ↑↑t))) ∧
+                          ∀ (t : NNReal),
+                            Filter.Tendsto (fun y => F t (↑(U t) + ↑y * Complex.I)) (nhdsWithin 0 (Set.Ioi 0))
+                              (nhds (γ t))
+def Chal.SLEExactGauge.IsCapacityTwoTrace : (NNReal → ℝ) → (NNReal → ℂ) → Prop :=
+fun U γ => ∃ G F, Chal.SLEExactGauge.IsCapacityTwoWitness U γ G F
+def Chal.SLEExactGauge.IsOrdinaryChordalSLE.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → ℝ → (Ω → NNReal → ℂ) → MeasureTheory.Measure Ω → Prop :=
+fun {Ω} [MeasurableSpace Ω] κ γ P =>
+  (∀ (t : NNReal), Measurable fun ω => γ ω t) ∧
+    ∃ B,
+      ProbabilityTheory.IsBrownianReal B P ∧
+        ∀ᵐ (ω : Ω) ∂P, Chal.SLEExactGauge.IsCapacityTwoTrace (fun t => √κ * B t ω) (γ ω)
+structure Chal.SLEExactGauge.IsGauge (h : ℝ → ℝ) : Prop
+number of parameters: 1
+fields:
+  Chal.SLEExactGauge.IsGauge.continuousOn : ContinuousOn h (Set.Ici 0)
+  Chal.SLEExactGauge.IsGauge.monotoneOn : MonotoneOn h (Set.Ici 0)
+  Chal.SLEExactGauge.IsGauge.zero : h 0 = 0
+  Chal.SLEExactGauge.IsGauge.positive : ∀ (r : ℝ), 0 < r → 0 < h r
+constructor:
+  Chal.SLEExactGauge.IsGauge.mk {h : ℝ → ℝ} (continuousOn : ContinuousOn h (Set.Ici 0))
+    (monotoneOn : MonotoneOn h (Set.Ici 0)) (zero : h 0 = 0) (positive : ∀ (r : ℝ), 0 < r → 0 < h r) :
+    Chal.SLEExactGauge.IsGauge h
+def Chal.SLEExactGauge.hFormula : ℝ → ℝ → ℝ :=
+fun κ r => r ^ Chal.SLEExactGauge.dimension κ * Real.log (Real.log (1 / r)) ^ (Chal.SLEExactGauge.codimension κ / ↑2)
+def Chal.SLEExactGauge.HasSmallRadiusFormula : (ℝ → ℝ) → (ℝ → ℝ) → Prop :=
+fun h f => h =ᶠ[nhdsWithin 0 (Set.Ioi 0)] f
+def Chal.SLEExactGauge.extendedGauge : (ℝ → ℝ) → ENNReal → ENNReal :=
+fun h r => ENNReal.ofReal (h r.toReal)
+def Chal.SLEExactGauge.hausdorffGauge : (ℝ → ℝ) → MeasureTheory.Measure ℂ :=
+fun h => MeasureTheory.Measure.mkMetric (Chal.SLEExactGauge.extendedGauge h)
+def Chal.SLEExactGauge.segment : (NNReal → ℂ) → NNReal → NNReal → Set ℂ :=
+fun γ s t => γ '' Set.Icc s t
+def Chal.SLEExactGauge.SourceLowerMainTarget.{v_lower} : Prop :=
+∀ (Ω : Type v_lower) (x : MeasurableSpace Ω) (P : MeasureTheory.Measure Ω),
+  MeasureTheory.IsProbabilityMeasure P →
+    ∀ (κ : ℝ),
+      0 < κ →
+        κ < ↑8 →
+          ∀ (γ : Ω → NNReal → ℂ),
+            Chal.SLEExactGauge.IsOrdinaryChordalSLE κ γ P →
+              ∀ (h : ℝ → ℝ),
+                Chal.SLEExactGauge.IsGauge h →
+                  Chal.SLEExactGauge.HasSmallRadiusFormula h (Chal.SLEExactGauge.hFormula κ) →
+                    ∀ᵐ (ω : Ω) ∂P,
+                      ∀ (s t : NNReal),
+                        0 < s → s < t → 0 < (Chal.SLEExactGauge.hausdorffGauge h) (Chal.SLEExactGauge.segment (γ ω) s t)
+'OAI.SLEExactGauge.sourceLowerMain_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SLELowerPositivity comparator-style: ok=19 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
