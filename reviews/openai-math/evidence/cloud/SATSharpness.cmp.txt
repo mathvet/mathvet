@@ -1,0 +1,74 @@
+CMP OAI.RandomKSAT.sharpness [thm] ok
+CMP OAI.RandomKSAT.lifetime [def] ok
+CMP OAI.RandomKSAT.survival [def] ok
+CMP OAI.RandomKSAT.alive [def] ok
+CMP OAI.RandomKSAT.Assignment [def] ok
+CMP OAI.RandomKSAT.clauseStep [def] ok
+CMP OAI.RandomKSAT.Satisfies [def] ok
+CMP OAI.RandomKSAT.Clause [def] ok
+CMP OAI.RandomKSAT.clauseFintype [def] ok
+CMP OAI.RandomKSAT.favg [def] ok
+CMP OAI.RandomKSAT.blockKill [def] ok
+CMP OAI.RandomKSAT.SetSAT [def] ok
+CMP OAI.RandomKSAT.Stream [def] ok
+CMP OAI.RandomKSAT.streamLaw [def] ok
+CMP OAI.RandomKSAT.clauseLaw [def] ok
+CMP OAI.RandomKSAT.clauseMeasurableSpace [def] ok
+Chal.RandomKSAT.sharpness : ∀ (k : ℕ),
+  3 ≤ k →
+    (∀ (γ D A : ℝ),
+        γ < ↑k / ↑(k - 1) →
+          0 < D →
+            0 < A →
+              ∀ (N : ℕ),
+                ∃ u,
+                  N ≤ u ∧
+                    k ≤ u ∧
+                      ∃ S,
+                        S.Nonempty ∧
+                          A * ↑u ^ (-↑(k - 1)) ≤ Chal.RandomKSAT.blockKill u (k - 1) S 1 ∧
+                            D * Chal.RandomKSAT.blockKill u (k - 1) S 1 ^ (-γ) < Chal.RandomKSAT.lifetime u k S) ∧
+      (∃ u S,
+          (∀ (g : ℕ), 2 ≤ g → k ≤ u g ∧ (S g).Nonempty) ∧
+            Asymptotics.IsEquivalent Filter.atTop
+              (fun g => Chal.RandomKSAT.blockKill (u g) (k - 1) (S g) 1 - Chal.RandomKSAT.blockKill (u g) k (S g) g)
+              fun g => (2 ^ k)⁻¹ * ↑g ^ (-↑(k - 1))) ∧
+        ¬∃ e,
+            (e =o[Filter.atTop] fun g => ↑g ^ (-↑(k - 1))) ∧
+              ∀ (u : ℕ),
+                k ≤ u →
+                  ∀ (S : Finset (Chal.RandomKSAT.Assignment u)),
+                    S.Nonempty →
+                      ∀ (g : ℕ),
+                        2 ≤ g → Chal.RandomKSAT.blockKill u (k - 1) S 1 - e g ≤ Chal.RandomKSAT.blockKill u k S g
+@[reducible] def Chal.RandomKSAT.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.RandomKSAT.Clause : ℕ → ℕ → Type :=
+fun n k => (s : { s // s.card = k }) × (↥↑s → Bool)
+def Chal.RandomKSAT.Satisfies : {n k : ℕ} → Chal.RandomKSAT.Clause n k → Chal.RandomKSAT.Assignment n → Prop :=
+fun {n k} c a => ∃ v, a ↑v = c.snd v
+@[reducible] def Chal.RandomKSAT.Stream : ℕ → ℕ → Type :=
+fun n k => ℕ → Chal.RandomKSAT.Clause n k
+def Chal.RandomKSAT.clauseLaw : (n k : ℕ) → MeasureTheory.Measure (Chal.RandomKSAT.Clause n k) :=
+fun n k => ProbabilityTheory.uniformOn Set.univ
+def Chal.RandomKSAT.streamLaw : (n k : ℕ) → MeasureTheory.Measure (Chal.RandomKSAT.Stream n k) :=
+fun n k => MeasureTheory.Measure.infinitePi fun x => Chal.RandomKSAT.clauseLaw n k
+def Chal.RandomKSAT.SetSAT : {u s : ℕ} →
+  Finset (Chal.RandomKSAT.Assignment u) → Chal.RandomKSAT.Stream u s → ℕ → Prop :=
+fun {u s} S ω g => ∃ a ∈ S, ∀ i < g, Chal.RandomKSAT.Satisfies (ω i) a
+def Chal.RandomKSAT.blockKill : (u : ℕ) → ℕ → Finset (Chal.RandomKSAT.Assignment u) → ℕ → ℝ :=
+fun u s S g => ((Chal.RandomKSAT.streamLaw u s) {ω | ¬Chal.RandomKSAT.SetSAT S ω g}).toReal
+def Chal.RandomKSAT.favg.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] f => (∑ a, f a) / ↑(Fintype.card α)
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SATSharpness.lean:163:27: error: unexpected token '.'; expected command
+def Chal.RandomKSAT.clauseStep : (u : ℕ) →
+  ℕ → (Finset (Chal.RandomKSAT.Assignment u) → ℝ) → Finset (Chal.RandomKSAT.Assignment u) → ℝ :=
+fun u s f S => Chal.RandomKSAT.favg fun c => f (Finset.filter (Chal.RandomKSAT.Satisfies c) S)
+def Chal.RandomKSAT.alive : (u : ℕ) → Finset (Chal.RandomKSAT.Assignment u) → ℝ :=
+fun u S => if S.Nonempty then 1 else 0
+def Chal.RandomKSAT.survival : (u : ℕ) → ℕ → Finset (Chal.RandomKSAT.Assignment u) → ℕ → ℝ :=
+fun u s S m => (Chal.RandomKSAT.clauseStep u s)^[m] (Chal.RandomKSAT.alive u) S
+def Chal.RandomKSAT.lifetime : (u : ℕ) → ℕ → Finset (Chal.RandomKSAT.Assignment u) → ℝ :=
+fun u s S => ∑' (m : ℕ), Chal.RandomKSAT.survival u s S m
+'OAI.RandomKSAT.sharpness' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SATSharpness comparator-style: ok=16 problems=0 errors=1 | SHADOW-DIFF(see SATSharpness.standalone.norm vs SATSharpness.insolution.norm) | [propext, Classical.choice, Quot.sound] 
