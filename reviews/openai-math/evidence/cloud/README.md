@@ -23,6 +23,10 @@ Notes on individual logs:
   reports `errors=5` because the session ran the checker version that counted every line containing the word `error`,
   and the challenge defines a constant named `BalancedTransport.error`; there is no Lean error in the file (82 constants,
   0 problems; Comparator accepted). Both files are being refreshed with the current checker.
+- `UniformGamma.cmp.txt` reports six closure problems on `CurrentMain.boundedFamilyProductCStar`, an instance declared
+  with an empty `where` (every field is filled by instance inference and auto-generated proofs `_proof_4` … `_proof_8`):
+  the same re-elaboration kind as HardSphere (instance paths chosen in the richer solution environment; auxiliary proofs
+  numbered per elaboration). The other 158 constants match; Comparator accepted. Being refreshed with the current checker.
 - `DixmierAllDiscrete.cmp.txt` and `ForestSpace.cmp.txt` report type mismatches on definitions and their auxiliary
   proofs; Comparator accepted both. `*.mismatch-debug.txt` files (when present) show both elaborations side by side.
 - Diagnostics (`*.mismatch-debug.txt`, 2026-10-08): for DixmierAllDiscrete the only difference between the two elaborations is
