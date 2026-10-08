@@ -1,0 +1,40 @@
+# Builds the independent nanoda kernel (ammkrn/nanoda_lib) for x86_64 Linux and publishes the binary as a release asset,
+# so that the cloud Comparator VMs (which cannot reach crates.io) can run challenges whose config sets `enable_nanoda: true`.
+name: Build nanoda kernel binary
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: ammkrn/nanoda_lib commit to build
+        required: true
+        default: 3a2407216ee84a75f9e1aead6803d0578be06ae7
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ammkrn/nanoda_lib
+          ref: ${{ inputs.ref }}
+      - name: Build
+        run: |
+          rustc --version && cargo --version
+          cargo build --release --locked
+      - name: Package with provenance
+        env:
+          REF: ${{ inputs.ref }}
+        run: |
+          cp target/release/nanoda_bin nanoda_bin-x86_64-linux-gnu
+          sha256sum nanoda_bin-x86_64-linux-gnu > nanoda_bin-x86_64-linux-gnu.sha256
+          { echo "nanoda_lib commit $REF"; rustc --version; cargo --version; . /etc/os-release; echo "built on $PRETTY_NAME, $(ldd --version | head -1)"; echo "built by GitHub Actions run $GITHUB_RUN_ID of $GITHUB_REPOSITORY"; } > nanoda-build-info.txt
+          cat nanoda-build-info.txt nanoda_bin-x86_64-linux-gnu.sha256
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REF: ${{ inputs.ref }}
+        run: |
+          gh release create "nanoda-${REF:0:7}" nanoda_bin-x86_64-linux-gnu nanoda_bin-x86_64-linux-gnu.sha256 nanoda-build-info.txt \
+            --repo "$GITHUB_REPOSITORY" --title "Mirror: nanoda_bin (ammkrn/nanoda_lib @ ${REF:0:7}, x86_64 Linux)" \
+            --notes "Independent Lean 4 kernel checker built unmodified from https://github.com/ammkrn/nanoda_lib at commit $REF by the workflow in .github/workflows/nanoda.yml; used by the cloud Comparator runs for challenges with enable_nanoda: true. See nanoda-build-info.txt and the .sha256 file."
