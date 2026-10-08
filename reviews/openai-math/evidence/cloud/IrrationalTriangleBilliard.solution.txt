@@ -1,0 +1,93 @@
+OAI.TriangularBilliards.irrational_triangle_billiard : ∀ (Q : OAI.TriangularBilliards.Triangle),
+  Q.HasIrrationalAngle → OAI.TriangularBilliards.MainConclusion Q
+'OAI.TriangularBilliards.irrational_triangle_billiard' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.TriangularBilliards.Triangle : Type
+number of parameters: 0
+fields:
+  OAI.TriangularBilliards.Triangle.vertex : Fin 3 → ℂ
+  OAI.TriangularBilliards.Triangle.nondegenerate : AffineIndependent ℝ self.vertex
+constructor:
+  OAI.TriangularBilliards.Triangle.mk (vertex : Fin 3 → ℂ) (nondegenerate : AffineIndependent ℝ vertex) :
+    OAI.TriangularBilliards.Triangle
+def OAI.TriangularBilliards.Triangle.table : OAI.TriangularBilliards.Triangle → Set ℂ :=
+fun Q => interior ((convexHull ℝ) (Set.range Q.vertex))
+def OAI.TriangularBilliards.Triangle.side : OAI.TriangularBilliards.Triangle → Fin 3 → Set ℂ :=
+fun Q i => openSegment ℝ (Q.vertex i) (Q.vertex (i + 1))
+def OAI.TriangularBilliards.Triangle.tangent : OAI.TriangularBilliards.Triangle → Fin 3 → ℂ :=
+fun Q i => Q.vertex (i + 1) - Q.vertex i
+def OAI.TriangularBilliards.Triangle.angle : OAI.TriangularBilliards.Triangle → Fin 3 → ℝ :=
+fun Q i => InnerProductGeometry.angle (Q.vertex (i + 1) - Q.vertex i) (Q.vertex (i + 2) - Q.vertex i)
+def OAI.TriangularBilliards.Triangle.HasIrrationalAngle : OAI.TriangularBilliards.Triangle → Prop :=
+fun Q => ∃ i, Irrational (Q.angle i / Real.pi)
+def OAI.TriangularBilliards.reflect : ℂ → ℂ → ℂ :=
+fun e v => e / star e * star v
+@[reducible] def OAI.TriangularBilliards.Phase : Type :=
+ℂ × Circle
+structure OAI.TriangularBilliards.FlightChain (Q : OAI.TriangularBilliards.Triangle)
+  (z : OAI.TriangularBilliards.Phase) : Type
+number of parameters: 2
+fields:
+  OAI.TriangularBilliards.FlightChain.time : ℤ → ℝ
+  OAI.TriangularBilliards.FlightChain.point : ℤ → ℂ
+  OAI.TriangularBilliards.FlightChain.direction : ℤ → Circle
+  OAI.TriangularBilliards.FlightChain.wall : ℤ → Fin 3
+  OAI.TriangularBilliards.FlightChain.increasing : StrictMono self.time
+  OAI.TriangularBilliards.FlightChain.unbounded_below : ∀ (t : ℝ), ∃ n, self.time n < t
+  OAI.TriangularBilliards.FlightChain.unbounded_above : ∀ (t : ℝ), ∃ n, t < self.time n
+  OAI.TriangularBilliards.FlightChain.zero_before : self.time 0 < 0
+  OAI.TriangularBilliards.FlightChain.zero_after : 0 < self.time 1
+  OAI.TriangularBilliards.FlightChain.on_side : ∀ (n : ℤ), self.point n ∈ Q.side (self.wall n)
+  OAI.TriangularBilliards.FlightChain.flight : ∀ (n : ℤ),
+      self.point (n + 1) = self.point n + (self.time (n + 1) - self.time n) • ↑(self.direction n)
+  OAI.TriangularBilliards.FlightChain.inside : ∀ (n : ℤ) (t : ℝ),
+      self.time n < t → t < self.time (n + 1) → self.point n + (t - self.time n) • ↑(self.direction n) ∈ Q.table
+  OAI.TriangularBilliards.FlightChain.start_point : z.1 = self.point 0 + -self.time 0 • ↑(self.direction 0)
+  OAI.TriangularBilliards.FlightChain.start_direction : z.2 = self.direction 0
+  OAI.TriangularBilliards.FlightChain.specular : ∀ (n : ℤ),
+      ↑(self.direction n) = OAI.TriangularBilliards.reflect (Q.tangent (self.wall n)) ↑(self.direction (n - 1))
+constructor:
+  OAI.TriangularBilliards.FlightChain.mk {Q : OAI.TriangularBilliards.Triangle} {z : OAI.TriangularBilliards.Phase}
+    (time : ℤ → ℝ) (point : ℤ → ℂ) (direction : ℤ → Circle) (wall : ℤ → Fin 3) (increasing : StrictMono time)
+    (unbounded_below : ∀ (t : ℝ), ∃ n, time n < t) (unbounded_above : ∀ (t : ℝ), ∃ n, t < time n)
+    (zero_before : time 0 < 0) (zero_after : 0 < time 1) (on_side : ∀ (n : ℤ), point n ∈ Q.side (wall n))
+    (flight : ∀ (n : ℤ), point (n + 1) = point n + (time (n + 1) - time n) • ↑(direction n))
+    (inside : ∀ (n : ℤ) (t : ℝ), time n < t → t < time (n + 1) → point n + (t - time n) • ↑(direction n) ∈ Q.table)
+    (start_point : z.1 = point 0 + -time 0 • ↑(direction 0)) (start_direction : z.2 = direction 0)
+    (specular : ∀ (n : ℤ), ↑(direction n) = OAI.TriangularBilliards.reflect (Q.tangent (wall n)) ↑(direction (n - 1))) :
+    OAI.TriangularBilliards.FlightChain Q z
+def OAI.TriangularBilliards.FlightChain.at : {Q : OAI.TriangularBilliards.Triangle} →
+  {z : OAI.TriangularBilliards.Phase} → OAI.TriangularBilliards.FlightChain Q z → ℝ → OAI.TriangularBilliards.Phase :=
+fun {Q} {z} c t =>
+  if h : ∃ n, c.time n ≤ t ∧ t < c.time (n + 1) then
+    have n := Classical.choose h;
+    (c.point n + (t - c.time n) • ↑(c.direction n), c.direction n)
+  else z
+def OAI.TriangularBilliards.billiardFlow : OAI.TriangularBilliards.Triangle →
+  ℝ → OAI.TriangularBilliards.Phase → OAI.TriangularBilliards.Phase :=
+fun Q t z => if h : Nonempty (OAI.TriangularBilliards.FlightChain Q z) then (Classical.choice h).at t else z
+def OAI.TriangularBilliards.angularMeasure : MeasureTheory.Measure Circle :=
+MeasureTheory.Measure.map (⇑Circle.exp)
+  ((ENNReal.ofReal (2 * Real.pi))⁻¹ • MeasureTheory.volume.restrict (Set.Ico 0 (2 * Real.pi)))
+def OAI.TriangularBilliards.phaseMeasure : OAI.TriangularBilliards.Triangle →
+  MeasureTheory.Measure OAI.TriangularBilliards.Phase :=
+fun Q =>
+  ((MeasureTheory.volume Q.table)⁻¹ • MeasureTheory.volume.restrict Q.table).prod OAI.TriangularBilliards.angularMeasure
+def OAI.TriangularBilliards.MainConclusion : OAI.TriangularBilliards.Triangle → Prop :=
+fun Q =>
+  (OAI.TriangularBilliards.phaseMeasure Q) Set.univ = 1 ∧
+    (∀ᵐ (z : OAI.TriangularBilliards.Phase) ∂OAI.TriangularBilliards.phaseMeasure Q,
+        Nonempty (OAI.TriangularBilliards.FlightChain Q z)) ∧
+      (∀ (z : OAI.TriangularBilliards.Phase) (c d : OAI.TriangularBilliards.FlightChain Q z), c = d) ∧
+        (∀ (t : ℝ),
+            MeasureTheory.MeasurePreserving (OAI.TriangularBilliards.billiardFlow Q t)
+              (OAI.TriangularBilliards.phaseMeasure Q) (OAI.TriangularBilliards.phaseMeasure Q)) ∧
+          (∀ (s t : ℝ),
+              OAI.TriangularBilliards.billiardFlow Q (s + t) =ᵐ[OAI.TriangularBilliards.phaseMeasure Q]
+                OAI.TriangularBilliards.billiardFlow Q s ∘ OAI.TriangularBilliards.billiardFlow Q t) ∧
+            ∀ (A : Set OAI.TriangularBilliards.Phase),
+              MeasurableSet A →
+                (∀ (t : ℝ),
+                    (OAI.TriangularBilliards.phaseMeasure Q)
+                        (symmDiff (OAI.TriangularBilliards.billiardFlow Q t ⁻¹' A) A) =
+                      0) →
+                  (OAI.TriangularBilliards.phaseMeasure Q) A = 0 ∨ (OAI.TriangularBilliards.phaseMeasure Q) A = 1

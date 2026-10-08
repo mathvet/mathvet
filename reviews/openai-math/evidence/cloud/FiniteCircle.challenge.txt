@@ -1,0 +1,218 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_FiniteCircle.lean:225:8: warning: declaration uses `sorry`
+OAI.finiteCircle_fullMain : OAI.FiniteCircle.FullMain
+inductive OAI.FiniteCircle.EditStep.{u} : {α : Type u} → List α → List α → Prop
+number of parameters: 1
+constructors:
+OAI.FiniteCircle.EditStep.insert : ∀ {α : Type u} (u v : List α) (a : α),
+  OAI.FiniteCircle.EditStep (u ++ v) (u ++ a :: v)
+OAI.FiniteCircle.EditStep.delete : ∀ {α : Type u} (u v : List α) (a : α),
+  OAI.FiniteCircle.EditStep (u ++ a :: v) (u ++ v)
+OAI.FiniteCircle.EditStep.substitute : ∀ {α : Type u} (u v : List α) (a b : α),
+  OAI.FiniteCircle.EditStep (u ++ a :: v) (u ++ b :: v)
+inductive OAI.FiniteCircle.EditScript.{u} : {α : Type u} → ℕ → List α → List α → Prop
+number of parameters: 1
+constructors:
+OAI.FiniteCircle.EditScript.nil : ∀ {α : Type u} (x : List α), OAI.FiniteCircle.EditScript 0 x x
+OAI.FiniteCircle.EditScript.cons : ∀ {α : Type u} {n : ℕ} {x y z : List α},
+  OAI.FiniteCircle.EditStep x y → OAI.FiniteCircle.EditScript n y z → OAI.FiniteCircle.EditScript (n + 1) x z
+def OAI.FiniteCircle.editDistance.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => sInf {n | OAI.FiniteCircle.EditScript n x y}
+def OAI.FiniteCircle.lcs.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => sSup {n | ∃ z, z.Sublist x ∧ z.Sublist y ∧ z.length = n}
+def OAI.FiniteCircle.deficit.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => x.length - OAI.FiniteCircle.lcs x y
+@[reducible] def OAI.FiniteCircle.Words.{u} : Type u → ℕ → Type (max 0 u) :=
+fun α d => { x // x.length ≤ d }
+@[reducible] def OAI.FiniteCircle.RealL1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+def OAI.FiniteCircle.distortion.{u, v} : {α : Type u} →
+  {X : Type v} → (X → List α) → (X → ↥OAI.FiniteCircle.RealL1) → ℝ :=
+fun {α} {X} word f =>
+  sSup {r | ∃ x y, x ≠ y ∧ r = ‖f x - f y‖ / ↑(OAI.FiniteCircle.editDistance (word x) (word y))} *
+    sSup {r | ∃ x y, x ≠ y ∧ r = ↑(OAI.FiniteCircle.editDistance (word x) (word y)) / ‖f x - f y‖}
+def OAI.FiniteCircle.optimalDistortion.{u, v} : {α : Type u} → {X : Type v} → (X → List α) → ℝ :=
+fun {α} {X} word => sInf {D | ∃ f, Function.Injective f ∧ D = OAI.FiniteCircle.distortion word f}
+def OAI.FiniteCircle.E.{u} : Type u → ℕ → ℝ :=
+fun α d => OAI.FiniteCircle.optimalDistortion fun x => ↑x
+def OAI.FiniteCircle.setDistortion : Set (List Bool) → ℝ :=
+fun S => OAI.FiniteCircle.optimalDistortion fun x => ↑x
+def OAI.FiniteCircle.alphabetSupremum : ℕ → ℝ :=
+fun d => sSup {r | ∃ A, 2 ≤ A ∧ r = OAI.FiniteCircle.E (Fin A) d}
+def OAI.FiniteCircle.exponentScale : ℕ → ℝ :=
+fun d => √(Real.log ↑d * Real.log (Real.log ↑d))
+def OAI.FiniteCircle.encode.{u} : {α : Type u} → {w : ℕ} → (α → Fin w → Bool) → List α → List Bool :=
+fun {α} {w} c x => List.flatMap (fun a => List.ofFn (c a)) x
+def OAI.FiniteCircle.interval.{u} : {α : Type u} → {w : ℕ} → (α → Fin w → Bool) → α → ℕ → ℕ → List Bool :=
+fun {α} {w} c a s len => List.take len (List.drop s (List.ofFn (c a)))
+def OAI.FiniteCircle.OffsetLocal.{u} : {α : Type u} → {w : ℕ} → ℝ → (α → Fin w → Bool) → Prop :=
+fun {α} {w} δ c =>
+  ∀ (a b : α),
+    a ≠ b →
+      ∀ (s t : ℕ),
+        s + w / 8 ≤ w →
+          t + w / 8 ≤ w →
+            ↑(OAI.FiniteCircle.lcs (OAI.FiniteCircle.interval c a s (w / 8))
+                  (OAI.FiniteCircle.interval c b t (w / 8))) ≤
+              (1 - δ) * ↑(w / 8)
+def OAI.FiniteCircle.indexSpan : {w : ℕ} → List (Fin w) → ℕ :=
+fun {w} is =>
+  match is with
+  | [] => 0
+  | i :: js => ↑(js.getLastD i) + 1 - ↑i
+def OAI.FiniteCircle.AnchorLocal.{u} : {α : Type u} → {w : ℕ} → ℝ → (α → Fin w → Bool) → Prop :=
+fun {α} {w} ε c =>
+  ∀ (a b : α) (is js : List (Fin w)),
+    List.Pairwise (fun i j => ↑i < ↑j) is →
+      List.Pairwise (fun i j => ↑i < ↑j) js →
+        is.length = js.length →
+          ↑w / 4 ≤ ↑is.length →
+            ↑(OAI.FiniteCircle.indexSpan is - is.length) ≤ ε * ↑w →
+              ↑(OAI.FiniteCircle.indexSpan js - js.length) ≤ ε * ↑w →
+                (∀ ij ∈ is.zip js, c a ij.1 = c b ij.2) → a = b ∧ ∃ i, (i, i) ∈ is.zip js
+def OAI.FiniteCircle.SubstitutionBounds.{u} : {α : Type u} →
+  [Fintype α] → {w : ℕ} → ℝ → ℝ → (α → Fin w → Bool) → Prop :=
+fun {α} [Fintype α] {w} a C c =>
+  0 < w ∧
+    ↑w ≤ C * Real.log (2 * ↑(Fintype.card α)) ∧
+      (∀ (L : ℕ) (x y : List α),
+          x.length = L →
+            y.length = L →
+              a * ↑w * ↑(OAI.FiniteCircle.deficit x y) ≤
+                  ↑(OAI.FiniteCircle.deficit (OAI.FiniteCircle.encode c x) (OAI.FiniteCircle.encode c y)) ∧
+                OAI.FiniteCircle.deficit (OAI.FiniteCircle.encode c x) (OAI.FiniteCircle.encode c y) ≤
+                  w * OAI.FiniteCircle.deficit x y) ∧
+        ∀ (x y : List α),
+          OAI.FiniteCircle.editDistance (OAI.FiniteCircle.encode c x) (OAI.FiniteCircle.encode c y) ≤
+            w * OAI.FiniteCircle.editDistance x y
+def OAI.FiniteCircle.TwoCodes : ℝ → ℝ → ℝ → ℝ → Prop :=
+fun a C δ ε =>
+  ∀ (α : Type) [inst : Fintype α],
+    2 ≤ Fintype.card α →
+      (∃ w c, OAI.FiniteCircle.SubstitutionBounds a C c ∧ OAI.FiniteCircle.OffsetLocal δ c) ∧
+        ∃ w c, OAI.FiniteCircle.SubstitutionBounds a C c ∧ OAI.FiniteCircle.AnchorLocal ε c
+def OAI.FiniteCircle.period : ℕ → (ℕ → ℕ → ℕ) → ℕ → ℕ :=
+fun h p l => ∏ k, p l ↑k
+def OAI.FiniteCircle.circleSize : ℕ → (ℕ → ℕ → ℕ) → ℕ :=
+fun h p => 2 * ∏ l, OAI.FiniteCircle.period h p (↑l + 1)
+def OAI.FiniteCircle.MaskPrimes : ℕ → (ℕ → ℕ → ℕ) → Prop :=
+fun h p =>
+  (∀ (l k : Fin h), Nat.Prime (p (↑l + 1) ↑k)) ∧
+    (Function.Injective fun lk => p (↑lk.1 + 1) ↑lk.2) ∧
+      ∀ (l k : Fin h), h ^ 3 ≤ p (↑l + 1) ↑k ∧ p (↑l + 1) ↑k ≤ 2 * h ^ 3
+def OAI.FiniteCircle.ExcludedPrimes : ℕ → (ℕ → ℕ → ℕ) → Prop :=
+fun m p =>
+  (∀ (l k : Fin m), Nat.Prime (p (↑l + 1) ↑k)) ∧
+    (Function.Injective fun lk => p (↑lk.1 + 1) ↑lk.2) ∧ ∀ (l k : Fin m), m ^ 3 < p (↑l + 1) ↑k ∧ p (↑l + 1) ↑k ≤ m ^ 5
+@[reducible] def OAI.FiniteCircle.MaskTag : ℕ → (ℕ → ℕ → ℕ) → ℕ → Type :=
+fun h p l => (k : Fin h) × Fin (p l ↑k)
+def OAI.FiniteCircle.maskTags : (h : ℕ) → (p : ℕ → ℕ → ℕ) → (l : ℕ) → List (OAI.FiniteCircle.MaskTag h p l) :=
+fun h p l => (List.ofFn fun k => List.ofFn fun b => ⟨k, b⟩).flatten
+def OAI.FiniteCircle.MaskAlphabet : ℕ → (ℕ → ℕ → ℕ) → ℕ → Type :=
+fun h p x => Nat.brecOn x (OAI.FiniteCircle.MaskAlphabet._f h p)
+def OAI.FiniteCircle.MaskState : ℕ → (ℕ → ℕ → ℕ) → ℕ → ℕ → Type :=
+fun h p M x => Nat.brecOn x (OAI.FiniteCircle.MaskState._f h p M)
+def OAI.FiniteCircle.shiftMaskState : (h : ℕ) →
+  (p : ℕ → ℕ → ℕ) → (M l : ℕ) → OAI.FiniteCircle.MaskState h p M l → ZMod M → OAI.FiniteCircle.MaskState h p M l :=
+fun h p M x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => OAI.FiniteCircle.MaskState h p M x → ZMod M → OAI.FiniteCircle.MaskState h p M x) x
+    (OAI.FiniteCircle.shiftMaskState._f h p M) x_1 x_2
+def OAI.FiniteCircle.maskGamma : (h : ℕ) → (p : ℕ → ℕ → ℕ) → (M l : ℕ) → ℕ → OAI.FiniteCircle.MaskTag h p l → ZMod M :=
+fun h p M l a j => ∑ k, ↑(M / p l ↑k * (a % p l ↑k)) + ↑(↑j.snd * (M / p l ↑j.fst) * (a % p l ↑j.fst))
+def OAI.FiniteCircle.maskWord : (h : ℕ) →
+  (p : ℕ → ℕ → ℕ) → ℕ → (M l : ℕ) → OAI.FiniteCircle.MaskState h p M l → List (OAI.FiniteCircle.MaskAlphabet h p l) :=
+fun h p R M x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.FiniteCircle.MaskState h p M x → List (OAI.FiniteCircle.MaskAlphabet h p x)) x
+    (OAI.FiniteCircle.maskWord._f h p R M) x_1
+def OAI.FiniteCircle.ExcludedAlphabet : ℕ → ℕ → ℕ → Type :=
+fun m L x => Nat.brecOn x (OAI.FiniteCircle.ExcludedAlphabet._f m L)
+def OAI.FiniteCircle.ExcludedState : ℕ → ℕ → ℕ → Type :=
+fun m L x => Nat.brecOn x (OAI.FiniteCircle.ExcludedState._f m L)
+def OAI.FiniteCircle.shiftExcludedState : (m L l : ℕ) →
+  OAI.FiniteCircle.ExcludedState m L l → ZMod L → OAI.FiniteCircle.ExcludedState m L l :=
+fun m L x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => OAI.FiniteCircle.ExcludedState m L x → ZMod L → OAI.FiniteCircle.ExcludedState m L x) x
+    (OAI.FiniteCircle.shiftExcludedState._f m L) x_1 x_2
+def OAI.FiniteCircle.excludedTranslation : (m : ℕ) → (ℕ → ℕ → ℕ) → (L : ℕ) → ℕ → ℕ → Fin m → ZMod L :=
+fun m p L l s i => ∑ j ∈ Finset.univ.erase i, ↑(L / p l ↑j * (s % p l ↑j))
+def OAI.FiniteCircle.excludedWord : (m : ℕ) →
+  (ℕ → ℕ → ℕ) → ℕ → (L l : ℕ) → OAI.FiniteCircle.ExcludedState m L l → List (OAI.FiniteCircle.ExcludedAlphabet m L l) :=
+fun m p R L x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.FiniteCircle.ExcludedState m L x → List (OAI.FiniteCircle.ExcludedAlphabet m L x))
+    x (OAI.FiniteCircle.excludedWord._f m p R L) x_1
+def OAI.FiniteCircle.MaskWitness : ℝ → ℝ → ℝ → ℝ → ℕ → Prop :=
+fun a C δ lower d =>
+  ∃ h,
+    2 ≤ h ∧
+      ∃ p,
+        OAI.FiniteCircle.MaskPrimes h p ∧
+          ∃ w c,
+            OAI.FiniteCircle.SubstitutionBounds a C c ∧
+              OAI.FiniteCircle.OffsetLocal δ c ∧
+                ∃ n,
+                  0 < n ∧
+                    n ≤ d ∧
+                      (∀ (v : OAI.FiniteCircle.MaskState h p (OAI.FiniteCircle.circleSize h p) h),
+                          (OAI.FiniteCircle.encode c
+                                (OAI.FiniteCircle.maskWord h p (h ^ (2 * h)) (OAI.FiniteCircle.circleSize h p) h
+                                  v)).length =
+                            n) ∧
+                        Real.exp (lower * OAI.FiniteCircle.exponentScale d) ≤
+                          OAI.FiniteCircle.setDistortion
+                            (Set.range fun v =>
+                              OAI.FiniteCircle.encode c
+                                (OAI.FiniteCircle.maskWord h p (h ^ (2 * h)) (OAI.FiniteCircle.circleSize h p) h v))
+def OAI.FiniteCircle.ExcludedWitness : ℝ → ℝ → ℝ → ℝ → ℕ → Prop :=
+fun a C ε lower d =>
+  ∃ m,
+    2 ≤ m ∧
+      ∃ p,
+        OAI.FiniteCircle.ExcludedPrimes m p ∧
+          ∃ w c,
+            OAI.FiniteCircle.SubstitutionBounds a C c ∧
+              OAI.FiniteCircle.AnchorLocal ε c ∧
+                ∃ n,
+                  0 < n ∧
+                    n ≤ d ∧
+                      (∀ (v : OAI.FiniteCircle.ExcludedState m (OAI.FiniteCircle.circleSize m p) m),
+                          (OAI.FiniteCircle.encode c
+                                (OAI.FiniteCircle.excludedWord m p (m ^ (2 * m)) (OAI.FiniteCircle.circleSize m p) m
+                                  v)).length =
+                            n) ∧
+                        Real.exp (lower * OAI.FiniteCircle.exponentScale d) ≤
+                          OAI.FiniteCircle.setDistortion
+                            (Set.range fun v =>
+                              OAI.FiniteCircle.encode c
+                                (OAI.FiniteCircle.excludedWord m p (m ^ (2 * m)) (OAI.FiniteCircle.circleSize m p) m v))
+def OAI.FiniteCircle.UniformUpper : ℝ → ℕ → Prop :=
+fun C d₀ =>
+  ∀ (α : Type) [inst : Fintype α],
+    2 ≤ Fintype.card α →
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∃ M F,
+            ∀ (x y : OAI.FiniteCircle.Words α d),
+              ↑(OAI.FiniteCircle.editDistance ↑x ↑y) ≤ ∑ i, |F x i - F y i| ∧
+                ∑ i, |F x i - F y i| ≤
+                  Real.exp (C * OAI.FiniteCircle.exponentScale d) * ↑(OAI.FiniteCircle.editDistance ↑x ↑y)
+def OAI.FiniteCircle.FullMain : Prop :=
+∃ c C a Ccode δ ε d₀,
+  0 < c ∧
+    0 < C ∧
+      0 < a ∧
+        0 < Ccode ∧
+          0 < δ ∧
+            0 < ε ∧
+              OAI.FiniteCircle.TwoCodes a Ccode δ ε ∧
+                OAI.FiniteCircle.UniformUpper C d₀ ∧
+                  (∀ (α : Type) [inst : Fintype α],
+                      2 ≤ Fintype.card α →
+                        ∀ (d : ℕ),
+                          d₀ ≤ d →
+                            Real.exp (c * OAI.FiniteCircle.exponentScale d) ≤ OAI.FiniteCircle.E α d ∧
+                              OAI.FiniteCircle.E α d ≤ Real.exp (C * OAI.FiniteCircle.exponentScale d)) ∧
+                    ∀ (d : ℕ),
+                      d₀ ≤ d →
+                        OAI.FiniteCircle.MaskWitness a Ccode δ c d ∧
+                          OAI.FiniteCircle.ExcludedWitness a Ccode ε c d ∧
+                            Real.exp (c * OAI.FiniteCircle.exponentScale d) ≤ OAI.FiniteCircle.alphabetSupremum d ∧
+                              OAI.FiniteCircle.alphabetSupremum d ≤ Real.exp (C * OAI.FiniteCircle.exponentScale d)

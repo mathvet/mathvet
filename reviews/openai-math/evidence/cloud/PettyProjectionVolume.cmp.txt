@@ -1,0 +1,49 @@
+CMP OAI.PettyProjection.petty_projection_volume [thm] ok
+CMP OAI.PettyProjection.IsEllipsoid [def] ok
+CMP OAI.PettyProjection.unitBall [def] ok
+CMP OAI.PettyProjection.Space [def] ok
+CMP OAI.PettyProjection.projectionRatio [def] ok
+CMP OAI.PettyProjection.projectionBody [def] ok
+CMP OAI.PettyProjection.shadowVolume [def] ok
+CMP OAI.PettyProjection.shadowVolume._proof_3 [thm] ok
+CMP OAI.PettyProjection.perpendicular [def] ok
+CMP OAI.PettyProjection.shadowVolume._proof_2 [thm] ok
+CMP OAI.PettyProjection.shadowVolume._proof_1 [thm] ok
+CMP OAI.PettyProjection.projectionBody._proof_1 [thm] ok
+CMP OAI.PettyProjection.kappa._proof_2 [thm] ok
+CMP OAI.PettyProjection.kappa._proof_1 [thm] ok
+CMP OAI.PettyProjection.pettyConstant [def] ok
+CMP OAI.PettyProjection.kappa [def] ok
+CMP OAI.PettyProjection.IsConvexBody [def] ok
+Chal.PettyProjection.petty_projection_volume : ∀ (n : ℕ),
+  4 ≤ n →
+    ∀ (K : Set (Chal.PettyProjection.Space n)),
+      Chal.PettyProjection.IsConvexBody K →
+        Chal.PettyProjection.pettyConstant n ≤ Chal.PettyProjection.projectionRatio K ∧
+          (Chal.PettyProjection.projectionRatio K = Chal.PettyProjection.pettyConstant n ↔
+            Chal.PettyProjection.IsEllipsoid K)
+@[reducible] def Chal.PettyProjection.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.PettyProjection.IsConvexBody : {n : ℕ} → Set (Chal.PettyProjection.Space n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty
+def Chal.PettyProjection.unitBall : (n : ℕ) → Set (Chal.PettyProjection.Space n) :=
+fun n => Metric.closedBall 0 1
+def Chal.PettyProjection.kappa : ℕ → ℝ :=
+fun n => MeasureTheory.volume.real (Chal.PettyProjection.unitBall n)
+def Chal.PettyProjection.perpendicular : {n : ℕ} →
+  Chal.PettyProjection.Space n → Submodule ℝ (Chal.PettyProjection.Space n) :=
+fun {n} u => (ℝ ∙ u)ᗮ
+def Chal.PettyProjection.shadowVolume : {n : ℕ} →
+  Set (Chal.PettyProjection.Space n) → Chal.PettyProjection.Space n → ℝ :=
+fun {n} K u => MeasureTheory.volume.real (⇑(Chal.PettyProjection.perpendicular u).orthogonalProjectionOnto '' K)
+def Chal.PettyProjection.projectionBody : {n : ℕ} →
+  Set (Chal.PettyProjection.Space n) → Set (Chal.PettyProjection.Space n) :=
+fun {n} K => {x | ∀ (u : Chal.PettyProjection.Space n), ‖u‖ = 1 → inner ℝ u x ≤ Chal.PettyProjection.shadowVolume K u}
+def Chal.PettyProjection.projectionRatio : {n : ℕ} → Set (Chal.PettyProjection.Space n) → ℝ :=
+fun {n} K => MeasureTheory.volume.real (Chal.PettyProjection.projectionBody K) / MeasureTheory.volume.real K ^ (n - 1)
+def Chal.PettyProjection.pettyConstant : ℕ → ℝ :=
+fun n => Chal.PettyProjection.kappa (n - 1) ^ n * Chal.PettyProjection.kappa n ^ (2 - ↑n)
+def Chal.PettyProjection.IsEllipsoid : {n : ℕ} → Set (Chal.PettyProjection.Space n) → Prop :=
+fun {n} K => ∃ a T, K = (fun x => a + T x) '' Chal.PettyProjection.unitBall n
+'OAI.PettyProjection.petty_projection_volume' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PettyProjectionVolume comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

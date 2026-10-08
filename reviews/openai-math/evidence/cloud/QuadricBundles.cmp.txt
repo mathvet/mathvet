@@ -1,0 +1,359 @@
+CMP OAI.QuadricCounterexample.main_theorem [thm] ok
+CMP OAI.QuadricCounterexample.SourceMainTheorem [def] ok
+CMP OAI.QuadricCounterexample.SmoothHermitianMetric.StrictlyGriffithsPositive [def] ok
+CMP OAI.QuadricCounterexample.holomorphicMetricDerivative [def] ok
+CMP OAI.QuadricCounterexample.holomorphicMetricDerivative._proof_1 [thm] ok
+CMP OAI.QuadricCounterexample.TwoMatrix [def] ok
+CMP OAI.QuadricCounterexample.BaseCoordinates [def] ok
+CMP OAI.QuadricCounterexample.SmoothHermitianMetric.dualMatrix [def] ok
+CMP OAI.QuadricCounterexample.SmoothHermitianMetric [ind] ok
+CMP OAI.QuadricCounterexample.SmoothHermitianMetric.mk [ctor] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.dualTransition [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.transition [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle [ind] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.mk [ctor] ok
+CMP OAI.QuadricCounterexample.affineQuadric [def] ok
+CMP OAI.QuadricCounterexample.affineP1 [def] ok
+CMP OAI.QuadricCounterexample.reciprocalP1 [def] ok
+CMP OAI.QuadricCounterexample.ProjectiveLine [def] ok
+CMP OAI.QuadricCounterexample.affineP1._proof_1 [thm] ok
+CMP OAI.QuadricCounterexample.QuadricSurface [def] ok
+CMP OAI.QuadricCounterexample.baseEval [def] ok
+CMP OAI.QuadricCounterexample.BasePolynomial [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicallyRegularOn [def] ok
+CMP OAI.QuadricCounterexample.principalChart [def] ok
+CMP OAI.QuadricCounterexample.coordQuadric [def] ok
+CMP OAI.QuadricCounterexample.coordP1 [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.chart [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.domain [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.equation [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.coordinateDomain [def] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian [def] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian._proof_5 [thm] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian._proof_4 [thm] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian._proof_3 [thm] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian._proof_2 [thm] ok
+CMP OAI.QuadricCounterexample.metricMixedHessian._proof_1 [thm] ok
+CMP OAI.QuadricCounterexample.IsAmple [def] ok
+CMP OAI.QuadricCounterexample.GivesClosedProjectiveEmbedding [def] ok
+CMP OAI.QuadricCounterexample.ProjectiveAlgebraicCone [def] ok
+CMP OAI.QuadricCounterexample.sectionVector [def] ok
+CMP OAI.QuadricCounterexample.SymmetricSection.value [def] ok
+CMP OAI.QuadricCounterexample.SymmetricSection.coefficient [def] ok
+CMP OAI.QuadricCounterexample.SymmetricSection [ind] ok
+CMP OAI.QuadricCounterexample.SymmetricSection.mk [ctor] ok
+CMP OAI.QuadricCounterexample.FiberCoordinates [def] ok
+CMP OAI.QuadricCounterexample.IsPowerPullbackTwist [def] ok
+CMP OAI.QuadricCounterexample.powerQuadric [def] ok
+CMP OAI.QuadricCounterexample.powerP1 [def] ok
+CMP OAI.QuadricCounterexample.polarizationTransition [def] ok
+CMP OAI.QuadricCounterexample.hyperplaneTransition [def] ok
+CMP OAI.QuadricCounterexample.AlgebraicRankTwoBundle.numberOfCharts [def] ok
+Chal.QuadricCounterexample.main_theorem : Chal.QuadricCounterexample.SourceMainTheorem
+@[reducible] def Chal.QuadricCounterexample.ProjectiveLine : Type :=
+OnePoint ℂ
+@[reducible] def Chal.QuadricCounterexample.QuadricSurface : Type :=
+Chal.QuadricCounterexample.ProjectiveLine × Chal.QuadricCounterexample.ProjectiveLine
+def Chal.QuadricCounterexample.reciprocalP1 : Chal.QuadricCounterexample.ProjectiveLine →
+  Chal.QuadricCounterexample.ProjectiveLine :=
+fun x => OnePoint.elim x ↑0 fun z => if z = 0 then OnePoint.infty else ↑z⁻¹
+def Chal.QuadricCounterexample.affineP1 : Fin 2 → ℂ → Chal.QuadricCounterexample.ProjectiveLine :=
+fun i z => if i = 0 then Chal.QuadricCounterexample.reciprocalP1 ↑z else ↑z
+def Chal.QuadricCounterexample.affineQuadric : Fin 2 × Fin 2 → ℂ × ℂ → Chal.QuadricCounterexample.QuadricSurface :=
+fun i z => (Chal.QuadricCounterexample.affineP1 i.1 z.1, Chal.QuadricCounterexample.affineP1 i.2 z.2)
+def Chal.QuadricCounterexample.coordP1 : Fin 2 → Chal.QuadricCounterexample.ProjectiveLine → ℂ :=
+fun i x => OnePoint.elim (if i = 0 then Chal.QuadricCounterexample.reciprocalP1 x else x) 0 id
+def Chal.QuadricCounterexample.coordQuadric : Fin 2 × Fin 2 → Chal.QuadricCounterexample.QuadricSurface → ℂ × ℂ :=
+fun i x => (Chal.QuadricCounterexample.coordP1 i.1 x.1, Chal.QuadricCounterexample.coordP1 i.2 x.2)
+def Chal.QuadricCounterexample.powerP1 : ℕ →
+  Chal.QuadricCounterexample.ProjectiveLine → Chal.QuadricCounterexample.ProjectiveLine :=
+fun m x => OnePoint.elim x OnePoint.infty fun z => ↑(z ^ m)
+def Chal.QuadricCounterexample.powerQuadric : ℕ →
+  Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.QuadricSurface :=
+fun m x => (Chal.QuadricCounterexample.powerP1 m x.1, Chal.QuadricCounterexample.powerP1 m x.2)
+@[reducible] def Chal.QuadricCounterexample.BaseCoordinates : Type :=
+ℂ × ℂ
+@[reducible] def Chal.QuadricCounterexample.FiberCoordinates : Type :=
+Fin 2 → ℂ
+@[reducible] def Chal.QuadricCounterexample.TwoMatrix : Type :=
+Matrix (Fin 2) (Fin 2) ℂ
+@[reducible] def Chal.QuadricCounterexample.BasePolynomial : Type :=
+MvPolynomial (Fin 2) ℂ
+def Chal.QuadricCounterexample.baseEval : Chal.QuadricCounterexample.BasePolynomial →
+  Chal.QuadricCounterexample.BaseCoordinates → ℂ :=
+fun p z => (MvPolynomial.eval ![z.1, z.2]) p
+def Chal.QuadricCounterexample.AlgebraicallyRegularOn : Set Chal.QuadricCounterexample.BaseCoordinates →
+  (Chal.QuadricCounterexample.BaseCoordinates → ℂ) → Prop :=
+fun U f =>
+  ∀ z ∈ U,
+    ∃ p q,
+      Chal.QuadricCounterexample.baseEval q z ≠ 0 ∧
+        ∀ w ∈ U,
+          Chal.QuadricCounterexample.baseEval q w ≠ 0 →
+            f w = Chal.QuadricCounterexample.baseEval p w / Chal.QuadricCounterexample.baseEval q w
+def Chal.QuadricCounterexample.principalChart : Fin 2 × Fin 2 →
+  Chal.QuadricCounterexample.BasePolynomial → Set Chal.QuadricCounterexample.QuadricSurface :=
+fun i p =>
+  {x |
+    x ∈ Set.range (Chal.QuadricCounterexample.affineQuadric i) ∧
+      Chal.QuadricCounterexample.baseEval p (Chal.QuadricCounterexample.coordQuadric i x) ≠ 0}
+structure Chal.QuadricCounterexample.AlgebraicRankTwoBundle : Type
+number of parameters: 0
+fields:
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.numberOfCharts : ℕ
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.chart : ℕ → Fin 2 × Fin 2
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.equation : ℕ → Chal.QuadricCounterexample.BasePolynomial
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.finiteCover : ∀ (i : ℕ),
+      self.numberOfCharts ≤ i → self.equation i = 0
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.covers : ∀ (x : Chal.QuadricCounterexample.QuadricSurface),
+      ∃ i, x ∈ Chal.QuadricCounterexample.principalChart (self.chart i) (self.equation i)
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.transition : ℕ →
+      ℕ → Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.TwoMatrix
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.transition_self : ∀ (i : ℕ),
+      ∀ x ∈ Chal.QuadricCounterexample.principalChart (self.chart i) (self.equation i), self.transition i i x = 1
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.transition_mul : ∀ (i j k : ℕ),
+      ∀ x ∈ Chal.QuadricCounterexample.principalChart (self.chart i) (self.equation i),
+        x ∈ Chal.QuadricCounterexample.principalChart (self.chart j) (self.equation j) →
+          x ∈ Chal.QuadricCounterexample.principalChart (self.chart k) (self.equation k) →
+            self.transition i j x * self.transition j k x = self.transition i k x
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.transition_regular : ∀ (i j : ℕ) (a b : Fin 2),
+      Chal.QuadricCounterexample.AlgebraicallyRegularOn
+        {z |
+          Chal.QuadricCounterexample.baseEval (self.equation i) z ≠ 0 ∧
+            Chal.QuadricCounterexample.affineQuadric (self.chart i) z ∈
+              Chal.QuadricCounterexample.principalChart (self.chart j) (self.equation j)}
+        fun z => self.transition i j (Chal.QuadricCounterexample.affineQuadric (self.chart i) z) a b
+constructor:
+  Chal.QuadricCounterexample.AlgebraicRankTwoBundle.mk (numberOfCharts : ℕ) (chart : ℕ → Fin 2 × Fin 2)
+    (equation : ℕ → Chal.QuadricCounterexample.BasePolynomial)
+    (finiteCover : ∀ (i : ℕ), numberOfCharts ≤ i → equation i = 0)
+    (covers :
+      ∀ (x : Chal.QuadricCounterexample.QuadricSurface),
+        ∃ i, x ∈ Chal.QuadricCounterexample.principalChart (chart i) (equation i))
+    (transition : ℕ → ℕ → Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.TwoMatrix)
+    (transition_self :
+      ∀ (i : ℕ), ∀ x ∈ Chal.QuadricCounterexample.principalChart (chart i) (equation i), transition i i x = 1)
+    (transition_mul :
+      ∀ (i j k : ℕ),
+        ∀ x ∈ Chal.QuadricCounterexample.principalChart (chart i) (equation i),
+          x ∈ Chal.QuadricCounterexample.principalChart (chart j) (equation j) →
+            x ∈ Chal.QuadricCounterexample.principalChart (chart k) (equation k) →
+              transition i j x * transition j k x = transition i k x)
+    (transition_regular :
+      ∀ (i j : ℕ) (a b : Fin 2),
+        Chal.QuadricCounterexample.AlgebraicallyRegularOn
+          {z |
+            Chal.QuadricCounterexample.baseEval (equation i) z ≠ 0 ∧
+              Chal.QuadricCounterexample.affineQuadric (chart i) z ∈
+                Chal.QuadricCounterexample.principalChart (chart j) (equation j)}
+          fun z => transition i j (Chal.QuadricCounterexample.affineQuadric (chart i) z) a b) :
+    Chal.QuadricCounterexample.AlgebraicRankTwoBundle
+def Chal.QuadricCounterexample.AlgebraicRankTwoBundle.domain : Chal.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → Set Chal.QuadricCounterexample.QuadricSurface :=
+fun V i => Chal.QuadricCounterexample.principalChart (V.chart i) (V.equation i)
+def Chal.QuadricCounterexample.AlgebraicRankTwoBundle.coordinateDomain : Chal.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → Set Chal.QuadricCounterexample.BaseCoordinates :=
+fun V i => {z | Chal.QuadricCounterexample.baseEval (V.equation i) z ≠ 0}
+def Chal.QuadricCounterexample.AlgebraicRankTwoBundle.dualTransition : Chal.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → ℕ → Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.TwoMatrix :=
+fun V i j x => Matrix.transpose (V.transition j i x)
+def Chal.QuadricCounterexample.hyperplaneTransition : Fin 2 → Fin 2 → Chal.QuadricCounterexample.ProjectiveLine → ℂ :=
+fun i j x => if i = j then 1 else Chal.QuadricCounterexample.coordP1 i x
+def Chal.QuadricCounterexample.polarizationTransition : Fin 2 × Fin 2 →
+  Fin 2 × Fin 2 → Chal.QuadricCounterexample.QuadricSurface → ℂ :=
+fun i j x =>
+  Chal.QuadricCounterexample.hyperplaneTransition i.1 j.1 x.1 *
+    Chal.QuadricCounterexample.hyperplaneTransition i.2 j.2 x.2
+def Chal.QuadricCounterexample.IsPowerPullbackTwist : Chal.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → Chal.QuadricCounterexample.AlgebraicRankTwoBundle → Prop :=
+fun G m E =>
+  E.numberOfCharts = G.numberOfCharts ∧
+    E.chart = G.chart ∧
+      (∀ (i : ℕ), E.equation i = (MvPolynomial.bind₁ fun j => MvPolynomial.X j ^ m) (G.equation i)) ∧
+        ∀ (i j : ℕ),
+          ∀ x ∈ E.domain i,
+            x ∈ E.domain j →
+              E.transition i j x =
+                Chal.QuadricCounterexample.polarizationTransition (G.chart i) (G.chart j) x •
+                  G.transition i j (Chal.QuadricCounterexample.powerQuadric m x)
+structure Chal.QuadricCounterexample.SymmetricSection (V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle) (n : ℕ) :
+  Type
+number of parameters: 2
+fields:
+  Chal.QuadricCounterexample.SymmetricSection.coefficient : ℕ →
+      Fin (n + 1) → Chal.QuadricCounterexample.BaseCoordinates → ℂ
+  Chal.QuadricCounterexample.SymmetricSection.regular : ∀ (i : ℕ) (k : Fin (n + 1)),
+      Chal.QuadricCounterexample.AlgebraicallyRegularOn (V.coordinateDomain i) (self.coefficient i k)
+  Chal.QuadricCounterexample.SymmetricSection.compatible : ∀ (i j : ℕ),
+      ∀ x ∈ V.domain i,
+        x ∈ V.domain j →
+          ∀ (v : Chal.QuadricCounterexample.FiberCoordinates),
+            ∑ k,
+                self.coefficient i k (Chal.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                    Matrix.mulVec (V.dualTransition i j x) v 0 ^ ↑k *
+                  Matrix.mulVec (V.dualTransition i j x) v 1 ^ (n - ↑k) =
+              ∑ k,
+                self.coefficient j k (Chal.QuadricCounterexample.coordQuadric (V.chart j) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)
+constructor:
+  Chal.QuadricCounterexample.SymmetricSection.mk {V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle} {n : ℕ}
+    (coefficient : ℕ → Fin (n + 1) → Chal.QuadricCounterexample.BaseCoordinates → ℂ)
+    (regular :
+      ∀ (i : ℕ) (k : Fin (n + 1)),
+        Chal.QuadricCounterexample.AlgebraicallyRegularOn (V.coordinateDomain i) (coefficient i k))
+    (compatible :
+      ∀ (i j : ℕ),
+        ∀ x ∈ V.domain i,
+          x ∈ V.domain j →
+            ∀ (v : Chal.QuadricCounterexample.FiberCoordinates),
+              ∑ k,
+                  coefficient i k (Chal.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                      Matrix.mulVec (V.dualTransition i j x) v 0 ^ ↑k *
+                    Matrix.mulVec (V.dualTransition i j x) v 1 ^ (n - ↑k) =
+                ∑ k,
+                  coefficient j k (Chal.QuadricCounterexample.coordQuadric (V.chart j) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)) :
+    Chal.QuadricCounterexample.SymmetricSection V n
+def Chal.QuadricCounterexample.SymmetricSection.value : {V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n : ℕ} →
+    Chal.QuadricCounterexample.SymmetricSection V n →
+      ℕ → Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.FiberCoordinates → ℂ :=
+fun {V} {n} s i x v =>
+  ∑ k, s.coefficient i k (Chal.QuadricCounterexample.coordQuadric (V.chart i) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)
+def Chal.QuadricCounterexample.ProjectiveAlgebraicCone : {N : ℕ} → Set (Fin N → ℂ) → Prop :=
+fun {N} C =>
+  ∃ equations, (∀ p ∈ equations, ∃ d, p.IsHomogeneous d) ∧ C = {y | ∀ p ∈ equations, (MvPolynomial.eval y) p = 0}
+def Chal.QuadricCounterexample.sectionVector : {V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n N : ℕ} →
+    (Fin N → Chal.QuadricCounterexample.SymmetricSection V n) →
+      ℕ → Chal.QuadricCounterexample.QuadricSurface → Chal.QuadricCounterexample.FiberCoordinates → Fin N → ℂ :=
+fun {V} {n N} s i x v j => (s j).value i x v
+def Chal.QuadricCounterexample.GivesClosedProjectiveEmbedding : {V :
+    Chal.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n N : ℕ} → (Fin N → Chal.QuadricCounterexample.SymmetricSection V n) → Prop :=
+fun {V} {n N} s =>
+  (∀ (i : ℕ),
+      ∀ x ∈ V.domain i,
+        ∀ (v : Chal.QuadricCounterexample.FiberCoordinates),
+          v ≠ 0 → Chal.QuadricCounterexample.sectionVector s i x v ≠ 0) ∧
+    (∀ (i j : ℕ) (x y : Chal.QuadricCounterexample.QuadricSurface),
+        x ∈ V.domain i →
+          y ∈ V.domain j →
+            ∀ (v w : Chal.QuadricCounterexample.FiberCoordinates),
+              v ≠ 0 →
+                w ≠ 0 →
+                  (∃ c,
+                      c ≠ 0 ∧
+                        Chal.QuadricCounterexample.sectionVector s i x v =
+                          c • Chal.QuadricCounterexample.sectionVector s j y w) →
+                    x = y ∧ ∃ c, c ≠ 0 ∧ v = c • Matrix.mulVec (V.dualTransition i j x) w) ∧
+      Chal.QuadricCounterexample.ProjectiveAlgebraicCone
+          ({0} ∪
+            {a |
+              ∃ i,
+                ∃ x ∈ V.domain i, ∃ v, v ≠ 0 ∧ ∃ c, c ≠ 0 ∧ a = c • Chal.QuadricCounterexample.sectionVector s i x v}) ∧
+        ∀ (i : ℕ),
+          ∀ x ∈ V.domain i,
+            ∀ (v : Chal.QuadricCounterexample.FiberCoordinates),
+              v ≠ 0 →
+                ∃ j b,
+                  v b ≠ 0 ∧
+                    Chal.QuadricCounterexample.sectionVector s i x v j ≠ 0 ∧
+                      ∃ p q,
+                        (∀ (k : Fin 3),
+                            (MvPolynomial.eval fun l =>
+                                  Chal.QuadricCounterexample.sectionVector s i x v l /
+                                    Chal.QuadricCounterexample.sectionVector s i x v j)
+                                (q k) ≠
+                              0) ∧
+                          ∀ (i' : ℕ),
+                            ∀ x' ∈ V.domain i',
+                              ∀ (v' : Chal.QuadricCounterexample.FiberCoordinates),
+                                v' ≠ 0 →
+                                  Chal.QuadricCounterexample.sectionVector s i' x' v' j ≠ 0 →
+                                    (∀ (k : Fin 3),
+                                        (MvPolynomial.eval fun l =>
+                                              Chal.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                Chal.QuadricCounterexample.sectionVector s i' x' v' j)
+                                            (q k) ≠
+                                          0) →
+                                      x' ∈ V.domain i ∧
+                                        Matrix.mulVec (V.dualTransition i i' x') v' b ≠ 0 ∧
+                                          ∀ (k : Fin 3),
+                                            ![(Chal.QuadricCounterexample.coordQuadric (V.chart i) x').1,
+                                                  (Chal.QuadricCounterexample.coordQuadric (V.chart i) x').2,
+                                                  Matrix.mulVec (V.dualTransition i i' x') v' (1 - b) /
+                                                    Matrix.mulVec (V.dualTransition i i' x') v' b]
+                                                k =
+                                              (MvPolynomial.eval fun l =>
+                                                    Chal.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                      Chal.QuadricCounterexample.sectionVector s i' x' v' j)
+                                                  (p k) /
+                                                (MvPolynomial.eval fun l =>
+                                                    Chal.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                      Chal.QuadricCounterexample.sectionVector s i' x' v' j)
+                                                  (q k)
+def Chal.QuadricCounterexample.IsAmple : Chal.QuadricCounterexample.AlgebraicRankTwoBundle → Prop :=
+fun V => ∃ n, 0 < n ∧ ∃ N s, Chal.QuadricCounterexample.GivesClosedProjectiveEmbedding s
+def Chal.QuadricCounterexample.holomorphicMetricDerivative : (Chal.QuadricCounterexample.BaseCoordinates →
+    Chal.QuadricCounterexample.TwoMatrix) →
+  Chal.QuadricCounterexample.BaseCoordinates →
+    Chal.QuadricCounterexample.BaseCoordinates → Chal.QuadricCounterexample.TwoMatrix :=
+fun H z u => (1 / 2) • ((fderiv ℝ H z) u - Complex.I • (fderiv ℝ H z) (Complex.I • u))
+def Chal.QuadricCounterexample.metricMixedHessian : (Chal.QuadricCounterexample.BaseCoordinates →
+    Chal.QuadricCounterexample.TwoMatrix) →
+  Chal.QuadricCounterexample.BaseCoordinates →
+    Chal.QuadricCounterexample.BaseCoordinates → Chal.QuadricCounterexample.TwoMatrix :=
+fun H z u =>
+  (1 / 4) •
+    (((fderiv ℝ (fun y => fderiv ℝ H y) z) u) u +
+      ((fderiv ℝ (fun y => fderiv ℝ H y) z) (Complex.I • u)) (Complex.I • u))
+structure Chal.QuadricCounterexample.SmoothHermitianMetric (V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle) :
+  Type
+number of parameters: 1
+fields:
+  Chal.QuadricCounterexample.SmoothHermitianMetric.dualMatrix : ℕ →
+      Chal.QuadricCounterexample.BaseCoordinates → Chal.QuadricCounterexample.TwoMatrix
+  Chal.QuadricCounterexample.SmoothHermitianMetric.smooth : ∀ (i : ℕ),
+      ContDiffOn ℝ (↑⊤) (self.dualMatrix i) (V.coordinateDomain i)
+  Chal.QuadricCounterexample.SmoothHermitianMetric.positive : ∀ (i : ℕ),
+      ∀ z ∈ V.coordinateDomain i, Matrix.PosDef (self.dualMatrix i z)
+  Chal.QuadricCounterexample.SmoothHermitianMetric.compatible : ∀ (i j : ℕ),
+      ∀ x ∈ V.domain i,
+        x ∈ V.domain j →
+          self.dualMatrix j (Chal.QuadricCounterexample.coordQuadric (V.chart j) x) =
+            Matrix.conjTranspose (V.dualTransition i j x) *
+                self.dualMatrix i (Chal.QuadricCounterexample.coordQuadric (V.chart i) x) *
+              V.dualTransition i j x
+constructor:
+  Chal.QuadricCounterexample.SmoothHermitianMetric.mk {V : Chal.QuadricCounterexample.AlgebraicRankTwoBundle}
+    (dualMatrix : ℕ → Chal.QuadricCounterexample.BaseCoordinates → Chal.QuadricCounterexample.TwoMatrix)
+    (smooth : ∀ (i : ℕ), ContDiffOn ℝ (↑⊤) (dualMatrix i) (V.coordinateDomain i))
+    (positive : ∀ (i : ℕ), ∀ z ∈ V.coordinateDomain i, Matrix.PosDef (dualMatrix i z))
+    (compatible :
+      ∀ (i j : ℕ),
+        ∀ x ∈ V.domain i,
+          x ∈ V.domain j →
+            dualMatrix j (Chal.QuadricCounterexample.coordQuadric (V.chart j) x) =
+              Matrix.conjTranspose (V.dualTransition i j x) *
+                  dualMatrix i (Chal.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                V.dualTransition i j x) :
+    Chal.QuadricCounterexample.SmoothHermitianMetric V
+def Chal.QuadricCounterexample.SmoothHermitianMetric.StrictlyGriffithsPositive : {V :
+    Chal.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  Chal.QuadricCounterexample.SmoothHermitianMetric V → Prop :=
+fun {V} h =>
+  ∀ (i : ℕ),
+    ∀ z ∈ V.coordinateDomain i,
+      ∀ (u : Chal.QuadricCounterexample.BaseCoordinates),
+        u ≠ 0 →
+          Matrix.PosDef
+            (Chal.QuadricCounterexample.metricMixedHessian (h.dualMatrix i) z u -
+              Matrix.conjTranspose (Chal.QuadricCounterexample.holomorphicMetricDerivative (h.dualMatrix i) z u) *
+                  (h.dualMatrix i z)⁻¹ *
+                Chal.QuadricCounterexample.holomorphicMetricDerivative (h.dualMatrix i) z u)
+def Chal.QuadricCounterexample.SourceMainTheorem : Prop :=
+∃ G E,
+  (∀ (m : ℕ), 0 < m → Chal.QuadricCounterexample.IsPowerPullbackTwist G m (E m)) ∧
+    (∀ (m : ℕ), 0 < m → Chal.QuadricCounterexample.IsAmple (E m)) ∧
+      ∃ m₀, 0 < m₀ ∧ ∀ (m : ℕ), m₀ ≤ m → ¬∃ h, h.StrictlyGriffithsPositive
+'OAI.QuadricCounterexample.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== QuadricBundles comparator-style: ok=51 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

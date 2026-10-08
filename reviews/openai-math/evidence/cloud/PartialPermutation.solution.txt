@@ -1,0 +1,81 @@
+OAI.PartialPermutation.complementaryCosets_finite : OAI.PartialPermutation.ComplementaryCosetsFiniteStatement
+'OAI.PartialPermutation.complementaryCosets_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.PartialPermutation.IsUnitary.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [inst_1 : NormedAddCommGroup V] → [inst_2 : InnerProductSpace ℂ V] → Representation ℂ G V → Prop :=
+fun {G} {V} [Group G] [NormedAddCommGroup V] [InnerProductSpace ℂ V] ρ =>
+  ∀ (g : G) (x y : V), inner ℂ ((ρ g) x) ((ρ g) y) = inner ℂ x y
+def OAI.PartialPermutation.hsNormSq.{u_1} : {V : Type u_1} →
+  [inst : NormedAddCommGroup V] → [inst_1 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Module.End ℂ V → ℝ :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] A =>
+  ((LinearMap.trace ℂ V) (LinearMap.adjoint A * A)).re
+def OAI.PartialPermutation.complexFourier.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [Fintype G] →
+        [inst_2 : AddCommGroup V] → [inst_3 : Module ℂ V] → Representation ℂ G V → (G → ℂ) → Module.End ℂ V :=
+fun {G} {V} [Group G] [Fintype G] [AddCommGroup V] [Module ℂ V] ρ f => ∑ g, f g • ρ g
+def OAI.PartialPermutation.componentSimple.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [inst_1 : AddCommGroup V] →
+        [inst_2 : Module ℂ V] →
+          (ρ : Representation ℂ G V) →
+            ↑(isotypicComponents (MonoidAlgebra ℂ G) ρ.asModule) → Submodule (MonoidAlgebra ℂ G) ρ.asModule :=
+fun {G} {V} [Group G] [AddCommGroup V] [Module ℂ V] ρ c => Exists.choose ⋯
+def OAI.PartialPermutation.regularRep.{u_1} : (G : Type u_1) →
+  [inst : Group G] → Representation ℂ G (EuclideanSpace ℂ G) :=
+fun G [Group G] =>
+  { toFun := fun g => { toFun := fun f => WithLp.toLp 2 fun h => f.ofLp (g⁻¹ * h), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+@[reducible] def OAI.PartialPermutation.IrreducibleIndex.{u_2} : (G : Type u_2) →
+  [inst : Group G] → [Fintype G] → Set (Submodule (MonoidAlgebra ℂ G) (OAI.PartialPermutation.regularRep G).asModule) :=
+fun G [Group G] [Fintype G] => isotypicComponents (MonoidAlgebra ℂ G) (OAI.PartialPermutation.regularRep G).asModule
+@[reducible] def OAI.PartialPermutation.irreducibleSpace.{u_1} : {G : Type u_1} →
+  [inst : Group G] →
+    [inst_1 : Fintype G] → ↑(OAI.PartialPermutation.IrreducibleIndex G) → Submodule ℂ (EuclideanSpace ℂ G) :=
+fun {G} [Group G] [Fintype G] c =>
+  (Subrepresentation.ofSubmodule'
+      (OAI.PartialPermutation.componentSimple (OAI.PartialPermutation.regularRep G) c)).toSubmodule
+@[reducible] def OAI.PartialPermutation.irreducibleDegree.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [inst_1 : Fintype G] → ↑(OAI.PartialPermutation.IrreducibleIndex G) → ℕ :=
+fun {G} [Group G] [Fintype G] c => Module.finrank ℂ ↥(OAI.PartialPermutation.irreducibleSpace c)
+def OAI.PartialPermutation.mass.{u_1} : {G : Type u_1} → [Fintype G] → (G → ℝ) → ℝ :=
+fun {G} [Fintype G] f => ∑ g, f g
+def OAI.PartialPermutation.LeftCosetCap.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [Fintype G] → (G → ℝ) → Subgroup G → ℝ → Prop :=
+fun {G} [Group G] [Fintype G] f H B => ∀ (g : G), ∑ h, f (g * ↑h) ≤ B / ↑H.index
+def OAI.PartialPermutation.blockSubgroup.{u_1} : {X : Type u_1} → Set X → Subgroup (Equiv.Perm X) :=
+fun {X} M => { carrier := {g | ∀ x ∉ M, g x = x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.PartialPermutation.inverseDegreeSum.{u_1} : (G : Type u_1) → [Group G] → [Fintype G] → ℝ → ℝ :=
+fun G [Group G] [Fintype G] u => ∑ c, ↑(OAI.PartialPermutation.irreducibleDegree c) ^ (-u)
+def OAI.PartialPermutation.symmetricInverseDegreeSum : ℕ → ℝ → ℝ :=
+fun n u => OAI.PartialPermutation.inverseDegreeSum (Equiv.Perm (Fin n)) u
+def OAI.PartialPermutation.symmetricDegreeConstant : ℝ → ℝ :=
+fun u => sSup {x | ∃ n, 1 ≤ n ∧ x = OAI.PartialPermutation.symmetricInverseDegreeSum n u}
+def OAI.PartialPermutation.ComplementaryCosetsFiniteStatement.{u_1} : Prop :=
+∀ (X : Type u_1) [inst : Fintype X] [inst_1 : DecidableEq X] (b : ℕ),
+  0 < b →
+    ∀ (M : Fin b → Set X),
+      (∀ (i : Fin b), (M i).Nonempty) →
+        (Pairwise fun i j => Disjoint (M i) (M j)) →
+          ⋃ i, M i = Set.univ →
+            ∀ (V : Type) [inst_2 : NormedAddCommGroup V] [inst_3 : InnerProductSpace ℂ V]
+              [inst_4 : FiniteDimensional ℂ V] (ρ : Representation ℂ (Equiv.Perm X) V),
+              ρ.IsIrreducible →
+                OAI.PartialPermutation.IsUnitary ρ →
+                  ∀ (f : Equiv.Perm X → ℝ) (B u : ℝ),
+                    (∀ (g : Equiv.Perm X), 0 ≤ f g) →
+                      OAI.PartialPermutation.mass f ≤ 1 →
+                        0 < u →
+                          (∀ (i : Fin b),
+                              OAI.PartialPermutation.LeftCosetCap f (OAI.PartialPermutation.blockSubgroup (M i)) B) →
+                            OAI.PartialPermutation.hsNormSq (OAI.PartialPermutation.complexFourier ρ fun g => ↑(f g)) ≤
+                                ↑b * B * OAI.PartialPermutation.symmetricDegreeConstant u *
+                                  ↑(Module.finrank ℂ V) ^ (-1 + (u + 2) / ↑b) ∧
+                              ‖LinearMap.toContinuousLinearMap
+                                      (OAI.PartialPermutation.complexFourier ρ fun g => ↑(f g))‖ ^
+                                  2 ≤
+                                ↑b * B * OAI.PartialPermutation.symmetricDegreeConstant u *
+                                  ↑(Module.finrank ℂ V) ^ (-1 + (u + 2) / ↑b)

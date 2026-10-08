@@ -1,0 +1,97 @@
+CMP OAI.BinaryMatching.deterministic_approximate_counting [thm] ok
+CMP OAI.BinaryMatching.Input.n [def] ok
+CMP OAI.BinaryMatching.Input [ind] ok
+CMP OAI.BinaryMatching.Input.mk [ctor] ok
+CMP OAI.BinaryMatching.Record.right [def] ok
+CMP OAI.BinaryMatching.Record [ind] ok
+CMP OAI.BinaryMatching.Record.mk [ctor] ok
+CMP OAI.BinaryMatching.Record.left [def] ok
+CMP OAI.BinaryMatching.count [def] ok
+CMP OAI.BinaryMatching.multiplicity [def] ok
+CMP OAI.BinaryMatching.Record.multiplicity [def] ok
+CMP OAI.BinaryMatching.Input.records [def] ok
+CMP OAI.BinaryMatching.multiplicity.match_1 [def] ok
+CMP OAI.BinaryMatching.Pair [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.IsPerfectMatching [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.Incident [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.right [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph [ind] ok
+CMP OAI.MatchingEntropy.LooplessGraph.mk [ctor] ok
+CMP OAI.MatchingEntropy.LooplessGraph.left [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.matchingFintype [def] ok
+CMP OAI.MatchingEntropy.LooplessGraph.matchingFintype._proof_1 [thm] ok
+CMP OAI.MatchingEntropy.LooplessGraph.Matching [def] ok
+CMP OAI.BinaryMatching.completeGraph [def] ok
+CMP OAI.BinaryMatching.completeGraph._proof_1 [thm] ok
+CMP OAI.BinaryMatching.encodeInput [def] ok
+CMP OAI.BinaryMatching.encodeRecord [def] ok
+CMP OAI.BinaryMatching.encodeNat [def] ok
+Chal.BinaryMatching.deterministic_approximate_counting : ∃ A machine,
+  (∀ (k : machine.tm.K), Finite (machine.tm.Γ k)) ∧
+    (∃ P,
+        ∀ (G : Chal.BinaryMatching.Input),
+          (A G).bits.length ≤ Polynomial.eval (Chal.BinaryMatching.encodeInput G).length P) ∧
+      ∀ (G : Chal.BinaryMatching.Input),
+        A G ≤ Chal.BinaryMatching.count G ∧
+          Chal.BinaryMatching.count G ≤ 2 ^ (9 * G.n) * A G ∧ (A G = 0 ↔ Chal.BinaryMatching.count G = 0)
+structure Chal.MatchingEntropy.LooplessGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  Chal.MatchingEntropy.LooplessGraph.left : E → V
+  Chal.MatchingEntropy.LooplessGraph.right : E → V
+  Chal.MatchingEntropy.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  Chal.MatchingEntropy.LooplessGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : Chal.MatchingEntropy.LooplessGraph V E
+def Chal.MatchingEntropy.LooplessGraph.Incident.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def Chal.MatchingEntropy.LooplessGraph.IsPerfectMatching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def Chal.MatchingEntropy.LooplessGraph.Matching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropy.LooplessGraph V E → Type (max 0 u_2) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+@[reducible] def Chal.BinaryMatching.Pair : ℕ → Type :=
+fun n => { ij // ij.1 < ij.2 }
+def Chal.BinaryMatching.completeGraph : (n : ℕ) →
+  Chal.MatchingEntropy.LooplessGraph (Fin n) (Chal.BinaryMatching.Pair n) :=
+fun n => { left := fun e => (↑e).1, right := fun e => (↑e).2, loopless := ⋯ }
+structure Chal.BinaryMatching.Record : Type
+number of parameters: 0
+fields:
+  Chal.BinaryMatching.Record.left : ℕ
+  Chal.BinaryMatching.Record.right : ℕ
+  Chal.BinaryMatching.Record.multiplicity : ℕ
+constructor:
+  Chal.BinaryMatching.Record.mk (left right multiplicity : ℕ) : Chal.BinaryMatching.Record
+structure Chal.BinaryMatching.Input : Type
+number of parameters: 0
+fields:
+  Chal.BinaryMatching.Input.n : ℕ
+  Chal.BinaryMatching.Input.records : List Chal.BinaryMatching.Record
+  Chal.BinaryMatching.Input.valid : ∀ e ∈ self.records, e.left < e.right ∧ e.right < self.n
+  Chal.BinaryMatching.Input.unique : (List.map (fun e => (e.left, e.right)) self.records).Nodup
+constructor:
+  Chal.BinaryMatching.Input.mk (n : ℕ) (records : List Chal.BinaryMatching.Record)
+    (valid : ∀ e ∈ records, e.left < e.right ∧ e.right < n)
+    (unique : (List.map (fun e => (e.left, e.right)) records).Nodup) : Chal.BinaryMatching.Input
+def Chal.BinaryMatching.multiplicity : (G : Chal.BinaryMatching.Input) → Chal.BinaryMatching.Pair G.n → ℕ :=
+fun G e =>
+  match List.find? (fun r => decide (r.left = ↑(↑e).1) && decide (r.right = ↑(↑e).2)) G.records with
+  | none => 0
+  | some r => r.multiplicity
+def Chal.BinaryMatching.count : Chal.BinaryMatching.Input → ℕ :=
+fun G => ∑ M, ∏ e ∈ ↑M, Chal.BinaryMatching.multiplicity G e
+def Chal.BinaryMatching.encodeNat : ℕ → List Bool :=
+fun n => List.replicate n.bits.length false ++ true :: n.bits
+def Chal.BinaryMatching.encodeRecord : Chal.BinaryMatching.Record → List Bool :=
+fun r =>
+  Chal.BinaryMatching.encodeNat r.left ++ Chal.BinaryMatching.encodeNat r.right ++
+    Chal.BinaryMatching.encodeNat r.multiplicity
+def Chal.BinaryMatching.encodeInput : Chal.BinaryMatching.Input → List Bool :=
+fun G =>
+  Chal.BinaryMatching.encodeNat G.n ++ Chal.BinaryMatching.encodeNat G.records.length ++
+    List.flatMap Chal.BinaryMatching.encodeRecord G.records
+'OAI.BinaryMatching.deterministic_approximate_counting' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BinaryMatching comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

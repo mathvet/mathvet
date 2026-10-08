@@ -1,0 +1,80 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CoulombCounterexample.lean:94:8: warning: declaration uses `sorry`
+OAI.Problem356.coulomb_counterexample_and_equal_infima : ∃ rho, OAI.Problem356.HasFullCoulombConclusion rho
+@[reducible] def OAI.Problem356.E3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def OAI.Problem356.Triple : Type :=
+OAI.Problem356.E3 × OAI.Problem356.E3 × OAI.Problem356.E3
+def OAI.Problem356.tripleFst : OAI.Problem356.Triple → OAI.Problem356.E3 :=
+fun t => t.1
+def OAI.Problem356.tripleSnd : OAI.Problem356.Triple → OAI.Problem356.E3 :=
+fun t => t.2.1
+def OAI.Problem356.tripleThd : OAI.Problem356.Triple → OAI.Problem356.E3 :=
+fun t => t.2.2
+def OAI.Problem356.invDistance : OAI.Problem356.E3 → OAI.Problem356.E3 → ENNReal :=
+fun x y => (ENNReal.ofReal ‖x - y‖)⁻¹
+def OAI.Problem356.coulombCost : OAI.Problem356.Triple → ENNReal :=
+fun t =>
+  OAI.Problem356.invDistance (OAI.Problem356.tripleFst t) (OAI.Problem356.tripleSnd t) +
+      OAI.Problem356.invDistance (OAI.Problem356.tripleFst t) (OAI.Problem356.tripleThd t) +
+    OAI.Problem356.invDistance (OAI.Problem356.tripleSnd t) (OAI.Problem356.tripleThd t)
+def OAI.Problem356.IsThreeCoupling : MeasureTheory.Measure OAI.Problem356.E3 →
+  MeasureTheory.Measure OAI.Problem356.Triple → Prop :=
+fun mu pi =>
+  MeasureTheory.IsProbabilityMeasure pi ∧
+    MeasureTheory.Measure.map OAI.Problem356.tripleFst pi = mu ∧
+      MeasureTheory.Measure.map OAI.Problem356.tripleSnd pi = mu ∧
+        MeasureTheory.Measure.map OAI.Problem356.tripleThd pi = mu
+def OAI.Problem356.densityMeasure : (OAI.Problem356.E3 → ℝ) → MeasureTheory.Measure OAI.Problem356.E3 :=
+fun rho => MeasureTheory.volume.withDensity fun x => ENNReal.ofReal (rho x)
+def OAI.Problem356.Preserves : MeasureTheory.Measure OAI.Problem356.E3 →
+  (OAI.Problem356.E3 → OAI.Problem356.E3) → Prop :=
+fun mu T => Measurable T ∧ MeasureTheory.Measure.map T mu = mu
+def OAI.Problem356.graphCost : MeasureTheory.Measure OAI.Problem356.E3 →
+  (OAI.Problem356.E3 → OAI.Problem356.E3) → (OAI.Problem356.E3 → OAI.Problem356.E3) → ENNReal :=
+fun mu T2 T3 => ∫⁻ (x : OAI.Problem356.E3), OAI.Problem356.coulombCost (x, T2 x, T3 x) ∂mu
+def OAI.Problem356.kantorovichValue : MeasureTheory.Measure OAI.Problem356.E3 → ENNReal :=
+fun mu =>
+  ⨅ pi, ⨅ (_ : OAI.Problem356.IsThreeCoupling mu pi), ∫⁻ (t : OAI.Problem356.Triple), OAI.Problem356.coulombCost t ∂pi
+def OAI.Problem356.mongeValue : MeasureTheory.Measure OAI.Problem356.E3 → ENNReal :=
+fun mu =>
+  ⨅ T2,
+    ⨅ T3,
+      ⨅ (_ : OAI.Problem356.Preserves mu T2), ⨅ (_ : OAI.Problem356.Preserves mu T3), OAI.Problem356.graphCost mu T2 T3
+def OAI.Problem356.IsSmoothCompactProbabilityDensity : (OAI.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  (∀ (x : OAI.Problem356.E3), 0 ≤ rho x) ∧
+    ContDiff ℝ (↑⊤) rho ∧
+      HasCompactSupport rho ∧
+        (ContDiff ℝ ↑⊤ fun x => √(rho x)) ∧ (HasCompactSupport fun x => √(rho x)) ∧ ∫ (x : OAI.Problem356.E3), rho x = 1
+def OAI.Problem356.KantorovichAttained : MeasureTheory.Measure OAI.Problem356.E3 → Prop :=
+fun mu =>
+  ∃ pi,
+    OAI.Problem356.IsThreeCoupling mu pi ∧
+      ∫⁻ (t : OAI.Problem356.Triple), OAI.Problem356.coulombCost t ∂pi = OAI.Problem356.kantorovichValue mu
+def OAI.Problem356.NoMongeOptimizer : MeasureTheory.Measure OAI.Problem356.E3 → Prop :=
+fun mu =>
+  ∀ (T2 T3 : OAI.Problem356.E3 → OAI.Problem356.E3),
+    OAI.Problem356.Preserves mu T2 →
+      OAI.Problem356.Preserves mu T3 → OAI.Problem356.kantorovichValue mu < OAI.Problem356.graphCost mu T2 T3
+def OAI.Problem356.FiniteMongeApproximation : MeasureTheory.Measure OAI.Problem356.E3 → Prop :=
+fun mu =>
+  ∀ (epsilon : ℝ),
+    0 < epsilon →
+      ∃ T2 T3,
+        OAI.Problem356.Preserves mu T2 ∧
+          OAI.Problem356.Preserves mu T3 ∧
+            OAI.Problem356.graphCost mu T2 T3 < ⊤ ∧
+              OAI.Problem356.graphCost mu T2 T3 ≤ OAI.Problem356.kantorovichValue mu + ENNReal.ofReal epsilon
+def OAI.Problem356.HasCoulombCounterexample : (OAI.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  OAI.Problem356.IsSmoothCompactProbabilityDensity rho ∧
+    MeasureTheory.IsProbabilityMeasure (OAI.Problem356.densityMeasure rho) ∧
+      OAI.Problem356.kantorovichValue (OAI.Problem356.densityMeasure rho) < ⊤ ∧
+        OAI.Problem356.KantorovichAttained (OAI.Problem356.densityMeasure rho) ∧
+          OAI.Problem356.NoMongeOptimizer (OAI.Problem356.densityMeasure rho)
+def OAI.Problem356.HasFullCoulombConclusion : (OAI.Problem356.E3 → ℝ) → Prop :=
+fun rho =>
+  OAI.Problem356.HasCoulombCounterexample rho ∧
+    OAI.Problem356.mongeValue (OAI.Problem356.densityMeasure rho) =
+        OAI.Problem356.kantorovichValue (OAI.Problem356.densityMeasure rho) ∧
+      OAI.Problem356.FiniteMongeApproximation (OAI.Problem356.densityMeasure rho)

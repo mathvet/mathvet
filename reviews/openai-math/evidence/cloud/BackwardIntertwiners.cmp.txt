@@ -1,0 +1,33 @@
+CMP OAI.BackwardIntertwiners.direct_algebra_corollary [thm] ok
+CMP OAI.Hyperinvariant233.FullClaim [def] ok
+CMP OAI.Hyperinvariant233.strongOperatorTopology [def] ok
+CMP OAI.Hyperinvariant233.commutant [def] ok
+CMP OAI.Hyperinvariant233.commutant._proof_5 [thm] ok
+CMP OAI.Hyperinvariant233.commutant._proof_4 [thm] ok
+CMP OAI.Hyperinvariant233.commutant._proof_3 [thm] ok
+CMP OAI.Hyperinvariant233.commutant._proof_2 [thm] ok
+CMP OAI.Hyperinvariant233.commutant._proof_1 [thm] ok
+CMP OAI.Hyperinvariant233.TransitiveCommutant [def] ok
+Chal.BackwardIntertwiners.direct_algebra_corollary : ∀ (H : Type u_1) [inst : NormedAddCommGroup H]
+  [inst_1 : InnerProductSpace ℂ H] [CompleteSpace H] [TopologicalSpace.SeparableSpace H],
+  ¬FiniteDimensional ℂ H → Chal.Hyperinvariant233.FullClaim
+def Chal.Hyperinvariant233.commutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Subalgebra ℂ (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T => Subalgebra.centralizer ℂ {T}
+def Chal.Hyperinvariant233.TransitiveCommutant.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T =>
+  ∀ (K : Submodule ℂ H), IsClosed ↑K → (∀ (A : H →L[ℂ] H), A * T = T * A → ∀ x ∈ K, A x ∈ K) → K = ⊥ ∨ K = ⊤
+@[instance_reducible] def Chal.Hyperinvariant233.strongOperatorTopology.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → TopologicalSpace (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] => TopologicalSpace.induced (fun A x => A x) inferInstance
+def Chal.Hyperinvariant233.FullClaim.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] =>
+  ∃ T,
+    T ≠ 0 ∧
+      Filter.Tendsto (fun n => ‖T ^ n‖ ^ (1 / ↑n)) Filter.atTop (nhds 0) ∧
+        Chal.Hyperinvariant233.TransitiveCommutant T ∧
+          Chal.Hyperinvariant233.commutant T ≠ ⊤ ∧ IsClosed ↑(Chal.Hyperinvariant233.commutant T)
+'OAI.BackwardIntertwiners.direct_algebra_corollary' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BackwardIntertwiners comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

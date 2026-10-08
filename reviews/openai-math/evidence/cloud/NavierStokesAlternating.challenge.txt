@@ -1,0 +1,250 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_NavierStokesAlternating.lean:239:8: warning: declaration uses `sorry`
+OAI.AlternatingNS.alternating : ∀ (ν : ℝ),
+  0 < ν → OAI.AlternatingNS.ComputableReal ν → OAI.AlternatingNS.AlternatingConclusion ν
+@[reducible] def OAI.AlternatingNS.Rule : Type :=
+ℕ × ℕ × Fin 3
+@[reducible] def OAI.AlternatingNS.Machine : Type :=
+ℕ × ℕ × ℕ × List ℕ × List (Option OAI.AlternatingNS.Rule)
+def OAI.AlternatingNS.Machine.states : OAI.AlternatingNS.Machine → ℕ :=
+fun M => M.1 + 1
+def OAI.AlternatingNS.Machine.alphabet : OAI.AlternatingNS.Machine → ℕ :=
+fun M => M.2.1 + 1
+def OAI.AlternatingNS.Machine.initialState : OAI.AlternatingNS.Machine → ℕ :=
+fun M => M.2.2.1
+def OAI.AlternatingNS.Machine.haltingStates : OAI.AlternatingNS.Machine → List ℕ :=
+fun M => M.2.2.2.1
+def OAI.AlternatingNS.Machine.table : OAI.AlternatingNS.Machine → List (Option OAI.AlternatingNS.Rule) :=
+fun M => M.2.2.2.2
+def OAI.AlternatingNS.Machine.instruction : OAI.AlternatingNS.Machine → ℕ → ℕ → Option OAI.AlternatingNS.Rule :=
+fun M q a => M.table[q * M.alphabet + a]?.join
+def OAI.AlternatingNS.Machine.WellFormed : OAI.AlternatingNS.Machine → Prop :=
+fun M =>
+  M.initialState < M.states ∧
+    (∀ q ∈ M.haltingStates, q < M.states) ∧
+      ∀ (q a : ℕ) (r : OAI.AlternatingNS.Rule),
+        q < M.states → a < M.alphabet → M.instruction q a = some r → r.1 < M.states ∧ r.2.1 < M.alphabet
+def OAI.AlternatingNS.Machine.ValidInput : OAI.AlternatingNS.Machine → List ℕ → Prop :=
+fun M w => ∀ a ∈ w, a < M.alphabet
+structure OAI.AlternatingNS.Machine.Configuration : Type
+number of parameters: 0
+fields:
+  OAI.AlternatingNS.Machine.Configuration.state : ℕ
+  OAI.AlternatingNS.Machine.Configuration.head : ℤ
+  OAI.AlternatingNS.Machine.Configuration.tape : ℤ → ℕ
+constructor:
+  OAI.AlternatingNS.Machine.Configuration.mk (state : ℕ) (head : ℤ) (tape : ℤ → ℕ) :
+    OAI.AlternatingNS.Machine.Configuration
+def OAI.AlternatingNS.Machine.isHalting : OAI.AlternatingNS.Machine → OAI.AlternatingNS.Machine.Configuration → Bool :=
+fun M c => decide (c.state = M.states ∨ c.state ∈ M.haltingStates)
+def OAI.AlternatingNS.Machine.initial : OAI.AlternatingNS.Machine → List ℕ → OAI.AlternatingNS.Machine.Configuration :=
+fun M w => { state := M.initialState, head := 0, tape := fun i => if 0 ≤ i then w[i.toNat]?.getD 0 else 0 }
+def OAI.AlternatingNS.Machine.step : OAI.AlternatingNS.Machine →
+  OAI.AlternatingNS.Machine.Configuration → OAI.AlternatingNS.Machine.Configuration :=
+fun M c =>
+  if M.isHalting c = true then c
+  else
+    match M.instruction c.state (c.tape c.head) with
+    | none => { state := M.states, head := c.head, tape := c.tape }
+    | some r => { state := r.1, head := c.head + (↑↑r.2.2 - 1), tape := Function.update c.tape c.head r.2.1 }
+def OAI.AlternatingNS.Machine.run : OAI.AlternatingNS.Machine → List ℕ → ℕ → OAI.AlternatingNS.Machine.Configuration :=
+fun M w n => M.step^[n] (M.initial w)
+def OAI.AlternatingNS.Machine.Halts : OAI.AlternatingNS.Machine → List ℕ → Prop :=
+fun M w => ∃ n, M.isHalting (M.run w n) = true
+@[reducible] def OAI.AlternatingNS.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def OAI.AlternatingNS.Field.{u_1} : Type u_1 → Type u_1 :=
+fun E => ℝ → OAI.AlternatingNS.Space → E
+@[reducible] def OAI.AlternatingNS.Velocity : Type :=
+OAI.AlternatingNS.Field OAI.AlternatingNS.Space
+@[reducible] def OAI.AlternatingNS.Pressure : Type :=
+OAI.AlternatingNS.Field ℝ
+@[reducible] def OAI.AlternatingNS.MultiIndex : Type :=
+Fin 3 → ℕ
+def OAI.AlternatingNS.e : Fin 3 → OAI.AlternatingNS.Space :=
+fun i => EuclideanSpace.single i 1
+def OAI.AlternatingNS.dx.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Fin 3 → OAI.AlternatingNS.Field E → OAI.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] i F t x => (fderiv ℝ (F t) x) (OAI.AlternatingNS.e i)
+def OAI.AlternatingNS.dt.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → OAI.AlternatingNS.Field E → OAI.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] F t x => (fderivWithin ℝ (fun s => F s x) (Set.Ici 0) t) 1
+def OAI.AlternatingNS.spatial.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [NormedSpace ℝ E] → OAI.AlternatingNS.MultiIndex → OAI.AlternatingNS.Field E → OAI.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] α F =>
+  (OAI.AlternatingNS.dx 0)^[α 0] ((OAI.AlternatingNS.dx 1)^[α 1] ((OAI.AlternatingNS.dx 2)^[α 2] F))
+def OAI.AlternatingNS.mixed.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [NormedSpace ℝ E] → ℕ → OAI.AlternatingNS.MultiIndex → OAI.AlternatingNS.Field E → OAI.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] l α F => OAI.AlternatingNS.dt^[l] (OAI.AlternatingNS.spatial α F)
+def OAI.AlternatingNS.div : OAI.AlternatingNS.Velocity → ℝ → OAI.AlternatingNS.Space → ℝ :=
+fun u t x => ∑ i, (OAI.AlternatingNS.dx i u t x).ofLp i
+def OAI.AlternatingNS.grad : OAI.AlternatingNS.Pressure → ℝ → OAI.AlternatingNS.Space → OAI.AlternatingNS.Space :=
+fun p t x => (EuclideanSpace.equiv (Fin 3) ℝ).symm fun i => OAI.AlternatingNS.dx i p t x
+def OAI.AlternatingNS.laplacian : OAI.AlternatingNS.Velocity → ℝ → OAI.AlternatingNS.Space → OAI.AlternatingNS.Space :=
+fun u t x => ∑ i, OAI.AlternatingNS.dx i (OAI.AlternatingNS.dx i u) t x
+def OAI.AlternatingNS.advection : OAI.AlternatingNS.Velocity → ℝ → OAI.AlternatingNS.Space → OAI.AlternatingNS.Space :=
+fun u t x => (fderiv ℝ (u t) x) (u t x)
+def OAI.AlternatingNS.residual : ℝ → OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Velocity :=
+fun ν u t x => OAI.AlternatingNS.dt u t x + OAI.AlternatingNS.advection u t x - ν • OAI.AlternatingNS.laplacian u t x
+def OAI.AlternatingNS.timeCylinder : ℝ → Set (ℝ × OAI.AlternatingNS.Space) :=
+fun T => Set.Icc 0 T ×ˢ Set.univ
+def OAI.AlternatingNS.Smooth.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → OAI.AlternatingNS.Field E → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] F => ContDiffOn ℝ (↑⊤) (Function.uncurry F) (Set.Ici 0 ×ˢ Set.univ)
+def OAI.AlternatingNS.ClassicalRegularity : OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  (∀ (x : OAI.AlternatingNS.Space), DifferentiableOn ℝ (fun t => u t x) (Set.Ici 0)) ∧
+    (∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (u t)) ∧
+      (∀ (t : ℝ), 0 ≤ t → ∀ (i : Fin 3), Differentiable ℝ (OAI.AlternatingNS.dx i u t)) ∧
+        (∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (p t)) ∧
+          ∀ (T : ℝ),
+            0 ≤ T →
+              ContinuousOn (Function.uncurry u) (OAI.AlternatingNS.timeCylinder T) ∧
+                ContinuousOn (Function.uncurry (OAI.AlternatingNS.dt u)) (OAI.AlternatingNS.timeCylinder T) ∧
+                  (∀ (i : Fin 3),
+                      ContinuousOn (Function.uncurry (OAI.AlternatingNS.dx i u)) (OAI.AlternatingNS.timeCylinder T)) ∧
+                    (∀ (i j : Fin 3),
+                        ContinuousOn (Function.uncurry (OAI.AlternatingNS.dx i (OAI.AlternatingNS.dx j u)))
+                          (OAI.AlternatingNS.timeCylinder T)) ∧
+                      ContinuousOn (Function.uncurry p) (OAI.AlternatingNS.timeCylinder T) ∧
+                        ∀ (i : Fin 3),
+                          ContinuousOn (Function.uncurry (OAI.AlternatingNS.dx i p)) (OAI.AlternatingNS.timeCylinder T)
+def OAI.AlternatingNS.ContinuousInH.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℕ → OAI.AlternatingNS.Field E → ℝ → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] k F T =>
+  ∀ (α : OAI.AlternatingNS.MultiIndex),
+    ∑ i, α i ≤ k →
+      ∃ g,
+        ContinuousOn g (Set.Icc 0 T) ∧
+          ∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : OAI.AlternatingNS.Space), ↑↑(g t) x = OAI.AlternatingNS.spatial α F t x
+def OAI.AlternatingNS.C1InL2 : OAI.AlternatingNS.Velocity → ℝ → Prop :=
+fun u T =>
+  ∃ g g',
+    ContinuousOn g (Set.Icc 0 T) ∧
+      ContinuousOn g' (Set.Icc 0 T) ∧
+        (∀ t ∈ Set.Icc 0 T, HasDerivWithinAt g (g' t) (Set.Icc 0 T) t) ∧
+          (∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : OAI.AlternatingNS.Space), ↑↑(g t) x = u t x) ∧
+            ∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : OAI.AlternatingNS.Space), ↑↑(g' t) x = OAI.AlternatingNS.dt u t x
+def OAI.AlternatingNS.CompetitorEnergyClass : OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  ∀ (T : ℝ),
+    0 ≤ T →
+      OAI.AlternatingNS.ContinuousInH 2 u T ∧
+        OAI.AlternatingNS.C1InL2 u T ∧
+          OAI.AlternatingNS.ContinuousInH 1 p T ∧ ∃ C, ∀ t ∈ Set.Icc 0 T, ∀ (x : OAI.AlternatingNS.Space), ‖u t x‖ ≤ C
+def OAI.AlternatingNS.EnergyClass : OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  OAI.AlternatingNS.CompetitorEnergyClass u p ∧
+    ∀ (T : ℝ), 0 ≤ T → ∃ C, ∀ t ∈ Set.Icc 0 T, ∀ (x : OAI.AlternatingNS.Space), ‖u t x‖ + ‖fderiv ℝ (u t) x‖ ≤ C
+def OAI.AlternatingNS.NavierStokes : ℝ →
+  OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Velocity → OAI.AlternatingNS.Pressure → Prop :=
+fun ν f u p =>
+  OAI.AlternatingNS.ClassicalRegularity u p ∧
+    (∀ (x : OAI.AlternatingNS.Space), u 0 x = 0) ∧
+      ∀ (t : ℝ),
+        0 ≤ t →
+          ∀ (x : OAI.AlternatingNS.Space),
+            OAI.AlternatingNS.div u t x = 0 ∧
+              OAI.AlternatingNS.dt u t x + OAI.AlternatingNS.advection u t x =
+                -OAI.AlternatingNS.grad p t x + ν • OAI.AlternatingNS.laplacian u t x + f t x
+def OAI.AlternatingNS.Rapid : OAI.AlternatingNS.Velocity → Prop :=
+fun F =>
+  ∀ (J l : ℕ) (α : OAI.AlternatingNS.MultiIndex),
+    ∃ C,
+      0 ≤ C ∧
+        ∀ (t : ℝ), 0 ≤ t → ∀ (x : OAI.AlternatingNS.Space), (1 + t + ‖x‖) ^ J * ‖OAI.AlternatingNS.mixed l α F t x‖ ≤ C
+def OAI.AlternatingNS.SupportedIn : OAI.AlternatingNS.Velocity → Set OAI.AlternatingNS.Space → Prop :=
+fun F K => ∀ (t : ℝ), 0 ≤ t → Function.support (F t) ⊆ K
+def OAI.AlternatingNS.IsTrajectory : OAI.AlternatingNS.Velocity →
+  OAI.AlternatingNS.Space → (ℝ → OAI.AlternatingNS.Space) → Prop :=
+fun u a γ => γ 0 = a ∧ ∀ (t : ℝ), 0 ≤ t → HasDerivWithinAt γ (u t (γ t)) (Set.Ici 0) t
+def OAI.AlternatingNS.observedParticle : OAI.AlternatingNS.Space :=
+(EuclideanSpace.equiv (Fin 3) ℝ).symm ![-1, 0, 0]
+@[reducible] def OAI.AlternatingNS.RationalPoint : Type :=
+ℚ × ℚ × ℚ × ℚ
+@[reducible] def OAI.AlternatingNS.RationalVector : Type :=
+ℚ × ℚ × ℚ
+@[reducible] def OAI.AlternatingNS.IndexCode : Type :=
+ℕ × ℕ × ℕ
+@[reducible] def OAI.AlternatingNS.Program : Type :=
+Nat.Partrec.Code
+@[reducible] def OAI.AlternatingNS.FieldProgram : Type :=
+OAI.AlternatingNS.Program × OAI.AlternatingNS.Program × OAI.AlternatingNS.Program
+def OAI.AlternatingNS.Returns.{u_1, u_2} : {A : Type u_1} →
+  {B : Type u_2} → [Encodable A] → [Encodable B] → OAI.AlternatingNS.Program → A → B → Prop :=
+fun {A} {B} [Encodable A] [Encodable B] c a b => Encodable.encode b ∈ Nat.Partrec.Code.eval c (Encodable.encode a)
+def OAI.AlternatingNS.index : OAI.AlternatingNS.IndexCode → OAI.AlternatingNS.MultiIndex :=
+fun α => ![α.1, α.2.1, α.2.2]
+def OAI.AlternatingNS.rationalVector : OAI.AlternatingNS.RationalVector → OAI.AlternatingNS.Space :=
+fun q => (EuclideanSpace.equiv (Fin 3) ℝ).symm ![↑q.1, ↑q.2.1, ↑q.2.2]
+def OAI.AlternatingNS.rationalPoint : OAI.AlternatingNS.RationalPoint → ℝ × OAI.AlternatingNS.Space :=
+fun q => (↑q.1, OAI.AlternatingNS.rationalVector q.2)
+def OAI.AlternatingNS.dyadicError : ℕ → ℝ :=
+fun n => (1 / 2) ^ n
+def OAI.AlternatingNS.ComputableReal : ℝ → Prop :=
+fun r => ∃ a, (Computable fun n => ((a n).num, (a n).den)) ∧ ∀ (n : ℕ), |r - ↑(a n)| ≤ OAI.AlternatingNS.dyadicError n
+def OAI.AlternatingNS.ProgramFor : OAI.AlternatingNS.FieldProgram → OAI.AlternatingNS.Velocity → Prop :=
+fun c F =>
+  (∀ (l : ℕ) (α : OAI.AlternatingNS.IndexCode) (q : OAI.AlternatingNS.RationalPoint) (k : ℕ),
+      ∃ v,
+        OAI.AlternatingNS.Returns c.1 (l, α, q, k) v ∧
+          (0 ≤ q.1 →
+            ‖OAI.AlternatingNS.rationalVector v -
+                  OAI.AlternatingNS.mixed l (OAI.AlternatingNS.index α) F (OAI.AlternatingNS.rationalPoint q).1
+                    (OAI.AlternatingNS.rationalPoint q).2‖ ≤
+              OAI.AlternatingNS.dyadicError k)) ∧
+    (∀ (l : ℕ) (α : OAI.AlternatingNS.IndexCode) (R k : ℕ),
+        ∃ m,
+          OAI.AlternatingNS.Returns c.2.1 (l, α, R, k) m ∧
+            ∀ (z z' : ℝ × OAI.AlternatingNS.Space),
+              0 ≤ z.1 →
+                0 ≤ z'.1 →
+                  ‖z‖ ≤ ↑R →
+                    ‖z'‖ ≤ ↑R →
+                      ‖z - z'‖ ≤ OAI.AlternatingNS.dyadicError m →
+                        ‖OAI.AlternatingNS.mixed l (OAI.AlternatingNS.index α) F z.1 z.2 -
+                              OAI.AlternatingNS.mixed l (OAI.AlternatingNS.index α) F z'.1 z'.2‖ ≤
+                          OAI.AlternatingNS.dyadicError k) ∧
+      ∀ (J l : ℕ) (α : OAI.AlternatingNS.IndexCode),
+        ∃ B,
+          OAI.AlternatingNS.Returns c.2.2 (J, l, α) B ∧
+            ∀ (t : ℝ),
+              0 ≤ t →
+                ∀ (x : OAI.AlternatingNS.Space),
+                  (1 + t + ‖x‖) ^ J * ‖OAI.AlternatingNS.mixed l (OAI.AlternatingNS.index α) F t x‖ ≤ ↑B
+def OAI.AlternatingNS.AlternatingConclusion : ℝ → Prop :=
+fun ν =>
+  ∃ compileForce compileVelocity,
+    Computable compileForce ∧
+      Computable compileVelocity ∧
+        ∃ K,
+          IsCompact K ∧
+            ∀ (M : OAI.AlternatingNS.Machine) (w : List ℕ),
+              M.WellFormed →
+                M.ValidInput w →
+                  ∃ f U X,
+                    OAI.AlternatingNS.ProgramFor (compileForce (M, w)) f ∧
+                      OAI.AlternatingNS.ProgramFor (compileVelocity (M, w)) U ∧
+                        OAI.AlternatingNS.Smooth f ∧
+                          OAI.AlternatingNS.Smooth U ∧
+                            OAI.AlternatingNS.SupportedIn f K ∧
+                              OAI.AlternatingNS.SupportedIn U K ∧
+                                OAI.AlternatingNS.Rapid f ∧
+                                  OAI.AlternatingNS.Rapid U ∧
+                                    f = OAI.AlternatingNS.residual ν U ∧
+                                      (OAI.AlternatingNS.NavierStokes ν f U fun x x_1 => 0) ∧
+                                        (OAI.AlternatingNS.EnergyClass U fun x x_1 => 0) ∧
+                                          (∀ (v : OAI.AlternatingNS.Velocity) (p : OAI.AlternatingNS.Pressure),
+                                              OAI.AlternatingNS.NavierStokes ν f v p →
+                                                OAI.AlternatingNS.CompetitorEnergyClass v p →
+                                                  ∀ (t : ℝ),
+                                                    0 ≤ t →
+                                                      ∀ (x : OAI.AlternatingNS.Space), v t x = U t x ∧ p t x = 0) ∧
+                                            (∀ (a : OAI.AlternatingNS.Space),
+                                                OAI.AlternatingNS.IsTrajectory U a (X a)) ∧
+                                              (∀ (a : OAI.AlternatingNS.Space) (γ : ℝ → OAI.AlternatingNS.Space),
+                                                  OAI.AlternatingNS.IsTrajectory U a γ →
+                                                    ∀ (t : ℝ), 0 ≤ t → γ t = X a t) ∧
+                                                ((∃ t, 0 ≤ t ∧ 0 < (X OAI.AlternatingNS.observedParticle t).ofLp 0) ↔
+                                                  M.Halts w)

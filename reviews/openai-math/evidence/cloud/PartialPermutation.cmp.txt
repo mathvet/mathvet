@@ -1,0 +1,126 @@
+CMP OAI.PartialPermutation.complementaryCosets_finite [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement [def] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_7 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_6 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_5 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_4 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_3 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_2 [thm] ok
+CMP OAI.PartialPermutation.ComplementaryCosetsFiniteStatement._proof_1 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_1 [thm] ok
+CMP OAI.PartialPermutation.symmetricDegreeConstant [def] ok
+CMP OAI.PartialPermutation.symmetricInverseDegreeSum [def] ok
+CMP OAI.PartialPermutation.inverseDegreeSum [def] ok
+CMP OAI.PartialPermutation.irreducibleDegree [def] ok
+CMP OAI.PartialPermutation.irreducibleSpace [def] ok
+CMP OAI.PartialPermutation.componentSimple [def] ok
+CMP OAI.PartialPermutation.componentSimple._proof_1 [thm] ok
+CMP OAI.PartialPermutation.IrreducibleIndex [def] ok
+CMP OAI.PartialPermutation.regularRep [def] ok
+CMP OAI.PartialPermutation.regularRep._proof_9 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_3 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_2 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_8 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_7 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_6 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_5 [thm] ok
+CMP OAI.PartialPermutation.regularRep._proof_4 [thm] ok
+CMP OAI.PartialPermutation.irreducibleIndex_fintype [def] ok
+CMP OAI.PartialPermutation.irreducibleIndex_fintype._proof_1 [thm] ok
+CMP OAI.PartialPermutation.complexFourier [def] ok
+CMP OAI.PartialPermutation.complexFourier._proof_1 [thm] ok
+CMP OAI.PartialPermutation.hsNormSq [def] ok
+CMP OAI.PartialPermutation.hsNormSq._proof_3 [thm] ok
+CMP OAI.PartialPermutation.hsNormSq._proof_2 [thm] ok
+CMP OAI.PartialPermutation.hsNormSq._proof_1 [thm] ok
+CMP OAI.PartialPermutation.blockSubgroup [def] ok
+CMP OAI.PartialPermutation.blockSubgroup._proof_3 [thm] ok
+CMP OAI.PartialPermutation.blockSubgroup._proof_2 [thm] ok
+CMP OAI.PartialPermutation.blockSubgroup._proof_1 [thm] ok
+CMP OAI.PartialPermutation.LeftCosetCap [def] ok
+CMP OAI.PartialPermutation.mass [def] ok
+CMP OAI.PartialPermutation.IsUnitary [def] ok
+Chal.PartialPermutation.complementaryCosets_finite : Chal.PartialPermutation.ComplementaryCosetsFiniteStatement
+def Chal.PartialPermutation.IsUnitary.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [inst_1 : NormedAddCommGroup V] → [inst_2 : InnerProductSpace ℂ V] → Representation ℂ G V → Prop :=
+fun {G} {V} [Group G] [NormedAddCommGroup V] [InnerProductSpace ℂ V] ρ =>
+  ∀ (g : G) (x y : V), inner ℂ ((ρ g) x) ((ρ g) y) = inner ℂ x y
+def Chal.PartialPermutation.hsNormSq.{u_1} : {V : Type u_1} →
+  [inst : NormedAddCommGroup V] → [inst_1 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Module.End ℂ V → ℝ :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] A =>
+  ((LinearMap.trace ℂ V) (LinearMap.adjoint A * A)).re
+def Chal.PartialPermutation.complexFourier.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [Fintype G] →
+        [inst_2 : AddCommGroup V] → [inst_3 : _root_.Module ℂ V] → Representation ℂ G V → (G → ℂ) → Module.End ℂ V :=
+fun {G} {V} [Group G] [Fintype G] [AddCommGroup V] [_root_.Module ℂ V] ρ f => ∑ g, f g • ρ g
+def Chal.PartialPermutation.componentSimple.{u_1, u_2} : {G : Type u_1} →
+  {V : Type u_2} →
+    [inst : Group G] →
+      [inst_1 : AddCommGroup V] →
+        [inst_2 : _root_.Module ℂ V] →
+          (ρ : Representation ℂ G V) →
+            ↑(isotypicComponents (MonoidAlgebra ℂ G) ρ.asModule) → Submodule (MonoidAlgebra ℂ G) ρ.asModule :=
+fun {G} {V} [Group G] [AddCommGroup V] [_root_.Module ℂ V] ρ c => Exists.choose ⋯
+def Chal.PartialPermutation.regularRep.{u_1} : (G : Type u_1) →
+  [inst : Group G] → Representation ℂ G (EuclideanSpace ℂ G) :=
+fun G [Group G] =>
+  { toFun := fun g => { toFun := fun f => WithLp.toLp 2 fun h => f.ofLp (g⁻¹ * h), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+@[reducible] def Chal.PartialPermutation.IrreducibleIndex.{u_2} : (G : Type u_2) →
+  [inst : Group G] →
+    [Fintype G] → Set (Submodule (MonoidAlgebra ℂ G) (Chal.PartialPermutation.regularRep G).asModule) :=
+fun G [Group G] [Fintype G] => isotypicComponents (MonoidAlgebra ℂ G) (Chal.PartialPermutation.regularRep G).asModule
+@[reducible] def Chal.PartialPermutation.irreducibleSpace.{u_1} : {G : Type u_1} →
+  [inst : Group G] →
+    [inst_1 : Fintype G] → ↑(Chal.PartialPermutation.IrreducibleIndex G) → Submodule ℂ (EuclideanSpace ℂ G) :=
+fun {G} [Group G] [Fintype G] c =>
+  (Subrepresentation.ofSubmodule'
+      (Chal.PartialPermutation.componentSimple (Chal.PartialPermutation.regularRep G) c)).toSubmodule
+@[reducible] def Chal.PartialPermutation.irreducibleDegree.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [inst_1 : Fintype G] → ↑(Chal.PartialPermutation.IrreducibleIndex G) → ℕ :=
+fun {G} [Group G] [Fintype G] c => Module.finrank ℂ ↥(Chal.PartialPermutation.irreducibleSpace c)
+def Chal.PartialPermutation.mass.{u_1} : {G : Type u_1} → [Fintype G] → (G → ℝ) → ℝ :=
+fun {G} [Fintype G] f => ∑ g, f g
+def Chal.PartialPermutation.LeftCosetCap.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [Fintype G] → (G → ℝ) → Subgroup G → ℝ → Prop :=
+fun {G} [Group G] [Fintype G] f H B => ∀ (g : G), ∑ h, f (g * ↑h) ≤ B / ↑H.index
+def Chal.PartialPermutation.blockSubgroup.{u_1} : {X : Type u_1} → Set X → Subgroup (Equiv.Perm X) :=
+fun {X} M => { carrier := {g | ∀ x ∉ M, g x = x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def Chal.PartialPermutation.inverseDegreeSum.{u_1} : (G : Type u_1) → [Group G] → [Fintype G] → ℝ → ℝ :=
+fun G [Group G] [Fintype G] u => ∑ c, ↑(Chal.PartialPermutation.irreducibleDegree c) ^ (-u)
+def Chal.PartialPermutation.symmetricInverseDegreeSum : ℕ → ℝ → ℝ :=
+fun n u => Chal.PartialPermutation.inverseDegreeSum (Equiv.Perm (Fin n)) u
+def Chal.PartialPermutation.symmetricDegreeConstant : ℝ → ℝ :=
+fun u => sSup {x | ∃ n, 1 ≤ n ∧ x = Chal.PartialPermutation.symmetricInverseDegreeSum n u}
+def Chal.PartialPermutation.ComplementaryCosetsFiniteStatement.{u_1} : Prop :=
+∀ (X : Type u_1) [inst : Fintype X] [inst_1 : DecidableEq X] (b : ℕ),
+  0 < b →
+    ∀ (M : Fin b → Set X),
+      (∀ (i : Fin b), (M i).Nonempty) →
+        (Pairwise fun i j => Disjoint (M i) (M j)) →
+          ⋃ i, M i = Set.univ →
+            ∀ (V : Type) [inst_2 : NormedAddCommGroup V] [inst_3 : InnerProductSpace ℂ V]
+              [inst_4 : FiniteDimensional ℂ V] (ρ : Representation ℂ (Equiv.Perm X) V),
+              ρ.IsIrreducible →
+                Chal.PartialPermutation.IsUnitary ρ →
+                  ∀ (f : Equiv.Perm X → ℝ) (B u : ℝ),
+                    (∀ (g : Equiv.Perm X), 0 ≤ f g) →
+                      Chal.PartialPermutation.mass f ≤ 1 →
+                        0 < u →
+                          (∀ (i : Fin b),
+                              Chal.PartialPermutation.LeftCosetCap f (Chal.PartialPermutation.blockSubgroup (M i)) B) →
+                            Chal.PartialPermutation.hsNormSq
+                                  (Chal.PartialPermutation.complexFourier ρ fun g => ↑(f g)) ≤
+                                ↑b * B * Chal.PartialPermutation.symmetricDegreeConstant u *
+                                  ↑(Module.finrank ℂ V) ^ (-1 + (u + 2) / ↑b) ∧
+                              ‖LinearMap.toContinuousLinearMap
+                                      (Chal.PartialPermutation.complexFourier ρ fun g => ↑(f g))‖ ^
+                                  2 ≤
+                                ↑b * B * Chal.PartialPermutation.symmetricDegreeConstant u *
+                                  ↑(Module.finrank ℂ V) ^ (-1 + (u + 2) / ↑b)
+'OAI.PartialPermutation.complementaryCosets_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PartialPermutation comparator-style: ok=42 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

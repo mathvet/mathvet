@@ -1,0 +1,1477 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_RecursivePotentials.lean:955:8: warning: declaration uses `sorry`
+OAI.ComparatorModel.RecursivePotentials.main : OAI.ComparatorModel.RecursivePotentials.MainClaim
+def OAI.RecursivePotentials.leastPair : ℝ → ℝ → ℝ → ℝ × ℝ :=
+fun x a b => (max a (x + b), max b (-x + a))
+structure OAI.RecursivePotentials.FiniteRootedTree.{uIndex} (ι : Type uIndex) : Type uIndex
+number of parameters: 1
+fields:
+  OAI.RecursivePotentials.FiniteRootedTree.root : ι
+  OAI.RecursivePotentials.FiniteRootedTree.parent : ι → ι
+  OAI.RecursivePotentials.FiniteRootedTree.depth : ι → ℕ
+  OAI.RecursivePotentials.FiniteRootedTree.parent_root : self.parent self.root = self.root
+  OAI.RecursivePotentials.FiniteRootedTree.depth_root : self.depth self.root = 0
+  OAI.RecursivePotentials.FiniteRootedTree.parent_depth : ∀ (i : ι),
+      i ≠ self.root → self.depth (self.parent i) < self.depth i
+constructor:
+  OAI.RecursivePotentials.FiniteRootedTree.mk.{uIndex} {ι : Type uIndex} (root : ι) (parent : ι → ι) (depth : ι → ℕ)
+    (parent_root : parent root = root) (depth_root : depth root = 0)
+    (parent_depth : ∀ (i : ι), i ≠ root → depth (parent i) < depth i) : OAI.RecursivePotentials.FiniteRootedTree ι
+def OAI.RecursivePotentials.FiniteRootedTree.children.{uIndex} : {ι : Type uIndex} →
+  [indexFinite : Fintype ι] →
+    [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → ι → Finset ι :=
+fun {ι} [Fintype ι] [DecidableEq ι] T s => {c | c ≠ T.root ∧ T.parent c = s}
+def OAI.RecursivePotentials.FiniteRootedTree.maxDepth.{uIndex} : {ι : Type uIndex} →
+  [indexFinite : Fintype ι] → OAI.RecursivePotentials.FiniteRootedTree ι → ℕ :=
+fun {ι} [Fintype ι] T => Finset.univ.sup T.depth
+@[irreducible] def OAI.RecursivePotentials.FiniteRootedTree.fields.{uIndex} : {ι : Type uIndex} →
+  [indexFinite : Fintype ι] →
+    [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → (ι → ℝ) → ι → ℝ × ℝ :=
+fun {ι} [Fintype ι] [DecidableEq ι] T v =>
+  WellFounded.Nat.fix (fun x => T.maxDepth - T.depth x) fun s a =>
+    OAI.RecursivePotentials.leastPair (v s) √(∑ c, (a ↑c ⋯).1 ^ 2) √(∑ c, (a ↑c ⋯).2 ^ 2)
+def OAI.RecursivePotentials.FiniteRootedTree.Initial.{uIndex} : {ι : Type uIndex} →
+  OAI.RecursivePotentials.FiniteRootedTree ι → Finset ι → Prop :=
+fun {ι} T H => T.root ∈ H ∧ ∀ s ∈ H, T.parent s ∈ H
+@[irreducible] def OAI.RecursivePotentials.FiniteRootedTree.ancestors.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → ι → Finset ι :=
+fun {ι} [DecidableEq ι] T =>
+  WellFounded.Nat.fix (fun x => T.depth x) fun s a => if _hs : s = T.root then {s} else insert s (a (T.parent s) ⋯)
+def OAI.RecursivePotentials.FiniteRootedTree.ancestorClosure.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → Finset ι → Finset ι :=
+fun {ι} [DecidableEq ι] T S => insert T.root (S.biUnion T.ancestors)
+def OAI.RecursivePotentials.FiniteRootedTree.restrict.{uIndex} : {ι : Type uIndex} →
+  (T : OAI.RecursivePotentials.FiniteRootedTree ι) →
+    (H : Finset ι) → T.Initial H → OAI.RecursivePotentials.FiniteRootedTree ↥H :=
+fun {ι} T H hH =>
+  { root := ⟨T.root, ⋯⟩, parent := fun s => ⟨T.parent ↑s, ⋯⟩, depth := fun s => T.depth ↑s, parent_root := ⋯,
+    depth_root := ⋯, parent_depth := ⋯ }
+def OAI.RecursivePotentials.FiniteRootedTree.extend.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → (H : Finset ι) → (↥H → ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] H f => Finsupp.onFinset H (fun s => if hs : s ∈ H then f ⟨s, hs⟩ else 0) ⋯
+def OAI.RecursivePotentials.FiniteRootedTree.head.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → (ι →₀ ℝ) → Finset ι :=
+fun {ι} [DecidableEq ι] T v => T.ancestorClosure v.support
+def OAI.RecursivePotentials.FiniteRootedTree.projectHead.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → OAI.RecursivePotentials.FiniteRootedTree ι → Finset ι → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] _T H v => Finsupp.filter (fun x => x ∈ H) v
+structure OAI.RecursivePotentials.CofiniteSubspace.{uSpace} (E : Type uSpace) [NormedAddCommGroup E] [NormedSpace ℝ E] :
+  Type uSpace
+number of parameters: 3
+fields:
+  OAI.RecursivePotentials.CofiniteSubspace.space : Submodule ℝ E
+  OAI.RecursivePotentials.CofiniteSubspace.closed : IsClosed ↑self.space
+  OAI.RecursivePotentials.CofiniteSubspace.finiteQuotient : Module.Finite ℝ (E ⧸ self.space)
+constructor:
+  OAI.RecursivePotentials.CofiniteSubspace.mk.{uSpace} {E : Type uSpace} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (space : Submodule ℝ E) (closed : IsClosed ↑space) (finiteQuotient : Module.Finite ℝ (E ⧸ space)) :
+    OAI.RecursivePotentials.CofiniteSubspace E
+def OAI.RecursivePotentials.averagedGain.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → E → ℝ → E → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] x t y => (‖x + t • y‖ + ‖x - t • y‖) / 2 - 1
+def OAI.RecursivePotentials.averagedInner.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → E → ℝ → OAI.RecursivePotentials.CofiniteSubspace E → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] x t F =>
+  sInf {r | ∃ y ∈ F.space, 1 ≤ ‖y‖ ∧ r = OAI.RecursivePotentials.averagedGain x t y}
+def OAI.RecursivePotentials.averagedModulus.{uSpace} : (E : Type uSpace) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] t =>
+  sInf {r | ∃ x, ‖x‖ = 1 ∧ r = sSup (Set.range (OAI.RecursivePotentials.averagedInner x t))}
+def OAI.RecursivePotentials.sequenceTree : OAI.RecursivePotentials.FiniteRootedTree (List ℕ) :=
+{ root := [], parent := List.dropLast, depth := List.length,
+  parent_root := OAI.RecursivePotentials.sequenceTree._proof_2,
+  depth_root := OAI.RecursivePotentials.sequenceTree._proof_3,
+  parent_depth := OAI.RecursivePotentials.sequenceTree._proof_4 }
+@[reducible] def OAI.RecursivePotentials.ComponentNode : ℕ+ → Type :=
+fun h => { s // s.length ≤ ↑h }
+@[reducible] def OAI.RecursivePotentials.JoinedNode : Type :=
+Option ((h : ℕ+) × OAI.RecursivePotentials.ComponentNode h)
+def OAI.RecursivePotentials.joinedTree : OAI.RecursivePotentials.FiniteRootedTree OAI.RecursivePotentials.JoinedNode :=
+{ root := none,
+  parent := fun x =>
+    match x with
+    | none => none
+    | some ⟨h, s⟩ => if ↑s = [] then none else some ⟨h, ⟨(↑s).dropLast, ⋯⟩⟩,
+  depth := fun x =>
+    match x with
+    | none => 0
+    | some ⟨fst, s⟩ => (↑s).length + 1,
+  parent_root := OAI.RecursivePotentials.joinedTree._proof_2, depth_root := OAI.RecursivePotentials.joinedTree._proof_5,
+  parent_depth := OAI.RecursivePotentials.joinedTree._proof_6 }
+def OAI.RecursivePotentials.WeaklyNull.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℕ → E) → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] d =>
+  ∀ (f : E →L[ℝ] ℝ), Filter.Tendsto (fun k => f (d k)) Filter.atTop (nhds 0)
+structure OAI.RecursivePotentials.EquivalentNorm.{uSpace} (E : Type uSpace) [NormedAddCommGroup E] [NormedSpace ℝ E] :
+  Type uSpace
+number of parameters: 3
+fields:
+  OAI.RecursivePotentials.EquivalentNorm.N : Seminorm ℝ E
+  OAI.RecursivePotentials.EquivalentNorm.lower : ℝ
+  OAI.RecursivePotentials.EquivalentNorm.upper : ℝ
+  OAI.RecursivePotentials.EquivalentNorm.lower_pos : 0 < self.lower
+  OAI.RecursivePotentials.EquivalentNorm.lower_le_upper : self.lower ≤ self.upper
+  OAI.RecursivePotentials.EquivalentNorm.lower_bound : ∀ (x : E), self.lower * ‖x‖ ≤ self.N x
+  OAI.RecursivePotentials.EquivalentNorm.upper_bound : ∀ (x : E), self.N x ≤ self.upper * ‖x‖
+constructor:
+  OAI.RecursivePotentials.EquivalentNorm.mk.{uSpace} {E : Type uSpace} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (N : Seminorm ℝ E) (lower upper : ℝ) (lower_pos : 0 < lower) (lower_le_upper : lower ≤ upper)
+    (lower_bound : ∀ (x : E), lower * ‖x‖ ≤ N x) (upper_bound : ∀ (x : E), N x ≤ upper * ‖x‖) :
+    OAI.RecursivePotentials.EquivalentNorm E
+def OAI.RecursivePotentials.EquivalentNorm.inner.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      OAI.RecursivePotentials.EquivalentNorm E → E → ℝ → OAI.RecursivePotentials.CofiniteSubspace E → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] A x t F =>
+  sInf {r | ∃ y ∈ F.space, A.N y = 1 ∧ r = A.N (x + t • y) - 1}
+def OAI.RecursivePotentials.EquivalentNorm.modulus.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → OAI.RecursivePotentials.EquivalentNorm E → ℝ → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] A t => sInf {r | ∃ x, A.N x = 1 ∧ r = sSup (Set.range (A.inner x t))}
+def OAI.RecursivePotentials.EquivalentNorm.AUC.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → OAI.RecursivePotentials.EquivalentNorm E → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] A => ∀ (t : ℝ), 0 < t → 0 < A.modulus t
+def OAI.RecursivePotentials.IsReflexive.{uSpace} : (E : Type uSpace) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] => Function.Surjective ⇑(NormedSpace.inclusionInDoubleDual ℝ E)
+@[reducible] def OAI.RecursivePotentials.SquareSum.Space.{uIndex, uFiber} : {ι : Type uIndex} →
+  (E : ι → Type uFiber) → [(i : ι) → NormedAddCommGroup (E i)] → Type (max uFiber uIndex) :=
+fun {ι} E [(i : ι) → NormedAddCommGroup (E i)] => ↥(lp E 2)
+def OAI.RecursivePotentials.completionEquivOfDense.{uSpace, uOther} : {E : Type uSpace} →
+  {F : Type uOther} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : NormedSpace ℝ E] →
+        [inst_2 : NormedAddCommGroup F] →
+          [inst_3 : NormedSpace ℝ F] →
+            [CompleteSpace F] →
+              (f : E →L[ℝ] F) →
+                (K : NNReal) → (∀ (x : E), ‖x‖ ≤ ↑K * ‖f x‖) → DenseRange ⇑f → UniformSpace.Completion E ≃L[ℝ] F :=
+fun {E} {F} [NormedAddCommGroup E] [NormedSpace ℝ E] [NormedAddCommGroup F] [NormedSpace ℝ F] [CompleteSpace F] f K hK
+    hdense =>
+  let g := f.fromCompletion;
+  have hbound := ⋯;
+  have hanti := ⋯;
+  have hclosed := ⋯;
+  have hsurj := ⋯;
+  ContinuousLinearEquiv.ofBijective g ⋯ ⋯
+def OAI.RecursivePotentials.componentTree : (h : ℕ+) →
+  OAI.RecursivePotentials.FiniteRootedTree (OAI.RecursivePotentials.ComponentNode h) :=
+fun h =>
+  { root := ⟨[], ⋯⟩, parent := fun s => ⟨(↑s).dropLast, ⋯⟩, depth := fun s => (↑s).length, parent_root := ⋯,
+    depth_root := ⋯, parent_depth := ⋯ }
+def OAI.RecursivePotentials.logarithmicGamma : ℝ → ℝ → ℝ :=
+fun M β =>
+  have h := β ^ 2 / (2 * M ^ 2);
+  have c := β * √h / 8;
+  have H := 1 + Real.log (M / c);
+  have K := 4 * (2 + √6) * H / h;
+  β * h / 8 * Real.exp (-K)
+structure OAI.RecursivePotentials.ChildExponent : Type
+number of parameters: 0
+fields:
+  OAI.RecursivePotentials.ChildExponent.val : ℝ
+  OAI.RecursivePotentials.ChildExponent.one_le : 1 ≤ self.val
+constructor:
+  OAI.RecursivePotentials.ChildExponent.mk (val : ℝ) (one_le : 1 ≤ val) : OAI.RecursivePotentials.ChildExponent
+def OAI.RecursivePotentials.ChildExponent.agg.{uIndex} : OAI.RecursivePotentials.ChildExponent →
+  {ι : Type uIndex} → Finset ι → (ι → ℝ) → ℝ :=
+fun p {ι} s f => (∑ i ∈ s, |f i| ^ p.val) ^ (1 / p.val)
+@[irreducible] def OAI.RecursivePotentials.FiniteRootedTree.pfields.{uIndex} : {ι : Type uIndex} →
+  [indexFinite : Fintype ι] →
+    [indexDecidable : DecidableEq ι] →
+      OAI.RecursivePotentials.FiniteRootedTree ι → OAI.RecursivePotentials.ChildExponent → (ι → ℝ) → ι → ℝ × ℝ :=
+fun {ι} [Fintype ι] [DecidableEq ι] T p v =>
+  WellFounded.Nat.fix (fun x => T.maxDepth - T.depth x) fun s a =>
+    OAI.RecursivePotentials.leastPair (v s) (p.agg Finset.univ fun c => (a ↑c ⋯).1)
+      (p.agg Finset.univ fun c => (a ↑c ⋯).2)
+def OAI.RecursivePotentials.VariableExponent.heightExponent : ℕ+ → ℝ :=
+fun h => 1 + 1 / ↑↑h
+def OAI.RecursivePotentials.VariableExponent.cubicConstant : ℝ :=
+(6 * Real.exp 1)⁻¹ ^ 3
+def OAI.RecursivePotentials.VariableExponent.sixthConstant : ℝ :=
+2 * Real.exp (-(Real.exp 1 - 1)) * 4⁻¹ ^ 6
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.leastPair : ℝ → ℝ → ℝ → ℝ × ℝ :=
+OAI.RecursivePotentials.leastPair
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.{u_1} : Type u_1 → Type u_1 :=
+OAI.RecursivePotentials.FiniteRootedTree
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Initial.{uIndex} : {ι : Type uIndex} →
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Finset ι → Prop :=
+fun {ι} T => OAI.RecursivePotentials.FiniteRootedTree.Initial T
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.restrict.{uIndex} : {ι : Type uIndex} →
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+    (H : Finset ι) →
+      OAI.RecursivePotentials.FiniteRootedTree.Initial T H → OAI.RecursivePotentials.FiniteRootedTree ↥H :=
+fun {ι} T => OAI.RecursivePotentials.FiniteRootedTree.restrict T
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.extend.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → (H : Finset ι) → (↥H → ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] H => OAI.RecursivePotentials.FiniteRootedTree.extend H
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.head.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] → OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → (ι →₀ ℝ) → Finset ι :=
+fun {ι} [DecidableEq ι] T => OAI.RecursivePotentials.FiniteRootedTree.head T
+class OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads.{uIndex} : Prop
+number of parameters: 0
+fields:
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads.initial : ∀ {ι : Type uIndex} [inst : DecidableEq ι]
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) (v : ι →₀ ℝ), T.Initial (T.head v)
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads.mk.{uIndex}
+    (initial :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (v : ι →₀ ℝ), T.Initial (T.head v)) :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads
+def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.P.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+      [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] T [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] v =>
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.extend (T.head v) fun s =>
+    ((T.restrict (T.head v) ⋯).fields (fun s => v ↑s) s).1
+def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Q.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+      [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] T [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] v =>
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.extend (T.head v) fun s =>
+    ((T.restrict (T.head v) ⋯).fields (fun s => v ↑s) s).2
+def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.normSum.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+      [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] → (ι →₀ ℝ) → ℝ :=
+fun {ι} [DecidableEq ι] T [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] v =>
+  (T.P v) T.root + (T.Q v) T.root
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.projectHead.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Finset ι → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun {ι} [DecidableEq ι] T => OAI.RecursivePotentials.FiniteRootedTree.projectHead T
+def OAI.ComparatorModel.RecursivePotentials.TreeVector.{uIndex} : {ι : Type uIndex} →
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Type (max uIndex 0) :=
+fun {ι} _T => ι →₀ ℝ
+class OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] : Prop
+number of parameters: 1
+fields:
+  OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction.core : ∀ {ι : Type uIndex} [inst : DecidableEq ι]
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι),
+      NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.TreeVector T)
+  OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction.coordinate_bound : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) (v : ι →₀ ℝ) (s : ι),
+      |v s| ≤ T.normSum v
+  OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction.projection_bound : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) (H : Finset ι),
+      T.Initial H → ∀ (v : ι →₀ ℝ), T.normSum (T.projectHead H v) ≤ T.normSum v
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    (core :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι),
+        NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.TreeVector T))
+    (coordinate_bound :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (v : ι →₀ ℝ) (s : ι), |v s| ≤ T.normSum v)
+    (projection_bound :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (H : Finset ι), T.Initial H → ∀ (v : ι →₀ ℝ), T.normSum (T.projectHead H v) ≤ T.normSum v) :
+    OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction
+def OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinateLinear.{uIndex} : {ι : Type uIndex} →
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+    ι → OAI.ComparatorModel.RecursivePotentials.TreeVector T →ₗ[ℝ] ℝ :=
+fun {ι} T s =>
+  {
+    toFun := fun v =>
+      (have this := v;
+        ⇑this)
+        s,
+    map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinate.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+        [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+          ι → OAI.ComparatorModel.RecursivePotentials.TreeVector T →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] s =>
+  (OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinateLinear T s).mkContinuous 1 ⋯
+def OAI.ComparatorModel.RecursivePotentials.TreeVector.projectionLinear.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+      Finset ι →
+        OAI.ComparatorModel.RecursivePotentials.TreeVector T →ₗ[ℝ]
+          OAI.ComparatorModel.RecursivePotentials.TreeVector T :=
+fun {ι} [DecidableEq ι] T H => { toFun := T.projectHead H, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ComparatorModel.RecursivePotentials.TreeVector.projection.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+        [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+          (H : Finset ι) →
+            T.Initial H →
+              OAI.ComparatorModel.RecursivePotentials.TreeVector T →L[ℝ]
+                OAI.ComparatorModel.RecursivePotentials.TreeVector T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] H hH =>
+  (OAI.ComparatorModel.RecursivePotentials.TreeVector.projectionLinear T H).mkContinuous 1 ⋯
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.TreeSpace.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} → [DecidableEq ι] → OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Type uIndex :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T =>
+  UniformSpace.Completion (OAI.ComparatorModel.RecursivePotentials.TreeVector T)
+def OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          ι → OAI.ComparatorModel.RecursivePotentials.TreeSpace T →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T s =>
+  (OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinate T s).fromCompletion
+def OAI.ComparatorModel.RecursivePotentials.TreeSpace.P.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          ι → OAI.ComparatorModel.RecursivePotentials.TreeSpace T → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T s =>
+  UniformSpace.Completion.extension fun v => (T.P v) s
+def OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          ι → OAI.ComparatorModel.RecursivePotentials.TreeSpace T → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T s =>
+  UniformSpace.Completion.extension fun v => (T.Q v) s
+def OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (H : Finset ι) →
+            T.Initial H →
+              OAI.ComparatorModel.RecursivePotentials.TreeSpace T →L[ℝ]
+                OAI.ComparatorModel.RecursivePotentials.TreeSpace T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T H hH =>
+  (OAI.ComparatorModel.RecursivePotentials.TreeVector.projection T H hH).completion
+def OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (H : Finset ι) → T.Initial H → Submodule ℝ (OAI.ComparatorModel.RecursivePotentials.TreeSpace T) :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T H hH =>
+  (↑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH)).ker
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.averagedModulus.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → ℝ :=
+OAI.RecursivePotentials.averagedModulus
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.sequenceTree : OAI.RecursivePotentials.FiniteRootedTree
+  (List ℕ) :=
+OAI.RecursivePotentials.sequenceTree
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.ComponentNode : ℕ+ → Type :=
+OAI.RecursivePotentials.ComponentNode
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.JoinedNode : Type :=
+OAI.RecursivePotentials.JoinedNode
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.joinedTree : OAI.RecursivePotentials.FiniteRootedTree
+  OAI.RecursivePotentials.JoinedNode :=
+OAI.RecursivePotentials.joinedTree
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.XSigma : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] → Type :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] =>
+  OAI.ComparatorModel.RecursivePotentials.TreeSpace OAI.ComparatorModel.RecursivePotentials.sequenceTree
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.XJoined : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] → Type :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] =>
+  OAI.ComparatorModel.RecursivePotentials.TreeSpace OAI.ComparatorModel.RecursivePotentials.joinedTree
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} → [DecidableEq ι] → OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Type uIndex :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T =>
+  ↥(↑(OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinate T T.root)).ker
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T →ₗ[ℝ]
+            OAI.ComparatorModel.RecursivePotentials.TreeVector T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T =>
+  (↑(OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinate T T.root)).ker.subtype
+class OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] : Prop
+number of parameters: 2
+fields:
+  OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction.core : ∀ {ι : Type uIndex} [inst : DecidableEq ι]
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι),
+      NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T)
+  OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction.half : ∀ {ι : Type uIndex} [inst : DecidableEq ι]
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+      (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+      ‖v‖ = ‖(OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v‖ / 2
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    (core :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι),
+        NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T))
+    (half :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+        ‖v‖ = ‖(OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v‖ / 2) :
+    OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.inclusion.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+            OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T →L[ℝ]
+              OAI.ComparatorModel.RecursivePotentials.TreeVector T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] =>
+  (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T).mkContinuous 2 ⋯
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projectionLinear.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (H : Finset ι) →
+            T.Initial H →
+              OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T →ₗ[ℝ]
+                OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T H hH =>
+  LinearMap.codRestrict (↑(OAI.ComparatorModel.RecursivePotentials.TreeVector.coordinate T T.root)).ker
+    (↑(OAI.ComparatorModel.RecursivePotentials.TreeVector.projection T H hH) ∘ₗ
+      OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T)
+    ⋯
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projection.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+            (H : Finset ι) →
+              T.Initial H →
+                OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T →L[ℝ]
+                  OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι} [DecidableEq ι] T
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] H hH =>
+  (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projectionLinear T H hH).mkContinuous 1 ⋯
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} → [DecidableEq ι] → OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι → Type uIndex :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T =>
+  UniformSpace.Completion (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T)
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.inclusion.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T →L[ℝ]
+              OAI.ComparatorModel.RecursivePotentials.TreeSpace T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T =>
+  (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.inclusion T).completion
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            (H : Finset ι) →
+              T.Initial H →
+                OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T →L[ℝ]
+                  OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T H hH =>
+  (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projection T H hH).completion
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            (H : Finset ι) → T.Initial H → Submodule ℝ (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T) :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T H hH =>
+  (↑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH)).ker
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.XZero : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] → Type :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] =>
+  OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace OAI.ComparatorModel.RecursivePotentials.joinedTree
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            ι → OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T s =>
+  OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s ∘SL
+    OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.inclusion T
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            ι → OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T s x =>
+  OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T s
+    ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.inclusion T) x)
+def OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [inst_2 : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] →
+      {ι : Type uIndex} →
+        [indexDecidable : DecidableEq ι] →
+          (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+            ι → OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι} [DecidableEq ι] T s x =>
+  OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T s
+    ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.inclusion T) x)
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.WeaklyNull.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (ℕ → E) → Prop :=
+@OAI.RecursivePotentials.WeaklyNull
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.EquivalentNorm.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Type u_1 :=
+OAI.RecursivePotentials.EquivalentNorm
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.EquivalentNorm.modulus.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] → OAI.ComparatorModel.RecursivePotentials.EquivalentNorm E → ℝ → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] A => OAI.RecursivePotentials.EquivalentNorm.modulus A
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.EquivalentNorm.AUC.{uSpace} : {E : Type uSpace} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] → OAI.ComparatorModel.RecursivePotentials.EquivalentNorm E → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] A => OAI.RecursivePotentials.EquivalentNorm.AUC A
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.IsReflexive.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+OAI.RecursivePotentials.IsReflexive
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.SquareSum.Space.{u_1, u_2} : {ι : Type u_1} →
+  (E : ι → Type u_2) → [(i : ι) → NormedAddCommGroup (E i)] → Type (max u_2 u_1) :=
+@OAI.RecursivePotentials.SquareSum.Space
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.completionEquivOfDense.{u_1, u_2} : {E : Type u_1} →
+  {F : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : NormedSpace ℝ E] →
+        [inst_2 : NormedAddCommGroup F] →
+          [inst_3 : NormedSpace ℝ F] →
+            [CompleteSpace F] →
+              (f : E →L[ℝ] F) →
+                (K : NNReal) → (∀ (x : E), ‖x‖ ≤ ↑K * ‖f x‖) → DenseRange ⇑f → UniformSpace.Completion E ≃L[ℝ] F :=
+@OAI.RecursivePotentials.completionEquivOfDense
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.componentTree : (h : ℕ+) →
+  OAI.RecursivePotentials.FiniteRootedTree (OAI.RecursivePotentials.ComponentNode h) :=
+OAI.RecursivePotentials.componentTree
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.logarithmicGamma : ℝ → ℝ → ℝ :=
+OAI.RecursivePotentials.logarithmicGamma
+def OAI.ComparatorModel.RecursivePotentials.XJoined_separated_familiesStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] =>
+  ∀ {ε : ℝ},
+    0 < ε →
+      ∃ η,
+        0 < η ∧
+          η < 1 ∧
+            (ε ≤ 2 → η = min (1 / 2) (OAI.ComparatorModel.RecursivePotentials.logarithmicGamma 2 (ε / 16))) ∧
+              ∀ (x : OAI.ComparatorModel.RecursivePotentials.XJoined)
+                (z : ℕ → OAI.ComparatorModel.RecursivePotentials.XJoined),
+                (∀ (n : ℕ), ‖x + z n‖ ≤ 1) →
+                  (∀ (n : ℕ), ‖x - z n‖ ≤ 1) → (∀ (i j : ℕ), i ≠ j → ε ≤ ‖z i - z j‖) → ‖x‖ ≤ 1 - η
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.ChildExponent : Type :=
+OAI.RecursivePotentials.ChildExponent
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent : ℕ+ → ℝ :=
+OAI.RecursivePotentials.VariableExponent.heightExponent
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.VariableExponent.cubicConstant : ℝ :=
+OAI.RecursivePotentials.VariableExponent.cubicConstant
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.VariableExponent.sixthConstant : ℝ :=
+OAI.RecursivePotentials.VariableExponent.sixthConstant
+def OAI.ComparatorModel.RecursivePotentials.VariableTree.P.{uIndex} : [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+        OAI.ComparatorModel.RecursivePotentials.ChildExponent → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T e v =>
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.extend (T.head v) fun s =>
+    ((T.restrict (T.head v) ⋯).pfields e (fun s => v ↑s) s).1
+def OAI.ComparatorModel.RecursivePotentials.VariableTree.Q.{uIndex} : [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+        OAI.ComparatorModel.RecursivePotentials.ChildExponent → (ι →₀ ℝ) → ι →₀ ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T e v =>
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.extend (T.head v) fun s =>
+    ((T.restrict (T.head v) ⋯).pfields e (fun s => v ↑s) s).2
+def OAI.ComparatorModel.RecursivePotentials.VariableTree.normSum.{uIndex} : [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+        OAI.ComparatorModel.RecursivePotentials.ChildExponent → (ι →₀ ℝ) → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T e v =>
+  (OAI.ComparatorModel.RecursivePotentials.VariableTree.P T e v) T.root +
+    (OAI.ComparatorModel.RecursivePotentials.VariableTree.Q T e v) T.root
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.{uIndex} : {ι : Type uIndex} →
+  OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+    OAI.ComparatorModel.RecursivePotentials.ChildExponent → Type (max uIndex 0) :=
+fun {ι} _T _e => ι →₀ ℝ
+class OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] : Prop
+number of parameters: 1
+fields:
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction.core : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+      (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+      NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.AggregationVector T e)
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction.coordinate_bound : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+      (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) (v : ι →₀ ℝ) (s : ι),
+      |v s| ≤ OAI.ComparatorModel.RecursivePotentials.VariableTree.normSum T e v
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    (core :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+        NormedSpace.Core ℝ (OAI.ComparatorModel.RecursivePotentials.AggregationVector T e))
+    (coordinate_bound :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) (v : ι →₀ ℝ) (s : ι),
+        |v s| ≤ OAI.ComparatorModel.RecursivePotentials.VariableTree.normSum T e v) :
+    OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.coordinateLinear.{uIndex} : {ι : Type uIndex} →
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+    (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+      ι → OAI.ComparatorModel.RecursivePotentials.AggregationVector T e →ₗ[ℝ] ℝ :=
+fun {ι} T e s =>
+  {
+    toFun := fun v =>
+      (have this := v;
+        ⇑this)
+        s,
+    map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.coordinate.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  {ι : Type uIndex} →
+    [indexDecidable : DecidableEq ι] →
+      (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+        (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+          [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+            ι → OAI.ComparatorModel.RecursivePotentials.AggregationVector T e →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] {ι} [DecidableEq ι] T e
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] s =>
+  (OAI.ComparatorModel.RecursivePotentials.AggregationVector.coordinateLinear T e s).mkContinuous 1 ⋯
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.AggregationSpace.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [DecidableEq ι] →
+        OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι →
+          OAI.ComparatorModel.RecursivePotentials.ChildExponent → Type uIndex :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e =>
+  UniformSpace.Completion (OAI.ComparatorModel.RecursivePotentials.AggregationVector T e)
+def OAI.ComparatorModel.RecursivePotentials.AggregationSpace.coordinate.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+            ι → OAI.ComparatorModel.RecursivePotentials.AggregationSpace T e →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e s =>
+  (OAI.ComparatorModel.RecursivePotentials.AggregationVector.coordinate T e s).fromCompletion
+def OAI.ComparatorModel.RecursivePotentials.AggregationSpace.P.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+            ι → OAI.ComparatorModel.RecursivePotentials.AggregationSpace T e → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e s =>
+  UniformSpace.Completion.extension fun v => (OAI.ComparatorModel.RecursivePotentials.VariableTree.P T e v) s
+def OAI.ComparatorModel.RecursivePotentials.AggregationSpace.Q.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+            ι → OAI.ComparatorModel.RecursivePotentials.AggregationSpace T e → ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e s =>
+  UniformSpace.Completion.extension fun v => (OAI.ComparatorModel.RecursivePotentials.VariableTree.Q T e v) s
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.basisVector.{uIndex} : {ι : Type uIndex} →
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+    (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+      ι → OAI.ComparatorModel.RecursivePotentials.AggregationVector T e :=
+fun {ι} T e s => fun₀ | s => 1
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp.{uIndex} : Type uIndex →
+  OAI.ComparatorModel.RecursivePotentials.ChildExponent → Type uIndex :=
+fun ι e => ↥(lp (fun x => ℝ) (ENNReal.ofReal e.val))
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear.{uIndex} : {ι : Type uIndex} →
+  [indexDecidable : DecidableEq ι] →
+    (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+      (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector T e →ₗ[ℝ]
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp ι e :=
+fun {ι} [DecidableEq ι] T e => (Finsupp.lsum ℝ) fun s => lp.lsingle (ENNReal.ofReal e.val) s
+class OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] : Prop
+number of parameters: 1
+fields:
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction.bounds : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+      (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+      1 < e.val →
+        (∀ (c : ι), c ≠ T.root → T.depth c = T.depth (T.parent c) + 1) →
+          ∀ (h : ℕ),
+            (∀ (s : ι), T.depth s ≤ h) →
+              ∀ (v : OAI.ComparatorModel.RecursivePotentials.AggregationVector T e),
+                ‖v‖ ≤
+                    2 * (↑h + 1) ^ (1 - 1 / e.val) *
+                      ‖(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e) v‖ ∧
+                  ‖(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e) v‖ ≤
+                    (↑h + 1) ^ (1 / e.val) * ‖v‖
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction.dense : ∀ {ι : Type uIndex}
+      [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+      (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+      DenseRange ⇑(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e)
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    (bounds :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+        1 < e.val →
+          (∀ (c : ι), c ≠ T.root → T.depth c = T.depth (T.parent c) + 1) →
+            ∀ (h : ℕ),
+              (∀ (s : ι), T.depth s ≤ h) →
+                ∀ (v : OAI.ComparatorModel.RecursivePotentials.AggregationVector T e),
+                  ‖v‖ ≤
+                      2 * (↑h + 1) ^ (1 - 1 / e.val) *
+                        ‖(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e) v‖ ∧
+                    ‖(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e) v‖ ≤
+                      (↑h + 1) ^ (1 / e.val) * ‖v‖)
+    (dense :
+      ∀ {ι : Type uIndex} [inst : DecidableEq ι] (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι)
+        (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent),
+        DenseRange ⇑(OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e)) :
+    OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction
+def OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLp.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+            [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] →
+              1 < e.val →
+                (∀ (c : ι), c ≠ T.root → T.depth c = T.depth (T.parent c) + 1) →
+                  (h : ℕ) →
+                    (∀ (s : ι), T.depth s ≤ h) →
+                      OAI.ComparatorModel.RecursivePotentials.AggregationVector T e →L[ℝ]
+                        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp ι e :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] hp hstep h hh =>
+  (OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLpLinear T e).mkContinuous ((↑h + 1) ^ (1 / e.val)) ⋯
+def OAI.ComparatorModel.RecursivePotentials.AggregationSpace.lpEquiv.{uIndex} : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    {ι : Type uIndex} →
+      [indexDecidable : DecidableEq ι] →
+        (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) →
+          (e : OAI.ComparatorModel.RecursivePotentials.ChildExponent) →
+            [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] →
+              1 < e.val →
+                (∀ (c : ι), c ≠ T.root → T.depth c = T.depth (T.parent c) + 1) →
+                  (h : ℕ) →
+                    (∀ (s : ι), T.depth s ≤ h) →
+                      OAI.ComparatorModel.RecursivePotentials.AggregationSpace T e ≃L[ℝ]
+                        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp ι e :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] {ι} [DecidableEq ι] T e
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] hp hstep h hh =>
+  OAI.ComparatorModel.RecursivePotentials.completionEquivOfDense
+    (OAI.ComparatorModel.RecursivePotentials.AggregationVector.toLp T e hp hstep h hh)
+    ⟨2 * (↑h + 1) ^ (1 - 1 / e.val), ⋯⟩ ⋯ ⋯
+def OAI.ComparatorModel.RecursivePotentials.Variable.exponent : ℕ+ →
+  OAI.ComparatorModel.RecursivePotentials.ChildExponent :=
+fun h => { val := OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent h, one_le := ⋯ }
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.Variable.Component : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → ℕ+ → Type :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] h =>
+  OAI.ComparatorModel.RecursivePotentials.AggregationSpace (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+    (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.Variable.Xv : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Type :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  OAI.ComparatorModel.RecursivePotentials.SquareSum.Space OAI.ComparatorModel.RecursivePotentials.Variable.Component
+@[reducible] def OAI.ComparatorModel.RecursivePotentials.Variable.Node : Type :=
+(h : ℕ+) × OAI.ComparatorModel.RecursivePotentials.ComponentNode h
+def OAI.ComparatorModel.RecursivePotentials.Variable.componentEquiv : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] →
+      (h : ℕ+) →
+        OAI.ComparatorModel.RecursivePotentials.Variable.Component h ≃L[ℝ]
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] h =>
+  OAI.ComparatorModel.RecursivePotentials.AggregationSpace.lpEquiv
+    (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+    (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) ⋯ ⋯ ↑h ⋯
+def OAI.ComparatorModel.RecursivePotentials.Variable.componentCoordinate : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    (h : ℕ+) →
+      OAI.ComparatorModel.RecursivePotentials.ComponentNode h →
+        OAI.ComparatorModel.RecursivePotentials.Variable.Component h →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] h s =>
+  OAI.ComparatorModel.RecursivePotentials.AggregationSpace.coordinate
+    (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+    (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) s
+def OAI.ComparatorModel.RecursivePotentials.Variable.coordinate : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    OAI.ComparatorModel.RecursivePotentials.Variable.Node →
+      OAI.ComparatorModel.RecursivePotentials.Variable.Xv →L[ℝ] ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] s =>
+  OAI.ComparatorModel.RecursivePotentials.Variable.componentCoordinate s.fst s.snd ∘SL
+    lp.evalCLM ℝ OAI.ComparatorModel.RecursivePotentials.Variable.Component 2 s.fst
+def OAI.ComparatorModel.RecursivePotentials.Variable.basis : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    OAI.ComparatorModel.RecursivePotentials.Variable.Node → OAI.ComparatorModel.RecursivePotentials.Variable.Xv :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] s =>
+  lp.single 2 s.fst
+    ↑(OAI.ComparatorModel.RecursivePotentials.AggregationVector.basisVector
+        (OAI.ComparatorModel.RecursivePotentials.componentTree s.fst)
+        (OAI.ComparatorModel.RecursivePotentials.Variable.exponent s.fst) s.snd)
+def OAI.ComparatorModel.RecursivePotentials.Variable.FiniteTotalSupport : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    OAI.ComparatorModel.RecursivePotentials.Variable.Xv → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] x =>
+  ∃ S, ∀ s ∉ S, (OAI.ComparatorModel.RecursivePotentials.Variable.coordinate s) x = 0
+def OAI.ComparatorModel.RecursivePotentials.Variable.projection : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    Finset OAI.ComparatorModel.RecursivePotentials.Variable.Node →
+      OAI.ComparatorModel.RecursivePotentials.Variable.Xv →L[ℝ] OAI.ComparatorModel.RecursivePotentials.Variable.Xv :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] S =>
+  ∑ s ∈ S,
+    (OAI.ComparatorModel.RecursivePotentials.Variable.coordinate s).smulRight
+      (OAI.ComparatorModel.RecursivePotentials.Variable.basis s)
+def OAI.ComparatorModel.RecursivePotentials.Variable.AdmissibleHeads : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    OAI.ComparatorModel.RecursivePotentials.Variable.Xv →
+      OAI.ComparatorModel.RecursivePotentials.Variable.Xv →
+        ((h : ℕ+) → Finset (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)) → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] x y A =>
+  ∀ (h : ℕ+),
+    ↑x h ≠ 0 →
+      (OAI.ComparatorModel.RecursivePotentials.componentTree h).Initial (A h) ∧
+        (∀ s ∉ A h, (OAI.ComparatorModel.RecursivePotentials.Variable.componentCoordinate h s) (↑x h) = 0) ∧
+          ∀ s ∈ A h, (OAI.ComparatorModel.RecursivePotentials.Variable.componentCoordinate h s) (↑y h) = 0
+def OAI.ComparatorModel.RecursivePotentials.Variable.cubic_stabilityStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  ∀ (x y : OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+    OAI.ComparatorModel.RecursivePotentials.Variable.FiniteTotalSupport x →
+      ∀ (A : (h : ℕ+) → Finset (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)),
+        OAI.ComparatorModel.RecursivePotentials.Variable.AdmissibleHeads x y A →
+          ∀ {R : ℝ},
+            0 < R →
+              ‖x + y‖ ≤ R →
+                ‖x - y‖ ≤ R →
+                  ‖x‖ ^ 2 +
+                      OAI.ComparatorModel.RecursivePotentials.VariableExponent.cubicConstant / (2 * √2 * R) * ‖y‖ ^ 3 ≤
+                    R ^ 2
+def OAI.ComparatorModel.RecursivePotentials.Variable.sixth_stabilityStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  ∀ (x y : OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+    OAI.ComparatorModel.RecursivePotentials.Variable.FiniteTotalSupport x →
+      ∀ (A : (h : ℕ+) → Finset (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)),
+        OAI.ComparatorModel.RecursivePotentials.Variable.AdmissibleHeads x y A →
+          OAI.ComparatorModel.RecursivePotentials.VariableExponent.sixthConstant * ‖y‖ ^ 6 /
+              (‖x + y‖ ^ 2 + ‖x - y‖ ^ 2) ^ 2 ≤
+            ‖x + y‖ ^ 2 + ‖x - y‖ ^ 2 - 2 * ‖x‖ ^ 2
+def OAI.ComparatorModel.RecursivePotentials.Variable.weakTailConstant : ℝ :=
+OAI.ComparatorModel.RecursivePotentials.VariableExponent.cubicConstant / (2 * √2)
+def OAI.ComparatorModel.RecursivePotentials.Variable.theta : ℝ → ℝ :=
+fun ε => √(1 - OAI.ComparatorModel.RecursivePotentials.Variable.weakTailConstant * ε ^ 3)
+def OAI.ComparatorModel.RecursivePotentials.Variable.weak_tailStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  ∀ (x : OAI.ComparatorModel.RecursivePotentials.Variable.Xv) {ε : ℝ},
+    0 < ε →
+      ε ≤ 1 →
+        ∀ (y : ℕ → OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+          OAI.ComparatorModel.RecursivePotentials.WeaklyNull y →
+            (∀ (j : ℕ), ε ≤ ‖y j‖) →
+              (∀ (j : ℕ), ‖x + y j‖ ≤ 1) →
+                (∀ (j : ℕ), ‖x - y j‖ ≤ 1) →
+                  ‖x‖ ≤ OAI.ComparatorModel.RecursivePotentials.Variable.theta ε ∧
+                    OAI.ComparatorModel.RecursivePotentials.Variable.theta ε < 1
+def OAI.ComparatorModel.RecursivePotentials.Variable.one_sided_modulus_zeroStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  ∀ (A : OAI.ComparatorModel.RecursivePotentials.EquivalentNorm OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+    A.modulus (A.lower / A.upper) = 0
+def OAI.ComparatorModel.RecursivePotentials.Variable.no_equivalent_AUCStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] =>
+  ∀ (A : OAI.ComparatorModel.RecursivePotentials.EquivalentNorm OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+    ¬A.AUC
+structure OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι : Type uIndex} [DecidableEq ι]
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) : Prop
+number of parameters: 5
+fields:
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.complete : CompleteSpace
+      (OAI.ComparatorModel.RecursivePotentials.TreeSpace T)
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.infinite_dimensional : ¬Module.Finite ℝ
+        (OAI.ComparatorModel.RecursivePotentials.TreeSpace T)
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.coordinate_continuous : ∀ (s : ι),
+      Continuous ⇑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s)
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.coordinate_extends : ∀ (s : ι)
+      (v : OAI.ComparatorModel.RecursivePotentials.TreeVector T),
+      (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s) ↑v =
+        (have this := v;
+          ⇑this)
+          s
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.fields_continuous : ∀ (s : ι),
+      Continuous (OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T s) ∧
+        Continuous (OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T s)
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.fields_extend : ∀ (s : ι)
+      (v : OAI.ComparatorModel.RecursivePotentials.TreeVector T),
+      OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T s ↑v = (T.P v) s ∧
+        OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T s ↑v = (T.Q v) s
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.root_formula : ∀
+      (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+      ‖x‖ =
+        OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T T.root x +
+          OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T T.root x
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.projections : ∀ (H : Finset ι) (hH : T.Initial H),
+      (∀ (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+          ‖(OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x‖ ≤ ‖x‖) ∧
+        (∀ (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+            (OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH)
+                ((OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) =
+              (OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) ∧
+          (∀ (s : ι) (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+              (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s)
+                  ((OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) =
+                if s ∈ H then (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s) x else 0) ∧
+            FiniteDimensional ℝ ↥(↑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH)).range ∧
+              IsClosed ↑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH) ∧
+                Module.Finite ℝ
+                    (OAI.ComparatorModel.RecursivePotentials.TreeSpace T ⧸
+                      OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH) ∧
+                  ∀ x ∈ OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH,
+                    ∀ (ε : ℝ),
+                      0 < ε →
+                        ∃ v, (OAI.ComparatorModel.RecursivePotentials.TreeVector.projection T H hH) v = 0 ∧ ‖↑v - x‖ < ε
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] {ι : Type uIndex} [DecidableEq ι]
+    {T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι}
+    (complete : CompleteSpace (OAI.ComparatorModel.RecursivePotentials.TreeSpace T))
+    (infinite_dimensional : ¬Module.Finite ℝ (OAI.ComparatorModel.RecursivePotentials.TreeSpace T))
+    (coordinate_continuous : ∀ (s : ι), Continuous ⇑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s))
+    (coordinate_extends :
+      ∀ (s : ι) (v : OAI.ComparatorModel.RecursivePotentials.TreeVector T),
+        (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s) ↑v =
+          (have this := v;
+            ⇑this)
+            s)
+    (fields_continuous :
+      ∀ (s : ι),
+        Continuous (OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T s) ∧
+          Continuous (OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T s))
+    (fields_extend :
+      ∀ (s : ι) (v : OAI.ComparatorModel.RecursivePotentials.TreeVector T),
+        OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T s ↑v = (T.P v) s ∧
+          OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T s ↑v = (T.Q v) s)
+    (root_formula :
+      ∀ (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+        ‖x‖ =
+          OAI.ComparatorModel.RecursivePotentials.TreeSpace.P T T.root x +
+            OAI.ComparatorModel.RecursivePotentials.TreeSpace.Q T T.root x)
+    (projections :
+      ∀ (H : Finset ι) (hH : T.Initial H),
+        (∀ (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+            ‖(OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x‖ ≤ ‖x‖) ∧
+          (∀ (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+              (OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH)
+                  ((OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) =
+                (OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) ∧
+            (∀ (s : ι) (x : OAI.ComparatorModel.RecursivePotentials.TreeSpace T),
+                (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s)
+                    ((OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH) x) =
+                  if s ∈ H then (OAI.ComparatorModel.RecursivePotentials.TreeSpace.coordinate T s) x else 0) ∧
+              FiniteDimensional ℝ ↥(↑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.projection T H hH)).range ∧
+                IsClosed ↑(OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH) ∧
+                  Module.Finite ℝ
+                      (OAI.ComparatorModel.RecursivePotentials.TreeSpace T ⧸
+                        OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH) ∧
+                    ∀ x ∈ OAI.ComparatorModel.RecursivePotentials.TreeSpace.tail T H hH,
+                      ∀ (ε : ℝ),
+                        0 < ε →
+                          ∃ v,
+                            (OAI.ComparatorModel.RecursivePotentials.TreeVector.projection T H hH) v = 0 ∧
+                              ‖↑v - x‖ < ε) :
+    OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement T
+structure OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.{uIndex}
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+  [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι : Type uIndex} [DecidableEq ι]
+  (T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι) : Prop
+number of parameters: 6
+fields:
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.complete : CompleteSpace
+      (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T)
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.infinite_dimensional : ¬Module.Finite ℝ
+        (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T)
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.coordinate_continuous : ∀ (s : ι),
+      Continuous ⇑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s)
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.coordinate_extends : ∀ (s : ι)
+      (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+      (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s) ↑v =
+        (have this := (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v;
+          ⇑this)
+          s
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.fields_continuous : ∀ (s : ι),
+      Continuous (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T s) ∧
+        Continuous (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T s)
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.fields_extend : ∀ (s : ι)
+      (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+      OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T s ↑v =
+          (T.P ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v)) s ∧
+        OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T s ↑v =
+          (T.Q ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v)) s
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.root_fixed : ∀
+      (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+      (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T T.root) x = 0
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.root_formula : ∀
+      (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+      ‖x‖ = OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T T.root x ∧
+        ‖x‖ = OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T T.root x
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.projections : ∀ (H : Finset ι) (hH : T.Initial H),
+      (∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+          ‖(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x‖ ≤ ‖x‖) ∧
+        (∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+            (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH)
+                ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) =
+              (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) ∧
+          (∀ (s : ι) (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+              (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s)
+                  ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) =
+                if s ∈ H then (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s) x else 0) ∧
+            FiniteDimensional ℝ ↥(↑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH)).range ∧
+              IsClosed ↑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH) ∧
+                Module.Finite ℝ
+                    (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T ⧸
+                      OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH) ∧
+                  ∀ x ∈ OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH,
+                    ∀ (ε : ℝ),
+                      0 < ε →
+                        ∃ v,
+                          (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projection T H hH) v = 0 ∧
+                            ‖↑v - x‖ < ε
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement.mk.{uIndex}
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] {ι : Type uIndex} [DecidableEq ι]
+    {T : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree ι}
+    (complete : CompleteSpace (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T))
+    (infinite_dimensional : ¬Module.Finite ℝ (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T))
+    (coordinate_continuous :
+      ∀ (s : ι), Continuous ⇑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s))
+    (coordinate_extends :
+      ∀ (s : ι) (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+        (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s) ↑v =
+          (have this := (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v;
+            ⇑this)
+            s)
+    (fields_continuous :
+      ∀ (s : ι),
+        Continuous (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T s) ∧
+          Continuous (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T s))
+    (fields_extend :
+      ∀ (s : ι) (v : OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector T),
+        OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T s ↑v =
+            (T.P ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v)) s ∧
+          OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T s ↑v =
+            (T.Q ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.toTree T) v)) s)
+    (root_fixed :
+      ∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+        (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T T.root) x = 0)
+    (root_formula :
+      ∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+        ‖x‖ = OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.P T T.root x ∧
+          ‖x‖ = OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.Q T T.root x)
+    (projections :
+      ∀ (H : Finset ι) (hH : T.Initial H),
+        (∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+            ‖(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x‖ ≤ ‖x‖) ∧
+          (∀ (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+              (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH)
+                  ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) =
+                (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) ∧
+            (∀ (s : ι) (x : OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T),
+                (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s)
+                    ((OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH) x) =
+                  if s ∈ H then (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate T s) x else 0) ∧
+              FiniteDimensional ℝ ↥(↑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.projection T H hH)).range ∧
+                IsClosed ↑(OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH) ∧
+                  Module.Finite ℝ
+                      (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace T ⧸
+                        OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH) ∧
+                    ∀ x ∈ OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.tail T H hH,
+                      ∀ (ε : ℝ),
+                        0 < ε →
+                          ∃ v,
+                            (OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.projection T H hH) v = 0 ∧
+                              ‖↑v - x‖ < ε) :
+    OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement T
+def OAI.ComparatorModel.RecursivePotentials.rec_completionStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] =>
+  OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement
+      OAI.ComparatorModel.RecursivePotentials.sequenceTree ∧
+    OAI.ComparatorModel.RecursivePotentials.ZeroRootCompletionStatement
+        OAI.ComparatorModel.RecursivePotentials.joinedTree ∧
+      OAI.ComparatorModel.RecursivePotentials.RootSumCompletionStatement
+          OAI.ComparatorModel.RecursivePotentials.joinedTree ∧
+        OAI.ComparatorModel.RecursivePotentials.IsReflexive OAI.ComparatorModel.RecursivePotentials.XZero ∧
+          OAI.ComparatorModel.RecursivePotentials.IsReflexive OAI.ComparatorModel.RecursivePotentials.XJoined
+def OAI.ComparatorModel.RecursivePotentials.rec_mainStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [inst_1 : OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction] =>
+  (∀ (t : ℝ),
+      0 < t →
+        t < 1 →
+          t ^ 3 / 128 ≤
+              OAI.ComparatorModel.RecursivePotentials.averagedModulus OAI.ComparatorModel.RecursivePotentials.XSigma t ∧
+            t ^ 3 / 128 ≤
+              OAI.ComparatorModel.RecursivePotentials.averagedModulus OAI.ComparatorModel.RecursivePotentials.XJoined
+                t) ∧
+    (∀ (H : Finset OAI.ComparatorModel.RecursivePotentials.JoinedNode),
+        OAI.ComparatorModel.RecursivePotentials.joinedTree.Initial H →
+          ∀ (x : OAI.ComparatorModel.RecursivePotentials.XZero),
+            (∀ s ∉ H,
+                (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate
+                      OAI.ComparatorModel.RecursivePotentials.joinedTree s)
+                    x =
+                  0) →
+              ∀ (z : OAI.ComparatorModel.RecursivePotentials.XZero),
+                (∀ s ∈ H,
+                    (OAI.ComparatorModel.RecursivePotentials.ZeroTreeSpace.coordinate
+                          OAI.ComparatorModel.RecursivePotentials.joinedTree s)
+                        z =
+                      0) →
+                  z ≠ 0 → (‖x + z‖ + ‖x - z‖) / 2 ≥ ‖x‖ + ‖z‖ ^ 3 / (8 * (2 * ‖x‖ + ‖z‖) ^ 2)) ∧
+      (∀ (A : OAI.ComparatorModel.RecursivePotentials.EquivalentNorm OAI.ComparatorModel.RecursivePotentials.XSigma),
+          ¬A.AUC) ∧
+        (∀ (A : OAI.ComparatorModel.RecursivePotentials.EquivalentNorm OAI.ComparatorModel.RecursivePotentials.XZero),
+            ¬A.AUC) ∧
+          ∀
+            (A :
+              OAI.ComparatorModel.RecursivePotentials.EquivalentNorm OAI.ComparatorModel.RecursivePotentials.XJoined),
+            ¬A.AUC
+def OAI.ComparatorModel.RecursivePotentials.stop_all_radiiStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction] =>
+  ∀ {t : ℝ},
+    0 < t → 0 < OAI.ComparatorModel.RecursivePotentials.averagedModulus OAI.ComparatorModel.RecursivePotentials.XSigma t
+def OAI.ComparatorModel.RecursivePotentials.Variable.nu : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] →
+      (h : ℕ+) →
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) →
+          ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] h v =>
+  OAI.ComparatorModel.RecursivePotentials.AggregationSpace.P (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+      (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)
+      (OAI.ComparatorModel.RecursivePotentials.componentTree h).root
+      ((OAI.ComparatorModel.RecursivePotentials.Variable.componentEquiv h).symm v) +
+    OAI.ComparatorModel.RecursivePotentials.AggregationSpace.Q (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+      (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)
+      (OAI.ComparatorModel.RecursivePotentials.componentTree h).root
+      ((OAI.ComparatorModel.RecursivePotentials.Variable.componentEquiv h).symm v)
+structure OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement
+  [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] (h : ℕ+) : Prop
+number of parameters: 4
+fields:
+  OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement.nonneg : ∀
+      (v :
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+          (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+          (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+      0 ≤ OAI.ComparatorModel.RecursivePotentials.Variable.nu h v
+  OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement.definite : ∀
+      (v :
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+          (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+          (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+      OAI.ComparatorModel.RecursivePotentials.Variable.nu h v = 0 ↔ v = 0
+  OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement.triangle : ∀
+      (v w :
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+          (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+          (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+      OAI.ComparatorModel.RecursivePotentials.Variable.nu h (v + w) ≤
+        OAI.ComparatorModel.RecursivePotentials.Variable.nu h v +
+          OAI.ComparatorModel.RecursivePotentials.Variable.nu h w
+  OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement.homogeneous : ∀ (a : ℝ)
+      (v :
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+          (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+          (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+      OAI.ComparatorModel.RecursivePotentials.Variable.nu h (a • v) =
+        |a| * OAI.ComparatorModel.RecursivePotentials.Variable.nu h v
+constructor:
+  OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement.mk
+    [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] {h : ℕ+}
+    (nonneg :
+      ∀
+        (v :
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+        0 ≤ OAI.ComparatorModel.RecursivePotentials.Variable.nu h v)
+    (definite :
+      ∀
+        (v :
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+        OAI.ComparatorModel.RecursivePotentials.Variable.nu h v = 0 ↔ v = 0)
+    (triangle :
+      ∀
+        (v w :
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+        OAI.ComparatorModel.RecursivePotentials.Variable.nu h (v + w) ≤
+          OAI.ComparatorModel.RecursivePotentials.Variable.nu h v +
+            OAI.ComparatorModel.RecursivePotentials.Variable.nu h w)
+    (homogeneous :
+      ∀ (a : ℝ)
+        (v :
+          OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+        OAI.ComparatorModel.RecursivePotentials.Variable.nu h (a • v) =
+          |a| * OAI.ComparatorModel.RecursivePotentials.Variable.nu h v) :
+    OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement h
+def OAI.ComparatorModel.RecursivePotentials.Variable.spaceStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] =>
+  (∀ (h : ℕ+),
+      CompleteSpace (OAI.ComparatorModel.RecursivePotentials.Variable.Component h) ∧
+        OAI.ComparatorModel.RecursivePotentials.IsReflexive
+            (OAI.ComparatorModel.RecursivePotentials.Variable.Component h) ∧
+          TopologicalSpace.SeparableSpace (OAI.ComparatorModel.RecursivePotentials.Variable.Component h →L[ℝ] ℝ) ∧
+            OAI.ComparatorModel.RecursivePotentials.Variable.SourceNormStatement h ∧
+              ∀
+                (v :
+                  OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+                    (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+                    (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h)),
+                (↑↑h + 1) ^ (-1 / OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent h) * ‖v‖ ≤
+                    OAI.ComparatorModel.RecursivePotentials.Variable.nu h v ∧
+                  OAI.ComparatorModel.RecursivePotentials.Variable.nu h v ≤
+                    2 *
+                        (↑↑h + 1) ^
+                          (1 - 1 / OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent h) *
+                      ‖v‖) ∧
+    CompleteSpace OAI.ComparatorModel.RecursivePotentials.Variable.Xv ∧
+      OAI.ComparatorModel.RecursivePotentials.IsReflexive OAI.ComparatorModel.RecursivePotentials.Variable.Xv ∧
+        TopologicalSpace.SeparableSpace (OAI.ComparatorModel.RecursivePotentials.Variable.Xv →L[ℝ] ℝ) ∧
+          Dense {x | OAI.ComparatorModel.RecursivePotentials.Variable.FiniteTotalSupport x} ∧
+            ∀ (S : Finset OAI.ComparatorModel.RecursivePotentials.Variable.Node),
+              Continuous ⇑(OAI.ComparatorModel.RecursivePotentials.Variable.projection S) ∧
+                FiniteDimensional ℝ ↥(↑(OAI.ComparatorModel.RecursivePotentials.Variable.projection S)).range ∧
+                  (∀ (x : OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+                      (OAI.ComparatorModel.RecursivePotentials.Variable.projection S)
+                          ((OAI.ComparatorModel.RecursivePotentials.Variable.projection S) x) =
+                        (OAI.ComparatorModel.RecursivePotentials.Variable.projection S) x) ∧
+                    ∀ (s : OAI.ComparatorModel.RecursivePotentials.Variable.Node)
+                      (x : OAI.ComparatorModel.RecursivePotentials.Variable.Xv),
+                      (OAI.ComparatorModel.RecursivePotentials.Variable.coordinate s)
+                          ((OAI.ComparatorModel.RecursivePotentials.Variable.projection S) x) =
+                        if s ∈ S then (OAI.ComparatorModel.RecursivePotentials.Variable.coordinate s) x else 0
+def OAI.ComparatorModel.RecursivePotentials.Variable.aggregateChildren : (h : ℕ+) →
+  OAI.ComparatorModel.RecursivePotentials.ComponentNode h →
+    (OAI.ComparatorModel.RecursivePotentials.ComponentNode h → ℝ) → ℝ :=
+fun h s f =>
+  (∑' (c : OAI.RecursivePotentials.ComponentNode h),
+      if
+          c ≠ (OAI.ComparatorModel.RecursivePotentials.componentTree h).root ∧
+            (OAI.ComparatorModel.RecursivePotentials.componentTree h).parent c = s then
+        f c ^ OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent h
+      else 0) ^
+    (1 / OAI.ComparatorModel.RecursivePotentials.VariableExponent.heightExponent h)
+def OAI.ComparatorModel.RecursivePotentials.Variable.lpPotentials : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] →
+      (h : ℕ+) →
+        OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+            (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) →
+          OAI.ComparatorModel.RecursivePotentials.ComponentNode h → ℝ × ℝ :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] h v s =>
+  (OAI.ComparatorModel.RecursivePotentials.AggregationSpace.P (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+      (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) s
+      ((OAI.ComparatorModel.RecursivePotentials.Variable.componentEquiv h).symm v),
+    OAI.ComparatorModel.RecursivePotentials.AggregationSpace.Q (OAI.ComparatorModel.RecursivePotentials.componentTree h)
+      (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h) s
+      ((OAI.ComparatorModel.RecursivePotentials.Variable.componentEquiv h).symm v))
+def OAI.ComparatorModel.RecursivePotentials.Variable.lp_model_exactStatement : [inst :
+    OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads] →
+  [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction] →
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] → Prop :=
+fun [OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction]
+    [OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction] =>
+  ∀ (h : ℕ+)
+    (v :
+      OAI.ComparatorModel.RecursivePotentials.AggregationVector.CoordinateLp
+        (OAI.ComparatorModel.RecursivePotentials.ComponentNode h)
+        (OAI.ComparatorModel.RecursivePotentials.Variable.exponent h))
+    (f : OAI.ComparatorModel.RecursivePotentials.ComponentNode h → ℝ × ℝ),
+    (∀ (s : OAI.ComparatorModel.RecursivePotentials.ComponentNode h),
+        f s =
+          OAI.ComparatorModel.RecursivePotentials.leastPair (↑v s)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.aggregateChildren h s fun c => (f c).1)
+            (OAI.ComparatorModel.RecursivePotentials.Variable.aggregateChildren h s fun c => (f c).2)) →
+      f = OAI.ComparatorModel.RecursivePotentials.Variable.lpPotentials h v ∧
+        OAI.ComparatorModel.RecursivePotentials.Variable.nu h v =
+          (f (OAI.ComparatorModel.RecursivePotentials.componentTree h).root).1 +
+            (f (OAI.ComparatorModel.RecursivePotentials.componentTree h).root).2
+def OAI.ComparatorModel.RecursivePotentials.MainClaim : Prop :=
+∃ (h0 : OAI.ComparatorModel.RecursivePotentials.FiniteRootedTree.Heads) (h1 :
+  OAI.ComparatorModel.RecursivePotentials.TreeVector.Construction) (h2 :
+  OAI.ComparatorModel.RecursivePotentials.ZeroTreeVector.Construction) (h3 :
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.Construction) (h4 :
+  OAI.ComparatorModel.RecursivePotentials.AggregationVector.LpConstruction),
+  OAI.ComparatorModel.RecursivePotentials.rec_mainStatement ∧
+    OAI.ComparatorModel.RecursivePotentials.rec_completionStatement ∧
+      OAI.ComparatorModel.RecursivePotentials.stop_all_radiiStatement ∧
+        OAI.ComparatorModel.RecursivePotentials.XJoined_separated_familiesStatement ∧
+          OAI.ComparatorModel.RecursivePotentials.Variable.spaceStatement ∧
+            OAI.ComparatorModel.RecursivePotentials.Variable.lp_model_exactStatement ∧
+              OAI.ComparatorModel.RecursivePotentials.Variable.one_sided_modulus_zeroStatement ∧
+                OAI.ComparatorModel.RecursivePotentials.Variable.no_equivalent_AUCStatement ∧
+                  OAI.ComparatorModel.RecursivePotentials.Variable.sixth_stabilityStatement ∧
+                    OAI.ComparatorModel.RecursivePotentials.Variable.cubic_stabilityStatement ∧
+                      OAI.ComparatorModel.RecursivePotentials.Variable.weak_tailStatement

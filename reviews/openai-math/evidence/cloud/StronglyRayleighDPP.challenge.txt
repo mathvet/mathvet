@@ -1,0 +1,130 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:132:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:147:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:153:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:161:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:167:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StronglyRayleighDPP.lean:174:8: warning: declaration uses `sorry`
+OAI.Problem336AdditiveD139.finite_strongly_rayleigh_response : ∀ (F : Type u_1) [inst : Fintype F] [Nonempty F]
+  (μ : MeasureTheory.ProbabilityMeasure (F → Bool)),
+  OAI.Problem336AdditiveD139.StronglyRayleighFinite μ →
+    (∀ (i j : F) (h : F → ℝ),
+        HasDerivAt
+          (fun r => OAI.Problem336AdditiveD139.tiltMean μ (OAI.Problem336AdditiveD139.coordinatePerturb h j r) i)
+          (OAI.Problem336AdditiveD139.tiltCovariance μ h i j) 0) ∧
+      (∀ (i : F) (h : F → ℝ),
+          ∑ j, |OAI.Problem336AdditiveD139.tiltCovariance μ h i j| ≤
+              2 * OAI.Problem336AdditiveD139.tiltMean μ h i * (1 - OAI.Problem336AdditiveD139.tiltMean μ h i) ∧
+            2 * OAI.Problem336AdditiveD139.tiltMean μ h i * (1 - OAI.Problem336AdditiveD139.tiltMean μ h i) ≤ 1 / 2) ∧
+        ∀ (i : F) (h h' : F → ℝ) (D : ℝ),
+          0 ≤ D →
+            (∀ (j : F), |h j - h' j| ≤ D) →
+              |OAI.Problem336AdditiveD139.tiltMean μ h i - OAI.Problem336AdditiveD139.tiltMean μ h' i| ≤ D / 2
+OAI.Problem336AdditiveD139.strongly_rayleigh_group_factor : ∀ (Γ : Type u_1) [inst : Group Γ] [Countable Γ]
+  [inst_2 : MeasurableSpace Γ] (μ : MeasureTheory.ProbabilityMeasure (Γ → Bool)),
+  OAI.Problem336AdditiveD139.StronglyRayleighCountable μ →
+    OAI.Problem336AdditiveD139.InvariantBinaryLaw μ → OAI.Problem336AdditiveD139.HasEquivariantIIDFactor μ
+OAI.Problem336AdditiveD139.finite_positive_contraction_dpp_is_strongly_rayleigh : ∀ (F : Type u_1) [inst : Fintype F]
+  [Nonempty F] (K : F → F → ℂ),
+  OAI.Problem336AdditiveD139.PositiveContractionFinite K →
+    (∃ μ, OAI.Problem336AdditiveD139.IsFiniteDeterminantalLaw μ K) ∧
+      ∀ (μ : MeasureTheory.ProbabilityMeasure (F → Bool)),
+        OAI.Problem336AdditiveD139.IsFiniteDeterminantalLaw μ K → OAI.Problem336AdditiveD139.StronglyRayleighFinite μ
+OAI.Problem336AdditiveD139.countable_positive_contraction_dpp_exists_unique : ∀ (I : Type u_1) [Countable I]
+  (K : I → I → ℂ),
+  OAI.Problem336AdditiveD139.PositiveContractionKernel K → ∃! μ, OAI.Problem336AdditiveD139.IsDeterminantalLaw μ K
+OAI.Problem336AdditiveD139.invariant_positive_contraction_dpp_factor : ∀ (Γ : Type u_1) [inst : Group Γ] [Countable Γ]
+  [inst_2 : MeasurableSpace Γ] (K : Γ → Γ → ℂ) (μ : MeasureTheory.ProbabilityMeasure (Γ → Bool)),
+  OAI.Problem336AdditiveD139.PositiveContractionKernel K →
+    OAI.Problem336AdditiveD139.IsDeterminantalLaw μ K →
+      OAI.Problem336AdditiveD139.InvariantBinaryLaw μ → OAI.Problem336AdditiveD139.HasEquivariantIIDFactor μ
+OAI.Problem336AdditiveD139.translation_invariant_kernel_dpp_factor : ∀ (Γ : Type u_1) [inst : Group Γ] [Countable Γ]
+  [inst_2 : MeasurableSpace Γ] (K : Γ → Γ → ℂ),
+  OAI.Problem336AdditiveD139.PositiveContractionKernel K →
+    OAI.Problem336AdditiveD139.TranslationInvariantKernel K →
+      ∃ μ,
+        OAI.Problem336AdditiveD139.IsDeterminantalLaw μ K ∧
+          OAI.Problem336AdditiveD139.InvariantBinaryLaw μ ∧ OAI.Problem336AdditiveD139.HasEquivariantIIDFactor μ
+@[reducible] def OAI.Problem336AdditiveD139.UnitLabel : Set ℝ :=
+Set.Icc 0 1
+def OAI.Problem336AdditiveD139.leftTranslate.{u_1, u_2} : {Γ : Type u_1} →
+  {α : Type u_2} → [Group Γ] → Γ → (Γ → α) → Γ → α :=
+fun {Γ} {α} [Group Γ] g a h => a (g⁻¹ * h)
+def OAI.Problem336AdditiveD139.iidUnitLabels.{u_3} : (Γ : Type u_3) →
+  [MeasurableSpace Γ] → MeasureTheory.Measure (Γ → ↑OAI.Problem336AdditiveD139.UnitLabel) :=
+fun Γ [MeasurableSpace Γ] => MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume
+def OAI.Problem336AdditiveD139.InvariantBinaryLaw.{u_4} : {Γ : Type u_4} →
+  [Group Γ] → MeasureTheory.ProbabilityMeasure (Γ → Bool) → Prop :=
+fun {Γ} [Group Γ] μ => ∀ (g : Γ), MeasureTheory.Measure.map (OAI.Problem336AdditiveD139.leftTranslate g) ↑μ = ↑μ
+def OAI.Problem336AdditiveD139.HasEquivariantIIDFactor.{u_5} : {Γ : Type u_5} →
+  [Group Γ] → [MeasurableSpace Γ] → MeasureTheory.ProbabilityMeasure (Γ → Bool) → Prop :=
+fun {Γ} [Group Γ] [MeasurableSpace Γ] μ =>
+  ∃ Phi,
+    Measurable Phi ∧
+      (∀ (g : Γ) (u : Γ → ↑OAI.Problem336AdditiveD139.UnitLabel),
+          Phi (OAI.Problem336AdditiveD139.leftTranslate g u) = OAI.Problem336AdditiveD139.leftTranslate g (Phi u)) ∧
+        MeasureTheory.Measure.map Phi (OAI.Problem336AdditiveD139.iidUnitLabels Γ) = ↑μ
+def OAI.Problem336AdditiveD139.finiteGeneratingValue.{u_6} : {F : Type u_6} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → ℂ) → ℂ :=
+fun {F} [Fintype F] μ z => ∑ x, ↑(↑μ {x}).toReal * ∏ i, if x i = true then z i else 1
+def OAI.Problem336AdditiveD139.StronglyRayleighFinite.{u_7} : {F : Type u_7} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → Prop :=
+fun {F} [Fintype F] μ =>
+  ∀ (z : F → ℂ), (∀ (i : F), 0 < (z i).im) → OAI.Problem336AdditiveD139.finiteGeneratingValue μ z ≠ 0
+def OAI.Problem336AdditiveD139.marginalMass.{u_8} : {I : Type u_8} →
+  MeasureTheory.ProbabilityMeasure (I → Bool) → (S : Finset I) → (↥S → Bool) → ℝ :=
+fun {I} μ S x => (↑μ {a | ∀ (i : ↥S), a ↑i = x i}).toReal
+def OAI.Problem336AdditiveD139.marginalGeneratingValue.{u_9} : {I : Type u_9} →
+  MeasureTheory.ProbabilityMeasure (I → Bool) → (S : Finset I) → (↥S → ℂ) → ℂ :=
+fun {I} μ S z => ∑ x, ↑(OAI.Problem336AdditiveD139.marginalMass μ S x) * ∏ i, if x i = true then z i else 1
+def OAI.Problem336AdditiveD139.StronglyRayleighCountable.{u_10} : {I : Type u_10} →
+  MeasureTheory.ProbabilityMeasure (I → Bool) → Prop :=
+fun {I} μ =>
+  ∀ (S : Finset I) (z : ↥S → ℂ),
+    (∀ (i : ↥S), 0 < (z i).im) → OAI.Problem336AdditiveD139.marginalGeneratingValue μ S z ≠ 0
+def OAI.Problem336AdditiveD139.boolReal : Bool → ℝ :=
+fun b => if b = true then 1 else 0
+def OAI.Problem336AdditiveD139.tiltPartition.{u_11} : {F : Type u_11} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → ℝ) → ℝ :=
+fun {F} [Fintype F] μ h => ∑ x, Real.exp (∑ j, h j * OAI.Problem336AdditiveD139.boolReal (x j)) * (↑μ {x}).toReal
+def OAI.Problem336AdditiveD139.tiltMean.{u_12} : {F : Type u_12} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → ℝ) → F → ℝ :=
+fun {F} [Fintype F] μ h i =>
+  (∑ x,
+      Real.exp (∑ j, h j * OAI.Problem336AdditiveD139.boolReal (x j)) * (↑μ {x}).toReal *
+        OAI.Problem336AdditiveD139.boolReal (x i)) /
+    OAI.Problem336AdditiveD139.tiltPartition μ h
+def OAI.Problem336AdditiveD139.tiltSecondMoment.{u_13} : {F : Type u_13} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → ℝ) → F → F → ℝ :=
+fun {F} [Fintype F] μ h i j =>
+  (∑ x,
+      Real.exp (∑ k, h k * OAI.Problem336AdditiveD139.boolReal (x k)) * (↑μ {x}).toReal *
+          OAI.Problem336AdditiveD139.boolReal (x i) *
+        OAI.Problem336AdditiveD139.boolReal (x j)) /
+    OAI.Problem336AdditiveD139.tiltPartition μ h
+def OAI.Problem336AdditiveD139.tiltCovariance.{u_14} : {F : Type u_14} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → ℝ) → F → F → ℝ :=
+fun {F} [Fintype F] μ h i j =>
+  OAI.Problem336AdditiveD139.tiltSecondMoment μ h i j -
+    OAI.Problem336AdditiveD139.tiltMean μ h i * OAI.Problem336AdditiveD139.tiltMean μ h j
+def OAI.Problem336AdditiveD139.coordinatePerturb.{u_15} : {F : Type u_15} → (F → ℝ) → F → ℝ → F → ℝ :=
+fun {F} h j r k => h k + if k = j then r else 0
+def OAI.Problem336AdditiveD139.PositiveContractionFinite.{u_16} : {F : Type u_16} → [Fintype F] → (F → F → ℂ) → Prop :=
+fun {F} [Fintype F] K =>
+  (∀ (i j : F), K i j = (starRingEnd ℂ) (K j i)) ∧
+    ∀ (c : F → ℂ),
+      0 ≤ (∑ i, ∑ j, (starRingEnd ℂ) (c i) * K i j * c j).re ∧
+        (∑ i, ∑ j, (starRingEnd ℂ) (c i) * K i j * c j).re ≤ ∑ i, Complex.normSq (c i)
+def OAI.Problem336AdditiveD139.IsFiniteDeterminantalLaw.{u_17} : {F : Type u_17} →
+  [Fintype F] → MeasureTheory.ProbabilityMeasure (F → Bool) → (F → F → ℂ) → Prop :=
+fun {F} [Fintype F] μ K => ∀ (A : Finset F), ↑(↑μ {x | ∀ i ∈ A, x i = true}).toReal = Matrix.det fun i j => K ↑i ↑j
+def OAI.Problem336AdditiveD139.PositiveContractionKernel.{u_18} : {I : Type u_18} → (I → I → ℂ) → Prop :=
+fun {I} K =>
+  (∀ (i j : I), K i j = (starRingEnd ℂ) (K j i)) ∧
+    ∀ (S : Finset I) (c : ↥S → ℂ),
+      0 ≤ (∑ i, ∑ j, (starRingEnd ℂ) (c i) * K ↑i ↑j * c j).re ∧
+        (∑ i, ∑ j, (starRingEnd ℂ) (c i) * K ↑i ↑j * c j).re ≤ ∑ i, Complex.normSq (c i)
+def OAI.Problem336AdditiveD139.IsDeterminantalLaw.{u_19} : {I : Type u_19} →
+  MeasureTheory.ProbabilityMeasure (I → Bool) → (I → I → ℂ) → Prop :=
+fun {I} μ K => ∀ (A : Finset I), ↑(↑μ {x | ∀ i ∈ A, x i = true}).toReal = Matrix.det fun i j => K ↑i ↑j
+def OAI.Problem336AdditiveD139.TranslationInvariantKernel.{u_20} : {Γ : Type u_20} → [Group Γ] → (Γ → Γ → ℂ) → Prop :=
+fun {Γ} [Group Γ] K => ∀ (g h k : Γ), K (g * h) (g * k) = K h k

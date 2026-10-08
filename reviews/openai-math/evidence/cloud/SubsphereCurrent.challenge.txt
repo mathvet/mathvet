@@ -1,0 +1,490 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SubsphereCurrent.lean:442:8: warning: declaration uses `sorry`
+OAI.SubsphereCurrent.full_current_main_scope : OAI.SubsphereCurrent.CurrentMainScope
+@[reducible] def OAI.SubsphereCurrent.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.SubsphereCurrent.UnitSphere : (d : ℕ) → Set (OAI.SubsphereCurrent.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.SubsphereCurrent.State : ℕ → Type :=
+fun M => Fin (2 ^ M)
+@[reducible] def OAI.SubsphereCurrent.Samples : ℕ → ℕ → Type :=
+fun d T => Fin T → OAI.SubsphereCurrent.Vector d
+def OAI.SubsphereCurrent.uniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.UnitSphere d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.SubsphereCurrent.sampleLaw : (d T : ℕ) → MeasureTheory.Measure (OAI.SubsphereCurrent.Samples d T) :=
+fun d T => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.SubsphereCurrent.Vector d)
+def OAI.SubsphereCurrent.observationReference : (d : ℕ) → MeasureTheory.Measure (OAI.SubsphereCurrent.Vector d × ℝ) :=
+fun d => (ProbabilityTheory.stdGaussian (OAI.SubsphereCurrent.Vector d)).prod MeasureTheory.volume
+structure OAI.SubsphereCurrent.KernelLearner (d M T : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.SubsphereCurrent.KernelLearner.initial : PMF (Bool × OAI.SubsphereCurrent.State M)
+  OAI.SubsphereCurrent.KernelLearner.transition : ℕ →
+      OAI.SubsphereCurrent.State M → OAI.SubsphereCurrent.Vector d × ℝ → PMF (Bool × OAI.SubsphereCurrent.State M)
+  OAI.SubsphereCurrent.KernelLearner.output : ℕ →
+      OAI.SubsphereCurrent.State M → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.UnitSphere d)
+  OAI.SubsphereCurrent.KernelLearner.output_probability : ∀ (t : ℕ) (q : OAI.SubsphereCurrent.State M),
+      MeasureTheory.IsProbabilityMeasure (self.output t q)
+constructor:
+  OAI.SubsphereCurrent.KernelLearner.mk {d M T : ℕ} (initial : PMF (Bool × OAI.SubsphereCurrent.State M))
+    (transition :
+      ℕ → OAI.SubsphereCurrent.State M → OAI.SubsphereCurrent.Vector d × ℝ → PMF (Bool × OAI.SubsphereCurrent.State M))
+    (output : ℕ → OAI.SubsphereCurrent.State M → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.UnitSphere d))
+    (output_probability :
+      ∀ (t : ℕ) (q : OAI.SubsphereCurrent.State M), MeasureTheory.IsProbabilityMeasure (output t q)) :
+    OAI.SubsphereCurrent.KernelLearner d M T
+@[reducible] def OAI.SubsphereCurrent.KernelLearner.RunStatus : ℕ → Type :=
+fun M => OAI.SubsphereCurrent.State M ⊕ ℕ × OAI.SubsphereCurrent.State M
+def OAI.SubsphereCurrent.KernelLearner.tagged : (M : ℕ) →
+  ℕ → Bool × OAI.SubsphereCurrent.State M → OAI.SubsphereCurrent.KernelLearner.RunStatus M :=
+fun M t a => if a.1 = true then Sum.inr (t, a.2) else Sum.inl a.2
+def OAI.SubsphereCurrent.KernelLearner.run : {d M T : ℕ} →
+  OAI.SubsphereCurrent.KernelLearner d M T →
+    ↑(OAI.SubsphereCurrent.UnitSphere d) →
+      OAI.SubsphereCurrent.Samples d T → ℕ → PMF (OAI.SubsphereCurrent.KernelLearner.RunStatus M) :=
+fun {d M T} L s x x_1 => Nat.brecOn x_1 (OAI.SubsphereCurrent.KernelLearner.run._f L s x)
+def OAI.SubsphereCurrent.KernelLearner.terminal : {d M T : ℕ} →
+  OAI.SubsphereCurrent.KernelLearner d M T →
+    ↑(OAI.SubsphereCurrent.UnitSphere d) → OAI.SubsphereCurrent.Samples d T → PMF (ℕ × OAI.SubsphereCurrent.State M) :=
+fun {d M T} L s x =>
+  PMF.map
+    (fun status =>
+      match status with
+      | Sum.inl q => (T, q)
+      | Sum.inr done => done)
+    (L.run s x T)
+def OAI.SubsphereCurrent.KernelLearner.estimateLaw : {d M T : ℕ} →
+  OAI.SubsphereCurrent.KernelLearner d M T →
+    ↑(OAI.SubsphereCurrent.UnitSphere d) →
+      OAI.SubsphereCurrent.Samples d T → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.UnitSphere d) :=
+fun {d M T} L s x => (L.terminal s x).toMeasure.bind fun a => L.output a.1 a.2
+def OAI.SubsphereCurrent.KernelLearner.angularError : {d : ℕ} →
+  ↑(OAI.SubsphereCurrent.UnitSphere d) → ↑(OAI.SubsphereCurrent.UnitSphere d) → ℝ :=
+fun {d} s u => Real.arccos (inner ℝ ↑u ↑s)
+def OAI.SubsphereCurrent.KernelLearner.conditionalSuccess : {d M T : ℕ} →
+  OAI.SubsphereCurrent.KernelLearner d M T →
+    ℝ → ↑(OAI.SubsphereCurrent.UnitSphere d) → OAI.SubsphereCurrent.Samples d T → ENNReal :=
+fun {d M T} L ε s x => (L.estimateLaw s x) {u | OAI.SubsphereCurrent.KernelLearner.angularError s u ≤ ε}
+def OAI.SubsphereCurrent.KernelLearner.CompletedRules : {d M T : ℕ} → OAI.SubsphereCurrent.KernelLearner d M T → Prop :=
+fun {d M T} L =>
+  ∀ (t : ℕ) (q : OAI.SubsphereCurrent.State M) (dest : Bool × OAI.SubsphereCurrent.State M),
+    AEMeasurable (fun obs => (L.transition t q obs) dest) (OAI.SubsphereCurrent.observationReference d)
+structure OAI.SubsphereCurrent.SeededLearner.{u} (d M T : ℕ) (Ω : Type u) : Type u
+number of parameters: 4
+fields:
+  OAI.SubsphereCurrent.SeededLearner.rules : Ω → OAI.SubsphereCurrent.KernelLearner d M T
+constructor:
+  OAI.SubsphereCurrent.SeededLearner.mk.{u} {d M T : ℕ} {Ω : Type u}
+    (rules : Ω → OAI.SubsphereCurrent.KernelLearner d M T) : OAI.SubsphereCurrent.SeededLearner d M T Ω
+structure OAI.SubsphereCurrent.SeededLearner.Admissible.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+  (L : OAI.SubsphereCurrent.SeededLearner d M T Ω) (ρ : MeasureTheory.Measure Ω) : Prop
+number of parameters: 7
+fields:
+  OAI.SubsphereCurrent.SeededLearner.Admissible.completed_rules : ∀ᵐ (ω : Ω) ∂ρ, (L.rules ω).CompletedRules
+  OAI.SubsphereCurrent.SeededLearner.Admissible.fixed_experiment : ∀ (s : ↑(OAI.SubsphereCurrent.UnitSphere d)) (ε : ℝ),
+      AEMeasurable (fun z => (L.rules z.1).conditionalSuccess ε s z.2) (ρ.prod (OAI.SubsphereCurrent.sampleLaw d T))
+  OAI.SubsphereCurrent.SeededLearner.Admissible.uniform_experiment : ∀ (ε : ℝ),
+      AEMeasurable (fun z => (L.rules z.2.1).conditionalSuccess ε z.1 z.2.2)
+        ((OAI.SubsphereCurrent.uniformSphere d).prod (ρ.prod (OAI.SubsphereCurrent.sampleLaw d T)))
+constructor:
+  OAI.SubsphereCurrent.SeededLearner.Admissible.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {L : OAI.SubsphereCurrent.SeededLearner d M T Ω} {ρ : MeasureTheory.Measure Ω}
+    (completed_rules : ∀ᵐ (ω : Ω) ∂ρ, (L.rules ω).CompletedRules)
+    (fixed_experiment :
+      ∀ (s : ↑(OAI.SubsphereCurrent.UnitSphere d)) (ε : ℝ),
+        AEMeasurable (fun z => (L.rules z.1).conditionalSuccess ε s z.2) (ρ.prod (OAI.SubsphereCurrent.sampleLaw d T)))
+    (uniform_experiment :
+      ∀ (ε : ℝ),
+        AEMeasurable (fun z => (L.rules z.2.1).conditionalSuccess ε z.1 z.2.2)
+          ((OAI.SubsphereCurrent.uniformSphere d).prod (ρ.prod (OAI.SubsphereCurrent.sampleLaw d T)))) :
+    L.Admissible ρ
+def OAI.SubsphereCurrent.SeededLearner.success.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      OAI.SubsphereCurrent.SeededLearner d M T Ω →
+        MeasureTheory.Measure Ω → ℝ → ↑(OAI.SubsphereCurrent.UnitSphere d) → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] L ρ ε s =>
+  ∫⁻ (z : Ω × OAI.SubsphereCurrent.Samples d T),
+    (L.rules z.1).conditionalSuccess ε s z.2 ∂ρ.prod (OAI.SubsphereCurrent.sampleLaw d T)
+def OAI.SubsphereCurrent.SeededLearner.uniformSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] → OAI.SubsphereCurrent.SeededLearner d M T Ω → MeasureTheory.Measure Ω → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] L ρ ε =>
+  ∫⁻ (z : ↑(OAI.SubsphereCurrent.UnitSphere d) × Ω × OAI.SubsphereCurrent.Samples d T),
+    (L.rules z.2.1).conditionalSuccess ε z.1
+      z.2.2 ∂(OAI.SubsphereCurrent.uniformSphere d).prod (ρ.prod (OAI.SubsphereCurrent.sampleLaw d T))
+def OAI.SubsphereCurrent.ExplicitPrecision.{u} : Prop :=
+∀ (M : ℕ → ℕ),
+  ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (T : ℕ) (ε : ℝ),
+            0 < ε →
+              ε ≤ 1 / 10 →
+                ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                  MeasureTheory.IsProbabilityMeasure ρ →
+                    ∀ (L : OAI.SubsphereCurrent.SeededLearner d (M d) T Ω),
+                      L.Admissible ρ →
+                        (2 / 3 ≤ L.uniformSuccess ρ ε ∨
+                            ∀ (s : ↑(OAI.SubsphereCurrent.UnitSphere d)), 2 / 3 ≤ L.success ρ ε s) →
+                          2⁻¹ ^ 16 * ↑d * Real.logb 2 (1 / ε) ≤ ↑T
+@[reducible] def OAI.SubsphereCurrent.Affine.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.SubsphereCurrent.Affine.Sphere.{u_1} : (E : Type u_1) → [NormedAddCommGroup E] → Set E :=
+fun E [NormedAddCommGroup E] => Metric.sphere 0 1
+def OAI.SubsphereCurrent.Affine.sphereLaw.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.Affine.Sphere E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+structure OAI.SubsphereCurrent.Affine.Test (d n : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.SubsphereCurrent.Affine.Test.space : Submodule ℝ (OAI.SubsphereCurrent.Affine.Vector d)
+  OAI.SubsphereCurrent.Affine.Test.dimension : Module.finrank ℝ ↥self.space = n
+  OAI.SubsphereCurrent.Affine.Test.center : OAI.SubsphereCurrent.Affine.Vector d
+  OAI.SubsphereCurrent.Affine.Test.perpendicular : self.center ∈ self.spaceᗮ
+  OAI.SubsphereCurrent.Affine.Test.radius : ℝ
+  OAI.SubsphereCurrent.Affine.Test.radius_positive : 0 < self.radius
+  OAI.SubsphereCurrent.Affine.Test.unit : ‖self.center‖ ^ 2 + self.radius ^ 2 = 1
+constructor:
+  OAI.SubsphereCurrent.Affine.Test.mk {d n : ℕ} (space : Submodule ℝ (OAI.SubsphereCurrent.Affine.Vector d))
+    (dimension : Module.finrank ℝ ↥space = n) (center : OAI.SubsphereCurrent.Affine.Vector d)
+    (perpendicular : center ∈ spaceᗮ) (radius : ℝ) (radius_positive : 0 < radius)
+    (unit : ‖center‖ ^ 2 + radius ^ 2 = 1) : OAI.SubsphereCurrent.Affine.Test d n
+def OAI.SubsphereCurrent.Affine.Test.point : {d n : ℕ} →
+  (A : OAI.SubsphereCurrent.Affine.Test d n) →
+    ↑(OAI.SubsphereCurrent.Affine.Sphere ↥A.space) → OAI.SubsphereCurrent.Affine.Vector d :=
+fun {d n} A s => A.center + A.radius • ↑↑s
+@[reducible] def OAI.SubsphereCurrent.Weighted.Vector : ℕ → Type :=
+fun d => OAI.SubsphereCurrent.Affine.Vector d
+@[reducible] def OAI.SubsphereCurrent.Weighted.Sphere : (d : ℕ) → Set (OAI.SubsphereCurrent.Weighted.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.SubsphereCurrent.Weighted.Rows : ℕ → ℕ → Type :=
+fun d k => Fin k → OAI.SubsphereCurrent.Weighted.Vector d
+@[reducible] def OAI.SubsphereCurrent.Weighted.Observation : ℕ → ℕ → Type :=
+fun d k => OAI.SubsphereCurrent.Weighted.Rows d k × (Fin k → ℝ)
+def OAI.SubsphereCurrent.Weighted.onTest : {d n : ℕ} →
+  (A : OAI.SubsphereCurrent.Affine.Test d n) →
+    ↑(OAI.SubsphereCurrent.Affine.Sphere ↥A.space) → ↑(OAI.SubsphereCurrent.Weighted.Sphere d) :=
+fun {d n} A s => ⟨A.point s, ⋯⟩
+def OAI.SubsphereCurrent.Weighted.norm : (d : ℕ) →
+  ℕ → (↑(OAI.SubsphereCurrent.Weighted.Sphere d) → ENNReal) → ENNReal :=
+fun d n g =>
+  ⨆ A,
+    ENNReal.ofReal A.radius ^ (↑d / 16) *
+      ∫⁻ (s : ↑(OAI.SubsphereCurrent.Affine.Sphere ↥A.space)),
+        g (OAI.SubsphereCurrent.Weighted.onTest A s) ∂OAI.SubsphereCurrent.Affine.sphereLaw ↥A.space
+def OAI.SubsphereCurrent.Weighted.blockInput.{u_1} : {d k : ℕ} →
+  {V : Type u_1} →
+    [Fintype V] →
+      (V → OAI.SubsphereCurrent.Weighted.Observation d k → ENNReal) →
+        (V → ↑(OAI.SubsphereCurrent.Weighted.Sphere d) → ENNReal) →
+          ↑(OAI.SubsphereCurrent.Weighted.Sphere d) → ENNReal :=
+fun {d k} {V} [Fintype V] κ g s =>
+  ∫⁻ (X : OAI.SubsphereCurrent.Weighted.Rows d k),
+    ∑ v,
+      κ v (X, fun i => inner ℝ (X i) ↑s) *
+        g v s ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.SubsphereCurrent.Weighted.Vector d)
+def OAI.SubsphereCurrent.Weighted.terminalInput : {d : ℕ} →
+  MeasureTheory.Measure ↑(OAI.SubsphereCurrent.Weighted.Sphere d) →
+    ℝ → ↑(OAI.SubsphereCurrent.Weighted.Sphere d) → ENNReal :=
+fun {d} π ε s => π {u | Real.arccos (inner ℝ ↑u ↑s) ≤ ε}
+def OAI.SubsphereCurrent.Weighted.RadiusWeightedFullEstimate.{v} : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          (∀ (W : ℝ),
+              1 ≤ W →
+                ∀ (V : Type v) [inst : Fintype V] [Nonempty V],
+                  ↑(Fintype.card V) ≤ W →
+                    ∀ (κ : V → OAI.SubsphereCurrent.Weighted.Observation d (d / 16) → ENNReal),
+                      (∀ (v : V), Measurable (κ v)) →
+                        (∀ (obs : OAI.SubsphereCurrent.Weighted.Observation d (d / 16)), ∑ v, κ v obs ≤ 1) →
+                          ∀ (g : V → ↑(OAI.SubsphereCurrent.Weighted.Sphere d) → ENNReal),
+                            (∀ (v : V), Measurable (g v)) →
+                              (∀ (v : V) (s : ↑(OAI.SubsphereCurrent.Weighted.Sphere d)), g v s ≤ 1) →
+                                ∀ (n : ℕ),
+                                  ↑d / 2 ≤ ↑n →
+                                    n ≤ d →
+                                      OAI.SubsphereCurrent.Weighted.norm d n
+                                          (OAI.SubsphereCurrent.Weighted.blockInput κ g) ≤
+                                        ENNReal.ofReal W ^ (1 / ↑(d / 16)) * ENNReal.ofReal (C ^ d) *
+                                          ⨆ v, OAI.SubsphereCurrent.Weighted.norm d (n - 2) (g v)) ∧
+            ∀ (n : ℕ),
+              ↑d / 2 ≤ ↑n →
+                n ≤ d →
+                  ∀ (π : MeasureTheory.Measure ↑(OAI.SubsphereCurrent.Weighted.Sphere d)),
+                    MeasureTheory.IsProbabilityMeasure π →
+                      ∀ (ε : ℝ),
+                        0 < ε →
+                          OAI.SubsphereCurrent.Weighted.norm d n (OAI.SubsphereCurrent.Weighted.terminalInput π ε) ≤
+                            ENNReal.ofReal (C ^ d) * ENNReal.ofReal ε ^ (↑d / 16)
+def OAI.SubsphereCurrent.HalfPrecision.{u} : Prop :=
+∃ c,
+  0 < c ∧
+    ∀ (M : ℕ → ℕ),
+      ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (T : ℕ) (ε : ℝ),
+                0 < ε →
+                  ε ≤ 1 / 10 →
+                    ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀ (L : OAI.SubsphereCurrent.SeededLearner d (M d) T Ω),
+                          L.Admissible ρ → 1 / 2 ≤ L.uniformSuccess ρ ε → c * ↑d * Real.logb 2 (1 / ε) ≤ ↑T
+@[reducible] def OAI.SubsphereCurrent.Fixed.Vector : ℕ → Type :=
+fun m => EuclideanSpace ℝ (Fin m)
+@[reducible] def OAI.SubsphereCurrent.Fixed.Sphere.{u_1} : (E : Type u_1) → [NormedAddCommGroup E] → Set E :=
+fun E [NormedAddCommGroup E] => Metric.sphere 0 1
+def OAI.SubsphereCurrent.Fixed.sphereLaw.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure ↑(OAI.SubsphereCurrent.Fixed.Sphere E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.SubsphereCurrent.Fixed.rowsLaw.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → (T : ℕ) → MeasureTheory.Measure (Fin T → E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] T =>
+  MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian E
+structure OAI.SubsphereCurrent.Fixed.Stream.{u_1, u_2} (E : Type u_1) (J : Type u_2) [MeasurableSpace E] (T : ℕ) :
+  Type (max u_1 u_2)
+number of parameters: 4
+fields:
+  OAI.SubsphereCurrent.Fixed.Stream.initial : PMF J
+  OAI.SubsphereCurrent.Fixed.Stream.transition : ℕ → J → E × ℝ → PMF J
+  OAI.SubsphereCurrent.Fixed.Stream.output : J → MeasureTheory.Measure E
+  OAI.SubsphereCurrent.Fixed.Stream.output_probability : ∀ (q : J), MeasureTheory.IsProbabilityMeasure (self.output q)
+constructor:
+  OAI.SubsphereCurrent.Fixed.Stream.mk.{u_1, u_2} {E : Type u_1} {J : Type u_2} [MeasurableSpace E] {T : ℕ}
+    (initial : PMF J) (transition : ℕ → J → E × ℝ → PMF J) (output : J → MeasureTheory.Measure E)
+    (output_probability : ∀ (q : J), MeasureTheory.IsProbabilityMeasure (output q)) :
+    OAI.SubsphereCurrent.Fixed.Stream E J T
+def OAI.SubsphereCurrent.Fixed.Stream.run.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [InnerProductSpace ℝ E] →
+        [inst : MeasurableSpace E] → {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → E → (Fin T → E) → ℕ → PMF J :=
+fun {E} {J} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] {T} L s x x_1 =>
+  Nat.brecOn x_1 (OAI.SubsphereCurrent.Fixed.Stream.run._f L s x)
+def OAI.SubsphereCurrent.Fixed.Stream.estimateLaw.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [InnerProductSpace ℝ E] →
+        [inst : MeasurableSpace E] →
+          [MeasurableSpace J] →
+            {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → E → (Fin T → E) → MeasureTheory.Measure E :=
+fun {E} {J} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [MeasurableSpace J] {T} L s x =>
+  (L.run s x T).toMeasure.bind L.output
+def OAI.SubsphereCurrent.Fixed.Stream.euclideanSuccess.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [InnerProductSpace ℝ E] →
+        [inst : MeasurableSpace E] →
+          [MeasurableSpace J] → {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → ℝ → E → (Fin T → E) → ENNReal :=
+fun {E} {J} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [MeasurableSpace J] {T} L η s x =>
+  (L.estimateLaw s x) {y | ‖y - s‖ ≤ η}
+def OAI.SubsphereCurrent.Fixed.Stream.angularSuccess.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [InnerProductSpace ℝ E] →
+        [inst : MeasurableSpace E] →
+          [MeasurableSpace J] → {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → ℝ → E → (Fin T → E) → ENNReal :=
+fun {E} {J} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] [MeasurableSpace J] {T} L ε s x =>
+  (L.estimateLaw s x) {y | Real.arccos (inner ℝ y s) ≤ ε}
+def OAI.SubsphereCurrent.Fixed.Stream.BorelRules.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} → [inst : MeasurableSpace E] → {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → Prop :=
+fun {E} {J} [MeasurableSpace E] {T} L => ∀ (n : ℕ) (q a : J), Measurable fun obs => (L.transition n q obs) a
+def OAI.SubsphereCurrent.Fixed.Stream.suffix.{u_1, u_2} : {E : Type u_1} →
+  {J : Type u_2} →
+    [inst : MeasurableSpace E] →
+      {T : ℕ} → OAI.SubsphereCurrent.Fixed.Stream E J T → ℕ → (k : ℕ) → J → OAI.SubsphereCurrent.Fixed.Stream E J k :=
+fun {E} {J} [MeasurableSpace E] {T} L n k v =>
+  { initial := PMF.pure v, transition := fun t => L.transition (n + t), output := L.output, output_probability := ⋯ }
+def OAI.SubsphereCurrent.Fixed.DimensionEstimate.{u} : Prop :=
+∃ C,
+  2 ≤ C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (j m : ℕ),
+            ↑d / 2 + 2 * ↑j ≤ ↑m →
+              m ≤ d →
+                ∀ (η : ℝ),
+                  0 < η →
+                    ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀
+                          (L :
+                            Ω →
+                              OAI.SubsphereCurrent.Fixed.Stream (OAI.SubsphereCurrent.Fixed.Vector m) (Fin (2 ^ d ^ 2))
+                                (j * (d / 32))),
+                          (∀ᵐ (ω : Ω) ∂ρ, (L ω).BorelRules) →
+                            AEMeasurable (fun z => (L z.2.1).euclideanSuccess η (↑z.1) z.2.2)
+                                ((OAI.SubsphereCurrent.Fixed.sphereLaw (OAI.SubsphereCurrent.Fixed.Vector m)).prod
+                                  (ρ.prod
+                                    (OAI.SubsphereCurrent.Fixed.rowsLaw (OAI.SubsphereCurrent.Fixed.Vector m)
+                                      (j * (d / 32))))) →
+                              ∫⁻ (z :
+                                  ↑(OAI.SubsphereCurrent.Fixed.Sphere (OAI.SubsphereCurrent.Fixed.Vector m)) ×
+                                    Ω × (Fin (j * (d / 32)) → OAI.SubsphereCurrent.Fixed.Vector m)),
+                                  (L z.2.1).euclideanSuccess η (↑z.1)
+                                    z.2.2 ∂(OAI.SubsphereCurrent.Fixed.sphereLaw
+                                        (OAI.SubsphereCurrent.Fixed.Vector m)).prod
+                                    (ρ.prod
+                                      (OAI.SubsphereCurrent.Fixed.rowsLaw (OAI.SubsphereCurrent.Fixed.Vector m)
+                                        (j * (d / 32)))) ≤
+                                ENNReal.ofReal ((C ^ (j + 1) * η) ^ (↑d / 32))
+def OAI.SubsphereCurrent.Affine.AllAffineFullEstimate.{u, v} : Prop :=
+∃ d₀,
+  ∀ (d : ℕ),
+    d₀ ≤ d →
+      ∀ (k : ℕ),
+        (d + 1) / 2 + 2 * k ≤ d →
+          ∀ (W : ℝ),
+            1 ≤ W →
+              ∀ (J : Type v) [inst : Fintype J] [Nonempty J] [inst_2 : MeasurableSpace J] [MeasurableSingletonClass J],
+                ↑(Fintype.card J) ≤ W →
+                  W ^ (1 / ↑(d / 8)) ≤ 2 ^ d →
+                    ∀ (ε : ℝ),
+                      0 < ε →
+                        ε ≤ 1 / 10 →
+                          ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                            MeasureTheory.IsProbabilityMeasure ρ →
+                              ∀
+                                (L :
+                                  Ω →
+                                    OAI.SubsphereCurrent.Fixed.Stream (OAI.SubsphereCurrent.Affine.Vector d) J
+                                      (k * (d / 16))),
+                                (∀ᵐ (ω : Ω) ∂ρ,
+                                    (L ω).BorelRules ∧
+                                      ∀ (q : J),
+                                        ∀ᵐ (y : OAI.SubsphereCurrent.Affine.Vector d) ∂(L ω).output q, ‖y‖ = 1) →
+                                  ∀ ell ≤ k,
+                                    ∀ (v : J) (n : ℕ),
+                                      (d + 1) / 2 + 2 * ell ≤ n →
+                                        ∀ (A : OAI.SubsphereCurrent.Affine.Test d n),
+                                          ∫⁻ (z :
+                                              ↑(OAI.SubsphereCurrent.Affine.Sphere ↥A.space) ×
+                                                Ω × (Fin (ell * (d / 16)) → OAI.SubsphereCurrent.Affine.Vector d)),
+                                              ((L z.2.1).suffix ((k - ell) * (d / 16)) (ell * (d / 16))
+                                                    v).angularSuccess
+                                                ε (A.point z.1)
+                                                z.2.2 ∂(OAI.SubsphereCurrent.Affine.sphereLaw ↥A.space).prod
+                                                (ρ.prod
+                                                  (OAI.SubsphereCurrent.Fixed.rowsLaw
+                                                    (OAI.SubsphereCurrent.Affine.Vector d) (ell * (d / 16)))) ≤
+                                            ENNReal.ofReal ((16 * (1000 ^ 32) ^ ell * ε / A.radius) ^ (2 * (d / 32)))
+def OAI.SubsphereRegression.sphereLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure ↑(Metric.sphere 0 1) :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.SubsphereRegression.ambientSphereLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] → [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  MeasureTheory.Measure.map Subtype.val OAI.SubsphereRegression.sphereLaw
+@[reducible] def OAI.SubsphereCurrent.Mixture.Orthogonal.{u_2} : (E : Type u_2) →
+  [inst : NormedAddCommGroup E] → [inst_1 : InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → Submonoid (E →L[ℝ] E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] => unitary (E →L[ℝ] E)
+def OAI.SubsphereCurrent.Mixture.orthogonalLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] → MeasureTheory.Measure ↥(OAI.SubsphereCurrent.Mixture.Orthogonal E) :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] =>
+  MeasureTheory.Measure.haarMeasure { carrier := Set.univ, isCompact' := ⋯, interior_nonempty' := ⋯ }
+def OAI.SubsphereCurrent.Mixture.blockIso.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] →
+        (V : Submodule ℝ E) →
+          ↥(OAI.SubsphereCurrent.Mixture.Orthogonal ↥V) → ↥(OAI.SubsphereCurrent.Mixture.Orthogonal ↥Vᗮ) → E ≃ₗᵢ[ℝ] E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] V u w =>
+  (V.orthogonalDecomposition.trans
+        (LinearIsometryEquiv.withLpProdCongr 2 (Unitary.linearIsometryEquiv u) (Unitary.linearIsometryEquiv w))).trans
+    V.orthogonalDecomposition.symm
+def OAI.SubsphereCurrent.Mixture.directionLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → Submodule ℝ E → Submodule ℝ E → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] V N =>
+  MeasureTheory.Measure.map (fun z => (OAI.SubsphereCurrent.Mixture.blockIso V 1 z.1) ↑z.2)
+    (OAI.SubsphereCurrent.Mixture.orthogonalLaw.prod OAI.SubsphereRegression.ambientSphereLaw)
+def OAI.SubsphereCurrent.Mixture.directionJointLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] →
+          [BorelSpace E] → Submodule ℝ E → Submodule ℝ E → (t : ℕ) → MeasureTheory.Measure (Fin t → E) :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] V N
+    t =>
+  MeasureTheory.Measure.map (fun z i => (OAI.SubsphereCurrent.Mixture.blockIso V 1 z.1) ↑(z.2 i))
+    (OAI.SubsphereCurrent.Mixture.orthogonalLaw.prod
+      (MeasureTheory.Measure.pi fun x => OAI.SubsphereRegression.ambientSphereLaw))
+def OAI.SubsphereCurrent.Mixture.latitudeSpace.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] → (V : Submodule ℝ E) → ↑(Metric.sphere 0 1) → Submodule ℝ E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] V e => (ℝ ∙ ↑↑e)ᗮ
+def OAI.SubsphereCurrent.Mixture.latitudeLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] →
+          [BorelSpace E] → (V : Submodule ℝ E) → ↑(Metric.sphere 0 1) → ℝ → ℝ → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] V e a
+    delta =>
+  MeasureTheory.Measure.map
+    (fun z => (OAI.SubsphereCurrent.Mixture.blockIso V z.2.1 1) (√(1 - z.1) • ↑↑e + √z.1 • ↑z.2.2))
+    ((ProbabilityTheory.betaMeasure a delta).prod
+      (OAI.SubsphereCurrent.Mixture.orthogonalLaw.prod OAI.SubsphereRegression.ambientSphereLaw))
+def OAI.SubsphereCurrent.Mixture.MixtureEstimate.{u_2} : (E : Type u_2) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → [inst_3 : MeasurableSpace E] → [BorelSpace E] → Prop :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  (∀ (V N : Submodule ℝ E),
+      V ≤ N →
+        1 ≤ Module.finrank ℝ ↥V →
+          Module.finrank ℝ ↥V < Module.finrank ℝ ↥N →
+            Module.finrank ℝ ↥N < Module.finrank ℝ E →
+              ∀ (e : ↑(Metric.sphere 0 1)),
+                OAI.SubsphereCurrent.Mixture.directionLaw V N ≤
+                  2 ^ Module.finrank ℝ E •
+                    (OAI.SubsphereRegression.ambientSphereLaw +
+                      OAI.SubsphereCurrent.Mixture.latitudeLaw V e
+                        ((↑(Module.finrank ℝ ↥N) - ↑(Module.finrank ℝ ↥V)) / 2)
+                        ((↑(Module.finrank ℝ E) - ↑(Module.finrank ℝ ↥N)) / 2))) ∧
+    (∀ (N : Submodule ℝ E),
+        1 ≤ Module.finrank ℝ ↥N →
+          OAI.SubsphereCurrent.Mixture.directionLaw ⊥ N = OAI.SubsphereRegression.ambientSphereLaw) ∧
+      ∀ (V : Submodule ℝ E) (t : ℕ),
+        1 ≤ Module.finrank ℝ E →
+          OAI.SubsphereCurrent.Mixture.directionJointLaw V ⊤ t =
+            MeasureTheory.Measure.pi fun x => OAI.SubsphereRegression.ambientSphereLaw
+def OAI.SubsphereCurrent.CurrentMainScope.{u, v, w} : Prop :=
+OAI.SubsphereCurrent.ExplicitPrecision ∧
+  OAI.SubsphereCurrent.Weighted.RadiusWeightedFullEstimate ∧
+    OAI.SubsphereCurrent.HalfPrecision ∧
+      OAI.SubsphereCurrent.Affine.AllAffineFullEstimate ∧
+        OAI.SubsphereCurrent.Fixed.DimensionEstimate ∧
+          ∀ (E : Type w) [inst : NormedAddCommGroup E] [inst_1 : InnerProductSpace ℝ E] [inst_2 : FiniteDimensional ℝ E]
+            [inst_3 : MeasurableSpace E] [inst_4 : BorelSpace E], OAI.SubsphereCurrent.Mixture.MixtureEstimate E

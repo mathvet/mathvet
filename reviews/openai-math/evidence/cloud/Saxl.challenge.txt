@@ -1,0 +1,46 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_Saxl.lean:112:8: warning: declaration uses `sorry`
+OAI.Saxl.saxl_conjecture : OAI.Saxl.SaxlConjecture
+@[reducible] def OAI.Saxl.WordSpace : ℕ → ℕ → Type :=
+fun n d => (Fin n → Fin d) → ℂ
+def OAI.Saxl.wordRep : (n d : ℕ) → Representation ℂ (Equiv.Perm (Fin n)) (OAI.Saxl.WordSpace n d) :=
+fun n d =>
+  { toFun := fun g => { toFun := fun f a => f (a ∘ ⇑g), map_add' := ⋯, map_smul' := ⋯ }, map_one' := ⋯, map_mul' := ⋯ }
+def OAI.Saxl.cyclic.{uG, uV} : {G : Type uG} →
+  {V : Type uV} →
+    [inst : Group G] →
+      [inst_1 : AddCommGroup V] → [inst_2 : Module ℂ V] → (ρ : Representation ℂ G V) → V → Subrepresentation ρ :=
+fun {G} {V} [Group G] [AddCommGroup V] [Module ℂ V] ρ v =>
+  { toSubmodule := Submodule.span ℂ (Set.range fun g => (ρ g) v), apply_mem_toSubmodule := ⋯ }
+@[reducible] def OAI.Saxl.Tableau : ℕ → YoungDiagram → Type :=
+fun n μ => Fin n ≃ ↥μ.cells
+def OAI.Saxl.canonicalTableau : {n : ℕ} → (μ : YoungDiagram) → μ.card = n → OAI.Saxl.Tableau n μ :=
+fun {n} μ hn => (Fintype.equivFinOfCardEq ⋯).symm
+def OAI.Saxl.rowWord : {n : ℕ} → {μ : YoungDiagram} → OAI.Saxl.Tableau n μ → Fin n → Fin (μ.colLen 0) :=
+fun {n} {μ} t i => ⟨(↑(t i)).1, ⋯⟩
+def OAI.Saxl.columnGroup : {n : ℕ} → {μ : YoungDiagram} → OAI.Saxl.Tableau n μ → Subgroup (Equiv.Perm (Fin n)) :=
+fun {n} {μ} t =>
+  { carrier := {g | ∀ (i : Fin n), (↑(t (g i))).2 = (↑(t i)).2}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.Saxl.polytabloid : {n : ℕ} → {μ : YoungDiagram} → OAI.Saxl.Tableau n μ → OAI.Saxl.WordSpace n (μ.colLen 0) :=
+fun {n} {μ} t => ∑ g, ↑↑(Equiv.Perm.sign ↑g) • ((OAI.Saxl.wordRep n (μ.colLen 0)) ↑g) (Pi.single (OAI.Saxl.rowWord t) 1)
+def OAI.Saxl.spechtSub : {n : ℕ} →
+  {μ : YoungDiagram} → OAI.Saxl.Tableau n μ → Subrepresentation (OAI.Saxl.wordRep n (μ.colLen 0)) :=
+fun {n} {μ} t => OAI.Saxl.cyclic (OAI.Saxl.wordRep n (μ.colLen 0)) (OAI.Saxl.polytabloid t)
+@[reducible] def OAI.Saxl.Specht : {n : ℕ} →
+  {μ : YoungDiagram} → OAI.Saxl.Tableau n μ → Submodule ℂ (OAI.Saxl.WordSpace n (μ.colLen 0)) :=
+fun {n} {μ} t => (OAI.Saxl.spechtSub t).toSubmodule
+def OAI.Saxl.spechtRep : {n : ℕ} →
+  {μ : YoungDiagram} → (t : OAI.Saxl.Tableau n μ) → Representation ℂ (Equiv.Perm (Fin n)) ↥(OAI.Saxl.Specht t) :=
+fun {n} {μ} t => (OAI.Saxl.spechtSub t).toRepresentation
+def OAI.Saxl.kronecker : {n : ℕ} →
+  {α β μ : YoungDiagram} → OAI.Saxl.Tableau n α → OAI.Saxl.Tableau n β → OAI.Saxl.Tableau n μ → ℕ :=
+fun {n} {α β μ} a b t =>
+  Module.finrank ℂ ((OAI.Saxl.spechtRep t).IntertwiningMap ((OAI.Saxl.spechtRep a).tprod (OAI.Saxl.spechtRep b)))
+def OAI.Saxl.staircase : ℕ → YoungDiagram :=
+fun m => { cells := {x ∈ Finset.range m ×ˢ Finset.range m | x.1 + x.2 < m}, isLowerSet := ⋯ }
+def OAI.Saxl.SaxlConjecture : Prop :=
+∀ (m : ℕ),
+  1 ≤ m →
+    ∀ (μ : YoungDiagram) (hμ : μ.card = (OAI.Saxl.staircase m).card),
+      0 <
+        OAI.Saxl.kronecker (OAI.Saxl.canonicalTableau (OAI.Saxl.staircase m) ⋯)
+          (OAI.Saxl.canonicalTableau (OAI.Saxl.staircase m) ⋯) (OAI.Saxl.canonicalTableau μ hμ)

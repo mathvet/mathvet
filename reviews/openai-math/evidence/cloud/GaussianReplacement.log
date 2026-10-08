@@ -1,0 +1,52 @@
+== GaussianReplacement  module=OAI.Probability.GaussianReplacement.FiberEquality  start=2026-10-08T12:29:45Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8958] Built OAI.Probability.GaussianReplacement.Basic (6.3s)
+✔ [8925/8958] Built OAI.Probability.GaussianReplacement.Geometry (10s)
+✔ [8926/8958] Built OAI.Probability.GaussianReplacement.MixedGeometry (12s)
+✔ [8927/8958] Built OAI.Probability.GaussianReplacement.Gram (10s)
+✔ [8928/8958] Built OAI.Probability.GaussianReplacement.MixedReplica (18s)
+✔ [8929/8958] Built OAI.Probability.GaussianReplacement.Density (11s)
+✔ [8930/8958] Built OAI.Probability.GaussianReplacement.Sphere (11s)
+✔ [8931/8958] Built OAI.Probability.GaussianReplacement.Entropy (12s)
+✔ [8932/8958] Built OAI.Probability.GaussianReplacement.ActualRow (17s)
+✔ [8933/8958] Built OAI.Probability.GaussianReplacement.ConditionalInfo (11s)
+✔ [8934/8958] Built OAI.Probability.GaussianReplacement.CriticalGeometry (13s)
+✔ [8935/8958] Built OAI.Probability.GaussianReplacement.CriticalEntropy (14s)
+✔ [8936/8958] Built OAI.Probability.GaussianReplacement.Information (13s)
+✔ [8937/8958] Built OAI.Probability.GaussianReplacement.Refinement (12s)
+✔ [8938/8958] Built OAI.Probability.GaussianReplacement.Posterior (13s)
+✔ [8939/8958] Built OAI.Probability.GaussianReplacement.Comparison (15s)
+✔ [8940/8958] Built OAI.Probability.GaussianReplacement.HybridModel (8.4s)
+✔ [8941/8958] Built OAI.Probability.GaussianReplacement.KernelGeometry (13s)
+✔ [8942/8958] Built OAI.Probability.GaussianReplacement.KernelVolume (13s)
+✔ [8943/8958] Built OAI.Probability.GaussianReplacement.Tilt (10s)
+✔ [8944/8958] Built OAI.Probability.GaussianReplacement.Reference (10s)
+✔ [8945/8958] Built OAI.Probability.GaussianReplacement.Mixture (11s)
+✔ [8946/8958] Built OAI.Probability.GaussianReplacement.FreshRows (14s)
+✔ [8947/8958] Built OAI.Probability.GaussianReplacement.ConditionalLaw (14s)
+✔ [8948/8958] Built OAI.Probability.GaussianReplacement.Observation (12s)
+✔ [8949/8958] Built OAI.Probability.GaussianReplacement.RowOrder (11s)
+✔ [8950/8958] Built OAI.Probability.GaussianReplacement.ArrayBounds (11s)
+✔ [8951/8958] Built OAI.Probability.GaussianReplacement.Telescopes (11s)
+✔ [8952/8958] Built OAI.Probability.GaussianReplacement.Hybrid (12s)
+✔ [8953/8958] Built OAI.Probability.GaussianReplacement.FiberBlock (10s)
+✔ [8954/8958] Built OAI.Probability.GaussianReplacement.FiberModel (9.6s)
+✔ [8955/8958] Built OAI.Probability.GaussianReplacement.FiberGeometry (13s)
+✔ [8956/8958] Built OAI.Probability.GaussianReplacement.Slab (12s)
+✔ [8957/8958] Built OAI.Probability.GaussianReplacement.FiberConditional (12s)
+✔ [8958/8958] Built OAI.Probability.GaussianReplacement.FiberEquality (8.6s)
+Build completed successfully (8958 jobs).
+== build rc=0 seconds=440
+{"theorems": ["OAI.CurrentProjection.measurable_own_label", "OAI.CurrentProjection.measurable_blockInput", "OAI.CurrentProjection.sphere_standardBorel", "OAI.CurrentProjection.uniformSphere_probability_of_pos", "OAI.CurrentProjection.mixedMomentMain", "OAI.CurrentProjection.actualRowMain", "OAI.CurrentProjection.actualRowRefinement", "OAI.CurrentProjection.actualRowSourceMain", "OAI.CurrentProjection.actualRowSourceRefinement", "OAI.CurrentProjection.criticalComparisonMain", "OAI.CurrentProjection.oneLevelComparisonMain", "OAI.CurrentProjection.twoLabelComparisonMain", "OAI.CurrentProjection.hybridBlockMain", "OAI.CurrentProjection.fiberTwoPointMain", "OAI.CurrentProjection.fiberBlockMain"], "defs": ["OAI.CurrentProjection.Vector", "OAI.CurrentProjection.Sphere", "OAI.CurrentProjection.Rows", "OAI.CurrentProjection.uniformSphere", "OAI.CurrentProjection.gaussianRows", "OAI.CurrentProjection.label", "OAI.CurrentProjection.LocalGrowth", "OAI.CurrentProjection.cubeAverage", "OAI.CurrentProjection.exactDensity", "OAI.CurrentProjection.AdmissibleDimensions", "OAI.CurrentProjection.momentConstant", "OAI.CurrentProjection.MixedMomentMain", "OAI.CurrentProjection.swapLast", "OAI.CurrentProjection.rowInformation", "OAI.CurrentProjection.shannonEntropy", "OAI.CurrentProjection.conditionalMutualInformation", "OAI.CurrentProjection.actualExperiment", "OAI.CurrentProjection.actualObservation", "OAI.CurrentProjection.selectedCube", "OAI.CurrentProjection.selectedExact", "OAI.CurrentProjection.momentBound", "OAI.CurrentProjection.logPositive", "OAI.CurrentProjection.logNegative", "OAI.CurrentProjection.extendedLogExpectation", "OAI.CurrentProjection.PositiveMessage", "OAI.CurrentProjection.completeFamily", "OAI.CurrentProjection.ActualRowConclusion", "OAI.CurrentProjection.actualConditionalRowInformation", "OAI.CurrentProjection.ActualRowSourceConclusion", "OAI.CurrentProjection.alignedExperiment", "OAI.CurrentProjection.exposedJointMap", "OAI.CurrentProjection.exposedInformation", "OAI.CurrentProjection.CriticalComparisonMain", "OAI.CurrentProjection.OneLevelComparisonMain", "OAI.CurrentProjection.TwoLabelComparisonMain", "OAI.CurrentProjection.blockInput", "OAI.CurrentProjection.blockLaw", "OAI.CurrentProjection.endingSignalLaw", "OAI.CurrentProjection.freshInformation", "OAI.CurrentProjection.hybridFirst", "OAI.CurrentProjection.hybridLast", "OAI.CurrentProjection.hybridCount", "OAI.CurrentProjection.averagedFreshInformation", "OAI.CurrentProjection.HybridBlockMain", "OAI.CurrentProjection.FiberBlockMain", "OAI.CurrentProjection.dependentMapKernel", "OAI.CurrentProjection.fiberObservationLaw", "OAI.CurrentProjection.sphericalFiberKernel", "OAI.CurrentProjection.fiberTwoPointLeft", "OAI.CurrentProjection.perpendicularRow", "OAI.CurrentProjection.perpendicularRowsKernel", "OAI.CurrentProjection.fiberTwoPointConstant", "OAI.CurrentProjection.fiberDistanceWeight", "OAI.CurrentProjection.fiberTwoPointRight", "OAI.CurrentProjection.FiberTwoPointMain"], "json_theorems": ["OAI.CurrentProjection.mixedMomentMain", "OAI.CurrentProjection.actualRowMain", "OAI.CurrentProjection.actualRowRefinement", "OAI.CurrentProjection.actualRowSourceMain", "OAI.CurrentProjection.actualRowSourceRefinement", "OAI.CurrentProjection.criticalComparisonMain", "OAI.CurrentProjection.oneLevelComparisonMain", "OAI.CurrentProjection.twoLabelComparisonMain", "OAI.CurrentProjection.hybridBlockMain", "OAI.CurrentProjection.fiberTwoPointMain", "OAI.CurrentProjection.fiberBlockMain"], "missing_from_parse": []}
+AXIOMS: 'OAI.CurrentProjection.mixedMomentMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.actualRowMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.actualRowRefinement' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.actualRowSourceMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.actualRowSourceRefinement' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.criticalComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.oneLevelComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.twoLabelComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.hybridBlockMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.fiberTwoPointMain' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.CurrentProjection.fiberBlockMain' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:37:35Z

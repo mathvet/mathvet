@@ -1,0 +1,31 @@
+CMP OAI.C0Absorption.main_result [thm] ok
+CMP OAI.C0Absorption.MainConclusion [def] ok
+CMP OAI.C0Absorption.NoLinearC0._proof_2 [thm] ok
+CMP OAI.C0Absorption.NoLinearC0._proof_1 [thm] ok
+CMP OAI.C0Absorption.MetricUniversal [def] ok
+CMP OAI.C0Absorption.BiLip [def] ok
+CMP OAI.C0Absorption.C0 [def] ok
+CMP OAI.C0Absorption.NoLinearC0 [def] ok
+Chal.C0Absorption.main_result : Chal.C0Absorption.MainConclusion
+@[reducible] def Chal.C0Absorption.C0 : Type :=
+ZeroAtInftyContinuousMap ℕ ℝ
+def Chal.C0Absorption.BiLip.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} → [MetricSpace X] → [MetricSpace Y] → (X → Y) → Prop :=
+fun {X} {Y} [MetricSpace X] [MetricSpace Y] f =>
+  ∃ c C, 0 < c ∧ c ≤ C ∧ ∀ (x y : X), c * dist x y ≤ dist (f x) (f y) ∧ dist (f x) (f y) ≤ C * dist x y
+def Chal.C0Absorption.NoLinearC0.{u_1} : (Z : Type u_1) → [inst : NormedAddCommGroup Z] → [NormedSpace ℝ Z] → Prop :=
+fun Z [NormedAddCommGroup Z] [NormedSpace ℝ Z] =>
+  ∀ (T : Chal.C0Absorption.C0 →L[ℝ] Z), ¬∃ c, 0 < c ∧ ∀ (x : Chal.C0Absorption.C0), c * ‖x‖ ≤ ‖T x‖
+def Chal.C0Absorption.MetricUniversal.{u_1} : (Z : Type u_1) → [MetricSpace Z] → Prop :=
+fun Z [MetricSpace Z] =>
+  ∀ (M : Type) [inst_1 : MetricSpace M] [TopologicalSpace.SeparableSpace M], ∃ f, Chal.C0Absorption.BiLip f
+def Chal.C0Absorption.MainConclusion : Prop :=
+∃ Z x x_1,
+  CompleteSpace Z ∧
+    TopologicalSpace.SeparableSpace Z ∧
+      Chal.C0Absorption.NoLinearC0 Z ∧
+        (∃ F, Function.Surjective F ∧ Chal.C0Absorption.BiLip F) ∧
+          (∃ f, Chal.C0Absorption.BiLip f) ∧
+            Chal.C0Absorption.MetricUniversal Z ∧ ¬Nonempty ((Z × Chal.C0Absorption.C0) ≃L[ℝ] Z)
+'OAI.C0Absorption.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+== C0Absorption comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

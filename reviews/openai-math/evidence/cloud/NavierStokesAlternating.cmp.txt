@@ -1,0 +1,332 @@
+CMP OAI.AlternatingNS.alternating [thm] ok
+CMP OAI.AlternatingNS.AlternatingConclusion [def] ok
+CMP OAI.AlternatingNS.Machine.Halts [def] ok
+CMP OAI.AlternatingNS.Machine.run [def] ok
+CMP OAI.AlternatingNS.Machine.initial [def] ok
+CMP OAI.AlternatingNS.Machine.initialState [def] ok
+CMP OAI.AlternatingNS.Rule [def] ok
+CMP OAI.AlternatingNS.Machine [def] ok
+CMP OAI.AlternatingNS.Machine.Configuration.mk [ctor] ok
+CMP OAI.AlternatingNS.Machine.Configuration [ind] ok
+CMP OAI.AlternatingNS.Machine.step [def] ok
+CMP OAI.AlternatingNS.Machine.states [def] ok
+CMP OAI.AlternatingNS.Machine.Configuration.head [def] ok
+CMP OAI.AlternatingNS.Machine.Configuration.tape [def] ok
+CMP OAI.AlternatingNS.Machine.Configuration.state [def] ok
+CMP OAI.AlternatingNS.Machine.instruction [def] ok
+CMP OAI.AlternatingNS.Machine.alphabet [def] ok
+CMP OAI.AlternatingNS.Machine.table [def] ok
+CMP OAI.AlternatingNS.Machine.step.match_1 [def] ok
+CMP OAI.AlternatingNS.Machine.isHalting [def] ok
+CMP OAI.AlternatingNS.Machine.haltingStates [def] ok
+CMP OAI.AlternatingNS.observedParticle [def] ok
+CMP OAI.AlternatingNS.grad._proof_1 [thm] ok
+CMP OAI.AlternatingNS.Space [def] ok
+CMP OAI.AlternatingNS.spatial._proof_1 [thm] ok
+CMP OAI.AlternatingNS.IsTrajectory [def] ok
+CMP OAI.AlternatingNS.IsTrajectory._proof_1 [thm] ok
+CMP OAI.AlternatingNS.Velocity [def] ok
+CMP OAI.AlternatingNS.Field [def] ok
+CMP OAI.AlternatingNS.CompetitorEnergyClass [def] ok
+CMP OAI.AlternatingNS.C1InL2 [def] ok
+CMP OAI.AlternatingNS.dt [def] ok
+CMP OAI.AlternatingNS.ContinuousInH._proof_5 [thm] ok
+CMP OAI.AlternatingNS.ContinuousInH._proof_2 [thm] ok
+CMP OAI.AlternatingNS.ContinuousInH._proof_1 [thm] ok
+CMP OAI.AlternatingNS.C1InL2._proof_4 [thm] ok
+CMP OAI.AlternatingNS.C1InL2._proof_3 [thm] ok
+CMP OAI.AlternatingNS.ContinuousInH._proof_4 [thm] ok
+CMP OAI.AlternatingNS.C1InL2._proof_1 [thm] ok
+CMP OAI.AlternatingNS.C1InL2._proof_2 [thm] ok
+CMP OAI.AlternatingNS.ContinuousInH [def] ok
+CMP OAI.AlternatingNS.spatial [def] ok
+CMP OAI.AlternatingNS.dx [def] ok
+CMP OAI.AlternatingNS.e [def] ok
+CMP OAI.AlternatingNS.MultiIndex [def] ok
+CMP OAI.AlternatingNS.ContinuousInH._proof_3 [thm] ok
+CMP OAI.AlternatingNS.Pressure [def] ok
+CMP OAI.AlternatingNS.EnergyClass [def] ok
+CMP OAI.AlternatingNS.NavierStokes [def] ok
+CMP OAI.AlternatingNS.laplacian [def] ok
+CMP OAI.AlternatingNS.grad [def] ok
+CMP OAI.AlternatingNS.advection [def] ok
+CMP OAI.AlternatingNS.div [def] ok
+CMP OAI.AlternatingNS.ClassicalRegularity [def] ok
+CMP OAI.AlternatingNS.timeCylinder [def] ok
+CMP OAI.AlternatingNS.residual [def] ok
+CMP OAI.AlternatingNS.Rapid [def] ok
+CMP OAI.AlternatingNS.mixed [def] ok
+CMP OAI.AlternatingNS.SupportedIn [def] ok
+CMP OAI.AlternatingNS.Smooth [def] ok
+CMP OAI.AlternatingNS.ProgramFor [def] ok
+CMP OAI.AlternatingNS.dyadicError [def] ok
+CMP OAI.AlternatingNS.rationalPoint [def] ok
+CMP OAI.AlternatingNS.rationalVector [def] ok
+CMP OAI.AlternatingNS.RationalVector [def] ok
+CMP OAI.AlternatingNS.RationalPoint [def] ok
+CMP OAI.AlternatingNS.index [def] ok
+CMP OAI.AlternatingNS.IndexCode [def] ok
+CMP OAI.AlternatingNS.Program [def] ok
+CMP OAI.AlternatingNS.Returns [def] ok
+CMP OAI.AlternatingNS.FieldProgram [def] ok
+CMP OAI.AlternatingNS.Machine.ValidInput [def] ok
+CMP OAI.AlternatingNS.Machine.WellFormed [def] ok
+CMP OAI.AlternatingNS.ComputableReal [def] ok
+Chal.AlternatingNS.alternating : ∀ (ν : ℝ),
+  0 < ν → Chal.AlternatingNS.ComputableReal ν → Chal.AlternatingNS.AlternatingConclusion ν
+@[reducible] def Chal.AlternatingNS.Rule : Type :=
+ℕ × ℕ × Fin 3
+@[reducible] def Chal.AlternatingNS.Machine : Type :=
+ℕ × ℕ × ℕ × List ℕ × List (Option Chal.AlternatingNS.Rule)
+def Chal.AlternatingNS.Machine.states : Chal.AlternatingNS.Machine → ℕ :=
+fun M => M.1 + 1
+def Chal.AlternatingNS.Machine.alphabet : Chal.AlternatingNS.Machine → ℕ :=
+fun M => M.2.1 + 1
+def Chal.AlternatingNS.Machine.initialState : Chal.AlternatingNS.Machine → ℕ :=
+fun M => M.2.2.1
+def Chal.AlternatingNS.Machine.haltingStates : Chal.AlternatingNS.Machine → List ℕ :=
+fun M => M.2.2.2.1
+def Chal.AlternatingNS.Machine.table : Chal.AlternatingNS.Machine → List (Option Chal.AlternatingNS.Rule) :=
+fun M => M.2.2.2.2
+def Chal.AlternatingNS.Machine.instruction : Chal.AlternatingNS.Machine → ℕ → ℕ → Option Chal.AlternatingNS.Rule :=
+fun M q a => M.table[q * M.alphabet + a]?.join
+def Chal.AlternatingNS.Machine.WellFormed : Chal.AlternatingNS.Machine → Prop :=
+fun M =>
+  M.initialState < M.states ∧
+    (∀ q ∈ M.haltingStates, q < M.states) ∧
+      ∀ (q a : ℕ) (r : Chal.AlternatingNS.Rule),
+        q < M.states → a < M.alphabet → M.instruction q a = some r → r.1 < M.states ∧ r.2.1 < M.alphabet
+def Chal.AlternatingNS.Machine.ValidInput : Chal.AlternatingNS.Machine → List ℕ → Prop :=
+fun M w => ∀ a ∈ w, a < M.alphabet
+structure Chal.AlternatingNS.Machine.Configuration : Type
+number of parameters: 0
+fields:
+  Chal.AlternatingNS.Machine.Configuration.state : ℕ
+  Chal.AlternatingNS.Machine.Configuration.head : ℤ
+  Chal.AlternatingNS.Machine.Configuration.tape : ℤ → ℕ
+constructor:
+  Chal.AlternatingNS.Machine.Configuration.mk (state : ℕ) (head : ℤ) (tape : ℤ → ℕ) :
+    Chal.AlternatingNS.Machine.Configuration
+def Chal.AlternatingNS.Machine.isHalting : Chal.AlternatingNS.Machine →
+  Chal.AlternatingNS.Machine.Configuration → Bool :=
+fun M c => decide (c.state = M.states ∨ c.state ∈ M.haltingStates)
+def Chal.AlternatingNS.Machine.initial : Chal.AlternatingNS.Machine →
+  List ℕ → Chal.AlternatingNS.Machine.Configuration :=
+fun M w => { state := M.initialState, head := 0, tape := fun i => if 0 ≤ i then w[i.toNat]?.getD 0 else 0 }
+def Chal.AlternatingNS.Machine.step : Chal.AlternatingNS.Machine →
+  Chal.AlternatingNS.Machine.Configuration → Chal.AlternatingNS.Machine.Configuration :=
+fun M c =>
+  if M.isHalting c = true then c
+  else
+    match M.instruction c.state (c.tape c.head) with
+    | none => { state := M.states, head := c.head, tape := c.tape }
+    | some r => { state := r.1, head := c.head + (↑↑r.2.2 - 1), tape := Function.update c.tape c.head r.2.1 }
+def Chal.AlternatingNS.Machine.run : Chal.AlternatingNS.Machine →
+  List ℕ → ℕ → Chal.AlternatingNS.Machine.Configuration :=
+fun M w n => M.step^[n] (M.initial w)
+def Chal.AlternatingNS.Machine.Halts : Chal.AlternatingNS.Machine → List ℕ → Prop :=
+fun M w => ∃ n, M.isHalting (M.run w n) = true
+@[reducible] def Chal.AlternatingNS.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.AlternatingNS.Field.{u_1} : Type u_1 → Type u_1 :=
+fun E => ℝ → Chal.AlternatingNS.Space → E
+@[reducible] def Chal.AlternatingNS.Velocity : Type :=
+Chal.AlternatingNS.Field Chal.AlternatingNS.Space
+@[reducible] def Chal.AlternatingNS.Pressure : Type :=
+Chal.AlternatingNS.Field ℝ
+@[reducible] def Chal.AlternatingNS.MultiIndex : Type :=
+Fin 3 → ℕ
+def Chal.AlternatingNS.e : Fin 3 → Chal.AlternatingNS.Space :=
+fun i => EuclideanSpace.single i 1
+def Chal.AlternatingNS.dx.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Fin 3 → Chal.AlternatingNS.Field E → Chal.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] i F t x => (fderiv ℝ (F t) x) (Chal.AlternatingNS.e i)
+def Chal.AlternatingNS.dt.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Chal.AlternatingNS.Field E → Chal.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] F t x => (fderivWithin ℝ (fun s => F s x) (Set.Ici 0) t) 1
+def Chal.AlternatingNS.spatial.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [NormedSpace ℝ E] → Chal.AlternatingNS.MultiIndex → Chal.AlternatingNS.Field E → Chal.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] α F =>
+  (Chal.AlternatingNS.dx 0)^[α 0] ((Chal.AlternatingNS.dx 1)^[α 1] ((Chal.AlternatingNS.dx 2)^[α 2] F))
+def Chal.AlternatingNS.mixed.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [NormedSpace ℝ E] → ℕ → Chal.AlternatingNS.MultiIndex → Chal.AlternatingNS.Field E → Chal.AlternatingNS.Field E :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] l α F => Chal.AlternatingNS.dt^[l] (Chal.AlternatingNS.spatial α F)
+def Chal.AlternatingNS.div : Chal.AlternatingNS.Velocity → ℝ → Chal.AlternatingNS.Space → ℝ :=
+fun u t x => ∑ i, (Chal.AlternatingNS.dx i u t x).ofLp i
+def Chal.AlternatingNS.grad : Chal.AlternatingNS.Pressure → ℝ → Chal.AlternatingNS.Space → Chal.AlternatingNS.Space :=
+fun p t x => (EuclideanSpace.equiv (Fin 3) ℝ).symm fun i => Chal.AlternatingNS.dx i p t x
+def Chal.AlternatingNS.laplacian : Chal.AlternatingNS.Velocity →
+  ℝ → Chal.AlternatingNS.Space → Chal.AlternatingNS.Space :=
+fun u t x => ∑ i, Chal.AlternatingNS.dx i (Chal.AlternatingNS.dx i u) t x
+def Chal.AlternatingNS.advection : Chal.AlternatingNS.Velocity →
+  ℝ → Chal.AlternatingNS.Space → Chal.AlternatingNS.Space :=
+fun u t x => (fderiv ℝ (u t) x) (u t x)
+def Chal.AlternatingNS.residual : ℝ → Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Velocity :=
+fun ν u t x => Chal.AlternatingNS.dt u t x + Chal.AlternatingNS.advection u t x - ν • Chal.AlternatingNS.laplacian u t x
+def Chal.AlternatingNS.timeCylinder : ℝ → Set (ℝ × Chal.AlternatingNS.Space) :=
+fun T => Set.Icc 0 T ×ˢ Set.univ
+def Chal.AlternatingNS.Smooth.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Chal.AlternatingNS.Field E → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] F => ContDiffOn ℝ (↑⊤) (Function.uncurry F) (Set.Ici 0 ×ˢ Set.univ)
+def Chal.AlternatingNS.ClassicalRegularity : Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  (∀ (x : Chal.AlternatingNS.Space), DifferentiableOn ℝ (fun t => u t x) (Set.Ici 0)) ∧
+    (∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (u t)) ∧
+      (∀ (t : ℝ), 0 ≤ t → ∀ (i : Fin 3), Differentiable ℝ (Chal.AlternatingNS.dx i u t)) ∧
+        (∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (p t)) ∧
+          ∀ (T : ℝ),
+            0 ≤ T →
+              ContinuousOn (Function.uncurry u) (Chal.AlternatingNS.timeCylinder T) ∧
+                ContinuousOn (Function.uncurry (Chal.AlternatingNS.dt u)) (Chal.AlternatingNS.timeCylinder T) ∧
+                  (∀ (i : Fin 3),
+                      ContinuousOn (Function.uncurry (Chal.AlternatingNS.dx i u)) (Chal.AlternatingNS.timeCylinder T)) ∧
+                    (∀ (i j : Fin 3),
+                        ContinuousOn (Function.uncurry (Chal.AlternatingNS.dx i (Chal.AlternatingNS.dx j u)))
+                          (Chal.AlternatingNS.timeCylinder T)) ∧
+                      ContinuousOn (Function.uncurry p) (Chal.AlternatingNS.timeCylinder T) ∧
+                        ∀ (i : Fin 3),
+                          ContinuousOn (Function.uncurry (Chal.AlternatingNS.dx i p))
+                            (Chal.AlternatingNS.timeCylinder T)
+def Chal.AlternatingNS.ContinuousInH.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℕ → Chal.AlternatingNS.Field E → ℝ → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] k F T =>
+  ∀ (α : Chal.AlternatingNS.MultiIndex),
+    ∑ i, α i ≤ k →
+      ∃ g,
+        ContinuousOn g (Set.Icc 0 T) ∧
+          ∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : Chal.AlternatingNS.Space), ↑↑(g t) x = Chal.AlternatingNS.spatial α F t x
+def Chal.AlternatingNS.C1InL2 : Chal.AlternatingNS.Velocity → ℝ → Prop :=
+fun u T =>
+  ∃ g g',
+    ContinuousOn g (Set.Icc 0 T) ∧
+      ContinuousOn g' (Set.Icc 0 T) ∧
+        (∀ t ∈ Set.Icc 0 T, HasDerivWithinAt g (g' t) (Set.Icc 0 T) t) ∧
+          (∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : Chal.AlternatingNS.Space), ↑↑(g t) x = u t x) ∧
+            ∀ t ∈ Set.Icc 0 T, ∀ᵐ (x : Chal.AlternatingNS.Space), ↑↑(g' t) x = Chal.AlternatingNS.dt u t x
+def Chal.AlternatingNS.CompetitorEnergyClass : Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  ∀ (T : ℝ),
+    0 ≤ T →
+      Chal.AlternatingNS.ContinuousInH 2 u T ∧
+        Chal.AlternatingNS.C1InL2 u T ∧
+          Chal.AlternatingNS.ContinuousInH 1 p T ∧ ∃ C, ∀ t ∈ Set.Icc 0 T, ∀ (x : Chal.AlternatingNS.Space), ‖u t x‖ ≤ C
+def Chal.AlternatingNS.EnergyClass : Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Pressure → Prop :=
+fun u p =>
+  Chal.AlternatingNS.CompetitorEnergyClass u p ∧
+    ∀ (T : ℝ), 0 ≤ T → ∃ C, ∀ t ∈ Set.Icc 0 T, ∀ (x : Chal.AlternatingNS.Space), ‖u t x‖ + ‖fderiv ℝ (u t) x‖ ≤ C
+def Chal.AlternatingNS.NavierStokes : ℝ →
+  Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Velocity → Chal.AlternatingNS.Pressure → Prop :=
+fun ν f u p =>
+  Chal.AlternatingNS.ClassicalRegularity u p ∧
+    (∀ (x : Chal.AlternatingNS.Space), u 0 x = 0) ∧
+      ∀ (t : ℝ),
+        0 ≤ t →
+          ∀ (x : Chal.AlternatingNS.Space),
+            Chal.AlternatingNS.div u t x = 0 ∧
+              Chal.AlternatingNS.dt u t x + Chal.AlternatingNS.advection u t x =
+                -Chal.AlternatingNS.grad p t x + ν • Chal.AlternatingNS.laplacian u t x + f t x
+def Chal.AlternatingNS.Rapid : Chal.AlternatingNS.Velocity → Prop :=
+fun F =>
+  ∀ (J l : ℕ) (α : Chal.AlternatingNS.MultiIndex),
+    ∃ C,
+      0 ≤ C ∧
+        ∀ (t : ℝ),
+          0 ≤ t → ∀ (x : Chal.AlternatingNS.Space), (1 + t + ‖x‖) ^ J * ‖Chal.AlternatingNS.mixed l α F t x‖ ≤ C
+def Chal.AlternatingNS.SupportedIn : Chal.AlternatingNS.Velocity → Set Chal.AlternatingNS.Space → Prop :=
+fun F K => ∀ (t : ℝ), 0 ≤ t → Function.support (F t) ⊆ K
+def Chal.AlternatingNS.IsTrajectory : Chal.AlternatingNS.Velocity →
+  Chal.AlternatingNS.Space → (ℝ → Chal.AlternatingNS.Space) → Prop :=
+fun u a γ => γ 0 = a ∧ ∀ (t : ℝ), 0 ≤ t → HasDerivWithinAt γ (u t (γ t)) (Set.Ici 0) t
+def Chal.AlternatingNS.observedParticle : Chal.AlternatingNS.Space :=
+(EuclideanSpace.equiv (Fin 3) ℝ).symm ![-1, 0, 0]
+@[reducible] def Chal.AlternatingNS.RationalPoint : Type :=
+ℚ × ℚ × ℚ × ℚ
+@[reducible] def Chal.AlternatingNS.RationalVector : Type :=
+ℚ × ℚ × ℚ
+@[reducible] def Chal.AlternatingNS.IndexCode : Type :=
+ℕ × ℕ × ℕ
+@[reducible] def Chal.AlternatingNS.Program : Type :=
+Nat.Partrec.Code
+@[reducible] def Chal.AlternatingNS.FieldProgram : Type :=
+Chal.AlternatingNS.Program × Chal.AlternatingNS.Program × Chal.AlternatingNS.Program
+def Chal.AlternatingNS.Returns.{u_1, u_2} : {A : Type u_1} →
+  {B : Type u_2} → [Encodable A] → [Encodable B] → Chal.AlternatingNS.Program → A → B → Prop :=
+fun {A} {B} [Encodable A] [Encodable B] c a b => Encodable.encode b ∈ Nat.Partrec.Code.eval c (Encodable.encode a)
+def Chal.AlternatingNS.index : Chal.AlternatingNS.IndexCode → Chal.AlternatingNS.MultiIndex :=
+fun α => ![α.1, α.2.1, α.2.2]
+def Chal.AlternatingNS.rationalVector : Chal.AlternatingNS.RationalVector → Chal.AlternatingNS.Space :=
+fun q => (EuclideanSpace.equiv (Fin 3) ℝ).symm ![↑q.1, ↑q.2.1, ↑q.2.2]
+def Chal.AlternatingNS.rationalPoint : Chal.AlternatingNS.RationalPoint → ℝ × Chal.AlternatingNS.Space :=
+fun q => (↑q.1, Chal.AlternatingNS.rationalVector q.2)
+def Chal.AlternatingNS.dyadicError : ℕ → ℝ :=
+fun n => (1 / 2) ^ n
+def Chal.AlternatingNS.ComputableReal : ℝ → Prop :=
+fun r => ∃ a, (Computable fun n => ((a n).num, (a n).den)) ∧ ∀ (n : ℕ), |r - ↑(a n)| ≤ Chal.AlternatingNS.dyadicError n
+def Chal.AlternatingNS.ProgramFor : Chal.AlternatingNS.FieldProgram → Chal.AlternatingNS.Velocity → Prop :=
+fun c F =>
+  (∀ (l : ℕ) (α : Chal.AlternatingNS.IndexCode) (q : Chal.AlternatingNS.RationalPoint) (k : ℕ),
+      ∃ v,
+        Chal.AlternatingNS.Returns c.1 (l, α, q, k) v ∧
+          (0 ≤ q.1 →
+            ‖Chal.AlternatingNS.rationalVector v -
+                  Chal.AlternatingNS.mixed l (Chal.AlternatingNS.index α) F (Chal.AlternatingNS.rationalPoint q).1
+                    (Chal.AlternatingNS.rationalPoint q).2‖ ≤
+              Chal.AlternatingNS.dyadicError k)) ∧
+    (∀ (l : ℕ) (α : Chal.AlternatingNS.IndexCode) (R k : ℕ),
+        ∃ m,
+          Chal.AlternatingNS.Returns c.2.1 (l, α, R, k) m ∧
+            ∀ (z z' : ℝ × Chal.AlternatingNS.Space),
+              0 ≤ z.1 →
+                0 ≤ z'.1 →
+                  ‖z‖ ≤ ↑R →
+                    ‖z'‖ ≤ ↑R →
+                      ‖z - z'‖ ≤ Chal.AlternatingNS.dyadicError m →
+                        ‖Chal.AlternatingNS.mixed l (Chal.AlternatingNS.index α) F z.1 z.2 -
+                              Chal.AlternatingNS.mixed l (Chal.AlternatingNS.index α) F z'.1 z'.2‖ ≤
+                          Chal.AlternatingNS.dyadicError k) ∧
+      ∀ (J l : ℕ) (α : Chal.AlternatingNS.IndexCode),
+        ∃ B,
+          Chal.AlternatingNS.Returns c.2.2 (J, l, α) B ∧
+            ∀ (t : ℝ),
+              0 ≤ t →
+                ∀ (x : Chal.AlternatingNS.Space),
+                  (1 + t + ‖x‖) ^ J * ‖Chal.AlternatingNS.mixed l (Chal.AlternatingNS.index α) F t x‖ ≤ ↑B
+def Chal.AlternatingNS.AlternatingConclusion : ℝ → Prop :=
+fun ν =>
+  ∃ compileForce compileVelocity,
+    Computable compileForce ∧
+      Computable compileVelocity ∧
+        ∃ K,
+          IsCompact K ∧
+            ∀ (M : Chal.AlternatingNS.Machine) (w : List ℕ),
+              M.WellFormed →
+                M.ValidInput w →
+                  ∃ f U X,
+                    Chal.AlternatingNS.ProgramFor (compileForce (M, w)) f ∧
+                      Chal.AlternatingNS.ProgramFor (compileVelocity (M, w)) U ∧
+                        Chal.AlternatingNS.Smooth f ∧
+                          Chal.AlternatingNS.Smooth U ∧
+                            Chal.AlternatingNS.SupportedIn f K ∧
+                              Chal.AlternatingNS.SupportedIn U K ∧
+                                Chal.AlternatingNS.Rapid f ∧
+                                  Chal.AlternatingNS.Rapid U ∧
+                                    f = Chal.AlternatingNS.residual ν U ∧
+                                      (Chal.AlternatingNS.NavierStokes ν f U fun x x_1 => 0) ∧
+                                        (Chal.AlternatingNS.EnergyClass U fun x x_1 => 0) ∧
+                                          (∀ (v : Chal.AlternatingNS.Velocity) (p : Chal.AlternatingNS.Pressure),
+                                              Chal.AlternatingNS.NavierStokes ν f v p →
+                                                Chal.AlternatingNS.CompetitorEnergyClass v p →
+                                                  ∀ (t : ℝ),
+                                                    0 ≤ t →
+                                                      ∀ (x : Chal.AlternatingNS.Space), v t x = U t x ∧ p t x = 0) ∧
+                                            (∀ (a : Chal.AlternatingNS.Space),
+                                                Chal.AlternatingNS.IsTrajectory U a (X a)) ∧
+                                              (∀ (a : Chal.AlternatingNS.Space) (γ : ℝ → Chal.AlternatingNS.Space),
+                                                  Chal.AlternatingNS.IsTrajectory U a γ →
+                                                    ∀ (t : ℝ), 0 ≤ t → γ t = X a t) ∧
+                                                ((∃ t, 0 ≤ t ∧ 0 < (X Chal.AlternatingNS.observedParticle t).ofLp 0) ↔
+                                                  M.Halts w)
+'OAI.AlternatingNS.alternating' depends on axioms: [propext, Classical.choice, Quot.sound]
+== NavierStokesAlternating comparator-style: ok=74 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,21 @@
+== provenance: mathvet cloud run
+machine: Linux 6.18.44-fc-v80 x86_64, 4 vCPU, 15 GB RAM, Ubuntu 24.04
+kernel lsm: 
+sandbox: landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+comparator: ca04cfc  lean4export: v4.34.0
+upstream: openai/math adc7f1241b42e322a6451854ab7e4b4c146bf78a
+session: https://claude.ai/code/session_01L8KfNFWEzM9j1wj9QhMtLx
+== CoulombCounterexample comparator start 2026-10-08T12:55:49Z landrun=/root/.local/bin/landrun
+Building ComparatorChallenges.CoulombCounterexample
+⚠ [8924/8924] Built ComparatorChallenges.CoulombCounterexample (10s)
+warning: ComparatorChallenges/CoulombCounterexample.lean:94:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem356.coulomb_counterexample_and_equal_infima, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.CoulombCounterexample
+Building OAI.Analysis.CoulombTransport.Main
+Build completed successfully (9020 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem356.coulomb_counterexample_and_equal_infima, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Analysis.CoulombTransport.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T12:59:43Z

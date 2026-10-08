@@ -1,0 +1,59 @@
+== DirectCrouzeix  module=OAI.Analysis.DirectCrouzeix.Main  start=2026-10-08T12:06:21Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8965] Built OAI.Analysis.DirectCrouzeix.Model (11s)
+✔ [8925/8965] Built OAI.Analysis.DirectCrouzeix.NumericalRange (11s)
+✔ [8926/8965] Built OAI.Analysis.DirectCrouzeix.PositiveBlocks (13s)
+✔ [8927/8965] Built OAI.Analysis.DirectCrouzeix.Resolvent (13s)
+✔ [8928/8965] Built OAI.Analysis.DirectCrouzeix.PolynomialCalculus (11s)
+✔ [8929/8965] Built OAI.Analysis.DirectCrouzeix.HilbertSchmidt (11s)
+✔ [8930/8965] Built OAI.Analysis.DirectCrouzeix.SingularPairs (18s)
+✔ [8931/8965] Built OAI.Analysis.DirectCrouzeix.Duality (11s)
+✔ [8932/8965] Built OAI.Analysis.DirectCrouzeix.Sharpness (12s)
+✔ [8933/8965] Built OAI.Analysis.DirectCrouzeix.CircleFourier (17s)
+✔ [8934/8965] Built OAI.Analysis.DirectCrouzeix.BoundaryEnergy (12s)
+✔ [8935/8965] Built OAI.Analysis.DirectCrouzeix.PolynomialEnergy (13s)
+✔ [8936/8965] Built OAI.Analysis.DirectCrouzeix.DomainCore (19s)
+✔ [8937/8965] Built OAI.Analysis.DirectCrouzeix.CompactIntegrals (17s)
+✔ [8938/8965] Built OAI.Analysis.DirectCrouzeix.DividedDifferences (12s)
+✔ [8939/8965] Built OAI.Analysis.DirectCrouzeix.TaylorFourier (12s)
+✔ [8940/8965] Built OAI.Analysis.DirectCrouzeix.FaberPolynomials (13s)
+✔ [8941/8965] Built OAI.Analysis.DirectCrouzeix.BoundaryKernel (13s)
+✔ [8942/8965] Built OAI.Analysis.DirectCrouzeix.KernelContraction (13s)
+✔ [8943/8965] Built OAI.Analysis.DirectCrouzeix.FaberEnergy (12s)
+✔ [8944/8965] Built OAI.Analysis.DirectCrouzeix.FaberCalculus (13s)
+✔ [8945/8965] Built OAI.Analysis.DirectCrouzeix.ExteriorCollar (13s)
+✔ [8946/8965] Built OAI.Analysis.DirectCrouzeix.NormalFamilies (14s)
+✔ [8947/8965] Built OAI.Analysis.DirectCrouzeix.ExtremalEmbedding (14s)
+✔ [8948/8965] Built OAI.Analysis.DirectCrouzeix.DiskMapping (17s)
+✔ [8949/8965] Built OAI.Analysis.DirectCrouzeix.PoissonBoundary (15s)
+✔ [8950/8965] Built OAI.Analysis.DirectCrouzeix.HarmonicReflection (10s)
+✔ [8951/8965] Built OAI.Analysis.DirectCrouzeix.HolomorphicReflection (12s)
+✔ [8952/8965] Built OAI.Analysis.DirectCrouzeix.Continuation (12s)
+✔ [8953/8965] Built OAI.Analysis.DirectCrouzeix.ConformalCollar (12s)
+✔ [8954/8965] Built OAI.Analysis.DirectCrouzeix.AnalyticCharts (17s)
+✔ [8955/8965] Built OAI.Analysis.DirectCrouzeix.ExponentialLevels (14s)
+✔ [8956/8965] Built OAI.Analysis.DirectCrouzeix.BoundaryParametrization (15s)
+✔ [8957/8965] Built OAI.Analysis.DirectCrouzeix.InverseExterior (13s)
+✔ [8958/8965] Built OAI.Analysis.DirectCrouzeix.ExteriorMapping (13s)
+✔ [8959/8965] Built OAI.Analysis.DirectCrouzeix.SupportNets (16s)
+✔ [8960/8965] Built OAI.Analysis.DirectCrouzeix.Convexity (18s)
+✔ [8961/8965] Built OAI.Analysis.DirectCrouzeix.ExponentialSupport (14s)
+✔ [8962/8965] Built OAI.Analysis.DirectCrouzeix.OuterApproximation (14s)
+✔ [8963/8965] Built OAI.Analysis.DirectCrouzeix.DomainBound (12s)
+✔ [8964/8965] Built OAI.Analysis.DirectCrouzeix.CompleteBound (11s)
+✔ [8965/8965] Built OAI.Analysis.DirectCrouzeix.Main (12s)
+Build completed successfully (8965 jobs).
+== build rc=0 seconds=597
+{"theorems": ["OAI.DirectCrouzeix.complete_crouzeix", "OAI.DirectCrouzeix.uniform_sharpness"], "defs": ["OAI.DirectCrouzeix.numericalRange", "OAI.DirectCrouzeix.polynomialValue", "OAI.DirectCrouzeix.tensorEvaluation", "OAI.DirectCrouzeix.rangeMaximum", "OAI.DirectCrouzeix.UniversalBound"], "json_theorems": ["OAI.DirectCrouzeix.complete_crouzeix", "OAI.DirectCrouzeix.uniform_sharpness"], "missing_from_parse": []}
+AXIOMS: 'OAI.DirectCrouzeix.complete_crouzeix' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.DirectCrouzeix.uniform_sharpness' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:16:54Z

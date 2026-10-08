@@ -1,0 +1,22 @@
+OAI.C0Absorption.main_result : OAI.C0Absorption.MainConclusion
+'OAI.C0Absorption.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.C0Absorption.C0 : Type :=
+ZeroAtInftyContinuousMap ℕ ℝ
+def OAI.C0Absorption.BiLip.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} → [MetricSpace X] → [MetricSpace Y] → (X → Y) → Prop :=
+fun {X} {Y} [MetricSpace X] [MetricSpace Y] f =>
+  ∃ c C, 0 < c ∧ c ≤ C ∧ ∀ (x y : X), c * dist x y ≤ dist (f x) (f y) ∧ dist (f x) (f y) ≤ C * dist x y
+def OAI.C0Absorption.NoLinearC0.{u_1} : (Z : Type u_1) → [inst : NormedAddCommGroup Z] → [NormedSpace ℝ Z] → Prop :=
+fun Z [NormedAddCommGroup Z] [NormedSpace ℝ Z] =>
+  ∀ (T : OAI.C0Absorption.C0 →L[ℝ] Z), ¬∃ c, 0 < c ∧ ∀ (x : OAI.C0Absorption.C0), c * ‖x‖ ≤ ‖T x‖
+def OAI.C0Absorption.MetricUniversal.{u_1} : (Z : Type u_1) → [MetricSpace Z] → Prop :=
+fun Z [MetricSpace Z] =>
+  ∀ (M : Type) [inst_1 : MetricSpace M] [TopologicalSpace.SeparableSpace M], ∃ f, OAI.C0Absorption.BiLip f
+def OAI.C0Absorption.MainConclusion : Prop :=
+∃ Z x x_1,
+  CompleteSpace Z ∧
+    TopologicalSpace.SeparableSpace Z ∧
+      OAI.C0Absorption.NoLinearC0 Z ∧
+        (∃ F, Function.Surjective F ∧ OAI.C0Absorption.BiLip F) ∧
+          (∃ f, OAI.C0Absorption.BiLip f) ∧
+            OAI.C0Absorption.MetricUniversal Z ∧ ¬Nonempty ((Z × OAI.C0Absorption.C0) ≃L[ℝ] Z)

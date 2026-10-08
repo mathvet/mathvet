@@ -1,0 +1,68 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_BinaryMatching.lean:66:8: warning: declaration uses `sorry`
+OAI.BinaryMatching.deterministic_approximate_counting : ∃ A machine,
+  (∀ (k : machine.tm.K), Finite (machine.tm.Γ k)) ∧
+    (∃ P,
+        ∀ (G : OAI.BinaryMatching.Input),
+          (A G).bits.length ≤ Polynomial.eval (OAI.BinaryMatching.encodeInput G).length P) ∧
+      ∀ (G : OAI.BinaryMatching.Input),
+        A G ≤ OAI.BinaryMatching.count G ∧
+          OAI.BinaryMatching.count G ≤ 2 ^ (9 * G.n) * A G ∧ (A G = 0 ↔ OAI.BinaryMatching.count G = 0)
+structure OAI.MatchingEntropy.LooplessGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  OAI.MatchingEntropy.LooplessGraph.left : E → V
+  OAI.MatchingEntropy.LooplessGraph.right : E → V
+  OAI.MatchingEntropy.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  OAI.MatchingEntropy.LooplessGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : OAI.MatchingEntropy.LooplessGraph V E
+def OAI.MatchingEntropy.LooplessGraph.Incident.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def OAI.MatchingEntropy.LooplessGraph.IsPerfectMatching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def OAI.MatchingEntropy.LooplessGraph.Matching.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → OAI.MatchingEntropy.LooplessGraph V E → Type (max 0 u_2) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+@[reducible] def OAI.BinaryMatching.Pair : ℕ → Type :=
+fun n => { ij // ij.1 < ij.2 }
+def OAI.BinaryMatching.completeGraph : (n : ℕ) →
+  OAI.MatchingEntropy.LooplessGraph (Fin n) (OAI.BinaryMatching.Pair n) :=
+fun n => { left := fun e => (↑e).1, right := fun e => (↑e).2, loopless := ⋯ }
+structure OAI.BinaryMatching.Record : Type
+number of parameters: 0
+fields:
+  OAI.BinaryMatching.Record.left : ℕ
+  OAI.BinaryMatching.Record.right : ℕ
+  OAI.BinaryMatching.Record.multiplicity : ℕ
+constructor:
+  OAI.BinaryMatching.Record.mk (left right multiplicity : ℕ) : OAI.BinaryMatching.Record
+structure OAI.BinaryMatching.Input : Type
+number of parameters: 0
+fields:
+  OAI.BinaryMatching.Input.n : ℕ
+  OAI.BinaryMatching.Input.records : List OAI.BinaryMatching.Record
+  OAI.BinaryMatching.Input.valid : ∀ e ∈ self.records, e.left < e.right ∧ e.right < self.n
+  OAI.BinaryMatching.Input.unique : (List.map (fun e => (e.left, e.right)) self.records).Nodup
+constructor:
+  OAI.BinaryMatching.Input.mk (n : ℕ) (records : List OAI.BinaryMatching.Record)
+    (valid : ∀ e ∈ records, e.left < e.right ∧ e.right < n)
+    (unique : (List.map (fun e => (e.left, e.right)) records).Nodup) : OAI.BinaryMatching.Input
+def OAI.BinaryMatching.multiplicity : (G : OAI.BinaryMatching.Input) → OAI.BinaryMatching.Pair G.n → ℕ :=
+fun G e =>
+  match List.find? (fun r => decide (r.left = ↑(↑e).1) && decide (r.right = ↑(↑e).2)) G.records with
+  | none => 0
+  | some r => r.multiplicity
+def OAI.BinaryMatching.count : OAI.BinaryMatching.Input → ℕ :=
+fun G => ∑ M, ∏ e ∈ ↑M, OAI.BinaryMatching.multiplicity G e
+def OAI.BinaryMatching.encodeNat : ℕ → List Bool :=
+fun n => List.replicate n.bits.length false ++ true :: n.bits
+def OAI.BinaryMatching.encodeRecord : OAI.BinaryMatching.Record → List Bool :=
+fun r =>
+  OAI.BinaryMatching.encodeNat r.left ++ OAI.BinaryMatching.encodeNat r.right ++
+    OAI.BinaryMatching.encodeNat r.multiplicity
+def OAI.BinaryMatching.encodeInput : OAI.BinaryMatching.Input → List Bool :=
+fun G =>
+  OAI.BinaryMatching.encodeNat G.n ++ OAI.BinaryMatching.encodeNat G.records.length ++
+    List.flatMap OAI.BinaryMatching.encodeRecord G.records

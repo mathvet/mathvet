@@ -1,0 +1,178 @@
+CMP OAI.ArnoldCounterexample.main [thm] ok
+CMP OAI.ArnoldCounterexample.HasDegenerateFixedPoint [def] ok
+CMP OAI.ArnoldCounterexample.IsUnitQuadric [def] ok
+CMP OAI.ArnoldCounterexample.quadricPolynomial [def] ok
+CMP OAI.ArnoldCounterexample.CV [def] ok
+CMP OAI.ArnoldCounterexample.normSquared [def] ok
+CMP OAI.ArnoldCounterexample.Horizontal [def] ok
+CMP OAI.ArnoldCounterexample.project [def] ok
+CMP OAI.ArnoldCounterexample.project._proof_2 [thm] ok
+CMP OAI.ArnoldCounterexample.UnitQuadric [def] ok
+CMP OAI.ArnoldCounterexample.project._proof_1 [thm] ok
+CMP OAI.ArnoldCounterexample.Q3 [def] ok
+CMP OAI.ArnoldCounterexample.criticalNumber [def] ok
+CMP OAI.ArnoldCounterexample.criticalSet [def] ok
+CMP OAI.ArnoldCounterexample.SmoothFunction.toFun [def] ok
+CMP OAI.ArnoldCounterexample.SmoothFunction [ind] ok
+CMP OAI.ArnoldCounterexample.SmoothFunction.mk [ctor] ok
+CMP OAI.ArnoldCounterexample.IsSmoothFunction [def] ok
+CMP OAI.ArnoldCounterexample.LocalFunctionLift [def] ok
+CMP OAI.ArnoldCounterexample.IsCritical [def] ok
+CMP OAI.ArnoldCounterexample.fixedSet [def] ok
+CMP OAI.ArnoldCounterexample.IsHamiltonian [def] ok
+CMP OAI.ArnoldCounterexample.HamiltonianPath [ind] ok
+CMP OAI.ArnoldCounterexample.HamiltonianPath.mk [ctor] ok
+CMP OAI.ArnoldCounterexample.omega [def] ok
+CMP OAI.ArnoldCounterexample.omega._proof_1 [thm] ok
+Chal.ArnoldCounterexample.main : ∃ φ,
+  Chal.ArnoldCounterexample.IsHamiltonian φ ∧
+    (Chal.ArnoldCounterexample.fixedSet φ).encard = 3 ∧
+      3 < 4 ∧ 4 ≤ Chal.ArnoldCounterexample.criticalNumber ∧ Chal.ArnoldCounterexample.HasDegenerateFixedPoint φ
+@[reducible] def Chal.ArnoldCounterexample.CV : Type :=
+Fin 5 → ℂ
+def Chal.ArnoldCounterexample.quadricPolynomial : Chal.ArnoldCounterexample.CV → ℂ :=
+fun z => ∑ j, z j ^ 2
+def Chal.ArnoldCounterexample.normSquared : Chal.ArnoldCounterexample.CV → ℝ :=
+fun z => ∑ j, Complex.normSq (z j)
+def Chal.ArnoldCounterexample.IsUnitQuadric : Chal.ArnoldCounterexample.CV → Prop :=
+fun z => Chal.ArnoldCounterexample.normSquared z = 1 ∧ Chal.ArnoldCounterexample.quadricPolynomial z = 0
+@[reducible] def Chal.ArnoldCounterexample.UnitQuadric : Type :=
+{ z // Chal.ArnoldCounterexample.IsUnitQuadric z }
+def Chal.ArnoldCounterexample.Q3 : Type :=
+{ q // ∃ z, ∃ (hz : z ≠ 0), Projectivization.mk ℂ z hz = q ∧ Chal.ArnoldCounterexample.quadricPolynomial z = 0 }
+def Chal.ArnoldCounterexample.project : Chal.ArnoldCounterexample.UnitQuadric → Chal.ArnoldCounterexample.Q3 :=
+fun z =>
+  have hz := ⋯;
+  ⟨Projectivization.mk ℂ (↑z) hz, ⋯⟩
+def Chal.ArnoldCounterexample.Horizontal : Chal.ArnoldCounterexample.CV → Chal.ArnoldCounterexample.CV → Prop :=
+fun z v => ∑ j, star (z j) * v j = 0 ∧ ∑ j, z j * v j = 0
+def Chal.ArnoldCounterexample.omega : Chal.ArnoldCounterexample.CV → Chal.ArnoldCounterexample.CV → ℝ :=
+fun v w => 2 * (∑ j, star (v j) * w j).im
+def Chal.ArnoldCounterexample.LocalFunctionLift : (Chal.ArnoldCounterexample.Q3 → ℝ) →
+  Chal.ArnoldCounterexample.UnitQuadric →
+    Set Chal.ArnoldCounterexample.CV → (Chal.ArnoldCounterexample.CV → ℝ) → Prop :=
+fun h z U g =>
+  IsOpen U ∧
+    ↑z ∈ U ∧
+      ContDiffOn ℝ (↑⊤) g U ∧
+        ∀ (y : Chal.ArnoldCounterexample.UnitQuadric), ↑y ∈ U → g ↑y = h (Chal.ArnoldCounterexample.project y)
+def Chal.ArnoldCounterexample.IsSmoothFunction : (Chal.ArnoldCounterexample.Q3 → ℝ) → Prop :=
+fun h => ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), ∃ U g, Chal.ArnoldCounterexample.LocalFunctionLift h z U g
+structure Chal.ArnoldCounterexample.SmoothFunction : Type
+number of parameters: 0
+fields:
+  Chal.ArnoldCounterexample.SmoothFunction.toFun : Chal.ArnoldCounterexample.Q3 → ℝ
+  Chal.ArnoldCounterexample.SmoothFunction.smooth : Chal.ArnoldCounterexample.IsSmoothFunction self.toFun
+constructor:
+  Chal.ArnoldCounterexample.SmoothFunction.mk (toFun : Chal.ArnoldCounterexample.Q3 → ℝ)
+    (smooth : Chal.ArnoldCounterexample.IsSmoothFunction toFun) : Chal.ArnoldCounterexample.SmoothFunction
+def Chal.ArnoldCounterexample.IsCritical : (Chal.ArnoldCounterexample.Q3 → ℝ) → Chal.ArnoldCounterexample.Q3 → Prop :=
+fun h q =>
+  ∀ (z : Chal.ArnoldCounterexample.UnitQuadric),
+    Chal.ArnoldCounterexample.project z = q →
+      ∀ (U : Set Chal.ArnoldCounterexample.CV) (g : Chal.ArnoldCounterexample.CV → ℝ),
+        Chal.ArnoldCounterexample.LocalFunctionLift h z U g →
+          ∀ (v : Chal.ArnoldCounterexample.CV), Chal.ArnoldCounterexample.Horizontal (↑z) v → (fderiv ℝ g ↑z) v = 0
+def Chal.ArnoldCounterexample.criticalSet : Chal.ArnoldCounterexample.SmoothFunction →
+  Set Chal.ArnoldCounterexample.Q3 :=
+fun h => {q | Chal.ArnoldCounterexample.IsCritical h.toFun q}
+def Chal.ArnoldCounterexample.criticalNumber : ℕ∞ :=
+⨅ h, (Chal.ArnoldCounterexample.criticalSet h).encard
+structure Chal.ArnoldCounterexample.HamiltonianPath (φ : Chal.ArnoldCounterexample.Q3 ≃ Chal.ArnoldCounterexample.Q3) :
+  Type
+number of parameters: 1
+fields:
+  Chal.ArnoldCounterexample.HamiltonianPath.forward : ℝ × Chal.ArnoldCounterexample.CV → Chal.ArnoldCounterexample.CV
+  Chal.ArnoldCounterexample.HamiltonianPath.backward : ℝ × Chal.ArnoldCounterexample.CV → Chal.ArnoldCounterexample.CV
+  Chal.ArnoldCounterexample.HamiltonianPath.hamiltonian : ℝ × Chal.ArnoldCounterexample.CV → ℝ
+  Chal.ArnoldCounterexample.HamiltonianPath.forward_smooth : ContDiff ℝ (↑⊤) self.forward
+  Chal.ArnoldCounterexample.HamiltonianPath.backward_smooth : ContDiff ℝ (↑⊤) self.backward
+  Chal.ArnoldCounterexample.HamiltonianPath.hamiltonian_smooth : ContDiff ℝ (↑⊤) self.hamiltonian
+  Chal.ArnoldCounterexample.HamiltonianPath.forward_preserves : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), Chal.ArnoldCounterexample.IsUnitQuadric (self.forward (t, ↑z))
+  Chal.ArnoldCounterexample.HamiltonianPath.backward_preserves : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), Chal.ArnoldCounterexample.IsUnitQuadric (self.backward (t, ↑z))
+  Chal.ArnoldCounterexample.HamiltonianPath.forward_phase : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+        Complex.normSq a = 1 → self.forward (t, a • ↑z) = a • self.forward (t, ↑z)
+  Chal.ArnoldCounterexample.HamiltonianPath.backward_phase : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+        Complex.normSq a = 1 → self.backward (t, a • ↑z) = a • self.backward (t, ↑z)
+  Chal.ArnoldCounterexample.HamiltonianPath.hamiltonian_phase : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+        Complex.normSq a = 1 → self.hamiltonian (t, a • ↑z) = self.hamiltonian (t, ↑z)
+  Chal.ArnoldCounterexample.HamiltonianPath.left_inverse : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), self.backward (t, self.forward (t, ↑z)) = ↑z
+  Chal.ArnoldCounterexample.HamiltonianPath.right_inverse : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), self.forward (t, self.backward (t, ↑z)) = ↑z
+  Chal.ArnoldCounterexample.HamiltonianPath.start : ∀ (z : Chal.ArnoldCounterexample.UnitQuadric),
+      self.forward (0, ↑z) = ↑z
+  Chal.ArnoldCounterexample.HamiltonianPath.finish : ∀ (z : Chal.ArnoldCounterexample.UnitQuadric),
+      Chal.ArnoldCounterexample.project ⟨self.forward (1, ↑z), ⋯⟩ = φ (Chal.ArnoldCounterexample.project z)
+  Chal.ArnoldCounterexample.HamiltonianPath.equation : ∀ t ∈ Set.Icc 0 1,
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (v : Chal.ArnoldCounterexample.CV),
+        Chal.ArnoldCounterexample.Horizontal (self.forward (t, ↑z)) v →
+          Chal.ArnoldCounterexample.omega (deriv (fun s => self.forward (s, ↑z)) t) v =
+            (fderiv ℝ (fun w => self.hamiltonian (t, w)) (self.forward (t, ↑z))) v
+constructor:
+  Chal.ArnoldCounterexample.HamiltonianPath.mk {φ : Chal.ArnoldCounterexample.Q3 ≃ Chal.ArnoldCounterexample.Q3}
+    (forward backward : ℝ × Chal.ArnoldCounterexample.CV → Chal.ArnoldCounterexample.CV)
+    (hamiltonian : ℝ × Chal.ArnoldCounterexample.CV → ℝ) (forward_smooth : ContDiff ℝ (↑⊤) forward)
+    (backward_smooth : ContDiff ℝ (↑⊤) backward) (hamiltonian_smooth : ContDiff ℝ (↑⊤) hamiltonian)
+    (forward_preserves :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), Chal.ArnoldCounterexample.IsUnitQuadric (forward (t, ↑z)))
+    (backward_preserves :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), Chal.ArnoldCounterexample.IsUnitQuadric (backward (t, ↑z)))
+    (forward_phase :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+          Complex.normSq a = 1 → forward (t, a • ↑z) = a • forward (t, ↑z))
+    (backward_phase :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+          Complex.normSq a = 1 → backward (t, a • ↑z) = a • backward (t, ↑z))
+    (hamiltonian_phase :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (a : ℂ),
+          Complex.normSq a = 1 → hamiltonian (t, a • ↑z) = hamiltonian (t, ↑z))
+    (left_inverse :
+      ∀ t ∈ Set.Icc 0 1, ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), backward (t, forward (t, ↑z)) = ↑z)
+    (right_inverse :
+      ∀ t ∈ Set.Icc 0 1, ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), forward (t, backward (t, ↑z)) = ↑z)
+    (start : ∀ (z : Chal.ArnoldCounterexample.UnitQuadric), forward (0, ↑z) = ↑z)
+    (finish :
+      ∀ (z : Chal.ArnoldCounterexample.UnitQuadric),
+        Chal.ArnoldCounterexample.project ⟨forward (1, ↑z), ⋯⟩ = φ (Chal.ArnoldCounterexample.project z))
+    (equation :
+      ∀ t ∈ Set.Icc 0 1,
+        ∀ (z : Chal.ArnoldCounterexample.UnitQuadric) (v : Chal.ArnoldCounterexample.CV),
+          Chal.ArnoldCounterexample.Horizontal (forward (t, ↑z)) v →
+            Chal.ArnoldCounterexample.omega (deriv (fun s => forward (s, ↑z)) t) v =
+              (fderiv ℝ (fun w => hamiltonian (t, w)) (forward (t, ↑z))) v) :
+    Chal.ArnoldCounterexample.HamiltonianPath φ
+def Chal.ArnoldCounterexample.IsHamiltonian : Chal.ArnoldCounterexample.Q3 ≃ Chal.ArnoldCounterexample.Q3 → Prop :=
+fun φ => Nonempty (Chal.ArnoldCounterexample.HamiltonianPath φ)
+def Chal.ArnoldCounterexample.fixedSet : Chal.ArnoldCounterexample.Q3 ≃ Chal.ArnoldCounterexample.Q3 →
+  Set Chal.ArnoldCounterexample.Q3 :=
+fun φ => {q | φ q = q}
+def Chal.ArnoldCounterexample.HasDegenerateFixedPoint : Chal.ArnoldCounterexample.Q3 ≃ Chal.ArnoldCounterexample.Q3 →
+  Prop :=
+fun φ =>
+  ∃ z v,
+    φ (Chal.ArnoldCounterexample.project z) = Chal.ArnoldCounterexample.project z ∧
+      v ≠ 0 ∧
+        Chal.ArnoldCounterexample.Horizontal (↑z) v ∧
+          ∃ U G,
+            IsOpen U ∧
+              ↑z ∈ U ∧
+                ContDiffOn ℝ (↑⊤) G U ∧
+                  G ↑z = ↑z ∧
+                    (∀ (y : Chal.ArnoldCounterexample.UnitQuadric),
+                        ↑y ∈ U →
+                          ∃ (hy : Chal.ArnoldCounterexample.IsUnitQuadric (G ↑y)),
+                            Chal.ArnoldCounterexample.project ⟨G ↑y, hy⟩ = φ (Chal.ArnoldCounterexample.project y)) ∧
+                      ∃ a, (fderiv ℝ G ↑z) v - v = a • Complex.I • ↑z
+'OAI.ArnoldCounterexample.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ArnoldCounterexample comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

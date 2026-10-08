@@ -1,0 +1,289 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SpinAngle.lean:518:8: warning: declaration uses `sorry`
+@OAI.SpinAngle.TypeAngle.one_sided_type_angle : ∀ {q : ℕ} [Nonempty (Fin q)] {R : Type u_1} {C : Type u_2}
+  [inst : Fintype R] [inst_1 : DecidableEq R] [inst_2 : Fintype C] [inst_3 : DecidableEq C] (W : Finset (R × C))
+  (D : OAI.SpinAngle.TypeLabel q) (H : C → OAI.SpinAngle.TypeLabel q) (K : R → OAI.SpinAngle.TypeLabel q),
+  D.size = W.card →
+    (∀ (j : C), (H j).size = Fintype.card (OAI.SpinAngle.TypeBlocks.Fiber (OAI.SpinAngle.TypeAngle.column W) j)) →
+      (∀ (i : R), (K i).size = Fintype.card (OAI.SpinAngle.TypeBlocks.Fiber (OAI.SpinAngle.TypeAngle.row W) i)) →
+        ‖OAI.SpinAngle.TypeBlocks.projection (OAI.SpinAngle.TypeAngle.column W) H *
+                    OAI.SpinAngle.TypeBlocks.projection (OAI.SpinAngle.TypeAngle.row W) K *
+                  D.projection ↥W‖ ^
+              2 ≤
+            min 1
+              (Real.exp (OAI.SpinAngle.TypeBlocks.entropy H + OAI.SpinAngle.TypeBlocks.entropy K - D.entropy) *
+                    ↑(OAI.SpinAngle.TypeBlocks.dimension H) *
+                  ↑(OAI.SpinAngle.TypeBlocks.dimension K) *
+                OAI.SpinAngle.TypeAngle.phi W) ∧
+          min 1
+                (Real.exp (OAI.SpinAngle.TypeBlocks.entropy H + OAI.SpinAngle.TypeBlocks.entropy K - D.entropy) *
+                      ↑(OAI.SpinAngle.TypeBlocks.dimension H) *
+                    ↑(OAI.SpinAngle.TypeBlocks.dimension K) *
+                  OAI.SpinAngle.TypeAngle.phi W) ≤
+              min 1
+                (Real.exp
+                      (OAI.SpinAngle.TypeBlocks.entropy H + OAI.SpinAngle.TypeBlocks.entropy K - D.entropy +
+                        ↑(Fintype.card R * Fintype.card C - W.card)) *
+                    ↑(OAI.SpinAngle.TypeBlocks.dimension H) *
+                  ↑(OAI.SpinAngle.TypeBlocks.dimension K)) ∧
+            OAI.SpinAngle.TypeBlocks.dimension H * OAI.SpinAngle.TypeBlocks.dimension K ≤
+              (W.card + 1) ^ ((Fintype.card R + Fintype.card C) * q * (q - 1))
+def OAI.SpinAngle.Specht.cyclic.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {E : Type u_2} →
+      [inst_1 : NormedAddCommGroup E] →
+        [inst_2 : InnerProductSpace ℂ E] → (ρ : Representation ℂ G E) → E → Subrepresentation ρ :=
+fun {G} [Group G] {E} [NormedAddCommGroup E] [InnerProductSpace ℂ E] ρ e =>
+  { toSubmodule := Submodule.span ℂ (Set.range fun g => (ρ g) e), apply_mem_toSubmodule := ⋯ }
+def OAI.SpinAngle.TensorRep.tensor.{u_1, u_2} : {ι : Type u_1} →
+  {n : Type u_2} → [Fintype ι] → (ι → Matrix n n ℂ) → Matrix (ι → n) (ι → n) ℂ :=
+fun {ι} {n} [Fintype ι] a x y => ∏ i, a i (x i) (y i)
+def OAI.SpinAngle.TensorRep.action.{u_1, u_2} : {ι : Type u_1} →
+  {n : Type u_2} →
+    [Fintype ι] →
+      [DecidableEq ι] →
+        [inst : Fintype n] → [inst_1 : DecidableEq n] → Matrix n n ℂ →* Module.End ℂ (EuclideanSpace ℂ (ι → n)) :=
+fun {ι} {n} [Fintype ι] [DecidableEq ι] [Fintype n] [DecidableEq n] =>
+  { toFun := fun a => Matrix.toEuclideanLin (OAI.SpinAngle.TensorRep.tensor fun x => a), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.SpinAngle.TensorRep.rep.{u_1, u_2} : {ι : Type u_1} →
+  {n : Type u_2} →
+    [Fintype ι] →
+      [DecidableEq ι] →
+        [inst : Fintype n] →
+          [inst_1 : DecidableEq n] → Representation ℂ (↥(Matrix.unitaryGroup n ℂ)) (EuclideanSpace ℂ (ι → n)) :=
+fun {ι} {n} [Fintype ι] [DecidableEq ι] [Fintype n] [DecidableEq n] =>
+  OAI.SpinAngle.TensorRep.action.comp (Matrix.unitaryGroup n ℂ).subtype
+def OAI.SpinAngle.Specht.PermutationSpace.rep.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] → {X : Type u_2} → [MulAction G X] → Representation ℂ G (EuclideanSpace ℂ X) :=
+fun {G} [Group G] {X} [MulAction G X] =>
+  { toFun := fun g => { toFun := fun v => WithLp.toLp 2 fun x => v.ofLp (g⁻¹ • x), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.SpinAngle.Specht.PermutationSpace.alternator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {X : Type u_2} →
+      [MulAction G X] →
+        {H : Type u_3} → [inst_2 : Group H] → [Fintype H] → (H →* G) → (H →* ℂ) → Module.End ℂ (EuclideanSpace ℂ X) :=
+fun {G} [Group G] {X} [MulAction G X] {H} [Group H] [Fintype H] ι χ =>
+  ∑ h, χ h • OAI.SpinAngle.Specht.PermutationSpace.rep (ι h)
+def OAI.SpinAngle.Specht.complexSign.{u_2} : {α : Type u_2} → [Fintype α] → Equiv.Perm α →* ℂ :=
+fun {α} [Fintype α] => { toFun := fun g => ↑↑(Equiv.Perm.sign g), map_one' := ⋯, map_mul' := ⋯ }
+@[reducible] def OAI.SpinAngle.Young.Cells : YoungDiagram → Type :=
+fun D => ↥D.cells
+def OAI.SpinAngle.PolynomialCarrier.reindex.{u_1, u_2} : {ι : Type u_1} →
+  {n : Type u_2} → Equiv.Perm ι → (ι → n) ≃ (ι → n) :=
+fun {ι} {n} g => { toFun := fun x => x ∘ ⇑g, invFun := fun x => x ∘ ⇑(Equiv.symm g), left_inv := ⋯, right_inv := ⋯ }
+def OAI.SpinAngle.PolynomialCarrier.columnGroup : (D : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.SpinAngle.Young.Cells D)) :=
+fun D =>
+  { carrier := {g | ∀ (x : OAI.SpinAngle.Young.Cells D), (↑(g x)).2 = (↑x).2}, mul_mem' := ⋯, one_mem' := ⋯,
+    inv_mem' := ⋯ }
+@[reducible] def OAI.SpinAngle.PolynomialCarrier.TensorSpace : YoungDiagram → ℕ → Type :=
+fun D q => EuclideanSpace ℂ (OAI.SpinAngle.Young.Cells D → Fin q)
+def OAI.SpinAngle.PolynomialCarrier.alternating : (D : YoungDiagram) →
+  (q : ℕ) → Subrepresentation OAI.SpinAngle.TensorRep.rep :=
+fun D q =>
+  {
+    toSubmodule :=
+      {
+        carrier :=
+          {v |
+            ∀ (g : ↥(OAI.SpinAngle.PolynomialCarrier.columnGroup D)),
+              (OAI.SpinAngle.Specht.PermutationSpace.rep ↑g) v = OAI.SpinAngle.Specht.complexSign ↑g • v},
+        add_mem' := ⋯, zero_mem' := ⋯, smul_mem' := ⋯ },
+    apply_mem_toSubmodule := ⋯ }
+def OAI.SpinAngle.PolynomialCarrier.rowColor : (D : YoungDiagram) →
+  (q : ℕ) → D.colLen 0 ≤ q → OAI.SpinAngle.Young.Cells D → Fin q :=
+fun D q hq x => ⟨(↑x).1, ⋯⟩
+def OAI.SpinAngle.PolynomialCarrier.highest : (D : YoungDiagram) →
+  (q : ℕ) → D.colLen 0 ≤ q → OAI.SpinAngle.PolynomialCarrier.TensorSpace D q :=
+fun D q hq =>
+  (OAI.SpinAngle.Specht.PermutationSpace.alternator (OAI.SpinAngle.PolynomialCarrier.columnGroup D).subtype
+      (OAI.SpinAngle.Specht.complexSign.comp (OAI.SpinAngle.PolynomialCarrier.columnGroup D).subtype))
+    (EuclideanSpace.single (OAI.SpinAngle.PolynomialCarrier.rowColor D q hq) 1)
+def OAI.SpinAngle.PolynomialCarrier.ordinary : (D : YoungDiagram) →
+  (q : ℕ) → D.colLen 0 ≤ q → Subrepresentation (OAI.SpinAngle.PolynomialCarrier.alternating D q).toRepresentation :=
+fun D q hq =>
+  OAI.SpinAngle.Specht.cyclic (OAI.SpinAngle.PolynomialCarrier.alternating D q).toRepresentation
+    ⟨OAI.SpinAngle.PolynomialCarrier.highest D q hq, ⋯⟩
+@[reducible] def OAI.SpinAngle.PolynomialCarrier.Carrier : (D : YoungDiagram) → (q : ℕ) → D.colLen 0 ≤ q → Type :=
+fun D q hq => ↥(OAI.SpinAngle.PolynomialCarrier.ordinary D q hq).toSubmodule
+def OAI.SpinAngle.ExternalTensor.rep.{u_1, u_2, u_3, u_4} : {E : Type u_1} →
+  {F : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : InnerProductSpace ℂ E] →
+        [inst_2 : NormedAddCommGroup F] →
+          [inst_3 : InnerProductSpace ℂ F] →
+            {G : Type u_3} →
+              {H : Type u_4} →
+                [inst_4 : Group G] →
+                  [inst_5 : Group H] →
+                    Representation ℂ G E → Representation ℂ H F → Representation ℂ (G × H) (TensorProduct ℂ E F) :=
+fun {E} {F} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [NormedAddCommGroup F] [InnerProductSpace ℂ F] {G} {H}
+    [Group G] [Group H] ρ σ =>
+  Representation.tprod (MonoidHom.comp ρ (MonoidHom.fst G H)) (MonoidHom.comp σ (MonoidHom.snd G H))
+@[reducible] def OAI.SpinAngle.SignedTensor.Spin : ℕ → Type :=
+fun q => Fin q × Bool
+@[reducible] def OAI.SpinAngle.SignedTensor.Mat : ℕ → Type :=
+fun q => Matrix (Fin q) (Fin q) ℂ
+@[reducible] def OAI.SpinAngle.SignedTensor.Group : ℕ → Type :=
+fun q => ↥(Matrix.unitaryGroup (Fin q) ℂ) × ↥(Matrix.unitaryGroup (Fin q) ℂ)
+def OAI.SpinAngle.SignedTensor.block : {q : ℕ} →
+  OAI.SpinAngle.SignedTensor.Mat q × OAI.SpinAngle.SignedTensor.Mat q →*
+    Matrix (OAI.SpinAngle.SignedTensor.Spin q) (OAI.SpinAngle.SignedTensor.Spin q) ℂ :=
+fun {q} => { toFun := fun a => Matrix.blockDiagonal fun b => bif b then a.2 else a.1, map_one' := ⋯, map_mul' := ⋯ }
+def OAI.SpinAngle.SignedTensor.blockGroup : {q : ℕ} →
+  OAI.SpinAngle.SignedTensor.Group q →* ↥(Matrix.unitaryGroup (OAI.SpinAngle.SignedTensor.Spin q) ℂ) :=
+fun {q} => { toFun := fun g => ⟨OAI.SpinAngle.SignedTensor.block (↑g.1, ↑g.2), ⋯⟩, map_one' := ⋯, map_mul' := ⋯ }
+@[reducible] def OAI.SpinAngle.SignedTensor.Raw.{u_3} : {q : ℕ} → {τ : Type u_3} → Type u_3 :=
+fun {q} {τ} => EuclideanSpace ℂ (τ → OAI.SpinAngle.SignedTensor.Spin q)
+def OAI.SpinAngle.SignedTensor.rep.{u_3} : {q : ℕ} →
+  {τ : Type u_3} →
+    [Fintype τ] →
+      [DecidableEq τ] → Representation ℂ (OAI.SpinAngle.SignedTensor.Group q) OAI.SpinAngle.SignedTensor.Raw :=
+fun {q} {τ} [Fintype τ] [DecidableEq τ] =>
+  MonoidHom.comp OAI.SpinAngle.TensorRep.rep OAI.SpinAngle.SignedTensor.blockGroup
+def OAI.SpinAngle.EntropyMonomial.entropy.{u_1} : {ι : Type u_1} → [Fintype ι] → (ι → ℕ) → ℝ :=
+fun {ι} [Fintype ι] n => ↑(∑ i, n i) * Real.log ↑(∑ i, n i) - ∑ i, ↑(n i) * Real.log ↑(n i)
+def OAI.SpinAngle.Isotypic.space.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {E : Type u_2} →
+      {F : Type u_3} →
+        [inst_1 : NormedAddCommGroup E] →
+          [inst_2 : InnerProductSpace ℂ E] →
+            [inst_3 : NormedAddCommGroup F] →
+              [inst_4 : InnerProductSpace ℂ F] →
+                Representation ℂ G E → (σ : Representation ℂ G F) → Subrepresentation σ :=
+fun {G} [Group G] {E} {F} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [NormedAddCommGroup F] [InnerProductSpace ℂ F]
+    ρ σ =>
+  { toSubmodule := Submodule.span ℂ (Set.range fun z => z.1 z.2), apply_mem_toSubmodule := ⋯ }
+def OAI.SpinAngle.Isotypic.projection.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {E : Type u_2} →
+      {F : Type u_3} →
+        [inst_1 : NormedAddCommGroup E] →
+          [inst_2 : InnerProductSpace ℂ E] →
+            [inst_3 : NormedAddCommGroup F] →
+              [inst_4 : InnerProductSpace ℂ F] →
+                [FiniteDimensional ℂ F] → Representation ℂ G E → Representation ℂ G F → F →L[ℂ] F :=
+fun {G} [Group G] {E} {F} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [NormedAddCommGroup F] [InnerProductSpace ℂ F]
+    [FiniteDimensional ℂ F] ρ σ =>
+  (OAI.SpinAngle.Isotypic.space ρ σ).toSubmodule.starProjection
+@[reducible] def OAI.SpinAngle.SignedCarrier.Carrier : (a b : YoungDiagram) →
+  (q : ℕ) → a.colLen 0 ≤ q → b.colLen 0 ≤ q → Type :=
+fun a b q ha hb =>
+  TensorProduct ℂ (OAI.SpinAngle.PolynomialCarrier.Carrier a q ha) (OAI.SpinAngle.PolynomialCarrier.Carrier b q hb)
+@[reducible] def OAI.SpinAngle.SignedCarrier.rep : (a b : YoungDiagram) →
+  (q : ℕ) →
+    (ha : a.colLen 0 ≤ q) →
+      (hb : b.colLen 0 ≤ q) →
+        Representation ℂ (OAI.SpinAngle.SignedTensor.Group q) (OAI.SpinAngle.SignedCarrier.Carrier a b q ha hb) :=
+fun a b q ha hb =>
+  OAI.SpinAngle.ExternalTensor.rep (OAI.SpinAngle.PolynomialCarrier.ordinary a q ha).toRepresentation
+    (OAI.SpinAngle.PolynomialCarrier.ordinary b q hb).toRepresentation
+def OAI.SpinAngle.SignedCarrier.parts : YoungDiagram → YoungDiagram → (q : ℕ) → Fin q ⊕ Fin q → ℕ :=
+fun a b q => Sum.elim (fun i => a.rowLen ↑i) fun i => b.rowLen ↑i
+def OAI.SpinAngle.SignedCarrier.entropy : YoungDiagram → YoungDiagram → ℕ → ℝ :=
+fun a b q => OAI.SpinAngle.EntropyMonomial.entropy (OAI.SpinAngle.SignedCarrier.parts a b q)
+def OAI.SpinAngle.SignedCarrier.dimension : (a b : YoungDiagram) → (q : ℕ) → a.colLen 0 ≤ q → b.colLen 0 ≤ q → ℕ :=
+fun a b q ha hb => Module.finrank ℂ (OAI.SpinAngle.SignedCarrier.Carrier a b q ha hb)
+@[reducible] def OAI.SpinAngle.SignedCarrier.typeProjection.{u_1} : (a b : YoungDiagram) →
+  (q : ℕ) →
+    a.colLen 0 ≤ q →
+      b.colLen 0 ≤ q →
+        {τ : Type u_1} →
+          [Fintype τ] → [DecidableEq τ] → OAI.SpinAngle.SignedTensor.Raw →L[ℂ] OAI.SpinAngle.SignedTensor.Raw :=
+fun a b q ha hb {τ} [Fintype τ] [DecidableEq τ] =>
+  OAI.SpinAngle.Isotypic.projection (OAI.SpinAngle.SignedCarrier.rep a b q ha hb) OAI.SpinAngle.SignedTensor.rep
+def OAI.SpinAngle.SignedCarrier.matrixProjection.{u_1} : (a b : YoungDiagram) →
+  (q : ℕ) →
+    a.colLen 0 ≤ q →
+      b.colLen 0 ≤ q →
+        {τ : Type u_1} →
+          [Fintype τ] →
+            [DecidableEq τ] →
+              Matrix (τ → OAI.SpinAngle.SignedTensor.Spin q) (τ → OAI.SpinAngle.SignedTensor.Spin q) ℂ :=
+fun a b q ha hb {τ} [Fintype τ] [DecidableEq τ] =>
+  Matrix.toEuclideanCLM.symm (OAI.SpinAngle.SignedCarrier.typeProjection a b q ha hb)
+def OAI.SpinAngle.missingCellFactor : ℕ → ℕ → ℝ :=
+fun m b => if b < m then (↑m / ↑(m - b)) ^ (m - b) else 1
+def OAI.SpinAngle.missingCellProductFactor.{u_1} : {ι : Type u_1} → [Fintype ι] → ℕ → (ι → ℕ) → ℝ :=
+fun {ι} [Fintype ι] m b => ∏ i, OAI.SpinAngle.missingCellFactor m (b i)
+def OAI.SpinAngle.occupiedRow.{u_1, u_2} : {R : Type u_1} →
+  {C : Type u_2} → [DecidableEq R] → [Fintype C] → [DecidableEq C] → Finset (R × C) → R → Finset C :=
+fun {R} {C} [DecidableEq R] [Fintype C] [DecidableEq C] W i => {j | (i, j) ∈ W}
+def OAI.SpinAngle.missingInRow.{u_1, u_2} : {R : Type u_1} →
+  {C : Type u_2} → [DecidableEq R] → [Fintype C] → [DecidableEq C] → Finset (R × C) → R → ℕ :=
+fun {R} {C} [DecidableEq R] [Fintype C] [DecidableEq C] W i => Fintype.card C - (OAI.SpinAngle.occupiedRow W i).card
+@[reducible] def OAI.SpinAngle.DependentTensor.Mat.{u_3} : Type u_3 → Type u_3 :=
+fun n => Matrix n n ℂ
+def OAI.SpinAngle.DependentTensor.tensor.{u_1, u_2} : {ι : Type u_1} →
+  [Fintype ι] →
+    {ν : ι → Type u_2} →
+      ((i : ι) → OAI.SpinAngle.DependentTensor.Mat (ν i)) → OAI.SpinAngle.DependentTensor.Mat ((i : ι) → ν i) :=
+fun {ι} [Fintype ι] {ν} A x y => ∏ i, A i (x i) (y i)
+@[reducible] def OAI.SpinAngle.BlockTensor.Fiber.{u_1, u_2} : {τ : Type u_1} →
+  {J : Type u_2} → (τ → J) → J → Type (max 0 u_1) :=
+fun {τ} {J} f j => { i // f i = j }
+def OAI.SpinAngle.BlockTensor.splitEquiv.{u_1, u_2, u_3} : {τ : Type u_1} →
+  {J : Type u_2} → {n : Type u_3} → (f : τ → J) → (τ → n) ≃ ((j : J) → OAI.SpinAngle.BlockTensor.Fiber f j → n) :=
+fun {τ} {J} {n} f => { toFun := fun x j i => x ↑i, invFun := fun y i => y (f i) ⟨i, ⋯⟩, left_inv := ⋯, right_inv := ⋯ }
+def OAI.SpinAngle.BlockTensor.tensor.{u_1, u_2, u_3} : {τ : Type u_1} →
+  {J : Type u_2} →
+    {n : Type u_3} →
+      [Fintype J] →
+        (f : τ → J) →
+          ((j : J) → OAI.SpinAngle.DependentTensor.Mat (OAI.SpinAngle.BlockTensor.Fiber f j → n)) →
+            OAI.SpinAngle.DependentTensor.Mat (τ → n) :=
+fun {τ} {J} {n} [Fintype J] f A x y =>
+  OAI.SpinAngle.DependentTensor.tensor A ((OAI.SpinAngle.BlockTensor.splitEquiv f) x)
+    ((OAI.SpinAngle.BlockTensor.splitEquiv f) y)
+@[reducible] def OAI.SpinAngle.MatrixAnalysis.Mat.{u_2} : Type u_2 → Type u_2 :=
+fun n => Matrix n n ℂ
+structure OAI.SpinAngle.TypeLabel (q : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.SpinAngle.TypeLabel.even : YoungDiagram
+  OAI.SpinAngle.TypeLabel.odd : YoungDiagram
+  OAI.SpinAngle.TypeLabel.even_height : self.even.colLen 0 ≤ q
+  OAI.SpinAngle.TypeLabel.odd_height : self.odd.colLen 0 ≤ q
+constructor:
+  OAI.SpinAngle.TypeLabel.mk {q : ℕ} (even odd : YoungDiagram) (even_height : even.colLen 0 ≤ q)
+    (odd_height : odd.colLen 0 ≤ q) : OAI.SpinAngle.TypeLabel q
+def OAI.SpinAngle.TypeLabel.size : {q : ℕ} → OAI.SpinAngle.TypeLabel q → ℕ :=
+fun {q} D => Fintype.card (OAI.SpinAngle.Young.Cells D.even) + Fintype.card (OAI.SpinAngle.Young.Cells D.odd)
+def OAI.SpinAngle.TypeLabel.entropy : {q : ℕ} → OAI.SpinAngle.TypeLabel q → ℝ :=
+fun {q} D => OAI.SpinAngle.SignedCarrier.entropy D.even D.odd q
+def OAI.SpinAngle.TypeLabel.dimension : {q : ℕ} → OAI.SpinAngle.TypeLabel q → ℕ :=
+fun {q} D => OAI.SpinAngle.SignedCarrier.dimension D.even D.odd q ⋯ ⋯
+def OAI.SpinAngle.TypeLabel.projection.{u_1} : {q : ℕ} →
+  OAI.SpinAngle.TypeLabel q →
+    (τ : Type u_1) →
+      [Fintype τ] →
+        [DecidableEq τ] → Matrix (τ → OAI.SpinAngle.SignedTensor.Spin q) (τ → OAI.SpinAngle.SignedTensor.Spin q) ℂ :=
+fun {q} D τ [Fintype τ] [DecidableEq τ] => OAI.SpinAngle.SignedCarrier.matrixProjection D.even D.odd q ⋯ ⋯
+@[reducible] def OAI.SpinAngle.TypeBlocks.Fiber.{u, u_1} : {τ : Type u_1} → {J : Type u} → (τ → J) → J → Type u_1 :=
+fun {τ} {J} f j => OAI.SpinAngle.BlockTensor.Fiber f j
+def OAI.SpinAngle.TypeBlocks.projection.{u, u_1} : {q : ℕ} →
+  {τ : Type u_1} →
+    {J : Type u} →
+      [Fintype τ] →
+        [DecidableEq τ] →
+          [Fintype J] →
+            [DecidableEq J] →
+              (τ → J) →
+                (J → OAI.SpinAngle.TypeLabel q) →
+                  OAI.SpinAngle.MatrixAnalysis.Mat (τ → OAI.SpinAngle.SignedTensor.Spin q) :=
+fun {q} {τ} {J} [Fintype τ] [DecidableEq τ] [Fintype J] [DecidableEq J] f D =>
+  OAI.SpinAngle.BlockTensor.tensor f fun j => (D j).projection (OAI.SpinAngle.TypeBlocks.Fiber f j)
+def OAI.SpinAngle.TypeBlocks.entropy.{u} : {q : ℕ} → {J : Type u} → [Fintype J] → (J → OAI.SpinAngle.TypeLabel q) → ℝ :=
+fun {q} {J} [Fintype J] D => ∑ j, (D j).entropy
+def OAI.SpinAngle.TypeBlocks.dimension.{u} : {q : ℕ} →
+  {J : Type u} → [Fintype J] → (J → OAI.SpinAngle.TypeLabel q) → ℕ :=
+fun {q} {J} [Fintype J] D => ∏ j, (D j).dimension
+def OAI.SpinAngle.TypeAngle.row.{u_1, u_2} : {R : Type u_1} → {C : Type u_2} → (W : Finset (R × C)) → ↥W → R :=
+fun {R} {C} W w => (↑w).1
+def OAI.SpinAngle.TypeAngle.column.{u_1, u_2} : {R : Type u_1} → {C : Type u_2} → (W : Finset (R × C)) → ↥W → C :=
+fun {R} {C} W w => (↑w).2
+def OAI.SpinAngle.TypeAngle.phi.{u_1, u_2} : {R : Type u_1} →
+  {C : Type u_2} → [Fintype R] → [DecidableEq R] → [Fintype C] → [DecidableEq C] → Finset (R × C) → ℝ :=
+fun {R} {C} [Fintype R] [DecidableEq R] [Fintype C] [DecidableEq C] W =>
+  OAI.SpinAngle.missingCellProductFactor (Fintype.card C) (OAI.SpinAngle.missingInRow W)

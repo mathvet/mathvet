@@ -1,0 +1,887 @@
+OAI.CurrentProjection.mixedMomentMain : OAI.CurrentProjection.MixedMomentMain
+'OAI.CurrentProjection.mixedMomentMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.CurrentProjection.actualRowMain : ∀ {d m r q : ℕ} {W : Type u_1} [inst : MeasurableSpace W] [Countable W]
+  [MeasurableSingletonClass W],
+  OAI.CurrentProjection.AdmissibleDimensions d m r q →
+    ∀ (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+      [inst_3 : MeasureTheory.IsProbabilityMeasure P] (ν : MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+      [MeasureTheory.IsProbabilityMeasure ν],
+      (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+          ν.prod (OAI.CurrentProjection.gaussianRows m d) →
+        ∀ (H : ℝ),
+          ν ≤ ENNReal.ofReal H • OAI.CurrentProjection.uniformSphere d →
+            OAI.CurrentProjection.shannonEntropy (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd ≠
+                ⊤ →
+              ∀
+                (ρ :
+                  OAI.CurrentProjection.PositiveMessage
+                      (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd →
+                    MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+                [∀
+                    (w :
+                      OAI.CurrentProjection.PositiveMessage
+                        (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                    MeasureTheory.IsFiniteMeasure (ρ w)],
+                (∀
+                    (w :
+                      OAI.CurrentProjection.PositiveMessage
+                        (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                    (ρ w).AbsolutelyContinuous (OAI.CurrentProjection.uniformSphere d)) →
+                  ∀
+                    (B D :
+                      OAI.CurrentProjection.PositiveMessage
+                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd →
+                        ℝ),
+                    (∀
+                        (w :
+                          OAI.CurrentProjection.PositiveMessage
+                            (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                        0 < B w) →
+                      (∀
+                          (w :
+                            OAI.CurrentProjection.PositiveMessage
+                              (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                          0 < D w) →
+                        (∀
+                            (w :
+                              OAI.CurrentProjection.PositiveMessage
+                                (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                            OAI.CurrentProjection.LocalGrowth (ρ w) (m + r) (B w)) →
+                          (∀
+                              (w :
+                                OAI.CurrentProjection.PositiveMessage
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                              OAI.CurrentProjection.LocalGrowth (ρ w) (d - 1) (D w)) →
+                            MeasureTheory.Integrable
+                                (fun sw =>
+                                  Real.log
+                                    (1 +
+                                      OAI.CurrentProjection.momentBound 9 d
+                                        (OAI.CurrentProjection.completeFamily
+                                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd B 1 sw.2)
+                                        (OAI.CurrentProjection.completeFamily
+                                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd D 1
+                                          sw.2)))
+                                P.fst →
+                              OAI.CurrentProjection.ActualRowConclusion P
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd ρ 0)
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd B 1)
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd D 1)
+'OAI.CurrentProjection.actualRowMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.CurrentProjection.actualRowRefinement : ∀ {d m : ℕ} {W : Type u_1} {E : Type u_2} [inst : MeasurableSpace W]
+  [inst_1 : MeasurableSpace E] [Countable W] [MeasurableSingletonClass W] [Countable E] [MeasurableSingletonClass E]
+  (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+  [MeasureTheory.IsProbabilityMeasure P] (e : ↑(OAI.CurrentProjection.Sphere d) × W → E),
+  Measurable e →
+    OAI.CurrentProjection.shannonEntropy
+          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast)
+              (MeasureTheory.Measure.map (fun p => ((p.1.1, p.1.2, e p.1), p.2)) P)).snd ≠
+        ⊤ →
+      OAI.CurrentProjection.rowInformation (MeasureTheory.Measure.map (fun p => ((p.1.1, p.1.2, e p.1), p.2)) P)
+          (OAI.CurrentProjection.gaussianRows m d) =
+        OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)
+'OAI.CurrentProjection.actualRowRefinement' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.CurrentProjection.actualRowSourceMain : ∀ {d m r q : ℕ} {W : Type u_1} [inst : MeasurableSpace W]
+  [inst_1 : Countable W] [inst_2 : MeasurableSingletonClass W],
+  OAI.CurrentProjection.AdmissibleDimensions d m r q →
+    ∀ (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+      [inst_3 : MeasureTheory.IsProbabilityMeasure P] (ν : MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+      [MeasureTheory.IsProbabilityMeasure ν],
+      (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+          ν.prod (OAI.CurrentProjection.gaussianRows m d) →
+        ∀ (H : ℝ),
+          ν ≤ ENNReal.ofReal H • OAI.CurrentProjection.uniformSphere d →
+            OAI.CurrentProjection.shannonEntropy (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd ≠
+                ⊤ →
+              ∀
+                (ρ :
+                  OAI.CurrentProjection.PositiveMessage
+                      (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd →
+                    MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+                [∀
+                    (w :
+                      OAI.CurrentProjection.PositiveMessage
+                        (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                    MeasureTheory.IsFiniteMeasure (ρ w)],
+                (∀
+                    (w :
+                      OAI.CurrentProjection.PositiveMessage
+                        (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                    (ρ w).AbsolutelyContinuous (OAI.CurrentProjection.uniformSphere d)) →
+                  ∀
+                    (B D :
+                      OAI.CurrentProjection.PositiveMessage
+                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd →
+                        ℝ),
+                    (∀
+                        (w :
+                          OAI.CurrentProjection.PositiveMessage
+                            (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                        0 < B w) →
+                      (∀
+                          (w :
+                            OAI.CurrentProjection.PositiveMessage
+                              (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                          0 < D w) →
+                        (∀
+                            (w :
+                              OAI.CurrentProjection.PositiveMessage
+                                (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                            OAI.CurrentProjection.LocalGrowth (ρ w) (m + r) (B w)) →
+                          (∀
+                              (w :
+                                OAI.CurrentProjection.PositiveMessage
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd),
+                              OAI.CurrentProjection.LocalGrowth (ρ w) (d - 1) (D w)) →
+                            MeasureTheory.Integrable
+                                (fun sw =>
+                                  Real.log
+                                    (1 +
+                                      OAI.CurrentProjection.momentBound 9 d
+                                        (OAI.CurrentProjection.completeFamily
+                                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd B 1 sw.2)
+                                        (OAI.CurrentProjection.completeFamily
+                                          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd D 1
+                                          sw.2)))
+                                P.fst →
+                              OAI.CurrentProjection.ActualRowSourceConclusion P
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd ρ 0)
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd B 1)
+                                (OAI.CurrentProjection.completeFamily
+                                  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd D 1)
+'OAI.CurrentProjection.actualRowSourceMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.CurrentProjection.actualRowSourceRefinement : ∀ {d m : ℕ} {W : Type u_1} {E : Type u_2} [inst : MeasurableSpace W]
+  [inst_1 : MeasurableSpace E] [inst_2 : Countable W] [inst_3 : MeasurableSingletonClass W] [inst_4 : Countable E]
+  [inst_5 : MeasurableSingletonClass E]
+  (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+  [inst_6 : MeasureTheory.IsProbabilityMeasure P] (ν : MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+  [MeasureTheory.IsProbabilityMeasure ν],
+  (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+      ν.prod (OAI.CurrentProjection.gaussianRows m d) →
+    ∀ (e : ↑(OAI.CurrentProjection.Sphere d) × W → E),
+      Measurable e →
+        OAI.CurrentProjection.shannonEntropy
+              (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast)
+                  (MeasureTheory.Measure.map (fun p => ((p.1.1, p.1.2, e p.1), p.2)) P)).snd ≠
+            ⊤ →
+          OAI.CurrentProjection.actualConditionalRowInformation
+              (MeasureTheory.Measure.map (fun p => ((p.1.1, p.1.2, e p.1), p.2)) P) =
+            OAI.CurrentProjection.actualConditionalRowInformation P
+'OAI.CurrentProjection.actualRowSourceRefinement' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.criticalComparisonMain : OAI.CurrentProjection.CriticalComparisonMain
+'OAI.CurrentProjection.criticalComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.oneLevelComparisonMain : OAI.CurrentProjection.OneLevelComparisonMain
+'OAI.CurrentProjection.oneLevelComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.twoLabelComparisonMain : OAI.CurrentProjection.TwoLabelComparisonMain
+'OAI.CurrentProjection.twoLabelComparisonMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.hybridBlockMain : OAI.CurrentProjection.HybridBlockMain
+'OAI.CurrentProjection.hybridBlockMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.fiberTwoPointMain : OAI.CurrentProjection.FiberTwoPointMain
+'OAI.CurrentProjection.fiberTwoPointMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.CurrentProjection.fiberBlockMain : OAI.CurrentProjection.FiberBlockMain
+'OAI.CurrentProjection.fiberBlockMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.CurrentProjection.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.CurrentProjection.Sphere : (d : ℕ) → Set (OAI.CurrentProjection.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.CurrentProjection.Rows : ℕ → ℕ → Type :=
+fun k d => Fin k → OAI.CurrentProjection.Vector d
+def OAI.CurrentProjection.uniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.CurrentProjection.gaussianRows : (k d : ℕ) → MeasureTheory.Measure (OAI.CurrentProjection.Rows k d) :=
+fun k d => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.CurrentProjection.Vector d)
+def OAI.CurrentProjection.label : {k d : ℕ} →
+  OAI.CurrentProjection.Rows k d → OAI.CurrentProjection.Vector d → Fin k → ℝ :=
+fun {k d} g s i => inner ℝ s (g i)
+def OAI.CurrentProjection.LocalGrowth : {d : ℕ} →
+  MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d) → ℕ → ℝ → Prop :=
+fun {d} ρ a B =>
+  ∀ (z : OAI.CurrentProjection.Vector d) (t : ℝ), 0 < t → ρ {u | dist (↑u) z ≤ t} ≤ ENNReal.ofReal (B * t ^ a)
+def OAI.CurrentProjection.cubeAverage : {k d : ℕ} →
+  MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d) →
+    OAI.CurrentProjection.Rows k d → (Fin k → ℝ) → ℝ → ENNReal :=
+fun {k d} ρ g y δ =>
+  ENNReal.ofReal ((2 * δ)⁻¹ ^ k) * ρ {u | ∀ (i : Fin k), |OAI.CurrentProjection.label g (↑u) i - y i| ≤ δ}
+def OAI.CurrentProjection.exactDensity : {k d : ℕ} →
+  MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d) → OAI.CurrentProjection.Rows k d → (Fin k → ℝ) → ENNReal :=
+fun {k d} ρ g y =>
+  have f := fun j => (OAI.CurrentProjection.cubeAverage ρ g y (1 / ↑j)).toReal;
+  if h : ∃ L, Filter.Tendsto f Filter.atTop (nhds L) then ENNReal.ofReal h.choose else 0
+def OAI.CurrentProjection.AdmissibleDimensions : ℕ → ℕ → ℕ → ℕ → Prop :=
+fun d m r q => 1 ≤ m ∧ 1 ≤ r ∧ 1 ≤ q ∧ m + r < d - 1 ∧ m + r - m - (q - 1) ≥ 1
+def OAI.CurrentProjection.momentConstant : ℝ → ℕ → ℝ → ℝ → ENNReal :=
+fun C d B D => ENNReal.ofReal (Real.exp (C * ↑d) * B * (1 + max (Real.log (D / B)) 0))
+def OAI.CurrentProjection.MixedMomentMain : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d m r q : ℕ),
+      OAI.CurrentProjection.AdmissibleDimensions d m r q →
+        ∀ (ρ : MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d)),
+          MeasureTheory.IsFiniteMeasure ρ →
+            ∀ (B D : ℝ),
+              0 < B →
+                0 < D →
+                  OAI.CurrentProjection.LocalGrowth ρ (m + r) B →
+                    OAI.CurrentProjection.LocalGrowth ρ (d - 1) D →
+                      (∀ (s : ↑(OAI.CurrentProjection.Sphere d)) (δ : ℝ),
+                          0 < δ →
+                            ∫⁻ (X : OAI.CurrentProjection.Rows m d),
+                                (∫⁻ (Z : OAI.CurrentProjection.Rows r d),
+                                    OAI.CurrentProjection.cubeAverage ρ (Fin.append X Z)
+                                      (OAI.CurrentProjection.label (Fin.append X Z) ↑s)
+                                      δ ∂OAI.CurrentProjection.gaussianRows r d) ^
+                                  q ∂OAI.CurrentProjection.gaussianRows m d ≤
+                              OAI.CurrentProjection.momentConstant C d B D ^ q) ∧
+                        (ρ.AbsolutelyContinuous (OAI.CurrentProjection.uniformSphere d) →
+                          ∃ E,
+                            MeasurableSet E ∧
+                              ρ E = 0 ∧
+                                ∀ s ∉ E,
+                                  (∀ᵐ (G :
+                                      OAI.CurrentProjection.Rows (m + r)
+                                        d) ∂OAI.CurrentProjection.gaussianRows (m + r) d,
+                                      Filter.Tendsto
+                                        (fun δ =>
+                                          OAI.CurrentProjection.cubeAverage ρ G (OAI.CurrentProjection.label G ↑s) δ)
+                                        (nhdsWithin 0 (Set.Ioi 0))
+                                        (nhds
+                                          (OAI.CurrentProjection.exactDensity ρ G
+                                            (OAI.CurrentProjection.label G ↑s)))) ∧
+                                    ∫⁻ (X : OAI.CurrentProjection.Rows m d),
+                                          (∫⁻ (Z : OAI.CurrentProjection.Rows r d),
+                                              OAI.CurrentProjection.exactDensity ρ (Fin.append X Z)
+                                                (OAI.CurrentProjection.label (Fin.append X Z)
+                                                  ↑s) ∂OAI.CurrentProjection.gaussianRows r d) ^
+                                            q ∂OAI.CurrentProjection.gaussianRows m d ≤
+                                        OAI.CurrentProjection.momentConstant C d B D ^ q ∧
+                                      (ρ ≠ 0 →
+                                        ∀ᵐ (G :
+                                          OAI.CurrentProjection.Rows (m + r)
+                                            d) ∂OAI.CurrentProjection.gaussianRows (m + r) d,
+                                          0 <
+                                              OAI.CurrentProjection.exactDensity ρ G
+                                                (OAI.CurrentProjection.label G ↑s) ∧
+                                            OAI.CurrentProjection.exactDensity ρ G (OAI.CurrentProjection.label G ↑s) <
+                                              ⊤))
+def OAI.CurrentProjection.swapLast.{u_1, u_2, u_3} : {A : Type u_1} →
+  {B : Type u_2} →
+    {C : Type u_3} →
+      [inst : MeasurableSpace A] →
+        [inst_1 : MeasurableSpace B] → [inst_2 : MeasurableSpace C] → (A × B) × C ≃ᵐ (A × C) × B :=
+fun {A} {B} {C} [MeasurableSpace A] [MeasurableSpace B] [MeasurableSpace C] =>
+  { toFun := fun p => ((p.1.1, p.2), p.1.2), invFun := fun p => ((p.1.1, p.2), p.1.2), left_inv := ⋯, right_inv := ⋯,
+    measurable_toFun := ⋯, measurable_invFun := ⋯ }
+def OAI.CurrentProjection.rowInformation.{u_1, u_2, u_3} : {S : Type u_1} →
+  {W : Type u_2} →
+    {X : Type u_3} →
+      [inst : MeasurableSpace S] →
+        [inst_1 : MeasurableSpace W] →
+          [inst_2 : MeasurableSpace X] → MeasureTheory.Measure ((S × W) × X) → MeasureTheory.Measure X → ENNReal :=
+fun {S} {W} {X} [MeasurableSpace S] [MeasurableSpace W] [MeasurableSpace X] P γ =>
+  InformationTheory.klDiv P (P.fst.prod γ)
+def OAI.CurrentProjection.shannonEntropy.{u_1} : {W : Type u_1} →
+  [inst : MeasurableSpace W] → MeasureTheory.Measure W → ENNReal :=
+fun {W} [MeasurableSpace W] π => ∫⁻ (w : W), ENNReal.ofReal (-Real.log (π {w}).toReal) ∂π
+def OAI.CurrentProjection.conditionalMutualInformation.{u_1, u_2, u_3} : {Z : Type u_1} →
+  {A : Type u_2} →
+    {B : Type u_3} →
+      [inst : MeasurableSpace Z] →
+        [inst_1 : MeasurableSpace A] →
+          [inst_2 : MeasurableSpace B] →
+            [StandardBorelSpace A] →
+              [StandardBorelSpace B] →
+                (P : MeasureTheory.Measure (Z × A × B)) → [MeasureTheory.IsFiniteMeasure P] → ENNReal :=
+fun {Z} {A} {B} [MeasurableSpace Z] [MeasurableSpace A] [MeasurableSpace B] [StandardBorelSpace A]
+    [StandardBorelSpace B] P [MeasureTheory.IsFiniteMeasure P] =>
+  if h : Nonempty (A × B) then InformationTheory.klDiv P (P.fst.compProd (P.condKernel.fst.prod P.condKernel.snd))
+  else 0
+def OAI.CurrentProjection.actualExperiment.{u_1} : {d m r : ℕ} →
+  {W : Type u_1} →
+    [inst : MeasurableSpace W] →
+      MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) →
+        MeasureTheory.Measure
+          (((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+            OAI.CurrentProjection.Rows r d) :=
+fun {d m r} {W} [MeasurableSpace W] P => P.prod (OAI.CurrentProjection.gaussianRows r d)
+def OAI.CurrentProjection.actualObservation.{u_1} : {d m r : ℕ} →
+  {W : Type u_1} →
+    ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) × OAI.CurrentProjection.Rows r d →
+      (OAI.CurrentProjection.Rows (m + r) d × W) × (Fin (m + r) → ℝ) :=
+fun {d m r} {W} p => ((Fin.append p.1.2 p.2, p.1.1.2), OAI.CurrentProjection.label (Fin.append p.1.2 p.2) ↑p.1.1.1)
+def OAI.CurrentProjection.selectedCube.{u_1} : {k d : ℕ} →
+  {W : Type u_1} →
+    (W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d)) →
+      ℝ → (OAI.CurrentProjection.Rows k d × W) × (Fin k → ℝ) → ENNReal :=
+fun {k d} {W} ρ δ z => OAI.CurrentProjection.cubeAverage (ρ z.1.2) z.1.1 z.2 δ
+def OAI.CurrentProjection.selectedExact.{u_1} : {k d : ℕ} →
+  {W : Type u_1} →
+    (W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d)) →
+      (OAI.CurrentProjection.Rows k d × W) × (Fin k → ℝ) → ENNReal :=
+fun {k d} {W} ρ z => OAI.CurrentProjection.exactDensity (ρ z.1.2) z.1.1 z.2
+def OAI.CurrentProjection.momentBound : ℝ → ℕ → ℝ → ℝ → ℝ :=
+fun C d B D => Real.exp (C * ↑d) * B * (1 + max (Real.log (D / B)) 0)
+def OAI.CurrentProjection.logPositive : ENNReal → ℝ :=
+fun x => max (Real.log x.toReal) 0
+def OAI.CurrentProjection.logNegative : ENNReal → ENNReal :=
+fun x => if x = 0 then ⊤ else ENNReal.ofReal (-Real.log x.toReal)
+def OAI.CurrentProjection.extendedLogExpectation.{u_1} : {A : Type u_1} →
+  [inst : MeasurableSpace A] → MeasureTheory.Measure A → (A → ENNReal) → EReal :=
+fun {A} [MeasurableSpace A] μ f =>
+  ↑(∫⁻ (a : A), ENNReal.ofReal (OAI.CurrentProjection.logPositive (f a)) ∂μ) -
+    ↑(∫⁻ (a : A), OAI.CurrentProjection.logNegative (f a) ∂μ)
+def OAI.CurrentProjection.PositiveMessage.{u_1} : {W : Type u_1} →
+  [inst : MeasurableSpace W] → MeasureTheory.Measure W → Type (max 0 u_1) :=
+fun {W} [MeasurableSpace W] π => { w // 0 < π {w} }
+def OAI.CurrentProjection.completeFamily.{u_1, u_2} : {W : Type u_1} →
+  [inst : MeasurableSpace W] →
+    {T : Type u_2} → (π : MeasureTheory.Measure W) → (OAI.CurrentProjection.PositiveMessage π → T) → T → W → T :=
+fun {W} [MeasurableSpace W] {T} π f t₀ w => if h : 0 < π {w} then f ⟨w, h⟩ else t₀
+structure OAI.CurrentProjection.ActualRowConclusion.{u_1} {d m r q : ℕ} {W : Type u_1} [MeasurableSpace W]
+  (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+  [MeasureTheory.IsProbabilityMeasure P] (ρ : W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+  (B D : W → ℝ) : Prop
+number of parameters: 11
+fields:
+  OAI.CurrentProjection.ActualRowConclusion.row_finite : OAI.CurrentProjection.rowInformation P
+        (OAI.CurrentProjection.gaussianRows m d) ≠
+      ⊤
+  OAI.CurrentProjection.ActualRowConclusion.row_le_entropy : (OAI.CurrentProjection.rowInformation P
+          (OAI.CurrentProjection.gaussianRows m d)).toReal ≤
+      (OAI.CurrentProjection.shannonEntropy (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal
+  OAI.CurrentProjection.ActualRowConclusion.conditional_density : ∀ᵐ (gw :
+      OAI.CurrentProjection.Rows (m + r) d ×
+        W) ∂(MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+          (OAI.CurrentProjection.actualExperiment P)).fst,
+      ((MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+                (OAI.CurrentProjection.actualExperiment P)).condKernel
+            gw).AbsolutelyContinuous
+        MeasureTheory.volume
+  OAI.CurrentProjection.ActualRowConclusion.actual_limit : ∀ᵐ (p :
+      ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+        OAI.CurrentProjection.Rows r d) ∂OAI.CurrentProjection.actualExperiment P,
+      Filter.Tendsto
+        (fun j => OAI.CurrentProjection.selectedCube ρ (1 / ↑j) (OAI.CurrentProjection.actualObservation p))
+        Filter.atTop (nhds (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+  OAI.CurrentProjection.ActualRowConclusion.smoothed_bound : ∀ (δ : ℝ),
+      0 < δ →
+        MeasureTheory.Integrable
+            (fun p =>
+              Real.log
+                (1 + (OAI.CurrentProjection.selectedCube ρ δ (OAI.CurrentProjection.actualObservation p)).toReal))
+            (OAI.CurrentProjection.actualExperiment P) ∧
+          ∫ (p :
+              ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+                OAI.CurrentProjection.Rows r d),
+              Real.log
+                (1 +
+                  (OAI.CurrentProjection.selectedCube ρ δ
+                      (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+            (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+              ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+                Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowConclusion.exact_integrable : MeasureTheory.Integrable
+      (fun p =>
+        Real.log (1 + (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)).toReal))
+      (OAI.CurrentProjection.actualExperiment P)
+  OAI.CurrentProjection.ActualRowConclusion.exact_bound : ∫ (p :
+        ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) × OAI.CurrentProjection.Rows r d),
+        Real.log
+          (1 +
+            (OAI.CurrentProjection.selectedExact ρ
+                (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+      (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowConclusion.entropy_bound : (OAI.CurrentProjection.rowInformation P
+              (OAI.CurrentProjection.gaussianRows m d)).toReal /
+          ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst ≤
+      (OAI.CurrentProjection.shannonEntropy
+              (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal /
+          ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowConclusion.positive_log_integrable : MeasureTheory.Integrable
+      (fun p =>
+        OAI.CurrentProjection.logPositive
+          (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+      (OAI.CurrentProjection.actualExperiment P)
+  OAI.CurrentProjection.ActualRowConclusion.extended_log_bound : (OAI.CurrentProjection.extendedLogExpectation
+        (OAI.CurrentProjection.actualExperiment P) fun p =>
+        OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)) ≤
+      ↑(OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+        ↑(∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+constructor:
+  OAI.CurrentProjection.ActualRowConclusion.mk.{u_1} {d m r q : ℕ} {W : Type u_1} [MeasurableSpace W]
+    {P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d)}
+    [MeasureTheory.IsProbabilityMeasure P] {ρ : W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d)}
+    {B D : W → ℝ} (row_finite : OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d) ≠ ⊤)
+    (row_le_entropy :
+      (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal ≤
+        (OAI.CurrentProjection.shannonEntropy
+            (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal)
+    (conditional_density :
+      ∀ᵐ (gw :
+        OAI.CurrentProjection.Rows (m + r) d ×
+          W) ∂(MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+            (OAI.CurrentProjection.actualExperiment P)).fst,
+        ((MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+                  (OAI.CurrentProjection.actualExperiment P)).condKernel
+              gw).AbsolutelyContinuous
+          MeasureTheory.volume)
+    (actual_limit :
+      ∀ᵐ (p :
+        ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+          OAI.CurrentProjection.Rows r d) ∂OAI.CurrentProjection.actualExperiment P,
+        Filter.Tendsto
+          (fun j => OAI.CurrentProjection.selectedCube ρ (1 / ↑j) (OAI.CurrentProjection.actualObservation p))
+          Filter.atTop (nhds (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p))))
+    (smoothed_bound :
+      ∀ (δ : ℝ),
+        0 < δ →
+          MeasureTheory.Integrable
+              (fun p =>
+                Real.log
+                  (1 + (OAI.CurrentProjection.selectedCube ρ δ (OAI.CurrentProjection.actualObservation p)).toReal))
+              (OAI.CurrentProjection.actualExperiment P) ∧
+            ∫ (p :
+                ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+                  OAI.CurrentProjection.Rows r d),
+                Real.log
+                  (1 +
+                    (OAI.CurrentProjection.selectedCube ρ δ
+                        (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+              (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+                ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+                  Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (exact_integrable :
+      MeasureTheory.Integrable
+        (fun p =>
+          Real.log (1 + (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)).toReal))
+        (OAI.CurrentProjection.actualExperiment P))
+    (exact_bound :
+      ∫ (p :
+          ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) × OAI.CurrentProjection.Rows r d),
+          Real.log
+            (1 +
+              (OAI.CurrentProjection.selectedExact ρ
+                  (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+        (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (entropy_bound :
+      (OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst ≤
+        (OAI.CurrentProjection.shannonEntropy
+                (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal /
+            ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (positive_log_integrable :
+      MeasureTheory.Integrable
+        (fun p =>
+          OAI.CurrentProjection.logPositive
+            (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+        (OAI.CurrentProjection.actualExperiment P))
+    (extended_log_bound :
+      (OAI.CurrentProjection.extendedLogExpectation (OAI.CurrentProjection.actualExperiment P) fun p =>
+          OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)) ≤
+        ↑(OAI.CurrentProjection.rowInformation P (OAI.CurrentProjection.gaussianRows m d)).toReal / ↑q +
+          ↑(∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+              Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)) :
+    OAI.CurrentProjection.ActualRowConclusion P ρ B D
+def OAI.CurrentProjection.actualConditionalRowInformation.{u_1} : {d m : ℕ} →
+  {W : Type u_1} →
+    [inst : MeasurableSpace W] →
+      [StandardBorelSpace W] →
+        (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d)) →
+          [MeasureTheory.IsFiniteMeasure P] → ENNReal :=
+fun {d m} {W} [MeasurableSpace W] [StandardBorelSpace W] P [MeasureTheory.IsFiniteMeasure P] =>
+  OAI.CurrentProjection.conditionalMutualInformation (MeasureTheory.Measure.map (fun p => (p.1.1, p.2, p.1.2)) P)
+structure OAI.CurrentProjection.ActualRowSourceConclusion.{u_1} {d m r q : ℕ} {W : Type u_1} [MeasurableSpace W]
+  [StandardBorelSpace W]
+  (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d))
+  [MeasureTheory.IsProbabilityMeasure P] (ρ : W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d))
+  (B D : W → ℝ) : Prop
+number of parameters: 12
+fields:
+  OAI.CurrentProjection.ActualRowSourceConclusion.row_finite : OAI.CurrentProjection.actualConditionalRowInformation P ≠
+      ⊤
+  OAI.CurrentProjection.ActualRowSourceConclusion.row_le_entropy : (OAI.CurrentProjection.actualConditionalRowInformation
+          P).toReal ≤
+      (OAI.CurrentProjection.shannonEntropy (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal
+  OAI.CurrentProjection.ActualRowSourceConclusion.conditional_density : ∀ᵐ (gw :
+      OAI.CurrentProjection.Rows (m + r) d ×
+        W) ∂(MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+          (OAI.CurrentProjection.actualExperiment P)).fst,
+      ((MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+                (OAI.CurrentProjection.actualExperiment P)).condKernel
+            gw).AbsolutelyContinuous
+        MeasureTheory.volume
+  OAI.CurrentProjection.ActualRowSourceConclusion.actual_limit : ∀ᵐ (p :
+      ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+        OAI.CurrentProjection.Rows r d) ∂OAI.CurrentProjection.actualExperiment P,
+      Filter.Tendsto
+        (fun j => OAI.CurrentProjection.selectedCube ρ (1 / ↑j) (OAI.CurrentProjection.actualObservation p))
+        Filter.atTop (nhds (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+  OAI.CurrentProjection.ActualRowSourceConclusion.smoothed_bound : ∀ (δ : ℝ),
+      0 < δ →
+        MeasureTheory.Integrable
+            (fun p =>
+              Real.log
+                (1 + (OAI.CurrentProjection.selectedCube ρ δ (OAI.CurrentProjection.actualObservation p)).toReal))
+            (OAI.CurrentProjection.actualExperiment P) ∧
+          ∫ (p :
+              ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+                OAI.CurrentProjection.Rows r d),
+              Real.log
+                (1 +
+                  (OAI.CurrentProjection.selectedCube ρ δ
+                      (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+            (OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+              ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+                Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowSourceConclusion.exact_integrable : MeasureTheory.Integrable
+      (fun p =>
+        Real.log (1 + (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)).toReal))
+      (OAI.CurrentProjection.actualExperiment P)
+  OAI.CurrentProjection.ActualRowSourceConclusion.exact_bound : ∫ (p :
+        ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) × OAI.CurrentProjection.Rows r d),
+        Real.log
+          (1 +
+            (OAI.CurrentProjection.selectedExact ρ
+                (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+      (OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowSourceConclusion.entropy_bound : (OAI.CurrentProjection.actualConditionalRowInformation
+              P).toReal /
+          ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst ≤
+      (OAI.CurrentProjection.shannonEntropy
+              (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal /
+          ↑q +
+        ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+          Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst
+  OAI.CurrentProjection.ActualRowSourceConclusion.positive_log_integrable : MeasureTheory.Integrable
+      (fun p =>
+        OAI.CurrentProjection.logPositive
+          (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+      (OAI.CurrentProjection.actualExperiment P)
+  OAI.CurrentProjection.ActualRowSourceConclusion.extended_log_bound : (OAI.CurrentProjection.extendedLogExpectation
+        (OAI.CurrentProjection.actualExperiment P) fun p =>
+        OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)) ≤
+      ↑(OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+        ↑(∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+constructor:
+  OAI.CurrentProjection.ActualRowSourceConclusion.mk.{u_1} {d m r q : ℕ} {W : Type u_1} [MeasurableSpace W]
+    [StandardBorelSpace W]
+    {P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d)}
+    [MeasureTheory.IsProbabilityMeasure P] {ρ : W → MeasureTheory.Measure ↑(OAI.CurrentProjection.Sphere d)}
+    {B D : W → ℝ} (row_finite : OAI.CurrentProjection.actualConditionalRowInformation P ≠ ⊤)
+    (row_le_entropy :
+      (OAI.CurrentProjection.actualConditionalRowInformation P).toReal ≤
+        (OAI.CurrentProjection.shannonEntropy
+            (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal)
+    (conditional_density :
+      ∀ᵐ (gw :
+        OAI.CurrentProjection.Rows (m + r) d ×
+          W) ∂(MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+            (OAI.CurrentProjection.actualExperiment P)).fst,
+        ((MeasureTheory.Measure.map OAI.CurrentProjection.actualObservation
+                  (OAI.CurrentProjection.actualExperiment P)).condKernel
+              gw).AbsolutelyContinuous
+          MeasureTheory.volume)
+    (actual_limit :
+      ∀ᵐ (p :
+        ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+          OAI.CurrentProjection.Rows r d) ∂OAI.CurrentProjection.actualExperiment P,
+        Filter.Tendsto
+          (fun j => OAI.CurrentProjection.selectedCube ρ (1 / ↑j) (OAI.CurrentProjection.actualObservation p))
+          Filter.atTop (nhds (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p))))
+    (smoothed_bound :
+      ∀ (δ : ℝ),
+        0 < δ →
+          MeasureTheory.Integrable
+              (fun p =>
+                Real.log
+                  (1 + (OAI.CurrentProjection.selectedCube ρ δ (OAI.CurrentProjection.actualObservation p)).toReal))
+              (OAI.CurrentProjection.actualExperiment P) ∧
+            ∫ (p :
+                ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) ×
+                  OAI.CurrentProjection.Rows r d),
+                Real.log
+                  (1 +
+                    (OAI.CurrentProjection.selectedCube ρ δ
+                        (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+              (OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+                ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+                  Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (exact_integrable :
+      MeasureTheory.Integrable
+        (fun p =>
+          Real.log (1 + (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)).toReal))
+        (OAI.CurrentProjection.actualExperiment P))
+    (exact_bound :
+      ∫ (p :
+          ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) × OAI.CurrentProjection.Rows r d),
+          Real.log
+            (1 +
+              (OAI.CurrentProjection.selectedExact ρ
+                  (OAI.CurrentProjection.actualObservation p)).toReal) ∂OAI.CurrentProjection.actualExperiment P ≤
+        (OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (entropy_bound :
+      (OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst ≤
+        (OAI.CurrentProjection.shannonEntropy
+                (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd).toReal /
+            ↑q +
+          ∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+            Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)
+    (positive_log_integrable :
+      MeasureTheory.Integrable
+        (fun p =>
+          OAI.CurrentProjection.logPositive
+            (OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)))
+        (OAI.CurrentProjection.actualExperiment P))
+    (extended_log_bound :
+      (OAI.CurrentProjection.extendedLogExpectation (OAI.CurrentProjection.actualExperiment P) fun p =>
+          OAI.CurrentProjection.selectedExact ρ (OAI.CurrentProjection.actualObservation p)) ≤
+        ↑(OAI.CurrentProjection.actualConditionalRowInformation P).toReal / ↑q +
+          ↑(∫ (sw : ↑(OAI.CurrentProjection.Sphere d) × W),
+              Real.log (1 + OAI.CurrentProjection.momentBound 9 d (B sw.2) (D sw.2)) ∂P.fst)) :
+    OAI.CurrentProjection.ActualRowSourceConclusion P ρ B D
+def OAI.CurrentProjection.alignedExperiment.{u_1} : {d m r : ℕ} →
+  {W : Type u_1} →
+    [inst : MeasurableSpace W] →
+      MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows m d) →
+        MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows (m + r) d) :=
+fun {d m r} {W} [MeasurableSpace W] P =>
+  MeasureTheory.Measure.map (fun p => (p.1.1, Fin.append p.1.2 p.2)) (OAI.CurrentProjection.actualExperiment P)
+def OAI.CurrentProjection.exposedJointMap.{u_1} : {d k : ℕ} →
+  {W : Type u_1} →
+    (↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows k d →
+      (OAI.CurrentProjection.Rows k d × (Fin k → ℝ)) × ↑(OAI.CurrentProjection.Sphere d) × W :=
+fun {d k} {W} p => ((p.2, OAI.CurrentProjection.label p.2 ↑p.1.1), p.1)
+def OAI.CurrentProjection.exposedInformation.{u_1} : {d k : ℕ} →
+  {W : Type u_1} →
+    [inst : MeasurableSpace W] →
+      [StandardBorelSpace W] →
+        (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows k d)) →
+          [MeasureTheory.IsFiniteMeasure P] → ENNReal :=
+fun {d k} {W} [MeasurableSpace W] [StandardBorelSpace W] P [MeasureTheory.IsFiniteMeasure P] =>
+  OAI.CurrentProjection.conditionalMutualInformation (MeasureTheory.Measure.map OAI.CurrentProjection.exposedJointMap P)
+def OAI.CurrentProjection.CriticalComparisonMain : Prop :=
+∃ K d₀,
+  0 < K ∧
+    ∀ (d : ℕ),
+      d₀ ≤ d →
+        ∀ (W : Type) [inst : MeasurableSpace W] [inst_1 : Countable W] [inst_2 : MeasurableSingletonClass W]
+          (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × W) × OAI.CurrentProjection.Rows (d / 10) d))
+          [inst_3 : MeasureTheory.IsProbabilityMeasure P],
+          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+              (OAI.CurrentProjection.uniformSphere d).prod (OAI.CurrentProjection.gaussianRows (d / 10) d) →
+            OAI.CurrentProjection.shannonEntropy (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).snd ≤
+                ENNReal.ofReal (↑d ^ 2) →
+              OAI.CurrentProjection.exposedInformation
+                  (P.fst.prod (OAI.CurrentProjection.gaussianRows (d / 10 + (d / 2 - d / 10)) d)) ≤
+                OAI.CurrentProjection.exposedInformation (OAI.CurrentProjection.alignedExperiment P) +
+                  ENNReal.ofReal (K * ↑d)
+def OAI.CurrentProjection.OneLevelComparisonMain : Prop :=
+∃ C d₀,
+  0 < C ∧
+    ∀ (d : ℕ),
+      d₀ ≤ d →
+        ∀ (U : Type) [inst : MeasurableSpace U] [inst_1 : Finite U] [inst_2 : MeasurableSingletonClass U]
+          (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × U) × OAI.CurrentProjection.Rows (d / 32) d))
+          [inst_3 : MeasureTheory.IsProbabilityMeasure P],
+          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+              (OAI.CurrentProjection.uniformSphere d).prod (OAI.CurrentProjection.gaussianRows (d / 32) d) →
+            OAI.CurrentProjection.exposedInformation
+                (P.fst.prod (OAI.CurrentProjection.gaussianRows (d / 32 + (d / 4 - d / 32)) d)) ≤
+              OAI.CurrentProjection.exposedInformation (OAI.CurrentProjection.alignedExperiment P) +
+                ENNReal.ofReal
+                  (C *
+                    (↑d + Real.log (1 + ↑d + (OAI.CurrentProjection.shannonEntropy P.fst.snd).toReal) +
+                      (OAI.CurrentProjection.shannonEntropy P.fst.snd).toReal / ↑d))
+def OAI.CurrentProjection.TwoLabelComparisonMain : Prop :=
+∃ C d₀,
+  0 < C ∧
+    ∀ (d : ℕ),
+      d₀ ≤ d →
+        ∀ (V : Type) [inst : MeasurableSpace V] [inst_1 : Finite V] [inst_2 : MeasurableSingletonClass V]
+          (P : MeasureTheory.Measure ((↑(OAI.CurrentProjection.Sphere d) × V) × OAI.CurrentProjection.Rows (d / 8) d))
+          [inst_3 : MeasureTheory.IsProbabilityMeasure P],
+          (MeasureTheory.Measure.map (⇑OAI.CurrentProjection.swapLast) P).fst =
+              (OAI.CurrentProjection.uniformSphere d).prod (OAI.CurrentProjection.gaussianRows (d / 8) d) →
+            OAI.CurrentProjection.shannonEntropy P.fst.snd ≤ ENNReal.ofReal (↑d ^ 2) →
+              OAI.CurrentProjection.exposedInformation
+                  (P.fst.prod (OAI.CurrentProjection.gaussianRows (d / 8 + (d / 2 - d / 8)) d)) ≤
+                OAI.CurrentProjection.exposedInformation (OAI.CurrentProjection.alignedExperiment P) +
+                  ENNReal.ofReal (C * ↑d)
+def OAI.CurrentProjection.blockInput.{u_1} : {d m : ℕ} →
+  {U : Type u_1} →
+    (↑(OAI.CurrentProjection.Sphere d) × U) × OAI.CurrentProjection.Rows m d →
+      U × OAI.CurrentProjection.Rows m d × (Fin m → ℝ) :=
+fun {d m} {U} z => (z.1.2, z.2, OAI.CurrentProjection.label z.2 ↑z.1.1)
+def OAI.CurrentProjection.blockLaw.{u_1, u_2} : {d m : ℕ} →
+  {U : Type u_1} →
+    {V : Type u_2} →
+      [inst : MeasurableSpace U] →
+        [inst_1 : MeasurableSpace V] →
+          MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U) →
+            ProbabilityTheory.Kernel (U × OAI.CurrentProjection.Rows m d × (Fin m → ℝ)) V →
+              MeasureTheory.Measure (((↑(OAI.CurrentProjection.Sphere d) × U) × OAI.CurrentProjection.Rows m d) × V) :=
+fun {d m} {U} {V} [MeasurableSpace U] [MeasurableSpace V] P κ =>
+  (P.prod (OAI.CurrentProjection.gaussianRows m d)).compProd (κ.comap OAI.CurrentProjection.blockInput ⋯)
+def OAI.CurrentProjection.endingSignalLaw.{u_1, u_2} : {d m : ℕ} →
+  {U : Type u_1} →
+    {V : Type u_2} →
+      [inst : MeasurableSpace U] →
+        [inst_1 : MeasurableSpace V] →
+          MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U) →
+            ProbabilityTheory.Kernel (U × OAI.CurrentProjection.Rows m d × (Fin m → ℝ)) V →
+              MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × V) :=
+fun {d m} {U} {V} [MeasurableSpace U] [MeasurableSpace V] P κ =>
+  MeasureTheory.Measure.map (fun z => (z.1.1.1, z.2)) (OAI.CurrentProjection.blockLaw P κ)
+def OAI.CurrentProjection.freshInformation.{u_1} : {d : ℕ} →
+  {U : Type u_1} →
+    [inst : MeasurableSpace U] →
+      [StandardBorelSpace U] →
+        (P : MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U)) →
+          [MeasureTheory.IsFiniteMeasure P] → ℕ → ENNReal :=
+fun {d} {U} [MeasurableSpace U] [StandardBorelSpace U] P [MeasureTheory.IsFiniteMeasure P] k =>
+  OAI.CurrentProjection.exposedInformation (P.prod (OAI.CurrentProjection.gaussianRows k d))
+def OAI.CurrentProjection.hybridFirst : ℕ → ℕ :=
+fun d => (d + 3) / 4
+def OAI.CurrentProjection.hybridLast : ℕ → ℕ :=
+fun d => d / 2
+def OAI.CurrentProjection.hybridCount : ℕ → ℕ :=
+fun d => OAI.CurrentProjection.hybridLast d - OAI.CurrentProjection.hybridFirst d + 1
+def OAI.CurrentProjection.averagedFreshInformation.{u_1} : {d : ℕ} →
+  {U : Type u_1} →
+    [inst : MeasurableSpace U] →
+      [StandardBorelSpace U] →
+        (P : MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U)) → [MeasureTheory.IsFiniteMeasure P] → ℝ :=
+fun {d} {U} [MeasurableSpace U] [StandardBorelSpace U] P [MeasureTheory.IsFiniteMeasure P] =>
+  (∑ k ∈ Finset.Icc (OAI.CurrentProjection.hybridFirst d) (OAI.CurrentProjection.hybridLast d),
+      (OAI.CurrentProjection.freshInformation P k).toReal) /
+    ↑(OAI.CurrentProjection.hybridCount d)
+def OAI.CurrentProjection.HybridBlockMain : Prop :=
+∃ C C' d₀,
+  0 < C ∧
+    0 < C' ∧
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (m : ℕ),
+            1 ≤ m →
+              m ≤ d / 8 →
+                ∀ (U V : Type) [inst : Fintype U] [inst_1 : Fintype V] [inst_2 : MeasurableSpace U]
+                  [inst_3 : MeasurableSpace V] [inst_4 : MeasurableSingletonClass U]
+                  [inst_5 : MeasurableSingletonClass V]
+                  (P : MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U))
+                  [inst_6 : MeasureTheory.IsProbabilityMeasure P],
+                  P.fst = OAI.CurrentProjection.uniformSphere d →
+                    ∀ (κ : ProbabilityTheory.Kernel (U × OAI.CurrentProjection.Rows m d × (Fin m → ℝ)) V)
+                      [inst_7 : ProbabilityTheory.IsMarkovKernel κ] (B : ℝ),
+                      0 ≤ B →
+                        OAI.CurrentProjection.shannonEntropy (OAI.CurrentProjection.endingSignalLaw P κ).snd ≤
+                            ENNReal.ofReal B →
+                          OAI.CurrentProjection.averagedFreshInformation (OAI.CurrentProjection.endingSignalLaw P κ) -
+                                OAI.CurrentProjection.averagedFreshInformation P ≤
+                              C * ↑m + ↑m / ↑(OAI.CurrentProjection.hybridCount d) * (C + B / ↑(d / 8)) +
+                                B / ↑(d / 32) ∧
+                            (B ≤ ↑d ^ 2 →
+                              OAI.CurrentProjection.averagedFreshInformation
+                                    (OAI.CurrentProjection.endingSignalLaw P κ) -
+                                  OAI.CurrentProjection.averagedFreshInformation P ≤
+                                C' * ↑d)
+def OAI.CurrentProjection.FiberBlockMain : Prop :=
+∃ K d₀,
+  0 < K ∧
+    ∀ (d : ℕ),
+      d₀ ≤ d →
+        ∀ (U V : Type) [inst : Fintype U] [inst_1 : Fintype V] [inst_2 : MeasurableSpace U] [inst_3 : MeasurableSpace V]
+          [inst_4 : MeasurableSingletonClass U] [inst_5 : MeasurableSingletonClass V]
+          (P : MeasureTheory.Measure (↑(OAI.CurrentProjection.Sphere d) × U))
+          [inst_6 : MeasureTheory.IsProbabilityMeasure P],
+          P.fst = OAI.CurrentProjection.uniformSphere d →
+            ∀ (κ : ProbabilityTheory.Kernel (U × OAI.CurrentProjection.Rows (d / 10) d × (Fin (d / 10) → ℝ)) V)
+              [inst_7 : ProbabilityTheory.IsMarkovKernel κ] (N : ℕ),
+              1 ≤ N →
+                Fintype.card V ≤ N →
+                  Real.log ↑N ≤ ↑d ^ 2 →
+                    OAI.CurrentProjection.freshInformation (OAI.CurrentProjection.endingSignalLaw P κ) (d / 3) ≤
+                      OAI.CurrentProjection.freshInformation P (d / 3) + ENNReal.ofReal (K * ↑d)
+def OAI.CurrentProjection.dependentMapKernel.{u_1, u_2, u_3} : {A : Type u_1} →
+  {B : Type u_2} →
+    {D : Type u_3} →
+      [inst : MeasurableSpace A] →
+        [inst_1 : MeasurableSpace B] →
+          [inst_2 : MeasurableSpace D] → ProbabilityTheory.Kernel A B → (A × B → D) → ProbabilityTheory.Kernel A D :=
+fun {A} {B} {D} [MeasurableSpace A] [MeasurableSpace B] [MeasurableSpace D] κ f =>
+  (ProbabilityTheory.Kernel.id.prod κ).map f
+def OAI.CurrentProjection.fiberObservationLaw : (d k : ℕ) →
+  MeasureTheory.Measure ((OAI.CurrentProjection.Rows k d × (Fin k → ℝ)) × ↑(OAI.CurrentProjection.Sphere d)) :=
+fun d k =>
+  MeasureTheory.Measure.map (fun z => ((z.1, OAI.CurrentProjection.label z.1 ↑z.2), z.2))
+    ((OAI.CurrentProjection.gaussianRows k d).prod (OAI.CurrentProjection.uniformSphere d))
+def OAI.CurrentProjection.sphericalFiberKernel : (d k : ℕ) →
+  [sphereNonempty : Nonempty ↑(OAI.CurrentProjection.Sphere d)] →
+    ProbabilityTheory.Kernel (OAI.CurrentProjection.Rows k d × (Fin k → ℝ)) ↑(OAI.CurrentProjection.Sphere d) :=
+fun d k [Nonempty ↑(OAI.CurrentProjection.Sphere d)] => (OAI.CurrentProjection.fiberObservationLaw d k).condKernel
+def OAI.CurrentProjection.fiberTwoPointLeft : (d k : ℕ) →
+  [Nonempty ↑(OAI.CurrentProjection.Sphere d)] →
+    MeasureTheory.Measure
+      (OAI.CurrentProjection.Rows k d × ↑(OAI.CurrentProjection.Sphere d) × ↑(OAI.CurrentProjection.Sphere d)) :=
+fun d k [Nonempty ↑(OAI.CurrentProjection.Sphere d)] =>
+  MeasureTheory.Measure.map (fun z => (z.1.1, z.1.2, z.2))
+    ((((OAI.CurrentProjection.gaussianRows k d).prod (OAI.CurrentProjection.uniformSphere d)).withDensity fun z =>
+          OAI.CurrentProjection.exactDensity (OAI.CurrentProjection.uniformSphere d) z.1
+            (OAI.CurrentProjection.label z.1 ↑z.2)).compProd
+      ((OAI.CurrentProjection.sphericalFiberKernel d k).comap (fun z => (z.1, OAI.CurrentProjection.label z.1 ↑z.2)) ⋯))
+def OAI.CurrentProjection.perpendicularRow : {d : ℕ} →
+  OAI.CurrentProjection.Vector d → OAI.CurrentProjection.Vector d → OAI.CurrentProjection.Vector d :=
+fun {d} v g => g - (inner ℝ v g / ‖v‖ ^ 2) • v
+def OAI.CurrentProjection.perpendicularRowsKernel : (d k : ℕ) →
+  ProbabilityTheory.Kernel (↑(OAI.CurrentProjection.Sphere d) × ↑(OAI.CurrentProjection.Sphere d))
+    (OAI.CurrentProjection.Rows k d) :=
+fun d k =>
+  OAI.CurrentProjection.dependentMapKernel
+    (ProbabilityTheory.Kernel.const (↑(OAI.CurrentProjection.Sphere d) × ↑(OAI.CurrentProjection.Sphere d))
+      (OAI.CurrentProjection.gaussianRows k d))
+    fun z i => OAI.CurrentProjection.perpendicularRow (↑z.1.1 - ↑z.1.2) (z.2 i)
+def OAI.CurrentProjection.fiberTwoPointConstant : ℕ → ENNReal :=
+fun k => ENNReal.ofReal ((√(2 * Real.pi))⁻¹ ^ k)
+def OAI.CurrentProjection.fiberDistanceWeight : {d : ℕ} →
+  ℕ → ↑(OAI.CurrentProjection.Sphere d) × ↑(OAI.CurrentProjection.Sphere d) → ENNReal :=
+fun {d} k z => (ENNReal.ofReal ‖↑z.1 - ↑z.2‖)⁻¹ ^ k
+def OAI.CurrentProjection.fiberTwoPointRight : (d k : ℕ) →
+  MeasureTheory.Measure
+    (OAI.CurrentProjection.Rows k d × ↑(OAI.CurrentProjection.Sphere d) × ↑(OAI.CurrentProjection.Sphere d)) :=
+fun d k =>
+  OAI.CurrentProjection.fiberTwoPointConstant k •
+    MeasureTheory.Measure.map Prod.swap
+      ((((OAI.CurrentProjection.uniformSphere d).prod (OAI.CurrentProjection.uniformSphere d)).withDensity
+            (OAI.CurrentProjection.fiberDistanceWeight k)).compProd
+        (OAI.CurrentProjection.perpendicularRowsKernel d k))
+def OAI.CurrentProjection.FiberTwoPointMain : Prop :=
+∀ (d k : ℕ) (_hk : 1 ≤ k) (hkd : k < d - 1),
+  MeasureTheory.IsFiniteMeasure (OAI.CurrentProjection.fiberTwoPointLeft d k) ∧
+    MeasureTheory.IsFiniteMeasure (OAI.CurrentProjection.fiberTwoPointRight d k) ∧
+      OAI.CurrentProjection.fiberTwoPointLeft d k = OAI.CurrentProjection.fiberTwoPointRight d k
