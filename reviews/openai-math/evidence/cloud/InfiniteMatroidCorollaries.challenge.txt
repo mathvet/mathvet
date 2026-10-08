@@ -1,0 +1,92 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_InfiniteMatroidCorollaries.lean:108:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_InfiniteMatroidCorollaries.lean:119:8: warning: declaration uses `sorry`
+OAI.InfiniteMatroidCounterexample.partitional_intersection_counterexample : Countable
+    OAI.InfiniteMatroidCounterexample.E ∧
+  Infinite OAI.InfiniteMatroidCounterexample.E ∧
+    ∃ Q,
+      Q.E = Set.univ ∧
+        Q✶ = Q ∧
+          OAI.InfiniteMatroidCounterexample.IsUniform Q ∧
+            have M₀ := OAI.InfiniteMatroidCounterexample.rayMatroid Q false;
+            have M₁ := OAI.InfiniteMatroidCounterexample.rayMatroid Q true;
+            M₀.E = Set.univ ∧
+              M₁.E = Set.univ ∧
+                M₀✶ = M₀ ∧
+                  M₁✶ = M₁ ∧
+                    OAI.InfiniteMatroidCounterexample.IsPartitional M₀ ∧
+                      OAI.InfiniteMatroidCounterexample.IsPartitional M₁ ∧
+                        (∀ (I₀ I₁ : Set OAI.InfiniteMatroidCounterexample.E),
+                            M₀.Indep I₀ → M₁.Indep I₁ → I₀ ∪ I₁ ≠ Set.univ) ∧
+                          ¬OAI.InfiniteMatroidCounterexample.HasPackingCovering M₀ M₁ ∧
+                            ¬OAI.InfiniteMatroidCounterexample.HasIntersection M₀ M₁
+OAI.InfiniteMatroidCounterexample.separate_covering_packing_counterexamples : (∃ F M,
+    (∀ (i : Bool), (M i).E = F) ∧ ¬OAI.InfiniteMatroidCounterexample.CoveringConjectureFor F M) ∧
+  ∃ F M, (∀ (i : Bool), (M i).E = F) ∧ ¬OAI.InfiniteMatroidCounterexample.PackingConjectureFor F M
+@[reducible] def OAI.InfiniteMatroidCounterexample.D : Type :=
+(m : ℕ) × ((Fin m → Bool) → Bool)
+@[reducible] def OAI.InfiniteMatroidCounterexample.E0 : Type :=
+OAI.InfiniteMatroidCounterexample.D × Bool
+@[reducible] def OAI.InfiniteMatroidCounterexample.E : Type :=
+ℤ × OAI.InfiniteMatroidCounterexample.D
+def OAI.InfiniteMatroidCounterexample.contractOnto.{u_1} : {α : Type u_1} → Matroid α → Set α → Matroid α :=
+fun {α} M C => (M✶.restrict C)✶
+def OAI.InfiniteMatroidCounterexample.HasPackingCovering.{u_1} : {α : Type u_1} → Matroid α → Matroid α → Prop :=
+fun {α} M₀ M₁ =>
+  ∃ P C S₀ S₁ I₀ I₁,
+    Disjoint P C ∧
+      P ∪ C = M₀.E ∧
+        M₁.E = M₀.E ∧
+          S₀ ⊆ P ∧
+            S₁ ⊆ P ∧
+              Disjoint S₀ S₁ ∧
+                (M₀.restrict P).Spanning S₀ ∧
+                  (M₁.restrict P).Spanning S₁ ∧
+                    I₀ ⊆ C ∧
+                      I₁ ⊆ C ∧
+                        (OAI.InfiniteMatroidCounterexample.contractOnto M₀ C).Indep I₀ ∧
+                          (OAI.InfiniteMatroidCounterexample.contractOnto M₁ C).Indep I₁ ∧ I₀ ∪ I₁ = C
+def OAI.InfiniteMatroidCounterexample.bundleAt : ℤ → Bool → ℤ :=
+fun n b => if n < 0 then if b = true then n - 1 else n else if b = true then n else n - 1
+def OAI.InfiniteMatroidCounterexample.parityBit : Bool → ℤ :=
+fun p => if p = true then 1 else 0
+@[reducible] def OAI.InfiniteMatroidCounterexample.Vertex : Bool → Type :=
+fun p => { n // n % 2 = OAI.InfiniteMatroidCounterexample.parityBit p }
+def OAI.InfiniteMatroidCounterexample.componentMap.{u_1} : {α : Type u_1} →
+  {p : Bool} → OAI.InfiniteMatroidCounterexample.Vertex p → α × Bool → ℤ × α :=
+fun {α} {p} v x => (OAI.InfiniteMatroidCounterexample.bundleAt (↑v) x.2, x.1)
+def OAI.InfiniteMatroidCounterexample.globalComponentMap.{u_1} : (α : Type u_1) →
+  (p : Bool) → OAI.InfiniteMatroidCounterexample.Vertex p × α × Bool → ℤ × α :=
+fun α p x => OAI.InfiniteMatroidCounterexample.componentMap x.1 x.2
+def OAI.InfiniteMatroidCounterexample.componentEquiv.{u_1} : (α : Type u_1) →
+  (p : Bool) → OAI.InfiniteMatroidCounterexample.Vertex p × α × Bool ≃ ℤ × α :=
+fun α p => Equiv.ofBijective (OAI.InfiniteMatroidCounterexample.globalComponentMap α p) ⋯
+def OAI.InfiniteMatroidCounterexample.rayMatroid.{u_1} : {α : Type u_1} → Matroid (α × Bool) → Bool → Matroid (ℤ × α) :=
+fun {α} Q p => (Matroid.sum' fun x => Q).mapEquiv (OAI.InfiniteMatroidCounterexample.componentEquiv α p)
+def OAI.InfiniteMatroidCounterexample.IsUniform.{u_1} : {α : Type u_1} → Matroid α → Prop :=
+fun {α} M => ∀ X ⊆ M.E, M.Indep X ∨ M.Spanning X
+def OAI.InfiniteMatroidCounterexample.IsPartitional : {α : Type} → Matroid α → Prop :=
+fun {α} M =>
+  ∃ ι β N e, (∀ (i : ι), OAI.InfiniteMatroidCounterexample.IsUniform (N i)) ∧ M = (Matroid.sigma N).mapEquiv e
+def OAI.InfiniteMatroidCounterexample.HasIntersection.{u_1} : {α : Type u_1} → Matroid α → Matroid α → Prop :=
+fun {α} M N => ∃ J J₀ J₁, M.Indep J ∧ N.Indep J ∧ Disjoint J₀ J₁ ∧ J₀ ∪ J₁ = J ∧ M.closure J₀ ∪ N.closure J₁ = M.E
+def OAI.InfiniteMatroidCounterexample.FamilyCovering.{u_1, u_2} : {α : Type u_1} →
+  {ι : Type u_2} → Set α → (ι → Matroid α) → Prop :=
+fun {α} {ι} F M => ∃ I, (∀ (i : ι), (M i).Indep (I i)) ∧ ⋃ i, I i = F
+def OAI.InfiniteMatroidCounterexample.FamilyPacking.{u_1, u_2} : {α : Type u_1} →
+  {ι : Type u_2} → (ι → Matroid α) → Prop :=
+fun {α} {ι} M => ∃ S, (Pairwise fun i j => Disjoint (S i) (S j)) ∧ ∀ (i : ι), (M i).Spanning (S i)
+def OAI.InfiniteMatroidCounterexample.CoveringConjectureFor.{u_1, u_2} : {α : Type u_1} →
+  {ι : Type u_2} → Set α → (ι → Matroid α) → Prop :=
+fun {α} {ι} F M =>
+  OAI.InfiniteMatroidCounterexample.FamilyCovering F M ↔
+    ∀ Y ⊆ F,
+      (OAI.InfiniteMatroidCounterexample.FamilyPacking fun i => (M i).restrict Y) →
+        OAI.InfiniteMatroidCounterexample.FamilyCovering Y fun i => (M i).restrict Y
+def OAI.InfiniteMatroidCounterexample.PackingConjectureFor.{u_1, u_2} : {α : Type u_1} →
+  {ι : Type u_2} → Set α → (ι → Matroid α) → Prop :=
+fun {α} {ι} F M =>
+  OAI.InfiniteMatroidCounterexample.FamilyPacking M ↔
+    ∀ Y ⊆ F,
+      (OAI.InfiniteMatroidCounterexample.FamilyCovering Y fun i =>
+          OAI.InfiniteMatroidCounterexample.contractOnto (M i) Y) →
+        OAI.InfiniteMatroidCounterexample.FamilyPacking fun i => OAI.InfiniteMatroidCounterexample.contractOnto (M i) Y
