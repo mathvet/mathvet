@@ -1,0 +1,70 @@
+CMP OAI.RadialTransition.main [thm] ok
+CMP OAI.RadialTransition.StrictTemperatureCorner [def] ok
+CMP OAI.RadialTransition.StrictTemperatureCorner._proof_1 [thm] ok
+CMP OAI.RadialTransition.IsCanonicalFreeEnergy [def] ok
+CMP OAI.RadialTransition.partition [def] ok
+CMP OAI.RadialTransition.energy [def] ok
+CMP OAI.RadialTransition.Position [def] ok
+CMP OAI.RadialTransition.Potential [def] ok
+CMP OAI.RadialTransition.configurationCube [def] ok
+CMP OAI.RadialTransition.cube [def] ok
+CMP OAI.RadialTransition.partition._proof_2 [thm] ok
+CMP OAI.RadialTransition.partition._proof_1 [thm] ok
+CMP OAI.RadialTransition.AlgebraicDecayWith [def] ok
+CMP OAI.RadialTransition.AlgebraicDecayWith._proof_2 [thm] ok
+CMP OAI.RadialTransition.AlgebraicDecayWith._proof_1 [thm] ok
+CMP OAI.RadialTransition.StableWith [def] ok
+CMP OAI.RadialTransition.IsBoundedPotential [def] ok
+CMP OAI.RadialTransition.IsPackingDensity [def] ok
+CMP OAI.RadialTransition.packingNumber [def] ok
+Chal.RadialTransition.main : ∃ p φ B C f βc,
+  0 < p ∧
+    Chal.RadialTransition.IsPackingDensity p ∧
+      Chal.RadialTransition.IsBoundedPotential φ ∧
+        Continuous φ ∧
+          0 < B ∧
+            0 < C ∧
+              Chal.RadialTransition.StableWith φ B ∧
+                Chal.RadialTransition.AlgebraicDecayWith φ C ∧
+                  Chal.RadialTransition.IsCanonicalFreeEnergy φ (5 * p / 3) f ∧
+                    βc ∈ Set.Icc (7 / 8) (9 / 8) ∧ Chal.RadialTransition.StrictTemperatureCorner f βc
+@[reducible] def Chal.RadialTransition.Position : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.RadialTransition.Potential : Type :=
+NNReal → ℝ
+def Chal.RadialTransition.cube : ℝ → Set Chal.RadialTransition.Position :=
+fun L => {x | ∀ (k : Fin 3), 0 ≤ x.ofLp k ∧ x.ofLp k ≤ L}
+def Chal.RadialTransition.configurationCube : ℝ → (N : ℕ) → Set (Fin N → Chal.RadialTransition.Position) :=
+fun L N => {x | ∀ (i : Fin N), x i ∈ Chal.RadialTransition.cube L}
+def Chal.RadialTransition.energy : Chal.RadialTransition.Potential →
+  {N : ℕ} → (Fin N → Chal.RadialTransition.Position) → ℝ :=
+fun φ {N} x => ∑ i, ∑ j with i < j, φ (nndist (x i) (x j))
+def Chal.RadialTransition.partition : Chal.RadialTransition.Potential → ℝ → ℕ → ℝ → ℝ :=
+fun φ L N β =>
+  (↑N.factorial)⁻¹ *
+    ∫ (x : Fin N → Chal.RadialTransition.Position) in Chal.RadialTransition.configurationCube L N,
+      Real.exp (-β * Chal.RadialTransition.energy φ x)
+def Chal.RadialTransition.packingNumber : ℝ → ℕ :=
+fun L =>
+  sSup {n | ∃ X, X.card = n ∧ (∀ x ∈ X, x ∈ Chal.RadialTransition.cube L) ∧ ∀ x ∈ X, ∀ y ∈ X, x ≠ y → 1 ≤ dist x y}
+def Chal.RadialTransition.IsPackingDensity : ℝ → Prop :=
+fun p => Filter.Tendsto (fun L => ↑(Chal.RadialTransition.packingNumber L) / L ^ 3) Filter.atTop (nhds p)
+def Chal.RadialTransition.IsBoundedPotential : Chal.RadialTransition.Potential → Prop :=
+fun φ => ∃ M, 0 ≤ M ∧ ∀ (r : NNReal), |φ r| ≤ M
+def Chal.RadialTransition.StableWith : Chal.RadialTransition.Potential → ℝ → Prop :=
+fun φ B => ∀ (N : ℕ) (x : Fin N → Chal.RadialTransition.Position), -(B * ↑N) ≤ Chal.RadialTransition.energy φ x
+def Chal.RadialTransition.AlgebraicDecayWith : Chal.RadialTransition.Potential → ℝ → Prop :=
+fun φ C => ∀ (r : NNReal), 1 ≤ r → |φ r| ≤ C * ↑r ^ (-3 - 1 / 32)
+def Chal.RadialTransition.IsCanonicalFreeEnergy : Chal.RadialTransition.Potential → ℝ → (ℝ → ℝ) → Prop :=
+fun φ ρ f =>
+  ∀ (β : ℝ),
+    0 < β →
+      Filter.Tendsto (fun L => -(Real.log (Chal.RadialTransition.partition φ L ⌊ρ * L ^ 3⌋₊ β) / (β * L ^ 3)))
+        Filter.atTop (nhds (f β))
+def Chal.RadialTransition.StrictTemperatureCorner : (ℝ → ℝ) → ℝ → Prop :=
+fun f βc =>
+  ∃ dLeft dRight,
+    HasDerivWithinAt f dLeft (Set.Iic βc) βc ∧
+      HasDerivWithinAt f dRight (Set.Ici βc) βc ∧ dRight < dLeft ∧ ¬DifferentiableAt ℝ f βc
+'OAI.RadialTransition.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RadialTransition comparator-style: ok=19 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
