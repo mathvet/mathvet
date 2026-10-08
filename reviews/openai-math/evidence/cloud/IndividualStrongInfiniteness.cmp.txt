@@ -1,0 +1,105 @@
+CMP OAI.MainGap.Manuscript.individual_to_strong_main [thm] ok
+CMP OAI.MainGap.StronglyPurelyInfinite [def] ok
+CMP OAI.MainGap.Diagonalization [def] ok
+CMP OAI.MainGap.positivityOrder [def] ok
+CMP OAI.MainGap.Manuscript.positivityOrder [def] ok
+CMP OAI.MainGap.Manuscript.PropertyP [def] ok
+CMP OAI.MainGap.Manuscript.ProperlyInfinite [def] ok
+CMP OAI.MainGap.scalarCorner [def] ok
+CMP OAI.MainGap.doubleCorner [def] ok
+CMP OAI.MainGap.Stable.instNonUnitalNormedRingAlgebraic [def] ok
+CMP OAI.MainGap.Stable.instNonUnitalNormedRingAlgebraic._proof_3 [thm] ok
+CMP OAI.MainGap.Stable.instNonUnitalNormedRingAlgebraic._proof_1 [thm] ok
+CMP OAI.MainGap.Stable.Mat [def] ok
+CMP OAI.MainGap.Stable.instNormAlgebraic [def] ok
+CMP OAI.MainGap.Stable.instNormAlgebraic._proof_1 [thm] ok
+CMP OAI.MainGap.Stable.pad [def] ok
+CMP OAI.MainGap.Stable.positivityStarOrder [thm] ok
+CMP OAI.MainGap.Stable.positivityOrder [def] ok
+CMP OAI.MainGap.Stable.Algebraic._proof_1 [thm] ok
+CMP OAI.MainGap.Stable.pad_directedSystem [thm] ok
+CMP OAI.MainGap.Stable.padHom [def] ok
+CMP OAI.MainGap.Stable.padHom._proof_4 [thm] ok
+CMP OAI.MainGap.Stable.pad_mul [thm] ok
+CMP OAI.MainGap.Stable.padHom._proof_3 [thm] ok
+CMP OAI.MainGap.Stable.padHom._proof_2 [thm] ok
+CMP OAI.MainGap.Stable.padHom._proof_1 [thm] ok
+CMP OAI.MainGap.Stable.Algebraic [def] ok
+CMP OAI.MainGap.Stable.instNonUnitalNormedRingAlgebraic._proof_2 [thm] ok
+CMP OAI.MainGap.Stable.instNormedAddCommGroupAlgebraic [def] ok
+CMP OAI.MainGap.Stable.normedCore [thm] ok
+CMP OAI.MainGap.Stable.instModuleComplexAlgebraic [def] ok
+CMP OAI.MainGap.Stable.matLinear [thm] ok
+CMP OAI.MainGap.Stable.instNormedAddCommGroupAlgebraic._proof_1 [thm] ok
+CMP OAI.MainGap.Manuscript.CuntzLE [def] ok
+CMP OAI.MainGap.Stable.instStarStabilization [def] ok
+CMP OAI.MainGap.Stable.cornerAlg._proof_4 [thm] ok
+CMP OAI.MainGap.Stable.Stabilization [def] ok
+CMP OAI.MainGap.Stable.instMulStabilization [def] ok
+CMP OAI.MainGap.Stable.instMulStabilization._proof_2 [thm] ok
+CMP OAI.MainGap.Stable.instMulStabilization._proof_1 [thm] ok
+@Chal.MainGap.Manuscript.individual_to_strong_main : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A],
+  Chal.MainGap.Manuscript.PropertyP A →
+    (∀ (a b : A),
+        0 ≤ a →
+          0 ≤ b →
+            ∀ (c : A) (ε : ℝ),
+              0 < ε → ∃ s t, ‖star s * a * s - a‖ < ε ∧ ‖star t * b * t - b‖ < ε ∧ ‖star s * c * t‖ < ε) ∧
+      Chal.MainGap.StronglyPurelyInfinite A
+def Chal.MainGap.scalarCorner.{u_1} : {A : Type u_1} → A → CStarMatrix (Fin 1) (Fin 1) A :=
+fun {A} h => CStarMatrix.ofMatrix fun x x_1 => h
+def Chal.MainGap.doubleCorner.{u_1} : {A : Type u_1} → [NonUnitalCStarAlgebra A] → A → CStarMatrix (Fin 2) (Fin 2) A :=
+fun {A} [NonUnitalCStarAlgebra A] h => CStarMatrix.ofMatrix (Matrix.diagonal fun x => h)
+def Chal.MainGap.Diagonalization.{u_1} : {A : Type u_1} → [NonUnitalCStarAlgebra A] → A → A → A → ℝ → Prop :=
+fun {A} [NonUnitalCStarAlgebra A] a b c ε =>
+  ∃ s t, ‖star s * a * s - a‖ < ε ∧ ‖star t * b * t - b‖ < ε ∧ ‖star s * c * t‖ < ε
+def Chal.MainGap.UnrestrictedDiagonalization.{u_2} : (A : Type u_2) → [NonUnitalCStarAlgebra A] → Prop :=
+fun A [NonUnitalCStarAlgebra A] =>
+  ∀ (a b : A), 0 ≤ a → 0 ≤ b → ∀ (c : A) (ε : ℝ), 0 < ε → Chal.MainGap.Diagonalization a b c ε
+def Chal.MainGap.StronglyPurelyInfinite.{u_2} : (A : Type u_2) → [NonUnitalCStarAlgebra A] → Prop :=
+fun A [NonUnitalCStarAlgebra A] =>
+  ∀ (x y : A), 0 ≤ x → 0 ≤ y → ∀ (ε : ℝ), 0 < ε → Chal.MainGap.Diagonalization (x * x) (y * y) (x * y) ε
+@[reducible] def Chal.MainGap.Stable.Mat.{u_2} : Type u_2 → ℕ → Type u_2 :=
+fun A n => CStarMatrix (Fin n) (Fin n) A
+def Chal.MainGap.Stable.pad.{u_1} : {A : Type u_1} →
+  [NonUnitalCStarAlgebra A] → {n m : ℕ} → n ≤ m → Chal.MainGap.Stable.Mat A n → Chal.MainGap.Stable.Mat A m :=
+fun {A} [NonUnitalCStarAlgebra A] {n m} x x_1 =>
+  CStarMatrix.ofMatrix fun i j => if hi : ↑i < n then if hj : ↑j < n then x_1 ⟨↑i, hi⟩ ⟨↑j, hj⟩ else 0 else 0
+def Chal.MainGap.Stable.padHom.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {n m : ℕ} → n ≤ m → Chal.MainGap.Stable.Mat A n →⋆ₙₐ[ℂ] Chal.MainGap.Stable.Mat A m :=
+fun {A} [NonUnitalCStarAlgebra A] {n m} h =>
+  { toFun := Chal.MainGap.Stable.pad h, map_smul' := ⋯, map_zero' := ⋯, map_add' := ⋯, map_mul' := ⋯, map_star' := ⋯ }
+@[reducible] def Chal.MainGap.Stable.Algebraic.{u_2} : (A : Type u_2) → [NonUnitalCStarAlgebra A] → Type u_2 :=
+fun A [NonUnitalCStarAlgebra A] => DirectLimit (Chal.MainGap.Stable.Mat A) fun x x_1 h => Chal.MainGap.Stable.padHom h
+def Chal.MainGap.Stable.cornerAlg.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] → (n : ℕ) → Chal.MainGap.Stable.Mat A n →⋆ₙₐ[ℂ] Chal.MainGap.Stable.Algebraic A :=
+fun {A} [NonUnitalCStarAlgebra A] n =>
+  let __spread.0 :=
+    DirectLimit.NonUnitalAlgebra.of (Chal.MainGap.Stable.Mat A) (fun x x_1 h => Chal.MainGap.Stable.padHom h) n;
+  { toNonUnitalAlgHom := __spread.0, map_star' := ⋯ }
+@[reducible] def Chal.MainGap.Stable.Stabilization.{u_2} : (A : Type u_2) → [NonUnitalCStarAlgebra A] → Type u_2 :=
+fun A [NonUnitalCStarAlgebra A] => UniformSpace.Completion (Chal.MainGap.Stable.Algebraic A)
+@[instance_reducible] def Chal.MainGap.Stable.stabilizationCStarAlgebra.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] → NonUnitalCStarAlgebra (Chal.MainGap.Stable.Stabilization A) :=
+fun {A} [NonUnitalCStarAlgebra A] =>
+  { toNonUnitalNormedRing := Chal.MainGap.Stable.instNonUnitalNormedRingStabilization,
+    toStarRing := Chal.MainGap.Stable.instStarRingStabilization, toCompleteSpace := ⋯, toCStarRing := ⋯,
+    toNormedSpace := UniformSpace.Completion.instNormedSpace ℂ (Chal.MainGap.Stable.Algebraic A), toIsScalarTower := ⋯,
+    toSMulCommClass := ⋯, toStarModule := ⋯ }
+def Chal.MainGap.Stable.corner.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    (n : ℕ) → Chal.MainGap.Stable.Mat A n →⋆ₙₐ[ℂ] Chal.MainGap.Stable.Stabilization A :=
+fun {A} [NonUnitalCStarAlgebra A] n =>
+  { toFun := fun x => ↑((Chal.MainGap.Stable.cornerAlg n) x), map_smul' := ⋯, map_zero' := ⋯, map_add' := ⋯,
+    map_mul' := ⋯, map_star' := ⋯ }
+def Chal.MainGap.Manuscript.CuntzLE.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] → Chal.MainGap.Stable.Stabilization A → Chal.MainGap.Stable.Stabilization A → Prop :=
+fun {A} [NonUnitalCStarAlgebra A] d v => ∃ r, Filter.Tendsto (fun j => star (r j) * v * r j) Filter.atTop (nhds d)
+def Chal.MainGap.Manuscript.ProperlyInfinite.{u_1} : {A : Type u_1} → [NonUnitalCStarAlgebra A] → A → Prop :=
+fun {A} [NonUnitalCStarAlgebra A] h =>
+  Chal.MainGap.Manuscript.CuntzLE ↑(⟦⟨2, Chal.MainGap.doubleCorner h⟩⟧) ↑(⟦⟨1, Chal.MainGap.scalarCorner h⟩⟧)
+def Chal.MainGap.Manuscript.PropertyP.{u_2} : (A : Type u_2) → [NonUnitalCStarAlgebra A] → Prop :=
+fun A [NonUnitalCStarAlgebra A] => ∀ (h : A), 0 ≤ h → Chal.MainGap.Manuscript.ProperlyInfinite h
+'OAI.MainGap.Manuscript.individual_to_strong_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== IndividualStrongInfiniteness comparator-style: ok=40 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
