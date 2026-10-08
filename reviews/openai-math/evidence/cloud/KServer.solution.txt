@@ -1,0 +1,40 @@
+OAI.KServer.main_theorem : OAI.KServer.MainStatement
+'OAI.KServer.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.KServer.Configuration.{u} : ℕ → Type u → Type u :=
+fun k X => Fin k → X
+def OAI.KServer.LabelDistribution : ℕ → Type :=
+fun k => { p // (∀ (i : Fin k), 0 ≤ p i) ∧ ∑ i, p i = 1 }
+@[reducible] def OAI.KServer.Policy.{u} : ℕ → Type u → Type u :=
+fun k X => List (X × Fin k) → X → OAI.KServer.LabelDistribution k
+def OAI.KServer.serve.{u} : {k : ℕ} →
+  {X : Type u} → OAI.KServer.Configuration k X → Fin k → X → OAI.KServer.Configuration k X :=
+fun {k} {X} s i r => Function.update s i r
+def OAI.KServer.serviceCost.{u} : {k : ℕ} →
+  {X : Type u} → [MetricSpace X] → OAI.KServer.Configuration k X → (σ : List X) → (Fin σ.length → Fin k) → ℝ :=
+fun {k} {X} [MetricSpace X] s x x_1 =>
+  List.brecOn (motive := fun x => OAI.KServer.Configuration k X → (Fin x.length → Fin k) → ℝ) x
+    OAI.KServer.serviceCost._f s x_1
+def OAI.KServer.pathProbability.{u} : {k : ℕ} →
+  {X : Type u} → OAI.KServer.Policy k X → List (X × Fin k) → (σ : List X) → (Fin σ.length → Fin k) → ℝ :=
+fun {k} {X} A h x x_1 =>
+  List.brecOn (motive := fun x => List (X × Fin k) → (Fin x.length → Fin k) → ℝ) x (OAI.KServer.pathProbability._f A) h
+    x_1
+def OAI.KServer.expectedCost.{u} : {k : ℕ} →
+  {X : Type u} → [MetricSpace X] → OAI.KServer.Policy k X → OAI.KServer.Configuration k X → List X → ℝ :=
+fun {k} {X} [MetricSpace X] A s σ => ∑ j, OAI.KServer.pathProbability A [] σ j * OAI.KServer.serviceCost s σ j
+def OAI.KServer.optimalCost.{u} : {k : ℕ} →
+  {X : Type u} → [MetricSpace X] → OAI.KServer.Configuration k X → List X → ℝ :=
+fun {k} {X} [MetricSpace X] s σ => sInf (Set.range (OAI.KServer.serviceCost s σ))
+def OAI.KServer.MainStatement.{u} : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (k : ℕ),
+      2 ≤ k →
+        ∀ (X : Type u) (x : MetricSpace X),
+          (∃ e, Function.Injective e) →
+            ∀ (s : OAI.KServer.Configuration k X),
+              ∃ A B,
+                0 ≤ B ∧
+                  (Function.Injective s → B = 0) ∧
+                    ∀ (σ : List X),
+                      OAI.KServer.expectedCost A s σ ≤ C * Real.log (↑k + 1) ^ 2 * OAI.KServer.optimalCost s σ + B
