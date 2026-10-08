@@ -1,3 +1,4 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_BassTrace.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.BassTrace.RightProjective.bassTraceModules_vanishing_and_support [thm] ok
 CMP OAI.BassTrace.RightProjective.HattoriStallings [def] ok
 CMP OAI.BassTrace.RightProjective.presentation [def] ok
@@ -276,4 +277,4 @@ fun {G} [Group G] => Chal.BassTrace.K0.HattoriStallings.comp Chal.BassTrace.Righ
 'OAI.BassTrace.RightProjective.bassTraceModules_vanishing_and_support' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
-== BassTrace comparator-style: ok=90 problems=0 errors=0 | SHADOW-DIFF(see BassTrace.standalone.norm vs BassTrace.insolution.norm) | [propext, 
+== BassTrace comparator-style: ok=90 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0
