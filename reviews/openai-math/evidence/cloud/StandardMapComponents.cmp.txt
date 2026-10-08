@@ -1,0 +1,131 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_StandardMapComponents.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.StandardMapEntropy.main_components [thm] ok
+CMP OAI.StandardMapEntropy.MainComponentsObligation [def] ok
+CMP OAI.StandardMapEntropy.HyperbolicBernoulliComponent [def] ok
+CMP OAI.StandardMapEntropy.IsBernoulli [def] ok
+CMP OAI.StandardMapEntropy.IsBernoulli._proof_2 [thm] ok
+CMP OAI.StandardMapEntropy.IsBernoulli._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.Circle [def] ok
+CMP OAI.StandardMapEntropy.Torus [def] ok
+CMP OAI.StandardMapEntropy.HyperbolicBernoulliComponent._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.LyapunovSpectrumAt [def] ok
+CMP OAI.StandardMapEntropy.wedge [def] ok
+CMP OAI.StandardMapEntropy.VectorGrowth [def] ok
+CMP OAI.StandardMapEntropy.standardDerivativeProduct [def] ok
+CMP OAI.StandardMapEntropy.standardMap [def] ok
+CMP OAI.StandardMapEntropy.sine [def] ok
+CMP OAI.StandardMapEntropy.sine_periodic [thm] ok
+CMP OAI.StandardMapEntropy.sine._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.standardDerivative [def] ok
+CMP OAI.StandardMapEntropy.torusPotential [def] ok
+CMP OAI.StandardMapEntropy.cosine [def] ok
+CMP OAI.StandardMapEntropy.cosine_periodic [thm] ok
+CMP OAI.StandardMapEntropy.cosine._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.transferStep [def] ok
+CMP OAI.StandardMapEntropy.transferStep._proof_3 [thm] ok
+CMP OAI.StandardMapEntropy.transferStep._proof_2 [thm] ok
+CMP OAI.StandardMapEntropy.transferStep._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.tangentCoordinates [def] ok
+CMP OAI.StandardMapEntropy.tangentCoordinates._proof_3 [thm] ok
+CMP OAI.StandardMapEntropy.tangentCoordinates._proof_2 [thm] ok
+CMP OAI.StandardMapEntropy.tangentCoordinates._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.realTangentCompTriple [thm] ok
+CMP OAI.StandardMapEntropy.normalizedArea [def] ok
+CMP OAI.StandardMapEntropy.area [def] ok
+CMP OAI.StandardMapEntropy.area._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.normalizedArea._proof_1 [thm] ok
+Chal.StandardMapEntropy.main_components : Chal.StandardMapEntropy.MainComponentsObligation
+@[reducible] def Chal.StandardMapEntropy.Circle : Type :=
+AddCircle 1
+@[reducible] def Chal.StandardMapEntropy.Torus : Type :=
+Chal.StandardMapEntropy.Circle × Chal.StandardMapEntropy.Circle
+def Chal.StandardMapEntropy.sine : Chal.StandardMapEntropy.Circle → ℝ :=
+fun x => Chal.StandardMapEntropy.sine_periodic.lift x
+def Chal.StandardMapEntropy.standardMap : ℝ → Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus :=
+fun k z => (z.1 + z.2 + ↑(k * Chal.StandardMapEntropy.sine z.1), z.2 + ↑(k * Chal.StandardMapEntropy.sine z.1))
+def Chal.StandardMapEntropy.area : MeasureTheory.Measure Chal.StandardMapEntropy.Torus :=
+MeasureTheory.volume.prod MeasureTheory.volume
+def Chal.StandardMapEntropy.cosine : Chal.StandardMapEntropy.Circle → ℝ :=
+fun x => Chal.StandardMapEntropy.cosine_periodic.lift x
+def Chal.StandardMapEntropy.torusPotential : ℝ → Chal.StandardMapEntropy.Circle → ℝ :=
+fun k x => 2 + 2 * Real.pi * k * Chal.StandardMapEntropy.cosine x
+def Chal.StandardMapEntropy.transferStep : ℝ → ℂ →L[ℝ] ℂ :=
+fun v =>
+  let __LinearMap := { toFun := fun z => { re := v * z.re - z.im, im := z.re }, map_add' := ⋯, map_smul' := ⋯ };
+  { toLinearMap := __LinearMap, cont := ⋯ }
+def Chal.StandardMapEntropy.wedge : ℂ → ℂ → ℝ :=
+fun z w => z.re * w.im - z.im * w.re
+def Chal.StandardMapEntropy.tangentCoordinates : ℂ →L[ℝ] ℂ :=
+let __LinearMap :=
+  { toFun := fun z => { re := z.re, im := z.re - z.im },
+    map_add' := Chal.StandardMapEntropy.tangentCoordinates._proof_1,
+    map_smul' := Chal.StandardMapEntropy.tangentCoordinates._proof_2 };
+{ toLinearMap := __LinearMap, cont := Chal.StandardMapEntropy.tangentCoordinates._proof_3 }
+def Chal.StandardMapEntropy.standardDerivative : ℝ → Chal.StandardMapEntropy.Torus → ℂ →L[ℝ] ℂ :=
+fun k z =>
+  Chal.StandardMapEntropy.tangentCoordinates ∘SL
+    Chal.StandardMapEntropy.transferStep (Chal.StandardMapEntropy.torusPotential k z.1) ∘SL
+      Chal.StandardMapEntropy.tangentCoordinates
+def Chal.StandardMapEntropy.standardDerivativeProduct : ℝ → Chal.StandardMapEntropy.Torus → ℕ → ℂ →L[ℝ] ℂ :=
+fun k z steps =>
+  Nat.rec (ContinuousLinearMap.id ℝ ℂ)
+    (fun iteration product =>
+      Chal.StandardMapEntropy.standardDerivative k ((Chal.StandardMapEntropy.standardMap k)^[iteration] z) ∘SL product)
+    steps
+def Chal.StandardMapEntropy.VectorGrowth : ℝ → Chal.StandardMapEntropy.Torus → ℂ → ℝ → Prop :=
+fun k z v l =>
+  v ≠ 0 ∧
+    Filter.Tendsto (fun n => Real.log ‖(Chal.StandardMapEntropy.standardDerivativeProduct k z n) v‖ / ↑n) Filter.atTop
+      (nhds l)
+def Chal.StandardMapEntropy.LyapunovSpectrumAt : ℝ → Chal.StandardMapEntropy.Torus → ℝ → Prop :=
+fun k z l =>
+  0 ≤ l ∧
+    ((l = 0 ∧ ∀ (v : ℂ), v ≠ 0 → Chal.StandardMapEntropy.VectorGrowth k z v 0) ∨
+      0 < l ∧
+        ∃ s,
+          s ≠ 0 ∧
+            ∀ (v : ℂ),
+              v ≠ 0 →
+                Chal.StandardMapEntropy.VectorGrowth k z v (if Chal.StandardMapEntropy.wedge s v = 0 then -l else l))
+def Chal.StandardMapEntropy.normalizedArea : Set Chal.StandardMapEntropy.Torus →
+  MeasureTheory.Measure Chal.StandardMapEntropy.Torus :=
+fun E => (Chal.StandardMapEntropy.area E)⁻¹ • Chal.StandardMapEntropy.area.restrict E
+def Chal.StandardMapEntropy.IsBernoulli : (Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus) →
+  MeasureTheory.Measure Chal.StandardMapEntropy.Torus → Prop :=
+fun f μ =>
+  ∃ β,
+    MeasureTheory.IsProbabilityMeasure β ∧
+      ∃ encode decode,
+        MeasureTheory.MeasurePreserving encode μ (MeasureTheory.Measure.infinitePi fun x => β) ∧
+          MeasureTheory.MeasurePreserving decode (MeasureTheory.Measure.infinitePi fun x => β) μ ∧
+            (∀ᵐ (z : Chal.StandardMapEntropy.Torus) ∂μ, decode (encode z) = z) ∧
+              (∀ᵐ (w : ℤ → ℝ) ∂MeasureTheory.Measure.infinitePi fun x => β, encode (decode w) = w) ∧
+                ∀ᵐ (z : Chal.StandardMapEntropy.Torus) ∂μ, encode (f z) = fun i => encode z (i + 1)
+def Chal.StandardMapEntropy.HyperbolicBernoulliComponent : ℝ → Prop :=
+fun k =>
+  ∃ E,
+    MeasurableSet E ∧
+      0 < Chal.StandardMapEntropy.area E ∧
+        Chal.StandardMapEntropy.standardMap k ⁻¹' E =ᵐ[Chal.StandardMapEntropy.area] E ∧
+          Ergodic (Chal.StandardMapEntropy.standardMap k) (Chal.StandardMapEntropy.normalizedArea E) ∧
+            (∀ᵐ (z : Chal.StandardMapEntropy.Torus) ∂Chal.StandardMapEntropy.normalizedArea E,
+                ∃ l, 0 < l ∧ Chal.StandardMapEntropy.LyapunovSpectrumAt k z l) ∧
+              ∃ N,
+                ∃ (hN : 0 < N),
+                  ∃ P,
+                    (∀ (j : Fin N), MeasurableSet (P j)) ∧
+                      ⋃ j, P j =ᵐ[Chal.StandardMapEntropy.area] E ∧
+                        (∀ (i j : Fin N), i ≠ j → Chal.StandardMapEntropy.area (P i ∩ P j) = 0) ∧
+                          (∀ (j : Fin N),
+                              Chal.StandardMapEntropy.standardMap k '' P j =ᵐ[Chal.StandardMapEntropy.area]
+                                P ⟨(↑j + 1) % N, ⋯⟩) ∧
+                            (∀ (j : Fin N),
+                                Chal.StandardMapEntropy.area (P j) = Chal.StandardMapEntropy.area E / ↑N ∧
+                                  0 < Chal.StandardMapEntropy.area (P j)) ∧
+                              ∀ (j : Fin N),
+                                Chal.StandardMapEntropy.IsBernoulli (Chal.StandardMapEntropy.standardMap k)^[N]
+                                  (Chal.StandardMapEntropy.normalizedArea (P j))
+def Chal.StandardMapEntropy.MainComponentsObligation : Prop :=
+∃ k₀, 0 < k₀ ∧ ∀ (k : ℝ), k₀ ≤ k → Chal.StandardMapEntropy.HyperbolicBernoulliComponent k
+'OAI.StandardMapEntropy.main_components' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StandardMapComponents comparator-style: ok=35 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
