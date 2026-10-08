@@ -1,0 +1,34 @@
+OAI.StrongThinTree.strongThinTree : OAI.StrongThinTree.MainStatement
+'OAI.StrongThinTree.strongThinTree' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.StrongThinTree.MultiGraph (n m : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.StrongThinTree.MultiGraph.left : Fin m → Fin n
+  OAI.StrongThinTree.MultiGraph.right : Fin m → Fin n
+  OAI.StrongThinTree.MultiGraph.loopless : ∀ (e : Fin m), self.left e ≠ self.right e
+constructor:
+  OAI.StrongThinTree.MultiGraph.mk {n m : ℕ} (left right : Fin m → Fin n) (loopless : ∀ (e : Fin m), left e ≠ right e) :
+    OAI.StrongThinTree.MultiGraph n m
+def OAI.StrongThinTree.MultiGraph.cut : {n m : ℕ} →
+  OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Finset (Fin n) → Finset (Fin m) :=
+fun {n m} G T S => {e ∈ T | G.left e ∈ S ∧ G.right e ∉ S ∨ G.right e ∈ S ∧ G.left e ∉ S}
+def OAI.StrongThinTree.MultiGraph.Connected : {n m : ℕ} → OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → (G.cut T S).Nonempty
+def OAI.StrongThinTree.MultiGraph.SpanningTree : {n m : ℕ} →
+  OAI.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => G.Connected T ∧ ∀ e ∈ T, ¬G.Connected (T.erase e)
+def OAI.StrongThinTree.MultiGraph.EdgeConnected : {n m : ℕ} → OAI.StrongThinTree.MultiGraph n m → ℕ → Prop :=
+fun {n m} G k => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → k ≤ (G.cut Finset.univ S).card
+def OAI.StrongThinTree.MainStatement : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (k : ℕ),
+      1 ≤ k →
+        ∀ (n m : ℕ),
+          2 ≤ n →
+            ∀ (G : OAI.StrongThinTree.MultiGraph n m),
+              G.EdgeConnected k →
+                ∃ T,
+                  G.SpanningTree T ∧
+                    ∀ (S : Finset (Fin n)),
+                      S.Nonempty → S ≠ Finset.univ → ↑(G.cut T S).card ≤ C / ↑k * ↑(G.cut Finset.univ S).card

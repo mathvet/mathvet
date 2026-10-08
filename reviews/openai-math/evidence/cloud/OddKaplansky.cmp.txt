@@ -1,0 +1,28 @@
+CMP OAI.OddKaplansky.main_theorem [thm] ok
+CMP OAI.OddKaplansky.MainClaim [def] ok
+CMP OAI.OddKaplansky.cellular [def] ok
+CMP OAI.OddKaplansky.sourcePrime [def] ok
+CMP OAI.OddKaplansky.sourceM [def] ok
+Chal.OddKaplansky.main_theorem : Chal.OddKaplansky.MainClaim
+@[irreducible] def Chal.OddKaplansky.sourceM : ℕ :=
+Nat.choose 1200 600
+@[irreducible] def Chal.OddKaplansky.sourcePrime : ℕ :=
+(Chal.OddKaplansky.sourceM.factorial ^ 2 + 1).minFac
+def Chal.OddKaplansky.cellular : {K G : Type} → [inst : Field K] → [Group G] → MonoidAlgebra K G → (G → K) → G → K :=
+fun {K G} [Field K] [Group G] d x g => d.coeff.sum fun u c => c * x (g * u)
+def Chal.OddKaplansky.MainClaim : Prop :=
+Nat.Prime Chal.OddKaplansky.sourcePrime ∧
+  Odd Chal.OddKaplansky.sourcePrime ∧
+    ∃ K x x_1,
+      ∃ (_ : CharP K Chal.OddKaplansky.sourcePrime),
+        Fintype.card K = Chal.OddKaplansky.sourcePrime ^ 4 ∧
+          ∃ G x_3,
+            ∃ (_ : Group.FG G),
+              (∃ g, g ≠ 1 ∧ IsOfFinOrder g) ∧
+                ∃ a b,
+                  a * b = 1 ∧
+                    b * a ≠ 1 ∧
+                      Function.Injective (Chal.OddKaplansky.cellular b) ∧
+                        ¬Function.Surjective (Chal.OddKaplansky.cellular b)
+'OAI.OddKaplansky.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OddKaplansky comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

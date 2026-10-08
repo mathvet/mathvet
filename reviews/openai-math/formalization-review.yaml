@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T09:07:21Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T09:56:35Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 32 accepted by the
-    real Comparator, of which 32 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 51 accepted by the
+    real Comparator, of which 51 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3416,7 +3416,8 @@ alignment:
     module: OAI.Analysis.Littlewood.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/AsymptoticallyMinimalLittlewood.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 076 — Ultraflat real Littlewood polynomials: Finite-exponent flatness of one all-length Littlewood
       family (the lab''s own result label); paper ''Asymptotically minimal maxima of real Littlewood polynomials'',
       theorem thm:main (build/introduction.tex:22)'
@@ -3424,7 +3425,8 @@ alignment:
     module: OAI.Analysis.Littlewood.FiniteFlatness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LittlewoodFiniteFlatness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 076 — headline claim as stated in the overview: Constructs polynomials with $N$ consecutive
       coefficients in $\{-1,1\}$ whose modulus is $(1+o(1))\sqrt N$ uniformly on the entire unit circle, for every
       sufficiently large integer length $N$. Thus real Littlewood polynomials are ultraflat, including at the real
@@ -3993,7 +3995,8 @@ alignment:
     module: OAI.Combinatorics.MatroidCounting.CommonBases
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CommonBasesFPRAS.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 114 — headline claim as stated in the overview: Gives a fully polynomial randomized approximation
       scheme for counting common integer bases of two integral polymatroids of equal total rank, supplied by exact
       rank-value oracles. Capacities are binary-encoded, each integer vector counts once, and oracle calls and bit
@@ -4047,7 +4050,8 @@ alignment:
     module: OAI.Combinatorics.SparsestCut.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformSparsestCut.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 117 — headline claim as stated in the overview: Proves that approximating Uniform Sparsest Cut
       within any fixed constant factor is NP-hard, even with nonnegative rational capacities and unit demands. The
       Goemans--Linial semidefinite relaxation also has integrality gaps of order at least $\sqrt{\log n}/(\log\log
@@ -4125,7 +4129,8 @@ alignment:
     module: OAI.Computability.Scheduling.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThreeMachine.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 125 — The approximation threshold for metric $k$-median: Randomized metric $k$-median approximation
       below two (the lab''s own result label); paper ''The approximation threshold for metric k-median'', theorem
       thm:main (build/sections/introduction.tex:25)'
@@ -4165,7 +4170,8 @@ alignment:
     module: OAI.Combinatorics.MatchingPSD.AffineLift
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatchingAffineLift.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 126 — Exponential semidefinite complexity of perfect matching: Superpolynomial PSD rank for
       the perfect-matching slack matrix (the lab''s own result label); paper ''Exponential PSD rank of positively
       shifted matching matrices'', theorem thm:main (build/source/sections/introduction.tex:37)'
@@ -4173,7 +4179,8 @@ alignment:
     module: OAI.Combinatorics.MatchingPSD.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatchingPSD.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 126 — headline claim as stated in the overview: Proves that every exact semidefinite lift of
       the perfect matching polytope has exponential size, answering Rothvoss''s polynomial-size lift question negatively.
       The bound holds even for the positive semidefinite rank of its odd-cut slack matrix after any fixed shift
@@ -4327,7 +4334,8 @@ alignment:
     module: OAI.Probability.LogConcave.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LogConcaveQuery.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 140 — Memory--sample lower bounds for noiseless Gaussian regression: Projection estimates and
       memory–precision bounds (the lab''s own result label); paper ''Memory and precision in noiseless Gaussian
       regression'', theorem h:main (build/sections/introduction.tex:59)'
@@ -4343,7 +4351,8 @@ alignment:
     module: OAI.Probability.GaussianRegression.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/NoiselessRegression.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 140 — Memory--sample lower bounds for noiseless Gaussian regression: Posterior-replica comparisons
       and sample lower bound (the lab''s own result label); paper ''Posterior replicas and conditional information
       in Gaussian regression'', theorem thm:gaussian-block (build/sections/00-introduction.tex:81)'
@@ -4563,7 +4572,8 @@ alignment:
     module: OAI.Combinatorics.ListHadwiger.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ListHadwiger.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 157 — headline claim as stated in the overview: Disproves Hadwiger''s conjecture even for fractional
       coloring: arbitrarily large finite simple graphs with independence number at most two satisfy $\chi_f(G)>h(G)$,
       where $h(G)$ is the largest clique-minor order. Also disproves the fractional Colin de Verdi\`ere chromatic
@@ -4836,7 +4846,8 @@ alignment:
     module: OAI.Combinatorics.ThinTrees.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/StrongThinTree.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 175 — Talagrand''s conjectures and graph decompositions at expectation thresholds: Talagrand
       discrete convexity (the lab''s own result label); paper ''Talagrand’s discrete-convexity conjecture'', theorem
       thm:main (build/source/sections/00_intro.tex:43)'
@@ -4881,7 +4892,8 @@ alignment:
     module: OAI.Combinatorics.Coboundary.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoboundaryExpanders.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 179 — The circulant Hadamard conjecture: Classification of circulant Hadamard orders (the lab''s
       own result label); paper ''The circulant Hadamard conjecture'', theorem thm:main (build/sections/introduction.tex:21)'
     lean: OAI.CirculantHadamard.exists_iff_order_one_or_four
@@ -5149,7 +5161,8 @@ alignment:
     module: OAI.Algebra.OddKaplansky.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/OddKaplansky.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 197 — headline claim as stated in the overview: Constructs a finitely presented torsion-free
       nonsofic group whose group algebra over $\mathbb F_2$ is not directly finite, disproving Kaplansky''s conjecture
       even without torsion. Companion examples give injective nonsurjective cellular automata on all configurations,
@@ -5361,7 +5374,8 @@ alignment:
     module: OAI.Probability.CriticalPercolation.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalPercolation.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 213 — No infinite critical clusters on quasi-transitive graphs: No infinite critical clusters
       on $\mathbb Z^3$ (the lab''s own result label); paper ''Critical bond and site percolation on the cubic lattice'',
       theorem thm:main (build/introduction.tex:17)'
@@ -5992,7 +6006,8 @@ alignment:
     module: OAI.GroupTheory.PeriodicGroups.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PeriodicGroup.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 247 — headline claim as stated in the overview: Constructs an infinite finitely presented residually
       finite group whose elements all have finite $2$-power order, answering the finitely presented Burnside problem
       negatively even in this class. The construction also yields an infinite-dimensional finitely presented nil
@@ -6243,7 +6258,8 @@ alignment:
     module: OAI.Analysis.CoulombRadii.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoulombRadii.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 263 — headline claim as stated in the overview: For the full nonrelativistic Coulomb model with
       two electron spin states, proves that a molecule with $M$ fixed nuclei of charges at least one and total charge
       $Z$ strictly binds at most $Z+CM$ electrons. Neutral-atom first ionization energies and radii containing all
@@ -6405,7 +6421,8 @@ alignment:
     module: OAI.Analysis.Quantum.DimensionTen.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DimensionTenPair.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 272 — headline claim as stated in the overview: Constructs an entangled state on $\mathbb C^{10}\otimes\mathbb
       C^{10}$ with zero distillable secret key for the specified local-instrument protocols that complete almost
       surely. These allow joint local processing and authenticated two-way public communication, with no other shared
@@ -6494,7 +6511,8 @@ alignment:
     module: OAI.Computability.QuantumFactoring.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ExactQuantumFactoring.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 280 — Strong locality for strongly rational unitary vertex operator algebras: Energy bounds,
       strong locality, and an irreducible conformal net (the lab''s own result label); paper ''Strongly rational
       unitary vertex operator algebras and conformal nets'', theorem thm:main (build/main.tex:96)'
@@ -7335,7 +7353,8 @@ alignment:
     module: OAI.Analysis.Conductivity.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Conductivity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 365 — headline claim as stated in the overview: Zero-frequency measurements on any nonempty
       open boundary patch determine a smooth metric and smooth unitary connection on a trivial Hermitian rank-two
       bundle over a compact connected manifold of dimension at least three, up to diffeomorphism and gauge fixed
@@ -7494,7 +7513,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T09:07:21Z'
+    generated: '2026-10-08T09:56:35Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7531,15 +7550,23 @@ mathvet:
     - PiExponent
     - ThompsonNonamenability
     comparator_pass:
+    - AsymptoticallyMinimalLittlewood
     - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoboundaryExpanders
+    - CommonBasesFPRAS
+    - Conductivity
     - CoulombIonization
+    - CoulombRadii
+    - CriticalPercolation
     - CriticalZ3
+    - DimensionTenPair
     - ElasticityUniqueness
     - EntangledGames
     - EuclideanFiveColor
     - EvenBarker
+    - ExactQuantumFactoring
     - GeneralizedStarHeight
     - GotsmanLinial
     - GroupRingDeterminant
@@ -7549,30 +7576,49 @@ mathvet:
     - KServer
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - ListHadwiger
+    - LittlewoodFiniteFlatness
+    - LogConcaveQuery
     - MahlerConjecture
     - MassAction
+    - MatchingAffineLift
+    - MatchingPSD
+    - NoiselessRegression
+    - OddKaplansky
+    - PeriodicGroup
     - PiExponent
     - PlaneColoring
     - SidorenkoCounterexample
+    - StrongThinTree
     - Superstring
     - SwitchChain
     - SymmetricPolar
     - ThompsonNonamenability
     - ThorpRemaining
+    - ThreeMachine
     - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - UniformSparsestCut
     - VlasovMaxwell
     - WeisfeilerLeman
     comparator_sandboxed_pass:
+    - AsymptoticallyMinimalLittlewood
     - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoboundaryExpanders
+    - CommonBasesFPRAS
+    - Conductivity
     - CoulombIonization
+    - CoulombRadii
+    - CriticalPercolation
     - CriticalZ3
+    - DimensionTenPair
     - ElasticityUniqueness
     - EntangledGames
     - EuclideanFiveColor
     - EvenBarker
+    - ExactQuantumFactoring
     - GeneralizedStarHeight
     - GotsmanLinial
     - GroupRingDeterminant
@@ -7582,18 +7628,29 @@ mathvet:
     - KServer
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - ListHadwiger
+    - LittlewoodFiniteFlatness
+    - LogConcaveQuery
     - MahlerConjecture
     - MassAction
+    - MatchingAffineLift
+    - MatchingPSD
+    - NoiselessRegression
+    - OddKaplansky
+    - PeriodicGroup
     - PiExponent
     - PlaneColoring
     - SidorenkoCounterexample
+    - StrongThinTree
     - Superstring
     - SwitchChain
     - SymmetricPolar
     - ThompsonNonamenability
     - ThorpRemaining
+    - ThreeMachine
     - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - UniformSparsestCut
     - VlasovMaxwell
     - WeisfeilerLeman
     comparator_running:
@@ -8078,7 +8135,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 9712
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/076.md
     audit_part: 1
   - family: 081
@@ -8592,7 +8649,7 @@ mathvet:
       counts n and r in binary while the resource bound is polynomial in n itself'
     external_packages: []
     cone_lines_max: 26126
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/114.md
     audit_part: 1
   - family: '115'
@@ -8646,7 +8703,7 @@ mathvet:
       below (true)'
     external_packages: []
     cone_lines_max: 9934
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/117.md
     audit_part: 1
   - family: '118'
@@ -8736,7 +8793,7 @@ mathvet:
       time bound is on this model's step count
     external_packages: []
     cone_lines_max: 18572
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/124.md
     audit_part: 1
   - family: '125'
@@ -8775,7 +8832,7 @@ mathvet:
       by exactly one incident edge per vertex'
     external_packages: []
     cone_lines_max: 7542
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/126.md
     audit_part: 1
   - family: '127'
@@ -8943,7 +9000,7 @@ mathvet:
       per (d, q))
     external_packages: []
     cone_lines_max: 63748
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/139.md
     audit_part: 1
   - family: '140'
@@ -8968,7 +9025,7 @@ mathvet:
       file)
     external_packages: []
     cone_lines_max: 16263
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/140.md
     audit_part: 1
   - family: '143'
@@ -9193,7 +9250,7 @@ mathvet:
       sets; set bounded by |V|)'
     external_packages: []
     cone_lines_max: 19965
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/157.md
     audit_part: 3
   - family: '158'
@@ -9449,7 +9506,7 @@ mathvet:
       to Turing machines so this looks faithful, but ''polynomial time'' is a bespoke definition.'
     external_packages: []
     cone_lines_max: 101101
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/174.md
     audit_part: 2
   - family: '175'
@@ -9500,7 +9557,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 33125
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/177.md
     audit_part: 2
   - family: '179'
@@ -10517,7 +10574,7 @@ mathvet:
       standard Steinberg presentation, hand-written (the carrier ring R is existentially chosen).'
     external_packages: []
     cone_lines_max: 38076
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/247.md
     audit_part: 2
   - family: '248'
@@ -10937,7 +10994,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 44673
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/272.md
     audit_part: 2
   - family: '273'
@@ -11069,7 +11126,7 @@ mathvet:
       the quantum gate semantics are written by hand.'
     external_packages: []
     cone_lines_max: 54007
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/279.md
     audit_part: 2
   - family: '280'
@@ -12101,7 +12158,7 @@ mathvet:
       `EqualOneNearBoundary` is only a.e. in r < ‖x‖ < 3
     external_packages: []
     cone_lines_max: 75520
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/365.md
     audit_part: 3
   - family: '367'

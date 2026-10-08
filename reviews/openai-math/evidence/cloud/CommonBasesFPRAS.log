@@ -1,0 +1,18 @@
+== CommonBasesFPRAS  module=OAI.Combinatorics.MatroidCounting.CommonBases  start=2026-10-08T09:23:13Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8924] Built OAI.Combinatorics.MatroidCounting.CommonBases (336s)
+Build completed successfully (8924 jobs).
+== build rc=0 seconds=347
+{"theorems": ["OAI.common_bases_fpras"], "defs": ["OAI.CommonBasesFPRAS.IndependenceOracle", "OAI.CommonBasesFPRAS.ExactOracles", "OAI.CommonBasesFPRAS.commonBaseCount", "OAI.CommonBasesFPRAS.Instruction", "OAI.CommonBasesFPRAS.Program", "OAI.CommonBasesFPRAS.binaryValue", "OAI.CommonBasesFPRAS.MachineConfig", "OAI.CommonBasesFPRAS.inputLength", "OAI.CommonBasesFPRAS.initialConfig", "OAI.CommonBasesFPRAS.machineStep", "OAI.CommonBasesFPRAS.execution", "OAI.CommonBasesFPRAS.finiteBits", "OAI.CommonBasesFPRAS.relativeAccuracy", "OAI.CommonBasesFPRAS.resourceBound", "OAI.CommonBasesFPRAS.MainTheorem"], "json_theorems": ["OAI.common_bases_fpras"], "missing_from_parse": []}
+AXIOMS: 'OAI.common_bases_fpras' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T09:29:26Z

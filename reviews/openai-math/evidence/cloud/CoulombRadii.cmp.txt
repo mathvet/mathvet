@@ -1,0 +1,99 @@
+CMP OAI.NeutralAtom.generalized_outer_radii [thm] ok
+CMP OAI.NeutralAtom.lowerRadius [def] ok
+CMP OAI.NeutralAtom.largeCharge [def] ok
+CMP OAI.NeutralAtom.radius [def] ok
+CMP OAI.NeutralAtom.exteriorMass [def] ok
+CMP OAI.NeutralAtom.density [def] ok
+CMP OAI.NeutralAtom.HasWeakGradient._proof_2 [thm] ok
+CMP OAI.NeutralAtom.HasWeakGradient._proof_1 [thm] ok
+CMP OAI.NeutralAtom.Configuration [def] ok
+CMP OAI.NeutralAtom.Position [def] ok
+CMP OAI.NeutralAtom.Spins [def] ok
+CMP OAI.NeutralAtom.Wavefunction [def] ok
+CMP OAI.NeutralAtom.bTF [def] ok
+CMP OAI.NeutralAtom.bTF._proof_2 [thm] ok
+CMP OAI.NeutralAtom.FormDomain._proof_1 [thm] ok
+CMP OAI.NeutralAtom.bTF._proof_1 [thm] ok
+CMP OAI.NeutralAtom.upperRadius [def] ok
+CMP OAI.NeutralAtom.IsNormalizedGroundState [def] ok
+CMP OAI.NeutralAtom.energy [def] ok
+CMP OAI.NeutralAtom.coulombPotential [def] ok
+CMP OAI.NeutralAtom.Gradient [def] ok
+CMP OAI.NeutralAtom.normSquared [def] ok
+CMP OAI.NeutralAtom.FormDomain [def] ok
+CMP OAI.NeutralAtom.HasWeakGradient [def] ok
+CMP OAI.NeutralAtom.coordinateDirection [def] ok
+CMP OAI.NeutralAtom.IsAntisymmetric [def] ok
+CMP OAI.NeutralAtom.IsAntisymmetric._proof_1 [thm] ok
+Chal.NeutralAtom.generalized_outer_radii : ∀ (Ψ : (N : ℕ) → Chal.NeutralAtom.Wavefunction (N + 1)),
+  (∀ (N : ℕ), Chal.NeutralAtom.IsNormalizedGroundState (N + 1) (Ψ N)) →
+    Filter.Tendsto (fun m => ↑(↑m ^ (1 / 3)) * Chal.NeutralAtom.upperRadius Ψ m) Filter.atTop
+        (nhds ↑Chal.NeutralAtom.bTF) ∧
+      Filter.Tendsto (fun m => ↑(↑m ^ (1 / 3)) * Chal.NeutralAtom.lowerRadius Ψ m) Filter.atTop
+        (nhds ↑Chal.NeutralAtom.bTF)
+@[reducible] def Chal.NeutralAtom.Position : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.NeutralAtom.Configuration : ℕ → Type :=
+fun n => Fin n → Chal.NeutralAtom.Position
+@[reducible] def Chal.NeutralAtom.Spins : ℕ → Type :=
+fun n => Fin n → Fin 2
+@[reducible] def Chal.NeutralAtom.Wavefunction : ℕ → Type :=
+fun n => Chal.NeutralAtom.Spins n → Chal.NeutralAtom.Configuration n → ℂ
+@[reducible] def Chal.NeutralAtom.Gradient : ℕ → Type :=
+fun n => Chal.NeutralAtom.Spins n → Fin n → Fin 3 → Chal.NeutralAtom.Configuration n → ℂ
+def Chal.NeutralAtom.coordinateDirection : {n : ℕ} → Fin n → Fin 3 → Chal.NeutralAtom.Configuration n :=
+fun {n} i a => Pi.single i (EuclideanSpace.single a 1)
+def Chal.NeutralAtom.HasWeakGradient : {n : ℕ} → Chal.NeutralAtom.Wavefunction n → Chal.NeutralAtom.Gradient n → Prop :=
+fun {n} ψ g =>
+  ∀ (σ : Chal.NeutralAtom.Spins n) (i : Fin n) (a : Fin 3) (φ : Chal.NeutralAtom.Configuration n → ℝ),
+    ContDiff ℝ (↑⊤) φ →
+      HasCompactSupport φ →
+        ∫ (x : Chal.NeutralAtom.Configuration n), ↑((fderiv ℝ φ x) (Chal.NeutralAtom.coordinateDirection i a)) * ψ σ x =
+          -∫ (x : Chal.NeutralAtom.Configuration n), ↑(φ x) * g σ i a x
+def Chal.NeutralAtom.IsAntisymmetric : {n : ℕ} → Chal.NeutralAtom.Wavefunction n → Prop :=
+fun {n} ψ =>
+  ∀ (p : Equiv.Perm (Fin n)) (σ : Chal.NeutralAtom.Spins n),
+    (fun x => ψ (σ ∘ ⇑p) (x ∘ ⇑p)) =ᵐ[MeasureTheory.volume] fun x => ↑↑(Equiv.Perm.sign p) * ψ σ x
+def Chal.NeutralAtom.FormDomain : {n : ℕ} → Chal.NeutralAtom.Wavefunction n → Chal.NeutralAtom.Gradient n → Prop :=
+fun {n} ψ g =>
+  Chal.NeutralAtom.IsAntisymmetric ψ ∧
+    Chal.NeutralAtom.HasWeakGradient ψ g ∧
+      (∀ (σ : Chal.NeutralAtom.Spins n), MeasureTheory.MemLp (ψ σ) 2 MeasureTheory.volume) ∧
+        (∀ (σ : Chal.NeutralAtom.Spins n) (i : Fin n) (a : Fin 3),
+            MeasureTheory.MemLp (g σ i a) 2 MeasureTheory.volume) ∧
+          (∀ (σ : Chal.NeutralAtom.Spins n) (i : Fin n),
+              MeasureTheory.Integrable (fun x => ‖x i‖⁻¹ * ‖ψ σ x‖ ^ 2) MeasureTheory.volume) ∧
+            ∀ (σ : Chal.NeutralAtom.Spins n) (i j : Fin n),
+              i < j → MeasureTheory.Integrable (fun x => ‖x i - x j‖⁻¹ * ‖ψ σ x‖ ^ 2) MeasureTheory.volume
+def Chal.NeutralAtom.normSquared : {n : ℕ} → Chal.NeutralAtom.Wavefunction n → ℝ :=
+fun {n} ψ => ∑ σ, ∫ (x : Chal.NeutralAtom.Configuration n), ‖ψ σ x‖ ^ 2
+def Chal.NeutralAtom.coulombPotential : {n : ℕ} → ℕ → Chal.NeutralAtom.Configuration n → ℝ :=
+fun {n} Z x => -↑Z * ∑ i, ‖x i‖⁻¹ + ∑ i, ∑ j with i < j, ‖x i - x j‖⁻¹
+def Chal.NeutralAtom.energy : {n : ℕ} → ℕ → Chal.NeutralAtom.Wavefunction n → Chal.NeutralAtom.Gradient n → ℝ :=
+fun {n} Z ψ g =>
+  (1 / 2 * ∑ σ, ∑ i, ∑ a, ∫ (x : Chal.NeutralAtom.Configuration n), ‖g σ i a x‖ ^ 2) +
+    ∑ σ, ∫ (x : Chal.NeutralAtom.Configuration n), Chal.NeutralAtom.coulombPotential Z x * ‖ψ σ x‖ ^ 2
+def Chal.NeutralAtom.IsNormalizedGroundState : (Z : ℕ) → Chal.NeutralAtom.Wavefunction Z → Prop :=
+fun Z ψ =>
+  ∃ g,
+    Chal.NeutralAtom.FormDomain ψ g ∧
+      Chal.NeutralAtom.normSquared ψ = 1 ∧
+        ∀ (χ : Chal.NeutralAtom.Wavefunction Z) (h : Chal.NeutralAtom.Gradient Z),
+          Chal.NeutralAtom.FormDomain χ h →
+            Chal.NeutralAtom.normSquared χ = 1 → Chal.NeutralAtom.energy Z ψ g ≤ Chal.NeutralAtom.energy Z χ h
+def Chal.NeutralAtom.density : {N : ℕ} → Chal.NeutralAtom.Wavefunction (N + 1) → Chal.NeutralAtom.Position → ℝ :=
+fun {N} ψ x => (↑N + 1) * ∑ σ, ∫ (y : Chal.NeutralAtom.Configuration N), ‖ψ σ (Fin.cons x y)‖ ^ 2
+def Chal.NeutralAtom.exteriorMass : {N : ℕ} → Chal.NeutralAtom.Wavefunction (N + 1) → ℝ → ℝ :=
+fun {N} ψ r => ∫ (x : Chal.NeutralAtom.Position) in {x | r < ‖x‖}, Chal.NeutralAtom.density ψ x
+def Chal.NeutralAtom.radius : {N : ℕ} → Chal.NeutralAtom.Wavefunction (N + 1) → ℕ → ℝ :=
+fun {N} ψ m => sInf {r | 0 ≤ r ∧ Chal.NeutralAtom.exteriorMass ψ r ≤ ↑m}
+def Chal.NeutralAtom.bTF : ℝ :=
+(81 * Real.pi ^ 2 / 2) ^ (1 / 3)
+def Chal.NeutralAtom.largeCharge : ℕ → Filter ℕ :=
+fun m => Filter.atTop ⊓ Filter.principal {N | m < N + 1}
+def Chal.NeutralAtom.upperRadius : ((N : ℕ) → Chal.NeutralAtom.Wavefunction (N + 1)) → ℕ → EReal :=
+fun Ψ m => Filter.limsup (fun N => ↑(Chal.NeutralAtom.radius (Ψ N) m)) (Chal.NeutralAtom.largeCharge m)
+def Chal.NeutralAtom.lowerRadius : ((N : ℕ) → Chal.NeutralAtom.Wavefunction (N + 1)) → ℕ → EReal :=
+fun Ψ m => Filter.liminf (fun N => ↑(Chal.NeutralAtom.radius (Ψ N) m)) (Chal.NeutralAtom.largeCharge m)
+'OAI.NeutralAtom.generalized_outer_radii' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CoulombRadii comparator-style: ok=27 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

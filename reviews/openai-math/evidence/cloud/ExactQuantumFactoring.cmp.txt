@@ -1,0 +1,196 @@
+CMP OAI.ExactQuantumFactoring.exact_quantum_factoring [thm] ok
+CMP OAI.ExactQuantumFactoring.MainTheorem [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit.correctProbability [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit.outputState [def] ok
+CMP OAI.ExactQuantumFactoring.inputBasis [def] ok
+CMP OAI.ExactQuantumFactoring.Basis [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit.qubits [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit [ind] ok
+CMP OAI.ExactQuantumFactoring.Circuit.mk [ctor] ok
+CMP OAI.ExactQuantumFactoring.Instruction [ind] ok
+CMP OAI.ExactQuantumFactoring.Instruction.mk [ctor] ok
+CMP OAI.ExactQuantumFactoring.Gate.arity [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.controlled [def] ok
+CMP OAI.ExactQuantumFactoring.Gate [ind] ok
+CMP OAI.ExactQuantumFactoring.Gate.mk [ctor] ok
+CMP OAI.ExactQuantumFactoring.Primitive [ind] ok
+CMP OAI.ExactQuantumFactoring.Primitive.phase [ctor] ok
+CMP OAI.ExactQuantumFactoring.Primitive.hadamard [ctor] ok
+CMP OAI.ExactQuantumFactoring.Primitive.toffoli [ctor] ok
+CMP OAI.ExactQuantumFactoring.Primitive.cnot [ctor] ok
+CMP OAI.ExactQuantumFactoring.Primitive.not [ctor] ok
+CMP OAI.ExactQuantumFactoring.Gate.primitive [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.arity [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.arity.match_1 [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.casesOn [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.rec [rec] ok
+CMP OAI.ExactQuantumFactoring.Circuit.apply [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit.instructions [def] ok
+CMP OAI.ExactQuantumFactoring.Instruction.matrix [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.matrix [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.baseMatrix [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.matrix [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.matrix._proof_1 [thm] ok
+CMP OAI.ExactQuantumFactoring.Primitive.matrix.match_1 [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.matrix._sparseCasesOn_2 [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.matrix._sparseCasesOn_1 [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.inverse [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.matrix.match_1 [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.matrix._sparseCasesOn_2 [def] ok
+CMP OAI.ExactQuantumFactoring.Gate.matrix._sparseCasesOn_1 [def] ok
+CMP OAI.ExactQuantumFactoring.Instruction.wire [def] ok
+CMP OAI.ExactQuantumFactoring.Instruction.gate [def] ok
+CMP OAI.ExactQuantumFactoring.State [def] ok
+CMP OAI.ExactQuantumFactoring.outputList [def] ok
+CMP OAI.ExactQuantumFactoring.readBit [def] ok
+CMP OAI.ExactQuantumFactoring.paddedLength [def] ok
+CMP OAI.ExactQuantumFactoring.CorrectEncoding [def] ok
+CMP OAI.ExactQuantumFactoring.PolynomialResources [def] ok
+CMP OAI.ExactQuantumFactoring.Uniform [def] ok
+CMP OAI.ExactQuantumFactoring.Circuit.encode [def] ok
+CMP OAI.ExactQuantumFactoring.Instruction.encode [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.code [def] ok
+CMP OAI.ExactQuantumFactoring.Primitive.code.match_1 [def] ok
+CMP OAI.ExactQuantumFactoring.natWord [def] ok
+Chal.ExactQuantumFactoring.exact_quantum_factoring : Chal.ExactQuantumFactoring.MainTheorem
+inductive Chal.ExactQuantumFactoring.Primitive : Type
+number of parameters: 0
+constructors:
+Chal.ExactQuantumFactoring.Primitive.not : Chal.ExactQuantumFactoring.Primitive
+Chal.ExactQuantumFactoring.Primitive.cnot : Chal.ExactQuantumFactoring.Primitive
+Chal.ExactQuantumFactoring.Primitive.toffoli : Chal.ExactQuantumFactoring.Primitive
+Chal.ExactQuantumFactoring.Primitive.hadamard : Chal.ExactQuantumFactoring.Primitive
+Chal.ExactQuantumFactoring.Primitive.phase : Chal.ExactQuantumFactoring.Primitive
+def Chal.ExactQuantumFactoring.Primitive.arity : Chal.ExactQuantumFactoring.Primitive → ℕ :=
+fun x =>
+  match x with
+  | Chal.ExactQuantumFactoring.Primitive.not => 1
+  | Chal.ExactQuantumFactoring.Primitive.hadamard => 1
+  | Chal.ExactQuantumFactoring.Primitive.phase => 1
+  | Chal.ExactQuantumFactoring.Primitive.cnot => 2
+  | Chal.ExactQuantumFactoring.Primitive.toffoli => 3
+def Chal.ExactQuantumFactoring.Primitive.code : Chal.ExactQuantumFactoring.Primitive → ℕ :=
+fun x =>
+  match x with
+  | Chal.ExactQuantumFactoring.Primitive.not => 0
+  | Chal.ExactQuantumFactoring.Primitive.cnot => 1
+  | Chal.ExactQuantumFactoring.Primitive.toffoli => 2
+  | Chal.ExactQuantumFactoring.Primitive.hadamard => 3
+  | Chal.ExactQuantumFactoring.Primitive.phase => 4
+structure Chal.ExactQuantumFactoring.Gate : Type
+number of parameters: 0
+fields:
+  Chal.ExactQuantumFactoring.Gate.primitive : Chal.ExactQuantumFactoring.Primitive
+  Chal.ExactQuantumFactoring.Gate.inverse : Bool
+  Chal.ExactQuantumFactoring.Gate.controlled : Bool
+constructor:
+  Chal.ExactQuantumFactoring.Gate.mk (primitive : Chal.ExactQuantumFactoring.Primitive) (inverse controlled : Bool) :
+    Chal.ExactQuantumFactoring.Gate
+def Chal.ExactQuantumFactoring.Gate.arity : Chal.ExactQuantumFactoring.Gate → ℕ :=
+fun g => g.primitive.arity + if g.controlled = true then 1 else 0
+def Chal.ExactQuantumFactoring.Primitive.matrix : Chal.ExactQuantumFactoring.Primitive → List Bool → List Bool → ℂ :=
+fun x x_1 x_2 =>
+  match x, x_1, x_2 with
+  | Chal.ExactQuantumFactoring.Primitive.not, [a], [b] => if a = !b then 1 else 0
+  | Chal.ExactQuantumFactoring.Primitive.cnot, [a, b], [c, d] => if a = c ∧ b = (c ^^ d) then 1 else 0
+  | Chal.ExactQuantumFactoring.Primitive.toffoli, [a, b, c], [d, e, f] =>
+    if a = d ∧ b = e ∧ c = (f ^^ d && e) then 1 else 0
+  | Chal.ExactQuantumFactoring.Primitive.hadamard, [a], [b] => (if (a && b) = true then -1 else 1) / ↑√2
+  | Chal.ExactQuantumFactoring.Primitive.phase, [a], [b] => if a = b then if b = true then Complex.I else 1 else 0
+  | x, x_3, x_4 => 0
+def Chal.ExactQuantumFactoring.Gate.baseMatrix : Chal.ExactQuantumFactoring.Gate → List Bool → List Bool → ℂ :=
+fun g a b => if g.inverse = true then star (g.primitive.matrix b a) else g.primitive.matrix a b
+def Chal.ExactQuantumFactoring.Gate.matrix : Chal.ExactQuantumFactoring.Gate → List Bool → List Bool → ℂ :=
+fun g a b =>
+  if g.controlled = true then
+    match a, b with
+    | false :: a', false :: b' => if a' = b' then 1 else 0
+    | true :: a', true :: b' => g.baseMatrix a' b'
+    | x, x_1 => 0
+  else g.baseMatrix a b
+structure Chal.ExactQuantumFactoring.Instruction (q : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.ExactQuantumFactoring.Instruction.gate : Chal.ExactQuantumFactoring.Gate
+  Chal.ExactQuantumFactoring.Instruction.wire : Fin self.gate.arity → Fin q
+  Chal.ExactQuantumFactoring.Instruction.distinct : Function.Injective self.wire
+constructor:
+  Chal.ExactQuantumFactoring.Instruction.mk {q : ℕ} (gate : Chal.ExactQuantumFactoring.Gate)
+    (wire : Fin gate.arity → Fin q) (distinct : Function.Injective wire) : Chal.ExactQuantumFactoring.Instruction q
+@[reducible] def Chal.ExactQuantumFactoring.Basis : ℕ → Type :=
+fun q => Fin q → Bool
+@[reducible] def Chal.ExactQuantumFactoring.State : ℕ → Type :=
+fun q => Chal.ExactQuantumFactoring.Basis q → ℂ
+def Chal.ExactQuantumFactoring.Instruction.matrix : {q : ℕ} →
+  Chal.ExactQuantumFactoring.Instruction q →
+    Matrix (Chal.ExactQuantumFactoring.Basis q) (Chal.ExactQuantumFactoring.Basis q) ℂ :=
+fun {q} o a b =>
+  if ∀ (i : Fin q), (∀ (j : Fin o.gate.arity), o.wire j ≠ i) → a i = b i then
+    o.gate.matrix (List.ofFn (a ∘ o.wire)) (List.ofFn (b ∘ o.wire))
+  else 0
+structure Chal.ExactQuantumFactoring.Circuit : Type
+number of parameters: 0
+fields:
+  Chal.ExactQuantumFactoring.Circuit.qubits : ℕ
+  Chal.ExactQuantumFactoring.Circuit.instructions : List (Chal.ExactQuantumFactoring.Instruction self.qubits)
+constructor:
+  Chal.ExactQuantumFactoring.Circuit.mk (qubits : ℕ)
+    (instructions : List (Chal.ExactQuantumFactoring.Instruction qubits)) : Chal.ExactQuantumFactoring.Circuit
+def Chal.ExactQuantumFactoring.Circuit.apply : (c : Chal.ExactQuantumFactoring.Circuit) →
+  Chal.ExactQuantumFactoring.State c.qubits → Chal.ExactQuantumFactoring.State c.qubits :=
+fun c ψ => List.foldl (fun v o => o.matrix.mulVec v) ψ c.instructions
+def Chal.ExactQuantumFactoring.inputBasis : (q : ℕ) → ℕ → ℕ → Chal.ExactQuantumFactoring.Basis q :=
+fun q ℓ N i => if ↑i < ℓ then N.testBit ↑i else false
+def Chal.ExactQuantumFactoring.Circuit.outputState : (c : Chal.ExactQuantumFactoring.Circuit) →
+  ℕ → ℕ → Chal.ExactQuantumFactoring.State c.qubits :=
+fun c ℓ N => c.apply fun x => if x = Chal.ExactQuantumFactoring.inputBasis c.qubits ℓ N then 1 else 0
+def Chal.ExactQuantumFactoring.paddedLength : ℕ → ℕ :=
+fun ℓ => max 128 ℓ
+def Chal.ExactQuantumFactoring.readBit : {q : ℕ} → Chal.ExactQuantumFactoring.Basis q → ℕ → Bool :=
+fun {q} x i => if h : i < q then x ⟨i, h⟩ else false
+def Chal.ExactQuantumFactoring.outputList : {q : ℕ} → ℕ → Chal.ExactQuantumFactoring.Basis q → List ℕ :=
+fun {q} ℓ x =>
+  have n := Chal.ExactQuantumFactoring.paddedLength ℓ;
+  List.ofFn fun a =>
+    ∑ j ∈ Finset.range n, if Chal.ExactQuantumFactoring.readBit x (ℓ + ↑a * n + j) = true then 2 ^ j else 0
+def Chal.ExactQuantumFactoring.CorrectEncoding : ℕ → ℕ → List ℕ → Prop :=
+fun N n xs =>
+  ∃ ps,
+    (∀ p ∈ ps, Nat.Prime p) ∧
+      List.Pairwise (fun x1 x2 => x1 ≤ x2) ps ∧
+        ps.prod = N ∧ ps.length ≤ n ∧ xs = ps ++ List.replicate (n - ps.length) 0
+def Chal.ExactQuantumFactoring.Circuit.correctProbability : Chal.ExactQuantumFactoring.Circuit → ℕ → ℕ → ℝ :=
+fun c ℓ N =>
+  ∑ x,
+    if
+        Chal.ExactQuantumFactoring.CorrectEncoding N (Chal.ExactQuantumFactoring.paddedLength ℓ)
+          (Chal.ExactQuantumFactoring.outputList ℓ x) then
+      Complex.normSq (c.outputState ℓ N x)
+    else 0
+def Chal.ExactQuantumFactoring.natWord : ℕ → List Bool :=
+fun k => List.replicate k true ++ [false]
+def Chal.ExactQuantumFactoring.Instruction.encode : {q : ℕ} → Chal.ExactQuantumFactoring.Instruction q → List Bool :=
+fun {q} o =>
+  Chal.ExactQuantumFactoring.natWord o.gate.primitive.code ++ [o.gate.inverse, o.gate.controlled] ++
+    List.flatMap Chal.ExactQuantumFactoring.natWord (List.ofFn fun i => ↑(o.wire i))
+def Chal.ExactQuantumFactoring.Circuit.encode : Chal.ExactQuantumFactoring.Circuit → List Bool :=
+fun c =>
+  Chal.ExactQuantumFactoring.natWord c.qubits ++ Chal.ExactQuantumFactoring.natWord c.instructions.length ++
+    List.flatMap Chal.ExactQuantumFactoring.Instruction.encode c.instructions
+def Chal.ExactQuantumFactoring.Uniform : (ℕ → Chal.ExactQuantumFactoring.Circuit) → Prop :=
+fun family => ∃ generator, ∀ (k : generator.tm.K), Finite (generator.tm.Γ k)
+def Chal.ExactQuantumFactoring.PolynomialResources : (ℕ → Chal.ExactQuantumFactoring.Circuit) → Prop :=
+fun family =>
+  ∃ bound,
+    ∀ (ℓ : ℕ), (family ℓ).qubits ≤ Polynomial.eval ℓ bound ∧ (family ℓ).instructions.length ≤ Polynomial.eval ℓ bound
+def Chal.ExactQuantumFactoring.MainTheorem : Prop :=
+∃ family,
+  Chal.ExactQuantumFactoring.Uniform family ∧
+    Chal.ExactQuantumFactoring.PolynomialResources family ∧
+      ∀ (ℓ N : ℕ),
+        2 ≤ N →
+          N.size = ℓ →
+            ℓ + Chal.ExactQuantumFactoring.paddedLength ℓ ^ 2 ≤ (family ℓ).qubits ∧
+              (family ℓ).correctProbability ℓ N = 1
+'OAI.ExactQuantumFactoring.exact_quantum_factoring' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ExactQuantumFactoring comparator-style: ok=54 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

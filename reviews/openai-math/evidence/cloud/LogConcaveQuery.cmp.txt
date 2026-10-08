@@ -1,0 +1,120 @@
+CMP OAI.LogConcaveSampling.exact_source_main [thm] ok
+CMP OAI.LogConcaveSampling.gammaStar [def] ok
+CMP OAI.LogConcaveSampling.ExponentBound [def] ok
+CMP OAI.LogConcaveSampling.queryComplexity [def] ok
+CMP OAI.LogConcaveSampling.CanSample [def] ok
+CMP OAI.LogConcaveSampling.CanSample._proof_1 [thm] ok
+CMP OAI.LogConcaveSampling.gibbs [def] ok
+CMP OAI.LogConcaveSampling.gibbsDensity [def] ok
+CMP OAI.LogConcaveSampling.Point [def] ok
+CMP OAI.LogConcaveSampling.partition [def] ok
+CMP OAI.LogConcaveSampling.partition._proof_2 [thm] ok
+CMP OAI.LogConcaveSampling.partition._proof_1 [thm] ok
+CMP OAI.LogConcaveSampling.gibbs._proof_1 [thm] ok
+CMP OAI.LogConcaveSampling.TVAtMost [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.run [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.history [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.history._f [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.query [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm [ind] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.mk [ctor] ok
+CMP OAI.LogConcaveSampling.Reply [def] ok
+CMP OAI.LogConcaveSampling.Transcript [def] ok
+CMP OAI.LogConcaveSampling.firstOrderReply [def] ok
+CMP OAI.LogConcaveSampling.firstOrderReply._proof_1 [thm] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.history.match_1 [def] ok
+CMP OAI.LogConcaveSampling.OracleAlgorithm.output [def] ok
+CMP OAI.LogConcaveSampling.Admissible [ind] ok
+CMP OAI.LogConcaveSampling.Admissible.mk [ctor] ok
+Chal.LogConcaveSampling.exact_source_main : (∀ (ε : ℝ),
+    0 < ε → ∃ C, ∀ (d : ℕ), 2 ≤ d → ↑(Chal.LogConcaveSampling.queryComplexity d) ≤ ENNReal.ofReal (C * ↑d ^ ε)) ∧
+  (∃ c,
+      0 < c ∧
+        ∃ d₀,
+          2 ≤ d₀ ∧
+            ∀ (d : ℕ), d₀ ≤ d → ENNReal.ofReal (c * Real.log ↑d) ≤ ↑(Chal.LogConcaveSampling.queryComplexity d)) ∧
+    Chal.LogConcaveSampling.gammaStar = 0
+@[reducible] def Chal.LogConcaveSampling.Point : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def Chal.LogConcaveSampling.Reply : ℕ → Type :=
+fun d => ℝ × Chal.LogConcaveSampling.Point d
+@[reducible] def Chal.LogConcaveSampling.Transcript : ℕ → ℕ → Type :=
+fun d q => Fin q → Chal.LogConcaveSampling.Reply d
+structure Chal.LogConcaveSampling.Admissible {d : ℕ} (V : Chal.LogConcaveSampling.Point d → ℝ) : Prop
+number of parameters: 2
+fields:
+  Chal.LogConcaveSampling.Admissible.smooth : ContDiff ℝ 2 V
+  Chal.LogConcaveSampling.Admissible.value_zero : V 0 = 0
+  Chal.LogConcaveSampling.Admissible.gradient_zero : gradient V 0 = 0
+  Chal.LogConcaveSampling.Admissible.hessian_bounds : ∀ (x v : Chal.LogConcaveSampling.Point d),
+      ‖v‖ ^ 2 ≤ inner ℝ v ((fderiv ℝ (gradient V) x) v) ∧ inner ℝ v ((fderiv ℝ (gradient V) x) v) ≤ 2 * ‖v‖ ^ 2
+constructor:
+  Chal.LogConcaveSampling.Admissible.mk {d : ℕ} {V : Chal.LogConcaveSampling.Point d → ℝ} (smooth : ContDiff ℝ 2 V)
+    (value_zero : V 0 = 0) (gradient_zero : gradient V 0 = 0)
+    (hessian_bounds :
+      ∀ (x v : Chal.LogConcaveSampling.Point d),
+        ‖v‖ ^ 2 ≤ inner ℝ v ((fderiv ℝ (gradient V) x) v) ∧ inner ℝ v ((fderiv ℝ (gradient V) x) v) ≤ 2 * ‖v‖ ^ 2) :
+    Chal.LogConcaveSampling.Admissible V
+def Chal.LogConcaveSampling.gibbsDensity : {d : ℕ} →
+  (Chal.LogConcaveSampling.Point d → ℝ) → Chal.LogConcaveSampling.Point d → ENNReal :=
+fun {d} V x => ENNReal.ofReal (Real.exp (-V x))
+def Chal.LogConcaveSampling.partition : {d : ℕ} → (Chal.LogConcaveSampling.Point d → ℝ) → ENNReal :=
+fun {d} V => ∫⁻ (x : Chal.LogConcaveSampling.Point d), Chal.LogConcaveSampling.gibbsDensity V x
+def Chal.LogConcaveSampling.gibbs : {d : ℕ} →
+  (Chal.LogConcaveSampling.Point d → ℝ) → MeasureTheory.Measure (Chal.LogConcaveSampling.Point d) :=
+fun {d} V =>
+  (Chal.LogConcaveSampling.partition V)⁻¹ • MeasureTheory.volume.withDensity (Chal.LogConcaveSampling.gibbsDensity V)
+def Chal.LogConcaveSampling.TVAtMost.{u_1} : {E : Type u_1} →
+  [inst : MeasurableSpace E] → MeasureTheory.Measure E → MeasureTheory.Measure E → ℝ → Prop :=
+fun {E} [MeasurableSpace E] μ ν ε => ∀ (s : Set E), MeasurableSet s → |μ.real s - ν.real s| ≤ ε
+def Chal.LogConcaveSampling.firstOrderReply : {d : ℕ} →
+  (Chal.LogConcaveSampling.Point d → ℝ) → Chal.LogConcaveSampling.Point d → Chal.LogConcaveSampling.Reply d :=
+fun {d} V x => (V x, gradient V x)
+structure Chal.LogConcaveSampling.OracleAlgorithm.{u_1} (Ω : Type u_1) [MeasurableSpace Ω] (d q : ℕ) : Type u_1
+number of parameters: 4
+fields:
+  Chal.LogConcaveSampling.OracleAlgorithm.query : Fin q →
+      Ω × Chal.LogConcaveSampling.Transcript d q → Chal.LogConcaveSampling.Point d
+  Chal.LogConcaveSampling.OracleAlgorithm.query_measurable : ∀ (i : Fin q), Measurable (self.query i)
+  Chal.LogConcaveSampling.OracleAlgorithm.output : Ω × Chal.LogConcaveSampling.Transcript d q →
+      Chal.LogConcaveSampling.Point d
+  Chal.LogConcaveSampling.OracleAlgorithm.output_measurable : Measurable self.output
+constructor:
+  Chal.LogConcaveSampling.OracleAlgorithm.mk.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] {d q : ℕ}
+    (query : Fin q → Ω × Chal.LogConcaveSampling.Transcript d q → Chal.LogConcaveSampling.Point d)
+    (query_measurable : ∀ (i : Fin q), Measurable (query i))
+    (output : Ω × Chal.LogConcaveSampling.Transcript d q → Chal.LogConcaveSampling.Point d)
+    (output_measurable : Measurable output) : Chal.LogConcaveSampling.OracleAlgorithm Ω d q
+def Chal.LogConcaveSampling.OracleAlgorithm.history.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {d q : ℕ} →
+      Chal.LogConcaveSampling.OracleAlgorithm Ω d q →
+        (Chal.LogConcaveSampling.Point d → ℝ) → Ω → ℕ → Chal.LogConcaveSampling.Transcript d q :=
+fun {Ω} [MeasurableSpace Ω] {d q} A V ω x => Nat.brecOn x (Chal.LogConcaveSampling.OracleAlgorithm.history._f A V ω)
+def Chal.LogConcaveSampling.OracleAlgorithm.run.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {d q : ℕ} →
+      Chal.LogConcaveSampling.OracleAlgorithm Ω d q →
+        (Chal.LogConcaveSampling.Point d → ℝ) → Ω → Chal.LogConcaveSampling.Point d :=
+fun {Ω} [MeasurableSpace Ω] {d q} A V ω => A.output (ω, A.history V ω q)
+def Chal.LogConcaveSampling.CanSample : ℕ → ℕ → Prop :=
+fun d q =>
+  ∃ Ω x μ,
+    ∃ (_ : MeasureTheory.IsProbabilityMeasure μ),
+      ∃ A,
+        ∀ (V : Chal.LogConcaveSampling.Point d → ℝ),
+          Chal.LogConcaveSampling.Admissible V →
+            Measurable (A.run V) ∧
+              Chal.LogConcaveSampling.TVAtMost (MeasureTheory.Measure.map (A.run V) μ) (Chal.LogConcaveSampling.gibbs V)
+                (1 / 10)
+def Chal.LogConcaveSampling.queryComplexity : ℕ → ℕ∞ :=
+fun d => sInf ((fun q => ↑q) '' {q | Chal.LogConcaveSampling.CanSample d q})
+def Chal.LogConcaveSampling.ExponentBound : ℝ → Prop :=
+fun γ =>
+  0 ≤ γ ∧
+    ∀ (ε : ℝ),
+      0 < ε → ∃ d₀, ∀ (d : ℕ), d₀ ≤ d → ↑(Chal.LogConcaveSampling.queryComplexity d) ≤ ENNReal.ofReal (↑d ^ (γ + ε))
+def Chal.LogConcaveSampling.gammaStar : ℝ :=
+sInf {γ | Chal.LogConcaveSampling.ExponentBound γ}
+'OAI.LogConcaveSampling.exact_source_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LogConcaveQuery comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

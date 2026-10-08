@@ -1,0 +1,100 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_DimensionTenPair.lean:112:8: warning: declaration uses `sorry`
+OAI.DimensionTen.main_pair : ∃ Φ₁ Φ₂,
+  Φ₁ = OAI.DimensionTen.phiOne ∧
+    Φ₂ = OAI.DimensionTen.phiTwo ∧
+      OAI.DimensionTen.PPT Φ₁ ∧
+        OAI.DimensionTen.PPT Φ₂ ∧
+          have Z := OAI.DimensionTen.choi (Φ₂ ∘ Φ₁);
+          Z ≠ 0 ∧
+            (∀ (u v : Fin 10 → ℂ) (w : Fin 10 × Fin 10 → ℂ),
+                Z.mulVec w = OAI.DimensionTen.productVector u v → u = 0 ∨ v = 0) ∧
+              ¬OAI.DimensionTen.EntanglementBreaking (Φ₂ ∘ Φ₁)
+def OAI.DimensionTen.blocksZ : Fin 4 → Matrix (Fin 6) (Fin 4) ℤ :=
+![![![6, 0, 0, 0], ![0, 6, 0, 0], ![0, 0, 6, 0], ![0, 0, 0, 6], ![0, 0, 0, 0], ![0, 0, 0, 0]],
+  ![![-12, 0, 0, 0], ![0, -6, 0, 0], ![0, 0, 6, 0], ![0, 0, 0, 12], ![-6, 0, 6, 6], ![-6, -6, 6, 0]],
+  ![![0, 6, -2, 0], ![6, 6, 0, 2], ![-2, 0, 10, 0], ![0, 2, 0, 24], ![0, 0, 0, 6], ![0, -6, 6, -6]],
+  ![![0, 0, -4, -3], ![0, -2, -3, -4], ![-4, -3, 11, 6], ![-3, -4, 6, 25], ![6, 6, 0, 0], ![0, -6, 6, 6]]]
+def OAI.DimensionTen.blocks : Fin 4 → Matrix (Fin 6) (Fin 4) ℂ :=
+fun i => (OAI.DimensionTen.blocksZ i).map ⇑(Int.castRingHom ℂ)
+def OAI.DimensionTen.pencilMap : Matrix (Fin 4) (Fin 4) ℂ → Matrix (Fin 4) (Fin 4) ℂ :=
+fun A => ∑ i, ∑ j, A i j • ((OAI.DimensionTen.blocks i).transpose * OAI.DimensionTen.blocks j)
+@[reducible] def OAI.DimensionTen.Mat : ℕ → Type :=
+fun n => Matrix (Fin n) (Fin n) ℂ
+def OAI.DimensionTen.IsComplexLinear : {a b : ℕ} → (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → Prop :=
+fun {a b} F =>
+  (∀ (A B : OAI.DimensionTen.Mat a), F (A + B) = F A + F B) ∧
+    ∀ (c : ℂ) (A : OAI.DimensionTen.Mat a), F (c • A) = c • F A
+def OAI.DimensionTen.amplify : {a b : ℕ} →
+  (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) →
+    (k : ℕ) → Matrix (Fin k × Fin a) (Fin k × Fin a) ℂ → Matrix (Fin k × Fin b) (Fin k × Fin b) ℂ :=
+fun {a b} F k X u v => F (fun i j => X (u.1, i) (v.1, j)) u.2 v.2
+def OAI.DimensionTen.CompletelyPositive : {a b : ℕ} → (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → Prop :=
+fun {a b} F =>
+  ∀ (k : ℕ),
+    0 < k → ∀ (X : Matrix (Fin k × Fin a) (Fin k × Fin a) ℂ), X.PosSemidef → (OAI.DimensionTen.amplify F k X).PosSemidef
+def OAI.DimensionTen.PPT : {a b : ℕ} → (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → Prop :=
+fun {a b} F =>
+  OAI.DimensionTen.IsComplexLinear F ∧
+    OAI.DimensionTen.CompletelyPositive F ∧ OAI.DimensionTen.CompletelyPositive fun X => Matrix.transpose (F X)
+def OAI.DimensionTen.separable : {a b : ℕ} → Matrix (Fin a × Fin b) (Fin a × Fin b) ℂ → Prop :=
+fun {a b} X =>
+  ∃ r A B, (∀ (i : Fin r), Matrix.PosSemidef (A i) ∧ Matrix.PosSemidef (B i)) ∧ X = ∑ i, Matrix.kronecker (A i) (B i)
+def OAI.DimensionTen.EntanglementBreaking : {a b : ℕ} → (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → Prop :=
+fun {a b} F =>
+  OAI.DimensionTen.CompletelyPositive F ∧
+    ∀ (k : ℕ),
+      0 < k →
+        ∀ (X : Matrix (Fin k × Fin a) (Fin k × Fin a) ℂ),
+          X.PosSemidef → OAI.DimensionTen.separable (OAI.DimensionTen.amplify F k X)
+def OAI.DimensionTen.choi : {a b : ℕ} →
+  (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → Matrix (Fin a × Fin b) (Fin a × Fin b) ℂ :=
+fun {a b} F u v => F (Matrix.single u.1 v.1 1) u.2 v.2
+def OAI.DimensionTen.tensorMap : {a b c d : ℕ} →
+  (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) →
+    (OAI.DimensionTen.Mat c → OAI.DimensionTen.Mat d) →
+      Matrix (Fin a × Fin c) (Fin a × Fin c) ℂ → Matrix (Fin b × Fin d) (Fin b × Fin d) ℂ :=
+fun {a b c d} F G X => ∑ i, ∑ j, Matrix.kronecker (F fun a_1 b => X (a_1, i) (b, j)) (G (Matrix.single i j 1))
+def OAI.DimensionTen.hsAdjoint : {a b : ℕ} →
+  (OAI.DimensionTen.Mat a → OAI.DimensionTen.Mat b) → OAI.DimensionTen.Mat b → OAI.DimensionTen.Mat a :=
+fun {a b} F Y i j => ∑ u, ∑ v, star (F (Matrix.single i j 1) u v) * Y u v
+def OAI.DimensionTen.symmetricPairs : Fin 10 → Fin 4 × Fin 4 :=
+![(0, 0), (0, 1), (0, 2), (0, 3), (1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
+def OAI.DimensionTen.exteriorPairs : Fin 6 → Fin 4 × Fin 4 :=
+![(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+def OAI.DimensionTen.symmetricIsometry : Matrix (Fin 4 × Fin 4) (Fin 10) ℂ :=
+fun ij a =>
+  have p := (OAI.DimensionTen.symmetricPairs a).1;
+  have q := (OAI.DimensionTen.symmetricPairs a).2;
+  if p = q then if ij = (p, p) then 1 else 0 else ((if ij = (p, q) then 1 else 0) + if ij = (q, p) then 1 else 0) / ↑√2
+def OAI.DimensionTen.exteriorIsometry : Matrix (Fin 4 × Fin 4) (Fin 6) ℂ :=
+fun ij a =>
+  have p := (OAI.DimensionTen.exteriorPairs a).1;
+  have q := (OAI.DimensionTen.exteriorPairs a).2;
+  ((if ij = (p, q) then 1 else 0) - if ij = (q, p) then 1 else 0) / ↑√2
+def OAI.DimensionTen.hodgeComplement : OAI.DimensionTen.Mat 6 :=
+![![0, 0, 0, 0, 0, 1], ![0, 0, 0, 0, -1, 0], ![0, 0, 0, 1, 0, 0], ![0, 0, 1, 0, 0, 0], ![0, -1, 0, 0, 0, 0],
+  ![1, 0, 0, 0, 0, 0]]
+def OAI.DimensionTen.firstSix : Matrix (Fin 10) (Fin 6) ℂ :=
+fun i j => if ↑i = ↑j then 1 else 0
+def OAI.DimensionTen.exteriorMap : OAI.DimensionTen.Mat 10 → OAI.DimensionTen.Mat 6 :=
+fun A =>
+  OAI.DimensionTen.exteriorIsometry.conjTranspose *
+      OAI.DimensionTen.tensorMap OAI.DimensionTen.pencilMap OAI.DimensionTen.pencilMap
+        (OAI.DimensionTen.symmetricIsometry * A * OAI.DimensionTen.symmetricIsometry.conjTranspose) *
+    OAI.DimensionTen.exteriorIsometry
+def OAI.DimensionTen.complementaryMap : OAI.DimensionTen.Mat 10 → OAI.DimensionTen.Mat 6 :=
+fun A =>
+  OAI.DimensionTen.hodgeComplement * Matrix.transpose (OAI.DimensionTen.exteriorMap A) *
+    Matrix.conjTranspose OAI.DimensionTen.hodgeComplement
+def OAI.DimensionTen.phiOne : OAI.DimensionTen.Mat 10 → OAI.DimensionTen.Mat 10 :=
+fun A =>
+  OAI.DimensionTen.firstSix * OAI.DimensionTen.exteriorMap (Matrix.transpose A) *
+    OAI.DimensionTen.firstSix.conjTranspose
+def OAI.DimensionTen.phiTwo : OAI.DimensionTen.Mat 10 → OAI.DimensionTen.Mat 10 :=
+fun B =>
+  OAI.DimensionTen.hsAdjoint OAI.DimensionTen.complementaryMap
+    (OAI.DimensionTen.firstSix.conjTranspose * B * OAI.DimensionTen.firstSix)
+def OAI.DimensionTen.compositeChoi : Matrix (Fin 10 × Fin 10) (Fin 10 × Fin 10) ℂ :=
+OAI.DimensionTen.choi (OAI.DimensionTen.phiTwo ∘ OAI.DimensionTen.phiOne)
+def OAI.DimensionTen.productVector : {a b : ℕ} → (Fin a → ℂ) → (Fin b → ℂ) → Fin a × Fin b → ℂ :=
+fun {a b} u v ij => u ij.1 * v ij.2

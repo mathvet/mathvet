@@ -1,0 +1,17 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LittlewoodFiniteFlatness.lean:34:8: warning: declaration uses `sorry`
+OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.main : OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.MainStatement
+def OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.littlewoodValue : {N : ℕ} → (Fin N → ℝ) → ℂ → ℂ :=
+fun {N} ε z => ∑ k, ↑(ε k) * z ^ ↑k
+def OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.IsRealSigning : {N : ℕ} → (Fin N → ℝ) → Prop :=
+fun {N} ε => ∀ (k : Fin N), ε k = -1 ∨ ε k = 1
+def OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.MainStatement : Prop :=
+∃ ε,
+  (∀ (N : ℕ), OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.IsRealSigning (ε N)) ∧
+    ∀ (p : ℝ),
+      0 < p →
+        Filter.Tendsto
+          (fun N =>
+            ∫ (t : UnitAddCircle),
+              |‖OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.littlewoodValue (ε N) ((fourier 1) t)‖ / √↑N - 1|.rpow
+                p ∂AddCircle.haarAddCircle)
+          Filter.atTop (nhds 0)
