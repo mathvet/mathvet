@@ -1,0 +1,18 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_QuinticLienard.lean:39:8: warning: declaration uses `sorry`
+OAI.QuinticLienard.main : (∀ (F : Polynomial ℝ), F.degree ≤ 5 → {C | OAI.QuinticLienard.IsLimitCycle F C}.encard ≤ 2) ∧
+  ∃ F, F.degree ≤ 5 ∧ {C | OAI.QuinticLienard.IsLimitCycle F C}.encard = 2
+@[reducible] def OAI.QuinticLienard.Plane : Type :=
+ℝ × ℝ
+def OAI.QuinticLienard.vectorField : Polynomial ℝ → OAI.QuinticLienard.Plane → OAI.QuinticLienard.Plane :=
+fun F z => (z.2 - Polynomial.eval z.1 F, -z.1)
+def OAI.QuinticLienard.IsSolution : Polynomial ℝ → (ℝ → OAI.QuinticLienard.Plane) → Prop :=
+fun F z => ∀ (t : ℝ), HasDerivAt z (OAI.QuinticLienard.vectorField F (z t)) t
+def OAI.QuinticLienard.IsPeriodicOrbit : Polynomial ℝ → Set OAI.QuinticLienard.Plane → Prop :=
+fun F C =>
+  ∃ z T, OAI.QuinticLienard.IsSolution F z ∧ 0 < T ∧ Function.Periodic z T ∧ (∃ s t, z s ≠ z t) ∧ C = Set.range z
+def OAI.QuinticLienard.IsLimitCycle : Polynomial ℝ → Set OAI.QuinticLienard.Plane → Prop :=
+fun F C =>
+  OAI.QuinticLienard.IsPeriodicOrbit F C ∧
+    ∃ U,
+      IsOpen U ∧
+        C ⊆ U ∧ ∀ (C' : Set OAI.QuinticLienard.Plane), OAI.QuinticLienard.IsPeriodicOrbit F C' → C' ⊆ U → C' = C

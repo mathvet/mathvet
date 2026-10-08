@@ -1,0 +1,27 @@
+CMP OAI.QuinticLienard.main [thm] ok
+CMP OAI.QuinticLienard.IsLimitCycle [def] ok
+CMP OAI.QuinticLienard.IsPeriodicOrbit [def] ok
+CMP OAI.QuinticLienard.IsSolution [def] ok
+CMP OAI.QuinticLienard.vectorField [def] ok
+CMP OAI.QuinticLienard.Plane [def] ok
+CMP OAI.QuinticLienard.IsSolution._proof_1 [thm] ok
+Chal.QuinticLienard.main : (∀ (F : Polynomial ℝ),
+    F.degree ≤ 5 → {C | Chal.QuinticLienard.IsLimitCycle F C}.encard ≤ 2) ∧
+  ∃ F, F.degree ≤ 5 ∧ {C | Chal.QuinticLienard.IsLimitCycle F C}.encard = 2
+@[reducible] def Chal.QuinticLienard.Plane : Type :=
+ℝ × ℝ
+def Chal.QuinticLienard.vectorField : Polynomial ℝ → Chal.QuinticLienard.Plane → Chal.QuinticLienard.Plane :=
+fun F z => (z.2 - Polynomial.eval z.1 F, -z.1)
+def Chal.QuinticLienard.IsSolution : Polynomial ℝ → (ℝ → Chal.QuinticLienard.Plane) → Prop :=
+fun F z => ∀ (t : ℝ), HasDerivAt z (Chal.QuinticLienard.vectorField F (z t)) t
+def Chal.QuinticLienard.IsPeriodicOrbit : Polynomial ℝ → Set Chal.QuinticLienard.Plane → Prop :=
+fun F C =>
+  ∃ z T, Chal.QuinticLienard.IsSolution F z ∧ 0 < T ∧ Function.Periodic z T ∧ (∃ s t, z s ≠ z t) ∧ C = Set.range z
+def Chal.QuinticLienard.IsLimitCycle : Polynomial ℝ → Set Chal.QuinticLienard.Plane → Prop :=
+fun F C =>
+  Chal.QuinticLienard.IsPeriodicOrbit F C ∧
+    ∃ U,
+      IsOpen U ∧
+        C ⊆ U ∧ ∀ (C' : Set Chal.QuinticLienard.Plane), Chal.QuinticLienard.IsPeriodicOrbit F C' → C' ⊆ U → C' = C
+'OAI.QuinticLienard.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== QuinticLienard comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
