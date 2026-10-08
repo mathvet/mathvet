@@ -89,7 +89,7 @@ def layout(title, body, active, extra_head='', extra_js='', generated='', commit
 
 
 TABLE_PAGE = r"""
-<h1 style="margin:.6rem 0 .3rem">Fidelity table — openai/math @ <code>__COMMIT__</code></h1>
+<h1 style="margin:.6rem 0 .3rem">Fidelity table — openai/math @ <code>__COMMIT8__</code></h1>
 <div class="notice">Every verdict on this page is <strong>pre-referee</strong>: one model-assisted reading per family, validated mechanically, not yet re-read by a named human referee. The repository's own scope note is shown next to each verdict so you can judge for yourself. Verdict scale: <span class="badge full">full</span> Lean states the headline claim · <span class="badge partial">partial</span> only one of several claims, or a special case · <span class="badge weaker-statement">weaker-statement</span> a nontrivially weaker statement · <span class="badge supporting-only">supporting-only</span> a lemma or auxiliary statement. Click a row for the evidence.</div>
 <div class="filters">
   <input type="search" id="q" placeholder="search family, title, challenge, note…" size="34" aria-label="search">
@@ -106,7 +106,7 @@ TABLE_PAGE = r"""
 <thead><tr><th data-k="family">Family</th><th data-k="title">Title</th><th data-k="subject">Subject</th><th data-k="verdict">Verdict</th><th>Challenges</th><th data-k="cone_lines_max">Cone (lines)</th><th data-k="machine_check">Checked here</th></tr></thead>
 <tbody id="tb"></tbody>
 </table></div>
-<p style="color:var(--muted);font-size:.85rem">Download: <a href="../../reviews/openai-math/fidelity-table.csv">fidelity-table.csv</a> · <a href="../../reviews/openai-math/fidelity-table.json">fidelity-table.json</a> · <a href="../../reviews/openai-math/formalization-review.yaml">formalization-review.yaml</a> (on GitHub). Generated __GENERATED__.</p>
+<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/fidelity-table.csv">fidelity-table.csv</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/fidelity-table.json">fidelity-table.json</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/formalization-review.yaml">formalization-review.yaml</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('data').textContent);
@@ -143,7 +143,7 @@ if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el
 """
 
 CHALLENGES_PAGE = r"""
-<h1 style="margin:.6rem 0 .3rem">Challenge status — openai/math @ <code>__COMMIT__</code></h1>
+<h1 style="margin:.6rem 0 .3rem">Challenge status — openai/math @ <code>__COMMIT8__</code></h1>
 <div class="notice">One row per Comparator challenge (405). <strong>Build</strong>: the solution module compiled on the reviewer's machine. <strong>Closure</strong>: every constant in the challenge statement's transitive closure found alpha-equivalent to the solution's, no instance shadowing, only the three standard axioms (<code>checker/</code>). <strong>Comparator</strong>: the real <code>leanprover/comparator</code> accepted the solution (run with its development landrun shim, i.e. without a sandbox; a sandboxed Linux run is pending). Logs are in <code>reviews/openai-math/evidence/lean_checks/</code>.</div>
 <div class="filters">
   <input type="search" id="q" placeholder="search challenge, family, module…" size="30" aria-label="search">
@@ -154,7 +154,7 @@ CHALLENGES_PAGE = r"""
 <thead><tr><th data-k="challenge">Challenge</th><th data-k="family">Family</th><th data-k="family_verdict">Family verdict</th><th>Lab's result label</th><th data-k="cone_oai_lines">Cone (lines)</th><th data-k="build">Build</th><th data-k="closure">Closure</th><th data-k="comparator">Comparator</th><th>Evidence</th></tr></thead>
 <tbody id="tb"></tbody>
 </table></div>
-<p style="color:var(--muted);font-size:.85rem">Download: <a href="../../reviews/openai-math/challenge-status.csv">challenge-status.csv</a> · <a href="../../reviews/openai-math/challenge-status.json">challenge-status.json</a> (on GitHub). Generated __GENERATED__.</p>
+<p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.csv">challenge-status.csv</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.json">challenge-status.json</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('data').textContent);

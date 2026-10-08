@@ -426,8 +426,12 @@ Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure compar
 
 
 # ----------------------------------------------------------------------------- site
+SITE_LIVE = 'https://ceshanon.github.io/mathvet/'   # absolute site links in the Markdown become root-relative in the site
+
+
 def md(text):
-    return markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc', 'sane_lists', 'attr_list'])
+    out = markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc', 'sane_lists', 'attr_list'])
+    return out.replace('href="' + SITE_LIVE, 'href="')
 
 
 DOCS.mkdir(exist_ok=True)
@@ -467,10 +471,10 @@ ch_json = json.dumps([OrderedDict([(k, c[k]) for k in ('challenge', 'family', 'f
 (DOCS / RELEASE / 'data.json').write_text(json.dumps(dict(status=status, families=list(families.values()), challenges=list(challenges.values())),
                                                      ensure_ascii=False), encoding='utf-8')
 (DOCS / RELEASE / 'index.html').write_text(layout(f'MathVet — fidelity table for openai/math', TABLE_PAGE.replace('__DATA__', fam_json)
-                                                  .replace('__COMMIT__', COMMIT).replace('__GENERATED__', status['generated']), 'table',
+                                                  .replace('__COMMIT8__', COMMIT[:8]).replace('__COMMIT__', COMMIT).replace('__GENERATED__', status['generated']), 'table',
                                                   extra_head=KATEX_HEAD, generated=status['generated'], commit=COMMIT[:8]), encoding='utf-8')
 (DOCS / RELEASE / 'challenges.html').write_text(layout('MathVet — challenge status for openai/math', CHALLENGES_PAGE.replace('__DATA__', ch_json)
-                                                       .replace('__COMMIT__', COMMIT).replace('__GENERATED__', status['generated']), 'challenges',
+                                                       .replace('__COMMIT8__', COMMIT[:8]).replace('__COMMIT__', COMMIT).replace('__GENERATED__', status['generated']), 'challenges',
                                                        generated=status['generated'], commit=COMMIT[:8]), encoding='utf-8')
 
 print(json.dumps(OrderedDict((k, v) for k, v in status.items() if not isinstance(v, list)), indent=1))

@@ -8,7 +8,7 @@ Each of the 235 families with Lean in `openai/math` (commit `adc7f124`) carries 
 
 ## The sample (frozen)
 
-40 families, listed in [`reviews/openai-math/sample.txt`](reviews/openai-math/sample.txt) (SHA-256 in `sample.sha256`), composed of:
+40 families, listed in [`reviews/openai-math/sample.txt`](https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/sample.txt) (SHA-256 in `sample.sha256`), composed of:
 
 - **12 with certainty**: the families whose repository scope notes already document a divergence between headline and Lean (197, 261, 266, 281, 247, 262, 207, 267, 307, 157, 159, 365). They are the cases most likely to be argued about, so they are all in.
 - **14 drawn at random** from the other 79 non-`full` families.
@@ -40,7 +40,7 @@ Let $e_c$ be the error fraction among the 26 non-`full` sample families and $e_f
 - **KILL**, $\hat e \ge 0.20$: the table is publicly relabelled "first-pass map, unverified"; the referee-verified subset is published as such.
 - **RETEST**, otherwise: 20 more families are drawn with the same method and strata; the pooled 60 decide with the same lines; if still in between, the rate is published with its interval and no label is claimed.
 
-Power of the design, computed before data (`b1-thresholds.py` below): if the true error rates are 5% (non-full) and 3% (full), P(PASS) = 0.94; at 30% / 15%, P(KILL) = 0.53 and P(RETEST) = 0.44; at 40% / 20%, P(KILL) = 0.85. A sample of 40 cannot certify a rate below about 5%; the number is published with its interval for that reason.
+Power of the design, computed before data (derivation code below): if the true error rates are 5% (non-full) and 3% (full), P(PASS) = 0.94; at 30% / 15%, P(KILL) = 0.53 and P(RETEST) = 0.44; at 40% / 20%, P(KILL) = 0.85. A sample of 40 cannot certify a rate below about 5%; the number is published with its interval for that reason.
 
 ## Publication
 

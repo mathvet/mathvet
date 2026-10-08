@@ -30,7 +30,7 @@
 <h2 id="what-is-measured">What is measured</h2>
 <p>Each of the 235 families with Lean in <code>openai/math</code> (commit <code>adc7f124</code>) carries one MathVet verdict in {<code>full</code>, <code>partial</code>, <code>weaker-statement</code>, <code>supporting-only</code>} about whether its Comparator challenge statements state the family's headline claim (the overview summary). The verdicts came from one model-assisted pass per family. The quantity measured here is the <strong>family-level error rate</strong> of those verdicts: the fraction of families on which the adjudicated referee verdict differs from the MathVet verdict, estimated on a stratified sample and weighted to the population. A secondary number, the binary <code>full</code> versus not-<code>full</code> disagreement rate, is reported alongside.</p>
 <h2 id="the-sample-frozen">The sample (frozen)</h2>
-<p>40 families, listed in <a href="reviews/openai-math/sample.txt"><code>reviews/openai-math/sample.txt</code></a> (SHA-256 in <code>sample.sha256</code>), composed of:</p>
+<p>40 families, listed in <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/sample.txt"><code>reviews/openai-math/sample.txt</code></a> (SHA-256 in <code>sample.sha256</code>), composed of:</p>
 <ul>
 <li><strong>12 with certainty</strong>: the families whose repository scope notes already document a divergence between headline and Lean (197, 261, 266, 281, 247, 262, 207, 267, 307, 157, 159, 365). They are the cases most likely to be argued about, so they are all in.</li>
 <li><strong>14 drawn at random</strong> from the other 79 non-<code>full</code> families.</li>
@@ -56,7 +56,7 @@
 <li><strong>KILL</strong>, $\hat e \ge 0.20$: the table is publicly relabelled "first-pass map, unverified"; the referee-verified subset is published as such.</li>
 <li><strong>RETEST</strong>, otherwise: 20 more families are drawn with the same method and strata; the pooled 60 decide with the same lines; if still in between, the rate is published with its interval and no label is claimed.</li>
 </ul>
-<p>Power of the design, computed before data (<code>b1-thresholds.py</code> below): if the true error rates are 5% (non-full) and 3% (full), P(PASS) = 0.94; at 30% / 15%, P(KILL) = 0.53 and P(RETEST) = 0.44; at 40% / 20%, P(KILL) = 0.85. A sample of 40 cannot certify a rate below about 5%; the number is published with its interval for that reason.</p>
+<p>Power of the design, computed before data (derivation code below): if the true error rates are 5% (non-full) and 3% (full), P(PASS) = 0.94; at 30% / 15%, P(KILL) = 0.53 and P(RETEST) = 0.44; at 40% / 20%, P(KILL) = 0.85. A sample of 40 cannot certify a rate below about 5%; the number is published with its interval for that reason.</p>
 <h2 id="publication">Publication</h2>
 <p>The rate, its interval, the per-family referee classes, the adjudications and the referees' names are published in this repository whatever the result shows, with a target date of <strong>29 October 2026</strong>. Verdicts that the referees overturn are corrected in the table with a changelog entry naming the change. Until then every verdict is labelled pre-referee and no MathVet prose assigns a verdict class to a named family.</p>
 <h2 id="derivation-code">Derivation code</h2>
@@ -82,7 +82,7 @@ for k in (2, 4, 6, 8, 10):
     print(k, '/40 -&gt;', wilson(k, 40))
 </code></pre></article>
 </main>
-<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>adc7f124</code>; generated 2026-10-08T03:38:01Z. Corrections: <a href="https://github.com/ceshanon/mathvet/issues">open an issue</a>.</div></footer>
+<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>adc7f124</code>; generated 2026-10-08T03:44:13Z. Corrections: <a href="https://github.com/ceshanon/mathvet/issues">open an issue</a>.</div></footer>
 
 </body>
 </html>
