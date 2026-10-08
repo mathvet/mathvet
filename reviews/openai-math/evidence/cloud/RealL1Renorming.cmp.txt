@@ -52,7 +52,7 @@ CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_29 [thm] ok
 CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_28 [thm] ok
 CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_4 [thm] ok
 CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_3 [thm] ok
-CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._aux_1 [def] VALUE_MISMATCH
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._aux_1 [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_5 [thm] ok
 CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_7 [thm] ok
 Chal.DiscreteFree.real_l1_quantitative_renorming : Chal.DiscreteFree.RealL1RenormingStatement
@@ -78,4 +78,4 @@ def Chal.DiscreteFree.RealL1RenormingStatement : Prop :=
                   ¬Chal.DiscreteFree.HasBAP Chal.DiscreteFree.RealL1 ↑p ∧
                     (p = 1 → ¬Chal.DiscreteFree.HasBAP Chal.DiscreteFree.RealL1 1)
 'OAI.DiscreteFree.real_l1_quantitative_renorming' depends on axioms: [propext, Classical.choice, Quot.sound]
-== RealL1Renorming comparator-style: ok=56 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== RealL1Renorming comparator-style: ok=56 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=1
