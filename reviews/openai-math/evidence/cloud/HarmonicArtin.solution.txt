@@ -1,0 +1,39 @@
+@OAI.HarmonicArtin.salvetti_cover_contractible : ∀ {S : Type u_1} [Finite S] (M : CoxeterMatrix S),
+  ContractibleSpace ↑(OAI.HarmonicArtin.SalvettiCover M)
+'OAI.HarmonicArtin.salvetti_cover_contractible' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.HarmonicArtin.alternating.{u} : {S : Type u} → S → S → ℕ → FreeGroup S :=
+fun {S} s t x => Nat.brecOn (motive := fun x => S → S → FreeGroup S) x OAI.HarmonicArtin.alternating._f s t
+def OAI.HarmonicArtin.braidRelators.{u} : {S : Type u} → CoxeterMatrix S → Set (FreeGroup S) :=
+fun {S} M =>
+  Set.range fun st =>
+    OAI.HarmonicArtin.alternating st.1 st.2 (M.M st.1 st.2) *
+      (OAI.HarmonicArtin.alternating st.2 st.1 (M.M st.1 st.2))⁻¹
+@[reducible] def OAI.HarmonicArtin.Artin.{u} : {S : Type u} → CoxeterMatrix S → Type u :=
+fun {S} M => PresentedGroup (OAI.HarmonicArtin.braidRelators M)
+def OAI.HarmonicArtin.generator.{u} : {S : Type u} → (M : CoxeterMatrix S) → S → OAI.HarmonicArtin.Artin M :=
+fun {S} M s => PresentedGroup.of s
+def OAI.HarmonicArtin.coxeterParabolic.{u} : {S : Type u} → (M : CoxeterMatrix S) → Set S → Subgroup M.Group :=
+fun {S} M T => Subgroup.closure (M.simple '' T)
+def OAI.HarmonicArtin.IsSpherical.{u} : {S : Type u} → CoxeterMatrix S → Set S → Prop :=
+fun {S} M T => Finite ↥(OAI.HarmonicArtin.coxeterParabolic M T)
+@[reducible] def OAI.HarmonicArtin.SphericalType.{u} : {S : Type u} → CoxeterMatrix S → Type (max 0 u) :=
+fun {S} M => { T // OAI.HarmonicArtin.IsSpherical M T }
+@[reducible] def OAI.HarmonicArtin.LiftedCell.{u} : {S : Type u} → CoxeterMatrix S → Type u :=
+fun {S} M => OAI.HarmonicArtin.Artin M × OAI.HarmonicArtin.SphericalType M
+def OAI.HarmonicArtin.wordArtin.{u} : {S : Type u} → (M : CoxeterMatrix S) → List S → OAI.HarmonicArtin.Artin M :=
+fun {S} M w => (List.map (OAI.HarmonicArtin.generator M) w).prod
+def OAI.HarmonicArtin.wordCoxeter.{u} : {S : Type u} → (M : CoxeterMatrix S) → List S → M.Group :=
+fun {S} M w => (List.map M.simple w).prod
+def OAI.HarmonicArtin.LiftedFace.{u} : {S : Type u} →
+  (M : CoxeterMatrix S) → OAI.HarmonicArtin.LiftedCell M → OAI.HarmonicArtin.LiftedCell M → Prop :=
+fun {S} M a b =>
+  ↑a.2 ⊆ ↑b.2 ∧
+    ∃ w,
+      (∀ s ∈ w, s ∈ ↑b.2) ∧
+        M.toCoxeterSystem.length (OAI.HarmonicArtin.wordCoxeter M w) = w.length ∧
+          (∀ (v : ↥(OAI.HarmonicArtin.coxeterParabolic M ↑a.2)),
+              M.toCoxeterSystem.length (OAI.HarmonicArtin.wordCoxeter M w) ≤
+                M.toCoxeterSystem.length (OAI.HarmonicArtin.wordCoxeter M w * ↑v)) ∧
+            a.1 = b.1 * OAI.HarmonicArtin.wordArtin M w
+def OAI.HarmonicArtin.SalvettiCover.{u} : {S : Type u} → CoxeterMatrix S → TopCat :=
+fun {S} M => SSet.toTop.obj (CategoryTheory.nerve (OAI.HarmonicArtin.LiftedCell M))
