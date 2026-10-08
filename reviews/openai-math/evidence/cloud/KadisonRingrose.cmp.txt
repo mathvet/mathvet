@@ -1,0 +1,24 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_KadisonRingrose.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.BoundedHochschild.KadisonRingrose.main_result [thm] ok
+CMP OAI.BoundedHochschild.differentialValue [def] ok
+CMP OAI.BoundedHochschild.mergeInputs [def] ok
+CMP OAI.BoundedHochschild.differentialValue._proof_1 [thm] ok
+CMP OAI.BoundedHochschild.Cochain [def] ok
+@Chal.BoundedHochschild.KadisonRingrose.main_result : ∀ {M : Type u_1} [inst : CStarAlgebra M] [inst_1 : PartialOrder M]
+  [StarOrderedRing M] [WStarAlgebra M] (n : ℕ) (f : Chal.BoundedHochschild.Cochain M (n + 2)),
+  (∀ (x : Fin (n + 3) → M), Chal.BoundedHochschild.differentialValue f x = 0) →
+    ∃ g, ∀ (x : Fin (n + 2) → M), Chal.BoundedHochschild.differentialValue g x = f x
+@[reducible] def Chal.BoundedHochschild.Cochain.{u_1} : (M : Type u_1) →
+  [inst : NormedAddCommGroup M] → [NormedSpace ℂ M] → ℕ → Type (max 0 u_1) :=
+fun M [NormedAddCommGroup M] [NormedSpace ℂ M] n => M [×n]→L[ℂ] M
+def Chal.BoundedHochschild.mergeInputs.{u_1} : {M : Type u_1} →
+  [Mul M] → {n : ℕ} → (Fin (n + 1) → M) → Fin n → Fin n → M :=
+fun {M} [Mul M] {n} v j i => if i < j then v i.castSucc else if i = j then v i.castSucc * v i.succ else v i.succ
+def Chal.BoundedHochschild.differentialValue.{u_1} : {M : Type u_1} →
+  [inst : NormedRing M] →
+    [inst_1 : NormedAlgebra ℂ M] → {n : ℕ} → Chal.BoundedHochschild.Cochain M n → (Fin (n + 1) → M) → M :=
+fun {M} [NormedRing M] [NormedAlgebra ℂ M] {n} f v =>
+  (v 0 * f fun i => v i.succ) + ∑ j, (-1) ^ (↑j + 1) • f (Chal.BoundedHochschild.mergeInputs v j) +
+    (-1) ^ (n + 1) • ((f fun i => v i.castSucc) * v (Fin.last n))
+'OAI.BoundedHochschild.KadisonRingrose.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KadisonRingrose comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

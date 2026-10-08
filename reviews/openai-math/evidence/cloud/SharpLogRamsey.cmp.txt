@@ -1,0 +1,29 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SharpLogRamsey.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SharpLogRamsey.main [thm] ok
+CMP OAI.SharpLogRamsey.MainLimit [def] ok
+CMP OAI.SharpLogRamsey.ramsey [def] ok
+CMP OAI.SharpLogRamsey.RamseyProperty [def] ok
+CMP OAI.SharpLogRamsey.MainBounds [def] ok
+Chal.SharpLogRamsey.main : ∀ (s : ℕ), 6 ≤ s → Chal.SharpLogRamsey.MainBounds s ∧ Chal.SharpLogRamsey.MainLimit s
+def Chal.SharpLogRamsey.RamseyProperty : ℕ → ℕ → ℕ → Prop :=
+fun s t N => ∀ (G : SimpleGraph (Fin N)), (∃ A, G.IsNClique s A) ∨ ∃ B, Gᶜ.IsNClique t B
+def Chal.SharpLogRamsey.ramsey : ℕ → ℕ → ℕ :=
+fun s t => sInf {N | Chal.SharpLogRamsey.RamseyProperty s t N}
+def Chal.SharpLogRamsey.MainBounds : ℕ → Prop :=
+fun s =>
+  ∃ C,
+    0 < C ∧
+      ∀ (ε : ℝ),
+        0 < ε →
+          ∃ t₀,
+            ∀ (t : ℕ),
+              t₀ ≤ t →
+                ↑t ^ (s - 1) / (Real.log ↑t).rpow (↑(s - 2) + ε) ≤ ↑(Chal.SharpLogRamsey.ramsey s t) ∧
+                  ↑(Chal.SharpLogRamsey.ramsey s t) ≤ C * ↑t ^ (s - 1) / Real.log ↑t ^ (s - 2)
+def Chal.SharpLogRamsey.MainLimit : ℕ → Prop :=
+fun s =>
+  Filter.Tendsto
+    (fun t => (↑(s - 1) * Real.log ↑t - Real.log ↑(Chal.SharpLogRamsey.ramsey s t)) / Real.log (Real.log ↑t))
+    Filter.atTop (nhds ↑(s - 2))
+'OAI.SharpLogRamsey.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SharpLogRamsey comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T18:42:59Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T19:06:38Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 315 accepted by
-    the real Comparator, of which 315 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 319 accepted by
+    the real Comparator, of which 319 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3686,7 +3686,8 @@ alignment:
     module: OAI.Geometry.LatticeCovering.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SingleLatticeCovering.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 092 — The optimal order of convex-body covering density: Optimal order for translative and lattice
       covering-density suprema (the lab''s own result label); paper ''Translative covering densities of order n
       log n'', theorem thm:main (build/sections/01-introduction.tex:49)'
@@ -3985,7 +3986,8 @@ alignment:
     module: OAI.Probability.MatroidSecretary.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatroidSecretary.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 112 — Beyond the square-root exponent for depth-three circuits: Depth-three circuit lower bound
       beyond every square-root constant (the lab''s own result label); paper ''Beyond the Square-Root Exponent for
       Depth-Three Boolean Circuits'', theorem thm:main (build/latex/sections/00_introduction.tex:21)'
@@ -4857,7 +4859,8 @@ alignment:
     module: OAI.Combinatorics.SharpRamsey.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SharpLogRamsey.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 172 — Classification of finite Euclidean Ramsey configurations: Tensor-field classification
       of Ramsey configurations (the lab''s own result label); paper ''A classification of finite Euclidean Ramsey
       configurations'', theorem thm:classification (build/sections/01-introduction.tex:74)'
@@ -6956,7 +6959,8 @@ alignment:
     module: OAI.Analysis.BoundedHochschild.MainResult
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KadisonRingrose.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 296 — The generator problem for finite factors: Single generation of separable-predual $\mathrm{II}_1$
       factors (the lab''s own result label); paper ''Relative generation and the generator problem for finite factors'',
       theorem thm:main (build/sections/introduction.tex:29)'
@@ -7777,7 +7781,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T18:42:59Z'
+    generated: '2026-10-08T19:06:38Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7966,6 +7970,7 @@ mathvet:
     - KMedianRefinedRecovery
     - KMedianThreshold
     - KServer
+    - KadisonRingrose
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
@@ -7992,6 +7997,7 @@ mathvet:
     - MatchingPSD
     - MatrixRemoval
     - MatroidProphet
+    - MatroidSecretary
     - MaximalSeshadriConstants
     - MemoryPrecision
     - MetricEntropyDuality
@@ -8058,12 +8064,14 @@ mathvet:
     - SeparableQuotientNegative
     - SeymourSecondNeighborhood
     - SharpCAT0Filling
+    - SharpLogRamsey
     - SharpThreshold
     - ShortEgyptianFractions
     - SidorenkoCounterexample
     - SignedFiniteBand
     - SignedSweepMoment
     - SingleFold
+    - SingleLatticeCovering
     - SingletonLoopMatching
     - SmoothInitialForm
     - SmoothObstruction
@@ -8282,6 +8290,7 @@ mathvet:
     - KMedianRefinedRecovery
     - KMedianThreshold
     - KServer
+    - KadisonRingrose
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
@@ -8308,6 +8317,7 @@ mathvet:
     - MatchingPSD
     - MatrixRemoval
     - MatroidProphet
+    - MatroidSecretary
     - MaximalSeshadriConstants
     - MemoryPrecision
     - MetricEntropyDuality
@@ -8374,12 +8384,14 @@ mathvet:
     - SeparableQuotientNegative
     - SeymourSecondNeighborhood
     - SharpCAT0Filling
+    - SharpLogRamsey
     - SharpThreshold
     - ShortEgyptianFractions
     - SidorenkoCounterexample
     - SignedFiniteBand
     - SignedSweepMoment
     - SingleFold
+    - SingleLatticeCovering
     - SingletonLoopMatching
     - SmoothInitialForm
     - SmoothObstruction
@@ -10235,7 +10247,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 73678
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/170.md
     audit_part: 2
   - family: '172'
@@ -12173,7 +12185,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 62822
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/295.md
     audit_part: 2
   - family: '296'
