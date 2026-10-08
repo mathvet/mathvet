@@ -1,0 +1,165 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ForestSpace.lean:453:8: warning: declaration uses `sorry`
+OAI.ForestSpace.main_theorem : ¬FiniteDimensional ℝ (OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex) ∧
+  TopologicalSpace.SeparableSpace (OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex) ∧
+    OAI.ForestSpace.Reflexive (OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex) ∧
+      (∀ (α β : ℝ) (R : OAI.ForestSpace.EquivalentNorm (OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex) α β),
+          ¬OAI.ForestSpace.IsAUC ⇑R.N) ∧
+        (∀ (t : ℝ),
+            0 < t →
+              √(1 + t ^ 2 / 12) - 1 ≤
+                OAI.ForestSpace.averageModulus (OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex) norm t) ∧
+          ∀ (k : ℕ) (f : (OAI.ForestSpace.Diamond.diamond k).V → OAI.ForestSpace.FullDual OAI.ForestSpace.Vertex)
+            (C : ℝ), OAI.ForestSpace.Diamond.EmbeddingBound k f C → √(1 + ↑k / 12) ≤ C
+def OAI.ForestSpace.Cofinite : (E : Type) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Type :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] => { F // IsClosed ↑F ∧ FiniteDimensional ℝ (E ⧸ F) }
+def OAI.ForestSpace.aucValues : (E : Type) →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → (E → ℝ) → ℝ → E → OAI.ForestSpace.Cofinite E → Set ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x F => {a | ∃ y ∈ ↑F, N y = 1 ∧ a = N (x + t • y) - 1}
+def OAI.ForestSpace.aucInner : (E : Type) →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → (E → ℝ) → ℝ → E → OAI.ForestSpace.Cofinite E → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x F => sInf (OAI.ForestSpace.aucValues E N t x F)
+def OAI.ForestSpace.aucCenter : (E : Type) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (E → ℝ) → ℝ → E → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x => sSup (Set.range (OAI.ForestSpace.aucInner E N t x))
+def OAI.ForestSpace.aucModulus : (E : Type) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (E → ℝ) → ℝ → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t => sInf {a | ∃ x, N x = 1 ∧ a = OAI.ForestSpace.aucCenter E N t x}
+def OAI.ForestSpace.averageValues : (E : Type) →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → (E → ℝ) → ℝ → E → OAI.ForestSpace.Cofinite E → Set ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x F =>
+  {a | ∃ y ∈ ↑F, N y = 1 ∧ a = (N (x + t • y) + N (x - t • y)) / ↑2 - 1}
+def OAI.ForestSpace.averageInner : (E : Type) →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → (E → ℝ) → ℝ → E → OAI.ForestSpace.Cofinite E → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x F => sInf (OAI.ForestSpace.averageValues E N t x F)
+def OAI.ForestSpace.averageCenter : (E : Type) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (E → ℝ) → ℝ → E → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t x => sSup (Set.range (OAI.ForestSpace.averageInner E N t x))
+def OAI.ForestSpace.averageModulus : (E : Type) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (E → ℝ) → ℝ → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] N t =>
+  sInf {a | ∃ x, N x = 1 ∧ a = OAI.ForestSpace.averageCenter E N t x}
+structure OAI.ForestSpace.EquivalentNorm (E : Type) [NormedAddCommGroup E] [NormedSpace ℝ E] (α β : ℝ) : Type
+number of parameters: 5
+fields:
+  OAI.ForestSpace.EquivalentNorm.N : Seminorm ℝ E
+  OAI.ForestSpace.EquivalentNorm.alpha_pos : 0 < α
+  OAI.ForestSpace.EquivalentNorm.alpha_le_beta : α ≤ β
+  OAI.ForestSpace.EquivalentNorm.lower : ∀ (x : E), α * ‖x‖ ≤ self.N x
+  OAI.ForestSpace.EquivalentNorm.upper : ∀ (x : E), self.N x ≤ β * ‖x‖
+constructor:
+  OAI.ForestSpace.EquivalentNorm.mk {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] {α β : ℝ} (N : Seminorm ℝ E)
+    (alpha_pos : 0 < α) (alpha_le_beta : α ≤ β) (lower : ∀ (x : E), α * ‖x‖ ≤ N x) (upper : ∀ (x : E), N x ≤ β * ‖x‖) :
+    OAI.ForestSpace.EquivalentNorm E α β
+def OAI.ForestSpace.Reflexive : (E : Type) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] => Function.Surjective ⇑(NormedSpace.inclusionInDoubleDual ℝ E)
+def OAI.ForestSpace.IsAUC : {E : Type} → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → (E → ℝ) → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] N => ∀ (t : ℝ), 0 < t → 0 < OAI.ForestSpace.aucModulus E N t
+def OAI.ForestSpace.IsSegment : {V : Type} → [PartialOrder V] → Finset V → Prop :=
+fun {V} [PartialOrder V] S => (∀ a ∈ S, ∀ b ∈ S, a ≤ b ∨ b ≤ a) ∧ ∀ a ∈ S, ∀ b ∈ S, ∀ (c : V), a ≤ c → c ≤ b → c ∈ S
+def OAI.ForestSpace.segSum : {V : Type} → (V → ℝ) → Finset V → ℝ :=
+fun {V} u S => ∑ v ∈ S, u v
+def OAI.ForestSpace.TestBound : {V : Type} → [PartialOrder V] → (V → ℝ) → ℝ → Prop :=
+fun {V} [PartialOrder V] u C =>
+  ∀ (ι : Type) (x : Fintype ι) (S : ι → Finset V),
+    (∀ (i : ι), OAI.ForestSpace.IsSegment (S i)) →
+      (Pairwise fun i j => Disjoint (S i) (S j)) → ∑ i, OAI.ForestSpace.segSum u (S i) ^ 2 ≤ C
+def OAI.ForestSpace.testValues : {V : Type} → [PartialOrder V] → (V → ℝ) → Set ℝ :=
+fun {V} [PartialOrder V] u =>
+  {r |
+    ∃ ι x S,
+      (∀ (i : ι), OAI.ForestSpace.IsSegment (S i)) ∧
+        (Pairwise fun i j => Disjoint (S i) (S j)) ∧ r = ∑ i, OAI.ForestSpace.segSum u (S i) ^ 2}
+def OAI.ForestSpace.squareSup : {V : Type} → [PartialOrder V] → (V → ℝ) → ℝ :=
+fun {V} [PartialOrder V] u => sSup (OAI.ForestSpace.testValues u)
+def OAI.ForestSpace.rho : {V : Type} → [PartialOrder V] → (V → ℝ) → ℝ :=
+fun {V} [PartialOrder V] u => √(OAI.ForestSpace.squareSup u)
+def OAI.ForestSpace.l1size : {V : Type} → (V →₀ ℝ) → ℝ :=
+fun {V} u => ∑ v ∈ u.support, |u v|
+def OAI.ForestSpace.segmentSeminorm : (V : Type) → [PartialOrder V] → Seminorm ℝ (V →₀ ℝ) :=
+fun V [PartialOrder V] =>
+  have segSum_zero := ⋯;
+  have segSum_add := ⋯;
+  have segSum_smul := ⋯;
+  have TestBound.nonneg := ⋯;
+  have TestBound.zero := ⋯;
+  have TestBound.smul := ⋯;
+  have TestBound.add := ⋯;
+  have zero_mem_testValues := ⋯;
+  have TestBound.bddAbove := ⋯;
+  have TestBound.squareSup_le := ⋯;
+  have testBound_squareSup := ⋯;
+  have squareSup_nonneg := ⋯;
+  have rho_nonneg := ⋯;
+  have rho_sq := ⋯;
+  have testBound_rho_sq := ⋯;
+  have rho_le_of_testBound := ⋯;
+  have rho_add_le := ⋯;
+  have rho_smul_le := ⋯;
+  have rho_zero := ⋯;
+  have l1size_nonneg := ⋯;
+  have finset_abs_sum_le_l1size := ⋯;
+  have testBound_l1size := ⋯;
+  have finsupp_has_testBound := ⋯;
+  Seminorm.ofSMulLE (fun u => OAI.ForestSpace.rho ⇑u) rho_zero ⋯ ⋯
+def OAI.ForestSpace.TestVector : Type → Type :=
+fun V => V →₀ ℝ
+def OAI.ForestSpace.TestVector.toFinsupp : {V : Type} → OAI.ForestSpace.TestVector V → V →₀ ℝ :=
+fun {V} u => u
+@[reducible] def OAI.ForestSpace.J : (V : Type) → [PartialOrder V] → Type :=
+fun V [PartialOrder V] => UniformSpace.Completion (OAI.ForestSpace.TestVector V)
+@[reducible] def OAI.ForestSpace.FullDual : (V : Type) → [PartialOrder V] → Type :=
+fun V [PartialOrder V] => StrongDual ℝ (OAI.ForestSpace.J V)
+structure OAI.ForestSpace.Word : Type
+number of parameters: 0
+fields:
+  OAI.ForestSpace.Word.letters : List ℕ
+constructor:
+  OAI.ForestSpace.Word.mk (letters : List ℕ) : OAI.ForestSpace.Word
+structure OAI.ForestSpace.Vertex : Type
+number of parameters: 0
+fields:
+  OAI.ForestSpace.Vertex.height : ℕ
+  OAI.ForestSpace.Vertex.positive : 1 ≤ self.height
+  OAI.ForestSpace.Vertex.word : OAI.ForestSpace.Word
+  OAI.ForestSpace.Vertex.bounded : self.word.letters.length ≤ self.height
+constructor:
+  OAI.ForestSpace.Vertex.mk (height : ℕ) (positive : 1 ≤ height) (word : OAI.ForestSpace.Word)
+    (bounded : word.letters.length ≤ height) : OAI.ForestSpace.Vertex
+structure OAI.ForestSpace.Diamond.Network : Type 1
+number of parameters: 0
+fields:
+  OAI.ForestSpace.Diamond.Network.V : Type
+  OAI.ForestSpace.Diamond.Network.E : Type
+  OAI.ForestSpace.Diamond.Network.left : self.E → self.V
+  OAI.ForestSpace.Diamond.Network.right : self.E → self.V
+  OAI.ForestSpace.Diamond.Network.distinct : ∀ (e : self.E), self.left e ≠ self.right e
+constructor:
+  OAI.ForestSpace.Diamond.Network.mk (V E : Type) (left right : E → V) (distinct : ∀ (e : E), left e ≠ right e) :
+    OAI.ForestSpace.Diamond.Network
+def OAI.ForestSpace.Diamond.Network.graph : (A : OAI.ForestSpace.Diamond.Network) → SimpleGraph A.V :=
+fun A =>
+  { Adj := fun u v => ∃ e, A.left e = u ∧ A.right e = v ∨ A.right e = u ∧ A.left e = v, symm := ⋯, loopless := ⋯ }
+@[reducible] def OAI.ForestSpace.Diamond.Network.refine : OAI.ForestSpace.Diamond.Network →
+  OAI.ForestSpace.Diamond.Network :=
+fun A =>
+  { V := A.V ⊕ A.E × ℕ, E := A.E × ℕ × Bool,
+    left := fun e => if e.2.2 = true then Sum.inr (e.1, e.2.1) else Sum.inl (A.left e.1),
+    right := fun e => if e.2.2 = true then Sum.inl (A.right e.1) else Sum.inr (e.1, e.2.1), distinct := ⋯ }
+@[reducible] def OAI.ForestSpace.Diamond.Network.iterate : OAI.ForestSpace.Diamond.Network →
+  ℕ → OAI.ForestSpace.Diamond.Network :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.ForestSpace.Diamond.Network → OAI.ForestSpace.Diamond.Network) x_1
+    OAI.ForestSpace.Diamond.Network.iterate._f x
+@[reducible] def OAI.ForestSpace.Diamond.base : OAI.ForestSpace.Diamond.Network :=
+{ V := Bool, E := Unit, left := fun x => false, right := fun x => true,
+  distinct := OAI.ForestSpace.Diamond.base._proof_1 }
+@[reducible] def OAI.ForestSpace.Diamond.diamond : ℕ → OAI.ForestSpace.Diamond.Network :=
+fun k => OAI.ForestSpace.Diamond.base.iterate k
+def OAI.ForestSpace.Diamond.distance : (k : ℕ) →
+  (OAI.ForestSpace.Diamond.diamond k).V → (OAI.ForestSpace.Diamond.diamond k).V → ℝ :=
+fun k u v => ↑((OAI.ForestSpace.Diamond.diamond k).graph.dist u v)
+def OAI.ForestSpace.Diamond.EmbeddingBound : {E : Type} →
+  [NormedAddCommGroup E] → (k : ℕ) → ((OAI.ForestSpace.Diamond.diamond k).V → E) → ℝ → Prop :=
+fun {E} [NormedAddCommGroup E] k f C =>
+  ∃ s,
+    0 < s ∧
+      ∀ (u v : (OAI.ForestSpace.Diamond.diamond k).V),
+        s * OAI.ForestSpace.Diamond.distance k u v ≤ ‖f u - f v‖ ∧
+          ‖f u - f v‖ ≤ C * s * OAI.ForestSpace.Diamond.distance k u v
