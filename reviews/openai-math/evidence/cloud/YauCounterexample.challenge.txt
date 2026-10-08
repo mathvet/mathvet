@@ -1,0 +1,54 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_YauCounterexample.lean:65:8: warning: declaration uses `sorry`
+OAI.Yau.Target.yau_nodal_set_upper_bound_counterexample : OAI.Yau.Target.MainTarget
+@[reducible] def OAI.Yau.Target.Base : Set (EuclideanSpace ℝ (Fin 5)) :=
+Metric.sphere 0 1
+@[reducible] def OAI.Yau.Target.Manifold5 : Type :=
+↑OAI.Yau.Target.Base × Circle
+@[reducible] def OAI.Yau.Target.Model : Type :=
+EuclideanSpace ℝ (Fin 4) × EuclideanSpace ℝ (Fin 1)
+@[reducible] def OAI.Yau.Target.modelWithCorners : ModelWithCorners ℝ
+  (EuclideanSpace ℝ (Fin 4) × EuclideanSpace ℝ (Fin 1))
+  (ModelProd (EuclideanSpace ℝ (Fin 4)) (EuclideanSpace ℝ (Fin 1))) :=
+(modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin 4))).prod (modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin 1)))
+@[reducible] def OAI.Yau.Target.SmoothMetric : Type :=
+Bundle.ContMDiffRiemannianMetric OAI.Yau.Target.modelWithCorners (↑⊤) OAI.Yau.Target.Model fun x =>
+  TangentSpace OAI.Yau.Target.modelWithCorners x
+@[reducible] def OAI.Yau.Target.Index : Type :=
+Fin (Module.finrank ℝ OAI.Yau.Target.Model)
+def OAI.Yau.Target.frame : Module.Basis OAI.Yau.Target.Index ℝ OAI.Yau.Target.Model :=
+Module.finBasis ℝ OAI.Yau.Target.Model
+def OAI.Yau.Target.metricMatrix : OAI.Yau.Target.SmoothMetric →
+  PartialEquiv OAI.Yau.Target.Manifold5 OAI.Yau.Target.Model →
+    OAI.Yau.Target.Model → Matrix OAI.Yau.Target.Index OAI.Yau.Target.Index ℝ :=
+fun g c y i j =>
+  ((g.inner (↑c.symm y)) ((mfderiv% ↑c.symm y) (OAI.Yau.Target.frame i)))
+    ((mfderiv% ↑c.symm y) (OAI.Yau.Target.frame j))
+def OAI.Yau.Target.volumeFactor : OAI.Yau.Target.SmoothMetric →
+  PartialEquiv OAI.Yau.Target.Manifold5 OAI.Yau.Target.Model → OAI.Yau.Target.Model → ℝ :=
+fun g c y => √(OAI.Yau.Target.metricMatrix g c y).det
+def OAI.Yau.Target.chartLaplacian : OAI.Yau.Target.SmoothMetric →
+  PartialEquiv OAI.Yau.Target.Manifold5 OAI.Yau.Target.Model →
+    (OAI.Yau.Target.Manifold5 → ℝ) → OAI.Yau.Target.Model → ℝ :=
+fun g c u y =>
+  (OAI.Yau.Target.volumeFactor g c y)⁻¹ *
+    ∑ i,
+      (fderiv ℝ
+          (fun z =>
+            OAI.Yau.Target.volumeFactor g c z *
+              ∑ j, (OAI.Yau.Target.metricMatrix g c z)⁻¹ i j * (fderiv ℝ (u ∘ ↑c.symm) z) (OAI.Yau.Target.frame j))
+          y)
+        (OAI.Yau.Target.frame i)
+def OAI.Yau.Target.nodalMeasure : OAI.Yau.Target.SmoothMetric → (OAI.Yau.Target.Manifold5 → ℝ) → ENNReal :=
+fun g u => (MeasureTheory.Measure.hausdorffMeasure 4) {x | u x = 0}
+def OAI.Yau.Target.MainTarget : Prop :=
+∃ g lam u,
+  (∀ (k : ℕ), 0 < lam k) ∧
+    (∀ (k : ℕ), u k ≠ 0) ∧
+      (∀ (k : ℕ), ContMDiff OAI.Yau.Target.modelWithCorners (modelWithCornersSelf ℝ ℝ) (↑⊤) (u k)) ∧
+        (∀ (k : ℕ) (x : OAI.Yau.Target.Manifold5),
+            -OAI.Yau.Target.chartLaplacian g (extChartAt OAI.Yau.Target.modelWithCorners x) (u k)
+                  (↑(extChartAt OAI.Yau.Target.modelWithCorners x) x) =
+              lam k * u k x) ∧
+          Filter.Tendsto lam Filter.atTop Filter.atTop ∧
+            Filter.Tendsto (fun k => OAI.Yau.Target.nodalMeasure g (u k) / ENNReal.ofReal √(lam k)) Filter.atTop
+              (nhds ⊤)
