@@ -8,14 +8,15 @@ ROOT="${MATHVET_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
 export MATHVET_ROOT="$ROOT" OPENAI_MATH_LEAN="$ROOT/upstream/openai-math/lean"
 export COMPARATOR_BIN="$ROOT/tmp/comparator/.lake/build/bin/comparator" COMPARATOR_LEAN4EXPORT="$ROOT/tmp/lean4export/.lake/build/bin/lean4export"
 export PATH="$HOME/.elan/bin:$HOME/.local/bin:$ROOT/tmp/lean4export/.lake/build/bin:$ROOT/tmp/comparator/.lake/build/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
-if command -v landrun >/dev/null && landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
+if command -v landrun >/dev/null && landrun --ro / --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true 2>/dev/null; then
   export COMPARATOR_LANDRUN="$(command -v landrun)"; SANDBOX="landrun=real $(landrun --version 2>&1 | head -1)"
-elif command -v landrun >/dev/null && landrun --best-effort --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
-  export COMPARATOR_LANDRUN="$(command -v landrun)"; SANDBOX="landrun=real-best-effort $(landrun --version 2>&1 | head -1) on Landlock ABI $(landrun --ro /usr -- /bin/true 2>&1 | grep -o 'Got Landlock ABI v[0-9]*' | head -1)"
+elif command -v landrun >/dev/null && landrun --best-effort --ro / --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true 2>/dev/null; then
+  export COMPARATOR_LANDRUN="$(command -v landrun)"; SANDBOX="landrun=real-best-effort $(landrun --version 2>&1 | head -1) on kernel Landlock ($(landrun --ro / --rox /usr -- /bin/true 2>&1 | grep -o 'Got Landlock ABI v[0-9]*' | head -1))"
 else
   export COMPARATOR_LANDRUN="$ROOT/checker/fake-landrun.sh"; SANDBOX="landrun=SHIM (no sandbox: Landlock unavailable on this kernel)"
 fi
-OUT="$ROOT/reviews/openai-math/evidence/lean_checks"; mkdir -p "$OUT"
+export MATHVET_CHECKS="$ROOT/reviews/openai-math/evidence/cloud"   # sandboxed Linux evidence, kept apart from the laptop runs
+OUT="$MATHVET_CHECKS"; mkdir -p "$OUT"
 SESSION="https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"
 for C in "$@"; do
   echo "=== $(date -u +%FT%TZ) $C: build"

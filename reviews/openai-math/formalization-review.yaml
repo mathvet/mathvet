@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T03:44:13Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T05:28:33Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2895,7 +2895,8 @@ status:
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
     checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 3 accepted by the
-    real Comparator (development landrun shim, no sandbox). This repository proves nothing itself.'
+    real Comparator, of which 0 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    proves nothing itself.'
 automation:
   methods:
   - method: agent
@@ -7471,7 +7472,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T03:44:13Z'
+    generated: '2026-10-08T05:28:33Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7511,6 +7512,7 @@ mathvet:
     - CannonGeometricAction
     - CirculantHadamard
     - EntangledGames
+    comparator_sandboxed_pass: []
     comparator_running:
     - ErdosReciprocal
     build_in_progress:

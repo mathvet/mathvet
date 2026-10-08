@@ -10,7 +10,8 @@ export PATH="$HOME/.elan/bin:$HOME/.local/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
 mkdir -p "$ROOT/tmp" "$HOME/.local/bin"
 log(){ echo "== $(date -u +%FT%TZ) $*"; }
 
-log "tools"; command -v jq >/dev/null || (apt-get update -qq && apt-get install -y -qq jq) || sudo apt-get install -y -qq jq || true
+log "tools (apt: jq zstd)"; (apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq jq zstd >/dev/null 2>&1) || (sudo apt-get update -qq >/dev/null 2>&1 && sudo apt-get install -y -qq jq zstd >/dev/null 2>&1) || true
+command -v zstd >/dev/null || (pip install -q zstandard 2>/dev/null && echo "zstd: using python zstandard fallback")
 log "elan (binary from GitHub releases; no toolchain yet)"
 if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none; fi
 # Toolchains: elan normally downloads from releases.lean-lang.org, which cloud environments do not allow by default; the same
@@ -19,10 +20,10 @@ link_toolchain() {  # $1 = version tag like v4.34.1
   local v="$1" name="leanprover/lean4:$1" dir="$HOME/.elan/toolchains/leanprover--lean4---$1"
   if elan toolchain list 2>/dev/null | grep -q "lean4---$v"; then echo "toolchain $v present"; return 0; fi
   local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux;; aarch64|arm64) a=linux_aarch64;; esac   # release assets: lean-<v>-linux.tar.zst / -linux_aarch64
-  command -v zstd >/dev/null || (apt-get install -y -qq zstd >/dev/null 2>&1 || sudo apt-get install -y -qq zstd >/dev/null 2>&1 || true)
-  mkdir -p "$dir" && curl -fL -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst" \
-    && tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1 && rm -f "/tmp/lean-$v.tar.zst" \
-    && elan toolchain link "$name" "$dir" && echo "linked $name"
+  mkdir -p "$dir" && curl -fsSL -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst" || { echo "download failed for $v"; return 1; }
+  if command -v zstd >/dev/null; then tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1
+  else python3 -c "import zstandard,sys,tarfile; d=zstandard.ZstdDecompressor(); f=open(sys.argv[1],'rb'); tarfile.open(fileobj=d.stream_reader(f), mode='r|').extractall(sys.argv[2])" "/tmp/lean-$v.tar.zst" "/tmp/lean-$v-x" && mv "/tmp/lean-$v-x"/*/* "$dir"/; fi
+  rm -f "/tmp/lean-$v.tar.zst"; elan toolchain link "$name" "$dir" && echo "linked $name"
 }
 link_toolchain v4.34.1 && elan default leanprover/lean4:v4.34.1 >/dev/null 2>&1
 lean --version
@@ -38,15 +39,15 @@ log "landrun (Landlock sandbox used by Comparator)"
 if ! command -v landrun >/dev/null; then
   arch=$(uname -m); case "$arch" in x86_64) a=x86_64;; aarch64|arm64) a=arm64;; *) a=$arch;; esac
   case "$a" in x86_64) la=amd64;; *) la=arm64;; esac
-  url=$(curl -fsSL https://api.github.com/repos/Zouuup/landrun/releases/latest | grep -o 'https://[^"]*' | grep "landrun-linux-$la" | head -1)
-  [ -z "$url" ] && url="https://github.com/Zouuup/landrun/releases/latest/download/landrun-linux-$la"
+  url="https://github.com/Zouuup/landrun/releases/latest/download/landrun-linux-$la"   # no api.github.com: the cloud GitHub proxy only serves attached repos
   curl -fsSL -o /tmp/landrun "$url" && install -m755 /tmp/landrun "$HOME/.local/bin/landrun" && echo "landrun from $url"
   if ! command -v landrun >/dev/null && command -v go >/dev/null; then GOBIN="$HOME/.local/bin" go install github.com/zouuup/landrun/cmd/landrun@latest; fi
 fi
 LANDRUN_STATUS="unavailable"
 if command -v landrun >/dev/null; then
-  if landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun.err; then LANDRUN_STATUS="real ($(landrun --version 2>&1 | head -1), full ABI)"
-  elif landrun --best-effort --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun2.err; then LANDRUN_STATUS="real with --best-effort ($(landrun --version 2>&1 | head -1); kernel ABI older than landrun's default: $(grep -o 'Got Landlock ABI v[0-9]*' /tmp/landrun.err | head -1))"
+  # the same flag shape Comparator uses: read-only root, exec on the system dirs
+  if landrun --ro / --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true 2>/tmp/landrun.err; then LANDRUN_STATUS="real ($(landrun --version 2>&1 | head -1), full ABI)"
+  elif landrun --best-effort --ro / --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true 2>/tmp/landrun2.err; then LANDRUN_STATUS="real with --best-effort ($(landrun --version 2>&1 | head -1); $(grep -o 'Got Landlock ABI v[0-9]*' /tmp/landrun.err | head -1))"
   else LANDRUN_STATUS="installed but Landlock unusable: $(head -c 300 /tmp/landrun2.err)"; fi
 fi
 echo "LANDRUN_STATUS=$LANDRUN_STATUS"

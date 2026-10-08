@@ -9,7 +9,7 @@ echo "-- machine"; uname -a; (. /etc/os-release && echo "$PRETTY_NAME"); echo "n
 echo "-- kernel security"; echo "lsm=$(cat /sys/kernel/security/lsm 2>&1)"; echo "virt=$(systemd-detect-virt 2>&1)"; cat /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.max 2>&1 | tr '\n' ' '; echo
 echo "-- landrun"; a=$(uname -m); case "$a" in x86_64) la=amd64;; *) la=arm64;; esac
 curl -fsSL -o "$HOME/.local/bin/landrun" "https://github.com/Zouuup/landrun/releases/latest/download/landrun-linux-$la" && chmod +x "$HOME/.local/bin/landrun" && echo "downloaded landrun ($(landrun --version 2>&1 | head -1))"
-if landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun.err; then echo "LANDLOCK=works"; else echo "LANDLOCK=fails: $(head -c 300 /tmp/landrun.err)"; fi
+if landrun --best-effort --ro / --rox /usr --rox /bin --rox /lib --rox /lib64 -- /bin/true 2>/tmp/landrun.err; then echo "LANDLOCK=works (best-effort)"; else echo "LANDLOCK=fails: $(head -c 300 /tmp/landrun.err)"; fi
 echo "-- reachability"
 for u in https://github.com https://api.github.com https://raw.githubusercontent.com https://objects.githubusercontent.com https://release-assets.githubusercontent.com https://releases.lean-lang.org https://cache.mathlib.org https://lakecache.blob.core.windows.net https://reservoir.lean-lang.org https://pypi.org; do printf "%s -> %s\n" "$u" "$(curl -s -o /dev/null -m 15 -w '%{http_code}' "$u" || echo FAIL)"; done
 echo "-- toolchain v4.34.1 via GitHub release asset"

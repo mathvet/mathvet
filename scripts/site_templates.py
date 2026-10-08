@@ -32,7 +32,7 @@ main{max-width:76rem;margin:0 auto;padding:1rem 1rem 3rem}
 .badge{display:inline-block;padding:.08rem .5rem;border-radius:999px;font-size:.8rem;font-weight:600;color:#fff;white-space:nowrap}
 .badge.full{background:var(--full)}.badge.partial{background:var(--partial)}.badge.weaker-statement{background:var(--weaker)}.badge.supporting-only{background:var(--supporting)}.badge.none{background:var(--none)}
 .chip{display:inline-block;background:var(--chip);border-radius:4px;padding:.05rem .4rem;font-size:.8rem;margin:.1rem .2rem .1rem 0}
-.mc{font-size:.8rem;white-space:nowrap}.mc.comparator-pass{color:var(--full);font-weight:600}.mc.closure-pass{color:var(--full)}.mc.built{color:var(--partial)}.mc.build-in-progress{color:var(--muted)}.mc.none{color:var(--muted)}.mc.build-failed{color:var(--weaker)}
+.mc{font-size:.8rem;white-space:nowrap}.mc.comparator-pass{color:var(--full);font-weight:600}.mc.comparator-sandboxed-pass{color:var(--full);font-weight:700}.mc.closure-pass{color:var(--full)}.mc.built{color:var(--partial)}.mc.build-in-progress{color:var(--muted)}.mc.none{color:var(--muted)}.mc.build-failed{color:var(--weaker)}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin:.8rem 0;padding:.7rem .9rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
 .filters input[type=search],.filters select{font:inherit;padding:.35rem .5rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .filters label{font-size:.9rem;color:var(--muted)}.filters .count{margin-left:auto;color:var(--muted);font-size:.9rem}
@@ -110,7 +110,7 @@ TABLE_PAGE = r"""
 <script id="data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('data').textContent);
-const MC={'comparator-pass':'Comparator PASS','closure-pass':'built + closure ok','built':'built','build-in-progress':'building…','build-failed':'build failed','none':'—'};
+const MC={'comparator-sandboxed-pass':'Comparator PASS, sandboxed VM','comparator-pass':'Comparator PASS','closure-pass':'built + closure ok','built':'built','build-in-progress':'building…','build-failed':'build failed','none':'—'};
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let sortK='family',sortD=1,open=new Set();
 const subj=document.getElementById('subj');[...new Set(DATA.map(d=>d.subject))].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;subj.appendChild(o)});
@@ -144,14 +144,14 @@ if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el
 
 CHALLENGES_PAGE = r"""
 <h1 style="margin:.6rem 0 .3rem">Challenge status — openai/math @ <code>__COMMIT8__</code></h1>
-<div class="notice">One row per Comparator challenge (405). <strong>Build</strong>: the solution module compiled on the reviewer's machine. <strong>Closure</strong>: every constant in the challenge statement's transitive closure found alpha-equivalent to the solution's, no instance shadowing, only the three standard axioms (<code>checker/</code>). <strong>Comparator</strong>: the real <code>leanprover/comparator</code> accepted the solution (run with its development landrun shim, i.e. without a sandbox; a sandboxed Linux run is pending). Logs are in <code>reviews/openai-math/evidence/lean_checks/</code>.</div>
+<div class="notice">One row per Comparator challenge (405). <strong>Build</strong>: the solution module compiled on the reviewer's machine. <strong>Closure</strong>: every constant in the challenge statement's transitive closure found alpha-equivalent to the solution's, no instance shadowing, only the three standard axioms (<code>checker/</code>). <strong>Comparator (laptop)</strong>: the real <code>leanprover/comparator</code> accepted the solution on the reviewer's laptop, run with its development landrun shim (no sandbox). <strong>Comparator (Linux VM)</strong>: the same check on an isolated Ubuntu VM with the real landrun (Landlock) sandbox, the citable configuration. Logs are in <code>reviews/openai-math/evidence/lean_checks/</code>.</div>
 <div class="filters">
   <input type="search" id="q" placeholder="search challenge, family, module…" size="30" aria-label="search">
   <label><input type="checkbox" id="only"> checked here only</label>
   <span class="count" id="count"></span>
 </div>
 <div class="wrap"><table class="data" id="t">
-<thead><tr><th data-k="challenge">Challenge</th><th data-k="family">Family</th><th data-k="family_verdict">Family verdict</th><th>Lab's result label</th><th data-k="cone_oai_lines">Cone (lines)</th><th data-k="build">Build</th><th data-k="closure">Closure</th><th data-k="comparator">Comparator</th><th>Evidence</th></tr></thead>
+<thead><tr><th data-k="challenge">Challenge</th><th data-k="family">Family</th><th data-k="family_verdict">Family verdict</th><th>Lab's result label</th><th data-k="cone_oai_lines">Cone (lines)</th><th data-k="build">Build</th><th data-k="closure">Closure</th><th data-k="comparator">Comparator (laptop, shim)</th><th data-k="cloud_comparator">Comparator (Linux VM, landrun)</th><th>Evidence</th></tr></thead>
 <tbody id="tb"></tbody>
 </table></div>
 <p style="color:var(--muted);font-size:.85rem">Download: <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.csv">challenge-status.csv</a> · <a href="https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/challenge-status.json">challenge-status.json</a> · <a href="data.json">data.json</a>. Generated __GENERATED__.</p>
@@ -160,16 +160,17 @@ CHALLENGES_PAGE = r"""
 const DATA=JSON.parse(document.getElementById('data').textContent);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let sortK='challenge',sortD=1;
-const EV='https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/evidence/lean_checks/';
+const EV='https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/evidence/lean_checks/';const EVC='https://github.com/ceshanon/mathvet/blob/main/reviews/openai-math/evidence/cloud/';
 function rows(){const q=document.getElementById('q').value.trim().toLowerCase();const only=document.getElementById('only').checked;
  let r=DATA.filter(d=>(!only||d.machine_check!=='none')&&(!q||[d.challenge,d.family,d.solution_module,d.result_label,d.theorem_names.join(' ')].join(' ').toLowerCase().includes(q)));
  r.sort((a,b)=>{let x=a[sortK],y=b[sortK];if(typeof x==='number')return (x-y)*sortD;return String(x).localeCompare(String(y))*sortD});return r}
 function b(d){if(d.build==='built')return `<span class="mc closure-pass">built${d.build_seconds?' ('+d.build_seconds+' s)':''}</span>`;if(d.build==='incomplete')return '<span class="mc build-in-progress">in progress</span>';if(d.build==='failed')return '<span class="mc build-failed">failed</span>';return '<span class="mc none">—</span>'}
 function c(d){if(d.closure==='ok')return `<span class="mc closure-pass">ok (${d.closure_constants} constants, ${d.shadowing}, ${(d.axioms||[]).join(', ')})</span>`;if(d.closure==='problems')return `<span class="mc build-failed">problems (${d.closure_problems})</span>`;if(d.closure==='error')return '<span class="mc build-failed">error (see log)</span>';return '<span class="mc none">—</span>'}
 function k(d){if(d.comparator==='pass')return `<span class="mc comparator-pass">PASS ${d.comparator_finished?'('+d.comparator_finished.slice(0,10)+')':''}</span>`;if(d.comparator==='running')return '<span class="mc build-in-progress">running</span>';if(d.comparator==='fail')return '<span class="mc build-failed">not accepted (see log)</span>';return '<span class="mc none">—</span>'}
+function kc(d){if(d.cloud_comparator==='pass')return `<span class="mc comparator-sandboxed-pass" title="${esc(d.cloud_sandbox||'')}">PASS ${d.cloud_finished?'('+d.cloud_finished.slice(0,10)+')':''}</span>`;if(d.cloud_comparator==='running')return '<span class="mc build-in-progress">running</span>';if(d.cloud_comparator==='fail')return '<span class="mc build-failed">not accepted (see log)</span>';return '<span class="mc none">—</span>'}
 function render(){const r=rows();const tb=document.getElementById('tb');tb.innerHTML='';
  for(const d of r){const tr=document.createElement('tr');tr.id='fam-'+d.family;
-  tr.innerHTML=`<td><a href="${d.lean_url}"><code>${d.challenge}</code></a></td><td><a href="index.html#fam-${d.family}"><code>${d.family}</code></a></td><td><span class="badge ${d.family_verdict}">${d.family_verdict}</span></td><td>${esc(d.result_label)}</td><td>${d.cone_oai_lines.toLocaleString()}${d.cone_external.length?'<br><small>'+d.cone_external.join(', ')+'</small>':''}</td><td>${b(d)}</td><td>${c(d)}</td><td>${k(d)}</td><td>${d.evidence_files.map(f=>`<a href="${EV}${f}">${f.split('.').slice(1).join('.')}</a>`).join(' ')||'—'}</td>`;
+  tr.innerHTML=`<td><a href="${d.lean_url}"><code>${d.challenge}</code></a></td><td><a href="index.html#fam-${d.family}"><code>${d.family}</code></a></td><td><span class="badge ${d.family_verdict}">${d.family_verdict}</span></td><td>${esc(d.result_label)}</td><td>${d.cone_oai_lines.toLocaleString()}${d.cone_external.length?'<br><small>'+d.cone_external.join(', ')+'</small>':''}</td><td>${b(d)}</td><td>${c(d)}</td><td>${k(d)}</td><td>${kc(d)}</td><td>${[...d.evidence_files.map(f=>`<a href="${EV}${f}">${f.split('.').slice(1).join('.')}</a>`),...(d.cloud_files||[]).map(f=>`<a href="${EVC}${f}">cloud ${f.split('.').slice(1).join('.')}</a>`)].join(' ')||'—'}</td>`;
   tb.appendChild(tr)}
  const n=DATA.filter(d=>d.machine_check!=='none').length;document.getElementById('count').textContent=`${r.length} challenges shown · ${n} with a local check`}
 document.querySelectorAll('#q,#only').forEach(e=>e.addEventListener('input',render));

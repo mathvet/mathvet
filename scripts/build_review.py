@@ -26,6 +26,7 @@ RELEASE = sys.argv[1] if len(sys.argv) > 1 else 'openai-math'
 REV = ROOT / 'reviews' / RELEASE
 SRC = REV / 'source'
 CHECKS = REV / 'evidence' / 'lean_checks'
+CLOUD = REV / 'evidence' / 'cloud'     # sandboxed Linux runs (checker/cloud/)
 DATASET = ROOT / 'dataset' / 'autoformalization_pairs.jsonl'
 DOCS = ROOT / 'docs'
 UPSTREAM = 'https://github.com/openai/math'
@@ -120,11 +121,33 @@ def scan_checks(name):
     for ext in ('challenge.txt', 'solution.txt'):
         if (CHECKS / f'{name}.{ext}').exists():
             d['evidence_files'].append(f'{name}.{ext}')
+    d.update(cloud_comparator='none', cloud_sandbox=None, cloud_finished=None, cloud_build=None, cloud_closure=None, cloud_files=[])
+    cc = CLOUD / f'{name}.comparator.txt'
+    if cc.exists():
+        t = cc.read_text(errors='replace')
+        d['cloud_files'].append(cc.name)
+        d['cloud_comparator'] = 'pass' if 'Your solution is okay!' in t else ('fail' if re.search(r'== comparator exit=\d+', t) else 'running')
+        m = re.search(r'^sandbox: (.*)$', t, re.M)
+        d['cloud_sandbox'] = m.group(1).strip() if m else None
+        m = re.search(r'== comparator exit=\d+ end (\S+)', t)
+        d['cloud_finished'] = m.group(1) if m else None
+    for ext, key in (('log', 'cloud_build'), ('cmp.txt', 'cloud_closure')):
+        f = CLOUD / f'{name}.{ext}'
+        if f.exists():
+            d['cloud_files'].append(f.name)
+            tt = f.read_text(errors='replace')
+            if key == 'cloud_build':
+                d[key] = 'built' if re.search(r'^== build rc=0', tt, re.M) else 'incomplete'
+            else:
+                ms = re.findall(r'comparator-style: ok=(\d+) problems=(\d+) errors=(\d+)', tt)
+                d[key] = ('ok' if ms and ms[-1][1] == '0' and ms[-1][2] == '0' else 'problems') if ms else 'error'
     return d
 
 
 def machine_level(ch):
-    if ch['comparator'] == 'pass':
+    if ch['cloud_comparator'] == 'pass' and ch['cloud_sandbox'] and 'landrun=real' in ch['cloud_sandbox']:
+        return 'comparator-sandboxed-pass'
+    if ch['comparator'] == 'pass' or ch['cloud_comparator'] == 'pass':
         return 'comparator-pass'
     if ch['closure'] == 'ok' and ch['build'] == 'built':
         return 'closure-pass'
@@ -171,7 +194,7 @@ for fam, a in audit.items():
             if p.get('lean_linked') and p['dir'] not in [q['dir'] for q in papers]:
                 papers.append(dict(dir=p['dir'], title=p['title'], url=tree(COMMIT, f"preprints/{p['dir']}")))
     levels = [c['machine_check'] for c in chs]
-    best = ('comparator-pass' if 'comparator-pass' in levels else 'closure-pass' if 'closure-pass' in levels
+    best = ('comparator-sandboxed-pass' if 'comparator-sandboxed-pass' in levels else 'comparator-pass' if 'comparator-pass' in levels else 'closure-pass' if 'closure-pass' in levels
             else 'built' if 'built' in levels else 'build-in-progress' if 'build-in-progress' in levels else 'none')
     families[fam] = OrderedDict([
         ('family', fam), ('title', fi['title']), ('subject', fi['subject']), ('headline', fi['summary']),
@@ -192,7 +215,8 @@ n_total = len(fam_index)
 n_none = n_total - n_lean
 built = [c for c in challenges.values() if c['build'] == 'built']
 closure_ok = [c for c in challenges.values() if c['closure'] == 'ok' and c['build'] == 'built']
-comp_pass = [c for c in challenges.values() if c['comparator'] == 'pass']
+comp_pass = [c for c in challenges.values() if c['comparator'] == 'pass' or c['cloud_comparator'] == 'pass']
+sandboxed = [c for c in challenges.values() if c['machine_check'] == 'comparator-sandboxed-pass']
 comp_running = [c for c in challenges.values() if c['comparator'] == 'running']
 build_running = [c for c in challenges.values() if c['build'] == 'incomplete']
 status = OrderedDict([
@@ -206,6 +230,7 @@ status = OrderedDict([
     ('built_locally', [c['challenge'] for c in built]),
     ('closure_check_pass', [c['challenge'] for c in closure_ok]),
     ('comparator_pass', [c['challenge'] for c in comp_pass]),
+    ('comparator_sandboxed_pass', [c['challenge'] for c in sandboxed]),
     ('comparator_running', [c['challenge'] for c in comp_running]),
     ('build_in_progress', [c['challenge'] for c in build_running]),
 ])
@@ -227,7 +252,8 @@ with open(REV / 'challenge-status.csv', 'w', encoding='utf-8', newline='') as fh
     w = csv.writer(fh)
     cols = ['challenge', 'family', 'family_verdict', 'result_label', 'theorem_names', 'solution_module', 'cone_oai_lines',
             'cone_external', 'machine_check', 'build', 'build_seconds', 'closure', 'closure_constants', 'closure_problems',
-            'shadowing', 'axioms', 'comparator', 'comparator_finished', 'paper_theorem', 'lean_url', 'evidence_files']
+            'shadowing', 'axioms', 'comparator', 'comparator_finished', 'cloud_comparator', 'cloud_sandbox', 'cloud_finished',
+            'paper_theorem', 'lean_url', 'evidence_files', 'cloud_files']
     w.writerow(cols)
     for c in challenges.values():
         w.writerow([c[k] if not isinstance(c[k], list) else ' ; '.join(map(str, c[k])) for k in cols])
@@ -284,7 +310,8 @@ alignment = []
 for f in families.values():
     for cn in f['challenges']:
         c = challenges[cn]
-        check = {'comparator-pass': 'real Comparator accepted the solution on the reviewer\'s machine',
+        check = {'comparator-sandboxed-pass': 'real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated Linux VM',
+                 'comparator-pass': 'real Comparator accepted the solution on the reviewer\'s machine',
                  'closure-pass': 'solution built locally; closure comparison, shadowing check and axiom check clean',
                  'built': 'solution built locally', 'build-in-progress': 'local build in progress',
                  'build-failed': 'local build failed (see evidence)', 'none': 'not built by the reviewer'}[c['machine_check']]
@@ -330,7 +357,8 @@ review_doc = OrderedDict([
                   f"Verdicts: full {counts['full']}, partial {counts['partial']}, weaker-statement {counts['weaker-statement']}, "
                   f"supporting-only {counts['supporting-only']}. Reviewer's machine checks: {len(built)} solutions built locally, "
                   f"{len(closure_ok)} with a clean closure comparison and standard axioms, {len(comp_pass)} accepted by the real "
-                  f"Comparator (development landrun shim, no sandbox). This repository proves nothing itself."),
+                  f"Comparator, of which {len(sandboxed)} on an isolated Linux VM with the real landrun (Landlock) sandbox. "
+                  f"This repository proves nothing itself."),
     ])),
     ('automation', OrderedDict([
         ('methods', [OrderedDict([
@@ -417,10 +445,11 @@ Comparator challenges: {len(challenges)}.
 ## Machine checks on the reviewer's machine (M1 laptop)
 - Solutions built: {len(built)} — {md_list(status['built_locally'])}
 - Closure comparison + shadowing + axiom check clean: {len(closure_ok)} — {md_list(status['closure_check_pass'])}
-- Real Comparator accepted (development landrun shim, no sandbox): {len(comp_pass)} — {md_list(status['comparator_pass'])}
+- Real Comparator accepted: {len(comp_pass)} — {md_list(status['comparator_pass'])}
+- Of these, accepted **with the real landrun (Landlock) sandbox on an isolated Linux VM** (`evidence/cloud/`): {len(sandboxed)} — {md_list(status['comparator_sandboxed_pass'])}
 - Comparator running: {md_list(status['comparator_running'])}; build in progress: {md_list(status['build_in_progress'])}
 
-Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator).
+Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator, laptop, development landrun shim); `evidence/cloud/<Challenge>.*` the same three from the sandboxed cloud runs (each `.comparator.txt` starts with a provenance header naming the machine, the sandbox and the session URL).
 """
 (REV / 'STATUS.md').write_text(status_md, encoding='utf-8')
 
@@ -448,7 +477,7 @@ tiles = f"""
   <div class="tile full"><div class="n">{counts['full']}</div><div class="l">Lean states the headline in full</div></div>
   <div class="tile narrower"><div class="n">{status['non_full']}</div><div class="l">Lean states something narrower<br><small>{counts['partial']} partial · {counts['weaker-statement']} weaker · {counts['supporting-only']} supporting-only</small></div></div>
   <div class="tile none"><div class="n">{n_none}</div><div class="l">no Lean at all</div></div>
-  <div class="tile"><div class="n">{len(comp_pass)}<span class="of">/{len(closure_ok)}</span></div><div class="l">Comparator accepted / closure-checked on our machine</div></div>
+  <div class="tile"><div class="n">{len(comp_pass)}<span class="of">/{len(closure_ok)}</span></div><div class="l">Comparator accepted / closure-checked by us<br><small>{len(sandboxed)} sandboxed on an isolated Linux VM</small></div></div>
 </section>
 <p class="status-line">Review status: <strong>pre-referee</strong>. Upstream commit <code>{COMMIT[:8]}</code>. Generated {status['generated']}. <a href="{RELEASE}/">Open the table →</a></p>
 """
@@ -465,7 +494,8 @@ fam_json = json.dumps([OrderedDict([(k, f[k]) for k in ('family', 'title', 'subj
 ch_json = json.dumps([OrderedDict([(k, c[k]) for k in ('challenge', 'family', 'family_verdict', 'result_label', 'theorem_names',
                                                      'solution_module', 'cone_oai_lines', 'cone_external', 'machine_check', 'build',
                                                      'build_seconds', 'closure', 'closure_constants', 'closure_problems', 'shadowing',
-                                                     'axioms', 'comparator', 'comparator_finished', 'paper_title', 'paper_theorem',
+                                                     'axioms', 'comparator', 'comparator_finished', 'cloud_comparator', 'cloud_sandbox',
+                                                     'cloud_finished', 'cloud_files', 'paper_title', 'paper_theorem',
                                                      'lean_url', 'config_url', 'paper_url', 'evidence_files')]) for c in challenges.values()],
                      ensure_ascii=False).replace('</', '<\\/')
 (DOCS / RELEASE / 'data.json').write_text(json.dumps(dict(status=status, families=list(families.values()), challenges=list(challenges.values())),
