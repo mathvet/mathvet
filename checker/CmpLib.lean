@@ -71,6 +71,17 @@ def defeqOf (a b : ConstantInfo) : MetaM (Bool × Bool) := do
     | _, _ => pure true
   return (tyOk, valOk)
 
+/-- Auto-generated auxiliary declarations (`_proof_n`, `proof_n`, `_aux_n`, `match_n`, equation lemmas) are numbered per
+elaboration, so comparing them by name across two elaborations is meaningless; their content is compared through the
+value of the parent definition, which refers to them. -/
+def isAuxName (n : Name) : Bool :=
+  match n with
+  | .str _ s =>
+    let digitsAfter (p : String) := s.startsWith p && (s.drop p.length).length > 0 && (s.drop p.length).all Char.isDigit
+    digitsAfter "_proof_" || digitsAfter "proof_" || digitsAfter "_aux_" || digitsAfter "match_" || digitsAfter "eq_" || digitsAfter "_eq_"
+      || s == "_sunfold" || s.startsWith "_unsafe_rec"
+  | _ => false
+
 elab "#cmp_closure" roots:(ppSpace ident)* : command => do
   let env ← getEnv
   let rootNames : Array Name := roots.map fun r => r.getId
@@ -81,6 +92,7 @@ elab "#cmp_closure" roots:(ppSpace ident)* : command => do
     | some a, some b =>
       let v := verdictOf a b
       if v == "ok" then logInfo m!"CMP {m} [{kindOf a}] ok"
+      else if isAuxName n then logInfo m!"CMP {m} [{kindOf a}] {v} (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)"
       else
         let (tyOk, valOk) ← liftTermElabM (defeqOf a b)
         let note := if tyOk && valOk then " (DEFEQ: definitionally equal; structural difference only)"

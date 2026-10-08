@@ -9,10 +9,10 @@ source "$(dirname "$0")/env.sh"
 C="$1"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
 python3 "$HERE/gen_cmp.py" "$C" >/dev/null || exit 1
 cd "$L" && lake env lean "$L/Scratch/Cmp_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry." > "$OUT/$C.cmp.txt"
-n_ok=$(grep -c 'CMP .* ok$' "$OUT/$C.cmp.txt"); n_bad=$(grep -E 'MISMATCH|MISSING|NOT_FOUND' "$OUT/$C.cmp.txt" | grep -vc 'DEFEQ: definitionally equal'); n_defeq=$(grep -c 'DEFEQ: definitionally equal' "$OUT/$C.cmp.txt"); n_err=$(grep -c -E '(^|: )error(\([a-zA-Z.]+\))?: ' "$OUT/$C.cmp.txt")   # Lean error messages only, not constants named `error`
+n_ok=$(grep -c 'CMP .* ok$' "$OUT/$C.cmp.txt"); n_bad=$(grep -E 'MISMATCH|MISSING|NOT_FOUND' "$OUT/$C.cmp.txt" | grep -v 'DEFEQ: definitionally equal' | grep -vc '(AUX:'); n_defeq=$(grep -c 'DEFEQ: definitionally equal' "$OUT/$C.cmp.txt"); n_aux=$(grep -c '(AUX:' "$OUT/$C.cmp.txt"); n_err=$(grep -c -E '(^|: )error(\([a-zA-Z.]+\))?: ' "$OUT/$C.cmp.txt")   # Lean error messages only, not constants named `error`
 python3 "$HERE/gen_checks.py" "$C" >/dev/null
 lake env lean "$L/Scratch/Challenge_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry.|warning:" | sed 's/_root_\.//g' | tr -s '[:space:]' ' ' > "$OUT/$C.standalone.norm"
 lake env lean "$L/Scratch/Cmp_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry.|warning:|^CMP " | sed "/depends on axioms/,/\]/d" | sed 's/Chal\./OAI./g' | sed 's/_root_\.//g' | tr -s '[:space:]' ' ' > "$OUT/$C.insolution.norm"
 if cmp -s "$OUT/$C.standalone.norm" "$OUT/$C.insolution.norm"; then SHADOW="no-shadowing"; else SHADOW="SHADOW-DIFF(see $C.standalone.norm vs $C.insolution.norm)"; fi
-echo "== $C comparator-style: ok=$n_ok problems=$n_bad errors=$n_err | $SHADOW | $(grep 'depends on axioms' "$OUT/$C.cmp.txt" | sed 's/.*depends on axioms: //' | sort -u | tr '\n' ' ') | defeq_only=$n_defeq" | tee -a "$OUT/$C.cmp.txt"
+echo "== $C comparator-style: ok=$n_ok problems=$n_bad errors=$n_err | $SHADOW | $(grep 'depends on axioms' "$OUT/$C.cmp.txt" | sed 's/.*depends on axioms: //' | sort -u | tr '\n' ' ') | defeq_only=$n_defeq aux_only=$n_aux" | tee -a "$OUT/$C.cmp.txt"
 grep -E 'MISMATCH|MISSING|NOT_FOUND|error' "$OUT/$C.cmp.txt" | head -12
