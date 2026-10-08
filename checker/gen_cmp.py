@@ -29,7 +29,9 @@ for line in src.splitlines():
 # challenge's (a solution need not import everything the challenge file does, e.g. a Mathlib instance named in an
 # `attribute [-instance] … in` line)
 imports=[l for l in re.findall(r'^import .*$',src,flags=re.M) if l.split()[1]!=j['solution_module']]
-out=[f"import {j['solution_module']}", *imports, "import Lean", meta, body, "", f"#cmp_closure {thms}"]
+# the comparison library's `open Lean Meta …` is scoped to a section so that names like `Lean.Literal` cannot shadow or
+# make ambiguous the challenge's own declarations when its text is re-elaborated below
+out=[f"import {j['solution_module']}", *imports, "import Lean", "section CmpLibMeta", meta.replace('\nopen CmpLib\n',''), "end CmpLibMeta", "open CmpLib", body, "", f"#cmp_closure {thms}"]
 out.append("-- SHADOWCHECK prints")
 for t in j['theorem_names']: out.append(f"#check @{t.replace('OAI.','Chal.',1)}")
 for k,d in decls:
