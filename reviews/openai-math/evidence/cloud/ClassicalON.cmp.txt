@@ -1,0 +1,74 @@
+CMP OAI.ClassicalON.main [thm] ok
+CMP OAI.ClassicalON.ExponentialDecay [def] ok
+CMP OAI.ClassicalON.siteDistance [def] ok
+CMP OAI.ClassicalON.Site [def] ok
+CMP OAI.ClassicalON.correlation [def] ok
+CMP OAI.ClassicalON.partition [def] ok
+CMP OAI.ClassicalON.interaction [def] ok
+CMP OAI.ClassicalON.interaction._proof_1 [thm] ok
+CMP OAI.ClassicalON.Configuration [def] ok
+CMP OAI.ClassicalON.Spin [def] ok
+CMP OAI.ClassicalON.LatticeGraph.vertices [def] ok
+CMP OAI.ClassicalON.LatticeGraph [ind] ok
+CMP OAI.ClassicalON.LatticeGraph.mk [ctor] ok
+CMP OAI.ClassicalON.PositiveNeighbor [def] ok
+CMP OAI.ClassicalON.LatticeGraph.edges [def] ok
+CMP OAI.ClassicalON.referenceLaw [def] ok
+CMP OAI.ClassicalON.sphereProbability [def] ok
+CMP OAI.ClassicalON.sphereProbability._proof_3 [thm] ok
+CMP OAI.ClassicalON.sphereProbability._proof_2 [thm] ok
+CMP OAI.ClassicalON.sphereProbability._proof_1 [thm] ok
+Chal.ClassicalON.main : Chal.ClassicalON.ExponentialDecay
+@[reducible] def Chal.ClassicalON.Site : Type :=
+ℤ × ℤ
+def Chal.ClassicalON.PositiveNeighbor : Chal.ClassicalON.Site → Chal.ClassicalON.Site → Prop :=
+fun x y => y.1 = x.1 + 1 ∧ y.2 = x.2 ∨ y.1 = x.1 ∧ y.2 = x.2 + 1
+structure Chal.ClassicalON.LatticeGraph : Type
+number of parameters: 0
+fields:
+  Chal.ClassicalON.LatticeGraph.vertices : Finset Chal.ClassicalON.Site
+  Chal.ClassicalON.LatticeGraph.edges : Finset (↥self.vertices × ↥self.vertices)
+  Chal.ClassicalON.LatticeGraph.nearest : ∀ e ∈ self.edges, Chal.ClassicalON.PositiveNeighbor ↑e.1 ↑e.2
+constructor:
+  Chal.ClassicalON.LatticeGraph.mk (vertices : Finset Chal.ClassicalON.Site) (edges : Finset (↥vertices × ↥vertices))
+    (nearest : ∀ e ∈ edges, Chal.ClassicalON.PositiveNeighbor ↑e.1 ↑e.2) : Chal.ClassicalON.LatticeGraph
+@[reducible] def Chal.ClassicalON.Spin : ℕ → Type :=
+fun n => ↑(Metric.sphere 0 1)
+@[reducible] def Chal.ClassicalON.Configuration : ℕ → Chal.ClassicalON.LatticeGraph → Type :=
+fun n G => ↥G.vertices → Chal.ClassicalON.Spin n
+def Chal.ClassicalON.sphereProbability : (n : ℕ) → MeasureTheory.Measure (Chal.ClassicalON.Spin n) :=
+fun n =>
+  have surface := MeasureTheory.volume.toSphere;
+  (surface Set.univ)⁻¹ • surface
+def Chal.ClassicalON.referenceLaw : (n : ℕ) →
+  (G : Chal.ClassicalON.LatticeGraph) → MeasureTheory.Measure (Chal.ClassicalON.Configuration n G) :=
+fun n G => MeasureTheory.Measure.pi fun x => Chal.ClassicalON.sphereProbability n
+def Chal.ClassicalON.interaction : (n : ℕ) →
+  (G : Chal.ClassicalON.LatticeGraph) → (↥G.edges → ℝ) → Chal.ClassicalON.Configuration n G → ℝ :=
+fun n G b σ => ∑ e, b e * inner ℝ ↑(σ (↑e).1) ↑(σ (↑e).2)
+def Chal.ClassicalON.partition : ℕ → (G : Chal.ClassicalON.LatticeGraph) → (↥G.edges → ℝ) → ℝ :=
+fun n G b =>
+  ∫ (σ : Chal.ClassicalON.Configuration n G),
+    Real.exp (Chal.ClassicalON.interaction n G b σ) ∂Chal.ClassicalON.referenceLaw n G
+def Chal.ClassicalON.correlation : ℕ →
+  (G : Chal.ClassicalON.LatticeGraph) → (↥G.edges → ℝ) → ↥G.vertices → ↥G.vertices → ℝ :=
+fun n G b x y =>
+  (∫ (σ : Chal.ClassicalON.Configuration n G),
+      inner ℝ ↑(σ x) ↑(σ y) * Real.exp (Chal.ClassicalON.interaction n G b σ) ∂Chal.ClassicalON.referenceLaw n G) /
+    Chal.ClassicalON.partition n G b
+def Chal.ClassicalON.siteDistance : Chal.ClassicalON.Site → Chal.ClassicalON.Site → ℝ :=
+fun x y => √((↑x.1 - ↑y.1) ^ 2 + (↑x.2 - ↑y.2) ^ 2)
+def Chal.ClassicalON.ExponentialDecay : Prop :=
+∀ (n : ℕ),
+  3 ≤ n →
+    ∀ (β : ℝ),
+      0 < β →
+        ∃ A m,
+          0 < m ∧
+            ∀ (G : Chal.ClassicalON.LatticeGraph) (b : ↥G.edges → ℝ),
+              (∀ (e : ↥G.edges), 0 ≤ b e ∧ b e ≤ β) →
+                ∀ (x y : ↥G.vertices),
+                  0 ≤ Chal.ClassicalON.correlation n G b x y ∧
+                    Chal.ClassicalON.correlation n G b x y ≤ A * Real.exp (-m * Chal.ClassicalON.siteDistance ↑x ↑y)
+'OAI.ClassicalON.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ClassicalON comparator-style: ok=20 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
