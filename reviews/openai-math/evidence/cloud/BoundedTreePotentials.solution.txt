@@ -1,0 +1,157 @@
+OAI.BoundedTreePotentials.TreeCalculus.main_counterexample : ∀ (r : Bool)
+  (k : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind),
+  (CompleteSpace
+        (OAI.BoundedTreePotentials.TestCompletion (OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily r k)) ∧
+      TopologicalSpace.SeparableSpace
+          (OAI.BoundedTreePotentials.TestCompletion (OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily r k)) ∧
+        ¬Module.Finite ℝ
+            (OAI.BoundedTreePotentials.TestCompletion (OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily r k))) ∧
+    (∀ (t : ℝ),
+        0 < t →
+          t < 1 →
+            √(1 + t ^ 2 / 4) - 1 ≤
+              OAI.BoundedTreePotentials.averagedModulusReal
+                (OAI.BoundedTreePotentials.TestCompletion (OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily r k))
+                t) ∧
+      ∀ (Y : Type u_1) [inst : NormedAddCommGroup Y] [inst_1 : NormedSpace ℝ Y]
+        (a :
+          OAI.BoundedTreePotentials.TestCompletion (OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily r k) ≃L[ℝ] Y),
+        ¬OAI.BoundedTreePotentials.IsAUCReal Y
+'OAI.BoundedTreePotentials.TreeCalculus.main_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.BoundedTreePotentials.TestFamily.{u_2} (I : Type u_2) : Type u_2
+number of parameters: 1
+fields:
+  OAI.BoundedTreePotentials.TestFamily.carrier : Set (I → ℝ)
+  OAI.BoundedTreePotentials.TestFamily.zero_mem : 0 ∈ self.carrier
+  OAI.BoundedTreePotentials.TestFamily.neg_mem : ∀ f ∈ self.carrier, -f ∈ self.carrier
+  OAI.BoundedTreePotentials.TestFamily.coeff_bound : ∀ f ∈ self.carrier, ∀ (i : I), |f i| ≤ 1
+  OAI.BoundedTreePotentials.TestFamily.singleton_mem : ∀ (i : I), (fun j => if j = i then 1 else 0) ∈ self.carrier
+constructor:
+  OAI.BoundedTreePotentials.TestFamily.mk.{u_2} {I : Type u_2} (carrier : Set (I → ℝ)) (zero_mem : 0 ∈ carrier)
+    (neg_mem : ∀ f ∈ carrier, -f ∈ carrier) (coeff_bound : ∀ f ∈ carrier, ∀ (i : I), |f i| ≤ 1)
+    (singleton_mem : ∀ (i : I), (fun j => if j = i then 1 else 0) ∈ carrier) : OAI.BoundedTreePotentials.TestFamily I
+def OAI.BoundedTreePotentials.finitePairing.{u_1} : {I : Type u_1} → (I → ℝ) → (I →₀ ℝ) →ₗ[ℝ] ℝ :=
+fun {I} f => Finsupp.linearCombination ℝ f
+def OAI.BoundedTreePotentials.testNorm.{u_1} : {I : Type u_1} → OAI.BoundedTreePotentials.TestFamily I → (I →₀ ℝ) → ℝ :=
+fun {I} K x => ⨆ f, |(OAI.BoundedTreePotentials.finitePairing ↑f) x|
+def OAI.BoundedTreePotentials.testSeminorm.{u_1} : {I : Type u_1} →
+  OAI.BoundedTreePotentials.TestFamily I → Seminorm ℝ (I →₀ ℝ) :=
+fun {I} K =>
+  have finitePairing_apply := ⋯;
+  have finitePairing_abs_bound := ⋯;
+  have testNorm_bddAbove := ⋯;
+  have finitePairing_le_testNorm := ⋯;
+  have testNorm_nonneg := ⋯;
+  have testNorm_le_l1 := ⋯;
+  have testNorm_zero := ⋯;
+  have testNorm_add_le := ⋯;
+  have testNorm_smul_le := ⋯;
+  Seminorm.ofSMulLE (OAI.BoundedTreePotentials.testNorm K) ⋯ ⋯ ⋯
+def OAI.BoundedTreePotentials.TestVector.{u_1} : {I : Type u_1} →
+  OAI.BoundedTreePotentials.TestFamily I → Type (max u_1 0) :=
+fun {I} x => I →₀ ℝ
+@[reducible] def OAI.BoundedTreePotentials.TestCompletion.{u_1} : {I : Type u_1} →
+  OAI.BoundedTreePotentials.TestFamily I → Type u_1 :=
+fun {I} K => UniformSpace.Completion (OAI.BoundedTreePotentials.TestVector K)
+@[reducible] def OAI.BoundedTreePotentials.TreeCalculus.Node : Type :=
+List ℕ
+def OAI.BoundedTreePotentials.TreeCalculus.potential : (OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ) →
+  OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ :=
+fun f s => (List.map f (List.inits s)).sum
+inductive OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind : Type
+number of parameters: 0
+constructors:
+OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.sibling : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind
+OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.antichain : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind
+OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.global : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind
+def OAI.BoundedTreePotentials.TreeCalculus.QuadraticGroup : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind →
+  Finset OAI.BoundedTreePotentials.TreeCalculus.Node → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.sibling, B => ∃ r, ∀ s ∈ B, ∃ j, s = r ++ [j]
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.antichain, B => (↑B).Pairwise fun s t => ¬s <+: t ∧ ¬t <+: s
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.global, x => True
+def OAI.BoundedTreePotentials.TreeCalculus.QuadraticBudget : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind →
+  (OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ) → Prop :=
+fun k f =>
+  ∀ (B : Finset OAI.BoundedTreePotentials.TreeCalculus.Node),
+    OAI.BoundedTreePotentials.TreeCalculus.QuadraticGroup k B → ∑ s ∈ B, f s ^ 2 ≤ 1
+def OAI.BoundedTreePotentials.TreeCalculus.CoefficientSupport : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind →
+  (OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ) → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.sibling, x => True
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.antichain, f => (Function.support f).Finite
+  | OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind.global, f => Memℓp f 2
+structure OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest (includeRoot : Bool)
+  (k : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind) (f : OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ) :
+  Prop
+number of parameters: 3
+fields:
+  OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest.root_zero : includeRoot = false → f [] = 0
+  OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest.potential_bound : ∀
+      (s : OAI.BoundedTreePotentials.TreeCalculus.Node), |OAI.BoundedTreePotentials.TreeCalculus.potential f s| ≤ 1
+  OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest.quadratic_budget : OAI.BoundedTreePotentials.TreeCalculus.QuadraticBudget
+      k f
+  OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest.coefficient_support : OAI.BoundedTreePotentials.TreeCalculus.CoefficientSupport
+      k f
+constructor:
+  OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest.mk {includeRoot : Bool}
+    {k : OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind} {f : OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ}
+    (root_zero : includeRoot = false → f [] = 0)
+    (potential_bound :
+      ∀ (s : OAI.BoundedTreePotentials.TreeCalculus.Node), |OAI.BoundedTreePotentials.TreeCalculus.potential f s| ≤ 1)
+    (quadratic_budget : OAI.BoundedTreePotentials.TreeCalculus.QuadraticBudget k f)
+    (coefficient_support : OAI.BoundedTreePotentials.TreeCalculus.CoefficientSupport k f) :
+    OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest includeRoot k f
+@[reducible] def OAI.BoundedTreePotentials.TreeCalculus.TreeCoordinate : Bool → Type :=
+fun includeRoot => { s // includeRoot = true ∨ s ≠ [] }
+def OAI.BoundedTreePotentials.TreeCalculus.liftCoefficients : (r : Bool) →
+  (OAI.BoundedTreePotentials.TreeCalculus.TreeCoordinate r → ℝ) → OAI.BoundedTreePotentials.TreeCalculus.Node → ℝ :=
+fun r f s => if h : r = true ∨ s ≠ [] then f ⟨s, h⟩ else 0
+def OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily : (r : Bool) →
+  OAI.BoundedTreePotentials.TreeCalculus.QuadraticKind →
+    OAI.BoundedTreePotentials.TestFamily (OAI.BoundedTreePotentials.TreeCalculus.TreeCoordinate r) :=
+fun r k =>
+  have potential_root := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_1;
+  have potential_child := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_2;
+  have potential_smul := ⋯;
+  have quadratic_singleton := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_4;
+  have test_coefficient_bound := ⋯;
+  have quadraticBudget_dominate := @OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_6;
+  have coefficientSupport_dominate := @OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_7;
+  have zero_isTreeTest := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_8;
+  have neg_isTreeTest := ⋯;
+  have inits_nodup := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_10;
+  have potential_single := ⋯;
+  have single_isTreeTest := ⋯;
+  have liftCoefficients_coord := @OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_13;
+  have liftCoefficients_zero := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_14;
+  have liftCoefficients_neg := OAI.BoundedTreePotentials.TreeCalculus.treeTestFamily._proof_15;
+  {
+    carrier :=
+      {f |
+        OAI.BoundedTreePotentials.TreeCalculus.IsTreeTest r k
+          (OAI.BoundedTreePotentials.TreeCalculus.liftCoefficients r f)},
+    zero_mem := ⋯, neg_mem := ⋯, coeff_bound := ⋯, singleton_mem := ⋯ }
+structure OAI.BoundedTreePotentials.ClosedFiniteCodim.{u_1} (E : Type u_1) [NormedAddCommGroup E] [NormedSpace ℝ E] :
+  Type u_1
+number of parameters: 3
+fields:
+  OAI.BoundedTreePotentials.ClosedFiniteCodim.space : Submodule ℝ E
+  OAI.BoundedTreePotentials.ClosedFiniteCodim.closed : IsClosed ↑self.space
+  OAI.BoundedTreePotentials.ClosedFiniteCodim.finiteCodim : Module.Finite ℝ (E ⧸ self.space)
+constructor:
+  OAI.BoundedTreePotentials.ClosedFiniteCodim.mk.{u_1} {E : Type u_1} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (space : Submodule ℝ E) (closed : IsClosed ↑space) (finiteCodim : Module.Finite ℝ (E ⧸ space)) :
+    OAI.BoundedTreePotentials.ClosedFiniteCodim E
+def OAI.BoundedTreePotentials.averagedModulusReal.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] t => ⨅ x, ⨆ F, ⨅ y, (‖↑x + t • ↑y‖ + ‖↑x - t • ↑y‖) / ↑2 - 1
+def OAI.BoundedTreePotentials.oneSidedModulusReal.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → ℝ :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] t => ⨅ x, ⨆ F, ⨅ y, ‖↑x + t • ↑y‖ - 1
+def OAI.BoundedTreePotentials.IsAUCReal.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] =>
+  ∀ (t : ℝ), 0 < t → 0 < OAI.BoundedTreePotentials.oneSidedModulusReal E t
