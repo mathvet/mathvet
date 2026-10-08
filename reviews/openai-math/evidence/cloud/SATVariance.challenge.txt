@@ -1,0 +1,54 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SATVariance.lean:54:8: warning: declaration uses `sorry`
+OAI.RandomKSAT.variance_main : ∀ (k : ℕ),
+  3 ≤ k →
+    (∃ C,
+        0 ≤ C ∧
+          ∀ (n : ℕ),
+            k ≤ n →
+              ProbabilityTheory.variance OAI.RandomKSAT.H (OAI.RandomKSAT.streamLaw n k) ≤
+                C * ↑n * OAI.RandomKSAT.ell k n) ∧
+      (∀ (B : ℝ),
+          0 < B →
+            ∃ C,
+              0 ≤ C ∧
+                ∀ (n : ℕ),
+                  k ≤ n →
+                    ProbabilityTheory.variance (OAI.RandomKSAT.T B) (OAI.RandomKSAT.streamLaw n k) ≤
+                      C * ↑n * OAI.RandomKSAT.ell k n) ∧
+        ∃ c,
+          0 < c ∧
+            (∃ N,
+                ∀ (n : ℕ),
+                  N ≤ n → k ≤ n → c * ↑n ≤ ProbabilityTheory.variance OAI.RandomKSAT.H (OAI.RandomKSAT.streamLaw n k)) ∧
+              ∀ (B : ℝ),
+                OAI.RandomKSAT.U k < B →
+                  ∃ N,
+                    ∀ (n : ℕ),
+                      N ≤ n →
+                        k ≤ n → c * ↑n ≤ ProbabilityTheory.variance (OAI.RandomKSAT.T B) (OAI.RandomKSAT.streamLaw n k)
+@[reducible] def OAI.RandomKSAT.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+def OAI.RandomKSAT.Clause : ℕ → ℕ → Type :=
+fun n k => (s : { s // s.card = k }) × (↥↑s → Bool)
+def OAI.RandomKSAT.Satisfies : {n k : ℕ} → OAI.RandomKSAT.Clause n k → OAI.RandomKSAT.Assignment n → Prop :=
+fun {n k} c a => ∃ v, a ↑v = c.snd v
+@[reducible] def OAI.RandomKSAT.Stream : ℕ → ℕ → Type :=
+fun n k => ℕ → OAI.RandomKSAT.Clause n k
+def OAI.RandomKSAT.clauseLaw : (n k : ℕ) → MeasureTheory.Measure (OAI.RandomKSAT.Clause n k) :=
+fun n k => ProbabilityTheory.uniformOn Set.univ
+def OAI.RandomKSAT.streamLaw : (n k : ℕ) → MeasureTheory.Measure (OAI.RandomKSAT.Stream n k) :=
+fun n k => MeasureTheory.Measure.infinitePi fun x => OAI.RandomKSAT.clauseLaw n k
+def OAI.RandomKSAT.PrefixSAT : {n k : ℕ} → OAI.RandomKSAT.Stream n k → ℕ → Prop :=
+fun {n k} ω m => ∃ a, ∀ i < m, OAI.RandomKSAT.Satisfies (ω i) a
+def OAI.RandomKSAT.firstFailure : {n k : ℕ} → OAI.RandomKSAT.Stream n k → ℕ∞ :=
+fun {n k} ω => sInf ((fun m => ↑m) '' {m | ¬OAI.RandomKSAT.PrefixSAT ω m})
+def OAI.RandomKSAT.H : {n k : ℕ} → OAI.RandomKSAT.Stream n k → ℝ :=
+fun {n k} ω => ↑(OAI.RandomKSAT.firstFailure ω).toNat
+def OAI.RandomKSAT.cap : ℕ → ℝ → ℕ :=
+fun n B => ⌊B * ↑n⌋₊
+def OAI.RandomKSAT.T : {n k : ℕ} → ℝ → OAI.RandomKSAT.Stream n k → ℝ :=
+fun {n k} B ω => ↑(min (OAI.RandomKSAT.firstFailure ω) ↑(OAI.RandomKSAT.cap n B)).toNat
+def OAI.RandomKSAT.ell : ℕ → ℕ → ℝ :=
+fun k n => if k = 3 then Real.log (Real.exp 1 * ↑n) else 1
+def OAI.RandomKSAT.U : ℕ → ℝ :=
+fun k => Real.log 2 / -Real.log (1 - (2 ^ k)⁻¹)
