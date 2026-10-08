@@ -1,0 +1,59 @@
+== SensitivitySeparation  module=OAI.Combinatorics.Sensitivity.Separation  start=2026-10-08T11:45:30Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8923/8961] Built OAI.Combinatorics.Sensitivity.Tournament (2.4s)
+✔ [8924/8961] Built OAI.Combinatorics.Sensitivity.FixedCoordinates (2.3s)
+✔ [8925/8961] Built OAI.Combinatorics.Sensitivity.LabelingBounds (2.9s)
+✔ [8927/8965] Built OAI.Combinatorics.Sensitivity.ParameterBounds (8.5s)
+✔ [8928/8965] Built OAI.Combinatorics.Sensitivity.Model (7.2s)
+✔ [8929/8965] Built OAI.Combinatorics.Sensitivity.TournamentCyclic (1.7s)
+✔ [8930/8965] Built OAI.Combinatorics.Sensitivity.ScalarBounds (8.7s)
+✔ [8931/8965] Built OAI.Combinatorics.Sensitivity.TournamentCounts (2.2s)
+✔ [8932/8965] Built OAI.Combinatorics.Sensitivity.LabelingEstimate (2.4s)
+✔ [8933/8965] Built OAI.Combinatorics.Sensitivity.ProfileArithmetic (11s)
+✔ [8934/8965] Built OAI.Combinatorics.Sensitivity.LabelingConstraints (1.7s)
+✔ [8935/8965] Built OAI.Combinatorics.Sensitivity.Basic (7.0s)
+✔ [8936/8965] Built OAI.Combinatorics.Sensitivity.RecursiveProfiles (6.6s)
+✔ [8937/8965] Built OAI.Combinatorics.Sensitivity.LabelingEvents (2.4s)
+✔ [8938/8965] Built OAI.Combinatorics.Sensitivity.HammingBase (7.8s)
+✔ [8939/8965] Built OAI.Combinatorics.Sensitivity.QuantitativeProfiles (7.4s)
+✔ [8940/8965] Built OAI.Combinatorics.Sensitivity.SeparationArithmetic (7.9s)
+✔ [8941/8965] Built OAI.Combinatorics.Sensitivity.Reindex (7.7s)
+✔ [8942/8965] Built OAI.Combinatorics.Sensitivity.Composition (7.0s)
+✔ [8943/8965] Built OAI.Combinatorics.Sensitivity.Labeling (2.3s)
+✔ [8944/8965] Built OAI.Combinatorics.Sensitivity.RecursiveDefinitions (8.5s)
+✔ [8945/8965] Built OAI.Combinatorics.Sensitivity.InitialPredicates (8.5s)
+✔ [8946/8965] Built OAI.Combinatorics.Sensitivity.Or (7.8s)
+✔ [8947/8965] Built OAI.Combinatorics.Sensitivity.Iterates (8.1s)
+✔ [8948/8965] Built OAI.Combinatorics.Sensitivity.RecursiveChildren (7.2s)
+✔ [8949/8965] Built OAI.Combinatorics.Sensitivity.RecursiveFlips (6.0s)
+✔ [8950/8965] Built OAI.Combinatorics.Sensitivity.RecursiveBlocks (6.8s)
+✔ [8951/8965] Built OAI.Combinatorics.Sensitivity.PowerAmplification (7.0s)
+✔ [8952/8965] Built OAI.Combinatorics.Sensitivity.RecursiveSets (6.0s)
+✔ [8953/8965] Built OAI.Combinatorics.Sensitivity.RecursiveOne (7.5s)
+✔ [8954/8965] Built OAI.Combinatorics.Sensitivity.RecursiveFailures (7.5s)
+✔ [8955/8965] Built OAI.Combinatorics.Sensitivity.RecursiveRepair (6.0s)
+✔ [8956/8965] Built OAI.Combinatorics.Sensitivity.RecursiveCandidates (6.1s)
+✔ [8957/8965] Built OAI.Combinatorics.Sensitivity.RecursiveZero (8.3s)
+✔ [8958/8965] Built OAI.Combinatorics.Sensitivity.RecursiveJointZero (8.7s)
+✔ [8959/8965] Built OAI.Combinatorics.Sensitivity.Recursive (5.6s)
+✔ [8960/8965] Built OAI.Combinatorics.Sensitivity.Tower (6.0s)
+✔ [8961/8965] Built OAI.Combinatorics.Sensitivity.TowerProfiles (8.0s)
+✔ [8962/8965] Built OAI.Combinatorics.Sensitivity.Construction (7.6s)
+✔ [8963/8965] Built OAI.Combinatorics.Sensitivity.ConstructedSeed (7.1s)
+✔ [8964/8965] Built OAI.Combinatorics.Sensitivity.SeedAmplification (6.3s)
+✔ [8965/8965] Built OAI.Combinatorics.Sensitivity.Separation (7.4s)
+Build completed successfully (8965 jobs).
+== build rc=0 seconds=135
+{"theorems": ["OAI.Paper320.quantitative_separation"], "defs": ["OAI.Paper320.flip", "OAI.Paper320.sensitivityAt", "OAI.Paper320.sensitivity", "OAI.Paper320.blockSensitivityAt", "OAI.Paper320.blockSensitivity"], "json_theorems": ["OAI.Paper320.quantitative_separation"], "missing_from_parse": []}
+AXIOMS: 'OAI.Paper320.quantitative_separation' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:48:07Z
