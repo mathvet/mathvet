@@ -1,0 +1,92 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_AuslanderReiten.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ArExplicit.Statement.main [thm] ok
+CMP OAI.ArExplicit.Statement.FullStatement [def] ok
+CMP OAI.ArExplicit.Statement.FullStatement._proof_2 [thm] ok
+CMP OAI.ArExplicit.Statement.K [def] ok
+CMP OAI.ArExplicit.Statement.System.actionTower [thm] ok
+CMP OAI.ArExplicit.Statement.System.scalarAction [def] ok
+CMP OAI.ArExplicit.Statement.System [ind] ok
+CMP OAI.ArExplicit.Statement.System.mk [ctor] ok
+CMP OAI.ArExplicit.Statement.System.additiveGroup [def] ok
+CMP OAI.ArExplicit.Statement.System.moduleCarrier [def] ok
+CMP OAI.ArExplicit.Statement.System.action [def] ok
+CMP OAI.ArExplicit.Statement.System.ring [def] ok
+CMP OAI.ArExplicit.Statement.System.algebraCarrier [def] ok
+CMP OAI.ArExplicit.Statement.System.scalarAlgebra [def] ok
+CMP OAI.ArExplicit.Statement.FullStatement._proof_1 [thm] ok
+CMP OAI.ArExplicit.Statement.Conclusions [def] ok
+CMP OAI.ArExplicit.Statement.Conclusions._proof_4 [thm] ok
+CMP OAI.ArExplicit.Statement.Conclusions._proof_3 [thm] ok
+CMP OAI.ArExplicit.Statement.Conclusions._proof_2 [thm] ok
+CMP OAI.ArExplicit.Statement.Conclusions._proof_1 [thm] ok
+CMP OAI.ArExplicit.Statement.TotallyAcyclicWitness [def] ok
+CMP OAI.ArExplicit.Statement.TotallyAcyclicWitness._proof_4 [thm] ok
+CMP OAI.ArExplicit.Statement.TotallyAcyclicWitness._proof_3 [thm] ok
+CMP OAI.ArExplicit.Statement.TotallyAcyclicWitness._proof_2 [thm] ok
+CMP OAI.ArExplicit.Statement.TotallyAcyclicWitness._proof_1 [thm] ok
+CMP OAI.ArExplicit.Statement.parameters [def] ok
+Chal.ArExplicit.Statement.main : Chal.ArExplicit.Statement.FullStatement
+@[reducible] def Chal.ArExplicit.Statement.K : Type :=
+FractionRing (MvPolynomial (Fin 3) (ZMod 2))
+def Chal.ArExplicit.Statement.parameters : Fin 3 → Chal.ArExplicit.Statement.K :=
+fun i => (algebraMap (MvPolynomial (Fin 3) (ZMod 2)) Chal.ArExplicit.Statement.K) (MvPolynomial.X i)
+def Chal.ArExplicit.Statement.TotallyAcyclicWitness.{u} : (R : Type u) →
+  [inst : Ring R] → (Z : Type u) → [inst_1 : AddCommGroup Z] → [_root_.Module R Z] → Prop :=
+fun R [Ring R] Z [AddCommGroup Z] [_root_.Module R Z] =>
+  ∃ P,
+    (∀ (i : ℤ), Module.Finite R ↑(P.X i) ∧ Module.Projective R ↑(P.X i)) ∧
+      (∀ (i : ℤ), (ModuleCat.Hom.hom (P.d (i + 1) i)).range = (ModuleCat.Hom.hom (P.d i (i - 1))).ker) ∧
+        (∀ (Q : Type u) [inst_3 : AddCommGroup Q] [inst_4 : _root_.Module R Q] [Module.Projective R Q] (i : ℤ)
+            (f : ↑(P.X i) →ₗ[R] Q),
+            f ∘ₗ ModuleCat.Hom.hom (P.d (i + 1) i) = 0 → ∃ g, f = g ∘ₗ ModuleCat.Hom.hom (P.d i (i - 1))) ∧
+          Nonempty (Z ≃ₗ[R] ↑(P.X 0) ⧸ (ModuleCat.Hom.hom (P.d 1 0)).range)
+def Chal.ArExplicit.Statement.Conclusions.{u} : (F R Z : Type u) →
+  [inst : Field F] →
+    [inst_1 : Ring R] →
+      [inst_2 : Algebra F R] →
+        [inst_3 : AddCommGroup Z] →
+          [inst_4 : _root_.Module R Z] → [inst_5 : _root_.Module F Z] → [IsScalarTower F R Z] → Prop :=
+fun F R Z [Field F] [Ring R] [Algebra F R] [AddCommGroup Z] [_root_.Module R Z] [_root_.Module F Z]
+    [IsScalarTower F R Z] =>
+  FiniteDimensional F R ∧
+    FiniteDimensional F Z ∧
+      ¬Module.Projective R Z ∧
+        Chal.ArExplicit.Statement.TotallyAcyclicWitness R Z ∧
+          (∀ (i : ℕ), 0 < i → Subsingleton (CategoryTheory.Abelian.Ext (↧Z) (↧Z) i)) ∧
+            (∀ (i : ℕ), 0 < i → Subsingleton (CategoryTheory.Abelian.Ext (↧Z) (↧R) i)) ∧
+              Nonempty ((R ⧸ Ring.jacobson R) ≃ₐ[F] Fin 8 → F) ∧ Ring.jacobson R ^ 4 ≠ ⊥
+structure Chal.ArExplicit.Statement.System : Type 1
+number of parameters: 0
+fields:
+  Chal.ArExplicit.Statement.System.algebraCarrier : Type
+  Chal.ArExplicit.Statement.System.ring : Ring self.algebraCarrier
+  Chal.ArExplicit.Statement.System.scalarAlgebra : Algebra Chal.ArExplicit.Statement.K self.algebraCarrier
+  Chal.ArExplicit.Statement.System.moduleCarrier : Type
+  Chal.ArExplicit.Statement.System.additiveGroup : AddCommGroup self.moduleCarrier
+  Chal.ArExplicit.Statement.System.action : _root_.Module self.algebraCarrier self.moduleCarrier
+  Chal.ArExplicit.Statement.System.scalarAction : _root_.Module Chal.ArExplicit.Statement.K self.moduleCarrier
+  Chal.ArExplicit.Statement.System.actionTower : IsScalarTower Chal.ArExplicit.Statement.K self.algebraCarrier
+      self.moduleCarrier
+constructor:
+  Chal.ArExplicit.Statement.System.mk (algebraCarrier : Type) [ring : Ring algebraCarrier]
+    [scalarAlgebra : Algebra Chal.ArExplicit.Statement.K algebraCarrier] (moduleCarrier : Type)
+    [additiveGroup : AddCommGroup moduleCarrier] [action : _root_.Module algebraCarrier moduleCarrier]
+    [scalarAction : _root_.Module Chal.ArExplicit.Statement.K moduleCarrier]
+    [actionTower : IsScalarTower Chal.ArExplicit.Statement.K algebraCarrier moduleCarrier] :
+    Chal.ArExplicit.Statement.System
+def Chal.ArExplicit.Statement.FullStatement.{v} : Prop :=
+AlgebraicIndependent (ZMod 2) Chal.ArExplicit.Statement.parameters ∧
+  ∃ s,
+    Chal.ArExplicit.Statement.Conclusions Chal.ArExplicit.Statement.K s.algebraCarrier s.moduleCarrier ∧
+      ∀ (E : Type v) [inst : Field E] [inst_1 : Algebra Chal.ArExplicit.Statement.K E],
+        ∃ action,
+          ∃ (tower :
+            IsScalarTower E (TensorProduct Chal.ArExplicit.Statement.K E s.algebraCarrier)
+              (TensorProduct Chal.ArExplicit.Statement.K E s.moduleCarrier)),
+            (∀ (a b : E) (r : s.algebraCarrier) (z : s.moduleCarrier),
+                a ⊗ₜ[Chal.ArExplicit.Statement.K] r • b ⊗ₜ[Chal.ArExplicit.Statement.K] z =
+                  (a * b) ⊗ₜ[Chal.ArExplicit.Statement.K] (r • z)) ∧
+              Chal.ArExplicit.Statement.Conclusions E (TensorProduct Chal.ArExplicit.Statement.K E s.algebraCarrier)
+                (TensorProduct Chal.ArExplicit.Statement.K E s.moduleCarrier)
+'OAI.ArExplicit.Statement.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== AuslanderReiten comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

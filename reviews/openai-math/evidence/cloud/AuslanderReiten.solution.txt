@@ -1,0 +1,62 @@
+OAI.ArExplicit.Statement.main : OAI.ArExplicit.Statement.FullStatement
+'OAI.ArExplicit.Statement.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.ArExplicit.Statement.K : Type :=
+FractionRing (MvPolynomial (Fin 3) (ZMod 2))
+def OAI.ArExplicit.Statement.parameters : Fin 3 → OAI.ArExplicit.Statement.K :=
+fun i => (algebraMap (MvPolynomial (Fin 3) (ZMod 2)) OAI.ArExplicit.Statement.K) (MvPolynomial.X i)
+def OAI.ArExplicit.Statement.TotallyAcyclicWitness.{u} : (R : Type u) →
+  [inst : Ring R] → (Z : Type u) → [inst_1 : AddCommGroup Z] → [Module R Z] → Prop :=
+fun R [Ring R] Z [AddCommGroup Z] [Module R Z] =>
+  ∃ P,
+    (∀ (i : ℤ), Module.Finite R ↑(P.X i) ∧ Module.Projective R ↑(P.X i)) ∧
+      (∀ (i : ℤ), (ModuleCat.Hom.hom (P.d (i + 1) i)).range = (ModuleCat.Hom.hom (P.d i (i - 1))).ker) ∧
+        (∀ (Q : Type u) [inst_3 : AddCommGroup Q] [inst_4 : Module R Q] [Module.Projective R Q] (i : ℤ)
+            (f : ↑(P.X i) →ₗ[R] Q),
+            f ∘ₗ ModuleCat.Hom.hom (P.d (i + 1) i) = 0 → ∃ g, f = g ∘ₗ ModuleCat.Hom.hom (P.d i (i - 1))) ∧
+          Nonempty (Z ≃ₗ[R] ↑(P.X 0) ⧸ (ModuleCat.Hom.hom (P.d 1 0)).range)
+def OAI.ArExplicit.Statement.Conclusions.{u} : (F R Z : Type u) →
+  [inst : Field F] →
+    [inst_1 : Ring R] →
+      [inst_2 : Algebra F R] →
+        [inst_3 : AddCommGroup Z] → [inst_4 : Module R Z] → [inst_5 : Module F Z] → [IsScalarTower F R Z] → Prop :=
+fun F R Z [Field F] [Ring R] [Algebra F R] [AddCommGroup Z] [Module R Z] [Module F Z] [IsScalarTower F R Z] =>
+  FiniteDimensional F R ∧
+    FiniteDimensional F Z ∧
+      ¬Module.Projective R Z ∧
+        OAI.ArExplicit.Statement.TotallyAcyclicWitness R Z ∧
+          (∀ (i : ℕ), 0 < i → Subsingleton (CategoryTheory.Abelian.Ext (↧Z) (↧Z) i)) ∧
+            (∀ (i : ℕ), 0 < i → Subsingleton (CategoryTheory.Abelian.Ext (↧Z) (↧R) i)) ∧
+              Nonempty ((R ⧸ Ring.jacobson R) ≃ₐ[F] Fin 8 → F) ∧ Ring.jacobson R ^ 4 ≠ ⊥
+structure OAI.ArExplicit.Statement.System : Type 1
+number of parameters: 0
+fields:
+  OAI.ArExplicit.Statement.System.algebraCarrier : Type
+  OAI.ArExplicit.Statement.System.ring : Ring self.algebraCarrier
+  OAI.ArExplicit.Statement.System.scalarAlgebra : Algebra OAI.ArExplicit.Statement.K self.algebraCarrier
+  OAI.ArExplicit.Statement.System.moduleCarrier : Type
+  OAI.ArExplicit.Statement.System.additiveGroup : AddCommGroup self.moduleCarrier
+  OAI.ArExplicit.Statement.System.action : Module self.algebraCarrier self.moduleCarrier
+  OAI.ArExplicit.Statement.System.scalarAction : Module OAI.ArExplicit.Statement.K self.moduleCarrier
+  OAI.ArExplicit.Statement.System.actionTower : IsScalarTower OAI.ArExplicit.Statement.K self.algebraCarrier
+      self.moduleCarrier
+constructor:
+  OAI.ArExplicit.Statement.System.mk (algebraCarrier : Type) [ring : Ring algebraCarrier]
+    [scalarAlgebra : Algebra OAI.ArExplicit.Statement.K algebraCarrier] (moduleCarrier : Type)
+    [additiveGroup : AddCommGroup moduleCarrier] [action : Module algebraCarrier moduleCarrier]
+    [scalarAction : Module OAI.ArExplicit.Statement.K moduleCarrier]
+    [actionTower : IsScalarTower OAI.ArExplicit.Statement.K algebraCarrier moduleCarrier] :
+    OAI.ArExplicit.Statement.System
+def OAI.ArExplicit.Statement.FullStatement.{v} : Prop :=
+AlgebraicIndependent (ZMod 2) OAI.ArExplicit.Statement.parameters ∧
+  ∃ s,
+    OAI.ArExplicit.Statement.Conclusions OAI.ArExplicit.Statement.K s.algebraCarrier s.moduleCarrier ∧
+      ∀ (E : Type v) [inst : Field E] [inst_1 : Algebra OAI.ArExplicit.Statement.K E],
+        ∃ action,
+          ∃ (tower :
+            IsScalarTower E (TensorProduct OAI.ArExplicit.Statement.K E s.algebraCarrier)
+              (TensorProduct OAI.ArExplicit.Statement.K E s.moduleCarrier)),
+            (∀ (a b : E) (r : s.algebraCarrier) (z : s.moduleCarrier),
+                a ⊗ₜ[OAI.ArExplicit.Statement.K] r • b ⊗ₜ[OAI.ArExplicit.Statement.K] z =
+                  (a * b) ⊗ₜ[OAI.ArExplicit.Statement.K] (r • z)) ∧
+              OAI.ArExplicit.Statement.Conclusions E (TensorProduct OAI.ArExplicit.Statement.K E s.algebraCarrier)
+                (TensorProduct OAI.ArExplicit.Statement.K E s.moduleCarrier)
