@@ -73,11 +73,12 @@ fun lam hlam offspring =>
   ∃ a, 0 < a ∧ Filter.Tendsto (Chal.ThreeState.TreeClauses.advantage lam hlam offspring) Filter.atTop (nhds a)
 def Chal.ThreeState.TreeClauses.Probability.poissonWeight : ℝ → ℕ → ℝ :=
 fun rate count => Real.exp (-rate) * rate ^ count / ↑count.factorial
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ThreeStateTreeClauses.lean:195:7: error(lean.unknownIdentifier): Unknown constant `Chal.ThreeState.TreeClauses.Probability._root_.OAI.ThreeState.TreeClauses.poissonPMF`
+def Chal.ThreeState.TreeClauses.poissonPMF : NNReal → PMF ℕ :=
+fun rate => ⟨fun count => ENNReal.ofReal (Chal.ThreeState.TreeClauses.Probability.poissonWeight (↑rate) count), ⋯⟩
 'OAI.ThreeState.TreeClauses.Tree.regular_reconstructs_above_KS' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'OAI.ThreeState.TreeClauses.Tree.poisson_reconstructs_above_KS' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
-== ThreeStateTreeClauses comparator-style: ok=25 problems=0 errors=1 | SHADOW-DIFF(see ThreeStateTreeClauses.standalone.norm vs ThreeStateTreeClauses.insolution.norm) | [propext, 
+== ThreeStateTreeClauses comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, 
