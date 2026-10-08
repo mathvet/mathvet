@@ -1,0 +1,27 @@
+CMP OAI.Kervaire.coefficient_injective [thm] ok
+CMP OAI.Kervaire.coefficientMap [def] ok
+CMP OAI.Kervaire.instNormalWordGroupRelatorClosure [thm] ok
+CMP OAI.Kervaire.relatorClosure [def] ok
+CMP OAI.Kervaire.WordGroup [def] ok
+CMP OAI.Kervaire.RelatorQuotient [def] ok
+CMP OAI.Kervaire.Unimodular [def] ok
+CMP OAI.Kervaire.exponentSum [def] ok
+Chal.Kervaire.coefficient_injective : ∀ (A : Type u_1) [inst : Group A] (w : Chal.Kervaire.WordGroup A),
+  Chal.Kervaire.Unimodular w → Function.Injective ⇑(Chal.Kervaire.coefficientMap w)
+@[reducible] def Chal.Kervaire.WordGroup.{u} : (A : Type u) → [Group A] → Type u :=
+fun A [Group A] => Monoid.Coprod A (Multiplicative ℤ)
+def Chal.Kervaire.exponentSum.{u} : {A : Type u} → [inst : Group A] → Chal.Kervaire.WordGroup A → ℤ :=
+fun {A} [Group A] w => Multiplicative.toAdd (Monoid.Coprod.snd w)
+def Chal.Kervaire.Unimodular.{u} : {A : Type u} → [inst : Group A] → Chal.Kervaire.WordGroup A → Prop :=
+fun {A} [Group A] w => Chal.Kervaire.exponentSum w = 1 ∨ Chal.Kervaire.exponentSum w = -1
+def Chal.Kervaire.relatorClosure.{u} : {A : Type u} →
+  [inst : Group A] → Chal.Kervaire.WordGroup A → Subgroup (Chal.Kervaire.WordGroup A) :=
+fun {A} [Group A] w => Subgroup.normalClosure {w}
+@[reducible] def Chal.Kervaire.RelatorQuotient.{u} : {A : Type u} →
+  [inst : Group A] → Chal.Kervaire.WordGroup A → Type u :=
+fun {A} [Group A] w => Chal.Kervaire.WordGroup A ⧸ Chal.Kervaire.relatorClosure w
+def Chal.Kervaire.coefficientMap.{u} : {A : Type u} →
+  [inst : Group A] → (w : Chal.Kervaire.WordGroup A) → A →* Chal.Kervaire.RelatorQuotient w :=
+fun {A} [Group A] w => (QuotientGroup.mk' (Chal.Kervaire.relatorClosure w)).comp Monoid.Coprod.inl
+'OAI.Kervaire.coefficient_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Kervaire comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
