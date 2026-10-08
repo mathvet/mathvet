@@ -1,0 +1,23 @@
+OAI.LittleFinitistic.extreme_left_right_asymmetry : ∃ Λ x x_1,
+  FiniteDimensional ℂ Λ ∧
+    OAI.LittleFinitistic.littleFinitisticDimension Λ = ⊤ ∧
+      OAI.LittleFinitistic.bigFinitisticDimension Λ = ⊤ ∧
+        OAI.LittleFinitistic.littleFinitisticDimension Λᵐᵒᵖ = 0 ∧
+          OAI.LittleFinitistic.bigFinitisticDimension Λᵐᵒᵖ = 0 ∧
+            ¬OAI.LittleFinitistic.InjectivesGenerate Λ ∧ OAI.LittleFinitistic.InjectivesGenerate Λᵐᵒᵖ
+'OAI.LittleFinitistic.extreme_left_right_asymmetry' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.LittleFinitistic.littleFinitisticDimension.{u} : (A : Type u) → [Ring A] → WithBot ℕ∞ :=
+fun A [Ring A] =>
+  ⨆ M,
+    ⨆ (_ : Module.Finite A ↑M), ⨆ (_ : CategoryTheory.projectiveDimension M < ⊤), CategoryTheory.projectiveDimension M
+def OAI.LittleFinitistic.bigFinitisticDimension.{u} : (A : Type u) → [Ring A] → WithBot ℕ∞ :=
+fun A [Ring A] => ⨆ M, ⨆ (_ : CategoryTheory.projectiveDimension M < ⊤), CategoryTheory.projectiveDimension M
+def OAI.LittleFinitistic.InjectivesGenerate.{u} : (A : Type u) → [Ring A] → Prop :=
+fun A [Ring A] =>
+  ∀ (P : CategoryTheory.ObjectProperty (DerivedCategory (ModuleCat A))),
+    P.IsClosedUnderIsomorphisms →
+      P.IsTriangulated →
+        (∀ (I : Type u), P.IsClosedUnderColimitsOfShape (CategoryTheory.Discrete I)) →
+          (∀ (M : ModuleCat A),
+              CategoryTheory.Injective M → P ((DerivedCategory.singleFunctor (ModuleCat A) 0).obj M)) →
+            ∀ (X : DerivedCategory (ModuleCat A)), P X
