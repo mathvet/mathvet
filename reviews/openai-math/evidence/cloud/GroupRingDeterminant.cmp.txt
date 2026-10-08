@@ -1,0 +1,50 @@
+CMP OAI.GroupRingDeterminant.main [thm] ok
+CMP OAI.GroupRingDeterminant.MainStatement [def] ok
+CMP OAI.GroupRingDeterminant.fkDet [def] ok
+CMP OAI.GroupRingDeterminant.fkDet._proof_3 [thm] ok
+CMP OAI.GroupRingDeterminant.fkDet._proof_2 [thm] ok
+CMP OAI.GroupRingDeterminant.fkDet._proof_1 [thm] ok
+CMP OAI.GroupRingDeterminant.Hilbert._proof_1 [thm] ok
+CMP OAI.GroupRingDeterminant.groupTrace._proof_2 [thm] ok
+CMP OAI.GroupRingDeterminant.groupTrace._proof_1 [thm] ok
+CMP OAI.GroupRingDeterminant.Hilbert [def] ok
+CMP OAI.GroupRingDeterminant.groupTrace [def] ok
+CMP OAI.GroupRingDeterminant.identityVector [def] ok
+CMP OAI.GroupRingDeterminant.MainStatement._proof_1 [thm] ok
+CMP OAI.GroupRingDeterminant.IsRegularOperator [def] ok
+CMP OAI.GroupRingDeterminant.rationalMatrix [def] ok
+Chal.GroupRingDeterminant.main : Chal.GroupRingDeterminant.MainStatement
+@[reducible] def Chal.GroupRingDeterminant.Hilbert : (G : Type) → (n : ℕ) → AddSubgroup (PreLp fun x => ℂ) :=
+fun G n => lp (fun x => ℂ) 2
+def Chal.GroupRingDeterminant.identityVector : {G : Type} →
+  [Group G] → {n : ℕ} → Fin n → ↥(Chal.GroupRingDeterminant.Hilbert G n) :=
+fun {G} [Group G] {n} i => lp.single 2 (i, 1) 1
+def Chal.GroupRingDeterminant.groupTrace : {G : Type} →
+  [Group G] → {n : ℕ} → (↥(Chal.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(Chal.GroupRingDeterminant.Hilbert G n)) → ℂ :=
+fun {G} [Group G] {n} T =>
+  ∑ i, inner ℂ (Chal.GroupRingDeterminant.identityVector i) (T (Chal.GroupRingDeterminant.identityVector i))
+def Chal.GroupRingDeterminant.fkDet : {G : Type} →
+  [Group G] → {n : ℕ} → (↥(Chal.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(Chal.GroupRingDeterminant.Hilbert G n)) → ℝ :=
+fun {G} [Group G] {n} T => Real.exp ((Chal.GroupRingDeterminant.groupTrace (CFC.log (star T * T))).re / 2)
+def Chal.GroupRingDeterminant.IsRegularOperator : {G : Type} →
+  [Group G] →
+    {n : ℕ} →
+      Matrix (Fin n) (Fin n) (MonoidAlgebra ℤ G) →
+        (↥(Chal.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(Chal.GroupRingDeterminant.Hilbert G n)) → Prop :=
+fun {G} [Group G] {n} A T =>
+  ∀ (ξ : ↥(Chal.GroupRingDeterminant.Hilbert G n)) (i : Fin n) (h : G),
+    ↑(T ξ) (i, h) = ∑ j, (A i j).coeff.sum fun g z => ↑z * ↑ξ (j, g⁻¹ * h)
+def Chal.GroupRingDeterminant.rationalMatrix : {G : Type} →
+  [Group G] → {n : ℕ} → Matrix (Fin n) (Fin n) (MonoidAlgebra ℤ G) → Matrix (Fin n) (Fin n) (MonoidAlgebra ℚ G) :=
+fun {G} [Group G] {n} A => A.map ⇑(MonoidAlgebra.mapRingHom G (Int.castRingHom ℚ))
+def Chal.GroupRingDeterminant.MainStatement : Prop :=
+∃ G x,
+  ∃ (_ : Group.FG G),
+    ∃ n,
+      1 ≤ n ∧
+        ∃ A T,
+          IsUnit (Chal.GroupRingDeterminant.rationalMatrix A) ∧
+            Chal.GroupRingDeterminant.IsRegularOperator A T ∧
+              IsUnit T ∧ 0 < Chal.GroupRingDeterminant.fkDet T ∧ Chal.GroupRingDeterminant.fkDet T < 1
+'OAI.GroupRingDeterminant.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GroupRingDeterminant comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
