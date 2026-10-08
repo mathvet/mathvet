@@ -1,0 +1,45 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ThreeTorus.lean:82:8: warning: declaration uses `sorry`
+OAI.ThreeTorus.simple_lebesgue_spectrum : OAI.ThreeTorus.MainConclusion
+@[reducible] def OAI.ThreeTorus.Torus : Type :=
+Fin 3 → UnitAddCircle
+@[reducible] def OAI.ThreeTorus.Cover : Type :=
+Fin 3 → ℝ
+def OAI.ThreeTorus.project : OAI.ThreeTorus.Cover → OAI.ThreeTorus.Torus :=
+fun x i => ↑(x i)
+def OAI.ThreeTorus.Smooth : (OAI.ThreeTorus.Torus → OAI.ThreeTorus.Torus) → Prop :=
+fun T =>
+  ∀ (x : OAI.ThreeTorus.Cover),
+    ∃ U,
+      IsOpen U ∧
+        x ∈ U ∧ ∃ F, ContDiffOn ℝ (↑⊤) F U ∧ ∀ y ∈ U, T (OAI.ThreeTorus.project y) = OAI.ThreeTorus.project (F y)
+def OAI.ThreeTorus.μ : MeasureTheory.Measure OAI.ThreeTorus.Torus :=
+MeasureTheory.Measure.pi fun x => AddCircle.haarAddCircle
+@[reducible] def OAI.ThreeTorus.H : Type :=
+↥(MeasureTheory.Lp ℂ 2 OAI.ThreeTorus.μ)
+def OAI.ThreeTorus.meanZero : Submodule ℂ OAI.ThreeTorus.H :=
+{ carrier := {f | ∫ (x : OAI.ThreeTorus.Torus), ↑↑f x ∂OAI.ThreeTorus.μ = 0},
+  add_mem' := @OAI.ThreeTorus.meanZero._proof_5, zero_mem' := OAI.ThreeTorus.meanZero._proof_6,
+  smul_mem' := OAI.ThreeTorus.meanZero._proof_7 }
+@[reducible] def OAI.ThreeTorus.H₀ : Type :=
+↥OAI.ThreeTorus.meanZero
+@[reducible] def OAI.ThreeTorus.CircleH : Type :=
+↥(MeasureTheory.Lp ℂ 2 AddCircle.haarAddCircle)
+def OAI.ThreeTorus.IsReal : OAI.ThreeTorus.H₀ → Prop :=
+fun f => ∀ᵐ (x : OAI.ThreeTorus.Torus) ∂OAI.ThreeTorus.μ, (↑↑↑f x).im = 0
+def OAI.ThreeTorus.MainConclusion : Prop :=
+∃ T,
+  OAI.ThreeTorus.Smooth ⇑T ∧
+    OAI.ThreeTorus.Smooth ⇑(Equiv.symm T) ∧
+      MeasureTheory.MeasurePreserving (⇑T) OAI.ThreeTorus.μ OAI.ThreeTorus.μ ∧
+        ∃ f,
+          OAI.ThreeTorus.IsReal f ∧
+            ∃ v,
+              (∀ (n : ℤ), ∀ᵐ (x : OAI.ThreeTorus.Torus) ∂OAI.ThreeTorus.μ, ↑↑↑(v n) x = ↑↑↑f ((T ^ n) x)) ∧
+                Orthonormal ℂ v ∧
+                  Dense ↑(Submodule.span ℂ (Set.range v)) ∧
+                    Ergodic (⇑T) OAI.ThreeTorus.μ ∧
+                      ∃ W,
+                        ∀ (g : OAI.ThreeTorus.H₀),
+                          ∃ h,
+                            (∀ᵐ (x : OAI.ThreeTorus.Torus) ∂OAI.ThreeTorus.μ, ↑↑↑h x = ↑↑↑g (T x)) ∧
+                              ∀ᵐ (z : AddCircle 1) ∂AddCircle.haarAddCircle, ↑↑(W h) z = (fourier 1) z * ↑↑(W g) z
