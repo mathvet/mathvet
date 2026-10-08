@@ -1,0 +1,174 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_TruffetCounterexample.lean:118:8: warning: declaration uses `sorry`
+OAI.TruffetV4Counterexample.finite_execution_not_optimal : OAI.TruffetV4Counterexample.crossRowRestriction
+    OAI.TruffetV4Counterexample.initial ∧
+  OAI.TruffetV4Counterexample.ForcedSingletonStep OAI.TruffetV4Counterexample.initial OAI.TruffetV4Counterexample.middle
+      0 1 ∧
+    OAI.TruffetV4Counterexample.ForcedSingletonStep OAI.TruffetV4Counterexample.middle
+        OAI.TruffetV4Counterexample.finalState 1 0 ∧
+      (¬∃ j, OAI.TruffetV4Counterexample.finalState.remaining j) ∧
+        OAI.TruffetV4Counterexample.stop OAI.TruffetV4Counterexample.finalState ∧
+          OAI.TruffetV4Counterexample.feasible OAI.TruffetV4Counterexample.initial OAI.TruffetV4Counterexample.output ∧
+            OAI.TruffetV4Counterexample.feasible OAI.TruffetV4Counterexample.initial
+                OAI.TruffetV4Counterexample.better ∧
+              OAI.TruffetV4Counterexample.output 2 = 0 ∧
+                OAI.TruffetV4Counterexample.better 2 = 0 ∧
+                  ↑(OAI.TruffetV4Counterexample.output 1) =
+                      OAI.TruffetV4Counterexample.eval
+                        (OAI.TruffetV4Counterexample.lowerForm OAI.TruffetV4Counterexample.initial 0 1)
+                        OAI.TruffetV4Counterexample.output ∧
+                    ↑(OAI.TruffetV4Counterexample.output 0) =
+                        OAI.TruffetV4Counterexample.eval
+                          (OAI.TruffetV4Counterexample.lowerForm OAI.TruffetV4Counterexample.middle 1 0)
+                          OAI.TruffetV4Counterexample.output ∧
+                      OAI.TruffetV4Counterexample.eval OAI.TruffetV4Counterexample.initial.cost
+                            OAI.TruffetV4Counterexample.output =
+                          OAI.TruffetV4Counterexample.eval OAI.TruffetV4Counterexample.finalState.cost
+                            OAI.TruffetV4Counterexample.output ∧
+                        OAI.TruffetV4Counterexample.eval OAI.TruffetV4Counterexample.initial.cost
+                            OAI.TruffetV4Counterexample.better <
+                          OAI.TruffetV4Counterexample.eval OAI.TruffetV4Counterexample.finalState.cost
+                            OAI.TruffetV4Counterexample.output
+@[reducible] def OAI.TruffetV4Counterexample.Coeff : Type :=
+WithBot ℝ
+@[reducible] def OAI.TruffetV4Counterexample.Form : Type :=
+Fin 3 → OAI.TruffetV4Counterexample.Coeff
+@[reducible] def OAI.TruffetV4Counterexample.Var : Type :=
+Fin 2
+@[reducible] def OAI.TruffetV4Counterexample.RowIndex : Type :=
+Fin 2
+def OAI.TruffetV4Counterexample.column : OAI.TruffetV4Counterexample.Var → Fin 3 :=
+fun j => ⟨↑j, ⋯⟩
+def OAI.TruffetV4Counterexample.nullForm : OAI.TruffetV4Counterexample.Form :=
+fun x => ⊥
+structure OAI.TruffetV4Counterexample.Row : Type
+number of parameters: 0
+fields:
+  OAI.TruffetV4Counterexample.Row.lhs : OAI.TruffetV4Counterexample.Form
+  OAI.TruffetV4Counterexample.Row.rhs : OAI.TruffetV4Counterexample.Form
+constructor:
+  OAI.TruffetV4Counterexample.Row.mk (lhs rhs : OAI.TruffetV4Counterexample.Form) : OAI.TruffetV4Counterexample.Row
+structure OAI.TruffetV4Counterexample.State : Type
+number of parameters: 0
+fields:
+  OAI.TruffetV4Counterexample.State.rows : OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Row
+  OAI.TruffetV4Counterexample.State.cost : OAI.TruffetV4Counterexample.Form
+  OAI.TruffetV4Counterexample.State.remaining : OAI.TruffetV4Counterexample.Var → Prop
+constructor:
+  OAI.TruffetV4Counterexample.State.mk (rows : OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Row)
+    (cost : OAI.TruffetV4Counterexample.Form) (remaining : OAI.TruffetV4Counterexample.Var → Prop) :
+    OAI.TruffetV4Counterexample.State
+def OAI.TruffetV4Counterexample.wellFormed : OAI.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (j : OAI.TruffetV4Counterexample.Var),
+    ¬s.remaining j →
+      s.cost (OAI.TruffetV4Counterexample.column j) = ⊥ ∧
+        ∀ (i : OAI.TruffetV4Counterexample.RowIndex),
+          (s.rows i).lhs (OAI.TruffetV4Counterexample.column j) = ⊥ ∧
+            (s.rows i).rhs (OAI.TruffetV4Counterexample.column j) = ⊥
+def OAI.TruffetV4Counterexample.eval : OAI.TruffetV4Counterexample.Form →
+  (Fin 3 → ℝ) → OAI.TruffetV4Counterexample.Coeff :=
+fun f w => max (f 0 + ↑(w 0)) (max (f 1 + ↑(w 1)) (f 2 + ↑(w 2)))
+def OAI.TruffetV4Counterexample.feasible : OAI.TruffetV4Counterexample.State → (Fin 3 → ℝ) → Prop :=
+fun s w =>
+  ∀ (i : OAI.TruffetV4Counterexample.RowIndex),
+    OAI.TruffetV4Counterexample.eval (s.rows i).rhs w ≤ OAI.TruffetV4Counterexample.eval (s.rows i).lhs w
+def OAI.TruffetV4Counterexample.lower : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  (s.rows i).lhs (OAI.TruffetV4Counterexample.column j) ≠ ⊥ ∧
+    (s.rows i).rhs (OAI.TruffetV4Counterexample.column j) < (s.rows i).lhs (OAI.TruffetV4Counterexample.column j)
+def OAI.TruffetV4Counterexample.upper : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  (s.rows i).rhs (OAI.TruffetV4Counterexample.column j) ≠ ⊥ ∧
+    (s.rows i).lhs (OAI.TruffetV4Counterexample.column j) < (s.rows i).rhs (OAI.TruffetV4Counterexample.column j)
+def OAI.TruffetV4Counterexample.dominating : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.Var → Prop :=
+fun s j => s.remaining j ∧ (∃ i, OAI.TruffetV4Counterexample.lower s i j) ∧ ∃ i, OAI.TruffetV4Counterexample.upper s i j
+def OAI.TruffetV4Counterexample.eligible : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  s.remaining j ∧
+    OAI.TruffetV4Counterexample.lower s i j ∧
+      ((∃ k, OAI.TruffetV4Counterexample.dominating s k) → OAI.TruffetV4Counterexample.dominating s j)
+def OAI.TruffetV4Counterexample.bounded : OAI.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (j : OAI.TruffetV4Counterexample.Var),
+    s.remaining j → (∃ i, OAI.TruffetV4Counterexample.lower s i j) ∨ ∃ i, OAI.TruffetV4Counterexample.upper s i j
+def OAI.TruffetV4Counterexample.stop : OAI.TruffetV4Counterexample.State → Prop :=
+fun s => ∀ (i : OAI.TruffetV4Counterexample.RowIndex), (s.rows i).rhs 2 ≤ (s.rows i).lhs 2
+def OAI.TruffetV4Counterexample.switch : OAI.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  (∀ (j : OAI.TruffetV4Counterexample.Var), s.remaining j → s.cost (OAI.TruffetV4Counterexample.column j) = ⊥) ∧
+    ¬OAI.TruffetV4Counterexample.stop s ∧
+      (∃ j, s.remaining j) ∧
+        (¬∃ i j, s.remaining j ∧ OAI.TruffetV4Counterexample.lower s i j) ∧
+          ∃ i j, s.remaining j ∧ OAI.TruffetV4Counterexample.upper s i j
+def OAI.TruffetV4Counterexample.failure : OAI.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ¬OAI.TruffetV4Counterexample.stop s ∧
+    ((¬∃ j, s.remaining j) ∨
+      (¬∃ i j, s.remaining j ∧ OAI.TruffetV4Counterexample.lower s i j) ∧
+        ¬∃ i j, s.remaining j ∧ OAI.TruffetV4Counterexample.upper s i j)
+def OAI.TruffetV4Counterexample.lowerForm : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → OAI.TruffetV4Counterexample.Form :=
+fun s i j k =>
+  if k = OAI.TruffetV4Counterexample.column j then ⊥
+  else (s.rows i).rhs k + ↑(-WithBot.unbotD 0 ((s.rows i).lhs (OAI.TruffetV4Counterexample.column j)))
+def OAI.TruffetV4Counterexample.substitute : OAI.TruffetV4Counterexample.Form →
+  OAI.TruffetV4Counterexample.Var → OAI.TruffetV4Counterexample.Form → OAI.TruffetV4Counterexample.Form :=
+fun f j g k =>
+  if k = OAI.TruffetV4Counterexample.column j then ⊥ else max (f k) (f (OAI.TruffetV4Counterexample.column j) + g k)
+def OAI.TruffetV4Counterexample.cleanup : OAI.TruffetV4Counterexample.Row → OAI.TruffetV4Counterexample.Row :=
+fun r =>
+  if ∀ (k : Fin 3), r.rhs k ≤ r.lhs k then
+    { lhs := OAI.TruffetV4Counterexample.nullForm, rhs := OAI.TruffetV4Counterexample.nullForm }
+  else r
+def OAI.TruffetV4Counterexample.advance : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → OAI.TruffetV4Counterexample.State :=
+fun s i j =>
+  {
+    rows := fun r =>
+      OAI.TruffetV4Counterexample.cleanup
+        { lhs := OAI.TruffetV4Counterexample.substitute (s.rows r).lhs j (OAI.TruffetV4Counterexample.lowerForm s i j),
+          rhs :=
+            OAI.TruffetV4Counterexample.substitute (s.rows r).rhs j (OAI.TruffetV4Counterexample.lowerForm s i j) },
+    cost := OAI.TruffetV4Counterexample.substitute s.cost j (OAI.TruffetV4Counterexample.lowerForm s i j),
+    remaining := fun k => s.remaining k ∧ k ≠ j }
+def OAI.TruffetV4Counterexample.ForcedSingletonStep : OAI.TruffetV4Counterexample.State →
+  OAI.TruffetV4Counterexample.State → OAI.TruffetV4Counterexample.RowIndex → OAI.TruffetV4Counterexample.Var → Prop :=
+fun s s' i j =>
+  OAI.TruffetV4Counterexample.wellFormed s ∧
+    OAI.TruffetV4Counterexample.wellFormed s' ∧
+      OAI.TruffetV4Counterexample.bounded s ∧
+        ¬OAI.TruffetV4Counterexample.stop s ∧
+          ¬OAI.TruffetV4Counterexample.switch s ∧
+            ¬OAI.TruffetV4Counterexample.failure s ∧
+              (∀ (r : OAI.TruffetV4Counterexample.RowIndex) (k : OAI.TruffetV4Counterexample.Var),
+                  OAI.TruffetV4Counterexample.eligible s r k ↔ r = i ∧ k = j) ∧
+                (∃ k,
+                    OAI.TruffetV4Counterexample.substitute s.cost j (OAI.TruffetV4Counterexample.lowerForm s i j) k ≠
+                      ⊥) ∧
+                  s' = OAI.TruffetV4Counterexample.advance s i j
+def OAI.TruffetV4Counterexample.initial : OAI.TruffetV4Counterexample.State :=
+{ rows := ![{ lhs := ![0, 0, ⊥], rhs := ![⊥, ⊥, 0] }, { lhs := ![0, ⊥, ⊥], rhs := ![⊥, 1, ↑(-2)] }], cost := ![0, ⊥, ⊥],
+  remaining := fun x => True }
+def OAI.TruffetV4Counterexample.middle : OAI.TruffetV4Counterexample.State :=
+{
+  rows :=
+    ![{ lhs := OAI.TruffetV4Counterexample.nullForm, rhs := OAI.TruffetV4Counterexample.nullForm },
+      { lhs := ![0, ⊥, ⊥], rhs := ![⊥, ⊥, 1] }],
+  cost := ![0, ⊥, ⊥], remaining := fun j => j = 0 }
+def OAI.TruffetV4Counterexample.finalState : OAI.TruffetV4Counterexample.State :=
+{ rows := fun x => { lhs := OAI.TruffetV4Counterexample.nullForm, rhs := OAI.TruffetV4Counterexample.nullForm },
+  cost := ![⊥, ⊥, 1], remaining := fun x => False }
+def OAI.TruffetV4Counterexample.crossRowRestriction : OAI.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (i r : OAI.TruffetV4Counterexample.RowIndex),
+    i ≠ r →
+      ∀ (α : ℝ),
+        ∃ w, OAI.TruffetV4Counterexample.eval (s.rows i).lhs w < ↑α + OAI.TruffetV4Counterexample.eval (s.rows r).rhs w
+def OAI.TruffetV4Counterexample.output : Fin 3 → ℝ :=
+![1, 0, 0]
+def OAI.TruffetV4Counterexample.better : Fin 3 → ℝ :=
+![0, -1, 0]
