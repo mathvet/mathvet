@@ -1,0 +1,489 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CylinderCovering.lean:561:8: warning: declaration uses `sorry`
+OAI.CylinderCovering.fourPaperMain : OAI.CylinderCovering.AngularExplicitStatement ∧
+  OAI.RuledApproximation.HyperbolicStatement ∧
+    OAI.RuledApproximation.NilpotentC1Statement ∧
+      OAI.CylinderCovering.RegularParallelogramCounterexampleStatement ∧
+        OAI.CylinderCovering.RegularOpenCounterexampleStatement ∧
+          OAI.CylinderCovering.RadialSweep.AlignedStatement ∧ OAI.CylinderCovering.RadialSweep.ActualSweepStatement
+@[reducible] def OAI.TriangularCovering.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def OAI.TriangularCovering.H : ℝ :=
+√2
+def OAI.TriangularCovering.point : ℝ → ℝ → ℝ → OAI.TriangularCovering.Space :=
+fun x y t => !₂[x, y, OAI.TriangularCovering.H * t]
+def OAI.TriangularCovering.K : Set OAI.TriangularCovering.Space :=
+{z | ∃ x y t, 0 ≤ t ∧ t ≤ 1 ∧ |x| ≤ 1 - t ∧ |y| ≤ t ∧ z = OAI.TriangularCovering.point x y t}
+def OAI.TriangularCovering.projection : OAI.TriangularCovering.Space →
+  OAI.TriangularCovering.Space → OAI.TriangularCovering.Space :=
+fun u z => z - inner ℝ u z • u
+def OAI.TriangularCovering.area : Set OAI.TriangularCovering.Space → ℝ :=
+fun B => ((MeasureTheory.Measure.euclideanHausdorffMeasure 2) B).toReal
+def OAI.TriangularCovering.shadowArea : OAI.TriangularCovering.Space → ℝ :=
+fun u => OAI.TriangularCovering.area (OAI.TriangularCovering.projection u '' OAI.TriangularCovering.K)
+def OAI.TriangularCovering.A_min : ℝ :=
+sInf {a | ∃ u, ‖u‖ = 1 ∧ a = OAI.TriangularCovering.shadowArea u}
+structure OAI.TriangularCovering.TriCylinder : Type
+number of parameters: 0
+fields:
+  OAI.TriangularCovering.TriCylinder.axis : OAI.TriangularCovering.Space
+  OAI.TriangularCovering.TriCylinder.base : Set OAI.TriangularCovering.Space
+  OAI.TriangularCovering.TriCylinder.unit_axis : ‖self.axis‖ = 1
+  OAI.TriangularCovering.TriCylinder.perpendicular : ∀ z ∈ self.base, inner ℝ self.axis z = 0
+  OAI.TriangularCovering.TriCylinder.triangular : ∃ v, AffineIndependent ℝ v ∧ self.base = (convexHull ℝ) (Set.range v)
+  OAI.TriangularCovering.TriCylinder.compact : IsCompact self.base
+  OAI.TriangularCovering.TriCylinder.convex : Convex ℝ self.base
+  OAI.TriangularCovering.TriCylinder.measurable : MeasurableSet self.base
+  OAI.TriangularCovering.TriCylinder.finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) self.base ≠ ⊤
+constructor:
+  OAI.TriangularCovering.TriCylinder.mk (axis : OAI.TriangularCovering.Space) (base : Set OAI.TriangularCovering.Space)
+    (unit_axis : ‖axis‖ = 1) (perpendicular : ∀ z ∈ base, inner ℝ axis z = 0)
+    (triangular : ∃ v, AffineIndependent ℝ v ∧ base = (convexHull ℝ) (Set.range v)) (compact : IsCompact base)
+    (convex : Convex ℝ base) (measurable : MeasurableSet base)
+    (finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) base ≠ ⊤) : OAI.TriangularCovering.TriCylinder
+def OAI.TriangularCovering.TriCylinder.carrier : OAI.TriangularCovering.TriCylinder →
+  Set OAI.TriangularCovering.Space :=
+fun c => {z | ∃ b ∈ c.base, ∃ r, z = b + r • c.axis}
+def OAI.TriangularCovering.Covers : {m : ℕ} → (Fin m → OAI.TriangularCovering.TriCylinder) → Prop :=
+fun {m} c => ∀ z ∈ OAI.TriangularCovering.K, ∃ i, z ∈ (c i).carrier
+def OAI.TriangularCovering.totalArea : {m : ℕ} → (Fin m → OAI.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, OAI.TriangularCovering.area (c i).base
+def OAI.TriangularCovering.relativeCost : {m : ℕ} → (Fin m → OAI.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, OAI.TriangularCovering.area (c i).base / OAI.TriangularCovering.shadowArea (c i).axis
+def OAI.TriangularCovering.n : ℝ → ℕ :=
+fun ε => ⌈2 / ε ^ 2⌉₊
+def OAI.TriangularCovering.η : ℝ :=
+1 / 1000
+def OAI.TriangularCovering.alpha : ℝ → ℝ → ℝ :=
+fun a b => (1 + a * b) / 4
+def OAI.TriangularCovering.beta : ℝ → ℝ → ℝ :=
+fun a b => (a + b) / 4
+def OAI.TriangularCovering.d : ℝ → ℝ :=
+fun q => q ^ 2 * (1 + q ^ 2) / 16
+def OAI.TriangularCovering.cutoffCoeff : ℝ → ℝ → ℝ :=
+fun a b => OAI.TriangularCovering.η + max (OAI.TriangularCovering.d a) (OAI.TriangularCovering.d b)
+def OAI.TriangularCovering.step : ℕ → ℝ :=
+fun N => 2 / ↑N
+def OAI.TriangularCovering.mesh : ℕ → ℕ → ℝ :=
+fun N i => -1 + ↑i * OAI.TriangularCovering.step N
+def OAI.TriangularCovering.cutoff : ℝ → ℝ → ℝ → ℝ :=
+fun ε a b => 1 / 2 + ε ^ 2 * OAI.TriangularCovering.cutoffCoeff a b
+def OAI.TriangularCovering.speedSq : ℝ → ℝ → ℝ :=
+fun a b => OAI.TriangularCovering.alpha a b ^ 2 + 2 * OAI.TriangularCovering.beta a b ^ 2
+def OAI.TriangularCovering.normalizedTerm : ℝ → ℝ → ℝ → ℝ :=
+fun ε a b => (b - a) * OAI.TriangularCovering.cutoff ε a b ^ 2 / √(1 + ε ^ 2 * OAI.TriangularCovering.speedSq a b)
+def OAI.TriangularCovering.unit : OAI.TriangularCovering.Space → OAI.TriangularCovering.Space :=
+fun v => ‖v‖⁻¹ • v
+def OAI.TriangularCovering.tiltV : ℝ → ℝ → ℝ → OAI.TriangularCovering.Space :=
+fun ε A B => !₂[1, ε * A, OAI.TriangularCovering.H * ε * B]
+def OAI.TriangularCovering.tiltW : ℝ → ℝ → ℝ → OAI.TriangularCovering.Space :=
+fun ε A B => !₂[-ε * A, 1, OAI.TriangularCovering.H * ε * B]
+def OAI.TriangularCovering.lowerVertices : ℝ → ℝ → ℝ → Fin 3 → OAI.TriangularCovering.Space :=
+fun a b T =>
+  ![OAI.TriangularCovering.point 0 0 0, OAI.TriangularCovering.point 0 (a * T) T,
+    OAI.TriangularCovering.point 0 (b * T) T]
+def OAI.TriangularCovering.upperVertices : ℝ → ℝ → ℝ → Fin 3 → OAI.TriangularCovering.Space :=
+fun a b T =>
+  ![OAI.TriangularCovering.point 0 0 1, OAI.TriangularCovering.point (a * T) 0 (1 - T),
+    OAI.TriangularCovering.point (b * T) 0 (1 - T)]
+@[reducible] def OAI.TriangularCovering.Planar.Coord : Type :=
+Fin 2 → ℝ
+def OAI.TriangularCovering.Planar.standard : Set OAI.TriangularCovering.Planar.Coord :=
+{x | 0 ≤ x 0 ∧ 0 ≤ x 1 ∧ x 0 + x 1 ≤ 1}
+def OAI.TriangularCovering.Planar.vertices : Fin 3 → OAI.TriangularCovering.Planar.Coord :=
+![0, ![1, 0], ![0, 1]]
+def OAI.TriangularCovering.triangle.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [Module ℝ E] → E → E → E → Set E :=
+fun {E} [AddCommGroup E] [Module ℝ E] a b c => (convexHull ℝ) (Set.range ![a, b, c])
+def OAI.TriangularCovering.lowerAngularIndex : {N : ℕ} → Fin N → Fin (2 * N) :=
+fun {N} j => Fin.cast ⋯ (Fin.castAdd N j)
+def OAI.TriangularCovering.upperAngularIndex : {N : ℕ} → Fin N → Fin (2 * N) :=
+fun {N} j => Fin.cast ⋯ (Fin.natAdd N j)
+def OAI.TriangularCovering.lowerAngularAxis : ℝ → ℕ → OAI.TriangularCovering.Space :=
+fun ε j =>
+  have a := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) j;
+  have b := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) (j + 1);
+  OAI.TriangularCovering.unit
+    (OAI.TriangularCovering.tiltV ε (OAI.TriangularCovering.alpha a b) (OAI.TriangularCovering.beta a b))
+def OAI.TriangularCovering.upperAngularAxis : ℝ → ℕ → OAI.TriangularCovering.Space :=
+fun ε j =>
+  have a := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) j;
+  have b := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) (j + 1);
+  OAI.TriangularCovering.unit
+    (OAI.TriangularCovering.tiltW ε (OAI.TriangularCovering.alpha a b) (OAI.TriangularCovering.beta a b))
+def OAI.TriangularCovering.lowerAngularBase : ℝ → ℕ → Set OAI.TriangularCovering.Space :=
+fun ε j =>
+  have a := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) j;
+  have b := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) (j + 1);
+  have v := OAI.TriangularCovering.lowerVertices a b (OAI.TriangularCovering.cutoff ε a b);
+  OAI.TriangularCovering.projection (OAI.TriangularCovering.lowerAngularAxis ε j) ''
+    OAI.TriangularCovering.triangle (v 0) (v 1) (v 2)
+def OAI.TriangularCovering.upperAngularBase : ℝ → ℕ → Set OAI.TriangularCovering.Space :=
+fun ε j =>
+  have a := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) j;
+  have b := OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) (j + 1);
+  have v := OAI.TriangularCovering.upperVertices a b (OAI.TriangularCovering.cutoff ε a b);
+  OAI.TriangularCovering.projection (OAI.TriangularCovering.upperAngularAxis ε j) ''
+    OAI.TriangularCovering.triangle (v 0) (v 1) (v 2)
+def OAI.TriangularCovering.ExplicitAngularFamily : (ε : ℝ) →
+  (Fin (2 * OAI.TriangularCovering.n ε) → OAI.TriangularCovering.TriCylinder) → Prop :=
+fun ε c =>
+  ∀ (j : Fin (OAI.TriangularCovering.n ε)),
+    (c (OAI.TriangularCovering.lowerAngularIndex j)).axis = OAI.TriangularCovering.lowerAngularAxis ε ↑j ∧
+      (c (OAI.TriangularCovering.lowerAngularIndex j)).base = OAI.TriangularCovering.lowerAngularBase ε ↑j ∧
+        (c (OAI.TriangularCovering.upperAngularIndex j)).axis = OAI.TriangularCovering.upperAngularAxis ε ↑j ∧
+          (c (OAI.TriangularCovering.upperAngularIndex j)).base = OAI.TriangularCovering.upperAngularBase ε ↑j
+def OAI.TriangularCovering.AngularAreaStatement : Prop :=
+∀ (ε : ℝ),
+  0 < ε →
+    ε ≤ 1 →
+      ∃ c,
+        OAI.TriangularCovering.ExplicitAngularFamily ε c ∧
+          OAI.TriangularCovering.totalArea c / OAI.TriangularCovering.H =
+              ∑ j,
+                OAI.TriangularCovering.normalizedTerm ε (OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) ↑j)
+                  (OAI.TriangularCovering.mesh (OAI.TriangularCovering.n ε) (↑j + 1)) ∧
+            |OAI.TriangularCovering.totalArea c / OAI.TriangularCovering.H - (1 / 2 - 13 / 6000 * ε ^ 2)| ≤ 2 * ε ^ 4
+def OAI.TriangularCovering.ExplicitAngularStatement : Prop :=
+OAI.TriangularCovering.A_min = OAI.TriangularCovering.H ∧
+  ∀ (ε : ℝ),
+    0 < ε →
+      ε ≤ 1 / 2000 →
+        ∃ c,
+          OAI.TriangularCovering.ExplicitAngularFamily ε c ∧
+            OAI.TriangularCovering.Covers c ∧
+              |OAI.TriangularCovering.totalArea c / OAI.TriangularCovering.H - (1 / 2 - 13 / 6000 * ε ^ 2)| ≤
+                  2 * ε ^ 4 ∧
+                OAI.TriangularCovering.totalArea c < OAI.TriangularCovering.A_min / 2 ∧
+                  OAI.TriangularCovering.relativeCost c < 1 / 2
+@[reducible] def OAI.RuledApproximation.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def OAI.RuledApproximation.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def OAI.RuledApproximation.vec2 : ℝ → ℝ → OAI.RuledApproximation.Plane :=
+fun x y => !₂[x, y]
+def OAI.RuledApproximation.vec3 : ℝ → ℝ → ℝ → OAI.RuledApproximation.Space :=
+fun x y z => !₂[x, y, z]
+def OAI.RuledApproximation.axial : ℝ → OAI.RuledApproximation.Plane → OAI.RuledApproximation.Space :=
+fun s p => OAI.RuledApproximation.vec3 s (p.ofLp 0) (p.ofLp 1)
+def OAI.RuledApproximation.IsParallelogram.{u_1} : {E : Type u_1} →
+  [inst : AddCommGroup E] → [Module ℝ E] → Set E → Prop :=
+fun {E} [AddCommGroup E] [Module ℝ E] P =>
+  ∃ c u v, LinearIndependent ℝ ![u, v] ∧ P = {x | ∃ s ∈ Set.Icc 0 1, ∃ t ∈ Set.Icc 0 1, x = c + s • u + t • v}
+structure OAI.RuledApproximation.Cylinder : Type
+number of parameters: 0
+fields:
+  OAI.RuledApproximation.Cylinder.axis : OAI.RuledApproximation.Space
+  OAI.RuledApproximation.Cylinder.unit_axis : ‖self.axis‖ = 1
+  OAI.RuledApproximation.Cylinder.base : Set ↥(ℝ ∙ self.axis)ᗮ
+constructor:
+  OAI.RuledApproximation.Cylinder.mk (axis : OAI.RuledApproximation.Space) (unit_axis : ‖axis‖ = 1)
+    (base : Set ↥(ℝ ∙ axis)ᗮ) : OAI.RuledApproximation.Cylinder
+def OAI.RuledApproximation.Cylinder.carrier : OAI.RuledApproximation.Cylinder → Set OAI.RuledApproximation.Space :=
+fun C => {x | ∃ b ∈ C.base, ∃ t, x = ↑b + t • C.axis}
+def OAI.RuledApproximation.Cylinder.area : OAI.RuledApproximation.Cylinder → ℝ :=
+fun C => MeasureTheory.volume.real C.base
+def OAI.RuledApproximation.Cylinder.parallelogram : OAI.RuledApproximation.Cylinder → Prop :=
+fun C => OAI.RuledApproximation.IsParallelogram C.base
+def OAI.RuledApproximation.Cylinder.openBounded : OAI.RuledApproximation.Cylinder → Prop :=
+fun C => IsOpen C.base ∧ Bornology.IsBounded C.base ∧ MeasurableSet C.base
+def OAI.RuledApproximation.familySet : {n : ℕ} →
+  (Fin n → OAI.RuledApproximation.Cylinder) → Set OAI.RuledApproximation.Space :=
+fun {n} C => ⋃ i, (C i).carrier
+def OAI.RuledApproximation.familyArea : {n : ℕ} → (Fin n → OAI.RuledApproximation.Cylinder) → ℝ :=
+fun {n} C => ∑ i, (C i).area
+def OAI.RuledApproximation.HasFiniteCover : (OAI.RuledApproximation.Cylinder → Prop) →
+  Set OAI.RuledApproximation.Space → ℝ → Prop :=
+fun shape S A =>
+  ∃ n C, (∀ (i : Fin n), shape (C i)) ∧ S ⊆ OAI.RuledApproximation.familySet C ∧ OAI.RuledApproximation.familyArea C ≤ A
+def OAI.RuledApproximation.SmoothNear : WithTop ℕ∞ →
+  Set OAI.RuledApproximation.Plane → (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → Prop :=
+fun n D v => ∃ U, IsOpen U ∧ D ⊆ U ∧ ContDiffOn ℝ n v U
+def OAI.RuledApproximation.HyperbolicAt : ℝ →
+  (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → OAI.RuledApproximation.Plane → Prop :=
+fun L v p =>
+  ∃ lam,
+    0 < L * lam ∧
+      L * lam < 1 ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) lam ∧ Module.End.HasEigenvalue (↑(fderiv ℝ v p)) (-lam)
+def OAI.RuledApproximation.weight : OAI.RuledApproximation.Plane → ℝ :=
+fun v => 1 / √(1 + ‖v‖ ^ 2)
+def OAI.RuledApproximation.physicalWeight : ℝ → OAI.RuledApproximation.Plane → ℝ :=
+fun h w => 1 / √(1 + w.ofLp 0 ^ 2 + h ^ 2 * w.ofLp 1 ^ 2)
+def OAI.RuledApproximation.ruled : Set OAI.RuledApproximation.Plane →
+  (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → ℝ → Set OAI.RuledApproximation.Space :=
+fun D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ r, |r| ≤ L ∧ z = OAI.RuledApproximation.vec3 (p.ofLp 0 + r * (v p).ofLp 0) (p.ofLp 1 + r * (v p).ofLp 1) r}
+def OAI.RuledApproximation.physicalRuled : ℝ →
+  Set OAI.RuledApproximation.Plane →
+    (OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) → ℝ → Set OAI.RuledApproximation.Space :=
+fun h D v L =>
+  {z |
+    ∃ p ∈ D,
+      ∃ s,
+        |s| ≤ L ∧ z = OAI.RuledApproximation.vec3 s (p.ofLp 0 + s * (v p).ofLp 0) (h * (p.ofLp 1 + s * (v p).ofLp 1))}
+def OAI.RuledApproximation.HyperbolicStatement : Prop :=
+∀ (D : Set OAI.RuledApproximation.Plane) (v : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane) (L : ℝ),
+  IsCompact D →
+    OAI.RuledApproximation.SmoothNear 1 D v →
+      0 < L →
+        (∀ p ∈ D, OAI.RuledApproximation.HyperbolicAt L v p) →
+          ∀ (e : ℝ),
+            0 < e →
+              OAI.RuledApproximation.HasFiniteCover OAI.RuledApproximation.Cylinder.parallelogram
+                (OAI.RuledApproximation.ruled D v L)
+                ((∫ (p : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.weight (v p)) + e)
+def OAI.RuledApproximation.unitSquare : Set OAI.RuledApproximation.Plane :=
+{x | ∀ (i : Fin 2), |x.ofLp i| ≤ 1 / 2}
+def OAI.RuledApproximation.IsSquareTile : Set OAI.RuledApproximation.Plane → Prop :=
+fun T => ∃ c R a, 0 < a ∧ T = (fun x => c + a • R x) '' OAI.RuledApproximation.unitSquare
+def OAI.RuledApproximation.auxiliaryCylinder : Set OAI.RuledApproximation.Plane →
+  OAI.RuledApproximation.Plane → Set OAI.RuledApproximation.Space :=
+fun T g => {z | ∃ s, ∃ b ∈ T, z = OAI.RuledApproximation.axial s (b + s • g)}
+def OAI.RuledApproximation.firstPhysicalMap : ℝ → OAI.RuledApproximation.Space → OAI.RuledApproximation.Space :=
+fun h z => OAI.RuledApproximation.vec3 (z.ofLp 0) (z.ofLp 1) (h * z.ofLp 2)
+def OAI.RuledApproximation.secondPhysicalMap : ℝ → ℝ → OAI.RuledApproximation.Space → OAI.RuledApproximation.Space :=
+fun h a z => OAI.RuledApproximation.vec3 (z.ofLp 1) (z.ofLp 0) (h * (a - z.ofLp 2))
+@[reducible] def OAI.CylinderCovering.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def OAI.CylinderCovering.IsRegularTetrahedron : Set OAI.CylinderCovering.Space → Prop :=
+fun K =>
+  ∃ v,
+    AffineIndependent ℝ v ∧
+      ∃ edge, 0 < edge ∧ (∀ (i j : Fin 4), i ≠ j → dist (v i) (v j) = edge) ∧ K = (convexHull ℝ) (Set.range v)
+def OAI.CylinderCovering.shadowArea : Set OAI.CylinderCovering.Space → OAI.CylinderCovering.Space → ℝ :=
+fun K u => OAI.TriangularCovering.area (OAI.TriangularCovering.projection u '' K)
+def OAI.CylinderCovering.minimumShadowArea : Set OAI.CylinderCovering.Space → ℝ :=
+fun K => sInf {a | ∃ u, ‖u‖ = 1 ∧ a = OAI.CylinderCovering.shadowArea K u}
+def OAI.CylinderCovering.triangularCovers : {n : ℕ} →
+  Set OAI.CylinderCovering.Space → (Fin n → OAI.TriangularCovering.TriCylinder) → Prop :=
+fun {n} K C => ∀ x ∈ K, ∃ i, x ∈ (C i).carrier
+def OAI.CylinderCovering.triangularRelativeCost : {n : ℕ} →
+  Set OAI.CylinderCovering.Space → (Fin n → OAI.TriangularCovering.TriCylinder) → ℝ :=
+fun {n} K C => ∑ i, OAI.TriangularCovering.area (C i).base / OAI.CylinderCovering.shadowArea K (C i).axis
+def OAI.CylinderCovering.relativeCost : {n : ℕ} →
+  Set OAI.CylinderCovering.Space → (Fin n → OAI.RuledApproximation.Cylinder) → ℝ :=
+fun {n} K C => ∑ i, (C i).area / OAI.CylinderCovering.shadowArea K (C i).axis
+def OAI.CylinderCovering.AngularExplicitStatement : Prop :=
+OAI.TriangularCovering.AngularAreaStatement ∧ OAI.TriangularCovering.ExplicitAngularStatement
+def OAI.CylinderCovering.RegularTriangularCounterexampleStatement : Prop :=
+∀ (K : Set OAI.CylinderCovering.Space),
+  OAI.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      OAI.CylinderCovering.triangularCovers K C ∧
+        OAI.TriangularCovering.totalArea C < OAI.CylinderCovering.minimumShadowArea K / 2 ∧
+          OAI.CylinderCovering.triangularRelativeCost K C < 1 / 2
+def OAI.CylinderCovering.RegularParallelogramCounterexampleStatement : Prop :=
+∀ (K : Set OAI.CylinderCovering.Space),
+  OAI.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      (∀ (i : Fin n), (C i).parallelogram) ∧
+        K ⊆ OAI.RuledApproximation.familySet C ∧
+          OAI.RuledApproximation.familyArea C < OAI.CylinderCovering.minimumShadowArea K / 2 ∧
+            OAI.CylinderCovering.relativeCost K C < 1 / 2
+def OAI.CylinderCovering.RegularOpenCounterexampleStatement : Prop :=
+∀ (K : Set OAI.CylinderCovering.Space),
+  OAI.CylinderCovering.IsRegularTetrahedron K →
+    ∃ n C,
+      (∀ (i : Fin n), (C i).openBounded) ∧
+        K ⊆ OAI.RuledApproximation.familySet C ∧
+          OAI.RuledApproximation.familyArea C < OAI.CylinderCovering.minimumShadowArea K / 2 ∧
+            OAI.CylinderCovering.relativeCost K C < 1 / 2
+def OAI.RuledApproximation.NilpotentC1Statement : Prop :=
+∀ (D : Set OAI.RuledApproximation.Plane) (G : OAI.RuledApproximation.Plane → OAI.RuledApproximation.Plane),
+  IsCompact D →
+    OAI.RuledApproximation.SmoothNear 1 D G →
+      (∀ b ∈ D, fderiv ℝ G b ∘SL fderiv ℝ G b = 0) →
+        ∀ (h eps : ℝ),
+          0 < h →
+            0 < eps →
+              ∃ n T g,
+                (∀ (i : Fin n), OAI.RuledApproximation.IsSquareTile (T i)) ∧
+                  OAI.RuledApproximation.physicalRuled 1 D G 1 ⊆
+                      ⋃ i, OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                    ∑ i, MeasureTheory.volume.real (T i) * OAI.RuledApproximation.physicalWeight h (g i) ≤
+                        (∫ (b : OAI.RuledApproximation.Plane) in D, OAI.RuledApproximation.physicalWeight h (G b)) +
+                          eps ∧
+                      ∀ (a : ℝ),
+                        ∃ C₁ C₂,
+                          ∀ (i : Fin n),
+                            (C₁ i).parallelogram ∧
+                              (C₂ i).parallelogram ∧
+                                (C₁ i).carrier =
+                                    OAI.RuledApproximation.firstPhysicalMap h ''
+                                      OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                  (C₂ i).carrier =
+                                      OAI.RuledApproximation.secondPhysicalMap h a ''
+                                        OAI.RuledApproximation.auxiliaryCylinder (T i) (g i) ∧
+                                    (C₁ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          OAI.RuledApproximation.physicalWeight h (g i) ∧
+                                      (C₂ i).area =
+                                        h * MeasureTheory.volume.real (T i) *
+                                          OAI.RuledApproximation.physicalWeight h (g i)
+def OAI.CylinderCovering.RadialRiemann.step : ℝ → ℝ → ℕ → ℝ :=
+fun a b N => (b - a) / ↑N
+def OAI.CylinderCovering.RadialRiemann.point : ℝ → ℝ → ℕ → ℕ → ℝ :=
+fun a b N i => a + ↑i * OAI.CylinderCovering.RadialRiemann.step a b N
+def OAI.CylinderCovering.RadialRiemann.cell : ℝ → ℝ → (N : ℕ) → Fin N → Set ℝ :=
+fun a b N i =>
+  Set.Icc (OAI.CylinderCovering.RadialRiemann.point a b N ↑i) (OAI.CylinderCovering.RadialRiemann.point a b N (↑i + 1))
+def OAI.CylinderCovering.RadialRiemann.IsTagged : ℝ → ℝ → (N : ℕ) → (Fin N → ℝ) → Prop :=
+fun a b N tag => ∀ (i : Fin N), tag i ∈ OAI.CylinderCovering.RadialRiemann.cell a b N i
+def OAI.CylinderCovering.RadialRiemann.capMax : (ℝ → ℝ) → ℝ → ℝ → (N : ℕ) → Fin N → ℝ :=
+fun R a b N i => sSup (R '' OAI.CylinderCovering.RadialRiemann.cell a b N i)
+@[reducible] def OAI.CylinderCovering.RadialSweep.Space : Type :=
+OAI.TriangularCovering.Space
+structure OAI.CylinderCovering.RadialSweep.Data : Type
+number of parameters: 0
+fields:
+  OAI.CylinderCovering.RadialSweep.Data.e : OAI.CylinderCovering.RadialSweep.Space
+  OAI.CylinderCovering.RadialSweep.Data.a : OAI.CylinderCovering.RadialSweep.Space
+  OAI.CylinderCovering.RadialSweep.Data.b : OAI.CylinderCovering.RadialSweep.Space
+  OAI.CylinderCovering.RadialSweep.Data.p₀ : OAI.CylinderCovering.RadialSweep.Space
+  OAI.CylinderCovering.RadialSweep.Data.α : ℝ
+  OAI.CylinderCovering.RadialSweep.Data.β : ℝ
+  OAI.CylinderCovering.RadialSweep.Data.L : ℝ
+  OAI.CylinderCovering.RadialSweep.Data.R : ℝ → ℝ
+  OAI.CylinderCovering.RadialSweep.Data.lam : ℝ → ℝ
+  OAI.CylinderCovering.RadialSweep.Data.w : ℝ → OAI.CylinderCovering.RadialSweep.Space
+  OAI.CylinderCovering.RadialSweep.Data.interval_nonempty : self.α < self.β
+  OAI.CylinderCovering.RadialSweep.Data.length_pos : 0 < self.L
+  OAI.CylinderCovering.RadialSweep.Data.normal_unit : ‖self.e‖ = 1
+  OAI.CylinderCovering.RadialSweep.Data.a_perp : inner ℝ self.e self.a = 0
+  OAI.CylinderCovering.RadialSweep.Data.b_perp : inner ℝ self.e self.b = 0
+  OAI.CylinderCovering.RadialSweep.Data.origin_perp : inner ℝ self.e self.p₀ = 0
+  OAI.CylinderCovering.RadialSweep.Data.independent : LinearIndependent ℝ ![self.a, self.b]
+  OAI.CylinderCovering.RadialSweep.Data.cap_continuous : ContinuousOn self.R (Set.Icc self.α self.β)
+  OAI.CylinderCovering.RadialSweep.Data.cap_nonneg : ∀ t ∈ Set.Icc self.α self.β, 0 ≤ self.R t
+  OAI.CylinderCovering.RadialSweep.Data.scalar_continuous : ContinuousOn self.lam (Set.Icc self.α self.β)
+  OAI.CylinderCovering.RadialSweep.Data.velocity_continuous : ContinuousOn self.w (Set.Icc self.α self.β)
+  OAI.CylinderCovering.RadialSweep.Data.velocity_perp : ∀ t ∈ Set.Icc self.α self.β, inner ℝ self.e (self.w t) = 0
+  OAI.CylinderCovering.RadialSweep.Data.aligned : ∀ t ∈ Set.Icc self.α self.β,
+      HasDerivWithinAt self.w (self.lam t • (self.a + t • self.b)) (Set.Icc self.α self.β) t
+constructor:
+  OAI.CylinderCovering.RadialSweep.Data.mk (e a b p₀ : OAI.CylinderCovering.RadialSweep.Space) (α β L : ℝ)
+    (R lam : ℝ → ℝ) (w : ℝ → OAI.CylinderCovering.RadialSweep.Space) (interval_nonempty : α < β) (length_pos : 0 < L)
+    (normal_unit : ‖e‖ = 1) (a_perp : inner ℝ e a = 0) (b_perp : inner ℝ e b = 0) (origin_perp : inner ℝ e p₀ = 0)
+    (independent : LinearIndependent ℝ ![a, b]) (cap_continuous : ContinuousOn R (Set.Icc α β))
+    (cap_nonneg : ∀ t ∈ Set.Icc α β, 0 ≤ R t) (scalar_continuous : ContinuousOn lam (Set.Icc α β))
+    (velocity_continuous : ContinuousOn w (Set.Icc α β)) (velocity_perp : ∀ t ∈ Set.Icc α β, inner ℝ e (w t) = 0)
+    (aligned : ∀ t ∈ Set.Icc α β, HasDerivWithinAt w (lam t • (a + t • b)) (Set.Icc α β) t) :
+    OAI.CylinderCovering.RadialSweep.Data
+def OAI.CylinderCovering.RadialSweep.sweep : OAI.CylinderCovering.RadialSweep.Data →
+  Set OAI.CylinderCovering.RadialSweep.Space :=
+fun D =>
+  {z |
+    ∃ t ∈ Set.Icc D.α D.β, ∃ ρ ∈ Set.Icc 0 (D.R t), ∃ s, |s| ≤ D.L ∧ z = D.p₀ + ρ • (D.a + t • D.b) + s • (D.e + D.w t)}
+def OAI.CylinderCovering.RadialSweep.kappa : OAI.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => √(inner ℝ D.a D.a * inner ℝ D.b D.b - inner ℝ D.a D.b ^ 2)
+def OAI.CylinderCovering.RadialSweep.direction : OAI.CylinderCovering.RadialSweep.Data →
+  ℝ → OAI.CylinderCovering.RadialSweep.Space :=
+fun D t => ‖D.e + D.w t‖⁻¹ • (D.e + D.w t)
+def OAI.CylinderCovering.RadialSweep.weightedArea : OAI.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => OAI.CylinderCovering.RadialSweep.kappa D * ∫ (t : ℝ) in D.α..D.β, D.R t ^ 2 / (2 * √(1 + ‖D.w t‖ ^ 2))
+def OAI.CylinderCovering.RadialSweep.scalarBound : OAI.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => sSup ((fun t => |D.lam t|) '' Set.Icc D.α D.β)
+def OAI.CylinderCovering.RadialSweep.radialError : OAI.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => D.L * OAI.CylinderCovering.RadialSweep.scalarBound D
+def OAI.CylinderCovering.RadialSweep.collar : OAI.CylinderCovering.RadialSweep.Data → ℝ :=
+fun D => 3 * OAI.CylinderCovering.RadialSweep.radialError D + 1
+def OAI.CylinderCovering.RadialSweep.midpoint : OAI.CylinderCovering.RadialSweep.Data → (N : ℕ) → Fin N → ℝ :=
+fun D N i =>
+  (OAI.CylinderCovering.RadialRiemann.point D.α D.β N ↑i +
+      OAI.CylinderCovering.RadialRiemann.point D.α D.β N (↑i + 1)) /
+    2
+def OAI.CylinderCovering.RadialSweep.leftTip : OAI.CylinderCovering.RadialSweep.Data → ℕ → ℝ :=
+fun D N => -OAI.CylinderCovering.RadialSweep.collar D * OAI.CylinderCovering.RadialRiemann.step D.α D.β N
+def OAI.CylinderCovering.RadialSweep.rightEdge : OAI.CylinderCovering.RadialSweep.Data → (N : ℕ) → Fin N → ℝ :=
+fun D N i =>
+  OAI.CylinderCovering.RadialRiemann.capMax D.R D.α D.β N i +
+    OAI.CylinderCovering.RadialSweep.radialError D * OAI.CylinderCovering.RadialRiemann.step D.α D.β N
+def OAI.CylinderCovering.RadialSweep.coordinateMap : OAI.CylinderCovering.RadialSweep.Data →
+  ℝ × ℝ → OAI.CylinderCovering.RadialSweep.Space :=
+fun D p => D.p₀ + p.1 • D.a + p.2 • D.b
+def OAI.CylinderCovering.RadialSweep.frozenVertices : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Fin 3 → OAI.CylinderCovering.RadialSweep.Space :=
+fun D N i =>
+  have l := OAI.CylinderCovering.RadialSweep.leftTip D N;
+  have r := OAI.CylinderCovering.RadialSweep.rightEdge D N i;
+  have m := OAI.CylinderCovering.RadialSweep.midpoint D N i;
+  have d := OAI.CylinderCovering.RadialRiemann.step D.α D.β N;
+  ![OAI.CylinderCovering.RadialSweep.coordinateMap D (l, m * l),
+    OAI.CylinderCovering.RadialSweep.coordinateMap D (r, m * r - d / 2 * (r - l)),
+    OAI.CylinderCovering.RadialSweep.coordinateMap D (r, m * r + d / 2 * (r - l))]
+def OAI.CylinderCovering.RadialSweep.frozenTriangle : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Set OAI.CylinderCovering.RadialSweep.Space :=
+fun D N i => (convexHull ℝ) (Set.range (OAI.CylinderCovering.RadialSweep.frozenVertices D N i))
+def OAI.CylinderCovering.RadialSweep.frozenBase : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → Set OAI.CylinderCovering.RadialSweep.Space :=
+fun D N tag i =>
+  OAI.TriangularCovering.projection (OAI.CylinderCovering.RadialSweep.direction D (tag i)) ''
+    OAI.CylinderCovering.RadialSweep.frozenTriangle D N i
+def OAI.CylinderCovering.RadialSweep.frozenArea : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → ℝ :=
+fun D N tag i =>
+  OAI.CylinderCovering.RadialSweep.kappa D * OAI.CylinderCovering.RadialRiemann.step D.α D.β N *
+      (OAI.CylinderCovering.RadialRiemann.capMax D.R D.α D.β N i +
+          (OAI.CylinderCovering.RadialSweep.radialError D + OAI.CylinderCovering.RadialSweep.collar D) *
+            OAI.CylinderCovering.RadialRiemann.step D.α D.β N) ^
+        2 /
+    (2 * √(1 + ‖D.w (tag i)‖ ^ 2))
+def OAI.CylinderCovering.RadialSweep.localSweep : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → Fin N → Set OAI.CylinderCovering.RadialSweep.Space :=
+fun D N i =>
+  {z |
+    ∃ t ∈ OAI.CylinderCovering.RadialRiemann.cell D.α D.β N i,
+      ∃ ρ ∈ Set.Icc 0 (D.R t), ∃ s, |s| ≤ D.L ∧ z = D.p₀ + ρ • (D.a + t • D.b) + s • (D.e + D.w t)}
+def OAI.CylinderCovering.RadialSweep.actualBase : OAI.CylinderCovering.RadialSweep.Data →
+  (N : ℕ) → (Fin N → ℝ) → Fin N → Set OAI.CylinderCovering.RadialSweep.Space :=
+fun D N tag i =>
+  OAI.TriangularCovering.projection (OAI.CylinderCovering.RadialSweep.direction D (tag i)) ''
+    OAI.CylinderCovering.RadialSweep.localSweep D N i
+def OAI.CylinderCovering.RadialSweep.cylinder : OAI.CylinderCovering.RadialSweep.Space →
+  Set OAI.CylinderCovering.RadialSweep.Space → Set OAI.CylinderCovering.RadialSweep.Space :=
+fun u B => {z | ∃ b ∈ B, ∃ s, z = b + s • u}
+def OAI.CylinderCovering.RadialSweep.actualCost : OAI.CylinderCovering.RadialSweep.Data → (N : ℕ) → (Fin N → ℝ) → ℝ :=
+fun D N tag => ∑ i, OAI.TriangularCovering.area (OAI.CylinderCovering.RadialSweep.actualBase D N tag i)
+def OAI.CylinderCovering.RadialSweep.AlignedStatement : Prop :=
+∀ (D : OAI.CylinderCovering.RadialSweep.Data) (tag : (N : ℕ) → Fin N → ℝ),
+  (∀ (N : ℕ), OAI.CylinderCovering.RadialRiemann.IsTagged D.α D.β N (tag N)) →
+    ∃ C,
+      (∀ (N : ℕ),
+          0 < N →
+            (∀ (i : Fin N),
+                (C N i).axis = OAI.CylinderCovering.RadialSweep.direction D (tag N i) ∧
+                  (C N i).base = OAI.CylinderCovering.RadialSweep.frozenBase D N (tag N) i ∧
+                    OAI.TriangularCovering.area (C N i).base =
+                      OAI.CylinderCovering.RadialSweep.frozenArea D N (tag N) i) ∧
+              ∀ z ∈ OAI.CylinderCovering.RadialSweep.sweep D, ∃ i, z ∈ (C N i).carrier) ∧
+        Filter.Tendsto (fun N => OAI.TriangularCovering.totalArea (C N)) Filter.atTop
+          (nhds (OAI.CylinderCovering.RadialSweep.weightedArea D))
+def OAI.CylinderCovering.RadialSweep.ActualSweepStatement : Prop :=
+∀ (D : OAI.CylinderCovering.RadialSweep.Data) (tag : (N : ℕ) → Fin N → ℝ),
+  (∀ (N : ℕ), OAI.CylinderCovering.RadialRiemann.IsTagged D.α D.β N (tag N)) →
+    (∀ (N : ℕ),
+        0 < N →
+          (∀ (i : Fin N),
+              ‖OAI.CylinderCovering.RadialSweep.direction D (tag N i)‖ = 1 ∧
+                IsCompact (OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ∧
+                  MeasurableSet (OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ∧
+                    (MeasureTheory.Measure.euclideanHausdorffMeasure 2)
+                          (OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i) ≠
+                        ⊤ ∧
+                      (∀ z ∈ OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i,
+                          inner ℝ (OAI.CylinderCovering.RadialSweep.direction D (tag N i)) z = 0) ∧
+                        OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i ⊆
+                          OAI.CylinderCovering.RadialSweep.frozenBase D N (tag N) i) ∧
+            ∀ z ∈ OAI.CylinderCovering.RadialSweep.sweep D,
+              ∃ i,
+                z ∈
+                  OAI.CylinderCovering.RadialSweep.cylinder (OAI.CylinderCovering.RadialSweep.direction D (tag N i))
+                    (OAI.CylinderCovering.RadialSweep.actualBase D N (tag N) i)) ∧
+      (∀ (ε : ℝ),
+          0 < ε →
+            ∀ᶠ (N : ℕ) in Filter.atTop,
+              OAI.CylinderCovering.RadialSweep.actualCost D N (tag N) ≤
+                OAI.CylinderCovering.RadialSweep.weightedArea D + ε) ∧
+        Filter.limsup (fun N => OAI.CylinderCovering.RadialSweep.actualCost D N (tag N)) Filter.atTop ≤
+          OAI.CylinderCovering.RadialSweep.weightedArea D
