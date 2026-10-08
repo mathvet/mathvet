@@ -1,0 +1,107 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_MidpointLenses.lean:328:8: warning: declaration uses `sorry`
+OAI.SegmentLenses.midpoint_lens_main : (∀ (H : Finset OAI.SegmentLenses.ForestVertex),
+    OAI.SegmentLenses.Ancestral OAI.SegmentLenses.ForestAncestor H →
+      ∀ (x y : OAI.SegmentLenses.X),
+        x = OAI.SegmentLenses.head H x →
+          ∀ (R : ℝ), 0 ≤ R → ‖x + y‖ ≤ R → ‖x - y‖ ≤ R → ‖OAI.SegmentLenses.tail H y‖ ≤ 2 * √(R ^ 2 - ‖x‖ ^ 2)) ∧
+  ∀ (H : Finset OAI.SegmentLenses.InfiniteVertex),
+    OAI.SegmentLenses.Ancestral List.IsPrefix H →
+      ∀ (x y : OAI.SegmentLenses.BInfinite),
+        ↑x = OAI.SegmentLenses.head H ↑x →
+          ∀ (R : ℝ), 0 ≤ R → ‖x + y‖ ≤ R → ‖x - y‖ ≤ R → ‖OAI.SegmentLenses.tail H ↑y‖ ≤ 2 * √(R ^ 2 - ‖x‖ ^ 2)
+@[reducible] def OAI.SegmentLenses.InfiniteVertex : Type :=
+List ℕ
+def OAI.SegmentLenses.ForestVertex : Type :=
+{ p // 1 ≤ p.1 ∧ p.2.length ≤ p.1 }
+def OAI.SegmentLenses.ForestAncestor : OAI.SegmentLenses.ForestVertex → OAI.SegmentLenses.ForestVertex → Prop :=
+fun a b => (↑a).1 = (↑b).1 ∧ (↑a).2 <+: (↑b).2
+def OAI.SegmentLenses.IsInterval.{u_1} : {V : Type u_1} → (V → V → Prop) → Finset V → Prop :=
+fun {V} ancestor S => ∃ a b, ancestor a b ∧ ∀ (v : V), v ∈ S ↔ ancestor a v ∧ ancestor v b
+def OAI.SegmentLenses.Ancestral.{u_1} : {V : Type u_1} → (V → V → Prop) → Finset V → Prop :=
+fun {V} ancestor H => ∀ ⦃a b : V⦄, b ∈ H → ancestor a b → a ∈ H
+class OAI.SegmentLenses.SegmentSystem.{u_1} (V : Type u_1) : Type u_1
+number of parameters: 1
+fields:
+  OAI.SegmentLenses.SegmentSystem.isSegment : Finset V → Prop
+  OAI.SegmentLenses.SegmentSystem.singleton : ∀ (v : V), OAI.SegmentLenses.SegmentSystem.isSegment {v}
+constructor:
+  OAI.SegmentLenses.SegmentSystem.mk.{u_1} {V : Type u_1} (isSegment : Finset V → Prop)
+    (singleton : ∀ (v : V), isSegment {v}) : OAI.SegmentLenses.SegmentSystem V
+structure OAI.SegmentLenses.SegmentFamily.{u_1} (V : Type u_1) [OAI.SegmentLenses.SegmentSystem V] : Type u_1
+number of parameters: 2
+fields:
+  OAI.SegmentLenses.SegmentFamily.sets : Finset (Finset V)
+  OAI.SegmentLenses.SegmentFamily.segment : ∀ S ∈ self.sets, OAI.SegmentLenses.SegmentSystem.isSegment S
+  OAI.SegmentLenses.SegmentFamily.disjoint : (↑self.sets).PairwiseDisjoint id
+constructor:
+  OAI.SegmentLenses.SegmentFamily.mk.{u_1} {V : Type u_1} [OAI.SegmentLenses.SegmentSystem V] (sets : Finset (Finset V))
+    (segment : ∀ S ∈ sets, OAI.SegmentLenses.SegmentSystem.isSegment S) (disjoint : (↑sets).PairwiseDisjoint id) :
+    OAI.SegmentLenses.SegmentFamily V
+def OAI.SegmentLenses.SegmentFamily.column.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → (F : OAI.SegmentLenses.SegmentFamily V) → V → EuclideanSpace ℝ ↥F.sets :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] F v => WithLp.toLp 2 fun S => if v ∈ ↑S then 1 else 0
+def OAI.SegmentLenses.SegmentFamily.test.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] →
+    (F : OAI.SegmentLenses.SegmentFamily V) → (V →₀ ℝ) →ₗ[ℝ] EuclideanSpace ℝ ↥F.sets :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] F => Finsupp.linearCombination ℝ F.column
+def OAI.SegmentLenses.SegmentFamily.seminorm.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → OAI.SegmentLenses.SegmentFamily V → Seminorm ℝ (V →₀ ℝ) :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] F => (normSeminorm ℝ (EuclideanSpace ℝ ↥F.sets)).comp F.test
+def OAI.SegmentLenses.SegmentFamily.singleton.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → V → OAI.SegmentLenses.SegmentFamily V :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] v => { sets := {{v}}, segment := ⋯, disjoint := ⋯ }
+def OAI.SegmentLenses.segmentSeminorm.{u_1} : (V : Type u_1) →
+  [OAI.SegmentLenses.SegmentSystem V] → Seminorm ℝ (V →₀ ℝ) :=
+fun V [OAI.SegmentLenses.SegmentSystem V] => ⨆ F, F.seminorm
+def OAI.SegmentLenses.Test.{u_1} : Type u_1 → Type (max u_1 0) :=
+fun V => V →₀ ℝ
+def OAI.SegmentLenses.Test.coeff.{u_1} : {V : Type u_1} → OAI.SegmentLenses.Test V → V →₀ ℝ :=
+fun {V} u => u
+def OAI.SegmentLenses.Test.ofFinsupp.{u_1} : {V : Type u_1} → (V →₀ ℝ) → OAI.SegmentLenses.Test V :=
+fun {V} u => u
+def OAI.SegmentLenses.Test.evaluation.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → V → OAI.SegmentLenses.Test V →L[ℝ] ℝ :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] v =>
+  have norm_column_le := @OAI.SegmentLenses.Test.instNormedAddCommGroup._proof_1;
+  have test_apply := @OAI.SegmentLenses.Test.instNormedAddCommGroup._proof_2;
+  have norm_test_le := ⋯;
+  have seminorm_sq := ⋯;
+  have singleton_seminorm := ⋯;
+  have segmentTests_bdd := ⋯;
+  have le_segmentSeminorm := ⋯;
+  have abs_coord_le := ⋯;
+  let f := { toFun := fun u => u.coeff v, map_add' := ⋯, map_smul' := ⋯ };
+  f.mkContinuous 1 ⋯
+@[reducible] def OAI.SegmentLenses.Primal.{u_1} : (V : Type u_1) → [OAI.SegmentLenses.SegmentSystem V] → Type u_1 :=
+fun V [OAI.SegmentLenses.SegmentSystem V] => UniformSpace.Completion (OAI.SegmentLenses.Test V)
+@[reducible] def OAI.SegmentLenses.FullDual.{u_1} : (V : Type u_1) → [OAI.SegmentLenses.SegmentSystem V] → Type u_1 :=
+fun V [OAI.SegmentLenses.SegmentSystem V] => StrongDual ℝ (OAI.SegmentLenses.Primal V)
+def OAI.SegmentLenses.unitVector.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → V → OAI.SegmentLenses.Primal V :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] v => ↑(OAI.SegmentLenses.Test.ofFinsupp fun₀ | v => 1)
+def OAI.SegmentLenses.coordinate.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → V → OAI.SegmentLenses.FullDual V :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] v =>
+  (OAI.SegmentLenses.Test.evaluation v).extend UniformSpace.Completion.toComplL
+def OAI.SegmentLenses.coordinateSpan.{u_1} : (V : Type u_1) →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → Submodule ℝ (OAI.SegmentLenses.FullDual V) :=
+fun V [OAI.SegmentLenses.SegmentSystem V] =>
+  (Submodule.span ℝ (Set.range OAI.SegmentLenses.coordinate)).topologicalClosure
+@[reducible] def OAI.SegmentLenses.CoordinatePredual.{u_1} : (V : Type u_1) →
+  [OAI.SegmentLenses.SegmentSystem V] → Type u_1 :=
+fun V [OAI.SegmentLenses.SegmentSystem V] => ↥(OAI.SegmentLenses.coordinateSpan V)
+def OAI.SegmentLenses.head.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → Finset V → OAI.SegmentLenses.FullDual V → OAI.SegmentLenses.FullDual V :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] H x =>
+  ∑ v ∈ H, x (OAI.SegmentLenses.unitVector v) • OAI.SegmentLenses.coordinate v
+def OAI.SegmentLenses.tail.{u_1} : {V : Type u_1} →
+  [inst : OAI.SegmentLenses.SegmentSystem V] → Finset V → OAI.SegmentLenses.FullDual V → OAI.SegmentLenses.FullDual V :=
+fun {V} [OAI.SegmentLenses.SegmentSystem V] H x => x - OAI.SegmentLenses.head H x
+@[reducible] def OAI.SegmentLenses.J : Type :=
+OAI.SegmentLenses.Primal OAI.SegmentLenses.ForestVertex
+@[reducible] def OAI.SegmentLenses.X : Type :=
+OAI.SegmentLenses.FullDual OAI.SegmentLenses.ForestVertex
+@[reducible] def OAI.SegmentLenses.JInfinite : Type :=
+OAI.SegmentLenses.Primal OAI.SegmentLenses.InfiniteVertex
+@[reducible] def OAI.SegmentLenses.BInfinite : Type :=
+OAI.SegmentLenses.CoordinatePredual OAI.SegmentLenses.InfiniteVertex
