@@ -1,0 +1,256 @@
+CMP OAI.PinchedHartogs.metric_transfer [thm] ok
+CMP OAI.PinchedHartogs.MetricTransfer [def] ok
+CMP OAI.PinchedHartogs.IsNegativelyPinched [def] ok
+CMP OAI.PinchedHartogs.sectional [def] ok
+CMP OAI.PinchedHartogs.realArea [def] ok
+CMP OAI.PinchedHartogs.hermitianValue [def] ok
+CMP OAI.PinchedHartogs.coordinates [def] ok
+CMP OAI.PinchedHartogs.coordVector._proof_1 [thm] ok
+CMP OAI.PinchedHartogs.Base [def] ok
+CMP OAI.PinchedHartogs.Ambient [def] ok
+CMP OAI.PinchedHartogs.CMatrix [def] ok
+CMP OAI.PinchedHartogs.dz._proof_1 [thm] ok
+CMP OAI.PinchedHartogs.curvature [def] ok
+CMP OAI.PinchedHartogs.dz [def] ok
+CMP OAI.PinchedHartogs.coordVector [def] ok
+CMP OAI.PinchedHartogs.dbar [def] ok
+CMP OAI.PinchedHartogs.CurvatureTensor [def] ok
+CMP OAI.PinchedHartogs.tensorValue [def] ok
+CMP OAI.PinchedHartogs.GeodesicallyComplete [def] ok
+CMP OAI.PinchedHartogs.christoffel [def] ok
+CMP OAI.PinchedHartogs.hartogsMetric [def] ok
+CMP OAI.PinchedHartogs.metricPotential [def] ok
+CMP OAI.PinchedHartogs.psi [def] ok
+CMP OAI.PinchedHartogs.complexHessian [def] ok
+CMP OAI.PinchedHartogs.IsKahlerMetric [def] ok
+CMP OAI.PinchedHartogs.hartogs [def] ok
+CMP OAI.PinchedHartogs.ball [def] ok
+CMP OAI.PinchedHartogs.ChartJets [def] ok
+CMP OAI.PinchedHartogs.dbarBase [def] ok
+CMP OAI.PinchedHartogs.centeredChart [def] ok
+CMP OAI.PinchedHartogs.baseHessian [def] ok
+CMP OAI.PinchedHartogs.dzBase [def] ok
+CMP OAI.PinchedHartogs.ChartControl [def] ok
+CMP OAI.PinchedHartogs.controlled_potential [thm] ok
+CMP OAI.PinchedHartogs.ControlledPotential [def] ok
+CMP OAI.PinchedHartogs.noMinorant [def] ok
+CMP OAI.PinchedHartogs.noMinorant._proof_1 [thm] ok
+CMP OAI.PinchedHartogs.main_theorem [thm] ok
+CMP OAI.PinchedHartogs.MainTheorem [def] ok
+CMP OAI.PinchedHartogs.BiholomorphicToBoundedDomain [def] ok
+CMP OAI.PinchedHartogs.NoBoundedCoordinates [def] ok
+CMP OAI.PinchedHartogs.jacobian [def] ok
+CMP OAI.PinchedHartogs.Target [def] ok
+Chal.PinchedHartogs.main_theorem : Chal.PinchedHartogs.MainTheorem
+Chal.PinchedHartogs.controlled_potential : Chal.PinchedHartogs.ControlledPotential
+Chal.PinchedHartogs.metric_transfer : Chal.PinchedHartogs.MetricTransfer
+@[reducible] def Chal.PinchedHartogs.Base : Type :=
+EuclideanSpace ℂ (Fin 2)
+@[reducible] def Chal.PinchedHartogs.Ambient : Type :=
+Chal.PinchedHartogs.Base × ℂ
+@[reducible] def Chal.PinchedHartogs.Target : Type :=
+Fin 3 → ℂ
+def Chal.PinchedHartogs.ball : Set Chal.PinchedHartogs.Base :=
+{z | ‖z‖ < 1}
+def Chal.PinchedHartogs.hartogs : (Chal.PinchedHartogs.Base → ℝ) → Set Chal.PinchedHartogs.Ambient :=
+fun φ => {p | p.1 ∈ Chal.PinchedHartogs.ball ∧ Real.exp (φ p.1) * ‖p.2‖ ^ 2 < 1}
+def Chal.PinchedHartogs.noMinorant : (Chal.PinchedHartogs.Base → ℝ) → Prop :=
+fun φ =>
+  ¬∃ H C,
+      AnalyticOnNhd ℂ H Chal.PinchedHartogs.ball ∧
+        ∀ z ∈ Chal.PinchedHartogs.ball, (H z).re ≤ C + 4 * Real.log (1 / (1 - ‖z‖)) + φ z
+def Chal.PinchedHartogs.coordVector : Fin 3 → Chal.PinchedHartogs.Ambient :=
+fun j => ![(EuclideanSpace.single 0 1, 0), (EuclideanSpace.single 1 1, 0), (0, 1)] j
+def Chal.PinchedHartogs.jacobian : (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Target) →
+  Chal.PinchedHartogs.Ambient → Matrix (Fin 3) (Fin 3) ℂ :=
+fun F p i j => (fderiv ℂ F p) (Chal.PinchedHartogs.coordVector j) i
+@[reducible] def Chal.PinchedHartogs.CMatrix : Type :=
+Matrix (Fin 3) (Fin 3) ℂ
+@[reducible] def Chal.PinchedHartogs.CurvatureTensor : Type :=
+Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℂ
+def Chal.PinchedHartogs.coordinates : Chal.PinchedHartogs.Ambient → Fin 3 → ℂ :=
+fun u => ![u.1.ofLp 0, u.1.ofLp 1, u.2]
+def Chal.PinchedHartogs.dz : (Chal.PinchedHartogs.Ambient → ℂ) → Chal.PinchedHartogs.Ambient → Fin 3 → ℂ :=
+fun f p j =>
+  ((fderiv ℝ f p) (Chal.PinchedHartogs.coordVector j) -
+      Complex.I * (fderiv ℝ f p) (Complex.I • Chal.PinchedHartogs.coordVector j)) /
+    2
+def Chal.PinchedHartogs.dbar : (Chal.PinchedHartogs.Ambient → ℂ) → Chal.PinchedHartogs.Ambient → Fin 3 → ℂ :=
+fun f p j =>
+  ((fderiv ℝ f p) (Chal.PinchedHartogs.coordVector j) +
+      Complex.I * (fderiv ℝ f p) (Complex.I • Chal.PinchedHartogs.coordVector j)) /
+    2
+def Chal.PinchedHartogs.hermitianValue : Chal.PinchedHartogs.CMatrix →
+  Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → ℂ :=
+fun h u v => ∑ i, ∑ j, h i j * Chal.PinchedHartogs.coordinates u i * star (Chal.PinchedHartogs.coordinates v j)
+def Chal.PinchedHartogs.realArea : Chal.PinchedHartogs.CMatrix →
+  Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → ℝ :=
+fun h u v =>
+  (Chal.PinchedHartogs.hermitianValue h u u).re * (Chal.PinchedHartogs.hermitianValue h v v).re -
+    (Chal.PinchedHartogs.hermitianValue h u v).re ^ 2
+def Chal.PinchedHartogs.tensorValue : Chal.PinchedHartogs.CurvatureTensor →
+  Chal.PinchedHartogs.Ambient →
+    Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → ℂ :=
+fun R u v w y =>
+  ∑ a,
+    ∑ b,
+      ∑ c,
+        ∑ d,
+          R a b c d * Chal.PinchedHartogs.coordinates u a * star (Chal.PinchedHartogs.coordinates v b) *
+              Chal.PinchedHartogs.coordinates w c *
+            star (Chal.PinchedHartogs.coordinates y d)
+def Chal.PinchedHartogs.curvature : (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) →
+  Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CurvatureTensor :=
+fun g p a b c d =>
+  -Chal.PinchedHartogs.dbar (fun q => Chal.PinchedHartogs.dz (fun r => g r c d) q a) p b +
+    ∑ e,
+      ∑ k, (g p)⁻¹ e k * Chal.PinchedHartogs.dz (fun q => g q c e) p a * Chal.PinchedHartogs.dbar (fun q => g q k d) p b
+def Chal.PinchedHartogs.sectional : (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) →
+  Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Ambient → ℝ :=
+fun g p u v =>
+  ((Chal.PinchedHartogs.tensorValue (Chal.PinchedHartogs.curvature g p) u u v v).re -
+      (Chal.PinchedHartogs.tensorValue (Chal.PinchedHartogs.curvature g p) u v u v).re) /
+    (2 * Chal.PinchedHartogs.realArea (g p) u v)
+def Chal.PinchedHartogs.IsKahlerMetric : Set Chal.PinchedHartogs.Ambient →
+  (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) → Prop :=
+fun M g =>
+  ContDiffOn ℝ (↑⊤) g M ∧
+    (∀ p ∈ M, ∀ (i j : Fin 3), g p i j = star (g p j i)) ∧
+      (∀ p ∈ M, ∀ (u : Chal.PinchedHartogs.Ambient), u ≠ 0 → 0 < (Chal.PinchedHartogs.hermitianValue (g p) u u).re) ∧
+        ∀ p ∈ M,
+          ∀ (i j k : Fin 3),
+            Chal.PinchedHartogs.dz (fun q => g q k j) p i = Chal.PinchedHartogs.dz (fun q => g q i j) p k
+def Chal.PinchedHartogs.christoffel : (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) →
+  Chal.PinchedHartogs.Ambient → Fin 3 → Fin 3 → Fin 3 → ℂ :=
+fun g p k a c => ∑ e, (g p)⁻¹ e k * Chal.PinchedHartogs.dz (fun q => g q c e) p a
+def Chal.PinchedHartogs.GeodesicallyComplete : Set Chal.PinchedHartogs.Ambient →
+  (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) → Prop :=
+fun M g =>
+  ∀ p ∈ M,
+    ∀ (v : Chal.PinchedHartogs.Ambient),
+      ∃ γ,
+        ContDiff ℝ (↑⊤) γ ∧
+          (∀ (t : ℝ), γ t ∈ M) ∧
+            γ 0 = p ∧
+              deriv γ 0 = v ∧
+                ∀ (t : ℝ) (k : Fin 3),
+                  Chal.PinchedHartogs.coordinates (deriv (deriv γ) t) k +
+                      ∑ a,
+                        ∑ c,
+                          Chal.PinchedHartogs.christoffel g (γ t) k a c *
+                              Chal.PinchedHartogs.coordinates (deriv γ t) a *
+                            Chal.PinchedHartogs.coordinates (deriv γ t) c =
+                    0
+def Chal.PinchedHartogs.IsNegativelyPinched : Set Chal.PinchedHartogs.Ambient →
+  (Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix) → ℝ → ℝ → Prop :=
+fun M g A B =>
+  0 < A ∧
+    A ≤ B ∧
+      ∀ p ∈ M,
+        ∀ (u v : Chal.PinchedHartogs.Ambient),
+          LinearIndependent ℝ ![u, v] →
+            -B ≤ Chal.PinchedHartogs.sectional g p u v ∧ Chal.PinchedHartogs.sectional g p u v ≤ -A
+def Chal.PinchedHartogs.NoBoundedCoordinates : Set Chal.PinchedHartogs.Ambient → Prop :=
+fun M =>
+  ∀ (F : Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.Target),
+    AnalyticOnNhd ℂ F M →
+      (∃ B, ∀ p ∈ M, ∀ (i : Fin 3), ‖F p i‖ ≤ B) → ¬∀ p ∈ M, (Chal.PinchedHartogs.jacobian F p).det ≠ 0
+def Chal.PinchedHartogs.BiholomorphicToBoundedDomain : Set Chal.PinchedHartogs.Ambient → Prop :=
+fun M =>
+  ∃ N,
+    IsOpen N ∧
+      Bornology.IsBounded N ∧
+        ∃ F G,
+          AnalyticOnNhd ℂ F M ∧
+            AnalyticOnNhd ℂ G N ∧ Set.MapsTo F M N ∧ Set.MapsTo G N M ∧ (∀ p ∈ M, G (F p) = p) ∧ ∀ q ∈ N, F (G q) = q
+def Chal.PinchedHartogs.MainTheorem : Prop :=
+∃ M g A B,
+  IsOpen M ∧
+    M.Nonempty ∧
+      ContractibleSpace ↑M ∧
+        Chal.PinchedHartogs.IsKahlerMetric M g ∧
+          Chal.PinchedHartogs.GeodesicallyComplete M g ∧
+            Chal.PinchedHartogs.IsNegativelyPinched M g A B ∧
+              Chal.PinchedHartogs.NoBoundedCoordinates M ∧ ¬Chal.PinchedHartogs.BiholomorphicToBoundedDomain M
+def Chal.PinchedHartogs.psi : Chal.PinchedHartogs.Base → ℝ :=
+fun z => -Real.log (1 - ‖z‖ ^ 2)
+def Chal.PinchedHartogs.metricPotential : (Chal.PinchedHartogs.Base → ℝ) → ℝ → Chal.PinchedHartogs.Ambient → ℝ :=
+fun φ lam p => lam * Chal.PinchedHartogs.psi p.1 - Real.log (1 - Real.exp (φ p.1) * ‖p.2‖ ^ 2)
+def Chal.PinchedHartogs.complexHessian : (Chal.PinchedHartogs.Ambient → ℝ) →
+  Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix :=
+fun f p i j => Chal.PinchedHartogs.dz (fun q => Chal.PinchedHartogs.dbar (fun r => ↑(f r)) q j) p i
+def Chal.PinchedHartogs.hartogsMetric : (Chal.PinchedHartogs.Base → ℝ) →
+  ℝ → Chal.PinchedHartogs.Ambient → Chal.PinchedHartogs.CMatrix :=
+fun φ lam => Chal.PinchedHartogs.complexHessian (Chal.PinchedHartogs.metricPotential φ lam)
+def Chal.PinchedHartogs.dzBase : (Chal.PinchedHartogs.Base → ℂ) → Chal.PinchedHartogs.Base → Fin 2 → ℂ :=
+fun f z i =>
+  ((fderiv ℝ f z) (EuclideanSpace.single i 1) - Complex.I * (fderiv ℝ f z) (Complex.I • EuclideanSpace.single i 1)) / 2
+def Chal.PinchedHartogs.dbarBase : (Chal.PinchedHartogs.Base → ℂ) → Chal.PinchedHartogs.Base → Fin 2 → ℂ :=
+fun f z i =>
+  ((fderiv ℝ f z) (EuclideanSpace.single i 1) + Complex.I * (fderiv ℝ f z) (Complex.I • EuclideanSpace.single i 1)) / 2
+def Chal.PinchedHartogs.baseHessian : (Chal.PinchedHartogs.Base → ℝ) →
+  Chal.PinchedHartogs.Base → Matrix (Fin 2) (Fin 2) ℂ :=
+fun φ z i j => Chal.PinchedHartogs.dzBase (fun q => Chal.PinchedHartogs.dbarBase (fun r => ↑(φ r)) q j) z i
+def Chal.PinchedHartogs.centeredChart : ℝ →
+  (Chal.PinchedHartogs.Base ≃ₗᵢ[ℂ] Chal.PinchedHartogs.Base) → Chal.PinchedHartogs.Base → Chal.PinchedHartogs.Base :=
+fun r U ζ => U !₂[(↑r + ζ.ofLp 0) / (1 + ↑r * ζ.ofLp 0), ↑√(1 - r ^ 2) * ζ.ofLp 1 / (1 + ↑r * ζ.ofLp 0)]
+def Chal.PinchedHartogs.ChartControl : (Chal.PinchedHartogs.Base → ℝ) → ℝ → ℝ → Prop :=
+fun φ c C =>
+  ∀ (r : ℝ),
+    0 ≤ r →
+      r < 1 →
+        ∀ (U : Chal.PinchedHartogs.Base ≃ₗᵢ[ℂ] Chal.PinchedHartogs.Base) (v : Chal.PinchedHartogs.Base),
+          c * ‖v‖ ^ 2 ≤
+              (∑ i,
+                  ∑ j,
+                    Chal.PinchedHartogs.baseHessian (φ ∘ Chal.PinchedHartogs.centeredChart r U) 0 i j * v.ofLp i *
+                      star (v.ofLp j)).re ∧
+            (∑ i,
+                  ∑ j,
+                    Chal.PinchedHartogs.baseHessian (φ ∘ Chal.PinchedHartogs.centeredChart r U) 0 i j * v.ofLp i *
+                      star (v.ofLp j)).re ≤
+              C * ‖v‖ ^ 2
+def Chal.PinchedHartogs.ChartJets : (Chal.PinchedHartogs.Base → ℝ) → ℝ → Prop :=
+fun φ C =>
+  ∀ (r : ℝ),
+    0 ≤ r →
+      r < 1 →
+        ∀ (U : Chal.PinchedHartogs.Base ≃ₗᵢ[ℂ] Chal.PinchedHartogs.Base) (i j k l : Fin 2),
+          ‖Chal.PinchedHartogs.dzBase
+                    (fun z => Chal.PinchedHartogs.baseHessian (φ ∘ Chal.PinchedHartogs.centeredChart r U) z i j) 0 k‖ +
+                ‖Chal.PinchedHartogs.dbarBase
+                    (fun z => Chal.PinchedHartogs.baseHessian (φ ∘ Chal.PinchedHartogs.centeredChart r U) z i j) 0 l‖ +
+              ‖Chal.PinchedHartogs.dzBase
+                  (fun z =>
+                    Chal.PinchedHartogs.dbarBase
+                      (fun q => Chal.PinchedHartogs.baseHessian (φ ∘ Chal.PinchedHartogs.centeredChart r U) q i j) z l)
+                  0 k‖ ≤
+            C
+def Chal.PinchedHartogs.ControlledPotential : Prop :=
+∃ φ C,
+  ContDiffOn ℝ (↑⊤) φ Chal.PinchedHartogs.ball ∧
+    Chal.PinchedHartogs.ChartControl φ 1 C ∧ Chal.PinchedHartogs.ChartJets φ C ∧ Chal.PinchedHartogs.noMinorant φ
+def Chal.PinchedHartogs.MetricTransfer : Prop :=
+∀ (c C : ℝ),
+  0 < c →
+    c ≤ C →
+      ∃ lam0,
+        0 < lam0 ∧
+          ∀ (φ : Chal.PinchedHartogs.Base → ℝ),
+            ContDiffOn ℝ (↑⊤) φ Chal.PinchedHartogs.ball →
+              Chal.PinchedHartogs.ChartControl φ c C →
+                Chal.PinchedHartogs.ChartJets φ C →
+                  ∀ (lam : ℝ),
+                    lam0 ≤ lam →
+                      ContractibleSpace ↑(Chal.PinchedHartogs.hartogs φ) ∧
+                        Chal.PinchedHartogs.IsKahlerMetric (Chal.PinchedHartogs.hartogs φ)
+                            (Chal.PinchedHartogs.hartogsMetric φ lam) ∧
+                          Chal.PinchedHartogs.GeodesicallyComplete (Chal.PinchedHartogs.hartogs φ)
+                              (Chal.PinchedHartogs.hartogsMetric φ lam) ∧
+                            ∃ A B,
+                              Chal.PinchedHartogs.IsNegativelyPinched (Chal.PinchedHartogs.hartogs φ)
+                                (Chal.PinchedHartogs.hartogsMetric φ lam) A B
+'OAI.PinchedHartogs.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.PinchedHartogs.controlled_potential' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.PinchedHartogs.metric_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PinchedKahler comparator-style: ok=43 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

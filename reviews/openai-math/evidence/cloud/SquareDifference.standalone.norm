@@ -1,0 +1,1 @@
+OAI.SquareDifference.power_saving : ∃ c C, 0 < c ∧ ∀ (N : ℕ), 1 ≤ N → ∀ A ⊆ Finset.Icc 1 ↑N, OAI.SquareDifference.IsSquareDifferenceFree A → ↑A.card ≤ C * ↑N ^ (1 - c) def OAI.SquareDifference.IsSquareDifferenceFree : Finset ℤ → Prop := fun A => ∀ a ∈ A, ∀ b ∈ A, ∀ (m : ℕ), 1 ≤ m → a - b ≠ ↑m ^ 2 

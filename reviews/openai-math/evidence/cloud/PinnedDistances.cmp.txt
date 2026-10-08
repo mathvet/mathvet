@@ -1,0 +1,24 @@
+CMP OAI.WeakPinned.main [thm] ok
+CMP OAI.WeakPinned.F [def] ok
+CMP OAI.WeakPinned.pairFraction [def] ok
+CMP OAI.WeakPinned.richPairs [def] ok
+CMP OAI.WeakPinned.k [def] ok
+CMP OAI.WeakPinned.distanceFiber [def] ok
+CMP OAI.WeakPinned.Plane [def] ok
+Chal.WeakPinned.main : ∀ (s : ℝ), 0 < s → Filter.Tendsto (fun n => Chal.WeakPinned.F n s) Filter.atTop (nhds 0)
+@[reducible] def Chal.WeakPinned.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.WeakPinned.distanceFiber : Finset Chal.WeakPinned.Plane →
+  Chal.WeakPinned.Plane → Chal.WeakPinned.Plane → Finset Chal.WeakPinned.Plane :=
+fun P x y => {z ∈ P.erase x | dist z x = dist y x}
+def Chal.WeakPinned.k : Finset Chal.WeakPinned.Plane → Chal.WeakPinned.Plane → Chal.WeakPinned.Plane → ℕ :=
+fun P x y => (Chal.WeakPinned.distanceFiber P x y).card
+def Chal.WeakPinned.richPairs : Finset Chal.WeakPinned.Plane →
+  ℝ → Finset (Chal.WeakPinned.Plane × Chal.WeakPinned.Plane) :=
+fun P s => {xy ∈ P ×ˢ P | xy.1 ≠ xy.2 ∧ ↑P.card ^ s ≤ ↑(Chal.WeakPinned.k P xy.1 xy.2)}
+def Chal.WeakPinned.pairFraction : Finset Chal.WeakPinned.Plane → ℝ → ℝ :=
+fun P s => ↑(Chal.WeakPinned.richPairs P s).card / (↑P.card * (↑P.card - 1))
+def Chal.WeakPinned.F : ℕ → ℝ → ℝ :=
+fun n s => if 2 ≤ n then sSup {a | ∃ P, P.card = n ∧ a = Chal.WeakPinned.pairFraction P s} else 0
+'OAI.WeakPinned.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PinnedDistances comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

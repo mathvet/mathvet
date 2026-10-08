@@ -1,0 +1,178 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ConjugatePoints.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ThreeManifold.main_theorem [thm] ok
+CMP OAI.ThreeManifold.MainStatement [def] ok
+CMP OAI.ThreeManifold.NonpositiveSectionalCurvature [def] ok
+CMP OAI.ThreeManifold.curvatureTerm [def] ok
+CMP OAI.ThreeManifold.curvatureCoefficient [def] ok
+CMP OAI.ThreeManifold.christoffel [def] ok
+CMP OAI.ThreeManifold.coordPartial [def] ok
+CMP OAI.ThreeManifold.basisVector [def] ok
+CMP OAI.ThreeManifold.E3 [def] ok
+CMP OAI.ThreeManifold.metricMatrix [def] ok
+CMP OAI.ThreeManifold.SmoothMetric._proof_2 [thm] ok
+CMP OAI.ThreeManifold.SmoothMetric._proof_1 [thm] ok
+CMP OAI.ThreeManifold.I3 [def] ok
+CMP OAI.ThreeManifold.metricMatrix._proof_3 [thm] ok
+CMP OAI.ThreeManifold.metricMatrix._proof_2 [thm] ok
+CMP OAI.ThreeManifold.metricMatrix._proof_1 [thm] ok
+CMP OAI.ThreeManifold.SmoothMetric [def] ok
+CMP OAI.ThreeManifold.christoffel._proof_1 [thm] ok
+CMP OAI.ThreeManifold.NoConjugatePoints [def] ok
+CMP OAI.ThreeManifold.IsJacobiFieldOn [def] ok
+CMP OAI.ThreeManifold.alongDerivative [def] ok
+CMP OAI.ThreeManifold.connectionTerm [def] ok
+CMP OAI.ThreeManifold.fieldCoordinates [def] ok
+CMP OAI.ThreeManifold.IsGeodesicOn [def] ok
+CMP OAI.ThreeManifold.OrientedAtlas [def] ok
+Chal.ThreeManifold.main_theorem : Chal.ThreeManifold.MainStatement
+@[reducible] def Chal.ThreeManifold.E3 : Type :=
+Fin 3 → ℝ
+@[reducible] def Chal.ThreeManifold.I3 : ModelWithCorners ℝ Chal.ThreeManifold.E3 Chal.ThreeManifold.E3 :=
+modelWithCornersSelf ℝ Chal.ThreeManifold.E3
+def Chal.ThreeManifold.OrientedAtlas : {M : Type} →
+  [inst : TopologicalSpace M] → [ChartedSpace Chal.ThreeManifold.E3 M] → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] =>
+  ∀ (c d : OpenPartialHomeomorph M Chal.ThreeManifold.E3),
+    c ∈ atlas Chal.ThreeManifold.E3 M →
+      d ∈ atlas Chal.ThreeManifold.E3 M →
+        ∀ x ∈ c.target, ↑c.symm x ∈ d.source → 0 < LinearMap.det ↑(fderiv ℝ (↑d ∘ ↑c.symm) x)
+@[reducible] def Chal.ThreeManifold.SmoothMetric : (M : Type) →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] → [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] → Type :=
+fun M [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] =>
+  Bundle.ContMDiffRiemannianMetric Chal.ThreeManifold.I3 (↑⊤) Chal.ThreeManifold.E3 fun x =>
+    TangentSpace Chal.ThreeManifold.I3 x
+def Chal.ThreeManifold.basisVector : Fin 3 → Chal.ThreeManifold.E3 :=
+fun i => Pi.single i 1
+def Chal.ThreeManifold.metricMatrix : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Matrix (Fin 3) (Fin 3) ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x i
+    j =>
+  ((g.inner (↑c.symm x)) ((mfderiv% ↑c.symm x) (Chal.ThreeManifold.basisVector i)))
+    ((mfderiv% ↑c.symm x) (Chal.ThreeManifold.basisVector j))
+def Chal.ThreeManifold.coordPartial : (Chal.ThreeManifold.E3 → ℝ) → Chal.ThreeManifold.E3 → Fin 3 → ℝ :=
+fun f x i => (fderiv ℝ f x) (Chal.ThreeManifold.basisVector i)
+def Chal.ThreeManifold.christoffel : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Fin 3 → Fin 3 → Fin 3 → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x i j
+    k =>
+  1 / 2 *
+    ∑ l,
+      (Chal.ThreeManifold.metricMatrix g c x)⁻¹ i l *
+        (Chal.ThreeManifold.coordPartial (fun y => Chal.ThreeManifold.metricMatrix g c y l k) x j +
+            Chal.ThreeManifold.coordPartial (fun y => Chal.ThreeManifold.metricMatrix g c y l j) x k -
+          Chal.ThreeManifold.coordPartial (fun y => Chal.ThreeManifold.metricMatrix g c y j k) x l)
+def Chal.ThreeManifold.connectionTerm : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 →
+            Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x u v
+    i =>
+  ∑ j, ∑ k, Chal.ThreeManifold.christoffel g c x i j k * u j * v k
+def Chal.ThreeManifold.curvatureCoefficient : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x l k
+    i j =>
+  Chal.ThreeManifold.coordPartial (fun y => Chal.ThreeManifold.christoffel g c y l j k) x i -
+      Chal.ThreeManifold.coordPartial (fun y => Chal.ThreeManifold.christoffel g c y l i k) x j +
+    ∑ a,
+      (Chal.ThreeManifold.christoffel g c x l i a * Chal.ThreeManifold.christoffel g c x a j k -
+        Chal.ThreeManifold.christoffel g c x l j a * Chal.ThreeManifold.christoffel g c x a i k)
+def Chal.ThreeManifold.curvatureTerm : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 →
+            Chal.ThreeManifold.E3 →
+              Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 → Chal.ThreeManifold.E3 :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x u v
+    w l =>
+  ∑ k, ∑ i, ∑ j, Chal.ThreeManifold.curvatureCoefficient g c x l k i j * w k * u i * v j
+def Chal.ThreeManifold.NonpositiveSectionalCurvature : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] → Chal.ThreeManifold.SmoothMetric M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g =>
+  ∀ c ∈ atlas Chal.ThreeManifold.E3 M,
+    ∀ x ∈ c.target,
+      ∀ (u v : Chal.ThreeManifold.E3),
+        ∑ i, ∑ j, Chal.ThreeManifold.metricMatrix g c x i j * Chal.ThreeManifold.curvatureTerm g c x u v v i * u j ≤ 0
+def Chal.ThreeManifold.alongDerivative : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 →
+            (ℝ → Chal.ThreeManifold.E3) → (ℝ → Chal.ThreeManifold.E3) → ℝ → Chal.ThreeManifold.E3 :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g c x w
+    s =>
+  deriv w s + Chal.ThreeManifold.connectionTerm g c (x s) (deriv x s) (w s)
+def Chal.ThreeManifold.IsGeodesicOn : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] → Chal.ThreeManifold.SmoothMetric M → (ℝ → M) → Set ℝ → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g γ U =>
+  ContMDiffOn (modelWithCornersSelf ℝ ℝ) Chal.ThreeManifold.I3 (↑⊤) γ U ∧
+    ∀ c ∈ atlas Chal.ThreeManifold.E3 M,
+      ∀ s ∈ U, γ s ∈ c.source → Chal.ThreeManifold.alongDerivative g c (↑c ∘ γ) (deriv (↑c ∘ γ)) s = 0
+def Chal.ThreeManifold.fieldCoordinates : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      (γ : ℝ → M) →
+        ((s : ℝ) → TangentSpace Chal.ThreeManifold.I3 (γ s)) →
+          OpenPartialHomeomorph M Chal.ThreeManifold.E3 → ℝ → Chal.ThreeManifold.E3 :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] γ J c s => (mfderiv% ↑c (γ s)) (J s)
+def Chal.ThreeManifold.IsJacobiFieldOn : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] →
+        Chal.ThreeManifold.SmoothMetric M →
+          (γ : ℝ → M) → ((s : ℝ) → TangentSpace Chal.ThreeManifold.I3 (γ s)) → Set ℝ → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g γ J U =>
+  ∀ c ∈ atlas Chal.ThreeManifold.E3 M,
+    ContDiffOn ℝ (↑⊤) (Chal.ThreeManifold.fieldCoordinates γ J c) (U ∩ γ ⁻¹' c.source) ∧
+      ∀ s ∈ U,
+        γ s ∈ c.source →
+          Chal.ThreeManifold.alongDerivative g c (↑c ∘ γ)
+                (Chal.ThreeManifold.alongDerivative g c (↑c ∘ γ) (Chal.ThreeManifold.fieldCoordinates γ J c)) s +
+              Chal.ThreeManifold.curvatureTerm g c (↑c (γ s)) (Chal.ThreeManifold.fieldCoordinates γ J c s)
+                (deriv (↑c ∘ γ) s) (deriv (↑c ∘ γ) s) =
+            0
+def Chal.ThreeManifold.NoConjugatePoints : {M : Type} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ThreeManifold.E3 M] →
+      [inst_2 : IsManifold Chal.ThreeManifold.I3 (↑⊤) M] → Chal.ThreeManifold.SmoothMetric M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.ThreeManifold.E3 M] [IsManifold Chal.ThreeManifold.I3 (↑⊤) M] g =>
+  ∀ (U : Set ℝ),
+    IsOpen U →
+      U.OrdConnected →
+        ∀ (γ : ℝ → M),
+          Chal.ThreeManifold.IsGeodesicOn g γ U →
+            ∀ (J : (s : ℝ) → TangentSpace Chal.ThreeManifold.I3 (γ s)),
+              Chal.ThreeManifold.IsJacobiFieldOn g γ J U →
+                ∀ a ∈ U, ∀ b ∈ U, a ≠ b → J a = 0 → J b = 0 → ∀ s ∈ U, J s = 0
+def Chal.ThreeManifold.MainStatement : Prop :=
+∃ M top,
+  ∃ (_ : T2Space M) (_ : SecondCountableTopology M) (_ : CompactSpace M) (_ : ConnectedSpace M),
+    ∃ charts,
+      ∃ (smooth : IsManifold Chal.ThreeManifold.I3 (↑⊤) M),
+        Chal.ThreeManifold.OrientedAtlas ∧
+          (∃ g, Chal.ThreeManifold.NoConjugatePoints g) ∧ ¬∃ g, Chal.ThreeManifold.NonpositiveSectionalCurvature g
+'OAI.ThreeManifold.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ConjugatePoints comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

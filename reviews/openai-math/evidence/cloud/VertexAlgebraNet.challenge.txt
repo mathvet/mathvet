@@ -1,0 +1,783 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_VertexAlgebraNet.lean:822:8: warning: declaration uses `sorry`
+@OAI.MinimalVertex.main : ∀ {V : Type u_1} [inst : NormedAddCommGroup V] [inst_1 : InnerProductSpace ℂ V]
+  {A : OAI.StronglyRationalVOA.CFTTypeVOA V} (U : A.UnitaryStructure),
+  A.IsSimple →
+    ∀ (hSR : A.IsStronglyRational),
+      A.PolynomialEnergyBounds ∧
+        OAI.MinimalVertex.CKLWStrongLocal U ⋯ ∧
+          Nonempty (OAI.MinimalVertex.IrreducibleConformalNetStructure (OAI.MinimalVertex.intervalAlgebra U ⋯))
+@[reducible] def OAI.StronglyRationalVOA.StateField.{u, v} : (V : Type u) →
+  (W : Type v) → [inst : AddCommGroup V] → [Module ℂ V] → [inst : AddCommGroup W] → [Module ℂ W] → Type (max u v) :=
+fun V W [AddCommGroup V] [Module ℂ V] [AddCommGroup W] [Module ℂ W] => V →ₗ[ℂ] VertexOperator ℂ W
+def OAI.StronglyRationalVOA.mode.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      {W : Type v} →
+        [inst_2 : AddCommGroup W] →
+          [inst_3 : Module ℂ W] → OAI.StronglyRationalVOA.StateField V W → V → ℤ → Module.End ℂ W :=
+fun {V} [AddCommGroup V] [Module ℂ V] {W} [AddCommGroup W] [Module ℂ W] Y a n => VertexOperator.ncoeff (Y a) n
+def OAI.StronglyRationalVOA.JacobiIdentity.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.StateField V V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] Y =>
+  ∀ (a b c : V) (m n k : ℤ),
+    ∑ᶠ (j : ℕ),
+        Ring.choose (↑m) j •
+          (OAI.StronglyRationalVOA.mode Y ((OAI.StronglyRationalVOA.mode Y a (n + ↑j)) b) (m + k - ↑j)) c =
+      ∑ᶠ (j : ℕ),
+        ((-1) ^ j * Ring.choose (↑n) j) •
+          ((OAI.StronglyRationalVOA.mode Y a (m + n - ↑j)) ((OAI.StronglyRationalVOA.mode Y b (k + ↑j)) c) -
+            (-1) ^ n • (OAI.StronglyRationalVOA.mode Y b (n + k - ↑j)) ((OAI.StronglyRationalVOA.mode Y a (m + ↑j)) c))
+structure OAI.StronglyRationalVOA.VertexAlgebra.{u} (V : Type u) [AddCommGroup V] [Module ℂ V] : Type u
+number of parameters: 3
+fields:
+  OAI.StronglyRationalVOA.VertexAlgebra.vacuum : V
+  OAI.StronglyRationalVOA.VertexAlgebra.fields : OAI.StronglyRationalVOA.StateField V V
+  OAI.StronglyRationalVOA.VertexAlgebra.vacuum_mode : ∀ (n : ℤ),
+      OAI.StronglyRationalVOA.mode self.fields self.vacuum n = if n = -1 then 1 else 0
+  OAI.StronglyRationalVOA.VertexAlgebra.creation : ∀ (a : V),
+      (OAI.StronglyRationalVOA.mode self.fields a (-1)) self.vacuum = a
+  OAI.StronglyRationalVOA.VertexAlgebra.creation_truncation : ∀ (a : V) (n : ℤ),
+      0 ≤ n → (OAI.StronglyRationalVOA.mode self.fields a n) self.vacuum = 0
+  OAI.StronglyRationalVOA.VertexAlgebra.jacobi : OAI.StronglyRationalVOA.JacobiIdentity self.fields
+constructor:
+  OAI.StronglyRationalVOA.VertexAlgebra.mk.{u} {V : Type u} [AddCommGroup V] [Module ℂ V] (vacuum : V)
+    (fields : OAI.StronglyRationalVOA.StateField V V)
+    (vacuum_mode : ∀ (n : ℤ), OAI.StronglyRationalVOA.mode fields vacuum n = if n = -1 then 1 else 0)
+    (creation : ∀ (a : V), (OAI.StronglyRationalVOA.mode fields a (-1)) vacuum = a)
+    (creation_truncation : ∀ (a : V) (n : ℤ), 0 ≤ n → (OAI.StronglyRationalVOA.mode fields a n) vacuum = 0)
+    (jacobi : OAI.StronglyRationalVOA.JacobiIdentity fields) : OAI.StronglyRationalVOA.VertexAlgebra V
+def OAI.StronglyRationalVOA.VertexAlgebra.translation.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.VertexAlgebra V → Module.End ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] A =>
+  { toFun := fun a => (OAI.StronglyRationalVOA.mode A.fields a (-2)) A.vacuum, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.StronglyRationalVOA.VertexAlgebra.c2.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.VertexAlgebra V → Submodule ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] A =>
+  Submodule.span ℂ {x | ∃ a b, x = (OAI.StronglyRationalVOA.mode A.fields a (-2)) b}
+def OAI.StronglyRationalVOA.VertexAlgebra.C2Cofinite.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.VertexAlgebra V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => FiniteDimensional ℂ (V ⧸ A.c2)
+def OAI.StronglyRationalVOA.VertexAlgebra.IsIdeal.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.VertexAlgebra V → Submodule ℂ V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A I =>
+  (∀ (a : V) (n : ℤ), ∀ x ∈ I, (OAI.StronglyRationalVOA.mode A.fields a n) x ∈ I) ∧ ∀ x ∈ I, A.translation x ∈ I
+def OAI.StronglyRationalVOA.VertexAlgebra.IsSimple.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.VertexAlgebra V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => A.vacuum ≠ 0 ∧ ∀ (I : Submodule ℂ V), A.IsIdeal I → I = ⊥ ∨ I = ⊤
+def OAI.StronglyRationalVOA.ModuleJacobiIdentity.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      {W : Type v} →
+        [inst_2 : AddCommGroup W] →
+          [inst_3 : Module ℂ W] →
+            OAI.StronglyRationalVOA.VertexAlgebra V → OAI.StronglyRationalVOA.StateField V W → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] {W} [AddCommGroup W] [Module ℂ W] A Y =>
+  ∀ (a b : V) (c : W) (m n k : ℤ),
+    ∑ᶠ (j : ℕ),
+        Ring.choose (↑m) j •
+          (OAI.StronglyRationalVOA.mode Y ((OAI.StronglyRationalVOA.mode A.fields a (n + ↑j)) b) (m + k - ↑j)) c =
+      ∑ᶠ (j : ℕ),
+        ((-1) ^ j * Ring.choose (↑n) j) •
+          ((OAI.StronglyRationalVOA.mode Y a (m + n - ↑j)) ((OAI.StronglyRationalVOA.mode Y b (k + ↑j)) c) -
+            (-1) ^ n • (OAI.StronglyRationalVOA.mode Y b (n + k - ↑j)) ((OAI.StronglyRationalVOA.mode Y a (m + ↑j)) c))
+structure OAI.StronglyRationalVOA.WeakModule.{u, v} {V : Type u} [AddCommGroup V] [Module ℂ V]
+  (A : OAI.StronglyRationalVOA.VertexAlgebra V) (W : Type v) [AddCommGroup W] [Module ℂ W] : Type (max u v)
+number of parameters: 7
+fields:
+  OAI.StronglyRationalVOA.WeakModule.fields : OAI.StronglyRationalVOA.StateField V W
+  OAI.StronglyRationalVOA.WeakModule.vacuum_mode : ∀ (n : ℤ),
+      OAI.StronglyRationalVOA.mode self.fields A.vacuum n = if n = -1 then 1 else 0
+  OAI.StronglyRationalVOA.WeakModule.jacobi : OAI.StronglyRationalVOA.ModuleJacobiIdentity A self.fields
+constructor:
+  OAI.StronglyRationalVOA.WeakModule.mk.{u, v} {V : Type u} [AddCommGroup V] [Module ℂ V]
+    {A : OAI.StronglyRationalVOA.VertexAlgebra V} {W : Type v} [AddCommGroup W] [Module ℂ W]
+    (fields : OAI.StronglyRationalVOA.StateField V W)
+    (vacuum_mode : ∀ (n : ℤ), OAI.StronglyRationalVOA.mode fields A.vacuum n = if n = -1 then 1 else 0)
+    (jacobi : OAI.StronglyRationalVOA.ModuleJacobiIdentity A fields) : OAI.StronglyRationalVOA.WeakModule A W
+def OAI.StronglyRationalVOA.WeakModule.IsInvariant.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      {W : Type v} →
+        [inst_2 : AddCommGroup W] →
+          [inst_3 : Module ℂ W] →
+            {A : OAI.StronglyRationalVOA.VertexAlgebra V} →
+              OAI.StronglyRationalVOA.WeakModule A W → Submodule ℂ W → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] {W} [AddCommGroup W] [Module ℂ W] {A} M I =>
+  ∀ (a : V) (n : ℤ), ∀ x ∈ I, (OAI.StronglyRationalVOA.mode M.fields a n) x ∈ I
+def OAI.StronglyRationalVOA.WeakModule.CompletelyReducible.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      {W : Type v} →
+        [inst_2 : AddCommGroup W] →
+          [inst_3 : Module ℂ W] →
+            {A : OAI.StronglyRationalVOA.VertexAlgebra V} → OAI.StronglyRationalVOA.WeakModule A W → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] {W} [AddCommGroup W] [Module ℂ W] {A} M =>
+  ∀ (I : Submodule ℂ W), M.IsInvariant I → ∃ J, M.IsInvariant J ∧ IsCompl I J
+structure OAI.StronglyRationalVOA.CFTTypeVOA.{u} (V : Type u) [AddCommGroup V] [Module ℂ V] : Type u
+number of parameters: 3
+parents:
+  OAI.StronglyRationalVOA.CFTTypeVOA.toVertexAlgebra : OAI.StronglyRationalVOA.VertexAlgebra V
+fields:
+  OAI.StronglyRationalVOA.VertexAlgebra.vacuum : V
+  OAI.StronglyRationalVOA.VertexAlgebra.fields : OAI.StronglyRationalVOA.StateField V V
+  OAI.StronglyRationalVOA.VertexAlgebra.vacuum_mode : ∀ (n : ℤ),
+      OAI.StronglyRationalVOA.mode self.fields self.vacuum n = if n = -1 then 1 else 0
+  OAI.StronglyRationalVOA.VertexAlgebra.creation : ∀ (a : V),
+      (OAI.StronglyRationalVOA.mode self.fields a (-1)) self.vacuum = a
+  OAI.StronglyRationalVOA.VertexAlgebra.creation_truncation : ∀ (a : V) (n : ℤ),
+      0 ≤ n → (OAI.StronglyRationalVOA.mode self.fields a n) self.vacuum = 0
+  OAI.StronglyRationalVOA.VertexAlgebra.jacobi : OAI.StronglyRationalVOA.JacobiIdentity self.fields
+  OAI.StronglyRationalVOA.CFTTypeVOA.conformalVector : V
+  OAI.StronglyRationalVOA.CFTTypeVOA.centralCharge : ℂ
+  OAI.StronglyRationalVOA.CFTTypeVOA.grade : ℕ → Submodule ℂ V
+  OAI.StronglyRationalVOA.CFTTypeVOA.grading_internal : DirectSum.IsInternal self.grade
+  OAI.StronglyRationalVOA.CFTTypeVOA.grade_finite : ∀ (d : ℕ), FiniteDimensional ℂ ↥(self.grade d)
+  OAI.StronglyRationalVOA.CFTTypeVOA.vacuum_ne_zero : self.vacuum ≠ 0
+  OAI.StronglyRationalVOA.CFTTypeVOA.grade_zero : self.grade 0 = ℂ ∙ self.vacuum
+  OAI.StronglyRationalVOA.CFTTypeVOA.conformal_mem : self.conformalVector ∈ self.grade 2
+  OAI.StronglyRationalVOA.CFTTypeVOA.conformal_energy : ∀ (d : ℕ),
+      ∀ a ∈ self.grade d, (OAI.StronglyRationalVOA.mode self.fields self.conformalVector 1) a = ↑d • a
+  OAI.StronglyRationalVOA.CFTTypeVOA.conformal_translation : OAI.StronglyRationalVOA.mode self.fields
+        self.conformalVector 0 =
+      self.translation
+  OAI.StronglyRationalVOA.CFTTypeVOA.translation_covariance : ∀ (a : V) (n : ℤ),
+      OAI.StronglyRationalVOA.mode self.fields (self.translation a) n =
+        -↑n • OAI.StronglyRationalVOA.mode self.fields a (n - 1)
+  OAI.StronglyRationalVOA.CFTTypeVOA.virasoro : ∀ (m n : ℤ),
+      OAI.StronglyRationalVOA.mode self.fields self.conformalVector (m + 1) ∘ₗ
+            OAI.StronglyRationalVOA.mode self.fields self.conformalVector (n + 1) -
+          OAI.StronglyRationalVOA.mode self.fields self.conformalVector (n + 1) ∘ₗ
+            OAI.StronglyRationalVOA.mode self.fields self.conformalVector (m + 1) =
+        ↑(m - n) • OAI.StronglyRationalVOA.mode self.fields self.conformalVector (m + n + 1) +
+          (if m + n = 0 then self.centralCharge / 12 * (↑m ^ 3 - ↑m) else 0) • 1
+constructor:
+  OAI.StronglyRationalVOA.CFTTypeVOA.mk.{u} {V : Type u} [AddCommGroup V] [Module ℂ V]
+    (toVertexAlgebra : OAI.StronglyRationalVOA.VertexAlgebra V) (conformalVector : V) (centralCharge : ℂ)
+    (grade : ℕ → Submodule ℂ V) (grading_internal : DirectSum.IsInternal grade)
+    (grade_finite : ∀ (d : ℕ), FiniteDimensional ℂ ↥(grade d)) (vacuum_ne_zero : toVertexAlgebra.vacuum ≠ 0)
+    (grade_zero : grade 0 = ℂ ∙ toVertexAlgebra.vacuum) (conformal_mem : conformalVector ∈ grade 2)
+    (conformal_energy :
+      ∀ (d : ℕ), ∀ a ∈ grade d, (OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector 1) a = ↑d • a)
+    (conformal_translation :
+      OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector 0 = toVertexAlgebra.translation)
+    (translation_covariance :
+      ∀ (a : V) (n : ℤ),
+        OAI.StronglyRationalVOA.mode toVertexAlgebra.fields (toVertexAlgebra.translation a) n =
+          -↑n • OAI.StronglyRationalVOA.mode toVertexAlgebra.fields a (n - 1))
+    (virasoro :
+      ∀ (m n : ℤ),
+        OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector (m + 1) ∘ₗ
+              OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector (n + 1) -
+            OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector (n + 1) ∘ₗ
+              OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector (m + 1) =
+          ↑(m - n) • OAI.StronglyRationalVOA.mode toVertexAlgebra.fields conformalVector (m + n + 1) +
+            (if m + n = 0 then centralCharge / 12 * (↑m ^ 3 - ↑m) else 0) • 1) :
+    OAI.StronglyRationalVOA.CFTTypeVOA V
+field notation resolution order:
+  OAI.StronglyRationalVOA.CFTTypeVOA, OAI.StronglyRationalVOA.VertexAlgebra
+def OAI.StronglyRationalVOA.CFTTypeVOA.virasoroMode.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → ℤ → Module.End ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] A m => OAI.StronglyRationalVOA.mode A.fields A.conformalVector (m + 1)
+def OAI.StronglyRationalVOA.CFTTypeVOA.physicalMode.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → V → ℕ → ℤ → Module.End ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] A a d m => OAI.StronglyRationalVOA.mode A.fields a (m + ↑d - 1)
+def OAI.StronglyRationalVOA.CFTTypeVOA.energyShift.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Module.End ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => 1 + A.virasoroMode 0
+def OAI.StronglyRationalVOA.CFTTypeVOA.gradingEquiv.{u} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] → (A : OAI.StronglyRationalVOA.CFTTypeVOA V) → V ≃ₗ[ℂ] DirectSum ℕ fun d => ↥(A.grade d) :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => (LinearEquiv.ofBijective (DirectSum.coeLinearMap A.grade) ⋯).symm
+def OAI.StronglyRationalVOA.CFTTypeVOA.IsAdmissible.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      (A : OAI.StronglyRationalVOA.CFTTypeVOA V) →
+        {W : Type v} →
+          [inst_2 : AddCommGroup W] →
+            [inst_3 : Module ℂ W] → OAI.StronglyRationalVOA.WeakModule A.toVertexAlgebra W → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A {W} [AddCommGroup W] [Module ℂ W] M =>
+  ∃ G,
+    DirectSum.IsInternal G ∧
+      (∀ k < 0, G k = ⊥) ∧
+        ∀ (d : ℕ),
+          ∀ a ∈ A.grade d, ∀ (n k : ℤ), ∀ x ∈ G k, (OAI.StronglyRationalVOA.mode M.fields a n) x ∈ G (k + ↑d - n - 1)
+def OAI.StronglyRationalVOA.CFTTypeVOA.IsRational.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A =>
+  ∀ (W : Type v) [inst_2 : AddCommGroup W] [inst_3 : Module ℂ W]
+    (M : OAI.StronglyRationalVOA.WeakModule A.toVertexAlgebra W), A.IsAdmissible M → M.CompletelyReducible
+def OAI.StronglyRationalVOA.CFTTypeVOA.PolynomialEnergyBound.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] → [inst_1 : InnerProductSpace ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → V → Prop :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] A a =>
+  ∃ C,
+    0 < C ∧
+      ∃ p k,
+        ∀ (n : ℤ) (b : V),
+          ‖(OAI.StronglyRationalVOA.mode A.fields a n) b‖ ≤ C * (1 + |↑n|) ^ p * ‖(A.energyShift ^ k) b‖
+def OAI.StronglyRationalVOA.CFTTypeVOA.PolynomialEnergyBounds.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] → [inst_1 : InnerProductSpace ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Prop :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] A => ∀ (a : V), A.PolynomialEnergyBound a
+structure OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.{u} {V : Type u} [NormedAddCommGroup V]
+  [InnerProductSpace ℂ V] (A : OAI.StronglyRationalVOA.CFTTypeVOA V) : Type u
+number of parameters: 4
+fields:
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.pct : V →ₗ⋆[ℂ] V
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.pct_involutive : Function.Involutive ⇑self.pct
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.pct_vacuum : self.pct A.vacuum = A.vacuum
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.pct_conformal : self.pct A.conformalVector = A.conformalVector
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.pct_modes : ∀ (a b : V) (n : ℤ),
+      self.pct ((OAI.StronglyRationalVOA.mode A.fields a n) b) =
+        (OAI.StronglyRationalVOA.mode A.fields (self.pct a) n) (self.pct b)
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.vacuum_norm : ‖A.vacuum‖ = 1
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.invariant : ∀ (d : ℕ),
+      ∀ a ∈ A.grade d,
+        ∀ (n : ℤ) (b c : V),
+          inner ℂ ((OAI.StronglyRationalVOA.mode A.fields a n) b) c =
+            inner ℂ b
+              ((-1) ^ d •
+                ∑ j ∈ Finset.range (d + 1),
+                  (↑j.factorial)⁻¹ •
+                    (OAI.StronglyRationalVOA.mode A.fields ((A.virasoroMode 1 ^ j) (self.pct a)) (2 * ↑d - ↑j - n - 2))
+                      c)
+constructor:
+  OAI.StronglyRationalVOA.CFTTypeVOA.UnitaryStructure.mk.{u} {V : Type u} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    {A : OAI.StronglyRationalVOA.CFTTypeVOA V} (pct : V →ₗ⋆[ℂ] V) (pct_involutive : Function.Involutive ⇑pct)
+    (pct_vacuum : pct A.vacuum = A.vacuum) (pct_conformal : pct A.conformalVector = A.conformalVector)
+    (pct_modes :
+      ∀ (a b : V) (n : ℤ),
+        pct ((OAI.StronglyRationalVOA.mode A.fields a n) b) = (OAI.StronglyRationalVOA.mode A.fields (pct a) n) (pct b))
+    (vacuum_norm : ‖A.vacuum‖ = 1)
+    (invariant :
+      ∀ (d : ℕ),
+        ∀ a ∈ A.grade d,
+          ∀ (n : ℤ) (b c : V),
+            inner ℂ ((OAI.StronglyRationalVOA.mode A.fields a n) b) c =
+              inner ℂ b
+                ((-1) ^ d •
+                  ∑ j ∈ Finset.range (d + 1),
+                    (↑j.factorial)⁻¹ •
+                      (OAI.StronglyRationalVOA.mode A.fields ((A.virasoroMode 1 ^ j) (pct a)) (2 * ↑d - ↑j - n - 2))
+                        c)) :
+    A.UnitaryStructure
+def OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.space.{u_2} : (V : Type u_2) →
+  [inst : NormedAddCommGroup V] → [inst_1 : InnerProductSpace ℂ V] → Submodule ℂ (UniformSpace.Completion V) :=
+fun V [NormedAddCommGroup V] [InnerProductSpace ℂ V] => UniformSpace.Completion.toComplₗᵢ.range
+def OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.equiv.{u_2} : (V : Type u_2) →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] → V ≃ₗ[ℂ] ↥(OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.space V) :=
+fun V [NormedAddCommGroup V] [InnerProductSpace ℂ V] =>
+  LinearEquiv.ofInjective UniformSpace.Completion.toComplₗᵢ.toLinearMap ⋯
+def OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.operator.{u_1} : {V : Type u_1} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      (V →ₗ[ℂ] UniformSpace.Completion V) → UniformSpace.Completion V →ₗ.[ℂ] UniformSpace.Completion V :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] T =>
+  { domain := OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.space V,
+    toFun := T ∘ₗ ↑(OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.equiv V).symm }
+def OAI.StronglyRationalVOA.RapidCoefficients : (ℤ → ℂ) → Prop :=
+fun f => ∀ (p : ℕ), Summable fun n => ‖f n‖ * (1 + |↑n|) ^ p
+def OAI.StronglyRationalVOA.SummableLinearFamily.tsumMap.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {V : Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup V] →
+        [inst_1 : NormedSpace ℂ V] →
+          [inst_2 : NormedAddCommGroup H] →
+            [inst_3 : NormedSpace ℂ H] → (T : ι → V →ₗ[ℂ] H) → (∀ (v : V), Summable fun n => (T n) v) → V →ₗ[ℂ] H :=
+fun {ι} {V} {H} [NormedAddCommGroup V] [NormedSpace ℂ V] [NormedAddCommGroup H] [NormedSpace ℂ H] T hT =>
+  { toFun := fun v => ∑' (n : ι), (T n) v, map_add' := ⋯, map_smul' := ⋯ }
+structure OAI.StronglyRationalVOA.SmoothCircleFunction : Type
+number of parameters: 0
+fields:
+  OAI.StronglyRationalVOA.SmoothCircleFunction.toFun : ℝ → ℂ
+  OAI.StronglyRationalVOA.SmoothCircleFunction.periodic : Function.Periodic self.toFun (2 * Real.pi)
+  OAI.StronglyRationalVOA.SmoothCircleFunction.smooth : ContDiff ℝ (↑⊤) self.toFun
+constructor:
+  OAI.StronglyRationalVOA.SmoothCircleFunction.mk (toFun : ℝ → ℂ) (periodic : Function.Periodic toFun (2 * Real.pi))
+    (smooth : ContDiff ℝ (↑⊤) toFun) : OAI.StronglyRationalVOA.SmoothCircleFunction
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient : OAI.StronglyRationalVOA.SmoothCircleFunction →
+  ℤ → ℂ :=
+fun f n =>
+  have h_OAI_StronglyRationalVOA_SmoothCircleFunction_period_pos :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient._proof_2;
+  fourierCoeffOn h_OAI_StronglyRationalVOA_SmoothCircleFunction_period_pos f.toFun n
+@[reducible] def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double.{u} : Type u → Type u :=
+fun H => WithLp 2 (H × H)
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.graph.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      (H →ₗ.[ℂ] H) → Submodule ℂ (OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] T =>
+  Submodule.comap (↑↑(WithLp.prodContinuousLinearEquiv 2 ℂ H H)) T.graph
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.projection.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [CompleteSpace H] →
+        (T : H →ₗ.[ℂ] H) →
+          T.IsClosed →
+            OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double H →L[ℂ]
+              OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T hT =>
+  have h_OAI_StronglyRationalVOA_ClosedGraphData_graph_closed :=
+    @OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.projection._proof_1;
+  (OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.graph T).starProjection
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.inclusion.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Bool → H →L[ℂ] OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] i =>
+  ↑(WithLp.prodContinuousLinearEquiv 2 ℂ H H).symm ∘SL
+    if i = true then ContinuousLinearMap.inr ℂ H H else ContinuousLinearMap.inl ℂ H H
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.coordinate.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Bool → OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.Double H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] i =>
+  (if i = true then ContinuousLinearMap.snd ℂ H H else ContinuousLinearMap.fst ℂ H H) ∘SL
+    ↑(WithLp.prodContinuousLinearEquiv 2 ℂ H H)
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.entry.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [CompleteSpace H] → (T : H →ₗ.[ℂ] H) → T.IsClosed → Bool → Bool → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T hT i j =>
+  OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.coordinate i ∘SL
+    OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.projection T hT ∘SL
+      OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.inclusion j
+def OAI.MinimalVertex.Code.StronglyRationalVOA.LocalOperatorAlgebra.generated.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → Set (H →L[ℂ] H) → VonNeumannAlgebra H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] s =>
+  let __StarSubalgebra := StarSubalgebra.centralizer ℂ ↑(StarSubalgebra.centralizer ℂ s);
+  { toStarSubalgebra := __StarSubalgebra, centralizer_centralizer' := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.onCircle : OAI.StronglyRationalVOA.SmoothCircleFunction →
+  AddCircle (2 * Real.pi) → ℂ :=
+fun f => ⋯.lift
+structure OAI.StronglyRationalVOA.ProperCircleArc : Type
+number of parameters: 0
+fields:
+  OAI.StronglyRationalVOA.ProperCircleArc.left : ℝ
+  OAI.StronglyRationalVOA.ProperCircleArc.right : ℝ
+  OAI.StronglyRationalVOA.ProperCircleArc.nonempty' : self.left < self.right
+  OAI.StronglyRationalVOA.ProperCircleArc.nondense' : self.right < self.left + 2 * Real.pi
+constructor:
+  OAI.StronglyRationalVOA.ProperCircleArc.mk (left right : ℝ) (nonempty' : left < right)
+    (nondense' : right < left + 2 * Real.pi) : OAI.StronglyRationalVOA.ProperCircleArc
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier : OAI.StronglyRationalVOA.ProperCircleArc →
+  Set (AddCircle (2 * Real.pi)) :=
+fun I => (fun t => ↑t) '' Set.Ioo I.left I.right
+def OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.complement : OAI.StronglyRationalVOA.ProperCircleArc →
+  OAI.StronglyRationalVOA.ProperCircleArc :=
+fun I => { left := I.right, right := I.left + 2 * Real.pi, nonempty' := ⋯, nondense' := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.BoundedFlow.flow.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → [CompleteSpace H] → (H →L[ℂ] H) → ℝ → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] K t => NormedSpace.exp (t • K)
+structure OAI.StronglyRationalVOA.SmoothCircleLift : Type
+number of parameters: 0
+fields:
+  OAI.StronglyRationalVOA.SmoothCircleLift.toOrderIso : ℝ ≃o ℝ
+  OAI.StronglyRationalVOA.SmoothCircleLift.smooth : ContDiff ℝ ↑⊤ ⇑self.toOrderIso
+  OAI.StronglyRationalVOA.SmoothCircleLift.inverse_smooth : ContDiff ℝ ↑⊤ ⇑self.toOrderIso.symm
+  OAI.StronglyRationalVOA.SmoothCircleLift.period : ∀ (t : ℝ),
+      self.toOrderIso (t + 2 * Real.pi) = self.toOrderIso t + 2 * Real.pi
+constructor:
+  OAI.StronglyRationalVOA.SmoothCircleLift.mk (toOrderIso : ℝ ≃o ℝ) (smooth : ContDiff ℝ ↑⊤ ⇑toOrderIso)
+    (inverse_smooth : ContDiff ℝ ↑⊤ ⇑toOrderIso.symm)
+    (period : ∀ (t : ℝ), toOrderIso (t + 2 * Real.pi) = toOrderIso t + 2 * Real.pi) :
+    OAI.StronglyRationalVOA.SmoothCircleLift
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.identity : OAI.StronglyRationalVOA.SmoothCircleLift :=
+{ toOrderIso := OrderIso.refl ℝ,
+  smooth := OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.identity._proof_1,
+  inverse_smooth := OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.identity._proof_1,
+  period := OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.identity._proof_2 }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.compose : OAI.StronglyRationalVOA.SmoothCircleLift →
+  OAI.StronglyRationalVOA.SmoothCircleLift → OAI.StronglyRationalVOA.SmoothCircleLift :=
+fun F G => { toOrderIso := G.toOrderIso.trans F.toOrderIso, smooth := ⋯, inverse_smooth := ⋯, period := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.inverse : OAI.StronglyRationalVOA.SmoothCircleLift →
+  OAI.StronglyRationalVOA.SmoothCircleLift :=
+fun F => { toOrderIso := F.toOrderIso.symm, smooth := ⋯, inverse_smooth := ⋯, period := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle : OAI.StronglyRationalVOA.SmoothCircleLift →
+  AddCircle (2 * Real.pi) → AddCircle (2 * Real.pi) :=
+fun F =>
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_one_apply :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_1;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_mul_apply :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_2;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_circle_periodic :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_3;
+  ⋯.lift
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph : OAI.StronglyRationalVOA.SmoothCircleLift →
+  AddCircle (2 * Real.pi) ≃ₜ AddCircle (2 * Real.pi) :=
+fun F =>
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_one_apply :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_1;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_onCircle_one :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph._proof_1;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_onCircle_mul :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph._proof_2;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_onCircle_inverse := ⋯;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_continuous_onCircle :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph._proof_6;
+  have h_OAI_StronglyRationalVOA_SmoothCircleLift_mul_apply :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_2;
+  { toFun := OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle F,
+    invFun := OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle F⁻¹, left_inv := ⋯, right_inv := ⋯,
+    continuous_toFun := ⋯, continuous_invFun := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction : OAI.StronglyRationalVOA.SmoothCircleLift →*
+  Equiv.Perm (AddCircle (2 * Real.pi)) :=
+have h_OAI_StronglyRationalVOA_SmoothCircleLift_onCircle_one :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph._proof_1;
+have h_OAI_StronglyRationalVOA_SmoothCircleLift_onCircle_mul :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph._proof_2;
+{ toFun := fun F => (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleHomeomorph F).toEquiv,
+  map_one' := ⋯, map_mul' := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism : Type :=
+OAI.StronglyRationalVOA.SmoothCircleLift ⧸ OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction.ker
+def OAI.StronglyRationalVOA.scalarPhaseSubgroup.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → Subgroup (H ≃ₗᵢ[ℂ] H) :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] =>
+  { carrier := {E | ∃ c, ‖c‖ = 1 ∧ ∀ (x : H), E x = c • x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+@[reducible] def OAI.StronglyRationalVOA.ProjectiveUnitaryGroup.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Type u_1 :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] => (H ≃ₗᵢ[ℂ] H) ⧸ OAI.StronglyRationalVOA.scalarPhaseSubgroup H
+def OAI.StronglyRationalVOA.SmoothCircleLift.jet : OAI.StronglyRationalVOA.SmoothCircleLift → ℕ → C(ℝ, ℝ) :=
+fun F k => { toFun := iteratedDeriv k ⇑F.toOrderIso, continuous_toFun := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Rel : Matrix.SpecialLinearGroup (Fin 2) ℝ →
+  ℝ → ℝ → Prop :=
+fun M x y =>
+  (↑M 0 0 * Real.cos (x / 2) + ↑M 0 1 * Real.sin (x / 2)) * Real.sin (y / 2) =
+    (↑M 1 0 * Real.cos (x / 2) + ↑M 1 1 * Real.sin (x / 2)) * Real.cos (y / 2)
+def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements : Matrix.SpecialLinearGroup (Fin 2) ℝ →
+  OAI.StronglyRationalVOA.SmoothCircleLift → Prop :=
+fun M F => ∀ (x : ℝ), OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Rel M x (F.toOrderIso x)
+def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts : Subgroup
+  OAI.StronglyRationalVOA.SmoothCircleLift :=
+have h_OAI_StronglyRationalVOA_SmoothCircleLift_one_apply :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_1;
+have h_OAI_StronglyRationalVOA_SmoothCircleLift_mul_apply :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.onCircle._proof_2;
+have h_OAI_StronglyRationalVOA_SmoothCircleLift_apply_inv_apply :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts._proof_1;
+have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_implements_inv := ⋯;
+have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_implements_one := ⋯;
+have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_collinear_unit :=
+  @OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts._proof_4;
+have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_cos_sq_add_sin_sq :=
+  OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts._proof_5;
+have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_implements_mul := ⋯;
+{ carrier := {F | ∃ M, OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements M F}, mul_mem' := ⋯,
+  one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.rotationMatrix : ℝ →
+  Matrix.SpecialLinearGroup (Fin 2) ℝ :=
+fun s =>
+  have h_OAI_StronglyRationalVOA_CircleMobiusGeometry_cos_sq_add_sin_sq :=
+    OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts._proof_5;
+  ⟨!![Real.cos (s / 2), -Real.sin (s / 2); Real.sin (s / 2), Real.cos (s / 2)], ⋯⟩
+@[reducible] def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group : Type :=
+↥OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts ⧸
+  (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction.comp
+      OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts.subtype).ker
+def OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.inclusion : OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group →*
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism :=
+QuotientGroup.lift
+  (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction.comp
+      OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts.subtype).ker
+  ((QuotientGroup.mk' OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction.ker).comp
+    OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts.subtype)
+  OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.inclusion._proof_3
+def OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism.action : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism →*
+  Equiv.Perm (AddCircle (2 * Real.pi)) :=
+QuotientGroup.lift OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction.ker
+  OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction ⋯
+def OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → OAI.StronglyRationalVOA.ProjectiveUnitaryGroup H → (H →L[ℂ] H) ≃⋆ₐ[ℂ] H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  have h_OAI_StronglyRationalVOA_projective_equality_conjugation :=
+    @OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation._proof_3;
+  Quotient.lift (fun E => E.conjStarAlgEquiv) ⋯
+def OAI.MinimalVertex.Code.StronglyRationalVOA.globalObservableAlgebra.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        (OAI.StronglyRationalVOA.ProperCircleArc → VonNeumannAlgebra H) → Subalgebra ℂ (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] N => Algebra.adjoin ℂ (⋃ I, ↑(N I))
+def OAI.MinimalVertex.Code.StronglyRationalVOA.globalCyclicSpace.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        (OAI.StronglyRationalVOA.ProperCircleArc → VonNeumannAlgebra H) → H → Submodule ℂ H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] N Ω =>
+  (Submodule.span ℂ
+      {x | ∃ B ∈ OAI.MinimalVertex.Code.StronglyRationalVOA.globalObservableAlgebra N, x = B Ω}).topologicalClosure
+@[reducible] def OAI.StronglyRationalVOA.CFTTypeVOA.GradedDual.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Type u :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => DirectSum ℕ fun d => Module.Dual ℂ ↥(A.grade d)
+def OAI.StronglyRationalVOA.CFTTypeVOA.gradedDualPairing.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → (A : OAI.StronglyRationalVOA.CFTTypeVOA V) → A.GradedDual → V → ℂ :=
+fun {V} [AddCommGroup V] [Module ℂ V] A φ b => DFinsupp.sum φ fun d f => f ((A.gradingEquiv b) d)
+def OAI.StronglyRationalVOA.CFTTypeVOA.IsSelfContragredient.{u} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A =>
+  ∃ e,
+    ∀ (d : ℕ),
+      ∀ a ∈ A.grade d,
+        ∀ (n : ℤ) (b c : V),
+          A.gradedDualPairing (e ((OAI.StronglyRationalVOA.mode A.fields a n) b)) c =
+            (-1) ^ d *
+              ∑ j ∈ Finset.range (d + 1),
+                (↑j.factorial)⁻¹ *
+                  A.gradedDualPairing (e b)
+                    ((OAI.StronglyRationalVOA.mode A.fields ((A.virasoroMode 1 ^ j) a) (2 * ↑d - ↑j - n - 2)) c)
+def OAI.StronglyRationalVOA.CFTTypeVOA.IsStronglyRational.{u, v} : {V : Type u} →
+  [inst : AddCommGroup V] → [inst_1 : Module ℂ V] → OAI.StronglyRationalVOA.CFTTypeVOA V → Prop :=
+fun {V} [AddCommGroup V] [Module ℂ V] A => A.IsSelfContragredient ∧ A.IsRational ∧ A.C2Cofinite
+def OAI.MinimalVertex.smearedMap.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      (A : OAI.StronglyRationalVOA.CFTTypeVOA V) →
+        (a : V) →
+          ℕ →
+            A.PolynomialEnergyBound a →
+              (f : ℤ → ℂ) → OAI.StronglyRationalVOA.RapidCoefficients f → V →ₗ[ℂ] UniformSpace.Completion V :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] A a d _ha f _hf =>
+  let family := fun m => f m • UniformSpace.Completion.toComplₗᵢ.toLinearMap ∘ₗ A.physicalMode a d m;
+  if h : ∀ (v : V), Summable fun m => (family m) v then OAI.StronglyRationalVOA.SummableLinearFamily.tsumMap family h
+  else 0
+def OAI.MinimalVertex.smoothSmearedField.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} →
+        A.UnitaryStructure →
+          A.C2Cofinite →
+            V →
+              ℕ →
+                OAI.StronglyRationalVOA.SmoothCircleFunction →
+                  UniformSpace.Completion V →ₗ.[ℂ] UniformSpace.Completion V :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} _U _hc a d f =>
+  if h :
+      A.PolynomialEnergyBounds ∧
+        OAI.StronglyRationalVOA.RapidCoefficients
+          (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) then
+    OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.operator
+      (OAI.MinimalVertex.smearedMap A a d ⋯
+        (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) ⋯)
+  else 0
+def OAI.MinimalVertex.closedSmoothField.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} →
+        A.UnitaryStructure →
+          A.C2Cofinite →
+            V →
+              ℕ →
+                OAI.StronglyRationalVOA.SmoothCircleFunction →
+                  UniformSpace.Completion V →ₗ.[ℂ] UniformSpace.Completion V :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} U hc a d f =>
+  (OAI.MinimalVertex.smoothSmearedField U hc a d f).closure
+def OAI.MinimalVertex.localGraphData.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} →
+        A.UnitaryStructure →
+          A.C2Cofinite →
+            Set (AddCircle (2 * Real.pi)) → Set (UniformSpace.Completion V →L[ℂ] UniformSpace.Completion V) :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} U hc O =>
+  {x |
+    ∃ a d,
+      a ∈ A.grade d ∧
+        ∃ f,
+          tsupport (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.onCircle f) ⊆ O ∧
+            ∃ (h : (OAI.MinimalVertex.closedSmoothField U hc a d f).IsClosed),
+              ∃ i j,
+                x =
+                  OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.entry
+                    (OAI.MinimalVertex.closedSmoothField U hc a d f) h i j}
+def OAI.MinimalVertex.localAlgebra.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} →
+        A.UnitaryStructure →
+          A.C2Cofinite → Set (AddCircle (2 * Real.pi)) → VonNeumannAlgebra (UniformSpace.Completion V) :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} U hc O =>
+  OAI.MinimalVertex.Code.StronglyRationalVOA.LocalOperatorAlgebra.generated (OAI.MinimalVertex.localGraphData U hc O)
+def OAI.MinimalVertex.intervalAlgebra.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} →
+        A.UnitaryStructure →
+          A.C2Cofinite → OAI.StronglyRationalVOA.ProperCircleArc → VonNeumannAlgebra (UniformSpace.Completion V) :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} U hc I =>
+  OAI.MinimalVertex.localAlgebra U hc (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I)
+def OAI.MinimalVertex.CKLWStrongLocal.{u} : {V : Type u} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] →
+      {A : OAI.StronglyRationalVOA.CFTTypeVOA V} → A.UnitaryStructure → A.C2Cofinite → Prop :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] {A} U hc =>
+  (∀ (a : V), A.PolynomialEnergyBound a) ∧
+    ∀ (I : OAI.StronglyRationalVOA.ProperCircleArc),
+      OAI.MinimalVertex.intervalAlgebra U hc I ≤
+        (OAI.MinimalVertex.intervalAlgebra U hc
+            (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.complement I)).commutant
+def OAI.MinimalVertex.resolvent.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → (T : H →ₗ.[ℂ] H) → IsSelfAdjoint T → (z : ℂ) → 1 ≤ |z.im| → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T _hs z _hz =>
+  if h : ∃ R, ∀ (y : H), (R y, y + z • R y) ∈ T.graph then h.choose else 0
+def OAI.MinimalVertex.boundedGenerator.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → (T : H →ₗ.[ℂ] H) → IsSelfAdjoint T → (r : ℝ) → 1 ≤ r → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T hs r hr =>
+  (↑r ^ 2 / 2) •
+    (OAI.MinimalVertex.resolvent T hs (↑r * Complex.I) ⋯ + OAI.MinimalVertex.resolvent T hs (-(↑r * Complex.I)) ⋯)
+def OAI.MinimalVertex.approximatingFlow.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → (T : H →ₗ.[ℂ] H) → IsSelfAdjoint T → ℕ → ℝ → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T hs n t =>
+  OAI.MinimalVertex.Code.StronglyRationalVOA.BoundedFlow.flow
+    (Complex.I • OAI.MinimalVertex.boundedGenerator T hs (↑n + 1) ⋯) t
+def OAI.MinimalVertex.flow.{u_1} : {H : Type u_1} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → (T : H →ₗ.[ℂ] H) → IsSelfAdjoint T → ℝ → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T hs t =>
+  if h :
+      ∃ L,
+        ∀ (x : H),
+          Filter.Tendsto (fun n => (OAI.MinimalVertex.approximatingFlow T hs n t) x) Filter.atTop (nhds (L x)) then
+    h.choose
+  else 0
+def OAI.MinimalVertex.projectiveStandardAction : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ →*
+  OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group :=
+if h :
+    ∃ L,
+      ∀ (M : Matrix.SpecialLinearGroup (Fin 2) ℝ),
+        ∃ F,
+          ∃ (hF : OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements M F), L ↑M = ↑⟨F, ⋯⟩ then
+  h.choose
+else 1
+structure OAI.MinimalVertex.IrreducibleConformalNetStructure.{u_1} {H : Type u_1} [NormedAddCommGroup H]
+  [InnerProductSpace ℂ H] [CompleteSpace H] (N : OAI.StronglyRationalVOA.ProperCircleArc → VonNeumannAlgebra H) :
+  Type u_1
+number of parameters: 5
+fields:
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.separable : TopologicalSpace.SeparableSpace H
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.carrier_congr : ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+      OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I =
+          OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J →
+        N I = N J
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.isotony : ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+      OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I ⊆
+          OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J →
+        N I ≤ N J
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.locality : ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+      Disjoint (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I)
+          (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J) →
+        N I ≤ (N J).commutant
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.mobius : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ →*
+      H ≃ₗᵢ[ℂ] H
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.mobius_continuous : Continuous ⇑self.mobius
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.diffeomorphism : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism →*
+      OAI.StronglyRationalVOA.ProjectiveUnitaryGroup H
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.diffeomorphism_continuous : Continuous ⇑self.diffeomorphism
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.extends_mobius : ∀
+      (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ),
+      self.diffeomorphism
+          (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.inclusion
+            (OAI.MinimalVertex.projectiveStandardAction F)) =
+        ↑(self.mobius F)
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.covariance : ∀
+      (F : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism)
+      (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+      OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J =
+          ⇑(OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism.action F) ''
+            OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I →
+        ∀ (B : H →L[ℂ] H),
+          (OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation (self.diffeomorphism F)) B ∈ N J ↔ B ∈ N I
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.local_action : ∀
+      (F : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism)
+      (I : OAI.StronglyRationalVOA.ProperCircleArc),
+      (∀ x ∈ OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I,
+          (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism.action F) x = x) →
+        ∀ B ∈ N I, (OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation (self.diffeomorphism F)) B = B
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.vacuum : H
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.vacuum_norm : ‖self.vacuum‖ = 1
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.vacuum_invariant : ∀
+      (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ), (self.mobius F) self.vacuum = self.vacuum
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.vacuum_unique : ∀ (x : H),
+      (∀ (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ), (self.mobius F) x = x) → ∃ c, x = c • self.vacuum
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.vacuum_cyclic : OAI.MinimalVertex.Code.StronglyRationalVOA.globalCyclicSpace
+        N self.vacuum =
+      ⊤
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.hamiltonian : H →ₗ.[ℂ] H
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.hamiltonian_selfAdjoint : IsSelfAdjoint self.hamiltonian
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.positive_energy : ∀ (x y : H),
+      (x, y) ∈ self.hamiltonian.graph → 0 ≤ (inner ℂ x y).re
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.rotation_flow : ∀ (t : ℝ),
+      (self.mobius
+              ↑(OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.rotationMatrix
+                  t)).toLinearIsometry.toContinuousLinearMap =
+        OAI.MinimalVertex.flow self.hamiltonian ⋯ t
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.irreducible : ∀ (Q : H →L[ℂ] H),
+      (∀ (I : OAI.StronglyRationalVOA.ProperCircleArc), Q ∈ (N I).commutant) → ∃ c, Q = c • 1
+constructor:
+  OAI.MinimalVertex.IrreducibleConformalNetStructure.mk.{u_1} {H : Type u_1} [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] {N : OAI.StronglyRationalVOA.ProperCircleArc → VonNeumannAlgebra H}
+    (separable : TopologicalSpace.SeparableSpace H)
+    (carrier_congr :
+      ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+        OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I =
+            OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J →
+          N I = N J)
+    (isotony :
+      ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+        OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I ⊆
+            OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J →
+          N I ≤ N J)
+    (locality :
+      ∀ (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+        Disjoint (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I)
+            (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J) →
+          N I ≤ (N J).commutant)
+    (mobius : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ →* H ≃ₗᵢ[ℂ] H) (mobius_continuous : Continuous ⇑mobius)
+    (diffeomorphism :
+      OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism →*
+        OAI.StronglyRationalVOA.ProjectiveUnitaryGroup H)
+    (diffeomorphism_continuous : Continuous ⇑diffeomorphism)
+    (extends_mobius :
+      ∀ (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ),
+        diffeomorphism
+            (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.inclusion
+              (OAI.MinimalVertex.projectiveStandardAction F)) =
+          ↑(mobius F))
+    (covariance :
+      ∀ (F : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism)
+        (I J : OAI.StronglyRationalVOA.ProperCircleArc),
+        OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier J =
+            ⇑(OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism.action F) ''
+              OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I →
+          ∀ (B : H →L[ℂ] H),
+            (OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation (diffeomorphism F)) B ∈ N J ↔ B ∈ N I)
+    (local_action :
+      ∀ (F : OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism)
+        (I : OAI.StronglyRationalVOA.ProperCircleArc),
+        (∀ x ∈ OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.carrier I,
+            (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleDiffeomorphism.action F) x = x) →
+          ∀ B ∈ N I, (OAI.MinimalVertex.Code.StronglyRationalVOA.projectiveConjugation (diffeomorphism F)) B = B)
+    (vacuum : H) (vacuum_norm : ‖vacuum‖ = 1)
+    (vacuum_invariant : ∀ (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ), (mobius F) vacuum = vacuum)
+    (vacuum_unique :
+      ∀ (x : H), (∀ (F : Matrix.ProjectiveSpecialLinearGroup (Fin 2) ℝ), (mobius F) x = x) → ∃ c, x = c • vacuum)
+    (vacuum_cyclic : OAI.MinimalVertex.Code.StronglyRationalVOA.globalCyclicSpace N vacuum = ⊤)
+    (hamiltonian : H →ₗ.[ℂ] H) (hamiltonian_selfAdjoint : IsSelfAdjoint hamiltonian)
+    (positive_energy : ∀ (x y : H), (x, y) ∈ hamiltonian.graph → 0 ≤ (inner ℂ x y).re)
+    (rotation_flow :
+      ∀ (t : ℝ),
+        (mobius
+                ↑(OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.rotationMatrix
+                    t)).toLinearIsometry.toContinuousLinearMap =
+          OAI.MinimalVertex.flow hamiltonian hamiltonian_selfAdjoint t)
+    (irreducible :
+      ∀ (Q : H →L[ℂ] H), (∀ (I : OAI.StronglyRationalVOA.ProperCircleArc), Q ∈ (N I).commutant) → ∃ c, Q = c • 1) :
+    OAI.MinimalVertex.IrreducibleConformalNetStructure N

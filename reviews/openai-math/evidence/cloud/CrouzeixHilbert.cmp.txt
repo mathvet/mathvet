@@ -1,0 +1,258 @@
+CMP OAI.CrouzeixHilbert.hilbert [thm] ok
+CMP OAI.CrouzeixHilbert.SharpConstant [def] ok
+CMP OAI.CrouzeixHilbert.SmoothContour.index._proof_1 [thm] ok
+CMP OAI.CrouzeixHilbert.polynomialEval [def] ok
+CMP OAI.CrouzeixHilbert.polynomialEval._proof_3 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator [def] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_6 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_5 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_4 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_3 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_2 [thm] ok
+CMP OAI.CrouzeixHilbert.tensorOperator._proof_1 [thm] ok
+CMP OAI.CrouzeixHilbert.Coeff [def] ok
+CMP OAI.CrouzeixHilbert.Operator [def] ok
+CMP OAI.CrouzeixHilbert.Amplification [def] ok
+CMP OAI.CrouzeixHilbert.polynomialEval._proof_2 [thm] ok
+CMP OAI.CrouzeixHilbert.polynomialEval._proof_1 [thm] ok
+CMP OAI.CrouzeixHilbert.matrixPolynomial [def] ok
+CMP OAI.CrouzeixHilbert.numericalRange [def] ok
+CMP OAI.CrouzeixHilbert.supNorm [def] ok
+CMP OAI.CrouzeixHilbert.ZeroConclusion [def] ok
+CMP OAI.CrouzeixHilbert.matrixRationalFunction [def] ok
+CMP OAI.CrouzeixHilbert.RationalMatrix [def] ok
+CMP OAI.CrouzeixHilbert.matrixRationalEval [def] ok
+CMP OAI.CrouzeixHilbert.rationalEval [def] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_5 [thm] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_7 [thm] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_6 [thm] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_1 [thm] ok
+CMP OAI.CrouzeixHilbert.matrixHolomorphicEval [def] ok
+CMP OAI.CrouzeixHilbert.holomorphicEval [def] ok
+CMP OAI.CrouzeixHilbert.CalculusContour.toSmoothContour [def] ok
+CMP OAI.CrouzeixHilbert.CalculusContour [ind] ok
+CMP OAI.CrouzeixHilbert.CalculusContour.mk [ctor] ok
+CMP OAI.CrouzeixHilbert.SmoothContour.index [def] ok
+CMP OAI.CrouzeixHilbert.SmoothContour.path [def] ok
+CMP OAI.CrouzeixHilbert.SmoothContour [ind] ok
+CMP OAI.CrouzeixHilbert.SmoothContour.mk [ctor] ok
+CMP OAI.CrouzeixHilbert.contourEval [def] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_4 [thm] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_3 [thm] ok
+CMP OAI.CrouzeixHilbert.contourEval._proof_2 [thm] ok
+CMP OAI.CrouzeixHilbert.numericalClosure [def] ok
+CMP OAI.CrouzeixHilbert.NonzeroConclusion [def] ok
+CMP OAI.CrouzeixHilbert.PolesOutside [def] ok
+CMP OAI.CrouzeixHilbert.EntrywiseHolomorphic [def] ok
+Chal.CrouzeixHilbert.hilbert : ∀ (H : Type u_1) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H]
+  [CompleteSpace H] (A : Chal.CrouzeixHilbert.Operator H),
+  (Nontrivial H → Chal.CrouzeixHilbert.NonzeroConclusion A) ∧
+    (Subsingleton H → Chal.CrouzeixHilbert.ZeroConclusion A) ∧ Chal.CrouzeixHilbert.SharpConstant
+@[reducible] def Chal.CrouzeixHilbert.Operator.{u} : (H : Type u) →
+  [inst : NormedAddCommGroup H] → [NormedSpace ℂ H] → Type u :=
+fun H [NormedAddCommGroup H] [NormedSpace ℂ H] => H →L[ℂ] H
+@[reducible] def Chal.CrouzeixHilbert.Coeff : ℕ → Type :=
+fun m => Matrix (Fin m) (Fin m) ℂ
+def Chal.CrouzeixHilbert.numericalRange.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → Chal.CrouzeixHilbert.Operator H → Set ℂ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A => {z | ∃ x, ‖x‖ = 1 ∧ inner ℂ x (A x) = z}
+def Chal.CrouzeixHilbert.numericalClosure.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → Chal.CrouzeixHilbert.Operator H → Set ℂ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A => closure (Chal.CrouzeixHilbert.numericalRange A)
+def Chal.CrouzeixHilbert.supNorm.{u_1} : {E : Type u_1} → [NormedAddCommGroup E] → Set ℂ → (ℂ → E) → ℝ :=
+fun {E} [NormedAddCommGroup E] S F => sSup (insert 0 ((fun z => ‖F z‖) '' S))
+@[reducible] def Chal.CrouzeixHilbert.Amplification.{u} : (H : Type u) →
+  [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → ℕ → Type u :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] m =>
+  UniformSpace.Completion (TensorProduct ℂ H (EuclideanSpace ℂ (Fin m)))
+def Chal.CrouzeixHilbert.tensorOperator.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H →
+        {m : ℕ} →
+          Chal.CrouzeixHilbert.Coeff m → Chal.CrouzeixHilbert.Operator (Chal.CrouzeixHilbert.Amplification H m) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A {m} B =>
+  (TensorProduct.mapL A (Matrix.toEuclideanCLM B)).completion
+def Chal.CrouzeixHilbert.matrixPolynomial : {m d : ℕ} →
+  (Fin (d + 1) → Chal.CrouzeixHilbert.Coeff m) → ℂ → Chal.CrouzeixHilbert.Coeff m :=
+fun {m d} B z => ∑ k, z ^ ↑k • B k
+def Chal.CrouzeixHilbert.polynomialEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H →
+        {m d : ℕ} →
+          (Fin (d + 1) → Chal.CrouzeixHilbert.Coeff m) →
+            Chal.CrouzeixHilbert.Operator (Chal.CrouzeixHilbert.Amplification H m) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A {m d} B =>
+  ∑ k, Chal.CrouzeixHilbert.tensorOperator (A ^ ↑k) (B k)
+structure Chal.CrouzeixHilbert.SmoothContour : Type
+number of parameters: 0
+fields:
+  Chal.CrouzeixHilbert.SmoothContour.path : ℝ → ℂ
+  Chal.CrouzeixHilbert.SmoothContour.smooth : ContDiff ℝ 1 self.path
+  Chal.CrouzeixHilbert.SmoothContour.closed : self.path 0 = self.path 1
+constructor:
+  Chal.CrouzeixHilbert.SmoothContour.mk (path : ℝ → ℂ) (smooth : ContDiff ℝ 1 path) (closed : path 0 = path 1) :
+    Chal.CrouzeixHilbert.SmoothContour
+def Chal.CrouzeixHilbert.SmoothContour.index : Chal.CrouzeixHilbert.SmoothContour → ℂ → ℂ :=
+fun Γ z => (2 * ↑Real.pi * Complex.I)⁻¹ * ∫ (t : ℝ) in 0..1, deriv Γ.path t / (Γ.path t - z)
+structure Chal.CrouzeixHilbert.CalculusContour (K U : Set ℂ) : Type
+number of parameters: 2
+parents:
+  Chal.CrouzeixHilbert.CalculusContour.toSmoothContour : Chal.CrouzeixHilbert.SmoothContour
+fields:
+  Chal.CrouzeixHilbert.SmoothContour.path : ℝ → ℂ
+  Chal.CrouzeixHilbert.SmoothContour.smooth : ContDiff ℝ 1 self.path
+  Chal.CrouzeixHilbert.SmoothContour.closed : self.path 0 = self.path 1
+  Chal.CrouzeixHilbert.CalculusContour.avoids : ∀ t ∈ Set.Icc 0 1, self.path t ∈ U \ K
+  Chal.CrouzeixHilbert.CalculusContour.index_inside : ∀ z ∈ K, self.index z = 1
+  Chal.CrouzeixHilbert.CalculusContour.index_outside : ∀ z ∉ U, self.index z = 0
+constructor:
+  Chal.CrouzeixHilbert.CalculusContour.mk {K U : Set ℂ} (toSmoothContour : Chal.CrouzeixHilbert.SmoothContour)
+    (avoids : ∀ t ∈ Set.Icc 0 1, toSmoothContour.path t ∈ U \ K) (index_inside : ∀ z ∈ K, toSmoothContour.index z = 1)
+    (index_outside : ∀ z ∉ U, toSmoothContour.index z = 0) : Chal.CrouzeixHilbert.CalculusContour K U
+field notation resolution order:
+  Chal.CrouzeixHilbert.CalculusContour, Chal.CrouzeixHilbert.SmoothContour
+def Chal.CrouzeixHilbert.contourEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H →
+        Chal.CrouzeixHilbert.SmoothContour → (ℂ → ℂ) → Chal.CrouzeixHilbert.Operator H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A Γ f =>
+  (2 * ↑Real.pi * Complex.I)⁻¹ •
+    ∫ (t : ℝ) in 0..1,
+      (deriv Γ.path t * f (Γ.path t)) • Ring.inverse ((algebraMap ℂ (Chal.CrouzeixHilbert.Operator H)) (Γ.path t) - A)
+def Chal.CrouzeixHilbert.holomorphicEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H → Set ℂ → (ℂ → ℂ) → Chal.CrouzeixHilbert.Operator H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A U f =>
+  if h : Nonempty (Chal.CrouzeixHilbert.CalculusContour (Chal.CrouzeixHilbert.numericalClosure A) U) then
+    Chal.CrouzeixHilbert.contourEval A (Classical.choice h).toSmoothContour f
+  else 0
+def Chal.CrouzeixHilbert.matrixHolomorphicEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H →
+        {m : ℕ} →
+          Set ℂ →
+            (ℂ → Chal.CrouzeixHilbert.Coeff m) →
+              Chal.CrouzeixHilbert.Operator (Chal.CrouzeixHilbert.Amplification H m) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A {m} U F =>
+  ∑ i,
+    ∑ j,
+      Chal.CrouzeixHilbert.tensorOperator (Chal.CrouzeixHilbert.holomorphicEval A U fun z => F z i j)
+        (Matrix.single i j 1)
+def Chal.CrouzeixHilbert.EntrywiseHolomorphic : {m : ℕ} → Set ℂ → (ℂ → Chal.CrouzeixHilbert.Coeff m) → Prop :=
+fun {m} U F => ∀ (i j : Fin m), DifferentiableOn ℂ (fun z => F z i j) U
+@[reducible] def Chal.CrouzeixHilbert.RationalMatrix : ℕ → Type :=
+fun m => Matrix (Fin m) (Fin m) (RatFunc ℂ)
+def Chal.CrouzeixHilbert.PolesOutside : {m : ℕ} → Set ℂ → Chal.CrouzeixHilbert.RationalMatrix m → Prop :=
+fun {m} K R => ∀ (i j : Fin m), ∀ z ∈ K, Polynomial.eval z (R i j).denom ≠ 0
+def Chal.CrouzeixHilbert.matrixRationalFunction : {m : ℕ} →
+  Chal.CrouzeixHilbert.RationalMatrix m → ℂ → Chal.CrouzeixHilbert.Coeff m :=
+fun {m} R z i j => RatFunc.eval (RingHom.id ℂ) z (R i j)
+def Chal.CrouzeixHilbert.rationalEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → Chal.CrouzeixHilbert.Operator H → RatFunc ℂ → Chal.CrouzeixHilbert.Operator H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A r =>
+  (Polynomial.aeval A) r.num * Ring.inverse ((Polynomial.aeval A) r.denom)
+def Chal.CrouzeixHilbert.matrixRationalEval.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      Chal.CrouzeixHilbert.Operator H →
+        {m : ℕ} →
+          Chal.CrouzeixHilbert.RationalMatrix m →
+            Chal.CrouzeixHilbert.Operator (Chal.CrouzeixHilbert.Amplification H m) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A {m} R =>
+  ∑ i, ∑ j, Chal.CrouzeixHilbert.tensorOperator (Chal.CrouzeixHilbert.rationalEval A (R i j)) (Matrix.single i j 1)
+def Chal.CrouzeixHilbert.NonzeroConclusion.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → Chal.CrouzeixHilbert.Operator H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A =>
+  IsCompact (Chal.CrouzeixHilbert.numericalClosure A) ∧
+    Convex ℝ (Chal.CrouzeixHilbert.numericalClosure A) ∧
+      spectrum ℂ A ⊆ Chal.CrouzeixHilbert.numericalClosure A ∧
+        (∀ (m : ℕ),
+            0 < m →
+              ∀ (d : ℕ) (B : Fin (d + 1) → Chal.CrouzeixHilbert.Coeff m),
+                ‖Chal.CrouzeixHilbert.polynomialEval A B‖ ≤
+                    2 *
+                      Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                        (Chal.CrouzeixHilbert.matrixPolynomial B) ∧
+                  Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                        (Chal.CrouzeixHilbert.matrixPolynomial B) =
+                      Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A)
+                        (Chal.CrouzeixHilbert.matrixPolynomial B) ∧
+                    ∃ z ∈ Chal.CrouzeixHilbert.numericalClosure A,
+                      Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A)
+                          (Chal.CrouzeixHilbert.matrixPolynomial B) =
+                        ‖Chal.CrouzeixHilbert.matrixPolynomial B z‖) ∧
+          (∀ (m : ℕ),
+              0 < m →
+                ∀ (U : Set ℂ) (F : ℂ → Chal.CrouzeixHilbert.Coeff m),
+                  IsOpen U →
+                    Chal.CrouzeixHilbert.numericalClosure A ⊆ U →
+                      Chal.CrouzeixHilbert.EntrywiseHolomorphic U F →
+                        Nonempty (Chal.CrouzeixHilbert.CalculusContour (Chal.CrouzeixHilbert.numericalClosure A) U) ∧
+                          (∀ (Γ : Chal.CrouzeixHilbert.CalculusContour (Chal.CrouzeixHilbert.numericalClosure A) U)
+                              (i j : Fin m),
+                              (Chal.CrouzeixHilbert.holomorphicEval A U fun z => F z i j) =
+                                Chal.CrouzeixHilbert.contourEval A Γ.toSmoothContour fun z => F z i j) ∧
+                            ‖Chal.CrouzeixHilbert.matrixHolomorphicEval A U F‖ ≤
+                                2 * Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A) F ∧
+                              ∃ z ∈ Chal.CrouzeixHilbert.numericalClosure A,
+                                Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A) F = ‖F z‖) ∧
+            ∀ (m : ℕ),
+              0 < m →
+                ∀ (R : Chal.CrouzeixHilbert.RationalMatrix m),
+                  Chal.CrouzeixHilbert.PolesOutside (Chal.CrouzeixHilbert.numericalClosure A) R →
+                    (∀ (i j : Fin m), IsUnit ((Polynomial.aeval A) (R i j).denom)) ∧
+                      ‖Chal.CrouzeixHilbert.matrixRationalEval A R‖ ≤
+                          2 *
+                            Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A)
+                              (Chal.CrouzeixHilbert.matrixRationalFunction R) ∧
+                        (∃ z ∈ Chal.CrouzeixHilbert.numericalClosure A,
+                            Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalClosure A)
+                                (Chal.CrouzeixHilbert.matrixRationalFunction R) =
+                              ‖Chal.CrouzeixHilbert.matrixRationalFunction R z‖) ∧
+                          ∃ U,
+                            IsOpen U ∧
+                              Chal.CrouzeixHilbert.numericalClosure A ⊆ U ∧
+                                Chal.CrouzeixHilbert.EntrywiseHolomorphic U
+                                    (Chal.CrouzeixHilbert.matrixRationalFunction R) ∧
+                                  Chal.CrouzeixHilbert.matrixRationalEval A R =
+                                    Chal.CrouzeixHilbert.matrixHolomorphicEval A U
+                                      (Chal.CrouzeixHilbert.matrixRationalFunction R)
+def Chal.CrouzeixHilbert.ZeroConclusion.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → Chal.CrouzeixHilbert.Operator H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A =>
+  Chal.CrouzeixHilbert.numericalRange A = ∅ ∧
+    (∀ (m d : ℕ) (B : Fin (d + 1) → Chal.CrouzeixHilbert.Coeff m),
+        Chal.CrouzeixHilbert.polynomialEval A B = 0 ∧
+          Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                (Chal.CrouzeixHilbert.matrixPolynomial B) =
+              0 ∧
+            ‖Chal.CrouzeixHilbert.polynomialEval A B‖ ≤
+              2 *
+                Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                  (Chal.CrouzeixHilbert.matrixPolynomial B)) ∧
+      (∀ (m : ℕ) (U : Set ℂ) (F : ℂ → Chal.CrouzeixHilbert.Coeff m),
+          Chal.CrouzeixHilbert.matrixHolomorphicEval A U F = 0 ∧
+            Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A) F = 0 ∧
+              ‖Chal.CrouzeixHilbert.matrixHolomorphicEval A U F‖ ≤
+                2 * Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A) F) ∧
+        ∀ (m : ℕ) (R : Chal.CrouzeixHilbert.RationalMatrix m),
+          Chal.CrouzeixHilbert.matrixRationalEval A R = 0 ∧
+            Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                  (Chal.CrouzeixHilbert.matrixRationalFunction R) =
+                0 ∧
+              ‖Chal.CrouzeixHilbert.matrixRationalEval A R‖ ≤
+                2 *
+                  Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A)
+                    (Chal.CrouzeixHilbert.matrixRationalFunction R)
+def Chal.CrouzeixHilbert.SharpConstant : Prop :=
+∃ A B,
+  Chal.CrouzeixHilbert.supNorm (Chal.CrouzeixHilbert.numericalRange A) (Chal.CrouzeixHilbert.matrixPolynomial B) = 1 ∧
+    ‖Chal.CrouzeixHilbert.polynomialEval A B‖ = 2
+'OAI.CrouzeixHilbert.hilbert' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CrouzeixHilbert comparator-style: ok=46 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

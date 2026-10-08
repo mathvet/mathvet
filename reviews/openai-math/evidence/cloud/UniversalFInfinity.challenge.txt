@@ -1,0 +1,12 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_UniversalFInfinity.lean:16:8: warning: declaration uses `sorry`
+OAI.UniversalFInfinity.universal_group_of_type_FInfinity : ∃ H groupH,
+  OAI.UniversalFInfinity.HasTypeFInfinity H ∧
+    ∀ (G : Type u_1) [inst : Group G] [Group.IsFinitelyPresented G], ∃ φ, Function.Injective ⇑φ
+def OAI.UniversalFInfinity.HasTypeFInfinity.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ X x,
+    ∃ (_ : T2Space X) (_ : ConnectedSpace X),
+      ∃ cw,
+        (∀ (n : ℕ), Finite (Topology.CWComplex.cell Set.univ n)) ∧
+          (∃ x_3, Nonempty (FundamentalGroup X x_3 ≃* G)) ∧
+            ∃ E x_3, ∃ (_ : ContractibleSpace E), ∃ p, Function.Surjective p ∧ IsCoveringMap p

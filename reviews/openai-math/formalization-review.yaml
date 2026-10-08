@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T14:44:35Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T15:33:26Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 234 accepted by
-    the real Comparator, of which 234 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 254 accepted by
+    the real Comparator, of which 254 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3626,7 +3626,8 @@ alignment:
     module: OAI.Analysis.Triangular.Energy.Universal
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TriangularEnergy.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 090 — Universal optimality of the triangular lattice: Gaussian Fourier minorants with their
       construction (the lab''s own result label); paper ''An atomic certificate for triangular-lattice universal
       optimality'', theorem thm:universal (build/main.tex:68)'
@@ -4501,7 +4502,8 @@ alignment:
     module: OAI.Dynamics.ThreeTorus.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThreeTorus.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 145 — Rokhlin''s multiple-mixing problem: Mixing of every finite order for one mixing transformation
       (the lab''s own result label); paper ''Rokhlin''s multiple-mixing problem for one transformation'', theorem
       thm:main (build/sections/01-introduction.tex:21)'
@@ -4789,7 +4791,8 @@ alignment:
     module: OAI.Geometry.PinnedDistances.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PinnedDistances.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 167 — Pinned distances and a power saving for planar unit distances: Power saving for planar
       unit distances (the lab''s own result label); paper ''A power saving for planar unit distances'', theorem
       thm:main (build/sections/00-introduction.tex:12)'
@@ -4797,7 +4800,8 @@ alignment:
     module: OAI.Geometry.UnitDistances.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PlanarUnitDistances.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 168 — Combinatorial invariance of Kazhdan--Lusztig polynomials: Combinatorial invariance of
       Kazhdan–Lusztig polynomials (the lab''s own result label); paper ''Combinatorial invariance of Kazhdan–Lusztig
       polynomials'', theorem thm:main (build/01-introduction.tex:22)'
@@ -5014,7 +5018,8 @@ alignment:
     module: OAI.Combinatorics.CycleDecomposition.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CycleDecomposition.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 182 — Power savings for polynomial-difference-free sets: Power saving for square-difference-free
       sets (the lab''s own result label); paper ''A power saving for square-difference-free sets'', theorem thm:main
       (build/sections/introduction.tex:15)'
@@ -5022,7 +5027,8 @@ alignment:
     module: OAI.Combinatorics.SquareDifference.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SquareDifference.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 182 — headline claim as stated in the overview: For every fixed intersective integer polynomial
       $h$ of degree $k\ge2$ with positive leading coefficient, proves that a subset of $\{1,\ldots,N\}$ avoiding
       nonzero values $h(1),h(2),\ldots$ as differences has size $O_h(N^{1-c_k})$, with $c_k>0$ depending only on
@@ -5148,7 +5154,8 @@ alignment:
     module: OAI.Combinatorics.TriangleRemoval.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TriangleRemoval.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 189 — Exact cycle--clique Ramsey numbers: Exact cycle–clique Ramsey numbers (the lab''s own
       result label); paper ''Cycle--clique Ramsey numbers'', theorem thm:main (build/sections/01-introduction.tex:10)'
     lean: OAI.CycleClique.thm_main
@@ -5172,7 +5179,8 @@ alignment:
     module: OAI.Geometry.HeilbronnTriangle.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HeilbronnTriangle.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 191 — headline claim as stated in the overview: For every sufficiently large $n$, constructs
       $n$ points in the unit square such that every triangle has area at least $n^{-2+c}$ for one absolute $c>0$.
       This disproves the conjectured almost-$n^{-2}$ upper bound in Heilbronn''s triangle problem, which asks how
@@ -5445,7 +5453,8 @@ alignment:
     module: OAI.Probability.GammaPassage.Differentiability
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GammaPassage.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 212 — No bigeodesics and smooth limit shapes in planar first-passage percolation: Differentiability
       of the exponential first-passage limit shape (the lab''s own result label); paper ''Strict convexity and differentiability
       of the planar exponential first-passage limit shape'', theorem thm:exponential-shape (build/sections/introduction.tex:21)'
@@ -5453,7 +5462,8 @@ alignment:
     module: OAI.Probability.FirstPassage.BoundaryCurve
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PlanarFirstPassage.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 212 — headline claim as stated in the overview: Proves that planar first-passage percolation
       has no doubly infinite geodesic for iid nonnegative nonatomic edge weights when the minimum of four weights
       has finite second moment. For exponential weights, the limit shape is strictly convex with $C^1$ boundary.
@@ -5932,7 +5942,8 @@ alignment:
     module: OAI.Probability.ThorpRouting.RegularTrace
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoordinateTrace.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 238 — Optimal logarithmic mixing of the Thorp shuffle: Strict four-row permanent inequality
       near the uniform law (the lab''s own result label); paper ''A strict four-row permanent inequality and permutation
       moments'', theorem thm:permanent (build/sections/01-introduction.tex:14)'
@@ -6189,7 +6200,8 @@ alignment:
     module: OAI.GroupTheory.UniversalGroup.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniversalFInfinity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 251 — Amenability, unitarizability, and Ulam stability: Separable nonunitarizable witnesses
       for countable nonamenable groups (the lab''s own result label); paper ''Unitarizability implies amenability
       for discrete groups'', theorem thm:main (build/sections/introduction.tex:38)'
@@ -6663,7 +6675,8 @@ alignment:
     module: OAI.RepresentationTheory.VertexAlgebra.MinimalComparator
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/VertexAlgebraNet.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 280 — headline claim as stated in the overview: Proves the strongly rational case of the strong-locality
       conjecture: every simple unitary strongly rational complex vertex operator algebra generates a completely
       rational conformal net. Its simple modules are unitarizable, and its representation category agrees with the
@@ -6792,7 +6805,8 @@ alignment:
     module: OAI.Analysis.TracialSplitting.Challenge
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformGamma.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 291 — headline claim as stated in the overview: Proves equivariant Jiang--Su stability for every
       countable discrete amenable group action on a simple separable unital infinite-dimensional nuclear stably
       finite Jiang--Su-stable $C^*$-algebra, resolving this case of Szab\''o''s conjecture without restrictions
@@ -6875,7 +6889,8 @@ alignment:
     module: OAI.Analysis.Kaplansky.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyQuasitrace.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 294 — A counterexample to Kaplansky''s quasitrace conjecture: Tensor-product failure of stable
       finiteness and quasitrace consequences (the lab''s own result label); paper ''A counterexample to Kaplansky''s
       quasitrace conjecture and failure of tensor-product stable finiteness'', theorem thm:main (build/01-introduction.tex:80)'
@@ -7077,7 +7092,8 @@ alignment:
     module: OAI.Analysis.Crouzeix.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CrouzeixHilbert.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 325 — The complete Crouzeix conjecture: Complete Crouzeix inequality and sharpness (the lab''s
       own result label); paper ''A direct proof of the complete Crouzeix inequality'', theorem thm:main (build/main.tex:58)'
     lean: OAI.DirectCrouzeix.complete_crouzeix, OAI.DirectCrouzeix.uniform_sharpness
@@ -7246,7 +7262,8 @@ alignment:
     module: OAI.Geometry.IntegralFillings.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FillingCoefficient.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 337 — Cartan--Hadamard isoperimetry and CAT$(0)$ fillings: Sharp integral fillings in proper
       $\mathrm{CAT}(0)$ spaces (the lab''s own result label); paper ''Sharp integral fillings in CAT(0) spaces'',
       theorem thm:main (build/sections/01-introduction.tex:26)'
@@ -7340,7 +7357,8 @@ alignment:
     module: OAI.Analysis.NodalLength.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/NodalLength.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 350 — Yau''s nodal conjecture: surfaces and counterexamples: Nodal counterexamples in dimensions
       three and four (the lab''s own result label); paper ''Smooth counterexamples to Yau''s nodal upper bound in
       dimensions three and four'', theorem thm:main (build/sections/introduction.tex:18)'
@@ -7428,7 +7446,8 @@ alignment:
     module: OAI.Geometry.ConjugatePoints.ThreeManifold
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ConjugatePoints.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 359 — Negative K\"ahler curvature without bounded holomorphic coordinates: Negatively pinched
       Kähler threefold without bounded coordinates (the lab''s own result label); paper ''A negatively pinched Kähler
       threefold without bounded holomorphic coordinates'', theorem main:theorem (build/sections/01-introduction.tex:39)'
@@ -7436,7 +7455,8 @@ alignment:
     module: OAI.Geometry.Kahler.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PinchedKahler.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 359 — headline claim as stated in the overview: Constructs a contractible domain in $\mathbb
       C^3$ with a complete negatively pinched K\"ahler metric but no bounded holomorphic coordinates, disproving
       bounded-domain uniformization in this setting. A higher-dimensional example has sectional curvature at most
@@ -7696,7 +7716,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T14:44:35Z'
+    generated: '2026-10-08T15:33:26Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7770,9 +7790,11 @@ mathvet:
     - CompleteCrouzeix
     - ComplexCancellation
     - Conductivity
+    - ConjugatePoints
     - ContinuousCircleWeight
     - ContinuumTransition
     - CoordinateSweeps
+    - CoordinateTrace
     - Cotype
     - CoulombCounterexample
     - CoulombIonization
@@ -7782,6 +7804,8 @@ mathvet:
     - CriticalPercolation
     - CriticalSK
     - CriticalZ3
+    - CrouzeixHilbert
+    - CycleDecomposition
     - DaugavetModuli
     - DiamondDistortion
     - DilutedSpin
@@ -7810,6 +7834,7 @@ mathvet:
     - ExactFourier
     - ExactQuantumFactoring
     - FactorGeneration
+    - FillingCoefficient
     - FiniteCircle
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
@@ -7819,6 +7844,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - GammaPassage
     - GaussianFiniteEntropy
     - GaussianInformation
     - GaussianMoat
@@ -7834,6 +7860,7 @@ mathvet:
     - HalvingLines
     - HardSphere
     - HarmonicGrowth
+    - HeilbronnTriangle
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
@@ -7851,6 +7878,7 @@ mathvet:
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - KaplanskyQuasitrace
     - Kervaire
     - Laughlin
     - LaughlinGap
@@ -7875,6 +7903,7 @@ mathvet:
     - MetricKMedian
     - MidpointLenses
     - NavierStokesAlternating
+    - NodalLength
     - NoiselessRegression
     - OddKaplansky
     - OneWayLiveness
@@ -7885,8 +7914,12 @@ mathvet:
     - PermanentCubic
     - PettyProjectionVolume
     - PiExponent
+    - PinchedKahler
+    - PinnedDistances
     - PlanarAndersonSpectrum
+    - PlanarFirstPassage
     - PlanarL1
+    - PlanarUnitDistances
     - PlaneColoring
     - PosteriorReplicas
     - PowerFreeValues
@@ -7928,6 +7961,7 @@ mathvet:
     - SolenoidalSheetPrograms
     - SpinAngle
     - SplitTangentIntegrability
+    - SquareDifference
     - SquareRootDegree
     - SteinitzBergstrom
     - StrongThinTree
@@ -7948,20 +7982,26 @@ mathvet:
     - ThreeMachine
     - ThreeStateSupercritical
     - ThreeStateTreeClauses
+    - ThreeTorus
     - TingleySphereIsometry
     - TorsionFreeHyperbolic
     - TorsionFreeZeroDivisors
     - TraceReconstruction
     - TreeEdit
     - TriangleFace
+    - TriangleRemoval
     - TriangularCovering
+    - TriangularEnergy
     - TriangularHilbert
     - TruffetCounterexample
     - TwoWayComplementation
     - TwoWayDeterminization
     - TypeSystemNormalization
+    - UniformGamma
     - UniformKServer
     - UniformSparsestCut
+    - UniversalFInfinity
+    - VertexAlgebraNet
     - VlasovMaxwell
     - WLIdentification
     - WeakMTWGlobalSupport
@@ -8005,9 +8045,11 @@ mathvet:
     - CompleteCrouzeix
     - ComplexCancellation
     - Conductivity
+    - ConjugatePoints
     - ContinuousCircleWeight
     - ContinuumTransition
     - CoordinateSweeps
+    - CoordinateTrace
     - Cotype
     - CoulombCounterexample
     - CoulombIonization
@@ -8017,6 +8059,8 @@ mathvet:
     - CriticalPercolation
     - CriticalSK
     - CriticalZ3
+    - CrouzeixHilbert
+    - CycleDecomposition
     - DaugavetModuli
     - DiamondDistortion
     - DilutedSpin
@@ -8045,6 +8089,7 @@ mathvet:
     - ExactFourier
     - ExactQuantumFactoring
     - FactorGeneration
+    - FillingCoefficient
     - FiniteCircle
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
@@ -8054,6 +8099,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - GammaPassage
     - GaussianFiniteEntropy
     - GaussianInformation
     - GaussianMoat
@@ -8069,6 +8115,7 @@ mathvet:
     - HalvingLines
     - HardSphere
     - HarmonicGrowth
+    - HeilbronnTriangle
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
@@ -8086,6 +8133,7 @@ mathvet:
     - KahlerSplitting
     - KaplanskyDirectFiniteness
     - KaplanskyFinitelyPresented
+    - KaplanskyQuasitrace
     - Kervaire
     - Laughlin
     - LaughlinGap
@@ -8110,6 +8158,7 @@ mathvet:
     - MetricKMedian
     - MidpointLenses
     - NavierStokesAlternating
+    - NodalLength
     - NoiselessRegression
     - OddKaplansky
     - OneWayLiveness
@@ -8120,8 +8169,12 @@ mathvet:
     - PermanentCubic
     - PettyProjectionVolume
     - PiExponent
+    - PinchedKahler
+    - PinnedDistances
     - PlanarAndersonSpectrum
+    - PlanarFirstPassage
     - PlanarL1
+    - PlanarUnitDistances
     - PlaneColoring
     - PosteriorReplicas
     - PowerFreeValues
@@ -8163,6 +8216,7 @@ mathvet:
     - SolenoidalSheetPrograms
     - SpinAngle
     - SplitTangentIntegrability
+    - SquareDifference
     - SquareRootDegree
     - SteinitzBergstrom
     - StrongThinTree
@@ -8183,20 +8237,26 @@ mathvet:
     - ThreeMachine
     - ThreeStateSupercritical
     - ThreeStateTreeClauses
+    - ThreeTorus
     - TingleySphereIsometry
     - TorsionFreeHyperbolic
     - TorsionFreeZeroDivisors
     - TraceReconstruction
     - TreeEdit
     - TriangleFace
+    - TriangleRemoval
     - TriangularCovering
+    - TriangularEnergy
     - TriangularHilbert
     - TruffetCounterexample
     - TwoWayComplementation
     - TwoWayDeterminization
     - TypeSystemNormalization
+    - UniformGamma
     - UniformKServer
     - UniformSparsestCut
+    - UniversalFInfinity
+    - VertexAlgebraNet
     - VlasovMaxwell
     - WLIdentification
     - WeakMTWGlobalSupport
@@ -8843,7 +8903,7 @@ mathvet:
       residue list, 20x23 jet matrices) inside the conclusion `HasAtomicConstruction α f`, unreadable as a statement'
     external_packages: []
     cone_lines_max: 916202
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/090.md
     audit_part: 1
   - family: 091
@@ -9605,7 +9665,7 @@ mathvet:
       ((⊤ : ℕ∞) : WithTop ℕ∞)` (C^∞, not analytic); `meanZero` is a hand-built `Submodule` of `Lp ℂ 2 μ`'
     external_packages: []
     cone_lines_max: 33818
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/144.md
     audit_part: 1
   - family: '145'
@@ -9938,7 +9998,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 28113
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/167.md
     audit_part: 2
   - family: '168'
@@ -10156,7 +10216,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 21451
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/181.md
     audit_part: 2
   - family: '182'
@@ -10172,7 +10232,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 24221
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/182.md
     audit_part: 2
   - family: '183'
@@ -10283,7 +10343,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 33800
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/188.md
     audit_part: 2
   - family: '189'
@@ -10334,7 +10394,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 24275
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/191.md
     audit_part: 2
   - family: '192'
@@ -10573,7 +10633,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 20106
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/212.md
     audit_part: 2
   - family: '213'
@@ -11181,7 +11241,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 90766
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/250.md
     audit_part: 2
   - family: '251'
@@ -11701,7 +11761,7 @@ mathvet:
       these encodings.'
     external_packages: []
     cone_lines_max: 28634
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/280.md
     audit_part: 2
   - family: '281'
@@ -11834,7 +11894,7 @@ mathvet:
       definitions.'
     external_packages: []
     cone_lines_max: 17302
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/291.md
     audit_part: 2
   - family: '292'
@@ -11911,7 +11971,7 @@ mathvet:
       = 1 ∧ s*t = 0`.'
     external_packages: []
     cone_lines_max: 37896
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/294.md
     audit_part: 2
   - family: '295'
@@ -12395,7 +12455,7 @@ mathvet:
     - '`IsCAT0 X := ∃ segment, geodesic-parametrization ∧ CN-comparison inequality` (hand-built)'
     external_packages: []
     cone_lines_max: 50219
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/337.md
     audit_part: 3
   - family: '342'
@@ -12499,7 +12559,7 @@ mathvet:
       on metrics; `IsRound` as the pullback of the Euclidean inner product'
     external_packages: []
     cone_lines_max: 99645
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/350.md
     audit_part: 3
   - family: '353'
@@ -12577,7 +12637,7 @@ mathvet:
       J'''' + R(J,γ'')γ'' = 0 is the standard one'
     external_packages: []
     cone_lines_max: 24974
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/358.md
     audit_part: 3
   - family: '359'
@@ -12599,7 +12659,7 @@ mathvet:
       charts)'
     external_packages: []
     cone_lines_max: 18688
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/359.md
     audit_part: 3
   - family: '360'

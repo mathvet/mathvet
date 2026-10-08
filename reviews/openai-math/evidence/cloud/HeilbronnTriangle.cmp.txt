@@ -1,0 +1,63 @@
+CMP OAI.Problem355.almost_n_minus_two_refuted [thm] ok
+CMP OAI.Problem355.eventualAlmostUpperBound [def] ok
+CMP OAI.Problem355.triangleArea._proof_1 [thm] ok
+CMP OAI.Problem355.hasTriangleAreaAtMost [def] ok
+CMP OAI.Problem355.triangleArea [def] ok
+CMP OAI.Problem355.Point [def] ok
+CMP OAI.Problem355.pointsInUnitSquare [def] ok
+CMP OAI.Problem355.pointInUnitSquare [def] ok
+CMP OAI.Problem355.heilbronnExponent [def] ok
+CMP OAI.Problem355.heilbronnK [def] ok
+CMP OAI.Problem355.heilbronnT [def] ok
+CMP OAI.Problem355.heilbronnM [def] ok
+CMP OAI.Problem355.heilbronnD [def] ok
+CMP OAI.Problem355.heilbronnExponent._proof_1 [thm] ok
+CMP OAI.Problem355.heilbronn_power_lower_bound [thm] ok
+CMP OAI.Problem355.triangleAreasAtLeast [def] ok
+Chal.Problem355.heilbronn_power_lower_bound : 0 < Chal.Problem355.heilbronnExponent ∧
+  ∃ n P,
+    Filter.Tendsto n Filter.atTop Filter.atTop ∧
+      ∀ (j : ℕ),
+        3 ≤ n j ∧
+          (P j).card = n j ∧
+            Chal.Problem355.pointsInUnitSquare (P j) ∧
+              Chal.Problem355.triangleAreasAtLeast (P j) ((↑(n j)).rpow (-2 + Chal.Problem355.heilbronnExponent))
+Chal.Problem355.almost_n_minus_two_refuted : 0 < Chal.Problem355.heilbronnExponent / 2 ∧
+  ¬Chal.Problem355.eventualAlmostUpperBound (Chal.Problem355.heilbronnExponent / 2)
+@[reducible] def Chal.Problem355.Point : Type :=
+ℝ × ℝ
+def Chal.Problem355.triangleArea : Chal.Problem355.Point → Chal.Problem355.Point → Chal.Problem355.Point → ℝ :=
+fun p q r => |(q.1 - p.1) * (r.2 - p.2) - (q.2 - p.2) * (r.1 - p.1)| / 2
+def Chal.Problem355.pointInUnitSquare : Chal.Problem355.Point → Prop :=
+fun p => 0 ≤ p.1 ∧ p.1 ≤ 1 ∧ 0 ≤ p.2 ∧ p.2 ≤ 1
+def Chal.Problem355.pointsInUnitSquare : Finset Chal.Problem355.Point → Prop :=
+fun P => ∀ p ∈ P, Chal.Problem355.pointInUnitSquare p
+def Chal.Problem355.triangleAreasAtLeast : Finset Chal.Problem355.Point → ℝ → Prop :=
+fun P a => ∀ p ∈ P, ∀ q ∈ P, ∀ r ∈ P, p ≠ q → p ≠ r → q ≠ r → a ≤ Chal.Problem355.triangleArea p q r
+def Chal.Problem355.hasTriangleAreaAtMost : Finset Chal.Problem355.Point → ℝ → Prop :=
+fun P a => ∃ p ∈ P, ∃ q ∈ P, ∃ r ∈ P, p ≠ q ∧ p ≠ r ∧ q ≠ r ∧ Chal.Problem355.triangleArea p q r ≤ a
+def Chal.Problem355.heilbronnD : ℕ :=
+41
+def Chal.Problem355.heilbronnM : ℕ :=
+(4 * Chal.Problem355.heilbronnD - 1).choose Chal.Problem355.heilbronnD
+def Chal.Problem355.heilbronnT : ℕ :=
+Chal.Problem355.heilbronnM.choose 3
+def Chal.Problem355.heilbronnK : ℕ :=
+Chal.Problem355.heilbronnT ^ 2 + 1
+def Chal.Problem355.heilbronnExponent : ℝ :=
+1 / (100000 * ↑Chal.Problem355.heilbronnK)
+def Chal.Problem355.eventualAlmostUpperBound : ℝ → Prop :=
+fun epsilon =>
+  ∃ C,
+    0 < C ∧
+      ∃ n0,
+        ∀ (n : ℕ),
+          n0 ≤ n →
+            3 ≤ n →
+              ∀ (P : Finset Chal.Problem355.Point),
+                P.card = n →
+                  Chal.Problem355.pointsInUnitSquare P →
+                    Chal.Problem355.hasTriangleAreaAtMost P (C * (↑n).rpow (-2 + epsilon))
+'OAI.Problem355.heilbronn_power_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem355.almost_n_minus_two_refuted' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HeilbronnTriangle comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

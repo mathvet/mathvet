@@ -1,0 +1,173 @@
+OAI.SharpIntegralFillings.coefficient_optimal : ∀ (n : ℕ),
+  2 ≤ n →
+    ∃ T,
+      OAI.SharpIntegralFillings.CompactlySupported ↑T ∧
+        OAI.SharpIntegralFillings.IsCycle ↑T ∧
+          0 < OAI.SharpIntegralFillings.mass ↑T ∧
+            ∀ (S : OAI.SharpIntegralFillings.IntegralCurrent (OAI.SharpIntegralFillings.Euc (n + 1)) (n + 1)),
+              OAI.SharpIntegralFillings.CompactlySupported ↑S →
+                OAI.SharpIntegralFillings.boundarySucc ↑S = ↑T →
+                  OAI.SharpIntegralFillings.fillingCoefficient n *
+                      OAI.SharpIntegralFillings.mass ↑T ^ OAI.SharpIntegralFillings.fillingPower n ≤
+                    OAI.SharpIntegralFillings.mass ↑S
+'OAI.SharpIntegralFillings.coefficient_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SharpIntegralFillings.Euc : ℕ → Type :=
+fun k => EuclideanSpace ℝ (Fin k)
+@[reducible] def OAI.SharpIntegralFillings.Functional.{u} : Type u → ℕ → Type u :=
+fun X k => (X → ℝ) → (Fin k → X → ℝ) → ℝ
+def OAI.SharpIntegralFillings.BoundedLip.{u} : {X : Type u} → [MetricSpace X] → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] b => (∃ K, LipschitzWith K b) ∧ ∃ M, ∀ (x : X), |b x| ≤ M
+def OAI.SharpIntegralFillings.Admissible.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → (X → ℝ) → (Fin k → X → ℝ) → Prop :=
+fun {X} [MetricSpace X] {k} b π => OAI.SharpIntegralFillings.BoundedLip b ∧ ∀ (i : Fin k), ∃ K, LipschitzWith K (π i)
+def OAI.SharpIntegralFillings.Controls.{u} : {X : Type u} →
+  [MetricSpace X] →
+    [inst : MeasurableSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T μ =>
+  ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+    OAI.SharpIntegralFillings.BoundedLip b → (∀ (i : Fin k), LipschitzWith 1 (π i)) → |T b π| ≤ ∫ (x : X), |b x| ∂μ
+def OAI.SharpIntegralFillings.mass.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T =>
+  sInf {r | ∃ μ, MeasureTheory.IsFiniteMeasure μ ∧ OAI.SharpIntegralFillings.Controls T μ ∧ r = μ.real Set.univ}
+structure OAI.SharpIntegralFillings.IsMetricCurrent.{u} {X : Type u} [MetricSpace X] [MeasurableSpace X] {k : ℕ}
+  (T : OAI.SharpIntegralFillings.Functional X k) : Prop
+number of parameters: 5
+fields:
+  OAI.SharpIntegralFillings.IsMetricCurrent.offDomain : ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+      ¬OAI.SharpIntegralFillings.Admissible b π → T b π = 0
+  OAI.SharpIntegralFillings.IsMetricCurrent.linearFirst : ∀ (b₁ b₂ : X → ℝ) (π : Fin k → X → ℝ) (a c : ℝ),
+      OAI.SharpIntegralFillings.BoundedLip b₁ →
+        OAI.SharpIntegralFillings.BoundedLip b₂ →
+          (∀ (i : Fin k), ∃ K, LipschitzWith K (π i)) → T (fun x => a * b₁ x + c * b₂ x) π = a * T b₁ π + c * T b₂ π
+  OAI.SharpIntegralFillings.IsMetricCurrent.linearCoord : ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (i : Fin k) (f : X → ℝ)
+      (a c : ℝ),
+      OAI.SharpIntegralFillings.Admissible b π →
+        (∃ K, LipschitzWith K f) →
+          T b (Function.update π i fun x => a * π i x + c * f x) = a * T b π + c * T b (Function.update π i f)
+  OAI.SharpIntegralFillings.IsMetricCurrent.sequentialContinuity : ∀ (b : X → ℝ) (π : Fin k → X → ℝ)
+      (πs : ℕ → Fin k → X → ℝ),
+      OAI.SharpIntegralFillings.BoundedLip b →
+        (∀ (i : Fin k), ∃ K, ∀ (j : ℕ), LipschitzWith K (πs j i)) →
+          (∀ (i : Fin k) (x : X), Filter.Tendsto (fun j => πs j i x) Filter.atTop (nhds (π i x))) →
+            Filter.Tendsto (fun j => T b (πs j)) Filter.atTop (nhds (T b π))
+  OAI.SharpIntegralFillings.IsMetricCurrent.locality : ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+      OAI.SharpIntegralFillings.Admissible b π →
+        (∃ i U c, IsOpen U ∧ Function.support b ⊆ U ∧ ∀ x ∈ U, π i x = c) → T b π = 0
+  OAI.SharpIntegralFillings.IsMetricCurrent.finiteMass : ∃ μ,
+      MeasureTheory.IsFiniteMeasure μ ∧ OAI.SharpIntegralFillings.Controls T μ
+constructor:
+  OAI.SharpIntegralFillings.IsMetricCurrent.mk.{u} {X : Type u} [MetricSpace X] [MeasurableSpace X] {k : ℕ}
+    {T : OAI.SharpIntegralFillings.Functional X k}
+    (offDomain : ∀ (b : X → ℝ) (π : Fin k → X → ℝ), ¬OAI.SharpIntegralFillings.Admissible b π → T b π = 0)
+    (linearFirst :
+      ∀ (b₁ b₂ : X → ℝ) (π : Fin k → X → ℝ) (a c : ℝ),
+        OAI.SharpIntegralFillings.BoundedLip b₁ →
+          OAI.SharpIntegralFillings.BoundedLip b₂ →
+            (∀ (i : Fin k), ∃ K, LipschitzWith K (π i)) → T (fun x => a * b₁ x + c * b₂ x) π = a * T b₁ π + c * T b₂ π)
+    (linearCoord :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (i : Fin k) (f : X → ℝ) (a c : ℝ),
+        OAI.SharpIntegralFillings.Admissible b π →
+          (∃ K, LipschitzWith K f) →
+            T b (Function.update π i fun x => a * π i x + c * f x) = a * T b π + c * T b (Function.update π i f))
+    (sequentialContinuity :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (πs : ℕ → Fin k → X → ℝ),
+        OAI.SharpIntegralFillings.BoundedLip b →
+          (∀ (i : Fin k), ∃ K, ∀ (j : ℕ), LipschitzWith K (πs j i)) →
+            (∀ (i : Fin k) (x : X), Filter.Tendsto (fun j => πs j i x) Filter.atTop (nhds (π i x))) →
+              Filter.Tendsto (fun j => T b (πs j)) Filter.atTop (nhds (T b π)))
+    (locality :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+        OAI.SharpIntegralFillings.Admissible b π →
+          (∃ i U c, IsOpen U ∧ Function.support b ⊆ U ∧ ∀ x ∈ U, π i x = c) → T b π = 0)
+    (finiteMass : ∃ μ, MeasureTheory.IsFiniteMeasure μ ∧ OAI.SharpIntegralFillings.Controls T μ) :
+    OAI.SharpIntegralFillings.IsMetricCurrent T
+def OAI.SharpIntegralFillings.boundarySucc.{u} : {X : Type u} →
+  [MetricSpace X] →
+    {k : ℕ} → OAI.SharpIntegralFillings.Functional X (k + 1) → OAI.SharpIntegralFillings.Functional X k :=
+fun {X} [MetricSpace X] {k} T b π =>
+  if OAI.SharpIntegralFillings.Admissible b π then T (fun x => 1) (Matrix.vecCons b π) else 0
+def OAI.SharpIntegralFillings.boundary.{u} : {X : Type u} →
+  [MetricSpace X] →
+    {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → OAI.SharpIntegralFillings.Functional X (k - 1) :=
+fun {X} [MetricSpace X] x x_1 =>
+  match x, x_1 with
+  | 0, x => fun x x_2 => 0
+  | n.succ, T => OAI.SharpIntegralFillings.boundarySucc T
+structure OAI.SharpIntegralFillings.IntegerChart.{u} (X : Type u) [MetricSpace X] (k : ℕ) : Type u
+number of parameters: 3
+fields:
+  OAI.SharpIntegralFillings.IntegerChart.domain : Set (OAI.SharpIntegralFillings.Euc k)
+  OAI.SharpIntegralFillings.IntegerChart.borel : MeasurableSet self.domain
+  OAI.SharpIntegralFillings.IntegerChart.bounded : Bornology.IsBounded self.domain
+  OAI.SharpIntegralFillings.IntegerChart.param : ↑self.domain → X
+  OAI.SharpIntegralFillings.IntegerChart.bilipschitz : ∃ L U,
+      LipschitzWith L self.param ∧ AntilipschitzWith U self.param
+  OAI.SharpIntegralFillings.IntegerChart.multiplicity : OAI.SharpIntegralFillings.Euc k → ℤ
+  OAI.SharpIntegralFillings.IntegerChart.integrable : MeasureTheory.Integrable (fun z => ↑(self.multiplicity z))
+      (MeasureTheory.volume.restrict self.domain)
+constructor:
+  OAI.SharpIntegralFillings.IntegerChart.mk.{u} {X : Type u} [MetricSpace X] {k : ℕ}
+    (domain : Set (OAI.SharpIntegralFillings.Euc k)) (borel : MeasurableSet domain)
+    (bounded : Bornology.IsBounded domain) (param : ↑domain → X)
+    (bilipschitz : ∃ L U, LipschitzWith L param ∧ AntilipschitzWith U param)
+    (multiplicity : OAI.SharpIntegralFillings.Euc k → ℤ)
+    (integrable : MeasureTheory.Integrable (fun z => ↑(multiplicity z)) (MeasureTheory.volume.restrict domain)) :
+    OAI.SharpIntegralFillings.IntegerChart X k
+def OAI.SharpIntegralFillings.IntegerChart.scalar.{u} : {X : Type u} →
+  [inst : MetricSpace X] →
+    {k : ℕ} → OAI.SharpIntegralFillings.IntegerChart X k → (X → ℝ) → OAI.SharpIntegralFillings.Euc k → ℝ :=
+fun {X} [MetricSpace X] {k} C f z => if hz : z ∈ C.domain then f (C.param ⟨z, hz⟩) else 0
+def OAI.SharpIntegralFillings.IntegerChart.jacobian.{u} : {X : Type u} →
+  [inst : MetricSpace X] →
+    {k : ℕ} → OAI.SharpIntegralFillings.IntegerChart X k → (Fin k → X → ℝ) → OAI.SharpIntegralFillings.Euc k → ℝ :=
+fun {X} [MetricSpace X] {k} C π z =>
+  Matrix.det fun i j => (fderivWithin ℝ (C.scalar (π i)) C.domain z) (EuclideanSpace.single j 1)
+def OAI.SharpIntegralFillings.IntegerChart.action.{u} : {X : Type u} →
+  [inst : MetricSpace X] →
+    {k : ℕ} → OAI.SharpIntegralFillings.IntegerChart X k → OAI.SharpIntegralFillings.Functional X k :=
+fun {X} [MetricSpace X] {k} C b π =>
+  if OAI.SharpIntegralFillings.Admissible b π then
+    ∫ (z : OAI.SharpIntegralFillings.Euc k) in C.domain, ↑(C.multiplicity z) * C.scalar b z * C.jacobian π z
+  else 0
+def OAI.SharpIntegralFillings.IntegerChart.image.{u} : {X : Type u} →
+  [inst : MetricSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.IntegerChart X k → Set X :=
+fun {X} [MetricSpace X] {k} C => Set.range C.param
+def OAI.SharpIntegralFillings.IntegerRectifiable.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T =>
+  ∃ C,
+    (Pairwise fun i j => Disjoint (C i).image (C j).image) ∧
+      (∀ (i : ℕ), OAI.SharpIntegralFillings.IsMetricCurrent (C i).action) ∧
+        (Summable fun i => OAI.SharpIntegralFillings.mass (C i).action) ∧
+          ∀ (b : X → ℝ) (π : Fin k → X → ℝ), T b π = ∑' (i : ℕ), (C i).action b π
+def OAI.SharpIntegralFillings.IsIntegral.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → (k : ℕ) → OAI.SharpIntegralFillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] x x_1 =>
+  match x, x_1 with
+  | 0, T => OAI.SharpIntegralFillings.IsMetricCurrent T ∧ OAI.SharpIntegralFillings.IntegerRectifiable T
+  | n.succ, T =>
+    OAI.SharpIntegralFillings.IsMetricCurrent T ∧
+      OAI.SharpIntegralFillings.IntegerRectifiable T ∧
+        OAI.SharpIntegralFillings.IsMetricCurrent (OAI.SharpIntegralFillings.boundarySucc T) ∧
+          OAI.SharpIntegralFillings.IntegerRectifiable (OAI.SharpIntegralFillings.boundarySucc T)
+@[reducible] def OAI.SharpIntegralFillings.IntegralCurrent.{u} : (X : Type u) →
+  [inst : MetricSpace X] → [inst_1 : MeasurableSpace X] → [BorelSpace X] → ℕ → Type (max 0 u) :=
+fun X [MetricSpace X] [MeasurableSpace X] [BorelSpace X] k => { T // OAI.SharpIntegralFillings.IsIntegral k T }
+def OAI.SharpIntegralFillings.CompactlySupported.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] {k} T =>
+  ∃ K,
+    IsCompact K ∧
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ), OAI.SharpIntegralFillings.Admissible b π → (∀ x ∈ K, b x = 0) → T b π = 0
+def OAI.SharpIntegralFillings.IsCycle.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → OAI.SharpIntegralFillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] {k} T => OAI.SharpIntegralFillings.boundary T = fun x x_1 => 0
+def OAI.SharpIntegralFillings.omega : ℕ → ℝ :=
+fun k => (MeasureTheory.volume (Metric.ball 0 1)).toReal
+def OAI.SharpIntegralFillings.sphereArea : ℕ → ℝ :=
+fun n => (↑n + 1) * OAI.SharpIntegralFillings.omega (n + 1)
+def OAI.SharpIntegralFillings.fillingCoefficient : ℕ → ℝ :=
+fun n => 1 / ((↑n + 1) * OAI.SharpIntegralFillings.sphereArea n ^ (1 / ↑n))
+def OAI.SharpIntegralFillings.fillingPower : ℕ → ℝ :=
+fun n => (↑n + 1) / ↑n

@@ -1,0 +1,139 @@
+CMP OAI.PlanarFPP.manuscriptMain [thm] ok
+CMP OAI.PlanarFPP.HasC1CurveChart [def] ok
+CMP OAI.PlanarFPP.HasC1CurveChart._proof_1 [thm] ok
+CMP OAI.PlanarFPP.Plane [def] ok
+CMP OAI.PlanarFPP.C1UnitSphere [def] ok
+CMP OAI.PlanarFPP.UniqueNormalizedSupports [def] ok
+CMP OAI.PlanarFPP.DifferentiableAwayFromOrigin [def] ok
+CMP OAI.PlanarFPP.IsTimeConstant [def] ok
+CMP OAI.PlanarFPP.latticeFloor [def] ok
+CMP OAI.PlanarFPP.latticeFloor._proof_1 [thm] ok
+CMP OAI.PlanarFPP.Vertex [def] ok
+CMP OAI.PlanarFPP.passageTime [def] ok
+CMP OAI.PlanarFPP.pathCost [def] ok
+CMP OAI.PlanarFPP.pathCost._f [def] ok
+CMP OAI.PlanarFPP.Step.delta [def] ok
+CMP OAI.PlanarFPP.Step.delta.match_1 [def] ok
+CMP OAI.PlanarFPP.Step.casesOn [def] ok
+CMP OAI.PlanarFPP.Step.rec [rec] ok
+CMP OAI.PlanarFPP.Step.south [ctor] ok
+CMP OAI.PlanarFPP.Step [ind] ok
+CMP OAI.PlanarFPP.Step.north [ctor] ok
+CMP OAI.PlanarFPP.Step.west [ctor] ok
+CMP OAI.PlanarFPP.Step.east [ctor] ok
+CMP OAI.PlanarFPP.Step.edge [def] ok
+CMP OAI.PlanarFPP.Edge [def] ok
+CMP OAI.PlanarFPP.pathCost.match_1 [def] ok
+CMP OAI.PlanarFPP.displacement [def] ok
+CMP OAI.PlanarFPP.TimeConstantNorm [ind] ok
+CMP OAI.PlanarFPP.TimeConstantNorm.mk [ctor] ok
+CMP OAI.PlanarFPP.ExponentialEnvironment [ind] ok
+CMP OAI.PlanarFPP.ExponentialEnvironment.mk [ctor] ok
+Chal.PlanarFPP.manuscriptMain : ∀ (Ω : Type) [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω)
+  (τ : Chal.PlanarFPP.Edge → Ω → ℝ),
+  Chal.PlanarFPP.ExponentialEnvironment P τ →
+    ∃ μ,
+      Chal.PlanarFPP.TimeConstantNorm μ ∧
+        Chal.PlanarFPP.IsTimeConstant P τ μ ∧
+          Chal.PlanarFPP.DifferentiableAwayFromOrigin μ ∧
+            Chal.PlanarFPP.UniqueNormalizedSupports μ ∧
+              Chal.PlanarFPP.C1UnitSphere μ ∧
+                (∀ v ∈ frontier {z | μ z ≤ 1},
+                    ∃! L, ∃ g, g ≠ 0 ∧ (∀ (z : Chal.PlanarFPP.Plane), μ z ≤ 1 → g z ≤ g v) ∧ L = {z | g z = g v}) ∧
+                  ∀ v ∈ frontier {z | μ z ≤ 1}, Chal.PlanarFPP.HasC1CurveChart (frontier {z | μ z ≤ 1}) v
+@[reducible] def Chal.PlanarFPP.Vertex : Type :=
+ℤ × ℤ
+@[reducible] def Chal.PlanarFPP.Edge : Type :=
+Chal.PlanarFPP.Vertex × Bool
+inductive Chal.PlanarFPP.Step : Type
+number of parameters: 0
+constructors:
+Chal.PlanarFPP.Step.east : Chal.PlanarFPP.Step
+Chal.PlanarFPP.Step.west : Chal.PlanarFPP.Step
+Chal.PlanarFPP.Step.north : Chal.PlanarFPP.Step
+Chal.PlanarFPP.Step.south : Chal.PlanarFPP.Step
+def Chal.PlanarFPP.Step.delta : Chal.PlanarFPP.Step → Chal.PlanarFPP.Vertex :=
+fun x =>
+  match x with
+  | Chal.PlanarFPP.Step.east => (1, 0)
+  | Chal.PlanarFPP.Step.west => (-1, 0)
+  | Chal.PlanarFPP.Step.north => (0, 1)
+  | Chal.PlanarFPP.Step.south => (0, -1)
+def Chal.PlanarFPP.Step.edge : Chal.PlanarFPP.Vertex → Chal.PlanarFPP.Step → Chal.PlanarFPP.Edge :=
+fun p x =>
+  match x with
+  | Chal.PlanarFPP.Step.east => (p, false)
+  | Chal.PlanarFPP.Step.west => (p + (-1, 0), false)
+  | Chal.PlanarFPP.Step.north => (p, true)
+  | Chal.PlanarFPP.Step.south => (p + (0, -1), true)
+def Chal.PlanarFPP.displacement : List Chal.PlanarFPP.Step → Chal.PlanarFPP.Vertex :=
+fun ds => (List.map Chal.PlanarFPP.Step.delta ds).sum
+def Chal.PlanarFPP.pathCost : (Chal.PlanarFPP.Edge → ℝ) → Chal.PlanarFPP.Vertex → List Chal.PlanarFPP.Step → ℝ :=
+fun τ p x => List.brecOn (motive := fun x => Chal.PlanarFPP.Vertex → ℝ) x (Chal.PlanarFPP.pathCost._f τ) p
+@[reducible] def Chal.PlanarFPP.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.PlanarFPP.latticeFloor : Chal.PlanarFPP.Plane → Chal.PlanarFPP.Vertex :=
+fun v => (⌊v.ofLp 0⌋, ⌊v.ofLp 1⌋)
+def Chal.PlanarFPP.passageTime : (Chal.PlanarFPP.Edge → ℝ) → Chal.PlanarFPP.Vertex → Chal.PlanarFPP.Vertex → ℝ :=
+fun τ p q => sInf {t | ∃ ds, p + Chal.PlanarFPP.displacement ds = q ∧ Chal.PlanarFPP.pathCost τ p ds = t}
+structure Chal.PlanarFPP.TimeConstantNorm (μ : Chal.PlanarFPP.Plane → ℝ) : Prop
+number of parameters: 1
+fields:
+  Chal.PlanarFPP.TimeConstantNorm.nonneg : ∀ (v : Chal.PlanarFPP.Plane), 0 ≤ μ v
+  Chal.PlanarFPP.TimeConstantNorm.zero_iff : ∀ (v : Chal.PlanarFPP.Plane), μ v = 0 ↔ v = 0
+  Chal.PlanarFPP.TimeConstantNorm.triangle : ∀ (v w : Chal.PlanarFPP.Plane), μ (v + w) ≤ μ v + μ w
+  Chal.PlanarFPP.TimeConstantNorm.homogeneous : ∀ (a : ℝ) (v : Chal.PlanarFPP.Plane), μ (a • v) = |a| * μ v
+constructor:
+  Chal.PlanarFPP.TimeConstantNorm.mk {μ : Chal.PlanarFPP.Plane → ℝ} (nonneg : ∀ (v : Chal.PlanarFPP.Plane), 0 ≤ μ v)
+    (zero_iff : ∀ (v : Chal.PlanarFPP.Plane), μ v = 0 ↔ v = 0)
+    (triangle : ∀ (v w : Chal.PlanarFPP.Plane), μ (v + w) ≤ μ v + μ w)
+    (homogeneous : ∀ (a : ℝ) (v : Chal.PlanarFPP.Plane), μ (a • v) = |a| * μ v) : Chal.PlanarFPP.TimeConstantNorm μ
+structure Chal.PlanarFPP.ExponentialEnvironment.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] (P : MeasureTheory.Measure Ω)
+  (τ : Chal.PlanarFPP.Edge → Ω → ℝ) : Prop
+number of parameters: 4
+fields:
+  Chal.PlanarFPP.ExponentialEnvironment.probability : MeasureTheory.IsProbabilityMeasure P
+  Chal.PlanarFPP.ExponentialEnvironment.measurable : ∀ (e : Chal.PlanarFPP.Edge), Measurable (τ e)
+  Chal.PlanarFPP.ExponentialEnvironment.independent : ProbabilityTheory.iIndepFun τ P
+  Chal.PlanarFPP.ExponentialEnvironment.marginal : ∀ (e : Chal.PlanarFPP.Edge),
+      MeasureTheory.Measure.map (τ e) P = ProbabilityTheory.expMeasure 1
+constructor:
+  Chal.PlanarFPP.ExponentialEnvironment.mk.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] {P : MeasureTheory.Measure Ω}
+    {τ : Chal.PlanarFPP.Edge → Ω → ℝ} (probability : MeasureTheory.IsProbabilityMeasure P)
+    (measurable : ∀ (e : Chal.PlanarFPP.Edge), Measurable (τ e)) (independent : ProbabilityTheory.iIndepFun τ P)
+    (marginal : ∀ (e : Chal.PlanarFPP.Edge), MeasureTheory.Measure.map (τ e) P = ProbabilityTheory.expMeasure 1) :
+    Chal.PlanarFPP.ExponentialEnvironment P τ
+def Chal.PlanarFPP.IsTimeConstant.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    MeasureTheory.Measure Ω → (Chal.PlanarFPP.Edge → Ω → ℝ) → (Chal.PlanarFPP.Plane → ℝ) → Prop :=
+fun {Ω} [MeasurableSpace Ω] P τ μ =>
+  ∀ (v : Chal.PlanarFPP.Plane),
+    ∀ᵐ (ω : Ω) ∂P,
+      Filter.Tendsto
+        (fun t => Chal.PlanarFPP.passageTime (fun e => τ e ω) (0, 0) (Chal.PlanarFPP.latticeFloor (t • v)) / t)
+        Filter.atTop (nhds (μ v))
+def Chal.PlanarFPP.DifferentiableAwayFromOrigin : (Chal.PlanarFPP.Plane → ℝ) → Prop :=
+fun μ => ∀ (v : Chal.PlanarFPP.Plane), v ≠ 0 → ∃ ℓ, HasFDerivAt μ ℓ v
+def Chal.PlanarFPP.UniqueNormalizedSupports : (Chal.PlanarFPP.Plane → ℝ) → Prop :=
+fun μ => ∀ (v : Chal.PlanarFPP.Plane), μ v = 1 → ∃! ℓ, ℓ v = 1 ∧ ∀ (w : Chal.PlanarFPP.Plane), ℓ w ≤ μ w
+def Chal.PlanarFPP.C1UnitSphere : (Chal.PlanarFPP.Plane → ℝ) → Prop :=
+fun μ =>
+  ∀ (v : Chal.PlanarFPP.Plane),
+    μ v = 1 →
+      ∃ U,
+        IsOpen U ∧
+          v ∈ U ∧
+            ∃ g, ContDiffOn ℝ 1 g U ∧ (∀ w ∈ U, μ w = 1 ↔ g w = 0) ∧ ∀ w ∈ U, g w = 0 → ∃ ℓ, HasFDerivAt g ℓ w ∧ ℓ ≠ 0
+def Chal.PlanarFPP.HasC1CurveChart : Set Chal.PlanarFPP.Plane → Chal.PlanarFPP.Plane → Prop :=
+fun S v =>
+  ∃ U,
+    IsOpen U ∧
+      v ∈ U ∧
+        v ∈ S ∧
+          ∃ γ θ,
+            ContDiff ℝ 1 γ ∧
+              ContinuousOn θ U ∧
+                (∀ (t : ℝ), γ t ∈ S ∩ U) ∧
+                  (∀ (t : ℝ), θ (γ t) = t) ∧ (∀ z ∈ S ∩ U, γ (θ z) = z) ∧ ∀ (t : ℝ), ∃ d, HasDerivAt γ d t ∧ d ≠ 0
+'OAI.PlanarFPP.manuscriptMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlanarFirstPassage comparator-style: ok=31 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
