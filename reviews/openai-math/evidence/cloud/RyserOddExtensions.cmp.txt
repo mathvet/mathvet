@@ -1,0 +1,72 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserOddExtensions.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserOddExtensions.lean:129:22: error(lean.unknownIdentifier): Unknown constant `instDecidablePairwiseCoeFinsetOfDecidableEqOfDecidableRel`
+CMP OAI.RyserOdd.eventualOddFailures_and_infinite [thm] ok
+CMP OAI.RyserOdd.Specification.ExplicitFailureAt [def] ok
+CMP OAI.RyserCoveringCounterexample.coverNumber [def] ok
+CMP OAI.RyserCoveringCounterexample.coverCardinalities [def] ok
+CMP OAI.RyserCoveringCounterexample.IsCover [def] ok
+CMP OAI.RyserCoveringCounterexample.Hypergraph [def] ok
+CMP OAI.RyserCoveringCounterexample.matchingNumber [def] ok
+CMP OAI.RyserCoveringCounterexample.matchings [def] ok
+CMP OAI.RyserCoveringCounterexample.Intersecting [def] ok
+CMP OAI.RyserCoveringCounterexample.Uniform [def] ok
+CMP OAI.RyserCoveringCounterexample.RPartiteUniform [def] ok
+CMP OAI.RyserCoveringCounterexample.PartiteUniform [def] ok
+Chal.RyserOdd.eventualOddFailures_and_infinite : (∃ primeThreshold,
+    ∀ (prime : ℕ),
+      primeThreshold ≤ prime →
+        Nat.Prime prime →
+          prime % 3 = 2 →
+            ∃ degreeThreshold,
+              3 ≤ degreeThreshold ∧
+                ∀ (degree : ℕ),
+                  degreeThreshold ≤ degree →
+                    Odd degree → Chal.RyserOdd.Specification.ExplicitFailureAt (prime ^ degree + 1)) ∧
+  {rank | Chal.RyserOdd.Specification.ExplicitFailureAt rank}.Infinite
+@[reducible] def Chal.RyserCoveringCounterexample.Hypergraph.{u_1} : Type u_1 → Type u_1 :=
+fun Vertex => Finset (Finset Vertex)
+def Chal.RyserCoveringCounterexample.IsCover.{u_1} : {Vertex : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph Vertex → Finset Vertex → Prop :=
+fun {Vertex} hypergraph cover => ∀ edge ∈ hypergraph, ∃ vertex ∈ cover, vertex ∈ edge
+def Chal.RyserCoveringCounterexample.Intersecting.{u_1} : {Vertex : Type u_1} →
+  [DecidableEq Vertex] → Chal.RyserCoveringCounterexample.Hypergraph Vertex → Prop :=
+fun {Vertex} [DecidableEq Vertex] hypergraph =>
+  ∀ edge ∈ hypergraph, ∀ other ∈ hypergraph, edge ≠ other → (edge ∩ other).Nonempty
+def Chal.RyserCoveringCounterexample.matchings.{u_1} : {Vertex : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph Vertex → Finset (Chal.RyserCoveringCounterexample.Hypergraph Vertex) :=
+fun {Vertex} hypergraph => {matching ∈ Finset.powerset hypergraph | (↑matching).Pairwise Disjoint}
+def Chal.RyserCoveringCounterexample.matchingNumber.{u_1} : {Vertex : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph Vertex → ℕ :=
+fun {Vertex} hypergraph => (Chal.RyserCoveringCounterexample.matchings hypergraph).sup Finset.card
+def Chal.RyserCoveringCounterexample.coverCardinalities.{u_1} : {Vertex : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph Vertex → Set ℕ :=
+fun {Vertex} hypergraph =>
+  {size | ∃ cover, Chal.RyserCoveringCounterexample.IsCover hypergraph cover ∧ cover.card = size}
+def Chal.RyserCoveringCounterexample.coverNumber.{u_1} : {Vertex : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph Vertex → ℕ :=
+fun {Vertex} hypergraph => sInf (Chal.RyserCoveringCounterexample.coverCardinalities hypergraph)
+def Chal.RyserCoveringCounterexample.Uniform.{u_1} : {Vertex : Type u_1} →
+  ℕ → Chal.RyserCoveringCounterexample.Hypergraph Vertex → Prop :=
+fun {Vertex} rank hypergraph => ∀ edge ∈ hypergraph, edge.card = rank
+def Chal.RyserCoveringCounterexample.PartiteUniform.{u_1, u_2} : {Vertex : Type u_1} →
+  {Index : Type u_2} → (Vertex → Index) → Chal.RyserCoveringCounterexample.Hypergraph Vertex → Prop :=
+fun {Vertex} {Index} part hypergraph =>
+  ∀ edge ∈ hypergraph, ∀ (index : Index), ∃! vertex, vertex ∈ edge ∧ part vertex = index
+def Chal.RyserCoveringCounterexample.RPartiteUniform.{u_1} : {Vertex : Type u_1} →
+  ℕ → Chal.RyserCoveringCounterexample.Hypergraph Vertex → Prop :=
+fun {Vertex} rank hypergraph => ∃ part, Chal.RyserCoveringCounterexample.PartiteUniform part hypergraph
+def Chal.RyserOdd.Specification.ExplicitFailureAt : ℕ → Prop :=
+fun rank =>
+  ∃ Vertex finiteVertices decidableVertices hypergraph,
+    0 < rank ∧
+      Finset.Nonempty hypergraph ∧
+        Chal.RyserCoveringCounterexample.RPartiteUniform rank hypergraph ∧
+          Chal.RyserCoveringCounterexample.Uniform rank hypergraph ∧
+            Chal.RyserCoveringCounterexample.Intersecting hypergraph ∧
+              (∃ cover, Chal.RyserCoveringCounterexample.IsCover hypergraph cover) ∧
+                Chal.RyserCoveringCounterexample.matchingNumber hypergraph = 1 ∧
+                  Chal.RyserCoveringCounterexample.coverNumber hypergraph = rank ∧
+                    (rank - 1) * Chal.RyserCoveringCounterexample.matchingNumber hypergraph <
+                      Chal.RyserCoveringCounterexample.coverNumber hypergraph
+'OAI.RyserOdd.eventualOddFailures_and_infinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RyserOddExtensions comparator-style: ok=12 problems=0 errors=1 | SHADOW-DIFF(see RyserOddExtensions.standalone.norm vs RyserOddExtensions.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
