@@ -1,0 +1,45 @@
+OAI.HigherDimensionalBallPacking.packing_necessity : ∀ (n k : ℕ),
+  3 ≤ n →
+    1 ≤ k →
+      ∀ (R : ℝ) (r : Fin k → ℝ),
+        0 < R →
+          (∀ (i : Fin k), 0 < r i) →
+            OAI.HigherDimensionalBallPacking.HasPacking n k R r →
+              OAI.HigherDimensionalBallPacking.PackingInequalities n k R r
+'OAI.HigherDimensionalBallPacking.packing_necessity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.HigherDimensionalBallPacking.Phase : ℕ → Type :=
+fun n => Fin n → ℂ
+def OAI.HigherDimensionalBallPacking.capacity : {n : ℕ} → OAI.HigherDimensionalBallPacking.Phase n → ℝ :=
+fun {n} z => Real.pi * ∑ j, Complex.normSq (z j)
+def OAI.HigherDimensionalBallPacking.closedBall : (n : ℕ) → ℝ → Set (OAI.HigherDimensionalBallPacking.Phase n) :=
+fun n r => {z | OAI.HigherDimensionalBallPacking.capacity z ≤ r}
+def OAI.HigherDimensionalBallPacking.openBall : (n : ℕ) → ℝ → Set (OAI.HigherDimensionalBallPacking.Phase n) :=
+fun n r => {z | OAI.HigherDimensionalBallPacking.capacity z < r}
+def OAI.HigherDimensionalBallPacking.standardForm : {n : ℕ} →
+  OAI.HigherDimensionalBallPacking.Phase n → OAI.HigherDimensionalBallPacking.Phase n → ℝ :=
+fun {n} u v => ∑ j, ((u j).re * (v j).im - (u j).im * (v j).re)
+def OAI.HigherDimensionalBallPacking.SymplecticOn : {n : ℕ} →
+  Set (OAI.HigherDimensionalBallPacking.Phase n) →
+    (OAI.HigherDimensionalBallPacking.Phase n → OAI.HigherDimensionalBallPacking.Phase n) → Prop :=
+fun {n} U f =>
+  IsOpen U ∧
+    ContDiffOn ℝ (↑⊤) f U ∧
+      (Topology.IsEmbedding fun x => f ↑x) ∧
+        ∀ x ∈ U,
+          ∀ (u v : OAI.HigherDimensionalBallPacking.Phase n),
+            OAI.HigherDimensionalBallPacking.standardForm ((fderiv ℝ f x) u) ((fderiv ℝ f x) v) =
+              OAI.HigherDimensionalBallPacking.standardForm u v
+def OAI.HigherDimensionalBallPacking.HasPacking : ℕ → (k : ℕ) → ℝ → (Fin k → ℝ) → Prop :=
+fun n k R r =>
+  ∃ U f,
+    (∀ (i : Fin k),
+        OAI.HigherDimensionalBallPacking.closedBall n (r i) ⊆ U i ∧
+          OAI.HigherDimensionalBallPacking.SymplecticOn (U i) (f i) ∧
+            Set.MapsTo (f i) (OAI.HigherDimensionalBallPacking.closedBall n (r i))
+              (OAI.HigherDimensionalBallPacking.openBall n R)) ∧
+      ∀ (i j : Fin k),
+        i ≠ j →
+          Disjoint (f i '' OAI.HigherDimensionalBallPacking.closedBall n (r i))
+            (f j '' OAI.HigherDimensionalBallPacking.closedBall n (r j))
+def OAI.HigherDimensionalBallPacking.PackingInequalities : ℕ → (k : ℕ) → ℝ → (Fin k → ℝ) → Prop :=
+fun n k R r => ∑ i, r i ^ n < R ^ n ∧ ∀ (i j : Fin k), i ≠ j → r i + r j < R
