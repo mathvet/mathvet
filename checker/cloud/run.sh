@@ -10,6 +10,8 @@ export COMPARATOR_BIN="$ROOT/tmp/comparator/.lake/build/bin/comparator" COMPARAT
 export PATH="$HOME/.elan/bin:$HOME/.local/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
 if command -v landrun >/dev/null && landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
   export COMPARATOR_LANDRUN="$(command -v landrun)"; SANDBOX="landrun=real $(landrun --version 2>&1 | head -1)"
+elif command -v landrun >/dev/null && landrun --best-effort --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
+  export COMPARATOR_LANDRUN="$ROOT/checker/cloud/landrun-best-effort.sh"; SANDBOX="landrun=real-best-effort $(landrun --version 2>&1 | head -1) on Landlock ABI $(landrun --ro /usr -- /bin/true 2>&1 | grep -o 'Got Landlock ABI v[0-9]*' | head -1)"
 else
   export COMPARATOR_LANDRUN="$ROOT/checker/fake-landrun.sh"; SANDBOX="landrun=SHIM (no sandbox: Landlock unavailable on this kernel)"
 fi

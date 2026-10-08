@@ -45,7 +45,9 @@ if ! command -v landrun >/dev/null; then
 fi
 LANDRUN_STATUS="unavailable"
 if command -v landrun >/dev/null; then
-  if landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun.err; then LANDRUN_STATUS="real ($(landrun --version 2>&1 | head -1))"; else LANDRUN_STATUS="installed but Landlock unusable: $(head -c 300 /tmp/landrun.err)"; fi
+  if landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun.err; then LANDRUN_STATUS="real ($(landrun --version 2>&1 | head -1), full ABI)"
+  elif landrun --best-effort --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun2.err; then LANDRUN_STATUS="real with --best-effort ($(landrun --version 2>&1 | head -1); kernel ABI older than landrun's default: $(grep -o 'Got Landlock ABI v[0-9]*' /tmp/landrun.err | head -1))"
+  else LANDRUN_STATUS="installed but Landlock unusable: $(head -c 300 /tmp/landrun2.err)"; fi
 fi
 echo "LANDRUN_STATUS=$LANDRUN_STATUS"
 
