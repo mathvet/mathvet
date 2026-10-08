@@ -1,0 +1,38 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SubpolynomialLp.lean:32:8: warning: declaration uses `sorry`
+OAI.SubpolynomialLp.source_main : ∀ (p : ℝ),
+  1 < p →
+    p ≠ 2 →
+      (∀ (D : ℝ),
+          1 < D →
+            ∃ C,
+              ∀ (n : ℕ),
+                2 ≤ n →
+                  OAI.SubpolynomialLp.GoodDimension p n D (OAI.SubpolynomialLp.dimension p n D) ∧
+                    Real.log ↑n / Real.log (1 + 2 * D) ≤ ↑(OAI.SubpolynomialLp.dimension p n D) ∧
+                      ↑(OAI.SubpolynomialLp.dimension p n D) ≤
+                        Real.exp (C * Real.log ↑n ^ OAI.SubpolynomialLp.gamma p)) ∧
+        (∀ (n : ℕ),
+            9 ≤ n →
+              OAI.SubpolynomialLp.GoodDimension p n 1 (OAI.SubpolynomialLp.dimension p n 1) ∧
+                ((n - 1) / 4) ^ 2 ≤ OAI.SubpolynomialLp.dimension p n 1 ∧
+                  OAI.SubpolynomialLp.dimension p n 1 ≤ n.choose 2) ∧
+          ∀ (D : ℝ),
+            1 ≤ D →
+              Filter.Tendsto (fun n => Real.log ↑(OAI.SubpolynomialLp.dimension p n D) / Real.log ↑n) Filter.atTop
+                (nhds (if 1 < D then 0 else 2))
+def OAI.SubpolynomialLp.coordinateDistance : ℝ → {d : ℕ} → (Fin d → ℝ) → (Fin d → ℝ) → ℝ :=
+fun p {d} x y => (∑ a, |x a - y a| ^ p) ^ (1 / p)
+def OAI.SubpolynomialLp.GoodDimension.{u} : ℝ → ℕ → ℝ → ℕ → Prop :=
+fun p n D d =>
+  ∀ (Ω : Type u) (mΩ : MeasurableSpace Ω) (μ : MeasureTheory.Measure Ω)
+    (x : Fin n → ↥(MeasureTheory.Lp ℝ (ENNReal.ofReal p) μ)),
+    Function.Injective x →
+      ∃ y s,
+        0 < s ∧
+          ∀ (i j : Fin n),
+            s * ‖x i - x j‖ ≤ OAI.SubpolynomialLp.coordinateDistance p (y i) (y j) ∧
+              OAI.SubpolynomialLp.coordinateDistance p (y i) (y j) ≤ D * s * ‖x i - x j‖
+def OAI.SubpolynomialLp.dimension.{u} : ℝ → ℕ → ℝ → ℕ :=
+fun p n D => sInf {d | OAI.SubpolynomialLp.GoodDimension p n D d}
+def OAI.SubpolynomialLp.gamma : ℝ → ℝ :=
+fun p => if p < 2 then 2 - p else 1 - 2 / p
