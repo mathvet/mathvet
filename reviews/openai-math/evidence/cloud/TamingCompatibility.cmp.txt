@@ -1,0 +1,123 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_TamingCompatibility.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TamingCompatibility.taming_implies_compatibility [thm] ok
+CMP OAI.TamingCompatibility.Compatible [def] ok
+CMP OAI.TamingCompatibility.IsInvariant [def] ok
+CMP OAI.TamingCompatibility.AlmostComplexStructure.endomorphism [def] ok
+CMP OAI.TamingCompatibility.AlmostComplexStructure [ind] ok
+CMP OAI.TamingCompatibility.AlmostComplexStructure.mk [ctor] ok
+CMP OAI.TamingCompatibility.Model [def] ok
+CMP OAI.TamingCompatibility.Space [def] ok
+CMP OAI.TamingCompatibility.eval [def] ok
+CMP OAI.TamingCompatibility.TwoForm [def] ok
+CMP OAI.TamingCompatibility.Tames [def] ok
+CMP OAI.TamingCompatibility.IsSymplectic [def] ok
+CMP OAI.TamingCompatibility.IsNondegenerate [def] ok
+CMP OAI.TamingCompatibility.IsClosed [def] ok
+CMP OAI.TamingCompatibility.pullback [def] ok
+CMP OAI.TamingCompatibility.IsSmooth [def] ok
+CMP OAI.TamingCompatibility.IsSmooth._proof_1 [thm] ok
+@Chal.TamingCompatibility.taming_implies_compatibility : ∀ {X : Type u_1} [inst : TopologicalSpace X]
+  [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] [inst_2 : IsManifold Chal.TamingCompatibility.Model (↑⊤) X]
+  [T2Space X] [SecondCountableTopology X] [CompactSpace X] [ConnectedSpace X]
+  (J : Chal.TamingCompatibility.AlmostComplexStructure X),
+  (∃ α, Chal.TamingCompatibility.IsSymplectic α ∧ Chal.TamingCompatibility.Tames α J) →
+    ∃ η, Chal.TamingCompatibility.IsSymplectic η ∧ Chal.TamingCompatibility.Compatible η J
+@[reducible] def Chal.TamingCompatibility.Space : Type :=
+EuclideanSpace ℝ (Fin 4)
+@[reducible] def Chal.TamingCompatibility.Model : ModelWithCorners ℝ Chal.TamingCompatibility.Space
+  Chal.TamingCompatibility.Space :=
+modelWithCornersSelf ℝ Chal.TamingCompatibility.Space
+@[reducible] def Chal.TamingCompatibility.TwoForm.{u_2} : (X : Type u_2) →
+  [inst : TopologicalSpace X] → [ChartedSpace Chal.TamingCompatibility.Space X] → Type (max u_2 0) :=
+fun X [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] =>
+  (x : X) → TangentSpace Chal.TamingCompatibility.Model x [⋀^Fin 2]→L[ℝ] ℝ
+structure Chal.TamingCompatibility.AlmostComplexStructure.{u_2} (X : Type u_2) [TopologicalSpace X]
+  [ChartedSpace Chal.TamingCompatibility.Space X] [IsManifold Chal.TamingCompatibility.Model (↑⊤) X] : Type u_2
+number of parameters: 4
+fields:
+  Chal.TamingCompatibility.AlmostComplexStructure.endomorphism : (x : X) →
+      TangentSpace Chal.TamingCompatibility.Model x →L[ℝ] TangentSpace Chal.TamingCompatibility.Model x
+  Chal.TamingCompatibility.AlmostComplexStructure.square : ∀ (x : X)
+      (v : TangentSpace Chal.TamingCompatibility.Model x), (self.endomorphism x) ((self.endomorphism x) v) = -v
+  Chal.TamingCompatibility.AlmostComplexStructure.smooth : ContMDiff Chal.TamingCompatibility.Model.tangent
+      Chal.TamingCompatibility.Model.tangent ↑⊤ fun p => ⟨p.proj, (self.endomorphism p.proj) p.snd⟩
+constructor:
+  Chal.TamingCompatibility.AlmostComplexStructure.mk.{u_2} {X : Type u_2} [TopologicalSpace X]
+    [ChartedSpace Chal.TamingCompatibility.Space X] [IsManifold Chal.TamingCompatibility.Model (↑⊤) X]
+    (endomorphism :
+      (x : X) → TangentSpace Chal.TamingCompatibility.Model x →L[ℝ] TangentSpace Chal.TamingCompatibility.Model x)
+    (square : ∀ (x : X) (v : TangentSpace Chal.TamingCompatibility.Model x), (endomorphism x) ((endomorphism x) v) = -v)
+    (smooth :
+      ContMDiff Chal.TamingCompatibility.Model.tangent Chal.TamingCompatibility.Model.tangent ↑⊤ fun p =>
+        ⟨p.proj, (endomorphism p.proj) p.snd⟩) :
+    Chal.TamingCompatibility.AlmostComplexStructure X
+def Chal.TamingCompatibility.eval.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] →
+      Chal.TamingCompatibility.TwoForm X →
+        (x : X) → TangentSpace Chal.TamingCompatibility.Model x → TangentSpace Chal.TamingCompatibility.Model x → ℝ :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α x u v => (α x) ![u, v]
+def Chal.TamingCompatibility.pullback.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] →
+      Chal.TamingCompatibility.TwoForm X →
+        (Chal.TamingCompatibility.Space → X) →
+          Chal.TamingCompatibility.Space → Chal.TamingCompatibility.Space [⋀^Fin 2]→L[ℝ] ℝ :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α f y =>
+  (α (f y)).compContinuousLinearMap (mfderiv% f y)
+def Chal.TamingCompatibility.IsSmooth.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] → Chal.TamingCompatibility.TwoForm X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α =>
+  ∀ (f : Chal.TamingCompatibility.Space → X) (U : Set Chal.TamingCompatibility.Space),
+    IsOpen U →
+      ContMDiffOn Chal.TamingCompatibility.Model Chal.TamingCompatibility.Model (↑⊤) f U →
+        ContDiffOn ℝ (↑⊤) (Chal.TamingCompatibility.pullback α f) U
+def Chal.TamingCompatibility.IsClosed.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] → Chal.TamingCompatibility.TwoForm X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α =>
+  ∀ (f : Chal.TamingCompatibility.Space → X) (U : Set Chal.TamingCompatibility.Space),
+    IsOpen U →
+      ContMDiffOn Chal.TamingCompatibility.Model Chal.TamingCompatibility.Model (↑⊤) f U →
+        ∀ y ∈ U, extDerivWithin (Chal.TamingCompatibility.pullback α f) U y = 0
+def Chal.TamingCompatibility.IsNondegenerate.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] → Chal.TamingCompatibility.TwoForm X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α =>
+  ∀ (x : X) (v : TangentSpace Chal.TamingCompatibility.Model x),
+    (∀ (w : TangentSpace Chal.TamingCompatibility.Model x), Chal.TamingCompatibility.eval α x v w = 0) → v = 0
+def Chal.TamingCompatibility.IsSymplectic.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] → Chal.TamingCompatibility.TwoForm X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X] α =>
+  Chal.TamingCompatibility.IsSmooth α ∧ Chal.TamingCompatibility.IsClosed α ∧ Chal.TamingCompatibility.IsNondegenerate α
+def Chal.TamingCompatibility.Tames.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] →
+      [inst_2 : IsManifold Chal.TamingCompatibility.Model (↑⊤) X] →
+        Chal.TamingCompatibility.TwoForm X → Chal.TamingCompatibility.AlmostComplexStructure X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X]
+    [IsManifold Chal.TamingCompatibility.Model (↑⊤) X] α J =>
+  ∀ (x : X) (v : TangentSpace Chal.TamingCompatibility.Model x),
+    v ≠ 0 → 0 < Chal.TamingCompatibility.eval α x v ((J.endomorphism x) v)
+def Chal.TamingCompatibility.IsInvariant.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] →
+      [inst_2 : IsManifold Chal.TamingCompatibility.Model (↑⊤) X] →
+        Chal.TamingCompatibility.TwoForm X → Chal.TamingCompatibility.AlmostComplexStructure X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X]
+    [IsManifold Chal.TamingCompatibility.Model (↑⊤) X] α J =>
+  ∀ (x : X) (u v : TangentSpace Chal.TamingCompatibility.Model x),
+    Chal.TamingCompatibility.eval α x ((J.endomorphism x) u) ((J.endomorphism x) v) =
+      Chal.TamingCompatibility.eval α x u v
+def Chal.TamingCompatibility.Compatible.{u_1} : {X : Type u_1} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : ChartedSpace Chal.TamingCompatibility.Space X] →
+      [inst_2 : IsManifold Chal.TamingCompatibility.Model (↑⊤) X] →
+        Chal.TamingCompatibility.TwoForm X → Chal.TamingCompatibility.AlmostComplexStructure X → Prop :=
+fun {X} [TopologicalSpace X] [ChartedSpace Chal.TamingCompatibility.Space X]
+    [IsManifold Chal.TamingCompatibility.Model (↑⊤) X] α J =>
+  Chal.TamingCompatibility.Tames α J ∧ Chal.TamingCompatibility.IsInvariant α J
+'OAI.TamingCompatibility.taming_implies_compatibility' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TamingCompatibility comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

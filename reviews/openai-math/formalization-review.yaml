@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T19:27:02Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T19:48:22Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 326 accepted by
-    the real Comparator, of which 326 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 332 accepted by
+    the real Comparator, of which 332 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3421,7 +3421,8 @@ alignment:
     module: OAI.MeasureTheory.Falconer.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PlanarFalconer.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 073 — The Falconer distance conjecture: Falconer distance theorem in every dimension (the lab''s
       own result label); paper ''The Falconer distance conjecture in all dimensions'', theorem thm:main (build/sections/00_introduction.tex:11)'
     lean: OAI.Falconer.falconer_distance_conjecture
@@ -4761,7 +4762,8 @@ alignment:
     module: OAI.Combinatorics.BalancedRyser.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BalancedRyser.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 162 — Counterexamples to Ryser''s covering and Gy\''arf\''as''s tree-cover conjectures: Fixed-prime
       Ryser counterexamples (the lab''s own result label); paper ''A counterexample to Ryser''s covering conjecture'',
       theorem thm:main (build/paper.tex:115)'
@@ -5702,7 +5704,8 @@ alignment:
     module: OAI.MathematicalPhysics.CriticalMixing.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalSKMixing.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 227 — The dynamical phase transition in the Sherrington--Kirkpatrick model: Stretched-exponential
       barriers from typical equilibrium initial states (the lab''s own result label); paper ''Stretched-exponential
       barriers for typical SK initial states'', theorem thm:main (build/sections/01-introduction.tex:62)'
@@ -5919,7 +5922,8 @@ alignment:
     module: OAI.Probability.FreeIsing.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FreeIsing.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 237 — The three-quarter diameter exponent for honeycomb walks: Critical honeycomb strip mass
       and displacement moment (the lab''s own result label); paper ''Critical strip-crossing mass on the honeycomb
       lattice'', theorem thm:strip (build/sections/01_introduction.tex:54)'
@@ -7358,7 +7362,8 @@ alignment:
     module: OAI.Geometry.TamingCompatibility.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TamingCompatibility.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 343 — Sharp symplectic ball-packing criteria in higher dimensions: Exact criterion for higher-dimensional
       symplectic ball packings (the lab''s own result label); paper ''Symplectic Ball Packings in Higher Dimensions'',
       theorem intro:main (build/sections/introduction.tex:18)'
@@ -7433,7 +7438,8 @@ alignment:
     module: OAI.Geometry.SmoothYau.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SmoothYau.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 350 — Yau''s nodal conjecture: surfaces and counterexamples: Unbounded nodal ratio on $S^4\times
       S^1$ (the lab''s own result label); paper ''Smooth counterexamples to Yau''s nodal upper bound in dimensions
       three and four'', theorem thm:main (build/sections/introduction.tex:18)'
@@ -7788,7 +7794,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T19:27:02Z'
+    generated: '2026-10-08T19:48:22Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7836,6 +7842,7 @@ mathvet:
     - AuslanderReiten
     - BackwardIntertwiners
     - BalancedBoxRouting
+    - BalancedRyser
     - BalancedThreeStack
     - BallPackingNecessity
     - BarnetteHamiltonian
@@ -7889,6 +7896,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalSK
+    - CriticalSKMixing
     - CriticalStripMass
     - CriticalZ3
     - CrouzeixHilbert
@@ -7941,6 +7949,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FreeIsing
     - FreeUniformSpanningForest
     - GammaPassage
     - GaussianFiniteEntropy
@@ -8034,6 +8043,7 @@ mathvet:
     - PinchedKahler
     - PinnedDistances
     - PlanarAndersonSpectrum
+    - PlanarFalconer
     - PlanarFirstPassage
     - PlanarL1
     - PlanarUnitDistances
@@ -8089,6 +8099,7 @@ mathvet:
     - SingletonLoopMatching
     - SmoothInitialForm
     - SmoothObstruction
+    - SmoothYau
     - SnakyCertificate
     - SnakyConditional
     - SoftChannel204
@@ -8116,6 +8127,7 @@ mathvet:
     - Tachikawa
     - TalagrandDiscreteConvexity
     - TalagrandExpectationThreshold
+    - TamingCompatibility
     - ThompsonNonamenability
     - ThorpFirstReciprocal
     - ThorpRemaining
@@ -8163,6 +8175,7 @@ mathvet:
     - AuslanderReiten
     - BackwardIntertwiners
     - BalancedBoxRouting
+    - BalancedRyser
     - BalancedThreeStack
     - BallPackingNecessity
     - BarnetteHamiltonian
@@ -8216,6 +8229,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalSK
+    - CriticalSKMixing
     - CriticalStripMass
     - CriticalZ3
     - CrouzeixHilbert
@@ -8268,6 +8282,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FreeIsing
     - FreeUniformSpanningForest
     - GammaPassage
     - GaussianFiniteEntropy
@@ -8361,6 +8376,7 @@ mathvet:
     - PinchedKahler
     - PinnedDistances
     - PlanarAndersonSpectrum
+    - PlanarFalconer
     - PlanarFirstPassage
     - PlanarL1
     - PlanarUnitDistances
@@ -8416,6 +8432,7 @@ mathvet:
     - SingletonLoopMatching
     - SmoothInitialForm
     - SmoothObstruction
+    - SmoothYau
     - SnakyCertificate
     - SnakyConditional
     - SoftChannel204
@@ -8443,6 +8460,7 @@ mathvet:
     - Tachikawa
     - TalagrandDiscreteConvexity
     - TalagrandExpectationThreshold
+    - TamingCompatibility
     - ThompsonNonamenability
     - ThorpFirstReciprocal
     - ThorpRemaining
@@ -8944,7 +8962,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 185097
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/073.md
     audit_part: 1
   - family: '076'
@@ -11171,7 +11189,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 117435
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/236.md
     audit_part: 2
   - family: '237'
@@ -12689,7 +12707,7 @@ mathvet:
       `AlmostComplexStructure` with smoothness as a map of tangent bundles. Reads as the standard notions.'
     external_packages: []
     cone_lines_max: 83060
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/342.md
     audit_part: 3
   - family: '343'

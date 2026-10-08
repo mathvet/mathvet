@@ -1,0 +1,9 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_PlanarFalconer.lean:20:8: warning: declaration uses `sorry`
+OAI.PlanarFalconer.mainTarget_proved : OAI.PlanarFalconer.MainTarget
+@[reducible] def OAI.PlanarFalconer.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.PlanarFalconer.distanceSet : Set OAI.PlanarFalconer.Plane → Set ℝ :=
+fun E => {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}
+def OAI.PlanarFalconer.MainTarget : Prop :=
+∀ (E : Set OAI.PlanarFalconer.Plane),
+  IsCompact E → 1 < dimH E → 0 < MeasureTheory.volume (OAI.PlanarFalconer.distanceSet E)

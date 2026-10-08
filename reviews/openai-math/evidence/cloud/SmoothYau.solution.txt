@@ -1,0 +1,158 @@
+OAI.YauCounterexamples.sphere_three : ∀
+  (gRound :
+    OAI.YauCounterexamples.SmoothMetric (OAI.YauCounterexamples.Euclidean 3) ↑(OAI.YauCounterexamples.Sphere 3)),
+  OAI.YauCounterexamples.IsRound gRound →
+    ∀
+      (N :
+        Set
+          (OAI.YauCounterexamples.SmoothMetric (OAI.YauCounterexamples.Euclidean 3)
+            ↑(OAI.YauCounterexamples.Sphere 3))),
+      OAI.YauCounterexamples.IsSmoothNeighborhood gRound N → ∃ g ∈ N, OAI.YauCounterexamples.HasUnboundedNodalRatio g 3
+'OAI.YauCounterexamples.sphere_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.YauCounterexamples.sphere_two_torus_two : ∃ g, OAI.YauCounterexamples.HasUnboundedNodalRatio g 4
+'OAI.YauCounterexamples.sphere_two_torus_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.YauCounterexamples.Euclidean : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+@[reducible] def OAI.YauCounterexamples.Sphere : (n : ℕ) → Set (OAI.YauCounterexamples.Euclidean (n + 1)) :=
+fun n => Metric.sphere 0 1
+@[reducible] def OAI.YauCounterexamples.FourManifold : Type :=
+↑(OAI.YauCounterexamples.Sphere 2) × Circle × Circle
+@[reducible] def OAI.YauCounterexamples.FourModel : Type :=
+OAI.YauCounterexamples.Euclidean 2 × OAI.YauCounterexamples.Euclidean 1 × OAI.YauCounterexamples.Euclidean 1
+@[reducible] def OAI.YauCounterexamples.SmoothMetric.{u_3, u_4} : (E : Type u_3) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      (M : Type u_4) →
+        [inst_2 : TopologicalSpace M] →
+          [inst_3 : ChartedSpace E M] → [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] → Type (max u_4 u_3) :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] M [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] =>
+  Bundle.ContMDiffRiemannianMetric (modelWithCornersSelf ℝ E) (↑⊤) E fun x => TangentSpace (modelWithCornersSelf ℝ E) x
+@[reducible] def OAI.YauCounterexamples.CoordIndex.{u_3} : (E : Type u_3) →
+  [inst : NormedAddCommGroup E] → [inst_1 : NormedSpace ℝ E] → [FiniteDimensional ℝ E] → Type :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] => Fin (Module.finrank ℝ E)
+def OAI.YauCounterexamples.coordinateVector.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] →
+        {M : Type u_2} →
+          [inst_3 : TopologicalSpace M] →
+            [inst_4 : ChartedSpace E M] →
+              (p : M) →
+                (y : E) →
+                  OAI.YauCounterexamples.CoordIndex E →
+                    TangentSpace (modelWithCornersSelf ℝ E) (↑(chartAt E p).symm y) :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M] p y
+    i =>
+  (mfderiv% ↑(chartAt E p).symm y) ((Module.finBasis ℝ E) i)
+def OAI.YauCounterexamples.metricCoefficients.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] →
+        {M : Type u_2} →
+          [inst_3 : TopologicalSpace M] →
+            [inst_4 : ChartedSpace E M] →
+              [inst_5 : IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] →
+                OAI.YauCounterexamples.SmoothMetric E M →
+                  M → E → Matrix (OAI.YauCounterexamples.CoordIndex E) (OAI.YauCounterexamples.CoordIndex E) ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] g p y i j =>
+  ((g.inner (↑(chartAt E p).symm y)) (OAI.YauCounterexamples.coordinateVector p y i))
+    (OAI.YauCounterexamples.coordinateVector p y j)
+def OAI.YauCounterexamples.laplaceBeltrami.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        {M : Type u_2} →
+          [inst_3 : TopologicalSpace M] →
+            [inst_4 : ChartedSpace E M] →
+              [inst_5 : IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] →
+                OAI.YauCounterexamples.SmoothMetric E M → (M → ℝ) → M → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] g u x =>
+  have c := chartAt E x;
+  have a := OAI.YauCounterexamples.metricCoefficients g x;
+  have density := fun y => √(a y).det;
+  have u' := u ∘ ↑c.symm;
+  (density (↑c x))⁻¹ *
+    ∑ i,
+      (fderiv ℝ (fun y => density y * ∑ j, (a y)⁻¹ i j * (fderiv ℝ u' y) ((Module.finBasis ℝ E) j)) (↑c x))
+        ((Module.finBasis ℝ E) i)
+structure OAI.YauCounterexamples.CoordinateTest.{u_3, u_4} (E : Type u_3) [NormedAddCommGroup E] [NormedSpace ℝ E]
+  [FiniteDimensional ℝ E] (M : Type u_4) [TopologicalSpace M] [ChartedSpace E M] : Type (max u_3 u_4)
+number of parameters: 7
+fields:
+  OAI.YauCounterexamples.CoordinateTest.center : M
+  OAI.YauCounterexamples.CoordinateTest.compactSet : Set E
+  OAI.YauCounterexamples.CoordinateTest.isCompact : IsCompact self.compactSet
+  OAI.YauCounterexamples.CoordinateTest.inTarget : self.compactSet ⊆ (chartAt E self.center).target
+  OAI.YauCounterexamples.CoordinateTest.order : ℕ
+  OAI.YauCounterexamples.CoordinateTest.row : OAI.YauCounterexamples.CoordIndex E
+  OAI.YauCounterexamples.CoordinateTest.column : OAI.YauCounterexamples.CoordIndex E
+constructor:
+  OAI.YauCounterexamples.CoordinateTest.mk.{u_3, u_4} {E : Type u_3} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [FiniteDimensional ℝ E] {M : Type u_4} [TopologicalSpace M] [ChartedSpace E M] (center : M) (compactSet : Set E)
+    (isCompact : IsCompact compactSet) (inTarget : compactSet ⊆ (chartAt E center).target) (order : ℕ)
+    (row column : OAI.YauCounterexamples.CoordIndex E) : OAI.YauCounterexamples.CoordinateTest E M
+def OAI.YauCounterexamples.IsSmoothNeighborhood.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        {M : Type u_2} →
+          [inst_3 : TopologicalSpace M] →
+            [inst_4 : ChartedSpace E M] →
+              [inst_5 : IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] →
+                OAI.YauCounterexamples.SmoothMetric E M → Set (OAI.YauCounterexamples.SmoothMetric E M) → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] g₀ N =>
+  ∃ tests ε,
+    0 < ε ∧
+      ∀ (g : OAI.YauCounterexamples.SmoothMetric E M),
+        (∀ t ∈ tests,
+            ∀ y ∈ t.compactSet,
+              ‖iteratedFDeriv ℝ t.order
+                    (fun z =>
+                      OAI.YauCounterexamples.metricCoefficients g t.center z t.row t.column -
+                        OAI.YauCounterexamples.metricCoefficients g₀ t.center z t.row t.column)
+                    y‖ <
+                ε) →
+          g ∈ N
+def OAI.YauCounterexamples.nodalMeasure.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {M : Type u_2} →
+        [inst_2 : TopologicalSpace M] →
+          [inst_3 : ChartedSpace E M] →
+            [inst_4 : IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] →
+              [T3Space M] → OAI.YauCounterexamples.SmoothMetric E M → ℝ → (M → ℝ) → ENNReal :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] [T3Space M] g d u =>
+  (MeasureTheory.Measure.hausdorffMeasure d) {x | u x = 0}
+def OAI.YauCounterexamples.HasUnboundedNodalRatio.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        {M : Type u_2} →
+          [inst_3 : TopologicalSpace M] →
+            [inst_4 : ChartedSpace E M] →
+              [inst_5 : IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] →
+                [T3Space M] → OAI.YauCounterexamples.SmoothMetric E M → ℕ → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] {M} [TopologicalSpace M] [ChartedSpace E M]
+    [IsManifold (modelWithCornersSelf ℝ E) (↑⊤) M] [T3Space M] g d =>
+  ∃ u eigenvalue,
+    (∀ (j : ℕ),
+        ContMDiff (modelWithCornersSelf ℝ E) (modelWithCornersSelf ℝ ℝ) (↑⊤) (u j) ∧
+          u j ≠ 0 ∧
+            0 < eigenvalue j ∧
+              (∀ (x : M), -OAI.YauCounterexamples.laplaceBeltrami g (u j) x = eigenvalue j * u j x) ∧
+                OAI.YauCounterexamples.nodalMeasure g (↑(d - 1)) (u j) ≠ ⊤) ∧
+      Filter.Tendsto eigenvalue Filter.atTop Filter.atTop ∧
+        Filter.Tendsto (fun j => (OAI.YauCounterexamples.nodalMeasure g (↑(d - 1)) (u j)).toReal / √(eigenvalue j))
+          Filter.atTop Filter.atTop
+def OAI.YauCounterexamples.IsRound : OAI.YauCounterexamples.SmoothMetric (OAI.YauCounterexamples.Euclidean 3)
+    ↑(OAI.YauCounterexamples.Sphere 3) →
+  Prop :=
+fun g =>
+  ∀ (x : ↑(OAI.YauCounterexamples.Sphere 3))
+    (v w : TangentSpace (modelWithCornersSelf ℝ (OAI.YauCounterexamples.Euclidean 3)) x),
+    ((g.inner x) v) w = inner ℝ (((mfderiv% fun y => ↑y) x) v) (((mfderiv% fun y => ↑y) x) w)
