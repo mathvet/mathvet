@@ -1,0 +1,51 @@
+#!/bin/bash
+# One-time VM setup for a MathVet Comparator run on a Claude Code cloud session (Ubuntu 24.04 x86_64, ~4 vCPU, 16 GB RAM,
+# 30 GB disk). Idempotent: safe to rerun. Usage: checker/cloud/setup.sh   (from the mathvet checkout; ~10-20 min first time)
+# Needs network access to github.com (GitHub proxy) and to the Mathlib cache host cache.mathlib.org (add it to the
+# environment's allowed domains, or set MATHLIB_CACHE_GET_URL to a mirror). Writes a machine report to tmp/cloud-machine.txt.
+set -uo pipefail
+ROOT="${MATHVET_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
+UP="$ROOT/upstream/openai-math"; COMMIT=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+export PATH="$HOME/.elan/bin:$HOME/.local/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
+mkdir -p "$ROOT/tmp" "$HOME/.local/bin"
+log(){ echo "== $(date -u +%FT%TZ) $*"; }
+
+log "tools"; command -v jq >/dev/null || (apt-get update -qq && apt-get install -y -qq jq) || sudo apt-get install -y -qq jq || true
+log "elan + toolchain v4.34.1"
+if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain leanprover/lean4:v4.34.1; fi
+elan toolchain install leanprover/lean4:v4.34.1 2>&1 | tail -1 || true
+
+log "openai/math @ $COMMIT (sparse: lean/ only, ~1.7 GB)"
+if [ ! -f "$UP/lean/lakefile.lean" ]; then
+  rm -rf "$UP"; git clone -q --filter=blob:none --no-checkout https://github.com/openai/math "$UP"
+  git -C "$UP" sparse-checkout set lean && git -C "$UP" checkout -q "$COMMIT"
+fi
+git -C "$UP" rev-parse HEAD
+
+log "landrun (Landlock sandbox used by Comparator)"
+if ! command -v landrun >/dev/null; then
+  arch=$(uname -m); case "$arch" in x86_64) a=x86_64;; aarch64|arm64) a=arm64;; *) a=$arch;; esac
+  url=$(curl -fsSL https://api.github.com/repos/Zouuup/landrun/releases/latest | grep -o 'https://[^"]*' | grep -i -E "linux.*(${a}|amd64)" | grep -i -E 'tar.gz|tgz' | head -1)
+  if [ -n "$url" ]; then curl -fsSL -o /tmp/landrun.tgz "$url" && tar xzf /tmp/landrun.tgz -C /tmp && f=$(find /tmp -maxdepth 2 -type f -name landrun | head -1) && install -m755 "$f" "$HOME/.local/bin/landrun"; fi
+  if ! command -v landrun >/dev/null && command -v go >/dev/null; then GOBIN="$HOME/.local/bin" go install github.com/zouuup/landrun/cmd/landrun@latest; fi
+fi
+LANDRUN_STATUS="unavailable"
+if command -v landrun >/dev/null; then
+  if landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/tmp/landrun.err; then LANDRUN_STATUS="real ($(landrun --version 2>&1 | head -1))"; else LANDRUN_STATUS="installed but Landlock unusable: $(head -c 300 /tmp/landrun.err)"; fi
+fi
+echo "LANDRUN_STATUS=$LANDRUN_STATUS"
+
+log "lean4export (tag matching v4.34) and comparator"
+cd "$ROOT/tmp"
+[ -d lean4export ] || git clone -q https://github.com/leanprover/lean4export
+[ -d comparator ] || git clone -q https://github.com/leanprover/comparator
+( cd lean4export && git fetch -q --tags && best=""; for t in $(git tag | sort -V); do case "$(git show $t:lean-toolchain 2>/dev/null)" in *v4.34*) best=$t;; esac; done; [ -n "$best" ] && git checkout -q "$best"; echo "lean4export at $(git describe --tags --always) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
+( cd comparator && echo "comparator at $(git rev-parse --short HEAD) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
+ls -la "$ROOT"/tmp/lean4export/.lake/build/bin/lean4export "$ROOT"/tmp/comparator/.lake/build/bin/comparator
+
+log "Mathlib cache (lake exe cache get; host cache.mathlib.org unless MATHLIB_CACHE_GET_URL is set)"
+cd "$UP/lean" && lake exe cache get 2>&1 | tail -3
+
+log "machine report"
+{ echo "date=$(date -u +%FT%TZ)"; uname -a; nproc; free -g | head -2; df -h "$ROOT" | tail -1; cat /sys/kernel/security/lsm 2>/dev/null | sed 's/^/lsm=/'; echo "LANDRUN_STATUS=$LANDRUN_STATUS"; lean --version; echo "session=https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"; } | tee "$ROOT/tmp/cloud-machine.txt"
+log "setup done"
