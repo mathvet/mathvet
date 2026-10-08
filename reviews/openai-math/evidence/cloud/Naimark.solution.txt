@@ -1,0 +1,46 @@
+OAI.NaimarkZFC.main : ∃ A x,
+  OAI.NaimarkZFC.IsSimpleCStar A ∧
+    ¬FiniteDimensional ℂ A ∧
+      (∃ τ, OAI.NaimarkZFC.IsFaithfulTracialState τ) ∧
+        OAI.NaimarkZFC.HasUniqueIrreducibleRepresentation A ∧
+          ∀ (H : Type u_2) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H] [inst_2 : CompleteSpace H],
+            ¬OAI.NaimarkZFC.IsIsomorphicToCompacts A H
+'OAI.NaimarkZFC.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.NaimarkZFC.IsSimpleCStar.{u} : (A : Type u) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] => Nontrivial A ∧ ∀ (I : TwoSidedIdeal A), IsClosed ↑I → I = ⊥ ∨ I = ⊤
+def OAI.NaimarkZFC.IsState.{u} : {A : Type u} → [inst : CStarAlgebra A] → (A →L[ℂ] ℂ) → Prop :=
+fun {A} [CStarAlgebra A] f => ‖f‖ = 1 ∧ ∀ (a : A), (f (star a * a)).im = 0 ∧ 0 ≤ (f (star a * a)).re
+def OAI.NaimarkZFC.IsFaithfulTracialState.{u} : {A : Type u} → [inst : CStarAlgebra A] → (A →L[ℂ] ℂ) → Prop :=
+fun {A} [CStarAlgebra A] f =>
+  OAI.NaimarkZFC.IsState f ∧ (∀ (a b : A), f (a * b) = f (b * a)) ∧ ∀ (a : A), a ≠ 0 → 0 < (f (star a * a)).re
+def OAI.NaimarkZFC.IsIrreducible.{u, v} : {A : Type u} →
+  [inst : CStarAlgebra A] →
+    {H : Type v} →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] → [inst_3 : CompleteSpace H] → (A →⋆ₙₐ[ℂ] H →L[ℂ] H) → Prop :=
+fun {A} [CStarAlgebra A] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] π =>
+  π ≠ 0 ∧ ∀ (M : Submodule ℂ H), IsClosed ↑M → (∀ (a : A), ∀ x ∈ M, (π a) x ∈ M) → M = ⊥ ∨ M = ⊤
+def OAI.NaimarkZFC.UnitarilyEquivalent.{u, v, w} : {A : Type u} →
+  [inst : CStarAlgebra A] →
+    {H : Type v} →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] →
+          [inst_3 : CompleteSpace H] →
+            {K : Type w} →
+              [inst_4 : NormedAddCommGroup K] →
+                [inst_5 : InnerProductSpace ℂ K] →
+                  [inst_6 : CompleteSpace K] → (A →⋆ₙₐ[ℂ] H →L[ℂ] H) → (A →⋆ₙₐ[ℂ] K →L[ℂ] K) → Prop :=
+fun {A} [CStarAlgebra A] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {K} [NormedAddCommGroup K]
+    [InnerProductSpace ℂ K] [CompleteSpace K] π ρ =>
+  ∃ U, ∀ (a : A) (x : H), U ((π a) x) = (ρ a) (U x)
+def OAI.NaimarkZFC.HasUniqueIrreducibleRepresentation.{u, v, w} : (A : Type u) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] =>
+  ∀ (H : Type v) [inst_1 : NormedAddCommGroup H] [inst_2 : InnerProductSpace ℂ H] [inst_3 : CompleteSpace H]
+    (K : Type w) [inst_4 : NormedAddCommGroup K] [inst_5 : InnerProductSpace ℂ K] [inst_6 : CompleteSpace K]
+    (π : A →⋆ₙₐ[ℂ] H →L[ℂ] H) (ρ : A →⋆ₙₐ[ℂ] K →L[ℂ] K),
+    OAI.NaimarkZFC.IsIrreducible π → OAI.NaimarkZFC.IsIrreducible ρ → OAI.NaimarkZFC.UnitarilyEquivalent π ρ
+def OAI.NaimarkZFC.IsIsomorphicToCompacts.{u, v} : (A : Type u) →
+  [CStarAlgebra A] →
+    (H : Type v) → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → [CompleteSpace H] → Prop :=
+fun A [CStarAlgebra A] H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  ∃ φ, Function.Injective ⇑φ ∧ ∀ (T : H →L[ℂ] H), (∃ a, φ a = T) ↔ IsCompactOperator ⇑T

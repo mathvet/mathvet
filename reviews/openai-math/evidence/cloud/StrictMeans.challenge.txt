@@ -1,0 +1,29 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StrictMeans.lean:34:8: warning: declaration uses `sorry`
+OAI.StrictInverseFirstPower.main : (∃ ε C,
+    0 < ε ∧
+      ε < 1 / 4 ∧
+        ∀ (f : ℂ → ℂ),
+          OAI.StrictInverseFirstPower.NormalizedUnivalent f →
+            ∀ (r : ℝ),
+              1 / 2 ≤ r → r < 1 → OAI.StrictInverseFirstPower.integralMean (-1) f r ≤ C * (1 - r) ^ (-(1 / 4) + ε)) ∧
+  OAI.StrictInverseFirstPower.boundedSpectrum (-1) < 1 / 4 ∧
+    ¬∀ (p : ℝ), OAI.StrictInverseFirstPower.boundedSpectrum p = OAI.StrictInverseFirstPower.kraetzerPrediction p
+def OAI.StrictInverseFirstPower.disk : Set ℂ :=
+Metric.ball 0 1
+def OAI.StrictInverseFirstPower.NormalizedUnivalent : (ℂ → ℂ) → Prop :=
+fun f =>
+  DifferentiableOn ℂ f OAI.StrictInverseFirstPower.disk ∧
+    Set.InjOn f OAI.StrictInverseFirstPower.disk ∧ f 0 = 0 ∧ deriv f 0 = 1
+def OAI.StrictInverseFirstPower.BoundedNormalizedUnivalent : (ℂ → ℂ) → Prop :=
+fun f => OAI.StrictInverseFirstPower.NormalizedUnivalent f ∧ ∃ R, ∀ z ∈ OAI.StrictInverseFirstPower.disk, ‖f z‖ ≤ R
+def OAI.StrictInverseFirstPower.integralMean : ℝ → (ℂ → ℂ) → ℝ → ℝ :=
+fun p f r => (2 * Real.pi)⁻¹ * ∫ (θ : ℝ) in -Real.pi..Real.pi, ‖deriv f (↑r * Complex.exp (↑θ * Complex.I))‖ ^ p
+def OAI.StrictInverseFirstPower.growthExponent : ℝ → (ℂ → ℂ) → EReal :=
+fun p f =>
+  Filter.limsup (fun r => ↑(Real.log (OAI.StrictInverseFirstPower.integralMean p f r) / Real.log (1 / (1 - r))))
+    (nhdsWithin 1 (Set.Iio 1))
+def OAI.StrictInverseFirstPower.boundedSpectrum : ℝ → EReal :=
+fun p =>
+  ⨆ f, ⨆ (_ : OAI.StrictInverseFirstPower.BoundedNormalizedUnivalent f), OAI.StrictInverseFirstPower.growthExponent p f
+def OAI.StrictInverseFirstPower.kraetzerPrediction : ℝ → EReal :=
+fun p => if |p| ≤ 2 then ↑(p ^ 2 / 4) else ↑(|p| - 1)

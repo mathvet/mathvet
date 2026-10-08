@@ -1,0 +1,124 @@
+CMP OAI.Zarankiewicz.mainTarget_proof [thm] ok
+CMP OAI.Zarankiewicz.MainTarget [def] ok
+CMP OAI.Zarankiewicz.axisPairs [def] ok
+CMP OAI.Zarankiewicz.crossingCount [def] ok
+CMP OAI.Zarankiewicz.AdmissibleDrawing.crossings_finite [thm] ok
+CMP OAI.Zarankiewicz.AdmissibleDrawing.toContinuousDrawing [def] ok
+CMP OAI.Zarankiewicz.AdmissibleDrawing [ind] ok
+CMP OAI.Zarankiewicz.AdmissibleDrawing.mk [ctor] ok
+CMP OAI.Zarankiewicz.ProperCrossing [def] ok
+CMP OAI.Zarankiewicz.Plane [def] ok
+CMP OAI.Zarankiewicz.edgeInterior [def] ok
+CMP OAI.Zarankiewicz.ContinuousDrawing.edge [def] ok
+CMP OAI.Zarankiewicz.ContinuousDrawing [ind] ok
+CMP OAI.Zarankiewicz.ContinuousDrawing.mk [ctor] ok
+CMP OAI.Zarankiewicz.BipartiteEdge [def] ok
+CMP OAI.Zarankiewicz.BipartiteVertex [def] ok
+CMP OAI.Zarankiewicz.ContinuousDrawing.vertex [def] ok
+CMP OAI.Zarankiewicz.crossingPoints [def] ok
+Chal.Zarankiewicz.mainTarget_proof : Chal.Zarankiewicz.MainTarget
+def Chal.Zarankiewicz.axisPairs : ℕ → ℕ :=
+fun r => r / 2 * ((r - 1) / 2)
+@[reducible] def Chal.Zarankiewicz.Plane : Type :=
+ℝ × ℝ
+@[reducible] def Chal.Zarankiewicz.BipartiteVertex : ℕ → ℕ → Type :=
+fun m n => Fin m ⊕ Fin n
+@[reducible] def Chal.Zarankiewicz.BipartiteEdge : ℕ → ℕ → Type :=
+fun m n => Fin m × Fin n
+structure Chal.Zarankiewicz.ContinuousDrawing (m n : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.Zarankiewicz.ContinuousDrawing.vertex : Chal.Zarankiewicz.BipartiteVertex m n → Chal.Zarankiewicz.Plane
+  Chal.Zarankiewicz.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  Chal.Zarankiewicz.ContinuousDrawing.edge : (e : Chal.Zarankiewicz.BipartiteEdge m n) →
+      Path (self.vertex (Sum.inl e.1)) (self.vertex (Sum.inr e.2))
+  Chal.Zarankiewicz.ContinuousDrawing.edge_injective : ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n),
+      Function.Injective ⇑(self.edge e)
+  Chal.Zarankiewicz.ContinuousDrawing.interior_avoids_vertices : ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : Chal.Zarankiewicz.BipartiteVertex m n), (self.edge e) t ≠ self.vertex v
+constructor:
+  Chal.Zarankiewicz.ContinuousDrawing.mk {m n : ℕ}
+    (vertex : Chal.Zarankiewicz.BipartiteVertex m n → Chal.Zarankiewicz.Plane)
+    (vertex_injective : Function.Injective vertex)
+    (edge : (e : Chal.Zarankiewicz.BipartiteEdge m n) → Path (vertex (Sum.inl e.1)) (vertex (Sum.inr e.2)))
+    (edge_injective : ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n), Function.Injective ⇑(edge e))
+    (interior_avoids_vertices :
+      ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n),
+        ∀ t ∈ Set.Ioo 0 1, ∀ (v : Chal.Zarankiewicz.BipartiteVertex m n), (edge e) t ≠ vertex v) :
+    Chal.Zarankiewicz.ContinuousDrawing m n
+def Chal.Zarankiewicz.edgeInterior : {m n : ℕ} →
+  Chal.Zarankiewicz.ContinuousDrawing m n → Chal.Zarankiewicz.BipartiteEdge m n → Set Chal.Zarankiewicz.Plane :=
+fun {m n} D e => ⇑(D.edge e) '' Set.Ioo 0 1
+def Chal.Zarankiewicz.ProperCrossing : Set Chal.Zarankiewicz.Plane →
+  Set Chal.Zarankiewicz.Plane → Chal.Zarankiewicz.Plane → Prop :=
+fun A B x =>
+  ∃ chart,
+    x ∈ chart.source ∧
+      ↑chart x = (0, 0) ∧
+        ↑chart '' (chart.source ∩ A) = chart.target ∩ {y | y.2 = 0} ∧
+          ↑chart '' (chart.source ∩ B) = chart.target ∩ {y | y.1 = 0}
+def Chal.Zarankiewicz.crossingPoints : {m n : ℕ} →
+  Chal.Zarankiewicz.ContinuousDrawing m n → Set Chal.Zarankiewicz.Plane :=
+fun {m n} D => {x | ∃ e f, e ≠ f ∧ x ∈ Chal.Zarankiewicz.edgeInterior D e ∧ x ∈ Chal.Zarankiewicz.edgeInterior D f}
+structure Chal.Zarankiewicz.AdmissibleDrawing (m n : ℕ) : Type
+number of parameters: 2
+parents:
+  Chal.Zarankiewicz.AdmissibleDrawing.toContinuousDrawing : Chal.Zarankiewicz.ContinuousDrawing m n
+fields:
+  Chal.Zarankiewicz.ContinuousDrawing.vertex : Chal.Zarankiewicz.BipartiteVertex m n → Chal.Zarankiewicz.Plane
+  Chal.Zarankiewicz.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  Chal.Zarankiewicz.ContinuousDrawing.edge : (e : Chal.Zarankiewicz.BipartiteEdge m n) →
+      Path (self.vertex (Sum.inl e.1)) (self.vertex (Sum.inr e.2))
+  Chal.Zarankiewicz.ContinuousDrawing.edge_injective : ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n),
+      Function.Injective ⇑(self.edge e)
+  Chal.Zarankiewicz.ContinuousDrawing.interior_avoids_vertices : ∀ (e : Chal.Zarankiewicz.BipartiteEdge m n),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : Chal.Zarankiewicz.BipartiteVertex m n), (self.edge e) t ≠ self.vertex v
+  Chal.Zarankiewicz.AdmissibleDrawing.crossings_finite : (Chal.Zarankiewicz.crossingPoints
+        self.toContinuousDrawing).Finite
+  Chal.Zarankiewicz.AdmissibleDrawing.crossings_proper : ∀ (e f : Chal.Zarankiewicz.BipartiteEdge m n),
+      e ≠ f →
+        ∀ x ∈ Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing e,
+          x ∈ Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing f →
+            Chal.Zarankiewicz.ProperCrossing (Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing e)
+              (Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing f) x
+  Chal.Zarankiewicz.AdmissibleDrawing.no_triples : ∀ (e f g : Chal.Zarankiewicz.BipartiteEdge m n),
+      e ≠ f →
+        e ≠ g →
+          f ≠ g →
+            Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing e ∩
+                  Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing f ∩
+                Chal.Zarankiewicz.edgeInterior self.toContinuousDrawing g =
+              ∅
+constructor:
+  Chal.Zarankiewicz.AdmissibleDrawing.mk {m n : ℕ} (toContinuousDrawing : Chal.Zarankiewicz.ContinuousDrawing m n)
+    (crossings_finite : (Chal.Zarankiewicz.crossingPoints toContinuousDrawing).Finite)
+    (crossings_proper :
+      ∀ (e f : Chal.Zarankiewicz.BipartiteEdge m n),
+        e ≠ f →
+          ∀ x ∈ Chal.Zarankiewicz.edgeInterior toContinuousDrawing e,
+            x ∈ Chal.Zarankiewicz.edgeInterior toContinuousDrawing f →
+              Chal.Zarankiewicz.ProperCrossing (Chal.Zarankiewicz.edgeInterior toContinuousDrawing e)
+                (Chal.Zarankiewicz.edgeInterior toContinuousDrawing f) x)
+    (no_triples :
+      ∀ (e f g : Chal.Zarankiewicz.BipartiteEdge m n),
+        e ≠ f →
+          e ≠ g →
+            f ≠ g →
+              Chal.Zarankiewicz.edgeInterior toContinuousDrawing e ∩
+                    Chal.Zarankiewicz.edgeInterior toContinuousDrawing f ∩
+                  Chal.Zarankiewicz.edgeInterior toContinuousDrawing g =
+                ∅) :
+    Chal.Zarankiewicz.AdmissibleDrawing m n
+field notation resolution order:
+  Chal.Zarankiewicz.AdmissibleDrawing, Chal.Zarankiewicz.ContinuousDrawing
+def Chal.Zarankiewicz.crossingCount : {m n : ℕ} → Chal.Zarankiewicz.AdmissibleDrawing m n → ℕ :=
+fun {m n} D => ⋯.toFinset.card
+def Chal.Zarankiewicz.MainTarget : Prop :=
+∀ (m n : ℕ),
+  0 < m →
+    0 < n →
+      (∃ D, Chal.Zarankiewicz.crossingCount D = Chal.Zarankiewicz.axisPairs m * Chal.Zarankiewicz.axisPairs n) ∧
+        ∀ (D : Chal.Zarankiewicz.AdmissibleDrawing m n),
+          Chal.Zarankiewicz.axisPairs m * Chal.Zarankiewicz.axisPairs n ≤ Chal.Zarankiewicz.crossingCount D
+'OAI.Zarankiewicz.mainTarget_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BipartiteCrossing comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

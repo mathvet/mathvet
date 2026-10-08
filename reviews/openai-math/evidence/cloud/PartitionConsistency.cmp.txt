@@ -1,0 +1,443 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_PartitionConsistency.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.PartitionConsistency.main_consistency [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.targetTheory [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.AC [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.choiceOn [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.functionOn._proof_2 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.edge [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.orderedPair [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.orderedPair._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.unorderedPair [def] ok
+CMP OAI.PartitionConsistency.Formula.equal [ctor] ok
+CMP OAI.PartitionConsistency.Formula [ind] ok
+CMP OAI.PartitionConsistency.Formula.ex [ctor] ok
+CMP OAI.PartitionConsistency.Formula.all [ctor] ok
+CMP OAI.PartitionConsistency.Formula.disj [ctor] ok
+CMP OAI.PartitionConsistency.Formula.conj [ctor] ok
+CMP OAI.PartitionConsistency.Formula.imp [ctor] ok
+CMP OAI.PartitionConsistency.Formula.mem [ctor] ok
+CMP OAI.PartitionConsistency.Formula.bot [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.unorderedPair._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.Formula.iff [def] ok
+CMP OAI.PartitionConsistency.Formula.rename [def] ok
+CMP OAI.PartitionConsistency.Formula.rename._f [def] ok
+CMP OAI.PartitionConsistency.Formula.liftRen [def] ok
+CMP OAI.PartitionConsistency.Formula.rename.match_1 [def] ok
+CMP OAI.PartitionConsistency.Formula.casesOn [def] ok
+CMP OAI.PartitionConsistency.Formula.rec [rec] ok
+CMP OAI.PartitionConsistency.Formula.below [def] ok
+CMP OAI.PartitionConsistency.Formula.brecOn [def] ok
+CMP OAI.PartitionConsistency.Formula.brecOn.go [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.subset._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.empty._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.functionOn [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.functionOn._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.nonempty [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.AC._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.Sentence [def] ok
+CMP OAI.PartitionConsistency.Formula.neg [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.ACwo [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.PP._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.choiceForFamily [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.injection._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.nonemptyFamily [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.ACwo._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.ordinal [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.membershipWellFounded [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.membershipLinear._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.transitiveSet._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.subset [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.membershipLinear [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.transitiveSet [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.PP [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.injection [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.mapsTo [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.surjection [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.ZF [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom [ind] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.replacement [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.replacement [def] ok
+CMP OAI.PartitionConsistency.Formula.close [def] ok
+CMP OAI.PartitionConsistency.Formula.close._f [def] ok
+CMP OAI.PartitionConsistency.Formula.close.match_1 [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.relation [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.separation [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.separation [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.foundation [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.foundation [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.infinity [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.infinity [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.successor [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.empty [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.powerSet [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.powerSet [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.union [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.union [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.union._proof_1 [thm] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.pairing [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.pairing [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.emptySet [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.emptySet [def] ok
+CMP OAI.PartitionConsistency.SetLanguage.IsZFAxiom.extensionality [ctor] ok
+CMP OAI.PartitionConsistency.SetLanguage.extensionality [def] ok
+CMP OAI.PartitionConsistency.Theory [def] ok
+CMP OAI.PartitionConsistency.Consistent [def] ok
+CMP OAI.PartitionConsistency.Theory.at [def] ok
+CMP OAI.PartitionConsistency.Derives [ind] ok
+CMP OAI.PartitionConsistency.Derives.rename [ctor] ok
+CMP OAI.PartitionConsistency.Derives.eqSubst [ctor] ok
+CMP OAI.PartitionConsistency.Formula.instantiate [def] ok
+CMP OAI.PartitionConsistency.Derives.eqRefl [ctor] ok
+CMP OAI.PartitionConsistency.Derives.exE [ctor] ok
+CMP OAI.PartitionConsistency.Formula.raise [def] ok
+CMP OAI.PartitionConsistency.Derives.exI [ctor] ok
+CMP OAI.PartitionConsistency.Derives.allE [ctor] ok
+CMP OAI.PartitionConsistency.Derives.allI [ctor] ok
+CMP OAI.PartitionConsistency.Derives.disjE [ctor] ok
+CMP OAI.PartitionConsistency.Derives.disjR [ctor] ok
+CMP OAI.PartitionConsistency.Derives.disjL [ctor] ok
+CMP OAI.PartitionConsistency.Derives.conjR [ctor] ok
+CMP OAI.PartitionConsistency.Derives.conjL [ctor] ok
+CMP OAI.PartitionConsistency.Derives.conjI [ctor] ok
+CMP OAI.PartitionConsistency.Derives.classical [ctor] ok
+CMP OAI.PartitionConsistency.Derives.botE [ctor] ok
+CMP OAI.PartitionConsistency.Derives.impE [ctor] ok
+CMP OAI.PartitionConsistency.Derives.impI [ctor] ok
+CMP OAI.PartitionConsistency.Derives.weaken [ctor] ok
+CMP OAI.PartitionConsistency.Derives.hyp [ctor] ok
+Chal.PartitionConsistency.main_consistency : Chal.PartitionConsistency.Consistent
+    Chal.PartitionConsistency.SetLanguage.ZF →
+  Chal.PartitionConsistency.Consistent Chal.PartitionConsistency.SetLanguage.targetTheory
+inductive Chal.PartitionConsistency.Formula : ℕ → Type
+number of parameters: 0
+constructors:
+Chal.PartitionConsistency.Formula.bot : {n : ℕ} → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.mem : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.equal : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.imp : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.conj : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.disj : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.all : {n : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 1) → Chal.PartitionConsistency.Formula n
+Chal.PartitionConsistency.Formula.ex : {n : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 1) → Chal.PartitionConsistency.Formula n
+@[reducible] def Chal.PartitionConsistency.Formula.neg : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n :=
+fun {n} p => p.imp Chal.PartitionConsistency.Formula.bot
+@[reducible] def Chal.PartitionConsistency.Formula.iff : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula n :=
+fun {n} p q => (p.imp q).conj (q.imp p)
+def Chal.PartitionConsistency.Formula.liftRen : {n m : ℕ} → (Fin n → Fin m) → Fin (n + 1) → Fin (m + 1) :=
+fun {n m} r i => Fin.lastCases (Fin.last m) (fun i => (r i).castSucc) i
+def Chal.PartitionConsistency.Formula.rename : {n m : ℕ} →
+  (Fin n → Fin m) → Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula m :=
+fun {n m} r x =>
+  Chal.PartitionConsistency.Formula.brecOn (motive := fun {n} x =>
+    {m : ℕ} → (Fin n → Fin m) → Chal.PartitionConsistency.Formula m) x (@Chal.PartitionConsistency.Formula.rename._f) r
+@[reducible] def Chal.PartitionConsistency.Formula.raise : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula (n + 1) :=
+fun {n} p => Chal.PartitionConsistency.Formula.rename Fin.castSucc p
+def Chal.PartitionConsistency.Formula.instantiate : {n : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 1) → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} p x => Chal.PartitionConsistency.Formula.rename (fun i => Fin.lastCases x id i) p
+def Chal.PartitionConsistency.Formula.close : {n : ℕ} →
+  Chal.PartitionConsistency.Formula n → Chal.PartitionConsistency.Formula 0 :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.PartitionConsistency.Formula x → Chal.PartitionConsistency.Formula 0) x
+    Chal.PartitionConsistency.Formula.close._f x_1
+@[reducible] def Chal.PartitionConsistency.Sentence : Type :=
+Chal.PartitionConsistency.Formula 0
+@[reducible] def Chal.PartitionConsistency.Theory : Type :=
+Set Chal.PartitionConsistency.Sentence
+inductive Chal.PartitionConsistency.Derives : {n : ℕ} →
+  Set (Chal.PartitionConsistency.Formula n) → Chal.PartitionConsistency.Formula n → Prop
+number of parameters: 0
+constructors:
+Chal.PartitionConsistency.Derives.hyp : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula n}, p ∈ Γ → Chal.PartitionConsistency.Derives Γ p
+Chal.PartitionConsistency.Derives.weaken : ∀ {n : ℕ} {Γ Δ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula n},
+  Γ ⊆ Δ → Chal.PartitionConsistency.Derives Γ p → Chal.PartitionConsistency.Derives Δ p
+Chal.PartitionConsistency.Derives.impI : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives (insert p Γ) q → Chal.PartitionConsistency.Derives Γ (p.imp q)
+Chal.PartitionConsistency.Derives.impE : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ (p.imp q) →
+    Chal.PartitionConsistency.Derives Γ p → Chal.PartitionConsistency.Derives Γ q
+Chal.PartitionConsistency.Derives.botE : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ Chal.PartitionConsistency.Formula.bot → Chal.PartitionConsistency.Derives Γ p
+Chal.PartitionConsistency.Derives.classical : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives (insert p.neg Γ) Chal.PartitionConsistency.Formula.bot →
+    Chal.PartitionConsistency.Derives Γ p
+Chal.PartitionConsistency.Derives.conjI : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ p →
+    Chal.PartitionConsistency.Derives Γ q → Chal.PartitionConsistency.Derives Γ (p.conj q)
+Chal.PartitionConsistency.Derives.conjL : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ (p.conj q) → Chal.PartitionConsistency.Derives Γ p
+Chal.PartitionConsistency.Derives.conjR : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ (p.conj q) → Chal.PartitionConsistency.Derives Γ q
+Chal.PartitionConsistency.Derives.disjL : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ p → Chal.PartitionConsistency.Derives Γ (p.disj q)
+Chal.PartitionConsistency.Derives.disjR : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ q → Chal.PartitionConsistency.Derives Γ (p.disj q)
+Chal.PartitionConsistency.Derives.disjE : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p q r : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ (p.disj q) →
+    Chal.PartitionConsistency.Derives (insert p Γ) r →
+      Chal.PartitionConsistency.Derives (insert q Γ) r → Chal.PartitionConsistency.Derives Γ r
+Chal.PartitionConsistency.Derives.allI : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula (n + 1)},
+  Chal.PartitionConsistency.Derives (Chal.PartitionConsistency.Formula.raise '' Γ) p →
+    Chal.PartitionConsistency.Derives Γ p.all
+Chal.PartitionConsistency.Derives.allE : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula (n + 1)} (t : Fin n),
+  Chal.PartitionConsistency.Derives Γ p.all → Chal.PartitionConsistency.Derives Γ (p.instantiate t)
+Chal.PartitionConsistency.Derives.exI : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula (n + 1)} (t : Fin n),
+  Chal.PartitionConsistency.Derives Γ (p.instantiate t) → Chal.PartitionConsistency.Derives Γ p.ex
+Chal.PartitionConsistency.Derives.exE : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula (n + 1)} {q : Chal.PartitionConsistency.Formula n},
+  Chal.PartitionConsistency.Derives Γ p.ex →
+    Chal.PartitionConsistency.Derives (insert p (Chal.PartitionConsistency.Formula.raise '' Γ)) q.raise →
+      Chal.PartitionConsistency.Derives Γ q
+Chal.PartitionConsistency.Derives.eqRefl : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)} (t : Fin n),
+  Chal.PartitionConsistency.Derives Γ (Chal.PartitionConsistency.Formula.equal t t)
+Chal.PartitionConsistency.Derives.eqSubst : ∀ {n : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)} {s t : Fin n}
+  (p : Chal.PartitionConsistency.Formula (n + 1)),
+  Chal.PartitionConsistency.Derives Γ (Chal.PartitionConsistency.Formula.equal s t) →
+    Chal.PartitionConsistency.Derives Γ (p.instantiate s) → Chal.PartitionConsistency.Derives Γ (p.instantiate t)
+Chal.PartitionConsistency.Derives.rename : ∀ {n m : ℕ} {Γ : Set (Chal.PartitionConsistency.Formula n)}
+  {p : Chal.PartitionConsistency.Formula n} (r : Fin n → Fin m),
+  Chal.PartitionConsistency.Derives Γ p →
+    Chal.PartitionConsistency.Derives (Chal.PartitionConsistency.Formula.rename r '' Γ)
+      (Chal.PartitionConsistency.Formula.rename r p)
+def Chal.PartitionConsistency.Theory.at : Chal.PartitionConsistency.Theory →
+  (n : ℕ) → Set (Chal.PartitionConsistency.Formula n) :=
+fun T n => Chal.PartitionConsistency.Formula.rename Fin.elim0 '' T
+def Chal.PartitionConsistency.Consistent : Chal.PartitionConsistency.Theory → Prop :=
+fun T => ∀ (n : ℕ), ¬Chal.PartitionConsistency.Derives (T.at n) Chal.PartitionConsistency.Formula.bot
+def Chal.PartitionConsistency.SetLanguage.subset : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a b =>
+  Chal.PartitionConsistency.Formula.rename ![a, b]
+    ((Chal.PartitionConsistency.Formula.mem 2 0).imp (Chal.PartitionConsistency.Formula.mem 2 1)).all
+def Chal.PartitionConsistency.SetLanguage.empty : {n : ℕ} → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a => Chal.PartitionConsistency.Formula.rename ![a] (Chal.PartitionConsistency.Formula.mem 1 0).neg.all
+def Chal.PartitionConsistency.SetLanguage.nonempty : {n : ℕ} → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a => Chal.PartitionConsistency.Formula.rename ![a] (Chal.PartitionConsistency.Formula.mem 1 0).ex
+def Chal.PartitionConsistency.SetLanguage.unorderedPair : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} p x y =>
+  Chal.PartitionConsistency.Formula.rename ![p, x, y]
+    ((Chal.PartitionConsistency.Formula.mem 3 0).iff
+        ((Chal.PartitionConsistency.Formula.equal 3 1).disj (Chal.PartitionConsistency.Formula.equal 3 2))).all
+def Chal.PartitionConsistency.SetLanguage.successor : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} b a =>
+  Chal.PartitionConsistency.Formula.rename ![b, a]
+    ((Chal.PartitionConsistency.Formula.mem 2 0).iff
+        ((Chal.PartitionConsistency.Formula.mem 2 1).disj (Chal.PartitionConsistency.Formula.equal 2 1))).all
+def Chal.PartitionConsistency.SetLanguage.orderedPair : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} p x y =>
+  Chal.PartitionConsistency.Formula.rename ![p, x, y]
+    ((Chal.PartitionConsistency.SetLanguage.unorderedPair 3 1 1).conj
+          ((Chal.PartitionConsistency.SetLanguage.unorderedPair 4 1 2).conj
+            (Chal.PartitionConsistency.SetLanguage.unorderedPair 0 3 4))).ex.ex
+def Chal.PartitionConsistency.SetLanguage.edge : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} f x y =>
+  Chal.PartitionConsistency.Formula.rename ![f, x, y]
+    ((Chal.PartitionConsistency.Formula.mem 3 0).conj (Chal.PartitionConsistency.SetLanguage.orderedPair 3 1 2)).ex
+def Chal.PartitionConsistency.SetLanguage.functionOn : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} f d =>
+  Chal.PartitionConsistency.Formula.rename ![f, d]
+    (((Chal.PartitionConsistency.Formula.mem 2 0).imp
+            ((Chal.PartitionConsistency.Formula.mem 3 1).conj
+                  (Chal.PartitionConsistency.SetLanguage.orderedPair 2 3 4)).ex.ex).all.conj
+      ((Chal.PartitionConsistency.Formula.mem 2 1).imp
+          ((Chal.PartitionConsistency.SetLanguage.edge 0 2 3).conj
+              ((Chal.PartitionConsistency.SetLanguage.edge 0 2 4).imp
+                  (Chal.PartitionConsistency.Formula.equal 4 3)).all).ex).all)
+def Chal.PartitionConsistency.SetLanguage.mapsTo : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} f d r =>
+  Chal.PartitionConsistency.Formula.rename ![f, d, r]
+    ((Chal.PartitionConsistency.SetLanguage.functionOn 0 1).conj
+      ((Chal.PartitionConsistency.Formula.mem 3 1).imp
+            ((Chal.PartitionConsistency.SetLanguage.edge 0 3 4).imp
+              (Chal.PartitionConsistency.Formula.mem 4 2))).all.all)
+def Chal.PartitionConsistency.SetLanguage.surjection : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} f d r =>
+  Chal.PartitionConsistency.Formula.rename ![f, d, r]
+    ((Chal.PartitionConsistency.SetLanguage.mapsTo 0 1 2).conj
+      ((Chal.PartitionConsistency.Formula.mem 3 2).imp
+          ((Chal.PartitionConsistency.Formula.mem 4 1).conj (Chal.PartitionConsistency.SetLanguage.edge 0 4 3)).ex).all)
+def Chal.PartitionConsistency.SetLanguage.injection : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} f d r =>
+  Chal.PartitionConsistency.Formula.rename ![f, d, r]
+    ((Chal.PartitionConsistency.SetLanguage.mapsTo 0 1 2).conj
+      ((Chal.PartitionConsistency.Formula.mem 3 1).imp
+              ((Chal.PartitionConsistency.Formula.mem 4 1).imp
+                (((Chal.PartitionConsistency.SetLanguage.edge 0 3 5).conj
+                      (Chal.PartitionConsistency.SetLanguage.edge 0 4 5)).imp
+                  (Chal.PartitionConsistency.Formula.equal 3 4)))).all.all.all)
+def Chal.PartitionConsistency.SetLanguage.transitiveSet : {n : ℕ} → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a =>
+  Chal.PartitionConsistency.Formula.rename ![a]
+    ((Chal.PartitionConsistency.Formula.mem 1 0).imp
+          ((Chal.PartitionConsistency.Formula.mem 2 1).imp (Chal.PartitionConsistency.Formula.mem 2 0))).all.all
+def Chal.PartitionConsistency.SetLanguage.membershipLinear : {n : ℕ} → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a =>
+  Chal.PartitionConsistency.Formula.rename ![a]
+    (((Chal.PartitionConsistency.Formula.mem 1 0).imp (Chal.PartitionConsistency.Formula.mem 1 1).neg).all.conj
+      (((Chal.PartitionConsistency.Formula.mem 1 0).imp
+                  ((Chal.PartitionConsistency.Formula.mem 2 0).imp
+                    ((Chal.PartitionConsistency.Formula.mem 3 0).imp
+                      (((Chal.PartitionConsistency.Formula.mem 1 2).conj
+                            (Chal.PartitionConsistency.Formula.mem 2 3)).imp
+                        (Chal.PartitionConsistency.Formula.mem 1 3))))).all.all.all.conj
+        ((Chal.PartitionConsistency.Formula.mem 1 0).imp
+              ((Chal.PartitionConsistency.Formula.mem 2 0).imp
+                ((Chal.PartitionConsistency.Formula.equal 1 2).disj
+                  ((Chal.PartitionConsistency.Formula.mem 1 2).disj
+                    (Chal.PartitionConsistency.Formula.mem 2 1))))).all.all))
+def Chal.PartitionConsistency.SetLanguage.membershipWellFounded : {n : ℕ} →
+  Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a =>
+  Chal.PartitionConsistency.Formula.rename ![a]
+    (((Chal.PartitionConsistency.SetLanguage.subset 1 0).conj (Chal.PartitionConsistency.SetLanguage.nonempty 1)).imp
+        ((Chal.PartitionConsistency.Formula.mem 2 1).conj
+            ((Chal.PartitionConsistency.Formula.mem 3 1).imp
+                (Chal.PartitionConsistency.Formula.mem 3 2).neg).all).ex).all
+def Chal.PartitionConsistency.SetLanguage.ordinal : {n : ℕ} → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} a =>
+  (Chal.PartitionConsistency.SetLanguage.transitiveSet a).conj
+    ((Chal.PartitionConsistency.SetLanguage.membershipLinear a).conj
+      (Chal.PartitionConsistency.SetLanguage.membershipWellFounded a))
+def Chal.PartitionConsistency.SetLanguage.choiceOn : {n : ℕ} → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} c A =>
+  Chal.PartitionConsistency.Formula.rename ![c, A]
+    ((Chal.PartitionConsistency.SetLanguage.functionOn 0 1).conj
+      ((Chal.PartitionConsistency.Formula.mem 2 1).imp
+          ((Chal.PartitionConsistency.SetLanguage.edge 0 2 3).conj (Chal.PartitionConsistency.Formula.mem 3 2)).ex).all)
+def Chal.PartitionConsistency.SetLanguage.nonemptyFamily : {n : ℕ} →
+  Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} F η =>
+  Chal.PartitionConsistency.Formula.rename ![F, η]
+    ((Chal.PartitionConsistency.SetLanguage.functionOn 0 1).conj
+      ((Chal.PartitionConsistency.Formula.mem 2 1).imp
+            ((Chal.PartitionConsistency.SetLanguage.edge 0 2 3).imp
+              (Chal.PartitionConsistency.SetLanguage.nonempty 3))).all.all)
+def Chal.PartitionConsistency.SetLanguage.choiceForFamily : {n : ℕ} →
+  Fin n → Fin n → Fin n → Chal.PartitionConsistency.Formula n :=
+fun {n} c η F =>
+  Chal.PartitionConsistency.Formula.rename ![c, η, F]
+    ((Chal.PartitionConsistency.SetLanguage.functionOn 0 1).conj
+      ((Chal.PartitionConsistency.Formula.mem 3 1).imp
+            ((Chal.PartitionConsistency.SetLanguage.edge 2 3 4).imp
+              ((Chal.PartitionConsistency.SetLanguage.edge 0 3 5).conj
+                  (Chal.PartitionConsistency.Formula.mem 5 4)).ex)).all.all)
+def Chal.PartitionConsistency.SetLanguage.PP : Chal.PartitionConsistency.Sentence :=
+((Chal.PartitionConsistency.SetLanguage.surjection 2 0 1).ex.imp
+      (Chal.PartitionConsistency.SetLanguage.injection 2 1 0).ex).all.all
+def Chal.PartitionConsistency.SetLanguage.AC : Chal.PartitionConsistency.Sentence :=
+(((Chal.PartitionConsistency.Formula.mem 1 0).imp (Chal.PartitionConsistency.SetLanguage.nonempty 1)).all.imp
+    (Chal.PartitionConsistency.SetLanguage.choiceOn 1 0).ex).all
+def Chal.PartitionConsistency.SetLanguage.ACwo : Chal.PartitionConsistency.Sentence :=
+((Chal.PartitionConsistency.SetLanguage.ordinal 0).imp
+    ((Chal.PartitionConsistency.SetLanguage.nonemptyFamily 1 0).imp
+        (Chal.PartitionConsistency.SetLanguage.choiceForFamily 2 0 1).ex).all).all
+def Chal.PartitionConsistency.SetLanguage.extensionality : Chal.PartitionConsistency.Sentence :=
+(((Chal.PartitionConsistency.Formula.mem 2 0).iff (Chal.PartitionConsistency.Formula.mem 2 1)).all.imp
+      (Chal.PartitionConsistency.Formula.equal 0 1)).all.all
+def Chal.PartitionConsistency.SetLanguage.emptySet : Chal.PartitionConsistency.Sentence :=
+(Chal.PartitionConsistency.SetLanguage.empty 0).ex
+def Chal.PartitionConsistency.SetLanguage.pairing : Chal.PartitionConsistency.Sentence :=
+(Chal.PartitionConsistency.SetLanguage.unorderedPair 2 0 1).ex.all.all
+def Chal.PartitionConsistency.SetLanguage.union : Chal.PartitionConsistency.Sentence :=
+((Chal.PartitionConsistency.Formula.mem 2 1).iff
+        ((Chal.PartitionConsistency.Formula.mem 3 0).conj (Chal.PartitionConsistency.Formula.mem 2 3)).ex).all.ex.all
+def Chal.PartitionConsistency.SetLanguage.powerSet : Chal.PartitionConsistency.Sentence :=
+((Chal.PartitionConsistency.Formula.mem 2 1).iff (Chal.PartitionConsistency.SetLanguage.subset 2 0)).all.ex.all
+def Chal.PartitionConsistency.SetLanguage.infinity : Chal.PartitionConsistency.Sentence :=
+(((Chal.PartitionConsistency.Formula.mem 1 0).conj (Chal.PartitionConsistency.SetLanguage.empty 1)).ex.conj
+    ((Chal.PartitionConsistency.Formula.mem 1 0).imp
+        ((Chal.PartitionConsistency.Formula.mem 2 0).conj
+            (Chal.PartitionConsistency.SetLanguage.successor 2 1)).ex).all).ex
+def Chal.PartitionConsistency.SetLanguage.foundation : Chal.PartitionConsistency.Sentence :=
+((Chal.PartitionConsistency.SetLanguage.nonempty 0).imp
+    ((Chal.PartitionConsistency.Formula.mem 1 0).conj
+        ((Chal.PartitionConsistency.Formula.mem 2 1).imp (Chal.PartitionConsistency.Formula.mem 2 0).neg).all).ex).all
+def Chal.PartitionConsistency.SetLanguage.separation : {n : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 1) → Chal.PartitionConsistency.Sentence :=
+fun {n} p =>
+  have A := (Fin.last n).castSucc.castSucc;
+  have B := (Fin.last (n + 1)).castSucc;
+  have x := Fin.last (n + 2);
+  have r := fun i => Fin.lastCases x (fun i => i.castSucc.castSucc.castSucc) i;
+  ((Chal.PartitionConsistency.Formula.mem x B).iff
+            ((Chal.PartitionConsistency.Formula.mem x A).conj
+              (Chal.PartitionConsistency.Formula.rename r p))).all.ex.all.close
+def Chal.PartitionConsistency.SetLanguage.relation : {n m : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 2) → (Fin n → Fin m) → Fin m → Fin m → Chal.PartitionConsistency.Formula m :=
+fun {n m} p params x y =>
+  Chal.PartitionConsistency.Formula.rename (fun i => Fin.lastCases y (fun i => Fin.lastCases x params i) i) p
+def Chal.PartitionConsistency.SetLanguage.replacement : {n : ℕ} →
+  Chal.PartitionConsistency.Formula (n + 2) → Chal.PartitionConsistency.Sentence :=
+fun {n} p =>
+  have unique :=
+    ((Chal.PartitionConsistency.SetLanguage.relation p (fun i => i.castSucc.castSucc.castSucc.castSucc)
+            (Fin.last (n + 1)).castSucc.castSucc (Fin.last (n + 3))).imp
+        (Chal.PartitionConsistency.Formula.equal (Fin.last (n + 3)) (Fin.last (n + 2)).castSucc)).all;
+  have totalFunctional :=
+    ((Chal.PartitionConsistency.Formula.mem (Fin.last (n + 1)) (Fin.last n).castSucc).imp
+        ((Chal.PartitionConsistency.SetLanguage.relation p (fun i => i.castSucc.castSucc.castSucc)
+                (Fin.last (n + 1)).castSucc (Fin.last (n + 2))).conj
+            unique).ex).all;
+  have image :=
+    ((Chal.PartitionConsistency.Formula.mem (Fin.last (n + 2)) (Fin.last (n + 1)).castSucc).iff
+          ((Chal.PartitionConsistency.Formula.mem (Fin.last (n + 3)) (Fin.last n).castSucc.castSucc.castSucc).conj
+              (Chal.PartitionConsistency.SetLanguage.relation p (fun i => i.castSucc.castSucc.castSucc.castSucc)
+                (Fin.last (n + 3)) (Fin.last (n + 2)).castSucc)).ex).all.ex;
+  (totalFunctional.imp image).all.close
+inductive Chal.PartitionConsistency.SetLanguage.IsZFAxiom : Chal.PartitionConsistency.Sentence → Prop
+number of parameters: 0
+constructors:
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.extensionality : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.extensionality
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.emptySet : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.emptySet
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.pairing : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.pairing
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.union : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.union
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.powerSet : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.powerSet
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.infinity : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.infinity
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.foundation : Chal.PartitionConsistency.SetLanguage.IsZFAxiom
+  Chal.PartitionConsistency.SetLanguage.foundation
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.separation : ∀ {n : ℕ} (p : Chal.PartitionConsistency.Formula (n + 1)),
+  Chal.PartitionConsistency.SetLanguage.IsZFAxiom (Chal.PartitionConsistency.SetLanguage.separation p)
+Chal.PartitionConsistency.SetLanguage.IsZFAxiom.replacement : ∀ {n : ℕ} (p : Chal.PartitionConsistency.Formula (n + 2)),
+  Chal.PartitionConsistency.SetLanguage.IsZFAxiom (Chal.PartitionConsistency.SetLanguage.replacement p)
+def Chal.PartitionConsistency.SetLanguage.ZF : Chal.PartitionConsistency.Theory :=
+{p | Chal.PartitionConsistency.SetLanguage.IsZFAxiom p}
+def Chal.PartitionConsistency.SetLanguage.targetTheory : Chal.PartitionConsistency.Theory :=
+Chal.PartitionConsistency.SetLanguage.ZF ∪
+  {Chal.PartitionConsistency.SetLanguage.PP, Chal.PartitionConsistency.SetLanguage.ACwo,
+    Chal.PartitionConsistency.Formula.neg Chal.PartitionConsistency.SetLanguage.AC}
+'OAI.PartitionConsistency.main_consistency' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PartitionConsistency comparator-style: ok=106 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

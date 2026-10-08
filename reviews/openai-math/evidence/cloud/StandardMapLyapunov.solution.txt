@@ -1,0 +1,92 @@
+OAI.StandardMapEntropy.main_entropy_complete : ∃ k₀,
+  0 < k₀ ∧
+    ∀ (k : ℝ),
+      k₀ ≤ k →
+        0 < OAI.StandardMapEntropy.metricEntropy OAI.StandardMapEntropy.area (OAI.StandardMapEntropy.standardMap k) ∧
+          OAI.StandardMapEntropy.PositiveLargestLyapunov k ∧
+            (0 <
+                OAI.StandardMapEntropy.metricEntropy OAI.StandardMapEntropy.area
+                  (OAI.StandardMapEntropy.standardMap k) ↔
+              OAI.StandardMapEntropy.PositiveLargestLyapunov k)
+'OAI.StandardMapEntropy.main_entropy_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.StandardMapEntropy.Circle : Type :=
+AddCircle 1
+@[reducible] def OAI.StandardMapEntropy.Torus : Type :=
+OAI.StandardMapEntropy.Circle × OAI.StandardMapEntropy.Circle
+def OAI.StandardMapEntropy.sine : OAI.StandardMapEntropy.Circle → ℝ :=
+fun x => OAI.StandardMapEntropy.sine_periodic.lift x
+def OAI.StandardMapEntropy.standardMap : ℝ → OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus :=
+fun k z => (z.1 + z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1), z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1))
+def OAI.StandardMapEntropy.area : MeasureTheory.Measure OAI.StandardMapEntropy.Torus :=
+MeasureTheory.volume.prod MeasureTheory.volume
+def OAI.StandardMapEntropy.FinitePartition : ℕ → Type :=
+fun r => { p // Measurable p }
+def OAI.StandardMapEntropy.blockAtom : {r : ℕ} →
+  (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) →
+    OAI.StandardMapEntropy.FinitePartition r → (n : ℕ) → (Fin n → Fin (r + 1)) → Set OAI.StandardMapEntropy.Torus :=
+fun {r} f p n w => {z | ∀ (i : Fin n), ↑p (f^[↑i] z) = w i}
+def OAI.StandardMapEntropy.blockEntropy : {r : ℕ} →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+    (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) → OAI.StandardMapEntropy.FinitePartition r → ℕ → ℝ :=
+fun {r} μ f p n =>
+  -∑ w,
+      (μ (OAI.StandardMapEntropy.blockAtom f p n w)).toReal *
+        Real.log (μ (OAI.StandardMapEntropy.blockAtom f p n w)).toReal
+def OAI.StandardMapEntropy.partitionEntropy : {r : ℕ} →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+    (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) →
+      OAI.StandardMapEntropy.FinitePartition r → ENNReal :=
+fun {r} μ f p => ⨅ n, ENNReal.ofReal (OAI.StandardMapEntropy.blockEntropy μ f p (n + 1) / (↑n + 1))
+def OAI.StandardMapEntropy.metricEntropy : MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+  (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) → ENNReal :=
+fun μ f => ⨆ r, ⨆ p, OAI.StandardMapEntropy.partitionEntropy μ f p
+def OAI.StandardMapEntropy.cosine : OAI.StandardMapEntropy.Circle → ℝ :=
+fun x => OAI.StandardMapEntropy.cosine_periodic.lift x
+def OAI.StandardMapEntropy.torusPotential : ℝ → OAI.StandardMapEntropy.Circle → ℝ :=
+fun k x => 2 + 2 * Real.pi * k * OAI.StandardMapEntropy.cosine x
+def OAI.StandardMapEntropy.transferStep : ℝ → ℂ →L[ℝ] ℂ :=
+fun v =>
+  let __LinearMap := { toFun := fun z => { re := v * z.re - z.im, im := z.re }, map_add' := ⋯, map_smul' := ⋯ };
+  { toLinearMap := __LinearMap, cont := ⋯ }
+def OAI.StandardMapEntropy.tangentCoordinates : ℂ →L[ℝ] ℂ :=
+let __LinearMap :=
+  { toFun := fun z => { re := z.re, im := z.re - z.im }, map_add' := OAI.StandardMapEntropy.tangentCoordinates._proof_1,
+    map_smul' := OAI.StandardMapEntropy.tangentCoordinates._proof_2 };
+{ toLinearMap := __LinearMap, cont := OAI.StandardMapEntropy.tangentCoordinates._proof_3 }
+def OAI.StandardMapEntropy.standardDerivative : ℝ → OAI.StandardMapEntropy.Torus → ℂ →L[ℝ] ℂ :=
+fun k z =>
+  OAI.StandardMapEntropy.tangentCoordinates ∘SL
+    OAI.StandardMapEntropy.transferStep (OAI.StandardMapEntropy.torusPotential k z.1) ∘SL
+      OAI.StandardMapEntropy.tangentCoordinates
+def OAI.StandardMapEntropy.standardDerivativeProduct : ℝ → OAI.StandardMapEntropy.Torus → ℕ → ℂ →L[ℝ] ℂ :=
+fun k z n =>
+  Nat.rec (ContinuousLinearMap.id ℝ ℂ)
+    (fun i A => OAI.StandardMapEntropy.standardDerivative k ((OAI.StandardMapEntropy.standardMap k)^[i] z) ∘SL A) n
+def OAI.StandardMapEntropy.wedge : ℂ → ℂ → ℝ :=
+fun z w => z.re * w.im - z.im * w.re
+def OAI.StandardMapEntropy.VectorGrowth : ℝ → OAI.StandardMapEntropy.Torus → ℂ → ℝ → Prop :=
+fun k z v l =>
+  v ≠ 0 ∧
+    Filter.Tendsto (fun n => Real.log ‖(OAI.StandardMapEntropy.standardDerivativeProduct k z n) v‖ / ↑n) Filter.atTop
+      (nhds l)
+def OAI.StandardMapEntropy.LyapunovSpectrumAt : ℝ → OAI.StandardMapEntropy.Torus → ℝ → Prop :=
+fun k z l =>
+  0 ≤ l ∧
+    ((l = 0 ∧ ∀ (v : ℂ), v ≠ 0 → OAI.StandardMapEntropy.VectorGrowth k z v 0) ∨
+      0 < l ∧
+        ∃ s,
+          s ≠ 0 ∧
+            ∀ (v : ℂ),
+              v ≠ 0 →
+                OAI.StandardMapEntropy.VectorGrowth k z v (if OAI.StandardMapEntropy.wedge s v = 0 then -l else l))
+def OAI.StandardMapEntropy.PositiveLargestLyapunov : ℝ → Prop :=
+fun k =>
+  ∃ E,
+    MeasurableSet E ∧
+      0 < OAI.StandardMapEntropy.area E ∧
+        ∀ z ∈ E,
+          ∃ l,
+            0 < l ∧
+              OAI.StandardMapEntropy.LyapunovSpectrumAt k z l ∧
+                Filter.Tendsto (fun n => Real.log ‖OAI.StandardMapEntropy.standardDerivativeProduct k z n‖ / ↑n)
+                  Filter.atTop (nhds l)

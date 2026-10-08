@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T15:33:26Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T16:18:18Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 254 accepted by
-    the real Comparator, of which 254 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 271 accepted by
+    the real Comparator, of which 271 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3223,7 +3223,8 @@ alignment:
     module: OAI.NumberTheory.PrimeGaps.RatioCorollary
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PrimeGaps.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 028 — The Gaussian moat conjecture: Uniform bounds for bounded-step Gaussian-prime walks (the
       lab''s own result label); paper ''Bounded-Step Walks on Gaussian Primes'', theorem thm:main (build/main.tex:63)'
     lean: OAI.GaussianMoat.fullMain
@@ -3407,7 +3408,8 @@ alignment:
     module: OAI.Analysis.StrictMeans.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/StrictMeans.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 073 — The Falconer distance conjecture: Planar Falconer distance theorem (the lab''s own result
       label); paper ''The Falconer distance conjecture in all dimensions'', theorem thm:main (build/sections/00_introduction.tex:11)'
     lean: OAI.PlanarFalconer.mainTarget_proved
@@ -3984,7 +3986,8 @@ alignment:
     module: OAI.Computability.DepthThree.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DepthThree.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 113 — Approximate counting and the perfect-matching entropy conjecture: Randomized approximation
       of the perfect-matching count (the lab''s own result label); paper ''A Fully Polynomial Randomized Approximation
       Scheme for Perfect Matchings in General Graphs'', theorem thm:main (build/main.tex:132)'
@@ -4390,7 +4393,8 @@ alignment:
     module: OAI.Algebra.DepthFive.Bounds
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DepthFive.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 139 — Subpolynomial queries for log-concave sampling: Subpolynomial query complexity for log-concave
       sampling (the lab''s own result label); paper ''Subpolynomial query complexity for well-conditioned log-concave
       sampling'', theorem thm:main (build/sections/introduction.tex:51)'
@@ -4536,7 +4540,8 @@ alignment:
     module: OAI.Dynamics.StandardMap.EntropyLyapunov
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/StandardMapLyapunov.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 148 — The dimension formula for self-similar measures on the line: Entropy-rate dimension formula
       (the lab''s own result label); paper ''The entropy-rate dimension formula for self-similar measures on the
       line'', theorem thm:main (build/sections/introduction.tex:78)'
@@ -4776,7 +4781,8 @@ alignment:
     module: OAI.Combinatorics.Crossing.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BipartiteCrossing.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 165 — Exact crossing numbers of complete and complete bipartite graphs: Crossing number of complete
       graphs (the lab''s own result label); paper ''The crossing number of complete graphs'', theorem thm:main (build/main.tex:117)'
     lean: OAI.Paper170.complete_graph_crossing_number
@@ -5132,7 +5138,8 @@ alignment:
     module: OAI.Combinatorics.SnakyCertificate.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SnakyCertificate.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 187 — Snaky in 21 Maker moves: Conditional winning templates from finite partial positions (the
       lab''s own result label); paper ''Snaky in 21 Maker moves'', theorem thm:main (build/introduction.tex:25)'
     lean: OAI.SnakyConditional.snaky_winning_strategy_with_legal_states
@@ -5315,7 +5322,8 @@ alignment:
     module: OAI.RingTheory.Tachikawa.Counterexample
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Tachikawa.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 199 — headline claim as stated in the overview: Constructs finite-dimensional algebras over
       a characteristic-two rational-function field that disprove the Auslander--Reiten and Gorenstein-projective
       conjectures, and Tachikawa''s second conjecture. An associated endomorphism algebra also disproves the classical,
@@ -5614,7 +5622,8 @@ alignment:
     module: OAI.Probability.IsingPerceptron.VariationalFiniteness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IsingFiniteness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 222 — Perceptron free energies and microscopic jamming: Variational formula for spherical-perceptron
       pressure (the lab''s own result label); paper ''The free energy of the spherical random perceptron'', theorem
       thm:main (build/paper.tex:72)'
@@ -5630,7 +5639,8 @@ alignment:
     module: OAI.Probability.SphericalField.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SphericalField.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 222 — headline claim as stated in the overview: Determines finite-temperature variational free
       energies for Gaussian Ising perceptrons with bounded Borel log-potentials and Gaussian spherical perceptrons
       with bounded continuous potentials, at every positive pattern density. A spherical extension treats bi-orthogonally
@@ -5794,7 +5804,8 @@ alignment:
     module: OAI.Probability.SpanningForest.Factor
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FreeUniformSpanningForest.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 231 — The free uniform spanning forest is a factor of IID: Strongly Rayleigh and determinantal-process
       IID factors (the lab''s own result label); paper ''The free uniform spanning forest is a factor of IID'',
       theorem thm:main (build/sections/introduction.tex:54)'
@@ -5962,7 +5973,8 @@ alignment:
     module: OAI.RepresentationTheory.RowColumn.Occupied
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/OccupiedOverlap.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 238 — Optimal logarithmic mixing of the Thorp shuffle: Fourier bounds from complementary coset
       caps (the lab''s own result label); paper ''From partial permutation information to Fourier bounds'', theorem
       l:main (build/sections/introduction.tex:18)'
@@ -6096,7 +6108,8 @@ alignment:
     module: OAI.SetTheory.PartitionConsistency.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PartitionConsistency.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 244 — The partition principle does not imply choice: Partition Principle without Choice from
       a ground model (the lab''s own result label); paper ''The Partition Principle does not imply Choice'', theorem
       thm:main-consistency (build/sections/introduction.tex:23)'
@@ -6185,7 +6198,8 @@ alignment:
     module: OAI.GroupTheory.BooneHigman.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BooneHigman.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 250 — The Boone--Higman conjecture and higher finiteness: Simple type $F_\infty$ overgroups
       of groups with decidable word problem (the lab''s own result label); paper ''Simple F∞ overgroups of groups
       with decidable word problem'', theorem thm:main (build/sections/introduction.tex:33)'
@@ -6857,7 +6871,8 @@ alignment:
     module: OAI.Analysis.FiniteFactor.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FiniteFactor.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 293 — A counterexample to the hyperinvariant-subspace problem: Quasinilpotent operator with
       a transitive commutant / Quasinilpotent operator without a hyperinvariant subspace (the lab''s own result
       label); paper ''Backward intertwiners and a transitive commutant'', theorem thm:direct-model (build/sections/introduction.tex:35)'
@@ -6932,7 +6947,8 @@ alignment:
     module: OAI.Analysis.Naimark.Tracial
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Naimark.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 298 — A counterexample to Voiculescu’s free-entropy equality conjecture: Finite separation of
       microstates and nonmicrostates free entropy (the lab''s own result label); paper ''A finite-entropy separation
       of microstates and nonmicrostates free entropy'', theorem thm:main (build/sections/01-introduction.tex:42)'
@@ -7308,7 +7324,8 @@ alignment:
     module: OAI.Geometry.BallPacking.Necessity.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BallPackingNecessity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 347 — Counterexamples to strong forms of Arnold''s fixed-point conjecture: Three-fixed-point
       Arnold counterexample (the lab''s own result label); paper ''Three fixed points on the symplectic quadric
       threefold'', theorem thm:counterexample (build/sections/00-introduction.tex:56)'
@@ -7716,7 +7733,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T15:33:26Z'
+    generated: '2026-10-08T16:18:18Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7762,13 +7779,16 @@ mathvet:
     - BackwardIntertwiners
     - BalancedBoxRouting
     - BalancedThreeStack
+    - BallPackingNecessity
     - BarnetteHamiltonian
     - BassTorsionFree
     - BassTrace
     - BernoulliNonflatInSeven
     - BinaryEditLower
     - BinaryMatching
+    - BipartiteCrossing
     - BogomolovPopInjectivity
+    - BooneHigman
     - BorsukNine
     - BoundedRecovery
     - BoundedTreePotentials
@@ -7807,6 +7827,8 @@ mathvet:
     - CrouzeixHilbert
     - CycleDecomposition
     - DaugavetModuli
+    - DepthFive
+    - DepthThree
     - DiamondDistortion
     - DilutedSpin
     - DimensionTenChannel
@@ -7838,12 +7860,14 @@ mathvet:
     - FiniteCircle
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
+    - FiniteFactor
     - FixedClauseThreshold
     - ForcedNavierStokesComputation
     - ForestSpace
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FreeUniformSpanningForest
     - GammaPassage
     - GaussianFiniteEntropy
     - GaussianInformation
@@ -7873,6 +7897,7 @@ mathvet:
     - InfiniteMatroidCorollaries
     - InterpolatedFactors
     - IrrationalTriangleBilliard
+    - IsingFiniteness
     - KMedianThreshold
     - KServer
     - KahlerSplitting
@@ -7902,13 +7927,16 @@ mathvet:
     - MetricEntropyDuality
     - MetricKMedian
     - MidpointLenses
+    - Naimark
     - NavierStokesAlternating
     - NodalLength
     - NoiselessRegression
+    - OccupiedOverlap
     - OddKaplansky
     - OneWayLiveness
     - ParityLifts
     - PartialPermutation
+    - PartitionConsistency
     - PeriodicGroup
     - PeriodicTilingThree
     - PermanentCubic
@@ -7923,6 +7951,7 @@ mathvet:
     - PlaneColoring
     - PosteriorReplicas
     - PowerFreeValues
+    - PrimeGaps
     - ProjectionCounterexample
     - ProjectionMoments
     - ProjectionVolume
@@ -7957,13 +7986,17 @@ mathvet:
     - SingleFold
     - SingletonLoopMatching
     - SmoothInitialForm
+    - SnakyCertificate
     - SoftChannel204
     - SolenoidalSheetPrograms
+    - SphericalField
     - SpinAngle
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapLyapunov
     - SteinitzBergstrom
+    - StrictMeans
     - StrongThinTree
     - StronglyRayleighDPP
     - StructuralCrouzeix
@@ -7973,6 +8006,7 @@ mathvet:
     - SwitchChain
     - SymmetricMahlerEquality
     - SymmetricPolar
+    - Tachikawa
     - TalagrandDiscreteConvexity
     - TalagrandExpectationThreshold
     - ThompsonNonamenability
@@ -8017,13 +8051,16 @@ mathvet:
     - BackwardIntertwiners
     - BalancedBoxRouting
     - BalancedThreeStack
+    - BallPackingNecessity
     - BarnetteHamiltonian
     - BassTorsionFree
     - BassTrace
     - BernoulliNonflatInSeven
     - BinaryEditLower
     - BinaryMatching
+    - BipartiteCrossing
     - BogomolovPopInjectivity
+    - BooneHigman
     - BorsukNine
     - BoundedRecovery
     - BoundedTreePotentials
@@ -8062,6 +8099,8 @@ mathvet:
     - CrouzeixHilbert
     - CycleDecomposition
     - DaugavetModuli
+    - DepthFive
+    - DepthThree
     - DiamondDistortion
     - DilutedSpin
     - DimensionTenChannel
@@ -8093,12 +8132,14 @@ mathvet:
     - FiniteCircle
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
+    - FiniteFactor
     - FixedClauseThreshold
     - ForcedNavierStokesComputation
     - ForestSpace
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FreeUniformSpanningForest
     - GammaPassage
     - GaussianFiniteEntropy
     - GaussianInformation
@@ -8128,6 +8169,7 @@ mathvet:
     - InfiniteMatroidCorollaries
     - InterpolatedFactors
     - IrrationalTriangleBilliard
+    - IsingFiniteness
     - KMedianThreshold
     - KServer
     - KahlerSplitting
@@ -8157,13 +8199,16 @@ mathvet:
     - MetricEntropyDuality
     - MetricKMedian
     - MidpointLenses
+    - Naimark
     - NavierStokesAlternating
     - NodalLength
     - NoiselessRegression
+    - OccupiedOverlap
     - OddKaplansky
     - OneWayLiveness
     - ParityLifts
     - PartialPermutation
+    - PartitionConsistency
     - PeriodicGroup
     - PeriodicTilingThree
     - PermanentCubic
@@ -8178,6 +8223,7 @@ mathvet:
     - PlaneColoring
     - PosteriorReplicas
     - PowerFreeValues
+    - PrimeGaps
     - ProjectionCounterexample
     - ProjectionMoments
     - ProjectionVolume
@@ -8212,13 +8258,17 @@ mathvet:
     - SingleFold
     - SingletonLoopMatching
     - SmoothInitialForm
+    - SnakyCertificate
     - SoftChannel204
     - SolenoidalSheetPrograms
+    - SphericalField
     - SpinAngle
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapLyapunov
     - SteinitzBergstrom
+    - StrictMeans
     - StrongThinTree
     - StronglyRayleighDPP
     - StructuralCrouzeix
@@ -8228,6 +8278,7 @@ mathvet:
     - SwitchChain
     - SymmetricMahlerEquality
     - SymmetricPolar
+    - Tachikawa
     - TalagrandDiscreteConvexity
     - TalagrandExpectationThreshold
     - ThompsonNonamenability
@@ -8533,7 +8584,7 @@ mathvet:
       A N : ℝ) / (N : ℝ)}` (custom liminf-style density; correct since the set is nonempty and bounded by 1)'
     external_packages: []
     cone_lines_max: 22533
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/026.md
     audit_part: 1
   - family: 028
@@ -9217,7 +9268,7 @@ mathvet:
       the circuit class `Circuit3` is a custom inductive encoding with free negations/constants (standard)
     external_packages: []
     cone_lines_max: 24309
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/112.md
     audit_part: 1
   - family: '113'
@@ -9592,7 +9643,7 @@ mathvet:
       is syntactic and the model charges nodes, not wires'
     external_packages: []
     cone_lines_max: 20323
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/135.md
     audit_part: 1
   - family: '139'
@@ -9704,7 +9755,7 @@ mathvet:
       non-standard in a Comparator statement)
     external_packages: []
     cone_lines_max: 54864
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/146.md
     audit_part: 3
   - family: '148'
@@ -9979,7 +10030,7 @@ mathvet:
       the two files carry separate copies of the definitions (`Zarankiewicz` vs `Paper170` namespaces)'
     external_packages: []
     cone_lines_max: 33427
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/165.md
     audit_part: 3
   - family: '167'
@@ -10326,7 +10377,7 @@ mathvet:
       constraining Breaker only for `k + 1 < N`; looks faithful (final reply unused).'
     external_packages: []
     cone_lines_max: 71326
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/187.md
     audit_part: 2
   - family: '188'
@@ -10509,7 +10560,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 55531
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/199.md
     audit_part: 2
   - family: '205'
@@ -10780,7 +10831,7 @@ mathvet:
       `usualBrownianSigma`). Finiteness of a `limUnder`-defined inf is a weak guarantee.'
     external_packages: []
     cone_lines_max: 71237
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/222.md
     audit_part: 2
   - family: '227'
@@ -11122,7 +11173,7 @@ mathvet:
       semantics on `ZFSet`. (`axiom_files` hit for LocalRecords.lean is a doc-comment false positive.)'
     external_packages: []
     cone_lines_max: 233891
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/244.md
     audit_part: 2
   - family: '245'
@@ -12036,7 +12087,7 @@ mathvet:
       in explicit universes.'
     external_packages: []
     cone_lines_max: 25931
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/297.md
     audit_part: 2
   - family: '298'
@@ -12490,7 +12541,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 89175
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/343.md
     audit_part: 3
   - family: '347'

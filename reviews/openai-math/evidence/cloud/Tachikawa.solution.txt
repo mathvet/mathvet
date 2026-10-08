@@ -1,0 +1,15 @@
+OAI.Tachikawa.main_theorem : OAI.Tachikawa.Counterexample
+'OAI.Tachikawa.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Tachikawa.k : Type :=
+FractionRing (MvPolynomial (Fin 3) (ZMod 2))
+def OAI.Tachikawa.SymmetricOver : (K A : Type) → [inst : Field K] → [inst_1 : Ring A] → [Algebra K A] → Prop :=
+fun K A [Field K] [Ring A] [Algebra K A] =>
+  ∃ e, (∀ (a b c : A), (e (a * b)) c = (e b) (c * a)) ∧ ∀ (a b c : A), (e (a * b)) c = (e a) (b * c)
+def OAI.Tachikawa.Counterexample : Prop :=
+∃ A rA aA,
+  Module.Finite OAI.Tachikawa.k A ∧
+    OAI.Tachikawa.SymmetricOver OAI.Tachikawa.k A ∧
+      ∃ M gM mA mk,
+        IsScalarTower OAI.Tachikawa.k A M ∧
+          Module.Finite OAI.Tachikawa.k M ∧
+            ¬Module.Projective A M ∧ ∀ (n : ℕ), 0 < n → Subsingleton (CategoryTheory.Abelian.Ext (↧M) (↧M) n)

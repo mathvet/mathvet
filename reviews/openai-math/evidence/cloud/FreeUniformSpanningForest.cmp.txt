@@ -1,0 +1,117 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_FreeUniformSpanningForest.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Problem336.fusf_is_factor_iid [thm] ok
+CMP OAI.Problem336.WorksOnGraph [def] ok
+CMP OAI.Problem336.EdgeCode [def] ok
+CMP OAI.Problem336.HasFUSFLaw [def] ok
+CMP OAI.Problem336.ustCylinder [def] ok
+CMP OAI.Problem336.spanningTrees [def] ok
+CMP OAI.Problem336.TreeOn [def] ok
+CMP OAI.Problem336.TreeAdj [def] ok
+CMP OAI.Problem336.rawPair [def] ok
+CMP OAI.Problem336.FiniteSubgraphCode [def] ok
+CMP OAI.Problem336.IsConnectedExhaustion [def] ok
+CMP OAI.Problem336.Adj [def] ok
+CMP OAI.Problem336.GraphCode [def] ok
+CMP OAI.Problem336.IsFiniteConnectedSubgraph [def] ok
+CMP OAI.Problem336.SubgraphAdj [def] ok
+CMP OAI.Problem336.EdgeConfiguration [def] ok
+CMP OAI.Problem336.IsVertexIID [def] ok
+CMP OAI.Problem336.uniform01 [def] ok
+CMP OAI.Problem336.GraphLocallyFinite [def] ok
+CMP OAI.Problem336.GraphConnected [def] ok
+CMP OAI.Problem336.FactorRule [def] ok
+CMP OAI.Problem336.RuleEquivariant [def] ok
+CMP OAI.Problem336.mapEdge [def] ok
+CMP OAI.Problem336.mapEdge._proof_1 [thm] ok
+CMP OAI.Problem336.mkEdge [def] ok
+CMP OAI.Problem336.mkEdge._proof_1 [thm] ok
+CMP OAI.Problem336.relabelLabels [def] ok
+CMP OAI.Problem336.relabelGraph [def] ok
+CMP OAI.Problem336.relabelGraph._proof_1 [thm] ok
+CMP OAI.Problem336.RuleBorel [def] ok
+Chal.Problem336.fusf_is_factor_iid : ∃ Phi,
+  Chal.Problem336.RuleBorel Phi ∧
+    Chal.Problem336.RuleEquivariant Phi ∧ ∀ (G : Chal.Problem336.GraphCode), Chal.Problem336.WorksOnGraph Phi G
+@[reducible] def Chal.Problem336.GraphCode : Type :=
+{ a // (∀ (u : ℕ), a u u = false) ∧ ∀ (u v : ℕ), a u v = a v u }
+@[reducible] def Chal.Problem336.EdgeCode : Type :=
+{ p // p.1 < p.2 }
+@[reducible] def Chal.Problem336.EdgeConfiguration : Type :=
+Chal.Problem336.EdgeCode → Bool
+@[reducible] def Chal.Problem336.FactorRule : Type :=
+Chal.Problem336.GraphCode → (ℕ → ℝ) → Chal.Problem336.EdgeCode → Bool
+@[reducible] def Chal.Problem336.FiniteSubgraphCode : Type :=
+Finset ℕ × Finset (ℕ × ℕ)
+def Chal.Problem336.Adj : Chal.Problem336.GraphCode → ℕ → ℕ → Prop :=
+fun G u v => ↑G u v = true
+def Chal.Problem336.GraphConnected : Chal.Problem336.GraphCode → Prop :=
+fun G => ∀ (u v : ℕ), Relation.ReflTransGen (fun x y => Chal.Problem336.Adj G x y) u v
+def Chal.Problem336.GraphLocallyFinite : Chal.Problem336.GraphCode → Prop :=
+fun G => ∀ (u : ℕ), {v | Chal.Problem336.Adj G u v}.Finite
+def Chal.Problem336.mkEdge : (u v : ℕ) → u ≠ v → Chal.Problem336.EdgeCode :=
+fun u v h => if huv : u < v then ⟨(u, v), huv⟩ else ⟨(v, u), ⋯⟩
+def Chal.Problem336.rawPair : ℕ → ℕ → ℕ × ℕ :=
+fun u v => if u < v then (u, v) else (v, u)
+def Chal.Problem336.relabelGraph : ℕ ≃ ℕ → Chal.Problem336.GraphCode → Chal.Problem336.GraphCode :=
+fun σ G => ⟨fun u v => ↑G (σ.symm u) (σ.symm v), ⋯⟩
+def Chal.Problem336.relabelLabels : ℕ ≃ ℕ → (ℕ → ℝ) → ℕ → ℝ :=
+fun σ U u => U (σ.symm u)
+def Chal.Problem336.mapEdge : ℕ ≃ ℕ → Chal.Problem336.EdgeCode → Chal.Problem336.EdgeCode :=
+fun σ e => Chal.Problem336.mkEdge (σ (↑e).1) (σ (↑e).2) ⋯
+def Chal.Problem336.RuleBorel : Chal.Problem336.FactorRule → Prop :=
+fun Phi => Measurable fun q => Phi q.1 q.2.1 q.2.2
+def Chal.Problem336.RuleEquivariant : Chal.Problem336.FactorRule → Prop :=
+fun Phi =>
+  ∀ (σ : ℕ ≃ ℕ) (G : Chal.Problem336.GraphCode) (U : ℕ → ℝ) (e : Chal.Problem336.EdgeCode),
+    Phi (Chal.Problem336.relabelGraph σ G) (Chal.Problem336.relabelLabels σ U) (Chal.Problem336.mapEdge σ e) = Phi G U e
+def Chal.Problem336.TreeAdj : Finset (ℕ × ℕ) → ℕ → ℕ → Prop :=
+fun T u v => Chal.Problem336.rawPair u v ∈ T
+def Chal.Problem336.SubgraphAdj : Chal.Problem336.FiniteSubgraphCode → ℕ → ℕ → Prop :=
+fun K u v => u ∈ K.1 ∧ v ∈ K.1 ∧ Chal.Problem336.rawPair u v ∈ K.2
+def Chal.Problem336.TreeOn : Chal.Problem336.FiniteSubgraphCode → Finset (ℕ × ℕ) → Prop :=
+fun K T => T ⊆ K.2 ∧ T.card + 1 = K.1.card ∧ ∀ u ∈ K.1, ∀ v ∈ K.1, Relation.ReflTransGen (Chal.Problem336.TreeAdj T) u v
+def Chal.Problem336.spanningTrees : Chal.Problem336.FiniteSubgraphCode → Finset (Finset (ℕ × ℕ)) :=
+fun K => Finset.filter (Chal.Problem336.TreeOn K) K.2.powerset
+def Chal.Problem336.ustCylinder : Chal.Problem336.FiniteSubgraphCode →
+  Finset Chal.Problem336.EdgeCode → Finset Chal.Problem336.EdgeCode → ENNReal :=
+fun K A B =>
+  have all := Chal.Problem336.spanningTrees K;
+  have good := {T ∈ all | (∀ e ∈ A, ↑e ∈ T) ∧ ∀ e ∈ B, ↑e ∉ T};
+  ↑good.card / ↑all.card
+def Chal.Problem336.IsFiniteConnectedSubgraph : Chal.Problem336.GraphCode → Chal.Problem336.FiniteSubgraphCode → Prop :=
+fun G K =>
+  K.1.Nonempty ∧
+    (∀ p ∈ K.2, p.1 ∈ K.1 ∧ p.2 ∈ K.1 ∧ p.1 < p.2 ∧ Chal.Problem336.Adj G p.1 p.2) ∧
+      ∀ u ∈ K.1, ∀ v ∈ K.1, Relation.ReflTransGen (Chal.Problem336.SubgraphAdj K) u v
+def Chal.Problem336.IsConnectedExhaustion : Chal.Problem336.GraphCode →
+  (ℕ → Chal.Problem336.FiniteSubgraphCode) → Prop :=
+fun G H =>
+  (∀ (n : ℕ), Chal.Problem336.IsFiniteConnectedSubgraph G (H n)) ∧
+    (∀ (n : ℕ), (H n).1 ⊆ (H (n + 1)).1 ∧ (H n).2 ⊆ (H (n + 1)).2) ∧
+      ∀ (u v : ℕ), u < v → Chal.Problem336.Adj G u v → ∃ n, (u, v) ∈ (H n).2
+def Chal.Problem336.uniform01 : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Icc 0 1)
+def Chal.Problem336.IsVertexIID : {Ω : Type} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (ℕ → Ω → ℝ) → Prop :=
+fun {Ω} [MeasurableSpace Ω] P U =>
+  (∀ (i : ℕ), Measurable (U i)) ∧
+    ∀ (s : Finset ℕ) (A : ℕ → Set ℝ),
+      (∀ i ∈ s, MeasurableSet (A i)) → P {ω | ∀ i ∈ s, U i ω ∈ A i} = ∏ i ∈ s, Chal.Problem336.uniform01 (A i)
+def Chal.Problem336.HasFUSFLaw : {Ω : Type} →
+  [inst : MeasurableSpace Ω] →
+    Chal.Problem336.GraphCode → MeasureTheory.Measure Ω → (Ω → Chal.Problem336.EdgeConfiguration) → Prop :=
+fun {Ω} [MeasurableSpace Ω] G P X =>
+  (∀ (e : Chal.Problem336.EdgeCode), Measurable fun ω => X ω e) ∧
+    ∀ (H : ℕ → Chal.Problem336.FiniteSubgraphCode),
+      Chal.Problem336.IsConnectedExhaustion G H →
+        ∀ (A B : Finset Chal.Problem336.EdgeCode),
+          Filter.Tendsto (fun n => Chal.Problem336.ustCylinder (H n) A B) Filter.atTop
+            (nhds (P {ω | (∀ e ∈ A, X ω e = true) ∧ ∀ e ∈ B, X ω e = false}))
+def Chal.Problem336.WorksOnGraph : Chal.Problem336.FactorRule → Chal.Problem336.GraphCode → Prop :=
+fun Phi G =>
+  Chal.Problem336.GraphConnected G →
+    Chal.Problem336.GraphLocallyFinite G →
+      ∀ (Ω : Type) [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) (U : ℕ → Ω → ℝ),
+        Chal.Problem336.IsVertexIID P U → Chal.Problem336.HasFUSFLaw G P fun ω e => Phi G (fun v => U v ω) e
+'OAI.Problem336.fusf_is_factor_iid' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FreeUniformSpanningForest comparator-style: ok=30 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

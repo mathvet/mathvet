@@ -1,0 +1,84 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_FreeUniformSpanningForest.lean:141:8: warning: declaration uses `sorry`
+OAI.Problem336.fusf_is_factor_iid : ∃ Phi,
+  OAI.Problem336.RuleBorel Phi ∧
+    OAI.Problem336.RuleEquivariant Phi ∧ ∀ (G : OAI.Problem336.GraphCode), OAI.Problem336.WorksOnGraph Phi G
+@[reducible] def OAI.Problem336.GraphCode : Type :=
+{ a // (∀ (u : ℕ), a u u = false) ∧ ∀ (u v : ℕ), a u v = a v u }
+@[reducible] def OAI.Problem336.EdgeCode : Type :=
+{ p // p.1 < p.2 }
+@[reducible] def OAI.Problem336.EdgeConfiguration : Type :=
+OAI.Problem336.EdgeCode → Bool
+@[reducible] def OAI.Problem336.FactorRule : Type :=
+OAI.Problem336.GraphCode → (ℕ → ℝ) → OAI.Problem336.EdgeCode → Bool
+@[reducible] def OAI.Problem336.FiniteSubgraphCode : Type :=
+Finset ℕ × Finset (ℕ × ℕ)
+def OAI.Problem336.Adj : OAI.Problem336.GraphCode → ℕ → ℕ → Prop :=
+fun G u v => ↑G u v = true
+def OAI.Problem336.GraphConnected : OAI.Problem336.GraphCode → Prop :=
+fun G => ∀ (u v : ℕ), Relation.ReflTransGen (fun x y => OAI.Problem336.Adj G x y) u v
+def OAI.Problem336.GraphLocallyFinite : OAI.Problem336.GraphCode → Prop :=
+fun G => ∀ (u : ℕ), {v | OAI.Problem336.Adj G u v}.Finite
+def OAI.Problem336.mkEdge : (u v : ℕ) → u ≠ v → OAI.Problem336.EdgeCode :=
+fun u v h => if huv : u < v then ⟨(u, v), huv⟩ else ⟨(v, u), ⋯⟩
+def OAI.Problem336.rawPair : ℕ → ℕ → ℕ × ℕ :=
+fun u v => if u < v then (u, v) else (v, u)
+def OAI.Problem336.relabelGraph : ℕ ≃ ℕ → OAI.Problem336.GraphCode → OAI.Problem336.GraphCode :=
+fun σ G => ⟨fun u v => ↑G (σ.symm u) (σ.symm v), ⋯⟩
+def OAI.Problem336.relabelLabels : ℕ ≃ ℕ → (ℕ → ℝ) → ℕ → ℝ :=
+fun σ U u => U (σ.symm u)
+def OAI.Problem336.mapEdge : ℕ ≃ ℕ → OAI.Problem336.EdgeCode → OAI.Problem336.EdgeCode :=
+fun σ e => OAI.Problem336.mkEdge (σ (↑e).1) (σ (↑e).2) ⋯
+def OAI.Problem336.RuleBorel : OAI.Problem336.FactorRule → Prop :=
+fun Phi => Measurable fun q => Phi q.1 q.2.1 q.2.2
+def OAI.Problem336.RuleEquivariant : OAI.Problem336.FactorRule → Prop :=
+fun Phi =>
+  ∀ (σ : ℕ ≃ ℕ) (G : OAI.Problem336.GraphCode) (U : ℕ → ℝ) (e : OAI.Problem336.EdgeCode),
+    Phi (OAI.Problem336.relabelGraph σ G) (OAI.Problem336.relabelLabels σ U) (OAI.Problem336.mapEdge σ e) = Phi G U e
+def OAI.Problem336.TreeAdj : Finset (ℕ × ℕ) → ℕ → ℕ → Prop :=
+fun T u v => OAI.Problem336.rawPair u v ∈ T
+def OAI.Problem336.SubgraphAdj : OAI.Problem336.FiniteSubgraphCode → ℕ → ℕ → Prop :=
+fun K u v => u ∈ K.1 ∧ v ∈ K.1 ∧ OAI.Problem336.rawPair u v ∈ K.2
+def OAI.Problem336.TreeOn : OAI.Problem336.FiniteSubgraphCode → Finset (ℕ × ℕ) → Prop :=
+fun K T => T ⊆ K.2 ∧ T.card + 1 = K.1.card ∧ ∀ u ∈ K.1, ∀ v ∈ K.1, Relation.ReflTransGen (OAI.Problem336.TreeAdj T) u v
+def OAI.Problem336.spanningTrees : OAI.Problem336.FiniteSubgraphCode → Finset (Finset (ℕ × ℕ)) :=
+fun K => Finset.filter (OAI.Problem336.TreeOn K) K.2.powerset
+def OAI.Problem336.ustCylinder : OAI.Problem336.FiniteSubgraphCode →
+  Finset OAI.Problem336.EdgeCode → Finset OAI.Problem336.EdgeCode → ENNReal :=
+fun K A B =>
+  have all := OAI.Problem336.spanningTrees K;
+  have good := {T ∈ all | (∀ e ∈ A, ↑e ∈ T) ∧ ∀ e ∈ B, ↑e ∉ T};
+  ↑good.card / ↑all.card
+def OAI.Problem336.IsFiniteConnectedSubgraph : OAI.Problem336.GraphCode → OAI.Problem336.FiniteSubgraphCode → Prop :=
+fun G K =>
+  K.1.Nonempty ∧
+    (∀ p ∈ K.2, p.1 ∈ K.1 ∧ p.2 ∈ K.1 ∧ p.1 < p.2 ∧ OAI.Problem336.Adj G p.1 p.2) ∧
+      ∀ u ∈ K.1, ∀ v ∈ K.1, Relation.ReflTransGen (OAI.Problem336.SubgraphAdj K) u v
+def OAI.Problem336.IsConnectedExhaustion : OAI.Problem336.GraphCode → (ℕ → OAI.Problem336.FiniteSubgraphCode) → Prop :=
+fun G H =>
+  (∀ (n : ℕ), OAI.Problem336.IsFiniteConnectedSubgraph G (H n)) ∧
+    (∀ (n : ℕ), (H n).1 ⊆ (H (n + 1)).1 ∧ (H n).2 ⊆ (H (n + 1)).2) ∧
+      ∀ (u v : ℕ), u < v → OAI.Problem336.Adj G u v → ∃ n, (u, v) ∈ (H n).2
+def OAI.Problem336.uniform01 : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Icc 0 1)
+def OAI.Problem336.IsVertexIID : {Ω : Type} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (ℕ → Ω → ℝ) → Prop :=
+fun {Ω} [MeasurableSpace Ω] P U =>
+  (∀ (i : ℕ), Measurable (U i)) ∧
+    ∀ (s : Finset ℕ) (A : ℕ → Set ℝ),
+      (∀ i ∈ s, MeasurableSet (A i)) → P {ω | ∀ i ∈ s, U i ω ∈ A i} = ∏ i ∈ s, OAI.Problem336.uniform01 (A i)
+def OAI.Problem336.HasFUSFLaw : {Ω : Type} →
+  [inst : MeasurableSpace Ω] →
+    OAI.Problem336.GraphCode → MeasureTheory.Measure Ω → (Ω → OAI.Problem336.EdgeConfiguration) → Prop :=
+fun {Ω} [MeasurableSpace Ω] G P X =>
+  (∀ (e : OAI.Problem336.EdgeCode), Measurable fun ω => X ω e) ∧
+    ∀ (H : ℕ → OAI.Problem336.FiniteSubgraphCode),
+      OAI.Problem336.IsConnectedExhaustion G H →
+        ∀ (A B : Finset OAI.Problem336.EdgeCode),
+          Filter.Tendsto (fun n => OAI.Problem336.ustCylinder (H n) A B) Filter.atTop
+            (nhds (P {ω | (∀ e ∈ A, X ω e = true) ∧ ∀ e ∈ B, X ω e = false}))
+def OAI.Problem336.WorksOnGraph : OAI.Problem336.FactorRule → OAI.Problem336.GraphCode → Prop :=
+fun Phi G =>
+  OAI.Problem336.GraphConnected G →
+    OAI.Problem336.GraphLocallyFinite G →
+      ∀ (Ω : Type) [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) (U : ℕ → Ω → ℝ),
+        OAI.Problem336.IsVertexIID P U → OAI.Problem336.HasFUSFLaw G P fun ω e => Phi G (fun v => U v ω) e

@@ -1,0 +1,75 @@
+@OAI.IsingPerceptron.variationalValue_real_of_continuous : ∀ {α : ℝ},
+  0 ≤ α → ∀ {f : ℝ → ℝ}, Continuous f → (∃ K, ∀ (x : ℝ), |f x| ≤ K) → ∃ p, OAI.IsingPerceptron.variationalValue α f = ↑p
+'OAI.IsingPerceptron.variationalValue_real_of_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.IsingPerceptron.gaussianTransform : ℝ → ℝ → (ℝ → ℝ) → ℝ → ℝ :=
+fun s d U x =>
+  if d = 0 then ∫ (z : ℝ), U (x + √s * z) ∂ProbabilityTheory.gaussianReal 0 1
+  else Real.log (∫ (z : ℝ), Real.exp (d * U (x + √s * z)) ∂ProbabilityTheory.gaussianReal 0 1) / d
+structure OAI.IsingPerceptron.Partition : Type
+number of parameters: 0
+fields:
+  OAI.IsingPerceptron.Partition.levels : ℕ
+  OAI.IsingPerceptron.Partition.positive : 0 < self.levels
+  OAI.IsingPerceptron.Partition.cut : Fin (self.levels + 1) → ℝ
+  OAI.IsingPerceptron.Partition.ordered : StrictMono self.cut
+  OAI.IsingPerceptron.Partition.first : self.cut ⟨0, ⋯⟩ = 0
+  OAI.IsingPerceptron.Partition.last : self.cut ⟨self.levels, ⋯⟩ = 1
+constructor:
+  OAI.IsingPerceptron.Partition.mk (levels : ℕ) (positive : 0 < levels) (cut : Fin (levels + 1) → ℝ)
+    (ordered : StrictMono cut) (first : cut ⟨0, ⋯⟩ = 0) (last : cut ⟨levels, ⋯⟩ = 1) : OAI.IsingPerceptron.Partition
+structure OAI.IsingPerceptron.FieldStep : Type
+number of parameters: 0
+fields:
+  OAI.IsingPerceptron.FieldStep.partition : OAI.IsingPerceptron.Partition
+  OAI.IsingPerceptron.FieldStep.value : Fin self.partition.levels → ℝ
+  OAI.IsingPerceptron.FieldStep.nonneg : ∀ (i : Fin self.partition.levels), 0 ≤ self.value i
+  OAI.IsingPerceptron.FieldStep.ordered : Monotone self.value
+constructor:
+  OAI.IsingPerceptron.FieldStep.mk (partition : OAI.IsingPerceptron.Partition) (value : Fin partition.levels → ℝ)
+    (nonneg : ∀ (i : Fin partition.levels), 0 ≤ value i) (ordered : Monotone value) : OAI.IsingPerceptron.FieldStep
+def OAI.IsingPerceptron.stepAt : OAI.IsingPerceptron.FieldStep → ℕ → ℝ :=
+fun h i => if hi : i < h.partition.levels then h.value ⟨i, hi⟩ else 0
+def OAI.IsingPerceptron.stepFunction : OAI.IsingPerceptron.FieldStep → ℝ → ℝ :=
+fun h u => ∑ i, if h.partition.cut i.castSucc < u ∧ u < h.partition.cut i.succ then h.value i else 0
+def OAI.IsingPerceptron.fieldRecursion : OAI.IsingPerceptron.FieldStep → ℝ :=
+fun h =>
+  let k := h.partition.levels;
+  have increments :=
+    List.ofFn fun i =>
+      (OAI.IsingPerceptron.stepAt h ↑i - if ↑i = 0 then 0 else OAI.IsingPerceptron.stepAt h (↑i - 1),
+        h.partition.cut i.castSucc);
+  List.foldr (fun sd U => OAI.IsingPerceptron.gaussianTransform sd.1 sd.2 U)
+    (fun x => Real.log (Real.cosh x) - OAI.IsingPerceptron.stepAt h (k - 1) / 2) increments 0
+def OAI.IsingPerceptron.pathMeasure : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Ioo 0 1)
+structure OAI.IsingPerceptron.OverlapPath : Type
+number of parameters: 0
+fields:
+  OAI.IsingPerceptron.OverlapPath.val : ℝ →ₘ[OAI.IsingPerceptron.pathMeasure] ℝ
+  OAI.IsingPerceptron.OverlapPath.admissible : ∃ q,
+      q =ᵐ[OAI.IsingPerceptron.pathMeasure] ↑self.val ∧
+        MonotoneOn q (Set.Ioo 0 1) ∧ ∀ u ∈ Set.Ioo 0 1, q u ∈ Set.Icc 0 1
+constructor:
+  OAI.IsingPerceptron.OverlapPath.mk (val : ℝ →ₘ[OAI.IsingPerceptron.pathMeasure] ℝ)
+    (admissible :
+      ∃ q,
+        q =ᵐ[OAI.IsingPerceptron.pathMeasure] ↑val ∧
+          MonotoneOn q (Set.Ioo 0 1) ∧ ∀ u ∈ Set.Ioo 0 1, q u ∈ Set.Icc 0 1) :
+    OAI.IsingPerceptron.OverlapPath
+def OAI.IsingPerceptron.cellAverage : OAI.IsingPerceptron.OverlapPath → ℕ → ℕ → ℝ :=
+fun q k i => ↑k * ∫ (u : ℝ) in Set.Ioo (↑i / ↑k) ((↑i + 1) / ↑k), ↑q.val u ∂OAI.IsingPerceptron.pathMeasure
+def OAI.IsingPerceptron.uniformPattern : (ℝ → ℝ) → OAI.IsingPerceptron.OverlapPath → ℕ → ℝ :=
+fun f q n =>
+  have k := n + 1;
+  have levelVal := fun i => if i < k then OAI.IsingPerceptron.cellAverage q k i else 1;
+  have increments := List.ofFn fun i => (levelVal ↑i - if ↑i = 0 then 0 else levelVal (↑i - 1), ↑↑i / ↑k);
+  List.foldr (fun sd U => OAI.IsingPerceptron.gaussianTransform sd.1 sd.2 U) f increments 0
+def OAI.IsingPerceptron.patternFunctional : (ℝ → ℝ) → OAI.IsingPerceptron.OverlapPath → ℝ :=
+fun f q => Filter.atTop.limUnder (OAI.IsingPerceptron.uniformPattern f q)
+def OAI.IsingPerceptron.isingEntropy : OAI.IsingPerceptron.OverlapPath → EReal :=
+fun q =>
+  ⨆ h,
+    ↑(OAI.IsingPerceptron.fieldRecursion h +
+        (∫ (u : ℝ), OAI.IsingPerceptron.stepFunction h u * ↑q.val u ∂OAI.IsingPerceptron.pathMeasure) / 2)
+def OAI.IsingPerceptron.variationalValue : ℝ → (ℝ → ℝ) → EReal :=
+fun α f => ⨅ q, ↑(α * OAI.IsingPerceptron.patternFunctional f q) + OAI.IsingPerceptron.isingEntropy q

@@ -1,0 +1,60 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_Naimark.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.NaimarkZFC.main [thm] ok
+CMP OAI.NaimarkZFC.IsIsomorphicToCompacts [def] ok
+CMP OAI.NaimarkZFC.IsIrreducible._proof_4 [thm] ok
+CMP OAI.NaimarkZFC.IsIrreducible._proof_3 [thm] ok
+CMP OAI.NaimarkZFC.IsIrreducible._proof_2 [thm] ok
+CMP OAI.NaimarkZFC.IsIrreducible._proof_1 [thm] ok
+CMP OAI.NaimarkZFC.HasUniqueIrreducibleRepresentation [def] ok
+CMP OAI.NaimarkZFC.UnitarilyEquivalent [def] ok
+CMP OAI.NaimarkZFC.IsIrreducible [def] ok
+CMP OAI.NaimarkZFC.IsFaithfulTracialState [def] ok
+CMP OAI.NaimarkZFC.IsState [def] ok
+CMP OAI.NaimarkZFC.IsSimpleCStar [def] ok
+Chal.NaimarkZFC.main : ∃ A x,
+  Chal.NaimarkZFC.IsSimpleCStar A ∧
+    ¬FiniteDimensional ℂ A ∧
+      (∃ τ, Chal.NaimarkZFC.IsFaithfulTracialState τ) ∧
+        Chal.NaimarkZFC.HasUniqueIrreducibleRepresentation A ∧
+          ∀ (H : Type u_2) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H] [inst_2 : CompleteSpace H],
+            ¬Chal.NaimarkZFC.IsIsomorphicToCompacts A H
+def Chal.NaimarkZFC.IsSimpleCStar.{u} : (A : Type u) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] => Nontrivial A ∧ ∀ (I : TwoSidedIdeal A), IsClosed ↑I → I = ⊥ ∨ I = ⊤
+def Chal.NaimarkZFC.IsState.{u} : {A : Type u} → [inst : CStarAlgebra A] → (A →L[ℂ] ℂ) → Prop :=
+fun {A} [CStarAlgebra A] f => ‖f‖ = 1 ∧ ∀ (a : A), (f (star a * a)).im = 0 ∧ 0 ≤ (f (star a * a)).re
+def Chal.NaimarkZFC.IsFaithfulTracialState.{u} : {A : Type u} → [inst : CStarAlgebra A] → (A →L[ℂ] ℂ) → Prop :=
+fun {A} [CStarAlgebra A] f =>
+  Chal.NaimarkZFC.IsState f ∧ (∀ (a b : A), f (a * b) = f (b * a)) ∧ ∀ (a : A), a ≠ 0 → 0 < (f (star a * a)).re
+def Chal.NaimarkZFC.IsIrreducible.{u, v} : {A : Type u} →
+  [inst : CStarAlgebra A] →
+    {H : Type v} →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] → [inst_3 : CompleteSpace H] → (A →⋆ₙₐ[ℂ] H →L[ℂ] H) → Prop :=
+fun {A} [CStarAlgebra A] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] π =>
+  π ≠ 0 ∧ ∀ (M : Submodule ℂ H), IsClosed ↑M → (∀ (a : A), ∀ x ∈ M, (π a) x ∈ M) → M = ⊥ ∨ M = ⊤
+def Chal.NaimarkZFC.UnitarilyEquivalent.{u, v, w} : {A : Type u} →
+  [inst : CStarAlgebra A] →
+    {H : Type v} →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] →
+          [inst_3 : CompleteSpace H] →
+            {K : Type w} →
+              [inst_4 : NormedAddCommGroup K] →
+                [inst_5 : InnerProductSpace ℂ K] →
+                  [inst_6 : CompleteSpace K] → (A →⋆ₙₐ[ℂ] H →L[ℂ] H) → (A →⋆ₙₐ[ℂ] K →L[ℂ] K) → Prop :=
+fun {A} [CStarAlgebra A] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {K} [NormedAddCommGroup K]
+    [InnerProductSpace ℂ K] [CompleteSpace K] π ρ =>
+  ∃ U, ∀ (a : A) (x : H), U ((π a) x) = (ρ a) (U x)
+def Chal.NaimarkZFC.HasUniqueIrreducibleRepresentation.{u, v, w} : (A : Type u) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] =>
+  ∀ (H : Type v) [inst_1 : NormedAddCommGroup H] [inst_2 : InnerProductSpace ℂ H] [inst_3 : CompleteSpace H]
+    (K : Type w) [inst_4 : NormedAddCommGroup K] [inst_5 : InnerProductSpace ℂ K] [inst_6 : CompleteSpace K]
+    (π : A →⋆ₙₐ[ℂ] H →L[ℂ] H) (ρ : A →⋆ₙₐ[ℂ] K →L[ℂ] K),
+    Chal.NaimarkZFC.IsIrreducible π → Chal.NaimarkZFC.IsIrreducible ρ → Chal.NaimarkZFC.UnitarilyEquivalent π ρ
+def Chal.NaimarkZFC.IsIsomorphicToCompacts.{u, v} : (A : Type u) →
+  [CStarAlgebra A] →
+    (H : Type v) → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → [CompleteSpace H] → Prop :=
+fun A [CStarAlgebra A] H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  ∃ φ, Function.Injective ⇑φ ∧ ∀ (T : H →L[ℂ] H), (∃ a, φ a = T) ↔ IsCompactOperator ⇑T
+'OAI.NaimarkZFC.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Naimark comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

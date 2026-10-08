@@ -1,0 +1,54 @@
+CMP OAI.FiniteFactor.main_theorem [thm] ok
+CMP OAI.FiniteFactor.MainTarget [def] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_4 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_1 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_10 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_3 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_2 [thm] ok
+CMP OAI.FiniteFactor.HasScalarCenter._proof_1 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_9 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_8 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_7 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_6 [thm] ok
+CMP OAI.FiniteFactor.HasSeparablePredual._proof_5 [thm] ok
+CMP OAI.FiniteFactor.HasNoMinimalProjection [def] ok
+CMP OAI.FiniteFactor.IsFiniteAlgebra [def] ok
+CMP OAI.FiniteFactor.HasScalarCenter [def] ok
+CMP OAI.FiniteFactor.HasScalarCenter._proof_2 [thm] ok
+Chal.FiniteFactor.main_theorem : Chal.FiniteFactor.MainTarget
+def Chal.FiniteFactor.HasScalarCenter.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M =>
+  ∀ a ∈ M, (∀ b ∈ M, a * b = b * a) → ∃ z, a = z • 1
+def Chal.FiniteFactor.IsFiniteAlgebra.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M => ∀ v ∈ M, star v * v = 1 → v * star v = 1
+def Chal.FiniteFactor.HasNoMinimalProjection.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M =>
+  ∀ p ∈ M, IsStarProjection p → p ≠ 0 → ∃ q ∈ M, IsStarProjection q ∧ q ≠ 0 ∧ q ≠ p ∧ q * p = q
+def Chal.FiniteFactor.HasSeparablePredual.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M =>
+  ∃ E x x_1,
+    ∃ (_ : CompleteSpace E) (_ : TopologicalSpace.SeparableSpace E),
+      Nonempty (StrongDual ℂ E ≃ₗᵢ⋆[ℂ] ↥M.toStarSubalgebra)
+def Chal.FiniteFactor.MainTarget.{u} : Prop :=
+∃ H x x_1,
+  ∃ (x_2 : CompleteSpace H),
+    ∃ M,
+      Chal.FiniteFactor.HasScalarCenter M ∧
+        Chal.FiniteFactor.IsFiniteAlgebra M ∧
+          Chal.FiniteFactor.HasNoMinimalProjection M ∧
+            Chal.FiniteFactor.HasSeparablePredual M ∧
+              ∃ T ∈ M,
+                T ≠ 0 ∧
+                  Filter.Tendsto (fun n => ‖T ^ n‖ ^ (1 / ↑n)) Filter.atTop (nhds 0) ∧
+                    ∀ p ∈ M, IsStarProjection p → (1 - p) * T * p = 0 → p = 0 ∨ p = 1
+'OAI.FiniteFactor.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FiniteFactor comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=1

@@ -1,0 +1,27 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_Tachikawa.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Tachikawa.main_theorem [thm] ok
+CMP OAI.Tachikawa.Counterexample [def] ok
+CMP OAI.Tachikawa.Counterexample._proof_4 [thm] ok
+CMP OAI.Tachikawa.Counterexample._proof_3 [thm] ok
+CMP OAI.Tachikawa.Counterexample._proof_2 [thm] ok
+CMP OAI.Tachikawa.Counterexample._proof_1 [thm] ok
+CMP OAI.Tachikawa.SymmetricOver [def] ok
+CMP OAI.Tachikawa.SymmetricOver._proof_2 [thm] ok
+CMP OAI.Tachikawa.SymmetricOver._proof_1 [thm] ok
+CMP OAI.Tachikawa.k [def] ok
+Chal.Tachikawa.main_theorem : Chal.Tachikawa.Counterexample
+@[reducible] def Chal.Tachikawa.k : Type :=
+FractionRing (MvPolynomial (Fin 3) (ZMod 2))
+def Chal.Tachikawa.SymmetricOver : (K A : Type) → [inst : Field K] → [inst_1 : Ring A] → [Algebra K A] → Prop :=
+fun K A [Field K] [Ring A] [Algebra K A] =>
+  ∃ e, (∀ (a b c : A), (e (a * b)) c = (e b) (c * a)) ∧ ∀ (a b c : A), (e (a * b)) c = (e a) (b * c)
+def Chal.Tachikawa.Counterexample : Prop :=
+∃ A rA aA,
+  Module.Finite Chal.Tachikawa.k A ∧
+    Chal.Tachikawa.SymmetricOver Chal.Tachikawa.k A ∧
+      ∃ M gM mA mk,
+        IsScalarTower Chal.Tachikawa.k A M ∧
+          Module.Finite Chal.Tachikawa.k M ∧
+            ¬Module.Projective A M ∧ ∀ (n : ℕ), 0 < n → Subsingleton (CategoryTheory.Abelian.Ext (↧M) (↧M) n)
+'OAI.Tachikawa.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Tachikawa comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

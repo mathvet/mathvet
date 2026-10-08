@@ -1,0 +1,297 @@
+OAI.SphericalPerceptron.spherical_linear_field_formula : OAI.SphericalPerceptron.SphericalLinearFieldFormula
+'OAI.SphericalPerceptron.spherical_linear_field_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SphericalPerceptron.Time : Set ℝ :=
+unitInterval
+@[reducible] def OAI.SphericalPerceptron.Spin : ℕ → Type :=
+fun N => EuclideanSpace ℝ (Fin N)
+def OAI.SphericalPerceptron.unitSphereLaw : (N : ℕ) → MeasureTheory.Measure ↑(Metric.sphere 0 1) :=
+fun N =>
+  have s := MeasureTheory.volume.toSphere;
+  (s Set.univ)⁻¹ • s
+structure OAI.SphericalPerceptron.Trial : Type
+number of parameters: 0
+fields:
+  OAI.SphericalPerceptron.Trial.toFun : ↑OAI.SphericalPerceptron.Time → ℝ
+  OAI.SphericalPerceptron.Trial.monotone : Monotone self.toFun
+  OAI.SphericalPerceptron.Trial.measurable : Measurable self.toFun
+  OAI.SphericalPerceptron.Trial.nonneg : ∀ (t : ↑OAI.SphericalPerceptron.Time), 0 ≤ self.toFun t
+  OAI.SphericalPerceptron.Trial.le_one : ∀ (t : ↑OAI.SphericalPerceptron.Time), self.toFun t ≤ 1
+constructor:
+  OAI.SphericalPerceptron.Trial.mk (toFun : ↑OAI.SphericalPerceptron.Time → ℝ) (monotone : Monotone toFun)
+    (measurable : Measurable toFun) (nonneg : ∀ (t : ↑OAI.SphericalPerceptron.Time), 0 ≤ toFun t)
+    (le_one : ∀ (t : ↑OAI.SphericalPerceptron.Time), toFun t ≤ 1) : OAI.SphericalPerceptron.Trial
+def OAI.SphericalPerceptron.timeLaw : MeasureTheory.Measure ↑OAI.SphericalPerceptron.Time :=
+MeasureTheory.Measure.comap Subtype.val MeasureTheory.volume
+def OAI.SphericalPerceptron.tailIntegral : OAI.SphericalPerceptron.Trial → ↑OAI.SphericalPerceptron.Time → ℝ :=
+fun m t => ∫ (s : ↑OAI.SphericalPerceptron.Time) in Set.Ici t, m.toFun s ∂OAI.SphericalPerceptron.timeLaw
+def OAI.SphericalPerceptron.entropy : OAI.SphericalPerceptron.Trial → ENNReal :=
+fun m =>
+  (∫⁻ (t : ↑OAI.SphericalPerceptron.Time),
+      (ENNReal.ofReal (OAI.SphericalPerceptron.tailIntegral m t))⁻¹ -
+        (ENNReal.ofReal (1 - ↑t))⁻¹ ∂OAI.SphericalPerceptron.timeLaw) /
+    2
+def OAI.SphericalPerceptron.finitePointMeasure.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → (n : ℕ) → (Fin n → S) → MeasureTheory.Measure S :=
+fun {S} [MeasurableSpace S] n x => ∑ i, MeasureTheory.Measure.dirac (x i)
+def OAI.SphericalPerceptron.finitePoissonLaw.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → NNReal → MeasureTheory.Measure S → MeasureTheory.Measure (MeasureTheory.Measure S) :=
+fun {S} [MeasurableSpace S] r ν =>
+  MeasureTheory.Measure.sum fun n =>
+    (ProbabilityTheory.poissonMeasure r) {n} •
+      MeasureTheory.Measure.map (OAI.SphericalPerceptron.finitePointMeasure n) (MeasureTheory.Measure.pi fun x => ν)
+def OAI.SphericalPerceptron.countablePoissonLaw.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] →
+    (ℕ → NNReal) → (ℕ → MeasureTheory.Measure S) → MeasureTheory.Measure (MeasureTheory.Measure S) :=
+fun {S} [MeasurableSpace S] r ν =>
+  MeasureTheory.Measure.map MeasureTheory.Measure.sum
+    (MeasureTheory.Measure.infinitePi fun i => OAI.SphericalPerceptron.finitePoissonLaw (r i) (ν i))
+def OAI.SphericalPerceptron.finiteIntensityMarks.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → [Nonempty S] → MeasureTheory.Measure S → MeasureTheory.Measure S :=
+fun {S} [MeasurableSpace S] [inst_1 : Nonempty S] κ =>
+  if κ Set.univ = 0 then MeasureTheory.Measure.dirac (Classical.choice inst_1) else (κ Set.univ)⁻¹ • κ
+def OAI.SphericalPerceptron.poissonRandomMeasureLaw.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] →
+    [Nonempty S] →
+      (κ : MeasureTheory.Measure S) → [MeasureTheory.SFinite κ] → MeasureTheory.Measure (MeasureTheory.Measure S) :=
+fun {S} [MeasurableSpace S] [Nonempty S] κ [MeasureTheory.SFinite κ] =>
+  OAI.SphericalPerceptron.countablePoissonLaw (fun i => ((MeasureTheory.sfiniteSeq κ i) Set.univ).toNNReal) fun i =>
+    OAI.SphericalPerceptron.finiteIntensityMarks (MeasureTheory.sfiniteSeq κ i)
+def OAI.SphericalPerceptron.stableLogIntensity : ℝ → MeasureTheory.Measure ℝ :=
+fun b => MeasureTheory.volume.withDensity fun x => ENNReal.ofReal (b * Real.exp (-b * x))
+def OAI.SphericalPerceptron.normalizedMeasure.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → MeasureTheory.Measure S → MeasureTheory.Measure S :=
+fun {S} [MeasurableSpace S] μ => (μ Set.univ)⁻¹ • μ
+def OAI.SphericalPerceptron.markedStableTotalE.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → MeasureTheory.Measure (ℝ × S) → ENNReal :=
+fun {S} [MeasurableSpace S] η => ∫⁻ (p : ℝ × S), ENNReal.ofReal (Real.exp p.1) ∂η
+def OAI.SphericalPerceptron.markedStableTotal.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → MeasureTheory.Measure (ℝ × S) → ℝ :=
+fun {S} [MeasurableSpace S] η => (OAI.SphericalPerceptron.markedStableTotalE η).toReal
+def OAI.SphericalPerceptron.markedStableMassKernel.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → ProbabilityTheory.Kernel (MeasureTheory.Measure (ℝ × S)) (ℝ × S) :=
+fun {S} [MeasurableSpace S] =>
+  { toFun := fun η => OAI.SphericalPerceptron.normalizedMeasure (η.withDensity fun p => ENNReal.ofReal (Real.exp p.1)),
+    measurable' := ⋯ }
+def OAI.SphericalPerceptron.markedStableCountKernel.{u_1} : {S : Type u_1} →
+  [inst : MeasurableSpace S] → ProbabilityTheory.Kernel (MeasureTheory.Measure (ℝ × S)) (ℝ × S) :=
+fun {S} [MeasurableSpace S] =>
+  OAI.SphericalPerceptron.markedStableMassKernel.withDensity fun η p =>
+    ENNReal.ofReal (OAI.SphericalPerceptron.markedStableTotal η * Real.exp (-p.1))
+@[reducible] def OAI.SphericalPerceptron.DecoratedCascade : (S : Type) → [MeasurableSpace S] → ℕ → MeasCat :=
+fun S [MeasurableSpace S] x => Nat.brecOn x (OAI.SphericalPerceptron.DecoratedCascade._f S)
+def OAI.SphericalPerceptron.decoratedCascadeLaw : {S : Type} →
+  [inst : MeasurableSpace S] →
+    [Nonempty S] →
+      MeasureTheory.ProbabilityMeasure S →
+        (n : ℕ) →
+          (Fin n → ℝ) → MeasureTheory.ProbabilityMeasure (OAI.SphericalPerceptron.DecoratedCascade S n).carrier :=
+fun {S} [MeasurableSpace S] [Nonempty S] ν x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (Fin x → ℝ) → MeasureTheory.ProbabilityMeasure (OAI.SphericalPerceptron.DecoratedCascade S x).carrier) x
+    (OAI.SphericalPerceptron.decoratedCascadeLaw._f ν) x_1
+def OAI.SphericalPerceptron.decoratedTerminalTotalE : {X S : Type} →
+  [MeasurableSpace X] →
+    [inst : MeasurableSpace S] →
+      (X × S → X) → (X → ℝ) → (n : ℕ) → X × (OAI.SphericalPerceptron.DecoratedCascade S n).carrier → ENNReal :=
+fun {X S} [MeasurableSpace X] [MeasurableSpace S] step H x x_1 =>
+  Nat.brecOn (motive := fun x => X × (OAI.SphericalPerceptron.DecoratedCascade S x).carrier → ENNReal) x
+    (OAI.SphericalPerceptron.decoratedTerminalTotalE._f step H) x_1
+def OAI.SphericalPerceptron.decoratedTerminalTotal : {X S : Type} →
+  [MeasurableSpace X] →
+    [inst : MeasurableSpace S] →
+      (X × S → X) → (X → ℝ) → (n : ℕ) → X × (OAI.SphericalPerceptron.DecoratedCascade S n).carrier → ℝ :=
+fun {X S} [MeasurableSpace X] [MeasurableSpace S] step H n p =>
+  (OAI.SphericalPerceptron.decoratedTerminalTotalE step H n p).toReal
+def OAI.SphericalPerceptron.gaussianShiftStep : (ℕ → ℝ) → (ℕ → ℝ) × ℝ → ℕ → ℝ :=
+fun σ p i => p.1 (i + 1) + σ i * p.2
+def OAI.SphericalPerceptron.standardGaussianMark : MeasureTheory.ProbabilityMeasure ℝ :=
+⟨ProbabilityTheory.gaussianReal 0 1, OAI.SphericalPerceptron.standardGaussianMark._proof_1⟩
+def OAI.SphericalPerceptron.piMarkLaw : {ι S : Type} →
+  [Fintype ι] →
+    [inst : MeasurableSpace S] → (ι → MeasureTheory.ProbabilityMeasure S) → MeasureTheory.ProbabilityMeasure (ι → S) :=
+fun {ι S} [Fintype ι] [MeasurableSpace S] ν => ⟨MeasureTheory.Measure.pi fun i => ↑(ν i), ⋯⟩
+def OAI.SphericalPerceptron.canonicalCoordinateStep : (d : ℕ) →
+  (ℕ → ℝ) → (Fin d → ℕ → ℝ) × (Fin d → ℝ) → Fin d → ℕ → ℝ :=
+fun d σ p i => OAI.SphericalPerceptron.gaussianShiftStep σ (p.1 i, p.2 i)
+def OAI.SphericalPerceptron.decoratedLeafIntegral : {X S : Type} →
+  [MeasurableSpace X] →
+    [inst : MeasurableSpace S] →
+      (X × S → X) → (X → ENNReal) → (n : ℕ) → X × (OAI.SphericalPerceptron.DecoratedCascade S n).carrier → ENNReal :=
+fun {X S} [MeasurableSpace X] [MeasurableSpace S] step F x x_1 =>
+  Nat.brecOn (motive := fun x => X × (OAI.SphericalPerceptron.DecoratedCascade S x).carrier → ENNReal) x
+    (OAI.SphericalPerceptron.decoratedLeafIntegral._f step F) x_1
+def OAI.SphericalPerceptron.decoratedFieldFactor : {X S : Type} →
+  [MeasurableSpace X] →
+    [inst : MeasurableSpace S] →
+      (d : ℕ) →
+        (X × S → X) →
+          (X → OAI.SphericalPerceptron.Spin d) →
+            (k : ℕ) →
+              X × (OAI.SphericalPerceptron.DecoratedCascade S k).carrier → OAI.SphericalPerceptron.Spin d → ENNReal :=
+fun {X S} [MeasurableSpace X] [MeasurableSpace S] d step field k p x =>
+  OAI.SphericalPerceptron.decoratedLeafIntegral step (fun y => ENNReal.ofReal (Real.exp (inner ℝ (field y) x))) k p
+def OAI.SphericalPerceptron.decoratedAngularFactor : {X S : Type} →
+  [MeasurableSpace X] →
+    [inst : MeasurableSpace S] →
+      (n : ℕ) →
+        (X × S → X) →
+          (X → OAI.SphericalPerceptron.Spin (n + 1)) →
+            (k : ℕ) → X × (OAI.SphericalPerceptron.DecoratedCascade S k).carrier → ℝ → ENNReal :=
+fun {X S} [MeasurableSpace X] [MeasurableSpace S] n step field k p r =>
+  ∫⁻ (u : ↑(Metric.sphere 0 1)),
+    OAI.SphericalPerceptron.decoratedFieldFactor (n + 1) step field k p
+      (r • ↑u) ∂OAI.SphericalPerceptron.unitSphereLaw (n + 1)
+def OAI.SphericalPerceptron.coordinateLeafField : (d : ℕ) → (Fin d → ℕ → ℝ) → OAI.SphericalPerceptron.Spin d :=
+fun d x => WithLp.toLp 2 fun i => x i 0
+def OAI.SphericalPerceptron.coordinateCascadeLaw : (d k : ℕ) →
+  (Fin k → ℝ) →
+    NNReal → MeasureTheory.Measure ((Fin d → ℝ) × (OAI.SphericalPerceptron.DecoratedCascade (Fin d → ℝ) k).carrier) :=
+fun d k z r =>
+  (MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 r).prod
+    ↑(OAI.SphericalPerceptron.decoratedCascadeLaw
+        (OAI.SphericalPerceptron.piMarkLaw fun x => OAI.SphericalPerceptron.standardGaussianMark) k z)
+def OAI.SphericalPerceptron.coordinateAngularLog : (n k : ℕ) →
+  (ℕ → ℝ) → ℝ → (Fin (n + 1) → ℕ → ℝ) × (OAI.SphericalPerceptron.DecoratedCascade (Fin (n + 1) → ℝ) k).carrier → ℝ :=
+fun n k σ R p =>
+  Real.log
+    ((OAI.SphericalPerceptron.decoratedAngularFactor n (OAI.SphericalPerceptron.canonicalCoordinateStep (n + 1) σ)
+          (OAI.SphericalPerceptron.coordinateLeafField (n + 1)) k p R).toReal /
+      OAI.SphericalPerceptron.decoratedTerminalTotal (OAI.SphericalPerceptron.canonicalCoordinateStep (n + 1) σ)
+        (fun x => 0) k p)
+def OAI.SphericalPerceptron.normalizedCoordinateSphereLog : (n k : ℕ) →
+  (ℕ → ℝ) → (Fin (n + 1) → ℝ) × (OAI.SphericalPerceptron.DecoratedCascade (Fin (n + 1) → ℝ) k).carrier → ℝ :=
+fun n k σ p => OAI.SphericalPerceptron.coordinateAngularLog n k σ √↑(n + 1) (fun i x => p.1 i, p.2) / ↑(n + 1)
+def OAI.SphericalPerceptron.expectedCoordinateSphereLog : ℕ → (k : ℕ) → (ℕ → ℝ) → (Fin k → ℝ) → NNReal → ℝ :=
+fun n k σ z r =>
+  ∫ (p : (Fin (n + 1) → ℝ) × (OAI.SphericalPerceptron.DecoratedCascade (Fin (n + 1) → ℝ) k).carrier),
+    OAI.SphericalPerceptron.normalizedCoordinateSphereLog n k σ
+      p ∂OAI.SphericalPerceptron.coordinateCascadeLaw (n + 1) k z r
+def OAI.SphericalPerceptron.weightedStepTrial.{u_1} : {I : Type u_1} →
+  [inst : Fintype I] →
+    (w : I → ℝ) →
+      (I → ↑OAI.SphericalPerceptron.Time) → (∀ (i : I), 0 ≤ w i) → ∑ i, w i = 1 → OAI.SphericalPerceptron.Trial :=
+fun {I} [Fintype I] w q hw hw1 =>
+  { toFun := fun t => ∑ i, if q i ≤ t then w i else 0, monotone := ⋯, measurable := ⋯, nonneg := ⋯, le_one := ⋯ }
+def OAI.SphericalPerceptron.stepCumulative : {k : ℕ} → (Fin (k + 1) → ℝ) → Fin k → ℝ :=
+fun {k} w i => ∑ j, if j ≤ i.castSucc then w j else 0
+def OAI.SphericalPerceptron.stepFieldIncrement : (k : ℕ) → (Fin (k + 1) → ℝ) → ℕ → ℝ :=
+fun k h j => if hj : j < k then √(2 * (h ⟨j, hj⟩.rev.succ - h ⟨j, hj⟩.rev.castSucc)) else 0
+def OAI.SphericalPerceptron.finiteSphericalFieldValue : ℕ → (k : ℕ) → (Fin (k + 1) → ℝ) → (Fin (k + 1) → ℝ) → ℝ :=
+fun n k w h =>
+  OAI.SphericalPerceptron.expectedCoordinateSphereLog n k (OAI.SphericalPerceptron.stepFieldIncrement k h)
+      (OAI.SphericalPerceptron.stepCumulative w) (2 * h 0).toNNReal -
+    h (Fin.last k)
+def OAI.SphericalPerceptron.finiteSphericalDualObjective : {k : ℕ} →
+  (w : Fin (k + 1) → ℝ) →
+    (Fin (k + 1) → ℝ) →
+      (∀ (i : Fin (k + 1)), 0 ≤ w i) → ∑ i, w i = 1 → (Fin (k + 1) → ↑OAI.SphericalPerceptron.Time) → ℝ :=
+fun {k} w h hw hw1 q =>
+  (OAI.SphericalPerceptron.entropy (OAI.SphericalPerceptron.weightedStepTrial w q hw hw1)).toReal -
+    ∑ i, w i * h i * ↑(q i)
+def OAI.SphericalPerceptron.finiteSphericalDualValues : {k : ℕ} →
+  (w : Fin (k + 1) → ℝ) → (Fin (k + 1) → ℝ) → (∀ (i : Fin (k + 1)), 0 ≤ w i) → ∑ i, w i = 1 → Set ℝ :=
+fun {k} w h hw hw1 =>
+  OAI.SphericalPerceptron.finiteSphericalDualObjective w h hw hw1 '' {q | Monotone q ∧ ↑(q (Fin.last k)) < 1}
+structure OAI.SphericalPerceptron.FiniteFieldModel (f : ↑OAI.SphericalPerceptron.Time → ℝ) : Type
+number of parameters: 1
+fields:
+  OAI.SphericalPerceptron.FiniteFieldModel.depth : ℕ
+  OAI.SphericalPerceptron.FiniteFieldModel.value : Fin (self.depth + 1) → ℝ
+  OAI.SphericalPerceptron.FiniteFieldModel.label : ↑OAI.SphericalPerceptron.Time → Fin (self.depth + 1)
+  OAI.SphericalPerceptron.FiniteFieldModel.measurable_label : Measurable self.label
+  OAI.SphericalPerceptron.FiniteFieldModel.positive : ∀ (i : Fin (self.depth + 1)),
+      0 < OAI.SphericalPerceptron.timeLaw.real (self.label ⁻¹' {i})
+  OAI.SphericalPerceptron.FiniteFieldModel.monotone_value : Monotone self.value
+  OAI.SphericalPerceptron.FiniteFieldModel.agrees : (fun u =>
+        self.value (self.label u)) =ᵐ[OAI.SphericalPerceptron.timeLaw]
+      f
+constructor:
+  OAI.SphericalPerceptron.FiniteFieldModel.mk {f : ↑OAI.SphericalPerceptron.Time → ℝ} (depth : ℕ)
+    (value : Fin (depth + 1) → ℝ) (label : ↑OAI.SphericalPerceptron.Time → Fin (depth + 1))
+    (measurable_label : Measurable label)
+    (positive : ∀ (i : Fin (depth + 1)), 0 < OAI.SphericalPerceptron.timeLaw.real (label ⁻¹' {i}))
+    (monotone_value : Monotone value) (agrees : (fun u => value (label u)) =ᵐ[OAI.SphericalPerceptron.timeLaw] f) :
+    OAI.SphericalPerceptron.FiniteFieldModel f
+def OAI.SphericalPerceptron.FiniteFieldModel.weight : {f : ↑OAI.SphericalPerceptron.Time → ℝ} →
+  (M : OAI.SphericalPerceptron.FiniteFieldModel f) → Fin (M.depth + 1) → ℝ :=
+fun {f} M i => OAI.SphericalPerceptron.timeLaw.real (M.label ⁻¹' {i})
+def OAI.SphericalPerceptron.FiniteFieldModel.pressure : {f : ↑OAI.SphericalPerceptron.Time → ℝ} →
+  OAI.SphericalPerceptron.FiniteFieldModel f → ℕ → ℝ :=
+fun {f} M n => OAI.SphericalPerceptron.finiteSphericalFieldValue n M.depth M.weight M.value
+structure OAI.SphericalPerceptron.BoundedField (H : ℝ) : Type
+number of parameters: 1
+fields:
+  OAI.SphericalPerceptron.BoundedField.toFun : ↑OAI.SphericalPerceptron.Time → ℝ
+  OAI.SphericalPerceptron.BoundedField.monotone : Monotone self.toFun
+  OAI.SphericalPerceptron.BoundedField.nonneg : ∀ (u : ↑OAI.SphericalPerceptron.Time), 0 ≤ self.toFun u
+  OAI.SphericalPerceptron.BoundedField.le_bound : ∀ (u : ↑OAI.SphericalPerceptron.Time), self.toFun u ≤ H
+constructor:
+  OAI.SphericalPerceptron.BoundedField.mk {H : ℝ} (toFun : ↑OAI.SphericalPerceptron.Time → ℝ)
+    (monotone : Monotone toFun) (nonneg : ∀ (u : ↑OAI.SphericalPerceptron.Time), 0 ≤ toFun u)
+    (le_bound : ∀ (u : ↑OAI.SphericalPerceptron.Time), toFun u ≤ H) : OAI.SphericalPerceptron.BoundedField H
+def OAI.SphericalPerceptron.roundLower : ℕ → ℝ → ℝ :=
+fun N x => ↑⌊↑(N + 1) * x⌋₊ / ↑(N + 1)
+def OAI.SphericalPerceptron.BoundedField.round : {H : ℝ} →
+  OAI.SphericalPerceptron.BoundedField H → ℕ → OAI.SphericalPerceptron.BoundedField H :=
+fun {H} f N =>
+  { toFun := fun u => OAI.SphericalPerceptron.roundLower N (f.toFun u), monotone := ⋯, nonneg := ⋯, le_bound := ⋯ }
+def OAI.SphericalPerceptron.BoundedField.roundModel : {H : ℝ} →
+  (f : OAI.SphericalPerceptron.BoundedField H) → (N : ℕ) → OAI.SphericalPerceptron.FiniteFieldModel (f.round N).toFun :=
+fun {H} f N => Classical.choice ⋯
+def OAI.SphericalPerceptron.quantileTrial : (↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) →
+  OAI.SphericalPerceptron.Trial :=
+fun q =>
+  { toFun := fun t => OAI.SphericalPerceptron.timeLaw.real {u | q u ≤ t}, monotone := ⋯, measurable := ⋯, nonneg := ⋯,
+    le_one := ⋯ }
+def OAI.SphericalPerceptron.quantileTail : (↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) → ℝ → ℝ :=
+fun q t => ∫ (u : ↑OAI.SphericalPerceptron.Time), 1 - max (↑(q u)) t ∂OAI.SphericalPerceptron.timeLaw
+def OAI.SphericalPerceptron.boundedSphericalFieldValue : {H : ℝ} → OAI.SphericalPerceptron.BoundedField H → ℕ → ℝ :=
+fun {H} f n => Filter.atTop.limUnder fun N => (f.roundModel N).pressure n
+def OAI.SphericalPerceptron.BoundedField.toQuantile : {B : ℝ} →
+  OAI.SphericalPerceptron.BoundedField B → B ≤ 1 → ↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time :=
+fun {B} q hB u => ⟨q.toFun u, ⋯⟩
+def OAI.SphericalPerceptron.quantileA : (↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) → ℝ → ℝ :=
+fun q r => ∫ (t : ℝ) in 0..r, 1 / OAI.SphericalPerceptron.quantileTail q t ^ 2
+def OAI.SphericalPerceptron.BoundedField.stationary : {B : ℝ} →
+  OAI.SphericalPerceptron.BoundedField B → B < 1 → OAI.SphericalPerceptron.BoundedField (B / (2 * (1 - B) ^ 2)) :=
+fun {B} q hB =>
+  { toFun := fun u => OAI.SphericalPerceptron.quantileA (q.toQuantile ⋯) (q.toFun u) / 2, monotone := ⋯, nonneg := ⋯,
+    le_bound := ⋯ }
+def OAI.SphericalPerceptron.clippedQuantile : (q : ↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) →
+  Monotone q → (B : ℝ) → 0 ≤ B → OAI.SphericalPerceptron.BoundedField B :=
+fun q hq B hB0 => { toFun := fun u => min (↑(q u)) B, monotone := ⋯, nonneg := ⋯, le_bound := ⋯ }
+def OAI.SphericalPerceptron.stationaryQuantileField : (q :
+    ↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) →
+  Monotone q → (B : ℝ) → 0 ≤ B → B < 1 → OAI.SphericalPerceptron.BoundedField (B / (2 * (1 - B) ^ 2)) :=
+fun q hq B hB0 hB1 => (OAI.SphericalPerceptron.clippedQuantile q hq B hB0).stationary hB1
+def OAI.SphericalPerceptron.SphericalLinearFieldFormula : Prop :=
+(∀ (k : ℕ) (w : Fin (k + 1) → ℝ) (hw : ∀ (i : Fin (k + 1)), 0 < w i) (hw1 : ∑ i, w i = 1),
+    (∀ (h : Fin (k + 1) → ℝ),
+        Monotone h →
+          0 ≤ h 0 →
+            ∃ q,
+              Monotone q ∧
+                ↑(q (Fin.last k)) < 1 ∧
+                  IsLeast (OAI.SphericalPerceptron.finiteSphericalDualValues w h ⋯ hw1)
+                    (OAI.SphericalPerceptron.finiteSphericalDualObjective w h ⋯ hw1 q)) ∧
+      ∀ (K : Set (Fin (k + 1) → ℝ)),
+        IsCompact K →
+          (∀ h ∈ K, Monotone h ∧ 0 ≤ h 0) →
+            TendstoUniformlyOn (fun n h => OAI.SphericalPerceptron.finiteSphericalFieldValue n k w h)
+              (fun h => sInf (OAI.SphericalPerceptron.finiteSphericalDualValues w h ⋯ hw1)) Filter.atTop K) ∧
+  ∀ (B : ℝ) (hB0 : 0 ≤ B) (hB1 : B < 1) (ε : ℝ),
+    0 < ε →
+      ∀ᶠ (n : ℕ) in Filter.atTop,
+        ∀ (q : ↑OAI.SphericalPerceptron.Time → ↑OAI.SphericalPerceptron.Time) (hq : Monotone q),
+          (∀ᵐ (u : ↑OAI.SphericalPerceptron.Time) ∂OAI.SphericalPerceptron.timeLaw, ↑(q u) ≤ B) →
+            OAI.SphericalPerceptron.entropy (OAI.SphericalPerceptron.quantileTrial q) < ⊤ ∧
+              (∀ᵐ (u : ↑OAI.SphericalPerceptron.Time) ∂OAI.SphericalPerceptron.timeLaw,
+                  2 * (OAI.SphericalPerceptron.stationaryQuantileField q hq B hB0 hB1).toFun u =
+                    OAI.SphericalPerceptron.quantileA q ↑(q u)) ∧
+                |OAI.SphericalPerceptron.boundedSphericalFieldValue
+                        (OAI.SphericalPerceptron.stationaryQuantileField q hq B hB0 hB1) n -
+                      ((OAI.SphericalPerceptron.entropy (OAI.SphericalPerceptron.quantileTrial q)).toReal -
+                        ∫ (u : ↑OAI.SphericalPerceptron.Time),
+                          (OAI.SphericalPerceptron.stationaryQuantileField q hq B hB0 hB1).toFun u *
+                            ↑(q u) ∂OAI.SphericalPerceptron.timeLaw)| <
+                  ε

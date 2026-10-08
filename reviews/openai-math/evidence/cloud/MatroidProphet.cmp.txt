@@ -1,3 +1,4 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_MatroidProphet.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.MatroidProphet.one_sample [thm] ok
 CMP OAI.MatroidProphet.OneSampleChallenge [def] ok
 CMP OAI.MatroidProphet.OneSampleChallenge._proof_1 [thm] ok
@@ -83,7 +84,6 @@ fun {n bits} M A =>
 def Chal.MatroidProphet.pairedCoordinates.{u} : {n : ℕ} →
   {Ω : Type u} → (Ω → Chal.MatroidProphet.Weights n) → (Ω → Chal.MatroidProphet.Weights n) → Fin n × Bool → Ω → ℝ :=
 fun {n} {Ω} S V i => if i.2 = true then fun ω => S ω i.1 else fun ω => V ω i.1
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_MatroidProphet.lean:184:44: error: unexpected token '.'; expected command
 def Chal.MatroidProphet.OneSampleChallenge.{u} : Prop :=
 ∀ (n : ℕ) (M : Matroid (Fin n)),
   M.E = Set.univ →
@@ -112,6 +112,5 @@ def Chal.MatroidProphet.OneSampleChallenge.{u} : Prop :=
                                           (fun ω => Chal.MatroidProphet.reward A (R ω) (S ω) (V ω) (π ω)) μ ∧
                                         (2 ^ 310)⁻¹ * ∫ (ω : Ω), Chal.MatroidProphet.optimum M (V ω) ∂μ ≤
                                           ∫ (ω : Ω), Chal.MatroidProphet.reward A (R ω) (S ω) (V ω) (π ω) ∂μ
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_MatroidProphet.lean:185:45: error: unexpected token '.'; expected command
 'OAI.MatroidProphet.one_sample' depends on axioms: [propext, Classical.choice, Quot.sound]
-== MatroidProphet comparator-style: ok=22 problems=0 errors=2 | SHADOW-DIFF(see MatroidProphet.standalone.norm vs MatroidProphet.insolution.norm) | [propext, Classical.choice, Quot.sound] 
+== MatroidProphet comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
