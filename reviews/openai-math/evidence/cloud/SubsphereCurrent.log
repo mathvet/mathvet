@@ -1,0 +1,42 @@
+== SubsphereCurrent  module=OAI.Probability.Subsphere.Main  start=2026-10-08T12:39:14Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8948] Built OAI.Probability.Subsphere.Regression.Model (11s)
+✔ [8925/8948] Built OAI.Probability.Subsphere.Regression.Geometry (14s)
+✔ [8926/8948] Built OAI.Probability.Subsphere.Model (17s)
+✔ [8927/8948] Built OAI.Probability.Subsphere.Regression.Gram (13s)
+✔ [8928/8948] Built OAI.Probability.Subsphere.Models (9.0s)
+✔ [8929/8948] Built OAI.Probability.Subsphere.Regression.Spheres (17s)
+✔ [8930/8948] Built OAI.Probability.Subsphere.Regression.Gaussian (16s)
+✔ [8931/8948] Built OAI.Probability.Subsphere.Mixture.Haar (16s)
+✔ [8932/8948] Built OAI.Probability.Subsphere.Geometry.Integration (35s)
+✔ [8933/8948] Built OAI.Probability.Subsphere.Regression.Projection (13s)
+✔ [8934/8948] Built OAI.Probability.Subsphere.Regression.Blocks (19s)
+✔ [8935/8948] Built OAI.Probability.Subsphere.Mixture.BetaTheory (26s)
+✔ [8936/8948] Built OAI.Probability.Subsphere.Regression.Streaming (11s)
+✔ [8937/8948] Built OAI.Probability.Subsphere.Mixture.Latitude (20s)
+✔ [8938/8948] Built OAI.Probability.Subsphere.Regression.Precision (26s)
+✔ [8939/8948] Built OAI.Probability.Subsphere.Mixture.Domination (15s)
+✔ [8940/8948] Built OAI.Probability.Subsphere.Estimates.Numerics (21s)
+✔ [8941/8948] Built OAI.Probability.Subsphere.Kernels.Precision (12s)
+✔ [8942/8948] Built OAI.Probability.Subsphere.Geometry.MassBounds (15s)
+✔ [8943/8948] Built OAI.Probability.Subsphere.Estimates.HalfPrecision (28s)
+✔ [8944/8948] Built OAI.Probability.Subsphere.Geometry.Affine (21s)
+✔ [8945/8948] Built OAI.Probability.Subsphere.Estimates.Weighted (19s)
+✔ [8946/8948] Built OAI.Probability.Subsphere.Estimates.FixedPrecision (24s)
+✔ [8947/8948] Built OAI.Probability.Subsphere.Estimates.AffinePrecision (37s)
+✔ [8948/8948] Built OAI.Probability.Subsphere.Main (8.9s)
+Build completed successfully (8948 jobs).
+== build rc=0 seconds=245
+{"theorems": ["OAI.SubsphereCurrent.full_current_main_scope"], "defs": ["OAI.SubsphereCurrent.Vector", "OAI.SubsphereCurrent.UnitSphere", "OAI.SubsphereCurrent.State", "OAI.SubsphereCurrent.Samples", "OAI.SubsphereCurrent.uniformSphere", "OAI.SubsphereCurrent.sampleLaw", "OAI.SubsphereCurrent.observationReference", "OAI.SubsphereCurrent.KernelLearner", "OAI.SubsphereCurrent.KernelLearner.RunStatus", "OAI.SubsphereCurrent.KernelLearner.tagged", "OAI.SubsphereCurrent.KernelLearner.run", "OAI.SubsphereCurrent.KernelLearner.terminal", "OAI.SubsphereCurrent.KernelLearner.estimateLaw", "OAI.SubsphereCurrent.KernelLearner.angularError", "OAI.SubsphereCurrent.KernelLearner.conditionalSuccess", "OAI.SubsphereCurrent.KernelLearner.CompletedRules", "OAI.SubsphereCurrent.SeededLearner", "OAI.SubsphereCurrent.SeededLearner.Admissible", "OAI.SubsphereCurrent.SeededLearner.success", "OAI.SubsphereCurrent.SeededLearner.uniformSuccess", "OAI.SubsphereCurrent.ExplicitPrecision", "OAI.SubsphereCurrent.Affine.Vector", "OAI.SubsphereCurrent.Affine.Sphere", "OAI.SubsphereCurrent.Affine.sphereLaw", "OAI.SubsphereCurrent.Affine.Test", "OAI.SubsphereCurrent.Affine.Test.point", "OAI.SubsphereCurrent.Weighted.Vector", "OAI.SubsphereCurrent.Weighted.Sphere", "OAI.SubsphereCurrent.Weighted.Rows", "OAI.SubsphereCurrent.Weighted.Observation", "OAI.SubsphereCurrent.Weighted.onTest", "OAI.SubsphereCurrent.Weighted.norm", "OAI.SubsphereCurrent.Weighted.blockInput", "OAI.SubsphereCurrent.Weighted.terminalInput", "OAI.SubsphereCurrent.Weighted.RadiusWeightedFullEstimate", "OAI.SubsphereCurrent.HalfPrecision", "OAI.SubsphereCurrent.Fixed.Vector", "OAI.SubsphereCurrent.Fixed.Sphere", "OAI.SubsphereCurrent.Fixed.sphereLaw", "OAI.SubsphereCurrent.Fixed.rowsLaw", "OAI.SubsphereCurrent.Fixed.Stream", "OAI.SubsphereCurrent.Fixed.Stream.run", "OAI.SubsphereCurrent.Fixed.Stream.estimateLaw", "OAI.SubsphereCurrent.Fixed.Stream.euclideanSuccess", "OAI.SubsphereCurrent.Fixed.Stream.angularSuccess", "OAI.SubsphereCurrent.Fixed.Stream.BorelRules", "OAI.SubsphereCurrent.Fixed.Stream.suffix", "OAI.SubsphereCurrent.Fixed.DimensionEstimate", "OAI.SubsphereCurrent.Affine.AllAffineFullEstimate", "OAI.SubsphereRegression.sphereLaw", "OAI.SubsphereRegression.ambientSphereLaw", "OAI.SubsphereCurrent.Mixture.Orthogonal", "OAI.SubsphereCurrent.Mixture.orthogonalLaw", "OAI.SubsphereCurrent.Mixture.blockIso", "OAI.SubsphereCurrent.Mixture.directionLaw", "OAI.SubsphereCurrent.Mixture.directionJointLaw", "OAI.SubsphereCurrent.Mixture.latitudeSpace", "OAI.SubsphereCurrent.Mixture.latitudeLaw", "OAI.SubsphereCurrent.Mixture.MixtureEstimate", "OAI.SubsphereCurrent.CurrentMainScope"], "json_theorems": ["OAI.SubsphereCurrent.full_current_main_scope"], "missing_from_parse": []}
+AXIOMS: 'OAI.SubsphereCurrent.full_current_main_scope' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:43:52Z
