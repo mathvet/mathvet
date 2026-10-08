@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T06:44:38Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T07:33:18Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 4 accepted by the
-    real Comparator, of which 2 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 5 accepted by the
+    real Comparator, of which 4 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3508,8 +3508,8 @@ alignment:
     module: OAI.Analysis.Mahler.MainTheorem
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MahlerConjecture.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 087 — The Mahler conjectures and symplectic width: Symmetric Mahler equality characterization
       (the lab''s own result label); paper ''The symmetric Mahler conjecture and its equality cases'', theorem thm:main
       (build/sections/introduction.tex:34)'
@@ -5966,8 +5966,8 @@ alignment:
     module: OAI.Geometry.Cannon.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CannonGeometricAction.json;
-      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
-      full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 247 — An infinite finitely presented residually finite $2$-group: Infinite finitely presented
       periodic group (the lab''s own result label); paper ''An infinite finitely presented periodic group'', theorem
       thm:main (build/paper.tex:88)'
@@ -7473,7 +7473,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T06:44:38Z'
+    generated: '2026-10-08T07:33:18Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7513,9 +7513,12 @@ mathvet:
     - CannonGeometricAction
     - CirculantHadamard
     - EntangledGames
+    - MahlerConjecture
     - PlaneColoring
     comparator_sandboxed_pass:
+    - CannonGeometricAction
     - CirculantHadamard
+    - MahlerConjecture
     - PlaneColoring
     comparator_running:
     - ErdosReciprocal
@@ -8097,7 +8100,7 @@ mathvet:
       condition) and `gromovWidth := sSup {c | HasSymplecticEmbedding (capacityBall n c) U}` with capacity π r^2'
     external_packages: []
     cone_lines_max: 40205
-    machine_check: closure-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/087.md
     audit_part: 1
   - family: 088
@@ -10416,7 +10419,7 @@ mathvet:
       a Mathlib notion.'
     external_packages: []
     cone_lines_max: 69536
-    machine_check: comparator-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/246.md
     audit_part: 2
   - family: '247'

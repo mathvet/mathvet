@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T06:44:38Z",
+  "generated": "2026-10-08T07:33:18Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -46,10 +46,13 @@
    "CannonGeometricAction",
    "CirculantHadamard",
    "EntangledGames",
+   "MahlerConjecture",
    "PlaneColoring"
   ],
   "comparator_sandboxed_pass": [
+   "CannonGeometricAction",
    "CirculantHadamard",
+   "MahlerConjecture",
    "PlaneColoring"
   ],
   "comparator_running": [
@@ -1085,7 +1088,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 40205,
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "lab_scope_note": "The symmetric Mahler conjecture predicts $|K||K^\\circ|\\ge4^n/n!$ for every origin-symmetric convex body $K\\subset\\mathbb R^n$. The formalization establishes this for every $n\\ge1$ and characterizes equality exactly by invertible linear images of Hanner bodies, built from intervals using Cartesian products and convex-hull joins.\n\nThe nonsymmetric Mahler conjecture and the functional inequalities are not included.\n\nThe general Mahler conjecture gives a sharp lower bound for the volume product of a convex body and its polar. For every $n\\ge1$ and compact convex body $K\\subset\\mathbb R^n$ with nonempty interior, the formalization proves\n$\\inf_{z\\in\\mathrm{int}\\,K}|K|\\,|(K-z)^\\circ|\\ge (n+1)^{n+1}/(n!)^2$.\nEquality holds exactly when $K$ is a simplex. The paper's functional inequality is outside this selected statement.\n\nFor an origin-symmetric convex body $K\\subset\\mathbb R^n$, $n\\ge2$, the formalized result determines the symplectic ball capacity of $\\mathrm{int}\\,K\\times\\mathrm{int}\\,K^\\circ$: its Gromov width is $4$, and every ball of capacity $0<c<4$ embeds symplectically into it. The normalization assigns capacity $\\pi r^2$ to a ball of radius $r$.\n\nNo boundary smoothness or strict convexity is assumed. An embedding at capacity exactly $4$ is not asserted.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/087.md",
    "overview_entry": "family 087 in overview.pdf / CONTENTS.md",
@@ -5056,7 +5059,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 69536,
-   "machine_check": "comparator-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "lab_scope_note": "Cannon's conjecture asks whether a hyperbolic group with boundary homeomorphic to the two-sphere acts geometrically on hyperbolic three-space. The formalization proves that such a group admits an isometric action on $\\mathbb H^3$ that is proper and cocompact and has finite kernel. Hyperbolicity is expressed through uniformly thin geodesic triangles in a Cayley graph, and the boundary hypothesis is a homeomorphism with $S^2$.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/246.md",
    "overview_entry": "family 246 in overview.pdf / CONTENTS.md",

@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T06:44:38Z",
+  "generated": "2026-10-08T07:33:18Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -46,10 +46,13 @@
    "CannonGeometricAction",
    "CirculantHadamard",
    "EntangledGames",
+   "MahlerConjecture",
    "PlaneColoring"
   ],
   "comparator_sandboxed_pass": [
+   "CannonGeometricAction",
    "CirculantHadamard",
+   "MahlerConjecture",
    "PlaneColoring"
   ],
   "comparator_running": [
@@ -1997,7 +2000,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CannonGeometricAction.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CannonGeometricAction.json",
    "lean_sha256": "210b5bfe96ace15ecacccd7285095d2e2a5679c35f182257c02a9ce276190b54",
-   "machine_check": "comparator-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 931,
    "closure": "ok",
@@ -2019,12 +2022,16 @@
     "CannonGeometricAction.challenge.txt",
     "CannonGeometricAction.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:29:34Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "CannonGeometricAction.comparator.txt",
+    "CannonGeometricAction.log",
+    "CannonGeometricAction.cmp.txt"
+   ]
   },
   {
    "challenge": "Catalan",
@@ -9871,7 +9878,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MahlerConjecture.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MahlerConjecture.json",
    "lean_sha256": "40718172f61fe01f6c96b4c28324a1d76491eb84af4776d8507d8cdcb3120ea0",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": 237,
    "closure": "ok",
@@ -9892,12 +9899,16 @@
     "MahlerConjecture.challenge.txt",
     "MahlerConjecture.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T07:08:37Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "MahlerConjecture.comparator.txt",
+    "MahlerConjecture.log",
+    "MahlerConjecture.cmp.txt"
+   ]
   },
   {
    "challenge": "MarkovType",

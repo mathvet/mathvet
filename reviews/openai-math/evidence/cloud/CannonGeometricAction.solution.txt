@@ -1,0 +1,57 @@
+OAI.CannonRelease.cannon : ∀ (G : Type u_1) [inst : Group G] [inst_1 : TopologicalSpace G] [DiscreteTopology G]
+  (D : OAI.CannonRelease.CayleyData G),
+  D.ThinTriangles →
+    Nonempty (OAI.CannonRelease.Boundary D ≃ₜ OAI.CannonRelease.SphereTwo) →
+      ∃ ρ, OAI.CannonRelease.ProperAction ρ ∧ OAI.CannonRelease.CocompactAction ρ ∧ (↑ρ.ker).Finite
+'OAI.CannonRelease.cannon' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.CannonRelease.CayleyData.{u} (G : Type u) [Group G] : Type u
+number of parameters: 2
+fields:
+  OAI.CannonRelease.CayleyData.generators : Finset G
+  OAI.CannonRelease.CayleyData.symmetric : ∀ x ∈ self.generators, x⁻¹ ∈ self.generators
+  OAI.CannonRelease.CayleyData.connected : (SimpleGraph.mulCayley ↑self.generators).Connected
+constructor:
+  OAI.CannonRelease.CayleyData.mk.{u} {G : Type u} [Group G] (generators : Finset G)
+    (symmetric : ∀ x ∈ generators, x⁻¹ ∈ generators) (connected : (SimpleGraph.mulCayley ↑generators).Connected) :
+    OAI.CannonRelease.CayleyData G
+def OAI.CannonRelease.CayleyData.graph.{u} : {G : Type u} →
+  [inst : Group G] → OAI.CannonRelease.CayleyData G → SimpleGraph G :=
+fun {G} [Group G] D => SimpleGraph.mulCayley ↑D.generators
+def OAI.CannonRelease.CayleyData.ThinTriangles.{u} : {G : Type u} →
+  [inst : Group G] → OAI.CannonRelease.CayleyData G → Prop :=
+fun {G} [Group G] D =>
+  ∃ δ,
+    ∀ (x y z : G) (p : D.graph.Walk x y) (q : D.graph.Walk y z) (r : D.graph.Walk z x),
+      p.length = D.graph.dist x y →
+        q.length = D.graph.dist y z →
+          r.length = D.graph.dist z x → ∀ a ∈ p.support, ∃ b ∈ q.support ++ r.support, D.graph.dist a b ≤ δ
+def OAI.CannonRelease.BasedRay.{u} : {G : Type u} →
+  [inst : Group G] → OAI.CannonRelease.CayleyData G → Type (max 0 u) :=
+fun {G} [Group G] D => { r // r 0 = 1 ∧ ∀ (i j : ℕ), D.graph.dist (r i) (r j) = i.dist j }
+def OAI.CannonRelease.raySetoid.{u} : {G : Type u} →
+  [inst : Group G] → (D : OAI.CannonRelease.CayleyData G) → Setoid (OAI.CannonRelease.BasedRay D) :=
+fun {G} [Group G] D => { r := fun r s => ∃ C, ∀ (n : ℕ), D.graph.dist (↑r n) (↑s n) ≤ C, iseqv := ⋯ }
+def OAI.CannonRelease.Boundary.{u} : {G : Type u} → [inst : Group G] → OAI.CannonRelease.CayleyData G → Type u :=
+fun {G} [Group G] D => Quotient (OAI.CannonRelease.raySetoid D)
+@[reducible] def OAI.CannonRelease.SphereTwo : Type :=
+{ x // x ∈ Metric.sphere 0 1 }
+def OAI.CannonRelease.HyperbolicThree : Type :=
+{ x // 0 < x 2 }
+def OAI.CannonRelease.hyperbolicDist : OAI.CannonRelease.HyperbolicThree → OAI.CannonRelease.HyperbolicThree → ℝ :=
+fun x y => Real.arcosh (1 + (∑ i, (↑x i - ↑y i) ^ 2) / (2 * ↑x 2 * ↑y 2))
+def OAI.CannonRelease.hyperbolicIsometries : Subgroup
+  (OAI.CannonRelease.HyperbolicThree ≃ₜ OAI.CannonRelease.HyperbolicThree) :=
+{
+  carrier :=
+    {f |
+      ∀ (x y : OAI.CannonRelease.HyperbolicThree),
+        OAI.CannonRelease.hyperbolicDist (f x) (f y) = OAI.CannonRelease.hyperbolicDist x y},
+  mul_mem' := @OAI.CannonRelease.hyperbolicIsometries._proof_1,
+  one_mem' := OAI.CannonRelease.hyperbolicIsometries._proof_2,
+  inv_mem' := @OAI.CannonRelease.hyperbolicIsometries._proof_3 }
+@[reducible] def OAI.CannonRelease.H3Isom : Type :=
+↥OAI.CannonRelease.hyperbolicIsometries
+def OAI.CannonRelease.ProperAction.{u} : {G : Type u} → [inst : Group G] → (G →* OAI.CannonRelease.H3Isom) → Prop :=
+fun {G} [Group G] ρ => ∀ (K : Set OAI.CannonRelease.HyperbolicThree), IsCompact K → {g | ∃ x ∈ K, ↑(ρ g) x ∈ K}.Finite
+def OAI.CannonRelease.CocompactAction.{u} : {G : Type u} → [inst : Group G] → (G →* OAI.CannonRelease.H3Isom) → Prop :=
+fun {G} [Group G] ρ => ∃ K, IsCompact K ∧ ∀ (x : OAI.CannonRelease.HyperbolicThree), ∃ g, ∃ y ∈ K, ↑(ρ g) y = x

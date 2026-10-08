@@ -1,0 +1,97 @@
+CMP OAI.CannonRelease.cannon [thm] ok
+CMP OAI.CannonRelease.CocompactAction [def] ok
+CMP OAI.CannonRelease.hyperbolicIsometries [def] ok
+CMP OAI.CannonRelease.hyperbolicIsometries._proof_3 [thm] ok
+CMP OAI.CannonRelease.hyperbolicDist [def] ok
+CMP OAI.CannonRelease.hyperbolicDist._proof_1 [thm] ok
+CMP OAI.CannonRelease.HyperbolicThree._proof_1 [thm] ok
+CMP OAI.CannonRelease.HyperbolicThree [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceHyperbolicThree [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceHyperbolicThree._proof_5 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceHyperbolicThree._aux_1 [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceHyperbolicThree._proof_4 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceHyperbolicThree._proof_3 [thm] ok
+CMP OAI.CannonRelease.hyperbolicIsometries._proof_2 [thm] ok
+CMP OAI.CannonRelease.hyperbolicIsometries._proof_1 [thm] ok
+CMP OAI.CannonRelease.ProperAction._proof_1 [thm] ok
+CMP OAI.CannonRelease.H3Isom [def] ok
+CMP OAI.CannonRelease.ProperAction [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBoundary [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBoundary._proof_5 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBoundary._aux_1 [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBasedRay [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBasedRay._proof_5 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBasedRay._aux_1 [def] ok
+CMP OAI.CannonRelease.CayleyData.graph [def] ok
+CMP OAI.CannonRelease.CayleyData.generators [def] ok
+CMP OAI.CannonRelease.CayleyData [ind] ok
+CMP OAI.CannonRelease.CayleyData.mk [ctor] ok
+CMP OAI.CannonRelease.BasedRay [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBasedRay._proof_4 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBasedRay._proof_3 [thm] ok
+CMP OAI.CannonRelease.raySetoid [def] ok
+CMP OAI.CannonRelease.raySetoid._proof_1 [thm] ok
+CMP OAI.CannonRelease.Boundary [def] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBoundary._proof_4 [thm] ok
+CMP OAI.CannonRelease.instTopologicalSpaceBoundary._proof_3 [thm] ok
+CMP OAI.CannonRelease.SphereTwo [def] ok
+CMP OAI.CannonRelease.CayleyData.ThinTriangles [def] ok
+Chal.CannonRelease.cannon : ∀ (G : Type u_1) [inst : Group G] [inst_1 : TopologicalSpace G] [DiscreteTopology G]
+  (D : Chal.CannonRelease.CayleyData G),
+  D.ThinTriangles →
+    Nonempty (Chal.CannonRelease.Boundary D ≃ₜ Chal.CannonRelease.SphereTwo) →
+      ∃ ρ, Chal.CannonRelease.ProperAction ρ ∧ Chal.CannonRelease.CocompactAction ρ ∧ (↑ρ.ker).Finite
+structure Chal.CannonRelease.CayleyData.{u} (G : Type u) [Group G] : Type u
+number of parameters: 2
+fields:
+  Chal.CannonRelease.CayleyData.generators : Finset G
+  Chal.CannonRelease.CayleyData.symmetric : ∀ x ∈ self.generators, x⁻¹ ∈ self.generators
+  Chal.CannonRelease.CayleyData.connected : (SimpleGraph.mulCayley ↑self.generators).Connected
+constructor:
+  Chal.CannonRelease.CayleyData.mk.{u} {G : Type u} [Group G] (generators : Finset G)
+    (symmetric : ∀ x ∈ generators, x⁻¹ ∈ generators) (connected : (SimpleGraph.mulCayley ↑generators).Connected) :
+    Chal.CannonRelease.CayleyData G
+def Chal.CannonRelease.CayleyData.graph.{u} : {G : Type u} →
+  [inst : Group G] → Chal.CannonRelease.CayleyData G → SimpleGraph G :=
+fun {G} [Group G] D => SimpleGraph.mulCayley ↑D.generators
+def Chal.CannonRelease.CayleyData.ThinTriangles.{u} : {G : Type u} →
+  [inst : Group G] → Chal.CannonRelease.CayleyData G → Prop :=
+fun {G} [Group G] D =>
+  ∃ δ,
+    ∀ (x y z : G) (p : D.graph.Walk x y) (q : D.graph.Walk y z) (r : D.graph.Walk z x),
+      p.length = D.graph.dist x y →
+        q.length = D.graph.dist y z →
+          r.length = D.graph.dist z x → ∀ a ∈ p.support, ∃ b ∈ q.support ++ r.support, D.graph.dist a b ≤ δ
+def Chal.CannonRelease.BasedRay.{u} : {G : Type u} →
+  [inst : Group G] → Chal.CannonRelease.CayleyData G → Type (max 0 u) :=
+fun {G} [Group G] D => { r // r 0 = 1 ∧ ∀ (i j : ℕ), D.graph.dist (r i) (r j) = i.dist j }
+def Chal.CannonRelease.raySetoid.{u} : {G : Type u} →
+  [inst : Group G] → (D : Chal.CannonRelease.CayleyData G) → Setoid (Chal.CannonRelease.BasedRay D) :=
+fun {G} [Group G] D => { r := fun r s => ∃ C, ∀ (n : ℕ), D.graph.dist (↑r n) (↑s n) ≤ C, iseqv := ⋯ }
+def Chal.CannonRelease.Boundary.{u} : {G : Type u} → [inst : Group G] → Chal.CannonRelease.CayleyData G → Type u :=
+fun {G} [Group G] D => Quotient (Chal.CannonRelease.raySetoid D)
+@[reducible] def Chal.CannonRelease.SphereTwo : Type :=
+{ x // x ∈ Metric.sphere 0 1 }
+def Chal.CannonRelease.HyperbolicThree : Type :=
+{ x // 0 < x 2 }
+def Chal.CannonRelease.hyperbolicDist : Chal.CannonRelease.HyperbolicThree → Chal.CannonRelease.HyperbolicThree → ℝ :=
+fun x y => Real.arcosh (1 + (∑ i, (↑x i - ↑y i) ^ 2) / (2 * ↑x 2 * ↑y 2))
+def Chal.CannonRelease.hyperbolicIsometries : Subgroup
+  (Chal.CannonRelease.HyperbolicThree ≃ₜ Chal.CannonRelease.HyperbolicThree) :=
+{
+  carrier :=
+    {f |
+      ∀ (x y : Chal.CannonRelease.HyperbolicThree),
+        Chal.CannonRelease.hyperbolicDist (f x) (f y) = Chal.CannonRelease.hyperbolicDist x y},
+  mul_mem' := @Chal.CannonRelease.hyperbolicIsometries._proof_1,
+  one_mem' := Chal.CannonRelease.hyperbolicIsometries._proof_2,
+  inv_mem' := @Chal.CannonRelease.hyperbolicIsometries._proof_3 }
+@[reducible] def Chal.CannonRelease.H3Isom : Type :=
+↥Chal.CannonRelease.hyperbolicIsometries
+def Chal.CannonRelease.ProperAction.{u} : {G : Type u} → [inst : Group G] → (G →* Chal.CannonRelease.H3Isom) → Prop :=
+fun {G} [Group G] ρ => ∀ (K : Set Chal.CannonRelease.HyperbolicThree), IsCompact K → {g | ∃ x ∈ K, ↑(ρ g) x ∈ K}.Finite
+def Chal.CannonRelease.CocompactAction.{u} : {G : Type u} →
+  [inst : Group G] → (G →* Chal.CannonRelease.H3Isom) → Prop :=
+fun {G} [Group G] ρ => ∃ K, IsCompact K ∧ ∀ (x : Chal.CannonRelease.HyperbolicThree), ∃ g, ∃ y ∈ K, ↑(ρ g) y = x
+'OAI.CannonRelease.cannon' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CannonGeometricAction comparator-style: ok=38 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
