@@ -1,0 +1,57 @@
+OAI.SK.main : ∀ (β : ℝ),
+  1 < β →
+    Filter.Tendsto (OAI.SK.continuousBadMass β) Filter.atTop (nhds 1) ∧
+      Filter.Tendsto (OAI.SK.discreteBadMass β) Filter.atTop (nhds 1)
+'OAI.SK.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SK.Config : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.SK.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def OAI.SK.Disorder : ℕ → Type :=
+fun n => OAI.SK.Edge n → ℝ
+def OAI.SK.spin : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.SK.hamiltonian : {n : ℕ} → OAI.SK.Disorder n → OAI.SK.Config n → ℝ :=
+fun {n} J x => (∑ e, J e * OAI.SK.spin (x (↑e).1) * OAI.SK.spin (x (↑e).2)) / √↑n
+def OAI.SK.partition : {n : ℕ} → ℝ → OAI.SK.Disorder n → ℝ :=
+fun {n} β J => ∑ x, Real.exp (β * OAI.SK.hamiltonian J x)
+def OAI.SK.gibbs : {n : ℕ} → ℝ → OAI.SK.Disorder n → OAI.SK.Config n → ℝ :=
+fun {n} β J x => Real.exp (β * OAI.SK.hamiltonian J x) / OAI.SK.partition β J
+def OAI.SK.coupling : {n : ℕ} → OAI.SK.Disorder n → Fin n → Fin n → ℝ :=
+fun {n} J i j => if h : i < j then J ⟨(i, j), h⟩ else if h : j < i then J ⟨(j, i), h⟩ else 0
+def OAI.SK.localField : {n : ℕ} → OAI.SK.Disorder n → OAI.SK.Config n → Fin n → ℝ :=
+fun {n} J x i => (∑ j, OAI.SK.coupling J i j * OAI.SK.spin (x j)) / √↑n
+def OAI.SK.heatBath : {n : ℕ} → ℝ → OAI.SK.Disorder n → OAI.SK.Config n → OAI.SK.Config n → ℝ :=
+fun {n} β J x y =>
+  (∑ i,
+      if Function.update x i (y i) = y then
+        Real.exp (β * OAI.SK.spin (y i) * OAI.SK.localField J x i) / (2 * Real.cosh (β * OAI.SK.localField J x i))
+      else 0) /
+    ↑n
+def OAI.SK.discreteKernel : {n : ℕ} → ℝ → OAI.SK.Disorder n → ℕ → OAI.SK.Config n → OAI.SK.Config n → ℝ :=
+fun {n} β J x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => OAI.SK.Config n → OAI.SK.Config n → ℝ) x (OAI.SK.discreteKernel._f β J) x_1 x_2
+def OAI.SK.continuousKernel : {n : ℕ} → ℝ → OAI.SK.Disorder n → ℝ → OAI.SK.Config n → OAI.SK.Config n → ℝ :=
+fun {n} β J t x y => ∑' (k : ℕ), Real.exp (-↑n * t) * (↑n * t) ^ k / ↑k.factorial * OAI.SK.discreteKernel β J k x y
+def OAI.SK.discreteDistance : {n : ℕ} → ℝ → OAI.SK.Disorder n → OAI.SK.Config n → ℕ → ℝ :=
+fun {n} β J x k => 1 / 2 * ∑ y, |OAI.SK.discreteKernel β J k x y - OAI.SK.gibbs β J y|
+def OAI.SK.continuousDistance : {n : ℕ} → ℝ → OAI.SK.Disorder n → OAI.SK.Config n → ℝ → ℝ :=
+fun {n} β J x t => 1 / 2 * ∑ y, |OAI.SK.continuousKernel β J t x y - OAI.SK.gibbs β J y|
+def OAI.SK.disorderLaw : (n : ℕ) → MeasureTheory.Measure (OAI.SK.Disorder n) :=
+fun n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 1
+def OAI.SK.kappa : ℝ :=
+1 / 10000
+def OAI.SK.timeScale : ℕ → ℝ :=
+fun n => Real.exp (↑n ^ OAI.SK.kappa)
+def OAI.SK.continuousBadMass : ℝ → ℕ → ℝ :=
+fun β n =>
+  ∫ (J : OAI.SK.Disorder n),
+    ∑ x,
+      if 1 / 4 < OAI.SK.continuousDistance β J x (OAI.SK.timeScale n) then OAI.SK.gibbs β J x
+      else 0 ∂OAI.SK.disorderLaw n
+def OAI.SK.discreteBadMass : ℝ → ℕ → ℝ :=
+fun β n =>
+  ∫ (J : OAI.SK.Disorder n),
+    ∑ x,
+      if 1 / 4 < OAI.SK.discreteDistance β J x ⌊OAI.SK.timeScale n⌋₊ then OAI.SK.gibbs β J x
+      else 0 ∂OAI.SK.disorderLaw n
