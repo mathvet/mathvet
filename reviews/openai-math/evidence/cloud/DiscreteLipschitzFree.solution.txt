@@ -1,0 +1,52 @@
+OAI.DiscreteFree.source_endpoints : OAI.DiscreteFree.BlockStatement ∧ OAI.DiscreteFree.MainStatement
+'OAI.DiscreteFree.source_endpoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.DiscreteFree.lipSubmodule.{u_1} : {M : Type u_1} → [MetricSpace M] → M → Submodule ℝ (M → ℝ) :=
+fun {M} [MetricSpace M] o =>
+  { carrier := {f | f o = 0 ∧ ∃ C, 0 ≤ C ∧ ∀ (x y : M), |f x - f y| ≤ C * dist x y}, add_mem' := ⋯, zero_mem' := ⋯,
+    smul_mem' := ⋯ }
+def OAI.DiscreteFree.Lip0.{u_1} : {M : Type u_1} → [MetricSpace M] → M → Type u_1 :=
+fun {M} [MetricSpace M] o => ↥(OAI.DiscreteFree.lipSubmodule o)
+def OAI.DiscreteFree.Lip0.slope.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → (o : M) → OAI.DiscreteFree.Lip0 o →ₗ[ℝ] ↥(lp (fun x => ℝ) ⊤) :=
+fun {M} [MetricSpace M] o =>
+  { toFun := fun f => ⟨fun z => (↑f z.1 - ↑f z.2) / dist z.1 z.2, ⋯⟩, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.DiscreteFree.evaluation.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → (o : M) → M → OAI.DiscreteFree.Lip0 o →L[ℝ] ℝ :=
+fun {M} [MetricSpace M] o x => { toFun := fun f => ↑f x, map_add' := ⋯, map_smul' := ⋯ }.mkContinuous (dist x o) ⋯
+def OAI.DiscreteFree.freeSubmodule.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → (o : M) → Submodule ℝ (OAI.DiscreteFree.Lip0 o →L[ℝ] ℝ) :=
+fun {M} [MetricSpace M] o => (Submodule.span ℝ (Set.range (OAI.DiscreteFree.evaluation o))).topologicalClosure
+def OAI.DiscreteFree.FreeSpace.{u_1} : {M : Type u_1} → [MetricSpace M] → M → Type u_1 :=
+fun {M} [MetricSpace M] o => ↥(OAI.DiscreteFree.freeSubmodule o)
+def OAI.DiscreteFree.delta.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → (o : M) → M → OAI.DiscreteFree.FreeSpace o :=
+fun {M} [MetricSpace M] o x => ⟨OAI.DiscreteFree.evaluation o x, ⋯⟩
+def OAI.DiscreteFree.HasAP.{u_2} : (X : Type u_2) → [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] =>
+  ∀ (C : Set X), IsCompact C → ∀ (ε : ℝ), 0 < ε → ∃ T, Module.Finite ℝ ↥(↑T).range ∧ ∃ η < ε, ∀ u ∈ C, ‖T u - u‖ ≤ η
+def OAI.DiscreteFree.HasBAP.{u_2} : (X : Type u_2) → [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → ℝ → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] Λ =>
+  ∀ (C : Set X),
+    IsCompact C → ∀ (ε : ℝ), 0 < ε → ∃ T, Module.Finite ℝ ↥(↑T).range ∧ ‖T‖ ≤ Λ ∧ ∃ η < ε, ∀ u ∈ C, ‖T u - u‖ ≤ η
+def OAI.DiscreteFree.blockBound : ℕ → ℝ :=
+fun p => 300 * ↑p ^ 2 + 150 * ↑p + 5
+def OAI.DiscreteFree.BlockStatement : Prop :=
+∀ (p : ℕ),
+  1 ≤ p →
+    ∃ M d o,
+      Countable M ∧
+        (∀ (x y : M), x ≠ y → 1 ≤ dist x y) ∧
+          (∀ (x y : M), dist x y ≤ OAI.DiscreteFree.blockBound p) ∧
+            ∃ A,
+              o ∈ A ∧
+                ∀ (T : OAI.DiscreteFree.FreeSpace o →L[ℝ] OAI.DiscreteFree.FreeSpace o),
+                  Module.Finite ℝ ↥(↑T).range →
+                    ‖T‖ ≤ ↑p → ∃ a ∈ A, 1 / 2 ≤ ‖T (OAI.DiscreteFree.delta o a) - OAI.DiscreteFree.delta o a‖
+def OAI.DiscreteFree.MainStatement : Prop :=
+∃ M d o,
+  Countable M ∧
+    (∀ (x y : M), x ≠ y → 1 ≤ dist x y) ∧
+      ¬Bornology.IsBounded Set.univ ∧
+        ¬ProperSpace M ∧
+          OAI.DiscreteFree.HasAP (OAI.DiscreteFree.FreeSpace o) ∧
+            ∀ (Λ : ℝ), 1 ≤ Λ → ¬OAI.DiscreteFree.HasBAP (OAI.DiscreteFree.FreeSpace o) Λ
