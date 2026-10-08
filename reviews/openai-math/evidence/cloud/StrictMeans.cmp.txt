@@ -1,0 +1,41 @@
+CMP OAI.StrictInverseFirstPower.main [thm] ok
+CMP OAI.StrictInverseFirstPower.kraetzerPrediction [def] ok
+CMP OAI.StrictInverseFirstPower.kraetzerPrediction._proof_1 [thm] ok
+CMP OAI.StrictInverseFirstPower.integralMean._proof_1 [thm] ok
+CMP OAI.StrictInverseFirstPower.boundedSpectrum [def] ok
+CMP OAI.StrictInverseFirstPower.growthExponent [def] ok
+CMP OAI.StrictInverseFirstPower.integralMean [def] ok
+CMP OAI.StrictInverseFirstPower.BoundedNormalizedUnivalent [def] ok
+CMP OAI.StrictInverseFirstPower.disk [def] ok
+CMP OAI.StrictInverseFirstPower.NormalizedUnivalent [def] ok
+Chal.StrictInverseFirstPower.main : (∃ ε C,
+    0 < ε ∧
+      ε < 1 / 4 ∧
+        ∀ (f : ℂ → ℂ),
+          Chal.StrictInverseFirstPower.NormalizedUnivalent f →
+            ∀ (r : ℝ),
+              1 / 2 ≤ r → r < 1 → Chal.StrictInverseFirstPower.integralMean (-1) f r ≤ C * (1 - r) ^ (-(1 / 4) + ε)) ∧
+  Chal.StrictInverseFirstPower.boundedSpectrum (-1) < 1 / 4 ∧
+    ¬∀ (p : ℝ), Chal.StrictInverseFirstPower.boundedSpectrum p = Chal.StrictInverseFirstPower.kraetzerPrediction p
+def Chal.StrictInverseFirstPower.disk : Set ℂ :=
+Metric.ball 0 1
+def Chal.StrictInverseFirstPower.NormalizedUnivalent : (ℂ → ℂ) → Prop :=
+fun f =>
+  DifferentiableOn ℂ f Chal.StrictInverseFirstPower.disk ∧
+    Set.InjOn f Chal.StrictInverseFirstPower.disk ∧ f 0 = 0 ∧ deriv f 0 = 1
+def Chal.StrictInverseFirstPower.BoundedNormalizedUnivalent : (ℂ → ℂ) → Prop :=
+fun f => Chal.StrictInverseFirstPower.NormalizedUnivalent f ∧ ∃ R, ∀ z ∈ Chal.StrictInverseFirstPower.disk, ‖f z‖ ≤ R
+def Chal.StrictInverseFirstPower.integralMean : ℝ → (ℂ → ℂ) → ℝ → ℝ :=
+fun p f r => (2 * Real.pi)⁻¹ * ∫ (θ : ℝ) in -Real.pi..Real.pi, ‖deriv f (↑r * Complex.exp (↑θ * Complex.I))‖ ^ p
+def Chal.StrictInverseFirstPower.growthExponent : ℝ → (ℂ → ℂ) → EReal :=
+fun p f =>
+  Filter.limsup (fun r => ↑(Real.log (Chal.StrictInverseFirstPower.integralMean p f r) / Real.log (1 / (1 - r))))
+    (nhdsWithin 1 (Set.Iio 1))
+def Chal.StrictInverseFirstPower.boundedSpectrum : ℝ → EReal :=
+fun p =>
+  ⨆ f,
+    ⨆ (_ : Chal.StrictInverseFirstPower.BoundedNormalizedUnivalent f), Chal.StrictInverseFirstPower.growthExponent p f
+def Chal.StrictInverseFirstPower.kraetzerPrediction : ℝ → EReal :=
+fun p => if |p| ≤ 2 then ↑(p ^ 2 / 4) else ↑(|p| - 1)
+'OAI.StrictInverseFirstPower.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StrictMeans comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
