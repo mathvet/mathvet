@@ -1,0 +1,25 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SingleLatticeCovering.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SingleLatticeCovering.single_lattice_covering [thm] ok
+CMP OAI.SingleLatticeCovering.LatticeCovers [def] ok
+CMP OAI.SingleLatticeCovering.Space [def] ok
+CMP OAI.SingleLatticeCovering.IsConvexBody [def] ok
+Chal.SingleLatticeCovering.single_lattice_covering : ∃ C,
+  0 < C ∧
+    ∀ (n : ℕ),
+      2 ≤ n →
+        ∀ (K : Set (Chal.SingleLatticeCovering.Space n)),
+          Chal.SingleLatticeCovering.IsConvexBody K →
+            ∃ L,
+              ∃ (x : DiscreteTopology ↥L),
+                IsZLattice ℝ L ∧
+                  Chal.SingleLatticeCovering.LatticeCovers K L ∧
+                    (MeasureTheory.volume K).toReal / ZLattice.covolume L MeasureTheory.volume ≤ C * ↑n * Real.log ↑n
+@[reducible] def Chal.SingleLatticeCovering.Space : ℕ → Type :=
+fun n => Fin n → ℝ
+def Chal.SingleLatticeCovering.IsConvexBody : {n : ℕ} → Set (Chal.SingleLatticeCovering.Space n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty
+def Chal.SingleLatticeCovering.LatticeCovers : {n : ℕ} →
+  Set (Chal.SingleLatticeCovering.Space n) → Submodule ℤ (Chal.SingleLatticeCovering.Space n) → Prop :=
+fun {n} K L => K + ↑L = Set.univ
+'OAI.SingleLatticeCovering.single_lattice_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SingleLatticeCovering comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

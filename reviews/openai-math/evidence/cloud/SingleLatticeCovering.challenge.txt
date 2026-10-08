@@ -1,0 +1,19 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SingleLatticeCovering.lean:20:8: warning: declaration uses `sorry`
+OAI.SingleLatticeCovering.single_lattice_covering : ∃ C,
+  0 < C ∧
+    ∀ (n : ℕ),
+      2 ≤ n →
+        ∀ (K : Set (OAI.SingleLatticeCovering.Space n)),
+          OAI.SingleLatticeCovering.IsConvexBody K →
+            ∃ L,
+              ∃ (x : DiscreteTopology ↥L),
+                IsZLattice ℝ L ∧
+                  OAI.SingleLatticeCovering.LatticeCovers K L ∧
+                    (MeasureTheory.volume K).toReal / ZLattice.covolume L MeasureTheory.volume ≤ C * ↑n * Real.log ↑n
+@[reducible] def OAI.SingleLatticeCovering.Space : ℕ → Type :=
+fun n => Fin n → ℝ
+def OAI.SingleLatticeCovering.IsConvexBody : {n : ℕ} → Set (OAI.SingleLatticeCovering.Space n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty
+def OAI.SingleLatticeCovering.LatticeCovers : {n : ℕ} →
+  Set (OAI.SingleLatticeCovering.Space n) → Submodule ℤ (OAI.SingleLatticeCovering.Space n) → Prop :=
+fun {n} K L => K + ↑L = Set.univ
