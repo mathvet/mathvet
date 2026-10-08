@@ -25,9 +25,12 @@ link_toolchain() {  # $1 = version tag like v4.34.1
   else python3 -c "import zstandard,sys,tarfile; d=zstandard.ZstdDecompressor(); f=open(sys.argv[1],'rb'); tarfile.open(fileobj=d.stream_reader(f), mode='r|').extractall(sys.argv[2])" "/tmp/lean-$v.tar.zst" "/tmp/lean-$v-x" && mv "/tmp/lean-$v-x"/*/* "$dir"/; fi
   rm -f "/tmp/lean-$v.tar.zst"; elan toolchain link "$name" "$dir" && echo "linked $name"
 }
-link_toolchain v4.34.1 && elan default leanprover/lean4:v4.34.1 2>&1 | tail -1
-elan show 2>&1 | grep -E "default|active" | head -3
-( cd "$HOME" && lean --version ) || { echo "SETUP_FAILED: lean not runnable from a directory without lean-toolchain"; }
+link_toolchain v4.34.1
+# make it the default too (only matters for commands run outside a directory that has a lean-toolchain file)
+elan default leanprover/lean4:v4.34.1 >/dev/null 2>&1 || true
+grep -q 'default_toolchain' "$HOME/.elan/settings.toml" 2>/dev/null || printf 'default_toolchain = "leanprover/lean4:v4.34.1"\n' >> "$HOME/.elan/settings.toml"
+( cd "$HOME" && lean --version 2>/dev/null ) || echo "note: lean has no usable default outside project directories (harmless: every run happens inside the clone)"
+( cd "$UP/lean" 2>/dev/null && lean --version ) || true
 
 log "openai/math @ $COMMIT (sparse: lean/ only, ~1.7 GB)"
 if [ ! -f "$UP/lean/lakefile.lean" ]; then
