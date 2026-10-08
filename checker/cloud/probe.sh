@@ -14,7 +14,7 @@ echo "-- reachability"
 for u in https://github.com https://api.github.com https://raw.githubusercontent.com https://objects.githubusercontent.com https://release-assets.githubusercontent.com https://releases.lean-lang.org https://cache.mathlib.org https://lakecache.blob.core.windows.net https://reservoir.lean-lang.org https://pypi.org; do printf "%s -> %s\n" "$u" "$(curl -s -o /dev/null -m 15 -w '%{http_code}' "$u" || echo FAIL)"; done
 echo "-- toolchain v4.34.1 via GitHub release asset"
 T0=$(date +%s); command -v zstd >/dev/null || (apt-get install -y -qq zstd >/dev/null 2>&1 || true)
-curl -fL -o /tmp/lean.tar.zst "https://github.com/leanprover/lean4/releases/download/v4.34.1/lean-4.34.1-linux_x86_64.tar.zst" && mkdir -p /tmp/lean && tar --zstd -xf /tmp/lean.tar.zst -C /tmp/lean --strip-components=1 && /tmp/lean/bin/lean --version; echo "toolchain seconds=$(( $(date +%s) - T0 )) size=$(du -sh /tmp/lean | cut -f1)"
+curl -fL -o /tmp/lean.tar.zst "https://github.com/leanprover/lean4/releases/download/v4.34.1/lean-4.34.1-linux.tar.zst" && mkdir -p /tmp/lean && tar --zstd -xf /tmp/lean.tar.zst -C /tmp/lean --strip-components=1 && /tmp/lean/bin/lean --version; echo "toolchain seconds=$(( $(date +%s) - T0 )) size=$(du -sh /tmp/lean | cut -f1)"
 echo "-- mathlib mirror asset reachable"; curl -sI -L -m 20 -o /dev/null -w "mirror HEAD -> %{http_code} %{size_download}\n" https://github.com/ceshanon/mathvet/releases/download/mathlib-cache-d13f23b/mathlib-cache-d13f23b.tar.sha256
 echo "-- env"; env | grep -i -E 'CLAUDE_CODE_REMOTE|BASH_|TIMEOUT' | sed 's/=.*/=(set)/' | tr '\n' ' '; echo "BASH_DEFAULT_TIMEOUT_MS=$BASH_DEFAULT_TIMEOUT_MS"
 echo "-- python benchmark"; python3 -c "

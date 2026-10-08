@@ -18,7 +18,7 @@ if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.co
 link_toolchain() {  # $1 = version tag like v4.34.1
   local v="$1" name="leanprover/lean4:$1" dir="$HOME/.elan/toolchains/leanprover--lean4---$1"
   if elan toolchain list 2>/dev/null | grep -q "lean4---$v"; then echo "toolchain $v present"; return 0; fi
-  local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux_x86_64;; aarch64|arm64) a=linux_aarch64;; esac
+  local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux;; aarch64|arm64) a=linux_aarch64;; esac   # release assets: lean-<v>-linux.tar.zst / -linux_aarch64
   command -v zstd >/dev/null || (apt-get install -y -qq zstd >/dev/null 2>&1 || sudo apt-get install -y -qq zstd >/dev/null 2>&1 || true)
   mkdir -p "$dir" && curl -fL -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst" \
     && tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1 && rm -f "/tmp/lean-$v.tar.zst" \
