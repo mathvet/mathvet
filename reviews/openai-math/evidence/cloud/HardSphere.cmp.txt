@@ -1,6 +1,6 @@
 CMP OAI.HardSphere.condensation_with_mixed [thm] ok
 CMP OAI.HardSphere.mixedOccupation [def] ok
-CMP OAI.HardSphere.Orbital.continuous [def] VALUE_MISMATCH
+CMP OAI.HardSphere.Orbital.continuous [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.HardSphere.Orbital.continuous._proof_17 [thm] ok
 CMP OAI.HardSphere.Orbital.continuous._proof_16 [thm] ok
 CMP OAI.HardSphere.Orbital.continuous._proof_14 [thm] ok
@@ -15,7 +15,7 @@ CMP OAI.HardSphere.Orbital.continuous._proof_9 [thm] ok
 CMP OAI.HardSphere.Orbital.continuous._proof_8 [thm] ok
 CMP OAI.HardSphere.Orbital.continuous._proof_7 [thm] ok
 CMP OAI.HardSphere.ScalarL2._proof_2 [thm] ok
-CMP OAI.HardSphere.Orbital.map [def] VALUE_MISMATCH
+CMP OAI.HardSphere.Orbital.map [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.HardSphere.Orbital.map._proof_10 [thm] ok
 CMP OAI.HardSphere.insertFirst [def] ok
 CMP OAI.HardSphere.insertFirst._proof_1 [thm] ok
@@ -27,7 +27,7 @@ CMP OAI.HardSphere.Orbital.map._proof_7 [thm] ok
 CMP OAI.HardSphere.Orbital.map._proof_6 [thm] ok
 CMP OAI.HardSphere.Orbital.map._proof_5 [thm] ok
 CMP OAI.HardSphere.Orbital.map._proof_4 [thm] ok
-CMP OAI.HardSphere.Orbital.map._proof_3 [thm] TYPE_MISMATCH
+CMP OAI.HardSphere.Orbital.map._proof_3 [thm] TYPE_MISMATCH (types NOT definitionally equal)
 CMP OAI.HardSphere.Orbital.map._proof_1 [thm] ok
 CMP OAI.HardSphere.Orbital.continuous._proof_13 [thm] ok
 CMP OAI.HardSphere.occupation [def] ok
@@ -242,4 +242,4 @@ def Chal.HardSphere.mixedOccupation : {N : ℕ} →
   0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.Density.Operator (Chal.HardSphere.ScalarL2 N L) → ℝ :=
 fun {N} hN {L} T => T.compressionTrace (Chal.HardSphere.Orbital.continuous hN)
 'OAI.HardSphere.condensation_with_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
-== HardSphere comparator-style: ok=71 problems=3 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== HardSphere comparator-style: ok=71 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=2
