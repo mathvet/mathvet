@@ -1,5 +1,5 @@
 CMP OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity [thm] ok
-CMP OAI.TalagrandDiscreteConvexity.exceptional [def] VALUE_MISMATCH
+CMP OAI.TalagrandDiscreteConvexity.exceptional [def] VALUE_MISMATCH (types definitionally equal, values NOT)
 CMP OAI.TalagrandDiscreteConvexity.unionTuple [def] ok
 CMP OAI.TalagrandDiscreteConvexity.Family [def] ok
 CMP OAI.TalagrandDiscreteConvexity.Small [def] ok
@@ -41,4 +41,4 @@ def Chal.TalagrandDiscreteConvexity.exceptional.{u_1} : {α : Type u_1} →
 fun {α} [Fintype α] [DecidableEq α] k D =>
   {S | ∀ (f : Fin k → Finset α), (∀ (j : Fin k), f j ∈ D) → ¬S ⊆ Chal.TalagrandDiscreteConvexity.unionTuple f}
 'OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity' depends on axioms: [propext, Classical.choice, Quot.sound]
-== TalagrandDiscreteConvexity comparator-style: ok=9 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== TalagrandDiscreteConvexity comparator-style: ok=9 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
