@@ -1,0 +1,172 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ParityLifts.lean:204:8: warning: declaration uses `sorry`
+OAI.ParityWL.parity_reduction : OAI.ParityWL.ParityReductionStatement
+@[reducible] def OAI.ParityWL.Bit : Type :=
+ZMod 2
+@[reducible] def OAI.ParityWL.MainPair : ℕ → Type :=
+fun t => { p // p.1 < p.2 }
+@[reducible] def OAI.ParityWL.Helper : ℕ → Type :=
+fun t => { q // q.2 ≠ (↑q.1).1 ∧ q.2 ≠ (↑q.1).2 }
+@[reducible] def OAI.ParityWL.TemplateVertex : ℕ → Type :=
+fun t => Fin t ⊕ OAI.ParityWL.Helper t
+structure OAI.ParityWL.ChoiceSystem (t : ℕ) : Type 1
+number of parameters: 1
+fields:
+  OAI.ParityWL.ChoiceSystem.Domain : Fin t → Type
+  OAI.ParityWL.ChoiceSystem.domainFintype : (i : Fin t) → Fintype (self.Domain i)
+  OAI.ParityWL.ChoiceSystem.Label : OAI.ParityWL.MainPair t → Type
+  OAI.ParityWL.ChoiceSystem.labelFintype : (p : OAI.ParityWL.MainPair t) → Fintype (self.Label p)
+  OAI.ParityWL.ChoiceSystem.leftLabel : (p : OAI.ParityWL.MainPair t) → self.Domain (↑p).1 → self.Label p
+  OAI.ParityWL.ChoiceSystem.rightLabel : (p : OAI.ParityWL.MainPair t) → self.Domain (↑p).2 → self.Label p
+constructor:
+  OAI.ParityWL.ChoiceSystem.mk {t : ℕ} (Domain : Fin t → Type) (domainFintype : (i : Fin t) → Fintype (Domain i))
+    (Label : OAI.ParityWL.MainPair t → Type) (labelFintype : (p : OAI.ParityWL.MainPair t) → Fintype (Label p))
+    (leftLabel : (p : OAI.ParityWL.MainPair t) → Domain (↑p).1 → Label p)
+    (rightLabel : (p : OAI.ParityWL.MainPair t) → Domain (↑p).2 → Label p) : OAI.ParityWL.ChoiceSystem t
+def OAI.ParityWL.ChoiceSystem.Successful : {t : ℕ} → OAI.ParityWL.ChoiceSystem t → Prop :=
+fun {t} C => ∃ d, ∀ (p : OAI.ParityWL.MainPair t), C.leftLabel p (d (↑p).1) = C.rightLabel p (d (↑p).2)
+def OAI.ParityWL.ChoiceSystem.SizeAtMost : {t : ℕ} → OAI.ParityWL.ChoiceSystem t → ℕ → Prop :=
+fun {t} C A =>
+  (∀ (i : Fin t), Fintype.card (C.Domain i) ≤ A) ∧ ∀ (p : OAI.ParityWL.MainPair t), Fintype.card (C.Label p) ≤ A
+def OAI.ParityWL.helperIncident : {t : ℕ} → OAI.ParityWL.Helper t → Fin t → Prop :=
+fun {t} h i => i = (↑(↑h).1).1 ∨ i = (↑(↑h).1).2 ∨ i = (↑h).2
+def OAI.ParityWL.templateAdj : {t : ℕ} → OAI.ParityWL.TemplateVertex t → OAI.ParityWL.TemplateVertex t → Prop :=
+fun {t} x x_1 =>
+  match x, x_1 with
+  | Sum.inl i, Sum.inl j => i ≠ j
+  | Sum.inl i, Sum.inr h => OAI.ParityWL.helperIncident h i
+  | Sum.inr h, Sum.inl i => OAI.ParityWL.helperIncident h i
+  | Sum.inr val, Sum.inr val_1 => False
+def OAI.ParityWL.template : (t : ℕ) → SimpleGraph (OAI.ParityWL.TemplateVertex t) :=
+fun t => { Adj := OAI.ParityWL.templateAdj, symm := ⋯, loopless := ⋯ }
+@[reducible] def OAI.ParityWL.BaseVertex : {t : ℕ} → OAI.ParityWL.ChoiceSystem t → Type :=
+fun {t} C => (i : Fin t) × C.Domain i ⊕ (h : OAI.ParityWL.Helper t) × C.Label (↑h).1
+def OAI.ParityWL.baseType : {t : ℕ} →
+  {C : OAI.ParityWL.ChoiceSystem t} → OAI.ParityWL.BaseVertex C → OAI.ParityWL.TemplateVertex t :=
+fun {t} {C} x =>
+  match x with
+  | Sum.inl x => Sum.inl x.fst
+  | Sum.inr x => Sum.inr x.fst
+inductive OAI.ParityWL.BaseArc : {t : ℕ} →
+  (C : OAI.ParityWL.ChoiceSystem t) → OAI.ParityWL.BaseVertex C → OAI.ParityWL.BaseVertex C → Prop
+number of parameters: 2
+constructors:
+OAI.ParityWL.BaseArc.main : ∀ {t : ℕ} {C : OAI.ParityWL.ChoiceSystem t} (p : OAI.ParityWL.MainPair t)
+  (d : C.Domain (↑p).1) (e : C.Domain (↑p).2),
+  C.leftLabel p d = C.rightLabel p e → OAI.ParityWL.BaseArc C (Sum.inl ⟨(↑p).1, d⟩) (Sum.inl ⟨(↑p).2, e⟩)
+OAI.ParityWL.BaseArc.left : ∀ {t : ℕ} {C : OAI.ParityWL.ChoiceSystem t} (h : OAI.ParityWL.Helper t)
+  (d : C.Domain (↑(↑h).1).1), OAI.ParityWL.BaseArc C (Sum.inr ⟨h, C.leftLabel (↑h).1 d⟩) (Sum.inl ⟨(↑(↑h).1).1, d⟩)
+OAI.ParityWL.BaseArc.right : ∀ {t : ℕ} {C : OAI.ParityWL.ChoiceSystem t} (h : OAI.ParityWL.Helper t)
+  (e : C.Domain (↑(↑h).1).2), OAI.ParityWL.BaseArc C (Sum.inr ⟨h, C.rightLabel (↑h).1 e⟩) (Sum.inl ⟨(↑(↑h).1).2, e⟩)
+OAI.ParityWL.BaseArc.third : ∀ {t : ℕ} {C : OAI.ParityWL.ChoiceSystem t} (h : OAI.ParityWL.Helper t)
+  (q : C.Label (↑h).1) (f : C.Domain (↑h).2), OAI.ParityWL.BaseArc C (Sum.inr ⟨h, q⟩) (Sum.inl ⟨(↑h).2, f⟩)
+def OAI.ParityWL.baseGraph : {t : ℕ} → (C : OAI.ParityWL.ChoiceSystem t) → SimpleGraph (OAI.ParityWL.BaseVertex C) :=
+fun {t} C => SimpleGraph.fromRel (OAI.ParityWL.BaseArc C)
+def OAI.ParityWL.baseProjection : {t : ℕ} →
+  (C : OAI.ParityWL.ChoiceSystem t) → OAI.ParityWL.baseGraph C →g OAI.ParityWL.template t :=
+fun {t} C => { toFun := OAI.ParityWL.baseType, map_rel' := ⋯ }
+def OAI.ParityWL.Tag : {A : Type} → [Fintype A] → SimpleGraph A → (A → OAI.ParityWL.Bit) → A → Type :=
+fun {A} [Fintype A] T b a => { z // ∑ v, z v = b a }
+@[reducible] def OAI.ParityWL.LiftVertex : {A V : Type} →
+  [Fintype A] → (T : SimpleGraph A) → (G : SimpleGraph V) → G →g T → (A → OAI.ParityWL.Bit) → Type :=
+fun {A V} [Fintype A] T G τ b => (u : V) × OAI.ParityWL.Tag T b (τ u)
+def OAI.ParityWL.liftGraph : {A V : Type} →
+  [inst : Fintype A] →
+    (T : SimpleGraph A) →
+      (G : SimpleGraph V) → (τ : G →g T) → (b : A → OAI.ParityWL.Bit) → SimpleGraph (OAI.ParityWL.LiftVertex T G τ b) :=
+fun {A V} [Fintype A] T G τ b =>
+  { Adj := fun u v => ∃ (h : G.Adj u.fst v.fst), ↑u.snd ⟨τ v.fst, ⋯⟩ = ↑v.snd ⟨τ u.fst, ⋯⟩, symm := ⋯, loopless := ⋯ }
+def OAI.ParityWL.starParity : (t : ℕ) → OAI.ParityWL.TemplateVertex t → OAI.ParityWL.Bit :=
+fun t a => if ∃ i, ↑i = 0 ∧ a = Sum.inl i then 1 else 0
+def OAI.ParityWL.zeroLift : {t : ℕ} →
+  (C : OAI.ParityWL.ChoiceSystem t) →
+    SimpleGraph
+      (OAI.ParityWL.LiftVertex (OAI.ParityWL.template t) (OAI.ParityWL.baseGraph C) (OAI.ParityWL.baseProjection C)
+        fun x => 0) :=
+fun {t} C =>
+  OAI.ParityWL.liftGraph (OAI.ParityWL.template t) (OAI.ParityWL.baseGraph C) (OAI.ParityWL.baseProjection C) fun x => 0
+def OAI.ParityWL.starLift : {t : ℕ} →
+  (C : OAI.ParityWL.ChoiceSystem t) →
+    SimpleGraph
+      (OAI.ParityWL.LiftVertex (OAI.ParityWL.template t) (OAI.ParityWL.baseGraph C) (OAI.ParityWL.baseProjection C)
+        (OAI.ParityWL.starParity t)) :=
+fun {t} C =>
+  OAI.ParityWL.liftGraph (OAI.ParityWL.template t) (OAI.ParityWL.baseGraph C) (OAI.ParityWL.baseProjection C)
+    (OAI.ParityWL.starParity t)
+inductive OAI.ParityWL.Convention : Type
+number of parameters: 0
+constructors:
+OAI.ParityWL.Convention.joint : OAI.ParityWL.Convention
+OAI.ParityWL.Convention.separate : OAI.ParityWL.Convention
+def OAI.ParityWL.bagParameter : OAI.ParityWL.Convention → ℕ → ℕ :=
+fun c k =>
+  match c with
+  | OAI.ParityWL.Convention.joint => k + 1
+  | OAI.ParityWL.Convention.separate => k
+def OAI.ParityWL.detectionRound : OAI.ParityWL.Convention → ℕ :=
+fun x =>
+  match x with
+  | OAI.ParityWL.Convention.joint => 2
+  | OAI.ParityWL.Convention.separate => 1
+def OAI.ParityWL.orderFactor : ℕ → ℕ :=
+fun t => t * 2 ^ (t - 2 + 3 * (t - 1).choose 2) + 12 * t.choose 3
+@[reducible] def OAI.ParityWL.AtomicType : ℕ → Type :=
+fun k => Fin k → Fin k → Bool × Bool
+def OAI.ParityWL.JointColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (OAI.ParityWL.JointColor._f k)
+def OAI.ParityWL.SeparateColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (OAI.ParityWL.SeparateColor._f k)
+def OAI.ParityWL.atomicType : {V : Type} → SimpleGraph V → {k : ℕ} → (Fin k → V) → OAI.ParityWL.AtomicType k :=
+fun {V} G {k} x i j => (decide (x i = x j), decide (G.Adj (x i) (x j)))
+def OAI.ParityWL.jointColor : {V : Type} →
+  [Fintype V] → SimpleGraph V → (k r : ℕ) → (Fin k → V) → OAI.ParityWL.JointColor k r :=
+fun {V} [Fintype V] G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → V) → OAI.ParityWL.JointColor k x) x (OAI.ParityWL.jointColor._f G k) x_1
+def OAI.ParityWL.separateColor : {V : Type} →
+  [Fintype V] → SimpleGraph V → (k r : ℕ) → (Fin k → V) → OAI.ParityWL.SeparateColor k r :=
+fun {V} [Fintype V] G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → V) → OAI.ParityWL.SeparateColor k x) x (OAI.ParityWL.separateColor._f G k) x_1
+def OAI.ParityWL.sameHistogram : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → OAI.ParityWL.Convention → ℕ → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k r =>
+  match c with
+  | OAI.ParityWL.Convention.joint =>
+    Multiset.map (OAI.ParityWL.jointColor G k r) Finset.univ.val =
+      Multiset.map (OAI.ParityWL.jointColor H k r) Finset.univ.val
+  | OAI.ParityWL.Convention.separate =>
+    Multiset.map (OAI.ParityWL.separateColor G k r) Finset.univ.val =
+      Multiset.map (OAI.ParityWL.separateColor H k r) Finset.univ.val
+def OAI.ParityWL.samePureHistogram : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → OAI.ParityWL.Convention → ℕ → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k r =>
+  match c with
+  | OAI.ParityWL.Convention.joint =>
+    Multiset.map (fun x => OAI.ParityWL.jointColor (G ⊕g H) k r (Sum.inl ∘ x)) Finset.univ.val =
+      Multiset.map (fun x => OAI.ParityWL.jointColor (G ⊕g H) k r (Sum.inr ∘ x)) Finset.univ.val
+  | OAI.ParityWL.Convention.separate =>
+    Multiset.map (fun x => OAI.ParityWL.separateColor (G ⊕g H) k r (Sum.inl ∘ x)) Finset.univ.val =
+      Multiset.map (fun x => OAI.ParityWL.separateColor (G ⊕g H) k r (Sum.inr ∘ x)) Finset.univ.val
+def OAI.ParityWL.WLEquivalent : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → OAI.ParityWL.Convention → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k => ∀ (r : ℕ), OAI.ParityWL.sameHistogram G H c k r
+def OAI.ParityWL.PureWLEquivalent : {V W : Type} →
+  [Fintype V] → [Fintype W] → SimpleGraph V → SimpleGraph W → OAI.ParityWL.Convention → ℕ → Prop :=
+fun {V W} [Fintype V] [Fintype W] G H c k => ∀ (r : ℕ), OAI.ParityWL.samePureHistogram G H c k r
+def OAI.ParityWL.ParityReductionStatement : Prop :=
+∀ (k : ℕ),
+  4 ≤ k →
+    ∀ (c : OAI.ParityWL.Convention) (C : OAI.ParityWL.ChoiceSystem (OAI.ParityWL.bagParameter c k)),
+      let T := OAI.ParityWL.template (OAI.ParityWL.bagParameter c k);
+      let G := OAI.ParityWL.baseGraph C;
+      have τ := OAI.ParityWL.baseProjection C;
+      let V₀ := OAI.ParityWL.LiftVertex T G τ fun x => 0;
+      let V₁ := OAI.ParityWL.LiftVertex T G τ (OAI.ParityWL.starParity (OAI.ParityWL.bagParameter c k));
+      Fintype.card V₀ = Fintype.card V₁ ∧
+        (∀ (A : ℕ),
+            1 ≤ A → C.SizeAtMost A → Fintype.card V₀ ≤ A * OAI.ParityWL.orderFactor (OAI.ParityWL.bagParameter c k)) ∧
+          (OAI.ParityWL.WLEquivalent (OAI.ParityWL.zeroLift C) (OAI.ParityWL.starLift C) c k ↔ ¬C.Successful) ∧
+            (OAI.ParityWL.PureWLEquivalent (OAI.ParityWL.zeroLift C) (OAI.ParityWL.starLift C) c k ↔ ¬C.Successful) ∧
+              (C.Successful →
+                ¬OAI.ParityWL.sameHistogram (OAI.ParityWL.zeroLift C) (OAI.ParityWL.starLift C) c k
+                      (OAI.ParityWL.detectionRound c) ∧
+                  ¬OAI.ParityWL.samePureHistogram (OAI.ParityWL.zeroLift C) (OAI.ParityWL.starLift C) c k
+                      (OAI.ParityWL.detectionRound c))

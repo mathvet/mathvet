@@ -1,0 +1,39 @@
+== ParityLifts  module=OAI.Combinatorics.ParityLifts.Main  start=2026-10-08T11:41:24Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8945] Built OAI.Combinatorics.ParityLifts.Model (7.9s)
+✔ [8925/8945] Built OAI.Combinatorics.ParityLifts.LiftCounts (9.8s)
+✔ [8926/8945] Built OAI.Combinatorics.ParityLifts.WeightedDual (9.3s)
+✔ [8927/8945] Built OAI.Combinatorics.ParityLifts.Masses (8.6s)
+✔ [8928/8945] Built OAI.Combinatorics.ParityLifts.BaseLabels (8.7s)
+✔ [8929/8945] Built OAI.Combinatorics.ParityLifts.BalancedBags (8.7s)
+✔ [8930/8945] Built OAI.Combinatorics.ParityLifts.ChoiceExtraction (8.3s)
+✔ [8931/8945] Built OAI.Combinatorics.ParityLifts.DecompositionCuts (8.7s)
+✔ [8932/8945] Built OAI.Combinatorics.ParityLifts.Witnesses (9.6s)
+✔ [8933/8945] Built OAI.Combinatorics.ParityLifts.BagTrees (8.6s)
+✔ [8934/8945] Built OAI.Combinatorics.ParityLifts.TagSizes (10s)
+✔ [8935/8945] Built OAI.Combinatorics.ParityLifts.Detection (9.4s)
+✔ [8936/8945] Built OAI.Combinatorics.ParityLifts.RankedTrees (7.9s)
+✔ [8937/8945] Built OAI.Combinatorics.ParityLifts.RootedTests (8.3s)
+✔ [8938/8945] Built OAI.Combinatorics.ParityLifts.GlueTrees (8.3s)
+✔ [8939/8945] Built OAI.Combinatorics.ParityLifts.GlueVertices (9.1s)
+✔ [8940/8945] Built OAI.Combinatorics.ParityLifts.Rerooting (8.4s)
+✔ [8941/8945] Built OAI.Combinatorics.ParityLifts.TestAlgebra (8.2s)
+✔ [8942/8945] Built OAI.Combinatorics.ParityLifts.Interpolation (8.2s)
+✔ [8943/8945] Built OAI.Combinatorics.ParityLifts.ColorSpan (8.3s)
+✔ [8944/8945] Built OAI.Combinatorics.ParityLifts.PureComponents (8.3s)
+✔ [8945/8945] Built OAI.Combinatorics.ParityLifts.Main (8.5s)
+Build completed successfully (8945 jobs).
+== build rc=0 seconds=202
+{"theorems": ["OAI.ParityWL.parity_reduction"], "defs": ["OAI.ParityWL.Bit", "OAI.ParityWL.MainPair", "OAI.ParityWL.Helper", "OAI.ParityWL.TemplateVertex", "OAI.ParityWL.ChoiceSystem", "OAI.ParityWL.ChoiceSystem.Successful", "OAI.ParityWL.ChoiceSystem.SizeAtMost", "OAI.ParityWL.helperIncident", "OAI.ParityWL.templateAdj", "OAI.ParityWL.template", "OAI.ParityWL.BaseVertex", "OAI.ParityWL.baseType", "OAI.ParityWL.BaseArc", "OAI.ParityWL.baseGraph", "OAI.ParityWL.baseProjection", "OAI.ParityWL.Tag", "OAI.ParityWL.LiftVertex", "OAI.ParityWL.liftGraph", "OAI.ParityWL.starParity", "OAI.ParityWL.zeroLift", "OAI.ParityWL.starLift", "OAI.ParityWL.Convention", "OAI.ParityWL.bagParameter", "OAI.ParityWL.detectionRound", "OAI.ParityWL.orderFactor", "OAI.ParityWL.AtomicType", "OAI.ParityWL.JointColor", "OAI.ParityWL.SeparateColor", "OAI.ParityWL.atomicType", "OAI.ParityWL.jointColor", "OAI.ParityWL.separateColor", "OAI.ParityWL.sameHistogram", "OAI.ParityWL.samePureHistogram", "OAI.ParityWL.WLEquivalent", "OAI.ParityWL.PureWLEquivalent", "OAI.ParityWL.ParityReductionStatement"], "json_theorems": ["OAI.ParityWL.parity_reduction"], "missing_from_parse": []}
+AXIOMS: 'OAI.ParityWL.parity_reduction' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:45:16Z
