@@ -1,0 +1,111 @@
+OAI.RationalHitting.main : OAI.RationalHitting.MainStatement
+'OAI.RationalHitting.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.RationalHitting.Formula : ℕ → Type
+number of parameters: 1
+constructors:
+OAI.RationalHitting.Formula.var : {n : ℕ} → Fin n → OAI.RationalHitting.Formula n
+OAI.RationalHitting.Formula.const : {n : ℕ} → ℚ → OAI.RationalHitting.Formula n
+OAI.RationalHitting.Formula.add : {n : ℕ} →
+  OAI.RationalHitting.Formula n → OAI.RationalHitting.Formula n → OAI.RationalHitting.Formula n
+OAI.RationalHitting.Formula.mul : {n : ℕ} →
+  OAI.RationalHitting.Formula n → OAI.RationalHitting.Formula n → OAI.RationalHitting.Formula n
+OAI.RationalHitting.Formula.inv : {n : ℕ} → OAI.RationalHitting.Formula n → OAI.RationalHitting.Formula n
+def OAI.RationalHitting.Formula.size : {n : ℕ} → OAI.RationalHitting.Formula n → ℕ :=
+fun {n} x => OAI.RationalHitting.Formula.brecOn x OAI.RationalHitting.Formula.size._f
+inductive OAI.RationalHitting.Formula.Eval.{u} : {n : ℕ} →
+  {R : Type u} → [inst : Ring R] → (ℚ →+* R) → (Fin n → R) → OAI.RationalHitting.Formula n → R → Prop
+number of parameters: 5
+constructors:
+OAI.RationalHitting.Formula.Eval.var : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R} (i : Fin n),
+  OAI.RationalHitting.Formula.Eval c X (OAI.RationalHitting.Formula.var i) (X i)
+OAI.RationalHitting.Formula.Eval.const : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R} (a : ℚ),
+  OAI.RationalHitting.Formula.Eval c X (OAI.RationalHitting.Formula.const a) (c a)
+OAI.RationalHitting.Formula.Eval.add : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f g : OAI.RationalHitting.Formula n} {a b : R},
+  OAI.RationalHitting.Formula.Eval c X f a →
+    OAI.RationalHitting.Formula.Eval c X g b → OAI.RationalHitting.Formula.Eval c X (f.add g) (a + b)
+OAI.RationalHitting.Formula.Eval.mul : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f g : OAI.RationalHitting.Formula n} {a b : R},
+  OAI.RationalHitting.Formula.Eval c X f a →
+    OAI.RationalHitting.Formula.Eval c X g b → OAI.RationalHitting.Formula.Eval c X (f.mul g) (a * b)
+OAI.RationalHitting.Formula.Eval.inv : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f : OAI.RationalHitting.Formula n} {a b : R},
+  OAI.RationalHitting.Formula.Eval c X f a → a * b = 1 → b * a = 1 → OAI.RationalHitting.Formula.Eval c X f.inv b
+@[reducible] def OAI.RationalHitting.Mat : ℕ → Type :=
+fun d => Matrix (Fin d) (Fin d) ℚ
+@[reducible] def OAI.RationalHitting.Tuple : ℕ → ℕ → Type :=
+fun n d => Fin n → OAI.RationalHitting.Mat d
+def OAI.RationalHitting.Evaluates : {n d : ℕ} →
+  OAI.RationalHitting.Formula n → OAI.RationalHitting.Tuple n d → OAI.RationalHitting.Mat d → Prop :=
+fun {n d} f X v => OAI.RationalHitting.Formula.Eval (algebraMap ℚ (OAI.RationalHitting.Mat d)) X f v
+def OAI.RationalHitting.Admissible : {n : ℕ} → OAI.RationalHitting.Formula n → Prop :=
+fun {n} f => ∃ d, 0 < d ∧ ∃ X v, OAI.RationalHitting.Evaluates f X v
+def OAI.RationalHitting.Nonzero : {n : ℕ} → OAI.RationalHitting.Formula n → Prop :=
+fun {n} f => ∃ d, 0 < d ∧ ∃ X v, OAI.RationalHitting.Evaluates f X v ∧ v ≠ 0
+structure OAI.RationalHitting.Output (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.RationalHitting.Output.dimension : ℕ
+  OAI.RationalHitting.Output.dimension_pos : 0 < self.dimension
+  OAI.RationalHitting.Output.tuples : List (OAI.RationalHitting.Tuple n self.dimension)
+constructor:
+  OAI.RationalHitting.Output.mk {n : ℕ} (dimension : ℕ) (dimension_pos : 0 < dimension)
+    (tuples : List (OAI.RationalHitting.Tuple n dimension)) : OAI.RationalHitting.Output n
+def OAI.RationalHitting.encodeNat : ℕ → List Bool :=
+fun a =>
+  have ds := List.map (fun b => b != 0) (Nat.digits 2 a);
+  List.replicate ds.length true ++ [false] ++ ds
+def OAI.RationalHitting.encodeRat : ℚ → List Bool :=
+fun a => [decide (a.num < 0)] ++ OAI.RationalHitting.encodeNat a.num.natAbs ++ OAI.RationalHitting.encodeNat a.den
+def OAI.RationalHitting.encodeTuple : {n d : ℕ} → OAI.RationalHitting.Tuple n d → List Bool :=
+fun {n d} X =>
+  List.flatMap
+    (fun i =>
+      List.flatMap (fun j => List.flatMap (fun k => OAI.RationalHitting.encodeRat (X i j k)) (List.finRange d))
+        (List.finRange d))
+    (List.finRange n)
+def OAI.RationalHitting.encodeOutput : {n : ℕ} → OAI.RationalHitting.Output n → List Bool :=
+fun {n} H =>
+  OAI.RationalHitting.encodeNat H.dimension ++ OAI.RationalHitting.encodeNat H.tuples.length ++
+    List.flatMap OAI.RationalHitting.encodeTuple H.tuples
+@[reducible] def OAI.RationalHitting.Alphabet : Type :=
+Fin 4
+@[reducible] def OAI.RationalHitting.Machine : ℕ → Type :=
+fun m => Turing.TM0.Machine OAI.RationalHitting.Alphabet (Fin (m + 1))
+@[reducible] def OAI.RationalHitting.Config : ℕ → Type :=
+fun m => Turing.TM0.Cfg OAI.RationalHitting.Alphabet (Fin (m + 1))
+def OAI.RationalHitting.tapeBit : Bool → OAI.RationalHitting.Alphabet :=
+fun b => if b = true then 2 else 1
+def OAI.RationalHitting.unaryInput : ℕ → ℕ → List OAI.RationalHitting.Alphabet :=
+fun n s => List.replicate n 2 ++ [1] ++ List.replicate s 2
+def OAI.RationalHitting.run : {m : ℕ} →
+  OAI.RationalHitting.Machine m → ℕ → OAI.RationalHitting.Config m → Option (OAI.RationalHitting.Config m) :=
+fun {m} G x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.RationalHitting.Config m → Option (OAI.RationalHitting.Config m)) x
+    (OAI.RationalHitting.run._f G) x_1
+def OAI.RationalHitting.OutputsWithin : {m n : ℕ} →
+  OAI.RationalHitting.Machine m → ℕ → ℕ → OAI.RationalHitting.Output n → Prop :=
+fun {m n} G s bound H =>
+  ∃ t ≤ bound,
+    ∃ a,
+      OAI.RationalHitting.run G t (Turing.TM0.init (OAI.RationalHitting.unaryInput n s)) = some a ∧
+        Turing.TM0.step G a = none ∧
+          a.Tape.right₀ =
+            Turing.ListBlank.mk (List.map OAI.RationalHitting.tapeBit (OAI.RationalHitting.encodeOutput H))
+def OAI.RationalHitting.Hits : {n : ℕ} → ℕ → OAI.RationalHitting.Output n → Prop :=
+fun {n} s H =>
+  ∀ (f : OAI.RationalHitting.Formula n),
+    f.size ≤ s →
+      OAI.RationalHitting.Admissible f →
+        OAI.RationalHitting.Nonzero f → ∃ X ∈ H.tuples, ∃ v, OAI.RationalHitting.Evaluates f X v ∧ IsUnit v
+def OAI.RationalHitting.MainStatement : Prop :=
+∃ m G C k,
+  0 < C ∧
+    0 < k ∧
+      ∀ (n s : ℕ),
+        1 ≤ n →
+          1 ≤ s →
+            ∃ H,
+              H.dimension ≤ C * (n + s + 1) ^ k ∧
+                (OAI.RationalHitting.encodeOutput H).length ≤ C * (n + s + 1) ^ k ∧
+                  OAI.RationalHitting.OutputsWithin G s (C * (n + s + 1) ^ k) H ∧ OAI.RationalHitting.Hits s H
