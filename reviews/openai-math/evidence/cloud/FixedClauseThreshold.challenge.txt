@@ -1,0 +1,32 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_FixedClauseThreshold.lean:51:8: warning: declaration uses `sorry`
+OAI.FixedClauseThreshold.main : ∀ (k : ℕ), 3 ≤ k → OAI.FixedClauseThreshold.HasLimitingThreshold k
+@[reducible] def OAI.FixedClauseThreshold.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.FixedClauseThreshold.ProperClause : ℕ → ℕ → Type :=
+fun n k => { C // {i | (C i).isSome = true}.card = k }
+@[reducible] def OAI.FixedClauseThreshold.Formula : ℕ → ℕ → ℕ → Type :=
+fun n k m => Fin m → OAI.FixedClauseThreshold.ProperClause n k
+def OAI.FixedClauseThreshold.SatisfiesClause : {n k : ℕ} →
+  OAI.FixedClauseThreshold.Assignment n → OAI.FixedClauseThreshold.ProperClause n k → Prop :=
+fun {n k} σ C => ∃ i, ↑C i = some (σ i)
+def OAI.FixedClauseThreshold.Satisfies : {n k m : ℕ} →
+  OAI.FixedClauseThreshold.Assignment n → OAI.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} σ F => ∀ (j : Fin m), OAI.FixedClauseThreshold.SatisfiesClause σ (F j)
+def OAI.FixedClauseThreshold.Satisfiable : {n k m : ℕ} → OAI.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} F => ∃ σ, OAI.FixedClauseThreshold.Satisfies σ F
+def OAI.FixedClauseThreshold.properSATProbability : ℕ → ℕ → ℕ → ℝ :=
+fun n k m =>
+  ↑(Fintype.card { F // OAI.FixedClauseThreshold.Satisfiable F }) /
+    ↑(Fintype.card (OAI.FixedClauseThreshold.Formula n k m))
+def OAI.FixedClauseThreshold.HasLimitingThreshold : ℕ → Prop :=
+fun k =>
+  ∃ α,
+    0 < α ∧
+      (∀ (c : ℝ),
+          0 ≤ c →
+            c < α →
+              Filter.Tendsto (fun n => OAI.FixedClauseThreshold.properSATProbability n k ⌊c * ↑n⌋₊) Filter.atTop
+                (nhds 1)) ∧
+        ∀ (c : ℝ),
+          α < c →
+            Filter.Tendsto (fun n => OAI.FixedClauseThreshold.properSATProbability n k ⌊c * ↑n⌋₊) Filter.atTop (nhds 0)

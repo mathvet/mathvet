@@ -1,0 +1,32 @@
+== FixedClauseThreshold  module=OAI.Probability.RandomSAT.Main  start=2026-10-08T11:47:18Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8938] Built OAI.Probability.RandomSAT.Model (9.4s)
+✔ [8925/8938] Built OAI.Probability.RandomSAT.Clauses (10s)
+✔ [8926/8938] Built OAI.Probability.RandomSAT.Replacement (13s)
+✔ [8927/8938] Built OAI.Probability.RandomSAT.FiniteMean (8.3s)
+✔ [8928/8938] Built OAI.Probability.RandomSAT.ClauseProcess (11s)
+✔ [8929/8938] Built OAI.Probability.RandomSAT.Binomial (8.8s)
+✔ [8930/8938] Built OAI.Probability.RandomSAT.Forcing (12s)
+✔ [8931/8938] Built OAI.Probability.RandomSAT.Variance (12s)
+✔ [8932/8938] Built OAI.Probability.RandomSAT.Concentration (15s)
+✔ [8933/8938] Built OAI.Probability.RandomSAT.CenterBounds (13s)
+✔ [8934/8938] Built OAI.Probability.RandomSAT.Interpolation (10s)
+✔ [8935/8938] Built OAI.Probability.RandomSAT.Transfer (11s)
+✔ [8936/8938] Built OAI.Probability.RandomSAT.CenterComparison (19s)
+✔ [8937/8938] Built OAI.Probability.RandomSAT.Convergence (21s)
+✔ [8938/8938] Built OAI.Probability.RandomSAT.Main (9.0s)
+Build completed successfully (8938 jobs).
+== build rc=0 seconds=202
+{"theorems": ["OAI.FixedClauseThreshold.main"], "defs": ["OAI.FixedClauseThreshold.Assignment", "OAI.FixedClauseThreshold.ProperClause", "OAI.FixedClauseThreshold.Formula", "OAI.FixedClauseThreshold.SatisfiesClause", "OAI.FixedClauseThreshold.Satisfies", "OAI.FixedClauseThreshold.Satisfiable", "OAI.FixedClauseThreshold.properSATProbability", "OAI.FixedClauseThreshold.HasLimitingThreshold"], "json_theorems": ["OAI.FixedClauseThreshold.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.FixedClauseThreshold.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:51:10Z
