@@ -1,0 +1,123 @@
+CMP OAI.TriangularBilliards.irrational_triangle_billiard [thm] ok
+CMP OAI.TriangularBilliards.MainConclusion [def] ok
+CMP OAI.TriangularBilliards.billiardFlow [def] ok
+CMP OAI.TriangularBilliards.FlightChain.at [def] ok
+CMP OAI.TriangularBilliards.FlightChain.direction [def] ok
+CMP OAI.TriangularBilliards.FlightChain [ind] ok
+CMP OAI.TriangularBilliards.FlightChain.mk [ctor] ok
+CMP OAI.TriangularBilliards.Triangle.tangent [def] ok
+CMP OAI.TriangularBilliards.Triangle.side._proof_1 [thm] ok
+CMP OAI.TriangularBilliards.Triangle.vertex [def] ok
+CMP OAI.TriangularBilliards.Triangle [ind] ok
+CMP OAI.TriangularBilliards.Triangle.mk [ctor] ok
+CMP OAI.TriangularBilliards.reflect [def] ok
+CMP OAI.TriangularBilliards.Triangle.table [def] ok
+CMP OAI.TriangularBilliards.Triangle.side [def] ok
+CMP OAI.TriangularBilliards.Phase [def] ok
+CMP OAI.TriangularBilliards.FlightChain.point [def] ok
+CMP OAI.TriangularBilliards.FlightChain.time [def] ok
+CMP OAI.TriangularBilliards.MainConclusion._proof_1 [thm] ok
+CMP OAI.TriangularBilliards.circleMeasurableSpace [def] ok
+CMP OAI.TriangularBilliards.phaseMeasure [def] ok
+CMP OAI.TriangularBilliards.angularMeasure [def] ok
+CMP OAI.TriangularBilliards.angularMeasure._proof_2 [thm] ok
+CMP OAI.TriangularBilliards.angularMeasure._proof_1 [thm] ok
+CMP OAI.TriangularBilliards.Triangle.HasIrrationalAngle [def] ok
+CMP OAI.TriangularBilliards.Triangle.angle [def] ok
+Chal.TriangularBilliards.irrational_triangle_billiard : ∀ (Q : Chal.TriangularBilliards.Triangle),
+  Q.HasIrrationalAngle → Chal.TriangularBilliards.MainConclusion Q
+structure Chal.TriangularBilliards.Triangle : Type
+number of parameters: 0
+fields:
+  Chal.TriangularBilliards.Triangle.vertex : Fin 3 → ℂ
+  Chal.TriangularBilliards.Triangle.nondegenerate : AffineIndependent ℝ self.vertex
+constructor:
+  Chal.TriangularBilliards.Triangle.mk (vertex : Fin 3 → ℂ) (nondegenerate : AffineIndependent ℝ vertex) :
+    Chal.TriangularBilliards.Triangle
+def Chal.TriangularBilliards.Triangle.table : Chal.TriangularBilliards.Triangle → Set ℂ :=
+fun Q => interior ((convexHull ℝ) (Set.range Q.vertex))
+def Chal.TriangularBilliards.Triangle.side : Chal.TriangularBilliards.Triangle → Fin 3 → Set ℂ :=
+fun Q i => openSegment ℝ (Q.vertex i) (Q.vertex (i + 1))
+def Chal.TriangularBilliards.Triangle.tangent : Chal.TriangularBilliards.Triangle → Fin 3 → ℂ :=
+fun Q i => Q.vertex (i + 1) - Q.vertex i
+def Chal.TriangularBilliards.Triangle.angle : Chal.TriangularBilliards.Triangle → Fin 3 → ℝ :=
+fun Q i => InnerProductGeometry.angle (Q.vertex (i + 1) - Q.vertex i) (Q.vertex (i + 2) - Q.vertex i)
+def Chal.TriangularBilliards.Triangle.HasIrrationalAngle : Chal.TriangularBilliards.Triangle → Prop :=
+fun Q => ∃ i, Irrational (Q.angle i / Real.pi)
+def Chal.TriangularBilliards.reflect : ℂ → ℂ → ℂ :=
+fun e v => e / star e * star v
+@[reducible] def Chal.TriangularBilliards.Phase : Type :=
+ℂ × Circle
+structure Chal.TriangularBilliards.FlightChain (Q : Chal.TriangularBilliards.Triangle)
+  (z : Chal.TriangularBilliards.Phase) : Type
+number of parameters: 2
+fields:
+  Chal.TriangularBilliards.FlightChain.time : ℤ → ℝ
+  Chal.TriangularBilliards.FlightChain.point : ℤ → ℂ
+  Chal.TriangularBilliards.FlightChain.direction : ℤ → Circle
+  Chal.TriangularBilliards.FlightChain.wall : ℤ → Fin 3
+  Chal.TriangularBilliards.FlightChain.increasing : StrictMono self.time
+  Chal.TriangularBilliards.FlightChain.unbounded_below : ∀ (t : ℝ), ∃ n, self.time n < t
+  Chal.TriangularBilliards.FlightChain.unbounded_above : ∀ (t : ℝ), ∃ n, t < self.time n
+  Chal.TriangularBilliards.FlightChain.zero_before : self.time 0 < 0
+  Chal.TriangularBilliards.FlightChain.zero_after : 0 < self.time 1
+  Chal.TriangularBilliards.FlightChain.on_side : ∀ (n : ℤ), self.point n ∈ Q.side (self.wall n)
+  Chal.TriangularBilliards.FlightChain.flight : ∀ (n : ℤ),
+      self.point (n + 1) = self.point n + (self.time (n + 1) - self.time n) • ↑(self.direction n)
+  Chal.TriangularBilliards.FlightChain.inside : ∀ (n : ℤ) (t : ℝ),
+      self.time n < t → t < self.time (n + 1) → self.point n + (t - self.time n) • ↑(self.direction n) ∈ Q.table
+  Chal.TriangularBilliards.FlightChain.start_point : z.1 = self.point 0 + -self.time 0 • ↑(self.direction 0)
+  Chal.TriangularBilliards.FlightChain.start_direction : z.2 = self.direction 0
+  Chal.TriangularBilliards.FlightChain.specular : ∀ (n : ℤ),
+      ↑(self.direction n) = Chal.TriangularBilliards.reflect (Q.tangent (self.wall n)) ↑(self.direction (n - 1))
+constructor:
+  Chal.TriangularBilliards.FlightChain.mk {Q : Chal.TriangularBilliards.Triangle} {z : Chal.TriangularBilliards.Phase}
+    (time : ℤ → ℝ) (point : ℤ → ℂ) (direction : ℤ → Circle) (wall : ℤ → Fin 3) (increasing : StrictMono time)
+    (unbounded_below : ∀ (t : ℝ), ∃ n, time n < t) (unbounded_above : ∀ (t : ℝ), ∃ n, t < time n)
+    (zero_before : time 0 < 0) (zero_after : 0 < time 1) (on_side : ∀ (n : ℤ), point n ∈ Q.side (wall n))
+    (flight : ∀ (n : ℤ), point (n + 1) = point n + (time (n + 1) - time n) • ↑(direction n))
+    (inside : ∀ (n : ℤ) (t : ℝ), time n < t → t < time (n + 1) → point n + (t - time n) • ↑(direction n) ∈ Q.table)
+    (start_point : z.1 = point 0 + -time 0 • ↑(direction 0)) (start_direction : z.2 = direction 0)
+    (specular :
+      ∀ (n : ℤ), ↑(direction n) = Chal.TriangularBilliards.reflect (Q.tangent (wall n)) ↑(direction (n - 1))) :
+    Chal.TriangularBilliards.FlightChain Q z
+def Chal.TriangularBilliards.FlightChain.at : {Q : Chal.TriangularBilliards.Triangle} →
+  {z : Chal.TriangularBilliards.Phase} →
+    Chal.TriangularBilliards.FlightChain Q z → ℝ → Chal.TriangularBilliards.Phase :=
+fun {Q} {z} c t =>
+  if h : ∃ n, c.time n ≤ t ∧ t < c.time (n + 1) then
+    have n := Classical.choose h;
+    (c.point n + (t - c.time n) • ↑(c.direction n), c.direction n)
+  else z
+def Chal.TriangularBilliards.billiardFlow : Chal.TriangularBilliards.Triangle →
+  ℝ → Chal.TriangularBilliards.Phase → Chal.TriangularBilliards.Phase :=
+fun Q t z => if h : Nonempty (Chal.TriangularBilliards.FlightChain Q z) then (Classical.choice h).at t else z
+def Chal.TriangularBilliards.angularMeasure : MeasureTheory.Measure Circle :=
+MeasureTheory.Measure.map (⇑Circle.exp)
+  ((ENNReal.ofReal (2 * Real.pi))⁻¹ • MeasureTheory.volume.restrict (Set.Ico 0 (2 * Real.pi)))
+def Chal.TriangularBilliards.phaseMeasure : Chal.TriangularBilliards.Triangle →
+  MeasureTheory.Measure Chal.TriangularBilliards.Phase :=
+fun Q =>
+  ((MeasureTheory.volume Q.table)⁻¹ • MeasureTheory.volume.restrict Q.table).prod
+    Chal.TriangularBilliards.angularMeasure
+def Chal.TriangularBilliards.MainConclusion : Chal.TriangularBilliards.Triangle → Prop :=
+fun Q =>
+  (Chal.TriangularBilliards.phaseMeasure Q) Set.univ = 1 ∧
+    (∀ᵐ (z : Chal.TriangularBilliards.Phase) ∂Chal.TriangularBilliards.phaseMeasure Q,
+        Nonempty (Chal.TriangularBilliards.FlightChain Q z)) ∧
+      (∀ (z : Chal.TriangularBilliards.Phase) (c d : Chal.TriangularBilliards.FlightChain Q z), c = d) ∧
+        (∀ (t : ℝ),
+            MeasureTheory.MeasurePreserving (Chal.TriangularBilliards.billiardFlow Q t)
+              (Chal.TriangularBilliards.phaseMeasure Q) (Chal.TriangularBilliards.phaseMeasure Q)) ∧
+          (∀ (s t : ℝ),
+              Chal.TriangularBilliards.billiardFlow Q (s + t) =ᵐ[Chal.TriangularBilliards.phaseMeasure Q]
+                Chal.TriangularBilliards.billiardFlow Q s ∘ Chal.TriangularBilliards.billiardFlow Q t) ∧
+            ∀ (A : Set Chal.TriangularBilliards.Phase),
+              MeasurableSet A →
+                (∀ (t : ℝ),
+                    (Chal.TriangularBilliards.phaseMeasure Q)
+                        (symmDiff (Chal.TriangularBilliards.billiardFlow Q t ⁻¹' A) A) =
+                      0) →
+                  (Chal.TriangularBilliards.phaseMeasure Q) A = 0 ∨ (Chal.TriangularBilliards.phaseMeasure Q) A = 1
+'OAI.TriangularBilliards.irrational_triangle_billiard' depends on axioms: [propext, Classical.choice, Quot.sound]
+== IrrationalTriangleBilliard comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
