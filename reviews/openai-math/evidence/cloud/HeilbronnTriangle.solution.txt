@@ -1,0 +1,46 @@
+OAI.Problem355.heilbronn_power_lower_bound : 0 < OAI.Problem355.heilbronnExponent ∧
+  ∃ n P,
+    Filter.Tendsto n Filter.atTop Filter.atTop ∧
+      ∀ (j : ℕ),
+        3 ≤ n j ∧
+          (P j).card = n j ∧
+            OAI.Problem355.pointsInUnitSquare (P j) ∧
+              OAI.Problem355.triangleAreasAtLeast (P j) ((↑(n j)).rpow (-2 + OAI.Problem355.heilbronnExponent))
+'OAI.Problem355.heilbronn_power_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem355.almost_n_minus_two_refuted : 0 < OAI.Problem355.heilbronnExponent / 2 ∧
+  ¬OAI.Problem355.eventualAlmostUpperBound (OAI.Problem355.heilbronnExponent / 2)
+'OAI.Problem355.almost_n_minus_two_refuted' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Problem355.Point : Type :=
+ℝ × ℝ
+def OAI.Problem355.triangleArea : OAI.Problem355.Point → OAI.Problem355.Point → OAI.Problem355.Point → ℝ :=
+fun p q r => |(q.1 - p.1) * (r.2 - p.2) - (q.2 - p.2) * (r.1 - p.1)| / 2
+def OAI.Problem355.pointInUnitSquare : OAI.Problem355.Point → Prop :=
+fun p => 0 ≤ p.1 ∧ p.1 ≤ 1 ∧ 0 ≤ p.2 ∧ p.2 ≤ 1
+def OAI.Problem355.pointsInUnitSquare : Finset OAI.Problem355.Point → Prop :=
+fun P => ∀ p ∈ P, OAI.Problem355.pointInUnitSquare p
+def OAI.Problem355.triangleAreasAtLeast : Finset OAI.Problem355.Point → ℝ → Prop :=
+fun P a => ∀ p ∈ P, ∀ q ∈ P, ∀ r ∈ P, p ≠ q → p ≠ r → q ≠ r → a ≤ OAI.Problem355.triangleArea p q r
+def OAI.Problem355.hasTriangleAreaAtMost : Finset OAI.Problem355.Point → ℝ → Prop :=
+fun P a => ∃ p ∈ P, ∃ q ∈ P, ∃ r ∈ P, p ≠ q ∧ p ≠ r ∧ q ≠ r ∧ OAI.Problem355.triangleArea p q r ≤ a
+def OAI.Problem355.heilbronnD : ℕ :=
+41
+def OAI.Problem355.heilbronnM : ℕ :=
+(4 * OAI.Problem355.heilbronnD - 1).choose OAI.Problem355.heilbronnD
+def OAI.Problem355.heilbronnT : ℕ :=
+OAI.Problem355.heilbronnM.choose 3
+@[irreducible] def OAI.Problem355.heilbronnK : ℕ :=
+OAI.Problem355.heilbronnT ^ 2 + 1
+def OAI.Problem355.heilbronnExponent : ℝ :=
+1 / (100000 * ↑OAI.Problem355.heilbronnK)
+def OAI.Problem355.eventualAlmostUpperBound : ℝ → Prop :=
+fun epsilon =>
+  ∃ C,
+    0 < C ∧
+      ∃ n0,
+        ∀ (n : ℕ),
+          n0 ≤ n →
+            3 ≤ n →
+              ∀ (P : Finset OAI.Problem355.Point),
+                P.card = n →
+                  OAI.Problem355.pointsInUnitSquare P →
+                    OAI.Problem355.hasTriangleAreaAtMost P (C * (↑n).rpow (-2 + epsilon))
