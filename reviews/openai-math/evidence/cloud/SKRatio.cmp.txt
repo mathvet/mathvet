@@ -1,0 +1,77 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SKRatio.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SKRatio.ratio_cutoff [thm] ok
+CMP OAI.SKRatio.mixingTime [def] ok
+CMP OAI.SKRatio.discreteDistance [def] ok
+CMP OAI.SKRatio.mass [def] ok
+CMP OAI.SKRatio.partition [def] ok
+CMP OAI.SKRatio.weight [def] ok
+CMP OAI.SKRatio.hamiltonian [def] ok
+CMP OAI.SKRatio.coupling [def] ok
+CMP OAI.SKRatio.Disorder [def] ok
+CMP OAI.SKRatio.Edge [def] ok
+CMP OAI.SKRatio.spinValue [def] ok
+CMP OAI.SKRatio.hamiltonian._proof_1 [thm] ok
+CMP OAI.SKRatio.Spin [def] ok
+CMP OAI.SKRatio.transition [def] ok
+CMP OAI.SKRatio.siteKernel [def] ok
+CMP OAI.SKRatio.flip [def] ok
+CMP OAI.SKRatio.totalVariation [def] ok
+CMP OAI.SKRatio.discreteDistance._proof_1 [thm] ok
+CMP OAI.SKRatio.disorderLaw [def] ok
+Chal.SKRatio.ratio_cutoff : ∀ (β ε η : ℝ),
+  0 ≤ β →
+    β < 1 / 2 →
+      0 < ε →
+        ε < 1 / 2 →
+          0 < η →
+            Filter.Tendsto
+                (fun n =>
+                  (Chal.SKRatio.disorderLaw β n)
+                    {g | 1 + η < ↑(Chal.SKRatio.mixingTime g ε) / ↑(Chal.SKRatio.mixingTime g (1 - ε))})
+                Filter.atTop (nhds 0) ∧
+              ∀ᶠ (n : ℕ) in Filter.atTop, ∀ (g : Chal.SKRatio.Disorder n), 0 < Chal.SKRatio.mixingTime g (1 - ε)
+@[reducible] def Chal.SKRatio.Spin : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.SKRatio.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def Chal.SKRatio.Disorder : ℕ → Type :=
+fun n => Chal.SKRatio.Edge n → ℝ
+def Chal.SKRatio.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.SKRatio.coupling : {n : ℕ} → Chal.SKRatio.Disorder n → Fin n → Fin n → ℝ :=
+fun {n} g i j => if h : i < j then g ⟨(i, j), h⟩ else if h : j < i then g ⟨(j, i), h⟩ else 0
+def Chal.SKRatio.hamiltonian : {n : ℕ} → Chal.SKRatio.Disorder n → (Fin n → ℝ) → Chal.SKRatio.Spin n → ℝ :=
+fun {n} g h x =>
+  1 / 2 * ∑ i, ∑ j, Chal.SKRatio.spinValue (x i) * Chal.SKRatio.coupling g i j * Chal.SKRatio.spinValue (x j) +
+    ∑ i, h i * Chal.SKRatio.spinValue (x i)
+def Chal.SKRatio.weight : {n : ℕ} → Chal.SKRatio.Disorder n → (Fin n → ℝ) → Chal.SKRatio.Spin n → ℝ :=
+fun {n} g h x => Real.exp (Chal.SKRatio.hamiltonian g h x)
+def Chal.SKRatio.partition : {n : ℕ} → Chal.SKRatio.Disorder n → (Fin n → ℝ) → ℝ :=
+fun {n} g h => ∑ x, Chal.SKRatio.weight g h x
+def Chal.SKRatio.mass : {n : ℕ} → Chal.SKRatio.Disorder n → (Fin n → ℝ) → Chal.SKRatio.Spin n → ℝ :=
+fun {n} g h x => Chal.SKRatio.weight g h x / Chal.SKRatio.partition g h
+def Chal.SKRatio.flip : {n : ℕ} → Fin n → Chal.SKRatio.Spin n → Chal.SKRatio.Spin n :=
+fun {n} i x => Function.update x i !x i
+def Chal.SKRatio.disorderLaw : ℝ → (n : ℕ) → MeasureTheory.Measure (Chal.SKRatio.Disorder n) :=
+fun β n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 (β ^ 2 / ↑n).toNNReal
+def Chal.SKRatio.siteKernel : {n : ℕ} →
+  Chal.SKRatio.Disorder n → Fin n → Matrix (Chal.SKRatio.Spin n) (Chal.SKRatio.Spin n) ℝ :=
+fun {n} g i x y =>
+  (if y = x then Chal.SKRatio.mass g 0 x / (Chal.SKRatio.mass g 0 x + Chal.SKRatio.mass g 0 (Chal.SKRatio.flip i x))
+    else 0) +
+    if y = Chal.SKRatio.flip i x then
+      Chal.SKRatio.mass g 0 (Chal.SKRatio.flip i x) /
+        (Chal.SKRatio.mass g 0 x + Chal.SKRatio.mass g 0 (Chal.SKRatio.flip i x))
+    else 0
+def Chal.SKRatio.transition : {n : ℕ} →
+  Chal.SKRatio.Disorder n → Matrix (Chal.SKRatio.Spin n) (Chal.SKRatio.Spin n) ℝ :=
+fun {n} g => if n = 0 then 1 else fun x y => (∑ i, Chal.SKRatio.siteKernel g i x y) / ↑n
+def Chal.SKRatio.totalVariation.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] p q => 1 / 2 * ∑ y, |p y - q y|
+def Chal.SKRatio.discreteDistance : {n : ℕ} → Chal.SKRatio.Disorder n → ℕ → ℝ :=
+fun {n} g k =>
+  Finset.univ.sup' ⋯ fun x => Chal.SKRatio.totalVariation ((Chal.SKRatio.transition g ^ k) x) (Chal.SKRatio.mass g 0)
+def Chal.SKRatio.mixingTime : {n : ℕ} → Chal.SKRatio.Disorder n → ℝ → ℕ :=
+fun {n} g ε => sInf {k | Chal.SKRatio.discreteDistance g k ≤ ε}
+'OAI.SKRatio.ratio_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SKRatio comparator-style: ok=19 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

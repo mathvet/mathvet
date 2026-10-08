@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T20:51:30Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T21:12:30Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 346 accepted by
-    the real Comparator, of which 346 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 349 accepted by
+    the real Comparator, of which 349 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -5738,7 +5738,8 @@ alignment:
     module: OAI.Probability.SKRatio.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKRatio.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 227 — headline claim as stated in the overview: For zero-field Gaussian SK heat-bath dynamics
       with rate-one updates per spin, proves worst-start cutoff on the $\log n$ scale for fixed $0\le\beta<1$, mixing
       time $n^{2/3+o(1)}$ at $\beta=1$, and stretched-exponential mixing from a Gibbs-sampled fixed starting configuration
@@ -6947,7 +6948,8 @@ alignment:
     module: OAI.Analysis.IrrationalRotation.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IrrationalRotation.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 293 — A counterexample to the hyperinvariant-subspace problem: Brown measure of the selected
       product weighted shift (the lab''s own result label); paper ''Invariant-projection counterexamples for every
       irrational rotation'', theorem thm:main (build/00-introduction.tex:33)'
@@ -7384,7 +7386,8 @@ alignment:
     module: OAI.Geometry.BallPacking.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BallPacking.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 343 — Sharp symplectic ball-packing criteria in higher dimensions: Necessity of the volume and
       pairwise capacity inequalities (the lab''s own result label); paper ''Symplectic Ball Packings in Higher Dimensions'',
       theorem intro:main (build/sections/introduction.tex:18)'
@@ -7808,7 +7811,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T20:51:30Z'
+    generated: '2026-10-08T21:12:30Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7858,6 +7861,7 @@ mathvet:
     - BalancedBoxRouting
     - BalancedRyser
     - BalancedThreeStack
+    - BallPacking
     - BallPackingNecessity
     - BarnetteHamiltonian
     - BassTorsionFree
@@ -8001,6 +8005,7 @@ mathvet:
     - InfiniteMatroid
     - InfiniteMatroidCorollaries
     - InterpolatedFactors
+    - IrrationalRotation
     - IrrationalTriangleBilliard
     - IsingFiniteness
     - IsometricImmersion
@@ -8101,6 +8106,7 @@ mathvet:
     - SKBarriers
     - SKFullSupport
     - SKHighTemperature
+    - SKRatio
     - SKValue
     - SLELowerPositivity
     - Saxl
@@ -8205,6 +8211,7 @@ mathvet:
     - BalancedBoxRouting
     - BalancedRyser
     - BalancedThreeStack
+    - BallPacking
     - BallPackingNecessity
     - BarnetteHamiltonian
     - BassTorsionFree
@@ -8348,6 +8355,7 @@ mathvet:
     - InfiniteMatroid
     - InfiniteMatroidCorollaries
     - InterpolatedFactors
+    - IrrationalRotation
     - IrrationalTriangleBilliard
     - IsingFiniteness
     - IsometricImmersion
@@ -8448,6 +8456,7 @@ mathvet:
     - SKBarriers
     - SKFullSupport
     - SKHighTemperature
+    - SKRatio
     - SKValue
     - SLELowerPositivity
     - Saxl
