@@ -1,0 +1,130 @@
+@OAI.WeakMTWTransport.uniform_biHolder_transport : ∀ {n : ℕ},
+  2 ≤ n →
+    ∀ {M : Type u_1} [inst : MetricSpace M] [CompactSpace M] [ConnectedSpace M]
+      [inst_3 : ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+      [inst_4 : IsManifold (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) (↑⊤) M]
+      [inst_5 : Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x]
+      [IsContMDiffRiemannianBundle (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) (↑⊤)
+          (OAI.WeakMTWTransport.Model n) fun x =>
+          TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x]
+      [IsRiemannianManifold (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) M] [inst_8 : MeasurableSpace M]
+      [inst_9 : BorelSpace M],
+      OAI.WeakMTWTransport.WeakMTW →
+        ∀ (lam cap : ℝ),
+          0 < lam →
+            lam ≤ cap →
+              (∃ rho, OAI.WeakMTWTransport.AdmissibleDensity (OAI.WeakMTWTransport.metricVolume n) lam cap rho) →
+                ∃ alpha C,
+                  0 < alpha ∧
+                    alpha ≤ 1 ∧
+                      0 ≤ C ∧
+                        ∀ (rho0 rho1 : M → ℝ),
+                          OAI.WeakMTWTransport.AdmissibleDensity (OAI.WeakMTWTransport.metricVolume n) lam cap rho0 →
+                            OAI.WeakMTWTransport.AdmissibleDensity (OAI.WeakMTWTransport.metricVolume n) lam cap rho1 →
+                              ∃ T,
+                                OAI.WeakMTWTransport.IsOptimalMap (OAI.WeakMTWTransport.metricVolume n) rho0 rho1 ⇑T ∧
+                                  (∀ (S : M → M),
+                                      OAI.WeakMTWTransport.IsOptimalMap (OAI.WeakMTWTransport.metricVolume n) rho0 rho1
+                                          S →
+                                        S =ᵐ[OAI.WeakMTWTransport.densityMeasure (OAI.WeakMTWTransport.metricVolume n)
+                                            rho0]
+                                          ⇑T) ∧
+                                    OAI.WeakMTWTransport.BiHolderEstimate alpha C T
+'OAI.WeakMTWTransport.uniform_biHolder_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.WeakMTWTransport.Model : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def OAI.WeakMTWTransport.cost.{u_1} : {M : Type u_1} → [MetricSpace M] → M → M → ℝ :=
+fun {M} [MetricSpace M] x y => dist x y ^ 2 / 2
+def OAI.WeakMTWTransport.euclideanVolumeFactor : ℕ → ENNReal :=
+fun n => MeasureTheory.volume (Metric.ball 0 1) / (MeasureTheory.Measure.hausdorffMeasure ↑n) (Metric.ball 0 1)
+def OAI.WeakMTWTransport.metricVolume.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → [inst_1 : MeasurableSpace M] → [BorelSpace M] → ℕ → MeasureTheory.Measure M :=
+fun {M} [MetricSpace M] [MeasurableSpace M] [BorelSpace M] n =>
+  OAI.WeakMTWTransport.euclideanVolumeFactor n • MeasureTheory.Measure.hausdorffMeasure ↑n
+def OAI.WeakMTWTransport.AdmissibleDensity.{u_1} : {M : Type u_1} →
+  [inst : MeasurableSpace M] → MeasureTheory.Measure M → ℝ → ℝ → (M → ℝ) → Prop :=
+fun {M} [MeasurableSpace M] vol lam cap rho =>
+  AEMeasurable rho vol ∧
+    MeasureTheory.Integrable rho vol ∧ ∫ (x : M), rho x ∂vol = 1 ∧ ∀ᵐ (x : M) ∂vol, lam ≤ rho x ∧ rho x ≤ cap
+def OAI.WeakMTWTransport.densityMeasure.{u_1} : {M : Type u_1} →
+  [inst : MeasurableSpace M] → MeasureTheory.Measure M → (M → ℝ) → MeasureTheory.Measure M :=
+fun {M} [MeasurableSpace M] vol rho => vol.withDensity fun x => ENNReal.ofReal (rho x)
+def OAI.WeakMTWTransport.IsOptimalMap.{u_1} : {M : Type u_1} →
+  [MetricSpace M] → [inst : MeasurableSpace M] → MeasureTheory.Measure M → (M → ℝ) → (M → ℝ) → (M → M) → Prop :=
+fun {M} [MetricSpace M] [MeasurableSpace M] vol rho0 rho1 T =>
+  Measurable T ∧
+    MeasureTheory.Measure.map T (OAI.WeakMTWTransport.densityMeasure vol rho0) =
+        OAI.WeakMTWTransport.densityMeasure vol rho1 ∧
+      ∀ (S : M → M),
+        Measurable S →
+          MeasureTheory.Measure.map S (OAI.WeakMTWTransport.densityMeasure vol rho0) =
+              OAI.WeakMTWTransport.densityMeasure vol rho1 →
+            ∫ (x : M), OAI.WeakMTWTransport.cost x (T x) * rho0 x ∂vol ≤
+              ∫ (x : M), OAI.WeakMTWTransport.cost x (S x) * rho0 x ∂vol
+def OAI.WeakMTWTransport.BiHolderEstimate.{u_1} : {M : Type u_1} → [inst : MetricSpace M] → ℝ → ℝ → M ≃ₜ M → Prop :=
+fun {M} [MetricSpace M] alpha C T =>
+  (∀ (x x' : M), dist (T x) (T x') ≤ C * dist x x' ^ alpha) ∧
+    ∀ (y y' : M), dist (T.symm y) (T.symm y') ≤ C * dist y y' ^ alpha
+def OAI.WeakMTWTransport.IsGeodesicWithInitialData.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] →
+          (x : M) → TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x → (ℝ → M) → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] x v
+    gamma =>
+  ContMDiff (modelWithCornersSelf ℝ ℝ) (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) (↑⊤) gamma ∧
+    ⟨gamma 0, (mfderiv% gamma 0) 1⟩ = ⟨x, v⟩ ∧
+      ∀ (t : ℝ), ∃ eps, 0 < eps ∧ ∀ (s u : ℝ), |s - t| < eps → |u - t| < eps → dist (gamma s) (gamma u) = |s - u| * ‖v‖
+def OAI.WeakMTWTransport.riemannianExp.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] →
+          (x : M) → TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x → M :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] x v =>
+  if h : ∃ gamma, OAI.WeakMTWTransport.IsGeodesicWithInitialData x v gamma then Classical.choose h 1 else x
+def OAI.WeakMTWTransport.injectivityDomain.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] →
+          (x : M) → Set (TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x) :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] x =>
+  {p | ∃ a, 1 < a ∧ dist x (OAI.WeakMTWTransport.riemannianExp x (a • p)) = a * ‖p‖}
+def OAI.WeakMTWTransport.mtw.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] →
+          (x : M) →
+            TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x →
+              TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x →
+                TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x → ℝ :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] x p xi
+    eta =>
+  -(3 / 2) *
+    iteratedDeriv 2
+      (fun s =>
+        iteratedDeriv 2
+          (fun t =>
+            OAI.WeakMTWTransport.cost (OAI.WeakMTWTransport.riemannianExp x (t • xi))
+              (OAI.WeakMTWTransport.riemannianExp x (p + s • eta)))
+          0)
+      0
+def OAI.WeakMTWTransport.WeakMTW.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] →
+          Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x] =>
+  ∀ (x : M),
+    ∀ p ∈ OAI.WeakMTWTransport.injectivityDomain x,
+      ∀ (xi eta : TangentSpace (modelWithCornersSelf ℝ (OAI.WeakMTWTransport.Model n)) x),
+        inner ℝ xi eta = 0 → 0 ≤ OAI.WeakMTWTransport.mtw x p xi eta

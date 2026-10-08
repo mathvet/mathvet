@@ -1,0 +1,156 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_BiholderTransport.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.WeakMTWTransport.uniform_biHolder_transport [thm] ok
+CMP OAI.WeakMTWTransport.BiHolderEstimate [def] ok
+CMP OAI.WeakMTWTransport.densityMeasure [def] ok
+CMP OAI.WeakMTWTransport.IsOptimalMap [def] ok
+CMP OAI.WeakMTWTransport.cost [def] ok
+CMP OAI.WeakMTWTransport.cost._proof_1 [thm] ok
+CMP OAI.WeakMTWTransport.metricVolume [def] ok
+CMP OAI.WeakMTWTransport.euclideanVolumeFactor [def] ok
+CMP OAI.WeakMTWTransport.euclideanVolumeFactor._proof_3 [thm] ok
+CMP OAI.WeakMTWTransport.euclideanVolumeFactor._proof_2 [thm] ok
+CMP OAI.WeakMTWTransport.euclideanVolumeFactor._proof_1 [thm] ok
+CMP OAI.WeakMTWTransport.Model [def] ok
+CMP OAI.WeakMTWTransport.metricVolume._proof_1 [thm] ok
+CMP OAI.WeakMTWTransport.AdmissibleDensity [def] ok
+CMP OAI.WeakMTWTransport.WeakMTW [def] ok
+CMP OAI.WeakMTWTransport.mtw [def] ok
+CMP OAI.WeakMTWTransport.riemannianExp [def] ok
+CMP OAI.WeakMTWTransport.IsGeodesicWithInitialData [def] ok
+CMP OAI.WeakMTWTransport.IsGeodesicWithInitialData._proof_2 [thm] ok
+CMP OAI.WeakMTWTransport.IsGeodesicWithInitialData._proof_1 [thm] ok
+CMP OAI.WeakMTWTransport.mtw._proof_1 [thm] ok
+CMP OAI.WeakMTWTransport.injectivityDomain [def] ok
+@Chal.WeakMTWTransport.uniform_biHolder_transport : ∀ {n : ℕ},
+  2 ≤ n →
+    ∀ {M : Type u_1} [inst : MetricSpace M] [CompactSpace M] [ConnectedSpace M]
+      [inst_3 : ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+      [inst_4 : IsManifold (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) (↑⊤) M]
+      [inst_5 :
+        Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x]
+      [IsContMDiffRiemannianBundle (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) (↑⊤)
+          (Chal.WeakMTWTransport.Model n) fun x =>
+          TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x]
+      [IsRiemannianManifold (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) M] [inst_8 : MeasurableSpace M]
+      [inst_9 : BorelSpace M],
+      Chal.WeakMTWTransport.WeakMTW →
+        ∀ (lam cap : ℝ),
+          0 < lam →
+            lam ≤ cap →
+              (∃ rho, Chal.WeakMTWTransport.AdmissibleDensity (Chal.WeakMTWTransport.metricVolume n) lam cap rho) →
+                ∃ alpha C,
+                  0 < alpha ∧
+                    alpha ≤ 1 ∧
+                      0 ≤ C ∧
+                        ∀ (rho0 rho1 : M → ℝ),
+                          Chal.WeakMTWTransport.AdmissibleDensity (Chal.WeakMTWTransport.metricVolume n) lam cap rho0 →
+                            Chal.WeakMTWTransport.AdmissibleDensity (Chal.WeakMTWTransport.metricVolume n) lam cap
+                                rho1 →
+                              ∃ T,
+                                Chal.WeakMTWTransport.IsOptimalMap (Chal.WeakMTWTransport.metricVolume n) rho0 rho1 ⇑T ∧
+                                  (∀ (S : M → M),
+                                      Chal.WeakMTWTransport.IsOptimalMap (Chal.WeakMTWTransport.metricVolume n) rho0
+                                          rho1 S →
+                                        S =ᵐ[Chal.WeakMTWTransport.densityMeasure (Chal.WeakMTWTransport.metricVolume n)
+                                            rho0]
+                                          ⇑T) ∧
+                                    Chal.WeakMTWTransport.BiHolderEstimate alpha C T
+@[reducible] def Chal.WeakMTWTransport.Model : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.WeakMTWTransport.cost.{u_1} : {M : Type u_1} → [MetricSpace M] → M → M → ℝ :=
+fun {M} [MetricSpace M] x y => dist x y ^ 2 / 2
+def Chal.WeakMTWTransport.euclideanVolumeFactor : ℕ → ENNReal :=
+fun n => MeasureTheory.volume (Metric.ball 0 1) / (MeasureTheory.Measure.hausdorffMeasure ↑n) (Metric.ball 0 1)
+def Chal.WeakMTWTransport.metricVolume.{u_1} : {M : Type u_1} →
+  [inst : MetricSpace M] → [inst_1 : MeasurableSpace M] → [BorelSpace M] → ℕ → MeasureTheory.Measure M :=
+fun {M} [MetricSpace M] [MeasurableSpace M] [BorelSpace M] n =>
+  Chal.WeakMTWTransport.euclideanVolumeFactor n • MeasureTheory.Measure.hausdorffMeasure ↑n
+def Chal.WeakMTWTransport.AdmissibleDensity.{u_1} : {M : Type u_1} →
+  [inst : MeasurableSpace M] → MeasureTheory.Measure M → ℝ → ℝ → (M → ℝ) → Prop :=
+fun {M} [MeasurableSpace M] vol lam cap rho =>
+  AEMeasurable rho vol ∧
+    MeasureTheory.Integrable rho vol ∧ ∫ (x : M), rho x ∂vol = 1 ∧ ∀ᵐ (x : M) ∂vol, lam ≤ rho x ∧ rho x ≤ cap
+def Chal.WeakMTWTransport.densityMeasure.{u_1} : {M : Type u_1} →
+  [inst : MeasurableSpace M] → MeasureTheory.Measure M → (M → ℝ) → MeasureTheory.Measure M :=
+fun {M} [MeasurableSpace M] vol rho => vol.withDensity fun x => ENNReal.ofReal (rho x)
+def Chal.WeakMTWTransport.IsOptimalMap.{u_1} : {M : Type u_1} →
+  [MetricSpace M] → [inst : MeasurableSpace M] → MeasureTheory.Measure M → (M → ℝ) → (M → ℝ) → (M → M) → Prop :=
+fun {M} [MetricSpace M] [MeasurableSpace M] vol rho0 rho1 T =>
+  Measurable T ∧
+    MeasureTheory.Measure.map T (Chal.WeakMTWTransport.densityMeasure vol rho0) =
+        Chal.WeakMTWTransport.densityMeasure vol rho1 ∧
+      ∀ (S : M → M),
+        Measurable S →
+          MeasureTheory.Measure.map S (Chal.WeakMTWTransport.densityMeasure vol rho0) =
+              Chal.WeakMTWTransport.densityMeasure vol rho1 →
+            ∫ (x : M), Chal.WeakMTWTransport.cost x (T x) * rho0 x ∂vol ≤
+              ∫ (x : M), Chal.WeakMTWTransport.cost x (S x) * rho0 x ∂vol
+def Chal.WeakMTWTransport.BiHolderEstimate.{u_1} : {M : Type u_1} → [inst : MetricSpace M] → ℝ → ℝ → M ≃ₜ M → Prop :=
+fun {M} [MetricSpace M] alpha C T =>
+  (∀ (x x' : M), dist (T x) (T x') ≤ C * dist x x' ^ alpha) ∧
+    ∀ (y y' : M), dist (T.symm y) (T.symm y') ≤ C * dist y y' ^ alpha
+def Chal.WeakMTWTransport.IsGeodesicWithInitialData.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (Chal.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] →
+          (x : M) → TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x → (ℝ → M) → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] x v
+    gamma =>
+  ContMDiff (modelWithCornersSelf ℝ ℝ) (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) (↑⊤) gamma ∧
+    ⟨gamma 0, (mfderiv% gamma 0) 1⟩ = ⟨x, v⟩ ∧
+      ∀ (t : ℝ), ∃ eps, 0 < eps ∧ ∀ (s u : ℝ), |s - t| < eps → |u - t| < eps → dist (gamma s) (gamma u) = |s - u| * ‖v‖
+def Chal.WeakMTWTransport.riemannianExp.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (Chal.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] →
+          (x : M) → TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x → M :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] x v =>
+  if h : ∃ gamma, Chal.WeakMTWTransport.IsGeodesicWithInitialData x v gamma then Classical.choose h 1 else x
+def Chal.WeakMTWTransport.injectivityDomain.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (Chal.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] →
+          (x : M) → Set (TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x) :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] x =>
+  {p | ∃ a, 1 < a ∧ dist x (Chal.WeakMTWTransport.riemannianExp x (a • p)) = a * ‖p‖}
+def Chal.WeakMTWTransport.mtw.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (Chal.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] →
+          (x : M) →
+            TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x →
+              TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x →
+                TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x → ℝ :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] x p xi
+    eta =>
+  -(3 / 2) *
+    iteratedDeriv 2
+      (fun s =>
+        iteratedDeriv 2
+          (fun t =>
+            Chal.WeakMTWTransport.cost (Chal.WeakMTWTransport.riemannianExp x (t • xi))
+              (Chal.WeakMTWTransport.riemannianExp x (p + s • eta)))
+          0)
+      0
+def Chal.WeakMTWTransport.WeakMTW.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (Chal.WeakMTWTransport.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] →
+          Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (Chal.WeakMTWTransport.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x] =>
+  ∀ (x : M),
+    ∀ p ∈ Chal.WeakMTWTransport.injectivityDomain x,
+      ∀ (xi eta : TangentSpace (modelWithCornersSelf ℝ (Chal.WeakMTWTransport.Model n)) x),
+        inner ℝ xi eta = 0 → 0 ≤ Chal.WeakMTWTransport.mtw x p xi eta
+'OAI.WeakMTWTransport.uniform_biHolder_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BiholderTransport comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
