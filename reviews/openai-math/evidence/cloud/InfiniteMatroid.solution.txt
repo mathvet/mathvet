@@ -1,0 +1,31 @@
+OAI.InfiniteMatroidCounterexample.main : Countable OAI.InfiniteMatroidCounterexample.E ∧
+  Infinite OAI.InfiniteMatroidCounterexample.E ∧
+    ∃ M₀ M₁,
+      M₀.E = Set.univ ∧
+        M₁.E = Set.univ ∧
+          M₀✶ = M₀ ∧
+            M₁✶ = M₁ ∧
+              (∀ (I₀ I₁ : Set OAI.InfiniteMatroidCounterexample.E), M₀.Indep I₀ → M₁.Indep I₁ → I₀ ∪ I₁ ≠ Set.univ) ∧
+                ¬OAI.InfiniteMatroidCounterexample.HasPackingCovering M₀ M₁
+'OAI.InfiniteMatroidCounterexample.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.InfiniteMatroidCounterexample.D : Type :=
+(m : ℕ) × ((Fin m → Bool) → Bool)
+@[reducible] def OAI.InfiniteMatroidCounterexample.E : Type :=
+ℤ × OAI.InfiniteMatroidCounterexample.D
+def OAI.InfiniteMatroidCounterexample.contractOnto.{u_1} : {α : Type u_1} → Matroid α → Set α → Matroid α :=
+fun {α} M C => (M✶.restrict C)✶
+def OAI.InfiniteMatroidCounterexample.HasPackingCovering.{u_1} : {α : Type u_1} → Matroid α → Matroid α → Prop :=
+fun {α} M₀ M₁ =>
+  ∃ P C S₀ S₁ I₀ I₁,
+    Disjoint P C ∧
+      P ∪ C = M₀.E ∧
+        M₁.E = M₀.E ∧
+          S₀ ⊆ P ∧
+            S₁ ⊆ P ∧
+              Disjoint S₀ S₁ ∧
+                (M₀.restrict P).Spanning S₀ ∧
+                  (M₁.restrict P).Spanning S₁ ∧
+                    I₀ ⊆ C ∧
+                      I₁ ⊆ C ∧
+                        (OAI.InfiniteMatroidCounterexample.contractOnto M₀ C).Indep I₀ ∧
+                          (OAI.InfiniteMatroidCounterexample.contractOnto M₁ C).Indep I₁ ∧ I₀ ∪ I₁ = C
