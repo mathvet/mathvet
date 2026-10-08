@@ -1,0 +1,1276 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ThomasonModelStructures.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Thomason.nerveDetection_allDimensions [thm] ok
+CMP OAI.Thomason.streetNerveFinite [def] ok
+CMP OAI.Thomason.streetNerveFinite._proof_2 [thm] ok
+CMP OAI.Thomason.streetNerveMap [def] ok
+CMP OAI.Thomason.streetNerveMap._proof_1 [thm] ok
+CMP OAI.Thomason.orientals [def] ok
+CMP OAI.Thomason.DirectedComplex.nuFunctor [def] ok
+CMP OAI.Thomason.DirectedComplex.nuFunctor._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.nu [def] ok
+CMP OAI.Thomason.OmegaCategory.Cell [def] ok
+CMP OAI.Thomason.OmegaCategory [ind] ok
+CMP OAI.Thomason.OmegaCategory.mk [ctor] ok
+CMP OAI.Thomason.DirectedComplex.nu [def] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_16 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.truncate [def] ok
+CMP OAI.Thomason.DirectedComplex.Table.truncate._proof_11 [thm] ok
+CMP OAI.Thomason.DirectedComplex.group [def] ok
+CMP OAI.Thomason.DirectedComplex [ind] ok
+CMP OAI.Thomason.DirectedComplex.mk [ctor] ok
+CMP OAI.Thomason.DirectedComplex.Chain [def] ok
+CMP OAI.Thomason.DirectedComplex.Table.row [def] ok
+CMP OAI.Thomason.DirectedComplex.Table [ind] ok
+CMP OAI.Thomason.DirectedComplex.Table.mk [ctor] ok
+CMP OAI.Thomason.DirectedComplex.augmentation [def] ok
+CMP OAI.Thomason.DirectedComplex.d [def] ok
+CMP OAI.Thomason.DirectedComplex.positive [def] ok
+CMP OAI.Thomason.DirectedComplex.Table.truncate._proof_10 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.truncate._proof_9 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.truncate._proof_8 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_15 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp [def] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_10 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_9 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_8 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_7 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_5 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Table.comp._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_14 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_13 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_12 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_11 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_10 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_9 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_8 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_5 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nu._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.mk [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Functor [ind] ok
+CMP OAI.Thomason.OmegaCategory.comp [def] ok
+CMP OAI.Thomason.OmegaCategory.source [def] ok
+CMP OAI.Thomason.OmegaCategory.target [def] ok
+CMP OAI.Thomason.DirectedComplex.Hom.nu._proof_3 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.table [def] ok
+CMP OAI.Thomason.DirectedComplex.Hom.table._proof_4 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.map [def] ok
+CMP OAI.Thomason.DirectedComplex.Hom [ind] ok
+CMP OAI.Thomason.DirectedComplex.Hom.mk [ctor] ok
+CMP OAI.Thomason.DirectedComplex.Hom.table._proof_3 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.table._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.table._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.nu._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.nu._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.instCategory [def] ok
+CMP OAI.Thomason.OmegaCategory.instCategory._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.comp [def] ok
+CMP OAI.Thomason.OmegaCategory.Functor.comp._proof_4 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.map [def] ok
+CMP OAI.Thomason.OmegaCategory.Functor.comp._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.comp._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.comp._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.instCategory._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.id [def] ok
+CMP OAI.Thomason.OmegaCategory.Functor.id._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.id._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Functor.id._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.instCategory._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.instCategory [def] ok
+CMP OAI.Thomason.DirectedComplex.instCategory._proof_3 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.comp [def] ok
+CMP OAI.Thomason.DirectedComplex.Hom.comp._proof_3 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.comp._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.comp._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.instCategory._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.id [def] ok
+CMP OAI.Thomason.DirectedComplex.Hom.id._proof_2 [thm] ok
+CMP OAI.Thomason.DirectedComplex.Hom.id._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.instCategory._proof_1 [thm] ok
+CMP OAI.Thomason.DirectedComplex.nuFunctor._proof_1 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes [def] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_10 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap [def] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_39 [thm] ok
+CMP OAI.Thomason.NormalizedChains.grade [def] ok
+CMP OAI.Thomason.NormalizedChains.Word [def] ok
+CMP OAI.Thomason.NormalizedChains.Chains [def] ok
+CMP OAI.Thomason.NormalizedChains.complex [def] ok
+CMP OAI.Thomason.NormalizedChains.positiveGrade [def] ok
+CMP OAI.Thomason.NormalizedChains.positiveGrade._proof_3 [thm] ok
+CMP OAI.Thomason.NormalizedChains.positiveGrade._proof_2 [thm] ok
+CMP OAI.Thomason.NormalizedChains.Positive [def] ok
+CMP OAI.Thomason.NormalizedChains.positiveGrade._proof_1 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_43 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_42 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_38 [thm] ok
+CMP OAI.Thomason.NormalizedChains.boundary [def] ok
+CMP OAI.Thomason.NormalizedChains.wordBoundary [def] ok
+CMP OAI.Thomason.NormalizedChains.wordBoundary._f [def] ok
+CMP OAI.Thomason.NormalizedChains.prepend [def] ok
+CMP OAI.Thomason.NormalizedChains.bracket [def] ok
+CMP OAI.Thomason.NormalizedChains.wordBoundary.match_1 [def] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_41 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_40 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_39 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_37 [thm] ok
+CMP OAI.Thomason.NormalizedChains.emptyCoefficient [def] ok
+CMP OAI.Thomason.NormalizedChains.emptyWord [def] ok
+CMP OAI.Thomason.NormalizedChains.emptyWord._proof_1 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_36 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_35 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_34 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_30 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_33 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_32 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_31 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_29 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_25 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_28 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_27 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_26 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_24 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_23 [thm] ok
+CMP OAI.Thomason.NormalizedChains.faces [def] ok
+CMP OAI.Thomason.NormalizedChains.faces._f [def] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_22 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_21 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_20 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_19 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_18 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_17 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_16 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_15 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_14 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_13 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_12 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_11 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_10 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_9 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_8 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_7 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_6 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_5 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_4 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_3 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_2 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complex._proof_1 [thm] ok
+CMP OAI.Thomason.NormalizedChains.map [def] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_38 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_37 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_33 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_36 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_35 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_34 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_32 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_31 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_27 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_30 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_29 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_28 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_26 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_22 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_25 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_24 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_23 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_21 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_20 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_19 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_18 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_17 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_16 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_15 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_14 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_13 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_12 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_11 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_10 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_9 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_8 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_7 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_6 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_3 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_2 [thm] ok
+CMP OAI.Thomason.NormalizedChains.complexMap._proof_1 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_9 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_8 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_7 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_6 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_5 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_4 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_3 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_2 [thm] ok
+CMP OAI.Thomason.NormalizedChains.simplexComplexes._proof_1 [thm] ok
+CMP OAI.Thomason.streetNerve [def] ok
+CMP OAI.Thomason.streetNerve._proof_2 [thm] ok
+CMP OAI.Thomason.streetNerve._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.IsTruncated [def] ok
+CMP OAI.Thomason.OmegaCategory.instCategoryNCategory [def] ok
+CMP OAI.Thomason.OmegaCategory.instCategoryNCategory._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.NCategory [def] ok
+CMP OAI.Thomason.OmegaCategory.instCategoryNCategory._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.instCategoryNCategory._proof_1 [thm] ok
+CMP OAI.Thomason.streetNerveFinite._proof_1 [thm] ok
+CMP OAI.Thomason.thomasonWeakEquivalencesFinite [def] ok
+CMP OAI.Thomason.thomasonRightFinite [def] ok
+CMP OAI.Thomason.simplicialWeakEquivalences [def] ok
+CMP OAI.Thomason.WeakHomotopy.Equivalence [def] ok
+CMP OAI.Thomason.WeakHomotopy.groupMap [def] ok
+CMP OAI.Thomason.WeakHomotopy.groupMap._proof_1 [thm] ok
+CMP OAI.Thomason.WeakHomotopy.loopMap [def] ok
+CMP OAI.Thomason.WeakHomotopy.loopMap._proof_1 [thm] ok
+CMP OAI.Thomason.WeakHomotopy.componentsMap [def] ok
+CMP OAI.Thomason.WeakHomotopy.componentsMap._proof_1 [thm] ok
+CMP OAI.Thomason.streetNerveFunctor [def] ok
+CMP OAI.Thomason.streetNerveFunctor._proof_2 [thm] ok
+CMP OAI.Thomason.streetNerveFunctor._proof_1 [thm] ok
+CMP OAI.Thomason.thomasonWeakEquivalences [def] ok
+CMP OAI.Thomason.thomasonRight [def] ok
+CMP OAI.Thomason.main [thm] ok
+CMP OAI.Thomason.FullMain [def] ok
+CMP OAI.Thomason.thomasonFiniteAdjunction [def] ok
+CMP OAI.Thomason.categorificationFiniteAdjunction [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationAdjunction [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationAdjunction._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationHomEquiv [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationHomEquiv._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationLift [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationLift._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationLift._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationPresentation [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.mk [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation [ind] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Generator [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Interpretation.mk [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Interpretation [ind] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.relations [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.dimension [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.lift [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_26 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.source [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.source._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Valid [ind] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Valid.comp [ctor] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.comp [ctor] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm [ind] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.target [ctor] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.source [ctor] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.gen [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Equiv [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Interpretation.map [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.eval [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.eval._f [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.composeOrLeft [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.eval.match_1 [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.casesOn [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.rec [rec] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.below [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.brecOn [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.brecOn.go [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Valid.target [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Valid.source [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Valid.gen [ctor] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.termSetoid [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.termSetoid._proof_4 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.ValidTerm [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.termSetoid._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.termSetoid._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.termSetoid._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.sourceTerm [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.sourceTerm._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.source._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.Cells [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.dimension [def] ok
+CMP OAI.Thomason.OmegaCategory.CellTerm.dimension._f [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.evaluate [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_25 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.comp [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.comp._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.compTerm [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.compTerm._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.comp._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.comp._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.target._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.target [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.target._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.targetTerm [def] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.targetTerm._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_24 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_23 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_22 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_21 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_20 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_19 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_18 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_17 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_16 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_12 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_11 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_10 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_9 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_8 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_7 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_6 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_5 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_4 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.category._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncation [def] ok
+CMP OAI.Thomason.OmegaCategory.truncation._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationUnit [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationUnit._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.Presentation.generator [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationUnit._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationUnit._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.colimitInclusion._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.nCategoryInclusion [def] ok
+CMP OAI.Thomason.OmegaCategory.nCategoryInclusion._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.nCategoryInclusion._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationHomEquiv._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationFunctor [def] ok
+CMP OAI.Thomason.OmegaCategory.truncationFunctor._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationFunctor._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationFunctor._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.truncationAdjunction._proof_1 [thm] ok
+CMP OAI.Thomason.categorificationAdjunction [def] ok
+CMP OAI.Thomason.streetYonedaIso [def] ok
+CMP OAI.Thomason.streetYonedaIso._proof_2 [thm] ok
+CMP OAI.Thomason.streetYonedaIso._proof_1 [thm] ok
+CMP OAI.Thomason.streetYonedaEquiv [def] ok
+CMP OAI.Thomason.streetYonedaEquiv._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftDown [def] ok
+CMP OAI.Thomason.OmegaCategory.uliftDown._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift [def] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_22 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_21 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_20 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_5 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_19 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_18 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_17 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_16 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_15 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_14 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_13 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_12 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_11 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_10 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_9 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_8 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_7 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_6 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_4 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.ulift._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftDown._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftDown._proof_1 [thm] ok
+CMP OAI.Thomason.raisedOrientals [def] ok
+CMP OAI.Thomason.OmegaCategory.uliftFunctor [def] ok
+CMP OAI.Thomason.OmegaCategory.uliftFunctor._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftUp [def] ok
+CMP OAI.Thomason.OmegaCategory.uliftUp._proof_3 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftUp._proof_2 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftUp._proof_1 [thm] ok
+CMP OAI.Thomason.OmegaCategory.uliftFunctor._proof_1 [thm] ok
+CMP OAI.Thomason.streetYonedaEquiv._proof_1 [thm] ok
+CMP OAI.Thomason.categorificationAdjunction._proof_2 [thm] ok
+CMP OAI.Thomason.categorification._proof_1 [thm] ok
+CMP OAI.Thomason.categorificationAdjunction._proof_1 [thm] ok
+CMP OAI.Thomason.categorification [def] ok
+CMP OAI.Thomason.categorificationFinite [def] ok
+CMP OAI.Thomason.thomasonLeftFinite [def] ok
+CMP OAI.Thomason.thomasonAdjunction [def] ok
+CMP OAI.Thomason.thomasonLeft [def] ok
+CMP OAI.Thomason.ExactModelEndpoint [ind] ok
+CMP OAI.Thomason.ExactModelEndpoint.mk [ctor] ok
+CMP OAI.Thomason.FibrantFor [def] ok
+CMP OAI.Thomason.RightProperFor [def] ok
+CMP OAI.Thomason.LeftProperFor [def] ok
+CMP OAI.Thomason.hornImages [def] ok
+CMP OAI.Thomason.boundaryImages [def] ok
+CMP OAI.Thomason.simplicialFibrations [def] ok
+CMP OAI.Thomason.KanQuillenModel [ind] ok
+CMP OAI.Thomason.KanQuillenModel.mk [ctor] ok
+Chal.Thomason.main : Chal.Thomason.FullMain
+Chal.Thomason.nerveDetection_allDimensions : Chal.Thomason.thomasonWeakEquivalences =
+    Chal.Thomason.simplicialWeakEquivalences.inverseImage Chal.Thomason.streetNerveFunctor ∧
+  ∀ (n : ℕ),
+    Chal.Thomason.thomasonWeakEquivalencesFinite n =
+      Chal.Thomason.simplicialWeakEquivalences.inverseImage (Chal.Thomason.streetNerveFinite n)
+structure Chal.Thomason.OmegaCategory.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  Chal.Thomason.OmegaCategory.Cell : Type u
+  Chal.Thomason.OmegaCategory.source : ℕ → self.Cell → self.Cell
+  Chal.Thomason.OmegaCategory.target : ℕ → self.Cell → self.Cell
+  Chal.Thomason.OmegaCategory.source_source : ∀ (i j : ℕ) (x : self.Cell),
+      self.source i (self.source j x) = self.source (min i j) x
+  Chal.Thomason.OmegaCategory.target_target : ∀ (i j : ℕ) (x : self.Cell),
+      self.target i (self.target j x) = self.target (min i j) x
+  Chal.Thomason.OmegaCategory.source_target : ∀ (i j : ℕ) (x : self.Cell),
+      self.source i (self.target j x) = if i < j then self.source i x else self.target j x
+  Chal.Thomason.OmegaCategory.target_source : ∀ (i j : ℕ) (x : self.Cell),
+      self.target i (self.source j x) = if i < j then self.target i x else self.source j x
+  Chal.Thomason.OmegaCategory.comp : (k : ℕ) → (x y : self.Cell) → self.target k x = self.source k y → self.Cell
+  Chal.Thomason.OmegaCategory.source_comp_le : ∀ (i k : ℕ),
+      i ≤ k →
+        ∀ (x y : self.Cell) (h : self.target k x = self.source k y), self.source i (self.comp k x y h) = self.source i x
+  Chal.Thomason.OmegaCategory.target_comp_le : ∀ (i k : ℕ),
+      i ≤ k →
+        ∀ (x y : self.Cell) (h : self.target k x = self.source k y), self.target i (self.comp k x y h) = self.target i y
+  Chal.Thomason.OmegaCategory.source_comp_gt : ∀ (i k : ℕ),
+      k < i →
+        ∀ (x y : self.Cell) (h : self.target k x = self.source k y)
+          (hs : self.target k (self.source i x) = self.source k (self.source i y)),
+          self.source i (self.comp k x y h) = self.comp k (self.source i x) (self.source i y) hs
+  Chal.Thomason.OmegaCategory.target_comp_gt : ∀ (i k : ℕ),
+      k < i →
+        ∀ (x y : self.Cell) (h : self.target k x = self.source k y)
+          (ht : self.target k (self.target i x) = self.source k (self.target i y)),
+          self.target i (self.comp k x y h) = self.comp k (self.target i x) (self.target i y) ht
+  Chal.Thomason.OmegaCategory.unit_left : ∀ (k : ℕ) (x : self.Cell)
+      (h : self.target k (self.source k x) = self.source k x), self.comp k (self.source k x) x h = x
+  Chal.Thomason.OmegaCategory.unit_right : ∀ (k : ℕ) (x : self.Cell)
+      (h : self.target k x = self.source k (self.target k x)), self.comp k x (self.target k x) h = x
+  Chal.Thomason.OmegaCategory.assoc : ∀ (k : ℕ) (x y z : self.Cell) (hxy : self.target k x = self.source k y)
+      (hyz : self.target k y = self.source k z) (hxy_z : self.target k (self.comp k x y hxy) = self.source k z)
+      (hx_yz : self.target k x = self.source k (self.comp k y z hyz)),
+      self.comp k (self.comp k x y hxy) z hxy_z = self.comp k x (self.comp k y z hyz) hx_yz
+  Chal.Thomason.OmegaCategory.interchange : ∀ (k l : ℕ),
+      k < l →
+        ∀ (a b c d : self.Cell) (hab : self.target l a = self.source l b) (hcd : self.target l c = self.source l d)
+          (hac : self.target k a = self.source k c) (hbd : self.target k b = self.source k d)
+          (hab_cd : self.target k (self.comp l a b hab) = self.source k (self.comp l c d hcd))
+          (hac_bd : self.target l (self.comp k a c hac) = self.source l (self.comp k b d hbd)),
+          self.comp k (self.comp l a b hab) (self.comp l c d hcd) hab_cd =
+            self.comp l (self.comp k a c hac) (self.comp k b d hbd) hac_bd
+  Chal.Thomason.OmegaCategory.finite_dimension : ∀ (x : self.Cell), ∃ k, self.source k x = x
+constructor:
+  Chal.Thomason.OmegaCategory.mk.{u} (Cell : Type u) (source target : ℕ → Cell → Cell)
+    (source_source : ∀ (i j : ℕ) (x : Cell), source i (source j x) = source (min i j) x)
+    (target_target : ∀ (i j : ℕ) (x : Cell), target i (target j x) = target (min i j) x)
+    (source_target : ∀ (i j : ℕ) (x : Cell), source i (target j x) = if i < j then source i x else target j x)
+    (target_source : ∀ (i j : ℕ) (x : Cell), target i (source j x) = if i < j then target i x else source j x)
+    (comp : (k : ℕ) → (x y : Cell) → target k x = source k y → Cell)
+    (source_comp_le :
+      ∀ (i k : ℕ), i ≤ k → ∀ (x y : Cell) (h : target k x = source k y), source i (comp k x y h) = source i x)
+    (target_comp_le :
+      ∀ (i k : ℕ), i ≤ k → ∀ (x y : Cell) (h : target k x = source k y), target i (comp k x y h) = target i y)
+    (source_comp_gt :
+      ∀ (i k : ℕ),
+        k < i →
+          ∀ (x y : Cell) (h : target k x = source k y) (hs : target k (source i x) = source k (source i y)),
+            source i (comp k x y h) = comp k (source i x) (source i y) hs)
+    (target_comp_gt :
+      ∀ (i k : ℕ),
+        k < i →
+          ∀ (x y : Cell) (h : target k x = source k y) (ht : target k (target i x) = source k (target i y)),
+            target i (comp k x y h) = comp k (target i x) (target i y) ht)
+    (unit_left : ∀ (k : ℕ) (x : Cell) (h : target k (source k x) = source k x), comp k (source k x) x h = x)
+    (unit_right : ∀ (k : ℕ) (x : Cell) (h : target k x = source k (target k x)), comp k x (target k x) h = x)
+    (assoc :
+      ∀ (k : ℕ) (x y z : Cell) (hxy : target k x = source k y) (hyz : target k y = source k z)
+        (hxy_z : target k (comp k x y hxy) = source k z) (hx_yz : target k x = source k (comp k y z hyz)),
+        comp k (comp k x y hxy) z hxy_z = comp k x (comp k y z hyz) hx_yz)
+    (interchange :
+      ∀ (k l : ℕ),
+        k < l →
+          ∀ (a b c d : Cell) (hab : target l a = source l b) (hcd : target l c = source l d)
+            (hac : target k a = source k c) (hbd : target k b = source k d)
+            (hab_cd : target k (comp l a b hab) = source k (comp l c d hcd))
+            (hac_bd : target l (comp k a c hac) = source l (comp k b d hbd)),
+            comp k (comp l a b hab) (comp l c d hcd) hab_cd = comp l (comp k a c hac) (comp k b d hbd) hac_bd)
+    (finite_dimension : ∀ (x : Cell), ∃ k, source k x = x) : Chal.Thomason.OmegaCategory
+structure Chal.Thomason.OmegaCategory.Functor.{u, v} (C : Chal.Thomason.OmegaCategory)
+  (D : Chal.Thomason.OmegaCategory) : Type (max u v)
+number of parameters: 2
+fields:
+  Chal.Thomason.OmegaCategory.Functor.map : C.Cell → D.Cell
+  Chal.Thomason.OmegaCategory.Functor.map_source : ∀ (k : ℕ) (x : C.Cell),
+      self.map (C.source k x) = D.source k (self.map x)
+  Chal.Thomason.OmegaCategory.Functor.map_target : ∀ (k : ℕ) (x : C.Cell),
+      self.map (C.target k x) = D.target k (self.map x)
+  Chal.Thomason.OmegaCategory.Functor.map_comp : ∀ (k : ℕ) (x y : C.Cell) (h : C.target k x = C.source k y)
+      (h' : D.target k (self.map x) = D.source k (self.map y)),
+      self.map (C.comp k x y h) = D.comp k (self.map x) (self.map y) h'
+constructor:
+  Chal.Thomason.OmegaCategory.Functor.mk.{u, v} {C : Chal.Thomason.OmegaCategory} {D : Chal.Thomason.OmegaCategory}
+    (map : C.Cell → D.Cell) (map_source : ∀ (k : ℕ) (x : C.Cell), map (C.source k x) = D.source k (map x))
+    (map_target : ∀ (k : ℕ) (x : C.Cell), map (C.target k x) = D.target k (map x))
+    (map_comp :
+      ∀ (k : ℕ) (x y : C.Cell) (h : C.target k x = C.source k y) (h' : D.target k (map x) = D.source k (map y)),
+        map (C.comp k x y h) = D.comp k (map x) (map y) h') :
+    C.Functor D
+def Chal.Thomason.OmegaCategory.Functor.id.{u} : (C : Chal.Thomason.OmegaCategory) → C.Functor C :=
+fun C => { map := fun x => x, map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.Functor.comp.{u, v, w} : {C : Chal.Thomason.OmegaCategory} →
+  {D : Chal.Thomason.OmegaCategory} → {B : Chal.Thomason.OmegaCategory} → C.Functor D → D.Functor B → C.Functor B :=
+fun {C} {D} {B} F G =>
+  have proof_map_composable_0 := @Chal.Thomason.OmegaCategory.Functor.comp._proof_1;
+  { map := fun x => G.map (F.map x), map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.IsTruncated.{u} : Chal.Thomason.OmegaCategory → ℕ → Prop :=
+fun C n => ∀ (x : C.Cell), C.source n x = x
+def Chal.Thomason.OmegaCategory.NCategory.{u} : ℕ → Type (max 0 (u + 1)) :=
+fun n => { C // C.IsTruncated n }
+structure Chal.Thomason.DirectedComplex.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  Chal.Thomason.DirectedComplex.Chain : ℕ → Type u
+  Chal.Thomason.DirectedComplex.group : (p : ℕ) → AddCommGroup (self.Chain p)
+  Chal.Thomason.DirectedComplex.d : (p : ℕ) → self.Chain (p + 1) →+ self.Chain p
+  Chal.Thomason.DirectedComplex.d_d : ∀ (p : ℕ) (x : self.Chain (p + 2)), (self.d p) ((self.d (p + 1)) x) = 0
+  Chal.Thomason.DirectedComplex.augmentation : self.Chain 0 →+ ℤ
+  Chal.Thomason.DirectedComplex.augmentation_d : ∀ (x : self.Chain 1), self.augmentation ((self.d 0) x) = 0
+  Chal.Thomason.DirectedComplex.positive : (p : ℕ) → AddSubmonoid (self.Chain p)
+constructor:
+  Chal.Thomason.DirectedComplex.mk.{u} (Chain : ℕ → Type u) (group : (p : ℕ) → AddCommGroup (Chain p))
+    (d : (p : ℕ) → Chain (p + 1) →+ Chain p) (d_d : ∀ (p : ℕ) (x : Chain (p + 2)), (d p) ((d (p + 1)) x) = 0)
+    (augmentation : Chain 0 →+ ℤ) (augmentation_d : ∀ (x : Chain 1), augmentation ((d 0) x) = 0)
+    (positive : (p : ℕ) → AddSubmonoid (Chain p)) : Chal.Thomason.DirectedComplex
+structure Chal.Thomason.DirectedComplex.Hom.{u, v} (K : Chal.Thomason.DirectedComplex)
+  (L : Chal.Thomason.DirectedComplex) : Type (max u v)
+number of parameters: 2
+fields:
+  Chal.Thomason.DirectedComplex.Hom.map : (p : ℕ) → K.Chain p →+ L.Chain p
+  Chal.Thomason.DirectedComplex.Hom.map_d : ∀ (p : ℕ) (x : K.Chain (p + 1)),
+      (self.map p) ((K.d p) x) = (L.d p) ((self.map (p + 1)) x)
+  Chal.Thomason.DirectedComplex.Hom.map_augmentation : ∀ (x : K.Chain 0),
+      L.augmentation ((self.map 0) x) = K.augmentation x
+  Chal.Thomason.DirectedComplex.Hom.map_positive : ∀ (p : ℕ), ∀ x ∈ K.positive p, (self.map p) x ∈ L.positive p
+constructor:
+  Chal.Thomason.DirectedComplex.Hom.mk.{u, v} {K : Chal.Thomason.DirectedComplex} {L : Chal.Thomason.DirectedComplex}
+    (map : (p : ℕ) → K.Chain p →+ L.Chain p)
+    (map_d : ∀ (p : ℕ) (x : K.Chain (p + 1)), (map p) ((K.d p) x) = (L.d p) ((map (p + 1)) x))
+    (map_augmentation : ∀ (x : K.Chain 0), L.augmentation ((map 0) x) = K.augmentation x)
+    (map_positive : ∀ (p : ℕ), ∀ x ∈ K.positive p, (map p) x ∈ L.positive p) : K.Hom L
+def Chal.Thomason.DirectedComplex.Hom.id.{u} : (K : Chal.Thomason.DirectedComplex) → K.Hom K :=
+fun K => { map := fun x => AddMonoidHom.id (K.Chain x), map_d := ⋯, map_augmentation := ⋯, map_positive := ⋯ }
+def Chal.Thomason.DirectedComplex.Hom.comp.{u, v, w} : {K : Chal.Thomason.DirectedComplex} →
+  {L : Chal.Thomason.DirectedComplex} → {M : Chal.Thomason.DirectedComplex} → K.Hom L → L.Hom M → K.Hom M :=
+fun {K} {L} {M} f g =>
+  { map := fun p => (g.map p).comp (f.map p), map_d := ⋯, map_augmentation := ⋯, map_positive := ⋯ }
+structure Chal.Thomason.DirectedComplex.Table.{u} (K : Chal.Thomason.DirectedComplex) : Type u
+number of parameters: 1
+fields:
+  Chal.Thomason.DirectedComplex.Table.row : (p : ℕ) → Bool → K.Chain p
+  Chal.Thomason.DirectedComplex.Table.positive : ∀ (p : ℕ) (b : Bool), self.row p b ∈ K.positive p
+  Chal.Thomason.DirectedComplex.Table.boundary : ∀ (p : ℕ) (b : Bool),
+      (K.d p) (self.row (p + 1) b) = self.row p true - self.row p false
+  Chal.Thomason.DirectedComplex.Table.augmentation : ∀ (b : Bool), K.augmentation (self.row 0 b) = 1
+  Chal.Thomason.DirectedComplex.Table.bounded : ∃ k, ∀ (p : ℕ), k < p → ∀ (b : Bool), self.row p b = 0
+constructor:
+  Chal.Thomason.DirectedComplex.Table.mk.{u} {K : Chal.Thomason.DirectedComplex} (row : (p : ℕ) → Bool → K.Chain p)
+    (positive : ∀ (p : ℕ) (b : Bool), row p b ∈ K.positive p)
+    (boundary : ∀ (p : ℕ) (b : Bool), (K.d p) (row (p + 1) b) = row p true - row p false)
+    (augmentation : ∀ (b : Bool), K.augmentation (row 0 b) = 1)
+    (bounded : ∃ k, ∀ (p : ℕ), k < p → ∀ (b : Bool), row p b = 0) : K.Table
+def Chal.Thomason.DirectedComplex.Table.truncate.{u} : {K : Chal.Thomason.DirectedComplex} →
+  ℕ → Bool → K.Table → K.Table :=
+fun {K} k e x =>
+  { row := fun p b => if p < k then x.row p b else if p = k then x.row p e else 0, positive := ⋯, boundary := ⋯,
+    augmentation := ⋯, bounded := ⋯ }
+def Chal.Thomason.DirectedComplex.Table.comp.{u} : {K : Chal.Thomason.DirectedComplex} →
+  (k : ℕ) →
+    (x y : K.Table) →
+      Chal.Thomason.DirectedComplex.Table.truncate k true x = Chal.Thomason.DirectedComplex.Table.truncate k false y →
+        K.Table :=
+fun {K} k x y h =>
+  have proof_truncate_row_3 := @Chal.Thomason.DirectedComplex.Table.comp._proof_1;
+  have proof_lower_rows_eq_1 := @Chal.Thomason.DirectedComplex.Table.comp._proof_2;
+  have proof_matching_row_eq_2 := @Chal.Thomason.DirectedComplex.Table.comp._proof_5;
+  {
+    row := fun p b =>
+      if p < k then x.row p b
+      else if p = k then if b = true then y.row p true else x.row p false else x.row p b + y.row p b,
+    positive := ⋯, boundary := ⋯, augmentation := ⋯, bounded := ⋯ }
+def Chal.Thomason.DirectedComplex.nu.{u} : Chal.Thomason.DirectedComplex → Chal.Thomason.OmegaCategory :=
+fun K =>
+  have proof_truncate_row_3 := @Chal.Thomason.DirectedComplex.Table.comp._proof_1;
+  have proof_truncate_truncate_5 := @Chal.Thomason.DirectedComplex.nu._proof_3;
+  have proof_truncate_truncate_same_4 := ⋯;
+  have proof_comp_row_14 := @Chal.Thomason.DirectedComplex.nu._proof_8;
+  have proof_source_comp_le_6 := @Chal.Thomason.DirectedComplex.nu._proof_9;
+  have proof_lower_rows_eq_1 := @Chal.Thomason.DirectedComplex.Table.comp._proof_2;
+  have proof_target_comp_le_7 := ⋯;
+  have proof_truncate_comp_gt_8 := @Chal.Thomason.DirectedComplex.nu._proof_11;
+  have proof_unit_left_9 := @Chal.Thomason.DirectedComplex.nu._proof_12;
+  have proof_unit_right_10 := @Chal.Thomason.DirectedComplex.nu._proof_13;
+  have proof_assoc_11 := @Chal.Thomason.DirectedComplex.nu._proof_14;
+  have proof_interchange_12 := @Chal.Thomason.DirectedComplex.nu._proof_15;
+  have proof_finite_dimension_13 := @Chal.Thomason.DirectedComplex.nu._proof_16;
+  { Cell := K.Table, source := fun k => Chal.Thomason.DirectedComplex.Table.truncate k false,
+    target := fun k => Chal.Thomason.DirectedComplex.Table.truncate k true, source_source := ⋯, target_target := ⋯,
+    source_target := ⋯, target_source := ⋯, comp := Chal.Thomason.DirectedComplex.Table.comp, source_comp_le := ⋯,
+    target_comp_le := ⋯, source_comp_gt := ⋯, target_comp_gt := ⋯, unit_left := ⋯, unit_right := ⋯, assoc := ⋯,
+    interchange := ⋯, finite_dimension := ⋯ }
+def Chal.Thomason.DirectedComplex.Hom.table.{u, v} : {K : Chal.Thomason.DirectedComplex} →
+  {L : Chal.Thomason.DirectedComplex} → K.Hom L → K.Table → L.Table :=
+fun {K} {L} f x =>
+  { row := fun p b => (f.map p) (x.row p b), positive := ⋯, boundary := ⋯, augmentation := ⋯, bounded := ⋯ }
+def Chal.Thomason.DirectedComplex.Hom.nu.{u, v} : {K : Chal.Thomason.DirectedComplex} →
+  {L : Chal.Thomason.DirectedComplex} → K.Hom L → K.nu.Functor L.nu :=
+fun {K} {L} f =>
+  have proof_table_row_17 := @Chal.Thomason.DirectedComplex.Hom.nu._proof_1;
+  have proof_truncate_row_3 := @Chal.Thomason.DirectedComplex.Table.comp._proof_1;
+  have proof_table_truncate_15 := @Chal.Thomason.DirectedComplex.Hom.nu._proof_2;
+  have proof_comp_row_14 := @Chal.Thomason.DirectedComplex.nu._proof_8;
+  have proof_table_comp_16 := @Chal.Thomason.DirectedComplex.Hom.nu._proof_3;
+  { map := f.table, map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.DirectedComplex.nuFunctor.{u} : CategoryTheory.Functor Chal.Thomason.DirectedComplex
+  Chal.Thomason.OmegaCategory :=
+{ obj := Chal.Thomason.DirectedComplex.nu, map := fun {X Y} => Chal.Thomason.DirectedComplex.Hom.nu,
+  map_id := Chal.Thomason.DirectedComplex.nuFunctor._proof_1,
+  map_comp := @Chal.Thomason.DirectedComplex.nuFunctor._proof_2 }
+@[reducible] def Chal.Thomason.NormalizedChains.Word.{u} : (E : Type u) → [PartialOrder E] → Type (max 0 u) :=
+fun E [PartialOrder E] => { l // List.Pairwise (fun x1 x2 => x1 < x2) l }
+@[reducible] def Chal.Thomason.NormalizedChains.Chains.{u} : (E : Type u) → [PartialOrder E] → Type (max u 0) :=
+fun E [PartialOrder E] => Chal.Thomason.NormalizedChains.Word E →₀ ℤ
+def Chal.Thomason.NormalizedChains.bracket.{u} : {E : Type u} →
+  [inst : PartialOrder E] → List E → Chal.Thomason.NormalizedChains.Chains E :=
+fun {E} [PartialOrder E] l => if h : List.Pairwise (fun x1 x2 => x1 < x2) l then fun₀ | ⟨l, h⟩ => 1 else 0
+def Chal.Thomason.NormalizedChains.prepend.{u} : {E : Type u} →
+  [inst : PartialOrder E] → E → Chal.Thomason.NormalizedChains.Chains E →ₗ[ℤ] Chal.Thomason.NormalizedChains.Chains E :=
+fun {E} [PartialOrder E] a => Finsupp.linearCombination ℤ fun l => Chal.Thomason.NormalizedChains.bracket (a :: ↑l)
+def Chal.Thomason.NormalizedChains.wordBoundary.{u} : {E : Type u} →
+  [inst : PartialOrder E] → List E → Chal.Thomason.NormalizedChains.Chains E :=
+fun {E} [PartialOrder E] x => List.brecOn x Chal.Thomason.NormalizedChains.wordBoundary._f
+def Chal.Thomason.NormalizedChains.boundary.{u} : {E : Type u} →
+  [inst : PartialOrder E] → Chal.Thomason.NormalizedChains.Chains E →ₗ[ℤ] Chal.Thomason.NormalizedChains.Chains E :=
+fun {E} [PartialOrder E] => Finsupp.linearCombination ℤ fun l => Chal.Thomason.NormalizedChains.wordBoundary ↑l
+def Chal.Thomason.NormalizedChains.faces.{u, v} : {E : Type u} →
+  {M : Type v} → [AddCommGroup M] → (List E → M) → List E → M :=
+fun {E} {M} [AddCommGroup M] H x =>
+  List.brecOn (motive := fun x => (List E → M) → M) x Chal.Thomason.NormalizedChains.faces._f H
+def Chal.Thomason.NormalizedChains.grade.{u} : {E : Type u} →
+  [inst : PartialOrder E] → ℕ → Submodule ℤ (Chal.Thomason.NormalizedChains.Chains E) :=
+fun {E} [PartialOrder E] k => Finsupp.supported ℤ ℤ {w | (↑w).length = k}
+def Chal.Thomason.NormalizedChains.emptyWord.{u} : {E : Type u} →
+  [inst : PartialOrder E] → Chal.Thomason.NormalizedChains.Word E :=
+fun {E} [PartialOrder E] => ⟨[], ⋯⟩
+def Chal.Thomason.NormalizedChains.emptyCoefficient.{u} : {E : Type u} →
+  [inst : PartialOrder E] → Chal.Thomason.NormalizedChains.Chains E →ₗ[ℤ] ℤ :=
+fun {E} [PartialOrder E] => Finsupp.lapply Chal.Thomason.NormalizedChains.emptyWord
+def Chal.Thomason.NormalizedChains.Positive.{u} : {E : Type u} →
+  [inst : PartialOrder E] → Chal.Thomason.NormalizedChains.Chains E → Prop :=
+fun {E} [PartialOrder E] c => ∀ (l : Chal.Thomason.NormalizedChains.Word E), 0 ≤ c l
+def Chal.Thomason.NormalizedChains.positiveGrade.{u} : {E : Type u} →
+  [inst : PartialOrder E] → (p : ℕ) → AddSubmonoid ↥(Chal.Thomason.NormalizedChains.grade (p + 1)) :=
+fun {E} [PartialOrder E] p =>
+  { carrier := {c | Chal.Thomason.NormalizedChains.Positive ↑c}, add_mem' := ⋯, zero_mem' := ⋯ }
+def Chal.Thomason.NormalizedChains.complex.{u} : (E : Type u) → [PartialOrder E] → Chal.Thomason.DirectedComplex :=
+fun E [PartialOrder E] =>
+  have proof_mem_grade_iff_20 := @Chal.Thomason.NormalizedChains.complex._proof_1;
+  have proof_linearCombination_mem_grade_21 := ⋯;
+  have proof_bracket_of_pairwise_22 := @Chal.Thomason.NormalizedChains.complex._proof_3;
+  have proof_bracket_of_not_pairwise_23 := @Chal.Thomason.NormalizedChains.complex._proof_4;
+  have proof_bracket_mem_grade_24 := ⋯;
+  have proof_wordBoundary_nil_25 := @Chal.Thomason.NormalizedChains.complex._proof_6;
+  have proof_wordBoundary_cons_26 := @Chal.Thomason.NormalizedChains.complex._proof_7;
+  have proof_prepend_bracket_27 := ⋯;
+  have proof_prepend_mem_grade_28 := ⋯;
+  have proof_wordBoundary_mem_grade_29 := ⋯;
+  have proof_boundary_mem_grade_18 := ⋯;
+  have proof_prepend_prepend_self_30 := ⋯;
+  have proof_wordBoundary_repeated_31 := ⋯;
+  have proof_wordBoundary_eq_zero_of_not_pairwise_32 := ⋯;
+  have proof_boundary_bracket_33 := ⋯;
+  have proof_faces_nil_34 := @Chal.Thomason.NormalizedChains.complex._proof_16;
+  have proof_faces_cons_35 := @Chal.Thomason.NormalizedChains.complex._proof_17;
+  have proof_faces_hom_36 := @Chal.Thomason.NormalizedChains.complex._proof_18;
+  have proof_faces_bracket_37 := ⋯;
+  have proof_faces_congr_38 := ⋯;
+  have proof_faces_sub_39 := ⋯;
+  have proof_faces_faces_40 := ⋯;
+  have proof_boundary_wordBoundary_41 := ⋯;
+  have proof_boundary_boundary_19 := ⋯;
+  { Chain := fun p => ↥(Chal.Thomason.NormalizedChains.grade (p + 1)), group := fun x => inferInstance,
+    d := fun p => { toFun := fun c => ⟨Chal.Thomason.NormalizedChains.boundary ↑c, ⋯⟩, map_zero' := ⋯, map_add' := ⋯ },
+    d_d := ⋯,
+    augmentation :=
+      { toFun := fun c => Chal.Thomason.NormalizedChains.emptyCoefficient (Chal.Thomason.NormalizedChains.boundary ↑c),
+        map_zero' := ⋯, map_add' := ⋯ },
+    augmentation_d := ⋯, positive := Chal.Thomason.NormalizedChains.positiveGrade }
+def Chal.Thomason.NormalizedChains.map.{u, v} : {E : Type u} →
+  [inst : PartialOrder E] →
+    {D : Type v} →
+      [inst_1 : PartialOrder D] →
+        (E →o D) → Chal.Thomason.NormalizedChains.Chains E →ₗ[ℤ] Chal.Thomason.NormalizedChains.Chains D :=
+fun {E} [PartialOrder E] {D} [PartialOrder D] f =>
+  Finsupp.linearCombination ℤ fun l => Chal.Thomason.NormalizedChains.bracket (List.map ⇑f ↑l)
+def Chal.Thomason.NormalizedChains.complexMap.{u, v} : {E : Type u} →
+  [inst : PartialOrder E] →
+    {D : Type v} →
+      [inst_1 : PartialOrder D] →
+        (E →o D) → (Chal.Thomason.NormalizedChains.complex E).Hom (Chal.Thomason.NormalizedChains.complex D) :=
+fun {E} [PartialOrder E] {D} [PartialOrder D] f =>
+  have proof_mem_grade_iff_20 := @Chal.Thomason.NormalizedChains.complex._proof_1;
+  have proof_linearCombination_mem_grade_46 := ⋯;
+  have proof_bracket_of_pairwise_47 := @Chal.Thomason.NormalizedChains.complex._proof_3;
+  have proof_bracket_of_not_pairwise_48 := @Chal.Thomason.NormalizedChains.complex._proof_4;
+  have proof_bracket_mem_grade_49 := ⋯;
+  have proof_map_mem_grade_42 := ⋯;
+  have proof_bracket_of_pairwise_22 := @Chal.Thomason.NormalizedChains.complex._proof_3;
+  have proof_bracket_of_not_pairwise_23 := @Chal.Thomason.NormalizedChains.complex._proof_4;
+  have proof_prepend_bracket_27 := ⋯;
+  have proof_prepend_prepend_self_30 := ⋯;
+  have proof_wordBoundary_nil_25 := @Chal.Thomason.NormalizedChains.complex._proof_6;
+  have proof_wordBoundary_cons_26 := @Chal.Thomason.NormalizedChains.complex._proof_7;
+  have proof_wordBoundary_repeated_31 := ⋯;
+  have proof_wordBoundary_eq_zero_of_not_pairwise_32 := ⋯;
+  have proof_boundary_bracket_33 := ⋯;
+  have proof_faces_nil_34 := @Chal.Thomason.NormalizedChains.complex._proof_16;
+  have proof_faces_cons_35 := @Chal.Thomason.NormalizedChains.complex._proof_17;
+  have proof_faces_hom_36 := @Chal.Thomason.NormalizedChains.complex._proof_18;
+  have proof_faces_bracket_37 := ⋯;
+  have proof_faces_nil_50 := @Chal.Thomason.NormalizedChains.complex._proof_16;
+  have proof_faces_cons_51 := @Chal.Thomason.NormalizedChains.complex._proof_17;
+  have proof_wordBoundary_nil_52 := @Chal.Thomason.NormalizedChains.complex._proof_6;
+  have proof_wordBoundary_cons_53 := @Chal.Thomason.NormalizedChains.complex._proof_7;
+  have proof_faces_hom_54 := ⋯;
+  have proof_prepend_bracket_55 := ⋯;
+  have proof_faces_bracket_56 := ⋯;
+  have proof_faces_hom_57 := @Chal.Thomason.NormalizedChains.complexMap._proof_8;
+  have proof_faces_map_58 := @Chal.Thomason.NormalizedChains.complexMap._proof_9;
+  have proof_faces_nil_59 := @Chal.Thomason.NormalizedChains.complexMap._proof_10;
+  have proof_faces_cons_60 := @Chal.Thomason.NormalizedChains.complexMap._proof_11;
+  have proof_faces_congr_61 := ⋯;
+  have proof_pairwise_of_map_62 := @Chal.Thomason.NormalizedChains.complexMap._proof_13;
+  have proof_map_bracket_63 := ⋯;
+  have proof_map_wordBoundary_64 := ⋯;
+  have proof_prepend_prepend_self_65 := ⋯;
+  have proof_wordBoundary_repeated_66 := ⋯;
+  have proof_wordBoundary_eq_zero_of_not_pairwise_67 := ⋯;
+  have proof_boundary_bracket_68 := ⋯;
+  have proof_map_boundary_43 := ⋯;
+  have proof_emptyCoefficient_bracket_69 := ⋯;
+  have proof_emptyCoefficient_bracket_70 := ⋯;
+  have proof_emptyCoefficient_map_44 := ⋯;
+  have proof_linearCombination_positive_71 := @Chal.Thomason.NormalizedChains.complexMap._proof_19;
+  have proof_bracket_positive_72 := ⋯;
+  have proof_map_positive_45 := ⋯;
+  { map := fun p => { toFun := fun c => ⟨⋯, ⋯⟩, map_zero' := ⋯, map_add' := ⋯ }, map_d := ⋯, map_augmentation := ⋯,
+    map_positive := ⋯ }
+def Chal.Thomason.NormalizedChains.simplexComplexes : CategoryTheory.Functor SimplexCategory
+  Chal.Thomason.DirectedComplex :=
+have proof_bracket_of_pairwise_75 := @Chal.Thomason.NormalizedChains.simplexComplexes._proof_1;
+have proof_pairwise_of_map_76 := @Chal.Thomason.NormalizedChains.simplexComplexes._proof_2;
+have proof_bracket_of_not_pairwise_77 := @Chal.Thomason.NormalizedChains.simplexComplexes._proof_3;
+have proof_map_bracket_78 := ⋯;
+have proof_map_id_79 := ⋯;
+have proof_complexMap_id_73 := ⋯;
+have proof_map_comp_80 := ⋯;
+have proof_complexMap_comp_74 := ⋯;
+{ obj := fun m => Chal.Thomason.NormalizedChains.complex (Fin (m.len + 1)),
+  map := fun {X Y} f => Chal.Thomason.NormalizedChains.complexMap (SimplexCategory.Hom.toOrderHom f), map_id := ⋯,
+  map_comp := ⋯ }
+def Chal.Thomason.orientals : CategoryTheory.Functor SimplexCategory Chal.Thomason.OmegaCategory :=
+Chal.Thomason.NormalizedChains.simplexComplexes.comp Chal.Thomason.DirectedComplex.nuFunctor
+def Chal.Thomason.OmegaCategory.ulift.{u, v} : Chal.Thomason.OmegaCategory → Chal.Thomason.OmegaCategory :=
+fun C =>
+  { Cell := ULift.{v, u} C.Cell, source := fun k x => { down := C.source k x.down },
+    target := fun k x => { down := C.target k x.down }, source_source := ⋯, target_target := ⋯, source_target := ⋯,
+    target_source := ⋯, comp := fun k x y h => { down := C.comp k x.down y.down ⋯ }, source_comp_le := ⋯,
+    target_comp_le := ⋯, source_comp_gt := ⋯, target_comp_gt := ⋯, unit_left := ⋯, unit_right := ⋯, assoc := ⋯,
+    interchange := ⋯, finite_dimension := ⋯ }
+def Chal.Thomason.OmegaCategory.uliftUp.{u, v} : (C : Chal.Thomason.OmegaCategory) → C.Functor C.ulift :=
+fun C => { map := ULift.up, map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.uliftDown.{u, v} : (C : Chal.Thomason.OmegaCategory) → C.ulift.Functor C :=
+fun C => { map := ULift.down, map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.uliftFunctor.{u, v} : CategoryTheory.Functor Chal.Thomason.OmegaCategory
+  Chal.Thomason.OmegaCategory :=
+{ obj := Chal.Thomason.OmegaCategory.ulift, map := fun {C D} F => (C.uliftDown.comp F).comp D.uliftUp,
+  map_id := Chal.Thomason.OmegaCategory.uliftFunctor._proof_1,
+  map_comp := @Chal.Thomason.OmegaCategory.uliftFunctor._proof_2 }
+def Chal.Thomason.raisedOrientals.{u} : CategoryTheory.Functor SimplexCategory Chal.Thomason.OmegaCategory :=
+Chal.Thomason.orientals.comp Chal.Thomason.OmegaCategory.uliftFunctor
+structure Chal.Thomason.OmegaCategory.Presentation.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  Chal.Thomason.OmegaCategory.Presentation.Generator : Type u
+  Chal.Thomason.OmegaCategory.Presentation.dimension : self.Generator → ℕ
+  Chal.Thomason.OmegaCategory.Presentation.relations : (C : Chal.Thomason.OmegaCategory) →
+      (self.Generator → C.Cell) → Prop
+constructor:
+  Chal.Thomason.OmegaCategory.Presentation.mk.{u} (Generator : Type u) (dimension : Generator → ℕ)
+    (relations : (C : Chal.Thomason.OmegaCategory) → (Generator → C.Cell) → Prop) :
+    Chal.Thomason.OmegaCategory.Presentation
+structure Chal.Thomason.OmegaCategory.Presentation.Interpretation.{u} (P : Chal.Thomason.OmegaCategory.Presentation)
+  (C : Chal.Thomason.OmegaCategory) : Type u
+number of parameters: 2
+fields:
+  Chal.Thomason.OmegaCategory.Presentation.Interpretation.map : P.Generator → C.Cell
+  Chal.Thomason.OmegaCategory.Presentation.Interpretation.bounded : ∀ (g : P.Generator),
+      C.source (P.dimension g) (self.map g) = self.map g
+  Chal.Thomason.OmegaCategory.Presentation.Interpretation.satisfies : P.relations C self.map
+constructor:
+  Chal.Thomason.OmegaCategory.Presentation.Interpretation.mk.{u} {P : Chal.Thomason.OmegaCategory.Presentation}
+    {C : Chal.Thomason.OmegaCategory} (map : P.Generator → C.Cell)
+    (bounded : ∀ (g : P.Generator), C.source (P.dimension g) (map g) = map g) (satisfies : P.relations C map) :
+    P.Interpretation C
+inductive Chal.Thomason.OmegaCategory.CellTerm.{u} : Type u → Type u
+number of parameters: 1
+constructors:
+Chal.Thomason.OmegaCategory.CellTerm.gen : {G : Type u} → G → Chal.Thomason.OmegaCategory.CellTerm G
+Chal.Thomason.OmegaCategory.CellTerm.source : {G : Type u} →
+  ℕ → Chal.Thomason.OmegaCategory.CellTerm G → Chal.Thomason.OmegaCategory.CellTerm G
+Chal.Thomason.OmegaCategory.CellTerm.target : {G : Type u} →
+  ℕ → Chal.Thomason.OmegaCategory.CellTerm G → Chal.Thomason.OmegaCategory.CellTerm G
+Chal.Thomason.OmegaCategory.CellTerm.comp : {G : Type u} →
+  ℕ →
+    Chal.Thomason.OmegaCategory.CellTerm G →
+      Chal.Thomason.OmegaCategory.CellTerm G → Chal.Thomason.OmegaCategory.CellTerm G
+def Chal.Thomason.OmegaCategory.CellTerm.composeOrLeft.{v} : (C : Chal.Thomason.OmegaCategory) →
+  ℕ → C.Cell → C.Cell → C.Cell :=
+fun C k x y => if h : C.target k x = C.source k y then C.comp k x y h else x
+def Chal.Thomason.OmegaCategory.CellTerm.eval.{u, v} : {G : Type u} →
+  (C : Chal.Thomason.OmegaCategory) → (G → C.Cell) → Chal.Thomason.OmegaCategory.CellTerm G → C.Cell :=
+fun {G} C f x => Chal.Thomason.OmegaCategory.CellTerm.brecOn x (Chal.Thomason.OmegaCategory.CellTerm.eval._f C f)
+def Chal.Thomason.OmegaCategory.Presentation.Equiv.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  Chal.Thomason.OmegaCategory.CellTerm P.Generator → Chal.Thomason.OmegaCategory.CellTerm P.Generator → Prop :=
+fun P x y =>
+  ∀ (C : Chal.Thomason.OmegaCategory) (I : P.Interpretation C),
+    Chal.Thomason.OmegaCategory.CellTerm.eval C I.map x = Chal.Thomason.OmegaCategory.CellTerm.eval C I.map y
+inductive Chal.Thomason.OmegaCategory.Presentation.Valid.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  Chal.Thomason.OmegaCategory.CellTerm P.Generator → Prop
+number of parameters: 1
+constructors:
+Chal.Thomason.OmegaCategory.Presentation.Valid.gen : ∀ {P : Chal.Thomason.OmegaCategory.Presentation} (g : P.Generator),
+  P.Valid (Chal.Thomason.OmegaCategory.CellTerm.gen g)
+Chal.Thomason.OmegaCategory.Presentation.Valid.source : ∀ {P : Chal.Thomason.OmegaCategory.Presentation} (k : ℕ)
+  (x : Chal.Thomason.OmegaCategory.CellTerm P.Generator),
+  P.Valid x → P.Valid (Chal.Thomason.OmegaCategory.CellTerm.source k x)
+Chal.Thomason.OmegaCategory.Presentation.Valid.target : ∀ {P : Chal.Thomason.OmegaCategory.Presentation} (k : ℕ)
+  (x : Chal.Thomason.OmegaCategory.CellTerm P.Generator),
+  P.Valid x → P.Valid (Chal.Thomason.OmegaCategory.CellTerm.target k x)
+Chal.Thomason.OmegaCategory.Presentation.Valid.comp : ∀ {P : Chal.Thomason.OmegaCategory.Presentation} (k : ℕ)
+  (x y : Chal.Thomason.OmegaCategory.CellTerm P.Generator),
+  P.Valid x →
+    P.Valid y →
+      P.Equiv (Chal.Thomason.OmegaCategory.CellTerm.target k x) (Chal.Thomason.OmegaCategory.CellTerm.source k y) →
+        P.Valid (Chal.Thomason.OmegaCategory.CellTerm.comp k x y)
+@[reducible] def Chal.Thomason.OmegaCategory.Presentation.ValidTerm.{u} : Chal.Thomason.OmegaCategory.Presentation →
+  Type (max 0 u) :=
+fun P => { x // P.Valid x }
+@[reducible] def Chal.Thomason.OmegaCategory.Presentation.Cells.{u} : Chal.Thomason.OmegaCategory.Presentation →
+  Type u :=
+fun P => Quotient P.termSetoid
+def Chal.Thomason.OmegaCategory.Presentation.evaluate.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  (C : Chal.Thomason.OmegaCategory) → P.Interpretation C → P.Cells → C.Cell :=
+fun P C I => Quotient.lift (fun x => Chal.Thomason.OmegaCategory.CellTerm.eval C I.map ↑x) ⋯
+def Chal.Thomason.OmegaCategory.CellTerm.dimension.{u} : {G : Type u} →
+  (G → ℕ) → Chal.Thomason.OmegaCategory.CellTerm G → ℕ :=
+fun {G} d x => Chal.Thomason.OmegaCategory.CellTerm.brecOn x (Chal.Thomason.OmegaCategory.CellTerm.dimension._f d)
+def Chal.Thomason.OmegaCategory.Presentation.sourceTerm.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  ℕ → P.ValidTerm → P.ValidTerm :=
+fun P k x => ⟨Chal.Thomason.OmegaCategory.CellTerm.source k ↑x, ⋯⟩
+def Chal.Thomason.OmegaCategory.Presentation.source.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  ℕ → P.Cells → P.Cells :=
+fun P k =>
+  have proof_source_84 := @Chal.Thomason.OmegaCategory.Presentation.source._proof_1;
+  Quotient.map (P.sourceTerm k) ⋯
+def Chal.Thomason.OmegaCategory.Presentation.targetTerm.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  ℕ → P.ValidTerm → P.ValidTerm :=
+fun P k x => ⟨Chal.Thomason.OmegaCategory.CellTerm.target k ↑x, ⋯⟩
+def Chal.Thomason.OmegaCategory.Presentation.target.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  ℕ → P.Cells → P.Cells :=
+fun P k =>
+  have proof_target_85 := @Chal.Thomason.OmegaCategory.Presentation.target._proof_1;
+  Quotient.map (P.targetTerm k) ⋯
+def Chal.Thomason.OmegaCategory.Presentation.compTerm.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  ℕ → P.ValidTerm → P.ValidTerm → P.ValidTerm :=
+fun P k x y =>
+  if h :
+      P.Equiv (Chal.Thomason.OmegaCategory.CellTerm.target k ↑x) (Chal.Thomason.OmegaCategory.CellTerm.source k ↑y) then
+    ⟨Chal.Thomason.OmegaCategory.CellTerm.comp k ↑x ↑y, ⋯⟩
+  else x
+def Chal.Thomason.OmegaCategory.Presentation.comp.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  (k : ℕ) → (x y : P.Cells) → P.target k x = P.source k y → P.Cells :=
+fun P k x y x_1 =>
+  have proof_trans_83 := @Chal.Thomason.OmegaCategory.Presentation.termSetoid._proof_3;
+  have proof_symm_82 := @Chal.Thomason.OmegaCategory.Presentation.termSetoid._proof_2;
+  have proof_target_85 := @Chal.Thomason.OmegaCategory.Presentation.target._proof_1;
+  have proof_source_84 := @Chal.Thomason.OmegaCategory.Presentation.source._proof_1;
+  have proof_composable_congr_87 := ⋯;
+  have proof_comp_88 := @Chal.Thomason.OmegaCategory.Presentation.comp._proof_2;
+  have proof_compTerm_equiv_86 := ⋯;
+  Quotient.map₂ (P.compTerm k) ⋯ x y
+@[reducible] def Chal.Thomason.OmegaCategory.Presentation.category.{u} : Chal.Thomason.OmegaCategory.Presentation →
+  Chal.Thomason.OmegaCategory :=
+fun P =>
+  have proof_cells_ext_89 := Chal.Thomason.OmegaCategory.Presentation.category._proof_1;
+  have proof_evaluate_source_90 := Chal.Thomason.OmegaCategory.Presentation.category._proof_2;
+  have proof_evaluate_target_91 := Chal.Thomason.OmegaCategory.Presentation.category._proof_3;
+  have proof_evaluate_composable_94 := ⋯;
+  have proof_evaluate_comp_92 := ⋯;
+  have proof_source_source_self_95 := Chal.Thomason.OmegaCategory.Presentation.category._proof_6;
+  have proof_source_target_self_96 := Chal.Thomason.OmegaCategory.Presentation.category._proof_7;
+  have proof_source_composable_97 := Chal.Thomason.OmegaCategory.Presentation.category._proof_8;
+  have proof_source_fixed_upwards_98 := Chal.Thomason.OmegaCategory.Presentation.category._proof_9;
+  have proof_eval_dimension_93 := ⋯;
+  { Cell := P.Cells, source := P.source, target := P.target, source_source := ⋯, target_target := ⋯, source_target := ⋯,
+    target_source := ⋯, comp := P.comp, source_comp_le := ⋯, target_comp_le := ⋯, source_comp_gt := ⋯,
+    target_comp_gt := ⋯, unit_left := ⋯, unit_right := ⋯, assoc := ⋯, interchange := ⋯, finite_dimension := ⋯ }
+@[reducible] def Chal.Thomason.OmegaCategory.colimitPresentation.{u} : {J : Type u} →
+  [inst : CategoryTheory.Category.{u, u} J] →
+    CategoryTheory.Functor J Chal.Thomason.OmegaCategory → Chal.Thomason.OmegaCategory.Presentation :=
+fun {J} [CategoryTheory.Category.{u, u} J] F =>
+  { Generator := (j : J) × (F.obj j).Cell, dimension := fun g => Classical.choose ⋯,
+    relations := fun C f =>
+      ∃ ι,
+        (∀ (j : J) (x : (F.obj j).Cell), f ⟨j, x⟩ = (ι j).map x) ∧
+          ∀ ⦃j j' : J⦄ (a : j ⟶ j'), Chal.Thomason.OmegaCategory.Functor.comp (F.map a) (ι j') = ι j }
+def Chal.Thomason.OmegaCategory.Presentation.generator.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  P.Generator → P.Cells :=
+fun P g => ⟦⟨Chal.Thomason.OmegaCategory.CellTerm.gen g, ⋯⟩⟧
+def Chal.Thomason.OmegaCategory.colimitInclusion.{u} : {J : Type u} →
+  [inst : CategoryTheory.Category.{u, u} J] →
+    (F : CategoryTheory.Functor J Chal.Thomason.OmegaCategory) →
+      (j : J) → (F.obj j).Functor (Chal.Thomason.OmegaCategory.colimitPresentation F).category :=
+fun {J} [CategoryTheory.Category.{u, u} J] F j =>
+  have proof_cells_ext_89 := Chal.Thomason.OmegaCategory.Presentation.category._proof_1;
+  have proof_evaluate_source_90 := Chal.Thomason.OmegaCategory.Presentation.category._proof_2;
+  have proof_evaluate_target_91 := Chal.Thomason.OmegaCategory.Presentation.category._proof_3;
+  have proof_evaluate_composable_94 := ⋯;
+  have proof_evaluate_comp_92 := ⋯;
+  have proof_evaluate_generator_99 := Chal.Thomason.OmegaCategory.colimitInclusion._proof_1;
+  { map := fun x => (Chal.Thomason.OmegaCategory.colimitPresentation F).generator ⟨j, x⟩, map_source := ⋯,
+    map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.presentedCocone.{u} : {J : Type u} →
+  [inst : CategoryTheory.Category.{u, u} J] →
+    (F : CategoryTheory.Functor J Chal.Thomason.OmegaCategory) → CategoryTheory.Limits.Cocone F :=
+fun {J} [CategoryTheory.Category.{u, u} J] F =>
+  have proof_cells_ext_89 := Chal.Thomason.OmegaCategory.Presentation.category._proof_1;
+  { pt := (Chal.Thomason.OmegaCategory.colimitPresentation F).category,
+    ι := { app := Chal.Thomason.OmegaCategory.colimitInclusion F, naturality := ⋯ } }
+def Chal.Thomason.OmegaCategory.Presentation.lift.{u} : (P : Chal.Thomason.OmegaCategory.Presentation) →
+  (C : Chal.Thomason.OmegaCategory) → P.Interpretation C → P.category.Functor C :=
+fun P C I =>
+  have proof_evaluate_source_90 := Chal.Thomason.OmegaCategory.Presentation.category._proof_2;
+  have proof_evaluate_target_91 := Chal.Thomason.OmegaCategory.Presentation.category._proof_3;
+  have proof_evaluate_composable_94 := ⋯;
+  have proof_evaluate_comp_92 := ⋯;
+  { map := P.evaluate C I, map_source := ⋯, map_target := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.colimitInterpretation.{u} : {J : Type u} →
+  [inst : CategoryTheory.Category.{u, u} J] →
+    (F : CategoryTheory.Functor J Chal.Thomason.OmegaCategory) →
+      (s : CategoryTheory.Limits.Cocone F) → (Chal.Thomason.OmegaCategory.colimitPresentation F).Interpretation s.pt :=
+fun {J} [CategoryTheory.Category.{u, u} J] F s =>
+  { map := fun g => (s.ι.app g.fst).map g.snd, bounded := ⋯, satisfies := ⋯ }
+def Chal.Thomason.OmegaCategory.presentedCoconeIsColimit.{u} : {J : Type u} →
+  [inst : CategoryTheory.Category.{u, u} J] →
+    (F : CategoryTheory.Functor J Chal.Thomason.OmegaCategory) →
+      CategoryTheory.Limits.IsColimit (Chal.Thomason.OmegaCategory.presentedCocone F) :=
+fun {J} [CategoryTheory.Category.{u, u} J] F =>
+  have proof_mk_comp_101 := Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_1;
+  have proof_map_composable_102 := @Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_2;
+  have proof_functor_ext_100 := ⋯;
+  {
+    desc := fun s =>
+      (Chal.Thomason.OmegaCategory.colimitPresentation F).lift s.pt
+        (Chal.Thomason.OmegaCategory.colimitInterpretation F s),
+    fac := ⋯, uniq := ⋯ }
+def Chal.Thomason.categorification.{u} : CategoryTheory.Functor _root_.SSet Chal.Thomason.OmegaCategory :=
+CategoryTheory.uliftYoneda.{u, 0, 0}.leftKanExtension Chal.Thomason.raisedOrientals
+def Chal.Thomason.thomasonLeft.{u} : CategoryTheory.Functor _root_.SSet Chal.Thomason.OmegaCategory :=
+(SSet.sd.comp SSet.sd).comp Chal.Thomason.categorification
+def Chal.Thomason.streetNerve.{u} : Chal.Thomason.OmegaCategory → _root_.SSet :=
+fun C =>
+  { obj := fun m => (Chal.Thomason.orientals.obj (Opposite.unop m)).Functor C,
+    map := fun {X Y} f =>
+      TypeCat.ofHom fun x => Chal.Thomason.OmegaCategory.Functor.comp (Chal.Thomason.orientals.map f.unop) x,
+    map_id := ⋯, map_comp := ⋯ }
+def Chal.Thomason.streetNerveMap.{u} : {C D : Chal.Thomason.OmegaCategory} →
+  C.Functor D → (Chal.Thomason.streetNerve C ⟶ Chal.Thomason.streetNerve D) :=
+fun {C D} F =>
+  { app := fun x => TypeCat.ofHom fun x_1 => Chal.Thomason.OmegaCategory.Functor.comp x_1 F, naturality := ⋯ }
+def Chal.Thomason.streetNerveFunctor.{u} : CategoryTheory.Functor Chal.Thomason.OmegaCategory _root_.SSet :=
+{ obj := Chal.Thomason.streetNerve, map := fun {X Y} => Chal.Thomason.streetNerveMap,
+  map_id := Chal.Thomason.streetNerveFunctor._proof_1, map_comp := @Chal.Thomason.streetNerveFunctor._proof_2 }
+def Chal.Thomason.thomasonRight.{u} : CategoryTheory.Functor Chal.Thomason.OmegaCategory _root_.SSet :=
+Chal.Thomason.streetNerveFunctor.comp (SSet.ex.comp SSet.ex)
+def Chal.Thomason.streetYonedaEquiv.{u} : (C : Chal.Thomason.OmegaCategory) →
+  (m : SimplexCategoryᵒᵖ) →
+    ((CategoryTheory.Presheaf.restrictedULiftYoneda Chal.Thomason.raisedOrientals).obj C).obj m ≃
+      (Chal.Thomason.streetNerve C).obj m :=
+fun C m =>
+  { toFun := fun F => (Chal.Thomason.orientals.obj (Opposite.unop m)).uliftUp.comp F.down,
+    invFun := fun F => { down := (Chal.Thomason.orientals.obj (Opposite.unop m)).uliftDown.comp F }, left_inv := ⋯,
+    right_inv := ⋯ }
+def Chal.Thomason.streetYonedaIso.{u} : CategoryTheory.Presheaf.restrictedULiftYoneda Chal.Thomason.raisedOrientals ≅
+  Chal.Thomason.streetNerveFunctor :=
+CategoryTheory.NatIso.ofComponents
+  (fun C => CategoryTheory.NatIso.ofComponents (fun m => (Chal.Thomason.streetYonedaEquiv C m).toIso) ⋯)
+  @Chal.Thomason.streetYonedaIso._proof_2
+def Chal.Thomason.categorificationAdjunction.{u} : Chal.Thomason.categorification ⊣ Chal.Thomason.streetNerveFunctor :=
+(CategoryTheory.Presheaf.uliftYonedaAdjunction
+      (CategoryTheory.uliftYoneda.{u, 0, 0}.leftKanExtension Chal.Thomason.raisedOrientals)
+      (CategoryTheory.uliftYoneda.{u, 0, 0}.leftKanExtensionUnit Chal.Thomason.raisedOrientals)).ofNatIsoRight
+  Chal.Thomason.streetYonedaIso
+def Chal.Thomason.thomasonAdjunction.{u} : Chal.Thomason.thomasonLeft ⊣ Chal.Thomason.thomasonRight :=
+(SSet.sdExAdjunction.comp SSet.sdExAdjunction).comp Chal.Thomason.categorificationAdjunction
+@[reducible] def Chal.Thomason.OmegaCategory.truncationPresentation.{u} : ℕ →
+  Chal.Thomason.OmegaCategory → Chal.Thomason.OmegaCategory.Presentation :=
+fun n C => { Generator := C.Cell, dimension := fun x => n, relations := fun D f => D.IsTruncated n ∧ ∃ F, f = F.map }
+def Chal.Thomason.OmegaCategory.truncationUnit.{u} : (n : ℕ) →
+  (C : Chal.Thomason.OmegaCategory) → C.Functor (Chal.Thomason.OmegaCategory.truncationPresentation n C).category :=
+fun n C =>
+  have proof_cells_ext_89 := Chal.Thomason.OmegaCategory.Presentation.category._proof_1;
+  have proof_evaluate_source_90 := Chal.Thomason.OmegaCategory.Presentation.category._proof_2;
+  have proof_evaluate_target_91 := Chal.Thomason.OmegaCategory.Presentation.category._proof_3;
+  have proof_evaluate_composable_94 := ⋯;
+  have proof_evaluate_comp_92 := ⋯;
+  have proof_evaluate_generator_99 := Chal.Thomason.OmegaCategory.colimitInclusion._proof_1;
+  { map := (Chal.Thomason.OmegaCategory.truncationPresentation n C).generator, map_source := ⋯, map_target := ⋯,
+    map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.truncation.{u} : (n : ℕ) →
+  Chal.Thomason.OmegaCategory → Chal.Thomason.OmegaCategory.NCategory n :=
+fun n C =>
+  have proof_cells_ext_89 := Chal.Thomason.OmegaCategory.Presentation.category._proof_1;
+  have proof_evaluate_source_90 := Chal.Thomason.OmegaCategory.Presentation.category._proof_2;
+  have proof_truncation_isTruncated_103 := ⋯;
+  ⟨(Chal.Thomason.OmegaCategory.truncationPresentation n C).category, ⋯⟩
+def Chal.Thomason.OmegaCategory.truncationLift.{u} : {n : ℕ} →
+  {C : Chal.Thomason.OmegaCategory} →
+    (D : Chal.Thomason.OmegaCategory.NCategory n) →
+      C.Functor ↑D → (↑(Chal.Thomason.OmegaCategory.truncation n C)).Functor ↑D :=
+fun {n} {C} D F =>
+  (Chal.Thomason.OmegaCategory.truncationPresentation n C).lift ↑D { map := F.map, bounded := ⋯, satisfies := ⋯ }
+def Chal.Thomason.OmegaCategory.truncationFunctor.{u} : (n : ℕ) →
+  CategoryTheory.Functor Chal.Thomason.OmegaCategory (Chal.Thomason.OmegaCategory.NCategory n) :=
+fun n =>
+  have proof_mk_comp_101 := Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_1;
+  have proof_map_composable_102 := @Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_2;
+  have proof_functor_ext_100 := ⋯;
+  have proof_truncation_functor_ext_104 := ⋯;
+  { obj := Chal.Thomason.OmegaCategory.truncation n,
+    map := fun {C D} F =>
+      Chal.Thomason.OmegaCategory.truncationLift (Chal.Thomason.OmegaCategory.truncation n D)
+        (Chal.Thomason.OmegaCategory.Functor.comp F (Chal.Thomason.OmegaCategory.truncationUnit n D)),
+    map_id := ⋯, map_comp := ⋯ }
+def Chal.Thomason.categorificationFinite.{u} : (n : ℕ) →
+  CategoryTheory.Functor _root_.SSet (Chal.Thomason.OmegaCategory.NCategory n) :=
+fun n => Chal.Thomason.categorification.comp (Chal.Thomason.OmegaCategory.truncationFunctor n)
+def Chal.Thomason.thomasonLeftFinite.{u} : (n : ℕ) →
+  CategoryTheory.Functor _root_.SSet (Chal.Thomason.OmegaCategory.NCategory n) :=
+fun n => (SSet.sd.comp SSet.sd).comp (Chal.Thomason.categorificationFinite n)
+def Chal.Thomason.streetNerveFinite.{u} : (n : ℕ) →
+  CategoryTheory.Functor (Chal.Thomason.OmegaCategory.NCategory n) _root_.SSet :=
+fun n =>
+  { obj := fun C => Chal.Thomason.streetNerve ↑C, map := fun {X Y} => Chal.Thomason.streetNerveMap, map_id := ⋯,
+    map_comp := ⋯ }
+def Chal.Thomason.thomasonRightFinite.{u} : (n : ℕ) →
+  CategoryTheory.Functor (Chal.Thomason.OmegaCategory.NCategory n) _root_.SSet :=
+fun n => (Chal.Thomason.streetNerveFinite n).comp (SSet.ex.comp SSet.ex)
+def Chal.Thomason.OmegaCategory.nCategoryInclusion.{u} : (n : ℕ) →
+  CategoryTheory.Functor (Chal.Thomason.OmegaCategory.NCategory n) Chal.Thomason.OmegaCategory :=
+fun n => { obj := fun C => ↑C, map := fun {X Y} F => F, map_id := ⋯, map_comp := ⋯ }
+def Chal.Thomason.OmegaCategory.truncationHomEquiv.{u} : (n : ℕ) →
+  (C : Chal.Thomason.OmegaCategory) →
+    (D : Chal.Thomason.OmegaCategory.NCategory n) →
+      ((Chal.Thomason.OmegaCategory.truncationFunctor n).obj C ⟶ D) ≃
+        (C ⟶ (Chal.Thomason.OmegaCategory.nCategoryInclusion n).obj D) :=
+fun n C D =>
+  have proof_mk_comp_101 := Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_1;
+  have proof_map_composable_102 := @Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_2;
+  have proof_functor_ext_100 := ⋯;
+  have proof_truncation_functor_ext_104 := ⋯;
+  { toFun := fun F => (Chal.Thomason.OmegaCategory.truncationUnit n C).comp F,
+    invFun := Chal.Thomason.OmegaCategory.truncationLift D, left_inv := ⋯, right_inv := ⋯ }
+def Chal.Thomason.OmegaCategory.truncationAdjunction.{u} : (n : ℕ) →
+  Chal.Thomason.OmegaCategory.truncationFunctor n ⊣ Chal.Thomason.OmegaCategory.nCategoryInclusion n :=
+fun n =>
+  have proof_mk_comp_101 := Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_1;
+  have proof_map_composable_102 := @Chal.Thomason.OmegaCategory.presentedCoconeIsColimit._proof_2;
+  have proof_functor_ext_100 := ⋯;
+  have proof_truncation_functor_ext_104 := ⋯;
+  CategoryTheory.Adjunction.mkOfHomEquiv
+    { homEquiv := Chal.Thomason.OmegaCategory.truncationHomEquiv n, homEquiv_naturality_left_symm := ⋯,
+      homEquiv_naturality_right := ⋯ }
+def Chal.Thomason.categorificationFiniteAdjunction.{u} : (n : ℕ) →
+  Chal.Thomason.categorificationFinite n ⊣ Chal.Thomason.streetNerveFinite n :=
+fun n => Chal.Thomason.categorificationAdjunction.comp (Chal.Thomason.OmegaCategory.truncationAdjunction n)
+def Chal.Thomason.thomasonFiniteAdjunction.{u} : (n : ℕ) →
+  Chal.Thomason.thomasonLeftFinite n ⊣ Chal.Thomason.thomasonRightFinite n :=
+fun n => (SSet.sdExAdjunction.comp SSet.sdExAdjunction).comp (Chal.Thomason.categorificationFiniteAdjunction n)
+def Chal.Thomason.WeakHomotopy.loopMap.{u, v, w} : {X : Type u} →
+  {Y : Type v} →
+    [inst : TopologicalSpace X] →
+      [inst_1 : TopologicalSpace Y] →
+        (N : Type w) → (f : C(X, Y)) → (x : X) → ↑(GenLoop N X x) → ↑(GenLoop N Y (f x)) :=
+fun {X} {Y} [TopologicalSpace X] [TopologicalSpace Y] N f x p => ⟨f.comp ↑p, ⋯⟩
+def Chal.Thomason.WeakHomotopy.groupMap.{u, v, w} : {X : Type u} →
+  {Y : Type v} →
+    [inst : TopologicalSpace X] →
+      [inst_1 : TopologicalSpace Y] →
+        (N : Type w) → (f : C(X, Y)) → (x : X) → HomotopyGroup N X x → HomotopyGroup N Y (f x) :=
+fun {X} {Y} [TopologicalSpace X] [TopologicalSpace Y] N f x =>
+  have proof_loopMap_homotopic_105 := @Chal.Thomason.WeakHomotopy.groupMap._proof_1;
+  Quotient.map (Chal.Thomason.WeakHomotopy.loopMap N f x) ⋯
+def Chal.Thomason.WeakHomotopy.componentsMap.{u, v} : {X : Type u} →
+  {Y : Type v} →
+    [inst : TopologicalSpace X] → [inst_1 : TopologicalSpace Y] → C(X, Y) → ZerothHomotopy X → ZerothHomotopy Y :=
+fun {X} {Y} [TopologicalSpace X] [TopologicalSpace Y] f => ZerothHomotopy.lift (fun x => ZerothHomotopy.mk (f x)) ⋯
+def Chal.Thomason.WeakHomotopy.Equivalence.{u, v} : {X : Type u} →
+  {Y : Type v} → [inst : TopologicalSpace X] → [inst_1 : TopologicalSpace Y] → C(X, Y) → Prop :=
+fun {X} {Y} [TopologicalSpace X] [TopologicalSpace Y] f =>
+  Function.Bijective (Chal.Thomason.WeakHomotopy.componentsMap f) ∧
+    ∀ (n : ℕ) (x : X), Function.Bijective (Chal.Thomason.WeakHomotopy.groupMap (Fin (n + 1)) f x)
+def Chal.Thomason.simplicialWeakEquivalences.{u} : CategoryTheory.MorphismProperty _root_.SSet :=
+fun x x_1 f => Chal.Thomason.WeakHomotopy.Equivalence (TopCat.Hom.hom (SSet.toTop.map f))
+def Chal.Thomason.simplicialFibrations.{u} : CategoryTheory.MorphismProperty _root_.SSet :=
+SSet.modelCategoryQuillen.J.rlp
+structure Chal.Thomason.KanQuillenModel.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  Chal.Thomason.KanQuillenModel.model : HomotopicalAlgebra.ModelCategory _root_.SSet
+  Chal.Thomason.KanQuillenModel.weak_eq : HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences =
+      Chal.Thomason.simplicialWeakEquivalences
+  Chal.Thomason.KanQuillenModel.fib_eq : HomotopicalAlgebra.CategoryWithFibrations.fibrations =
+      Chal.Thomason.simplicialFibrations
+  Chal.Thomason.KanQuillenModel.cof_eq : HomotopicalAlgebra.CategoryWithCofibrations.cofibrations =
+      CategoryTheory.MorphismProperty.monomorphisms _root_.SSet
+constructor:
+  Chal.Thomason.KanQuillenModel.mk.{u} (model : HomotopicalAlgebra.ModelCategory _root_.SSet)
+    (weak_eq :
+      HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences = Chal.Thomason.simplicialWeakEquivalences)
+    (fib_eq : HomotopicalAlgebra.CategoryWithFibrations.fibrations = Chal.Thomason.simplicialFibrations)
+    (cof_eq :
+      HomotopicalAlgebra.CategoryWithCofibrations.cofibrations =
+        CategoryTheory.MorphismProperty.monomorphisms _root_.SSet) :
+    Chal.Thomason.KanQuillenModel
+def Chal.Thomason.LeftProperFor.{u, v} : {C : Type v} →
+  [inst : CategoryTheory.Category.{u, v} C] →
+    CategoryTheory.MorphismProperty C → CategoryTheory.MorphismProperty C → Prop :=
+fun {C} [CategoryTheory.Category.{u, v} C] W Cof =>
+  ∀ {A B X Y : C} (i : A ⟶ B) (f : A ⟶ X) (g : B ⟶ Y) (j : X ⟶ Y), CategoryTheory.IsPushout i f g j → Cof i → W f → W g
+def Chal.Thomason.RightProperFor.{u, v} : {C : Type v} →
+  [inst : CategoryTheory.Category.{u, v} C] →
+    CategoryTheory.MorphismProperty C → CategoryTheory.MorphismProperty C → Prop :=
+fun {C} [CategoryTheory.Category.{u, v} C] W Fib =>
+  ∀ {A B X Y : C} (f : A ⟶ B) (g : A ⟶ X) (p : B ⟶ Y) (q : X ⟶ Y), CategoryTheory.IsPullback f g p q → Fib q → W p → W g
+def Chal.Thomason.FibrantFor.{u, v} : {C : Type v} →
+  [inst : CategoryTheory.Category.{u, v} C] → CategoryTheory.MorphismProperty C → C → Prop :=
+fun {C} [CategoryTheory.Category.{u, v} C] Fib Y => ∃ T x p, Fib p
+def Chal.Thomason.boundaryImages.{u, v} : {C : Type v} →
+  [inst : CategoryTheory.Category.{u, v} C] →
+    CategoryTheory.Functor _root_.SSet C → CategoryTheory.MorphismProperty C :=
+fun {C} [CategoryTheory.Category.{u, v} C] L =>
+  CategoryTheory.MorphismProperty.ofHoms fun n => L.map (SSet.boundary n).ι
+def Chal.Thomason.hornImages.{u, v} : {C : Type v} →
+  [inst : CategoryTheory.Category.{u, v} C] →
+    CategoryTheory.Functor _root_.SSet C → CategoryTheory.MorphismProperty C :=
+fun {C} [CategoryTheory.Category.{u, v} C] L =>
+  ⨆ n, CategoryTheory.MorphismProperty.ofHoms fun i => L.map (SSet.horn (n + 1) i).ι
+structure Chal.Thomason.ExactModelEndpoint.{u, v} {C : Type v} [CategoryTheory.Category.{u, v} C]
+  (L : CategoryTheory.Functor _root_.SSet C) (R : CategoryTheory.Functor C _root_.SSet) (adj : L ⊣ R) : Type (max u v)
+number of parameters: 5
+fields:
+  Chal.Thomason.ExactModelEndpoint.model : HomotopicalAlgebra.ModelCategory C
+  Chal.Thomason.ExactModelEndpoint.weak_eq : HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences =
+      Chal.Thomason.simplicialWeakEquivalences.inverseImage R
+  Chal.Thomason.ExactModelEndpoint.fib_eq : HomotopicalAlgebra.CategoryWithFibrations.fibrations =
+      Chal.Thomason.simplicialFibrations.inverseImage R
+  Chal.Thomason.ExactModelEndpoint.cof_eq : HomotopicalAlgebra.CategoryWithCofibrations.cofibrations =
+      (Chal.Thomason.simplicialFibrations.inverseImage R ⊓ Chal.Thomason.simplicialWeakEquivalences.inverseImage R).llp
+  Chal.Thomason.ExactModelEndpoint.generating_cofibrations : (Chal.Thomason.boundaryImages L).rlp =
+      HomotopicalAlgebra.CategoryWithFibrations.fibrations ⊓
+        HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences
+  Chal.Thomason.ExactModelEndpoint.generating_trivial_cofibrations : (Chal.Thomason.hornImages L).rlp =
+      HomotopicalAlgebra.CategoryWithFibrations.fibrations
+  Chal.Thomason.ExactModelEndpoint.weak_factorization_one : (HomotopicalAlgebra.CategoryWithCofibrations.cofibrations ⊓
+          HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences).IsWeakFactorizationSystem
+      HomotopicalAlgebra.CategoryWithFibrations.fibrations
+  Chal.Thomason.ExactModelEndpoint.weak_factorization_two : HomotopicalAlgebra.CategoryWithCofibrations.cofibrations.IsWeakFactorizationSystem
+      (HomotopicalAlgebra.CategoryWithFibrations.fibrations ⊓
+        HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences)
+  Chal.Thomason.ExactModelEndpoint.complete : CategoryTheory.Limits.HasLimitsOfSize.{u, u, u, v} C
+  Chal.Thomason.ExactModelEndpoint.cocomplete : CategoryTheory.Limits.HasColimitsOfSize.{u, u, u, v} C
+  Chal.Thomason.ExactModelEndpoint.locallyPresentable : CategoryTheory.IsLocallyPresentable.{u, u, v} C
+  Chal.Thomason.ExactModelEndpoint.leftProper : Chal.Thomason.LeftProperFor
+      HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences
+      HomotopicalAlgebra.CategoryWithCofibrations.cofibrations
+  Chal.Thomason.ExactModelEndpoint.rightProper : Chal.Thomason.RightProperFor
+      HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences
+      HomotopicalAlgebra.CategoryWithFibrations.fibrations
+  Chal.Thomason.ExactModelEndpoint.leftQuillen : ∀ {K K' : _root_.SSet} (f : K ⟶ K'),
+      CategoryTheory.Mono f →
+        HomotopicalAlgebra.CategoryWithCofibrations.cofibrations (L.map f) ∧
+          (Chal.Thomason.simplicialWeakEquivalences f →
+            HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences (L.map f))
+  Chal.Thomason.ExactModelEndpoint.quillenEquivalence : ∀ (K : _root_.SSet) (Y : C),
+      Chal.Thomason.FibrantFor HomotopicalAlgebra.CategoryWithFibrations.fibrations Y →
+        ∀ (f : L.obj K ⟶ Y),
+          HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences f ↔
+            Chal.Thomason.simplicialWeakEquivalences ((adj.homEquiv K Y) f)
+constructor:
+  Chal.Thomason.ExactModelEndpoint.mk.{u, v} {C : Type v} [CategoryTheory.Category.{u, v} C]
+    {L : CategoryTheory.Functor _root_.SSet C} {R : CategoryTheory.Functor C _root_.SSet} {adj : L ⊣ R}
+    (model : HomotopicalAlgebra.ModelCategory C)
+    (weak_eq :
+      HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences =
+        Chal.Thomason.simplicialWeakEquivalences.inverseImage R)
+    (fib_eq : HomotopicalAlgebra.CategoryWithFibrations.fibrations = Chal.Thomason.simplicialFibrations.inverseImage R)
+    (cof_eq :
+      HomotopicalAlgebra.CategoryWithCofibrations.cofibrations =
+        (Chal.Thomason.simplicialFibrations.inverseImage R ⊓
+            Chal.Thomason.simplicialWeakEquivalences.inverseImage R).llp)
+    (generating_cofibrations :
+      (Chal.Thomason.boundaryImages L).rlp =
+        HomotopicalAlgebra.CategoryWithFibrations.fibrations ⊓
+          HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences)
+    (generating_trivial_cofibrations :
+      (Chal.Thomason.hornImages L).rlp = HomotopicalAlgebra.CategoryWithFibrations.fibrations)
+    (weak_factorization_one :
+      (HomotopicalAlgebra.CategoryWithCofibrations.cofibrations ⊓
+            HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences).IsWeakFactorizationSystem
+        HomotopicalAlgebra.CategoryWithFibrations.fibrations)
+    (weak_factorization_two :
+      HomotopicalAlgebra.CategoryWithCofibrations.cofibrations.IsWeakFactorizationSystem
+        (HomotopicalAlgebra.CategoryWithFibrations.fibrations ⊓
+          HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences))
+    (complete : CategoryTheory.Limits.HasLimitsOfSize.{u, u, u, v} C)
+    (cocomplete : CategoryTheory.Limits.HasColimitsOfSize.{u, u, u, v} C)
+    (locallyPresentable : CategoryTheory.IsLocallyPresentable.{u, u, v} C)
+    (leftProper :
+      Chal.Thomason.LeftProperFor HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences
+        HomotopicalAlgebra.CategoryWithCofibrations.cofibrations)
+    (rightProper :
+      Chal.Thomason.RightProperFor HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences
+        HomotopicalAlgebra.CategoryWithFibrations.fibrations)
+    (leftQuillen :
+      ∀ {K K' : _root_.SSet} (f : K ⟶ K'),
+        CategoryTheory.Mono f →
+          HomotopicalAlgebra.CategoryWithCofibrations.cofibrations (L.map f) ∧
+            (Chal.Thomason.simplicialWeakEquivalences f →
+              HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences (L.map f)))
+    (quillenEquivalence :
+      ∀ (K : _root_.SSet) (Y : C),
+        Chal.Thomason.FibrantFor HomotopicalAlgebra.CategoryWithFibrations.fibrations Y →
+          ∀ (f : L.obj K ⟶ Y),
+            HomotopicalAlgebra.CategoryWithWeakEquivalences.weakEquivalences f ↔
+              Chal.Thomason.simplicialWeakEquivalences ((adj.homEquiv K Y) f)) :
+    Chal.Thomason.ExactModelEndpoint L R adj
+def Chal.Thomason.FullMain.{u} : Prop :=
+Nonempty Chal.Thomason.KanQuillenModel ∧
+  Nonempty
+      (Chal.Thomason.ExactModelEndpoint Chal.Thomason.thomasonLeft Chal.Thomason.thomasonRight
+        Chal.Thomason.thomasonAdjunction) ∧
+    ∀ (n : ℕ),
+      1 ≤ n →
+        Nonempty
+          (Chal.Thomason.ExactModelEndpoint (Chal.Thomason.thomasonLeftFinite n) (Chal.Thomason.thomasonRightFinite n)
+            (Chal.Thomason.thomasonFiniteAdjunction n))
+def Chal.Thomason.thomasonWeakEquivalences.{u} : CategoryTheory.MorphismProperty Chal.Thomason.OmegaCategory :=
+Chal.Thomason.simplicialWeakEquivalences.inverseImage Chal.Thomason.thomasonRight
+def Chal.Thomason.thomasonWeakEquivalencesFinite.{u} : (n : ℕ) →
+  CategoryTheory.MorphismProperty (Chal.Thomason.OmegaCategory.NCategory n) :=
+fun n => Chal.Thomason.simplicialWeakEquivalences.inverseImage (Chal.Thomason.thomasonRightFinite n)
+'OAI.Thomason.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Thomason.nerveDetection_allDimensions' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ThomasonModelStructures comparator-style: ok=398 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
