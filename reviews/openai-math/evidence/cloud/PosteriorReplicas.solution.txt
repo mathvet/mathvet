@@ -1,0 +1,539 @@
+OAI.PosteriorReplicas.source_main : OAI.PosteriorReplicas.EqualLabelMeasureIdentity ∧
+  OAI.PosteriorReplicas.EqualLabelVersions ∧
+    OAI.PosteriorReplicas.GaussianReplicaBlock ∧
+      OAI.PosteriorReplicas.DistanceReplicaBlock ∧
+        OAI.PosteriorReplicas.HaarReplicaBlock ∧
+          OAI.PosteriorReplicas.SyntheticReplicaBlock ∧
+            OAI.PosteriorReplicas.IncidenceReplicaBlock ∧ OAI.PosteriorRegression.KernelSubquadraticMemory
+'OAI.PosteriorReplicas.source_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.PosteriorReplicas.Vec : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.PosteriorReplicas.Rows : ℕ → ℕ → Type :=
+fun d k => Fin k → OAI.PosteriorReplicas.Vec d
+@[reducible] def OAI.PosteriorReplicas.Labels : ℕ → Type :=
+fun k => Fin k → ℝ
+@[reducible] def OAI.PosteriorReplicas.Data : ℕ → ℕ → Type :=
+fun d k => OAI.PosteriorReplicas.Rows d k × OAI.PosteriorReplicas.Labels k
+@[reducible] def OAI.PosteriorReplicas.Tuple : ℕ → ℕ → Type :=
+fun d m => Fin (m + 1) → OAI.PosteriorReplicas.Vec d
+def OAI.PosteriorReplicas.sphereLaw : (d : ℕ) → MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  MeasureTheory.Measure.map Subtype.val ((σ Set.univ)⁻¹ • σ)
+def OAI.PosteriorReplicas.gaussianRows : (d k : ℕ) → MeasureTheory.Measure (OAI.PosteriorReplicas.Rows d k) :=
+fun d k => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.PosteriorReplicas.Vec d)
+def OAI.PosteriorReplicas.labels : {d k : ℕ} →
+  OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Vec d → OAI.PosteriorReplicas.Labels k :=
+fun {d k} A s i => inner ℝ (A i) s
+def OAI.PosteriorReplicas.messageKernel : {d k N : ℕ} →
+  ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Data d k) (Fin N) →
+    ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Vec d × OAI.PosteriorReplicas.Rows d k) (Fin N) :=
+fun {d k N} κ => κ.comap (fun z => (z.2, OAI.PosteriorReplicas.labels z.2 z.1)) ⋯
+def OAI.PosteriorReplicas.signalMessageLaw : {d k N : ℕ} →
+  MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) →
+    ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Data d k) (Fin N) →
+      MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d × Fin N) :=
+fun {d k N} p κ =>
+  MeasureTheory.Measure.map (fun z => (z.1.1, z.2))
+    ((p.prod (OAI.PosteriorReplicas.gaussianRows d k)).compProd (OAI.PosteriorReplicas.messageKernel κ))
+def OAI.PosteriorReplicas.sideLaw : {d N : ℕ} →
+  (ℓ : ℕ) →
+    MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d × Fin N) →
+      MeasureTheory.Measure (OAI.PosteriorReplicas.Data d ℓ × OAI.PosteriorReplicas.Vec d × Fin N) :=
+fun {d N} ℓ q =>
+  MeasureTheory.Measure.map (fun z => ((z.1, OAI.PosteriorReplicas.labels z.1 z.2.1), z.2))
+    ((OAI.PosteriorReplicas.gaussianRows d ℓ).prod q)
+def OAI.PosteriorReplicas.messageEntropy : {d N : ℕ} →
+  MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d × Fin N) → ℝ :=
+fun {d N} q => ∑ w, -q.snd.real {w} * Real.log (q.snd.real {w})
+def OAI.PosteriorReplicas.conditionalInformation : {d ℓ N : ℕ} →
+  [NeZero N] →
+    (μ : MeasureTheory.Measure (OAI.PosteriorReplicas.Data d ℓ × OAI.PosteriorReplicas.Vec d × Fin N)) →
+      [MeasureTheory.IsFiniteMeasure μ] → ENNReal :=
+fun {d ℓ N} [NeZero N] μ [MeasureTheory.IsFiniteMeasure μ] =>
+  InformationTheory.klDiv μ (μ.fst.compProd (μ.condKernel.fst.prod μ.condKernel.snd))
+def OAI.PosteriorReplicas.GaussianReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          let k := 2 * (d / 16);
+          have t := k + 1;
+          let ℓ := 4 * k;
+          ∀ (p : MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : OAI.PosteriorReplicas.Vec d → ℝ) (L : ℝ),
+            Measurable f →
+              (∀ (x : OAI.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ L) →
+                (p = (OAI.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                  ∀ (N : ℕ) [inst_1 : NeZero N] (κ : ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Data d k) (Fin N))
+                    [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                    OAI.PosteriorReplicas.conditionalInformation
+                        (OAI.PosteriorReplicas.sideLaw ℓ (OAI.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                      ENNReal.ofReal
+                        (OAI.PosteriorReplicas.messageEntropy (OAI.PosteriorReplicas.signalMessageLaw p κ) / ↑t +
+                            C * ↑d +
+                          C * Real.log (2 + Real.log L))
+inductive OAI.PosteriorReplicas.BaseLaw : Type
+number of parameters: 0
+constructors:
+OAI.PosteriorReplicas.BaseLaw.spherical : OAI.PosteriorReplicas.BaseLaw
+OAI.PosteriorReplicas.BaseLaw.gaussian : OAI.PosteriorReplicas.BaseLaw
+def OAI.PosteriorReplicas.BaseLaw.measure : OAI.PosteriorReplicas.BaseLaw →
+  (d : ℕ) → MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) :=
+fun base d =>
+  match base with
+  | OAI.PosteriorReplicas.BaseLaw.spherical => OAI.PosteriorReplicas.sphereLaw d
+  | OAI.PosteriorReplicas.BaseLaw.gaussian => ProbabilityTheory.stdGaussian (OAI.PosteriorReplicas.Vec d)
+def OAI.PosteriorReplicas.rowGram : {d k : ℕ} → OAI.PosteriorReplicas.Rows d k → Matrix (Fin k) (Fin k) ℝ :=
+fun {d k} A i j => inner ℝ (A i) (A j)
+def OAI.PosteriorReplicas.liftLabel : {d k : ℕ} →
+  OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → OAI.PosteriorReplicas.Vec d :=
+fun {d k} A y => ∑ i, (OAI.PosteriorReplicas.rowGram A)⁻¹.mulVec y i • A i
+def OAI.PosteriorReplicas.kernelComponent : {d k : ℕ} →
+  OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Vec d → OAI.PosteriorReplicas.Vec d :=
+fun {d k} A x => x - OAI.PosteriorReplicas.liftLabel A (OAI.PosteriorReplicas.labels A x)
+def OAI.PosteriorReplicas.baseFiber : {d k : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    OAI.PosteriorReplicas.Rows d k →
+      OAI.PosteriorReplicas.Labels k → MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) :=
+fun {d k} base A y =>
+  match base with
+  | OAI.PosteriorReplicas.BaseLaw.gaussian =>
+    MeasureTheory.Measure.map (fun x => OAI.PosteriorReplicas.liftLabel A y + OAI.PosteriorReplicas.kernelComponent A x)
+      (ProbabilityTheory.stdGaussian (OAI.PosteriorReplicas.Vec d))
+  | OAI.PosteriorReplicas.BaseLaw.spherical =>
+    MeasureTheory.Measure.map
+      (fun x =>
+        OAI.PosteriorReplicas.liftLabel A y +
+          (√(1 - ‖OAI.PosteriorReplicas.liftLabel A y‖ ^ 2) / ‖OAI.PosteriorReplicas.kernelComponent A x‖) •
+            OAI.PosteriorReplicas.kernelComponent A x)
+      (ProbabilityTheory.stdGaussian (OAI.PosteriorReplicas.Vec d))
+def OAI.PosteriorReplicas.baseDensity : {d k : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw → OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base A y =>
+  if LinearIndependent ℝ A then
+    match base with
+    | OAI.PosteriorReplicas.BaseLaw.gaussian =>
+      ENNReal.ofReal
+        ((2 * Real.pi) ^ (-↑k / 2) * Real.exp (-‖OAI.PosteriorReplicas.liftLabel A y‖ ^ 2 / 2) /
+          √(OAI.PosteriorReplicas.rowGram A).det)
+    | OAI.PosteriorReplicas.BaseLaw.spherical =>
+      if ‖OAI.PosteriorReplicas.liftLabel A y‖ < 1 then
+        ENNReal.ofReal
+          (Real.Gamma (↑d / 2) / (Real.pi ^ (↑k / 2) * Real.Gamma ((↑d - ↑k) / 2)) *
+              (1 - ‖OAI.PosteriorReplicas.liftLabel A y‖ ^ 2) ^ ((↑d - ↑k - 2) / 2) /
+            √(OAI.PosteriorReplicas.rowGram A).det)
+      else 0
+  else 0
+def OAI.PosteriorReplicas.tiltMass : {d k : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    (OAI.PosteriorReplicas.Vec d → ENNReal) →
+      OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base f A y => ∫⁻ (x : OAI.PosteriorReplicas.Vec d), f x ∂OAI.PosteriorReplicas.baseFiber base A y
+def OAI.PosteriorReplicas.projectedDensity : {d k : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    (OAI.PosteriorReplicas.Vec d → ENNReal) →
+      OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base f A y => OAI.PosteriorReplicas.baseDensity base A y * OAI.PosteriorReplicas.tiltMass base f A y
+def OAI.PosteriorReplicas.tiltedFiber : {d k : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    (OAI.PosteriorReplicas.Vec d → ENNReal) →
+      OAI.PosteriorReplicas.Rows d k →
+        OAI.PosteriorReplicas.Labels k → MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) :=
+fun {d k} base f A y =>
+  if OAI.PosteriorReplicas.tiltMass base f A y = 0 then MeasureTheory.Measure.dirac 0
+  else (OAI.PosteriorReplicas.tiltMass base f A y)⁻¹ • (OAI.PosteriorReplicas.baseFiber base A y).withDensity f
+def OAI.PosteriorReplicas.differences : {d m : ℕ} →
+  OAI.PosteriorReplicas.Tuple d m → Fin m → OAI.PosteriorReplicas.Vec d :=
+fun {d m} u i => u i.succ - u 0
+def OAI.PosteriorReplicas.differenceSpan : {d m : ℕ} →
+  OAI.PosteriorReplicas.Tuple d m → Submodule ℝ (OAI.PosteriorReplicas.Vec d) :=
+fun {d m} u => Submodule.span ℝ (Set.range (OAI.PosteriorReplicas.differences u))
+def OAI.PosteriorReplicas.affineVolume : {d m : ℕ} → OAI.PosteriorReplicas.Tuple d m → ℝ :=
+fun {d m} u => √(Matrix.gram ℝ (OAI.PosteriorReplicas.differences u)).det
+def OAI.PosteriorReplicas.constrainedRows : {d m : ℕ} →
+  (k : ℕ) → OAI.PosteriorReplicas.Tuple d m → MeasureTheory.Measure (OAI.PosteriorReplicas.Rows d k) :=
+fun {d m} k u =>
+  MeasureTheory.Measure.map (fun A i => (OAI.PosteriorReplicas.differenceSpan u)ᗮ.starProjection (A i))
+    (OAI.PosteriorReplicas.gaussianRows d k)
+def OAI.PosteriorReplicas.equalLabelLeft : {d k m : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    (OAI.PosteriorReplicas.Vec d → ENNReal) →
+      (OAI.PosteriorReplicas.Rows d k × OAI.PosteriorReplicas.Labels k × OAI.PosteriorReplicas.Tuple d m → ENNReal) →
+        ENNReal :=
+fun {d k m} base f H =>
+  ∫⁻ (A : OAI.PosteriorReplicas.Rows d k),
+    ∫⁻ (y : OAI.PosteriorReplicas.Labels k),
+      OAI.PosteriorReplicas.projectedDensity base f A y ^ (m + 1) *
+        ∫⁻ (u : Fin (m + 1) → OAI.PosteriorReplicas.Vec d),
+          H
+            (A, y,
+              u) ∂MeasureTheory.Measure.pi fun x =>
+            OAI.PosteriorReplicas.tiltedFiber base f A y ∂OAI.PosteriorReplicas.gaussianRows d k
+def OAI.PosteriorReplicas.equalLabelRight : {d k m : ℕ} →
+  OAI.PosteriorReplicas.BaseLaw →
+    (OAI.PosteriorReplicas.Vec d → ENNReal) →
+      (OAI.PosteriorReplicas.Rows d k × OAI.PosteriorReplicas.Labels k × OAI.PosteriorReplicas.Tuple d m → ENNReal) →
+        ENNReal :=
+fun {d k m} base f H =>
+  ENNReal.ofReal ((2 * Real.pi) ^ (-(↑k * ↑m) / 2)) *
+    ∫⁻ (u : Fin (m + 1) → OAI.PosteriorReplicas.Vec d),
+      (ENNReal.ofReal (OAI.PosteriorReplicas.affineVolume u))⁻¹ ^ k *
+        ∫⁻ (A : OAI.PosteriorReplicas.Rows d k),
+          H
+            (A, OAI.PosteriorReplicas.labels A (u 0),
+              u) ∂OAI.PosteriorReplicas.constrainedRows k
+            u ∂MeasureTheory.Measure.pi fun x => (base.measure d).withDensity f
+def OAI.PosteriorReplicas.EqualLabelMeasureIdentity : Prop :=
+∀ (d k m : ℕ),
+  1 ≤ k →
+    1 ≤ m →
+      k + m ≤ d - 2 →
+        ∀ (base : OAI.PosteriorReplicas.BaseLaw) (f : OAI.PosteriorReplicas.Vec d → ENNReal),
+          Measurable f →
+            (∃ L, L ≠ ⊤ ∧ ∀ (x : OAI.PosteriorReplicas.Vec d), f x ≤ L) →
+              (OAI.PosteriorReplicas.equalLabelLeft base f fun x => 1) < ⊤ ∧
+                ∀
+                  (H :
+                    OAI.PosteriorReplicas.Rows d k × OAI.PosteriorReplicas.Labels k × OAI.PosteriorReplicas.Tuple d m →
+                      ENNReal),
+                  Measurable H →
+                    OAI.PosteriorReplicas.equalLabelLeft base f H = OAI.PosteriorReplicas.equalLabelRight base f H
+def OAI.PosteriorReplicas.DistanceReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (p : MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : OAI.PosteriorReplicas.Vec d → ℝ) (b : ℝ),
+            0 ≤ b →
+              Measurable f →
+                (∀ (x : OAI.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ Real.exp b) →
+                  (p = (OAI.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                    ∀ (N : ℕ) [inst_1 : NeZero N]
+                      (κ : ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Data d (d / 16)) (Fin N))
+                      [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                      OAI.PosteriorReplicas.conditionalInformation
+                          (OAI.PosteriorReplicas.sideLaw (d / 2) (OAI.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                        ENNReal.ofReal
+                          (OAI.PosteriorReplicas.messageEntropy (OAI.PosteriorReplicas.signalMessageLaw p κ) /
+                              ↑(d / 8) +
+                            C * (↑d + b / ↑d))
+def OAI.PosteriorReplicas.SyntheticReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d : ℕ),
+      16 ≤ d →
+        ∀ (p : MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+          (f : OAI.PosteriorReplicas.Vec d → ℝ) (L : ℝ),
+          1 ≤ L →
+            Measurable f →
+              (∀ (x : OAI.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ L) →
+                (p = (OAI.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                  ∀ (N : ℕ) [inst_1 : NeZero N] (z : OAI.PosteriorReplicas.Data d (d / 8) → Fin N) (hz : Measurable z),
+                    OAI.PosteriorReplicas.conditionalInformation
+                        (OAI.PosteriorReplicas.sideLaw (d / 2)
+                          (OAI.PosteriorReplicas.signalMessageLaw p (ProbabilityTheory.Kernel.deterministic z hz))) ≤
+                      ENNReal.ofReal (Real.log ↑N / ↑(d / 8) + C * (↑d + Real.log (1 + Real.log L)))
+def OAI.PosteriorReplicas.IncidenceReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (p : MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : OAI.PosteriorReplicas.Vec d → ℝ) (F : ℝ),
+            1 ≤ F →
+              Measurable f →
+                (∀ (x : OAI.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ F) →
+                  (p = (OAI.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                    ∀ (N : ℕ) [inst_1 : NeZero N]
+                      (κ : ProbabilityTheory.Kernel (OAI.PosteriorReplicas.Data d (d / 16)) (Fin N))
+                      [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                      OAI.PosteriorReplicas.conditionalInformation
+                          (OAI.PosteriorReplicas.sideLaw (d / 4) (OAI.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                        ENNReal.ofReal (Real.log ↑N / ↑(d / 16) + C * ↑d + C * Real.log (1 + Real.log F))
+def OAI.PosteriorReplicas.labelNorm : {k : ℕ} → OAI.PosteriorReplicas.Labels k → ℝ :=
+fun {k} y => ‖WithLp.toLp 2 y‖
+def OAI.PosteriorReplicas.ballDensityVersion : {d k : ℕ} →
+  MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) →
+    OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} ν A y =>
+  Filter.liminf
+    (fun n =>
+      (MeasureTheory.volume {v | OAI.PosteriorReplicas.labelNorm v < (↑n + 1)⁻¹})⁻¹ *
+        ν {x | OAI.PosteriorReplicas.labelNorm (OAI.PosteriorReplicas.labels A x - y) < (↑n + 1)⁻¹})
+    Filter.atTop
+def OAI.PosteriorReplicas.gaussianDensityVersion : {d k : ℕ} →
+  MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d) →
+    OAI.PosteriorReplicas.Rows d k → OAI.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} ν A y =>
+  Filter.liminf
+    (fun n =>
+      ∫⁻ (x : OAI.PosteriorReplicas.Vec d),
+        ENNReal.ofReal
+          ((2 * Real.pi * (↑n + 1)⁻¹ ^ 2) ^ (-↑k / 2) *
+            Real.exp
+              (-OAI.PosteriorReplicas.labelNorm (OAI.PosteriorReplicas.labels A x - y) ^ 2 / (2 * (↑n + 1)⁻¹ ^ 2))) ∂ν)
+    Filter.atTop
+def OAI.PosteriorReplicas.EqualLabelVersions : Prop :=
+∀ (d k m : ℕ),
+  1 ≤ k →
+    1 ≤ m →
+      k + m ≤ d - 2 →
+        ∀ (base : OAI.PosteriorReplicas.BaseLaw) (f : OAI.PosteriorReplicas.Vec d → ENNReal),
+          Measurable f →
+            (∃ L, L ≠ ⊤ ∧ ∀ (x : OAI.PosteriorReplicas.Vec d), f x ≤ L) →
+              have ν := (base.measure d).withDensity f;
+              (Measurable fun z => OAI.PosteriorReplicas.projectedDensity base f z.1 z.2) ∧
+                (Measurable fun z => OAI.PosteriorReplicas.ballDensityVersion ν z.1 z.2) ∧
+                  (Measurable fun z => OAI.PosteriorReplicas.gaussianDensityVersion ν z.1 z.2) ∧
+                    (∀ (A : OAI.PosteriorReplicas.Rows d k),
+                        LinearIndependent ℝ A →
+                          MeasureTheory.Measure.map (OAI.PosteriorReplicas.labels A) ν =
+                              MeasureTheory.volume.withDensity (OAI.PosteriorReplicas.projectedDensity base f A) ∧
+                            OAI.PosteriorReplicas.projectedDensity base f A =ᵐ[MeasureTheory.volume]
+                                OAI.PosteriorReplicas.ballDensityVersion ν A ∧
+                              OAI.PosteriorReplicas.projectedDensity base f A =ᵐ[MeasureTheory.volume]
+                                OAI.PosteriorReplicas.gaussianDensityVersion ν A) ∧
+                      ∀ᵐ (u : OAI.PosteriorReplicas.Tuple d m) ∂MeasureTheory.Measure.pi fun x => ν,
+                        LinearIndependent ℝ (OAI.PosteriorReplicas.differences u) ∧
+                          ∀ᵐ (A : Fin k → OAI.PosteriorReplicas.Vec d) ∂OAI.PosteriorReplicas.constrainedRows k u,
+                            LinearIndependent ℝ A ∧
+                              (∀ (i : Fin (m + 1)),
+                                  OAI.PosteriorReplicas.labels A (u i) = OAI.PosteriorReplicas.labels A (u 0)) ∧
+                                (base = OAI.PosteriorReplicas.BaseLaw.spherical →
+                                    ‖OAI.PosteriorReplicas.liftLabel A (OAI.PosteriorReplicas.labels A (u 0))‖ < 1) ∧
+                                  0 <
+                                      OAI.PosteriorReplicas.projectedDensity base f A
+                                        (OAI.PosteriorReplicas.labels A (u 0)) ∧
+                                    OAI.PosteriorReplicas.projectedDensity base f A
+                                          (OAI.PosteriorReplicas.labels A (u 0)) ≠
+                                        ⊤ ∧
+                                      OAI.PosteriorReplicas.projectedDensity base f A
+                                            (OAI.PosteriorReplicas.labels A (u 0)) =
+                                          OAI.PosteriorReplicas.ballDensityVersion ν A
+                                            (OAI.PosteriorReplicas.labels A (u 0)) ∧
+                                        OAI.PosteriorReplicas.projectedDensity base f A
+                                            (OAI.PosteriorReplicas.labels A (u 0)) =
+                                          OAI.PosteriorReplicas.gaussianDensityVersion ν A
+                                            (OAI.PosteriorReplicas.labels A (u 0))
+def OAI.PosteriorReplicas.haarRows : (d ℓ : ℕ) → MeasureTheory.Measure (OAI.PosteriorReplicas.Rows d ℓ) :=
+fun d ℓ => MeasureTheory.Measure.map (InnerProductSpace.gramSchmidtNormed ℝ) (OAI.PosteriorReplicas.gaussianRows d ℓ)
+def OAI.PosteriorReplicas.cmi.{u_1, u_2, u_3} : {Z : Type u_1} →
+  {X : Type u_2} →
+    {Y : Type u_3} →
+      [inst : MeasurableSpace Z] →
+        [inst_1 : MeasurableSpace X] →
+          [inst_2 : MeasurableSpace Y] →
+            [StandardBorelSpace X] →
+              [StandardBorelSpace Y] →
+                [Nonempty X] →
+                  [Nonempty Y] →
+                    (μ : MeasureTheory.Measure (Z × X × Y)) → [MeasureTheory.IsFiniteMeasure μ] → ENNReal :=
+fun {Z} {X} {Y} [MeasurableSpace Z] [MeasurableSpace X] [MeasurableSpace Y] [StandardBorelSpace X]
+    [StandardBorelSpace Y] [Nonempty X] [Nonempty Y] μ [MeasureTheory.IsFiniteMeasure μ] =>
+  InformationTheory.klDiv μ (μ.fst.compProd (μ.condKernel.fst.prod μ.condKernel.snd))
+def OAI.PosteriorReplicas.finiteEntropy.{u_1} : {J : Type u_1} →
+  [Fintype J] → [inst : MeasurableSpace J] → MeasureTheory.Measure J → ℝ :=
+fun {J} [Fintype J] [MeasurableSpace J] μ => ∑ j, -μ.real {j} * Real.log (μ.real {j})
+def OAI.PosteriorReplicas.stateMessageKernel : {d k V W : ℕ} →
+  ProbabilityTheory.Kernel (Fin V × OAI.PosteriorReplicas.Data d k) (Fin W) →
+    ProbabilityTheory.Kernel ((OAI.PosteriorReplicas.Vec d × Fin V) × OAI.PosteriorReplicas.Rows d k) (Fin W) :=
+fun {d k V W} κ => κ.comap (fun z => (z.1.2, z.2, OAI.PosteriorReplicas.labels z.2 z.1.1)) ⋯
+def OAI.PosteriorReplicas.stateMessageLaw : {d k V W : ℕ} →
+  MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d × Fin V) →
+    ProbabilityTheory.Kernel (Fin V × OAI.PosteriorReplicas.Data d k) (Fin W) →
+      MeasureTheory.Measure ((OAI.PosteriorReplicas.Vec d × Fin V) × Fin W) :=
+fun {d k V W} q κ =>
+  MeasureTheory.Measure.map (fun z => (z.1.1, z.2))
+    ((q.prod (OAI.PosteriorReplicas.gaussianRows d k)).compProd (OAI.PosteriorReplicas.stateMessageKernel κ))
+def OAI.PosteriorReplicas.stateHaarSideLaw : {d V W : ℕ} →
+  (ℓ : ℕ) →
+    MeasureTheory.Measure ((OAI.PosteriorReplicas.Vec d × Fin V) × Fin W) →
+      MeasureTheory.Measure ((Fin V × OAI.PosteriorReplicas.Data d ℓ) × OAI.PosteriorReplicas.Vec d × Fin W) :=
+fun {d V W} ℓ q =>
+  MeasureTheory.Measure.map (fun z => ((z.2.1.2, z.1, OAI.PosteriorReplicas.labels z.1 z.2.1.1), z.2.1.1, z.2.2))
+    ((OAI.PosteriorReplicas.haarRows d ℓ).prod q)
+def OAI.PosteriorReplicas.terminalConditionalEntropy : {d V W : ℕ} →
+  MeasureTheory.Measure ((OAI.PosteriorReplicas.Vec d × Fin V) × Fin W) → ℝ :=
+fun {d V W} q =>
+  OAI.PosteriorReplicas.finiteEntropy (MeasureTheory.Measure.map (fun z => (z.1.2, z.2)) q) -
+    OAI.PosteriorReplicas.finiteEntropy (MeasureTheory.Measure.map (fun z => z.1.2) q)
+def OAI.PosteriorReplicas.HaarReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d : ℕ),
+      64 ≤ d →
+        ∀ (V W : ℕ) [NeZero V] [inst : NeZero W] (q : MeasureTheory.Measure (OAI.PosteriorReplicas.Vec d × Fin V))
+          [inst_1 : MeasureTheory.IsProbabilityMeasure q],
+          q.fst = OAI.PosteriorReplicas.sphereLaw d →
+            ∀ (κ : ProbabilityTheory.Kernel (Fin V × OAI.PosteriorReplicas.Data d (d / 16)) (Fin W))
+              [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+              OAI.PosteriorReplicas.cmi
+                  (OAI.PosteriorReplicas.stateHaarSideLaw (d / 4) (OAI.PosteriorReplicas.stateMessageLaw q κ)) ≤
+                ENNReal.ofReal
+                  (OAI.PosteriorReplicas.terminalConditionalEntropy (OAI.PosteriorReplicas.stateMessageLaw q κ) /
+                          ↑(d / 16 + 1) +
+                        C * ↑d +
+                      Real.log (1 + C * ↑d + OAI.PosteriorReplicas.finiteEntropy q.snd) +
+                    C * (OAI.PosteriorReplicas.finiteEntropy q.snd + Real.log ↑d) / ↑d ^ 2)
+@[reducible] def OAI.PosteriorRegression.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.PosteriorRegression.UnitSphere : (d : ℕ) → Set (OAI.PosteriorRegression.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.PosteriorRegression.State : ℕ → Type :=
+fun M => Fin (2 ^ M)
+@[reducible] def OAI.PosteriorRegression.Samples : ℕ → ℕ → Type :=
+fun d T => Fin T → OAI.PosteriorRegression.Vector d
+def OAI.PosteriorRegression.uniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(OAI.PosteriorRegression.UnitSphere d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.PosteriorRegression.sampleLaw : (d T : ℕ) → MeasureTheory.Measure (OAI.PosteriorRegression.Samples d T) :=
+fun d T => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.PosteriorRegression.Vector d)
+def OAI.PosteriorRegression.observationReference : (d : ℕ) →
+  MeasureTheory.Measure (OAI.PosteriorRegression.Vector d × ℝ) :=
+fun d => (ProbabilityTheory.stdGaussian (OAI.PosteriorRegression.Vector d)).prod MeasureTheory.volume
+@[reducible] def OAI.PosteriorRegression.Learner.RunStatus : ℕ → Type :=
+fun M => OAI.PosteriorRegression.State M ⊕ ℕ × OAI.PosteriorRegression.State M
+def OAI.PosteriorRegression.Learner.angularError : {d : ℕ} →
+  ↑(OAI.PosteriorRegression.UnitSphere d) → ↑(OAI.PosteriorRegression.UnitSphere d) → ℝ :=
+fun {d} s ŝ => Real.arccos (inner ℝ ↑ŝ ↑s)
+@[reducible] def OAI.PosteriorRegression.CompletedObservation : ℕ → Type :=
+fun d =>
+  MeasureTheory.NullMeasurableSpace (OAI.PosteriorRegression.Vector d × ℝ)
+    (OAI.PosteriorRegression.observationReference d)
+@[reducible] def OAI.PosteriorRegression.Destination : ℕ → Type :=
+fun M => Bool × OAI.PosteriorRegression.State M
+structure OAI.PosteriorRegression.CompletedKernelLearner (d M : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.PosteriorRegression.CompletedKernelLearner.initial : MeasureTheory.Measure (OAI.PosteriorRegression.Destination M)
+  OAI.PosteriorRegression.CompletedKernelLearner.initial_probability : MeasureTheory.IsProbabilityMeasure self.initial
+  OAI.PosteriorRegression.CompletedKernelLearner.transition : ℕ →
+      OAI.PosteriorRegression.State M →
+        ProbabilityTheory.Kernel (OAI.PosteriorRegression.CompletedObservation d)
+          (OAI.PosteriorRegression.Destination M)
+  OAI.PosteriorRegression.CompletedKernelLearner.transition_markov : ∀ (t : ℕ) (a : OAI.PosteriorRegression.State M),
+      ProbabilityTheory.IsMarkovKernel (self.transition t a)
+  OAI.PosteriorRegression.CompletedKernelLearner.output : ℕ →
+      OAI.PosteriorRegression.State M → MeasureTheory.Measure ↑(OAI.PosteriorRegression.UnitSphere d)
+  OAI.PosteriorRegression.CompletedKernelLearner.output_probability : ∀ (t : ℕ) (a : OAI.PosteriorRegression.State M),
+      MeasureTheory.IsProbabilityMeasure (self.output t a)
+constructor:
+  OAI.PosteriorRegression.CompletedKernelLearner.mk {d M : ℕ}
+    (initial : MeasureTheory.Measure (OAI.PosteriorRegression.Destination M))
+    (initial_probability : MeasureTheory.IsProbabilityMeasure initial)
+    (transition :
+      ℕ →
+        OAI.PosteriorRegression.State M →
+          ProbabilityTheory.Kernel (OAI.PosteriorRegression.CompletedObservation d)
+            (OAI.PosteriorRegression.Destination M))
+    (transition_markov :
+      ∀ (t : ℕ) (a : OAI.PosteriorRegression.State M), ProbabilityTheory.IsMarkovKernel (transition t a))
+    (output : ℕ → OAI.PosteriorRegression.State M → MeasureTheory.Measure ↑(OAI.PosteriorRegression.UnitSphere d))
+    (output_probability :
+      ∀ (t : ℕ) (a : OAI.PosteriorRegression.State M), MeasureTheory.IsProbabilityMeasure (output t a)) :
+    OAI.PosteriorRegression.CompletedKernelLearner d M
+def OAI.PosteriorRegression.CompletedKernelLearner.destStatus : {M : ℕ} →
+  ℕ → OAI.PosteriorRegression.Destination M → OAI.PosteriorRegression.Learner.RunStatus M :=
+fun {M} n v => if v.1 = true then Sum.inr (n, v.2) else Sum.inl v.2
+def OAI.PosteriorRegression.CompletedKernelLearner.finishState : {M : ℕ} →
+  ℕ → OAI.PosteriorRegression.Learner.RunStatus M → ℕ × OAI.PosteriorRegression.State M :=
+fun {M} T x =>
+  match x with
+  | Sum.inl a => (T, a)
+  | Sum.inr done => done
+def OAI.PosteriorRegression.CompletedKernelLearner.stepMeasure : {d M T : ℕ} →
+  OAI.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(OAI.PosteriorRegression.UnitSphere d) →
+      OAI.PosteriorRegression.Samples d T →
+        Fin T →
+          OAI.PosteriorRegression.Learner.RunStatus M →
+            MeasureTheory.Measure (OAI.PosteriorRegression.Learner.RunStatus M) :=
+fun {d M T} K s x i x_1 =>
+  match x_1 with
+  | Sum.inr done => MeasureTheory.Measure.dirac (Sum.inr done)
+  | Sum.inl a =>
+    MeasureTheory.Measure.map (OAI.PosteriorRegression.CompletedKernelLearner.destStatus (↑i + 1))
+      ((K.transition (↑i + 1) a) (x i, inner ℝ (x i) ↑s))
+def OAI.PosteriorRegression.CompletedKernelLearner.runMeasure : {d M T : ℕ} →
+  OAI.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(OAI.PosteriorRegression.UnitSphere d) →
+      OAI.PosteriorRegression.Samples d T → ℕ → MeasureTheory.Measure (OAI.PosteriorRegression.Learner.RunStatus M) :=
+fun {d M T} K s x x_1 => Nat.brecOn x_1 (OAI.PosteriorRegression.CompletedKernelLearner.runMeasure._f K s x)
+def OAI.PosteriorRegression.CompletedKernelLearner.terminalLaw : {d M T : ℕ} →
+  OAI.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(OAI.PosteriorRegression.UnitSphere d) →
+      OAI.PosteriorRegression.Samples d T → MeasureTheory.Measure (ℕ × OAI.PosteriorRegression.State M) :=
+fun {d M T} K s x =>
+  MeasureTheory.Measure.map (OAI.PosteriorRegression.CompletedKernelLearner.finishState T) (K.runMeasure s x T)
+def OAI.PosteriorRegression.CompletedKernelLearner.estimateLaw : {d M T : ℕ} →
+  OAI.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(OAI.PosteriorRegression.UnitSphere d) →
+      OAI.PosteriorRegression.Samples d T → MeasureTheory.Measure ↑(OAI.PosteriorRegression.UnitSphere d) :=
+fun {d M T} K s x => (K.terminalLaw s x).bind fun a => K.output a.1 a.2
+structure OAI.PosteriorRegression.JointKernelExperiment.{u} (d M T : ℕ) (Ω : Type u) [MeasurableSpace Ω]
+  (ρ : MeasureTheory.Measure Ω) : Type u
+number of parameters: 6
+fields:
+  OAI.PosteriorRegression.JointKernelExperiment.rules : Ω → OAI.PosteriorRegression.CompletedKernelLearner d M
+  OAI.PosteriorRegression.JointKernelExperiment.outputKernel : ProbabilityTheory.Kernel
+      (Ω × ↑(OAI.PosteriorRegression.UnitSphere d) × OAI.PosteriorRegression.Samples d T)
+      ↑(OAI.PosteriorRegression.UnitSphere d)
+  OAI.PosteriorRegression.JointKernelExperiment.output_markov : ProbabilityTheory.IsMarkovKernel self.outputKernel
+  OAI.PosteriorRegression.JointKernelExperiment.conditional_output : ∀ᵐ (ω : Ω) ∂ρ,
+      ∀ᵐ (z :
+        ↑(OAI.PosteriorRegression.UnitSphere d) ×
+          OAI.PosteriorRegression.Samples d
+            T) ∂(OAI.PosteriorRegression.uniformSphere d).prod (OAI.PosteriorRegression.sampleLaw d T),
+        self.outputKernel (ω, z) = (self.rules ω).estimateLaw z.1 z.2
+constructor:
+  OAI.PosteriorRegression.JointKernelExperiment.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {ρ : MeasureTheory.Measure Ω} (rules : Ω → OAI.PosteriorRegression.CompletedKernelLearner d M)
+    (outputKernel :
+      ProbabilityTheory.Kernel (Ω × ↑(OAI.PosteriorRegression.UnitSphere d) × OAI.PosteriorRegression.Samples d T)
+        ↑(OAI.PosteriorRegression.UnitSphere d))
+    (output_markov : ProbabilityTheory.IsMarkovKernel outputKernel)
+    (conditional_output :
+      ∀ᵐ (ω : Ω) ∂ρ,
+        ∀ᵐ (z :
+          ↑(OAI.PosteriorRegression.UnitSphere d) ×
+            OAI.PosteriorRegression.Samples d
+              T) ∂(OAI.PosteriorRegression.uniformSphere d).prod (OAI.PosteriorRegression.sampleLaw d T),
+          outputKernel (ω, z) = (rules ω).estimateLaw z.1 z.2) :
+    OAI.PosteriorRegression.JointKernelExperiment d M T Ω ρ
+def OAI.PosteriorRegression.JointKernelExperiment.law.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      {ρ : MeasureTheory.Measure Ω} →
+        OAI.PosteriorRegression.JointKernelExperiment d M T Ω ρ →
+          MeasureTheory.Measure
+            ((Ω × ↑(OAI.PosteriorRegression.UnitSphere d) × OAI.PosteriorRegression.Samples d T) ×
+              ↑(OAI.PosteriorRegression.UnitSphere d)) :=
+fun {d M T} {Ω} [MeasurableSpace Ω] {ρ} E =>
+  (ρ.prod ((OAI.PosteriorRegression.uniformSphere d).prod (OAI.PosteriorRegression.sampleLaw d T))).compProd
+    E.outputKernel
+def OAI.PosteriorRegression.JointKernelExperiment.uniformSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      {ρ : MeasureTheory.Measure Ω} → OAI.PosteriorRegression.JointKernelExperiment d M T Ω ρ → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] {ρ} E ε => E.law {z | OAI.PosteriorRegression.Learner.angularError z.1.2.1 z.2 ≤ ε}
+def OAI.PosteriorRegression.KernelSubquadraticMemory.{u} : Prop :=
+∃ c,
+  0 < c ∧
+    ∀ (M : ℕ → ℕ),
+      ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (T : ℕ) (ε : ℝ),
+                0 < ε →
+                  ε ≤ 1 / 10 →
+                    ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀ (E : OAI.PosteriorRegression.JointKernelExperiment d (M d) T Ω ρ),
+                          2 / 3 ≤ E.uniformSuccess ε → c * ↑d * Real.log (1 / ε) ≤ ↑T
