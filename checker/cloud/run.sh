@@ -7,7 +7,7 @@ set -uo pipefail
 ROOT="${MATHVET_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
 export MATHVET_ROOT="$ROOT" OPENAI_MATH_LEAN="$ROOT/upstream/openai-math/lean"
 export COMPARATOR_BIN="$ROOT/tmp/comparator/.lake/build/bin/comparator" COMPARATOR_LEAN4EXPORT="$ROOT/tmp/lean4export/.lake/build/bin/lean4export"
-export PATH="$HOME/.elan/bin:$HOME/.local/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
+export PATH="$HOME/.elan/bin:$HOME/.local/bin:$ROOT/tmp/lean4export/.lake/build/bin:$ROOT/tmp/comparator/.lake/build/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
 if command -v landrun >/dev/null && landrun --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
   export COMPARATOR_LANDRUN="$(command -v landrun)"; SANDBOX="landrun=real $(landrun --version 2>&1 | head -1)"
 elif command -v landrun >/dev/null && landrun --best-effort --ro /usr --ro /lib --ro /lib64 --ro /bin --ro /etc -- /bin/true 2>/dev/null; then
