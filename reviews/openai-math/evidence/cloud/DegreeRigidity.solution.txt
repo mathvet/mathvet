@@ -1,0 +1,12 @@
+OAI.TuringRigidity.ManuscriptMain.rigidity : OAI.TuringRigidity.MainTheorem
+'OAI.TuringRigidity.ManuscriptMain.rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.TuringRigidity.Oracle : Type :=
+ℕ → Bool
+def OAI.TuringRigidity.oracleFunction : OAI.TuringRigidity.Oracle → ℕ →. ℕ :=
+fun A n => Part.some (if A n = true then 1 else 0)
+def OAI.TuringRigidity.Reduces : OAI.TuringRigidity.Oracle → OAI.TuringRigidity.Oracle → Prop :=
+fun A B => TuringReducible (OAI.TuringRigidity.oracleFunction A) (OAI.TuringRigidity.oracleFunction B)
+def OAI.TuringRigidity.Degree : Type :=
+Antisymmetrization OAI.TuringRigidity.Oracle OAI.TuringRigidity.Reduces
+def OAI.TuringRigidity.MainTheorem : Prop :=
+∀ (π : OAI.TuringRigidity.Degree ≃o OAI.TuringRigidity.Degree) (a : OAI.TuringRigidity.Degree), π a = a

@@ -1,0 +1,25 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_DegreeRigidity.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TuringRigidity.ManuscriptMain.rigidity [thm] ok
+CMP OAI.TuringRigidity.MainTheorem [def] ok
+CMP OAI.TuringRigidity.instPartialOrderDegree [def] ok
+CMP OAI.TuringRigidity.instPartialOrderDegree._proof_3 [thm] ok
+CMP OAI.TuringRigidity.Reduces [def] ok
+CMP OAI.TuringRigidity.oracleFunction [def] ok
+CMP OAI.TuringRigidity.Oracle [def] ok
+CMP OAI.TuringRigidity.instPartialOrderDegree._proof_2 [thm] ok
+CMP OAI.TuringRigidity.instPartialOrderDegree._proof_1 [thm] ok
+CMP OAI.TuringRigidity.Degree [def] ok
+CMP OAI.TuringRigidity.instIsPreorderOracleReduces [thm] ok
+Chal.TuringRigidity.ManuscriptMain.rigidity : Chal.TuringRigidity.MainTheorem
+@[reducible] def Chal.TuringRigidity.Oracle : Type :=
+ℕ → Bool
+def Chal.TuringRigidity.oracleFunction : Chal.TuringRigidity.Oracle → ℕ →. ℕ :=
+fun A n => Part.some (if A n = true then 1 else 0)
+def Chal.TuringRigidity.Reduces : Chal.TuringRigidity.Oracle → Chal.TuringRigidity.Oracle → Prop :=
+fun A B => TuringReducible (Chal.TuringRigidity.oracleFunction A) (Chal.TuringRigidity.oracleFunction B)
+def Chal.TuringRigidity.Degree : Type :=
+Antisymmetrization Chal.TuringRigidity.Oracle Chal.TuringRigidity.Reduces
+def Chal.TuringRigidity.MainTheorem : Prop :=
+∀ (π : Chal.TuringRigidity.Degree ≃o Chal.TuringRigidity.Degree) (a : Chal.TuringRigidity.Degree), π a = a
+'OAI.TuringRigidity.ManuscriptMain.rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DegreeRigidity comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
