@@ -1,0 +1,70 @@
+CMP OAI.NCHitting.universal_hitting [thm] ok
+CMP OAI.NCHitting.generator [def] ok
+CMP OAI.NCHitting.matrixEntry [def] ok
+CMP OAI.NCHitting.dimension [def] ok
+CMP OAI.NCHitting.Formula.eval [def] ok
+CMP OAI.NCHitting.Formula.eval._f [def] ok
+CMP OAI.NCHitting.Formula.mul [ctor] ok
+CMP OAI.NCHitting.Formula [ind] ok
+CMP OAI.NCHitting.Formula.add [ctor] ok
+CMP OAI.NCHitting.Formula.var [ctor] ok
+CMP OAI.NCHitting.Formula.scalar [ctor] ok
+CMP OAI.NCHitting.Formula.size.match_1 [def] ok
+CMP OAI.NCHitting.Formula.casesOn [def] ok
+CMP OAI.NCHitting.Formula.rec [rec] ok
+CMP OAI.NCHitting.Formula.below [def] ok
+CMP OAI.NCHitting.Formula.brecOn [def] ok
+CMP OAI.NCHitting.Formula.brecOn.go [def] ok
+CMP OAI.NCHitting.Formula.coeff [def] ok
+CMP OAI.NCHitting.Formula.coeff._f [def] ok
+CMP OAI.NCHitting.convolution [def] ok
+CMP OAI.NCHitting.convolution._f [def] ok
+CMP OAI.NCHitting.convolution.match_1 [def] ok
+CMP OAI.NCHitting.Word [def] ok
+CMP OAI.NCHitting.WordSeries [def] ok
+CMP OAI.NCHitting.Formula.size [def] ok
+CMP OAI.NCHitting.Formula.size._f [def] ok
+Chal.NCHitting.universal_hitting : ∀ (n s : ℕ),
+  1 ≤ n →
+    1 ≤ s →
+      ∀ (F : Type u_1) [inst : Field F] [CharZero F] (f : Chal.NCHitting.Formula F n),
+        f.size ≤ s →
+          (∃ w, f.coeff w ≠ 0) →
+            Chal.NCHitting.Formula.eval (⇑(Matrix.scalar (Fin (Chal.NCHitting.dimension n s))))
+                (fun i r q => ↑(Chal.NCHitting.generator n s i r q)) f ≠
+              0
+@[reducible] def Chal.NCHitting.Word : ℕ → Type :=
+fun n => List (Fin n)
+@[reducible] def Chal.NCHitting.WordSeries.{u_1} : Type u_1 → ℕ → Type u_1 :=
+fun F n => Chal.NCHitting.Word n → F
+def Chal.NCHitting.convolution.{u_1} : {F : Type u_1} →
+  {n : ℕ} → [Semiring F] → Chal.NCHitting.WordSeries F n → Chal.NCHitting.WordSeries F n → Chal.NCHitting.Word n → F :=
+fun {F} {n} [Semiring F] f g x =>
+  List.brecOn (motive := fun x => Chal.NCHitting.WordSeries F n → F) x (Chal.NCHitting.convolution._f g) f
+inductive Chal.NCHitting.Formula.{u_1} : Type u_1 → ℕ → Type u_1
+number of parameters: 2
+constructors:
+Chal.NCHitting.Formula.scalar : {F : Type u_1} → {n : ℕ} → F → Chal.NCHitting.Formula F n
+Chal.NCHitting.Formula.var : {F : Type u_1} → {n : ℕ} → Fin n → Chal.NCHitting.Formula F n
+Chal.NCHitting.Formula.add : {F : Type u_1} →
+  {n : ℕ} → Chal.NCHitting.Formula F n → Chal.NCHitting.Formula F n → Chal.NCHitting.Formula F n
+Chal.NCHitting.Formula.mul : {F : Type u_1} →
+  {n : ℕ} → Chal.NCHitting.Formula F n → Chal.NCHitting.Formula F n → Chal.NCHitting.Formula F n
+def Chal.NCHitting.Formula.size.{u_1} : {F : Type u_1} → {n : ℕ} → Chal.NCHitting.Formula F n → ℕ :=
+fun {F} {n} x => Chal.NCHitting.Formula.brecOn x Chal.NCHitting.Formula.size._f
+def Chal.NCHitting.Formula.coeff.{u_1} : {F : Type u_1} →
+  {n : ℕ} → [Semiring F] → Chal.NCHitting.Formula F n → Chal.NCHitting.WordSeries F n :=
+fun {F} {n} [Semiring F] x => Chal.NCHitting.Formula.brecOn x Chal.NCHitting.Formula.coeff._f
+def Chal.NCHitting.Formula.eval.{u_1, u_2} : {F : Type u_1} →
+  {A : Type u_2} → {n : ℕ} → [Semiring A] → (F → A) → (Fin n → A) → Chal.NCHitting.Formula F n → A :=
+fun {F} {A} {n} [Semiring A] scalarMap T x =>
+  Chal.NCHitting.Formula.brecOn x (Chal.NCHitting.Formula.eval._f scalarMap T)
+def Chal.NCHitting.dimension : ℕ → ℕ → ℕ :=
+fun n s => if n = 1 ∧ s = 1 then 1 else 2 * n * s ^ 2
+def Chal.NCHitting.matrixEntry : ℕ → ℕ → ℕ → ℚ :=
+fun i r q => if q < r then (-1) ^ (r - q - 1) / (↑r * ↑i ^ (r - q)) else 0
+def Chal.NCHitting.generator : (n s : ℕ) →
+  Fin n → Matrix (Fin (Chal.NCHitting.dimension n s)) (Fin (Chal.NCHitting.dimension n s)) ℚ :=
+fun n s i r q => if n = 1 ∧ s = 1 then 1 else Chal.NCHitting.matrixEntry (↑i + 1) ↑r ↑q
+'OAI.NCHitting.universal_hitting' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FormulaHitting comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
