@@ -1,0 +1,36 @@
+CMP OAI.PlanarL1.planar_graph_metrics_embed_L1 [thm] ok
+CMP OAI.PlanarL1.MainStatement [def] ok
+CMP OAI.PlanarL1.graphDistance [def] ok
+CMP OAI.PlanarL1.walkLength [def] ok
+CMP OAI.PlanarL1.walkLength._f [def] ok
+CMP OAI.PlanarL1.walkLength.match_1 [def] ok
+CMP OAI.PlanarL1.MainStatement._proof_1 [thm] ok
+CMP OAI.PlanarL1.IsPlanar [def] ok
+Chal.PlanarL1.planar_graph_metrics_embed_L1 : Chal.PlanarL1.MainStatement
+def Chal.PlanarL1.IsPlanar : {V : Type} → SimpleGraph V → Prop :=
+fun {V} G =>
+  ∃ point arc,
+    Function.Injective point ∧
+      (∀ (u v : V) (h : G.Adj u v), (arc u v h) 0 = point u ∧ (arc u v h) 1 = point v) ∧
+        (∀ (u v : V) (h : G.Adj u v), Function.Injective ⇑(arc u v h)) ∧
+          (∀ (u v : V) (h : G.Adj u v) (t : ↑unitInterval) (w : V), 0 < ↑t → ↑t < 1 → (arc u v h) t ≠ point w) ∧
+            ∀ (u v : V) (h : G.Adj u v) (x y : V) (k : G.Adj x y) (s t : ↑unitInterval),
+              0 < ↑s → ↑s < 1 → 0 < ↑t → ↑t < 1 → (arc u v h) s = (arc x y k) t → u = x ∧ v = y ∨ u = y ∧ v = x
+def Chal.PlanarL1.walkLength : {V : Type} → {G : SimpleGraph V} → (V → V → ℝ) → {u v : V} → G.Walk u v → ℝ :=
+fun {V} {G} length {u v} x => SimpleGraph.Walk.brecOn x (@Chal.PlanarL1.walkLength._f V G length)
+def Chal.PlanarL1.graphDistance : {V : Type} → SimpleGraph V → (V → V → ℝ) → V → V → ℝ :=
+fun {V} G length u v => sInf (Set.range fun p => Chal.PlanarL1.walkLength length p)
+def Chal.PlanarL1.MainStatement : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (n : ℕ) (G : SimpleGraph (Fin n)) (length : Fin n → Fin n → ℝ),
+      G.Connected →
+        Chal.PlanarL1.IsPlanar G →
+          (∀ (u v : Fin n), length u v = length v u) →
+            (∀ (u v : Fin n), G.Adj u v → 0 < length u v) →
+              ∃ Ω measurable μ f,
+                ∀ (x y : Fin n),
+                  Chal.PlanarL1.graphDistance G length x y ≤ ‖f x - f y‖ ∧
+                    ‖f x - f y‖ ≤ C * Chal.PlanarL1.graphDistance G length x y
+'OAI.PlanarL1.planar_graph_metrics_embed_L1' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlanarL1 comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
