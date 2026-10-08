@@ -1,0 +1,28 @@
+CMP OAI.GeneralMahler.general_mahler [thm] ok
+CMP OAI.GeneralMahler.volumeProduct [def] ok
+CMP OAI.GeneralMahler.polarAt [def] ok
+CMP OAI.GeneralMahler.polarAt._proof_1 [thm] ok
+CMP OAI.GeneralMahler.Rn [def] ok
+CMP OAI.GeneralMahler.volumeProduct._proof_2 [thm] ok
+CMP OAI.GeneralMahler.volumeProduct._proof_1 [thm] ok
+@Chal.GeneralMahler.general_mahler : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ (K : Set (EuclideanSpace ℝ (Fin n))),
+      IsCompact K →
+        Convex ℝ K →
+          (interior K).Nonempty →
+            (↑n + 1) ^ (n + 1) / ↑n.factorial ^ 2 ≤ Chal.GeneralMahler.volumeProduct K ∧
+              (Chal.GeneralMahler.volumeProduct K = (↑n + 1) ^ (n + 1) / ↑n.factorial ^ 2 ↔
+                ∃ vertices, AffineIndependent ℝ vertices ∧ K = (convexHull ℝ) (Set.range vertices))
+@[reducible] def Chal.GeneralMahler.Rn : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.GeneralMahler.polarAt : {n : ℕ} →
+  Set (Chal.GeneralMahler.Rn n) → Chal.GeneralMahler.Rn n → Set (Chal.GeneralMahler.Rn n) :=
+fun {n} K z => {y | ∀ x ∈ K, inner ℝ y (x - z) ≤ 1}
+def Chal.GeneralMahler.volumeProduct : {n : ℕ} → Set (EuclideanSpace ℝ (Fin n)) → ℝ :=
+fun {n} K =>
+  sInf
+    ((fun z => (MeasureTheory.volume K).toReal * (MeasureTheory.volume (Chal.GeneralMahler.polarAt K z)).toReal) ''
+      interior K)
+'OAI.GeneralMahler.general_mahler' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GeneralMahler comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,68 @@
+CMP OAI.LaughlinGap.thm_main [thm] ok
+CMP OAI.LaughlinGap.MainTarget [def] ok
+CMP OAI.Laughlin.energy [def] ok
+CMP OAI.Laughlin.pairAmplitude [def] ok
+CMP OAI.Laughlin.pairCoefficient [def] ok
+CMP OAI.Laughlin.pairCoefficient._proof_1 [thm] ok
+CMP OAI.Laughlin.Configuration [def] ok
+CMP OAI.Laughlin.State [def] ok
+CMP OAI.Laughlin.energy._proof_1 [thm] ok
+CMP OAI.Laughlin.distanceToLaughlinSq [def] ok
+CMP OAI.Laughlin.laughlinVector [def] ok
+CMP OAI.Laughlin.monomialExponent [def] ok
+CMP OAI.Laughlin.monomialExponent._proof_1 [thm] ok
+CMP OAI.Laughlin.SpinorVariables [def] ok
+CMP OAI.Laughlin.laughlinPolynomial [def] ok
+CMP OAI.Laughlin.bracket [def] ok
+CMP OAI.LaughlinGap.MainTarget._proof_1 [thm] ok
+CMP OAI.Laughlin.Antisymmetric [def] ok
+Chal.LaughlinGap.thm_main : Chal.LaughlinGap.MainTarget
+@[reducible] def Chal.Laughlin.Configuration : ℕ → ℕ → Type :=
+fun N Q => Fin N → Fin (Q + 1)
+@[reducible] def Chal.Laughlin.State : ℕ → ℕ → Type :=
+fun N Q => Chal.Laughlin.Configuration N Q → ℂ
+def Chal.Laughlin.Antisymmetric : {N Q : ℕ} → Chal.Laughlin.State N Q → Prop :=
+fun {N Q} ψ => ∀ (i j : Fin N), i ≠ j → ∀ (a : Fin N → Fin (Q + 1)), ψ (a ∘ ⇑(Equiv.swap i j)) = -ψ a
+def Chal.Laughlin.pairCoefficient : (Q : ℕ) → ℕ → Fin (Q + 1) → Fin (Q + 1) → ℝ :=
+fun Q p x y =>
+  if ↑x + ↑y = p + 1 then
+    (↑↑x - ↑↑y) *
+        √(↑(Q.descFactorial ↑x) * ↑(Q.descFactorial ↑y) * ↑p.factorial /
+            (↑Q * ↑((2 * Q - 2).descFactorial p) * ↑(↑x).factorial * ↑(↑y).factorial)) /
+      √2
+  else 0
+def Chal.Laughlin.pairAmplitude : {N Q : ℕ} →
+  Chal.Laughlin.State N Q → Fin N → Fin N → ℕ → Chal.Laughlin.Configuration N Q → ℂ :=
+fun {N Q} ψ i j p a =>
+  ∑ x, ∑ y, ↑(Chal.Laughlin.pairCoefficient Q p x y) * ψ (Function.update (Function.update a i x) j y)
+def Chal.Laughlin.energy : {N Q : ℕ} → Chal.Laughlin.State N Q → ℝ :=
+fun {N Q} ψ =>
+  ∑ i,
+    ∑ j,
+      if i < j then
+        ∑ p ∈ Finset.range (2 * Q - 1),
+          ∑ a, if a i = 0 ∧ a j = 0 then ‖Chal.Laughlin.pairAmplitude ψ i j p a‖ ^ 2 else 0
+      else 0
+@[reducible] def Chal.Laughlin.SpinorVariables : ℕ → Type :=
+fun N => Fin N × Bool
+def Chal.Laughlin.bracket : {N : ℕ} → Fin N → Fin N → MvPolynomial (Chal.Laughlin.SpinorVariables N) ℂ :=
+fun {N} i j =>
+  MvPolynomial.X (i, false) * MvPolynomial.X (j, true) - MvPolynomial.X (j, false) * MvPolynomial.X (i, true)
+def Chal.Laughlin.laughlinPolynomial : (N : ℕ) → MvPolynomial (Chal.Laughlin.SpinorVariables N) ℂ :=
+fun N => ∏ i, ∏ j, if i < j then Chal.Laughlin.bracket i j ^ 3 else 1
+def Chal.Laughlin.monomialExponent : {N Q : ℕ} →
+  Chal.Laughlin.Configuration N Q → Chal.Laughlin.SpinorVariables N →₀ ℕ :=
+fun {N Q} a => Finsupp.onFinset Finset.univ (fun ib => if ib.2 = true then ↑(a ib.1) else Q - ↑(a ib.1)) ⋯
+def Chal.Laughlin.laughlinVector : (N Q : ℕ) → Chal.Laughlin.State N Q :=
+fun N Q a => (Chal.Laughlin.laughlinPolynomial N).coeff (Chal.Laughlin.monomialExponent a) / ↑(∏ i, √↑(Q.choose ↑(a i)))
+def Chal.Laughlin.distanceToLaughlinSq : {N Q : ℕ} → Chal.Laughlin.State N Q → ℝ :=
+fun {N Q} ψ => sInf (Set.range fun c => ∑ a, ‖ψ a - c * Chal.Laughlin.laughlinVector N Q a‖ ^ 2)
+def Chal.LaughlinGap.MainTarget : Prop :=
+∃ N₀,
+  2 ≤ N₀ ∧
+    ∀ (N : ℕ),
+      N₀ ≤ N →
+        ∀ (ψ : Chal.Laughlin.State N (3 * (N - 1))),
+          Chal.Laughlin.Antisymmetric ψ → 1 / 25 * Chal.Laughlin.distanceToLaughlinSq ψ ≤ Chal.Laughlin.energy ψ
+'OAI.LaughlinGap.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LaughlinGap comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

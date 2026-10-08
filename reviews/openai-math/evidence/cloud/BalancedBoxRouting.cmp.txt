@@ -1,0 +1,145 @@
+CMP OAI.BoxTransport.Routing.balanced_box_routing [thm] ok
+CMP OAI.BoxTransport.Routing.Delivers [def] ok
+CMP OAI.BoxTransport.Routing.prescribedAffine [def] ok
+CMP OAI.BoxTransport.Routing.Space [def] ok
+CMP OAI.BoxTransport.Routing.RationalSpace [def] ok
+CMP OAI.BoxTransport.Routing.solidBox [def] ok
+CMP OAI.BoxTransport.Routing.realPoint [def] ok
+CMP OAI.BoxTransport.Routing.realBox [def] ok
+CMP OAI.BoxTransport.Routing.IsGlobalFlow [def] ok
+CMP OAI.BoxTransport.Routing.IsGlobalFlow._proof_1 [thm] ok
+CMP OAI.BoxTransport.Routing.Field [def] ok
+CMP OAI.BoxTransport.Routing.SpaceTime [def] ok
+CMP OAI.BoxTransport.Routing.AdmissibleField [def] ok
+CMP OAI.BoxTransport.Routing.AdmissibleField._proof_2 [thm] ok
+CMP OAI.BoxTransport.Routing.AdmissibleField._proof_1 [thm] ok
+CMP OAI.BoxTransport.Routing.spatialDivergence [def] ok
+CMP OAI.BoxTransport.Routing.coordinateVector [def] ok
+CMP OAI.BoxTransport.Routing.Effective [def] ok
+CMP OAI.BoxTransport.Routing.rationalValue [def] ok
+CMP OAI.BoxTransport.Routing.RationalCode [def] ok
+CMP OAI.BoxTransport.Routing.mixedDerivative [def] ok
+CMP OAI.BoxTransport.Routing.mixedDerivative._f [def] ok
+CMP OAI.BoxTransport.Routing.coordinateDirection [def] ok
+CMP OAI.BoxTransport.Routing.coordinateDirection.match_1 [def] ok
+CMP OAI.BoxTransport.Routing.Axis [def] ok
+CMP OAI.BoxTransport.Routing.mixedDerivative.match_1 [def] ok
+CMP OAI.BoxTransport.Routing.codeSpaceTime [def] ok
+CMP OAI.BoxTransport.Routing.RationalPointCode [def] ok
+CMP OAI.BoxTransport.Routing.EvaluationRequest [def] ok
+Chal.BoxTransport.Routing.balanced_box_routing : ∀ (n : ℕ) (a b h k : Fin n → Chal.BoxTransport.Routing.RationalSpace),
+  (∀ (i : Fin n) (j : Fin 3), 0 < h i j) →
+    (∀ (i : Fin n) (j : Fin 3), 0 < k i j) →
+      (Pairwise fun i j =>
+          Disjoint (Chal.BoxTransport.Routing.solidBox (a i) (h i)) (Chal.BoxTransport.Routing.solidBox (a j) (h j))) →
+        (Pairwise fun i j =>
+            Disjoint (Chal.BoxTransport.Routing.solidBox (b i) (k i))
+              (Chal.BoxTransport.Routing.solidBox (b j) (k j))) →
+          (∀ (i : Fin n), ∏ j, k i j / h i j = 1) →
+            ∃ U Φ,
+              Chal.BoxTransport.Routing.AdmissibleField U ∧
+                Chal.BoxTransport.Routing.IsGlobalFlow U Φ ∧ Chal.BoxTransport.Routing.Delivers a b h k Φ
+@[reducible] def Chal.BoxTransport.Routing.Space : Type :=
+Fin 3 → ℝ
+@[reducible] def Chal.BoxTransport.Routing.RationalSpace : Type :=
+Fin 3 → ℚ
+@[reducible] def Chal.BoxTransport.Routing.SpaceTime : Type :=
+ℝ × Chal.BoxTransport.Routing.Space
+@[reducible] def Chal.BoxTransport.Routing.RationalSpaceTime : Type :=
+ℚ × Chal.BoxTransport.Routing.RationalSpace
+@[reducible] def Chal.BoxTransport.Routing.Field : Type :=
+Chal.BoxTransport.Routing.SpaceTime → Chal.BoxTransport.Routing.Space
+@[reducible] def Chal.BoxTransport.Routing.Axis : Type :=
+Option (Fin 3)
+def Chal.BoxTransport.Routing.coordinateVector : Fin 3 → Chal.BoxTransport.Routing.Space :=
+fun j => Pi.single j 1
+def Chal.BoxTransport.Routing.coordinateDirection : Chal.BoxTransport.Routing.Axis →
+  Chal.BoxTransport.Routing.SpaceTime :=
+fun x =>
+  match x with
+  | none => (1, 0)
+  | some j => (0, Chal.BoxTransport.Routing.coordinateVector j)
+def Chal.BoxTransport.Routing.realPoint : Chal.BoxTransport.Routing.RationalSpace → Chal.BoxTransport.Routing.Space :=
+fun q j => ↑(q j)
+def Chal.BoxTransport.Routing.realSpaceTime : Chal.BoxTransport.Routing.RationalSpaceTime →
+  Chal.BoxTransport.Routing.SpaceTime :=
+fun q => (↑q.1, Chal.BoxTransport.Routing.realPoint q.2)
+def Chal.BoxTransport.Routing.realBox : Chal.BoxTransport.Routing.Space →
+  Chal.BoxTransport.Routing.Space → Set Chal.BoxTransport.Routing.Space :=
+fun c r => {x | ∀ (j : Fin 3), |x j - c j| ≤ r j}
+def Chal.BoxTransport.Routing.solidBox : Chal.BoxTransport.Routing.RationalSpace →
+  Chal.BoxTransport.Routing.RationalSpace → Set Chal.BoxTransport.Routing.Space :=
+fun a h =>
+  Chal.BoxTransport.Routing.realBox (Chal.BoxTransport.Routing.realPoint a) (Chal.BoxTransport.Routing.realPoint h)
+def Chal.BoxTransport.Routing.prescribedAffine : Chal.BoxTransport.Routing.RationalSpace →
+  Chal.BoxTransport.Routing.RationalSpace →
+    Chal.BoxTransport.Routing.RationalSpace →
+      Chal.BoxTransport.Routing.RationalSpace → Chal.BoxTransport.Routing.Space → Chal.BoxTransport.Routing.Space :=
+fun a b h k x j => ↑(b j) + ↑(k j / h j) * (x j - ↑(a j))
+def Chal.BoxTransport.Routing.mixedDerivative : List Chal.BoxTransport.Routing.Axis →
+  Chal.BoxTransport.Routing.Field → Chal.BoxTransport.Routing.Field :=
+fun x x_1 =>
+  List.brecOn (motive := fun x => Chal.BoxTransport.Routing.Field → Chal.BoxTransport.Routing.Field) x
+    Chal.BoxTransport.Routing.mixedDerivative._f x_1
+@[reducible] def Chal.BoxTransport.Routing.RationalCode : Type :=
+ℕ × ℕ × ℕ
+def Chal.BoxTransport.Routing.rationalValue : Chal.BoxTransport.Routing.RationalCode → ℚ :=
+fun q => (↑q.1 - ↑q.2.1) / (↑q.2.2 + 1)
+@[reducible] def Chal.BoxTransport.Routing.RationalPointCode : Type :=
+Chal.BoxTransport.Routing.RationalCode ×
+  Chal.BoxTransport.Routing.RationalCode ×
+    Chal.BoxTransport.Routing.RationalCode × Chal.BoxTransport.Routing.RationalCode
+def Chal.BoxTransport.Routing.codeSpaceTime : Chal.BoxTransport.Routing.RationalPointCode →
+  Chal.BoxTransport.Routing.SpaceTime :=
+fun q =>
+  (↑(Chal.BoxTransport.Routing.rationalValue q.1),
+    ![↑(Chal.BoxTransport.Routing.rationalValue q.2.1), ↑(Chal.BoxTransport.Routing.rationalValue q.2.2.1),
+      ↑(Chal.BoxTransport.Routing.rationalValue q.2.2.2)])
+@[reducible] def Chal.BoxTransport.Routing.EvaluationRequest : Type :=
+List Chal.BoxTransport.Routing.Axis × Chal.BoxTransport.Routing.RationalPointCode × ℕ × Fin 3
+def Chal.BoxTransport.Routing.Effective : Chal.BoxTransport.Routing.Field → Prop :=
+fun U =>
+  ∃ eval modulus bound,
+    Computable eval ∧
+      Computable modulus ∧
+        Computable bound ∧
+          (∀ (ds : List Chal.BoxTransport.Routing.Axis) (q : Chal.BoxTransport.Routing.RationalPointCode) (n : ℕ)
+              (p : Chal.BoxTransport.Routing.SpaceTime),
+              ‖p - Chal.BoxTransport.Routing.codeSpaceTime q‖ ≤ (↑(modulus (ds, n)) + 1)⁻¹ →
+                ∀ (j : Fin 3),
+                  |Chal.BoxTransport.Routing.mixedDerivative ds U p j -
+                        ↑(Chal.BoxTransport.Routing.rationalValue (eval (ds, q, n, j)))| ≤
+                    (↑n + 1)⁻¹) ∧
+            ∀ (ds : List Chal.BoxTransport.Routing.Axis) (p : Chal.BoxTransport.Routing.SpaceTime) (j : Fin 3),
+              |Chal.BoxTransport.Routing.mixedDerivative ds U p j| ≤ ↑(bound ds)
+def Chal.BoxTransport.Routing.spatialDivergence : Chal.BoxTransport.Routing.Field →
+  ℝ → Chal.BoxTransport.Routing.Space → ℝ :=
+fun U t x => ∑ j, (fderiv ℝ (fun y => U (t, y)) x) (Chal.BoxTransport.Routing.coordinateVector j) j
+def Chal.BoxTransport.Routing.AdmissibleField : Chal.BoxTransport.Routing.Field → Prop :=
+fun U =>
+  ContDiff ℝ (↑⊤) U ∧
+    HasCompactSupport U ∧
+      Chal.BoxTransport.Routing.Effective U ∧
+        (∀ (t : ℝ) (x : Chal.BoxTransport.Routing.Space), Chal.BoxTransport.Routing.spatialDivergence U t x = 0) ∧
+          ∀ (t : ℝ) (x : Chal.BoxTransport.Routing.Space), t ∉ Set.Icc (1 / 4) (3 / 4) → U (t, x) = 0
+def Chal.BoxTransport.Routing.IsGlobalFlow : Chal.BoxTransport.Routing.Field →
+  (ℝ → Chal.BoxTransport.Routing.Space → Chal.BoxTransport.Routing.Space) → Prop :=
+fun U Φ =>
+  (∀ (x : Chal.BoxTransport.Routing.Space), Φ 0 x = x) ∧
+    (∀ (t : ℝ) (x : Chal.BoxTransport.Routing.Space), HasDerivAt (fun s => Φ s x) (U (t, Φ t x)) t) ∧
+      ∀ (x : Chal.BoxTransport.Routing.Space) (γ : ℝ → Chal.BoxTransport.Routing.Space),
+        γ 0 = x → (∀ (t : ℝ), HasDerivAt γ (U (t, γ t)) t) → ∀ (t : ℝ), γ t = Φ t x
+def Chal.BoxTransport.Routing.Delivers : {n : ℕ} →
+  (Fin n → Chal.BoxTransport.Routing.RationalSpace) →
+    (Fin n → Chal.BoxTransport.Routing.RationalSpace) →
+      (Fin n → Chal.BoxTransport.Routing.RationalSpace) →
+        (Fin n → Chal.BoxTransport.Routing.RationalSpace) →
+          (ℝ → Chal.BoxTransport.Routing.Space → Chal.BoxTransport.Routing.Space) → Prop :=
+fun {n} a b h k Φ =>
+  ∀ (i : Fin n),
+    ∃ O,
+      IsOpen O ∧
+        Chal.BoxTransport.Routing.solidBox (a i) (h i) ⊆ O ∧
+          ∀ x ∈ O, Φ 1 x = Chal.BoxTransport.Routing.prescribedAffine (a i) (b i) (h i) (k i) x
+'OAI.BoxTransport.Routing.balanced_box_routing' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BalancedBoxRouting comparator-style: ok=29 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,30 @@
+@OAI.SymmetricMahler.symmetric_mahler_equality : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ {K : Set (Fin n → ℝ)},
+      IsCompact K →
+        Convex ℝ K →
+          (∀ x ∈ K, -x ∈ K) →
+            (interior K).Nonempty →
+              ((MeasureTheory.volume K).toReal * (MeasureTheory.volume (OAI.SymmetricMahler.coordinatePolar K)).toReal =
+                  4 ^ n / ↑n.factorial ↔
+                OAI.SymmetricMahler.IsLinearHanner K)
+'OAI.SymmetricMahler.symmetric_mahler_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.SymmetricMahler.coordinatePolar.{u_1} : {I : Type u_1} → [Fintype I] → Set (I → ℝ) → Set (I → ℝ) :=
+fun {I} [Fintype I] K => {p | ∀ v ∈ K, ∑ i, p i * v i ≤ 1}
+def OAI.SymmetricMahler.hannerProduct : {k l : ℕ} → Set (Fin k → ℝ) → Set (Fin l → ℝ) → Set (Fin (k + l) → ℝ) :=
+fun {k l} A B => {z | ∃ x ∈ A, ∃ y ∈ B, z = Fin.append x y}
+def OAI.SymmetricMahler.hannerJoin : {k l : ℕ} → Set (Fin k → ℝ) → Set (Fin l → ℝ) → Set (Fin (k + l) → ℝ) :=
+fun {k l} A B => (convexHull ℝ) ((fun x => Fin.append x 0) '' A ∪ (fun y => Fin.append 0 y) '' B)
+inductive OAI.SymmetricMahler.IsHanner : {n : ℕ} → Set (Fin n → ℝ) → Prop
+number of parameters: 0
+constructors:
+OAI.SymmetricMahler.IsHanner.interval : ∀ (a : ℝ),
+  0 < a → OAI.SymmetricMahler.IsHanner (Set.Icc (fun x => -a) fun x => a)
+OAI.SymmetricMahler.IsHanner.product : ∀ {k l : ℕ} {A : Set (Fin k → ℝ)} {B : Set (Fin l → ℝ)},
+  OAI.SymmetricMahler.IsHanner A →
+    OAI.SymmetricMahler.IsHanner B → OAI.SymmetricMahler.IsHanner (OAI.SymmetricMahler.hannerProduct A B)
+OAI.SymmetricMahler.IsHanner.join : ∀ {k l : ℕ} {A : Set (Fin k → ℝ)} {B : Set (Fin l → ℝ)},
+  OAI.SymmetricMahler.IsHanner A →
+    OAI.SymmetricMahler.IsHanner B → OAI.SymmetricMahler.IsHanner (OAI.SymmetricMahler.hannerJoin A B)
+def OAI.SymmetricMahler.IsLinearHanner : {n : ℕ} → Set (Fin n → ℝ) → Prop :=
+fun {n} K => ∃ H, OAI.SymmetricMahler.IsHanner H ∧ ∃ T, K = ⇑T '' H

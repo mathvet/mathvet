@@ -1,0 +1,6 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_AbhyankarSathaye.lean:11:8: warning: declaration uses `sorry`
+OAI.AbhyankarSathaye.exists_noncoordinate_polynomial : ∀ (n : ℕ),
+  4 ≤ n →
+    ∃ F,
+      Nonempty ((MvPolynomial (Fin n) ℂ ⧸ Ideal.span {F}) ≃ₐ[ℂ] MvPolynomial (Fin (n - 1)) ℂ) ∧
+        ¬∃ equiv index, equiv (MvPolynomial.X index) = F

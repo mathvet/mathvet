@@ -1,0 +1,1 @@
+OAI.AbhyankarSathaye.exists_noncoordinate_polynomial : ∀ (n : ℕ), 4 ≤ n → ∃ F, Nonempty ((MvPolynomial (Fin n) ℂ ⧸ Ideal.span {F}) ≃ₐ[ℂ] MvPolynomial (Fin (n - 1)) ℂ) ∧ ¬∃ equiv index, equiv (MvPolynomial.X index) = F 

@@ -1,0 +1,183 @@
+CMP OAI.BogomolovPop.main_graph_injective [thm] ok
+CMP OAI.BogomolovPop.PhiGraph [def] ok
+CMP OAI.BogomolovPop.PullbackGraph [def] ok
+CMP OAI.BogomolovPop.absoluteToPiA [def] ok
+CMP OAI.BogomolovPop.centralProjection._proof_2 [thm] ok
+CMP OAI.BogomolovPop.PiA._proof_2 [thm] ok
+CMP OAI.BogomolovPop.PiA._proof_1 [thm] ok
+CMP OAI.BogomolovPop.proEllKernel [def] ok
+CMP OAI.BogomolovPop.ProEll [def] ok
+CMP OAI.BogomolovPop.PiA [def] ok
+CMP OAI.BogomolovPop.BracketCompatible [def] ok
+CMP OAI.BogomolovPop.bracket [def] ok
+CMP OAI.BogomolovPop.bracket._proof_1 [thm] ok
+CMP OAI.BogomolovPop.abelianLift [def] ok
+CMP OAI.BogomolovPop.sourceCommutator [def] ok
+CMP OAI.BogomolovPop.Delta [def] ok
+CMP OAI.BogomolovPop.centralProjection [def] ok
+CMP OAI.BogomolovPop.centralProjection._proof_3 [thm] ok
+CMP OAI.BogomolovPop.closedGammaThree [def] ok
+CMP OAI.BogomolovPop.centralProjection._proof_1 [thm] ok
+CMP OAI.BogomolovPop.closedGammaThree_normal [thm] ok
+CMP OAI.BogomolovPop.PiC [def] ok
+CMP OAI.BogomolovPop.absoluteAction [def] ok
+CMP OAI.BogomolovPop.PerfectIsom._proof_5 [thm] ok
+CMP OAI.BogomolovPop.PerfectIsom._proof_4 [thm] ok
+CMP OAI.BogomolovPop.PerfectIsom._proof_3 [thm] ok
+CMP OAI.BogomolovPop.PerfectIsom._proof_2 [thm] ok
+CMP OAI.BogomolovPop.PerfectIsom._proof_1 [thm] ok
+CMP OAI.BogomolovPop.PerfectFieldClosure [def] ok
+CMP OAI.BogomolovPop.IsomC [def] ok
+CMP OAI.BogomolovPop.PerfectIsom [def] ok
+CMP OAI.BogomolovPop.ScalarStep [def] ok
+CMP OAI.BogomolovPop.FrobeniusStep [def] ok
+CMP OAI.BogomolovPop.FrobeniusStep._proof_1 [thm] ok
+CMP OAI.BogomolovPop.IsomCUnits [def] ok
+CMP OAI.BogomolovPop.IsomF [def] ok
+Chal.BogomolovPop.main_graph_injective : ∀ (ell : ℕ) [inst : Fact (Nat.Prime ell)] (k : Type u_1) (K : Type u_2)
+  (l : Type u_3) (L : Type u_4) [inst_1 : Field k] [inst_2 : Field K] [inst_3 : Field l] [inst_4 : Field L]
+  [IsAlgClosed k] [IsAlgClosed l] [inst_7 : Algebra k K] [inst_8 : Algebra l L] [Algebra.EssFiniteType k K]
+  [Algebra.EssFiniteType l L],
+  ↑ell ≠ 0 →
+    ↑ell ≠ 0 →
+      2 ≤ Algebra.trdeg k K →
+        2 ≤ Algebra.trdeg l L →
+          ∀ (a a' : Chal.BogomolovPop.IsomF k K l L) (b : Chal.BogomolovPop.IsomCUnits ell K L),
+            Chal.BogomolovPop.PhiGraph a b → Chal.BogomolovPop.PhiGraph a' b → a = a'
+def Chal.BogomolovPop.proEllKernel.{u_1} : ℕ → (G : Type u_1) → [inst : Group G] → [TopologicalSpace G] → Subgroup G :=
+fun ell G [Group G] [TopologicalSpace G] => ⨅ H, ⨅ (_ : IsPGroup ell (G ⧸ ↑H.toOpenSubgroup)), ↑H.toOpenSubgroup
+@[reducible] def Chal.BogomolovPop.ProEll.{u_1} : ℕ → (F : Type u_1) → [Field F] → Type u_1 :=
+fun ell F [Field F] => Field.absoluteGaloisGroup F ⧸ Chal.BogomolovPop.proEllKernel ell (Field.absoluteGaloisGroup F)
+def Chal.BogomolovPop.closedGammaThree.{u_1} : (G : Type u_1) →
+  [inst : Group G] → [inst_1 : TopologicalSpace G] → [IsTopologicalGroup G] → Subgroup G :=
+fun G [Group G] [TopologicalSpace G] [IsTopologicalGroup G] => ⁅(commutator G).topologicalClosure, ⊤⁆.topologicalClosure
+@[reducible] def Chal.BogomolovPop.PiA.{u_1} : ℕ → (F : Type u_1) → [Field F] → Type u_1 :=
+fun ell F [Field F] => TopologicalAbelianization (Chal.BogomolovPop.ProEll ell F)
+@[reducible] def Chal.BogomolovPop.PiC.{u_1} : ℕ → (F : Type u_1) → [Field F] → Type u_1 :=
+fun ell F [Field F] =>
+  Chal.BogomolovPop.ProEll ell F ⧸ Chal.BogomolovPop.closedGammaThree (Chal.BogomolovPop.ProEll ell F)
+def Chal.BogomolovPop.centralProjection.{u_1} : (ell : ℕ) →
+  (F : Type u_1) → [inst : Field F] → Chal.BogomolovPop.PiC ell F →* Chal.BogomolovPop.PiA ell F :=
+fun ell F [Field F] =>
+  QuotientGroup.map (Chal.BogomolovPop.closedGammaThree (Chal.BogomolovPop.ProEll ell F))
+    (commutator (Chal.BogomolovPop.ProEll ell F)).topologicalClosure (MonoidHom.id (Chal.BogomolovPop.ProEll ell F)) ⋯
+@[reducible] def Chal.BogomolovPop.Delta.{u_1} : (ell : ℕ) →
+  (F : Type u_1) → [inst : Field F] → Subgroup (Chal.BogomolovPop.PiC ell F) :=
+fun ell F [Field F] => (Chal.BogomolovPop.centralProjection ell F).ker
+def Chal.BogomolovPop.sourceCommutator.{u_1} : {G : Type u_1} → [Group G] → G → G → G :=
+fun {G} [Group G] x y => x⁻¹ * y⁻¹ * x * y
+def Chal.BogomolovPop.abelianLift.{u_1} : (ell : ℕ) →
+  (F : Type u_1) → [inst : Field F] → Chal.BogomolovPop.PiA ell F → Chal.BogomolovPop.ProEll ell F :=
+fun ell F [Field F] x => Quotient.out x
+def Chal.BogomolovPop.bracket.{u_1} : (ell : ℕ) →
+  (F : Type u_1) →
+    [inst : Field F] → Chal.BogomolovPop.PiA ell F → Chal.BogomolovPop.PiA ell F → ↥(Chal.BogomolovPop.Delta ell F) :=
+fun ell F [Field F] x y =>
+  ⟨(QuotientGroup.mk' (Chal.BogomolovPop.closedGammaThree (Chal.BogomolovPop.ProEll ell F)))
+      (Chal.BogomolovPop.sourceCommutator (Chal.BogomolovPop.abelianLift ell F x)
+        (Chal.BogomolovPop.abelianLift ell F y)),
+    ⋯⟩
+def Chal.BogomolovPop.BracketCompatible.{u_1, u_2} : {ell : ℕ} →
+  {K : Type u_1} →
+    {L : Type u_2} →
+      [inst : Field K] → [inst_1 : Field L] → Chal.BogomolovPop.PiA ell L ≃ₜ* Chal.BogomolovPop.PiA ell K → Prop :=
+fun {ell} {K} {L} [Field K] [Field L] φ =>
+  ∃ ψ,
+    ∀ (σ τ : Chal.BogomolovPop.PiA ell L),
+      ψ (Chal.BogomolovPop.bracket ell L σ τ) = Chal.BogomolovPop.bracket ell K (φ σ) (φ τ)
+@[reducible] def Chal.BogomolovPop.PerfectFieldClosure.{u_1} : (F : Type u_1) →
+  [inst : Field F] → IntermediateField F (AlgebraicClosure F) :=
+fun F [Field F] => perfectClosure F (AlgebraicClosure F)
+def Chal.BogomolovPop.PerfectIsom.{u_1, u_2, u_3, u_4} : (k : Type u_1) →
+  (K : Type u_2) →
+    (l : Type u_3) →
+      (L : Type u_4) →
+        [inst : Field k] →
+          [inst_1 : Field K] →
+            [inst_2 : Field l] → [inst_3 : Field L] → [Algebra k K] → [Algebra l L] → Type (max 0 u_2 u_4) :=
+fun k K l L [Field k] [Field K] [Field l] [Field L] [Algebra k K] [Algebra l L] =>
+  { α //
+    ⇑α '' Set.range ⇑(algebraMap k ↥(Chal.BogomolovPop.PerfectFieldClosure K)) =
+      Set.range ⇑(algebraMap l ↥(Chal.BogomolovPop.PerfectFieldClosure L)) }
+def Chal.BogomolovPop.FrobeniusStep.{u_1, u_2, u_3, u_4} : {k : Type u_1} →
+  {K : Type u_2} →
+    {l : Type u_3} →
+      {L : Type u_4} →
+        [inst : Field k] →
+          [inst_1 : Field K] →
+            [inst_2 : Field l] →
+              [inst_3 : Field L] →
+                [inst_4 : Algebra k K] →
+                  [inst_5 : Algebra l L] →
+                    Chal.BogomolovPop.PerfectIsom k K l L → Chal.BogomolovPop.PerfectIsom k K l L → Prop :=
+fun {k} {K} {l} {L} [Field k] [Field K] [Field l] [Field L] [Algebra k K] [Algebra l L] α β =>
+  ∃ p, Nat.Prime p ∧ ↑p = 0 ∧ ∀ (x : ↥(Chal.BogomolovPop.PerfectFieldClosure K)), ↑β x = ↑α x ^ p
+@[reducible] def Chal.BogomolovPop.IsomF.{u_1, u_2, u_3, u_4} : (k : Type u_1) →
+  (K : Type u_2) →
+    (l : Type u_3) →
+      (L : Type u_4) →
+        [inst : Field k] →
+          [inst_1 : Field K] →
+            [inst_2 : Field l] → [inst_3 : Field L] → [Algebra k K] → [Algebra l L] → Type (max u_2 u_4) :=
+fun k K l L [Field k] [Field K] [Field l] [Field L] [Algebra k K] [Algebra l L] =>
+  Quotient (Relation.EqvGen.setoid Chal.BogomolovPop.FrobeniusStep)
+@[reducible] def Chal.BogomolovPop.IsomC.{u_1, u_2} : ℕ →
+  (K : Type u_1) → (L : Type u_2) → [Field K] → [Field L] → Type (max 0 u_1 u_2) :=
+fun ell K L [Field K] [Field L] => { φ // Chal.BogomolovPop.BracketCompatible φ }
+def Chal.BogomolovPop.ScalarStep.{u_1, u_2} : {ell : ℕ} →
+  [Fact (Nat.Prime ell)] →
+    {K : Type u_1} →
+      {L : Type u_2} →
+        [inst : Field K] →
+          [inst_1 : Field L] → Chal.BogomolovPop.IsomC ell K L → Chal.BogomolovPop.IsomC ell K L → Prop :=
+fun {ell} [Fact (Nat.Prime ell)] {K} {L} [Field K] [Field L] φ χ =>
+  ∃ u, ∀ (x : Chal.BogomolovPop.PiA ell L), Filter.Tendsto (fun n => ↑φ x ^ (↑u).appr n) Filter.atTop (nhds (↑χ x))
+@[reducible] def Chal.BogomolovPop.IsomCUnits.{u_1, u_2} : (ell : ℕ) →
+  [Fact (Nat.Prime ell)] → (K : Type u_1) → (L : Type u_2) → [Field K] → [Field L] → Type (max u_1 u_2) :=
+fun ell [Fact (Nat.Prime ell)] K L [Field K] [Field L] => Quotient (Relation.EqvGen.setoid Chal.BogomolovPop.ScalarStep)
+def Chal.BogomolovPop.absoluteToPiA.{u_1} : (ell : ℕ) →
+  (F : Type u_1) → [inst : Field F] → Field.absoluteGaloisGroup F →* Chal.BogomolovPop.PiA ell F :=
+fun ell F [Field F] =>
+  (QuotientGroup.mk' (commutator (Chal.BogomolovPop.ProEll ell F)).topologicalClosure).comp
+    (QuotientGroup.mk' (Chal.BogomolovPop.proEllKernel ell (Field.absoluteGaloisGroup F)))
+def Chal.BogomolovPop.absoluteAction.{u_1} : {F : Type u_1} →
+  [inst : Field F] → Field.absoluteGaloisGroup F → AlgebraicClosure F → AlgebraicClosure F :=
+fun {F} [Field F] σ x => id (fun σ => σ x) σ
+def Chal.BogomolovPop.PullbackGraph.{u_1, u_2, u_3, u_4} : {ell : ℕ} →
+  {k : Type u_1} →
+    {K : Type u_2} →
+      {l : Type u_3} →
+        {L : Type u_4} →
+          [inst : Field k] →
+            [inst_1 : Field K] →
+              [inst_2 : Field l] →
+                [inst_3 : Field L] →
+                  [inst_4 : Algebra k K] →
+                    [inst_5 : Algebra l L] →
+                      Chal.BogomolovPop.PerfectIsom k K l L → Chal.BogomolovPop.IsomC ell K L → Prop :=
+fun {ell} {k} {K} {l} {L} [Field k] [Field K] [Field l] [Field L] [Algebra k K] [Algebra l L] α φ =>
+  ∃ β,
+    (∀ (x : ↥(Chal.BogomolovPop.PerfectFieldClosure K)), β ↑x = ↑(↑α x)) ∧
+      ∀ (σ : Field.absoluteGaloisGroup L),
+        ∃ τ,
+          (∀ (x : AlgebraicClosure K),
+              β (Chal.BogomolovPop.absoluteAction τ x) = Chal.BogomolovPop.absoluteAction σ (β x)) ∧
+            ↑φ ((Chal.BogomolovPop.absoluteToPiA ell L) σ) = (Chal.BogomolovPop.absoluteToPiA ell K) τ
+def Chal.BogomolovPop.PhiGraph.{u_1, u_2, u_3, u_4} : {ell : ℕ} →
+  [inst : Fact (Nat.Prime ell)] →
+    {k : Type u_1} →
+      {K : Type u_2} →
+        {l : Type u_3} →
+          {L : Type u_4} →
+            [inst_1 : Field k] →
+              [inst_2 : Field K] →
+                [inst_3 : Field l] →
+                  [inst_4 : Field L] →
+                    [inst_5 : Algebra k K] →
+                      [inst_6 : Algebra l L] →
+                        Chal.BogomolovPop.IsomF k K l L → Chal.BogomolovPop.IsomCUnits ell K L → Prop :=
+fun {ell} [Fact (Nat.Prime ell)] {k} {K} {l} {L} [Field k] [Field K] [Field l] [Field L] [Algebra k K] [Algebra l L] a
+    b =>
+  ∃ α φ, ⟦α⟧ = a ∧ ⟦φ⟧ = b ∧ Chal.BogomolovPop.PullbackGraph α φ
+'OAI.BogomolovPop.main_graph_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BogomolovPopInjectivity comparator-style: ok=36 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

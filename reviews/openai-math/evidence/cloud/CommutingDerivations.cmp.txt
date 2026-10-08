@@ -1,0 +1,75 @@
+CMP OAI.AbhyankarSathaye.CommutingDerivations.commuting_derivations_with_ordinary_extras [thm] ok
+CMP OAI.AbhyankarSathaye.blocksToAmbient [def] ok
+CMP OAI.AbhyankarSathaye.blocksToAmbient._proof_2 [thm] ok
+CMP OAI.AbhyankarSathaye.blocksToOutput [def] ok
+CMP OAI.AbhyankarSathaye.blocksToOutput._proof_2 [thm] ok
+CMP OAI.AbhyankarSathaye.CommutingDerivations.LocallyNilpotent [def] ok
+CMP OAI.AbhyankarSathaye.extendedF [def] ok
+CMP OAI.AbhyankarSathaye.F [def] ok
+CMP OAI.AbhyankarSathaye.p [def] ok
+CMP OAI.AbhyankarSathaye.s [def] ok
+CMP OAI.AbhyankarSathaye.w [def] ok
+CMP OAI.AbhyankarSathaye.h._proof_1 [thm] ok
+CMP OAI.AbhyankarSathaye.R [def] ok
+CMP OAI.AbhyankarSathaye.v [def] ok
+CMP OAI.AbhyankarSathaye.u [def] ok
+CMP OAI.AbhyankarSathaye.h [def] ok
+CMP OAI.AbhyankarSathaye.S [def] ok
+CMP OAI.AbhyankarSathaye.S._proof_2 [thm] ok
+CMP OAI.AbhyankarSathaye.S._proof_1 [thm] ok
+CMP OAI.AbhyankarSathaye.y [def] ok
+CMP OAI.AbhyankarSathaye.x [def] ok
+CMP OAI.AbhyankarSathaye.P [def] ok
+CMP OAI.AbhyankarSathaye.fourInclusion [def] ok
+CMP OAI.AbhyankarSathaye.fourInclusion._proof_1 [thm] ok
+Chal.AbhyankarSathaye.CommutingDerivations.commuting_derivations_with_ordinary_extras : ∀ (n : ℕ) (hn : 4 ≤ n),
+  ∃ d,
+    (∀ (i : Fin (n - 1)), (d i) (Chal.AbhyankarSathaye.extendedF hn + 1) = 0) ∧
+      (∀ (i j : Fin (n - 1)) (p : MvPolynomial (Fin n) ℂ), (d i) ((d j) p) = (d j) ((d i) p)) ∧
+        (∀ (i : Fin (n - 1)), Chal.AbhyankarSathaye.CommutingDerivations.LocallyNilpotent (d i)) ∧
+          LinearIndependent (MvPolynomial (Fin n) ℂ) d ∧
+            (∀ (p : MvPolynomial (Fin n) ℂ),
+                (∀ (i : Fin (n - 1)), (d i) p = 0) ↔ p ∈ ℂ[Chal.AbhyankarSathaye.extendedF hn]) ∧
+              (∀ (g : MvPolynomial (Fin n) ℂ), (∀ (i : Fin (n - 1)), (d i) g = 0) → ¬∃ e j, e (MvPolynomial.X j) = g) ∧
+                ∀ (i : Fin (n - 4)),
+                  d ((Chal.AbhyankarSathaye.blocksToOutput hn) (Sum.inl i)) =
+                    MvPolynomial.pderiv ((Chal.AbhyankarSathaye.blocksToAmbient hn) (Sum.inl i))
+def Chal.AbhyankarSathaye.S.{u_1} : {B : Type u_1} → [CommRing B] → B → B → B → B → B :=
+fun {B} [CommRing B] h u v w => 2 * u ^ 3 * v + 3 * u ^ 4 * w + h * (v ^ 2 - 3 * u ^ 2 * w ^ 2) + h ^ 2 * w ^ 3
+def Chal.AbhyankarSathaye.P.{u_1} : {B : Type u_1} → [CommRing B] → B → B → B → B :=
+fun {B} [CommRing B] x y s => -2 * s ^ 2 * x + 3 * s * y ^ 2 - 3 * s ^ 3 * y
+@[reducible] def Chal.AbhyankarSathaye.R : Type :=
+MvPolynomial (Fin 4) ℂ
+def Chal.AbhyankarSathaye.h : Chal.AbhyankarSathaye.R :=
+MvPolynomial.X 0
+def Chal.AbhyankarSathaye.u : Chal.AbhyankarSathaye.R :=
+MvPolynomial.X 1
+def Chal.AbhyankarSathaye.v : Chal.AbhyankarSathaye.R :=
+MvPolynomial.X 2
+def Chal.AbhyankarSathaye.w : Chal.AbhyankarSathaye.R :=
+MvPolynomial.X 3
+def Chal.AbhyankarSathaye.x : Chal.AbhyankarSathaye.R :=
+Chal.AbhyankarSathaye.u ^ 3 + Chal.AbhyankarSathaye.h * Chal.AbhyankarSathaye.v
+def Chal.AbhyankarSathaye.y : Chal.AbhyankarSathaye.R :=
+-Chal.AbhyankarSathaye.u ^ 2 + Chal.AbhyankarSathaye.h * Chal.AbhyankarSathaye.w
+def Chal.AbhyankarSathaye.s : Chal.AbhyankarSathaye.R :=
+Chal.AbhyankarSathaye.S Chal.AbhyankarSathaye.h Chal.AbhyankarSathaye.u Chal.AbhyankarSathaye.v Chal.AbhyankarSathaye.w
+def Chal.AbhyankarSathaye.p : Chal.AbhyankarSathaye.R :=
+Chal.AbhyankarSathaye.P Chal.AbhyankarSathaye.x Chal.AbhyankarSathaye.y Chal.AbhyankarSathaye.s
+def Chal.AbhyankarSathaye.F : Chal.AbhyankarSathaye.R :=
+Chal.AbhyankarSathaye.h - Chal.AbhyankarSathaye.p - 1
+def Chal.AbhyankarSathaye.fourInclusion : {n : ℕ} → 4 ≤ n → Fin 4 → Fin n :=
+fun {n} hn i => ⟨↑i, ⋯⟩
+def Chal.AbhyankarSathaye.extendedF : {n : ℕ} → 4 ≤ n → MvPolynomial (Fin n) ℂ :=
+fun {n} hn => (MvPolynomial.rename (Chal.AbhyankarSathaye.fourInclusion hn)) Chal.AbhyankarSathaye.F
+def Chal.AbhyankarSathaye.blocksToAmbient : {n : ℕ} → 4 ≤ n → Fin (n - 4) ⊕ Fin 4 ≃ Fin n :=
+fun {n} hn => (Equiv.sumComm (Fin (n - 4)) (Fin 4)).trans (finSumFinEquiv.trans (finCongr ⋯))
+def Chal.AbhyankarSathaye.blocksToOutput : {n : ℕ} → 4 ≤ n → Fin (n - 4) ⊕ Fin 3 ≃ Fin (n - 1) :=
+fun {n} hn => (Equiv.sumComm (Fin (n - 4)) (Fin 3)).trans (finSumFinEquiv.trans (finCongr ⋯))
+def Chal.AbhyankarSathaye.CommutingDerivations.LocallyNilpotent.{u_1, u_2} : {K : Type u_1} →
+  {A : Type u_2} → [inst : CommRing K] → [inst_1 : CommRing A] → [inst_2 : Algebra K A] → Derivation K A A → Prop :=
+fun {K} {A} [CommRing K] [CommRing A] [Algebra K A] D => ∀ (a : A), ∃ n, (⇑D)^[n] a = 0
+'OAI.AbhyankarSathaye.CommutingDerivations.commuting_derivations_with_ordinary_extras' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== CommutingDerivations comparator-style: ok=24 problems=0 errors=0 | no-shadowing | [propext, 

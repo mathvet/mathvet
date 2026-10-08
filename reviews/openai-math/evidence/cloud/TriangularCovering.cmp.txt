@@ -1,0 +1,88 @@
+CMP OAI.TriangularCovering.main [thm] ok
+CMP OAI.TriangularCovering.NormalizedCounterexample [def] ok
+CMP OAI.TriangularCovering.H._proof_1 [thm] ok
+CMP OAI.TriangularCovering.relativeCost [def] ok
+CMP OAI.TriangularCovering.TriCylinder.axis [def] ok
+CMP OAI.TriangularCovering.TriCylinder [ind] ok
+CMP OAI.TriangularCovering.TriCylinder.mk [ctor] ok
+CMP OAI.TriangularCovering.Space [def] ok
+CMP OAI.TriangularCovering.shadowArea [def] ok
+CMP OAI.TriangularCovering.K [def] ok
+CMP OAI.TriangularCovering.point [def] ok
+CMP OAI.TriangularCovering.H [def] ok
+CMP OAI.TriangularCovering.projection [def] ok
+CMP OAI.TriangularCovering.area [def] ok
+CMP OAI.TriangularCovering.area._proof_1 [thm] ok
+CMP OAI.TriangularCovering.TriCylinder.base [def] ok
+CMP OAI.TriangularCovering.Covers [def] ok
+CMP OAI.TriangularCovering.TriCylinder.carrier [def] ok
+CMP OAI.TriangularCovering.MainAsymptotic [def] ok
+CMP OAI.TriangularCovering.A_min [def] ok
+CMP OAI.TriangularCovering.MainAsymptotic._proof_2 [thm] ok
+CMP OAI.TriangularCovering.MainAsymptotic._proof_1 [thm] ok
+CMP OAI.TriangularCovering.totalArea [def] ok
+CMP OAI.TriangularCovering.n [def] ok
+Chal.TriangularCovering.main : Chal.TriangularCovering.A_min = Chal.TriangularCovering.H ∧
+  Chal.TriangularCovering.MainAsymptotic ∧ Chal.TriangularCovering.NormalizedCounterexample
+@[reducible] def Chal.TriangularCovering.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+def Chal.TriangularCovering.H : ℝ :=
+√2
+def Chal.TriangularCovering.point : ℝ → ℝ → ℝ → Chal.TriangularCovering.Space :=
+fun x y t => !₂[x, y, Chal.TriangularCovering.H * t]
+def Chal.TriangularCovering.K : Set Chal.TriangularCovering.Space :=
+{z | ∃ x y t, 0 ≤ t ∧ t ≤ 1 ∧ |x| ≤ 1 - t ∧ |y| ≤ t ∧ z = Chal.TriangularCovering.point x y t}
+def Chal.TriangularCovering.projection : Chal.TriangularCovering.Space →
+  Chal.TriangularCovering.Space → Chal.TriangularCovering.Space :=
+fun u z => z - inner ℝ u z • u
+def Chal.TriangularCovering.area : Set Chal.TriangularCovering.Space → ℝ :=
+fun B => ((MeasureTheory.Measure.euclideanHausdorffMeasure 2) B).toReal
+def Chal.TriangularCovering.shadowArea : Chal.TriangularCovering.Space → ℝ :=
+fun u => Chal.TriangularCovering.area (Chal.TriangularCovering.projection u '' Chal.TriangularCovering.K)
+def Chal.TriangularCovering.A_min : ℝ :=
+sInf {a | ∃ u, ‖u‖ = 1 ∧ a = Chal.TriangularCovering.shadowArea u}
+structure Chal.TriangularCovering.TriCylinder : Type
+number of parameters: 0
+fields:
+  Chal.TriangularCovering.TriCylinder.axis : Chal.TriangularCovering.Space
+  Chal.TriangularCovering.TriCylinder.base : Set Chal.TriangularCovering.Space
+  Chal.TriangularCovering.TriCylinder.unit_axis : ‖self.axis‖ = 1
+  Chal.TriangularCovering.TriCylinder.perpendicular : ∀ z ∈ self.base, inner ℝ self.axis z = 0
+  Chal.TriangularCovering.TriCylinder.triangular : ∃ v, AffineIndependent ℝ v ∧ self.base = (convexHull ℝ) (Set.range v)
+  Chal.TriangularCovering.TriCylinder.compact : IsCompact self.base
+  Chal.TriangularCovering.TriCylinder.convex : Convex ℝ self.base
+  Chal.TriangularCovering.TriCylinder.measurable : MeasurableSet self.base
+  Chal.TriangularCovering.TriCylinder.finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) self.base ≠ ⊤
+constructor:
+  Chal.TriangularCovering.TriCylinder.mk (axis : Chal.TriangularCovering.Space)
+    (base : Set Chal.TriangularCovering.Space) (unit_axis : ‖axis‖ = 1) (perpendicular : ∀ z ∈ base, inner ℝ axis z = 0)
+    (triangular : ∃ v, AffineIndependent ℝ v ∧ base = (convexHull ℝ) (Set.range v)) (compact : IsCompact base)
+    (convex : Convex ℝ base) (measurable : MeasurableSet base)
+    (finite_area : (MeasureTheory.Measure.euclideanHausdorffMeasure 2) base ≠ ⊤) : Chal.TriangularCovering.TriCylinder
+def Chal.TriangularCovering.TriCylinder.carrier : Chal.TriangularCovering.TriCylinder →
+  Set Chal.TriangularCovering.Space :=
+fun c => {z | ∃ b ∈ c.base, ∃ r, z = b + r • c.axis}
+def Chal.TriangularCovering.Covers : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → Prop :=
+fun {m} c => ∀ z ∈ Chal.TriangularCovering.K, ∃ i, z ∈ (c i).carrier
+def Chal.TriangularCovering.totalArea : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, Chal.TriangularCovering.area (c i).base
+def Chal.TriangularCovering.relativeCost : {m : ℕ} → (Fin m → Chal.TriangularCovering.TriCylinder) → ℝ :=
+fun {m} c => ∑ i, Chal.TriangularCovering.area (c i).base / Chal.TriangularCovering.shadowArea (c i).axis
+def Chal.TriangularCovering.n : ℝ → ℕ :=
+fun ε => ⌈2 / ε ^ 2⌉₊
+def Chal.TriangularCovering.MainAsymptotic : Prop :=
+∃ δ C,
+  0 < δ ∧
+    0 < C ∧
+      ∀ (ε : ℝ),
+        0 < ε →
+          ε < δ →
+            ∃ c,
+              Chal.TriangularCovering.Covers c ∧
+                |Chal.TriangularCovering.totalArea c / Chal.TriangularCovering.H - (1 / 2 - 13 / 6000 * ε ^ 2)| ≤
+                    C * ε ^ 4 ∧
+                  Chal.TriangularCovering.totalArea c < Chal.TriangularCovering.A_min / 2
+def Chal.TriangularCovering.NormalizedCounterexample : Prop :=
+∃ m c, Chal.TriangularCovering.Covers c ∧ Chal.TriangularCovering.relativeCost c < 1 / 2
+'OAI.TriangularCovering.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TriangularCovering comparator-style: ok=24 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

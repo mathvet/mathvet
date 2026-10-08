@@ -1,0 +1,41 @@
+OAI.SquareRootDegree.main : OAI.SquareRootDegree.SignedViolations ∧ ¬BddAbove OAI.SquareRootDegree.AbsoluteRatios
+'OAI.SquareRootDegree.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SquareRootDegree.Cube.{u_1} : Type u_1 → Type u_1 :=
+fun ι => ι → Bool
+def OAI.SquareRootDegree.sign : Bool → ℝ :=
+fun b => if b = true then -1 else 1
+def OAI.SquareRootDegree.average.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] f => (↑(Fintype.card α))⁻¹ * ∑ x, f x
+def OAI.SquareRootDegree.character.{u_1} : {ι : Type u_1} → Finset ι → OAI.SquareRootDegree.Cube ι → ℝ :=
+fun {ι} s x => ∏ i ∈ s, OAI.SquareRootDegree.sign (x i)
+def OAI.SquareRootDegree.fourierCoeff.{u_1} : {ι : Type u_1} →
+  [Fintype ι] → (OAI.SquareRootDegree.Cube ι → ℝ) → Finset ι → ℝ :=
+fun {ι} [Fintype ι] f s => OAI.SquareRootDegree.average fun x => f x * OAI.SquareRootDegree.character s x
+def OAI.SquareRootDegree.fourierDegree.{u_1} : {ι : Type u_1} → [Fintype ι] → (OAI.SquareRootDegree.Cube ι → ℝ) → ℕ :=
+fun {ι} [Fintype ι] f => {s | OAI.SquareRootDegree.fourierCoeff f s ≠ 0}.sup Finset.card
+def OAI.SquareRootDegree.IsBoolean.{u_1} : {α : Type u_1} → (α → ℝ) → Prop :=
+fun {α} f => ∀ (x : α), f x = -1 ∨ f x = 1
+def OAI.SquareRootDegree.Nonconstant.{u_1} : {α : Type u_1} → (α → ℝ) → Prop :=
+fun {α} f => ∃ x y, f x ≠ f y
+def OAI.SquareRootDegree.singletonSum.{u_1} : {ι : Type u_1} → [Fintype ι] → (OAI.SquareRootDegree.Cube ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] f => ∑ i, OAI.SquareRootDegree.fourierCoeff f {i}
+def OAI.SquareRootDegree.absoluteSingletonSum.{u_1} : {ι : Type u_1} →
+  [Fintype ι] → (OAI.SquareRootDegree.Cube ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] f => ∑ i, |OAI.SquareRootDegree.fourierCoeff f {i}|
+def OAI.SquareRootDegree.SignedViolations : Prop :=
+∀ (C : ℝ),
+  0 < C →
+    ∃ n,
+      0 < n ∧
+        ∃ f,
+          OAI.SquareRootDegree.IsBoolean f ∧
+            OAI.SquareRootDegree.Nonconstant f ∧
+              C * √↑(OAI.SquareRootDegree.fourierDegree f) < OAI.SquareRootDegree.singletonSum f
+def OAI.SquareRootDegree.AbsoluteRatios : Set ℝ :=
+{r |
+  ∃ n,
+    0 < n ∧
+      ∃ f,
+        OAI.SquareRootDegree.IsBoolean f ∧
+          0 < OAI.SquareRootDegree.fourierDegree f ∧
+            r = OAI.SquareRootDegree.absoluteSingletonSum f / √↑(OAI.SquareRootDegree.fourierDegree f)}

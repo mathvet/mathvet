@@ -1,0 +1,28 @@
+CMP OAI.EuclideanRamsey.NineStatement.nine_circle_configuration [thm] ok
+CMP OAI.EuclideanRamsey.Ramsey [def] ok
+CMP OAI.EuclideanRamsey.Congruent [def] ok
+CMP OAI.EuclideanRamsey.Space [def] ok
+CMP OAI.EuclideanRamsey.NineStatement.literalCircleConfig [def] ok
+CMP OAI.EuclideanRamsey.NineStatement.literalCircleConfig._proof_1 [thm] ok
+Chal.EuclideanRamsey.NineStatement.nine_circle_configuration : ∀ (t : Fin 9 → ℝ),
+  AlgebraicIndependent ℚ t →
+    Function.Injective (Chal.EuclideanRamsey.NineStatement.literalCircleConfig t) ∧
+      (∀ (i : Fin 9), dist (Chal.EuclideanRamsey.NineStatement.literalCircleConfig t i) 0 = 1) ∧
+        ¬Chal.EuclideanRamsey.Ramsey (Chal.EuclideanRamsey.NineStatement.literalCircleConfig t)
+@[reducible] def Chal.EuclideanRamsey.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.EuclideanRamsey.Congruent : {s d D : ℕ} →
+  (Fin s → Chal.EuclideanRamsey.Space d) → (Fin s → Chal.EuclideanRamsey.Space D) → Prop :=
+fun {s d D} a b => ∀ (i j : Fin s), dist (b i) (b j) = dist (a i) (a j)
+def Chal.EuclideanRamsey.Ramsey : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → Prop :=
+fun {s d} a =>
+  ∀ (r : ℕ),
+    2 ≤ r →
+      ∃ D,
+        1 ≤ D ∧
+          ∀ (c : Chal.EuclideanRamsey.Space D → Fin r),
+            ∃ b, Chal.EuclideanRamsey.Congruent a b ∧ ∃ k, ∀ (i : Fin s), c (b i) = k
+def Chal.EuclideanRamsey.NineStatement.literalCircleConfig : (Fin 9 → ℝ) → Fin 9 → Chal.EuclideanRamsey.Space 2 :=
+fun t i => !₂[(1 - t i ^ 2) / (1 + t i ^ 2), 2 * t i / (1 + t i ^ 2)]
+'OAI.EuclideanRamsey.NineStatement.nine_circle_configuration' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EuclideanRamseyNine comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

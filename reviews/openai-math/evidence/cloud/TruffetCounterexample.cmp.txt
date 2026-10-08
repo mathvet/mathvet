@@ -1,0 +1,224 @@
+CMP OAI.TruffetV4Counterexample.finite_execution_not_optimal [thm] ok
+CMP OAI.TruffetV4Counterexample.State.cost [def] ok
+CMP OAI.TruffetV4Counterexample.State [ind] ok
+CMP OAI.TruffetV4Counterexample.State.mk [ctor] ok
+CMP OAI.TruffetV4Counterexample.Var [def] ok
+CMP OAI.TruffetV4Counterexample.Form [def] ok
+CMP OAI.TruffetV4Counterexample.Coeff [def] ok
+CMP OAI.TruffetV4Counterexample.Row [ind] ok
+CMP OAI.TruffetV4Counterexample.Row.mk [ctor] ok
+CMP OAI.TruffetV4Counterexample.RowIndex [def] ok
+CMP OAI.TruffetV4Counterexample.lowerForm [def] ok
+CMP OAI.TruffetV4Counterexample.Row.lhs [def] ok
+CMP OAI.TruffetV4Counterexample.State.rows [def] ok
+CMP OAI.TruffetV4Counterexample.Row.rhs [def] ok
+CMP OAI.TruffetV4Counterexample.column [def] ok
+CMP OAI.TruffetV4Counterexample.column._proof_1 [thm] ok
+CMP OAI.TruffetV4Counterexample.eval [def] ok
+CMP OAI.TruffetV4Counterexample.eval._proof_1 [thm] ok
+CMP OAI.TruffetV4Counterexample.better [def] ok
+CMP OAI.TruffetV4Counterexample.output [def] ok
+CMP OAI.TruffetV4Counterexample.feasible [def] ok
+CMP OAI.TruffetV4Counterexample.stop [def] ok
+CMP OAI.TruffetV4Counterexample.State.remaining [def] ok
+CMP OAI.TruffetV4Counterexample.finalState [def] ok
+CMP OAI.TruffetV4Counterexample.nullForm [def] ok
+CMP OAI.TruffetV4Counterexample.middle [def] ok
+CMP OAI.TruffetV4Counterexample.middle._proof_1 [thm] ok
+CMP OAI.TruffetV4Counterexample.ForcedSingletonStep [def] ok
+CMP OAI.TruffetV4Counterexample.advance [def] ok
+CMP OAI.TruffetV4Counterexample.substitute [def] ok
+CMP OAI.TruffetV4Counterexample.cleanup [def] ok
+CMP OAI.TruffetV4Counterexample.eligible [def] ok
+CMP OAI.TruffetV4Counterexample.dominating [def] ok
+CMP OAI.TruffetV4Counterexample.upper [def] ok
+CMP OAI.TruffetV4Counterexample.lower [def] ok
+CMP OAI.TruffetV4Counterexample.failure [def] ok
+CMP OAI.TruffetV4Counterexample.switch [def] ok
+CMP OAI.TruffetV4Counterexample.bounded [def] ok
+CMP OAI.TruffetV4Counterexample.wellFormed [def] ok
+CMP OAI.TruffetV4Counterexample.initial [def] ok
+CMP OAI.TruffetV4Counterexample.initial._proof_1 [thm] ok
+CMP OAI.TruffetV4Counterexample.crossRowRestriction [def] ok
+Chal.TruffetV4Counterexample.finite_execution_not_optimal : Chal.TruffetV4Counterexample.crossRowRestriction
+    Chal.TruffetV4Counterexample.initial ∧
+  Chal.TruffetV4Counterexample.ForcedSingletonStep Chal.TruffetV4Counterexample.initial
+      Chal.TruffetV4Counterexample.middle 0 1 ∧
+    Chal.TruffetV4Counterexample.ForcedSingletonStep Chal.TruffetV4Counterexample.middle
+        Chal.TruffetV4Counterexample.finalState 1 0 ∧
+      (¬∃ j, Chal.TruffetV4Counterexample.finalState.remaining j) ∧
+        Chal.TruffetV4Counterexample.stop Chal.TruffetV4Counterexample.finalState ∧
+          Chal.TruffetV4Counterexample.feasible Chal.TruffetV4Counterexample.initial
+              Chal.TruffetV4Counterexample.output ∧
+            Chal.TruffetV4Counterexample.feasible Chal.TruffetV4Counterexample.initial
+                Chal.TruffetV4Counterexample.better ∧
+              Chal.TruffetV4Counterexample.output 2 = 0 ∧
+                Chal.TruffetV4Counterexample.better 2 = 0 ∧
+                  ↑(Chal.TruffetV4Counterexample.output 1) =
+                      Chal.TruffetV4Counterexample.eval
+                        (Chal.TruffetV4Counterexample.lowerForm Chal.TruffetV4Counterexample.initial 0 1)
+                        Chal.TruffetV4Counterexample.output ∧
+                    ↑(Chal.TruffetV4Counterexample.output 0) =
+                        Chal.TruffetV4Counterexample.eval
+                          (Chal.TruffetV4Counterexample.lowerForm Chal.TruffetV4Counterexample.middle 1 0)
+                          Chal.TruffetV4Counterexample.output ∧
+                      Chal.TruffetV4Counterexample.eval Chal.TruffetV4Counterexample.initial.cost
+                            Chal.TruffetV4Counterexample.output =
+                          Chal.TruffetV4Counterexample.eval Chal.TruffetV4Counterexample.finalState.cost
+                            Chal.TruffetV4Counterexample.output ∧
+                        Chal.TruffetV4Counterexample.eval Chal.TruffetV4Counterexample.initial.cost
+                            Chal.TruffetV4Counterexample.better <
+                          Chal.TruffetV4Counterexample.eval Chal.TruffetV4Counterexample.finalState.cost
+                            Chal.TruffetV4Counterexample.output
+@[reducible] def Chal.TruffetV4Counterexample.Coeff : Type :=
+WithBot ℝ
+@[reducible] def Chal.TruffetV4Counterexample.Form : Type :=
+Fin 3 → Chal.TruffetV4Counterexample.Coeff
+@[reducible] def Chal.TruffetV4Counterexample.Var : Type :=
+Fin 2
+@[reducible] def Chal.TruffetV4Counterexample.RowIndex : Type :=
+Fin 2
+def Chal.TruffetV4Counterexample.column : Chal.TruffetV4Counterexample.Var → Fin 3 :=
+fun j => ⟨↑j, ⋯⟩
+def Chal.TruffetV4Counterexample.nullForm : Chal.TruffetV4Counterexample.Form :=
+fun x => ⊥
+structure Chal.TruffetV4Counterexample.Row : Type
+number of parameters: 0
+fields:
+  Chal.TruffetV4Counterexample.Row.lhs : Chal.TruffetV4Counterexample.Form
+  Chal.TruffetV4Counterexample.Row.rhs : Chal.TruffetV4Counterexample.Form
+constructor:
+  Chal.TruffetV4Counterexample.Row.mk (lhs rhs : Chal.TruffetV4Counterexample.Form) : Chal.TruffetV4Counterexample.Row
+structure Chal.TruffetV4Counterexample.State : Type
+number of parameters: 0
+fields:
+  Chal.TruffetV4Counterexample.State.rows : Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Row
+  Chal.TruffetV4Counterexample.State.cost : Chal.TruffetV4Counterexample.Form
+  Chal.TruffetV4Counterexample.State.remaining : Chal.TruffetV4Counterexample.Var → Prop
+constructor:
+  Chal.TruffetV4Counterexample.State.mk
+    (rows : Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Row)
+    (cost : Chal.TruffetV4Counterexample.Form) (remaining : Chal.TruffetV4Counterexample.Var → Prop) :
+    Chal.TruffetV4Counterexample.State
+def Chal.TruffetV4Counterexample.wellFormed : Chal.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (j : Chal.TruffetV4Counterexample.Var),
+    ¬s.remaining j →
+      s.cost (Chal.TruffetV4Counterexample.column j) = ⊥ ∧
+        ∀ (i : Chal.TruffetV4Counterexample.RowIndex),
+          (s.rows i).lhs (Chal.TruffetV4Counterexample.column j) = ⊥ ∧
+            (s.rows i).rhs (Chal.TruffetV4Counterexample.column j) = ⊥
+def Chal.TruffetV4Counterexample.eval : Chal.TruffetV4Counterexample.Form →
+  (Fin 3 → ℝ) → Chal.TruffetV4Counterexample.Coeff :=
+fun f w => max (f 0 + ↑(w 0)) (max (f 1 + ↑(w 1)) (f 2 + ↑(w 2)))
+def Chal.TruffetV4Counterexample.feasible : Chal.TruffetV4Counterexample.State → (Fin 3 → ℝ) → Prop :=
+fun s w =>
+  ∀ (i : Chal.TruffetV4Counterexample.RowIndex),
+    Chal.TruffetV4Counterexample.eval (s.rows i).rhs w ≤ Chal.TruffetV4Counterexample.eval (s.rows i).lhs w
+def Chal.TruffetV4Counterexample.lower : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  (s.rows i).lhs (Chal.TruffetV4Counterexample.column j) ≠ ⊥ ∧
+    (s.rows i).rhs (Chal.TruffetV4Counterexample.column j) < (s.rows i).lhs (Chal.TruffetV4Counterexample.column j)
+def Chal.TruffetV4Counterexample.upper : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  (s.rows i).rhs (Chal.TruffetV4Counterexample.column j) ≠ ⊥ ∧
+    (s.rows i).lhs (Chal.TruffetV4Counterexample.column j) < (s.rows i).rhs (Chal.TruffetV4Counterexample.column j)
+def Chal.TruffetV4Counterexample.dominating : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.Var → Prop :=
+fun s j =>
+  s.remaining j ∧ (∃ i, Chal.TruffetV4Counterexample.lower s i j) ∧ ∃ i, Chal.TruffetV4Counterexample.upper s i j
+def Chal.TruffetV4Counterexample.eligible : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Prop :=
+fun s i j =>
+  s.remaining j ∧
+    Chal.TruffetV4Counterexample.lower s i j ∧
+      ((∃ k, Chal.TruffetV4Counterexample.dominating s k) → Chal.TruffetV4Counterexample.dominating s j)
+def Chal.TruffetV4Counterexample.bounded : Chal.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (j : Chal.TruffetV4Counterexample.Var),
+    s.remaining j → (∃ i, Chal.TruffetV4Counterexample.lower s i j) ∨ ∃ i, Chal.TruffetV4Counterexample.upper s i j
+def Chal.TruffetV4Counterexample.stop : Chal.TruffetV4Counterexample.State → Prop :=
+fun s => ∀ (i : Chal.TruffetV4Counterexample.RowIndex), (s.rows i).rhs 2 ≤ (s.rows i).lhs 2
+def Chal.TruffetV4Counterexample.switch : Chal.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  (∀ (j : Chal.TruffetV4Counterexample.Var), s.remaining j → s.cost (Chal.TruffetV4Counterexample.column j) = ⊥) ∧
+    ¬Chal.TruffetV4Counterexample.stop s ∧
+      (∃ j, s.remaining j) ∧
+        (¬∃ i j, s.remaining j ∧ Chal.TruffetV4Counterexample.lower s i j) ∧
+          ∃ i j, s.remaining j ∧ Chal.TruffetV4Counterexample.upper s i j
+def Chal.TruffetV4Counterexample.failure : Chal.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ¬Chal.TruffetV4Counterexample.stop s ∧
+    ((¬∃ j, s.remaining j) ∨
+      (¬∃ i j, s.remaining j ∧ Chal.TruffetV4Counterexample.lower s i j) ∧
+        ¬∃ i j, s.remaining j ∧ Chal.TruffetV4Counterexample.upper s i j)
+def Chal.TruffetV4Counterexample.lowerForm : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Chal.TruffetV4Counterexample.Form :=
+fun s i j k =>
+  if k = Chal.TruffetV4Counterexample.column j then ⊥
+  else (s.rows i).rhs k + ↑(-WithBot.unbotD 0 ((s.rows i).lhs (Chal.TruffetV4Counterexample.column j)))
+def Chal.TruffetV4Counterexample.substitute : Chal.TruffetV4Counterexample.Form →
+  Chal.TruffetV4Counterexample.Var → Chal.TruffetV4Counterexample.Form → Chal.TruffetV4Counterexample.Form :=
+fun f j g k =>
+  if k = Chal.TruffetV4Counterexample.column j then ⊥ else max (f k) (f (Chal.TruffetV4Counterexample.column j) + g k)
+def Chal.TruffetV4Counterexample.cleanup : Chal.TruffetV4Counterexample.Row → Chal.TruffetV4Counterexample.Row :=
+fun r =>
+  if ∀ (k : Fin 3), r.rhs k ≤ r.lhs k then
+    { lhs := Chal.TruffetV4Counterexample.nullForm, rhs := Chal.TruffetV4Counterexample.nullForm }
+  else r
+def Chal.TruffetV4Counterexample.advance : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Chal.TruffetV4Counterexample.State :=
+fun s i j =>
+  {
+    rows := fun r =>
+      Chal.TruffetV4Counterexample.cleanup
+        {
+          lhs :=
+            Chal.TruffetV4Counterexample.substitute (s.rows r).lhs j (Chal.TruffetV4Counterexample.lowerForm s i j),
+          rhs :=
+            Chal.TruffetV4Counterexample.substitute (s.rows r).rhs j (Chal.TruffetV4Counterexample.lowerForm s i j) },
+    cost := Chal.TruffetV4Counterexample.substitute s.cost j (Chal.TruffetV4Counterexample.lowerForm s i j),
+    remaining := fun k => s.remaining k ∧ k ≠ j }
+def Chal.TruffetV4Counterexample.ForcedSingletonStep : Chal.TruffetV4Counterexample.State →
+  Chal.TruffetV4Counterexample.State →
+    Chal.TruffetV4Counterexample.RowIndex → Chal.TruffetV4Counterexample.Var → Prop :=
+fun s s' i j =>
+  Chal.TruffetV4Counterexample.wellFormed s ∧
+    Chal.TruffetV4Counterexample.wellFormed s' ∧
+      Chal.TruffetV4Counterexample.bounded s ∧
+        ¬Chal.TruffetV4Counterexample.stop s ∧
+          ¬Chal.TruffetV4Counterexample.switch s ∧
+            ¬Chal.TruffetV4Counterexample.failure s ∧
+              (∀ (r : Chal.TruffetV4Counterexample.RowIndex) (k : Chal.TruffetV4Counterexample.Var),
+                  Chal.TruffetV4Counterexample.eligible s r k ↔ r = i ∧ k = j) ∧
+                (∃ k,
+                    Chal.TruffetV4Counterexample.substitute s.cost j (Chal.TruffetV4Counterexample.lowerForm s i j) k ≠
+                      ⊥) ∧
+                  s' = Chal.TruffetV4Counterexample.advance s i j
+def Chal.TruffetV4Counterexample.initial : Chal.TruffetV4Counterexample.State :=
+{ rows := ![{ lhs := ![0, 0, ⊥], rhs := ![⊥, ⊥, 0] }, { lhs := ![0, ⊥, ⊥], rhs := ![⊥, 1, ↑(-2)] }], cost := ![0, ⊥, ⊥],
+  remaining := fun x => True }
+def Chal.TruffetV4Counterexample.middle : Chal.TruffetV4Counterexample.State :=
+{
+  rows :=
+    ![{ lhs := Chal.TruffetV4Counterexample.nullForm, rhs := Chal.TruffetV4Counterexample.nullForm },
+      { lhs := ![0, ⊥, ⊥], rhs := ![⊥, ⊥, 1] }],
+  cost := ![0, ⊥, ⊥], remaining := fun j => j = 0 }
+def Chal.TruffetV4Counterexample.finalState : Chal.TruffetV4Counterexample.State :=
+{ rows := fun x => { lhs := Chal.TruffetV4Counterexample.nullForm, rhs := Chal.TruffetV4Counterexample.nullForm },
+  cost := ![⊥, ⊥, 1], remaining := fun x => False }
+def Chal.TruffetV4Counterexample.crossRowRestriction : Chal.TruffetV4Counterexample.State → Prop :=
+fun s =>
+  ∀ (i r : Chal.TruffetV4Counterexample.RowIndex),
+    i ≠ r →
+      ∀ (α : ℝ),
+        ∃ w,
+          Chal.TruffetV4Counterexample.eval (s.rows i).lhs w < ↑α + Chal.TruffetV4Counterexample.eval (s.rows r).rhs w
+def Chal.TruffetV4Counterexample.output : Fin 3 → ℝ :=
+![1, 0, 0]
+def Chal.TruffetV4Counterexample.better : Fin 3 → ℝ :=
+![0, -1, 0]
+'OAI.TruffetV4Counterexample.finite_execution_not_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TruffetCounterexample comparator-style: ok=42 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

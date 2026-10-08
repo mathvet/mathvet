@@ -1,0 +1,96 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_AmplitudeDamping.lean:113:8: warning: declaration uses `sorry`
+OAI.GAD.main : ∀ (γ ν : ℝ),
+  γ ∈ Set.Icc 0 1 →
+    ν ∈ Set.Icc 0 1 →
+      (∀ (n : ℕ), 1 ≤ n → OAI.GAD.holevo γ ν n = ↑n * OAI.GAD.holevo γ ν 1) ∧
+        (∃ p,
+            OAI.GAD.Maximizes γ ν p ∧
+              ∀ (n : ℕ), 1 ≤ n → OAI.GAD.holevo γ ν n = ↑n / Real.log 2 * OAI.GAD.objective γ ν p) ∧
+          OAI.GAD.capacity γ ν = OAI.GAD.holevo γ ν 1 ∧
+            ∀ (p : ℝ),
+              OAI.GAD.Maximizes γ ν p →
+                ∀ (n : ℕ),
+                  1 ≤ n →
+                    (∀ (s : OAI.GAD.Basis n), OAI.GAD.IsState (OAI.GAD.phaseState p s)) ∧
+                      OAI.GAD.holevo γ ν n = OAI.GAD.phaseValue γ ν p n
+@[reducible] def OAI.GAD.Basis : ℕ → Type :=
+fun n => Fin n → Fin 2
+@[reducible] def OAI.GAD.QMatrix : ℕ → Type :=
+fun n => Matrix (OAI.GAD.Basis n) (OAI.GAD.Basis n) ℂ
+def OAI.GAD.entropy.{u} : {ι : Type u} → [Fintype ι] → [DecidableEq ι] → Matrix ι ι ℂ → ℝ :=
+fun {ι} [Fintype ι] [DecidableEq ι] P => (cfc Real.negMulLog P).trace.re
+def OAI.GAD.IsState.{u} : {ι : Type u} → [Fintype ι] → [DecidableEq ι] → Matrix ι ι ℂ → Prop :=
+fun {ι} [Fintype ι] [DecidableEq ι] P => P.PosSemidef ∧ P.trace = 1
+def OAI.GAD.kraus : ℝ → ℝ → Fin 4 → Matrix (Fin 2) (Fin 2) ℂ :=
+fun γ ν r =>
+  if r = 0 then !![↑√(1 - ν), 0; 0, ↑√(1 - ν) * ↑√(1 - γ)]
+  else
+    if r = 1 then !![0, ↑√(γ * (1 - ν)); 0, 0]
+    else if r = 2 then !![↑√ν * ↑√(1 - γ), 0; 0, ↑√ν] else !![0, 0; ↑√(γ * ν), 0]
+def OAI.GAD.tensorKraus : ℝ → ℝ → (n : ℕ) → (Fin n → Fin 4) → OAI.GAD.QMatrix n :=
+fun γ ν n r i j => ∏ k, OAI.GAD.kraus γ ν (r k) (i k) (j k)
+def OAI.GAD.channel : ℝ → ℝ → (n : ℕ) → OAI.GAD.QMatrix n → OAI.GAD.QMatrix n :=
+fun γ ν n P => ∑ r, OAI.GAD.tensorKraus γ ν n r * P * Matrix.conjTranspose (OAI.GAD.tensorKraus γ ν n r)
+structure OAI.GAD.Ensemble (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.GAD.Ensemble.size : ℕ
+  OAI.GAD.Ensemble.weight : Fin self.size → ℝ
+  OAI.GAD.Ensemble.weight_nonneg : ∀ (a : Fin self.size), 0 ≤ self.weight a
+  OAI.GAD.Ensemble.weight_sum : ∑ a, self.weight a = 1
+  OAI.GAD.Ensemble.signal : Fin self.size → OAI.GAD.QMatrix n
+  OAI.GAD.Ensemble.signal_state : ∀ (a : Fin self.size), OAI.GAD.IsState (self.signal a)
+constructor:
+  OAI.GAD.Ensemble.mk {n : ℕ} (size : ℕ) (weight : Fin size → ℝ) (weight_nonneg : ∀ (a : Fin size), 0 ≤ weight a)
+    (weight_sum : ∑ a, weight a = 1) (signal : Fin size → OAI.GAD.QMatrix n)
+    (signal_state : ∀ (a : Fin size), OAI.GAD.IsState (signal a)) : OAI.GAD.Ensemble n
+def OAI.GAD.ensembleValue : ℝ → ℝ → {n : ℕ} → OAI.GAD.Ensemble n → ℝ :=
+fun γ ν {n} E =>
+  (OAI.GAD.entropy (∑ a, ↑(E.weight a) • OAI.GAD.channel γ ν n (E.signal a)) -
+      ∑ a, E.weight a * OAI.GAD.entropy (OAI.GAD.channel γ ν n (E.signal a))) /
+    Real.log 2
+def OAI.GAD.holevo : ℝ → ℝ → ℕ → ℝ :=
+fun γ ν n => sSup (Set.range (OAI.GAD.ensembleValue γ ν))
+structure OAI.GAD.Code (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.GAD.Code.messages : ℕ
+  OAI.GAD.Code.messages_pos : 0 < self.messages
+  OAI.GAD.Code.encoding : Fin self.messages → OAI.GAD.QMatrix n
+  OAI.GAD.Code.encoding_state : ∀ (a : Fin self.messages), OAI.GAD.IsState (self.encoding a)
+  OAI.GAD.Code.decoding : Fin self.messages → OAI.GAD.QMatrix n
+  OAI.GAD.Code.decoding_pos : ∀ (a : Fin self.messages), Matrix.PosSemidef (self.decoding a)
+  OAI.GAD.Code.decoding_sum : ∑ a, self.decoding a = 1
+constructor:
+  OAI.GAD.Code.mk {n : ℕ} (messages : ℕ) (messages_pos : 0 < messages) (encoding : Fin messages → OAI.GAD.QMatrix n)
+    (encoding_state : ∀ (a : Fin messages), OAI.GAD.IsState (encoding a)) (decoding : Fin messages → OAI.GAD.QMatrix n)
+    (decoding_pos : ∀ (a : Fin messages), Matrix.PosSemidef (decoding a)) (decoding_sum : ∑ a, decoding a = 1) :
+    OAI.GAD.Code n
+def OAI.GAD.averageError : ℝ → ℝ → {n : ℕ} → OAI.GAD.Code n → ℝ :=
+fun γ ν {n} C => 1 - (∑ a, (C.decoding a * OAI.GAD.channel γ ν n (C.encoding a)).trace.re) / ↑C.messages
+def OAI.GAD.Achievable : ℝ → ℝ → ℝ → Prop :=
+fun γ ν R =>
+  ∃ C,
+    Filter.Tendsto (fun n => OAI.GAD.averageError γ ν (C n)) Filter.atTop (nhds 0) ∧
+      ∀ (ε : ℝ), 0 < ε → ∀ᶠ (n : ℕ) in Filter.atTop, R - ε ≤ Real.log ↑(C n).messages / Real.log 2 / ↑n
+def OAI.GAD.capacity : ℝ → ℝ → ℝ :=
+fun γ ν => sSup {R | OAI.GAD.Achievable γ ν R}
+def OAI.GAD.g : ℝ → ℝ :=
+fun u => Real.binEntropy ((1 + √(1 - 4 * u)) / 2)
+def OAI.GAD.v : ℝ → ℝ → ℝ → ℝ :=
+fun γ ν p => γ * ν * (1 - ν) + γ * (1 - γ) * (p - ν) ^ 2
+def OAI.GAD.objective : ℝ → ℝ → ℝ → ℝ :=
+fun γ ν p => Real.binEntropy ((1 - γ) * p + γ * ν) - OAI.GAD.g (OAI.GAD.v γ ν p)
+def OAI.GAD.Maximizes : ℝ → ℝ → ℝ → Prop :=
+fun γ ν p => p ∈ Set.Icc 0 1 ∧ ∀ q ∈ Set.Icc 0 1, OAI.GAD.objective γ ν q ≤ OAI.GAD.objective γ ν p
+def OAI.GAD.phaseSignal : ℝ → Fin 2 → Fin 2 → ℂ :=
+fun p s b => if b = 0 then ↑√(1 - p) else if s = 0 then ↑√p else -↑√p
+def OAI.GAD.phaseProduct : ℝ → {n : ℕ} → OAI.GAD.Basis n → OAI.GAD.Basis n → ℂ :=
+fun p {n} s i => ∏ k, OAI.GAD.phaseSignal p (s k) (i k)
+def OAI.GAD.phaseState : ℝ → {n : ℕ} → OAI.GAD.Basis n → OAI.GAD.QMatrix n :=
+fun p {n} s i j => OAI.GAD.phaseProduct p s i * star (OAI.GAD.phaseProduct p s j)
+def OAI.GAD.phaseValue : ℝ → ℝ → ℝ → ℕ → ℝ :=
+fun γ ν p n =>
+  (OAI.GAD.entropy (∑ s, (↑2 ^ n)⁻¹ • OAI.GAD.channel γ ν n (OAI.GAD.phaseState p s)) -
+      ∑ s, (2 ^ n)⁻¹ * OAI.GAD.entropy (OAI.GAD.channel γ ν n (OAI.GAD.phaseState p s))) /
+    Real.log 2

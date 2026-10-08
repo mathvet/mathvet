@@ -1,0 +1,42 @@
+OAI.NCHitting.universal_hitting : ∀ (n s : ℕ),
+  1 ≤ n →
+    1 ≤ s →
+      ∀ (F : Type u_1) [inst : Field F] [CharZero F] (f : OAI.NCHitting.Formula F n),
+        f.size ≤ s →
+          (∃ w, f.coeff w ≠ 0) →
+            OAI.NCHitting.Formula.eval (⇑(Matrix.scalar (Fin (OAI.NCHitting.dimension n s))))
+                (fun i r q => ↑(OAI.NCHitting.generator n s i r q)) f ≠
+              0
+'OAI.NCHitting.universal_hitting' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.NCHitting.Word : ℕ → Type :=
+fun n => List (Fin n)
+@[reducible] def OAI.NCHitting.WordSeries.{u_1} : Type u_1 → ℕ → Type u_1 :=
+fun F n => OAI.NCHitting.Word n → F
+def OAI.NCHitting.convolution.{u_1} : {F : Type u_1} →
+  {n : ℕ} → [Semiring F] → OAI.NCHitting.WordSeries F n → OAI.NCHitting.WordSeries F n → OAI.NCHitting.Word n → F :=
+fun {F} {n} [Semiring F] f g x =>
+  List.brecOn (motive := fun x => OAI.NCHitting.WordSeries F n → F) x (OAI.NCHitting.convolution._f g) f
+inductive OAI.NCHitting.Formula.{u_1} : Type u_1 → ℕ → Type u_1
+number of parameters: 2
+constructors:
+OAI.NCHitting.Formula.scalar : {F : Type u_1} → {n : ℕ} → F → OAI.NCHitting.Formula F n
+OAI.NCHitting.Formula.var : {F : Type u_1} → {n : ℕ} → Fin n → OAI.NCHitting.Formula F n
+OAI.NCHitting.Formula.add : {F : Type u_1} →
+  {n : ℕ} → OAI.NCHitting.Formula F n → OAI.NCHitting.Formula F n → OAI.NCHitting.Formula F n
+OAI.NCHitting.Formula.mul : {F : Type u_1} →
+  {n : ℕ} → OAI.NCHitting.Formula F n → OAI.NCHitting.Formula F n → OAI.NCHitting.Formula F n
+def OAI.NCHitting.Formula.size.{u_1} : {F : Type u_1} → {n : ℕ} → OAI.NCHitting.Formula F n → ℕ :=
+fun {F} {n} x => OAI.NCHitting.Formula.brecOn x OAI.NCHitting.Formula.size._f
+def OAI.NCHitting.Formula.coeff.{u_1} : {F : Type u_1} →
+  {n : ℕ} → [Semiring F] → OAI.NCHitting.Formula F n → OAI.NCHitting.WordSeries F n :=
+fun {F} {n} [Semiring F] x => OAI.NCHitting.Formula.brecOn x OAI.NCHitting.Formula.coeff._f
+def OAI.NCHitting.Formula.eval.{u_1, u_2} : {F : Type u_1} →
+  {A : Type u_2} → {n : ℕ} → [Semiring A] → (F → A) → (Fin n → A) → OAI.NCHitting.Formula F n → A :=
+fun {F} {A} {n} [Semiring A] scalarMap T x => OAI.NCHitting.Formula.brecOn x (OAI.NCHitting.Formula.eval._f scalarMap T)
+def OAI.NCHitting.dimension : ℕ → ℕ → ℕ :=
+fun n s => if n = 1 ∧ s = 1 then 1 else 2 * n * s ^ 2
+def OAI.NCHitting.matrixEntry : ℕ → ℕ → ℕ → ℚ :=
+fun i r q => if q < r then (-1) ^ (r - q - 1) / (↑r * ↑i ^ (r - q)) else 0
+def OAI.NCHitting.generator : (n s : ℕ) →
+  Fin n → Matrix (Fin (OAI.NCHitting.dimension n s)) (Fin (OAI.NCHitting.dimension n s)) ℚ :=
+fun n s i r q => if n = 1 ∧ s = 1 then 1 else OAI.NCHitting.matrixEntry (↑i + 1) ↑r ↑q

@@ -1,0 +1,52 @@
+== AmplitudeDamping  module=OAI.InformationTheory.AmplitudeDamping.Main  start=2026-10-08T10:29:19Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8958] Built OAI.InformationTheory.AmplitudeDamping.Model (12s)
+✔ [8925/8958] Built OAI.InformationTheory.AmplitudeDamping.SequentialProjections (13s)
+✔ [8926/8958] Built OAI.InformationTheory.AmplitudeDamping.Channel (14s)
+✔ [8927/8958] Built OAI.InformationTheory.AmplitudeDamping.MatrixDifferentiation (15s)
+✔ [8928/8958] Built OAI.InformationTheory.AmplitudeDamping.LogDetConvexity (13s)
+✔ [8929/8958] Built OAI.InformationTheory.AmplitudeDamping.SpectralEntropy (14s)
+✔ [8930/8958] Built OAI.InformationTheory.AmplitudeDamping.LogDetEntropy (12s)
+✔ [8931/8958] Built OAI.InformationTheory.AmplitudeDamping.Pinching (12s)
+✔ [8932/8958] Built OAI.InformationTheory.AmplitudeDamping.GramMatrices (16s)
+✔ [8933/8958] Built OAI.InformationTheory.AmplitudeDamping.ScalarDeficit (15s)
+✔ [8934/8958] Built OAI.InformationTheory.AmplitudeDamping.ZeroBlockEntropy (15s)
+✔ [8935/8958] Built OAI.InformationTheory.AmplitudeDamping.ThermalEntropy (20s)
+✔ [8936/8958] Built OAI.InformationTheory.AmplitudeDamping.OutputConvexity (14s)
+✔ [8937/8958] Built OAI.InformationTheory.AmplitudeDamping.TensorEntropy (13s)
+✔ [8938/8958] Built OAI.InformationTheory.AmplitudeDamping.PureRecursion (14s)
+✔ [8939/8958] Built OAI.InformationTheory.AmplitudeDamping.StateEntropy (12s)
+✔ [8940/8958] Built OAI.InformationTheory.AmplitudeDamping.EntropyContinuity (19s)
+✔ [8941/8958] Built OAI.InformationTheory.AmplitudeDamping.BlockFactors (13s)
+✔ [8942/8958] Built OAI.InformationTheory.AmplitudeDamping.Naimark (12s)
+✔ [8943/8958] Built OAI.InformationTheory.AmplitudeDamping.HolevoInformation (12s)
+✔ [8944/8958] Built OAI.InformationTheory.AmplitudeDamping.OutputEntropy (13s)
+✔ [8945/8958] Built OAI.InformationTheory.AmplitudeDamping.EnsembleBounds (12s)
+✔ [8946/8958] Built OAI.InformationTheory.AmplitudeDamping.PhaseStates (14s)
+✔ [8947/8958] Built OAI.InformationTheory.AmplitudeDamping.PhaseProducts (13s)
+✔ [8948/8958] Built OAI.InformationTheory.AmplitudeDamping.Holevo (11s)
+✔ [8949/8958] Built OAI.InformationTheory.AmplitudeDamping.CapacityConverse (14s)
+✔ [8950/8958] Built OAI.InformationTheory.AmplitudeDamping.SequentialMatrices (12s)
+✔ [8951/8958] Built OAI.InformationTheory.AmplitudeDamping.TypicalSets (12s)
+✔ [8952/8958] Built OAI.InformationTheory.AmplitudeDamping.TypicalProjectors (12s)
+✔ [8953/8958] Built OAI.InformationTheory.AmplitudeDamping.SequentialDecoder (10s)
+✔ [8954/8958] Built OAI.InformationTheory.AmplitudeDamping.FinitePacking (11s)
+✔ [8955/8958] Built OAI.InformationTheory.AmplitudeDamping.PhaseCoding (19s)
+✔ [8956/8958] Built OAI.InformationTheory.AmplitudeDamping.CodingAsymptotics (12s)
+✔ [8957/8958] Built OAI.InformationTheory.AmplitudeDamping.CapacityAchievability (11s)
+✔ [8958/8958] Built OAI.InformationTheory.AmplitudeDamping.Main (11s)
+Build completed successfully (8958 jobs).
+== build rc=0 seconds=498
+{"theorems": ["OAI.GAD.main"], "defs": ["OAI.GAD.Basis", "OAI.GAD.QMatrix", "OAI.GAD.entropy", "OAI.GAD.IsState", "OAI.GAD.kraus", "OAI.GAD.tensorKraus", "OAI.GAD.channel", "OAI.GAD.Ensemble", "OAI.GAD.ensembleValue", "OAI.GAD.holevo", "OAI.GAD.Code", "OAI.GAD.averageError", "OAI.GAD.Achievable", "OAI.GAD.capacity", "OAI.GAD.g", "OAI.GAD.v", "OAI.GAD.objective", "OAI.GAD.Maximizes", "OAI.GAD.phaseSignal", "OAI.GAD.phaseProduct", "OAI.GAD.phaseState", "OAI.GAD.phaseValue"], "json_theorems": ["OAI.GAD.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.GAD.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T10:38:15Z

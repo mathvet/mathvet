@@ -1,0 +1,49 @@
+== DiscreteLipschitzFree  module=OAI.Analysis.LipschitzFree.Main  start=2026-10-08T11:14:33Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8955] Built OAI.Analysis.LipschitzFree.RenormingModel (4.7s)
+✔ [8925/8955] Built OAI.Analysis.LipschitzFree.Words (10s)
+✔ [8926/8955] Built OAI.Analysis.LipschitzFree.Wedge (11s)
+✔ [8927/8955] Built OAI.Analysis.LipschitzFree.ColorCounting (12s)
+✔ [8928/8955] Built OAI.Analysis.LipschitzFree.FiniteQuotients (8.9s)
+✔ [8929/8955] Built OAI.Analysis.LipschitzFree.MetricClosure (7.4s)
+✔ [8930/8955] Built OAI.Analysis.LipschitzFree.BoxLabels (8.3s)
+✔ [8931/8955] Built OAI.Analysis.LipschitzFree.PortGraphs (8.7s)
+✔ [8932/8955] Built OAI.Analysis.LipschitzFree.Model (12s)
+✔ [8933/8955] Built OAI.Analysis.LipschitzFree.StatePaths (8.2s)
+✔ [8934/8955] Built OAI.Analysis.LipschitzFree.RetainedWedge (8.2s)
+✔ [8935/8955] Built OAI.Analysis.LipschitzFree.MetricBlock (9.1s)
+✔ [8936/8955] Built OAI.Analysis.LipschitzFree.GraphGirth (8.2s)
+✔ [8937/8955] Built OAI.Analysis.LipschitzFree.Parameters (8.9s)
+✔ [8938/8955] Built OAI.Analysis.LipschitzFree.Evaluation (8.6s)
+✔ [8939/8955] Built OAI.Analysis.LipschitzFree.SignedTests (10s)
+✔ [8940/8955] Built OAI.Analysis.LipschitzFree.BlockPaths (8.0s)
+✔ [8941/8955] Built OAI.Analysis.LipschitzFree.Coordinates (9.6s)
+✔ [8942/8955] Built OAI.Analysis.LipschitzFree.Functor (9.7s)
+✔ [8943/8955] Built OAI.Analysis.LipschitzFree.GraphWalks (8.3s)
+✔ [8944/8955] Built OAI.Analysis.LipschitzFree.Attachment (7.9s)
+✔ [8945/8955] Built OAI.Analysis.LipschitzFree.CompactApproximation (7.3s)
+✔ [8946/8955] Built OAI.Analysis.LipschitzFree.GraphColoring (7.5s)
+✔ [8947/8955] Built OAI.Analysis.LipschitzFree.SupportReduction (9.0s)
+✔ [8948/8955] Built OAI.Analysis.LipschitzFree.WedgeApproximation (10s)
+✔ [8949/8955] Built OAI.Analysis.LipschitzFree.GraphSequence (10s)
+✔ [8950/8955] Built OAI.Analysis.LipschitzFree.AffineWeights (7.2s)
+✔ [8951/8955] Built OAI.Analysis.LipschitzFree.LabelBumps (9.2s)
+✔ [8952/8955] Built OAI.Analysis.LipschitzFree.ScalarTests (8.9s)
+✔ [8953/8955] Built OAI.Analysis.LipschitzFree.BlockObstruction (16s)
+✔ [8954/8955] Built OAI.Analysis.LipschitzFree.BlockBAP (7.7s)
+✔ [8955/8955] Built OAI.Analysis.LipschitzFree.Main (7.7s)
+Build completed successfully (8955 jobs).
+== build rc=0 seconds=131
+{"theorems": ["OAI.DiscreteFree.source_endpoints"], "defs": ["OAI.DiscreteFree.lipSubmodule", "OAI.DiscreteFree.Lip0", "OAI.DiscreteFree.Lip0.slope", "OAI.DiscreteFree.evaluation", "OAI.DiscreteFree.freeSubmodule", "OAI.DiscreteFree.FreeSpace", "OAI.DiscreteFree.delta", "OAI.DiscreteFree.HasAP", "OAI.DiscreteFree.HasBAP", "OAI.DiscreteFree.blockBound", "OAI.DiscreteFree.BlockStatement", "OAI.DiscreteFree.MainStatement"], "json_theorems": ["OAI.DiscreteFree.source_endpoints"], "missing_from_parse": []}
+AXIOMS: 'OAI.DiscreteFree.source_endpoints' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:17:13Z

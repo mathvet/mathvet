@@ -1,0 +1,54 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_MetricKMedian.lean:59:8: warning: declaration uses `sorry`
+OAI.MetricKMedian.main_finite_work : ∀ (ε : ℝ),
+  0 < ε →
+    ∃ algorithm P,
+      (∀ (k : P.tm.K), Finite (P.tm.Γ k)) ∧
+        ∀ (I : OAI.MetricKMedian.Instance), OAI.MetricKMedian.Correct ε I (algorithm I)
+structure OAI.MetricKMedian.Instance : Type
+number of parameters: 0
+fields:
+  OAI.MetricKMedian.Instance.n : ℕ
+  OAI.MetricKMedian.Instance.distance : Fin self.n → Fin self.n → ℚ
+  OAI.MetricKMedian.Instance.clients : Finset (Fin self.n)
+  OAI.MetricKMedian.Instance.facilities : Finset (Fin self.n)
+  OAI.MetricKMedian.Instance.k : ℕ
+  OAI.MetricKMedian.Instance.distance_nonneg : ∀ (i j : Fin self.n), 0 ≤ self.distance i j
+  OAI.MetricKMedian.Instance.distance_eq_zero : ∀ (i j : Fin self.n), self.distance i j = 0 ↔ i = j
+  OAI.MetricKMedian.Instance.distance_symm : ∀ (i j : Fin self.n), self.distance i j = self.distance j i
+  OAI.MetricKMedian.Instance.distance_triangle : ∀ (i j h : Fin self.n),
+      self.distance i h ≤ self.distance i j + self.distance j h
+  OAI.MetricKMedian.Instance.k_pos : 1 ≤ self.k
+  OAI.MetricKMedian.Instance.k_le : self.k ≤ self.facilities.card
+constructor:
+  OAI.MetricKMedian.Instance.mk (n : ℕ) (distance : Fin n → Fin n → ℚ) (clients facilities : Finset (Fin n)) (k : ℕ)
+    (distance_nonneg : ∀ (i j : Fin n), 0 ≤ distance i j) (distance_eq_zero : ∀ (i j : Fin n), distance i j = 0 ↔ i = j)
+    (distance_symm : ∀ (i j : Fin n), distance i j = distance j i)
+    (distance_triangle : ∀ (i j h : Fin n), distance i h ≤ distance i j + distance j h) (k_pos : 1 ≤ k)
+    (k_le : k ≤ facilities.card) : OAI.MetricKMedian.Instance
+def OAI.MetricKMedian.encodeNat : ℕ → List Bool :=
+fun n => List.replicate n.bits.length true ++ [false] ++ n.bits
+def OAI.MetricKMedian.encodeRat : ℚ → List Bool :=
+fun q => [decide (q.num < 0)] ++ OAI.MetricKMedian.encodeNat q.num.natAbs ++ OAI.MetricKMedian.encodeNat q.den
+def OAI.MetricKMedian.encodeInstance : OAI.MetricKMedian.Instance → List Bool :=
+fun I =>
+  ((OAI.MetricKMedian.encodeNat I.n ++ OAI.MetricKMedian.encodeNat I.k ++ List.ofFn fun i => decide (i ∈ I.clients)) ++
+      List.ofFn fun i => decide (i ∈ I.facilities)) ++
+    (List.ofFn fun i => (List.ofFn fun j => OAI.MetricKMedian.encodeRat (I.distance i j)).flatten).flatten
+def OAI.MetricKMedian.nearest : (I : OAI.MetricKMedian.Instance) → Fin I.n → Finset (Fin I.n) → ℝ :=
+fun I j S => if h : S.Nonempty then (Finset.image (fun i => ↑(I.distance j i)) S).min' ⋯ else 0
+def OAI.MetricKMedian.cost : (I : OAI.MetricKMedian.Instance) → Finset (Fin I.n) → ℝ :=
+fun I S => ∑ j ∈ I.clients, OAI.MetricKMedian.nearest I j S
+def OAI.MetricKMedian.feasibleSets : (I : OAI.MetricKMedian.Instance) → Finset (Finset (Fin I.n)) :=
+fun I => {S ∈ I.facilities.powerset | S.Nonempty ∧ S.card ≤ I.k}
+def OAI.MetricKMedian.optimum : OAI.MetricKMedian.Instance → ℝ :=
+fun I =>
+  if h : (OAI.MetricKMedian.feasibleSets I).Nonempty then
+    (Finset.image (OAI.MetricKMedian.cost I) (OAI.MetricKMedian.feasibleSets I)).min' ⋯
+  else 0
+def OAI.MetricKMedian.Correct : ℝ → OAI.MetricKMedian.Instance → List Bool → Prop :=
+fun epsilon I output =>
+  ∃ S ⊆ I.facilities,
+    S.Nonempty ∧
+      S.card ≤ I.k ∧
+        (output = List.ofFn fun i => decide (i ∈ S)) ∧
+          OAI.MetricKMedian.cost I S ≤ (1 + 2 / Real.exp 1 + epsilon) * OAI.MetricKMedian.optimum I

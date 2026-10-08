@@ -1,0 +1,30 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_BoundedTreewidthL1.lean:43:8: warning: declaration uses `sorry`
+OAI.BoundedTreewidthL1.main_theorem : OAI.BoundedTreewidthL1.MainStatement
+def OAI.BoundedTreewidthL1.walkLength.{u_1} : {V : Type u_1} →
+  (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → {u v : V} → G.Walk u v → ℝ :=
+fun {V} G ℓ x x_1 x_2 => SimpleGraph.Walk.brecOn x_2 (OAI.BoundedTreewidthL1.walkLength._f G ℓ)
+def OAI.BoundedTreewidthL1.shortestPathDistance.{u_1} : {V : Type u_1} →
+  (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → V → V → ℝ :=
+fun {V} G ℓ u v => sInf {r | ∃ p, p.IsPath ∧ OAI.BoundedTreewidthL1.walkLength G ℓ p = r}
+def OAI.BoundedTreewidthL1.HasTreeDecomposition.{u_1} : {V : Type u_1} → SimpleGraph V → [DecidableEq V] → ℕ → Prop :=
+fun {V} G [DecidableEq V] k =>
+  ∃ n T bag,
+    T.IsTree ∧
+      (∀ (v : V), ∃ t, v ∈ bag t) ∧
+        (∀ (u v : V), G.Adj u v → ∃ t, u ∈ bag t ∧ v ∈ bag t) ∧
+          (∀ (v : V), (SimpleGraph.induce {t | v ∈ bag t} T).Connected) ∧ ∀ (t : Fin n), (bag t).card ≤ k
+def OAI.BoundedTreewidthL1.HasL1Embedding.{u_1} : {V : Type u_1} → (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → ℝ → Prop :=
+fun {V} G ℓ C =>
+  ∃ m F,
+    ∀ (u v : V),
+      OAI.BoundedTreewidthL1.shortestPathDistance G ℓ u v ≤ ‖F u - F v‖ ∧
+        ‖F u - F v‖ ≤ C * OAI.BoundedTreewidthL1.shortestPathDistance G ℓ u v
+def OAI.BoundedTreewidthL1.MainStatement : Prop :=
+∀ (k : ℕ),
+  2 ≤ k →
+    ∃ C,
+      1 ≤ C ∧
+        ∀ (V : Type) [Fintype V] [inst : DecidableEq V] [Nonempty V] (G : SimpleGraph V),
+          G.Connected →
+            OAI.BoundedTreewidthL1.HasTreeDecomposition G k →
+              ∀ (ℓ : ↑G.edgeSet → ℝ), (∀ (e : ↑G.edgeSet), 0 < ℓ e) → OAI.BoundedTreewidthL1.HasL1Embedding G ℓ C

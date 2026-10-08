@@ -1,0 +1,21 @@
+OAI.EuclideanRamsey.NineStatement.nine_circle_configuration : ∀ (t : Fin 9 → ℝ),
+  AlgebraicIndependent ℚ t →
+    Function.Injective (OAI.EuclideanRamsey.NineStatement.literalCircleConfig t) ∧
+      (∀ (i : Fin 9), dist (OAI.EuclideanRamsey.NineStatement.literalCircleConfig t i) 0 = 1) ∧
+        ¬OAI.EuclideanRamsey.Ramsey (OAI.EuclideanRamsey.NineStatement.literalCircleConfig t)
+'OAI.EuclideanRamsey.NineStatement.nine_circle_configuration' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.EuclideanRamsey.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def OAI.EuclideanRamsey.Congruent : {s d D : ℕ} →
+  (Fin s → OAI.EuclideanRamsey.Space d) → (Fin s → OAI.EuclideanRamsey.Space D) → Prop :=
+fun {s d D} a b => ∀ (i j : Fin s), dist (b i) (b j) = dist (a i) (a j)
+def OAI.EuclideanRamsey.Ramsey : {s d : ℕ} → (Fin s → OAI.EuclideanRamsey.Space d) → Prop :=
+fun {s d} a =>
+  ∀ (r : ℕ),
+    2 ≤ r →
+      ∃ D,
+        1 ≤ D ∧
+          ∀ (c : OAI.EuclideanRamsey.Space D → Fin r),
+            ∃ b, OAI.EuclideanRamsey.Congruent a b ∧ ∃ k, ∀ (i : Fin s), c (b i) = k
+def OAI.EuclideanRamsey.NineStatement.literalCircleConfig : (Fin 9 → ℝ) → Fin 9 → OAI.EuclideanRamsey.Space 2 :=
+fun t i => !₂[(1 - t i ^ 2) / (1 + t i ^ 2), 2 * t i / (1 + t i ^ 2)]

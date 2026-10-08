@@ -1,0 +1,39 @@
+== IndependentProducts  module=OAI.Analysis.ProductSpaces.Main  start=2026-10-08T11:14:20Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8945] Built OAI.Analysis.ProductSpaces.Model (13s)
+✔ [8925/8945] Built OAI.Analysis.ProductSpaces.TreeObstruction (17s)
+✔ [8926/8945] Built OAI.Analysis.ProductSpaces.PathMoments (13s)
+✔ [8927/8945] Built OAI.Analysis.ProductSpaces.WeakNullity (14s)
+✔ [8928/8945] Built OAI.Analysis.ProductSpaces.ScalarBounds (14s)
+✔ [8929/8945] Built OAI.Analysis.ProductSpaces.GaussianMoments (14s)
+✔ [8930/8945] Built OAI.Analysis.ProductSpaces.GaussianExcess (10s)
+✔ [8931/8945] Built OAI.Analysis.ProductSpaces.RandomSigns (14s)
+✔ [8932/8945] Built OAI.Analysis.ProductSpaces.CoefficientBounds (14s)
+✔ [8933/8945] Built OAI.Analysis.ProductSpaces.MidpointModulus (12s)
+✔ [8934/8945] Built OAI.Analysis.ProductSpaces.ConditionalBounds (15s)
+✔ [8935/8945] Built OAI.Analysis.ProductSpaces.FiniteHeads (13s)
+✔ [8936/8945] Built OAI.Analysis.ProductSpaces.Resampling (12s)
+✔ [8937/8945] Built OAI.Analysis.ProductSpaces.ClosedTails (15s)
+✔ [8938/8945] Built OAI.Analysis.ProductSpaces.TailCoefficients (12s)
+✔ [8939/8945] Built OAI.Analysis.ProductSpaces.CoefficientLaw (11s)
+✔ [8940/8945] Built OAI.Analysis.ProductSpaces.AffineBounds (14s)
+✔ [8941/8945] Built OAI.Analysis.ProductSpaces.GaussianBounds (18s)
+✔ [8942/8945] Built OAI.Analysis.ProductSpaces.ExponentialLaw (12s)
+✔ [8943/8945] Built OAI.Analysis.ProductSpaces.ExponentialMixture (13s)
+✔ [8944/8945] Built OAI.Analysis.ProductSpaces.ExponentialExcess (13s)
+✔ [8945/8945] Built OAI.Analysis.ProductSpaces.Main (11s)
+Build completed successfully (8945 jobs).
+== build rc=0 seconds=319
+{"theorems": ["OAI.IndependentProducts.main_general", "OAI.IndependentProducts.main_exponential", "OAI.IndependentProducts.main_gaussian_24", "OAI.IndependentProducts.main_gaussian_12"], "defs": ["OAI.IndependentProducts.Vertex", "OAI.IndependentProducts.Edge", "OAI.IndependentProducts.Sample", "OAI.IndependentProducts.productMeasure", "OAI.IndependentProducts.pathPrefix", "OAI.IndependentProducts.pathProduct", "OAI.IndependentProducts.productSpan", "OAI.IndependentProducts.MultiplierHypotheses", "OAI.IndependentProducts.CofiniteSubspaces", "OAI.IndependentProducts.averagedMidpointModulus", "OAI.IndependentProducts.oneSidedModulus", "OAI.IndependentProducts.IsEquivalentNorm", "OAI.IndependentProducts.IsAUC", "OAI.IndependentProducts.gaussianTail", "OAI.IndependentProducts.excessConstant", "OAI.IndependentProducts.exponentialLaw", "OAI.IndependentProducts.gaussianSquareLaw"], "json_theorems": ["OAI.IndependentProducts.main_general", "OAI.IndependentProducts.main_exponential", "OAI.IndependentProducts.main_gaussian_24", "OAI.IndependentProducts.main_gaussian_12"], "missing_from_parse": []}
+AXIOMS: 'OAI.IndependentProducts.main_general' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.IndependentProducts.main_exponential' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.IndependentProducts.main_gaussian_24' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.IndependentProducts.main_gaussian_12' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:20:19Z

@@ -1,0 +1,36 @@
+CMP OAI.HadamardSix.rowRatio_cubeFiber_sum_zero [thm] ok
+CMP OAI.HadamardSix.cubeFiber [def] ok
+CMP OAI.HadamardSix.Index [def] ok
+CMP OAI.HadamardSix.rowRatio [def] ok
+CMP OAI.HadamardSix.Matrix6 [def] ok
+CMP OAI.HadamardSix.entrywiseSquare [def] ok
+CMP OAI.HadamardSix.IsComplexHadamard [def] ok
+CMP OAI.HadamardSix.IsComplexHadamard._proof_1 [thm] ok
+CMP OAI.HadamardSix.Unimodular [def] ok
+@Chal.HadamardSix.rowRatio_cubeFiber_sum_zero : ∀ {H : Chal.HadamardSix.Matrix6},
+  Chal.HadamardSix.IsComplexHadamard H →
+    Chal.HadamardSix.IsComplexHadamard (Chal.HadamardSix.entrywiseSquare H) →
+      ∀ {i j : Chal.HadamardSix.Index},
+        i ≠ j →
+          ∀ (a b : ℂ),
+            a ≠ b →
+              (∀ (k : Chal.HadamardSix.Index),
+                  Chal.HadamardSix.rowRatio H i j k ^ 3 = a ∨ Chal.HadamardSix.rowRatio H i j k ^ 3 = b) →
+                ∑ k ∈ Chal.HadamardSix.cubeFiber (Chal.HadamardSix.rowRatio H i j) a, H i k * star (H j k) = 0
+@[reducible] def Chal.HadamardSix.Index : Type :=
+Fin 6
+@[reducible] def Chal.HadamardSix.Matrix6 : Type :=
+Matrix Chal.HadamardSix.Index Chal.HadamardSix.Index ℂ
+def Chal.HadamardSix.Unimodular : Chal.HadamardSix.Matrix6 → Prop :=
+fun H => ∀ (i j : Chal.HadamardSix.Index), ‖H i j‖ = 1
+def Chal.HadamardSix.IsComplexHadamard : Chal.HadamardSix.Matrix6 → Prop :=
+fun H => Chal.HadamardSix.Unimodular H ∧ Matrix.conjTranspose H * H = 6 • 1
+def Chal.HadamardSix.entrywiseSquare : Chal.HadamardSix.Matrix6 → Chal.HadamardSix.Matrix6 :=
+fun H i j => H i j ^ 2
+def Chal.HadamardSix.cubeFiber : (Chal.HadamardSix.Index → ℂ) → ℂ → Finset Chal.HadamardSix.Index :=
+fun v z => {i | v i ^ 3 = z}
+def Chal.HadamardSix.rowRatio : Chal.HadamardSix.Matrix6 →
+  Chal.HadamardSix.Index → Chal.HadamardSix.Index → Chal.HadamardSix.Index → ℂ :=
+fun H i j k => H i k * star (H j k)
+'OAI.HadamardSix.rowRatio_cubeFiber_sum_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HadamardCubeFiber comparator-style: ok=9 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

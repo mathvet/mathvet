@@ -1,0 +1,34 @@
+CMP OAI.PlanarAnderson.anderson_spectrum_ae [thm] ok
+CMP OAI.PlanarAnderson.disorderLaw [def] ok
+CMP OAI.PlanarAnderson.Site [def] ok
+CMP OAI.PlanarAnderson.Configuration [def] ok
+CMP OAI.PlanarAnderson.spectralInterval [def] ok
+CMP OAI.PlanarAnderson.spectralInterval._proof_1 [thm] ok
+CMP OAI.PlanarAnderson.IsAndersonOperator [def] ok
+CMP OAI.PlanarAnderson.IsAndersonOperator._proof_2 [thm] ok
+CMP OAI.PlanarAnderson.IsAndersonOperator._proof_1 [thm] ok
+CMP OAI.PlanarAnderson.Hilbert._proof_1 [thm] ok
+CMP OAI.PlanarAnderson.Hilbert [def] ok
+@Chal.PlanarAnderson.anderson_spectrum_ae : ∀ {h : ℝ},
+  0 < h →
+    ∀ᵐ (v : Chal.PlanarAnderson.Configuration) ∂Chal.PlanarAnderson.disorderLaw h,
+      ∃ H,
+        Chal.PlanarAnderson.IsAndersonOperator v H ∧
+          IsSelfAdjoint H ∧ spectrum ℂ H = Chal.PlanarAnderson.spectralInterval h
+@[reducible] def Chal.PlanarAnderson.Site : Type :=
+ℤ × ℤ
+@[reducible] def Chal.PlanarAnderson.Configuration : Type :=
+Chal.PlanarAnderson.Site → ℝ
+@[reducible] def Chal.PlanarAnderson.Hilbert : AddSubgroup (PreLp fun x => ℂ) :=
+lp (fun x => ℂ) 2
+def Chal.PlanarAnderson.disorderLaw : ℝ → MeasureTheory.Measure Chal.PlanarAnderson.Configuration :=
+fun h => MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume[|Set.Icc (-h) h]
+def Chal.PlanarAnderson.IsAndersonOperator : Chal.PlanarAnderson.Configuration →
+  (↥Chal.PlanarAnderson.Hilbert →L[ℂ] ↥Chal.PlanarAnderson.Hilbert) → Prop :=
+fun v H =>
+  ∀ (u : ↥Chal.PlanarAnderson.Hilbert) (x : Chal.PlanarAnderson.Site),
+    ↑(H u) x = ↑u (x.1 + 1, x.2) + ↑u (x.1 - 1, x.2) + ↑u (x.1, x.2 + 1) + ↑u (x.1, x.2 - 1) + ↑(v x) * ↑u x
+def Chal.PlanarAnderson.spectralInterval : ℝ → Set ℂ :=
+fun h => {z | z.im = 0 ∧ -4 - h ≤ z.re ∧ z.re ≤ 4 + h}
+'OAI.PlanarAnderson.anderson_spectrum_ae' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlanarAndersonSpectrum comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

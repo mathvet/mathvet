@@ -1,0 +1,45 @@
+CMP OAI.FourRow.robust_permanent [thm] ok
+CMP OAI.FourRow.lpNorm [def] ok
+CMP OAI.FourRow.UniformMarginals._proof_1 [thm] ok
+CMP OAI.FourRow.Site [def] ok
+CMP OAI.FourRow.permanentExpectation [def] ok
+CMP OAI.FourRow.Perm [def] ok
+CMP OAI.FourRow.Functions [def] ok
+CMP OAI.FourRow.Law [def] ok
+CMP OAI.FourRow.UniformMarginals [def] ok
+CMP OAI.FourRow.totalVariation [def] ok
+CMP OAI.FourRow.totalVariation._proof_2 [thm] ok
+CMP OAI.FourRow.totalVariation._proof_1 [thm] ok
+CMP OAI.FourRow.IsProbability [def] ok
+Chal.FourRow.robust_permanent : ∃ p₀,
+  4 / 3 < p₀ ∧
+    p₀ < 2 ∧
+      ∃ ε,
+        0 < ε ∧
+          ∀ (ν : Chal.FourRow.Law),
+            Chal.FourRow.IsProbability ν →
+              Chal.FourRow.totalVariation ν < ε →
+                Chal.FourRow.UniformMarginals ν →
+                  ∀ (f : Chal.FourRow.Functions),
+                    (∀ (i j : Chal.FourRow.Site), 0 ≤ f i j) →
+                      Chal.FourRow.permanentExpectation ν f ≤ ∏ i, Chal.FourRow.lpNorm p₀ (f i)
+@[reducible] def Chal.FourRow.Site : Type :=
+Fin 4
+@[reducible] def Chal.FourRow.Perm : Type :=
+Equiv.Perm Chal.FourRow.Site
+@[reducible] def Chal.FourRow.Law : Type :=
+Chal.FourRow.Perm → ℝ
+@[reducible] def Chal.FourRow.Functions : Type :=
+Chal.FourRow.Site → Chal.FourRow.Site → ℝ
+def Chal.FourRow.IsProbability : Chal.FourRow.Law → Prop :=
+fun ν => (∀ (π : Chal.FourRow.Perm), 0 ≤ ν π) ∧ ∑ π, ν π = 1
+def Chal.FourRow.UniformMarginals : Chal.FourRow.Law → Prop :=
+fun ν => ∀ (i j : Chal.FourRow.Site), (∑ π, if π i = j then ν π else 0) = 1 / 4
+def Chal.FourRow.totalVariation : Chal.FourRow.Law → ℝ :=
+fun ν => (∑ π, |ν π - 1 / 24|) / 2
+def Chal.FourRow.lpNorm : ℝ → (Chal.FourRow.Site → ℝ) → ℝ :=
+fun p f => ((∑ j, f j ^ p) / 4) ^ (1 / p)
+def Chal.FourRow.permanentExpectation : Chal.FourRow.Law → Chal.FourRow.Functions → ℝ :=
+fun ν f => ∑ π, ν π * ∏ i, f i (π i)
+'OAI.FourRow.robust_permanent' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FourRowPermanent comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

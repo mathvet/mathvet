@@ -1,0 +1,50 @@
+OAI.AbhyankarSathaye.CommutingDerivations.commuting_derivations_with_ordinary_extras : ∀ (n : ℕ) (hn : 4 ≤ n),
+  ∃ d,
+    (∀ (i : Fin (n - 1)), (d i) (OAI.AbhyankarSathaye.extendedF hn + 1) = 0) ∧
+      (∀ (i j : Fin (n - 1)) (p : MvPolynomial (Fin n) ℂ), (d i) ((d j) p) = (d j) ((d i) p)) ∧
+        (∀ (i : Fin (n - 1)), OAI.AbhyankarSathaye.CommutingDerivations.LocallyNilpotent (d i)) ∧
+          LinearIndependent (MvPolynomial (Fin n) ℂ) d ∧
+            (∀ (p : MvPolynomial (Fin n) ℂ),
+                (∀ (i : Fin (n - 1)), (d i) p = 0) ↔ p ∈ ℂ[OAI.AbhyankarSathaye.extendedF hn]) ∧
+              (∀ (g : MvPolynomial (Fin n) ℂ), (∀ (i : Fin (n - 1)), (d i) g = 0) → ¬∃ e j, e (MvPolynomial.X j) = g) ∧
+                ∀ (i : Fin (n - 4)),
+                  d ((OAI.AbhyankarSathaye.blocksToOutput hn) (Sum.inl i)) =
+                    MvPolynomial.pderiv ((OAI.AbhyankarSathaye.blocksToAmbient hn) (Sum.inl i))
+'OAI.AbhyankarSathaye.CommutingDerivations.commuting_derivations_with_ordinary_extras' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+def OAI.AbhyankarSathaye.S.{u_1} : {B : Type u_1} → [CommRing B] → B → B → B → B → B :=
+fun {B} [CommRing B] h u v w => 2 * u ^ 3 * v + 3 * u ^ 4 * w + h * (v ^ 2 - 3 * u ^ 2 * w ^ 2) + h ^ 2 * w ^ 3
+def OAI.AbhyankarSathaye.P.{u_1} : {B : Type u_1} → [CommRing B] → B → B → B → B :=
+fun {B} [CommRing B] x y s => -2 * s ^ 2 * x + 3 * s * y ^ 2 - 3 * s ^ 3 * y
+@[reducible] def OAI.AbhyankarSathaye.R : Type :=
+MvPolynomial (Fin 4) ℂ
+def OAI.AbhyankarSathaye.h : OAI.AbhyankarSathaye.R :=
+MvPolynomial.X 0
+def OAI.AbhyankarSathaye.u : OAI.AbhyankarSathaye.R :=
+MvPolynomial.X 1
+def OAI.AbhyankarSathaye.v : OAI.AbhyankarSathaye.R :=
+MvPolynomial.X 2
+def OAI.AbhyankarSathaye.w : OAI.AbhyankarSathaye.R :=
+MvPolynomial.X 3
+def OAI.AbhyankarSathaye.x : OAI.AbhyankarSathaye.R :=
+OAI.AbhyankarSathaye.u ^ 3 + OAI.AbhyankarSathaye.h * OAI.AbhyankarSathaye.v
+def OAI.AbhyankarSathaye.y : OAI.AbhyankarSathaye.R :=
+-OAI.AbhyankarSathaye.u ^ 2 + OAI.AbhyankarSathaye.h * OAI.AbhyankarSathaye.w
+def OAI.AbhyankarSathaye.s : OAI.AbhyankarSathaye.R :=
+OAI.AbhyankarSathaye.S OAI.AbhyankarSathaye.h OAI.AbhyankarSathaye.u OAI.AbhyankarSathaye.v OAI.AbhyankarSathaye.w
+def OAI.AbhyankarSathaye.p : OAI.AbhyankarSathaye.R :=
+OAI.AbhyankarSathaye.P OAI.AbhyankarSathaye.x OAI.AbhyankarSathaye.y OAI.AbhyankarSathaye.s
+def OAI.AbhyankarSathaye.F : OAI.AbhyankarSathaye.R :=
+OAI.AbhyankarSathaye.h - OAI.AbhyankarSathaye.p - 1
+def OAI.AbhyankarSathaye.fourInclusion : {n : ℕ} → 4 ≤ n → Fin 4 → Fin n :=
+fun {n} hn i => ⟨↑i, ⋯⟩
+def OAI.AbhyankarSathaye.extendedF : {n : ℕ} → 4 ≤ n → MvPolynomial (Fin n) ℂ :=
+fun {n} hn => (MvPolynomial.rename (OAI.AbhyankarSathaye.fourInclusion hn)) OAI.AbhyankarSathaye.F
+def OAI.AbhyankarSathaye.blocksToAmbient : {n : ℕ} → 4 ≤ n → Fin (n - 4) ⊕ Fin 4 ≃ Fin n :=
+fun {n} hn => (Equiv.sumComm (Fin (n - 4)) (Fin 4)).trans (finSumFinEquiv.trans (finCongr ⋯))
+def OAI.AbhyankarSathaye.blocksToOutput : {n : ℕ} → 4 ≤ n → Fin (n - 4) ⊕ Fin 3 ≃ Fin (n - 1) :=
+fun {n} hn => (Equiv.sumComm (Fin (n - 4)) (Fin 3)).trans (finSumFinEquiv.trans (finCongr ⋯))
+def OAI.AbhyankarSathaye.CommutingDerivations.LocallyNilpotent.{u_1, u_2} : {K : Type u_1} →
+  {A : Type u_2} → [inst : CommRing K] → [inst_1 : CommRing A] → [inst_2 : Algebra K A] → Derivation K A A → Prop :=
+fun {K} {A} [CommRing K] [CommRing A] [Algebra K A] D => ∀ (a : A), ∃ n, (⇑D)^[n] a = 0

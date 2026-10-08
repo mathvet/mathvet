@@ -1,0 +1,32 @@
+== GaussianFiniteEntropy  module=OAI.Probability.Localization.Main  start=2026-10-08T11:04:34Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8938] Built OAI.Probability.Localization.CountableIntegrals (9.0s)
+✔ [8925/8938] Built OAI.Probability.Localization.EntropyChain (9.3s)
+✔ [8926/8938] Built OAI.Probability.Localization.Model (9.7s)
+✔ [8927/8938] Built OAI.Probability.Localization.Experiment (7.0s)
+✔ [8928/8938] Built OAI.Probability.Localization.Cells (8.2s)
+✔ [8929/8938] Built OAI.Probability.Localization.FirstHeavy (7.5s)
+✔ [8930/8938] Built OAI.Probability.Localization.History (8.3s)
+✔ [8931/8938] Built OAI.Probability.Localization.ConditionalLaws (7.2s)
+✔ [8932/8938] Built OAI.Probability.Localization.Rewards (8.2s)
+✔ [8933/8938] Built OAI.Probability.Localization.RewardBounds (7.5s)
+✔ [8934/8938] Built OAI.Probability.Localization.TruncatedBounds (8.9s)
+✔ [8935/8938] Built OAI.Probability.Localization.EntropyBudget (8.0s)
+✔ [8936/8938] Built OAI.Probability.Localization.Termination (7.6s)
+✔ [8937/8938] Built OAI.Probability.Localization.TerminalBudget (7.1s)
+✔ [8938/8938] Built OAI.Probability.Localization.Main (6.8s)
+Build completed successfully (8938 jobs).
+== build rc=0 seconds=112
+{"theorems": ["OAI.RepeatedLocalization.FiniteEntropy.finite_expected_regularization"], "defs": ["OAI.RepeatedLocalization.Coordinate", "OAI.RepeatedLocalization.GaussianBlock", "OAI.RepeatedLocalization.Label", "OAI.RepeatedLocalization.History", "OAI.RepeatedLocalization.Cell", "OAI.RepeatedLocalization.initialCube", "OAI.RepeatedLocalization.cubePrior", "OAI.RepeatedLocalization.chart", "OAI.RepeatedLocalization.cellSet", "OAI.RepeatedLocalization.rootCell", "OAI.RepeatedLocalization.gaussianBlockLaw", "OAI.RepeatedLocalization.exactLabel", "OAI.RepeatedLocalization.BlockRule", "OAI.RepeatedLocalization.Rules", "OAI.RepeatedLocalization.past", "OAI.RepeatedLocalization.through", "OAI.RepeatedLocalization.blockProbability", "OAI.RepeatedLocalization.historyLikelihood", "OAI.RepeatedLocalization.experimentLaw", "OAI.RepeatedLocalization.Disclosure", "OAI.RepeatedLocalization.ValidDisclosure", "OAI.RepeatedLocalization.transcriptMap", "OAI.RepeatedLocalization.augmentedLaw", "OAI.RepeatedLocalization.mutualInformation", "OAI.RepeatedLocalization.finalLevel", "OAI.RepeatedLocalization.MainStatement", "OAI.RepeatedLocalization.FiniteEntropy.uniformCell", "OAI.RepeatedLocalization.FiniteEntropy.Descendant", "OAI.RepeatedLocalization.FiniteEntropy.threshold", "OAI.RepeatedLocalization.FiniteEntropy.Heavy", "OAI.RepeatedLocalization.FiniteEntropy.FirstHeavy", "OAI.RepeatedLocalization.FiniteEntropy.residual", "OAI.RepeatedLocalization.FiniteEntropy.Letter", "OAI.RepeatedLocalization.FiniteEntropy.Log", "OAI.RepeatedLocalization.FiniteEntropy.branch", "OAI.RepeatedLocalization.FiniteEntropy.attemptLetter", "OAI.RepeatedLocalization.FiniteEntropy.State", "OAI.RepeatedLocalization.FiniteEntropy.update", "OAI.RepeatedLocalization.FiniteEntropy.state", "OAI.RepeatedLocalization.FiniteEntropy.run", "OAI.RepeatedLocalization.FiniteEntropy.Terminates", "OAI.RepeatedLocalization.FiniteEntropy.attempts", "OAI.RepeatedLocalization.FiniteEntropy.terminalLog", "OAI.RepeatedLocalization.FiniteEntropy.terminalCell", "OAI.RepeatedLocalization.FiniteEntropy.terminalLaw", "OAI.RepeatedLocalization.FiniteEntropy.depth", "OAI.RepeatedLocalization.FiniteEntropy.Regular", "OAI.RepeatedLocalization.FiniteEntropy.FiniteEntropyStatement"], "json_theorems": ["OAI.RepeatedLocalization.FiniteEntropy.finite_expected_regularization"], "missing_from_parse": []}
+AXIOMS: 'OAI.RepeatedLocalization.FiniteEntropy.finite_expected_regularization' depends on axioms: [propext, 
+== end=2026-10-08T11:06:49Z

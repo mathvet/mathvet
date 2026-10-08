@@ -1,0 +1,167 @@
+CMP OAI.DilutedSpinGlass.mezard_parisi [thm] ok
+CMP OAI.DilutedSpinGlass.variationalValue [def] ok
+CMP OAI.DilutedSpinGlass.phi [def] ok
+CMP OAI.DilutedSpinGlass.functional [def] ok
+CMP OAI.DilutedSpinGlass.edge [def] ok
+CMP OAI.DilutedSpinGlass.q [def] ok
+CMP OAI.DilutedSpinGlass.q._proof_1 [thm] ok
+CMP OAI.DilutedSpinGlass.spin [def] ok
+CMP OAI.DilutedSpinGlass.Spin [def] ok
+CMP OAI.DilutedSpinGlass.Interaction [def] ok
+CMP OAI.DilutedSpinGlass.siteLog [def] ok
+CMP OAI.DilutedSpinGlass.message [def] ok
+CMP OAI.DilutedSpinGlass.appendSpin [def] ok
+CMP OAI.DilutedSpinGlass.InteractionSample [def] ok
+CMP OAI.DilutedSpinGlass.trialLog [def] ok
+CMP OAI.DilutedSpinGlass.logMean [def] ok
+CMP OAI.DilutedSpinGlass.logMean._f [def] ok
+CMP OAI.DilutedSpinGlass.instMeasurableSpaceCarrier_challenge [def] ok
+CMP OAI.DilutedSpinGlass.logMean.match_1 [def] ok
+CMP OAI.DilutedSpinGlass.Hierarchy [def] ok
+CMP OAI.DilutedSpinGlass.Hierarchy._f [def] ok
+CMP OAI.DilutedSpinGlass.instBorelSpaceCarrier_challenge [thm] ok
+CMP OAI.DilutedSpinGlass.Hierarchy.match_1 [def] ok
+CMP OAI.DilutedSpinGlass.Model.field [def] ok
+CMP OAI.DilutedSpinGlass.Model [ind] ok
+CMP OAI.DilutedSpinGlass.Model.mk [ctor] ok
+CMP OAI.DilutedSpinGlass.Model.disorder [def] ok
+CMP OAI.DilutedSpinGlass.Model.alpha [def] ok
+CMP OAI.DilutedSpinGlass.Exponents [def] ok
+CMP OAI.DilutedSpinGlass.pressure [def] ok
+CMP OAI.DilutedSpinGlass.logPartition [def] ok
+CMP OAI.DilutedSpinGlass.logWeight [def] ok
+CMP OAI.DilutedSpinGlass.Admissible [ind] ok
+CMP OAI.DilutedSpinGlass.Admissible.mk [ctor] ok
+@Chal.DilutedSpinGlass.mezard_parisi : ∀ {p : ℕ} (M : Chal.DilutedSpinGlass.Model p),
+  Chal.DilutedSpinGlass.Admissible M →
+    Filter.Tendsto (Chal.DilutedSpinGlass.pressure M) Filter.atTop (nhds (Chal.DilutedSpinGlass.variationalValue M))
+@[reducible] def Chal.DilutedSpinGlass.Spin : Type :=
+Bool
+def Chal.DilutedSpinGlass.spin : Chal.DilutedSpinGlass.Spin → ℝ :=
+fun s => if s = true then 1 else -1
+@[reducible] def Chal.DilutedSpinGlass.Interaction : ℕ → Type :=
+fun p => (Fin p → Chal.DilutedSpinGlass.Spin) → ℝ
+@[reducible] def Chal.DilutedSpinGlass.InteractionSample : ℕ → Type :=
+fun p => Chal.DilutedSpinGlass.Interaction p × ℝ × ℝ × (Fin p → Chal.DilutedSpinGlass.Spin → ℝ)
+structure Chal.DilutedSpinGlass.Model (p : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.DilutedSpinGlass.Model.alpha : NNReal
+  Chal.DilutedSpinGlass.Model.disorder : MeasureTheory.ProbabilityMeasure (Chal.DilutedSpinGlass.InteractionSample p)
+  Chal.DilutedSpinGlass.Model.field : MeasureTheory.ProbabilityMeasure ℝ
+constructor:
+  Chal.DilutedSpinGlass.Model.mk {p : ℕ} (alpha : NNReal)
+    (disorder : MeasureTheory.ProbabilityMeasure (Chal.DilutedSpinGlass.InteractionSample p))
+    (field : MeasureTheory.ProbabilityMeasure ℝ) : Chal.DilutedSpinGlass.Model p
+structure Chal.DilutedSpinGlass.Admissible {p : ℕ} (M : Chal.DilutedSpinGlass.Model p) : Prop
+number of parameters: 2
+fields:
+  Chal.DilutedSpinGlass.Admissible.arity : 2 ≤ p
+  Chal.DilutedSpinGlass.Admissible.even : Even p
+  Chal.DilutedSpinGlass.Admissible.density : 0 < M.alpha
+  Chal.DilutedSpinGlass.Admissible.interaction_integrable : MeasureTheory.Integrable (fun z => ‖z.1‖) ↑M.disorder
+  Chal.DilutedSpinGlass.Admissible.field_integrable : MeasureTheory.Integrable (fun h => |h|) ↑M.field
+  Chal.DilutedSpinGlass.Admissible.factorization : ∀ᵐ (z : Chal.DilutedSpinGlass.InteractionSample p) ∂↑M.disorder,
+      0 < z.2.1 ∧
+        ∀ (s : Fin p → Chal.DilutedSpinGlass.Spin),
+          Real.exp (z.1 s) = z.2.1 * (1 + z.2.2.1 * ∏ l, z.2.2.2 l (s l)) ∧ |z.2.2.1 * ∏ l, z.2.2.2 l (s l)| < 1
+  Chal.DilutedSpinGlass.Admissible.independent_f : ProbabilityTheory.iIndepFun (fun l z => z.2.2.2 l) ↑M.disorder
+  Chal.DilutedSpinGlass.Admissible.identically_distributed_f : ∀ (l j : Fin p),
+      ProbabilityTheory.IdentDistrib (fun z => z.2.2.2 l) (fun z => z.2.2.2 j) ↑M.disorder ↑M.disorder
+  Chal.DilutedSpinGlass.Admissible.independent_b : ProbabilityTheory.IndepFun (fun z => z.2.2.1) (fun z => z.2.2.2)
+      ↑M.disorder
+  Chal.DilutedSpinGlass.Admissible.finite_b_moments : ∀ (n : ℕ),
+      1 ≤ n → MeasureTheory.Integrable (fun z => (-z.2.2.1) ^ n) ↑M.disorder
+  Chal.DilutedSpinGlass.Admissible.positivity : ∀ (n : ℕ),
+      1 ≤ n → 0 ≤ ∫ (z : Chal.DilutedSpinGlass.InteractionSample p), (-z.2.2.1) ^ n ∂↑M.disorder
+constructor:
+  Chal.DilutedSpinGlass.Admissible.mk {p : ℕ} {M : Chal.DilutedSpinGlass.Model p} (arity : 2 ≤ p) (even : Even p)
+    (density : 0 < M.alpha) (interaction_integrable : MeasureTheory.Integrable (fun z => ‖z.1‖) ↑M.disorder)
+    (field_integrable : MeasureTheory.Integrable (fun h => |h|) ↑M.field)
+    (factorization :
+      ∀ᵐ (z : Chal.DilutedSpinGlass.InteractionSample p) ∂↑M.disorder,
+        0 < z.2.1 ∧
+          ∀ (s : Fin p → Chal.DilutedSpinGlass.Spin),
+            Real.exp (z.1 s) = z.2.1 * (1 + z.2.2.1 * ∏ l, z.2.2.2 l (s l)) ∧ |z.2.2.1 * ∏ l, z.2.2.2 l (s l)| < 1)
+    (independent_f : ProbabilityTheory.iIndepFun (fun l z => z.2.2.2 l) ↑M.disorder)
+    (identically_distributed_f :
+      ∀ (l j : Fin p), ProbabilityTheory.IdentDistrib (fun z => z.2.2.2 l) (fun z => z.2.2.2 j) ↑M.disorder ↑M.disorder)
+    (independent_b : ProbabilityTheory.IndepFun (fun z => z.2.2.1) (fun z => z.2.2.2) ↑M.disorder)
+    (finite_b_moments : ∀ (n : ℕ), 1 ≤ n → MeasureTheory.Integrable (fun z => (-z.2.2.1) ^ n) ↑M.disorder)
+    (positivity :
+      ∀ (n : ℕ), 1 ≤ n → 0 ≤ ∫ (z : Chal.DilutedSpinGlass.InteractionSample p), (-z.2.2.1) ^ n ∂↑M.disorder) :
+    Chal.DilutedSpinGlass.Admissible M
+def Chal.DilutedSpinGlass.logWeight : {p N k : ℕ} →
+  (Fin k → Chal.DilutedSpinGlass.InteractionSample p) →
+    (Fin N → ℝ) → (Fin k → Fin p → Fin N) → (Fin N → Chal.DilutedSpinGlass.Spin) → ℝ :=
+fun {p N k} theta h indices σ =>
+  (∑ j, (theta j).1 fun l => σ (indices j l)) + ∑ i, h i * Chal.DilutedSpinGlass.spin (σ i)
+def Chal.DilutedSpinGlass.logPartition : {p N k : ℕ} →
+  (Fin k → Chal.DilutedSpinGlass.InteractionSample p) → (Fin N → ℝ) → (Fin k → Fin p → Fin N) → ℝ :=
+fun {p N k} theta h indices => Real.log (∑ σ, Real.exp (Chal.DilutedSpinGlass.logWeight theta h indices σ))
+def Chal.DilutedSpinGlass.pressure : {p : ℕ} → Chal.DilutedSpinGlass.Model p → ℕ → ℝ :=
+fun {p} M N =>
+  (∫ (k : ℕ),
+      ∫ (theta : Fin k → Chal.DilutedSpinGlass.InteractionSample p),
+        ∫ (h : Fin N → ℝ),
+          (∑ indices, Chal.DilutedSpinGlass.logPartition theta h indices) /
+            ↑(Fintype.card
+                (Fin k →
+                  Fin p →
+                    Fin
+                      N)) ∂MeasureTheory.Measure.pi fun x =>
+            ↑M.field ∂MeasureTheory.Measure.pi fun x => ↑M.disorder ∂ProbabilityTheory.poissonMeasure (M.alpha * ↑N)) /
+    ↑N
+def Chal.DilutedSpinGlass.q : ℝ → Chal.DilutedSpinGlass.Spin → ℝ :=
+fun x s => Real.exp (x * Chal.DilutedSpinGlass.spin s) / (2 * Real.cosh x)
+def Chal.DilutedSpinGlass.edge : {p : ℕ} → Chal.DilutedSpinGlass.Interaction p → (Fin p → ℝ) → ℝ :=
+fun {p} theta x => ∑ s, Real.exp (theta s) * ∏ l, Chal.DilutedSpinGlass.q (x l) (s l)
+def Chal.DilutedSpinGlass.appendSpin : {p : ℕ} →
+  (Fin (p - 1) → Chal.DilutedSpinGlass.Spin) → Chal.DilutedSpinGlass.Spin → Fin p → Chal.DilutedSpinGlass.Spin :=
+fun {p} s ε l => if h : ↑l < p - 1 then s ⟨↑l, h⟩ else ε
+def Chal.DilutedSpinGlass.message : {p : ℕ} →
+  Chal.DilutedSpinGlass.Interaction p → (Fin (p - 1) → ℝ) → Chal.DilutedSpinGlass.Spin → ℝ :=
+fun {p} theta x ε =>
+  Real.log (∑ s, Real.exp (theta (Chal.DilutedSpinGlass.appendSpin s ε)) * ∏ l, Chal.DilutedSpinGlass.q (x l) (s l))
+def Chal.DilutedSpinGlass.siteLog : {p k : ℕ} →
+  (Fin k → Chal.DilutedSpinGlass.InteractionSample p) → ℝ → (Fin k × Fin (p - 1) → ℝ) → ℝ :=
+fun {p k} theta h x =>
+  Real.log
+    ((∑ ε,
+        Real.exp
+          (h * Chal.DilutedSpinGlass.spin ε + ∑ j, Chal.DilutedSpinGlass.message (theta j).1 (fun l => x (j, l)) ε)) /
+      2)
+def Chal.DilutedSpinGlass.Hierarchy : ℕ → TopCat :=
+fun x => Nat.brecOn x Chal.DilutedSpinGlass.Hierarchy._f
+def Chal.DilutedSpinGlass.logMean : {ι : Type} →
+  [Fintype ι] → (r : ℕ) → ((ι → ℝ) → ℝ) → (Fin r → ℝ) → (ι → ↑(Chal.DilutedSpinGlass.Hierarchy r)) → ℝ :=
+fun {ι} [Fintype ι] x x_1 x_2 x_3 =>
+  Nat.brecOn (motive := fun x => ((ι → ℝ) → ℝ) → (Fin x → ℝ) → (ι → ↑(Chal.DilutedSpinGlass.Hierarchy x)) → ℝ) x
+    Chal.DilutedSpinGlass.logMean._f x_1 x_2 x_3
+def Chal.DilutedSpinGlass.trialLog : {ι : Type} →
+  [Fintype ι] → (r : ℕ) → ↑(Chal.DilutedSpinGlass.Hierarchy (r + 1)) → (Fin r → ℝ) → ((ι → ℝ) → ℝ) → ℝ :=
+fun {ι} [Fintype ι] r ζ m g =>
+  ∫ (eta : ι → ↑(Chal.DilutedSpinGlass.Hierarchy r)),
+    Chal.DilutedSpinGlass.logMean r g m eta ∂MeasureTheory.Measure.pi fun x => ↑ζ
+def Chal.DilutedSpinGlass.Exponents : {r : ℕ} → (Fin r → ℝ) → Prop :=
+fun {r} m => StrictMono m ∧ ∀ (i : Fin r), 0 < m i ∧ m i < 1
+def Chal.DilutedSpinGlass.functional : {p : ℕ} →
+  Chal.DilutedSpinGlass.Model p → (r : ℕ) → ↑(Chal.DilutedSpinGlass.Hierarchy (r + 1)) → (Fin r → ℝ) → ℝ :=
+fun {p} M r ζ m =>
+  Real.log 2 +
+      ∫ (k : ℕ),
+        ∫ (theta : Fin k → Chal.DilutedSpinGlass.InteractionSample p),
+          ∫ (h : ℝ),
+            Chal.DilutedSpinGlass.trialLog r ζ m
+              (Chal.DilutedSpinGlass.siteLog theta
+                h) ∂↑M.field ∂MeasureTheory.Measure.pi fun x =>
+            ↑M.disorder ∂ProbabilityTheory.poissonMeasure (M.alpha * ↑p) -
+    ↑M.alpha * ↑(p - 1) *
+      ∫ (theta : Chal.DilutedSpinGlass.InteractionSample p),
+        Chal.DilutedSpinGlass.trialLog r ζ m fun x => Real.log (Chal.DilutedSpinGlass.edge theta.1 x) ∂↑M.disorder
+def Chal.DilutedSpinGlass.phi : {p : ℕ} → Chal.DilutedSpinGlass.Model p → ℕ → ℝ :=
+fun {p} M r => sInf {v | ∃ ζ m, Chal.DilutedSpinGlass.Exponents m ∧ v = Chal.DilutedSpinGlass.functional M r ζ m}
+def Chal.DilutedSpinGlass.variationalValue : {p : ℕ} → Chal.DilutedSpinGlass.Model p → ℝ :=
+fun {p} M => ⨅ r, Chal.DilutedSpinGlass.phi M r
+'OAI.DilutedSpinGlass.mezard_parisi' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DilutedSpin comparator-style: ok=34 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
