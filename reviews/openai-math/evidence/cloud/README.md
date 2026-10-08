@@ -11,3 +11,6 @@ Notes on individual logs:
   `checker/README.md` for why Comparator's verdict is the authority here.
 - `BassTrace.cmp.txt` reports `SHADOW-DIFF` for the same reason as ThorpRemaining (printer `_root_.` prefixes; the session ran
   the checker version from before the fix). Closure comparison 90 constants, 0 problems; Comparator accepted.
+- `TalagrandDiscreteConvexity.cmp.txt` (`exceptional`, a `def … := by` tactic block) and `RealL1Renorming.cmp.txt`
+  (`instNormedSpaceRealRealL1._aux_1`, an auxiliary definition generated while elaborating an instance) each report one
+  closure `VALUE_MISMATCH` of the same re-elaboration kind as HardSphere; Comparator accepted both.
