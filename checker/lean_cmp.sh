@@ -9,7 +9,7 @@ source "$(dirname "$0")/env.sh"
 C="$1"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
 python3 "$HERE/gen_cmp.py" "$C" >/dev/null || exit 1
 cd "$L" && lake env lean "$L/Scratch/Cmp_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry." > "$OUT/$C.cmp.txt"
-n_ok=$(grep -c 'CMP .* ok$' "$OUT/$C.cmp.txt"); n_bad=$(grep -cE 'MISMATCH|MISSING|NOT_FOUND' "$OUT/$C.cmp.txt"); n_err=$(grep -c 'error' "$OUT/$C.cmp.txt")
+n_ok=$(grep -c 'CMP .* ok$' "$OUT/$C.cmp.txt"); n_bad=$(grep -cE 'MISMATCH|MISSING|NOT_FOUND' "$OUT/$C.cmp.txt"); n_err=$(grep -c -E '(^|: )error(\([a-zA-Z.]+\))?: ' "$OUT/$C.cmp.txt")   # Lean error messages only, not constants named `error`
 python3 "$HERE/gen_checks.py" "$C" >/dev/null
 lake env lean "$L/Scratch/Challenge_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry.|warning:" | sed 's/_root_\.//g' | tr -s '[:space:]' ' ' > "$OUT/$C.standalone.norm"
 lake env lean "$L/Scratch/Cmp_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry.|warning:|^CMP " | sed "/depends on axioms/,/\]/d" | sed 's/Chal\./OAI./g' | sed 's/_root_\.//g' | tr -s '[:space:]' ' ' > "$OUT/$C.insolution.norm"
