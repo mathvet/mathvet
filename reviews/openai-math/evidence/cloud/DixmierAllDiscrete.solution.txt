@@ -1,0 +1,34 @@
+OAI.Dixmier.current_main_theorem : OAI.Dixmier.CurrentMainTheorem
+'OAI.Dixmier.current_main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group G] →
+    [inst : TopologicalSpace G] →
+      [DiscreteTopology G] → G → BoundedContinuousFunction G ℂ → BoundedContinuousFunction G ℂ :=
+fun {G} [Group G] [TopologicalSpace G] [DiscreteTopology G] g f =>
+  f.compContinuous { toFun := fun x => g⁻¹ * x, continuous_toFun := ⋯ }
+def OAI.Dixmier.Amenable.{u} : (G : Type u) → [Group G] → [inst : TopologicalSpace G] → [DiscreteTopology G] → Prop :=
+fun G [Group G] [TopologicalSpace G] [DiscreteTopology G] =>
+  ∃ m,
+    m (BoundedContinuousFunction.const G 1) = 1 ∧
+      (∀ (f : BoundedContinuousFunction G ℂ), (∀ (x : G), 0 ≤ (f x).re ∧ (f x).im = 0) → 0 ≤ (m f).re ∧ (m f).im = 0) ∧
+        ∀ (g : G) (f : BoundedContinuousFunction G ℂ), m (OAI.Dixmier.leftTranslate g f) = m f
+def OAI.Dixmier.SimilarToUnitary.{u, v} : {G : Type u} →
+  [inst : Group G] →
+    {H : Type v} → [inst_1 : NormedAddCommGroup H] → [inst_2 : InnerProductSpace ℂ H] → (G →* H →L[ℂ] H) → Prop :=
+fun {G} [Group G] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] π =>
+  ∃ S, ∀ (g : G) (x : H), ‖S ((π g) (S.symm x))‖ = ‖x‖
+def OAI.Dixmier.Unitarizable.{u, v} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (H : Type v) [inst_1 : NormedAddCommGroup H] [inst_2 : InnerProductSpace ℂ H] [CompleteSpace H]
+    (π : G →* H →L[ℂ] H), (∃ C, ∀ (g : G), ‖π g‖ ≤ C) → OAI.Dixmier.SimilarToUnitary π
+def OAI.Dixmier.CurrentMainTheorem.{u, v} : Prop :=
+∀ (G : Type u) [inst : Group G] [inst_1 : TopologicalSpace G] [inst_2 : DiscreteTopology G],
+  (OAI.Dixmier.Amenable G ↔ OAI.Dixmier.Unitarizable G) ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ¬OAI.Dixmier.Amenable G →
+          ∃ H x x_1,
+            ∃ (_ : CompleteSpace H),
+              ∃ π,
+                (Countable G → TopologicalSpace.SeparableSpace H) ∧
+                  (∀ (g : G), ‖π g‖ ≤ 1 + ε) ∧ ¬OAI.Dixmier.SimilarToUnitary π
