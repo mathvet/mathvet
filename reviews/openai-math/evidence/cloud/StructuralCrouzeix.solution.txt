@@ -1,0 +1,178 @@
+OAI.StructuralCrouzeixReference.challenge : OAI.StructuralCrouzeix.FullEndpoint ∧
+  OAI.StructuralCrouzeix.IsAdmissible (Metric.ball 0 1)
+'OAI.StructuralCrouzeixReference.challenge' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.CompleteCrouzeix.numericalRange : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Set ℂ :=
+fun {n} A => {z | ∃ x, ‖x‖ = 1 ∧ inner ℂ x ((Matrix.toEuclideanCLM A) x) = z}
+structure OAI.CompleteCrouzeix.DiskCoordinate (U : Set ℂ) (a : ℂ) : Type
+number of parameters: 2
+fields:
+  OAI.CompleteCrouzeix.DiskCoordinate.outer : Set ℂ
+  OAI.CompleteCrouzeix.DiskCoordinate.outer_open : IsOpen self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.closure_subset : closure U ⊆ self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.toDisk : ℂ → ℂ
+  OAI.CompleteCrouzeix.DiskCoordinate.fromDisk : ℂ → ℂ
+  OAI.CompleteCrouzeix.DiskCoordinate.analytic_to : AnalyticOnNhd ℂ self.toDisk self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.injective_to : Set.InjOn self.toDisk self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.noncritical_to : ∀ z ∈ self.outer, deriv self.toDisk z ≠ 0
+  OAI.CompleteCrouzeix.DiskCoordinate.image_open : IsOpen (self.toDisk '' self.outer)
+  OAI.CompleteCrouzeix.DiskCoordinate.analytic_from : AnalyticOnNhd ℂ self.fromDisk (self.toDisk '' self.outer)
+  OAI.CompleteCrouzeix.DiskCoordinate.inverse_map : Set.MapsTo self.fromDisk (self.toDisk '' self.outer) self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.left_inverse : ∀ z ∈ self.outer, self.fromDisk (self.toDisk z) = z
+  OAI.CompleteCrouzeix.DiskCoordinate.right_inverse : ∀ w ∈ self.toDisk '' self.outer, self.toDisk (self.fromDisk w) = w
+  OAI.CompleteCrouzeix.DiskCoordinate.closedDisk_subset : Metric.closedBall 0 1 ⊆ self.toDisk '' self.outer
+  OAI.CompleteCrouzeix.DiskCoordinate.image_domain : self.toDisk '' U = Metric.ball 0 1
+  OAI.CompleteCrouzeix.DiskCoordinate.base_zero : self.toDisk a = 0
+constructor:
+  OAI.CompleteCrouzeix.DiskCoordinate.mk {U : Set ℂ} {a : ℂ} (outer : Set ℂ) (outer_open : IsOpen outer)
+    (closure_subset : closure U ⊆ outer) (toDisk fromDisk : ℂ → ℂ) (analytic_to : AnalyticOnNhd ℂ toDisk outer)
+    (injective_to : Set.InjOn toDisk outer) (noncritical_to : ∀ z ∈ outer, deriv toDisk z ≠ 0)
+    (image_open : IsOpen (toDisk '' outer)) (analytic_from : AnalyticOnNhd ℂ fromDisk (toDisk '' outer))
+    (inverse_map : Set.MapsTo fromDisk (toDisk '' outer) outer) (left_inverse : ∀ z ∈ outer, fromDisk (toDisk z) = z)
+    (right_inverse : ∀ w ∈ toDisk '' outer, toDisk (fromDisk w) = w)
+    (closedDisk_subset : Metric.closedBall 0 1 ⊆ toDisk '' outer) (image_domain : toDisk '' U = Metric.ball 0 1)
+    (base_zero : toDisk a = 0) : OAI.CompleteCrouzeix.DiskCoordinate U a
+def OAI.CompleteCrouzeix.exteriorMap : ℂ → ℂ → (ℂ → ℂ) → ℂ → ℂ :=
+fun a b h t => a * t + b + h t⁻¹
+structure OAI.CompleteCrouzeix.ExteriorCoordinate (U : Set ℂ) : Type
+number of parameters: 1
+fields:
+  OAI.CompleteCrouzeix.ExteriorCoordinate.radius : ℝ
+  OAI.CompleteCrouzeix.ExteriorCoordinate.radius_gt : 1 < self.radius
+  OAI.CompleteCrouzeix.ExteriorCoordinate.leading : ℂ
+  OAI.CompleteCrouzeix.ExteriorCoordinate.constant : ℂ
+  OAI.CompleteCrouzeix.ExteriorCoordinate.regular : ℂ → ℂ
+  OAI.CompleteCrouzeix.ExteriorCoordinate.leading_ne : self.leading ≠ 0
+  OAI.CompleteCrouzeix.ExteriorCoordinate.analytic_regular : AnalyticOnNhd ℂ self.regular (Metric.ball 0 self.radius)
+  OAI.CompleteCrouzeix.ExteriorCoordinate.injective : Set.InjOn
+      (OAI.CompleteCrouzeix.exteriorMap self.leading self.constant self.regular) {t | self.radius⁻¹ < ‖t‖}
+  OAI.CompleteCrouzeix.ExteriorCoordinate.noncritical : ∀ (t : ℂ),
+      self.radius⁻¹ < ‖t‖ → deriv (OAI.CompleteCrouzeix.exteriorMap self.leading self.constant self.regular) t ≠ 0
+  OAI.CompleteCrouzeix.ExteriorCoordinate.boundary_image : OAI.CompleteCrouzeix.exteriorMap self.leading self.constant
+          self.regular ''
+        Metric.sphere 0 1 =
+      frontier U
+  OAI.CompleteCrouzeix.ExteriorCoordinate.interior_iff : ∀ (t : ℂ),
+      self.radius⁻¹ < ‖t‖ →
+        (OAI.CompleteCrouzeix.exteriorMap self.leading self.constant self.regular t ∈ U ↔ t ∈ Metric.ball 0 1)
+  OAI.CompleteCrouzeix.ExteriorCoordinate.outside : ∀ (t : ℂ),
+      1 < ‖t‖ → OAI.CompleteCrouzeix.exteriorMap self.leading self.constant self.regular t ∉ closure U
+constructor:
+  OAI.CompleteCrouzeix.ExteriorCoordinate.mk {U : Set ℂ} (radius : ℝ) (radius_gt : 1 < radius) (leading constant : ℂ)
+    (regular : ℂ → ℂ) (leading_ne : leading ≠ 0) (analytic_regular : AnalyticOnNhd ℂ regular (Metric.ball 0 radius))
+    (injective : Set.InjOn (OAI.CompleteCrouzeix.exteriorMap leading constant regular) {t | radius⁻¹ < ‖t‖})
+    (noncritical : ∀ (t : ℂ), radius⁻¹ < ‖t‖ → deriv (OAI.CompleteCrouzeix.exteriorMap leading constant regular) t ≠ 0)
+    (boundary_image : OAI.CompleteCrouzeix.exteriorMap leading constant regular '' Metric.sphere 0 1 = frontier U)
+    (interior_iff :
+      ∀ (t : ℂ),
+        radius⁻¹ < ‖t‖ → (OAI.CompleteCrouzeix.exteriorMap leading constant regular t ∈ U ↔ t ∈ Metric.ball 0 1))
+    (outside : ∀ (t : ℂ), 1 < ‖t‖ → OAI.CompleteCrouzeix.exteriorMap leading constant regular t ∉ closure U) :
+    OAI.CompleteCrouzeix.ExteriorCoordinate U
+def OAI.CompleteCrouzeix.scalarJetEval.{u_61} : {A : Type u_61} →
+  [inst : Ring A] → [Algebra ℂ A] → ℂ → A → ℕ → (ℂ → ℂ) → A :=
+fun {A} [Ring A] [Algebra ℂ A] β N s f => ∑ i ∈ Finset.range s, (iteratedDeriv i f β / ↑i.factorial) • N ^ i
+def OAI.CompleteCrouzeix.primaryEquiv.{u_63} : {V : Type u_63} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      [instFiniteDimensionalℂV : FiniteDimensional ℂ V] →
+        (T : Module.End ℂ V) → V ≃ₗ[ℂ] DirectSum ℂ fun β => ↥(T.maxGenEigenspace β) :=
+fun {V} [AddCommGroup V] [Module ℂ V] [FiniteDimensional ℂ V] T =>
+  (LinearEquiv.ofBijective (DirectSum.coeLinearMap T.maxGenEigenspace) ⋯).symm
+def OAI.CompleteCrouzeix.primaryNilpotent.{u_63} : {V : Type u_63} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] → (T : Module.End ℂ V) → (β : ℂ) → Module.End ℂ ↥(T.maxGenEigenspace β) :=
+fun {V} [AddCommGroup V] [Module ℂ V] T β => LinearMap.restrict (T - (algebraMap ℂ (Module.End ℂ V)) β) ⋯
+def OAI.CompleteCrouzeix.primaryEval.{u_63} : {V : Type u_63} →
+  [inst : AddCommGroup V] →
+    [inst_1 : Module ℂ V] →
+      [instFiniteDimensionalℂV : FiniteDimensional ℂ V] → Module.End ℂ V → (ℂ → ℂ) → Module.End ℂ V :=
+fun {V} [AddCommGroup V] [Module ℂ V] [FiniteDimensional ℂ V] T f =>
+  ↑(OAI.CompleteCrouzeix.primaryEquiv T).symm ∘ₗ
+    (DirectSum.lmap fun β =>
+        OAI.CompleteCrouzeix.scalarJetEval β (OAI.CompleteCrouzeix.primaryNilpotent T β) (Module.finrank ℂ V) f) ∘ₗ
+      ↑(OAI.CompleteCrouzeix.primaryEquiv T)
+def OAI.CompleteCrouzeix.matrixAnalyticEval.{u_67} : {n : Type u_67} →
+  [Fintype n] → [DecidableEq n] → Matrix n n ℂ → (ℂ → ℂ) → Matrix n n ℂ :=
+fun {n} [Fintype n] [DecidableEq n] A f =>
+  Matrix.toLinAlgEquiv'.symm (OAI.CompleteCrouzeix.primaryEval (Matrix.toLinAlgEquiv' A) f)
+def OAI.CompleteCrouzeix.completeAnalyticEval.{u_83, u_84} : {n : Type u_83} →
+  {m : Type u_84} → [Fintype n] → [DecidableEq n] → Matrix n n ℂ → (ℂ → Matrix m m ℂ) → Matrix (n × m) (n × m) ℂ :=
+fun {n} {m} [Fintype n] [DecidableEq n] D F i j =>
+  OAI.CompleteCrouzeix.matrixAnalyticEval D (fun z => F z i.2 j.2) i.1 j.1
+def OAI.CompleteCrouzeix.MetricFeasible.{u_181} : {n : Type u_181} →
+  [Fintype n] → [DecidableEq n] → Matrix n n ℂ → ℝ → Matrix n n ℂ → Prop :=
+fun {n} [Fintype n] [DecidableEq n] T τ H => 1 ≤ H ∧ H ≤ (algebraMap ℝ (Matrix n n ℂ)) τ ∧ T.conjTranspose * H * T ≤ H
+def OAI.StructuralCrouzeix.RegularAnalyticBoundaryAt : Set ℂ → ℂ → Prop :=
+fun U p => ∃ χ, χ 0 = p ∧ AnalyticAt ℂ χ 0 ∧ deriv χ 0 ≠ 0 ∧ ∀ᶠ (z : ℂ) in nhds 0, χ z ∈ frontier U ↔ z.im = 0
+structure OAI.StructuralCrouzeix.IsAdmissible (U : Set ℂ) : Prop
+number of parameters: 1
+fields:
+  OAI.StructuralCrouzeix.IsAdmissible.isOpen : IsOpen U
+  OAI.StructuralCrouzeix.IsAdmissible.bounded : Bornology.IsBounded U
+  OAI.StructuralCrouzeix.IsAdmissible.convex : Convex ℝ U
+  OAI.StructuralCrouzeix.IsAdmissible.nonempty : U.Nonempty
+  OAI.StructuralCrouzeix.IsAdmissible.jordan : Nonempty (Circle ≃ₜ ↑(frontier U))
+  OAI.StructuralCrouzeix.IsAdmissible.regular : ∀ p ∈ frontier U, OAI.StructuralCrouzeix.RegularAnalyticBoundaryAt U p
+constructor:
+  OAI.StructuralCrouzeix.IsAdmissible.mk {U : Set ℂ} (isOpen : IsOpen U) (bounded : Bornology.IsBounded U)
+    (convex : Convex ℝ U) (nonempty : U.Nonempty) (jordan : Nonempty (Circle ≃ₜ ↑(frontier U)))
+    (regular : ∀ p ∈ frontier U, OAI.StructuralCrouzeix.RegularAnalyticBoundaryAt U p) :
+    OAI.StructuralCrouzeix.IsAdmissible U
+def OAI.StructuralCrouzeix.IsMinimizing : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → ℝ → Matrix (Fin n) (Fin n) ℂ → Prop :=
+fun {n} T τ H =>
+  OAI.CompleteCrouzeix.MetricFeasible T τ H ∧
+    ∀ (σ : ℝ) (J : Matrix (Fin n) (Fin n) ℂ), OAI.CompleteCrouzeix.MetricFeasible T σ J → τ ≤ σ
+def OAI.StructuralCrouzeix.StrictlyFeasible : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Prop :=
+fun {n} T =>
+  ∃ τ H,
+    H.IsHermitian ∧
+      (H - 1).PosDef ∧ ((algebraMap ℝ (Matrix (Fin n) (Fin n) ℂ)) τ - H).PosDef ∧ (H - T.conjTranspose * H * T).PosDef
+def OAI.StructuralCrouzeix.analyticSupNorm : {m : ℕ} → Set ℂ → (ℂ → Matrix (Fin m) (Fin m) ℂ) → ℝ :=
+fun {m} U v => sSup ((fun z => ‖v z‖) '' closure U)
+def OAI.StructuralCrouzeix.boundaryPoint : {U : Set ℂ} →
+  OAI.CompleteCrouzeix.ExteriorCoordinate U → UnitAddCircle → ℂ :=
+fun {U} G t => OAI.CompleteCrouzeix.exteriorMap G.leading G.constant G.regular ↑(AddCircle.toCircle t)
+def OAI.StructuralCrouzeix.FullEndpoint : Prop :=
+∀ (U : Set ℂ),
+  OAI.StructuralCrouzeix.IsAdmissible U →
+    (∀ a ∈ U, Nonempty (OAI.CompleteCrouzeix.DiskCoordinate U a)) ∧
+      Nonempty (OAI.CompleteCrouzeix.ExteriorCoordinate U) ∧
+        ∀ a ∈ U,
+          ∀ (f : OAI.CompleteCrouzeix.DiskCoordinate U a) (G : OAI.CompleteCrouzeix.ExteriorCoordinate U) (n : ℕ),
+            0 < n →
+              ∀ (A : Matrix (Fin n) (Fin n) ℂ),
+                OAI.CompleteCrouzeix.numericalRange A ⊆ U →
+                  have T := OAI.CompleteCrouzeix.matrixAnalyticEval A f.toDisk;
+                  OAI.StructuralCrouzeix.StrictlyFeasible T ∧
+                    ∃ κ,
+                      1 ≤ κ ∧
+                        κ ≤ 2 ∧
+                          (∃ H, OAI.StructuralCrouzeix.IsMinimizing T (κ ^ 2) H) ∧
+                            ∀ (H : Matrix (Fin n) (Fin n) ℂ),
+                              OAI.StructuralCrouzeix.IsMinimizing T (κ ^ 2) H →
+                                have S := CFC.sqrt H;
+                                have A' := S * A * S⁻¹;
+                                have D := S * T * S⁻¹;
+                                H.PosDef ∧
+                                  IsUnit S ∧
+                                    D = OAI.CompleteCrouzeix.matrixAnalyticEval A' f.toDisk ∧
+                                      D.conjTranspose * D ≤ 1 ∧
+                                        spectralRadius ℂ D < 1 ∧
+                                          ‖S‖ * ‖S⁻¹‖ = κ ∧
+                                            (∀ (R : Matrix (Fin n) (Fin n) ℂ),
+                                                IsUnit R →
+                                                  (R * T * R⁻¹).conjTranspose * (R * T * R⁻¹) ≤ 1 → κ ≤ ‖R‖ * ‖R⁻¹‖) ∧
+                                              ∃ Λ,
+                                                (∀ (t : UnitAddCircle), (Λ t).PosSemidef) ∧
+                                                  ∫ (t : AddCircle 1), Λ t ∂AddCircle.haarAddCircle = 1 ∧
+                                                    ∀ (m : ℕ),
+                                                      0 < m →
+                                                        ∀ (v : ℂ → Matrix (Fin m) (Fin m) ℂ),
+                                                          AnalyticOnNhd ℂ v (closure U) →
+                                                            OAI.CompleteCrouzeix.completeAnalyticEval A' v =
+                                                                ∫ (t : AddCircle 1),
+                                                                  Matrix.kroneckerMap (fun x1 x2 => x1 * x2) (Λ t)
+                                                                    (v
+                                                                      (OAI.StructuralCrouzeix.boundaryPoint G
+                                                                        t)) ∂AddCircle.haarAddCircle ∧
+                                                              ‖OAI.CompleteCrouzeix.completeAnalyticEval A v‖ ≤
+                                                                κ * OAI.StructuralCrouzeix.analyticSupNorm U v
