@@ -1,5 +1,4 @@
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserCovering.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserCovering.lean:131:22: error(lean.unknownIdentifier): Unknown constant `instDecidablePairwiseCoeFinsetOfDecidableEqOfDecidableRel`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserCovering.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.RyserCoveringCounterexample.exists_prime_eventually_counterexampleRank [thm] ok
 CMP OAI.RyserCoveringCounterexample.CounterexampleRank [def] ok
 CMP OAI.RyserCoveringCounterexample.coverNumber [def] ok
@@ -54,4 +53,4 @@ fun r =>
 'OAI.RyserCoveringCounterexample.exists_prime_eventually_counterexampleRank' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
-== RyserCovering comparator-style: ok=11 problems=0 errors=1 | SHADOW-DIFF(see RyserCovering.standalone.norm vs RyserCovering.insolution.norm) | [propext,  | defeq_only=0 aux_only=0
+== RyserCovering comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0
