@@ -1,0 +1,11 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_EvenBarker.lean:21:8: warning: declaration uses `sorry`
+@OAI.CirculantHadamard.Barker.even_length_eq_two_or_four : ∀ {n : ℕ} (h : Fin n → ℤ),
+  0 < n → Even n → OAI.CirculantHadamard.Barker.IsBarker h → n = 2 ∨ n = 4
+def OAI.CirculantHadamard.IsSign.{u} : {R : Type u} → [One R] → [Neg R] → R → Prop :=
+fun {R} [One R] [Neg R] x => x = 1 ∨ x = -1
+def OAI.CirculantHadamard.Barker.aperiodic : {n : ℕ} → (Fin n → ℤ) → ℕ → ℤ :=
+fun {n} h k => ∑ j, h ⟨↑j, ⋯⟩ * h ⟨↑j + k, ⋯⟩
+def OAI.CirculantHadamard.Barker.IsBarker : {n : ℕ} → (Fin n → ℤ) → Prop :=
+fun {n} h =>
+  (∀ (j : Fin n), OAI.CirculantHadamard.IsSign (h j)) ∧
+    ∀ (k : ℕ), 0 < k → k < n → |OAI.CirculantHadamard.Barker.aperiodic h k| ≤ 1
