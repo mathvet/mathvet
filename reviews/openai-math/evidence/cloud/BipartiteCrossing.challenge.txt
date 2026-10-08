@@ -1,0 +1,104 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_BipartiteCrossing.lean:60:8: warning: declaration uses `sorry`
+OAI.Zarankiewicz.mainTarget_proof : OAI.Zarankiewicz.MainTarget
+def OAI.Zarankiewicz.axisPairs : ℕ → ℕ :=
+fun r => r / 2 * ((r - 1) / 2)
+@[reducible] def OAI.Zarankiewicz.Plane : Type :=
+ℝ × ℝ
+@[reducible] def OAI.Zarankiewicz.BipartiteVertex : ℕ → ℕ → Type :=
+fun m n => Fin m ⊕ Fin n
+@[reducible] def OAI.Zarankiewicz.BipartiteEdge : ℕ → ℕ → Type :=
+fun m n => Fin m × Fin n
+structure OAI.Zarankiewicz.ContinuousDrawing (m n : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.Zarankiewicz.ContinuousDrawing.vertex : OAI.Zarankiewicz.BipartiteVertex m n → OAI.Zarankiewicz.Plane
+  OAI.Zarankiewicz.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  OAI.Zarankiewicz.ContinuousDrawing.edge : (e : OAI.Zarankiewicz.BipartiteEdge m n) →
+      Path (self.vertex (Sum.inl e.1)) (self.vertex (Sum.inr e.2))
+  OAI.Zarankiewicz.ContinuousDrawing.edge_injective : ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n),
+      Function.Injective ⇑(self.edge e)
+  OAI.Zarankiewicz.ContinuousDrawing.interior_avoids_vertices : ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : OAI.Zarankiewicz.BipartiteVertex m n), (self.edge e) t ≠ self.vertex v
+constructor:
+  OAI.Zarankiewicz.ContinuousDrawing.mk {m n : ℕ}
+    (vertex : OAI.Zarankiewicz.BipartiteVertex m n → OAI.Zarankiewicz.Plane)
+    (vertex_injective : Function.Injective vertex)
+    (edge : (e : OAI.Zarankiewicz.BipartiteEdge m n) → Path (vertex (Sum.inl e.1)) (vertex (Sum.inr e.2)))
+    (edge_injective : ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n), Function.Injective ⇑(edge e))
+    (interior_avoids_vertices :
+      ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n),
+        ∀ t ∈ Set.Ioo 0 1, ∀ (v : OAI.Zarankiewicz.BipartiteVertex m n), (edge e) t ≠ vertex v) :
+    OAI.Zarankiewicz.ContinuousDrawing m n
+def OAI.Zarankiewicz.edgeInterior : {m n : ℕ} →
+  OAI.Zarankiewicz.ContinuousDrawing m n → OAI.Zarankiewicz.BipartiteEdge m n → Set OAI.Zarankiewicz.Plane :=
+fun {m n} D e => ⇑(D.edge e) '' Set.Ioo 0 1
+def OAI.Zarankiewicz.ProperCrossing : Set OAI.Zarankiewicz.Plane →
+  Set OAI.Zarankiewicz.Plane → OAI.Zarankiewicz.Plane → Prop :=
+fun A B x =>
+  ∃ chart,
+    x ∈ chart.source ∧
+      ↑chart x = (0, 0) ∧
+        ↑chart '' (chart.source ∩ A) = chart.target ∩ {y | y.2 = 0} ∧
+          ↑chart '' (chart.source ∩ B) = chart.target ∩ {y | y.1 = 0}
+def OAI.Zarankiewicz.crossingPoints : {m n : ℕ} → OAI.Zarankiewicz.ContinuousDrawing m n → Set OAI.Zarankiewicz.Plane :=
+fun {m n} D => {x | ∃ e f, e ≠ f ∧ x ∈ OAI.Zarankiewicz.edgeInterior D e ∧ x ∈ OAI.Zarankiewicz.edgeInterior D f}
+structure OAI.Zarankiewicz.AdmissibleDrawing (m n : ℕ) : Type
+number of parameters: 2
+parents:
+  OAI.Zarankiewicz.AdmissibleDrawing.toContinuousDrawing : OAI.Zarankiewicz.ContinuousDrawing m n
+fields:
+  OAI.Zarankiewicz.ContinuousDrawing.vertex : OAI.Zarankiewicz.BipartiteVertex m n → OAI.Zarankiewicz.Plane
+  OAI.Zarankiewicz.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  OAI.Zarankiewicz.ContinuousDrawing.edge : (e : OAI.Zarankiewicz.BipartiteEdge m n) →
+      Path (self.vertex (Sum.inl e.1)) (self.vertex (Sum.inr e.2))
+  OAI.Zarankiewicz.ContinuousDrawing.edge_injective : ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n),
+      Function.Injective ⇑(self.edge e)
+  OAI.Zarankiewicz.ContinuousDrawing.interior_avoids_vertices : ∀ (e : OAI.Zarankiewicz.BipartiteEdge m n),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : OAI.Zarankiewicz.BipartiteVertex m n), (self.edge e) t ≠ self.vertex v
+  OAI.Zarankiewicz.AdmissibleDrawing.crossings_finite : (OAI.Zarankiewicz.crossingPoints
+        self.toContinuousDrawing).Finite
+  OAI.Zarankiewicz.AdmissibleDrawing.crossings_proper : ∀ (e f : OAI.Zarankiewicz.BipartiteEdge m n),
+      e ≠ f →
+        ∀ x ∈ OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing e,
+          x ∈ OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing f →
+            OAI.Zarankiewicz.ProperCrossing (OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing e)
+              (OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing f) x
+  OAI.Zarankiewicz.AdmissibleDrawing.no_triples : ∀ (e f g : OAI.Zarankiewicz.BipartiteEdge m n),
+      e ≠ f →
+        e ≠ g →
+          f ≠ g →
+            OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing e ∩
+                  OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing f ∩
+                OAI.Zarankiewicz.edgeInterior self.toContinuousDrawing g =
+              ∅
+constructor:
+  OAI.Zarankiewicz.AdmissibleDrawing.mk {m n : ℕ} (toContinuousDrawing : OAI.Zarankiewicz.ContinuousDrawing m n)
+    (crossings_finite : (OAI.Zarankiewicz.crossingPoints toContinuousDrawing).Finite)
+    (crossings_proper :
+      ∀ (e f : OAI.Zarankiewicz.BipartiteEdge m n),
+        e ≠ f →
+          ∀ x ∈ OAI.Zarankiewicz.edgeInterior toContinuousDrawing e,
+            x ∈ OAI.Zarankiewicz.edgeInterior toContinuousDrawing f →
+              OAI.Zarankiewicz.ProperCrossing (OAI.Zarankiewicz.edgeInterior toContinuousDrawing e)
+                (OAI.Zarankiewicz.edgeInterior toContinuousDrawing f) x)
+    (no_triples :
+      ∀ (e f g : OAI.Zarankiewicz.BipartiteEdge m n),
+        e ≠ f →
+          e ≠ g →
+            f ≠ g →
+              OAI.Zarankiewicz.edgeInterior toContinuousDrawing e ∩
+                    OAI.Zarankiewicz.edgeInterior toContinuousDrawing f ∩
+                  OAI.Zarankiewicz.edgeInterior toContinuousDrawing g =
+                ∅) :
+    OAI.Zarankiewicz.AdmissibleDrawing m n
+field notation resolution order:
+  OAI.Zarankiewicz.AdmissibleDrawing, OAI.Zarankiewicz.ContinuousDrawing
+def OAI.Zarankiewicz.crossingCount : {m n : ℕ} → OAI.Zarankiewicz.AdmissibleDrawing m n → ℕ :=
+fun {m n} D => ⋯.toFinset.card
+def OAI.Zarankiewicz.MainTarget : Prop :=
+∀ (m n : ℕ),
+  0 < m →
+    0 < n →
+      (∃ D, OAI.Zarankiewicz.crossingCount D = OAI.Zarankiewicz.axisPairs m * OAI.Zarankiewicz.axisPairs n) ∧
+        ∀ (D : OAI.Zarankiewicz.AdmissibleDrawing m n),
+          OAI.Zarankiewicz.axisPairs m * OAI.Zarankiewicz.axisPairs n ≤ OAI.Zarankiewicz.crossingCount D
