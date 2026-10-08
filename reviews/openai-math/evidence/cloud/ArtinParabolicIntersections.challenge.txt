@@ -1,0 +1,95 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ArtinParabolicIntersections.lean:98:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ArtinParabolicIntersections.lean:106:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ArtinParabolicIntersections.lean:114:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ArtinParabolicIntersections.lean:121:8: warning: declaration uses `sorry`
+@OAI.HarmonicArtin.ParabolicIntersections.unconditional_parabolic_intersections : ∀ {S : Type} [Fintype S]
+  [LinearOrder S] (M : CoxeterMatrix S) (X Y : Set S) (g h : OAI.HarmonicArtin.Artin M),
+  ∃ Z k,
+    OAI.HarmonicArtin.ParabolicIntersections.conjugate g (OAI.HarmonicArtin.artinParabolic M X) ⊓
+        OAI.HarmonicArtin.ParabolicIntersections.conjugate h (OAI.HarmonicArtin.artinParabolic M Y) =
+      OAI.HarmonicArtin.ParabolicIntersections.conjugate k (OAI.HarmonicArtin.artinParabolic M Z)
+@OAI.HarmonicArtin.ParabolicIntersections.unconditional_arbitrary_intersections : ∀ {S : Type} [Fintype S]
+  [LinearOrder S] (M : CoxeterMatrix S) (F : Set (Subgroup (OAI.HarmonicArtin.Artin M))),
+  (∀ P ∈ F, OAI.HarmonicArtin.ParabolicIntersections.IsParabolic M P) →
+    (∃ F₀, ↑F₀ ⊆ F ∧ F₀.card ≤ Nat.card S ∧ sInf F = sInf ↑F₀) ∧
+      OAI.HarmonicArtin.ParabolicIntersections.IsParabolic M (sInf F)
+@OAI.HarmonicArtin.ParabolicIntersections.unconditional_parabolic_closure : ∀ {S : Type} [Fintype S] [LinearOrder S]
+  (M : CoxeterMatrix S) (E : Set (OAI.HarmonicArtin.Artin M)),
+  ∃! P,
+    OAI.HarmonicArtin.ParabolicIntersections.IsParabolic M P ∧
+      E ⊆ ↑P ∧
+        ∀ (Q : Subgroup (OAI.HarmonicArtin.Artin M)),
+          OAI.HarmonicArtin.ParabolicIntersections.IsParabolic M Q → E ⊆ ↑Q → P ≤ Q
+@OAI.HarmonicArtin.ParabolicIntersections.unconditional_nonclique_dynamics : ∀ {S : Type} [Fintype S] [LinearOrder S]
+  (M : CoxeterMatrix S),
+  OAI.HarmonicArtin.ParabolicIntersections.IsIrreducible M →
+    (∃ s t, s ≠ t ∧ M.M s t = 0) →
+      OAI.HarmonicArtin.ParabolicIntersections.AcylindricallyHyperbolic (OAI.HarmonicArtin.Artin M) ∧
+        ∀ (P : Subgroup (OAI.HarmonicArtin.Artin M)),
+          OAI.HarmonicArtin.ParabolicIntersections.IsParabolic M P →
+            P ≠ ⊤ → OAI.HarmonicArtin.ParabolicIntersections.WeaklyMalnormal P
+def OAI.HarmonicArtin.alternating.{u} : {S : Type u} → S → S → ℕ → FreeGroup S :=
+fun {S} s t x => Nat.brecOn (motive := fun x => S → S → FreeGroup S) x OAI.HarmonicArtin.alternating._f s t
+def OAI.HarmonicArtin.braidRelators.{u} : {S : Type u} → CoxeterMatrix S → Set (FreeGroup S) :=
+fun {S} M =>
+  Set.range fun st =>
+    OAI.HarmonicArtin.alternating st.1 st.2 (M.M st.1 st.2) *
+      (OAI.HarmonicArtin.alternating st.2 st.1 (M.M st.1 st.2))⁻¹
+@[reducible] def OAI.HarmonicArtin.Artin.{u} : {S : Type u} → CoxeterMatrix S → Type u :=
+fun {S} M => PresentedGroup (OAI.HarmonicArtin.braidRelators M)
+def OAI.HarmonicArtin.generator.{u} : {S : Type u} → (M : CoxeterMatrix S) → S → OAI.HarmonicArtin.Artin M :=
+fun {S} M s => PresentedGroup.of s
+def OAI.HarmonicArtin.artinParabolic.{u} : {S : Type u} →
+  (M : CoxeterMatrix S) → Set S → Subgroup (OAI.HarmonicArtin.Artin M) :=
+fun {S} M T => Subgroup.closure (OAI.HarmonicArtin.generator M '' T)
+def OAI.HarmonicArtin.ParabolicIntersections.conjugate.{u_1} : {G : Type u_1} →
+  [inst : Group G] → G → Subgroup G → Subgroup G :=
+fun {G} [Group G] g P => Subgroup.comap (MulEquiv.toMonoidHom (MulAut.conj g⁻¹)) P
+def OAI.HarmonicArtin.ParabolicIntersections.IsParabolic.{u_2} : {S : Type u_2} →
+  (M : CoxeterMatrix S) → Subgroup (OAI.HarmonicArtin.Artin M) → Prop :=
+fun {S} M P => ∃ X g, P = OAI.HarmonicArtin.ParabolicIntersections.conjugate g (OAI.HarmonicArtin.artinParabolic M X)
+def OAI.HarmonicArtin.ParabolicIntersections.gromovProduct : {X : Type} → [MetricSpace X] → X → X → X → ℝ :=
+fun {X} [MetricSpace X] o x y => (dist o x + dist o y - dist x y) / 2
+def OAI.HarmonicArtin.ParabolicIntersections.IsGromovHyperbolic : (X : Type) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∃ δ,
+    0 ≤ δ ∧
+      ∀ (o x y z : X),
+        min (OAI.HarmonicArtin.ParabolicIntersections.gromovProduct o x y)
+            (OAI.HarmonicArtin.ParabolicIntersections.gromovProduct o y z) ≤
+          OAI.HarmonicArtin.ParabolicIntersections.gromovProduct o x z + δ
+def OAI.HarmonicArtin.ParabolicIntersections.IsGeodesicMetric : (X : Type) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] => ∀ (x y : X), ∃ γ, Isometry γ ∧ γ ⟨0, ⋯⟩ = x ∧ γ ⟨dist x y, ⋯⟩ = y
+def OAI.HarmonicArtin.ParabolicIntersections.IsGromovSequence : {X : Type} → [MetricSpace X] → X → (ℕ → X) → Prop :=
+fun {X} [MetricSpace X] o u =>
+  ∀ (R : ℝ),
+    ∃ N, ∀ (m : ℕ), N ≤ m → ∀ (n : ℕ), N ≤ n → R ≤ OAI.HarmonicArtin.ParabolicIntersections.gromovProduct o (u m) (u n)
+def OAI.HarmonicArtin.ParabolicIntersections.IsAcylindrical : (G X : Type) →
+  [inst : Group G] → [MetricSpace X] → [MulAction G X] → Prop :=
+fun G X [Group G] [MetricSpace X] [MulAction G X] =>
+  ∀ (ε : ℝ),
+    0 < ε →
+      ∃ R N,
+        ∀ (x y : X),
+          R ≤ dist x y →
+            {g | dist x (g • x) ≤ ε ∧ dist y (g • y) ≤ ε}.Finite ∧
+              {g | dist x (g • x) ≤ ε ∧ dist y (g • y) ≤ ε}.ncard ≤ N
+def OAI.HarmonicArtin.ParabolicIntersections.HasThreeOrbitLimitPoints : (G X : Type) →
+  [inst : Group G] → [MetricSpace X] → [MulAction G X] → Prop :=
+fun G X [Group G] [MetricSpace X] [MulAction G X] =>
+  ∃ o u,
+    (∀ (i : Fin 3), OAI.HarmonicArtin.ParabolicIntersections.IsGromovSequence o fun n => u i n • o) ∧
+      ∀ (i j : Fin 3),
+        i ≠ j → ∃ B, ∀ (m n : ℕ), OAI.HarmonicArtin.ParabolicIntersections.gromovProduct o (u i m • o) (u j n • o) ≤ B
+def OAI.HarmonicArtin.ParabolicIntersections.AcylindricallyHyperbolic : (G : Type) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ X metric action,
+    OAI.HarmonicArtin.ParabolicIntersections.IsGeodesicMetric X ∧
+      OAI.HarmonicArtin.ParabolicIntersections.IsGromovHyperbolic X ∧
+        (∀ (g : G), Isometry fun x => SMul.smul g x) ∧
+          OAI.HarmonicArtin.ParabolicIntersections.IsAcylindrical G X ∧
+            OAI.HarmonicArtin.ParabolicIntersections.HasThreeOrbitLimitPoints G X
+def OAI.HarmonicArtin.ParabolicIntersections.WeaklyMalnormal : {G : Type} → [inst : Group G] → Subgroup G → Prop :=
+fun {G} [Group G] P => ∃ g, (↑(P ⊓ OAI.HarmonicArtin.ParabolicIntersections.conjugate g P)).Finite
+def OAI.HarmonicArtin.ParabolicIntersections.IsIrreducible : {S : Type} → CoxeterMatrix S → Prop :=
+fun {S} M => ∀ (Y : Set S), Y.Nonempty → Yᶜ.Nonempty → ∃ s ∈ Y, ∃ t ∉ Y, M.M s t ≠ 2
