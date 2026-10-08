@@ -25,8 +25,9 @@ link_toolchain() {  # $1 = version tag like v4.34.1
   else python3 -c "import zstandard,sys,tarfile; d=zstandard.ZstdDecompressor(); f=open(sys.argv[1],'rb'); tarfile.open(fileobj=d.stream_reader(f), mode='r|').extractall(sys.argv[2])" "/tmp/lean-$v.tar.zst" "/tmp/lean-$v-x" && mv "/tmp/lean-$v-x"/*/* "$dir"/; fi
   rm -f "/tmp/lean-$v.tar.zst"; elan toolchain link "$name" "$dir" && echo "linked $name"
 }
-link_toolchain v4.34.1 && elan default leanprover/lean4:v4.34.1 >/dev/null 2>&1
-lean --version
+link_toolchain v4.34.1 && elan default leanprover/lean4:v4.34.1 2>&1 | tail -1
+elan show 2>&1 | grep -E "default|active" | head -3
+( cd "$HOME" && lean --version ) || { echo "SETUP_FAILED: lean not runnable from a directory without lean-toolchain"; }
 
 log "openai/math @ $COMMIT (sparse: lean/ only, ~1.7 GB)"
 if [ ! -f "$UP/lean/lakefile.lean" ]; then
@@ -52,13 +53,19 @@ if command -v landrun >/dev/null; then
 fi
 echo "LANDRUN_STATUS=$LANDRUN_STATUS"
 
-log "lean4export (tag matching v4.34) and comparator"
+log "lean4export and comparator (pinned to the commits used on the maintainer's machine)"
 cd "$ROOT/tmp"
 [ -d lean4export ] || git clone -q https://github.com/leanprover/lean4export
 [ -d comparator ] || git clone -q https://github.com/leanprover/comparator
-( cd lean4export && git fetch -q --tags && best=""; for t in $(git tag | sort -V); do case "$(git show $t:lean-toolchain 2>/dev/null)" in *v4.34*) best=$t;; esac; done; [ -n "$best" ] && git checkout -q "$best"; echo "lean4export at $(git describe --tags --always) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
-( cd comparator && echo "comparator at $(git rev-parse --short HEAD) toolchain $(cat lean-toolchain)"; link_toolchain "$(sed 's/.*://' lean-toolchain)"; lake build 2>&1 | tail -1 )
-ls -la "$ROOT"/tmp/lean4export/.lake/build/bin/lean4export "$ROOT"/tmp/comparator/.lake/build/bin/comparator
+( cd lean4export && (git checkout -q 076e8e5 2>/dev/null || { git fetch -q --all --tags; git checkout -q 076e8e5; })
+  echo "leanprover/lean4:v4.34.1" > lean-toolchain     # the exporter must be built with the clone's own Lean to read its .olean files
+  echo "lean4export at $(git rev-parse --short HEAD), building with $(cat lean-toolchain)"; lake build 2>&1 | tail -2 )
+( cd comparator && (git checkout -q ca04cfc 2>/dev/null || { git fetch -q --all; git checkout -q ca04cfc; })
+  tc=$(sed 's/.*://' lean-toolchain); echo "comparator at $(git rev-parse --short HEAD), toolchain $tc"; link_toolchain "$tc"; lake build 2>&1 | tail -2 )
+SETUP_OK=1
+for b in "$ROOT/tmp/lean4export/.lake/build/bin/lean4export" "$ROOT/tmp/comparator/.lake/build/bin/comparator"; do
+  if [ -x "$b" ]; then echo "OK $b"; else echo "SETUP_FAILED: missing $b"; SETUP_OK=0; fi
+done
 
 log "Mathlib cache"
 MIRROR="${MATHVET_CACHE_MIRROR:-https://github.com/mathvet/mathvet/releases/download/mathlib-cache-d13f23b/mathlib-cache-d13f23b.tar}"
@@ -70,5 +77,5 @@ fi
 cd "$UP/lean" && lake exe cache get 2>&1 | tail -3
 
 log "machine report"
-{ echo "date=$(date -u +%FT%TZ)"; uname -a; nproc; free -g | head -2; df -h "$ROOT" | tail -1; cat /sys/kernel/security/lsm 2>/dev/null | sed 's/^/lsm=/'; echo "LANDRUN_STATUS=$LANDRUN_STATUS"; lean --version; echo "session=https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"; } | tee "$ROOT/tmp/cloud-machine.txt"
-log "setup done"
+{ echo "date=$(date -u +%FT%TZ)"; uname -a; nproc; free -g | head -2; df -h "$ROOT" | tail -1; cat /sys/kernel/security/lsm 2>/dev/null | sed 's/^/lsm=/'; echo "LANDRUN_STATUS=$LANDRUN_STATUS"; (cd "$UP/lean" && lean --version); echo "SETUP_OK=${SETUP_OK:-0}"; echo "session=https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"; } | tee "$ROOT/tmp/cloud-machine.txt"
+[ "${SETUP_OK:-0}" = 1 ] && log "setup done (SETUP_OK=1)" || log "setup finished with failures (SETUP_OK=0)"

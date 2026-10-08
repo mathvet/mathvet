@@ -26,7 +26,7 @@ for C in "$@"; do
   "$ROOT/checker/lean_cmp.sh" "$C" | tail -2
   echo "=== $(date -u +%FT%TZ) $C: Comparator ($SANDBOX)"
   hdr="$OUT/$C.comparator.hdr"
-  { echo "== provenance: mathvet cloud run"; echo "machine: $(uname -srm), $(nproc) vCPU, $(free -g | awk '/Mem/{print $2}') GB RAM, Ubuntu $(. /etc/os-release; echo $VERSION_ID)"; echo "kernel lsm: $(cat /sys/kernel/security/lsm 2>/dev/null)"; echo "sandbox: $SANDBOX"; echo "lean: $(lean --version)"; echo "comparator: $(git -C "$ROOT/tmp/comparator" rev-parse --short HEAD)  lean4export: $(git -C "$ROOT/tmp/lean4export" describe --tags --always)"; echo "upstream: openai/math $(git -C "$OPENAI_MATH_LEAN/.." rev-parse HEAD)"; echo "session: $SESSION"; } > "$hdr"
+  { echo "== provenance: mathvet cloud run"; echo "machine: $(uname -srm), $(nproc) vCPU, $(free -g | awk '/Mem/{print $2}') GB RAM, Ubuntu $(. /etc/os-release; echo $VERSION_ID)"; echo "kernel lsm: $(cat /sys/kernel/security/lsm 2>/dev/null)"; echo "sandbox: $SANDBOX"; echo "lean: $(cd "$OPENAI_MATH_LEAN" && lean --version)"; echo "comparator: $(git -C "$ROOT/tmp/comparator" rev-parse --short HEAD)  lean4export: $(git -C "$ROOT/tmp/lean4export" describe --tags --always)"; echo "upstream: openai/math $(git -C "$OPENAI_MATH_LEAN/.." rev-parse HEAD)"; echo "session: $SESSION"; } > "$hdr"
   "$ROOT/checker/comparator_run.sh" "$C" | tail -3
   cat "$hdr" "$OUT/$C.comparator.txt" > "$OUT/$C.comparator.tmp" && mv "$OUT/$C.comparator.tmp" "$OUT/$C.comparator.txt" && rm -f "$hdr"
   echo "=== $(date -u +%FT%TZ) $C: done; sha256 $(sha256sum "$OUT/$C.comparator.txt" | cut -c1-64)"
