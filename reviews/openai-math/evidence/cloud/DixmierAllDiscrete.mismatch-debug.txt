@@ -1,0 +1,1242 @@
+== mismatch debug for DixmierAllDiscrete 2026-10-08T12:26:27Z: the Chal.* constant is the challenge source re-elaborated inside the solution environment; OAI.* is the solution's
+Scratch/Dbg_DixmierAllDiscrete.lean:114:8: warning: declaration uses `sorry`
+Chal.Dixmier.current_main_theorem : Chal.Dixmier.CurrentMainTheorem
+def Chal.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group G] →
+    [inst : TopologicalSpace G] →
+      [DiscreteTopology G] → G → BoundedContinuousFunction G ℂ → BoundedContinuousFunction G ℂ :=
+fun {G} [Group G] [TopologicalSpace G] [DiscreteTopology G] g f =>
+  f.compContinuous { toFun := fun x => g⁻¹ * x, continuous_toFun := ⋯ }
+def Chal.Dixmier.Amenable.{u} : (G : Type u) → [Group G] → [inst : TopologicalSpace G] → [DiscreteTopology G] → Prop :=
+fun G [Group G] [TopologicalSpace G] [DiscreteTopology G] =>
+  ∃ m,
+    m (BoundedContinuousFunction.const G 1) = 1 ∧
+      (∀ (f : BoundedContinuousFunction G ℂ), (∀ (x : G), 0 ≤ (f x).re ∧ (f x).im = 0) → 0 ≤ (m f).re ∧ (m f).im = 0) ∧
+        ∀ (g : G) (f : BoundedContinuousFunction G ℂ), m (Chal.Dixmier.leftTranslate g f) = m f
+def Chal.Dixmier.SimilarToUnitary.{u, v} : {G : Type u} →
+  [inst : Group G] →
+    {H : Type v} → [inst_1 : NormedAddCommGroup H] → [inst_2 : InnerProductSpace ℂ H] → (G →* H →L[ℂ] H) → Prop :=
+fun {G} [Group G] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] π =>
+  ∃ S, ∀ (g : G) (x : H), ‖S ((π g) (S.symm x))‖ = ‖x‖
+def Chal.Dixmier.Unitarizable.{u, v} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (H : Type v) [inst_1 : NormedAddCommGroup H] [inst_2 : InnerProductSpace ℂ H] [CompleteSpace H]
+    (π : G →* H →L[ℂ] H), (∃ C, ∀ (g : G), ‖π g‖ ≤ C) → Chal.Dixmier.SimilarToUnitary π
+def Chal.Dixmier.CurrentMainTheorem.{u, v} : Prop :=
+∀ (G : Type u) [inst : Group G] [inst_1 : TopologicalSpace G] [inst_2 : DiscreteTopology G],
+  (Chal.Dixmier.Amenable G ↔ Chal.Dixmier.Unitarizable G) ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ¬Chal.Dixmier.Amenable G →
+          ∃ H x x_1,
+            ∃ (_ : CompleteSpace H),
+              ∃ π,
+                (Countable G → TopologicalSpace.SeparableSpace H) ∧
+                  (∀ (g : G), ‖π g‖ ≤ 1 + ε) ∧ ¬Chal.Dixmier.SimilarToUnitary π
+'OAI.Dixmier.current_main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def Chal.Dixmier.Amenable.{u} : (G : Type u) →
+  [Group.{u} G] → [inst : TopologicalSpace.{u} G] → [@DiscreteTopology.{u} G inst] → Prop :=
+fun G [inst : Group.{u} G] [inst_1 : TopologicalSpace.{u} G] [inst_2 : @DiscreteTopology.{u} G inst_1] =>
+  ∃ m,
+    And
+      (@Eq.{1} Complex
+        (@DFunLike.coe.{u + 1, u + 1, 1}
+          (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+            (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+            (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+            Complex
+            (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+            Complex.instAddCommMonoid
+            (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+              Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+            (@Semiring.toModule.{0} Complex Complex.instSemiring))
+          (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+          (fun x => Complex)
+          (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+            (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+            Complex Complex.instSemiring Complex.instSemiring
+            (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+            Complex.instAddCommMonoid
+            (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+              Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+              Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+            (@Semiring.toModule.{0} Complex Complex.instSemiring)
+            (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+          m
+          (@BoundedContinuousFunction.const.{u, 0} G Complex inst_1
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+            (@OfNat.ofNat.{0} Complex (nat_lit 1) (@One.toOfNat1.{0} Complex Complex.instOne))))
+        (@OfNat.ofNat.{0} Complex (nat_lit 1) (@One.toOfNat1.{0} Complex Complex.instOne)))
+      (And
+        (∀
+          (f :
+            @BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))),
+          (∀ (x : G),
+              And
+                (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  (@DFunLike.coe.{u + 1, u + 1, 1}
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      G (fun x => Complex)
+                      (@BoundedContinuousFunction.instFunLike.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      f x).re)
+                (@Eq.{1} Real
+                  (@DFunLike.coe.{u + 1, u + 1, 1}
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      G (fun x => Complex)
+                      (@BoundedContinuousFunction.instFunLike.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      f x).im
+                  (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))) →
+            And
+              (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                (@DFunLike.coe.{u + 1, u + 1, 1}
+                    (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      Complex
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) Chal.Dixmier.Amenable._proof_3
+                        Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring))
+                    (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                    (fun x => Complex)
+                    (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      Complex Complex.instSemiring Complex.instSemiring
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) Chal.Dixmier.Amenable._proof_3
+                        Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+                    m f).re)
+              (@Eq.{1} Real
+                (@DFunLike.coe.{u + 1, u + 1, 1}
+                    (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      Complex
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) Chal.Dixmier.Amenable._proof_3
+                        Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring))
+                    (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                    (fun x => Complex)
+                    (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                      Complex Complex.instSemiring Complex.instSemiring
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) Chal.Dixmier.Amenable._proof_3
+                        Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+                    m f).im
+                (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))))
+        (∀ (g : G)
+          (f :
+            @BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))),
+          @Eq.{1} Complex
+            (@DFunLike.coe.{u + 1, u + 1, 1}
+              (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                Complex
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring))
+              (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+              (fun x => Complex)
+              (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                Complex Complex.instSemiring Complex.instSemiring
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+              m (@Chal.Dixmier.leftTranslate.{u} G inst inst_1 inst_2 g f))
+            (@DFunLike.coe.{u + 1, u + 1, 1}
+              (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                Complex
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring))
+              (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+              (fun x => Complex)
+              (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+                Complex Complex.instSemiring Complex.instSemiring
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instAddCommMonoid Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  Chal.Dixmier.Amenable._proof_3 Chal.Dixmier.Amenable._proof_1 Chal.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+              m f)))
+def OAI.Dixmier.Amenable.{u} : (G : Type u) →
+  [Group.{u} G] → [inst : TopologicalSpace.{u} G] → [@DiscreteTopology.{u} G inst] → Prop :=
+fun G [inst : Group.{u} G] [inst_1 : TopologicalSpace.{u} G] [inst_2 : @DiscreteTopology.{u} G inst_1] =>
+  ∃ m,
+    And
+      (@Eq.{1} Complex
+        (@DFunLike.coe.{u + 1, u + 1, 1}
+          (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+            (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+            (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+            Complex
+            (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+            Complex.instAddCommMonoid
+            (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+              OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+            (@Semiring.toModule.{0} Complex Complex.instSemiring))
+          (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+          (fun x => Complex)
+          (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+            (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+            Complex Complex.instSemiring Complex.instSemiring
+            (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+            Complex.instAddCommMonoid
+            (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+              Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+              OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+            (@Semiring.toModule.{0} Complex Complex.instSemiring)
+            (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+          m
+          (@BoundedContinuousFunction.const.{u, 0} G Complex inst_1
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+            (@OfNat.ofNat.{0} Complex (nat_lit 1) (@One.toOfNat1.{0} Complex Complex.instOne))))
+        (@OfNat.ofNat.{0} Complex (nat_lit 1) (@One.toOfNat1.{0} Complex Complex.instOne)))
+      (And
+        (∀
+          (f :
+            @BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))),
+          (∀ (x : G),
+              And
+                (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  (@DFunLike.coe.{u + 1, u + 1, 1}
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      G (fun x => Complex)
+                      (@BoundedContinuousFunction.instFunLike.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      f x).re)
+                (@Eq.{1} Real
+                  (@DFunLike.coe.{u + 1, u + 1, 1}
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      G (fun x => Complex)
+                      (@BoundedContinuousFunction.instFunLike.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      f x).im
+                  (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))) →
+            And
+              (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                (@DFunLike.coe.{u + 1, u + 1, 1}
+                    (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      Complex
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) OAI.Dixmier.Amenable._proof_3
+                        OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring))
+                    (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                    (fun x => Complex)
+                    (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      Complex Complex.instSemiring Complex.instSemiring
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) OAI.Dixmier.Amenable._proof_3
+                        OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+                    m f).re)
+              (@Eq.{1} Real
+                (@DFunLike.coe.{u + 1, u + 1, 1}
+                    (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      Complex
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) OAI.Dixmier.Amenable._proof_3
+                        OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring))
+                    (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                    (fun x => Complex)
+                    (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                      (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                      Complex Complex.instSemiring Complex.instSemiring
+                      (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      Complex.instAddCommMonoid
+                      (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        inst_1
+                        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                        Complex.instSemiring Complex.instAddCommMonoid
+                        (@Semiring.toModule.{0} Complex Complex.instSemiring) OAI.Dixmier.Amenable._proof_3
+                        OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                      (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                      (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+                    m f).im
+                (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))))
+        (∀ (g : G)
+          (f :
+            @BoundedContinuousFunction.{u, 0} G Complex inst_1
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))),
+          @Eq.{1} Complex
+            (@DFunLike.coe.{u + 1, u + 1, 1}
+              (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                Complex
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring))
+              (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+              (fun x => Complex)
+              (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                Complex Complex.instSemiring Complex.instSemiring
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+              m (@OAI.Dixmier.leftTranslate.{u} G inst inst_1 inst_2 g f))
+            (@DFunLike.coe.{u + 1, u + 1, 1}
+              (@LinearMap.{0, 0, u, 0} Complex Complex Complex.instSemiring Complex.instSemiring
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring))
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                Complex
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring))
+              (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                  (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+              (fun x => Complex)
+              (@LinearMap.instFunLike.{0, 0, u, 0} Complex Complex
+                (@BoundedContinuousFunction.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+                Complex Complex.instSemiring Complex.instSemiring
+                (@BoundedContinuousFunction.instAddCommMonoid.{u, 0} G Complex inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instAddCommMonoid OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                Complex.instAddCommMonoid
+                (@BoundedContinuousFunction.instModule.{u, 0, 0} G Complex Complex
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  inst_1
+                  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+                  Complex.instSemiring Complex.instAddCommMonoid (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                  OAI.Dixmier.Amenable._proof_3 OAI.Dixmier.Amenable._proof_1 OAI.Dixmier.Amenable._proof_2)
+                (@Semiring.toModule.{0} Complex Complex.instSemiring)
+                (@RingHom.id.{0} Complex (@Semiring.toNonAssocSemiring.{0} Complex Complex.instSemiring)))
+              m f)))
+def Chal.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group.{u} G] →
+    [inst : TopologicalSpace.{u} G] →
+      [@DiscreteTopology.{u} G inst] →
+        G →
+          @BoundedContinuousFunction.{u, 0} G Complex inst
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))) →
+            @BoundedContinuousFunction.{u, 0} G Complex inst
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))) :=
+fun {G} [inst : Group.{u} G] [inst_1 : TopologicalSpace.{u} G] [inst_2 : @DiscreteTopology.{u} G inst_1] g f =>
+  @BoundedContinuousFunction.compContinuous.{u, 0, u} G Complex inst_1
+    (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+      (@SeminormedCommRing.toSeminormedRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+    G inst_1 f
+    (@ContinuousMap.mk.{u, u} G G inst_1 inst_1
+      (fun x =>
+        @HMul.hMul.{u, u, u} G G G
+          (@instHMul.{u} G
+            (@MulOne.toMul.{u} G
+              (@MulOneClass.toMulOne.{u} G
+                (@Monoid.toMulOneClass.{u} G (@DivInvMonoid.toMonoid.{u} G (@Group.toDivInvMonoid.{u} G inst))))))
+          (@Inv.inv.{u} G
+            (@InvOneClass.toInv.{u} G
+              (@DivInvOneMonoid.toInvOneClass.{u} G
+                (@DivisionMonoid.toDivInvOneMonoid.{u} G (@Group.toDivisionMonoid.{u} G inst))))
+            g)
+          x)
+      (@Chal.Dixmier.leftTranslate._proof_1.{u} G inst inst_1 inst_2 g))
+def OAI.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group.{u} G] →
+    [inst : TopologicalSpace.{u} G] →
+      [@DiscreteTopology.{u} G inst] →
+        G →
+          @BoundedContinuousFunction.{u, 0} G Complex inst
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))) →
+            @BoundedContinuousFunction.{u, 0} G Complex inst
+              (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+                (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))) :=
+fun {G} [inst : Group.{u} G] [inst_1 : TopologicalSpace.{u} G] [inst_2 : @DiscreteTopology.{u} G inst_1] g f =>
+  @BoundedContinuousFunction.compContinuous.{u, 0, u} G Complex inst_1
+    (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+      (@SeminormedCommRing.toSeminormedRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+    G inst_1 f
+    (@ContinuousMap.mk.{u, u} G G inst_1 inst_1
+      (fun x =>
+        @HMul.hMul.{u, u, u} G G G
+          (@instHMul.{u} G
+            (@MulOne.toMul.{u} G
+              (@MulOneClass.toMulOne.{u} G
+                (@Monoid.toMulOneClass.{u} G (@DivInvMonoid.toMonoid.{u} G (@Group.toDivInvMonoid.{u} G inst))))))
+          (@Inv.inv.{u} G
+            (@InvOneClass.toInv.{u} G
+              (@DivInvOneMonoid.toInvOneClass.{u} G
+                (@DivisionMonoid.toDivInvOneMonoid.{u} G (@Group.toDivisionMonoid.{u} G inst))))
+            g)
+          x)
+      (@OAI.Dixmier.leftTranslate._proof_1.{u} G inst inst_1 inst_2 g))
+theorem Chal.Dixmier.Amenable._proof_3 : @IsBoundedSMul.{0, 0} Complex Complex
+  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+  (@SeminormedAddCommGroup.toPseudoMetricSpace.{0} Complex
+    (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+      (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+        (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+  (@MulZeroClass.toZero.{0} Complex
+    (@instMulZeroClassOfSemiring.{0} Complex
+      (@CommSemiring.toSemiring.{0} Complex
+        (@Semifield.toCommSemiring.{0} Complex
+          (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField))))))
+  (@NegZeroClass.toZero.{0} Complex
+    (@SubNegZeroMonoid.toNegZeroClass.{0} Complex
+      (@SubtractionMonoid.toSubNegZeroMonoid.{0} Complex
+        (@SubtractionCommMonoid.toSubtractionMonoid.{0} Complex
+          (@AddCommGroup.toDivisionAddCommMonoid.{0} Complex
+            (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))))))
+  (@SMulZeroClass.toSMul.{0, 0} Complex Complex
+    (@AddZero.toZero.{0} Complex
+      (@AddZeroClass.toAddZero.{0} Complex
+        (@AddMonoid.toAddZeroClass.{0} Complex
+          (@SubNegMonoid.toAddMonoid.{0} Complex
+            (@AddGroup.toSubNegMonoid.{0} Complex
+              (@AddCommGroup.toAddGroup.{0} Complex
+                (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                    (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                      (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                          (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))))))))
+    (@DistribSMul.toSMulZeroClass.{0, 0} Complex Complex
+      (@AddMonoid.toAddZeroClass.{0} Complex
+        (@SubNegMonoid.toAddMonoid.{0} Complex
+          (@AddGroup.toSubNegMonoid.{0} Complex
+            (@AddCommGroup.toAddGroup.{0} Complex
+              (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                    (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))))))
+      (@DistribMulAction.toDistribSMul.{0, 0} Complex Complex
+        (@Semiring.toMonoid.{0} Complex
+          (@CommSemiring.toSemiring.{0} Complex
+            (@Semifield.toCommSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField)))))
+        (@SubNegMonoid.toAddMonoid.{0} Complex
+          (@AddGroup.toSubNegMonoid.{0} Complex
+            (@AddCommGroup.toAddGroup.{0} Complex
+              (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                    (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))))
+        (@Module.toDistribMulAction.{0, 0} Complex Complex
+          (@CommSemiring.toSemiring.{0} Complex
+            (@Semifield.toCommSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField))))
+          (@AddCommGroup.toAddCommMonoid.{0} Complex
+            (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))))
+          (@NormedSpace.toModule.{0, 0} Complex Complex Complex.instNormedField
+            (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+            (@NonUnitalCStarAlgebra.toNormedSpace.{0} Complex
+              (@NonUnitalCommCStarAlgebra.toNonUnitalCStarAlgebra.{0} Complex
+                (@CommCStarAlgebra.toNonUnitalCommCStarAlgebra.{0} Complex instCommCStarAlgebraComplex)))))))) :=
+@NormedSpace.toIsBoundedSMul.{0, 0} Complex Complex Complex.instNormedField
+  (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+    (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+      (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+  (@NonUnitalCStarAlgebra.toNormedSpace.{0} Complex
+    (@NonUnitalCommCStarAlgebra.toNonUnitalCStarAlgebra.{0} Complex
+      (@CommCStarAlgebra.toNonUnitalCommCStarAlgebra.{0} Complex instCommCStarAlgebraComplex)))
+Scratch/Dbg_DixmierAllDiscrete.lean:141:7: warning: `Chal.Dixmier.Amenable._proof_3` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+theorem OAI.Dixmier.Amenable._proof_3 : @IsBoundedSMul.{0, 0} Complex Complex
+  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+  (@SeminormedAddCommGroup.toPseudoMetricSpace.{0} Complex
+    (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+      (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+        (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+  (@MulZeroClass.toZero.{0} Complex
+    (@instMulZeroClassOfSemiring.{0} Complex
+      (@CommSemiring.toSemiring.{0} Complex
+        (@Semifield.toCommSemiring.{0} Complex
+          (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField))))))
+  (@NegZeroClass.toZero.{0} Complex
+    (@SubNegZeroMonoid.toNegZeroClass.{0} Complex
+      (@SubtractionMonoid.toSubNegZeroMonoid.{0} Complex
+        (@SubtractionCommMonoid.toSubtractionMonoid.{0} Complex
+          (@AddCommGroup.toDivisionAddCommMonoid.{0} Complex
+            (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))))))))
+  (@SMulZeroClass.toSMul.{0, 0} Complex Complex
+    (@AddZero.toZero.{0} Complex
+      (@AddZeroClass.toAddZero.{0} Complex
+        (@AddMonoid.toAddZeroClass.{0} Complex
+          (@SubNegMonoid.toAddMonoid.{0} Complex
+            (@AddGroup.toSubNegMonoid.{0} Complex
+              (@AddCommGroup.toAddGroup.{0} Complex
+                (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                    (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                      (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                          (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))))))))
+    (@DistribSMul.toSMulZeroClass.{0, 0} Complex Complex
+      (@AddMonoid.toAddZeroClass.{0} Complex
+        (@SubNegMonoid.toAddMonoid.{0} Complex
+          (@AddGroup.toSubNegMonoid.{0} Complex
+            (@AddCommGroup.toAddGroup.{0} Complex
+              (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                    (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))))))
+      (@DistribMulAction.toDistribSMul.{0, 0} Complex Complex
+        (@Semiring.toMonoid.{0} Complex
+          (@CommSemiring.toSemiring.{0} Complex
+            (@Semifield.toCommSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField)))))
+        (@SubNegMonoid.toAddMonoid.{0} Complex
+          (@AddGroup.toSubNegMonoid.{0} Complex
+            (@AddCommGroup.toAddGroup.{0} Complex
+              (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                  (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                    (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))))))
+        (@Module.toDistribMulAction.{0, 0} Complex Complex
+          (@CommSemiring.toSemiring.{0} Complex
+            (@Semifield.toCommSemiring.{0} Complex
+              (@Field.toSemifield.{0} Complex (@NormedField.toField.{0} Complex Complex.instNormedField))))
+          (@AddCommGroup.toAddCommMonoid.{0} Complex
+            (@SeminormedAddCommGroup.toAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))))
+          (@NormedSpace.toModule.{0, 0} Complex Complex Complex.instNormedField
+            (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+              (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                  (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                    (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+            (@InnerProductSpace.toNormedSpace.{0, 0} Complex Complex Complex.instRCLike
+              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+                    (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                      (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+              (@RCLike.innerProductSpace.{0} Complex Complex.instRCLike))))))) :=
+@NormedSpace.toIsBoundedSMul.{0, 0} Complex Complex Complex.instNormedField
+  (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+    (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+      (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+  (@InnerProductSpace.toNormedSpace.{0, 0} Complex Complex Complex.instRCLike
+    (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+      (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+        (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+    (@RCLike.innerProductSpace.{0} Complex Complex.instRCLike))
+Scratch/Dbg_DixmierAllDiscrete.lean:142:7: warning: `OAI.Dixmier.Amenable._proof_3` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+theorem Chal.Dixmier.Amenable._proof_2 : @ContinuousAdd.{0} Complex
+  (@UniformSpace.toTopologicalSpace.{0} Complex
+    (@PseudoMetricSpace.toUniformSpace.{0} Complex
+      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+  (@Distrib.toAdd.{0} Complex
+    (@NonUnitalNonAssocSemiring.toDistrib.{0} Complex
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))))) :=
+@IsSemitopologicalSemiring.toContinuousAdd.{0} Complex
+  (@UniformSpace.toTopologicalSpace.{0} Complex
+    (@PseudoMetricSpace.toUniformSpace.{0} Complex
+      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+  (@IsSemitopologicalRing.toIsSemitopologicalSemiring.{0} Complex
+    (@UniformSpace.toTopologicalSpace.{0} Complex
+      (@PseudoMetricSpace.toUniformSpace.{0} Complex
+        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+              (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))
+    (@IsTopologicalRing.toIsSemitopologicalRing.{0} Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))
+      (@IsTopologicalDivisionRing.toIsTopologicalRing.{0} Complex (@Field.toDivisionRing.{0} Complex Complex.instField)
+        (@UniformSpace.toTopologicalSpace.{0} Complex
+          (@PseudoMetricSpace.toUniformSpace.{0} Complex
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+        (@NormedDivisionRing.to_isTopologicalDivisionRing.{0} Complex
+          (@NormedField.toNormedDivisionRing.{0} Complex Complex.instNormedField)))))
+Scratch/Dbg_DixmierAllDiscrete.lean:143:7: warning: `Chal.Dixmier.Amenable._proof_2` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+theorem OAI.Dixmier.Amenable._proof_2 : @ContinuousAdd.{0} Complex
+  (@UniformSpace.toTopologicalSpace.{0} Complex
+    (@PseudoMetricSpace.toUniformSpace.{0} Complex
+      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+  (@Distrib.toAdd.{0} Complex
+    (@NonUnitalNonAssocSemiring.toDistrib.{0} Complex
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))))) :=
+@IsSemitopologicalSemiring.toContinuousAdd.{0} Complex
+  (@UniformSpace.toTopologicalSpace.{0} Complex
+    (@PseudoMetricSpace.toUniformSpace.{0} Complex
+      (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+        (@SeminormedCommRing.toSeminormedRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+  (@IsSemitopologicalRing.toIsSemitopologicalSemiring.{0} Complex
+    (@UniformSpace.toTopologicalSpace.{0} Complex
+      (@PseudoMetricSpace.toUniformSpace.{0} Complex
+        (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+          (@SeminormedCommRing.toSeminormedRing.{0} Complex
+            (@NormedCommRing.toSeminormedCommRing.{0} Complex
+              (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))
+    (@IsTopologicalRing.toIsSemitopologicalRing.{0} Complex
+      (@UniformSpace.toTopologicalSpace.{0} Complex
+        (@PseudoMetricSpace.toUniformSpace.{0} Complex
+          (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+            (@SeminormedCommRing.toSeminormedRing.{0} Complex
+              (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+      (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+        (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing))
+      (@IsTopologicalDivisionRing.toIsTopologicalRing.{0} Complex (@Field.toDivisionRing.{0} Complex Complex.instField)
+        (@UniformSpace.toTopologicalSpace.{0} Complex
+          (@PseudoMetricSpace.toUniformSpace.{0} Complex
+            (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+              (@SeminormedCommRing.toSeminormedRing.{0} Complex
+                (@NormedCommRing.toSeminormedCommRing.{0} Complex
+                  (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+        (@NormedDivisionRing.to_isTopologicalDivisionRing.{0} Complex
+          (@NormedField.toNormedDivisionRing.{0} Complex Complex.instNormedField)))))
+Scratch/Dbg_DixmierAllDiscrete.lean:144:7: warning: `OAI.Dixmier.Amenable._proof_2` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+theorem Chal.Dixmier.Amenable._proof_1 : @BoundedAdd.{0} Complex
+  (@PseudoMetricSpace.toBornology.{0} Complex
+    (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+      (@SeminormedCommRing.toSeminormedRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex)))))
+  (@AddZero.toAdd.{0} Complex
+    (@AddZeroClass.toAddZero.{0} Complex
+      (@AddMonoid.toAddZeroClass.{0} Complex
+        (@AddMonoidWithOne.toAddMonoid.{0} Complex
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} Complex Complex.addGroupWithOne))))) :=
+@instBoundedAddOfLipschitzAdd.{0} Complex
+  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+        (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))
+  (@AddMonoidWithOne.toAddMonoid.{0} Complex (@AddGroupWithOne.toAddMonoidWithOne.{0} Complex Complex.addGroupWithOne))
+  (@SeminormedAddCommGroup.to_lipschitzAdd.{0} Complex
+    (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+      (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+        (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@CommCStarAlgebra.toNormedCommRing.{0} Complex instCommCStarAlgebraComplex))))))
+Scratch/Dbg_DixmierAllDiscrete.lean:145:7: warning: `Chal.Dixmier.Amenable._proof_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
+theorem OAI.Dixmier.Amenable._proof_1 : @BoundedAdd.{0} Complex
+  (@PseudoMetricSpace.toBornology.{0} Complex
+    (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+      (@SeminormedCommRing.toSeminormedRing.{0} Complex
+        (@NormedCommRing.toSeminormedCommRing.{0} Complex
+          (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField)))))
+  (@AddZero.toAdd.{0} Complex
+    (@AddZeroClass.toAddZero.{0} Complex
+      (@AddMonoid.toAddZeroClass.{0} Complex
+        (@AddMonoidWithOne.toAddMonoid.{0} Complex
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} Complex Complex.addGroupWithOne))))) :=
+@instBoundedAddOfLipschitzAdd.{0} Complex
+  (@SeminormedRing.toPseudoMetricSpace.{0} Complex
+    (@SeminormedCommRing.toSeminormedRing.{0} Complex
+      (@NormedCommRing.toSeminormedCommRing.{0} Complex
+        (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))
+  (@AddMonoidWithOne.toAddMonoid.{0} Complex (@AddGroupWithOne.toAddMonoidWithOne.{0} Complex Complex.addGroupWithOne))
+  (@SeminormedAddCommGroup.to_lipschitzAdd.{0} Complex
+    (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Complex
+      (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Complex
+        (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Complex
+          (@NormedCommRing.toSeminormedCommRing.{0} Complex
+            (@NormedField.toNormedCommRing.{0} Complex Complex.instNormedField))))))
+Scratch/Dbg_DixmierAllDiscrete.lean:146:7: warning: `OAI.Dixmier.Amenable._proof_1` refers to an auto-generated auxiliary declaration. These are not stable across refactors; consider using a different approach.
+
+Note: This linter can be disabled with `set_option linter.auxLemma false`
