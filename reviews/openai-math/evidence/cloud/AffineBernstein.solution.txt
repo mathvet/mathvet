@@ -1,0 +1,68 @@
+OAI.AffineBernstein.affine_bernstein : ∀ (n : ℕ),
+  3 ≤ n →
+    n ≤ 9 →
+      ∀ (Ω : Set (OAI.AffineBernstein.Space n)),
+        Ω.Nonempty →
+          IsOpen Ω →
+            Convex ℝ Ω →
+              ∀ (u : OAI.AffineBernstein.Space n → ℝ),
+                ContDiffOn ℝ (↑⊤) u Ω →
+                  (∀ x ∈ Ω, (OAI.AffineBernstein.hessian u x).PosDef) →
+                    OAI.AffineBernstein.AffineMaximalOn Ω u →
+                      OAI.AffineBernstein.EuclideanGraphComplete Ω u →
+                        Ω = Set.univ ∧
+                          (∃ A b c,
+                              A.IsSymm ∧
+                                A.PosDef ∧
+                                  ∀ (x : OAI.AffineBernstein.Space n),
+                                    u x =
+                                      1 / 2 * ∑ i, ∑ j, x.ofLp i * A i j * x.ofLp j + ∑ i, b.ofLp i * x.ofLp i + c) ∧
+                            ∃ e, ⇑e '' OAI.AffineBernstein.standardParaboloid n = OAI.AffineBernstein.graph Ω u
+'OAI.AffineBernstein.affine_bernstein' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.AffineBernstein.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def OAI.AffineBernstein.coordinateVector : (n : ℕ) → Fin n → OAI.AffineBernstein.Space n :=
+fun n i => EuclideanSpace.single i 1
+def OAI.AffineBernstein.hessian : {n : ℕ} →
+  (OAI.AffineBernstein.Space n → ℝ) → OAI.AffineBernstein.Space n → Matrix (Fin n) (Fin n) ℝ :=
+fun {n} u x i j =>
+  (fderiv ℝ (fun y => (fderiv ℝ u y) (OAI.AffineBernstein.coordinateVector n j)) x)
+    (OAI.AffineBernstein.coordinateVector n i)
+def OAI.AffineBernstein.cofactorHessian : {n : ℕ} →
+  (OAI.AffineBernstein.Space n → ℝ) → OAI.AffineBernstein.Space n → Matrix (Fin n) (Fin n) ℝ :=
+fun {n} u x => (OAI.AffineBernstein.hessian u x).det • (OAI.AffineBernstein.hessian u x)⁻¹
+def OAI.AffineBernstein.affineWeight : {n : ℕ} → (OAI.AffineBernstein.Space n → ℝ) → OAI.AffineBernstein.Space n → ℝ :=
+fun {n} u x => (OAI.AffineBernstein.hessian u x).det.rpow (-((↑n + 1) / (↑n + 2)))
+def OAI.AffineBernstein.AffineMaximalOn : {n : ℕ} →
+  Set (OAI.AffineBernstein.Space n) → (OAI.AffineBernstein.Space n → ℝ) → Prop :=
+fun {n} Ω u =>
+  ∀ x ∈ Ω,
+    ∑ i,
+        ∑ j,
+          OAI.AffineBernstein.cofactorHessian u x i j *
+            OAI.AffineBernstein.hessian (OAI.AffineBernstein.affineWeight u) x i j =
+      0
+def OAI.AffineBernstein.graphPathLength : {n : ℕ} →
+  (OAI.AffineBernstein.Space n → ℝ) → (ℝ → OAI.AffineBernstein.Space n) → ENNReal :=
+fun {n} u γ =>
+  ∫⁻ (t : ℝ) in Set.Icc 0 1,
+    ENNReal.ofReal √(‖derivWithin γ (Set.Icc 0 1) t‖ ^ 2 + (fderiv ℝ u (γ t)) (derivWithin γ (Set.Icc 0 1) t) ^ 2)
+def OAI.AffineBernstein.graphEDist : {n : ℕ} →
+  Set (OAI.AffineBernstein.Space n) →
+    (OAI.AffineBernstein.Space n → ℝ) → OAI.AffineBernstein.Space n → OAI.AffineBernstein.Space n → ENNReal :=
+fun {n} Ω u x y =>
+  ⨅ γ,
+    ⨅ (_ : ContDiffOn ℝ 1 γ (Set.Icc 0 1)),
+      ⨅ (_ : Set.MapsTo γ (Set.Icc 0 1) Ω), ⨅ (_ : γ 0 = x), ⨅ (_ : γ 1 = y), OAI.AffineBernstein.graphPathLength u γ
+def OAI.AffineBernstein.EuclideanGraphComplete : {n : ℕ} →
+  Set (OAI.AffineBernstein.Space n) → (OAI.AffineBernstein.Space n → ℝ) → Prop :=
+fun {n} Ω u =>
+  ∀ (x : ℕ → OAI.AffineBernstein.Space n),
+    (∀ (i : ℕ), x i ∈ Ω) →
+      (∀ (ε : ℝ), 0 < ε → ∃ N, ∀ i ≥ N, ∀ j ≥ N, OAI.AffineBernstein.graphEDist Ω u (x i) (x j) < ENNReal.ofReal ε) →
+        ∃ a ∈ Ω, ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ i ≥ N, OAI.AffineBernstein.graphEDist Ω u (x i) a < ENNReal.ofReal ε
+def OAI.AffineBernstein.graph : {n : ℕ} →
+  Set (OAI.AffineBernstein.Space n) → (OAI.AffineBernstein.Space n → ℝ) → Set (OAI.AffineBernstein.Space n × ℝ) :=
+fun {n} Ω u => {p | p.1 ∈ Ω ∧ p.2 = u p.1}
+def OAI.AffineBernstein.standardParaboloid : (n : ℕ) → Set (OAI.AffineBernstein.Space n × ℝ) :=
+fun n => {p | p.2 = ∑ i, p.1.ofLp i ^ 2}
