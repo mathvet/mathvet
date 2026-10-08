@@ -18,6 +18,11 @@ Notes on individual logs:
   declaration scanner produced an invalid `#print` line (a name captured with a trailing dot; a `def _root_.…` declared
   inside a namespace). The closure comparison itself (16 and 25 constants, 0 problems) and Comparator are clean; the
   scanner is fixed (2026-10-08).
+- `MatroidProphet.cmp.txt` reports `errors=2` and `SHADOW-DIFF` for the same scanner reason (two `#print` lines with a
+  trailing dot); the closure comparison (22 constants, 0 problems) and Comparator are clean. `BalancedThreeStack.cmp.txt`
+  reports `errors=5` because the session ran the checker version that counted every line containing the word `error`,
+  and the challenge defines a constant named `BalancedTransport.error`; there is no Lean error in the file (82 constants,
+  0 problems; Comparator accepted). Both files are being refreshed with the current checker.
 - `DixmierAllDiscrete.cmp.txt` and `ForestSpace.cmp.txt` report type mismatches on definitions and their auxiliary
   proofs; Comparator accepted both. `*.mismatch-debug.txt` files (when present) show both elaborations side by side.
 - Diagnostics (`*.mismatch-debug.txt`, 2026-10-08): for DixmierAllDiscrete the only difference between the two elaborations is
