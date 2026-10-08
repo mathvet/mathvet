@@ -1,0 +1,249 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LogKodairaFiberNegative.lean:233:8: warning: declaration uses `sorry`
+@OAI.ReverseLogKodaira.SmoothProjectiveVariety.veryGenerally_fiber_negative_branch : ∀
+  {X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety} {E : X.ReducedSNCBoundary} {D : Y.ReducedSNCBoundary}
+  (f : X.StratumSmoothFibration Y E D),
+  Y.VeryGenerally fun y =>
+    y.point ∈ D.complement ∧
+      ∀ (F : OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel f.toBoundaryFibration y),
+        F.boundary.kodaira = ⊥ →
+          E.kodaira = D.kodaira + F.boundary.kodaira ∧ ∀ (m : ℕ), 0 < m → ∀ s ∈ E.sections m, s = 0
+@[reducible] def OAI.ReverseLogKodaira.complexBase : AlgebraicGeometry.Scheme :=
+AlgebraicGeometry.Spec ↧ℂ
+@[reducible] def OAI.ReverseLogKodaira.projectiveGrading : (N : ℕ) → ℕ → Submodule ℂ (MvPolynomial (Fin (N + 1)) ℂ) :=
+fun N => MvPolynomial.homogeneousSubmodule (Fin (N + 1)) ℂ
+@[reducible] def OAI.ReverseLogKodaira.complexProjectiveSpace : ℕ → AlgebraicGeometry.Scheme :=
+fun N => AlgebraicGeometry.Proj (OAI.ReverseLogKodaira.projectiveGrading N)
+def OAI.ReverseLogKodaira.projectiveConstants : (N : ℕ) → ℂ →+* ↥(OAI.ReverseLogKodaira.projectiveGrading N 0) :=
+fun N => { toFun := fun r => ⟨MvPolynomial.C r, ⋯⟩, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯ }
+def OAI.ReverseLogKodaira.complexProjectiveStructure : (N : ℕ) →
+  OAI.ReverseLogKodaira.complexProjectiveSpace N ⟶ OAI.ReverseLogKodaira.complexBase :=
+fun N =>
+  CategoryTheory.CategoryStruct.comp (AlgebraicGeometry.Proj.toSpecZero (OAI.ReverseLogKodaira.projectiveGrading N))
+    (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (OAI.ReverseLogKodaira.projectiveConstants N)))
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety : Type 1
+number of parameters: 0
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.scheme : AlgebraicGeometry.Scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.structural : self.scheme ⟶ OAI.ReverseLogKodaira.complexBase
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.dimension : ℕ
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.integral : AlgebraicGeometry.IsIntegral self.scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.smooth : AlgebraicGeometry.SmoothOfRelativeDimension self.dimension
+      self.structural
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.projective : ∃ N i,
+      AlgebraicGeometry.IsClosedImmersion i ∧
+        CategoryTheory.CategoryStruct.comp i (OAI.ReverseLogKodaira.complexProjectiveStructure N) = self.structural
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.mk (scheme : AlgebraicGeometry.Scheme)
+    (structural : scheme ⟶ OAI.ReverseLogKodaira.complexBase) (dimension : ℕ)
+    (integral : AlgebraicGeometry.IsIntegral scheme)
+    (smooth : AlgebraicGeometry.SmoothOfRelativeDimension dimension structural)
+    (projective :
+      ∃ N i,
+        AlgebraicGeometry.IsClosedImmersion i ∧
+          CategoryTheory.CategoryStruct.comp i (OAI.ReverseLogKodaira.complexProjectiveStructure N) = structural) :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.globalConstants : (X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  ℂ →+* ↑(X.scheme.presheaf.obj (Opposite.op ⊤)) :=
+fun X =>
+  (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.Hom.appTop X.structural)).comp
+    (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.ΓSpecIso ↧ℂ).inv)
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.constants : (X : OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  (U : X.scheme.Opens) → ℂ →+* ↑(X.scheme.presheaf.obj (Opposite.op U)) :=
+fun X U => (CommRingCat.Hom.hom (X.scheme.presheaf.map (CategoryTheory.homOfLE ⋯).op)).comp X.globalConstants
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.functionFieldConstants : (X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  ℂ →+* ↑X.scheme.functionField :=
+fun X => (CommRingCat.Hom.hom (X.scheme.germToFunctionField ⊤)).comp X.globalConstants
+@[reducible] def OAI.ReverseLogKodaira.SmoothProjectiveVariety.RationalCanonical : (X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  Submodule (↑X.scheme.functionField) (ExteriorAlgebra ↑X.scheme.functionField Ω[↑X.scheme.functionField⁄ℂ]) :=
+fun X => ⋀[↑X.scheme.functionField]^X.dimension Ω[↑X.scheme.functionField⁄ℂ]
+@[reducible] def OAI.ReverseLogKodaira.SmoothProjectiveVariety.RationalPluriform : OAI.ReverseLogKodaira.SmoothProjectiveVariety →
+  ℕ → Type :=
+fun X m => TensorPower (↑X.scheme.functionField) m ↥X.RationalCanonical
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.regularPluriformLattice : (X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  (U : ↑X.scheme.affineOpens) →
+    [inst : Nonempty ↥↑↑U] → (m : ℕ) → Submodule (↑(X.scheme.presheaf.obj (Opposite.op ↑U))) (X.RationalPluriform m) :=
+fun X U [Nonempty ↥↑↑U] m =>
+  Submodule.span (↑(X.scheme.presheaf.obj (Opposite.op ↑U)))
+    (Set.range fun a =>
+      (PiTensorProduct.tprod ↑X.scheme.functionField) fun j =>
+        (exteriorPower.ιMulti (↑X.scheme.functionField) X.dimension) fun i =>
+          (KaehlerDifferential.D ℂ ↑X.scheme.functionField)
+            ((algebraMap ↑(X.scheme.presheaf.obj (Opposite.op ↑U)) ↑X.scheme.functionField) (a j i)))
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.IsCartierIdeal : (X : OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  X.scheme.IdealSheafData → Prop :=
+fun X I => ∀ (x : ↥X.scheme), ∃ U, x ∈ ↑U ∧ ∃ t, t ≠ 0 ∧ I.ideal U = Ideal.span {t}
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary
+  (X : OAI.ReverseLogKodaira.SmoothProjectiveVariety) : Type
+number of parameters: 1
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.count : ℕ
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.components : Fin self.count → X.scheme.IdealSheafData
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.cartier : ∀ (i : Fin self.count),
+      X.IsCartierIdeal (self.components i)
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.transverse : ∀ (S : Finset (Fin self.count)),
+      S.Nonempty →
+        IsEmpty ↥(S.sup self.components).subscheme ∨
+          S.card ≤ X.dimension ∧
+            AlgebraicGeometry.SmoothOfRelativeDimension (X.dimension - S.card)
+              (CategoryTheory.CategoryStruct.comp (S.sup self.components).subschemeι X.structural)
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.union_cartier : X.IsCartierIdeal
+      (∏ i, self.components i)
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.mk
+    {X : OAI.ReverseLogKodaira.SmoothProjectiveVariety} (count : ℕ) (components : Fin count → X.scheme.IdealSheafData)
+    (cartier : ∀ (i : Fin count), X.IsCartierIdeal (components i))
+    (transverse :
+      ∀ (S : Finset (Fin count)),
+        S.Nonempty →
+          IsEmpty ↥(S.sup components).subscheme ∨
+            S.card ≤ X.dimension ∧
+              AlgebraicGeometry.SmoothOfRelativeDimension (X.dimension - S.card)
+                (CategoryTheory.CategoryStruct.comp (S.sup components).subschemeι X.structural))
+    (union_cartier : X.IsCartierIdeal (∏ i, components i)) : X.ReducedSNCBoundary
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.ideal : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → X.scheme.IdealSheafData :=
+fun {X} E => ∏ i, E.components i
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.support : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → Set ↥X.scheme :=
+fun {X} E => ↑E.ideal.support
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.IsLogPluriform : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → (m : ℕ) → X.RationalPluriform m → Prop :=
+fun {X} E m s =>
+  ∀ (U : ↑X.scheme.affineOpens) (x : Nonempty ↥↑↑U) (t : ↑(X.scheme.presheaf.obj (Opposite.op ↑U))),
+    t ≠ 0 →
+      E.ideal.ideal U = Ideal.span {t} →
+        (algebraMap ↑(X.scheme.presheaf.obj (Opposite.op ↑U)) ↑X.scheme.functionField) t ^ m • s ∈
+          X.regularPluriformLattice U m
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.sections : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → (m : ℕ) → Submodule ℂ (X.RationalPluriform m) :=
+fun {X} E m => { carrier := E.IsLogPluriform m, add_mem' := ⋯, zero_mem' := ⋯, smul_mem' := ⋯ }
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.HasImageDimensionAtLeast : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → ℕ → Prop :=
+fun {X} E k =>
+  ∃ m, 0 < m ∧ ∃ s ∈ E.sections m, s ≠ 0 ∧ ∃ r, AlgebraicIndependent ℂ r ∧ ∀ (i : Fin k), r i • s ∈ E.sections m
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.kodaira : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → WithBot ℕ∞ :=
+fun {X} E => ⨆ k, ⨆ (_ : E.HasImageDimensionAtLeast k), ↑↑k
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety.ComplexPoint
+  (X : OAI.ReverseLogKodaira.SmoothProjectiveVariety) : Type
+number of parameters: 1
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ComplexPoint.hom : OAI.ReverseLogKodaira.complexBase ⟶ X.scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ComplexPoint.over_base : CategoryTheory.CategoryStruct.comp self.hom
+        X.structural =
+      CategoryTheory.CategoryStruct.id OAI.ReverseLogKodaira.complexBase
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.ComplexPoint.mk {X : OAI.ReverseLogKodaira.SmoothProjectiveVariety}
+    (hom : OAI.ReverseLogKodaira.complexBase ⟶ X.scheme)
+    (over_base :
+      CategoryTheory.CategoryStruct.comp hom X.structural =
+        CategoryTheory.CategoryStruct.id OAI.ReverseLogKodaira.complexBase) :
+    X.ComplexPoint
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.complexBasePoint : ↥OAI.ReverseLogKodaira.complexBase :=
+{ asIdeal := ⊥, isPrime := OAI.ReverseLogKodaira.SmoothProjectiveVariety.complexBasePoint._proof_1 }
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ComplexPoint.point : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ComplexPoint → ↥X.scheme :=
+fun {X} y => y.hom OAI.ReverseLogKodaira.SmoothProjectiveVariety.complexBasePoint
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.ReducedSNCBoundary.complement : {X :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety} →
+  X.ReducedSNCBoundary → X.scheme.Opens :=
+fun {X} E => E.ideal.support.compl
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration
+  (X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety) (E : X.ReducedSNCBoundary) (D : Y.ReducedSNCBoundary) : Type
+number of parameters: 4
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.hom : X.scheme ⟶ Y.scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.over_base : CategoryTheory.CategoryStruct.comp
+        self.hom Y.structural =
+      X.structural
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.surjective : AlgebraicGeometry.Surjective self.hom
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.connected : ∀ (y : Y.ComplexPoint),
+      ConnectedSpace ↥(CategoryTheory.Limits.pullback self.hom y.hom)
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.support : ⇑self.hom ⁻¹' D.support ⊆ E.support
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.mk
+    {X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety} {E : X.ReducedSNCBoundary} {D : Y.ReducedSNCBoundary}
+    (hom : X.scheme ⟶ Y.scheme) (over_base : CategoryTheory.CategoryStruct.comp hom Y.structural = X.structural)
+    (surjective : AlgebraicGeometry.Surjective hom)
+    (connected : ∀ (y : Y.ComplexPoint), ConnectedSpace ↥(CategoryTheory.Limits.pullback hom y.hom))
+    (support : ⇑hom ⁻¹' D.support ⊆ E.support) : X.BoundaryFibration Y E D
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration
+  (X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety) (E : X.ReducedSNCBoundary) (D : Y.ReducedSNCBoundary) : Type
+number of parameters: 4
+parents:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration.toBoundaryFibration : X.BoundaryFibration Y E D
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.hom : X.scheme ⟶ Y.scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.over_base : CategoryTheory.CategoryStruct.comp
+        self.hom Y.structural =
+      X.structural
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.surjective : AlgebraicGeometry.Surjective self.hom
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.connected : ∀ (y : Y.ComplexPoint),
+      ConnectedSpace ↥(CategoryTheory.Limits.pullback self.hom y.hom)
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration.support : ⇑self.hom ⁻¹' D.support ⊆ E.support
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration.smooth : AlgebraicGeometry.Smooth
+      (AlgebraicGeometry.Scheme.Hom.resLE self.hom D.complement
+        ((TopologicalSpace.Opens.map self.hom.base).obj D.complement) ⋯)
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration.strata : ∀ (S : Finset (Fin E.count)),
+      S.Nonempty →
+        AlgebraicGeometry.Smooth
+          (AlgebraicGeometry.Scheme.Hom.resLE
+            (CategoryTheory.CategoryStruct.comp (S.sup E.components).subschemeι self.hom) D.complement
+            ((TopologicalSpace.Opens.map
+                  (CategoryTheory.CategoryStruct.comp (S.sup E.components).subschemeι self.hom).base).obj
+              D.complement)
+            ⋯)
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration.mk
+    {X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety} {E : X.ReducedSNCBoundary} {D : Y.ReducedSNCBoundary}
+    (toBoundaryFibration : X.BoundaryFibration Y E D)
+    (smooth :
+      AlgebraicGeometry.Smooth
+        (AlgebraicGeometry.Scheme.Hom.resLE toBoundaryFibration.hom D.complement
+          ((TopologicalSpace.Opens.map toBoundaryFibration.hom.base).obj D.complement) ⋯))
+    (strata :
+      ∀ (S : Finset (Fin E.count)),
+        S.Nonempty →
+          AlgebraicGeometry.Smooth
+            (AlgebraicGeometry.Scheme.Hom.resLE
+              (CategoryTheory.CategoryStruct.comp (S.sup E.components).subschemeι toBoundaryFibration.hom) D.complement
+              ((TopologicalSpace.Opens.map
+                    (CategoryTheory.CategoryStruct.comp (S.sup E.components).subschemeι
+                        toBoundaryFibration.hom).base).obj
+                D.complement)
+              ⋯)) :
+    X.StratumSmoothFibration Y E D
+field notation resolution order:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.StratumSmoothFibration, OAI.ReverseLogKodaira.SmoothProjectiveVariety.BoundaryFibration
+structure OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel {X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety}
+  {E : X.ReducedSNCBoundary} {D : Y.ReducedSNCBoundary} (f : X.BoundaryFibration Y E D) (y : Y.ComplexPoint) : Type 1
+number of parameters: 6
+fields:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.variety : OAI.ReverseLogKodaira.SmoothProjectiveVariety
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.inclusion : self.variety.scheme ⟶ X.scheme
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.square : CategoryTheory.IsPullback self.inclusion
+      self.variety.structural f.hom y.hom
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.boundary : self.variety.ReducedSNCBoundary
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.boundary_pullback : self.boundary.ideal =
+      E.ideal.comap self.inclusion
+constructor:
+  OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel.mk {X Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety}
+    {E : X.ReducedSNCBoundary} {D : Y.ReducedSNCBoundary} {f : X.BoundaryFibration Y E D} {y : Y.ComplexPoint}
+    (variety : OAI.ReverseLogKodaira.SmoothProjectiveVariety) (inclusion : variety.scheme ⟶ X.scheme)
+    (square : CategoryTheory.IsPullback inclusion variety.structural f.hom y.hom)
+    (boundary : variety.ReducedSNCBoundary) (boundary_pullback : boundary.ideal = E.ideal.comap inclusion) :
+    OAI.ReverseLogKodaira.SmoothProjectiveVariety.FiberModel f y
+def OAI.ReverseLogKodaira.SmoothProjectiveVariety.VeryGenerally : (Y : OAI.ReverseLogKodaira.SmoothProjectiveVariety) →
+  (Y.ComplexPoint → Prop) → Prop :=
+fun Y P => ∃ Z, (∀ (n : ℕ), Z n ≠ ⊤) ∧ ∀ (y : Y.ComplexPoint), (∀ (n : ℕ), y.point ∉ Z n) → P y
