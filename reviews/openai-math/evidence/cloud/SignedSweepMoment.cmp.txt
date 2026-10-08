@@ -1,0 +1,232 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SignedSweepMoment.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SignedSweeps.signed_occurrence_moment_bound [thm] ok
+CMP OAI.SignedSweeps.remainderBudget [def] ok
+CMP OAI.SignedSweeps.coefficient [def] ok
+CMP OAI.SignedSweeps.regularIsometry._proof_1 [thm] ok
+CMP OAI.SignedSweeps.signedEntropy [def] ok
+CMP OAI.SignedSweeps.Partition [def] ok
+CMP OAI.SignedSweeps.weightedMoment [def] ok
+CMP OAI.SignedSweeps.sweepSquare [def] ok
+CMP OAI.SignedSweeps.sweepOperator [def] ok
+CMP OAI.SignedSweeps.layerOperator [def] ok
+CMP OAI.SignedSweeps.spechtRepresentation [def] ok
+CMP OAI.SignedSweeps.spechtSubrepresentation [def] ok
+CMP OAI.SignedSweeps.spechtSubrepresentation._proof_1 [thm] ok
+CMP OAI.SignedSweeps.polytabloid [def] ok
+CMP OAI.SignedSweeps.rowSubgroup [def] ok
+CMP OAI.SignedSweeps.Partition.rowOf [def] ok
+CMP OAI.SignedSweeps.Partition.tableau [def] ok
+CMP OAI.SignedSweeps.Partition.tableau._proof_1 [thm] ok
+CMP OAI.SignedSweeps.fiberSubgroup [def] ok
+CMP OAI.SignedSweeps.fiberSubgroup._proof_3 [thm] ok
+CMP OAI.SignedSweeps.fiberSubgroup._proof_2 [thm] ok
+CMP OAI.SignedSweeps.fiberSubgroup._proof_1 [thm] ok
+CMP OAI.SignedSweeps.SymmetricGroup [def] ok
+CMP OAI.SignedSweeps.RegularSpace [def] ok
+CMP OAI.SignedSweeps.colSubgroup [def] ok
+CMP OAI.SignedSweeps.Partition.colOf [def] ok
+CMP OAI.SignedSweeps.regularRepresentation [def] ok
+CMP OAI.SignedSweeps.regularRepresentation._proof_2 [thm] ok
+CMP OAI.SignedSweeps.regularIsometry [def] ok
+CMP OAI.SignedSweeps.regularRepresentation._proof_1 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace [def] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_15 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_9 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_8 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_6 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_50 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_25 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_24 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_23 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_14 [def] ok
+CMP OAI.SignedSweeps.Specht [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_18 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_22 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_13 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_5 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_10 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_12 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_3 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_9 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_8 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_7 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_21 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_20 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_16 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_1 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_49 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_48 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_26 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_47 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_45 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_44 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_43 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_39 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_38 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_34 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_37 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_36 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_42 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_41 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_33 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._aux_31 [def] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_30 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_29 [thm] ok
+CMP OAI.SignedSweeps.spechtNormedAddCommGroup._proof_28 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_4 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_3 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._aux_1 [def] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_5 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_7 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._aux_10 [def] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_14 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_13 [thm] ok
+CMP OAI.SignedSweeps.spechtInnerProductSpace._proof_12 [thm] ok
+CMP OAI.SignedSweeps.coordinateSubgroup [def] ok
+CMP OAI.SignedSweeps.positionsEquiv [def] ok
+CMP OAI.SignedSweeps.positionsEquiv._proof_1 [thm] ok
+CMP OAI.SignedSweeps.BinaryPositions [def] ok
+CMP OAI.SignedSweeps.layerOperator._proof_1 [thm] ok
+CMP OAI.SignedSweeps.sweepSquare._proof_1 [thm] ok
+CMP OAI.SignedSweeps.positiveSquare [def] ok
+CMP OAI.SignedSweeps.positiveSquare._proof_2 [thm] ok
+CMP OAI.SignedSweeps.positiveSquare._proof_1 [thm] ok
+CMP OAI.SignedSweeps.weightedMoment._proof_1 [thm] ok
+CMP OAI.SignedSweeps.spechtDimension [def] ok
+CMP OAI.SignedSweeps.logMoment [def] ok
+CMP OAI.SignedSweeps.SignedOccurrence [def] ok
+CMP OAI.SignedSweeps.blockEmbedding [def] ok
+CMP OAI.SignedSweeps.Partition.transpose [def] ok
+CMP OAI.SignedSweeps.Partition.transpose._proof_1 [thm] ok
+Chal.SignedSweeps.signed_occurrence_moment_bound : ∃ η₀,
+  0 < η₀ ∧
+    ∀ (η : ℝ),
+      0 < η →
+        η < η₀ →
+          ∃ κ₀,
+            0 < κ₀ ∧
+              κ₀ < η / 256 ∧
+                ∀ (κ : ℝ),
+                  0 < κ →
+                    κ < κ₀ →
+                      ∃ r,
+                        1 ≤ r ∧
+                          ∀ (d : ℕ),
+                            1 ≤ d →
+                              ∀ (lam : Chal.SignedSweeps.Partition (2 ^ d)) (u v l : ℕ) (h : u + v + l = 2 ^ d)
+                                (α : Chal.SignedSweeps.Partition u) (β : Chal.SignedSweeps.Partition v)
+                                (γ : Chal.SignedSweeps.Partition l),
+                                Chal.SignedSweeps.SignedOccurrence h α β γ lam →
+                                  Chal.SignedSweeps.logMoment (Chal.SignedSweeps.weightedMoment lam r) ≤
+                                    ↑(Chal.SignedSweeps.coefficient η d * Chal.SignedSweeps.signedEntropy α β +
+                                        Chal.SignedSweeps.remainderBudget κ d l)
+@[reducible] def Chal.SignedSweeps.Partition : ℕ → Type :=
+fun n => { lam // lam.card = n }
+@[reducible] def Chal.SignedSweeps.SymmetricGroup : ℕ → Type :=
+fun n => Equiv.Perm (Fin n)
+def Chal.SignedSweeps.Partition.transpose : {n : ℕ} → Chal.SignedSweeps.Partition n → Chal.SignedSweeps.Partition n :=
+fun {n} lam => ⟨(↑lam).transpose, ⋯⟩
+def Chal.SignedSweeps.Partition.tableau : {n : ℕ} → (lam : Chal.SignedSweeps.Partition n) → ↥(↑lam).cells ≃ Fin n :=
+fun {n} lam => Fintype.equivFinOfCardEq ⋯
+def Chal.SignedSweeps.Partition.rowOf : {n : ℕ} → Chal.SignedSweeps.Partition n → Fin n → ℕ :=
+fun {n} lam x => (↑(lam.tableau.symm x)).1
+def Chal.SignedSweeps.Partition.colOf : {n : ℕ} → Chal.SignedSweeps.Partition n → Fin n → ℕ :=
+fun {n} lam x => (↑(lam.tableau.symm x)).2
+def Chal.SignedSweeps.fiberSubgroup.{u_1, u_2} : {A : Type u_1} → {C : Type u_2} → (A → C) → Subgroup (Equiv.Perm A) :=
+fun {A} {C} f => { carrier := {g | ∀ (x : A), f (g x) = f x}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def Chal.SignedSweeps.rowSubgroup : {n : ℕ} →
+  Chal.SignedSweeps.Partition n → Subgroup (Chal.SignedSweeps.SymmetricGroup n) :=
+fun {n} lam => Chal.SignedSweeps.fiberSubgroup lam.rowOf
+def Chal.SignedSweeps.colSubgroup : {n : ℕ} →
+  Chal.SignedSweeps.Partition n → Subgroup (Chal.SignedSweeps.SymmetricGroup n) :=
+fun {n} lam => Chal.SignedSweeps.fiberSubgroup lam.colOf
+@[reducible] def Chal.SignedSweeps.RegularSpace : ℕ → Type :=
+fun n => EuclideanSpace ℂ (Chal.SignedSweeps.SymmetricGroup n)
+def Chal.SignedSweeps.regularIsometry : {n : ℕ} →
+  Chal.SignedSweeps.SymmetricGroup n → Chal.SignedSweeps.RegularSpace n ≃ₗᵢ[ℂ] Chal.SignedSweeps.RegularSpace n :=
+fun {n} g => LinearIsometryEquiv.piLpCongrLeft 2 ℂ ℂ (Equiv.mulLeft g)
+def Chal.SignedSweeps.regularRepresentation : (n : ℕ) →
+  Representation ℂ (Chal.SignedSweeps.SymmetricGroup n) (Chal.SignedSweeps.RegularSpace n) :=
+fun n => { toFun := fun g => ↑(Chal.SignedSweeps.regularIsometry g).toLinearEquiv, map_one' := ⋯, map_mul' := ⋯ }
+def Chal.SignedSweeps.polytabloid : {n : ℕ} → Chal.SignedSweeps.Partition n → Chal.SignedSweeps.RegularSpace n :=
+fun {n} lam => ∑ c, ∑ a, ↑↑(Equiv.Perm.sign ↑c) • EuclideanSpace.single (↑c * ↑a) 1
+def Chal.SignedSweeps.spechtSubrepresentation : {n : ℕ} →
+  Chal.SignedSweeps.Partition n → Subrepresentation (Chal.SignedSweeps.regularRepresentation n) :=
+fun {n} lam =>
+  {
+    toSubmodule :=
+      Submodule.span ℂ
+        (Set.range fun g => ((Chal.SignedSweeps.regularRepresentation n) g) (Chal.SignedSweeps.polytabloid lam)),
+    apply_mem_toSubmodule := ⋯ }
+def Chal.SignedSweeps.Specht : {n : ℕ} → Chal.SignedSweeps.Partition n → Type :=
+fun {n} lam => ↥(Chal.SignedSweeps.spechtSubrepresentation lam).toSubmodule
+def Chal.SignedSweeps.spechtRepresentation : {n : ℕ} →
+  (lam : Chal.SignedSweeps.Partition n) →
+    Representation ℂ (Chal.SignedSweeps.SymmetricGroup n) (Chal.SignedSweeps.Specht lam) :=
+fun {n} lam => (Chal.SignedSweeps.spechtSubrepresentation lam).toRepresentation
+def Chal.SignedSweeps.spechtDimension : {n : ℕ} → Chal.SignedSweeps.Partition n → ℕ :=
+fun {n} lam => Module.finrank ℂ (Chal.SignedSweeps.Specht lam)
+def Chal.SignedSweeps.blockEmbedding : {u v l n : ℕ} →
+  u + v + l = n →
+    Chal.SignedSweeps.SymmetricGroup u →
+      Chal.SignedSweeps.SymmetricGroup v → Chal.SignedSweeps.SymmetricGroup l → Chal.SignedSweeps.SymmetricGroup n :=
+fun {u v l n} h a b c =>
+  have e := ((finSumFinEquiv.sumCongr (Equiv.refl (Fin l))).trans finSumFinEquiv).trans (finCongr h);
+  e.permCongr ((Equiv.Perm.sumCongr a b).sumCongr c)
+def Chal.SignedSweeps.SignedOccurrence : {u v l n : ℕ} →
+  u + v + l = n →
+    Chal.SignedSweeps.Partition u →
+      Chal.SignedSweeps.Partition v → Chal.SignedSweeps.Partition l → Chal.SignedSweeps.Partition n → Prop :=
+fun {u v l n} h α β γ lam =>
+  ∃ f,
+    Function.Injective ⇑f ∧
+      ∀ (a : Chal.SignedSweeps.SymmetricGroup u) (b : Chal.SignedSweeps.SymmetricGroup v)
+        (c : Chal.SignedSweeps.SymmetricGroup l)
+        (x :
+          TensorProduct ℂ (TensorProduct ℂ (Chal.SignedSweeps.Specht α) (Chal.SignedSweeps.Specht β.transpose))
+            (Chal.SignedSweeps.Specht γ)),
+        f
+            ((TensorProduct.map
+                (TensorProduct.map ((Chal.SignedSweeps.spechtRepresentation α) a)
+                  ((Chal.SignedSweeps.spechtRepresentation β.transpose) b))
+                ((Chal.SignedSweeps.spechtRepresentation γ) c))
+              x) =
+          ((Chal.SignedSweeps.spechtRepresentation lam) (Chal.SignedSweeps.blockEmbedding h a b c)) (f x)
+@[reducible] def Chal.SignedSweeps.BinaryPositions : ℕ → Type :=
+fun d => Fin d → Fin 2
+def Chal.SignedSweeps.positionsEquiv : (d : ℕ) → Chal.SignedSweeps.BinaryPositions d ≃ Fin (2 ^ d) :=
+fun d => Fintype.equivFinOfCardEq ⋯
+def Chal.SignedSweeps.coordinateSubgroup : (d : ℕ) → Fin d → Subgroup (Chal.SignedSweeps.SymmetricGroup (2 ^ d)) :=
+fun d i => Chal.SignedSweeps.fiberSubgroup fun x j => (Chal.SignedSweeps.positionsEquiv d).symm x ↑j
+def Chal.SignedSweeps.layerOperator : {d : ℕ} →
+  (lam : Chal.SignedSweeps.Partition (2 ^ d)) →
+    Fin d → Chal.SignedSweeps.Specht lam →ₗ[ℂ] Chal.SignedSweeps.Specht lam :=
+fun {d} lam i =>
+  (↑(Fintype.card ↥(Chal.SignedSweeps.coordinateSubgroup d i)))⁻¹ • ∑ g, (Chal.SignedSweeps.spechtRepresentation lam) ↑g
+def Chal.SignedSweeps.sweepOperator : {d : ℕ} →
+  (lam : Chal.SignedSweeps.Partition (2 ^ d)) → Chal.SignedSweeps.Specht lam →ₗ[ℂ] Chal.SignedSweeps.Specht lam :=
+fun {d} lam => (List.ofFn (Chal.SignedSweeps.layerOperator lam)).reverse.prod
+def Chal.SignedSweeps.positiveSquare.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℂ E] → [FiniteDimensional ℂ E] → (E →ₗ[ℂ] E) → E →ₗ[ℂ] E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [FiniteDimensional ℂ E] T => LinearMap.adjoint T * T
+def Chal.SignedSweeps.sweepSquare : {d : ℕ} →
+  (lam : Chal.SignedSweeps.Partition (2 ^ d)) → Chal.SignedSweeps.Specht lam →ₗ[ℂ] Chal.SignedSweeps.Specht lam :=
+fun {d} lam => Chal.SignedSweeps.positiveSquare (Chal.SignedSweeps.sweepOperator lam)
+def Chal.SignedSweeps.weightedMoment : {d : ℕ} → Chal.SignedSweeps.Partition (2 ^ d) → ℕ → ℝ :=
+fun {d} lam r =>
+  ↑(Chal.SignedSweeps.spechtDimension lam) *
+    ((LinearMap.trace ℂ (Chal.SignedSweeps.Specht lam)) (Chal.SignedSweeps.sweepSquare lam ^ r)).re
+def Chal.SignedSweeps.logMoment : ℝ → EReal :=
+fun x => if x = 0 then ⊥ else ↑(Real.log x)
+def Chal.SignedSweeps.signedEntropy : {u v : ℕ} → Chal.SignedSweeps.Partition u → Chal.SignedSweeps.Partition v → ℝ :=
+fun {u v} α β => (List.map (fun a => ↑a * Real.log ((↑u + ↑v) / ↑a)) ((↑α).rowLens ++ (↑β).rowLens)).sum
+def Chal.SignedSweeps.coefficient : ℝ → ℕ → ℝ :=
+fun a d => a * (1 - 1 / (2 * √↑d))
+def Chal.SignedSweeps.remainderBudget : ℝ → ℕ → ℕ → ℝ :=
+fun κ d l =>
+  if l = 0 then 0
+  else max 0 (Chal.SignedSweeps.coefficient κ d * ↑l * Real.log ↑(2 ^ d) - ↑l * Real.log (↑(2 ^ d) / ↑l))
+'OAI.SignedSweeps.signed_occurrence_moment_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SignedSweepMoment comparator-style: ok=100 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
