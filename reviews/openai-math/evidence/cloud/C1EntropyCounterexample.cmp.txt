@@ -1,0 +1,79 @@
+CMP OAI.Problem340.exists_C1_entropy_counterexample [thm] ok
+CMP OAI.Problem340.totalRealHomologySpectralRadius [def] ok
+CMP OAI.Problem340.realHomologyMap [def] ok
+CMP OAI.Problem340.continuousMapOf [def] ok
+CMP OAI.Problem340.RealSingularHomology._proof_2 [thm] ok
+CMP OAI.Problem340.RealSingularHomology._proof_1 [thm] ok
+CMP OAI.Problem340.RealSingularHomology [def] ok
+CMP OAI.Problem340.standardEmbedding [def] ok
+CMP OAI.Problem340.StandardSphere2 [def] ok
+CMP OAI.Problem340.SphereAmbient [def] ok
+CMP OAI.Problem340.StandardClock [def] ok
+CMP OAI.Problem340.ClockAmbient [def] ok
+CMP OAI.Problem340.CounterexampleManifold [def] ok
+CMP OAI.Problem340.CounterexampleAmbient [def] ok
+CMP OAI.Problem340.IsC1SelfMap [def] ok
+Chal.Problem340.exists_C1_entropy_counterexample : ∃ q,
+  0 < q ∧
+    ∃ f,
+      ∃ (hf : Chal.Problem340.IsC1SelfMap q f),
+        Dynamics.coverEntropy f Set.univ = 0 ∧
+          (∃ v, v ≠ 0 ∧ (Chal.Problem340.realHomologyMap 2 f ⋯) v = 2 • v) ∧
+            0 < Real.log 2 ∧
+              Real.log 2 ≤ Real.log (Chal.Problem340.totalRealHomologySpectralRadius f ⋯) ∧
+                ¬Function.Bijective f ∧ 5 ≤ 2 * q + 3
+@[reducible] def Chal.Problem340.ClockAmbient : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.Problem340.SphereAmbient : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.Problem340.StandardClock : Set Chal.Problem340.ClockAmbient :=
+Metric.sphere 0 1
+@[reducible] def Chal.Problem340.StandardSphere2 : Set Chal.Problem340.SphereAmbient :=
+Metric.sphere 0 1
+@[reducible] def Chal.Problem340.CounterexampleManifold : ℕ → Type :=
+fun q => ↑Chal.Problem340.StandardClock × (Fin (q + 1) → ↑Chal.Problem340.StandardSphere2)
+@[reducible] def Chal.Problem340.CounterexampleAmbient : ℕ → Type :=
+fun q => Chal.Problem340.ClockAmbient × (Fin (q + 1) → Chal.Problem340.SphereAmbient)
+def Chal.Problem340.standardEmbedding : (q : ℕ) →
+  Chal.Problem340.CounterexampleManifold q → Chal.Problem340.CounterexampleAmbient q :=
+fun q x => (↑x.1, fun i => ↑(x.2 i))
+def Chal.Problem340.IsC1SelfMap : (q : ℕ) →
+  (Chal.Problem340.CounterexampleManifold q → Chal.Problem340.CounterexampleManifold q) → Prop :=
+fun q f =>
+  Continuous f ∧
+    ∀ (x : Chal.Problem340.CounterexampleManifold q),
+      ∃ U,
+        IsOpen U ∧
+          Chal.Problem340.standardEmbedding q x ∈ U ∧
+            ∃ F,
+              ContDiffOn ℝ 1 F U ∧
+                ∀ (y : Chal.Problem340.CounterexampleManifold q),
+                  Chal.Problem340.standardEmbedding q y ∈ U →
+                    Chal.Problem340.standardEmbedding q (f y) = F (Chal.Problem340.standardEmbedding q y)
+def Chal.Problem340.continuousMapOf : {X Y : Type} →
+  [inst : TopologicalSpace X] → [inst_1 : TopologicalSpace Y] → (f : X → Y) → Continuous f → C(X, Y) :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] f hf => { toFun := f, continuous_toFun := hf }
+@[reducible] def Chal.Problem340.RealSingularHomology : ℕ → (X : Type) → [TopologicalSpace X] → ModuleCat ℝ :=
+fun n X [TopologicalSpace X] => ((AlgebraicTopology.singularHomologyFunctor (ModuleCat ℝ) n).obj ↧ℝ).obj ↧X
+def Chal.Problem340.realHomologyMap : {X Y : Type} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : TopologicalSpace Y] →
+      (n : ℕ) →
+        (f : X → Y) →
+          Continuous f →
+            ↑(Chal.Problem340.RealSingularHomology n X) →ₗ[ℝ] ↑(Chal.Problem340.RealSingularHomology n Y) :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] n f hf =>
+  ModuleCat.Hom.hom
+    (((AlgebraicTopology.singularHomologyFunctor (ModuleCat ℝ) n).obj ↧ℝ).map
+      (TopCat.ofHom (Chal.Problem340.continuousMapOf f hf)))
+def Chal.Problem340.totalRealHomologySpectralRadius : {X : Type} →
+  [inst : TopologicalSpace X] → (f : X → X) → Continuous f → ℝ :=
+fun {X} [TopologicalSpace X] f hf =>
+  sSup
+    {r |
+      ∃ n a b u v,
+        (u ≠ 0 ∨ v ≠ 0) ∧
+          (Chal.Problem340.realHomologyMap n f hf) u = a • u - b • v ∧
+            (Chal.Problem340.realHomologyMap n f hf) v = b • u + a • v ∧ r = √(a ^ 2 + b ^ 2)}
+'OAI.Problem340.exists_C1_entropy_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+== C1EntropyCounterexample comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
