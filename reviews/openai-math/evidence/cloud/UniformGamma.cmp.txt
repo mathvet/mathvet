@@ -1,3 +1,4 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_UniformGamma.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.ComparatorModel.CurrentMain.main [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.MainClaim [def] ok
 CMP OAI.ComparatorModel.CurrentMain.Statement [def] ok
@@ -22,12 +23,12 @@ CMP OAI.ComparatorModel.CurrentMain.ultraTraceLinear._proof_3 [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.ultraTraceLinear._proof_2 [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.ultraTraceLinear._proof_1 [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductOrder [def] ok
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar [def] VALUE_MISMATCH
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_8 [thm] TYPE_MISMATCH
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_7 [thm] TYPE_MISMATCH
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_6 [thm] TYPE_MISMATCH
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_5 [thm] TYPE_MISMATCH
-CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_4 [thm] TYPE_MISMATCH
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_8 [thm] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_7 [thm] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_6 [thm] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_5 [thm] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
+CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_4 [thm] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
 CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_3 [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_1 [thm] ok
 CMP OAI.ComparatorModel.CurrentMain.boundedFamilyProductCStar._proof_2 [thm] ok
@@ -745,4 +746,4 @@ def Chal.ComparatorModel.CurrentMain.MainClaim.{uNuclear} : Prop :=
   Chal.ComparatorModel.CurrentMain.LimitConstruction) (h4 : Chal.ComparatorModel.CurrentMain.TraceConstruction),
   Chal.ComparatorModel.CurrentMain.Statement
 'OAI.ComparatorModel.CurrentMain.main' depends on axioms: [propext, Classical.choice, Quot.sound]
-== UniformGamma comparator-style: ok=158 problems=6 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== UniformGamma comparator-style: ok=158 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=1 aux_only=5
