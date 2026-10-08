@@ -43,7 +43,13 @@ cd "$ROOT/tmp"
 ( cd comparator && echo "comparator at $(git rev-parse --short HEAD) toolchain $(cat lean-toolchain)"; lake build 2>&1 | tail -1 )
 ls -la "$ROOT"/tmp/lean4export/.lake/build/bin/lean4export "$ROOT"/tmp/comparator/.lake/build/bin/comparator
 
-log "Mathlib cache (lake exe cache get; host cache.mathlib.org unless MATHLIB_CACHE_GET_URL is set)"
+log "Mathlib cache"
+MIRROR="${MATHVET_CACHE_MIRROR:-https://github.com/ceshanon/mathvet/releases/download/mathlib-cache-d13f23b/mathlib-cache-d13f23b.tar}"
+if [ -z "${MATHLIB_CACHE_GET_URL:-}" ] && ! curl -fsS -m 15 -o /dev/null https://cache.mathlib.org/ 2>/dev/null && [ ! -d "$HOME/.cache/mathlib" ]; then
+  log "cache.mathlib.org unreachable; fetching the mirror tarball (458 MB) from GitHub releases"
+  mkdir -p "$HOME/.cache" && curl -fL -o /tmp/mathlib-cache.tar "$MIRROR" && tar -xf /tmp/mathlib-cache.tar -C "$HOME/.cache" && rm -f /tmp/mathlib-cache.tar
+  echo "mirror files: $(ls "$HOME/.cache/mathlib" | wc -l)"
+fi
 cd "$UP/lean" && lake exe cache get 2>&1 | tail -3
 
 log "machine report"
