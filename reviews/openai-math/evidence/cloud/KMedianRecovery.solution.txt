@@ -1,0 +1,102 @@
+OAI.MetricKMedianRecovery.global_application : OAI.MetricKMedianRecovery.globalApplicationClaim
+'OAI.MetricKMedianRecovery.global_application' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MetricKMedianRecovery.RationalMetricInput : Type
+number of parameters: 0
+fields:
+  OAI.MetricKMedianRecovery.RationalMetricInput.pointCount : ℕ
+  OAI.MetricKMedianRecovery.RationalMetricInput.distance : Fin self.pointCount → Fin self.pointCount → ℚ
+  OAI.MetricKMedianRecovery.RationalMetricInput.clients : Finset (Fin self.pointCount)
+  OAI.MetricKMedianRecovery.RationalMetricInput.facilities : Finset (Fin self.pointCount)
+  OAI.MetricKMedianRecovery.RationalMetricInput.budget : ℕ
+  OAI.MetricKMedianRecovery.RationalMetricInput.facilities_nonempty : self.facilities.Nonempty
+  OAI.MetricKMedianRecovery.RationalMetricInput.budget_pos : 0 < self.budget
+  OAI.MetricKMedianRecovery.RationalMetricInput.covered : self.clients ∪ self.facilities = Finset.univ
+  OAI.MetricKMedianRecovery.RationalMetricInput.distance_nonneg : ∀ (x y : Fin self.pointCount), 0 ≤ self.distance x y
+  OAI.MetricKMedianRecovery.RationalMetricInput.distance_self : ∀ (x : Fin self.pointCount), self.distance x x = 0
+  OAI.MetricKMedianRecovery.RationalMetricInput.distance_symm : ∀ (x y : Fin self.pointCount),
+      self.distance x y = self.distance y x
+  OAI.MetricKMedianRecovery.RationalMetricInput.distance_triangle : ∀ (x y z : Fin self.pointCount),
+      self.distance x z ≤ self.distance x y + self.distance y z
+constructor:
+  OAI.MetricKMedianRecovery.RationalMetricInput.mk (pointCount : ℕ) (distance : Fin pointCount → Fin pointCount → ℚ)
+    (clients facilities : Finset (Fin pointCount)) (budget : ℕ) (facilities_nonempty : facilities.Nonempty)
+    (budget_pos : 0 < budget) (covered : clients ∪ facilities = Finset.univ)
+    (distance_nonneg : ∀ (x y : Fin pointCount), 0 ≤ distance x y)
+    (distance_self : ∀ (x : Fin pointCount), distance x x = 0)
+    (distance_symm : ∀ (x y : Fin pointCount), distance x y = distance y x)
+    (distance_triangle : ∀ (x y z : Fin pointCount), distance x z ≤ distance x y + distance y z) :
+    OAI.MetricKMedianRecovery.RationalMetricInput
+def OAI.MetricKMedianRecovery.RationalMetricInput.size : OAI.MetricKMedianRecovery.RationalMetricInput → ℕ :=
+fun I => I.clients.card + I.facilities.card
+def OAI.MetricKMedianRecovery.RationalMetricInput.Feasible : (I : OAI.MetricKMedianRecovery.RationalMetricInput) →
+  Finset (Fin I.pointCount) → Prop :=
+fun I S => S ⊆ I.facilities ∧ S.card ≤ I.budget ∧ (I.clients.Nonempty → S.Nonempty)
+def OAI.MetricKMedianRecovery.RationalMetricInput.cost : (I : OAI.MetricKMedianRecovery.RationalMetricInput) →
+  Finset (Fin I.pointCount) → ℚ :=
+fun I S => if hS : S.Nonempty then ∑ p ∈ I.clients, S.inf' hS (I.distance p) else 0
+def OAI.MetricKMedianRecovery.RationalMetricInput.comparisonSets : (I : OAI.MetricKMedianRecovery.RationalMetricInput) →
+  Finset (Finset (Fin I.pointCount)) :=
+fun I => {S ∈ I.facilities.powerset | S.Nonempty ∧ S.card ≤ I.budget}
+def OAI.MetricKMedianRecovery.RationalMetricInput.optimum : OAI.MetricKMedianRecovery.RationalMetricInput → ℚ :=
+fun I => I.comparisonSets.inf' ⋯ I.cost
+def OAI.MetricKMedianRecovery.RationalMetricInput.natBits : ℕ → List Bool :=
+fun n => List.replicate n.bits.length true ++ [false] ++ n.bits
+def OAI.MetricKMedianRecovery.RationalMetricInput.rationalBits : ℚ → List Bool :=
+fun r =>
+  [decide (r < 0)] ++ OAI.MetricKMedianRecovery.RationalMetricInput.natBits r.num.natAbs ++
+    OAI.MetricKMedianRecovery.RationalMetricInput.natBits r.den
+def OAI.MetricKMedianRecovery.RationalMetricInput.bits : OAI.MetricKMedianRecovery.RationalMetricInput → List Bool :=
+fun I =>
+  ((OAI.MetricKMedianRecovery.RationalMetricInput.natBits I.pointCount ++
+          OAI.MetricKMedianRecovery.RationalMetricInput.natBits I.budget ++
+        List.ofFn fun i => decide (i ∈ I.clients)) ++
+      List.ofFn fun i => decide (i ∈ I.facilities)) ++
+    (List.ofFn fun i =>
+        (List.ofFn fun j =>
+            OAI.MetricKMedianRecovery.RationalMetricInput.rationalBits (I.distance i j)).flatten).flatten
+def OAI.MetricKMedianRecovery.RationalMetricInput.decodeOutput : (I : OAI.MetricKMedianRecovery.RationalMetricInput) →
+  List Bool → Finset (Fin I.pointCount) :=
+fun I out => {i ∈ I.facilities | out[↑i]?.getD false = true}
+def OAI.MetricKMedianRecovery.pairBits : List Bool × List Bool → List Bool :=
+fun p => List.flatMap (fun b => [true, b]) p.1 ++ [false] ++ p.2
+structure OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm : Type 1
+number of parameters: 0
+fields:
+  OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.randomBits : Polynomial ℕ
+  OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.run : List Bool × List Bool → List Bool
+  OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.computation : Turing.TM2ComputableInPolyTime
+      OAI.MetricKMedianRecovery.pairBits id self.run
+  OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.finiteWorkAlphabet : ∀ (k : self.computation.tm.K),
+      Finite (self.computation.tm.Γ k)
+constructor:
+  OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.mk (randomBits : Polynomial ℕ)
+    (run : List Bool × List Bool → List Bool)
+    (computation : Turing.TM2ComputableInPolyTime OAI.MetricKMedianRecovery.pairBits id run)
+    (finiteWorkAlphabet : ∀ (k : computation.tm.K), Finite (computation.tm.Γ k)) :
+    OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm
+def OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.bitCount : OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm →
+  OAI.MetricKMedianRecovery.RationalMetricInput → ℕ :=
+fun A I => Polynomial.eval I.bits.length A.randomBits
+@[reducible] def OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.Seed : OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm →
+  OAI.MetricKMedianRecovery.RationalMetricInput → Type :=
+fun A I => Fin (A.bitCount I) → Bool
+def OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.output : (A :
+    OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm) →
+  (I : OAI.MetricKMedianRecovery.RationalMetricInput) → A.Seed I → Finset (Fin I.pointCount) :=
+fun A I s => I.decodeOutput (A.run (I.bits, List.ofFn s))
+def OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.successProbability : OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm →
+  OAI.MetricKMedianRecovery.RationalMetricInput → ℝ → ℝ :=
+fun A I bound => ↑{s | ↑(I.cost (A.output I s)) ≤ bound}.card / 2 ^ A.bitCount I
+def OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm.expectedCost : OAI.MetricKMedianRecovery.BinaryRandomizedAlgorithm →
+  OAI.MetricKMedianRecovery.RationalMetricInput → ℝ :=
+fun A I => (∑ s, ↑(I.cost (A.output I s))) / 2 ^ A.bitCount I
+def OAI.MetricKMedianRecovery.globalApplicationClaim : Prop :=
+∃ σ,
+  0 < σ ∧
+    ∀ (a : ℝ),
+      0 < a →
+        ∃ A,
+          (∀ (I : OAI.MetricKMedianRecovery.RationalMetricInput) (s : A.Seed I), I.Feasible (A.output I s)) ∧
+            (∀ (I : OAI.MetricKMedianRecovery.RationalMetricInput),
+                1 - (↑I.size + 2).rpow (-a) ≤ A.successProbability I ((2 - σ) * ↑I.optimum)) ∧
+              ∀ (I : OAI.MetricKMedianRecovery.RationalMetricInput), A.expectedCost I ≤ (2 - σ) * ↑I.optimum
