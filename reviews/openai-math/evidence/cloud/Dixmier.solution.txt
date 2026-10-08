@@ -1,0 +1,27 @@
+OAI.Dixmier.main_theorem_all_universes : OAI.Dixmier.MainTheorem
+'OAI.Dixmier.main_theorem_all_universes' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Dixmier.leftTranslate.{u} : {G : Type u} →
+  [Group G] →
+    [inst : TopologicalSpace G] →
+      [DiscreteTopology G] → G → BoundedContinuousFunction G ℂ → BoundedContinuousFunction G ℂ :=
+fun {G} [Group G] [TopologicalSpace G] [DiscreteTopology G] g f =>
+  f.compContinuous { toFun := fun x => g⁻¹ * x, continuous_toFun := ⋯ }
+def OAI.Dixmier.Amenable.{u} : (G : Type u) → [Group G] → [inst : TopologicalSpace G] → [DiscreteTopology G] → Prop :=
+fun G [Group G] [TopologicalSpace G] [DiscreteTopology G] =>
+  ∃ m,
+    m (BoundedContinuousFunction.const G 1) = 1 ∧
+      (∀ (f : BoundedContinuousFunction G ℂ), (∀ (x : G), 0 ≤ (f x).re ∧ (f x).im = 0) → 0 ≤ (m f).re ∧ (m f).im = 0) ∧
+        ∀ (g : G) (f : BoundedContinuousFunction G ℂ), m (OAI.Dixmier.leftTranslate g f) = m f
+def OAI.Dixmier.SimilarToUnitary.{u, v} : {G : Type u} →
+  [inst : Group G] →
+    {H : Type v} → [inst_1 : NormedAddCommGroup H] → [inst_2 : InnerProductSpace ℂ H] → (G →* H →L[ℂ] H) → Prop :=
+fun {G} [Group G] {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] π =>
+  ∃ S, ∀ (g : G) (x : H), ‖S ((π g) (S.symm x))‖ = ‖x‖
+def OAI.Dixmier.NonamenableWitness.{u, v} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ H x x_1,
+    ∃ (_ : CompleteSpace H) (_ : TopologicalSpace.SeparableSpace H),
+      ∃ π, (∀ (g : G), ‖π g‖ ≤ 101) ∧ ¬OAI.Dixmier.SimilarToUnitary π
+def OAI.Dixmier.MainTheorem.{u, v} : Prop :=
+∀ (G : Type u) [inst : Group G] [Countable G] [inst_2 : TopologicalSpace G] [inst_3 : DiscreteTopology G],
+  ¬OAI.Dixmier.Amenable G → OAI.Dixmier.NonamenableWitness G
