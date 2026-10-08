@@ -1,0 +1,126 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_HyperbolicObstruction.lean:154:8: warning: declaration uses `sorry`
+OAI.HyperbolicObstruction.main : OAI.HyperbolicObstruction.MainStatement
+structure OAI.HyperbolicObstruction.FiniteComplex : Type
+number of parameters: 0
+fields:
+  OAI.HyperbolicObstruction.FiniteComplex.n : ℕ
+  OAI.HyperbolicObstruction.FiniteComplex.complex : AbstractSimplicialComplex (Fin self.n)
+constructor:
+  OAI.HyperbolicObstruction.FiniteComplex.mk (n : ℕ) (complex : AbstractSimplicialComplex (Fin n)) :
+    OAI.HyperbolicObstruction.FiniteComplex
+@[reducible] def OAI.HyperbolicObstruction.FiniteComplex.Vertex : OAI.HyperbolicObstruction.FiniteComplex → Type :=
+fun K => Fin K.n
+def OAI.HyperbolicObstruction.FiniteComplex.Carrier : OAI.HyperbolicObstruction.FiniteComplex → Type :=
+fun K => { x // (∀ (i : K.Vertex), 0 ≤ x i) ∧ ∑ i, x i = 1 ∧ ∃ s ∈ K.complex.faces, ∀ i ∉ s, x i = 0 }
+def OAI.HyperbolicObstruction.FiniteComplex.Edge : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  K.Vertex → K.Vertex → Prop :=
+fun K a b => {a, b} ∈ K.complex.faces
+def OAI.HyperbolicObstruction.FiniteComplex.EdgePath : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → Prop :=
+fun K x => List.brecOn x (OAI.HyperbolicObstruction.FiniteComplex.EdgePath._f K)
+def OAI.HyperbolicObstruction.FiniteComplex.Closed : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → Prop :=
+fun K p => ∃ a t, p = a :: (t ++ [a]) ∨ p = [a]
+inductive OAI.HyperbolicObstruction.FiniteComplex.DiskMove : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → List K.Vertex → ℕ → Prop
+number of parameters: 1
+constructors:
+OAI.HyperbolicObstruction.FiniteComplex.DiskMove.stutter : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a : K.Vertex), K.DiskMove (l ++ [a, a] ++ r) (l ++ [a] ++ r) 0
+OAI.HyperbolicObstruction.FiniteComplex.DiskMove.spur : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a b : K.Vertex), K.Edge a b → K.DiskMove (l ++ [a, b, a] ++ r) (l ++ [a] ++ r) 0
+OAI.HyperbolicObstruction.FiniteComplex.DiskMove.triangle : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a b c : K.Vertex),
+  {a, b, c} ∈ K.complex.faces → {a, b, c}.card = 3 → K.DiskMove (l ++ [a, b, c] ++ r) (l ++ [a, c] ++ r) 1
+inductive OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → List K.Vertex → ℕ → Prop
+number of parameters: 1
+constructors:
+OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.refl : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  (p : List K.Vertex), K.DiskHomotopy p p 0
+OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.move : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  {p q : List K.Vertex} {n : ℕ}, K.DiskMove p q n → K.DiskHomotopy p q n
+OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.symm : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  {p q : List K.Vertex} {n : ℕ}, K.DiskHomotopy p q n → K.DiskHomotopy q p n
+OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.trans : ∀ {K : OAI.HyperbolicObstruction.FiniteComplex}
+  {p q r : List K.Vertex} {m n : ℕ}, K.DiskHomotopy p q m → K.DiskHomotopy q r n → K.DiskHomotopy p r (m + n)
+def OAI.HyperbolicObstruction.FiniteComplex.Disk : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → ℕ → Prop :=
+fun K p faces => ∃ a, K.DiskHomotopy p [a] faces
+def OAI.HyperbolicObstruction.FiniteComplex.LinearDiskFilling : OAI.HyperbolicObstruction.FiniteComplex → ℝ → Prop :=
+fun K C =>
+  ∀ (p : List K.Vertex), K.EdgePath p → K.Closed p → (∃ a, K.Disk p a) → ∃ a, K.Disk p a ∧ ↑a ≤ C * ↑(p.length - 1)
+def OAI.HyperbolicObstruction.FiniteComplex.Aspherical : (K : OAI.HyperbolicObstruction.FiniteComplex) →
+  K.Carrier → Prop :=
+fun K x => ∀ (n : ℕ), Subsingleton (HomotopyGroup.Pi (n + 2) K.Carrier x)
+def OAI.HyperbolicObstruction.IsSegment.{u_1} : {X : Type u_1} → [MetricSpace X] → (ℝ → X) → X → X → Prop :=
+fun {X} [MetricSpace X] γ x y =>
+  γ 0 = x ∧ γ 1 = y ∧ ∀ s ∈ Set.Icc 0 1, ∀ t ∈ Set.Icc 0 1, dist (γ s) (γ t) = |s - t| * dist x y
+def OAI.HyperbolicObstruction.IsGeodesic.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] => ∀ (x y : X), ∃ γ, OAI.HyperbolicObstruction.IsSegment γ x y
+def OAI.HyperbolicObstruction.CATZero.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∀ (x y : X),
+    ∃ γ,
+      OAI.HyperbolicObstruction.IsSegment γ x y ∧
+        ∀ (z : X),
+          ∀ t ∈ Set.Icc 0 1, dist z (γ t) ^ 2 ≤ (1 - t) * dist z x ^ 2 + t * dist z y ^ 2 - t * (1 - t) * dist x y ^ 2
+def OAI.HyperbolicObstruction.CATNegOne.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∀ (x y : X),
+    ∃ γ,
+      OAI.HyperbolicObstruction.IsSegment γ x y ∧
+        ∀ (z : X),
+          Real.cosh (dist z (γ (1 / 2))) ≤
+            (Real.cosh (dist z x) + Real.cosh (dist z y)) / (2 * Real.cosh (dist x y / 2))
+structure OAI.HyperbolicObstruction.GeometricAction.{u_1, u_2} (G : Type u_1) (X : Type u_2) [Group G] [MetricSpace X] :
+  Type (max u_1 u_2)
+number of parameters: 4
+fields:
+  OAI.HyperbolicObstruction.GeometricAction.act : G →* X ≃ᵢ X
+  OAI.HyperbolicObstruction.GeometricAction.proper : ∀ (C : Set X),
+      IsCompact C → {g | ∃ x ∈ C, (self.act g) x ∈ C}.Finite
+  OAI.HyperbolicObstruction.GeometricAction.cocompact : ∃ C, IsCompact C ∧ ∀ (x : X), ∃ g, ∃ y ∈ C, (self.act g) y = x
+constructor:
+  OAI.HyperbolicObstruction.GeometricAction.mk.{u_1, u_2} {G : Type u_1} {X : Type u_2} [Group G] [MetricSpace X]
+    (act : G →* X ≃ᵢ X) (proper : ∀ (C : Set X), IsCompact C → {g | ∃ x ∈ C, (act g) x ∈ C}.Finite)
+    (cocompact : ∃ C, IsCompact C ∧ ∀ (x : X), ∃ g, ∃ y ∈ C, (act g) y = x) :
+    OAI.HyperbolicObstruction.GeometricAction G X
+def OAI.HyperbolicObstruction.NoGeometricCATZeroAction.{u, u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (X : Type u) (x : MetricSpace X),
+    Nonempty X →
+      ProperSpace X →
+        CompleteSpace X → OAI.HyperbolicObstruction.CATZero X → IsEmpty (OAI.HyperbolicObstruction.GeometricAction G X)
+def OAI.HyperbolicObstruction.WordLength.{u_1} : {G : Type u_1} → [Group G] → Finset G → G → ℕ :=
+fun {G} [Group G] S g => sInf {n | ∃ w, w.length = n ∧ (∀ a ∈ w, a ∈ S ∨ a⁻¹ ∈ S) ∧ w.prod = g}
+def OAI.HyperbolicObstruction.WordDistance.{u_1} : {G : Type u_1} → [Group G] → Finset G → G → G → ℝ :=
+fun {G} [Group G] S g h => ↑(OAI.HyperbolicObstruction.WordLength S (g⁻¹ * h))
+def OAI.HyperbolicObstruction.WordHyperbolic.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ S,
+    Subgroup.closure ↑S = ⊤ ∧
+      ∃ δ,
+        0 ≤ δ ∧
+          ∀ (a b c d : G),
+            OAI.HyperbolicObstruction.WordDistance S a c + OAI.HyperbolicObstruction.WordDistance S b d ≤
+              max (OAI.HyperbolicObstruction.WordDistance S a b + OAI.HyperbolicObstruction.WordDistance S c d)
+                  (OAI.HyperbolicObstruction.WordDistance S a d + OAI.HyperbolicObstruction.WordDistance S b c) +
+                2 * δ
+def OAI.HyperbolicObstruction.CompatibleLocallyCATNegOne : OAI.HyperbolicObstruction.FiniteComplex → Prop :=
+fun K =>
+  ∃ m,
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace = inferInstance ∧
+      OAI.HyperbolicObstruction.IsGeodesic K.Carrier ∧
+        ∀ (x : K.Carrier), ∃ r, 0 < r ∧ OAI.HyperbolicObstruction.CATNegOne ↑(Metric.ball x r)
+def OAI.HyperbolicObstruction.MainStatement.{u} : Prop :=
+∃ K x C,
+  ConnectedSpace K.Carrier ∧
+    K.Aspherical x ∧
+      0 ≤ C ∧
+        K.LinearDiskFilling C ∧
+          OAI.HyperbolicObstruction.NoGeometricCATZeroAction (FundamentalGroup K.Carrier x) ∧
+            OAI.HyperbolicObstruction.WordHyperbolic (FundamentalGroup K.Carrier x) ∧
+              ∀ (L : OAI.HyperbolicObstruction.FiniteComplex),
+                Nonempty (ContinuousMap.HomotopyEquiv K.Carrier L.Carrier) →
+                  ¬OAI.HyperbolicObstruction.CompatibleLocallyCATNegOne L

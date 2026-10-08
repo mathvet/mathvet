@@ -1,0 +1,171 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_HyperbolicObstruction.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.HyperbolicObstruction.main [thm] ok
+CMP OAI.HyperbolicObstruction.MainStatement [def] ok
+CMP OAI.HyperbolicObstruction.CompatibleLocallyCATNegOne [def] ok
+CMP OAI.HyperbolicObstruction.CATNegOne [def] ok
+CMP OAI.HyperbolicObstruction.CATNegOne._proof_1 [thm] ok
+CMP OAI.HyperbolicObstruction.IsSegment [def] ok
+CMP OAI.HyperbolicObstruction.IsGeodesic [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.instTopologicalSpaceCarrier [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.instTopologicalSpaceCarrier._proof_5 [thm] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.instTopologicalSpaceCarrier._aux_1 [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.complex [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex [ind] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.mk [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.n [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Vertex [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Carrier [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.instTopologicalSpaceCarrier._proof_4 [thm] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.instTopologicalSpaceCarrier._proof_3 [thm] ok
+CMP OAI.HyperbolicObstruction.WordHyperbolic [def] ok
+CMP OAI.HyperbolicObstruction.WordDistance [def] ok
+CMP OAI.HyperbolicObstruction.WordLength [def] ok
+CMP OAI.HyperbolicObstruction.NoGeometricCATZeroAction [def] ok
+CMP OAI.HyperbolicObstruction.GeometricAction [ind] ok
+CMP OAI.HyperbolicObstruction.GeometricAction.mk [ctor] ok
+CMP OAI.HyperbolicObstruction.CATZero [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.LinearDiskFilling [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Disk [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy [ind] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.trans [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.symm [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.move [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskMove [ind] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskMove.triangle [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskMove.spur [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Edge [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskMove.stutter [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.DiskHomotopy.refl [ctor] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Closed [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.EdgePath [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.EdgePath._f [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.EdgePath.match_1 [def] ok
+CMP OAI.HyperbolicObstruction.FiniteComplex.Aspherical [def] ok
+Chal.HyperbolicObstruction.main : Chal.HyperbolicObstruction.MainStatement
+structure Chal.HyperbolicObstruction.FiniteComplex : Type
+number of parameters: 0
+fields:
+  Chal.HyperbolicObstruction.FiniteComplex.n : ℕ
+  Chal.HyperbolicObstruction.FiniteComplex.complex : AbstractSimplicialComplex (Fin self.n)
+constructor:
+  Chal.HyperbolicObstruction.FiniteComplex.mk (n : ℕ) (complex : AbstractSimplicialComplex (Fin n)) :
+    Chal.HyperbolicObstruction.FiniteComplex
+@[reducible] def Chal.HyperbolicObstruction.FiniteComplex.Vertex : Chal.HyperbolicObstruction.FiniteComplex → Type :=
+fun K => Fin K.n
+def Chal.HyperbolicObstruction.FiniteComplex.Carrier : Chal.HyperbolicObstruction.FiniteComplex → Type :=
+fun K => { x // (∀ (i : K.Vertex), 0 ≤ x i) ∧ ∑ i, x i = 1 ∧ ∃ s ∈ K.complex.faces, ∀ i ∉ s, x i = 0 }
+def Chal.HyperbolicObstruction.FiniteComplex.Edge : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  K.Vertex → K.Vertex → Prop :=
+fun K a b => {a, b} ∈ K.complex.faces
+def Chal.HyperbolicObstruction.FiniteComplex.EdgePath : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → Prop :=
+fun K x => List.brecOn x (Chal.HyperbolicObstruction.FiniteComplex.EdgePath._f K)
+def Chal.HyperbolicObstruction.FiniteComplex.Closed : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → Prop :=
+fun K p => ∃ a t, p = a :: (t ++ [a]) ∨ p = [a]
+inductive Chal.HyperbolicObstruction.FiniteComplex.DiskMove : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → List K.Vertex → ℕ → Prop
+number of parameters: 1
+constructors:
+Chal.HyperbolicObstruction.FiniteComplex.DiskMove.stutter : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a : K.Vertex), K.DiskMove (l ++ [a, a] ++ r) (l ++ [a] ++ r) 0
+Chal.HyperbolicObstruction.FiniteComplex.DiskMove.spur : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a b : K.Vertex), K.Edge a b → K.DiskMove (l ++ [a, b, a] ++ r) (l ++ [a] ++ r) 0
+Chal.HyperbolicObstruction.FiniteComplex.DiskMove.triangle : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  (l r : List K.Vertex) (a b c : K.Vertex),
+  {a, b, c} ∈ K.complex.faces → {a, b, c}.card = 3 → K.DiskMove (l ++ [a, b, c] ++ r) (l ++ [a, c] ++ r) 1
+inductive Chal.HyperbolicObstruction.FiniteComplex.DiskHomotopy : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → List K.Vertex → ℕ → Prop
+number of parameters: 1
+constructors:
+Chal.HyperbolicObstruction.FiniteComplex.DiskHomotopy.refl : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  (p : List K.Vertex), K.DiskHomotopy p p 0
+Chal.HyperbolicObstruction.FiniteComplex.DiskHomotopy.move : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  {p q : List K.Vertex} {n : ℕ}, K.DiskMove p q n → K.DiskHomotopy p q n
+Chal.HyperbolicObstruction.FiniteComplex.DiskHomotopy.symm : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  {p q : List K.Vertex} {n : ℕ}, K.DiskHomotopy p q n → K.DiskHomotopy q p n
+Chal.HyperbolicObstruction.FiniteComplex.DiskHomotopy.trans : ∀ {K : Chal.HyperbolicObstruction.FiniteComplex}
+  {p q r : List K.Vertex} {m n : ℕ}, K.DiskHomotopy p q m → K.DiskHomotopy q r n → K.DiskHomotopy p r (m + n)
+def Chal.HyperbolicObstruction.FiniteComplex.Disk : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  List K.Vertex → ℕ → Prop :=
+fun K p faces => ∃ a, K.DiskHomotopy p [a] faces
+def Chal.HyperbolicObstruction.FiniteComplex.LinearDiskFilling : Chal.HyperbolicObstruction.FiniteComplex → ℝ → Prop :=
+fun K C =>
+  ∀ (p : List K.Vertex), K.EdgePath p → K.Closed p → (∃ a, K.Disk p a) → ∃ a, K.Disk p a ∧ ↑a ≤ C * ↑(p.length - 1)
+def Chal.HyperbolicObstruction.FiniteComplex.Aspherical : (K : Chal.HyperbolicObstruction.FiniteComplex) →
+  K.Carrier → Prop :=
+fun K x => ∀ (n : ℕ), Subsingleton (HomotopyGroup.Pi (n + 2) K.Carrier x)
+def Chal.HyperbolicObstruction.IsSegment.{u_1} : {X : Type u_1} → [MetricSpace X] → (ℝ → X) → X → X → Prop :=
+fun {X} [MetricSpace X] γ x y =>
+  γ 0 = x ∧ γ 1 = y ∧ ∀ s ∈ Set.Icc 0 1, ∀ t ∈ Set.Icc 0 1, dist (γ s) (γ t) = |s - t| * dist x y
+def Chal.HyperbolicObstruction.IsGeodesic.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] => ∀ (x y : X), ∃ γ, Chal.HyperbolicObstruction.IsSegment γ x y
+def Chal.HyperbolicObstruction.CATZero.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∀ (x y : X),
+    ∃ γ,
+      Chal.HyperbolicObstruction.IsSegment γ x y ∧
+        ∀ (z : X),
+          ∀ t ∈ Set.Icc 0 1, dist z (γ t) ^ 2 ≤ (1 - t) * dist z x ^ 2 + t * dist z y ^ 2 - t * (1 - t) * dist x y ^ 2
+def Chal.HyperbolicObstruction.CATNegOne.{u_1} : (X : Type u_1) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∀ (x y : X),
+    ∃ γ,
+      Chal.HyperbolicObstruction.IsSegment γ x y ∧
+        ∀ (z : X),
+          Real.cosh (dist z (γ (1 / 2))) ≤
+            (Real.cosh (dist z x) + Real.cosh (dist z y)) / (2 * Real.cosh (dist x y / 2))
+structure Chal.HyperbolicObstruction.GeometricAction.{u_1, u_2} (G : Type u_1) (X : Type u_2) [Group G]
+  [MetricSpace X] : Type (max u_1 u_2)
+number of parameters: 4
+fields:
+  Chal.HyperbolicObstruction.GeometricAction.act : G →* X ≃ᵢ X
+  Chal.HyperbolicObstruction.GeometricAction.proper : ∀ (C : Set X),
+      IsCompact C → {g | ∃ x ∈ C, (self.act g) x ∈ C}.Finite
+  Chal.HyperbolicObstruction.GeometricAction.cocompact : ∃ C, IsCompact C ∧ ∀ (x : X), ∃ g, ∃ y ∈ C, (self.act g) y = x
+constructor:
+  Chal.HyperbolicObstruction.GeometricAction.mk.{u_1, u_2} {G : Type u_1} {X : Type u_2} [Group G] [MetricSpace X]
+    (act : G →* X ≃ᵢ X) (proper : ∀ (C : Set X), IsCompact C → {g | ∃ x ∈ C, (act g) x ∈ C}.Finite)
+    (cocompact : ∃ C, IsCompact C ∧ ∀ (x : X), ∃ g, ∃ y ∈ C, (act g) y = x) :
+    Chal.HyperbolicObstruction.GeometricAction G X
+def Chal.HyperbolicObstruction.NoGeometricCATZeroAction.{u, u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (X : Type u) (x : MetricSpace X),
+    Nonempty X →
+      ProperSpace X →
+        CompleteSpace X →
+          Chal.HyperbolicObstruction.CATZero X → IsEmpty (Chal.HyperbolicObstruction.GeometricAction G X)
+def Chal.HyperbolicObstruction.WordLength.{u_1} : {G : Type u_1} → [Group G] → Finset G → G → ℕ :=
+fun {G} [Group G] S g => sInf {n | ∃ w, w.length = n ∧ (∀ a ∈ w, a ∈ S ∨ a⁻¹ ∈ S) ∧ w.prod = g}
+def Chal.HyperbolicObstruction.WordDistance.{u_1} : {G : Type u_1} → [Group G] → Finset G → G → G → ℝ :=
+fun {G} [Group G] S g h => ↑(Chal.HyperbolicObstruction.WordLength S (g⁻¹ * h))
+def Chal.HyperbolicObstruction.WordHyperbolic.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ S,
+    Subgroup.closure ↑S = ⊤ ∧
+      ∃ δ,
+        0 ≤ δ ∧
+          ∀ (a b c d : G),
+            Chal.HyperbolicObstruction.WordDistance S a c + Chal.HyperbolicObstruction.WordDistance S b d ≤
+              max (Chal.HyperbolicObstruction.WordDistance S a b + Chal.HyperbolicObstruction.WordDistance S c d)
+                  (Chal.HyperbolicObstruction.WordDistance S a d + Chal.HyperbolicObstruction.WordDistance S b c) +
+                2 * δ
+def Chal.HyperbolicObstruction.CompatibleLocallyCATNegOne : Chal.HyperbolicObstruction.FiniteComplex → Prop :=
+fun K =>
+  ∃ m,
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace = inferInstance ∧
+      Chal.HyperbolicObstruction.IsGeodesic K.Carrier ∧
+        ∀ (x : K.Carrier), ∃ r, 0 < r ∧ Chal.HyperbolicObstruction.CATNegOne ↑(Metric.ball x r)
+def Chal.HyperbolicObstruction.MainStatement.{u} : Prop :=
+∃ K x C,
+  ConnectedSpace K.Carrier ∧
+    K.Aspherical x ∧
+      0 ≤ C ∧
+        K.LinearDiskFilling C ∧
+          Chal.HyperbolicObstruction.NoGeometricCATZeroAction (FundamentalGroup K.Carrier x) ∧
+            Chal.HyperbolicObstruction.WordHyperbolic (FundamentalGroup K.Carrier x) ∧
+              ∀ (L : Chal.HyperbolicObstruction.FiniteComplex),
+                Nonempty (ContinuousMap.HomotopyEquiv K.Carrier L.Carrier) →
+                  ¬Chal.HyperbolicObstruction.CompatibleLocallyCATNegOne L
+'OAI.HyperbolicObstruction.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HyperbolicObstruction comparator-style: ok=42 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
