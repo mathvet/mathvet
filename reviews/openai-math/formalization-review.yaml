@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T22:05:52Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T22:36:51Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 351 accepted by
-    the real Comparator, of which 351 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 352 accepted by
+    the real Comparator, of which 352 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -7519,7 +7519,8 @@ alignment:
     module: OAI.Geometry.WeakHessian.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/WeakHessian.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 356 — headline claim as stated in the overview: Proves Gigli''s conjecture: in every integer
       dimension $n\ge2$, Alexandrov curvature at least $\kappa$ is characterized by the full-support $\operatorname{RCD}((n-1)\kappa,n)$
       condition with reference measure $\mathcal H^n$ and distributional sectional curvature at least $\kappa$ in
@@ -7813,7 +7814,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T22:05:52Z'
+    generated: '2026-10-08T22:36:51Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -8196,6 +8197,7 @@ mathvet:
     - VertexCover
     - VlasovMaxwell
     - WLIdentification
+    - WeakHessian
     - WeakMTWGlobalSupport
     - WeightedSweepMoments
     - WeisfeilerLeman
@@ -8548,6 +8550,7 @@ mathvet:
     - VertexCover
     - VlasovMaxwell
     - WLIdentification
+    - WeakHessian
     - WeakMTWGlobalSupport
     - WeightedSweepMoments
     - WeisfeilerLeman
@@ -12909,7 +12912,7 @@ mathvet:
       tmp/import_cones.json says 64,010)'
     external_packages: []
     cone_lines_max: 65542
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/356.md
     audit_part: 3
   - family: '358'
