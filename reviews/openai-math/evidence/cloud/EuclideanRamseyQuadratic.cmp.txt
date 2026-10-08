@@ -1,0 +1,50 @@
+CMP OAI.EuclideanRamsey.spherical_quadraticIndependent_ramsey_all [thm] ok
+CMP OAI.EuclideanRamsey.Ramsey [def] ok
+CMP OAI.EuclideanRamsey.Congruent [def] ok
+CMP OAI.EuclideanRamsey.Space [def] ok
+CMP OAI.EuclideanRamsey.augmented [def] ok
+CMP OAI.EuclideanRamsey.coordinate [def] ok
+CMP OAI.EuclideanRamsey.coordinate._proof_1 [thm] ok
+CMP OAI.EuclideanRamsey.coordinateField._proof_1 [thm] ok
+CMP OAI.EuclideanRamsey.coordinateField [def] ok
+CMP OAI.EuclideanRamsey.Coeff [def] ok
+CMP OAI.EuclideanRamsey.augmented._proof_1 [thm] ok
+CMP OAI.EuclideanRamsey.augmented.match_1 [def] ok
+@Chal.EuclideanRamsey.spherical_quadraticIndependent_ramsey_all : ∀ {s d : ℕ}
+  (a : Fin s → Chal.EuclideanRamsey.Space d),
+  Function.Injective a →
+    affineSpan ℝ (Set.range a) = ⊤ →
+      (∃ c r, ∀ (i : Fin s), dist (a i) c = r) →
+        (LinearIndependent (Chal.EuclideanRamsey.Coeff a) fun i q =>
+            Chal.EuclideanRamsey.augmented a i q.1 * Chal.EuclideanRamsey.augmented a i q.2) →
+          Chal.EuclideanRamsey.Ramsey a
+@[reducible] def Chal.EuclideanRamsey.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.EuclideanRamsey.Congruent : {s d D : ℕ} →
+  (Fin s → Chal.EuclideanRamsey.Space d) → (Fin s → Chal.EuclideanRamsey.Space D) → Prop :=
+fun {s d D} a b => ∀ (i j : Fin s), dist (b i) (b j) = dist (a i) (a j)
+def Chal.EuclideanRamsey.Ramsey : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → Prop :=
+fun {s d} a =>
+  ∀ (r : ℕ),
+    2 ≤ r →
+      ∃ D,
+        1 ≤ D ∧
+          ∀ (c : Chal.EuclideanRamsey.Space D → Fin r),
+            ∃ b, Chal.EuclideanRamsey.Congruent a b ∧ ∃ k, ∀ (i : Fin s), c (b i) = k
+def Chal.EuclideanRamsey.coordinateField : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → IntermediateField ℚ ℝ :=
+fun {s d} a => IntermediateField.adjoin ℚ (Set.range fun ij => (a ij.1).ofLp ij.2)
+@[reducible] def Chal.EuclideanRamsey.Coeff : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → Type :=
+fun {s d} a => ↥(Chal.EuclideanRamsey.coordinateField a)
+def Chal.EuclideanRamsey.coordinate : {s d : ℕ} →
+  (a : Fin s → Chal.EuclideanRamsey.Space d) → Fin s → Fin d → Chal.EuclideanRamsey.Coeff a :=
+fun {s d} a i j => ⟨(a i).ofLp j, ⋯⟩
+def Chal.EuclideanRamsey.augmented : {s d : ℕ} →
+  (a : Fin s → Chal.EuclideanRamsey.Space d) → Fin s → Option (Fin d) → Chal.EuclideanRamsey.Coeff a :=
+fun {s d} a i x =>
+  match x with
+  | none => 1
+  | some j => Chal.EuclideanRamsey.coordinate a i j
+'OAI.EuclideanRamsey.spherical_quadraticIndependent_ramsey_all' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== EuclideanRamseyQuadratic comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, 
