@@ -1,0 +1,374 @@
+CMP OAI.BalancedTransport.balanced_three_stack_realization [thm] ok
+CMP OAI.BalancedTransport.nameOracle [def] ok
+CMP OAI.BalancedTransport.RealName [def] ok
+CMP OAI.BalancedTransport.error [def] ok
+CMP OAI.BalancedTransport.CH._proof_2 [thm] ok
+CMP OAI.BalancedTransport.EffectiveFieldIn [def] ok
+CMP OAI.BalancedTransport.rationalSpace [def] ok
+CMP OAI.BalancedTransport.Space [def] ok
+CMP OAI.BalancedTransport.mixedD [def] ok
+CMP OAI.BalancedTransport.mixedD._f [def] ok
+CMP OAI.BalancedTransport.spaceD [def] ok
+CMP OAI.BalancedTransport.Field [def] ok
+CMP OAI.BalancedTransport.timeD [def] ok
+CMP OAI.BalancedTransport.mixedD.match_1 [def] ok
+CMP OAI.BalancedTransport.MultiIndex [def] ok
+CMP OAI.BalancedTransport.RationalPoint [def] ok
+CMP OAI.BalancedTransport.Velocity [def] ok
+CMP OAI.BalancedTransport.ComputableReal [def] ok
+CMP OAI.BalancedTransport.UniqueInComparison [def] ok
+CMP OAI.BalancedTransport.ComparisonClass [def] ok
+CMP OAI.BalancedTransport.BoundedOnFiniteSlabs [def] ok
+CMP OAI.BalancedTransport.C1L2 [def] ok
+CMP OAI.BalancedTransport.C1L2._proof_2 [thm] ok
+CMP OAI.BalancedTransport.C1L2._proof_1 [thm] ok
+CMP OAI.BalancedTransport.CH._proof_1 [thm] ok
+CMP OAI.BalancedTransport.CH._proof_3 [thm] ok
+CMP OAI.BalancedTransport.CH [def] ok
+CMP OAI.BalancedTransport.spatialD [def] ok
+CMP OAI.BalancedTransport.spatialD._f [def] ok
+CMP OAI.BalancedTransport.spatialD.match_1 [def] ok
+CMP OAI.BalancedTransport.Pressure [def] ok
+CMP OAI.BalancedTransport.ZeroDataSolution [def] ok
+CMP OAI.BalancedTransport.laplacian [def] ok
+CMP OAI.BalancedTransport.gradient [def] ok
+CMP OAI.BalancedTransport.convection [def] ok
+CMP OAI.BalancedTransport.div [def] ok
+CMP OAI.BalancedTransport.Smooth [def] ok
+CMP OAI.BalancedTransport.affineForce [def] ok
+CMP OAI.BalancedTransport.Halts [def] ok
+CMP OAI.BalancedTransport.initialConfiguration [def] ok
+CMP OAI.BalancedTransport.FiniteMachine.blank [def] ok
+CMP OAI.BalancedTransport.FiniteMachine [ind] ok
+CMP OAI.BalancedTransport.FiniteMachine.mk [ctor] ok
+CMP OAI.BalancedTransport.Recorder.Transition [ind] ok
+CMP OAI.BalancedTransport.Recorder.Transition.mk [ctor] ok
+CMP OAI.BalancedTransport.Recorder.Direction [ind] ok
+CMP OAI.BalancedTransport.Recorder.Direction.right [ctor] ok
+CMP OAI.BalancedTransport.Recorder.Direction.left [ctor] ok
+CMP OAI.BalancedTransport.Recorder.Direction.stay [ctor] ok
+CMP OAI.BalancedTransport.FiniteMachine.symbols [def] ok
+CMP OAI.BalancedTransport.FiniteMachine.initial [def] ok
+CMP OAI.BalancedTransport.FiniteMachine.states [def] ok
+CMP OAI.BalancedTransport.TapeConfiguration.mk [ctor] ok
+CMP OAI.BalancedTransport.TapeConfiguration [ind] ok
+CMP OAI.BalancedTransport.Input [def] ok
+CMP OAI.BalancedTransport.machineStep [def] ok
+CMP OAI.BalancedTransport.TapeConfiguration.state [def] ok
+CMP OAI.BalancedTransport.FiniteMachine.transition [def] ok
+CMP OAI.BalancedTransport.Recorder.Transition.write [def] ok
+CMP OAI.BalancedTransport.TapeConfiguration.tape [def] ok
+CMP OAI.BalancedTransport.Recorder.Transition.move [def] ok
+CMP OAI.BalancedTransport.machineStep.match_1 [def] ok
+CMP OAI.BalancedTransport.Recorder.Direction.casesOn [def] ok
+CMP OAI.BalancedTransport.Recorder.Direction.rec [rec] ok
+CMP OAI.BalancedTransport.TapeConfiguration.head [def] ok
+CMP OAI.BalancedTransport.Recorder.Transition.state [def] ok
+CMP OAI.BalancedTransport.fixedLabel [def] ok
+CMP OAI.BalancedTransport.fixedLabel._proof_1 [thm] ok
+CMP OAI.BalancedTransport.observer [def] ok
+CMP OAI.BalancedTransport.IsMaterialFlow [def] ok
+CMP OAI.BalancedTransport.IsMaterialFlow._proof_1 [thm] ok
+CMP OAI.BalancedTransport.MaterialFlow [def] ok
+CMP OAI.BalancedTransport.PeriodicAfterOne [def] ok
+CMP OAI.BalancedTransport.BoundedMixed [def] ok
+CMP OAI.BalancedTransport.CommonCompactSupport [def] ok
+CMP OAI.BalancedTransport.viscousCoefficient [def] ok
+CMP OAI.BalancedTransport.inertialCoefficient [def] ok
+CMP OAI.BalancedTransport.EffectiveFamily [def] ok
+CMP OAI.BalancedTransport.inputCode [def] ok
+CMP OAI.BalancedTransport.FiniteMachine.code [def] ok
+CMP OAI.BalancedTransport.Recorder.Direction.number [def] ok
+CMP OAI.BalancedTransport.Family [def] ok
+Chal.BalancedTransport.balanced_three_stack_realization : ∃ U f₀ f₁ X repeated,
+  Chal.BalancedTransport.EffectiveFamily U ∧
+    Chal.BalancedTransport.EffectiveFamily f₀ ∧
+      Chal.BalancedTransport.EffectiveFamily f₁ ∧
+        (∀ (M : Chal.BalancedTransport.FiniteMachine), Function.Periodic (repeated M) 1) ∧
+          ∀ (M : Chal.BalancedTransport.FiniteMachine) (w : Chal.BalancedTransport.Input M),
+            Chal.BalancedTransport.Smooth (U M w) ∧
+              Chal.BalancedTransport.Smooth (f₀ M w) ∧
+                Chal.BalancedTransport.Smooth (f₁ M w) ∧
+                  f₀ M w = Chal.BalancedTransport.inertialCoefficient (U M w) ∧
+                    f₁ M w = Chal.BalancedTransport.viscousCoefficient (U M w) ∧
+                      Chal.BalancedTransport.CommonCompactSupport (U M w) (f₀ M w) (f₁ M w) ∧
+                        Chal.BalancedTransport.BoundedMixed (U M w) ∧
+                          Chal.BalancedTransport.PeriodicAfterOne (U M w) ∧
+                            (∀ (t : ℝ), 1 ≤ t → ∀ (x : Chal.BalancedTransport.Space), U M w t x = repeated M t x) ∧
+                              (Chal.BalancedTransport.ComparisonClass (U M w) fun x x_1 => 0) ∧
+                                Chal.BalancedTransport.IsMaterialFlow (U M w) (X M w) ∧
+                                  ((∃ t,
+                                        0 ≤ t ∧
+                                          X M w t Chal.BalancedTransport.fixedLabel ∈ Chal.BalancedTransport.observer) ↔
+                                      Chal.BalancedTransport.Halts M w) ∧
+                                    ∀ (ν : ℝ),
+                                      0 < ν →
+                                        have f := Chal.BalancedTransport.affineForce (f₀ M w) (f₁ M w) ν;
+                                        (Chal.BalancedTransport.ZeroDataSolution ν f (U M w) fun x x_1 => 0) ∧
+                                          Chal.BalancedTransport.Smooth f ∧
+                                            Chal.BalancedTransport.BoundedMixed f ∧
+                                              Chal.BalancedTransport.PeriodicAfterOne f ∧
+                                                Chal.BalancedTransport.UniqueInComparison ν f (U M w) ∧
+                                                  (Chal.BalancedTransport.ComputableReal ν →
+                                                      Chal.BalancedTransport.EffectiveFieldIn ∅ f) ∧
+                                                    ∀ (name : ℕ → ℚ),
+                                                      Chal.BalancedTransport.RealName name ν →
+                                                        Chal.BalancedTransport.EffectiveFieldIn
+                                                          {Chal.BalancedTransport.nameOracle name} f
+inductive Chal.BalancedTransport.Recorder.Direction : Type
+number of parameters: 0
+constructors:
+Chal.BalancedTransport.Recorder.Direction.stay : Chal.BalancedTransport.Recorder.Direction
+Chal.BalancedTransport.Recorder.Direction.left : Chal.BalancedTransport.Recorder.Direction
+Chal.BalancedTransport.Recorder.Direction.right : Chal.BalancedTransport.Recorder.Direction
+structure Chal.BalancedTransport.Recorder.Transition.{u_1, u_2} (Q : Type u_1) (Γ : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  Chal.BalancedTransport.Recorder.Transition.state : Q
+  Chal.BalancedTransport.Recorder.Transition.write : Γ
+  Chal.BalancedTransport.Recorder.Transition.move : Chal.BalancedTransport.Recorder.Direction
+constructor:
+  Chal.BalancedTransport.Recorder.Transition.mk.{u_1, u_2} {Q : Type u_1} {Γ : Type u_2} (state : Q) (write : Γ)
+    (move : Chal.BalancedTransport.Recorder.Direction) : Chal.BalancedTransport.Recorder.Transition Q Γ
+structure Chal.BalancedTransport.FiniteMachine : Type
+number of parameters: 0
+fields:
+  Chal.BalancedTransport.FiniteMachine.states : ℕ
+  Chal.BalancedTransport.FiniteMachine.symbols : ℕ
+  Chal.BalancedTransport.FiniteMachine.initial : Fin (self.states + 1)
+  Chal.BalancedTransport.FiniteMachine.blank : Fin (self.symbols + 1)
+  Chal.BalancedTransport.FiniteMachine.transition : Fin (self.states + 1) →
+      Fin (self.symbols + 1) →
+        Option (Chal.BalancedTransport.Recorder.Transition (Fin (self.states + 1)) (Fin (self.symbols + 1)))
+constructor:
+  Chal.BalancedTransport.FiniteMachine.mk (states symbols : ℕ) (initial : Fin (states + 1)) (blank : Fin (symbols + 1))
+    (transition :
+      Fin (states + 1) →
+        Fin (symbols + 1) →
+          Option (Chal.BalancedTransport.Recorder.Transition (Fin (states + 1)) (Fin (symbols + 1)))) :
+    Chal.BalancedTransport.FiniteMachine
+@[reducible] def Chal.BalancedTransport.Input : Chal.BalancedTransport.FiniteMachine → Type :=
+fun M => List (Fin (M.symbols + 1))
+structure Chal.BalancedTransport.TapeConfiguration (M : Chal.BalancedTransport.FiniteMachine) : Type
+number of parameters: 1
+fields:
+  Chal.BalancedTransport.TapeConfiguration.state : Fin (M.states + 1)
+  Chal.BalancedTransport.TapeConfiguration.head : ℤ
+  Chal.BalancedTransport.TapeConfiguration.tape : ℤ → Fin (M.symbols + 1)
+constructor:
+  Chal.BalancedTransport.TapeConfiguration.mk {M : Chal.BalancedTransport.FiniteMachine} (state : Fin (M.states + 1))
+    (head : ℤ) (tape : ℤ → Fin (M.symbols + 1)) : Chal.BalancedTransport.TapeConfiguration M
+def Chal.BalancedTransport.initialConfiguration : (M : Chal.BalancedTransport.FiniteMachine) →
+  Chal.BalancedTransport.Input M → Chal.BalancedTransport.TapeConfiguration M :=
+fun M w => { state := M.initial, head := 0, tape := fun z => if 0 ≤ z then w[z.toNat]?.getD M.blank else M.blank }
+def Chal.BalancedTransport.machineStep : (M : Chal.BalancedTransport.FiniteMachine) →
+  Chal.BalancedTransport.TapeConfiguration M → Option (Chal.BalancedTransport.TapeConfiguration M) :=
+fun M c =>
+  Option.map
+    (fun v =>
+      { state := v.state,
+        head :=
+          c.head +
+            match v.move with
+            | Chal.BalancedTransport.Recorder.Direction.stay => 0
+            | Chal.BalancedTransport.Recorder.Direction.left => -1
+            | Chal.BalancedTransport.Recorder.Direction.right => 1,
+        tape := Function.update c.tape c.head v.write })
+    (M.transition c.state (c.tape c.head))
+def Chal.BalancedTransport.Halts : (M : Chal.BalancedTransport.FiniteMachine) → Chal.BalancedTransport.Input M → Prop :=
+fun M w =>
+  ∃ c,
+    Relation.ReflTransGen (fun c d => Chal.BalancedTransport.machineStep M c = some d)
+        (Chal.BalancedTransport.initialConfiguration M w) c ∧
+      Chal.BalancedTransport.machineStep M c = none
+def Chal.BalancedTransport.Recorder.Direction.number : Chal.BalancedTransport.Recorder.Direction → ℕ :=
+fun x =>
+  match x with
+  | Chal.BalancedTransport.Recorder.Direction.stay => 0
+  | Chal.BalancedTransport.Recorder.Direction.left => 1
+  | Chal.BalancedTransport.Recorder.Direction.right => 2
+def Chal.BalancedTransport.FiniteMachine.code : Chal.BalancedTransport.FiniteMachine → ℕ :=
+fun M =>
+  Encodable.encode
+    (M.states, M.symbols, ↑M.initial, ↑M.blank,
+      List.map
+        (fun q =>
+          List.map (fun a => Option.map (fun v => (↑v.state, ↑v.write, v.move.number)) (M.transition q a))
+            (List.finRange (M.symbols + 1)))
+        (List.finRange (M.states + 1)))
+def Chal.BalancedTransport.inputCode : (M : Chal.BalancedTransport.FiniteMachine) →
+  Chal.BalancedTransport.Input M → ℕ :=
+fun M w => Encodable.encode (M.code, List.map Fin.val w)
+@[reducible] def Chal.BalancedTransport.Space : Type :=
+Fin 3 → ℝ
+@[reducible] def Chal.BalancedTransport.Field.{u_1} : Type u_1 → Type u_1 :=
+fun F => ℝ → Chal.BalancedTransport.Space → F
+@[reducible] def Chal.BalancedTransport.Velocity : Type :=
+Chal.BalancedTransport.Field Chal.BalancedTransport.Space
+@[reducible] def Chal.BalancedTransport.Pressure : Type :=
+Chal.BalancedTransport.Field ℝ
+@[reducible] def Chal.BalancedTransport.Family.{u_1} : Type u_1 → Type u_1 :=
+fun F => (M : Chal.BalancedTransport.FiniteMachine) → Chal.BalancedTransport.Input M → F
+@[reducible] def Chal.BalancedTransport.MaterialFlow : Type :=
+ℝ → Chal.BalancedTransport.Space → Chal.BalancedTransport.Space
+@[reducible] def Chal.BalancedTransport.MultiIndex : Type :=
+List (Option (Fin 3))
+@[reducible] def Chal.BalancedTransport.RationalPoint : Type :=
+ℚ × (Fin 3 → ℚ)
+def Chal.BalancedTransport.timeD.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] v t x => derivWithin (fun s => v s x) (Set.Ici 0) t
+def Chal.BalancedTransport.spaceD.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] →
+    [NormedSpace ℝ F] → Fin 3 → Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] i v t x => (fderiv ℝ (v t) x) (Pi.single i 1)
+def Chal.BalancedTransport.mixedD.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] →
+    [NormedSpace ℝ F] →
+      Chal.BalancedTransport.MultiIndex → Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] x x_1 =>
+  List.brecOn (motive := fun x => Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F) x
+    Chal.BalancedTransport.mixedD._f x_1
+def Chal.BalancedTransport.spatialD.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] →
+    [NormedSpace ℝ F] → List (Fin 3) → Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] x x_1 =>
+  List.brecOn (motive := fun x => Chal.BalancedTransport.Field F → Chal.BalancedTransport.Field F) x
+    Chal.BalancedTransport.spatialD._f x_1
+def Chal.BalancedTransport.Smooth.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → Chal.BalancedTransport.Field F → Prop :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] v => ContDiffOn ℝ (↑⊤) (fun z => v z.1 z.2) (Set.Ici 0 ×ˢ Set.univ)
+def Chal.BalancedTransport.BoundedMixed.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → Chal.BalancedTransport.Field F → Prop :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] v =>
+  ∀ (a : Chal.BalancedTransport.MultiIndex),
+    ∃ C, 0 ≤ C ∧ ∀ (t : ℝ), 0 ≤ t → ∀ (x : Chal.BalancedTransport.Space), ‖Chal.BalancedTransport.mixedD a v t x‖ ≤ C
+def Chal.BalancedTransport.CH.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → ℕ → Chal.BalancedTransport.Field F → Prop :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] k v =>
+  ∀ (a : List (Fin 3)),
+    a.length ≤ k →
+      ∃ V,
+        ContinuousOn V (Set.Ici 0) ∧
+          ∀ (t : ℝ), 0 ≤ t → ↑↑(V t) =ᵐ[MeasureTheory.volume] Chal.BalancedTransport.spatialD a v t
+def Chal.BalancedTransport.C1L2.{u_1} : {F : Type u_1} →
+  [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → Chal.BalancedTransport.Field F → Prop :=
+fun {F} [NormedAddCommGroup F] [NormedSpace ℝ F] v =>
+  ∃ V W,
+    ContinuousOn V (Set.Ici 0) ∧
+      ContinuousOn W (Set.Ici 0) ∧
+        ∀ (t : ℝ),
+          0 ≤ t →
+            ↑↑(V t) =ᵐ[MeasureTheory.volume] v t ∧
+              ↑↑(W t) =ᵐ[MeasureTheory.volume] Chal.BalancedTransport.timeD v t ∧ HasDerivWithinAt V (W t) (Set.Ici 0) t
+def Chal.BalancedTransport.div : Chal.BalancedTransport.Velocity → ℝ → Chal.BalancedTransport.Space → ℝ :=
+fun u t x => ∑ i, Chal.BalancedTransport.spaceD i u t x i
+def Chal.BalancedTransport.laplacian : Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity :=
+fun u t x => ∑ i, Chal.BalancedTransport.spaceD i (Chal.BalancedTransport.spaceD i u) t x
+def Chal.BalancedTransport.convection : Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity :=
+fun u t x => ∑ i, u t x i • Chal.BalancedTransport.spaceD i u t x
+def Chal.BalancedTransport.gradient : Chal.BalancedTransport.Pressure →
+  ℝ → Chal.BalancedTransport.Space → Chal.BalancedTransport.Space :=
+fun p t x i => Chal.BalancedTransport.spaceD i p t x
+def Chal.BalancedTransport.affineForce : Chal.BalancedTransport.Velocity →
+  Chal.BalancedTransport.Velocity → ℝ → Chal.BalancedTransport.Velocity :=
+fun f₀ f₁ ν t x => f₀ t x + ν • f₁ t x
+def Chal.BalancedTransport.inertialCoefficient : Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity :=
+fun u t x => Chal.BalancedTransport.timeD u t x + Chal.BalancedTransport.convection u t x
+def Chal.BalancedTransport.viscousCoefficient : Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity :=
+fun u t x => -Chal.BalancedTransport.laplacian u t x
+def Chal.BalancedTransport.ZeroDataSolution : ℝ →
+  Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Pressure → Prop :=
+fun ν f u p =>
+  Chal.BalancedTransport.Smooth u ∧
+    Chal.BalancedTransport.Smooth p ∧
+      (∀ (x : Chal.BalancedTransport.Space), u 0 x = 0) ∧
+        (∀ (t : ℝ), 0 ≤ t → ∀ (x : Chal.BalancedTransport.Space), Chal.BalancedTransport.div u t x = 0) ∧
+          ∀ (t : ℝ),
+            0 ≤ t →
+              ∀ (x : Chal.BalancedTransport.Space),
+                Chal.BalancedTransport.timeD u t x + Chal.BalancedTransport.convection u t x =
+                  -Chal.BalancedTransport.gradient p t x + ν • Chal.BalancedTransport.laplacian u t x + f t x
+def Chal.BalancedTransport.BoundedOnFiniteSlabs : Chal.BalancedTransport.Velocity → Prop :=
+fun u =>
+  ∀ (T : ℝ),
+    0 ≤ T →
+      ∃ C,
+        0 ≤ C ∧
+          ∀ t ∈ Set.Icc 0 T,
+            ∀ (x : Chal.BalancedTransport.Space),
+              ‖u t x‖ ≤ C ∧ ∀ (i : Fin 3), ‖Chal.BalancedTransport.spaceD i u t x‖ ≤ C
+def Chal.BalancedTransport.ComparisonClass : Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Pressure → Prop :=
+fun u p =>
+  Chal.BalancedTransport.CH 2 u ∧
+    Chal.BalancedTransport.C1L2 u ∧
+      Chal.BalancedTransport.BoundedOnFiniteSlabs u ∧ ∃ c, Chal.BalancedTransport.CH 1 fun t x => p t x - c t
+def Chal.BalancedTransport.UniqueInComparison : ℝ →
+  Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity → Prop :=
+fun ν f U =>
+  ∀ (u : Chal.BalancedTransport.Velocity) (p : Chal.BalancedTransport.Pressure),
+    Chal.BalancedTransport.ZeroDataSolution ν f u p →
+      Chal.BalancedTransport.ComparisonClass u p →
+        (∀ (t : ℝ), 0 ≤ t → ∀ (x : Chal.BalancedTransport.Space), u t x = U t x) ∧
+          ∀ (t : ℝ), 0 ≤ t → ∀ (x y : Chal.BalancedTransport.Space), p t x = p t y
+def Chal.BalancedTransport.CommonCompactSupport : Chal.BalancedTransport.Velocity →
+  Chal.BalancedTransport.Velocity → Chal.BalancedTransport.Velocity → Prop :=
+fun U f₀ f₁ => ∃ K, IsCompact K ∧ ∀ (t : ℝ), 0 ≤ t → ∀ x ∉ K, U t x = 0 ∧ f₀ t x = 0 ∧ f₁ t x = 0
+def Chal.BalancedTransport.PeriodicAfterOne : Chal.BalancedTransport.Velocity → Prop :=
+fun v => ∀ (t : ℝ), 1 ≤ t → ∀ (x : Chal.BalancedTransport.Space), v (t + 1) x = v t x
+def Chal.BalancedTransport.IsMaterialFlow : Chal.BalancedTransport.Velocity →
+  Chal.BalancedTransport.MaterialFlow → Prop :=
+fun u X =>
+  (∀ (a : Chal.BalancedTransport.Space), X 0 a = a) ∧
+    ∀ (a : Chal.BalancedTransport.Space) (t : ℝ), 0 ≤ t → HasDerivWithinAt (fun s => X s a) (u t (X t a)) (Set.Ici 0) t
+def Chal.BalancedTransport.fixedLabel : Chal.BalancedTransport.Space :=
+![4, 0, 0]
+def Chal.BalancedTransport.observer : Set Chal.BalancedTransport.Space :=
+Set.univ.pi fun x => Set.Ioo (-1) 2
+def Chal.BalancedTransport.rationalSpace : (Fin 3 → ℚ) → Chal.BalancedTransport.Space :=
+fun x i => ↑(x i)
+def Chal.BalancedTransport.error : ℕ → ℝ :=
+fun n => 2⁻¹ ^ n
+def Chal.BalancedTransport.EffectiveFamily : Chal.BalancedTransport.Family Chal.BalancedTransport.Velocity → Prop :=
+fun v =>
+  ∃ E b R,
+    Computable E ∧
+      Computable b ∧
+        Computable R ∧
+          (∀ (M : Chal.BalancedTransport.FiniteMachine) (w : Chal.BalancedTransport.Input M)
+              (a : Chal.BalancedTransport.MultiIndex) (z : Chal.BalancedTransport.RationalPoint) (n : ℕ),
+              0 ≤ z.1 →
+                ∀ (i : Fin 3),
+                  |↑(E (Chal.BalancedTransport.inputCode M w, a, z, n) i) -
+                        Chal.BalancedTransport.mixedD a (v M w) (↑z.1) (Chal.BalancedTransport.rationalSpace z.2) i| ≤
+                    Chal.BalancedTransport.error n) ∧
+            (∀ (M : Chal.BalancedTransport.FiniteMachine) (w : Chal.BalancedTransport.Input M)
+                (a : Chal.BalancedTransport.MultiIndex) (t : ℝ),
+                0 ≤ t →
+                  ∀ (x : Chal.BalancedTransport.Space),
+                    ‖Chal.BalancedTransport.mixedD a (v M w) t x‖ ≤ ↑(b (Chal.BalancedTransport.inputCode M w, a))) ∧
+              ∀ (M : Chal.BalancedTransport.FiniteMachine) (w : Chal.BalancedTransport.Input M) (t : ℝ),
+                0 ≤ t →
+                  ∀ (x : Chal.BalancedTransport.Space),
+                    ↑(R (Chal.BalancedTransport.inputCode M w)) < ‖x‖ → v M w t x = 0
+def Chal.BalancedTransport.EffectiveFieldIn : Set (ℕ →. ℕ) → Chal.BalancedTransport.Velocity → Prop :=
+fun O v =>
+  ∃ E b,
+    ComputableIn O E ∧
+      ComputableIn O b ∧
+        (∀ (a : Chal.BalancedTransport.MultiIndex) (z : Chal.BalancedTransport.RationalPoint) (n : ℕ),
+            0 ≤ z.1 →
+              ∀ (i : Fin 3),
+                |↑(E (a, z, n) i) -
+                      Chal.BalancedTransport.mixedD a v (↑z.1) (Chal.BalancedTransport.rationalSpace z.2) i| ≤
+                  Chal.BalancedTransport.error n) ∧
+          ∀ (a : Chal.BalancedTransport.MultiIndex) (t : ℝ),
+            0 ≤ t → ∀ (x : Chal.BalancedTransport.Space), ‖Chal.BalancedTransport.mixedD a v t x‖ ≤ ↑(b a)
+def Chal.BalancedTransport.RealName : (ℕ → ℚ) → ℝ → Prop :=
+fun name x => ∀ (n : ℕ), |↑(name n) - x| ≤ Chal.BalancedTransport.error n
+def Chal.BalancedTransport.ComputableReal : ℝ → Prop :=
+fun x => ∃ name, Computable name ∧ Chal.BalancedTransport.RealName name x
+def Chal.BalancedTransport.nameOracle : (ℕ → ℚ) → ℕ →. ℕ :=
+fun name n => Part.some (Encodable.encode (name n))
+'OAI.BalancedTransport.balanced_three_stack_realization' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ForcedNavierStokesComputation comparator-style: ok=82 problems=0 errors=5 | no-shadowing | [propext, Classical.choice, Quot.sound] 
