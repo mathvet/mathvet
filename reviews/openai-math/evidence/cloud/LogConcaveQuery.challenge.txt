@@ -1,0 +1,90 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LogConcaveQuery.lean:81:8: warning: declaration uses `sorry`
+OAI.LogConcaveSampling.exact_source_main : (∀ (ε : ℝ),
+    0 < ε → ∃ C, ∀ (d : ℕ), 2 ≤ d → ↑(OAI.LogConcaveSampling.queryComplexity d) ≤ ENNReal.ofReal (C * ↑d ^ ε)) ∧
+  (∃ c,
+      0 < c ∧
+        ∃ d₀,
+          2 ≤ d₀ ∧ ∀ (d : ℕ), d₀ ≤ d → ENNReal.ofReal (c * Real.log ↑d) ≤ ↑(OAI.LogConcaveSampling.queryComplexity d)) ∧
+    OAI.LogConcaveSampling.gammaStar = 0
+@[reducible] def OAI.LogConcaveSampling.Point : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.LogConcaveSampling.Reply : ℕ → Type :=
+fun d => ℝ × OAI.LogConcaveSampling.Point d
+@[reducible] def OAI.LogConcaveSampling.Transcript : ℕ → ℕ → Type :=
+fun d q => Fin q → OAI.LogConcaveSampling.Reply d
+structure OAI.LogConcaveSampling.Admissible {d : ℕ} (V : OAI.LogConcaveSampling.Point d → ℝ) : Prop
+number of parameters: 2
+fields:
+  OAI.LogConcaveSampling.Admissible.smooth : ContDiff ℝ 2 V
+  OAI.LogConcaveSampling.Admissible.value_zero : V 0 = 0
+  OAI.LogConcaveSampling.Admissible.gradient_zero : gradient V 0 = 0
+  OAI.LogConcaveSampling.Admissible.hessian_bounds : ∀ (x v : OAI.LogConcaveSampling.Point d),
+      ‖v‖ ^ 2 ≤ inner ℝ v ((fderiv ℝ (gradient V) x) v) ∧ inner ℝ v ((fderiv ℝ (gradient V) x) v) ≤ 2 * ‖v‖ ^ 2
+constructor:
+  OAI.LogConcaveSampling.Admissible.mk {d : ℕ} {V : OAI.LogConcaveSampling.Point d → ℝ} (smooth : ContDiff ℝ 2 V)
+    (value_zero : V 0 = 0) (gradient_zero : gradient V 0 = 0)
+    (hessian_bounds :
+      ∀ (x v : OAI.LogConcaveSampling.Point d),
+        ‖v‖ ^ 2 ≤ inner ℝ v ((fderiv ℝ (gradient V) x) v) ∧ inner ℝ v ((fderiv ℝ (gradient V) x) v) ≤ 2 * ‖v‖ ^ 2) :
+    OAI.LogConcaveSampling.Admissible V
+def OAI.LogConcaveSampling.gibbsDensity : {d : ℕ} →
+  (OAI.LogConcaveSampling.Point d → ℝ) → OAI.LogConcaveSampling.Point d → ENNReal :=
+fun {d} V x => ENNReal.ofReal (Real.exp (-V x))
+def OAI.LogConcaveSampling.partition : {d : ℕ} → (OAI.LogConcaveSampling.Point d → ℝ) → ENNReal :=
+fun {d} V => ∫⁻ (x : OAI.LogConcaveSampling.Point d), OAI.LogConcaveSampling.gibbsDensity V x
+def OAI.LogConcaveSampling.gibbs : {d : ℕ} →
+  (OAI.LogConcaveSampling.Point d → ℝ) → MeasureTheory.Measure (OAI.LogConcaveSampling.Point d) :=
+fun {d} V =>
+  (OAI.LogConcaveSampling.partition V)⁻¹ • MeasureTheory.volume.withDensity (OAI.LogConcaveSampling.gibbsDensity V)
+def OAI.LogConcaveSampling.TVAtMost.{u_1} : {E : Type u_1} →
+  [inst : MeasurableSpace E] → MeasureTheory.Measure E → MeasureTheory.Measure E → ℝ → Prop :=
+fun {E} [MeasurableSpace E] μ ν ε => ∀ (s : Set E), MeasurableSet s → |μ.real s - ν.real s| ≤ ε
+def OAI.LogConcaveSampling.firstOrderReply : {d : ℕ} →
+  (OAI.LogConcaveSampling.Point d → ℝ) → OAI.LogConcaveSampling.Point d → OAI.LogConcaveSampling.Reply d :=
+fun {d} V x => (V x, gradient V x)
+structure OAI.LogConcaveSampling.OracleAlgorithm.{u_1} (Ω : Type u_1) [MeasurableSpace Ω] (d q : ℕ) : Type u_1
+number of parameters: 4
+fields:
+  OAI.LogConcaveSampling.OracleAlgorithm.query : Fin q →
+      Ω × OAI.LogConcaveSampling.Transcript d q → OAI.LogConcaveSampling.Point d
+  OAI.LogConcaveSampling.OracleAlgorithm.query_measurable : ∀ (i : Fin q), Measurable (self.query i)
+  OAI.LogConcaveSampling.OracleAlgorithm.output : Ω × OAI.LogConcaveSampling.Transcript d q →
+      OAI.LogConcaveSampling.Point d
+  OAI.LogConcaveSampling.OracleAlgorithm.output_measurable : Measurable self.output
+constructor:
+  OAI.LogConcaveSampling.OracleAlgorithm.mk.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] {d q : ℕ}
+    (query : Fin q → Ω × OAI.LogConcaveSampling.Transcript d q → OAI.LogConcaveSampling.Point d)
+    (query_measurable : ∀ (i : Fin q), Measurable (query i))
+    (output : Ω × OAI.LogConcaveSampling.Transcript d q → OAI.LogConcaveSampling.Point d)
+    (output_measurable : Measurable output) : OAI.LogConcaveSampling.OracleAlgorithm Ω d q
+def OAI.LogConcaveSampling.OracleAlgorithm.history.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {d q : ℕ} →
+      OAI.LogConcaveSampling.OracleAlgorithm Ω d q →
+        (OAI.LogConcaveSampling.Point d → ℝ) → Ω → ℕ → OAI.LogConcaveSampling.Transcript d q :=
+fun {Ω} [MeasurableSpace Ω] {d q} A V ω x => Nat.brecOn x (OAI.LogConcaveSampling.OracleAlgorithm.history._f A V ω)
+def OAI.LogConcaveSampling.OracleAlgorithm.run.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {d q : ℕ} →
+      OAI.LogConcaveSampling.OracleAlgorithm Ω d q →
+        (OAI.LogConcaveSampling.Point d → ℝ) → Ω → OAI.LogConcaveSampling.Point d :=
+fun {Ω} [MeasurableSpace Ω] {d q} A V ω => A.output (ω, A.history V ω q)
+def OAI.LogConcaveSampling.CanSample : ℕ → ℕ → Prop :=
+fun d q =>
+  ∃ Ω x μ,
+    ∃ (_ : MeasureTheory.IsProbabilityMeasure μ),
+      ∃ A,
+        ∀ (V : OAI.LogConcaveSampling.Point d → ℝ),
+          OAI.LogConcaveSampling.Admissible V →
+            Measurable (A.run V) ∧
+              OAI.LogConcaveSampling.TVAtMost (MeasureTheory.Measure.map (A.run V) μ) (OAI.LogConcaveSampling.gibbs V)
+                (1 / 10)
+def OAI.LogConcaveSampling.queryComplexity : ℕ → ℕ∞ :=
+fun d => sInf ((fun q => ↑q) '' {q | OAI.LogConcaveSampling.CanSample d q})
+def OAI.LogConcaveSampling.ExponentBound : ℝ → Prop :=
+fun γ =>
+  0 ≤ γ ∧
+    ∀ (ε : ℝ),
+      0 < ε → ∃ d₀, ∀ (d : ℕ), d₀ ≤ d → ↑(OAI.LogConcaveSampling.queryComplexity d) ≤ ENNReal.ofReal (↑d ^ (γ + ε))
+def OAI.LogConcaveSampling.gammaStar : ℝ :=
+sInf {γ | OAI.LogConcaveSampling.ExponentBound γ}
