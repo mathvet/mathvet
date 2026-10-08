@@ -1,0 +1,17 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_KadisonRingrose.lean:30:8: warning: declaration uses `sorry`
+@OAI.BoundedHochschild.KadisonRingrose.main_result : ∀ {M : Type u_1} [inst : CStarAlgebra M] [inst_1 : PartialOrder M]
+  [StarOrderedRing M] [WStarAlgebra M] (n : ℕ) (f : OAI.BoundedHochschild.Cochain M (n + 2)),
+  (∀ (x : Fin (n + 3) → M), OAI.BoundedHochschild.differentialValue f x = 0) →
+    ∃ g, ∀ (x : Fin (n + 2) → M), OAI.BoundedHochschild.differentialValue g x = f x
+@[reducible] def OAI.BoundedHochschild.Cochain.{u_1} : (M : Type u_1) →
+  [inst : NormedAddCommGroup M] → [NormedSpace ℂ M] → ℕ → Type (max 0 u_1) :=
+fun M [NormedAddCommGroup M] [NormedSpace ℂ M] n => M [×n]→L[ℂ] M
+def OAI.BoundedHochschild.mergeInputs.{u_1} : {M : Type u_1} →
+  [Mul M] → {n : ℕ} → (Fin (n + 1) → M) → Fin n → Fin n → M :=
+fun {M} [Mul M] {n} v j i => if i < j then v i.castSucc else if i = j then v i.castSucc * v i.succ else v i.succ
+def OAI.BoundedHochschild.differentialValue.{u_1} : {M : Type u_1} →
+  [inst : NormedRing M] →
+    [inst_1 : NormedAlgebra ℂ M] → {n : ℕ} → OAI.BoundedHochschild.Cochain M n → (Fin (n + 1) → M) → M :=
+fun {M} [NormedRing M] [NormedAlgebra ℂ M] {n} f v =>
+  (v 0 * f fun i => v i.succ) + ∑ j, (-1) ^ (↑j + 1) • f (OAI.BoundedHochschild.mergeInputs v j) +
+    (-1) ^ (n + 1) • ((f fun i => v i.castSucc) * v (Fin.last n))
