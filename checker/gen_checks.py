@@ -13,7 +13,7 @@ for line in src.splitlines():
     if m: ns.append(m.group(1)); continue
     m=re.match(r'^\s*end\s+([\w.«»]+)',line)
     if m and ns and ns[-1]==m.group(1): ns.pop(); continue
-    m=re.match(r'^\s*(?:private\s+|protected\s+|noncomputable\s+|@\[[^\]]*\]\s*)*(?:def|abbrev|structure|inductive|class|theorem|lemma)\s+([\w.«»]+)',line)
+    m=re.match(r"^\s*(?:private\s+|protected\s+|noncomputable\s+|@\[[^\]]*\]\s*)*(?:def|abbrev|structure|inductive|class|theorem|lemma)\s+([\w.«»'!?]+)",line)
     if m:
         name=m.group(1).rstrip('.')
         full=name[len('_root_.'):] if name.startswith('_root_.') else ('.'.join(ns+[name]) if ns else name)
