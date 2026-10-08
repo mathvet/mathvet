@@ -1,0 +1,191 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ProductBrown.lean:752:8: warning: declaration uses `sorry`
+OAI.FiniteFactor.productBrown : OAI.FiniteFactor.ProductBrownClaim
+@[reducible] def OAI.FiniteFactor.Coefficients : ℕ → Type :=
+fun K => Fin (2 * K + 1) → ℂ
+def OAI.FiniteFactor.coefficientPolynomial : {K : ℕ} → OAI.FiniteFactor.Coefficients K → Polynomial ℂ :=
+fun {K} a => ∑ i, (Polynomial.monomial ↑i) (a i)
+def OAI.FiniteFactor.productCoefficient : {K : ℕ} →
+  OAI.FiniteFactor.Coefficients K → OAI.FiniteFactor.Coefficients K → ℕ → ℂ :=
+fun {K} a b n => ∑ i, ∑ j, if ↑i + ↑j = n then a i * b j else 0
+def OAI.FiniteFactor.lowCoefficients : {K : ℕ} →
+  OAI.FiniteFactor.Coefficients K × OAI.FiniteFactor.Coefficients K → OAI.FiniteFactor.Coefficients K :=
+fun {K} ab n => OAI.FiniteFactor.productCoefficient ab.1 ab.2 ↑n
+def OAI.FiniteFactor.admissibleCoefficients : (K : ℕ) → ℝ → ℝ → Set (OAI.FiniteFactor.Coefficients K) :=
+fun K D δ => {a | ∀ (i : Fin (2 * K + 1)), ‖a i‖ ≤ D} ∩ {a | δ ≤ ‖a ⟨K, ⋯⟩‖}
+def OAI.FiniteFactor.unitIntervalMeasure : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Ico 0 1)
+def OAI.FiniteFactor.sourceKappa : ℕ → ℝ :=
+fun s => 1 / (100 * (↑s + 1))
+def OAI.FiniteFactor.sourceNextCutoff : ℕ → ℕ :=
+fun m => ⌈↑m ^ (3 / 4 * ↑m)⌉₊
+structure OAI.FiniteFactor.SourceStageState : Type
+number of parameters: 0
+fields:
+  OAI.FiniteFactor.SourceStageState.K : ℕ
+  OAI.FiniteFactor.SourceStageState.G : ℝ
+  OAI.FiniteFactor.SourceStageState.d : ℕ
+  OAI.FiniteFactor.SourceStageState.B : ℝ
+  OAI.FiniteFactor.SourceStageState.previousL : ℝ
+  OAI.FiniteFactor.SourceStageState.K_ge : 1 ≤ self.K
+  OAI.FiniteFactor.SourceStageState.G_ge : 1 ≤ self.G
+  OAI.FiniteFactor.SourceStageState.B_nonneg : 0 ≤ self.B
+  OAI.FiniteFactor.SourceStageState.previousL_ge : 1 ≤ self.previousL
+constructor:
+  OAI.FiniteFactor.SourceStageState.mk (K : ℕ) (G : ℝ) (d : ℕ) (B previousL : ℝ) (K_ge : 1 ≤ K) (G_ge : 1 ≤ G)
+    (B_nonneg : 0 ≤ B) (previousL_ge : 1 ≤ previousL) : OAI.FiniteFactor.SourceStageState
+def OAI.FiniteFactor.SourceStageState.D : OAI.FiniteFactor.SourceStageState → ℝ :=
+fun a => Real.exp ((↑a.K + 1) * a.B)
+structure OAI.FiniteFactor.SourceStageChoice (s : ℕ) (a : OAI.FiniteFactor.SourceStageState) : Type
+number of parameters: 2
+fields:
+  OAI.FiniteFactor.SourceStageChoice.ε : ℝ
+  OAI.FiniteFactor.SourceStageChoice.L : ℝ
+  OAI.FiniteFactor.SourceStageChoice.Gnext : ℝ
+  OAI.FiniteFactor.SourceStageChoice.m : ℕ
+  OAI.FiniteFactor.SourceStageChoice.ε_pos : 0 < self.ε
+  OAI.FiniteFactor.SourceStageChoice.polynomial : ∀ (u v : OAI.FiniteFactor.Coefficients a.K),
+      (∀ (i : Fin (2 * a.K + 1)), ‖u i‖ ≤ a.D) →
+        (∀ (i : Fin (2 * a.K + 1)), ‖v i‖ ≤ a.D) →
+          1 / (↑s + 1) ≤ ‖u ⟨a.K, ⋯⟩‖ →
+            1 / (↑s + 1) ≤ ‖v ⟨a.K, ⋯⟩‖ → ∃ n, self.ε ≤ ‖OAI.FiniteFactor.productCoefficient u v ↑n‖
+  OAI.FiniteFactor.SourceStageChoice.L_ge : a.previousL ≤ self.L
+  OAI.FiniteFactor.SourceStageChoice.decay : (↑(2 * a.K) + 1) * 3 * Real.exp (-self.L / 10000) ≤ self.ε / (↑s + 1)
+  OAI.FiniteFactor.SourceStageChoice.Gnext_ge : 1 ≤ self.Gnext
+  OAI.FiniteFactor.SourceStageChoice.next_budget : OAI.FiniteFactor.sourceKappa (s + 1) * √self.Gnext ≥ self.L
+  OAI.FiniteFactor.SourceStageChoice.m_ge_K : a.K ≤ self.m
+  OAI.FiniteFactor.SourceStageChoice.m_ge_pow : 2 ^ (s + 1) ≤ self.m
+  OAI.FiniteFactor.SourceStageChoice.m_ge_G : 4 * a.G ≤ ↑self.m
+  OAI.FiniteFactor.SourceStageChoice.m_ge_100 : 100 ≤ self.m
+  OAI.FiniteFactor.SourceStageChoice.previous_size : ↑a.d ≤ ↑self.m / 100
+  OAI.FiniteFactor.SourceStageChoice.current_budget : OAI.FiniteFactor.sourceKappa s * ↑self.m ^ (1 / 40) ≥ self.L
+  OAI.FiniteFactor.SourceStageChoice.next_gap : self.Gnext * ↑(OAI.FiniteFactor.sourceNextCutoff self.m) <
+      ↑self.m ^ (4 / 5 * ↑self.m)
+constructor:
+  OAI.FiniteFactor.SourceStageChoice.mk {s : ℕ} {a : OAI.FiniteFactor.SourceStageState} (ε L Gnext : ℝ) (m : ℕ)
+    (ε_pos : 0 < ε)
+    (polynomial :
+      ∀ (u v : OAI.FiniteFactor.Coefficients a.K),
+        (∀ (i : Fin (2 * a.K + 1)), ‖u i‖ ≤ a.D) →
+          (∀ (i : Fin (2 * a.K + 1)), ‖v i‖ ≤ a.D) →
+            1 / (↑s + 1) ≤ ‖u ⟨a.K, ⋯⟩‖ →
+              1 / (↑s + 1) ≤ ‖v ⟨a.K, ⋯⟩‖ → ∃ n, ε ≤ ‖OAI.FiniteFactor.productCoefficient u v ↑n‖)
+    (L_ge : a.previousL ≤ L) (decay : (↑(2 * a.K) + 1) * 3 * Real.exp (-L / 10000) ≤ ε / (↑s + 1))
+    (Gnext_ge : 1 ≤ Gnext) (next_budget : OAI.FiniteFactor.sourceKappa (s + 1) * √Gnext ≥ L) (m_ge_K : a.K ≤ m)
+    (m_ge_pow : 2 ^ (s + 1) ≤ m) (m_ge_G : 4 * a.G ≤ ↑m) (m_ge_100 : 100 ≤ m) (previous_size : ↑a.d ≤ ↑m / 100)
+    (current_budget : OAI.FiniteFactor.sourceKappa s * ↑m ^ (1 / 40) ≥ L)
+    (next_gap : Gnext * ↑(OAI.FiniteFactor.sourceNextCutoff m) < ↑m ^ (4 / 5 * ↑m)) :
+    OAI.FiniteFactor.SourceStageChoice s a
+def OAI.FiniteFactor.selectedSourceStage : (s : ℕ) →
+  (a : OAI.FiniteFactor.SourceStageState) → OAI.FiniteFactor.SourceStageChoice s a :=
+fun s a => Classical.choice ⋯
+def OAI.FiniteFactor.SourceStageChoice.C : {s : ℕ} →
+  {a : OAI.FiniteFactor.SourceStageState} → OAI.FiniteFactor.SourceStageChoice s a → ℝ :=
+fun {s} {a} b => max b.L (↑a.K ^ 2)
+def OAI.FiniteFactor.SourceStageChoice.next : {s : ℕ} →
+  {a : OAI.FiniteFactor.SourceStageState} →
+    OAI.FiniteFactor.SourceStageChoice s a → OAI.FiniteFactor.SourceStageState :=
+fun {s} {a} b =>
+  { K := OAI.FiniteFactor.sourceNextCutoff b.m, G := b.Gnext, d := a.d + b.m, B := a.B + b.C * ↑b.m, previousL := b.L,
+    K_ge := ⋯, G_ge := ⋯, B_nonneg := ⋯, previousL_ge := ⋯ }
+def OAI.FiniteFactor.sourceStageState : ℕ → OAI.FiniteFactor.SourceStageState :=
+fun x => Nat.brecOn x OAI.FiniteFactor.sourceStageState._f
+def OAI.FiniteFactor.sourceStage : (s : ℕ) →
+  OAI.FiniteFactor.SourceStageChoice s (OAI.FiniteFactor.sourceStageState s) :=
+fun s => OAI.FiniteFactor.selectedSourceStage s (OAI.FiniteFactor.sourceStageState s)
+def OAI.FiniteFactor.coordinateFloor.{u_1} : {ι : Type u_1} → (ι → ℝ) → ℤ → (ι → ℝ) → ι → ℤ :=
+fun {ι} θ k x i => ⌊x i + ↑k * θ i⌋
+def OAI.FiniteFactor.coordinateRotate.{u_1} : {ι : Type u_1} → (ι → ℝ) → ℤ → (ι → ℝ) → ι → ℝ :=
+fun {ι} θ k x i => Int.fract (x i + ↑k * θ i)
+def OAI.FiniteFactor.sourceLog.{u_1} : {ι : Type u_1} → (ι → ℝ) → (ι → ℝ) → ℤ → (ι → ℝ) → ℝ :=
+fun {ι} θ c k x => ∑' (i : ι), c i * ↑(OAI.FiniteFactor.coordinateFloor θ k x i)
+def OAI.FiniteFactor.sourceCocycle.{u_1} : {ι : Type u_1} → (ι → ℝ) → (ι → ℝ) → ℤ → (ι → ℝ) → ℝ :=
+fun {ι} θ c k x => Real.exp (-OAI.FiniteFactor.sourceLog θ c k x)
+@[reducible] def OAI.FiniteFactor.sourceMeasure.{u_1} : (ι : Type u_1) → MeasureTheory.Measure ((ι → ℝ) × ℤ) :=
+fun ι =>
+  (MeasureTheory.Measure.infinitePi fun x => OAI.FiniteFactor.unitIntervalMeasure).prod MeasureTheory.Measure.count
+@[reducible] def OAI.FiniteFactor.SourceHilbert.{u_1} : Type u_1 → Type u_1 :=
+fun ι => ↥(MeasureTheory.Lp ℂ 2 (OAI.FiniteFactor.sourceMeasure ι))
+def OAI.FiniteFactor.sourceDiagonal.{u_1} : {ι : Type u_1} → (ι → ℝ) → (ι → ℝ) → (ι → ℝ) × ℤ → ℂ :=
+fun {ι} θ c z => ↑(OAI.FiniteFactor.sourceCocycle θ c 1 (OAI.FiniteFactor.coordinateRotate θ z.2 z.1))
+def OAI.FiniteFactor.sourceMultiplication.{u_1} : {ι : Type u_1} →
+  [Countable ι] →
+    (θ c : ι → ℝ) →
+      (∀ (i : ι), 0 ≤ θ i) →
+        (∀ (i : ι), 0 ≤ c i) → OAI.FiniteFactor.SourceHilbert ι →L[ℂ] OAI.FiniteFactor.SourceHilbert ι :=
+fun {ι} [Countable ι] θ c hθ hc =>
+  (ContinuousLinearMap.holderL (OAI.FiniteFactor.sourceMeasure ι) ⊤ 2 2 (ContinuousLinearMap.mul ℂ ℂ))
+    (MeasureTheory.MemLp.toLp (OAI.FiniteFactor.sourceDiagonal θ c) ⋯)
+def OAI.FiniteFactor.sourceShiftIndex.{u_1} : {ι : Type u_1} → (ι → ℝ) × ℤ → (ι → ℝ) × ℤ :=
+fun {ι} z => (z.1, z.2 - 1)
+def OAI.FiniteFactor.sourceShift.{u_1} : (ι : Type u_1) →
+  OAI.FiniteFactor.SourceHilbert ι →L[ℂ] OAI.FiniteFactor.SourceHilbert ι :=
+fun ι => (MeasureTheory.Lp.compMeasurePreservingₗᵢ ℂ OAI.FiniteFactor.sourceShiftIndex ⋯).toContinuousLinearMap
+def OAI.FiniteFactor.sourceOperator.{u_1} : {ι : Type u_1} →
+  [Countable ι] →
+    (θ c : ι → ℝ) →
+      (∀ (i : ι), 0 ≤ θ i) →
+        (∀ (i : ι), 0 ≤ c i) → OAI.FiniteFactor.SourceHilbert ι →L[ℂ] OAI.FiniteFactor.SourceHilbert ι :=
+fun {ι} [Countable ι] θ c hθ hc => OAI.FiniteFactor.sourceShift ι ∘SL OAI.FiniteFactor.sourceMultiplication θ c hθ hc
+@[reducible] def OAI.FiniteFactor.CouplingParameters.BlockCoordinate : (ℕ → ℕ) → Type :=
+fun m => (s : ℕ) × Fin (m s)
+def OAI.FiniteFactor.sourceBlockSize : ℕ → ℕ :=
+fun s => (OAI.FiniteFactor.sourceStage s).m
+@[reducible] def OAI.FiniteFactor.SourceCoordinate : Type :=
+OAI.FiniteFactor.CouplingParameters.BlockCoordinate OAI.FiniteFactor.sourceBlockSize
+def OAI.FiniteFactor.sourceLogWeight : OAI.FiniteFactor.SourceCoordinate → ℝ :=
+fun i => (OAI.FiniteFactor.sourceStage i.fst).C
+def OAI.FiniteFactor.SourceAngles : (OAI.FiniteFactor.SourceCoordinate → ℝ) → Prop :=
+fun θ =>
+  have realGroup := DivisionRing.toDivisionSemiring.toGroupWithZero;
+  have realOrder := Real.partialOrder.toLE;
+  ∀ (i : OAI.FiniteFactor.SourceCoordinate),
+    have block := ↑(OAI.FiniteFactor.sourceBlockSize i.fst);
+    have cutoff := ↑(OAI.FiniteFactor.sourceStageState i.fst).K;
+    have denominator := Mul.mul block cutoff;
+    have lower := Div.div One.one denominator;
+    have upper := Div.div (↑2) denominator;
+    lower ≤ θ i ∧ θ i ≤ upper
+def OAI.FiniteFactor.sourceVacuum : OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate :=
+MeasureTheory.indicatorConstLp (↑Nat.zero.succ.succ) OAI.FiniteFactor.sourceVacuum._proof_1
+  OAI.FiniteFactor.sourceVacuum._proof_2 1
+@[reducible] def OAI.FiniteFactor.sourceVacuumFunctional : (OAI.FiniteFactor.SourceHilbert
+      OAI.FiniteFactor.SourceCoordinate →L[ℂ]
+    OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate) →
+  ℂ :=
+fun operator => inner ℂ OAI.FiniteFactor.sourceVacuum ((↑operator).toFun OAI.FiniteFactor.sourceVacuum)
+@[reducible] def OAI.FiniteFactor.ProductOp : Type :=
+OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate →L[ℂ]
+  OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate
+def OAI.FiniteFactor.logarithmCutoff : ℕ → C(ℝ, ℝ) :=
+fun n => { toFun := fun t => Real.log (max (Real.exp (-↑n)) t), continuous_toFun := ⋯ }
+def OAI.FiniteFactor.FugledeKadisonDeterminant : (OAI.FiniteFactor.ProductOp → ℂ) →
+  OAI.FiniteFactor.ProductOp → ENNReal :=
+fun τ T =>
+  have determinant :=
+    fun Hilbert [NormedAddCommGroup Hilbert] [InnerProductSpace ℂ Hilbert] [CompleteSpace Hilbert] [Nontrivial Hilbert]
+      trace operator =>
+    ⨅ n, ENNReal.ofReal (Real.exp (trace (cfc (⇑(OAI.FiniteFactor.logarithmCutoff n)) (CFC.abs operator))).re);
+  let domain := (OAI.FiniteFactor.SourceCoordinate → ℝ) × ℤ;
+  let measurable := Prod.instMeasurableSpace;
+  let exponent := ↑Nat.zero.succ.succ;
+  let measure := OAI.FiniteFactor.sourceMeasure OAI.FiniteFactor.SourceCoordinate;
+  have complete := ⋯;
+  determinant (OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate) τ T
+def OAI.FiniteFactor.expLogPotential : MeasureTheory.Measure ℂ → ℂ → ENNReal :=
+fun μ z => ⨅ n, ENNReal.ofReal (Real.exp (∫ (w : ℂ), (OAI.FiniteFactor.logarithmCutoff n) ‖z - w‖ ∂μ))
+def OAI.FiniteFactor.IsBrownMeasure : (OAI.FiniteFactor.ProductOp → ℂ) →
+  OAI.FiniteFactor.ProductOp → MeasureTheory.Measure ℂ → Prop :=
+fun τ T μ =>
+  have translate := fun Hilbert [NormedAddCommGroup Hilbert] [NormedSpace ℂ Hilbert] operator scalar =>
+    operator - (algebraMap ℂ (Hilbert →L[ℂ] Hilbert)) scalar;
+  MeasureTheory.IsProbabilityMeasure μ ∧
+    IsCompact μ.support ∧
+      ∀ (z : ℂ),
+        OAI.FiniteFactor.FugledeKadisonDeterminant τ
+            (translate (OAI.FiniteFactor.SourceHilbert OAI.FiniteFactor.SourceCoordinate) T z) =
+          OAI.FiniteFactor.expLogPotential μ z
+def OAI.FiniteFactor.ProductBrownClaim : Prop :=
+∀ (θ : OAI.FiniteFactor.SourceCoordinate → ℝ) (hθ : OAI.FiniteFactor.SourceAngles θ),
+  OAI.FiniteFactor.IsBrownMeasure OAI.FiniteFactor.sourceVacuumFunctional
+    (OAI.FiniteFactor.sourceOperator θ OAI.FiniteFactor.sourceLogWeight ⋯ OAI.FiniteFactor.sourceLogWeight_nonneg)
+    (MeasureTheory.Measure.dirac 0)
