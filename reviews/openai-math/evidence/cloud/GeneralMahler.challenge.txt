@@ -1,0 +1,20 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_GeneralMahler.lean:24:8: warning: declaration uses `sorry`
+@OAI.GeneralMahler.general_mahler : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ (K : Set (EuclideanSpace ℝ (Fin n))),
+      IsCompact K →
+        Convex ℝ K →
+          (interior K).Nonempty →
+            (↑n + 1) ^ (n + 1) / ↑n.factorial ^ 2 ≤ OAI.GeneralMahler.volumeProduct K ∧
+              (OAI.GeneralMahler.volumeProduct K = (↑n + 1) ^ (n + 1) / ↑n.factorial ^ 2 ↔
+                ∃ vertices, AffineIndependent ℝ vertices ∧ K = (convexHull ℝ) (Set.range vertices))
+@[reducible] def OAI.GeneralMahler.Rn : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def OAI.GeneralMahler.polarAt : {n : ℕ} →
+  Set (OAI.GeneralMahler.Rn n) → OAI.GeneralMahler.Rn n → Set (OAI.GeneralMahler.Rn n) :=
+fun {n} K z => {y | ∀ x ∈ K, inner ℝ y (x - z) ≤ 1}
+def OAI.GeneralMahler.volumeProduct : {n : ℕ} → Set (EuclideanSpace ℝ (Fin n)) → ℝ :=
+fun {n} K =>
+  sInf
+    ((fun z => (MeasureTheory.volume K).toReal * (MeasureTheory.volume (OAI.GeneralMahler.polarAt K z)).toReal) ''
+      interior K)
