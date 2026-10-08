@@ -1,0 +1,52 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ElementaryPositivity.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+structure Chal.ElementaryPositivity.NaturalUnitIntervalGraph (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.h : Fin n → Fin n
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.increasing : Monotone self.h
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.extensive : ∀ (i : Fin n), i ≤ self.h i
+constructor:
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.mk {n : ℕ} (h : Fin n → Fin n) (increasing : Monotone h)
+    (extensive : ∀ (i : Fin n), i ≤ h i) : Chal.ElementaryPositivity.NaturalUnitIntervalGraph n
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.Edge : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → Fin n → Fin n → Prop :=
+fun {n} G i j => i < j ∧ j ≤ G.h i ∨ j < i ∧ i ≤ G.h j
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.Nondescent : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → Equiv.Perm (Fin n) → Prop :=
+fun {n} G σ => ∀ (i j : Fin n), ↑i + 1 = ↑j → σ j < σ i → G.Edge (σ i) (σ j)
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.graphInversions : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → Equiv.Perm (Fin n) → ℕ :=
+fun {n} G σ => {ij | ij.1 < ij.2 ∧ σ ij.2 < σ ij.1 ∧ G.Edge (σ ij.1) (σ ij.2)}.card
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.Proper : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → {r : ℕ} → (Fin n → Fin r) → Prop :=
+fun {n} G {r} f => ∀ (i j : Fin n), G.Edge i j → f i ≠ f j
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.coloringAscents : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → {r : ℕ} → (Fin n → Fin r) → ℕ :=
+fun {n} G {r} f => {ij | ij.1 < ij.2 ∧ G.Edge ij.1 ij.2 ∧ f ij.1 < f ij.2}.card
+def Chal.ElementaryPositivity.NaturalUnitIntervalGraph.chromatic : {n : ℕ} →
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph n → (r : ℕ) → MvPolynomial (Fin r) (Polynomial ℕ) :=
+fun {n} G r => ∑ f with G.Proper f, MvPolynomial.C (Polynomial.X ^ G.coloringAscents f) * ∏ i, MvPolynomial.X (f i)
+structure Chal.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness {n : ℕ}
+  (G : Chal.ElementaryPositivity.NaturalUnitIntervalGraph n) : Type
+number of parameters: 2
+fields:
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.theta : { σ // G.Nondescent σ } → n.Partition
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.expansion : ∀ (r : ℕ),
+      G.chromatic r =
+        ∑ σ,
+          MvPolynomial.C (Polynomial.X ^ G.graphInversions ↑σ) *
+            MvPolynomial.esymmPart (Fin r) (Polynomial ℕ) (self.theta σ)
+constructor:
+  Chal.ElementaryPositivity.NaturalUnitIntervalGraph.PermutationWitness.mk {n : ℕ}
+    {G : Chal.ElementaryPositivity.NaturalUnitIntervalGraph n} (theta : { σ // G.Nondescent σ } → n.Partition)
+    (expansion :
+      ∀ (r : ℕ),
+        G.chromatic r =
+          ∑ σ,
+            MvPolynomial.C (Polynomial.X ^ G.graphInversions ↑σ) *
+              MvPolynomial.esymmPart (Fin r) (Polynomial ℕ) (theta σ)) :
+    G.PermutationWitness
+def Chal.elementaryPositivityWitness : (n : ℕ) →
+  (G : Chal.ElementaryPositivity.NaturalUnitIntervalGraph n) → G.PermutationWitness :=
+fun n G => sorry
+== ElementaryPositivity comparator-style: ok=0 problems=0 errors=0 | no-shadowing |  | defeq_only=0 aux_only=0
