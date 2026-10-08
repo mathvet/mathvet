@@ -1,0 +1,305 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_QuadricBundles.lean:174:8: warning: declaration uses `sorry`
+OAI.QuadricCounterexample.main_theorem : OAI.QuadricCounterexample.SourceMainTheorem
+@[reducible] def OAI.QuadricCounterexample.ProjectiveLine : Type :=
+OnePoint ℂ
+@[reducible] def OAI.QuadricCounterexample.QuadricSurface : Type :=
+OAI.QuadricCounterexample.ProjectiveLine × OAI.QuadricCounterexample.ProjectiveLine
+def OAI.QuadricCounterexample.reciprocalP1 : OAI.QuadricCounterexample.ProjectiveLine →
+  OAI.QuadricCounterexample.ProjectiveLine :=
+fun x => OnePoint.elim x ↑0 fun z => if z = 0 then OnePoint.infty else ↑z⁻¹
+def OAI.QuadricCounterexample.affineP1 : Fin 2 → ℂ → OAI.QuadricCounterexample.ProjectiveLine :=
+fun i z => if i = 0 then OAI.QuadricCounterexample.reciprocalP1 ↑z else ↑z
+def OAI.QuadricCounterexample.affineQuadric : Fin 2 × Fin 2 → ℂ × ℂ → OAI.QuadricCounterexample.QuadricSurface :=
+fun i z => (OAI.QuadricCounterexample.affineP1 i.1 z.1, OAI.QuadricCounterexample.affineP1 i.2 z.2)
+def OAI.QuadricCounterexample.coordP1 : Fin 2 → OAI.QuadricCounterexample.ProjectiveLine → ℂ :=
+fun i x => OnePoint.elim (if i = 0 then OAI.QuadricCounterexample.reciprocalP1 x else x) 0 id
+def OAI.QuadricCounterexample.coordQuadric : Fin 2 × Fin 2 → OAI.QuadricCounterexample.QuadricSurface → ℂ × ℂ :=
+fun i x => (OAI.QuadricCounterexample.coordP1 i.1 x.1, OAI.QuadricCounterexample.coordP1 i.2 x.2)
+def OAI.QuadricCounterexample.powerP1 : ℕ →
+  OAI.QuadricCounterexample.ProjectiveLine → OAI.QuadricCounterexample.ProjectiveLine :=
+fun m x => OnePoint.elim x OnePoint.infty fun z => ↑(z ^ m)
+def OAI.QuadricCounterexample.powerQuadric : ℕ →
+  OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.QuadricSurface :=
+fun m x => (OAI.QuadricCounterexample.powerP1 m x.1, OAI.QuadricCounterexample.powerP1 m x.2)
+@[reducible] def OAI.QuadricCounterexample.BaseCoordinates : Type :=
+ℂ × ℂ
+@[reducible] def OAI.QuadricCounterexample.FiberCoordinates : Type :=
+Fin 2 → ℂ
+@[reducible] def OAI.QuadricCounterexample.TwoMatrix : Type :=
+Matrix (Fin 2) (Fin 2) ℂ
+@[reducible] def OAI.QuadricCounterexample.BasePolynomial : Type :=
+MvPolynomial (Fin 2) ℂ
+def OAI.QuadricCounterexample.baseEval : OAI.QuadricCounterexample.BasePolynomial →
+  OAI.QuadricCounterexample.BaseCoordinates → ℂ :=
+fun p z => (MvPolynomial.eval ![z.1, z.2]) p
+def OAI.QuadricCounterexample.AlgebraicallyRegularOn : Set OAI.QuadricCounterexample.BaseCoordinates →
+  (OAI.QuadricCounterexample.BaseCoordinates → ℂ) → Prop :=
+fun U f =>
+  ∀ z ∈ U,
+    ∃ p q,
+      OAI.QuadricCounterexample.baseEval q z ≠ 0 ∧
+        ∀ w ∈ U,
+          OAI.QuadricCounterexample.baseEval q w ≠ 0 →
+            f w = OAI.QuadricCounterexample.baseEval p w / OAI.QuadricCounterexample.baseEval q w
+def OAI.QuadricCounterexample.principalChart : Fin 2 × Fin 2 →
+  OAI.QuadricCounterexample.BasePolynomial → Set OAI.QuadricCounterexample.QuadricSurface :=
+fun i p =>
+  {x |
+    x ∈ Set.range (OAI.QuadricCounterexample.affineQuadric i) ∧
+      OAI.QuadricCounterexample.baseEval p (OAI.QuadricCounterexample.coordQuadric i x) ≠ 0}
+structure OAI.QuadricCounterexample.AlgebraicRankTwoBundle : Type
+number of parameters: 0
+fields:
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.numberOfCharts : ℕ
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.chart : ℕ → Fin 2 × Fin 2
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.equation : ℕ → OAI.QuadricCounterexample.BasePolynomial
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.finiteCover : ∀ (i : ℕ),
+      self.numberOfCharts ≤ i → self.equation i = 0
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.covers : ∀ (x : OAI.QuadricCounterexample.QuadricSurface),
+      ∃ i, x ∈ OAI.QuadricCounterexample.principalChart (self.chart i) (self.equation i)
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.transition : ℕ →
+      ℕ → OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.TwoMatrix
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.transition_self : ∀ (i : ℕ),
+      ∀ x ∈ OAI.QuadricCounterexample.principalChart (self.chart i) (self.equation i), self.transition i i x = 1
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.transition_mul : ∀ (i j k : ℕ),
+      ∀ x ∈ OAI.QuadricCounterexample.principalChart (self.chart i) (self.equation i),
+        x ∈ OAI.QuadricCounterexample.principalChart (self.chart j) (self.equation j) →
+          x ∈ OAI.QuadricCounterexample.principalChart (self.chart k) (self.equation k) →
+            self.transition i j x * self.transition j k x = self.transition i k x
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.transition_regular : ∀ (i j : ℕ) (a b : Fin 2),
+      OAI.QuadricCounterexample.AlgebraicallyRegularOn
+        {z |
+          OAI.QuadricCounterexample.baseEval (self.equation i) z ≠ 0 ∧
+            OAI.QuadricCounterexample.affineQuadric (self.chart i) z ∈
+              OAI.QuadricCounterexample.principalChart (self.chart j) (self.equation j)}
+        fun z => self.transition i j (OAI.QuadricCounterexample.affineQuadric (self.chart i) z) a b
+constructor:
+  OAI.QuadricCounterexample.AlgebraicRankTwoBundle.mk (numberOfCharts : ℕ) (chart : ℕ → Fin 2 × Fin 2)
+    (equation : ℕ → OAI.QuadricCounterexample.BasePolynomial)
+    (finiteCover : ∀ (i : ℕ), numberOfCharts ≤ i → equation i = 0)
+    (covers :
+      ∀ (x : OAI.QuadricCounterexample.QuadricSurface),
+        ∃ i, x ∈ OAI.QuadricCounterexample.principalChart (chart i) (equation i))
+    (transition : ℕ → ℕ → OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.TwoMatrix)
+    (transition_self :
+      ∀ (i : ℕ), ∀ x ∈ OAI.QuadricCounterexample.principalChart (chart i) (equation i), transition i i x = 1)
+    (transition_mul :
+      ∀ (i j k : ℕ),
+        ∀ x ∈ OAI.QuadricCounterexample.principalChart (chart i) (equation i),
+          x ∈ OAI.QuadricCounterexample.principalChart (chart j) (equation j) →
+            x ∈ OAI.QuadricCounterexample.principalChart (chart k) (equation k) →
+              transition i j x * transition j k x = transition i k x)
+    (transition_regular :
+      ∀ (i j : ℕ) (a b : Fin 2),
+        OAI.QuadricCounterexample.AlgebraicallyRegularOn
+          {z |
+            OAI.QuadricCounterexample.baseEval (equation i) z ≠ 0 ∧
+              OAI.QuadricCounterexample.affineQuadric (chart i) z ∈
+                OAI.QuadricCounterexample.principalChart (chart j) (equation j)}
+          fun z => transition i j (OAI.QuadricCounterexample.affineQuadric (chart i) z) a b) :
+    OAI.QuadricCounterexample.AlgebraicRankTwoBundle
+def OAI.QuadricCounterexample.AlgebraicRankTwoBundle.domain : OAI.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → Set OAI.QuadricCounterexample.QuadricSurface :=
+fun V i => OAI.QuadricCounterexample.principalChart (V.chart i) (V.equation i)
+def OAI.QuadricCounterexample.AlgebraicRankTwoBundle.coordinateDomain : OAI.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → Set OAI.QuadricCounterexample.BaseCoordinates :=
+fun V i => {z | OAI.QuadricCounterexample.baseEval (V.equation i) z ≠ 0}
+def OAI.QuadricCounterexample.AlgebraicRankTwoBundle.dualTransition : OAI.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → ℕ → OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.TwoMatrix :=
+fun V i j x => Matrix.transpose (V.transition j i x)
+def OAI.QuadricCounterexample.hyperplaneTransition : Fin 2 → Fin 2 → OAI.QuadricCounterexample.ProjectiveLine → ℂ :=
+fun i j x => if i = j then 1 else OAI.QuadricCounterexample.coordP1 i x
+def OAI.QuadricCounterexample.polarizationTransition : Fin 2 × Fin 2 →
+  Fin 2 × Fin 2 → OAI.QuadricCounterexample.QuadricSurface → ℂ :=
+fun i j x =>
+  OAI.QuadricCounterexample.hyperplaneTransition i.1 j.1 x.1 *
+    OAI.QuadricCounterexample.hyperplaneTransition i.2 j.2 x.2
+def OAI.QuadricCounterexample.IsPowerPullbackTwist : OAI.QuadricCounterexample.AlgebraicRankTwoBundle →
+  ℕ → OAI.QuadricCounterexample.AlgebraicRankTwoBundle → Prop :=
+fun G m E =>
+  E.numberOfCharts = G.numberOfCharts ∧
+    E.chart = G.chart ∧
+      (∀ (i : ℕ), E.equation i = (MvPolynomial.bind₁ fun j => MvPolynomial.X j ^ m) (G.equation i)) ∧
+        ∀ (i j : ℕ),
+          ∀ x ∈ E.domain i,
+            x ∈ E.domain j →
+              E.transition i j x =
+                OAI.QuadricCounterexample.polarizationTransition (G.chart i) (G.chart j) x •
+                  G.transition i j (OAI.QuadricCounterexample.powerQuadric m x)
+structure OAI.QuadricCounterexample.SymmetricSection (V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle) (n : ℕ) :
+  Type
+number of parameters: 2
+fields:
+  OAI.QuadricCounterexample.SymmetricSection.coefficient : ℕ →
+      Fin (n + 1) → OAI.QuadricCounterexample.BaseCoordinates → ℂ
+  OAI.QuadricCounterexample.SymmetricSection.regular : ∀ (i : ℕ) (k : Fin (n + 1)),
+      OAI.QuadricCounterexample.AlgebraicallyRegularOn (V.coordinateDomain i) (self.coefficient i k)
+  OAI.QuadricCounterexample.SymmetricSection.compatible : ∀ (i j : ℕ),
+      ∀ x ∈ V.domain i,
+        x ∈ V.domain j →
+          ∀ (v : OAI.QuadricCounterexample.FiberCoordinates),
+            ∑ k,
+                self.coefficient i k (OAI.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                    Matrix.mulVec (V.dualTransition i j x) v 0 ^ ↑k *
+                  Matrix.mulVec (V.dualTransition i j x) v 1 ^ (n - ↑k) =
+              ∑ k,
+                self.coefficient j k (OAI.QuadricCounterexample.coordQuadric (V.chart j) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)
+constructor:
+  OAI.QuadricCounterexample.SymmetricSection.mk {V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle} {n : ℕ}
+    (coefficient : ℕ → Fin (n + 1) → OAI.QuadricCounterexample.BaseCoordinates → ℂ)
+    (regular :
+      ∀ (i : ℕ) (k : Fin (n + 1)),
+        OAI.QuadricCounterexample.AlgebraicallyRegularOn (V.coordinateDomain i) (coefficient i k))
+    (compatible :
+      ∀ (i j : ℕ),
+        ∀ x ∈ V.domain i,
+          x ∈ V.domain j →
+            ∀ (v : OAI.QuadricCounterexample.FiberCoordinates),
+              ∑ k,
+                  coefficient i k (OAI.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                      Matrix.mulVec (V.dualTransition i j x) v 0 ^ ↑k *
+                    Matrix.mulVec (V.dualTransition i j x) v 1 ^ (n - ↑k) =
+                ∑ k,
+                  coefficient j k (OAI.QuadricCounterexample.coordQuadric (V.chart j) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)) :
+    OAI.QuadricCounterexample.SymmetricSection V n
+def OAI.QuadricCounterexample.SymmetricSection.value : {V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n : ℕ} →
+    OAI.QuadricCounterexample.SymmetricSection V n →
+      ℕ → OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.FiberCoordinates → ℂ :=
+fun {V} {n} s i x v =>
+  ∑ k, s.coefficient i k (OAI.QuadricCounterexample.coordQuadric (V.chart i) x) * v 0 ^ ↑k * v 1 ^ (n - ↑k)
+def OAI.QuadricCounterexample.ProjectiveAlgebraicCone : {N : ℕ} → Set (Fin N → ℂ) → Prop :=
+fun {N} C =>
+  ∃ equations, (∀ p ∈ equations, ∃ d, p.IsHomogeneous d) ∧ C = {y | ∀ p ∈ equations, (MvPolynomial.eval y) p = 0}
+def OAI.QuadricCounterexample.sectionVector : {V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n N : ℕ} →
+    (Fin N → OAI.QuadricCounterexample.SymmetricSection V n) →
+      ℕ → OAI.QuadricCounterexample.QuadricSurface → OAI.QuadricCounterexample.FiberCoordinates → Fin N → ℂ :=
+fun {V} {n N} s i x v j => (s j).value i x v
+def OAI.QuadricCounterexample.GivesClosedProjectiveEmbedding : {V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  {n N : ℕ} → (Fin N → OAI.QuadricCounterexample.SymmetricSection V n) → Prop :=
+fun {V} {n N} s =>
+  (∀ (i : ℕ),
+      ∀ x ∈ V.domain i,
+        ∀ (v : OAI.QuadricCounterexample.FiberCoordinates),
+          v ≠ 0 → OAI.QuadricCounterexample.sectionVector s i x v ≠ 0) ∧
+    (∀ (i j : ℕ) (x y : OAI.QuadricCounterexample.QuadricSurface),
+        x ∈ V.domain i →
+          y ∈ V.domain j →
+            ∀ (v w : OAI.QuadricCounterexample.FiberCoordinates),
+              v ≠ 0 →
+                w ≠ 0 →
+                  (∃ c,
+                      c ≠ 0 ∧
+                        OAI.QuadricCounterexample.sectionVector s i x v =
+                          c • OAI.QuadricCounterexample.sectionVector s j y w) →
+                    x = y ∧ ∃ c, c ≠ 0 ∧ v = c • Matrix.mulVec (V.dualTransition i j x) w) ∧
+      OAI.QuadricCounterexample.ProjectiveAlgebraicCone
+          ({0} ∪
+            {a |
+              ∃ i,
+                ∃ x ∈ V.domain i, ∃ v, v ≠ 0 ∧ ∃ c, c ≠ 0 ∧ a = c • OAI.QuadricCounterexample.sectionVector s i x v}) ∧
+        ∀ (i : ℕ),
+          ∀ x ∈ V.domain i,
+            ∀ (v : OAI.QuadricCounterexample.FiberCoordinates),
+              v ≠ 0 →
+                ∃ j b,
+                  v b ≠ 0 ∧
+                    OAI.QuadricCounterexample.sectionVector s i x v j ≠ 0 ∧
+                      ∃ p q,
+                        (∀ (k : Fin 3),
+                            (MvPolynomial.eval fun l =>
+                                  OAI.QuadricCounterexample.sectionVector s i x v l /
+                                    OAI.QuadricCounterexample.sectionVector s i x v j)
+                                (q k) ≠
+                              0) ∧
+                          ∀ (i' : ℕ),
+                            ∀ x' ∈ V.domain i',
+                              ∀ (v' : OAI.QuadricCounterexample.FiberCoordinates),
+                                v' ≠ 0 →
+                                  OAI.QuadricCounterexample.sectionVector s i' x' v' j ≠ 0 →
+                                    (∀ (k : Fin 3),
+                                        (MvPolynomial.eval fun l =>
+                                              OAI.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                OAI.QuadricCounterexample.sectionVector s i' x' v' j)
+                                            (q k) ≠
+                                          0) →
+                                      x' ∈ V.domain i ∧
+                                        Matrix.mulVec (V.dualTransition i i' x') v' b ≠ 0 ∧
+                                          ∀ (k : Fin 3),
+                                            ![(OAI.QuadricCounterexample.coordQuadric (V.chart i) x').1,
+                                                  (OAI.QuadricCounterexample.coordQuadric (V.chart i) x').2,
+                                                  Matrix.mulVec (V.dualTransition i i' x') v' (1 - b) /
+                                                    Matrix.mulVec (V.dualTransition i i' x') v' b]
+                                                k =
+                                              (MvPolynomial.eval fun l =>
+                                                    OAI.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                      OAI.QuadricCounterexample.sectionVector s i' x' v' j)
+                                                  (p k) /
+                                                (MvPolynomial.eval fun l =>
+                                                    OAI.QuadricCounterexample.sectionVector s i' x' v' l /
+                                                      OAI.QuadricCounterexample.sectionVector s i' x' v' j)
+                                                  (q k)
+def OAI.QuadricCounterexample.IsAmple : OAI.QuadricCounterexample.AlgebraicRankTwoBundle → Prop :=
+fun V => ∃ n, 0 < n ∧ ∃ N s, OAI.QuadricCounterexample.GivesClosedProjectiveEmbedding s
+def OAI.QuadricCounterexample.holomorphicMetricDerivative : (OAI.QuadricCounterexample.BaseCoordinates →
+    OAI.QuadricCounterexample.TwoMatrix) →
+  OAI.QuadricCounterexample.BaseCoordinates →
+    OAI.QuadricCounterexample.BaseCoordinates → OAI.QuadricCounterexample.TwoMatrix :=
+fun H z u => (1 / 2) • ((fderiv ℝ H z) u - Complex.I • (fderiv ℝ H z) (Complex.I • u))
+def OAI.QuadricCounterexample.metricMixedHessian : (OAI.QuadricCounterexample.BaseCoordinates →
+    OAI.QuadricCounterexample.TwoMatrix) →
+  OAI.QuadricCounterexample.BaseCoordinates →
+    OAI.QuadricCounterexample.BaseCoordinates → OAI.QuadricCounterexample.TwoMatrix :=
+fun H z u =>
+  (1 / 4) •
+    (((fderiv ℝ (fun y => fderiv ℝ H y) z) u) u +
+      ((fderiv ℝ (fun y => fderiv ℝ H y) z) (Complex.I • u)) (Complex.I • u))
+structure OAI.QuadricCounterexample.SmoothHermitianMetric (V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle) : Type
+number of parameters: 1
+fields:
+  OAI.QuadricCounterexample.SmoothHermitianMetric.dualMatrix : ℕ →
+      OAI.QuadricCounterexample.BaseCoordinates → OAI.QuadricCounterexample.TwoMatrix
+  OAI.QuadricCounterexample.SmoothHermitianMetric.smooth : ∀ (i : ℕ),
+      ContDiffOn ℝ (↑⊤) (self.dualMatrix i) (V.coordinateDomain i)
+  OAI.QuadricCounterexample.SmoothHermitianMetric.positive : ∀ (i : ℕ),
+      ∀ z ∈ V.coordinateDomain i, Matrix.PosDef (self.dualMatrix i z)
+  OAI.QuadricCounterexample.SmoothHermitianMetric.compatible : ∀ (i j : ℕ),
+      ∀ x ∈ V.domain i,
+        x ∈ V.domain j →
+          self.dualMatrix j (OAI.QuadricCounterexample.coordQuadric (V.chart j) x) =
+            Matrix.conjTranspose (V.dualTransition i j x) *
+                self.dualMatrix i (OAI.QuadricCounterexample.coordQuadric (V.chart i) x) *
+              V.dualTransition i j x
+constructor:
+  OAI.QuadricCounterexample.SmoothHermitianMetric.mk {V : OAI.QuadricCounterexample.AlgebraicRankTwoBundle}
+    (dualMatrix : ℕ → OAI.QuadricCounterexample.BaseCoordinates → OAI.QuadricCounterexample.TwoMatrix)
+    (smooth : ∀ (i : ℕ), ContDiffOn ℝ (↑⊤) (dualMatrix i) (V.coordinateDomain i))
+    (positive : ∀ (i : ℕ), ∀ z ∈ V.coordinateDomain i, Matrix.PosDef (dualMatrix i z))
+    (compatible :
+      ∀ (i j : ℕ),
+        ∀ x ∈ V.domain i,
+          x ∈ V.domain j →
+            dualMatrix j (OAI.QuadricCounterexample.coordQuadric (V.chart j) x) =
+              Matrix.conjTranspose (V.dualTransition i j x) *
+                  dualMatrix i (OAI.QuadricCounterexample.coordQuadric (V.chart i) x) *
+                V.dualTransition i j x) :
+    OAI.QuadricCounterexample.SmoothHermitianMetric V
+def OAI.QuadricCounterexample.SmoothHermitianMetric.StrictlyGriffithsPositive : {V :
+    OAI.QuadricCounterexample.AlgebraicRankTwoBundle} →
+  OAI.QuadricCounterexample.SmoothHermitianMetric V → Prop :=
+fun {V} h =>
+  ∀ (i : ℕ),
+    ∀ z ∈ V.coordinateDomain i,
+      ∀ (u : OAI.QuadricCounterexample.BaseCoordinates),
+        u ≠ 0 →
+          Matrix.PosDef
+            (OAI.QuadricCounterexample.metricMixedHessian (h.dualMatrix i) z u -
+              Matrix.conjTranspose (OAI.QuadricCounterexample.holomorphicMetricDerivative (h.dualMatrix i) z u) *
+                  (h.dualMatrix i z)⁻¹ *
+                OAI.QuadricCounterexample.holomorphicMetricDerivative (h.dualMatrix i) z u)
+def OAI.QuadricCounterexample.SourceMainTheorem : Prop :=
+∃ G E,
+  (∀ (m : ℕ), 0 < m → OAI.QuadricCounterexample.IsPowerPullbackTwist G m (E m)) ∧
+    (∀ (m : ℕ), 0 < m → OAI.QuadricCounterexample.IsAmple (E m)) ∧
+      ∃ m₀, 0 < m₀ ∧ ∀ (m : ℕ), m₀ ≤ m → ¬∃ h, h.StrictlyGriffithsPositive
