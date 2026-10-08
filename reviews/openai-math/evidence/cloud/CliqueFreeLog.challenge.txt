@@ -1,0 +1,12 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CliqueFreeLog.lean:11:8: warning: declaration uses `sorry`
+OAI.CliqueFreeLog.logarithmic_independence_bound : ∀ (r : ℕ),
+  4 ≤ r →
+    ∃ c,
+      0 < c ∧
+        ∀ {V : Type} [inst : Fintype V] (G : SimpleGraph V),
+          G.CliqueFree r →
+            2 ≤ OAI.CliqueFreeLog.averageDegree G →
+              c * ↑(Fintype.card V) * Real.log (OAI.CliqueFreeLog.averageDegree G) / OAI.CliqueFreeLog.averageDegree G ≤
+                ↑G.indepNum
+def OAI.CliqueFreeLog.averageDegree.{u_1} : {V : Type u_1} → [Fintype V] → SimpleGraph V → ℝ :=
+fun {V} [Fintype V] G => 2 * ↑G.edgeFinset.card / ↑(Fintype.card V)
