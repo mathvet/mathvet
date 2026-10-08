@@ -1,0 +1,16 @@
+CMP OAI.ErdosGallai.erdos_gallai [thm] ok
+CMP OAI.ErdosGallai.MainStatement [def] ok
+CMP OAI.ErdosGallai.EdgeDecomposition [def] ok
+CMP OAI.ErdosGallai.CycleOrSingleEdge [def] ok
+Chal.ErdosGallai.erdos_gallai : Chal.ErdosGallai.MainStatement
+def Chal.ErdosGallai.CycleOrSingleEdge : {V : Type} → SimpleGraph V → Set (Sym2 V) → Prop :=
+fun {V} G s => (∃ v p, p.IsCycle ∧ s = p.edgeSet) ∨ ∃ e ∈ G.edgeSet, s = {e}
+def Chal.ErdosGallai.EdgeDecomposition : {V : Type} → SimpleGraph V → ℕ → Prop :=
+fun {V} G k =>
+  ∃ parts,
+    (∀ (i : Fin k), Chal.ErdosGallai.CycleOrSingleEdge G (parts i)) ∧
+      (Pairwise fun i j => Disjoint (parts i) (parts j)) ∧ ⋃ i, parts i = G.edgeSet
+def Chal.ErdosGallai.MainStatement : Prop :=
+∃ C, 0 < C ∧ ∀ (n : ℕ) (G : SimpleGraph (Fin n)), ∃ k, Chal.ErdosGallai.EdgeDecomposition G k ∧ ↑k ≤ C * ↑n
+'OAI.ErdosGallai.erdos_gallai' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CycleDecomposition comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
