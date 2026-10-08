@@ -1,0 +1,55 @@
+== Saxl  module=OAI.RepresentationTheory.Saxl.Main  start=2026-10-08T12:36:40Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8961] Built OAI.RepresentationTheory.Saxl.Model (13s)
+✔ [8925/8961] Built OAI.RepresentationTheory.Saxl.Basic (16s)
+✔ [8926/8961] Built OAI.RepresentationTheory.Saxl.Polytabloid (13s)
+✔ [8927/8961] Built OAI.RepresentationTheory.Saxl.SpechtSubmodule (14s)
+✔ [8928/8961] Built OAI.RepresentationTheory.Saxl.SpechtDuality (14s)
+✔ [8929/8961] Built OAI.RepresentationTheory.Saxl.TableauTransport (12s)
+✔ [8930/8961] Built OAI.RepresentationTheory.Saxl.StaircaseTensor (14s)
+✔ [8931/8961] Built OAI.RepresentationTheory.Saxl.HighProjection (26s)
+✔ [8932/8961] Built OAI.RepresentationTheory.Saxl.CoordinateSector (12s)
+✔ [8933/8961] Built OAI.RepresentationTheory.Saxl.PositionSplit (14s)
+✔ [8934/8961] Built OAI.RepresentationTheory.Saxl.BandFactorization (14s)
+✔ [8935/8961] Built OAI.RepresentationTheory.Saxl.PathAlternation (16s)
+✔ [8936/8961] Built OAI.RepresentationTheory.Saxl.BandMatrices (33s)
+✔ [8937/8961] Built OAI.RepresentationTheory.Saxl.PathContraction (16s)
+✔ [8938/8961] Built OAI.RepresentationTheory.Saxl.ColumnContraction (14s)
+✔ [8939/8961] Built OAI.RepresentationTheory.Saxl.BandPairing (15s)
+✔ [8940/8961] Built OAI.RepresentationTheory.Saxl.CyclicSector (14s)
+✔ [8941/8961] Built OAI.RepresentationTheory.Saxl.BandSupport (13s)
+✔ [8942/8961] Built OAI.RepresentationTheory.Saxl.ShapeRigidity (14s)
+✔ [8943/8961] Built OAI.RepresentationTheory.Saxl.SpechtClassification (19s)
+✔ [8944/8961] Built OAI.RepresentationTheory.Saxl.SupportSeparation (14s)
+✔ [8945/8961] Built OAI.RepresentationTheory.Saxl.PositionTensor (11s)
+✔ [8946/8961] Built OAI.RepresentationTheory.Saxl.BandOrbit (13s)
+✔ [8947/8961] Built OAI.RepresentationTheory.Saxl.BandGlue (14s)
+✔ [8948/8961] Built OAI.RepresentationTheory.Saxl.SignEquivalence (15s)
+✔ [8949/8961] Built OAI.RepresentationTheory.Saxl.PieriRestriction (14s)
+✔ [8950/8961] Built OAI.RepresentationTheory.Saxl.StripExtension (12s)
+✔ [8951/8961] Built OAI.RepresentationTheory.Saxl.SizedStrips (12s)
+✔ [8952/8961] Built OAI.RepresentationTheory.Saxl.StripSupport (11s)
+✔ [8953/8961] Built OAI.RepresentationTheory.Saxl.HorizontalRemoval (11s)
+✔ [8954/8961] Built OAI.RepresentationTheory.Saxl.YoungRule (12s)
+✔ [8955/8961] Built OAI.RepresentationTheory.Saxl.CyclicTensor (220s)
+✔ [8956/8961] Built OAI.RepresentationTheory.Saxl.RepeatedProjection (18s)
+✔ [8957/8961] Built OAI.RepresentationTheory.Saxl.StaircaseSign (15s)
+✔ [8958/8961] Built OAI.RepresentationTheory.Saxl.DominatedQuotient (15s)
+✔ [8959/8961] Built OAI.RepresentationTheory.Saxl.DominatedSupport (14s)
+✔ [8960/8961] Built OAI.RepresentationTheory.Saxl.StripReduction (18s)
+✔ [8961/8961] Built OAI.RepresentationTheory.Saxl.Main (13s)
+Build completed successfully (8961 jobs).
+== build rc=0 seconds=804
+{"theorems": ["OAI.Saxl.saxl_conjecture"], "defs": ["OAI.Saxl.WordSpace", "OAI.Saxl.wordRep", "OAI.Saxl.cyclic", "OAI.Saxl.Tableau", "OAI.Saxl.canonicalTableau", "OAI.Saxl.rowWord", "OAI.Saxl.columnGroup", "OAI.Saxl.polytabloid", "OAI.Saxl.spechtSub", "OAI.Saxl.Specht", "OAI.Saxl.spechtRep", "OAI.Saxl.kronecker", "OAI.Saxl.staircase", "OAI.Saxl.SaxlConjecture"], "json_theorems": ["OAI.Saxl.saxl_conjecture"], "missing_from_parse": []}
+AXIOMS: 'OAI.Saxl.saxl_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:50:45Z

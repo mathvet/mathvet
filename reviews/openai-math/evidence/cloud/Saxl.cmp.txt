@@ -1,0 +1,80 @@
+CMP OAI.Saxl.saxl_conjecture [thm] ok
+CMP OAI.Saxl.SaxlConjecture [def] ok
+CMP OAI.Saxl.SaxlConjecture._proof_1 [thm] ok
+CMP OAI.Saxl.staircase [def] ok
+CMP OAI.Saxl.staircase._proof_1 [thm] ok
+CMP OAI.Saxl.canonicalTableau [def] ok
+CMP OAI.Saxl.canonicalTableau._proof_1 [thm] ok
+CMP OAI.Saxl.Tableau [def] ok
+CMP OAI.Saxl.kronecker [def] ok
+CMP OAI.Saxl.spechtRep [def] ok
+CMP OAI.Saxl.spechtSub [def] ok
+CMP OAI.Saxl.polytabloid [def] ok
+CMP OAI.Saxl.rowWord [def] ok
+CMP OAI.Saxl.rowWord._proof_1 [thm] ok
+CMP OAI.Saxl.wordRep [def] ok
+CMP OAI.Saxl.wordRep._proof_8 [thm] ok
+CMP OAI.Saxl.wordRep._proof_2 [thm] ok
+CMP OAI.Saxl.WordSpace [def] ok
+CMP OAI.Saxl.wordRep._proof_1 [thm] ok
+CMP OAI.Saxl.wordRep._proof_7 [thm] ok
+CMP OAI.Saxl.wordRep._proof_6 [thm] ok
+CMP OAI.Saxl.wordRep._proof_5 [thm] ok
+CMP OAI.Saxl.wordRep._proof_4 [thm] ok
+CMP OAI.Saxl.wordRep._proof_3 [thm] ok
+CMP OAI.Saxl.polytabloid._proof_1 [thm] ok
+CMP OAI.Saxl.columnGroup [def] ok
+CMP OAI.Saxl.columnGroup._proof_3 [thm] ok
+CMP OAI.Saxl.columnGroup._proof_2 [thm] ok
+CMP OAI.Saxl.columnGroup._proof_1 [thm] ok
+CMP OAI.Saxl.cyclic [def] ok
+CMP OAI.Saxl.cyclic._proof_1 [thm] ok
+CMP OAI.Saxl.Specht [def] ok
+Chal.Saxl.saxl_conjecture : Chal.Saxl.SaxlConjecture
+@[reducible] def Chal.Saxl.WordSpace : ℕ → ℕ → Type :=
+fun n d => (Fin n → Fin d) → ℂ
+def Chal.Saxl.wordRep : (n d : ℕ) → Representation ℂ (Equiv.Perm (Fin n)) (Chal.Saxl.WordSpace n d) :=
+fun n d =>
+  { toFun := fun g => { toFun := fun f a => f (a ∘ ⇑g), map_add' := ⋯, map_smul' := ⋯ }, map_one' := ⋯, map_mul' := ⋯ }
+def Chal.Saxl.cyclic.{uG, uV} : {G : Type uG} →
+  {V : Type uV} →
+    [inst : Group G] →
+      [inst_1 : AddCommGroup V] → [inst_2 : _root_.Module ℂ V] → (ρ : Representation ℂ G V) → V → Subrepresentation ρ :=
+fun {G} {V} [Group G] [AddCommGroup V] [_root_.Module ℂ V] ρ v =>
+  { toSubmodule := Submodule.span ℂ (Set.range fun g => (ρ g) v), apply_mem_toSubmodule := ⋯ }
+@[reducible] def Chal.Saxl.Tableau : ℕ → YoungDiagram → Type :=
+fun n μ => Fin n ≃ ↥μ.cells
+def Chal.Saxl.canonicalTableau : {n : ℕ} → (μ : YoungDiagram) → μ.card = n → Chal.Saxl.Tableau n μ :=
+fun {n} μ hn => (Fintype.equivFinOfCardEq ⋯).symm
+def Chal.Saxl.rowWord : {n : ℕ} → {μ : YoungDiagram} → Chal.Saxl.Tableau n μ → Fin n → Fin (μ.colLen 0) :=
+fun {n} {μ} t i => ⟨(↑(t i)).1, ⋯⟩
+def Chal.Saxl.columnGroup : {n : ℕ} → {μ : YoungDiagram} → Chal.Saxl.Tableau n μ → Subgroup (Equiv.Perm (Fin n)) :=
+fun {n} {μ} t =>
+  { carrier := {g | ∀ (i : Fin n), (↑(t (g i))).2 = (↑(t i)).2}, mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def Chal.Saxl.polytabloid : {n : ℕ} → {μ : YoungDiagram} → Chal.Saxl.Tableau n μ → Chal.Saxl.WordSpace n (μ.colLen 0) :=
+fun {n} {μ} t =>
+  ∑ g, ↑↑(Equiv.Perm.sign ↑g) • ((Chal.Saxl.wordRep n (μ.colLen 0)) ↑g) (Pi.single (Chal.Saxl.rowWord t) 1)
+def Chal.Saxl.spechtSub : {n : ℕ} →
+  {μ : YoungDiagram} → Chal.Saxl.Tableau n μ → Subrepresentation (Chal.Saxl.wordRep n (μ.colLen 0)) :=
+fun {n} {μ} t => Chal.Saxl.cyclic (Chal.Saxl.wordRep n (μ.colLen 0)) (Chal.Saxl.polytabloid t)
+@[reducible] def Chal.Saxl.Specht : {n : ℕ} →
+  {μ : YoungDiagram} → Chal.Saxl.Tableau n μ → Submodule ℂ (Chal.Saxl.WordSpace n (μ.colLen 0)) :=
+fun {n} {μ} t => (Chal.Saxl.spechtSub t).toSubmodule
+def Chal.Saxl.spechtRep : {n : ℕ} →
+  {μ : YoungDiagram} → (t : Chal.Saxl.Tableau n μ) → Representation ℂ (Equiv.Perm (Fin n)) ↥(Chal.Saxl.Specht t) :=
+fun {n} {μ} t => (Chal.Saxl.spechtSub t).toRepresentation
+def Chal.Saxl.kronecker : {n : ℕ} →
+  {α β μ : YoungDiagram} → Chal.Saxl.Tableau n α → Chal.Saxl.Tableau n β → Chal.Saxl.Tableau n μ → ℕ :=
+fun {n} {α β μ} a b t =>
+  Module.finrank ℂ ((Chal.Saxl.spechtRep t).IntertwiningMap ((Chal.Saxl.spechtRep a).tprod (Chal.Saxl.spechtRep b)))
+def Chal.Saxl.staircase : ℕ → YoungDiagram :=
+fun m => { cells := {x ∈ Finset.range m ×ˢ Finset.range m | x.1 + x.2 < m}, isLowerSet := ⋯ }
+def Chal.Saxl.SaxlConjecture : Prop :=
+∀ (m : ℕ),
+  1 ≤ m →
+    ∀ (μ : YoungDiagram) (hμ : μ.card = (Chal.Saxl.staircase m).card),
+      0 <
+        Chal.Saxl.kronecker (Chal.Saxl.canonicalTableau (Chal.Saxl.staircase m) ⋯)
+          (Chal.Saxl.canonicalTableau (Chal.Saxl.staircase m) ⋯) (Chal.Saxl.canonicalTableau μ hμ)
+'OAI.Saxl.saxl_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Saxl comparator-style: ok=32 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
