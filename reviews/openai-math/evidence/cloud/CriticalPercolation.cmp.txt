@@ -1,0 +1,67 @@
+CMP OAI.CriticalPercolation.BondGraph.no_percolation_at_criticality [thm] ok
+CMP OAI.CriticalPercolation.BondGraph.percolates [def] ok
+CMP OAI.CriticalPercolation.BondGraph.cluster [def] ok
+CMP OAI.CriticalPercolation.BondGraph.openGraph [def] ok
+CMP OAI.CriticalPercolation.BondGraph.ends [def] ok
+CMP OAI.CriticalPercolation.BondGraph [ind] ok
+CMP OAI.CriticalPercolation.BondGraph.mk [ctor] ok
+CMP OAI.CriticalPercolation.BondGraph.law [def] ok
+CMP OAI.CriticalPercolation.BondGraph.criticalProbability [def] ok
+CMP OAI.CriticalPercolation.BondGraph.criticalProbability._proof_1 [thm] ok
+CMP OAI.CriticalPercolation.BondGraph.QuasiTransitive [def] ok
+CMP OAI.CriticalPercolation.BondGraph.Aut.vertex [def] ok
+CMP OAI.CriticalPercolation.BondGraph.Aut [ind] ok
+CMP OAI.CriticalPercolation.BondGraph.Aut.mk [ctor] ok
+CMP OAI.CriticalPercolation.BondGraph.LocallyFinite [def] ok
+CMP OAI.CriticalPercolation.BondGraph.fullGraph [def] ok
+@Chal.CriticalPercolation.BondGraph.no_percolation_at_criticality : ∀ {V : Type u_1} {E : Type u_2}
+  (G : Chal.CriticalPercolation.BondGraph V E) [Infinite V],
+  G.fullGraph.Connected →
+    G.LocallyFinite → G.QuasiTransitive → G.criticalProbability < 1 → (G.law G.criticalProbability) G.percolates = 0
+structure Chal.CriticalPercolation.BondGraph.{u_1, u_2} (V : Type u_1) (E : Type u_2) : Type (max u_1 u_2)
+number of parameters: 2
+fields:
+  Chal.CriticalPercolation.BondGraph.ends : E → Sym2 V
+constructor:
+  Chal.CriticalPercolation.BondGraph.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2} (ends : E → Sym2 V) :
+    Chal.CriticalPercolation.BondGraph V E
+def Chal.CriticalPercolation.BondGraph.openGraph.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → Set E → SimpleGraph V :=
+fun {V} {E} G ω => SimpleGraph.fromEdgeSet (G.ends '' ω)
+def Chal.CriticalPercolation.BondGraph.fullGraph.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → SimpleGraph V :=
+fun {V} {E} G => G.openGraph Set.univ
+def Chal.CriticalPercolation.BondGraph.LocallyFinite.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → Prop :=
+fun {V} {E} G => ∀ (v : V), {e | v ∈ G.ends e}.Finite
+structure Chal.CriticalPercolation.BondGraph.Aut.{u_1, u_2} {V : Type u_1} {E : Type u_2}
+  (G : Chal.CriticalPercolation.BondGraph V E) : Type (max u_1 u_2)
+number of parameters: 3
+fields:
+  Chal.CriticalPercolation.BondGraph.Aut.vertex : V ≃ V
+  Chal.CriticalPercolation.BondGraph.Aut.edge : E ≃ E
+  Chal.CriticalPercolation.BondGraph.Aut.preserves : ∀ (e : E),
+      G.ends (self.edge e) = Sym2.map (⇑self.vertex) (G.ends e)
+constructor:
+  Chal.CriticalPercolation.BondGraph.Aut.mk.{u_1, u_2} {V : Type u_1} {E : Type u_2}
+    {G : Chal.CriticalPercolation.BondGraph V E} (vertex : V ≃ V) (edge : E ≃ E)
+    (preserves : ∀ (e : E), G.ends (edge e) = Sym2.map (⇑vertex) (G.ends e)) : G.Aut
+def Chal.CriticalPercolation.BondGraph.QuasiTransitive.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → Prop :=
+fun {V} {E} G => ∃ S, S.Finite ∧ ∀ (v : V), ∃ s ∈ S, ∃ φ, φ.vertex s = v
+def Chal.CriticalPercolation.BondGraph.cluster.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → Set E → V → Set V :=
+fun {V} {E} G ω v => {w | (G.openGraph ω).Reachable v w}
+def Chal.CriticalPercolation.BondGraph.percolates.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → Set (Set E) :=
+fun {V} {E} G => {ω | ∃ v, (G.cluster ω v).Infinite}
+def Chal.CriticalPercolation.BondGraph.law.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → ↑unitInterval → MeasureTheory.Measure (Set E) :=
+fun {V} {E} _G p => ProbabilityTheory.setBernoulli Set.univ p
+def Chal.CriticalPercolation.BondGraph.criticalProbability.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.CriticalPercolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | 0 < (G.law p) G.percolates}
+'OAI.CriticalPercolation.BondGraph.no_percolation_at_criticality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== CriticalPercolation comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, 
