@@ -1,0 +1,63 @@
+CMP OAI.PeriodicTilingThree.periodic_tiling_counterexample_and_minimality [thm] ok
+CMP OAI.PeriodicTilingThree.HasTileWithoutPeriodicComplement [def] ok
+CMP OAI.PeriodicTilingThree.FullyPeriodic [def] ok
+CMP OAI.PeriodicTilingThree.Period [def] ok
+CMP OAI.PeriodicTilingThree.Tiles [def] ok
+CMP OAI.PeriodicTilingThree.Lattice [def] ok
+CMP OAI.PeriodicTilingThree.EuclideanFullyPeriodic [def] ok
+CMP OAI.PeriodicTilingThree.latticeOfBasis [def] ok
+CMP OAI.PeriodicTilingThree.Space [def] ok
+CMP OAI.PeriodicTilingThree.Thickening [def] ok
+CMP OAI.PeriodicTilingThree.castLattice [def] ok
+CMP OAI.PeriodicTilingThree.castLattice._proof_2 [thm] ok
+CMP OAI.PeriodicTilingThree.castLattice._proof_1 [thm] ok
+CMP OAI.PeriodicTilingThree.unitCube [def] ok
+CMP OAI.PeriodicTilingThree.AETiles [def] ok
+CMP OAI.PeriodicTilingThree.AETiles._proof_1 [thm] ok
+Chal.PeriodicTilingThree.periodic_tiling_counterexample_and_minimality : (∃ T,
+    T.Nonempty ∧
+      (∃ A, Chal.PeriodicTilingThree.Tiles T A) ∧
+        (∀ (A : Set (Chal.PeriodicTilingThree.Lattice 3)),
+            Chal.PeriodicTilingThree.Tiles T A → ¬Chal.PeriodicTilingThree.FullyPeriodic A) ∧
+          (∃ A, Chal.PeriodicTilingThree.AETiles (Chal.PeriodicTilingThree.Thickening T) A) ∧
+            ∀ (A : Set (Chal.PeriodicTilingThree.Space 3)),
+              Chal.PeriodicTilingThree.AETiles (Chal.PeriodicTilingThree.Thickening T) A →
+                ¬Chal.PeriodicTilingThree.EuclideanFullyPeriodic A) ∧
+  IsLeast {d | Chal.PeriodicTilingThree.HasTileWithoutPeriodicComplement d} 3
+@[reducible] def Chal.PeriodicTilingThree.Lattice : ℕ → Type :=
+fun d => Fin d → ℤ
+def Chal.PeriodicTilingThree.Tiles.{u} : {G : Type u} → [AddCommGroup G] → Finset G → Set G → Prop :=
+fun {G} [AddCommGroup G] F A => Function.Bijective fun p => ↑p.1 + ↑p.2
+def Chal.PeriodicTilingThree.Period.{u} : {G : Type u} → [AddCommGroup G] → Set G → G → Prop :=
+fun {G} [AddCommGroup G] A v => ∀ (x : G), x + v ∈ A ↔ x ∈ A
+def Chal.PeriodicTilingThree.FullyPeriodic.{u} : {G : Type u} → [AddCommGroup G] → Set G → Prop :=
+fun {G} [AddCommGroup G] A => ∃ P, P.FiniteIndex ∧ ∀ v ∈ P, Chal.PeriodicTilingThree.Period A v
+@[reducible] def Chal.PeriodicTilingThree.Space : ℕ → Type :=
+fun d => Fin d → ℝ
+def Chal.PeriodicTilingThree.castLattice : {d : ℕ} →
+  Chal.PeriodicTilingThree.Lattice d →+ Chal.PeriodicTilingThree.Space d :=
+fun {d} => { toFun := fun z i => ↑(z i), map_zero' := ⋯, map_add' := ⋯ }
+def Chal.PeriodicTilingThree.unitCube : (d : ℕ) → Set (Chal.PeriodicTilingThree.Space d) :=
+fun d => Set.Icc 0 1
+def Chal.PeriodicTilingThree.Thickening : {d : ℕ} →
+  Finset (Chal.PeriodicTilingThree.Lattice d) → Set (Chal.PeriodicTilingThree.Space d) :=
+fun {d} F => {x | ∃ z ∈ F, x - Chal.PeriodicTilingThree.castLattice z ∈ Chal.PeriodicTilingThree.unitCube d}
+def Chal.PeriodicTilingThree.AETiles : {d : ℕ} →
+  Set (Chal.PeriodicTilingThree.Space d) → Set (Chal.PeriodicTilingThree.Space d) → Prop :=
+fun {d} Ω A => ∀ᵐ (x : Chal.PeriodicTilingThree.Space d), ∃! a, x - ↑a ∈ Ω
+def Chal.PeriodicTilingThree.latticeOfBasis : {d : ℕ} →
+  Module.Basis (Fin d) ℝ (Chal.PeriodicTilingThree.Space d) → AddSubgroup (Chal.PeriodicTilingThree.Space d) :=
+fun {d} b => (Submodule.span ℤ (Set.range ⇑b)).toAddSubgroup
+def Chal.PeriodicTilingThree.EuclideanFullyPeriodic : {d : ℕ} → Set (Chal.PeriodicTilingThree.Space d) → Prop :=
+fun {d} A => ∃ b, ∀ v ∈ Chal.PeriodicTilingThree.latticeOfBasis b, Chal.PeriodicTilingThree.Period A v
+def Chal.PeriodicTilingThree.HasTileWithoutPeriodicComplement : ℕ → Prop :=
+fun d =>
+  ∃ T,
+    T.Nonempty ∧
+      (∃ A, Chal.PeriodicTilingThree.Tiles T A) ∧
+        ∀ (A : Set (Chal.PeriodicTilingThree.Lattice d)),
+          Chal.PeriodicTilingThree.Tiles T A → ¬Chal.PeriodicTilingThree.FullyPeriodic A
+'OAI.PeriodicTilingThree.periodic_tiling_counterexample_and_minimality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== PeriodicTilingThree comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, 

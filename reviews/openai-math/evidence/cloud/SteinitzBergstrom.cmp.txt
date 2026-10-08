@@ -1,0 +1,25 @@
+CMP OAI.EuclideanSteinitzBergstrom.main [thm] ok
+CMP OAI.EuclideanSteinitzBergstrom.OrderingPrefixBound [def] ok
+CMP OAI.EuclideanSteinitzBergstrom.Vector [def] ok
+CMP OAI.EuclideanSteinitzBergstrom.SignedPrefixBound [def] ok
+Chal.EuclideanSteinitzBergstrom.main : ∃ C,
+  Chal.EuclideanSteinitzBergstrom.SignedPrefixBound C ∧ Chal.EuclideanSteinitzBergstrom.OrderingPrefixBound C
+@[reducible] def Chal.EuclideanSteinitzBergstrom.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.EuclideanSteinitzBergstrom.SignedPrefixBound : ℝ → Prop :=
+fun C =>
+  ∀ (d N : ℕ),
+    1 ≤ d →
+      1 ≤ N →
+        ∀ (v : Fin N → Chal.EuclideanSteinitzBergstrom.Vector d),
+          (∀ (i : Fin N), ‖v i‖ ≤ 1) →
+            ∃ ε, (∀ (i : Fin N), ε i = -1 ∨ ε i = 1) ∧ ∀ k ≤ N, ‖∑ i with ↑i < k, ε i • v i‖ ≤ C * √↑d
+def Chal.EuclideanSteinitzBergstrom.OrderingPrefixBound : ℝ → Prop :=
+fun C =>
+  ∀ (d N : ℕ),
+    1 ≤ d →
+      1 ≤ N →
+        ∀ (v : Fin N → Chal.EuclideanSteinitzBergstrom.Vector d),
+          (∀ (i : Fin N), ‖v i‖ ≤ 1) → ∑ i, v i = 0 → ∃ π, ∀ k ≤ N, ‖∑ i with ↑i < k, v (π i)‖ ≤ C * √↑d
+'OAI.EuclideanSteinitzBergstrom.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SteinitzBergstrom comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

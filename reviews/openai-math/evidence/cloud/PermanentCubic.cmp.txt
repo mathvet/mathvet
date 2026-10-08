@@ -1,0 +1,38 @@
+CMP OAI.PermanentBorder.permanent_cubic_lower_bounds [thm] ok
+CMP OAI.PermanentBorder.HasExactDeterminant [def] ok
+CMP OAI.PermanentBorder.affineMatrixPolynomial [def] ok
+CMP OAI.PermanentBorder.Poly [def] ok
+CMP OAI.PermanentBorder.permanentPolynomial [def] ok
+CMP OAI.PermanentBorder.Variables [def] ok
+CMP OAI.PermanentBorder.HasBorderDeterminant [def] ok
+Chal.PermanentBorder.permanent_cubic_lower_bounds : (∀ (m n : ℕ),
+    1408 ≤ m →
+      Chal.PermanentBorder.HasBorderDeterminant n (Chal.PermanentBorder.permanentPolynomial m) →
+        ↑m ^ 3 / (5529600 * Real.exp 1) ≤ ↑n) ∧
+  ∀ (m n : ℕ),
+    1408 ≤ m →
+      Chal.PermanentBorder.HasExactDeterminant n (Chal.PermanentBorder.permanentPolynomial m) →
+        ↑m ^ 3 / (5529600 * Real.exp 1) ≤ ↑n
+@[reducible] def Chal.PermanentBorder.Variables : ℕ → Type :=
+fun m => Fin m × Fin m
+@[reducible] def Chal.PermanentBorder.Poly.{u_1} : Type u_1 → Type (max 0 u_1) :=
+fun σ => MvPolynomial σ ℂ
+def Chal.PermanentBorder.permanentPolynomial : (m : ℕ) → Chal.PermanentBorder.Poly (Chal.PermanentBorder.Variables m) :=
+fun m => ∑ τ, ∏ i, MvPolynomial.X (i, τ i)
+def Chal.PermanentBorder.affineMatrixPolynomial.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → (n : ℕ) → Matrix (Fin n) (Fin n) ℂ → (σ → Matrix (Fin n) (Fin n) ℂ) → Chal.PermanentBorder.Poly σ :=
+fun {σ} [Fintype σ] n A₀ A =>
+  Matrix.det fun i j => MvPolynomial.C (A₀ i j) + ∑ v, MvPolynomial.C (A v i j) * MvPolynomial.X v
+def Chal.PermanentBorder.HasBorderDeterminant.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → ℕ → Chal.PermanentBorder.Poly σ → Prop :=
+fun {σ} [Fintype σ] n p =>
+  0 < n ∧
+    ∃ A₀ A,
+      ∀ (d : σ →₀ ℕ),
+        Filter.Tendsto (fun j => (Chal.PermanentBorder.affineMatrixPolynomial n (A₀ j) (A j)).coeff d) Filter.atTop
+          (nhds (p.coeff d))
+def Chal.PermanentBorder.HasExactDeterminant.{u_1} : {σ : Type u_1} →
+  [Fintype σ] → ℕ → Chal.PermanentBorder.Poly σ → Prop :=
+fun {σ} [Fintype σ] n p => 0 < n ∧ ∃ A₀ A, Chal.PermanentBorder.affineMatrixPolynomial n A₀ A = p
+'OAI.PermanentBorder.permanent_cubic_lower_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PermanentCubic comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

@@ -1,3 +1,4 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_ForcedNavierStokesComputation.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.BalancedTransport.balanced_three_stack_realization [thm] ok
 CMP OAI.BalancedTransport.nameOracle [def] ok
 CMP OAI.BalancedTransport.RealName [def] ok
@@ -371,4 +372,4 @@ fun x => ∃ name, Computable name ∧ Chal.BalancedTransport.RealName name x
 def Chal.BalancedTransport.nameOracle : (ℕ → ℚ) → ℕ →. ℕ :=
 fun name n => Part.some (Encodable.encode (name n))
 'OAI.BalancedTransport.balanced_three_stack_realization' depends on axioms: [propext, Classical.choice, Quot.sound]
-== ForcedNavierStokesComputation comparator-style: ok=82 problems=0 errors=5 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== ForcedNavierStokesComputation comparator-style: ok=82 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

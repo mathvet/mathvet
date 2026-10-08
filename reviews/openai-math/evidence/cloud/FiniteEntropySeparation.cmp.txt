@@ -1,0 +1,221 @@
+CMP OAI.FiniteEntropySeparation.main [thm] ok
+CMP OAI.FiniteEntropySeparation.chiStar [def] ok
+CMP OAI.FiniteEntropySeparation.chiStar._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.heatTuple [def] ok
+CMP OAI.FiniteEntropySeparation.heatTuple._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_2 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.freeFisher [def] ok
+CMP OAI.FiniteEntropySeparation.ConjugateSystem [def] ok
+CMP OAI.FiniteEntropySeparation.derivativeMoment [def] ok
+CMP OAI.FiniteEntropySeparation.wordMoment [def] ok
+CMP OAI.FiniteEntropySeparation.wordEval [def] ok
+CMP OAI.FiniteEntropySeparation.trace [def] ok
+CMP OAI.FiniteEntropySeparation.TracialVector.vacuum [def] ok
+CMP OAI.FiniteEntropySeparation.TracialVector [ind] ok
+CMP OAI.FiniteEntropySeparation.TracialVector.mk [ctor] ok
+CMP OAI.FiniteEntropySeparation.derivativeMoment._proof_2 [thm] ok
+CMP OAI.FiniteEntropySeparation.polynomialL2 [def] ok
+CMP OAI.FiniteEntropySeparation.polynomialL2._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.chi [def] ok
+CMP OAI.FiniteEntropySeparation.chiCutoff [def] ok
+CMP OAI.FiniteEntropySeparation.microstates [def] ok
+CMP OAI.FiniteEntropySeparation.matrixMoment [def] ok
+CMP OAI.FiniteEntropySeparation.hermitianMatrix [def] ok
+CMP OAI.FiniteEntropySeparation.MatrixCoordinates [def] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm [def] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_10 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_9 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_8 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_7 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_6 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_5 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_4 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_3 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_2 [thm] ok
+CMP OAI.FiniteEntropySeparation.matrixOpNorm._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.chiCutoff._proof_2 [thm] ok
+CMP OAI.FiniteEntropySeparation.chiCutoff._proof_1 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeStandardNoise [def] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_5 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_4 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_3 [thm] ok
+CMP OAI.FiniteEntropySeparation.FreeStandardNoise.match_1 [def] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras [def] ok
+CMP OAI.FiniteEntropySeparation.FreeSubalgebras._proof_6 [thm] ok
+Chal.FiniteEntropySeparation.main : ∃ H x x_1,
+  ∃ (x_2 : CompleteSpace H),
+    ∃ M τ n X S,
+      2 ≤ n ∧
+        (∀ (i : Fin n), X i ∈ M ∧ IsSelfAdjoint (X i)) ∧
+          (∀ (i : Fin n), S i ∈ M ∧ IsSelfAdjoint (S i)) ∧
+            Chal.FiniteEntropySeparation.FreeStandardNoise τ X S ∧
+              ⊥ < Chal.FiniteEntropySeparation.chi τ X ∧
+                Chal.FiniteEntropySeparation.chi τ X ≤ Chal.FiniteEntropySeparation.chiStar τ X S - 1 / 2 ∧
+                  Chal.FiniteEntropySeparation.chiStar τ X S - 1 / 2 < ⊤
+structure Chal.FiniteEntropySeparation.TracialVector {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+  [CompleteSpace H] (M : VonNeumannAlgebra H) : Type
+number of parameters: 5
+fields:
+  Chal.FiniteEntropySeparation.TracialVector.vacuum : H
+  Chal.FiniteEntropySeparation.TracialVector.norm_vacuum : ‖self.vacuum‖ = 1
+  Chal.FiniteEntropySeparation.TracialVector.tracial : ∀ A ∈ M,
+      ∀ B ∈ M, inner ℂ self.vacuum ((A * B) self.vacuum) = inner ℂ self.vacuum ((B * A) self.vacuum)
+  Chal.FiniteEntropySeparation.TracialVector.separating : ∀ A ∈ M, A self.vacuum = 0 → A = 0
+constructor:
+  Chal.FiniteEntropySeparation.TracialVector.mk {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] {M : VonNeumannAlgebra H} (vacuum : H) (norm_vacuum : ‖vacuum‖ = 1)
+    (tracial : ∀ A ∈ M, ∀ B ∈ M, inner ℂ vacuum ((A * B) vacuum) = inner ℂ vacuum ((B * A) vacuum))
+    (separating : ∀ A ∈ M, A vacuum = 0 → A = 0) : Chal.FiniteEntropySeparation.TracialVector M
+def Chal.FiniteEntropySeparation.trace : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} → Chal.FiniteEntropySeparation.TracialVector M → (H →L[ℂ] H) → ℂ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ A => inner ℂ τ.vacuum (A τ.vacuum)
+def Chal.FiniteEntropySeparation.wordEval : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → {n : ℕ} → (Fin n → H →L[ℂ] H) → List (Fin n) → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] {n} X w => (List.map X w).prod
+def Chal.FiniteEntropySeparation.wordMoment : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → List (Fin n) → ℂ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X w =>
+  Chal.FiniteEntropySeparation.trace τ (Chal.FiniteEntropySeparation.wordEval X w)
+def Chal.FiniteEntropySeparation.FreeSubalgebras : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {ι : Type} →
+          {M : VonNeumannAlgebra H} →
+            Chal.FiniteEntropySeparation.TracialVector M → (ι → Subalgebra ℂ (H →L[ℂ] H)) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {ι} {M} τ A =>
+  ∀ (k : ℕ),
+    0 < k →
+      ∀ (j : Fin k → ι) (a : Fin k → H →L[ℂ] H),
+        (∀ (r : Fin k), a r ∈ A (j r)) →
+          (∀ (r : Fin k), Chal.FiniteEntropySeparation.trace τ (a r) = 0) →
+            (∀ (r : ℕ) (hr : r + 1 < k), j ⟨r, ⋯⟩ ≠ j ⟨r + 1, hr⟩) →
+              Chal.FiniteEntropySeparation.trace τ (List.ofFn a).prod = 0
+def Chal.FiniteEntropySeparation.FreeStandardNoise : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → (Fin n → H →L[ℂ] H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X S =>
+  (∀ (i : Fin n) (k : ℕ), Chal.FiniteEntropySeparation.trace τ (S i ^ k) = if Even k then ↑(catalan (k / 2)) else 0) ∧
+    Chal.FiniteEntropySeparation.FreeSubalgebras τ fun j =>
+      match j with
+      | none => Algebra.adjoin ℂ (Set.range X)
+      | some i => ℂ[S i]
+def Chal.FiniteEntropySeparation.polynomialL2 : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → Submodule ℂ H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X =>
+  (Submodule.span ℂ (Set.range fun w => (Chal.FiniteEntropySeparation.wordEval X w) τ.vacuum)).topologicalClosure
+def Chal.FiniteEntropySeparation.derivativeMoment : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → Fin n → List (Fin n) → ℂ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X i w =>
+  ∑ r,
+    if w[↑r] = i then
+      Chal.FiniteEntropySeparation.wordMoment τ X (List.take (↑r) w) *
+        Chal.FiniteEntropySeparation.wordMoment τ X (List.drop (↑r + 1) w)
+    else 0
+def Chal.FiniteEntropySeparation.ConjugateSystem : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → (Fin n → H) → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X ξ =>
+  ∀ (i : Fin n),
+    ξ i ∈ Chal.FiniteEntropySeparation.polynomialL2 τ X ∧
+      ∀ (w : List (Fin n)),
+        inner ℂ (ξ i) ((Chal.FiniteEntropySeparation.wordEval X w) τ.vacuum) =
+          Chal.FiniteEntropySeparation.derivativeMoment τ X i w
+def Chal.FiniteEntropySeparation.freeFisher : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → ENNReal :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X =>
+  ⨅ ξ, ⨅ (_ : Chal.FiniteEntropySeparation.ConjugateSystem τ X ξ), ENNReal.ofReal (∑ i, ‖ξ i‖ ^ 2)
+def Chal.FiniteEntropySeparation.heatTuple : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → {n : ℕ} → (Fin n → H →L[ℂ] H) → (Fin n → H →L[ℂ] H) → ℝ → Fin n → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] {n} X S s i => X i + ↑√s • S i
+def Chal.FiniteEntropySeparation.chiStar : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → (Fin n → H →L[ℂ] H) → EReal :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X S =>
+  have b := fun s => ENNReal.ofReal (↑n / (1 + s));
+  have f := fun s => Chal.FiniteEntropySeparation.freeFisher τ (Chal.FiniteEntropySeparation.heatTuple X S s);
+  ↑(↑n / 2 * Real.log (2 * Real.pi * Real.exp 1)) + 1 / 2 * ↑(∫⁻ (s : ℝ) in Set.Ioi 0, b s - f s) -
+    1 / 2 * ↑(∫⁻ (s : ℝ) in Set.Ioi 0, f s - b s)
+@[reducible] def Chal.FiniteEntropySeparation.MatrixCoordinates : ℕ → ℕ → Type :=
+fun n d => EuclideanSpace ℝ (Fin n × Fin d × Fin d)
+def Chal.FiniteEntropySeparation.hermitianMatrix : {n d : ℕ} →
+  Chal.FiniteEntropySeparation.MatrixCoordinates n d → Fin n → Matrix (Fin d) (Fin d) ℂ :=
+fun {n d} a i j k =>
+  if j = k then ↑(a.ofLp (i, j, j))
+  else
+    if j < k then (↑(a.ofLp (i, j, k)) + Complex.I * ↑(a.ofLp (i, k, j))) / ↑√2
+    else (↑(a.ofLp (i, k, j)) - Complex.I * ↑(a.ofLp (i, j, k))) / ↑√2
+def Chal.FiniteEntropySeparation.matrixOpNorm : {d : ℕ} → Matrix (Fin d) (Fin d) ℂ → ℝ :=
+fun {d} A => ‖LinearMap.toContinuousLinearMap (Matrix.toEuclideanLin A)‖
+def Chal.FiniteEntropySeparation.matrixMoment : {n d : ℕ} →
+  Chal.FiniteEntropySeparation.MatrixCoordinates n d → List (Fin n) → ℂ :=
+fun {n d} a w => (↑d)⁻¹ * (List.map (Chal.FiniteEntropySeparation.hermitianMatrix a) w).prod.trace
+def Chal.FiniteEntropySeparation.microstates : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M →
+            {n : ℕ} →
+              (Fin n → H →L[ℂ] H) → ℝ → ℕ → (d : ℕ) → ℝ → Set (Chal.FiniteEntropySeparation.MatrixCoordinates n d) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X R m d ε =>
+  {a |
+    (∀ (i : Fin n), Chal.FiniteEntropySeparation.matrixOpNorm (Chal.FiniteEntropySeparation.hermitianMatrix a i) ≤ R) ∧
+      ∀ (w : List (Fin n)),
+        w.length ≤ m →
+          ‖Chal.FiniteEntropySeparation.matrixMoment a w - Chal.FiniteEntropySeparation.wordMoment τ X w‖ < ε}
+def Chal.FiniteEntropySeparation.chiCutoff : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → ℝ → EReal :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X R =>
+  ⨅ m,
+    ⨅ ε,
+      Filter.limsup
+        (fun d =>
+          ↑(↑(d + 1) ^ 2)⁻¹ * (MeasureTheory.volume (Chal.FiniteEntropySeparation.microstates τ X R m (d + 1) ↑ε)).log +
+            ↑(↑n / 2 * Real.log (↑d + 1)))
+        Filter.atTop
+def Chal.FiniteEntropySeparation.chi : {H : Type} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] →
+        {M : VonNeumannAlgebra H} →
+          Chal.FiniteEntropySeparation.TracialVector M → {n : ℕ} → (Fin n → H →L[ℂ] H) → EReal :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] {M} τ {n} X =>
+  ⨆ R, Chal.FiniteEntropySeparation.chiCutoff τ X ↑R
+'OAI.FiniteEntropySeparation.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FiniteEntropySeparation comparator-style: ok=45 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

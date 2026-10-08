@@ -1,0 +1,101 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_WeakMTWGlobalSupport.lean:63:8: warning: declaration uses `sorry`
+@OAI.WeakMTWGlobalSupport.current_main_convexity : ∀ {n : ℕ},
+  2 ≤ n →
+    ∀ {M : Type u_1} [inst : MetricSpace M] [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+      [inst_2 : IsManifold (OAI.WeakMTWGlobalSupport.WeakMTW.model n) (↑⊤) M] [CompactSpace M] [ConnectedSpace M]
+      [inst_5 : Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x]
+      [IsContMDiffRiemannianBundle (OAI.WeakMTWGlobalSupport.WeakMTW.model n) (↑⊤)
+          (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x]
+      [IsRiemannianManifold (OAI.WeakMTWGlobalSupport.WeakMTW.model n) M],
+      OAI.WeakMTWGlobalSupport.WeakMTW.HasWeakMTW → OAI.WeakMTWGlobalSupport.WeakMTW.MainConvexity
+@[reducible] def OAI.WeakMTWGlobalSupport.WeakMTW.Model : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+@[reducible] def OAI.WeakMTWGlobalSupport.WeakMTW.model : (n : ℕ) →
+  ModelWithCorners ℝ (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) :=
+fun n => modelWithCornersSelf ℝ (OAI.WeakMTWGlobalSupport.WeakMTW.Model n)
+def OAI.WeakMTWGlobalSupport.WeakMTW.CompleteGeodesicWithInitialData.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] →
+          (x : M) → TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x → (ℝ → M) → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] x v γ =>
+  ContMDiff (modelWithCornersSelf ℝ ℝ) (OAI.WeakMTWGlobalSupport.WeakMTW.model n) (↑⊤) γ ∧
+    ∃ (h : γ 0 = x),
+      h ▸ (mfderiv% γ 0) 1 = v ∧
+        ∀ (t : ℝ), ∃ ε, 0 < ε ∧ ∀ s ∈ Metric.ball t ε, ∀ r ∈ Metric.ball t ε, dist (γ s) (γ r) = ‖v‖ * |s - r|
+def OAI.WeakMTWGlobalSupport.WeakMTW.ExpEndpoint.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] →
+          (x : M) → TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x → M → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] x v y =>
+  ∃ γ, OAI.WeakMTWGlobalSupport.WeakMTW.CompleteGeodesicWithInitialData x v γ ∧ γ 1 = y
+def OAI.WeakMTWGlobalSupport.WeakMTW.exp.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] →
+          (x : M) → TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x → M :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] x v =>
+  if h : ∃ y, OAI.WeakMTWGlobalSupport.WeakMTW.ExpEndpoint x v y then Classical.choose h else x
+def OAI.WeakMTWGlobalSupport.WeakMTW.injectivityDomain.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] →
+          (x : M) → Set (TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x) :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] x =>
+  {v | ∃ a, 1 < a ∧ dist x (OAI.WeakMTWGlobalSupport.WeakMTW.exp x (a • v)) = a * ‖v‖}
+def OAI.WeakMTWGlobalSupport.WeakMTW.cost.{u_1} : {M : Type u_1} → [MetricSpace M] → M → M → ℝ :=
+fun {M} [MetricSpace M] x y => dist x y ^ 2 / 2
+def OAI.WeakMTWGlobalSupport.WeakMTW.mtw.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] →
+          (x : M) →
+            TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x →
+              TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x →
+                TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x → ℝ :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] x v ξ η =>
+  -(3 / 2) *
+    deriv
+      (fun s =>
+        deriv
+          (fun s' =>
+            deriv
+              (fun t =>
+                deriv
+                  (fun t' =>
+                    OAI.WeakMTWGlobalSupport.WeakMTW.cost (OAI.WeakMTWGlobalSupport.WeakMTW.exp x (t' • ξ))
+                      (OAI.WeakMTWGlobalSupport.WeakMTW.exp x (v + s' • η)))
+                  t)
+              0)
+          s)
+      0
+def OAI.WeakMTWGlobalSupport.WeakMTW.HasWeakMTW.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] =>
+  ∀ (x : M),
+    ∀ v ∈ OAI.WeakMTWGlobalSupport.WeakMTW.injectivityDomain x,
+      ∀ (ξ η : TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x),
+        inner ℝ ξ η = 0 → 0 ≤ OAI.WeakMTWGlobalSupport.WeakMTW.mtw x v ξ η
+def OAI.WeakMTWGlobalSupport.WeakMTW.MainConvexity.{u_1} : {n : ℕ} →
+  {M : Type u_1} →
+    [inst : MetricSpace M] →
+      [inst_1 : ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M] →
+        [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] → Prop :=
+fun {n} {M} [MetricSpace M] [ChartedSpace (OAI.WeakMTWGlobalSupport.WeakMTW.Model n) M]
+    [Bundle.RiemannianBundle fun x => TangentSpace (OAI.WeakMTWGlobalSupport.WeakMTW.model n) x] =>
+  ∀ (x : M), Convex ℝ (OAI.WeakMTWGlobalSupport.WeakMTW.injectivityDomain x)

@@ -1,0 +1,44 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_PeriodicTilingThree.lean:52:8: warning: declaration uses `sorry`
+OAI.PeriodicTilingThree.periodic_tiling_counterexample_and_minimality : (∃ T,
+    T.Nonempty ∧
+      (∃ A, OAI.PeriodicTilingThree.Tiles T A) ∧
+        (∀ (A : Set (OAI.PeriodicTilingThree.Lattice 3)),
+            OAI.PeriodicTilingThree.Tiles T A → ¬OAI.PeriodicTilingThree.FullyPeriodic A) ∧
+          (∃ A, OAI.PeriodicTilingThree.AETiles (OAI.PeriodicTilingThree.Thickening T) A) ∧
+            ∀ (A : Set (OAI.PeriodicTilingThree.Space 3)),
+              OAI.PeriodicTilingThree.AETiles (OAI.PeriodicTilingThree.Thickening T) A →
+                ¬OAI.PeriodicTilingThree.EuclideanFullyPeriodic A) ∧
+  IsLeast {d | OAI.PeriodicTilingThree.HasTileWithoutPeriodicComplement d} 3
+@[reducible] def OAI.PeriodicTilingThree.Lattice : ℕ → Type :=
+fun d => Fin d → ℤ
+def OAI.PeriodicTilingThree.Tiles.{u} : {G : Type u} → [AddCommGroup G] → Finset G → Set G → Prop :=
+fun {G} [AddCommGroup G] F A => Function.Bijective fun p => ↑p.1 + ↑p.2
+def OAI.PeriodicTilingThree.Period.{u} : {G : Type u} → [AddCommGroup G] → Set G → G → Prop :=
+fun {G} [AddCommGroup G] A v => ∀ (x : G), x + v ∈ A ↔ x ∈ A
+def OAI.PeriodicTilingThree.FullyPeriodic.{u} : {G : Type u} → [AddCommGroup G] → Set G → Prop :=
+fun {G} [AddCommGroup G] A => ∃ P, P.FiniteIndex ∧ ∀ v ∈ P, OAI.PeriodicTilingThree.Period A v
+@[reducible] def OAI.PeriodicTilingThree.Space : ℕ → Type :=
+fun d => Fin d → ℝ
+def OAI.PeriodicTilingThree.castLattice : {d : ℕ} →
+  OAI.PeriodicTilingThree.Lattice d →+ OAI.PeriodicTilingThree.Space d :=
+fun {d} => { toFun := fun z i => ↑(z i), map_zero' := ⋯, map_add' := ⋯ }
+def OAI.PeriodicTilingThree.unitCube : (d : ℕ) → Set (OAI.PeriodicTilingThree.Space d) :=
+fun d => Set.Icc 0 1
+def OAI.PeriodicTilingThree.Thickening : {d : ℕ} →
+  Finset (OAI.PeriodicTilingThree.Lattice d) → Set (OAI.PeriodicTilingThree.Space d) :=
+fun {d} F => {x | ∃ z ∈ F, x - OAI.PeriodicTilingThree.castLattice z ∈ OAI.PeriodicTilingThree.unitCube d}
+def OAI.PeriodicTilingThree.AETiles : {d : ℕ} →
+  Set (OAI.PeriodicTilingThree.Space d) → Set (OAI.PeriodicTilingThree.Space d) → Prop :=
+fun {d} Ω A => ∀ᵐ (x : OAI.PeriodicTilingThree.Space d), ∃! a, x - ↑a ∈ Ω
+def OAI.PeriodicTilingThree.latticeOfBasis : {d : ℕ} →
+  Module.Basis (Fin d) ℝ (OAI.PeriodicTilingThree.Space d) → AddSubgroup (OAI.PeriodicTilingThree.Space d) :=
+fun {d} b => (Submodule.span ℤ (Set.range ⇑b)).toAddSubgroup
+def OAI.PeriodicTilingThree.EuclideanFullyPeriodic : {d : ℕ} → Set (OAI.PeriodicTilingThree.Space d) → Prop :=
+fun {d} A => ∃ b, ∀ v ∈ OAI.PeriodicTilingThree.latticeOfBasis b, OAI.PeriodicTilingThree.Period A v
+def OAI.PeriodicTilingThree.HasTileWithoutPeriodicComplement : ℕ → Prop :=
+fun d =>
+  ∃ T,
+    T.Nonempty ∧
+      (∃ A, OAI.PeriodicTilingThree.Tiles T A) ∧
+        ∀ (A : Set (OAI.PeriodicTilingThree.Lattice d)),
+          OAI.PeriodicTilingThree.Tiles T A → ¬OAI.PeriodicTilingThree.FullyPeriodic A

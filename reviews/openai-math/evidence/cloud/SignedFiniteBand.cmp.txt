@@ -1,0 +1,57 @@
+CMP OAI.SignedDisk.CenteredDiskEndpoint.main_signed_finite_band [thm] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.SignedFiniteBandStatement [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.SignedFiniteBandStatement._proof_2 [thm] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.gradientNorm [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.diskAverage._proof_2 [thm] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.diskAverage._proof_1 [thm] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.Plane [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.HasWeakGradient [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.testPartial [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.SignedFiniteBandStatement._proof_1 [thm] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.signedBand [def] ok
+CMP OAI.SignedDisk.CenteredDiskEndpoint.diskAverage [def] ok
+Chal.SignedDisk.CenteredDiskEndpoint.main_signed_finite_band : Chal.SignedDisk.CenteredDiskEndpoint.SignedFiniteBandStatement
+@[reducible] def Chal.SignedDisk.CenteredDiskEndpoint.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.SignedDisk.CenteredDiskEndpoint.diskAverage : (Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ) →
+  Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ → ℝ :=
+fun f x r => (∫ (y : Chal.SignedDisk.CenteredDiskEndpoint.Plane) in Metric.ball x r, f y) / (Real.pi * r ^ 2)
+def Chal.SignedDisk.CenteredDiskEndpoint.testPartial : (Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ) →
+  Fin 2 → Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ :=
+fun φ i x => (fderiv ℝ φ x) (EuclideanSpace.single i 1)
+def Chal.SignedDisk.CenteredDiskEndpoint.HasWeakGradient : (Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ) →
+  (Chal.SignedDisk.CenteredDiskEndpoint.Plane → Chal.SignedDisk.CenteredDiskEndpoint.Plane) → Prop :=
+fun f g =>
+  ∀ (φ : Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ),
+    ContDiff ℝ (↑⊤) φ →
+      HasCompactSupport φ →
+        ∀ (i : Fin 2),
+          ∫ (x : Chal.SignedDisk.CenteredDiskEndpoint.Plane),
+              f x * Chal.SignedDisk.CenteredDiskEndpoint.testPartial φ i x =
+            -∫ (x : Chal.SignedDisk.CenteredDiskEndpoint.Plane), (g x).ofLp i * φ x
+def Chal.SignedDisk.CenteredDiskEndpoint.gradientNorm : (Chal.SignedDisk.CenteredDiskEndpoint.Plane →
+    Chal.SignedDisk.CenteredDiskEndpoint.Plane) →
+  ℝ :=
+fun g => ∫ (x : Chal.SignedDisk.CenteredDiskEndpoint.Plane), ‖g x‖
+def Chal.SignedDisk.CenteredDiskEndpoint.signedBand : (Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ) →
+  ℝ → ℝ → Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ :=
+fun f a b x => sSup ((fun r => Chal.SignedDisk.CenteredDiskEndpoint.diskAverage f x r) '' Set.Icc a b)
+def Chal.SignedDisk.CenteredDiskEndpoint.SignedFiniteBandStatement : Prop :=
+∃ C,
+  0 ≤ C ∧
+    ∀ (f : Chal.SignedDisk.CenteredDiskEndpoint.Plane → ℝ),
+      ContDiff ℝ (↑⊤) f →
+        HasCompactSupport f →
+          ∀ (a : ℝ),
+            0 < a →
+              ∀ (m : ℕ),
+                MeasureTheory.LocallyIntegrable (Chal.SignedDisk.CenteredDiskEndpoint.signedBand f a (2 ^ m * a))
+                    MeasureTheory.volume ∧
+                  ∃ G,
+                    MeasureTheory.Integrable G MeasureTheory.volume ∧
+                      Chal.SignedDisk.CenteredDiskEndpoint.HasWeakGradient
+                          (Chal.SignedDisk.CenteredDiskEndpoint.signedBand f a (2 ^ m * a)) G ∧
+                        Chal.SignedDisk.CenteredDiskEndpoint.gradientNorm G ≤
+                          C * Chal.SignedDisk.CenteredDiskEndpoint.gradientNorm (gradient f)
+'OAI.SignedDisk.CenteredDiskEndpoint.main_signed_finite_band' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SignedFiniteBand comparator-style: ok=12 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

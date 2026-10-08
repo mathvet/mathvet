@@ -1,0 +1,60 @@
+CMP OAI.Cotype.mainTarget_proved [thm] ok
+CMP OAI.Cotype.MainTarget [def] ok
+CMP OAI.Cotype.MainTarget._proof_2 [thm] ok
+CMP OAI.Cotype.MainTarget._proof_1 [thm] ok
+CMP OAI.Cotype.FiniteCotype [def] ok
+CMP OAI.Cotype.HasCotype [def] ok
+CMP OAI.Cotype.rademacherSum [def] ok
+CMP OAI.Cotype.sign [def] ok
+CMP OAI.Cotype.Cube [def] ok
+CMP OAI.Cotype.cubeL2 [def] ok
+CMP OAI.Cotype.average [def] ok
+CMP OAI.Cotype.HasCotype._proof_1 [thm] ok
+CMP OAI.Cotype.KConvex [def] ok
+CMP OAI.Cotype.radProjection [def] ok
+CMP OAI.Cotype.moment [def] ok
+CMP OAI.Cotype.ApproximationProperty [def] ok
+@Chal.Cotype.mainTarget_proved : ∀ {X : Type u_1} [inst : NormedAddCommGroup X] [inst_1 : NormedSpace ℝ X]
+  [inst_2 : CompleteSpace X] [inst_3 : Nontrivial X], Chal.Cotype.MainTarget X
+@[reducible] def Chal.Cotype.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.Cotype.sign : Bool → ℝ :=
+fun b => if b = true then -1 else 1
+def Chal.Cotype.average.{u, v} : {ι : Type u} →
+  [Fintype ι] → {E : Type v} → [inst : AddCommMonoid E] → [_root_.Module ℝ E] → (ι → E) → E :=
+fun {ι} [Fintype ι] {E} [AddCommMonoid E] [_root_.Module ℝ E] f => (↑(Fintype.card ι))⁻¹ • ∑ i, f i
+def Chal.Cotype.cubeL2.{u} : (E : Type u) → [NormedAddCommGroup E] → {n : ℕ} → (Chal.Cotype.Cube n → E) → ℝ :=
+fun E [NormedAddCommGroup E] {n} f => √(Chal.Cotype.average fun ε => ‖f ε‖ ^ 2)
+def Chal.Cotype.rademacherSum.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (Fin n → E) → Chal.Cotype.Cube n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} x ε => ∑ i, Chal.Cotype.sign (ε i) • x i
+def Chal.Cotype.moment.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (Chal.Cotype.Cube n → E) → Fin n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} f i => Chal.Cotype.average fun ε => Chal.Cotype.sign (ε i) • f ε
+def Chal.Cotype.radProjection.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → {n : ℕ} → (Chal.Cotype.Cube n → E) → Chal.Cotype.Cube n → E :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] {n} f => Chal.Cotype.rademacherSum E (Chal.Cotype.moment E f)
+def Chal.Cotype.KConvex.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] =>
+  ∃ K,
+    0 ≤ K ∧
+      ∀ (n : ℕ) (f : Chal.Cotype.Cube n → E),
+        Chal.Cotype.cubeL2 E (Chal.Cotype.radProjection E f) ≤ K * Chal.Cotype.cubeL2 E f
+def Chal.Cotype.HasCotype.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → ℝ → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] q =>
+  2 ≤ q ∧
+    ∃ C,
+      0 ≤ C ∧
+        ∀ (n : ℕ) (x : Fin n → E), (∑ i, ‖x i‖ ^ q) ^ (1 / q) ≤ C * Chal.Cotype.cubeL2 E (Chal.Cotype.rademacherSum E x)
+def Chal.Cotype.FiniteCotype.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] => ∃ q, Chal.Cotype.HasCotype E q
+def Chal.Cotype.ApproximationProperty.{u} : (E : Type u) → [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] =>
+  ∀ (M : Set E), IsCompact M → ∀ (δ : ℝ), 0 < δ → ∃ S, FiniteDimensional ℝ ↥(↑S).range ∧ ∀ x ∈ M, ‖S x - x‖ < δ
+def Chal.Cotype.MainTarget.{u} : (E : Type u) →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → [CompleteSpace E] → [Nontrivial E] → Prop :=
+fun E [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E] [Nontrivial E] =>
+  Chal.Cotype.ApproximationProperty E →
+    (Chal.Cotype.KConvex E ↔ Chal.Cotype.FiniteCotype E ∧ Chal.Cotype.FiniteCotype (E →L[ℝ] ℝ))
+'OAI.Cotype.mainTarget_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Cotype comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

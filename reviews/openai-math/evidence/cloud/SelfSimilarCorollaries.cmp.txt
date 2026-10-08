@@ -1,0 +1,80 @@
+CMP OAI.CorSetReference.cor_set [thm] ok
+CMP OAI.CorSetReference.attractor [def] ok
+CMP OAI.CorSetReference.codingPoint [def] ok
+CMP OAI.CorSetReference.word [def] ok
+CMP OAI.EntropyRateDimension.Extensions.homogeneous_dimension_direct [thm] ok
+CMP OAI.EntropyRateDimension.Extensions.symbolEntropy [def] ok
+CMP OAI.EntropyRateDimension.System.weight [def] ok
+CMP OAI.EntropyRateDimension.System [ind] ok
+CMP OAI.EntropyRateDimension.System.mk [ctor] ok
+CMP OAI.EntropyRateDimension.lowerHausdorffDimension [def] ok
+CMP OAI.EntropyRateDimension.Extensions.NoExactOverlaps [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine._f [def] ok
+CMP OAI.EntropyRateDimension.System.offset [def] ok
+CMP OAI.EntropyRateDimension.System.ratio [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine.match_1 [def] ok
+CMP OAI.EntropyRateDimension.System.SelfSimilar [def] ok
+CMP OAI.EntropyRateDimension.System.affine [def] ok
+CMP OAI.EntropyRateDimension.System.SelfSimilar._proof_1 [thm] ok
+@Chal.EntropyRateDimension.Extensions.homogeneous_dimension_direct : ∀ {ι : Type u_1} [inst : Fintype ι] [Nonempty ι]
+  (S : Chal.EntropyRateDimension.System ι) {lam : ℝ},
+  0 < lam →
+    (∀ (i : ι), S.ratio i = lam) →
+      ∀ (μ : MeasureTheory.Measure ℝ) [MeasureTheory.IsProbabilityMeasure μ],
+        S.SelfSimilar μ →
+          Chal.EntropyRateDimension.Extensions.NoExactOverlaps S →
+            Chal.EntropyRateDimension.lowerHausdorffDimension μ =
+              ENNReal.ofReal (min 1 (Chal.EntropyRateDimension.Extensions.symbolEntropy S / Real.log (1 / lam)))
+@Chal.CorSetReference.cor_set : ∀ {ι : Type u_1} [inst : Fintype ι] [Nonempty ι] (r t : ι → ℝ),
+  (∀ (i : ι), 0 < |r i|) →
+    (∀ (i : ι), |r i| < 1) →
+      (∀ (u v : List ι), u ≠ [] → v ≠ [] → Chal.CorSetReference.word r t u = Chal.CorSetReference.word r t v → u = v) →
+        IsCompact (Chal.CorSetReference.attractor r t) ∧
+          (Chal.CorSetReference.attractor r t).Nonempty ∧
+            (∃! s, 0 ≤ s ∧ ∑ i, |r i| ^ s = 1) ∧
+              ∀ (s : ℝ),
+                0 ≤ s → ∑ i, |r i| ^ s = 1 → dimH (Chal.CorSetReference.attractor r t) = ENNReal.ofReal (min 1 s)
+structure Chal.EntropyRateDimension.System.{uι} (ι : Type uι) [Fintype ι] : Type uι
+number of parameters: 2
+fields:
+  Chal.EntropyRateDimension.System.ratio : ι → ℝ
+  Chal.EntropyRateDimension.System.offset : ι → ℝ
+  Chal.EntropyRateDimension.System.weight : ι → ℝ
+  Chal.EntropyRateDimension.System.ratio_pos : ∀ (i : ι), 0 < |self.ratio i|
+  Chal.EntropyRateDimension.System.ratio_lt_one : ∀ (i : ι), |self.ratio i| < 1
+  Chal.EntropyRateDimension.System.weight_pos : ∀ (i : ι), 0 < self.weight i
+  Chal.EntropyRateDimension.System.weight_sum : ∑ i, self.weight i = 1
+constructor:
+  Chal.EntropyRateDimension.System.mk.{uι} {ι : Type uι} [Fintype ι] (ratio offset weight : ι → ℝ)
+    (ratio_pos : ∀ (i : ι), 0 < |ratio i|) (ratio_lt_one : ∀ (i : ι), |ratio i| < 1)
+    (weight_pos : ∀ (i : ι), 0 < weight i) (weight_sum : ∑ i, weight i = 1) : Chal.EntropyRateDimension.System ι
+def Chal.EntropyRateDimension.System.affine.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ι → ℝ → ℝ :=
+fun {ι} [Fintype ι] S i x => S.ratio i * x + S.offset i
+def Chal.EntropyRateDimension.System.wordAffine.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → List ι → ℝ × ℝ :=
+fun {ι} [Fintype ι] S x => List.brecOn x (Chal.EntropyRateDimension.System.wordAffine._f S)
+def Chal.EntropyRateDimension.System.SelfSimilar.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → MeasureTheory.Measure ℝ → Prop :=
+fun {ι} [Fintype ι] S μ => μ = ∑ i, ENNReal.ofReal (S.weight i) • MeasureTheory.Measure.map (S.affine i) μ
+def Chal.EntropyRateDimension.lowerHausdorffDimension : MeasureTheory.Measure ℝ → ENNReal :=
+fun μ => ⨅ E, ⨅ (_ : MeasurableSet E), ⨅ (_ : 0 < μ E), dimH E
+def Chal.EntropyRateDimension.Extensions.NoExactOverlaps.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → Prop :=
+fun {ι} [Fintype ι] S => Function.Injective S.wordAffine
+def Chal.EntropyRateDimension.Extensions.symbolEntropy.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℝ :=
+fun {ι} [Fintype ι] S => ∑ i, (S.weight i).negMulLog
+def Chal.CorSetReference.codingPoint.{uι} : {ι : Type uι} → (ι → ℝ) → (ι → ℝ) → (ℕ → ι) → ℝ :=
+fun {ι} r t ω => ∑' (n : ℕ), (∏ j ∈ Finset.range n, r (ω j)) * t (ω n)
+def Chal.CorSetReference.attractor.{uι} : {ι : Type uι} → (ι → ℝ) → (ι → ℝ) → Set ℝ :=
+fun {ι} r t => Set.range (Chal.CorSetReference.codingPoint r t)
+def Chal.CorSetReference.word.{uι} : {ι : Type uι} → (ι → ℝ) → (ι → ℝ) → List ι → ℝ × ℝ :=
+fun {ι} r t =>
+  List.foldr (fun symbol coefficients => (r symbol * coefficients.1, r symbol * coefficients.2 + t symbol)) (1, 0)
+'OAI.EntropyRateDimension.Extensions.homogeneous_dimension_direct' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.CorSetReference.cor_set' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SelfSimilarCorollaries comparator-style: ok=19 problems=0 errors=0 | no-shadowing | [propext, [propext, Classical.choice, Quot.sound] 

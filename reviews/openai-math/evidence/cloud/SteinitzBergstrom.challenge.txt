@@ -1,0 +1,20 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SteinitzBergstrom.lean:24:8: warning: declaration uses `sorry`
+OAI.EuclideanSteinitzBergstrom.main : ∃ C,
+  OAI.EuclideanSteinitzBergstrom.SignedPrefixBound C ∧ OAI.EuclideanSteinitzBergstrom.OrderingPrefixBound C
+@[reducible] def OAI.EuclideanSteinitzBergstrom.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def OAI.EuclideanSteinitzBergstrom.SignedPrefixBound : ℝ → Prop :=
+fun C =>
+  ∀ (d N : ℕ),
+    1 ≤ d →
+      1 ≤ N →
+        ∀ (v : Fin N → OAI.EuclideanSteinitzBergstrom.Vector d),
+          (∀ (i : Fin N), ‖v i‖ ≤ 1) →
+            ∃ ε, (∀ (i : Fin N), ε i = -1 ∨ ε i = 1) ∧ ∀ k ≤ N, ‖∑ i with ↑i < k, ε i • v i‖ ≤ C * √↑d
+def OAI.EuclideanSteinitzBergstrom.OrderingPrefixBound : ℝ → Prop :=
+fun C =>
+  ∀ (d N : ℕ),
+    1 ≤ d →
+      1 ≤ N →
+        ∀ (v : Fin N → OAI.EuclideanSteinitzBergstrom.Vector d),
+          (∀ (i : Fin N), ‖v i‖ ≤ 1) → ∑ i, v i = 0 → ∃ π, ∀ k ≤ N, ‖∑ i with ↑i < k, v (π i)‖ ≤ C * √↑d
