@@ -1,0 +1,47 @@
+CMP OAI.ProjectionCounterexample.universal_simplex_upper_bound_false [thm] ok
+CMP OAI.ProjectionCounterexample.simplex [def] ok
+CMP OAI.ProjectionCounterexample.E [def] ok
+CMP OAI.ProjectionCounterexample.ratio [def] ok
+CMP OAI.ProjectionCounterexample.projectionBody [def] ok
+CMP OAI.ProjectionCounterexample.projectionVolume [def] ok
+CMP OAI.ProjectionCounterexample.project [def] ok
+CMP OAI.ProjectionCounterexample.project._proof_1 [thm] ok
+CMP OAI.ProjectionCounterexample.projectionVolume._proof_1 [thm] ok
+CMP OAI.ProjectionCounterexample.projectionBody._proof_1 [thm] ok
+CMP OAI.ProjectionCounterexample.bodyVolume [def] ok
+CMP OAI.ProjectionCounterexample.bodyVolume._proof_2 [thm] ok
+CMP OAI.ProjectionCounterexample.bodyVolume._proof_1 [thm] ok
+CMP OAI.ProjectionCounterexample.IsConvexBody [def] ok
+Chal.ProjectionCounterexample.universal_simplex_upper_bound_false : ¬∀ (P : Set (Chal.ProjectionCounterexample.E 20)),
+    Chal.ProjectionCounterexample.IsConvexBody P →
+      Chal.ProjectionCounterexample.ratio P ≤
+        Chal.ProjectionCounterexample.ratio (Chal.ProjectionCounterexample.simplex 20)
+@[reducible] def Chal.ProjectionCounterexample.E : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.ProjectionCounterexample.simplex : (d : ℕ) → Set (Chal.ProjectionCounterexample.E d) :=
+fun d => (convexHull ℝ) (insert 0 (Set.range fun i => EuclideanSpace.single i 1))
+def Chal.ProjectionCounterexample.IsConvexBody : {d : ℕ} → Set (Chal.ProjectionCounterexample.E d) → Prop :=
+fun {d} P => IsCompact P ∧ Convex ℝ P ∧ (interior P).Nonempty
+def Chal.ProjectionCounterexample.project : {d : ℕ} →
+  Chal.ProjectionCounterexample.E d → Chal.ProjectionCounterexample.E d →L[ℝ] Chal.ProjectionCounterexample.E d :=
+fun {d} u => (ℝ ∙ u)ᗮ.starProjection
+def Chal.ProjectionCounterexample.projectionVolume : {d : ℕ} →
+  Set (Chal.ProjectionCounterexample.E d) → Chal.ProjectionCounterexample.E d → ℝ :=
+fun {d} P u =>
+  ((MeasureTheory.Measure.euclideanHausdorffMeasure (d - 1)) (⇑(Chal.ProjectionCounterexample.project u) '' P)).toReal
+def Chal.ProjectionCounterexample.projectionBody : {d : ℕ} →
+  Set (Chal.ProjectionCounterexample.E d) → Set (Chal.ProjectionCounterexample.E d) :=
+fun {d} P =>
+  {x |
+    ∀ (u : Chal.ProjectionCounterexample.E d),
+      ‖u‖ = 1 → inner ℝ u x ≤ Chal.ProjectionCounterexample.projectionVolume P u}
+def Chal.ProjectionCounterexample.bodyVolume : {d : ℕ} → Set (Chal.ProjectionCounterexample.E d) → ℝ :=
+fun {d} P => (MeasureTheory.volume P).toReal
+def Chal.ProjectionCounterexample.ratio : {d : ℕ} → Set (Chal.ProjectionCounterexample.E d) → ℝ :=
+fun {d} P =>
+  Chal.ProjectionCounterexample.bodyVolume (Chal.ProjectionCounterexample.projectionBody P) /
+    Chal.ProjectionCounterexample.bodyVolume P ^ (d - 1)
+'OAI.ProjectionCounterexample.universal_simplex_upper_bound_false' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== ProjectionCounterexample comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext, 
