@@ -41,11 +41,12 @@ Notes on individual logs:
   meta-code, whose `open Lean` made the challenge's `Literal` ambiguous with `Lean.Literal` when the challenge text was
   re-elaborated, so two parsing definitions elaborated differently. Comparator accepted (it compares compiled modules, not
   our re-elaboration). The meta-code is now scoped to a section (2026-10-08); recheck pending.
-- `ArtinParabolicIntersections.comparator.txt` ends with `comparator exit=1`, but not because the solution was rejected:
-  this is the only challenge whose config sets `enable_nanoda: true`, so Comparator also runs the independent nanoda
-  kernel, and `nanoda_bin` is not installed on the VM (no prebuilt binary exists; building it needs a Rust toolchain
-  and crates.io, which the VM cannot reach). The structural comparison and Lean's own kernel accepted the solution
-  ("Lean default kernel accepts the solution"). Shown as *incomplete* rather than as a pass or a rejection.
+- `ArtinParabolicIntersections.comparator.txt`: this is the only challenge whose config sets `enable_nanoda: true`, so Comparator
+  also runs the independent nanoda kernel. The first run ended with `comparator exit=1` only because `nanoda_bin` was not
+  installed on the VM; the rerun (2026-10-08 23:06Z, same VM and build) shows `nanoda kernel accepts the solution`, `Lean
+  default kernel accepts the solution` and `Your solution is okay!`. The binary is built unmodified from ammkrn/nanoda_lib
+  @ 3a24072 by `.github/workflows/nanoda.yml`, mirrored as release `nanoda-3a24072` (sha256 in the release), installed by
+  `checker/cloud/setup.sh`, and recorded in the provenance header (`nanoda:` line).
 - `UniformGamma.cmp.txt` reports six closure problems on `CurrentMain.boundedFamilyProductCStar`, an instance declared
   with an empty `where` (every field is filled by instance inference and auto-generated proofs `_proof_4` … `_proof_8`):
   the same re-elaboration kind as HardSphere (instance paths chosen in the richer solution environment; auxiliary proofs
