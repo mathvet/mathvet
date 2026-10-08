@@ -60,7 +60,6 @@ def Chal.RandomKSAT.blockKill : (u : ℕ) → ℕ → Finset (Chal.RandomKSAT.As
 fun u s S g => ((Chal.RandomKSAT.streamLaw u s) {ω | ¬Chal.RandomKSAT.SetSAT S ω g}).toReal
 def Chal.RandomKSAT.favg.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → ℝ :=
 fun {α} [Fintype α] f => (∑ a, f a) / ↑(Fintype.card α)
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SATSharpness.lean:163:27: error: unexpected token '.'; expected command
 def Chal.RandomKSAT.clauseStep : (u : ℕ) →
   ℕ → (Finset (Chal.RandomKSAT.Assignment u) → ℝ) → Finset (Chal.RandomKSAT.Assignment u) → ℝ :=
 fun u s f S => Chal.RandomKSAT.favg fun c => f (Finset.filter (Chal.RandomKSAT.Satisfies c) S)
@@ -71,4 +70,4 @@ fun u s S m => (Chal.RandomKSAT.clauseStep u s)^[m] (Chal.RandomKSAT.alive u) S
 def Chal.RandomKSAT.lifetime : (u : ℕ) → ℕ → Finset (Chal.RandomKSAT.Assignment u) → ℝ :=
 fun u s S => ∑' (m : ℕ), Chal.RandomKSAT.survival u s S m
 'OAI.RandomKSAT.sharpness' depends on axioms: [propext, Classical.choice, Quot.sound]
-== SATSharpness comparator-style: ok=16 problems=0 errors=1 | SHADOW-DIFF(see SATSharpness.standalone.norm vs SATSharpness.insolution.norm) | [propext, Classical.choice, Quot.sound] 
+== SATSharpness comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
