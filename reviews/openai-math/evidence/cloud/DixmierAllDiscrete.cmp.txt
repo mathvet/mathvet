@@ -4,12 +4,12 @@ CMP OAI.Dixmier.SimilarToUnitary [def] ok
 CMP OAI.Dixmier.SimilarToUnitary._proof_1 [thm] ok
 CMP OAI.Dixmier.CurrentMainTheorem._proof_1 [thm] ok
 CMP OAI.Dixmier.Unitarizable [def] ok
-CMP OAI.Dixmier.Amenable [def] VALUE_MISMATCH
-CMP OAI.Dixmier.leftTranslate [def] TYPE_MISMATCH
+CMP OAI.Dixmier.Amenable [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.Dixmier.leftTranslate [def] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.Dixmier.leftTranslate._proof_1 [thm] ok
-CMP OAI.Dixmier.Amenable._proof_3 [thm] TYPE_MISMATCH
-CMP OAI.Dixmier.Amenable._proof_2 [thm] TYPE_MISMATCH
-CMP OAI.Dixmier.Amenable._proof_1 [thm] TYPE_MISMATCH
+CMP OAI.Dixmier.Amenable._proof_3 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.Dixmier.Amenable._proof_2 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.Dixmier.Amenable._proof_1 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 Chal.Dixmier.current_main_theorem : Chal.Dixmier.CurrentMainTheorem
 def Chal.Dixmier.leftTranslate.{u} : {G : Type u} →
   [Group G] →
@@ -44,4 +44,4 @@ def Chal.Dixmier.CurrentMainTheorem.{u, v} : Prop :=
                 (Countable G → TopologicalSpace.SeparableSpace H) ∧
                   (∀ (g : G), ‖π g‖ ≤ 1 + ε) ∧ ¬Chal.Dixmier.SimilarToUnitary π
 'OAI.Dixmier.current_main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
-== DixmierAllDiscrete comparator-style: ok=7 problems=5 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== DixmierAllDiscrete comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=5

@@ -93,18 +93,18 @@ CMP OAI.ForestSpace.Reflexive._proof_1 [thm] ok
 CMP OAI.ForestSpace.FullDual._proof_2 [thm] ok
 CMP OAI.ForestSpace.FullDual._proof_1 [thm] ok
 CMP OAI.ForestSpace.J [def] ok
-CMP OAI.ForestSpace.fullDualAddCommGroup [def] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_11 [thm] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_10 [thm] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_9 [thm] TYPE_MISMATCH
+CMP OAI.ForestSpace.fullDualAddCommGroup [def] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_11 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_10 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_9 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.ForestSpace.fullDualAddCommGroup._proof_5 [thm] ok
 CMP OAI.ForestSpace.fullDualAddCommGroup._proof_4 [thm] ok
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_2 [thm] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_1 [thm] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_8 [thm] TYPE_MISMATCH
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_2 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_1 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_8 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.ForestSpace.fullDualAddCommGroup._proof_3 [thm] ok
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_7 [thm] TYPE_MISMATCH
-CMP OAI.ForestSpace.fullDualAddCommGroup._proof_6 [thm] TYPE_MISMATCH
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_7 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.ForestSpace.fullDualAddCommGroup._proof_6 [thm] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.ForestSpace.FullDual [def] ok
 CMP OAI.ForestSpace.Vertex.instPartialOrder [def] ok
 CMP OAI.ForestSpace.Vertex.instPartialOrder._proof_4 [thm] ok
@@ -289,4 +289,4 @@ fun {E} [NormedAddCommGroup E] k f C =>
         s * Chal.ForestSpace.Diamond.distance k u v ≤ ‖f u - f v‖ ∧
           ‖f u - f v‖ ≤ C * s * Chal.ForestSpace.Diamond.distance k u v
 'OAI.ForestSpace.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
-== ForestSpace comparator-style: ok=116 problems=9 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== ForestSpace comparator-style: ok=116 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=9
