@@ -1,0 +1,45 @@
+CMP OAI.UniformSparsestCut.mainGap [thm] ok
+CMP OAI.UniformSparsestCut.OPT [def] ok
+CMP OAI.UniformSparsestCut.cutRatio [def] ok
+CMP OAI.UniformSparsestCut.Capacity.cap [def] ok
+CMP OAI.UniformSparsestCut.Capacity [ind] ok
+CMP OAI.UniformSparsestCut.Capacity.mk [ctor] ok
+CMP OAI.UniformSparsestCut.glValue [def] ok
+CMP OAI.UniformSparsestCut.pairSum [def] ok
+CMP OAI.UniformSparsestCut.Feasible [def] ok
+CMP OAI.UniformSparsestCut.NegativeType [def] ok
+Chal.UniformSparsestCut.mainGap : ∃ c,
+  0 < c ∧
+    ∃ n C,
+      (∀ (j : ℕ), 2 ≤ n j) ∧
+        Filter.Tendsto n Filter.atTop Filter.atTop ∧
+          (∀ (j : ℕ), 0 < Chal.UniformSparsestCut.glValue (C j)) ∧
+            ∀ᶠ (j : ℕ) in Filter.atTop,
+              c * √(Real.log ↑(n j)) / Real.log (Real.log ↑(n j)) ^ 3 ≤
+                Chal.UniformSparsestCut.OPT (C j) / Chal.UniformSparsestCut.glValue (C j)
+structure Chal.UniformSparsestCut.Capacity (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.UniformSparsestCut.Capacity.cap : Fin n → Fin n → ℝ
+  Chal.UniformSparsestCut.Capacity.nonneg : ∀ (i j : Fin n), 0 ≤ self.cap i j
+  Chal.UniformSparsestCut.Capacity.symm : ∀ (i j : Fin n), self.cap i j = self.cap j i
+  Chal.UniformSparsestCut.Capacity.diagonal : ∀ (i : Fin n), self.cap i i = 0
+constructor:
+  Chal.UniformSparsestCut.Capacity.mk {n : ℕ} (cap : Fin n → Fin n → ℝ) (nonneg : ∀ (i j : Fin n), 0 ≤ cap i j)
+    (symm : ∀ (i j : Fin n), cap i j = cap j i) (diagonal : ∀ (i : Fin n), cap i i = 0) :
+    Chal.UniformSparsestCut.Capacity n
+def Chal.UniformSparsestCut.pairSum : {n : ℕ} → (Fin n → Fin n → ℝ) → ℝ :=
+fun {n} f => ∑ i, ∑ j, if i < j then f i j else 0
+def Chal.UniformSparsestCut.cutRatio : {n : ℕ} → Chal.UniformSparsestCut.Capacity n → Finset (Fin n) → ℝ :=
+fun {n} C B => (∑ i ∈ B, ∑ j ∈ Bᶜ, C.cap i j) / (↑B.card * (↑n - ↑B.card))
+def Chal.UniformSparsestCut.OPT : {n : ℕ} → Chal.UniformSparsestCut.Capacity n → ℝ :=
+fun {n} C => sInf {r | ∃ B, B.Nonempty ∧ B ≠ Finset.univ ∧ r = Chal.UniformSparsestCut.cutRatio C B}
+def Chal.UniformSparsestCut.NegativeType : {n : ℕ} → (Fin n → Fin n → ℝ) → Prop :=
+fun {n} d => (∃ x, ∀ (i j : Fin n), d i j = ‖x i - x j‖ ^ 2) ∧ ∀ (i j k : Fin n), d i k ≤ d i j + d j k
+def Chal.UniformSparsestCut.Feasible : {n : ℕ} → (Fin n → Fin n → ℝ) → Prop :=
+fun {n} d => Chal.UniformSparsestCut.NegativeType d ∧ Chal.UniformSparsestCut.pairSum d = 1
+def Chal.UniformSparsestCut.glValue : {n : ℕ} → Chal.UniformSparsestCut.Capacity n → ℝ :=
+fun {n} C =>
+  sInf {r | ∃ d, Chal.UniformSparsestCut.Feasible d ∧ r = Chal.UniformSparsestCut.pairSum fun i j => C.cap i j * d i j}
+'OAI.UniformSparsestCut.mainGap' depends on axioms: [propext, Classical.choice, Quot.sound]
+== UniformSparsestCut comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
