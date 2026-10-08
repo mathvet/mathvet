@@ -1,0 +1,199 @@
+CMP OAI.DepthThreeLowerBound.exists_polynomial_time_language_depth_three_lower_bound [thm] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.gateCount [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.middleCount [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3 [ind] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.mk [ctor] ok
+CMP OAI.DepthThreeLowerBound.RawClause [def] ok
+CMP OAI.DepthThreeLowerBound.GateInput [def] ok
+CMP OAI.DepthThreeLowerBound.Literal [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.bottomCount [def] ok
+CMP OAI.DepthThreeLowerBound.Cube [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.Computes [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.eval [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.middleEval [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.bottom [def] ok
+CMP OAI.DepthThreeLowerBound.RawClause.eval [def] ok
+CMP OAI.DepthThreeLowerBound.GateInput.eval [def] ok
+CMP OAI.DepthThreeLowerBound.Literal.eval [def] ok
+CMP OAI.DepthThreeLowerBound.GateInput.eval.match_1 [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.middle [def] ok
+CMP OAI.DepthThreeLowerBound.Circuit3.top [def] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeHaltsIn [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.alphabetInhabited [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine [ind] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.mk [ctor] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeCode [def] ok
+CMP OAI.DepthThreeLowerBound.HeadMove [ind] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.right [ctor] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.stay [ctor] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.left [ctor] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.Γ [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.Q [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.K [def] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeCfg.q [def] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeCfg [ind] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeCfg.mk [ctor] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.accept [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.init [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.inputSymbol [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.tapeDecidableEq [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.inputTape [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.initialState [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.Cfg [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.step [def] ok
+CMP OAI.DepthThreeLowerBound.FiniteMultiTapeMachine.code [def] ok
+CMP OAI.DepthThreeLowerBound.multiTapeStep [def] ok
+CMP OAI.DepthThreeLowerBound.MultiTapeCfg.tapes [def] ok
+CMP OAI.DepthThreeLowerBound.multiTapeUpdate [def] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.apply [def] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.apply.match_1 [def] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.casesOn [def] ok
+CMP OAI.DepthThreeLowerBound.HeadMove.rec [rec] ok
+CMP OAI.DepthThreeLowerBound.runSteps [def] ok
+Chal.DepthThreeLowerBound.exists_polynomial_time_language_depth_three_lower_bound : ∃ L M C a,
+  0 < C ∧
+    0 < a ∧
+      (∀ (w : List Bool), Chal.DepthThreeLowerBound.MultiTapeHaltsIn M w (L w) (C * (w.length + 1) ^ a)) ∧
+        ∀ (A : ℝ),
+          0 < A →
+            ∃ N,
+              ∀ (n : ℕ),
+                N ≤ n →
+                  ∀ (D : Chal.DepthThreeLowerBound.Circuit3 (Fin n)),
+                    (D.Computes fun x => L (List.ofFn x)) → 2 ^ (A * √↑n) < ↑D.gateCount
+@[reducible] def Chal.DepthThreeLowerBound.Cube.{uV} : Type uV → Type uV :=
+fun V => V → Bool
+@[reducible] def Chal.DepthThreeLowerBound.Literal.{uV} : Type uV → Type (max uV 0) :=
+fun V => V × Bool
+def Chal.DepthThreeLowerBound.Literal.eval.{uV} : {V : Type uV} →
+  Chal.DepthThreeLowerBound.Literal V → Chal.DepthThreeLowerBound.Cube V → Bool :=
+fun {V} l x => decide (x l.1 = l.2)
+@[reducible] def Chal.DepthThreeLowerBound.GateInput.{uV} : Type uV → Type (max uV 0) :=
+fun V => Chal.DepthThreeLowerBound.Literal V ⊕ Bool
+@[reducible] def Chal.DepthThreeLowerBound.RawClause.{uV} : Type uV → Type uV :=
+fun V => List (Chal.DepthThreeLowerBound.GateInput V)
+def Chal.DepthThreeLowerBound.GateInput.eval.{uV} : {V : Type uV} →
+  Chal.DepthThreeLowerBound.GateInput V → Chal.DepthThreeLowerBound.Cube V → Bool :=
+fun {V} x x_1 =>
+  match x, x_1 with
+  | Sum.inl l, x => l.eval x
+  | Sum.inr b, x => b
+def Chal.DepthThreeLowerBound.RawClause.eval.{uV} : {V : Type uV} →
+  Chal.DepthThreeLowerBound.RawClause V → Chal.DepthThreeLowerBound.Cube V → Bool :=
+fun {V} C x => decide (∃ l ∈ C, l.eval x = true)
+structure Chal.DepthThreeLowerBound.Circuit3.{uV} (V : Type uV) : Type uV
+number of parameters: 1
+fields:
+  Chal.DepthThreeLowerBound.Circuit3.bottomCount : ℕ
+  Chal.DepthThreeLowerBound.Circuit3.middleCount : ℕ
+  Chal.DepthThreeLowerBound.Circuit3.bottom : Fin self.bottomCount → Chal.DepthThreeLowerBound.RawClause V
+  Chal.DepthThreeLowerBound.Circuit3.middle : Fin self.middleCount → Finset (Fin self.bottomCount)
+  Chal.DepthThreeLowerBound.Circuit3.top : Finset (Fin self.middleCount)
+constructor:
+  Chal.DepthThreeLowerBound.Circuit3.mk.{uV} {V : Type uV} (bottomCount middleCount : ℕ)
+    (bottom : Fin bottomCount → Chal.DepthThreeLowerBound.RawClause V)
+    (middle : Fin middleCount → Finset (Fin bottomCount)) (top : Finset (Fin middleCount)) :
+    Chal.DepthThreeLowerBound.Circuit3 V
+def Chal.DepthThreeLowerBound.Circuit3.gateCount.{uV} : {V : Type uV} → Chal.DepthThreeLowerBound.Circuit3 V → ℕ :=
+fun {V} C => C.bottomCount + C.middleCount + 1
+def Chal.DepthThreeLowerBound.Circuit3.middleEval.{uV} : {V : Type uV} →
+  (C : Chal.DepthThreeLowerBound.Circuit3 V) → Fin C.middleCount → Chal.DepthThreeLowerBound.Cube V → Bool :=
+fun {V} C j x => decide (∀ i ∈ C.middle j, (C.bottom i).eval x = true)
+def Chal.DepthThreeLowerBound.Circuit3.eval.{uV} : {V : Type uV} →
+  Chal.DepthThreeLowerBound.Circuit3 V → Chal.DepthThreeLowerBound.Cube V → Bool :=
+fun {V} C x => decide (∃ j ∈ C.top, C.middleEval j x = true)
+def Chal.DepthThreeLowerBound.Circuit3.Computes.{uV} : {V : Type uV} →
+  Chal.DepthThreeLowerBound.Circuit3 V → (Chal.DepthThreeLowerBound.Cube V → Bool) → Prop :=
+fun {V} C f => ∀ (x : Chal.DepthThreeLowerBound.Cube V), C.eval x = f x
+def Chal.DepthThreeLowerBound.runSteps.{uS} : {S : Type uS} → (S → Option S) → ℕ → Option S → Option S :=
+fun {S} step n c => (fun oc => oc.bind step)^[n] c
+inductive Chal.DepthThreeLowerBound.HeadMove : Type
+number of parameters: 0
+constructors:
+Chal.DepthThreeLowerBound.HeadMove.left : Chal.DepthThreeLowerBound.HeadMove
+Chal.DepthThreeLowerBound.HeadMove.stay : Chal.DepthThreeLowerBound.HeadMove
+Chal.DepthThreeLowerBound.HeadMove.right : Chal.DepthThreeLowerBound.HeadMove
+def Chal.DepthThreeLowerBound.HeadMove.apply.{uGamma} : {Γ : Type uGamma} →
+  [inst : Inhabited Γ] → Chal.DepthThreeLowerBound.HeadMove → Turing.Tape Γ → Turing.Tape Γ :=
+fun {Γ} [Inhabited Γ] x x_1 =>
+  match x, x_1 with
+  | Chal.DepthThreeLowerBound.HeadMove.left, t => Turing.Tape.move Turing.Dir.left t
+  | Chal.DepthThreeLowerBound.HeadMove.stay, t => t
+  | Chal.DepthThreeLowerBound.HeadMove.right, t => Turing.Tape.move Turing.Dir.right t
+structure Chal.DepthThreeLowerBound.MultiTapeCfg.{uK, uGamma, uQ} (K : Type uK) (Γ : Type uGamma) (Q : Type uQ)
+  [Inhabited Γ] : Type (max (max uGamma uK) uQ)
+number of parameters: 4
+fields:
+  Chal.DepthThreeLowerBound.MultiTapeCfg.q : Q
+  Chal.DepthThreeLowerBound.MultiTapeCfg.tapes : K → Turing.Tape Γ
+constructor:
+  Chal.DepthThreeLowerBound.MultiTapeCfg.mk.{uK, uGamma, uQ} {K : Type uK} {Γ : Type uGamma} {Q : Type uQ} [Inhabited Γ]
+    (q : Q) (tapes : K → Turing.Tape Γ) : Chal.DepthThreeLowerBound.MultiTapeCfg K Γ Q
+@[reducible] def Chal.DepthThreeLowerBound.MultiTapeCode.{uK, uGamma, uQ} : Type uK →
+  Type uGamma → Type uQ → Type (max (max (max uGamma uK) uQ) (max uGamma uK) uQ) :=
+fun K Γ Q => Q → (K → Γ) → Option (Q × (K → Γ) × (K → Chal.DepthThreeLowerBound.HeadMove))
+def Chal.DepthThreeLowerBound.multiTapeUpdate.{uK, uGamma, uQ} : {K : Type uK} →
+  {Γ : Type uGamma} →
+    {Q : Type uQ} →
+      [inst : Inhabited Γ] →
+        Chal.DepthThreeLowerBound.MultiTapeCfg K Γ Q →
+          Q → (K → Γ) → (K → Chal.DepthThreeLowerBound.HeadMove) → Chal.DepthThreeLowerBound.MultiTapeCfg K Γ Q :=
+fun {K} {Γ} {Q} [Inhabited Γ] c q writes moves =>
+  { q := q, tapes := fun k => (moves k).apply (Turing.Tape.write (writes k) (c.tapes k)) }
+def Chal.DepthThreeLowerBound.multiTapeStep.{uK, uGamma, uQ} : {K : Type uK} →
+  {Γ : Type uGamma} →
+    {Q : Type uQ} →
+      [inst : Inhabited Γ] →
+        Chal.DepthThreeLowerBound.MultiTapeCode K Γ Q →
+          Chal.DepthThreeLowerBound.MultiTapeCfg K Γ Q → Option (Chal.DepthThreeLowerBound.MultiTapeCfg K Γ Q) :=
+fun {K} {Γ} {Q} [Inhabited Γ] code c =>
+  Option.map (fun out => Chal.DepthThreeLowerBound.multiTapeUpdate c out.1 out.2.1 out.2.2)
+    (code c.q fun k => (c.tapes k).head)
+structure Chal.DepthThreeLowerBound.FiniteMultiTapeMachine : Type 1
+number of parameters: 0
+fields:
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.K : Type
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.tapeFinite : Fintype self.K
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.tapeDecidableEq : DecidableEq self.K
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.inputTape : self.K
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.Γ : Type
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.alphabetInhabited : Inhabited self.Γ
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.alphabetFinite : Fintype self.Γ
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.Q : Type
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.stateFinite : Fintype self.Q
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.initialState : self.Q
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.inputSymbol : Bool → self.Γ
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.input_injective : Function.Injective self.inputSymbol
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.input_ne_blank : ∀ (b : Bool), self.inputSymbol b ≠ default
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.code : Chal.DepthThreeLowerBound.MultiTapeCode self.K self.Γ self.Q
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.accept : self.Q → Bool
+constructor:
+  Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.mk (K : Type) [tapeFinite : Fintype K]
+    [tapeDecidableEq : DecidableEq K] (inputTape : K) (Γ : Type) [alphabetInhabited : Inhabited Γ]
+    [alphabetFinite : Fintype Γ] (Q : Type) [stateFinite : Fintype Q] (initialState : Q) (inputSymbol : Bool → Γ)
+    (input_injective : Function.Injective inputSymbol) (input_ne_blank : ∀ (b : Bool), inputSymbol b ≠ default)
+    (code : Chal.DepthThreeLowerBound.MultiTapeCode K Γ Q) (accept : Q → Bool) :
+    Chal.DepthThreeLowerBound.FiniteMultiTapeMachine
+@[reducible] def Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.Cfg : Chal.DepthThreeLowerBound.FiniteMultiTapeMachine →
+  Type :=
+fun M => Chal.DepthThreeLowerBound.MultiTapeCfg M.K M.Γ M.Q
+@[reducible] def Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.step : (M :
+    Chal.DepthThreeLowerBound.FiniteMultiTapeMachine) →
+  M.Cfg → Option M.Cfg :=
+fun M => Chal.DepthThreeLowerBound.multiTapeStep M.code
+def Chal.DepthThreeLowerBound.FiniteMultiTapeMachine.init : (M : Chal.DepthThreeLowerBound.FiniteMultiTapeMachine) →
+  List Bool → M.Cfg :=
+fun M input =>
+  { q := M.initialState,
+    tapes := fun k => if k = M.inputTape then Turing.Tape.mk₁ (List.map M.inputSymbol input) else Turing.Tape.mk₁ [] }
+def Chal.DepthThreeLowerBound.MultiTapeHaltsIn : Chal.DepthThreeLowerBound.FiniteMultiTapeMachine →
+  List Bool → Bool → ℕ → Prop :=
+fun M input output time =>
+  ∃ k ≤ time,
+    ∃ c,
+      Chal.DepthThreeLowerBound.runSteps M.step k (some (M.init input)) = some c ∧
+        M.step c = none ∧ M.accept c.q = output
+'OAI.DepthThreeLowerBound.exists_polynomial_time_language_depth_three_lower_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== DepthThree comparator-style: ok=52 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0
