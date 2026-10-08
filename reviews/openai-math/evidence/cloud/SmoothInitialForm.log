@@ -1,0 +1,34 @@
+== SmoothInitialForm  module=OAI.Algebra.Determinantal.InitialForm  start=2026-10-08T11:44:03Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8940] Built OAI.Algebra.Determinantal.Multigraded (14s)
+✔ [8925/8940] Built OAI.Algebra.Determinantal.LinearForms (9.8s)
+✔ [8926/8940] Built OAI.Algebra.Determinantal.PointBounds (10s)
+✔ [8927/8940] Built OAI.Algebra.Determinantal.ProjectiveCounts (9.3s)
+✔ [8928/8940] Built OAI.Algebra.Determinantal.KernelCharts (11s)
+✔ [8929/8940] Built OAI.Algebra.Determinantal.SchurDifferentials (11s)
+✔ [8930/8940] Built OAI.Algebra.Determinantal.SchurLifts (9.0s)
+✔ [8931/8940] Built OAI.Algebra.Determinantal.BilinearCounts (18s)
+✔ [8932/8940] Built OAI.Algebra.Determinantal.RegularSections (10s)
+✔ [8933/8940] Built OAI.Algebra.Determinantal.SmoothSlices (8.1s)
+✔ [8934/8940] Built OAI.Algebra.Determinantal.SliceCertificates (8.8s)
+✔ [8935/8940] Built OAI.Algebra.Determinantal.GenericPolars (10s)
+✔ [8936/8940] Built OAI.Algebra.Determinantal.RankTransfer (10s)
+✔ [8937/8940] Built OAI.Algebra.Determinantal.Model (9.8s)
+✔ [8938/8940] Built OAI.Algebra.Determinantal.BorderClosure (8.4s)
+✔ [8939/8940] Built OAI.Algebra.Determinantal.BorderPolars (12s)
+✔ [8940/8940] Built OAI.Algebra.Determinantal.InitialForm (7.0s)
+Build completed successfully (8940 jobs).
+== build rc=0 seconds=185
+{"theorems": ["OAI.PermanentBorder.smooth_initial_form_lower_bound"], "defs": ["OAI.PermanentBorder.Poly", "OAI.PermanentBorder.affineMatrixPolynomial", "OAI.PermanentBorder.HasBorderDeterminant", "OAI.PermanentBorder.HasExactDeterminant", "OAI.PermanentBorder.affineSubstitution"], "json_theorems": ["OAI.PermanentBorder.smooth_initial_form_lower_bound"], "missing_from_parse": []}
+AXIOMS: 'OAI.PermanentBorder.smooth_initial_form_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:47:32Z
