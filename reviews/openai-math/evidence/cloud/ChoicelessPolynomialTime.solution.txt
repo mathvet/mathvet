@@ -1,0 +1,443 @@
+OAI.CPTSeparation.main : (∀ (A B : Type) [inst : Fintype A] [inst_1 : Fintype B] (S : OAI.CPTSeparation.Input A)
+    (T : OAI.CPTSeparation.Input B) (a : S.Iso T), S.query ↔ T.query) ∧
+  OAI.CPTSeparation.OrdinaryPolynomialTime ∧
+    ¬OAI.CPTSeparation.FullCPT.EvaluationDefinable fun {x} [Fintype x] I => I.query
+'OAI.CPTSeparation.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.CPTSeparation.Scalar : Type :=
+ZMod 3
+inductive OAI.CPTSeparation.Symbol : Type
+number of parameters: 0
+constructors:
+OAI.CPTSeparation.Symbol.Ed : OAI.CPTSeparation.Symbol
+OAI.CPTSeparation.Symbol.Cf : OAI.CPTSeparation.Symbol
+OAI.CPTSeparation.Symbol.EB : OAI.CPTSeparation.Symbol
+OAI.CPTSeparation.Symbol.VB : OAI.CPTSeparation.Symbol
+OAI.CPTSeparation.Symbol.I : OAI.CPTSeparation.Symbol
+OAI.CPTSeparation.Symbol.Z : OAI.CPTSeparation.Scalar → OAI.CPTSeparation.Symbol
+structure OAI.CPTSeparation.Input (A : Type) : Type
+number of parameters: 1
+fields:
+  OAI.CPTSeparation.Input.rel : OAI.CPTSeparation.Symbol → A → A → Bool
+constructor:
+  OAI.CPTSeparation.Input.mk {A : Type} (rel : OAI.CPTSeparation.Symbol → A → A → Bool) : OAI.CPTSeparation.Input A
+@[reducible] def OAI.CPTSeparation.Input.Edge : {A : Type} → OAI.CPTSeparation.Input A → Type :=
+fun {A} S => { y // S.rel OAI.CPTSeparation.Symbol.Ed y y = true }
+@[reducible] def OAI.CPTSeparation.Input.Config : {A : Type} → OAI.CPTSeparation.Input A → Type :=
+fun {A} S => { a // S.rel OAI.CPTSeparation.Symbol.Cf a a = true }
+def OAI.CPTSeparation.Input.coefficient : {A : Type} →
+  [Fintype A] → (S : OAI.CPTSeparation.Input A) → S.Edge → S.Config → OAI.CPTSeparation.Scalar :=
+fun {A} [Fintype A] S y a =>
+  ∑ x,
+    if S.rel OAI.CPTSeparation.Symbol.I ↑a ↑x = true then
+      ∑ δ, if S.rel (OAI.CPTSeparation.Symbol.Z δ) ↑y ↑x = true then δ else 0
+    else 0
+def OAI.CPTSeparation.Input.incident : {A : Type} → (S : OAI.CPTSeparation.Input A) → S.Config → S.Edge → Prop :=
+fun {A} S t y =>
+  ∃ a,
+    S.rel OAI.CPTSeparation.Symbol.VB ↑t ↑a = true ∧
+      ∃ x, S.rel OAI.CPTSeparation.Symbol.I ↑a ↑x = true ∧ S.rel OAI.CPTSeparation.Symbol.EB ↑y ↑x = true
+def OAI.CPTSeparation.Input.normalized : {A : Type} →
+  [Fintype A] → (S : OAI.CPTSeparation.Input A) → (S.Config → OAI.CPTSeparation.Scalar) → Prop :=
+fun {A} [Fintype A] S lambda =>
+  ∀ (t : S.Config), (∑ a, if S.rel OAI.CPTSeparation.Symbol.VB ↑t ↑a = true then lambda a else 0) = 1
+def OAI.CPTSeparation.Input.consistent : {A : Type} →
+  [Fintype A] →
+    (S : OAI.CPTSeparation.Input A) →
+      (S.Config → OAI.CPTSeparation.Scalar) → (S.Edge → OAI.CPTSeparation.Scalar) → Prop :=
+fun {A} [Fintype A] S lambda mu =>
+  ∀ (t : S.Config) (y : S.Edge),
+    S.incident t y →
+      mu y = ∑ a, if S.rel OAI.CPTSeparation.Symbol.VB ↑t ↑a = true then lambda a * S.coefficient y a else 0
+def OAI.CPTSeparation.Input.query : {A : Type} → [Fintype A] → OAI.CPTSeparation.Input A → Prop :=
+fun {A} [Fintype A] S => ∃ lambda mu, S.normalized lambda ∧ S.consistent lambda mu
+structure OAI.CPTSeparation.Input.Iso {A B : Type} (S : OAI.CPTSeparation.Input A) (T : OAI.CPTSeparation.Input B) :
+  Type
+number of parameters: 4
+parents:
+  OAI.CPTSeparation.Input.Iso.toEquiv : A ≃ B
+fields:
+  Equiv.toFun : A → B
+  Equiv.invFun : B → A
+  Equiv.left_inv : Function.LeftInverse self.invFun self.toFun := by
+    intro;
+      first
+      | rfl
+      | ext <;> rfl
+  Equiv.right_inv : Function.RightInverse self.invFun self.toFun := by
+    intro;
+      first
+      | rfl
+      | ext <;> rfl
+  OAI.CPTSeparation.Input.Iso.rel_eq : ∀ (r : OAI.CPTSeparation.Symbol) (x y : A),
+      T.rel r (self.toEquiv x) (self.toEquiv y) = S.rel r x y
+constructor:
+  OAI.CPTSeparation.Input.Iso.mk {A B : Type} {S : OAI.CPTSeparation.Input A} {T : OAI.CPTSeparation.Input B}
+    (toEquiv : A ≃ B)
+    (rel_eq : ∀ (r : OAI.CPTSeparation.Symbol) (x y : A), T.rel r (toEquiv x) (toEquiv y) = S.rel r x y) : S.Iso T
+field notation resolution order:
+  OAI.CPTSeparation.Input.Iso, Equiv
+@[reducible] def OAI.CPTSeparation.Hereditary.HF.{uA} : Type uA → Type uA :=
+fun A => Quotient Lists.instSetoidLists
+def OAI.CPTSeparation.Hereditary.mk.{uA} : {A : Type uA} → Lists A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} l => ⟦l⟧
+def OAI.CPTSeparation.Hereditary.atom.{uA} : {A : Type uA} → A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} a => OAI.CPTSeparation.Hereditary.mk (Lists.atom a)
+def OAI.CPTSeparation.Hereditary.isSet.{uA} : {A : Type uA} → OAI.CPTSeparation.Hereditary.HF A → Bool :=
+fun {A} x => Quotient.liftOn x (fun l => l.fst) ⋯
+def OAI.CPTSeparation.Hereditary.rawElements.{uA} : {A : Type uA} →
+  Lists A → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} l => Finset.image OAI.CPTSeparation.Hereditary.mk l.toList.toFinset
+def OAI.CPTSeparation.Hereditary.elements.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} x => Quotient.liftOn x OAI.CPTSeparation.Hereditary.rawElements ⋯
+def OAI.CPTSeparation.Hereditary.ofFinset.{uA} : {A : Type uA} →
+  Finset (OAI.CPTSeparation.Hereditary.HF A) → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} s => OAI.CPTSeparation.Hereditary.mk (Lists.ofList (List.map Quotient.out s.toList))
+def OAI.CPTSeparation.Hereditary.rawRank.{uA} : {A : Type uA} → Lists A → ℕ :=
+fun {A} l => OAI.CPTSeparation.Hereditary.rawRank' l.snd
+def OAI.CPTSeparation.Hereditary.rawRank.{uA} : {A : Type uA} → Lists A → ℕ :=
+fun {A} l => OAI.CPTSeparation.Hereditary.rawRank' l.snd
+def OAI.CPTSeparation.Hereditary.rank.{uA} : {A : Type uA} → OAI.CPTSeparation.Hereditary.HF A → ℕ :=
+fun {A} x => Quotient.liftOn x OAI.CPTSeparation.Hereditary.rawRank ⋯
+def OAI.CPTSeparation.Hereditary.double.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} a b => OAI.CPTSeparation.Hereditary.ofFinset {a, b}
+def OAI.CPTSeparation.Hereditary.ordinal.{uA} : {A : Type uA} → ℕ → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} x => Nat.brecOn x OAI.CPTSeparation.Hereditary.ordinal._f
+@[reducible] def OAI.CPTSeparation.Operational.empty.{uA} : {A : Type uA} → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} => OAI.CPTSeparation.Hereditary.ordinal 0
+@[reducible] def OAI.CPTSeparation.Operational.truth.{uA} : {A : Type uA} → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} => OAI.CPTSeparation.Hereditary.ordinal 1
+def OAI.CPTSeparation.Operational.boolean.{uA} : {A : Type uA} → Prop → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} p => if p then OAI.CPTSeparation.Operational.truth else OAI.CPTSeparation.Operational.empty
+def OAI.CPTSeparation.Operational.inputRelation.{uA, uR} : {A : Type uA} →
+  {R : Type uR} →
+    (R → A → A → Bool) → R → OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A → Prop :=
+fun {A} {R} rel r x y =>
+  ∃ a b, x = OAI.CPTSeparation.Hereditary.atom a ∧ y = OAI.CPTSeparation.Hereditary.atom b ∧ rel r a b = true
+def OAI.CPTSeparation.Operational.allAtoms.{uA} : {A : Type uA} → [Fintype A] → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} [Fintype A] =>
+  OAI.CPTSeparation.Hereditary.ofFinset (Finset.image OAI.CPTSeparation.Hereditary.atom Finset.univ)
+def OAI.CPTSeparation.Operational.unionHF.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} x =>
+  OAI.CPTSeparation.Hereditary.ofFinset
+    ((OAI.CPTSeparation.Hereditary.elements x).biUnion OAI.CPTSeparation.Hereditary.elements)
+def OAI.CPTSeparation.Operational.uniqueHF.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} x =>
+  if h : ∃ a, OAI.CPTSeparation.Hereditary.elements x = {a} then h.choose else OAI.CPTSeparation.Operational.empty
+def OAI.CPTSeparation.Operational.cardinalityHF.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} x => OAI.CPTSeparation.Hereditary.ordinal (OAI.CPTSeparation.Hereditary.elements x).card
+@[reducible] def OAI.CPTSeparation.Operational.Location.{uA, uF} : (F : Type uF) →
+  (F → ℕ) → Type uA → Type (max uF uA) :=
+fun F arity A => (f : F) × (Fin (arity f) → OAI.CPTSeparation.Hereditary.HF A)
+structure OAI.CPTSeparation.Operational.State.{uA, uF} (F : Type uF) (arity : F → ℕ) (A : Type uA) : Type (max uA uF)
+number of parameters: 3
+fields:
+  OAI.CPTSeparation.Operational.State.value : OAI.CPTSeparation.Operational.Location F arity A →
+      OAI.CPTSeparation.Hereditary.HF A
+  OAI.CPTSeparation.Operational.State.finite : {l | self.value l ≠ OAI.CPTSeparation.Operational.empty}.Finite
+constructor:
+  OAI.CPTSeparation.Operational.State.mk.{uA, uF} {F : Type uF} {arity : F → ℕ} {A : Type uA}
+    (value : OAI.CPTSeparation.Operational.Location F arity A → OAI.CPTSeparation.Hereditary.HF A)
+    (finite : {l | value l ≠ OAI.CPTSeparation.Operational.empty}.Finite) :
+    OAI.CPTSeparation.Operational.State F arity A
+def OAI.CPTSeparation.Operational.State.initial.{uA, uF} : {A : Type uA} →
+  {F : Type uF} → {arity : F → ℕ} → OAI.CPTSeparation.Operational.State F arity A :=
+fun {A} {F} {arity} => { value := fun x => OAI.CPTSeparation.Operational.empty, finite := ⋯ }
+def OAI.CPTSeparation.Operational.State.support.{uA, uF} : {A : Type uA} →
+  {F : Type uF} →
+    {arity : F → ℕ} →
+      OAI.CPTSeparation.Operational.State F arity A → Finset (OAI.CPTSeparation.Operational.Location F arity A) :=
+fun {A} {F} {arity} s => ⋯.toFinset
+@[reducible] def OAI.CPTSeparation.Operational.Update.{uA, uF} : (F : Type uF) →
+  (F → ℕ) → Type uA → Type (max (max uF uA) uA) :=
+fun F arity A => OAI.CPTSeparation.Operational.Location F arity A × OAI.CPTSeparation.Hereditary.HF A
+def OAI.CPTSeparation.Operational.State.Consistent.{uA, uF} : {A : Type uA} →
+  {F : Type uF} → {arity : F → ℕ} → Finset (OAI.CPTSeparation.Operational.Update F arity A) → Prop :=
+fun {A} {F} {arity} u =>
+  ∀ (l : OAI.CPTSeparation.Operational.Location F arity A) (x y : OAI.CPTSeparation.Hereditary.HF A),
+    (l, x) ∈ u → (l, y) ∈ u → x = y
+def OAI.CPTSeparation.Operational.State.updatedValue.{uA, uF} : {A : Type uA} →
+  {F : Type uF} →
+    {arity : F → ℕ} →
+      OAI.CPTSeparation.Operational.State F arity A →
+        Finset (OAI.CPTSeparation.Operational.Update F arity A) →
+          OAI.CPTSeparation.Operational.Location F arity A → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A} {F} {arity} s u l => if h : ∃ x, (l, x) ∈ u then h.choose else s.value l
+def OAI.CPTSeparation.Operational.State.applyUpdates.{uA, uF} : {A : Type uA} →
+  {F : Type uF} →
+    {arity : F → ℕ} →
+      OAI.CPTSeparation.Operational.State F arity A →
+        Finset (OAI.CPTSeparation.Operational.Update F arity A) → OAI.CPTSeparation.Operational.State F arity A :=
+fun {A} {F} {arity} s u => { value := s.updatedValue u, finite := ⋯ }
+inductive OAI.CPTSeparation.Operational.Control : Type
+number of parameters: 0
+constructors:
+OAI.CPTSeparation.Operational.Control.halt : OAI.CPTSeparation.Operational.Control
+OAI.CPTSeparation.Operational.Control.accept : OAI.CPTSeparation.Operational.Control
+@[irreducible] def OAI.CPTSeparation.Hereditary.closure.{uA} : {A : Type uA} →
+  OAI.CPTSeparation.Hereditary.HF A → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} =>
+  WellFounded.Nat.fix (fun x => OAI.CPTSeparation.Hereditary.rank x) fun x a =>
+    insert x ((OAI.CPTSeparation.Hereditary.elements x).attach.biUnion fun y => a ↑y ⋯)
+def OAI.CPTSeparation.Hereditary.familyClosure.{uA} : {A : Type uA} →
+  Finset (OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} f => f.biUnion OAI.CPTSeparation.Hereditary.closure
+def OAI.CPTSeparation.Operational.State.critical.{uA, uF} : {A : Type uA} →
+  {F : Type uF} →
+    {arity : F → ℕ} → OAI.CPTSeparation.Operational.State F arity A → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} {F} {arity} s => s.support.biUnion fun l => insert (s.value l) (Finset.image l.snd Finset.univ)
+def OAI.CPTSeparation.Operational.State.active.{uA, uF} : {A : Type uA} →
+  {F : Type uF} →
+    {arity : F → ℕ} →
+      [Fintype A] → OAI.CPTSeparation.Operational.State F arity A → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A} {F} {arity} [Fintype A] s =>
+  OAI.CPTSeparation.Hereditary.familyClosure
+    (s.critical ∪
+        {OAI.CPTSeparation.Operational.allAtoms, OAI.CPTSeparation.Operational.empty,
+          OAI.CPTSeparation.Operational.truth} ∪
+      Finset.image OAI.CPTSeparation.Hereditary.atom Finset.univ)
+inductive OAI.CPTSeparation.FullCPT.Term : Type → (F : Type) → (F → ℕ) → Type
+number of parameters: 3
+constructors:
+OAI.CPTSeparation.FullCPT.Term.var : {R F : Type} → {arity : F → ℕ} → ℕ → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.ordinal : {R F : Type} → {arity : F → ℕ} → ℕ → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.atoms : {R F : Type} → {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.app : {R F : Type} →
+  {arity : F → ℕ} →
+    (f : F) → (Fin (arity f) → OAI.CPTSeparation.FullCPT.Term R F arity) → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.pair : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.union : {R F : Type} →
+  {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.unique : {R F : Type} →
+  {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.card : {R F : Type} →
+  {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.equal : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.member : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.isAtom : {R F : Type} →
+  {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.input : {R F : Type} →
+  {arity : F → ℕ} →
+    R →
+      OAI.CPTSeparation.FullCPT.Term R F arity →
+        OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.not : {R F : Type} →
+  {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.and : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.or : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.conditional : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Term R F arity →
+        OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+OAI.CPTSeparation.FullCPT.Term.comprehend : {R F : Type} →
+  {arity : F → ℕ} →
+    ℕ →
+      OAI.CPTSeparation.FullCPT.Term R F arity →
+        OAI.CPTSeparation.FullCPT.Term R F arity →
+          OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Term R F arity
+def OAI.CPTSeparation.FullCPT.Term.eval : {A R F : Type} →
+  {arity : F → ℕ} →
+    [Fintype A] →
+      (R → A → A → Bool) →
+        OAI.CPTSeparation.Operational.State F arity A →
+          OAI.CPTSeparation.FullCPT.Term R F arity →
+            (ℕ → OAI.CPTSeparation.Hereditary.HF A) → OAI.CPTSeparation.Hereditary.HF A :=
+fun {A R F} {arity} [Fintype A] rel s x x_1 =>
+  OAI.CPTSeparation.FullCPT.Term.brecOn (motive := fun x =>
+    (ℕ → OAI.CPTSeparation.Hereditary.HF A) → OAI.CPTSeparation.Hereditary.HF A) x
+    (OAI.CPTSeparation.FullCPT.Term.eval._f rel s) x_1
+inductive OAI.CPTSeparation.FullCPT.Rule : Type → (F : Type) → (F → ℕ) → Type
+number of parameters: 3
+constructors:
+OAI.CPTSeparation.FullCPT.Rule.skip : {R F : Type} → {arity : F → ℕ} → OAI.CPTSeparation.FullCPT.Rule R F arity
+OAI.CPTSeparation.FullCPT.Rule.update : {R F : Type} →
+  {arity : F → ℕ} →
+    (f : F) →
+      (Fin (arity f) → OAI.CPTSeparation.FullCPT.Term R F arity) →
+        OAI.CPTSeparation.FullCPT.Term R F arity → OAI.CPTSeparation.FullCPT.Rule R F arity
+OAI.CPTSeparation.FullCPT.Rule.parallel : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Rule R F arity →
+      OAI.CPTSeparation.FullCPT.Rule R F arity → OAI.CPTSeparation.FullCPT.Rule R F arity
+OAI.CPTSeparation.FullCPT.Rule.conditional : {R F : Type} →
+  {arity : F → ℕ} →
+    OAI.CPTSeparation.FullCPT.Term R F arity →
+      OAI.CPTSeparation.FullCPT.Rule R F arity →
+        OAI.CPTSeparation.FullCPT.Rule R F arity → OAI.CPTSeparation.FullCPT.Rule R F arity
+OAI.CPTSeparation.FullCPT.Rule.forall : {R F : Type} →
+  {arity : F → ℕ} →
+    ℕ →
+      OAI.CPTSeparation.FullCPT.Term R F arity →
+        OAI.CPTSeparation.FullCPT.Rule R F arity → OAI.CPTSeparation.FullCPT.Rule R F arity
+OAI.CPTSeparation.FullCPT.Rule.letValue : {R F : Type} →
+  {arity : F → ℕ} →
+    ℕ →
+      OAI.CPTSeparation.FullCPT.Term R F arity →
+        OAI.CPTSeparation.FullCPT.Rule R F arity → OAI.CPTSeparation.FullCPT.Rule R F arity
+def OAI.CPTSeparation.FullCPT.Rule.updates : {A R F : Type} →
+  {arity : F → ℕ} →
+    [Fintype A] →
+      (R → A → A → Bool) →
+        OAI.CPTSeparation.Operational.State F arity A →
+          OAI.CPTSeparation.FullCPT.Rule R F arity →
+            (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Operational.Update F arity A) :=
+fun {A R F} {arity} [Fintype A] rel s x x_1 =>
+  OAI.CPTSeparation.FullCPT.Rule.brecOn (motive := fun x =>
+    (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Operational.Update F arity A)) x
+    (OAI.CPTSeparation.FullCPT.Rule.updates._f rel s) x_1
+structure OAI.CPTSeparation.FullCPT.Program (R : Type) : Type 1
+number of parameters: 1
+fields:
+  OAI.CPTSeparation.FullCPT.Program.Functions : Type
+  OAI.CPTSeparation.FullCPT.Program.finiteFunctions : Fintype self.Functions
+  OAI.CPTSeparation.FullCPT.Program.arity : self.Functions → ℕ
+  OAI.CPTSeparation.FullCPT.Program.body : OAI.CPTSeparation.FullCPT.Rule R
+      (OAI.CPTSeparation.Operational.Control ⊕ self.Functions) (Sum.elim (fun x => 0) self.arity)
+constructor:
+  OAI.CPTSeparation.FullCPT.Program.mk {R : Type} (Functions : Type) (finiteFunctions : Fintype Functions)
+    (arity : Functions → ℕ)
+    (body :
+      OAI.CPTSeparation.FullCPT.Rule R (OAI.CPTSeparation.Operational.Control ⊕ Functions)
+        (Sum.elim (fun x => 0) arity)) :
+    OAI.CPTSeparation.FullCPT.Program R
+@[reducible] def OAI.CPTSeparation.FullCPT.Program.functionArity : {R : Type} →
+  (P : OAI.CPTSeparation.FullCPT.Program R) → OAI.CPTSeparation.Operational.Control ⊕ P.Functions → ℕ :=
+fun {R} P => Sum.elim (fun x => 0) P.arity
+@[reducible] def OAI.CPTSeparation.FullCPT.Program.Store : {A : Type} →
+  {R : Type} → OAI.CPTSeparation.FullCPT.Program R → Type :=
+fun {A R} P =>
+  OAI.CPTSeparation.Operational.State (OAI.CPTSeparation.Operational.Control ⊕ P.Functions) P.functionArity A
+def OAI.CPTSeparation.FullCPT.Program.flag : {A R : Type} →
+  (P : OAI.CPTSeparation.FullCPT.Program R) → P.Store → OAI.CPTSeparation.Operational.Control → Prop :=
+fun {A R} P s c => s.value ⟨Sum.inl c, Fin.elim0⟩ = OAI.CPTSeparation.Operational.truth
+def OAI.CPTSeparation.FullCPT.Program.step : {A R : Type} →
+  (P : OAI.CPTSeparation.FullCPT.Program R) → [Fintype A] → (R → A → A → Bool) → P.Store → Option P.Store :=
+fun {A R} P [Fintype A] rel s =>
+  if P.flag s OAI.CPTSeparation.Operational.Control.halt then some s
+  else
+    have u := OAI.CPTSeparation.FullCPT.Rule.updates rel s P.body fun x => OAI.CPTSeparation.Operational.empty;
+    if OAI.CPTSeparation.Operational.State.Consistent u then some (OAI.CPTSeparation.Operational.State.applyUpdates s u)
+    else none
+def OAI.CPTSeparation.FullCPT.Program.run : {A R : Type} →
+  (P : OAI.CPTSeparation.FullCPT.Program R) → [Fintype A] → (R → A → A → Bool) → ℕ → Option P.Store :=
+fun {A R} P [Fintype A] rel x => Nat.brecOn x (OAI.CPTSeparation.FullCPT.Program.run._f P rel)
+def OAI.CPTSeparation.FullCPT.Program.active : {A R : Type} →
+  OAI.CPTSeparation.FullCPT.Program R →
+    [Fintype A] → (R → A → A → Bool) → ℕ → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A R} P [Fintype A] rel h =>
+  (Finset.range (h + 1)).biUnion fun j => (P.run rel j).toFinset.biUnion OAI.CPTSeparation.Operational.State.active
+def OAI.CPTSeparation.FullCPT.Term.roots : {A R F : Type} →
+  {arity : F → ℕ} →
+    [Fintype A] →
+      (R → A → A → Bool) →
+        OAI.CPTSeparation.Operational.State F arity A →
+          OAI.CPTSeparation.FullCPT.Term R F arity →
+            (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A R F} {arity} [Fintype A] rel s x x_1 =>
+  OAI.CPTSeparation.FullCPT.Term.brecOn (motive := fun x =>
+    (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Hereditary.HF A)) x
+    (OAI.CPTSeparation.FullCPT.Term.roots._f rel s) x_1
+def OAI.CPTSeparation.FullCPT.Rule.roots : {A R F : Type} →
+  {arity : F → ℕ} →
+    [Fintype A] →
+      (R → A → A → Bool) →
+        OAI.CPTSeparation.Operational.State F arity A →
+          OAI.CPTSeparation.FullCPT.Rule R F arity →
+            (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A R F} {arity} [Fintype A] rel s x x_1 =>
+  OAI.CPTSeparation.FullCPT.Rule.brecOn (motive := fun x =>
+    (ℕ → OAI.CPTSeparation.Hereditary.HF A) → Finset (OAI.CPTSeparation.Hereditary.HF A)) x
+    (OAI.CPTSeparation.FullCPT.Rule.roots._f rel s) x_1
+def OAI.CPTSeparation.FullCPT.Program.stepRoots : {A R : Type} →
+  (P : OAI.CPTSeparation.FullCPT.Program R) →
+    [Fintype A] → (R → A → A → Bool) → P.Store → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A R} P [Fintype A] rel s =>
+  if P.flag s OAI.CPTSeparation.Operational.Control.halt then ∅
+  else OAI.CPTSeparation.FullCPT.Rule.roots rel s P.body fun x => OAI.CPTSeparation.Operational.empty
+def OAI.CPTSeparation.FullCPT.Program.occurring : {A R : Type} →
+  OAI.CPTSeparation.FullCPT.Program R →
+    [Fintype A] → (R → A → A → Bool) → ℕ → Finset (OAI.CPTSeparation.Hereditary.HF A) :=
+fun {A R} P [Fintype A] rel h =>
+  P.active rel h ∪
+    (Finset.range h).biUnion fun j =>
+      match P.run rel j with
+      | none => ∅
+      | some s => OAI.CPTSeparation.Hereditary.familyClosure (P.stepRoots rel s)
+def OAI.CPTSeparation.FullCPT.Program.evaluationAccepts : {A R : Type} →
+  OAI.CPTSeparation.FullCPT.Program R → [Fintype A] → Polynomial ℕ → Polynomial ℕ → (R → A → A → Bool) → Prop :=
+fun {A R} P [Fintype A] time space rel =>
+  ∃ h st,
+    h ≤ Polynomial.eval (Fintype.card A) time ∧
+      P.run rel h = some st ∧
+        P.flag st OAI.CPTSeparation.Operational.Control.halt ∧
+          P.flag st OAI.CPTSeparation.Operational.Control.accept ∧
+            (P.occurring rel h).card ≤ Polynomial.eval (Fintype.card A) space
+def OAI.CPTSeparation.FullCPT.EvaluationDefinable : ({A : Type} → [Fintype A] → OAI.CPTSeparation.Input A → Prop) →
+  Prop :=
+fun Q =>
+  ∃ P time space,
+    ∀ (A : Type) [inst : Fintype A] (I : OAI.CPTSeparation.Input A), P.evaluationAccepts time space I.rel ↔ Q I
+@[reducible] def OAI.CPTSeparation.OrderedQuery.Data : ℕ → Type :=
+fun N => OAI.CPTSeparation.Input (Fin N)
+def OAI.CPTSeparation.OrderedQuery.indexSymbol : Fin 8 → OAI.CPTSeparation.Symbol :=
+fun i =>
+  if ↑i = 0 then OAI.CPTSeparation.Symbol.Ed
+  else
+    if ↑i = 1 then OAI.CPTSeparation.Symbol.Cf
+    else
+      if ↑i = 2 then OAI.CPTSeparation.Symbol.EB
+      else
+        if ↑i = 3 then OAI.CPTSeparation.Symbol.VB
+        else if ↑i = 4 then OAI.CPTSeparation.Symbol.I else OAI.CPTSeparation.Symbol.Z ↑(↑i - 5)
+def OAI.CPTSeparation.OrderedQuery.cellValue : {N : ℕ} →
+  OAI.CPTSeparation.OrderedQuery.Data N → Fin (8 * (N * N)) → Bool :=
+fun {N} S k =>
+  have ij := finProdFinEquiv.symm k;
+  have ab := finProdFinEquiv.symm ij.2;
+  S.rel (OAI.CPTSeparation.OrderedQuery.indexSymbol ij.1) ab.1 ab.2
+def OAI.CPTSeparation.OrderedQuery.tableBits : {N : ℕ} → OAI.CPTSeparation.OrderedQuery.Data N → List Bool :=
+fun {N} S => List.ofFn (OAI.CPTSeparation.OrderedQuery.cellValue S)
+@[reducible] def OAI.CPTSeparation.OrderedQuery.OrderedInput : Type :=
+(N : ℕ) × OAI.CPTSeparation.OrderedQuery.Data N
+@[reducible] def OAI.CPTSeparation.GaussMachine.Letter : Type :=
+Option OAI.CPTSeparation.Scalar
+def OAI.CPTSeparation.GaussMachine.boolCode : Bool → List OAI.CPTSeparation.GaussMachine.Letter :=
+fun b => [some (if b = true then 1 else 0)]
+@[reducible] def OAI.CPTSeparation.CounterLang.Letter : Type :=
+Option OAI.CPTSeparation.Scalar
+def OAI.CPTSeparation.TableMachine.bitLetter : Bool → OAI.CPTSeparation.CounterLang.Letter :=
+fun b => some (if b = true then 1 else 0)
+def OAI.CPTSeparation.TableMachine.tableInput : {N : ℕ} →
+  OAI.CPTSeparation.OrderedQuery.Data N → List OAI.CPTSeparation.CounterLang.Letter :=
+fun {N} S => List.map OAI.CPTSeparation.TableMachine.bitLetter (OAI.CPTSeparation.OrderedQuery.tableBits S)
+def OAI.CPTSeparation.TableMachine.code : OAI.CPTSeparation.OrderedQuery.OrderedInput →
+  List OAI.CPTSeparation.CounterLang.Letter :=
+fun S => List.replicate S.fst none ++ some 0 :: OAI.CPTSeparation.TableMachine.tableInput S.snd
+def OAI.CPTSeparation.Input.ordered : {A : Type} →
+  {N : ℕ} → OAI.CPTSeparation.Input A → A ≃ Fin N → OAI.CPTSeparation.OrderedQuery.Data N :=
+fun {A} {N} S e => { rel := fun r i j => S.rel r (e.symm i) (e.symm j) }
+def OAI.CPTSeparation.OrdinaryPolynomialTime : Prop :=
+∃ answer machine,
+  (∀ (k : machine.tm.K), Finite (machine.tm.Γ k)) ∧
+    ∀ (A : Type) [inst : Fintype A] (N : ℕ) (e : A ≃ Fin N) (S : OAI.CPTSeparation.Input A),
+      answer ⟨N, S.ordered e⟩ = true ↔ S.query

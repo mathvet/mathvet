@@ -1,0 +1,43 @@
+== ChoicelessPolynomialTime  module=OAI.ModelTheory.Choiceless.Separation  start=2026-10-08T14:09:55Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8949] Built OAI.ModelTheory.Choiceless.Model (11s)
+✔ [8925/8949] Built OAI.ModelTheory.Choiceless.Support (20s)
+✔ [8926/8949] Built OAI.ModelTheory.Choiceless.Grid (24s)
+✔ [8927/8949] Built OAI.ModelTheory.Choiceless.Counting (18s)
+✔ [8928/8949] Built OAI.ModelTheory.Choiceless.Flows (16s)
+✔ [8929/8949] Built OAI.ModelTheory.Choiceless.Hereditary (10s)
+✔ [8930/8949] Built OAI.ModelTheory.Choiceless.Forms (17s)
+✔ [8931/8949] Built OAI.ModelTheory.Choiceless.Interpretations (11s)
+✔ [8932/8949] Built OAI.ModelTheory.Choiceless.Reachability (12s)
+✔ [8933/8949] Built OAI.ModelTheory.Choiceless.Bounds (12s)
+✔ [8934/8949] Built OAI.ModelTheory.Choiceless.Operational (17s)
+✔ [8935/8949] Built OAI.ModelTheory.Choiceless.Definability (17s)
+✔ [8936/8949] Built OAI.ModelTheory.Choiceless.Simulation (10s)
+✔ [8937/8949] Built OAI.ModelTheory.Choiceless.Traces (13s)
+✔ [8938/8949] Built OAI.ModelTheory.Choiceless.LowerBound (13s)
+✔ [8939/8949] Built OAI.ModelTheory.Choiceless.FullLanguage (9.5s)
+✔ [8940/8949] Built OAI.ModelTheory.Choiceless.Observers (13s)
+✔ [8941/8949] Built OAI.ModelTheory.Choiceless.Evaluation (9.5s)
+✔ [8942/8949] Built OAI.ModelTheory.Choiceless.Gaussian (10s)
+✔ [8943/8949] Built OAI.ModelTheory.Choiceless.Stack (13s)
+✔ [8944/8949] Built OAI.ModelTheory.Choiceless.GaussMachine (10s)
+✔ [8945/8949] Built OAI.ModelTheory.Choiceless.Counters (13s)
+✔ [8946/8949] Built OAI.ModelTheory.Choiceless.TableMachine (11s)
+✔ [8947/8949] Built OAI.ModelTheory.Choiceless.Matrix (10s)
+✔ [8948/8949] Built OAI.ModelTheory.Choiceless.QueryMachine (11s)
+✔ [8949/8949] Built OAI.ModelTheory.Choiceless.Separation (7.0s)
+Build completed successfully (8949 jobs).
+== build rc=0 seconds=360
+{"theorems": ["OAI.CPTSeparation.main"], "defs": ["OAI.CPTSeparation.Scalar", "OAI.CPTSeparation.Symbol", "OAI.CPTSeparation.Input", "OAI.CPTSeparation.Input.Edge", "OAI.CPTSeparation.Input.Config", "OAI.CPTSeparation.Input.coefficient", "OAI.CPTSeparation.Input.incident", "OAI.CPTSeparation.Input.normalized", "OAI.CPTSeparation.Input.consistent", "OAI.CPTSeparation.Input.query", "OAI.CPTSeparation.Input.Iso", "OAI.CPTSeparation.Hereditary.HF", "OAI.CPTSeparation.Hereditary.mk", "OAI.CPTSeparation.Hereditary.atom", "OAI.CPTSeparation.Hereditary.isSet", "OAI.CPTSeparation.Hereditary.rawElements", "OAI.CPTSeparation.Hereditary.elements", "OAI.CPTSeparation.Hereditary.ofFinset", "OAI.CPTSeparation.Hereditary.rawRank", "OAI.CPTSeparation.Hereditary.rawRank", "OAI.CPTSeparation.Hereditary.rank", "OAI.CPTSeparation.Hereditary.double", "OAI.CPTSeparation.Hereditary.ordinal", "OAI.CPTSeparation.Operational.empty", "OAI.CPTSeparation.Operational.truth", "OAI.CPTSeparation.Operational.boolean", "OAI.CPTSeparation.Operational.inputRelation", "OAI.CPTSeparation.Operational.allAtoms", "OAI.CPTSeparation.Operational.unionHF", "OAI.CPTSeparation.Operational.uniqueHF", "OAI.CPTSeparation.Operational.cardinalityHF", "OAI.CPTSeparation.Operational.Location", "OAI.CPTSeparation.Operational.State", "OAI.CPTSeparation.Operational.State.initial", "OAI.CPTSeparation.Operational.State.support", "OAI.CPTSeparation.Operational.Update", "OAI.CPTSeparation.Operational.State.Consistent", "OAI.CPTSeparation.Operational.State.updatedValue", "OAI.CPTSeparation.Operational.State.applyUpdates", "OAI.CPTSeparation.Operational.Control", "OAI.CPTSeparation.Hereditary.closure", "OAI.CPTSeparation.Hereditary.familyClosure", "OAI.CPTSeparation.Operational.State.critical", "OAI.CPTSeparation.Operational.State.active", "OAI.CPTSeparation.FullCPT.Term", "OAI.CPTSeparation.FullCPT.Term.eval", "OAI.CPTSeparation.FullCPT.Rule", "OAI.CPTSeparation.FullCPT.Rule.updates", "OAI.CPTSeparation.FullCPT.Program", "OAI.CPTSeparation.FullCPT.Program.functionArity", "OAI.CPTSeparation.FullCPT.Program.Store", "OAI.CPTSeparation.FullCPT.Program.flag", "OAI.CPTSeparation.FullCPT.Program.step", "OAI.CPTSeparation.FullCPT.Program.run", "OAI.CPTSeparation.FullCPT.Program.active", "OAI.CPTSeparation.FullCPT.Term.roots", "OAI.CPTSeparation.FullCPT.Rule.roots", "OAI.CPTSeparation.FullCPT.Program.stepRoots", "OAI.CPTSeparation.FullCPT.Program.occurring", "OAI.CPTSeparation.FullCPT.Program.evaluationAccepts", "OAI.CPTSeparation.FullCPT.EvaluationDefinable", "OAI.CPTSeparation.OrderedQuery.Data", "OAI.CPTSeparation.OrderedQuery.indexSymbol", "OAI.CPTSeparation.OrderedQuery.cellValue", "OAI.CPTSeparation.OrderedQuery.tableBits", "OAI.CPTSeparation.OrderedQuery.OrderedInput", "OAI.CPTSeparation.GaussMachine.Letter", "OAI.CPTSeparation.GaussMachine.boolCode", "OAI.CPTSeparation.CounterLang.Letter", "OAI.CPTSeparation.TableMachine.bitLetter", "OAI.CPTSeparation.TableMachine.tableInput", "OAI.CPTSeparation.TableMachine.code", "OAI.CPTSeparation.Input.ordered", "OAI.CPTSeparation.OrdinaryPolynomialTime"], "json_theorems": ["OAI.CPTSeparation.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.CPTSeparation.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T14:16:21Z
