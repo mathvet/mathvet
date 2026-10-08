@@ -1,0 +1,30 @@
+lean4export
+lean4export.hash
+lean4export.rsp
+lean4export.trace
+lean4export
+lean4export.hash
+lean4export.rsp
+lean4export.trace
+=== run real Comparator (fake-landrun shim) on CirculantHadamard
+Building ComparatorChallenges.CirculantHadamard
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.CirculantHadamard
+⚠ [8924/8924] Built ComparatorChallenges.CirculantHadamard (98s)
+warning: ComparatorChallenges/CirculantHadamard.lean:24:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.CirculantHadamard -- Quot Quot.mk Quot.lift Quot.ind OAI.CirculantHadamard.exists_iff_order_one_or_four propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.CirculantHadamard.exists_iff_order_one_or_four, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.CirculantHadamard
+Building OAI.LinearAlgebra.CirculantHadamard.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.LinearAlgebra.CirculantHadamard.Main
+Build completed successfully (8991 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.LinearAlgebra.CirculantHadamard.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.CirculantHadamard.exists_iff_order_one_or_four propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.CirculantHadamard.exists_iff_order_one_or_four, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.LinearAlgebra.CirculantHadamard.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+lake env /Users/shannon/cc/math/tmp/comparator/.lake/build/bin/comparator  2>  258.91s user 171.83s system 50% cpu 14:06.03 total
+grep -v 'has local changes'  0.14s user 0.30s system 0% cpu 14:06.02 total
+tail -25  0.00s user 0.00s system 0% cpu 14:06.02 total
+exit=
+
+[exited with code 0]

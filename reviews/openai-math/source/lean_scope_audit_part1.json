@@ -1,0 +1,1346 @@
+[
+ {
+  "family": "003",
+  "title": "The quasi-Riemann hypothesis",
+  "headline_formalized": "full",
+  "challenges": [
+   "QuasiRiemannHypothesis",
+   "DirichletSevenEighths",
+   "HeckeSevenEighths",
+   "SiegelZeros"
+  ],
+  "gap_note": "No gap for zeta/Dirichlet L (Mathlib objects). Hecke 7/8 clause rests on a custom WeakFEPair-defined L-function (`LFunction := continuedLattice χ s / 6`) whose identification with the Dirichlet series is not in the statement; 11/12 companion not stated separately (implied).",
+  "suspicious_defs": [
+   "Hecke part: `def LFunction (χ : Character) (s : ℂ) : ℂ := continuedLattice χ s / 6` with `continuedLattice χ = HeckeTheta.latticeL (coefficients χ)` (custom theta/WeakFEPair construction; custom `structure Character` with `modulus`, `residue : MulChar (O ⧸ modulus) ℂ`, `unit_trivial`, `period`); no lemma linking it to Σ χ(a) N(a)^{-s}"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "RellichKondrachov"
+  ],
+  "cone_lines": 486525
+ },
+ {
+  "family": "005",
+  "title": "Irrationality of Catalan's constant",
+  "headline_formalized": "full",
+  "challenges": [
+   "Catalan"
+  ],
+  "gap_note": "None; statement is the headline verbatim with Mathlib `Irrational`/`tsum`.",
+  "suspicious_defs": [],
+  "external": [
+   "Lean",
+   "Mathlib",
+   "PrimeNumberTheoremAnd"
+  ],
+  "cone_lines": 574902
+ },
+ {
+  "family": "007",
+  "title": "Two-point Chowla and the corrected binary Elliott conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "OrdinaryElliott",
+   "OrdinaryTwoPointCorrelations"
+  ],
+  "gap_note": "None found; affine forms take natural-number coefficients (a₁,a₂>0, b₁,b₂≥0), which loses nothing up to re-indexing; custom non-pretentiousness definition checked against the standard one.",
+  "suspicious_defs": [
+   "`def UniformlyNonpretentious (f : ℕ → ℂ) : Prop := ∀ (q : ℕ), 0 < q → ∀ (χ : DirichletCharacter ℂ q) (K : ℝ), ∀ᶠ N : ℕ in atTop, ∀ t : ℝ, |t| ≤ (N : ℝ) → K ≤ squaredDistance f (characterTwist χ t) N` (custom but matches the standard definition; two files use different but equivalent encodings)"
+  ],
+  "external": [
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "StrongPNT"
+  ],
+  "cone_lines": 153427
+ },
+ {
+  "family": "008",
+  "title": "The Deligne--Drinfeld conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "DeligneDrinfeld"
+  ],
+  "gap_note": "None for the headline; W is the graded (polynomial) solution space; the weight-completion clause is formal (coordinatewise on weight pieces).",
+  "suspicious_defs": [
+   "`instance : TopologicalSpace L := ⊥` and `instance : TopologicalSpace OddFree := ⊥` (discrete topologies, so the `Continuous` clauses on weight-completions are essentially formal); custom `Tangent` Lie algebra used to define `ihara` (checked: it is the dual-numbers construction giving the Ihara derivation)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 29733
+ },
+ {
+  "family": "009",
+  "title": "Bogomolov--Pop and Milnor $K$-theoretic reconstruction",
+  "headline_formalized": "partial",
+  "challenges": [
+   "BogomolovPopInjectivity"
+  ],
+  "gap_note": "Only injectivity half of Bogomolov-Pop reconstruction (Galois data side); no existence/surjectivity and no Milnor K-theoretic reconstruction or perfect-closure/constants recovery statement.",
+  "suspicious_defs": [
+   "`def ScalarStep ... ∃ u : (PadicInt ell)ˣ, ∀ x, Tendsto (fun n => (φ.1 x) ^ PadicInt.appr (u : PadicInt ell) n) atTop (nhds (χ.1 x))` (ℓ-adic unit scaling encoded via `appr` approximants; custom but plausible); `abelianLift := Quotient.out x` (choice-based section used in `bracket`, harmless)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 3339
+ },
+ {
+  "family": "012",
+  "title": "Independent largest prime factors of consecutive integers",
+  "headline_formalized": "full",
+  "challenges": [
+   "JointDickman"
+  ],
+  "gap_note": "None; headline and the 1/2 corollary are stated. Dickman rho is a custom delay-equation construction (checked faithful).",
+  "suspicious_defs": [
+   "`noncomputable def rho : ℝ → ℝ := DelayConstruction.delay (-1)` with `stepApprox σ (n+1) u = 1 + σ * ∫ t in 1..max 1 u, kernel (stepApprox σ n) t` (custom Dickman function; correct by inspection, no bridge lemma to a Mathlib object)"
+  ],
+  "external": [
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "StrongPNT"
+  ],
+  "cone_lines": 176462
+ },
+ {
+  "family": "013",
+  "title": "Ostmann's inverse Goldbach conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "OstmannComplete",
+   "OstmannPrimes"
+  ],
+  "gap_note": "None; standard Mathlib objects only.",
+  "suspicious_defs": [],
+  "external": [
+   "BernoulliRegular",
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "StrongPNT"
+  ],
+  "cone_lines": 364516
+ },
+ {
+  "family": "015",
+  "title": "Torus-packet equidistribution in prime, quartic, and sextic degrees",
+  "headline_formalized": "partial",
+  "challenges": [
+   "DukePrimeDegree"
+  ],
+  "gap_note": "Prime degree >= 5 only; the primitive quartic (Picard packets) and primitive sextic (maximal-order ideal-class packets) results of the summary are not stated.",
+  "suspicious_defs": [
+   "Whole packet-measure apparatus is custom (`packetOrbits`, `orbitBasepoint := Classical.epsilon ...`, `orbitalHaar := if h : HasAddFundamentalDomain ... then ... else 0`, `latticePoint := if h : ∃ g, ... then ⟦h.choose⟧ else ⟦1⟧`): junk `else` branches are unreachable for genuine torus packets, but the encoding of 'complete volume-weighted packet' is not checkable against a standard Mathlib notion"
+  ],
+  "external": [
+   "ClassFieldTheory",
+   "Mathlib"
+  ],
+  "cone_lines": 130452
+ },
+ {
+  "family": "017",
+  "title": "The irrationality exponent of $\\pi$ is $2$",
+  "headline_formalized": "full",
+  "challenges": [
+   "PiExponent"
+  ],
+  "gap_note": "Headline (irrationality exponent of pi = 2, both forms) stated with Mathlib objects; the Flint-Hills series convergence corollary is not stated.",
+  "suspicious_defs": [],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 94948
+ },
+ {
+  "family": "020",
+  "title": "Squarefree quartics and power-free polynomial values",
+  "headline_formalized": "full",
+  "challenges": [
+   "PowerFreeValues"
+  ],
+  "gap_note": "None; statement is for every d >= 4 (stronger than the new range 4..8 alone).",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 23269
+ },
+ {
+  "family": "021",
+  "title": "A quadratic bound for Jacobsthal's function",
+  "headline_formalized": "full",
+  "challenges": [
+   "Jacobsthal",
+   "JacobsthalImproved"
+  ],
+  "gap_note": "None; both the quadratic and the (log log 3k)^-2 improved bound are stated with elementary definitions.",
+  "suspicious_defs": [],
+  "external": [
+   "AbsorptionCutoff",
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "StrongPNT"
+  ],
+  "cone_lines": 152494
+ },
+ {
+  "family": "023",
+  "title": "Patterson’s first moment for cubic Gauss sums",
+  "headline_formalized": "full",
+  "challenges": [
+   "PattersonFirstMoment"
+  ],
+  "gap_note": "None; custom Gauss-sum/cubic-symbol definitions match the paper's displayed definition (checked in paper.tex).",
+  "suspicious_defs": [
+   "Gauss sum, cubic residue symbol and primary-prime predicate are all custom (`cubicSymbolAtPrime` uses `Classical.choose` and a fallback value 0; `residueRepresentative := Classical.choose ...`; `attribute [local instance] Classical.propDecidable`), but they agree with the paper's definition and the summand is independent of the representative"
+  ],
+  "external": [
+   "Mathlib",
+   "PrimeNumberTheoremAnd",
+   "RellichKondrachov",
+   "StrongPNT"
+  ],
+  "cone_lines": 306361
+ },
+ {
+  "family": "024",
+  "title": "An asymptotic formula for the number of totients",
+  "headline_formalized": "full",
+  "challenges": [
+   "TotientAsymptotic",
+   "TotientCompanionZero"
+  ],
+  "gap_note": "None for the headline (V(cx)/V(x) -> c is stated in terms of V alone). The explicit main term rests on a large custom apparatus that cannot be checked against a standard object from the statement.",
+  "suspicious_defs": [
+   "Main term built from custom `rho := sInf RenewalRootSet`, `lam`, `gamma`, `g` (renewal recursion), `AH` (uses `∑ᶠ` finsums over `d` and over `Finset (TailDatum H)`, whose junk value 0 on infinite support is not excluded by the statement) and `A f s := limUnder atTop (fun H => AH H f s)` (junk value if no limit; the statement separately asserts `TendstoUniformlyOn` so it is not vacuous)"
+  ],
+  "external": [
+   "Mathlib",
+   "PrimeNumberTheoremAnd"
+  ],
+  "cone_lines": 73021
+ },
+ {
+  "family": "025",
+  "title": "Erd\\H{o}s’s short Egyptian-fraction conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "EgyptianFractions",
+   "ShortEgyptianFractions"
+  ],
+  "gap_note": "None; unit-fraction expansions use plain `List ℕ`/`Fin k → ℕ` with strict monotonicity and rational sums.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 36061
+ },
+ {
+  "family": "026",
+  "title": "Positive lower density of large prime gaps",
+  "headline_formalized": "full",
+  "challenges": [
+   "PrimeGaps"
+  ],
+  "gap_note": "None; challenge states the large-gap theorem and the ratio corollary. Lower density is a custom sSup-defined liminf (checked).",
+  "suspicious_defs": [
+   "`def lowerAsymptoticDensity (A : Set ℕ) : ℝ := sSup {d : ℝ | ∃ N0 : ℕ, ∀ N : ℕ, N0 ≤ N → d ≤ (initialCount A N : ℝ) / (N : ℝ)}` (custom liminf-style density; correct since the set is nonempty and bounded by 1)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 22533
+ },
+ {
+  "family": "028",
+  "title": "The Gaussian moat conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "GaussianMoat"
+  ],
+  "gap_note": "None; both the no-infinite-walk statement and the uniform finite component/walk-length bound are stated for every real D.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 12703
+ },
+ {
+  "family": "033",
+  "title": "Campana's orbifold Iitaka conjecture and logarithmic subadditivity",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "LogKodairaFiberNegative"
+  ],
+  "gap_note": "Only the very-general negative-fibre (kappa(F) = -infinity) branch of log additivity in the projective reduced-SNC stratum-smooth setting; no Campana orbifold Iitaka statement, no Popa/variation inequality, no kappa >= 0 branch.",
+  "suspicious_defs": [
+   "Entire framework is custom scheme theory: `SmoothProjectiveVariety`, `ReducedSNCBoundary`, `kodaira := ⨆ (k : ℕ) (_ : E.HasImageDimensionAtLeast k), (k : WithBot ℕ∞)` (Iitaka dimension via algebraically independent ratios of log pluriforms), `VeryGenerally`; the conclusion quantifies `∀ F : FiberModel ...`, so it is vacuous if no `FiberModel` can exist (non-vacuity is not visible from the statement)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 3902
+ },
+ {
+  "family": "039",
+  "title": "Nagata's conjecture and maximal Seshadri constants",
+  "headline_formalized": "partial",
+  "challenges": [
+   "Nagata",
+   "MaximalSeshadriConstants"
+  ],
+  "gap_note": "Nagata (r >= 10, very general, arbitrary multiplicities) fully stated; maximal multipoint Seshadri constants only for smooth projective surfaces over C, not (L^n/r)^{1/n} in dimension n >= 2 and not over algebraically closed fields of positive characteristic.",
+  "suspicious_defs": [
+   "Seshadri side is custom scheme theory: `selfIntersection S L := χ(L^2) - 2χ(L) + χ(O)` (= L^2 by Riemann-Roch, checked), `curveDegree := χ(L|_C) - χ(O_C)`, `cohomology := Abelian.Ext (structureSheaf X) M n` with `cohomologyDimension := Module.finrank ℂ` (junk 0 if infinite-dimensional), `IsBlowup` by universal property, `curveMultiplicity` via `idealOrder` of the stalk kernel; Nagata side defines the curve equation by `Classical.choose` of a sorry'd existence theorem (`curveEquation`) that is itself a checked theorem_name"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 56552
+ },
+ {
+  "family": "047",
+  "title": "Complex counterexamples to cancellation and affine fibrations",
+  "headline_formalized": "partial",
+  "challenges": [
+   "ComplexCancellation"
+  ],
+  "gap_note": "Cancellation counterexample (dimension four) fully stated; the Dolgachev-Weisfeiler affine-fibration counterexamples (smooth surjections with every fibre A^3, not Zariski-locally trivial) are not stated.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 5573
+ },
+ {
+  "family": "049",
+  "title": "A stable-coordinate counterexample in four variables",
+  "headline_formalized": "partial",
+  "challenges": [
+   "AbhyankarSathaye",
+   "CommutingDerivations"
+  ],
+  "gap_note": "Stable-coordinate counterexample (family headline, Oct-5 paper: not a coordinate in 4 variables but a coordinate after adding one variable) is not stated; challenges cover only the Sept-24 paper: classical Abhyankar-Sathaye counterexample for the zero fibre (n >= 4) and commuting LNDs; 'every fibre is A^3' not stated.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 3240
+ },
+ {
+  "family": "050",
+  "title": "A counterexample to Griffiths' positivity conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "QuadricBundles"
+  ],
+  "gap_note": "Headline stated; the 'very-ampleness for all admissible even exponents' result is not (docs). All notions (algebraic bundle on P1xP1, ampleness, Hermitian metric, Griffiths positivity) are bespoke, with no bridge to Mathlib objects.",
+  "suspicious_defs": [
+   "Bespoke `AlgebraicRankTwoBundle` (4 charts by polynomial principal opens + regular transition matrices), `IsAmple V := ∃ n > 0, ∃ N, ∃ s : Fin N → SymmetricSection V n, GivesClosedProjectiveEmbedding s` (a 4-clause custom 'closed embedding' predicate), `SmoothHermitianMetric` on the dual bundle (`dualMatrix`), `StrictlyGriffithsPositive` via `metricMixedHessian`/`holomorphicMetricDerivative`; a mistake in any of these would silently change what is proved, and the statement is vacuous-prone since it ends in `¬ ∃ h`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 12256
+ },
+ {
+  "family": "052",
+  "title": "Tangent-bundle splittings and universal covers",
+  "headline_formalized": "full",
+  "challenges": [
+   "KahlerSplitting",
+   "SplitTangentIntegrability"
+  ],
+  "gap_note": "Both headline theorems are stated; the 'corresponding product decomposition' for rationally connected manifolds (composition of the two, needing a Kahler metric from the embedding) is not a single statement. Complex manifold, Kahler metric, integrability and rational connectedness are all bespoke encodings.",
+  "suspicious_defs": [
+   "Bespoke `ComplexManifold`/`KahlerMetric` (closedness of the fundamental form via a cyclic derivative sum in charts), `Integrable` (Frobenius condition through chartwise Lie brackets of holomorphic local sections), `OrdinaryUniversalCover`, `CompatibleProduct`, `ProjectiveEmbedding` (injective holomorphic immersion into P^N) and `RationallyConnected` (dense Zariski-open set of pairs joined by a `RationalCurve`); plausible but unchecked against Mathlib/standard notions"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 17281
+ },
+ {
+  "family": "058",
+  "title": "The Koll\\'ar--Pardon universal-cover conjecture",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "SymmetricDomains"
+  ],
+  "gap_note": "Only the bounded-domain symmetry lemma (companion paper); the Kollar-Pardon classification of semialgebraic universal covers D x C^m x F, the quasi-projective criterion and the 'covered by C^n => finite etale abelian cover' corollary are not stated.",
+  "suspicious_defs": [
+   "Custom `IsSemialgebraic` (inductive closure of `p = 0`, `0 < p`, complement, union), `HolomorphicOnSubset`, `Biholomorph`, `IsSmooth`, `IsBoundedSymmetricDomain` (open, connected, bounded, every point an isolated fixed point of a holomorphic involution); plausible, standard-looking"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 48720
+ },
+ {
+  "family": "071",
+  "title": "Koebe's circle-domain conjecture and circle-domain rigidity",
+  "headline_formalized": "full",
+  "challenges": [
+   "KoebeCircleDomains"
+  ],
+  "gap_note": "None; both the existence part of Koebe's conjecture and removability => rigidity are stated for arbitrary domains. Conformality is encoded chartwise on OnePoint C (custom).",
+  "suspicious_defs": [
+   "Custom conformality on the sphere: `IsConformalAt f p := ContinuousAt f p ∧ ∃ d ≠ 0, HasDerivAt (fun z => chart (f p) (f (chartSymm p z))) d (chart p p)` (hand-rolled charts at ∞ via `sphereInv`; equals holomorphic-with-nonzero-derivative; fine)"
+  ],
+  "external": [
+   "Mathlib",
+   "Schoenflies"
+  ],
+  "cone_lines": 272799
+ },
+ {
+  "family": "072",
+  "title": "Brennan's conjecture and a counterexample to Kraetzer's prediction",
+  "headline_formalized": "full",
+  "challenges": [
+   "Brennan",
+   "BrennanSharp",
+   "StrictMeans"
+  ],
+  "gap_note": "Brennan's conjecture and the strict Kraetzer bound are stated; the sharp spectrum identity B_S(t) = |t|-1 is stated only at t = -2, not for all t <= -2.",
+  "suspicious_defs": [
+   "Custom integral-means spectrum: `beta f t := limsup_{r→1⁻} log(integralMean f t r) / log(1/(1-r))` and `spectrum t := sSup {b | ∃ f, Schlicht f ∧ beta f t = b}` in `EReal` (standard definition, checked); `kraetzerPrediction p := if |p| ≤ 2 then p^2/4 else |p| - 1`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 15740
+ },
+ {
+  "family": "073",
+  "title": "The Falconer distance conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "PlanarFalconer",
+   "FalconerAllDimensions"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 185097
+ },
+ {
+  "family": "076",
+  "title": "Ultraflat real Littlewood polynomials",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "AsymptoticallyMinimalLittlewood",
+   "LittlewoodFiniteFlatness"
+  ],
+  "gap_note": "Only max-modulus <= (1+eta)sqrt(N) and L^p (finite p) flatness are stated; uniform ultraflatness (two-sided, sup norm), merit factor -> infinity and the disproof of Turyn's conjecture are not. Two of the three index papers (Oct 5) are not linked in docs.",
+  "suspicious_defs": [],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 9712
+ },
+ {
+  "family": "081",
+  "title": "The David--Semmes Riesz-transform problem in higher codimension",
+  "headline_formalized": "full",
+  "challenges": [
+   "RieszQuantitative"
+  ],
+  "gap_note": "None for the headline; uniform n-rectifiability is encoded as big pieces of Lipschitz images (standard equivalent form). The variation / principal-value corollary is not stated.",
+  "suspicious_defs": [
+   "`ADRegularWithConstant`, `RieszL2BoundedWithConstant` (real-valued f, vector-valued hard truncation `truncated`), `BallImageConclusion` are custom but standard in form; `AdmissibleRadius` uses `Metric.ediam μ.support`"
+  ],
+  "external": [
+   "FixedPointTheorems",
+   "Mathlib"
+  ],
+  "cone_lines": 65638
+ },
+ {
+  "family": "082",
+  "title": "Maximal and variational bounds for the triangular Hilbert transform",
+  "headline_formalized": "partial",
+  "challenges": [
+   "TriangularHilbert"
+  ],
+  "gap_note": "Maximal L^3 x L^3 -> L^{3/2} bound only; annular r-variation (r > 2), a.e./norm convergence and the trilinear symmetric-point estimate are not stated.",
+  "suspicious_defs": [
+   "`maximal F G z := if GoodPoint F G z then ⨆ E : Endpoints, ENNReal.ofReal ‖truncation F G E z‖ else 0` (junk value 0 off the good set; the statement itself asserts `∀ᵐ z, GoodPoint F G z`)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 10861
+ },
+ {
+  "family": "083",
+  "title": "Stein's conjecture for Hilbert transforms along Lipschitz directions",
+  "headline_formalized": "full",
+  "challenges": [
+   "LipschitzHilbert"
+  ],
+  "gap_note": "None; statement is exactly the short-scale uniform bound plus principal-value/weak-type consequences (not the full-scale Stein conjecture).",
+  "suspicious_defs": [
+   "`smoothPrincipalValue` extends the symmetric quotient at 0 by `Function.update ... 0 (deriv g 0)` (custom, correct for Schwartz f); file temporarily removes/re-adds the instance `instCommCStarAlgebraComplex` to fix scalar-multiplication elaboration (harmless hack)"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 185580
+ },
+ {
+  "family": "084",
+  "title": "The geometric case of the Erd\\H{o}s similarity conjecture",
+  "headline_formalized": "partial",
+  "challenges": [
+   "DyadicAvoidance"
+  ],
+  "gap_note": "Only q = 1/2 (dyadic) is stated; the geometric-progression case for every ratio q in (0,1) is not.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 8455
+ },
+ {
+  "family": "085",
+  "title": "Endpoint regularity of the planar centered maximal function",
+  "headline_formalized": "full",
+  "challenges": [
+   "SignedFiniteBand",
+   "DiskMaximal"
+  ],
+  "gap_note": "None; the BV extension is not claimed (docs). Weak gradients are encoded by hand (`HasWeakGradient` against C_c^∞ test functions), which is the standard definition.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 19397
+ },
+ {
+  "family": "087",
+  "title": "The Mahler conjectures and symplectic width",
+  "headline_formalized": "full",
+  "challenges": [
+   "MahlerConjecture",
+   "SymmetricMahlerEquality",
+   "GeneralMahler",
+   "SymmetricPolar"
+  ],
+  "gap_note": "Symmetric and general Mahler with all equality cases and the Gromov width 4 are stated; the sharp functional Mahler inequalities of the summary are not.",
+  "suspicious_defs": [
+   "Custom but standard encodings: `coordinatePolar` (polar w.r.t. the dot product), `IsHanner`/`hannerJoin`/`hannerProduct`, `volumeProduct := sInf (... '' interior K)`, `HasSymplecticEmbedding` (C^∞ on U, embedding, `omega0` pullback condition) and `gromovWidth := sSup {c | HasSymplecticEmbedding (capacityBall n c) U}` with capacity π r^2"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 40205
+ },
+ {
+  "family": "088",
+  "title": "Petty's projection-volume conjecture and simplex counterexamples",
+  "headline_formalized": "partial",
+  "challenges": [
+   "PettyProjectionVolume",
+   "ProjectionCounterexample",
+   "ProjectionVolume"
+  ],
+  "gap_note": "Petty (n >= 4, with ellipsoid equality case) fully stated; the product-of-simplices counterexample is stated only in dimension 20 (ratio 1.015...), not the exponential factor in every sufficiently large dimension; the full Lutwak-Petty inequality family is not stated.",
+  "suspicious_defs": [
+   "Projection body defined by hand: `projectionBody K := {x | ∀ u, ‖u‖ = 1 → ⟪u, x⟫ ≤ shadowVolume K u}` with `shadowVolume` the `volume` of the orthogonal projection on the subtype `(span {u})ᗮ` (three files use slightly different encodings: `volume` on the subtype vs `Measure.euclideanHausdorffMeasure (d - 1)`), and `simplexConstant d := (d+1) * d^d / d!` in `ProjectionVolume` is an asserted value for the simplex, not computed in the statement"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 13670
+ },
+ {
+  "family": "089",
+  "title": "Bounded-distortion $L_1$ embeddings of planar and bounded-treewidth graphs",
+  "headline_formalized": "full",
+  "challenges": [
+   "PlanarL1",
+   "BoundedTreewidthL1"
+  ],
+  "gap_note": "Both L1-embedding theorems are stated; the flow-cut-gap corollary is not. Planarity is a hand-rolled topological drawing predicate.",
+  "suspicious_defs": [
+   "`IsPlanar` is a custom 'drawing by simple plane arcs' predicate (injective points, `arc u v h : C(unitInterval, ℝ × ℝ)` per oriented edge, interiors of arcs of distinct unoriented edges disjoint); `HasTreeDecomposition` and `graphDistance := sInf (range walkLength)` are also hand-rolled; both read as standard"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 33806
+ },
+ {
+  "family": "090",
+  "title": "Universal optimality of the triangular lattice",
+  "headline_formalized": "partial",
+  "challenges": [
+   "AtomicGaussian",
+   "TriangularEnergy",
+   "TriangularGaussian",
+   "PlanarPacking"
+  ],
+  "gap_note": "Universal minimality of the triangular lattice for lower-limit energy per particle is stated; the renormalized Riesz (0<s<2) and Coulomb minimality, the Sandier-Serfaty and Brauchart-Hardin-Saff (spherical log energy) claims are not.",
+  "suspicious_defs": [
+   "Custom `energy`/`diskEnergy` (liminf of per-particle disk energy in ℝ≥0∞, with `diskPoints := if h : finite then h.toFinset else ∅`), `DensityOne`, `latticeEnergy := ∑'` over nonzero lattice points; `AtomicGaussian`/`TriangularGaussian` carry a huge bespoke 'atomic construction' (explicit rational constants such as `h = 17/50`, `H = 27/50`, residue list, 20x23 jet matrices) inside the conclusion `HasAtomicConstruction α f`, unreadable as a statement"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 916202
+ },
+ {
+  "family": "091",
+  "title": "The logarithmic Brunn--Minkowski conjecture",
+  "headline_formalized": "partial",
+  "challenges": [
+   "LogBrunnMinkowski"
+  ],
+  "gap_note": "Only the Lebesgue-volume log-Brunn-Minkowski inequality; the scalar-dilation B-conjecture for even log-concave measures and the L_p Brunn-Minkowski inequality for 0<p<1 are not stated.",
+  "suspicious_defs": [
+   "`wulff f := {x | ∀ u, ‖u‖ = 1 → ⟪x, u⟫ ≤ f u}` and `support K u := sSup (image of ⟪·,u⟫ on K)` define the log combination by hand (standard Wulff-shape definition); ENNReal `^` with real exponent `1 - t` on volumes"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 24490
+ },
+ {
+  "family": "092",
+  "title": "The optimal order of convex-body covering density",
+  "headline_formalized": "full",
+  "challenges": [
+   "SingleLatticeCovering",
+   "CoveringDensity"
+  ],
+  "gap_note": "None; the lower bound for centrally symmetric bodies is stated for the translative supremum too (hence for the lattice one).",
+  "suspicious_defs": [
+   "Hand-rolled density notions: `euclideanVolume` (pushforward of product Lebesgue measure), `euclideanCovolume`, `thetaL`, `thetaT` with `upperCenterIntensity := limsup #(X ∩ cube R) / (2R)^n`; standard in form"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 40097
+ },
+ {
+  "family": "094",
+  "title": "Subpolynomial dimension reduction in $L_p$",
+  "headline_formalized": "full",
+  "challenges": [
+   "SubpolynomialLp"
+  ],
+  "gap_note": "None; both the subpolynomial upper bound and the quadratic exact-embedding bounds are stated for every p > 1, p != 2.",
+  "suspicious_defs": [
+   "`dimension p n D := sInf {d | GoodDimension p n D d}` is a natural-number infimum (junk 0 if empty); the statement itself asserts `GoodDimension ... (dimension ...)`, ruling that out"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 7844
+ },
+ {
+  "family": "095",
+  "title": "Hyperbolicity cones without semidefinite lifts",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "HyperbolicCones"
+  ],
+  "gap_note": "Only the generalized Lax disproof (cone is not spectrahedral, no auxiliary variables); the Projected Lax disproof (not a spectrahedral shadow, no lift at all) is not stated, and the companion paper shows the formalized cone does have an exact semidefinite lift.",
+  "suspicious_defs": [
+   "`cone := {x | ∀ t : ℂ, (linePolynomial x).aeval t = 0 → t.im = 0 ∧ 0 ≤ t.re}` (closed hyperbolicity cone defined via roots of `t ↦ p(t e - x)`, standard) and the polynomial itself via `matrixValue`/`phi`/`adjugate`; only homogeneous pencils `L : Ambient →ₗ Sym N` are excluded"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 5649
+ },
+ {
+  "family": "096",
+  "title": "The Gaussian propeller conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "GaussianPropeller"
+  ],
+  "gap_note": "Sharp 9/(8 pi) bound and attainment are stated; the NP-hardness of improving the kernel-clustering loss factor (a consequence combined with the Unique Games theorem) is not.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 11622
+ },
+ {
+  "family": "097",
+  "title": "The Euclidean Steinitz--Bergstr\\\"om conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "SteinitzBergstrom"
+  ],
+  "gap_note": "Signed-prefix and zero-sum reordering bounds with an absolute constant are stated; the matching Omega(sqrt d) lower bound (optimal order) is not.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 15082
+ },
+ {
+  "family": "098",
+  "title": "A negative answer to the Lang--Plaut problem",
+  "headline_formalized": "full",
+  "challenges": [
+   "DoublingHilbert",
+   "CompactBanach"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 4664
+ },
+ {
+  "family": "099",
+  "title": "The sharp distortion of edit distance into $\\ell_1$",
+  "headline_formalized": "full",
+  "challenges": [
+   "EditDistance",
+   "FiniteCircle",
+   "BinaryEditLower",
+   "TreeEdit"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [
+   "Hand-rolled `distortion ρ f := sSup {‖f x - f y‖/ρ x y} * sSup {ρ x y/‖f x - f y‖}` and `leastDistortion := sInf (range distortion)` over injective maps into `lp 1` (standard distortion; junk values only for degenerate sets with fewer than two points)"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 25424
+ },
+ {
+  "family": "100",
+  "title": "A counterexample to Bang's cylinder-covering bound",
+  "headline_formalized": "full",
+  "challenges": [
+   "CylinderCovering",
+   "TriangularCovering",
+   "RuledCovering"
+  ],
+  "gap_note": "None for the headline; the aggregate file additionally states ruled-set and radial-sweep approximation results.",
+  "suspicious_defs": [
+   "`CylinderCovering.lean` contains ten `run_cmd Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.setState env {}` lines (environment-resetting metaprogramming inside a challenge file; a memory/performance hack that does not change statements)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 70623
+ },
+ {
+  "family": "102",
+  "title": "The Unique Games Conjecture and optimal approximation thresholds",
+  "headline_formalized": "full",
+  "challenges": [
+   "UniqueGamesTheorem",
+   "OptimalMaxCut",
+   "VertexCover",
+   "MinUncut",
+   "DirectedFeedback"
+  ],
+  "gap_note": "None found; all five hardness statements are formalized as polynomial-time (Mathlib TM2, finite stack alphabets) Karp gap reductions from binary 3SAT (or an arbitrary NP verifier language), which is the standard NP-hardness encoding. Cone is ~190k lines and uses 'Std'/'Lean' (core) only; the OptimalMaxCut axiom_files flag is a comment-only false positive.",
+  "suspicious_defs": [
+   "Complexity notions are Mathlib's `Turing.TM2ComputableInPolyTime` (note: Mathlib's `FinTM2` only forces the input stack alphabet to be finite, so every challenge adds `finiteAlphabet : ∀ k, Finite (computation.tm.Γ k)`), outputs are measured in explicit unary/binary encodings (`gameBits` writes every number in unary); `alphaGW` is defined as an `sInf` over ρ ∈ [-1,1) (equals the GW constant, checked); `InNP` is the certificate definition via `NPVerifier` with a polynomial `witnessBound`"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib",
+   "Std"
+  ],
+  "cone_lines": 188149
+ },
+ {
+  "family": "104",
+  "title": "Quasipolynomial algorithms for mean-payoff, stochastic and parity games",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "TruffetCounterexample",
+   "RandomizedMeanPayoff"
+  ],
+  "gap_note": "Only a randomized (error 1/8) quasipolynomial algorithm for the winning set; the deterministic algorithm, exact values/optimal positional strategies, turn-based stochastic games and mean-payoff-parity games (two of four index papers) are not stated. TruffetCounterexample is a side negative result.",
+  "suspicious_defs": [
+   "Custom 3-tape randomized Turing machine (`structure Machine`, `step`, `run M code random`, one random bit per step, alphabet `Option Bool`, heads in ℤ) with `T` existentially quantified per input and `time = number of steps`; standard in form but NOT Mathlib's TM model, so 'quasipolynomial bit time' rests on this hand-rolled definition. Mean payoff is `liminf` of running averages and strategies are history-dependent (`Strategy G := List (Fin G.m) → ...`), both standard"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 27355
+ },
+ {
+  "family": "105",
+  "title": "The 2-to-1 Games Conjecture with perfect completeness",
+  "headline_formalized": "full",
+  "challenges": [
+   "PerfectCompleteness"
+  ],
+  "gap_note": "None; NP-hardness is encoded as a polynomial-time Karp gap reduction from binary 3SAT (Mathlib TM2 model, finite stack alphabets).",
+  "suspicious_defs": [
+   "Same Mathlib `TM2ComputableInPolyTime` + `FiniteAlphabet` encoding as family 102; instances are multigraphs (edge list with repeats), outputs written with unary `encodeWord`"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib",
+   "Std"
+  ],
+  "cone_lines": 257263
+ },
+ {
+  "family": "106",
+  "title": "Hardness of coloring three-colorable graphs",
+  "headline_formalized": "full",
+  "challenges": [
+   "IndependentSets"
+  ],
+  "gap_note": "Independent-set gap reduction stated for every 0<delta<1/3; the 'NP-hard to c-color a 3-colorable graph' corollary is not separately stated (one-line consequence).",
+  "suspicious_defs": [
+   "Same Mathlib `TM2ComputableInPolyTime` + `finiteAlphabets` encoding; `reduce` is only constrained on `formulaBits φ` inputs (soundness/completeness quantify over `φ : Formula`, not all bit strings); the proof cone contains `opaque` parameter constants (e.g. `OAI/Combinatorics/IndependentSets/PCP/TableIteration.lean:38 degreeData`, `Gap.lean:128 fixedWalkParameter`), which are sound (arbitrary inhabitants, not axioms)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 94095
+ },
+ {
+  "family": "107",
+  "title": "Matrix multiplication with exponent at most $9/4$",
+  "headline_formalized": "full",
+  "challenges": [
+   "MatrixMultiplication",
+   "MatrixFields"
+  ],
+  "gap_note": "ω(C) <= 9/4, α > 0.465 and ω(F) < 2.371054886006746 for every field are stated; 'ω < 2.258 outside finitely many positive characteristics' is not. Exponents are sInf of uniform-constant, non-uniform straight-line program families (standard).",
+  "suspicious_defs": [
+   "`omega F := sInf {τ | AdmissibleExponent F τ}` is only meaningful if the set is nonempty and bounded below (true: τ = 3 admissible, and cost ≥ n² forces τ ≥ 2; junk value 0 otherwise); `complexAlpha := sSup {k ∈ [0,1] | rectangularOmega ℂ k = 2}`; the first-conjunct-only reading of `omega_lt_source_constant` is padded with a pure numeric inequality `2.371054886006746 < 2.371056`"
+  ],
+  "external": [
+   "FixedPointTheorems",
+   "Lean",
+   "Mathlib",
+   "Std"
+  ],
+  "cone_lines": 181751
+ },
+ {
+  "family": "108",
+  "title": "A cubic permanent--determinant lower bound",
+  "headline_formalized": "full",
+  "challenges": [
+   "PermanentCubic",
+   "SmoothInitialForm"
+  ],
+  "gap_note": "None; the algebraic-branching-program consequences are not stated (docs). Border complexity is encoded as sequential coefficientwise limits (equivalent to Zariski closure here).",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 20739
+ },
+ {
+  "family": "110",
+  "title": "Optimal-order randomized $k$-server on arbitrary metrics",
+  "headline_formalized": "full",
+  "challenges": [
+   "KServer",
+   "UniformKServer"
+  ],
+  "gap_note": "Both the arbitrary-metric O(log^2 (k+1)) bound and the uniform polynomial-time implementation on finite rational metrics (2 <= k < n) are stated; the matching lower bound and any polynomial bound on the additive constant are not (docs: constant not claimed polynomially bounded).",
+  "suspicious_defs": [
+   "Hand-rolled bit-operation model for the uniform claim: `BitMachine`/`BitAction`/`MachineState` (read-only input tape, `tapes` work tapes over `Option Bool`, `emit`, `yield`), run for exactly `requestBudget c e L t := c * (L + Nat.clog 2 (t+1) + 1)^e` coin flips per request with a deterministic `boot` of `polynomialBudget` steps; not Mathlib's TM model. KServer's `definition_names` list 9 definitions that the solution must reproduce exactly"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 50260
+ },
+ {
+  "family": "111",
+  "title": "One-sample matroid prophet inequalities against an almighty adversary",
+  "headline_formalized": "full",
+  "challenges": [
+   "MatroidProphet",
+   "MatroidSecretary"
+  ],
+  "gap_note": "None; the hidden-vector selection result (constant 2^{-293}) is an extra supporting statement.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 25927
+ },
+ {
+  "family": "112",
+  "title": "Beyond the square-root exponent for depth-three circuits",
+  "headline_formalized": "full",
+  "challenges": [
+   "DepthThree"
+  ],
+  "gap_note": "None; as the docs say, no fixed exponent n^{1/2+eps} and no unrestricted-depth bound is asserted.",
+  "suspicious_defs": [
+   "Polynomial time is measured on a hand-rolled `FiniteMultiTapeMachine` (finite tapes/alphabet/states, Mathlib `Turing.Tape`, `MultiTapeHaltsIn` = halts within `C*(|w|+1)^a` steps), not Mathlib's `TM2ComputableInPolyTime`; the circuit class `Circuit3` is a custom inductive encoding with free negations/constants (standard)"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 24309
+ },
+ {
+  "family": "113",
+  "title": "Approximate counting and the perfect-matching entropy conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "MatchingFPRAS",
+   "MatchingEntropy",
+   "BinaryMatching",
+   "SingletonLoopMatching",
+   "MatchingEntropyBounds",
+   "TriangleFace"
+  ],
+  "gap_note": "None for the FPRAS and the pointwise entropy bounds; the sharp face-dimension bound is not stated (TriangleFace is only the triangle-expansion face correspondence).",
+  "suspicious_defs": [
+   "Randomized machine is hand-rolled: `RandomMachine` (single finite transition table on `Turing.Tape (Fin 8)`, one fair coin per tick, tick = one write/move via `Turing.TM0.Stmt`), input encoded sparsely with binary `encodeNat`; `maxMatchingEntropy := sSup (entropy '' feasibleLaws y)` (nonempty and bounded on the matching polytope)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 66246
+ },
+ {
+  "family": "114",
+  "title": "Approximate counting of common integer polymatroid bases",
+  "headline_formalized": "partial",
+  "challenges": [
+   "CommonBasesFPRAS"
+  ],
+  "gap_note": "Matroid special case only (independence oracles, equal ranks); the integer-polymatroid FPRAS with binary capacities and rank-value oracles, and the variants for common independent sets of other cardinalities/unequal ranks, are not stated.",
+  "suspicious_defs": [
+   "Hand-rolled oracle register machine: `Instruction` = push/pop/coin/query/halt over `Fin (k+8)` bit-list registers with counters `oracleCalls`/`bitOperations`; a `query` on a register of length ≠ n silently outputs 0 and stops; `ExactOracles` says the oracle answers independence of the characteristic vector exactly; `inputLength` counts n and r in binary while the resource bound is polynomial in n itself"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 26126
+ },
+ {
+  "family": "115",
+  "title": "Sampling and counting contingency tables with arbitrary margins",
+  "headline_formalized": "full",
+  "challenges": [
+   "ContingencyTables"
+  ],
+  "gap_note": "None material; counting statement assumes equal row/column totals (unequal totals, which also admit no table, are not required to output 0).",
+  "suspicious_defs": [
+   "Machine model is the hand-rolled `RandomMachine` (single-tape Post-Turing table over `Fin 8`, one fair coin per tick) shared with the matching FPRAS file; 'expected polynomial time' is `tsum (1 - haltMass t)`, 'uniform' is `tableMass → 1/card (Table r c)`, 'almost uniform' is total variation `(∑ |tableMass - 1/card|)/2`; `OutputsTable` uses an explicit `@Fin.instInhabited 8 alphabetSize_neZero` instance hack"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 191813
+ },
+ {
+  "family": "116",
+  "title": "Uniform identity testing for noncommutative formulas",
+  "headline_formalized": "partial",
+  "challenges": [
+   "FormulaHitting",
+   "RationalHitting"
+  ],
+  "gap_note": "Characteristic-zero existence of one hitting tuple (no complexity claim) and the poly-time rational hitting lists are stated; positive-characteristic constructions and the polynomial-bit-time bound for the single tuple are not.",
+  "suspicious_defs": [
+   "`Hits` quantifies over `Admissible`/`Nonzero` formulas via a hand-rolled relational `Eval` (inverse requires an actual two-sided inverse of the evaluated operand); machine is Mathlib `Turing.TM0.Machine (Fin 4) (Fin (m+1))` with unary input `n,1,s` (time polynomial in n + s, not in a binary length)"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib"
+  ],
+  "cone_lines": 15304
+ },
+ {
+  "family": "117",
+  "title": "Uniform sparsest cut: hardness and semidefinite gaps",
+  "headline_formalized": "partial",
+  "challenges": [
+   "UniformSparsestCut"
+  ],
+  "gap_note": "Only the Goemans-Linial integrality gap (real capacities, along a sequence of n); the NP-hardness of constant-factor approximation (the summary's first claim) is not stated.",
+  "suspicious_defs": [
+   "`NegativeType d` is `∃ x : Fin n → EuclideanSpace ℝ (Fin n), d i j = ‖x i - x j‖^2` plus triangle inequalities (n dimensions suffice, standard); `OPT`/`glValue` are `sInf`s over sets that must be nonempty and bounded below (true)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 9934
+ },
+ {
+  "family": "118",
+  "title": "Unbounded bin-packing gaps and the modified integer round-up conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "BinPackingGap"
+  ],
+  "gap_note": "None; P/NP are defined by Mathlib TM2 poly-time deciders and the certificate definition (`InNP`).",
+  "suspicious_defs": [
+   "`PEqualsNP := ClassP = ClassNP` with `ClassP` via `TM2ComputableInPolyTime` deciders (+ finite alphabet) and `ClassNP` via `CookLevin.InNP` certificate verifiers; LP values are `sInf` over fractional covers (nonempty, bounded below)"
+  ],
+  "external": [
+   "Lean",
+   "Mathlib",
+   "Std"
+  ],
+  "cone_lines": 158527
+ },
+ {
+  "family": "119",
+  "title": "The Courtade--Kumar and Hellinger conjectures",
+  "headline_formalized": "partial",
+  "challenges": [
+   "CourtadeKumar",
+   "SoftChannel204"
+  ],
+  "gap_note": "Courtade-Kumar (with attainment) and the soft/biased-Boolean mutual-information contraction are stated; the Hellinger conjecture is not.",
+  "suspicious_defs": [
+   "Information-theoretic quantities are re-implemented by hand (`mutualInformation` with an `if 0 < joint` guard and natural logs divided by `ell := Real.log 2`, `psi`, `H`, `psiInv := Function.invFunOn psi (Set.Icc 0 1)`, `production`, `hybrid`), not Mathlib objects; the SoftChannel statement also bundles seven properties (FullMain)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 11590
+ },
+ {
+  "family": "121",
+  "title": "Almost-linear expected-time approximation of edit distance",
+  "headline_formalized": "full",
+  "challenges": [
+   "EditApproximation"
+  ],
+  "gap_note": "Statement matches the summary (2/3 success, (1+eps) estimate, expected work (N+2)^(1+eta), poly space), but the 'expected time' is a hand-instrumented work counter in a 19k-line bespoke model with no link to a RAM/TM semantics; it should be treated as unaudited for the complexity claim (the correctness/probability part is meaningful). Not audited line by line.",
+  "suspicious_defs": [
+   "Bespoke cost model: `integerBinaryWorkRawBand := computedFullOutputWork ...` built from `...WithWork` functions with hard-coded charges (e.g. `def trimBitWordWithWork : List Bool → List Bool × ℕ | bit :: bits => ... (…, tail.2 + 3)`, `queryInsertWithWork ... (…, test.2 + 2)`) and `inductive BitQuery | read (key) (next) | charge (work : ℕ) (next)`; 'random' is a `Measure` (`computedFullLaw`, `rejectionRuntimeArrayLaw`), not random bits; the integer-symbol coding `integerSymbolCode` and `BinaryFraction` for ε are custom; the file also carries `attribute [local instance]` plumbing and ~1,200 declarations that the theorem statement silently depends on"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 137267
+ },
+ {
+  "family": "122",
+  "title": "Superpolynomial lower bounds and quasipolynomial reconstruction from deletion traces",
+  "headline_formalized": "partial",
+  "challenges": [
+   "TraceReconstruction"
+  ],
+  "gap_note": "Only the lower bounds (superpolynomial and n^{c log(q^3 log n)}) are stated; the quasipolynomial uniform decoder and the polynomial small-deletion-probability regime are not.",
+  "suspicious_defs": [
+   "`sampleComplexity n q s := sInf {m | ∃ estimator A, IsEstimator A ∧ ∀ x, s ≤ reconstructionSuccess q A x}` in ℝ≥0∞ (estimator = arbitrary map from m traces to a probability vector over words, success averaged exactly over deletion masks; standard)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 33984
+ },
+ {
+  "family": "124",
+  "title": "Polynomial-time scheduling on three identical machines",
+  "headline_formalized": "full",
+  "challenges": [
+   "ThreeMachine"
+  ],
+  "gap_note": "None; the polynomial exponent (150020) is explicit, the machine is fixed before the instance.",
+  "suspicious_defs": [
+   "Hand-rolled multi-tape Turing machine (`Machine k q g`, `Configuration`, `Machine.step`/`run`/`Produces`, tapes via Mathlib `Turing.Tape (Fin (g + 3))`) instead of Mathlib's `TM2ComputableInPolyTime`; the formula's time bound is on this model's step count"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 18572
+ },
+ {
+  "family": "125",
+  "title": "The approximation threshold for metric $k$-median",
+  "headline_formalized": "full",
+  "challenges": [
+   "KMedianRecovery",
+   "KMedianRefinedRecovery",
+   "KMedianThreshold",
+   "MetricKMedian"
+  ],
+  "gap_note": "None; the hardness half is proven inside the `threshold` theorem under `PNeNP` (as the summary says 'assuming P != NP').",
+  "suspicious_defs": [
+   "Complexity classes are hand-defined from Mathlib `TM2ComputableInPolyTime` with a `FinitePolyTime` finite-alphabet clause: `P`, `NP` (certificate form with `encodePair`) and `PNeNP := P ≠ NP`; `approximationFactors` is a set of reals whose `sInf` must be nonempty/bounded below (true: ≥ 1)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 72493
+ },
+ {
+  "family": "126",
+  "title": "Exponential semidefinite complexity of perfect matching",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "MatchingAffineLift",
+   "MatchingPSD"
+  ],
+  "gap_note": "Superpolynomial (n^C for every C) lower bounds for exact affine SDP lifts and the unshifted PSD rank only; exponential size and the fixed-shift (0<rho<1) PSD-rank statements are not stated (superpolynomial still answers Rothvoss' polynomial-size question).",
+  "suspicious_defs": [
+   "`psdRank n := sInf {r | 0 < r ∧ HasFactorization n r}` over real PSD factors of the (unshifted) matching slack matrix with `slack` defined on edge and odd-cut rows (`Crosses`, `crossingCount`); `IsPerfectMatching` by exactly one incident edge per vertex"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 7542
+ },
+ {
+  "family": "127",
+  "title": "The asymptotic Gotsman--Linial conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "GotsmanLinial"
+  ],
+  "gap_note": "None; the exact-extremizer form of the Gotsman-Linial conjecture is not claimed.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 4022
+ },
+ {
+  "family": "128",
+  "title": "A factor-two approximation for shortest common superstring",
+  "headline_formalized": "full",
+  "challenges": [
+   "Superstring"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [
+   "Polynomial time via Mathlib `TM2ComputableInPolyTime` plus a finite-alphabet clause (standard for this repo); symbols are arbitrary bit lists so the alphabet is unbounded, as the summary intends"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 20361
+ },
+ {
+  "family": "129",
+  "title": "Exponential state costs for two-way automata",
+  "headline_formalized": "full",
+  "challenges": [
+   "TwoWayComplementation",
+   "TwoWayDeterminization",
+   "OneWayLiveness"
+  ],
+  "gap_note": "None; alphabet is `SetRel (Fin (n-2)) (Fin (n-2))` (resp. `BRel (Fin h)`), so no alphabet-independent polynomial bound, exactly as the summary says.",
+  "suspicious_defs": [
+   "Hand-rolled 2-way automata (`TwoNFA`, `DMachine`, `NMachine`) with endmarkers, stay moves and acceptance by an existential finite run (`FiniteRun positive`), a convention that differs from textbook halting-acceptance (documented in the docs and handled via the `positive` flag); `((n - 4) / 127)` is natural-number floor division in the exponent"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 8477
+ },
+ {
+  "family": "130",
+  "title": "Fourier transforms below $n\\log n$",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "ExactFourier"
+  ],
+  "gap_note": "Existence of exact DFT circuits with < c n log2 n gates for infinitely many n (every c > 0) only; no O(n (log n)^{1-delta}) bound for every n, no explicit delta, and the non-uniform circuit model charges nothing for preparing the scalars (the summary's model counts scalar preparation and indexing).",
+  "suspicious_defs": [
+   "Non-uniform scalar-circuit model: `Gate := add | sub | scale (c : ℂ)` with arbitrary complex constants charged one gate each and no cost for creating `c` (e.g. roots of unity); outputs name existing wires (`outputs : Fin n → Fin (n + 1 + size)`); `fourierMatrix n j k := zeta n ^ (j*k)`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 19103
+ },
+ {
+  "family": "131",
+  "title": "Polynomial mixing of graph switches with prescribed degrees",
+  "headline_formalized": "full",
+  "challenges": [
+   "SwitchChain"
+  ],
+  "gap_note": "Mixing time <= 2 n^8 (TV 1/4, worst-case start), spectral gap, TV bound and connectivity are stated; the exact uniform sampler (expected polynomial bit time) is not.",
+  "suspicious_defs": [
+   "Mixing is defined by hand: `kernelPow` (matrix powers via sums over `allGraphStates`), `tvDistanceFrom := (1/2) ∑ |P^t(G,H) - 1/|Ω||`, `MixedAt`, `mixingTime := Nat.find h` (the proof argument `h` is part of the statement), `hasSpectralGapAtLeast` via Dirichlet form; standard in content, no Mathlib Markov-chain objects"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 22691
+ },
+ {
+  "family": "132",
+  "title": "A counterexample to the quadratic sensitivity conjecture",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "SensitivitySeparation"
+  ],
+  "gap_note": "Unbounded ratio bs/s^2 only; the fixed exponent alpha > 2 (bs >= s^alpha) of the summary is not stated in the challenge even though the docs claim it.",
+  "suspicious_defs": [
+   "`blockSensitivityAt f x := Finset.univ.sup (fun blocks => if pairwise disjoint nonempty sensitive blocks then blocks.card else 0)` and `sensitivity := sup of sensitivityAt` are standard; the ratio is real division, so `sensitivity f = 0` would make the inequality false rather than vacuous"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 3836
+ },
+ {
+  "family": "133",
+  "title": "The complexity of Weisfeiler--Leman refinement",
+  "headline_formalized": "full",
+  "challenges": [
+   "ParityLifts",
+   "WLIdentification",
+   "WeisfeilerLeman",
+   "VariableWL"
+  ],
+  "gap_note": "None; all three headline claims are stated. The conditional running-time exclusions are not (docs).",
+  "suspicious_defs": [
+   "Hand-rolled computation models: `TM` (multi-tape, fixed finite tables, halting states 1/2), a `RAM` with logarithmic word width (`WordWidth.logarithmic`), memory `Word w → Word w`, `compute (op : WordOperation R)` where a whole word operation (any map implemented by a TM within `constant * (w+1)^exponent`) counts as one instruction and one `step` runs a finite instruction tree; `InEXPTIME` (`2^(c (n+1)^d)` steps), `PolytimeReduces`/`PolytimeManyOne`, `EXPTIMEComplete`; WL colors are canonical nested multisets (`Color c k t`) with `Equivalent := ∀ t, histogram G t = histogram H t`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 24602
+ },
+ {
+  "family": "134",
+  "title": "Generalized star height at most three",
+  "headline_formalized": "full",
+  "challenges": [
+   "GeneralizedStarHeight"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 11956
+ },
+ {
+  "family": "135",
+  "title": "Sharp homogeneous depth-five complexity of matrix products",
+  "headline_formalized": "full",
+  "challenges": [
+   "DepthFive"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [
+   "`Depth5Circuit` is a bespoke structure (leaf/bottom/lower/middle/upper/output arrays with `bottomHomogeneous`, `middleHomogeneous`, `outputHomogeneous` degree-equality fields) and `circuitSize` counts all nodes; homogeneity is syntactic and the model charges nodes, not wires"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 20323
+ },
+ {
+  "family": "139",
+  "title": "Subpolynomial queries for log-concave sampling",
+  "headline_formalized": "full",
+  "challenges": [
+   "LogConcaveQuery"
+  ],
+  "gap_note": "None; the claim is about the number of exact value-and-gradient queries only (no time/bit-cost statement), as in the summary.",
+  "suspicious_defs": [
+   "Hand-rolled oracle model (`OracleAlgorithm`, `OracleAlgorithm.history`/`run`, `TVAtMost := ∀ s measurable, |μ s - ν s| ≤ ε`, `queryComplexity := sInf` over feasible integer budgets in ℕ∞); non-uniform in d (one algorithm per (d, q))"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 63748
+ },
+ {
+  "family": "140",
+  "title": "Memory--sample lower bounds for noiseless Gaussian regression",
+  "headline_formalized": "full",
+  "challenges": [
+   "MemoryPrecision",
+   "NoiselessRegression",
+   "PosteriorReplicas",
+   "GaussianFiniteEntropy",
+   "GaussianInformation",
+   "ProjectionMoments",
+   "GaussianReplacement",
+   "SubsphereCurrent"
+  ],
+  "gap_note": "None for the headline; supporting results are in separate files. The learner model gives the learner a free shared seed at every step (a stronger model, so the lower bound is stronger).",
+  "suspicious_defs": [
+   "Bespoke finite-memory learner model (`Learner`, `RunStatus`, `Admissible` bundling several `AEMeasurable` hypotheses, `angularError := arccos ⟪ŝ, s⟫`, `uniformSphere` via `Measure.toSphere`); `GaussianInformation.lean` also introduces `local instance ambientSub/ambientInner` re-defining `Sub`/`Inner` on `EuclideanSpace` (supporting file)"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 16263
+ },
+ {
+  "family": "143",
+  "title": "Uniform limit-cycle bounds in Hilbert's sixteenth problem",
+  "headline_formalized": "partial",
+  "challenges": [
+   "QuinticLienard"
+  ],
+  "gap_note": "Only the quintic Lienard system x' = y - F(x), y' = -x (at most 2 limit cycles, exactly 2 attained); the general uniform boundedness theorem for planar polynomial vector fields of degree n is not stated.",
+  "suspicious_defs": [
+   "`IsLimitCycle F C := IsPeriodicOrbit F C ∧ ∃ U open ⊇ C, ∀ periodic orbits C' ⊆ U, C' = C` (isolated nonconstant periodic orbit, standard); counts via `Set.encard`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 16659
+ },
+ {
+  "family": "144",
+  "title": "Banach's simple Lebesgue-spectrum problem",
+  "headline_formalized": "full",
+  "challenges": [
+   "ThreeTorus"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [
+   "`Smooth` is hand-defined by local smooth lifts through `project : (Fin 3 → ℝ) → Torus` with `ContDiffOn ℝ ((⊤ : ℕ∞) : WithTop ℕ∞)` (C^∞, not analytic); `meanZero` is a hand-built `Submodule` of `Lp ℂ 2 μ`"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 33818
+ },
+ {
+  "family": "145",
+  "title": "Rokhlin's multiple-mixing problem",
+  "headline_formalized": "full",
+  "challenges": [
+   "Rokhlin"
+  ],
+  "gap_note": "None.",
+  "suspicious_defs": [
+   "Hand-written `timeMap`, `IsMixing`, `layoutTime`, `MixingOfOrder` (all four are required `definition_names`); all-pairwise-gaps-diverge is encoded as `atTop` on `Fin (k-1) → ℕ+` (product order), standard"
+  ],
+  "external": [
+   "Mathlib"
+  ],
+  "cone_lines": 27889
+ }
+]

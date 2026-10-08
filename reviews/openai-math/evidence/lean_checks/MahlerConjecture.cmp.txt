@@ -1,0 +1,15 @@
+CMP OAI.SymmetricMahler.symmetric_mahler [thm] ok
+CMP OAI.SymmetricMahler.coordinatePolar [def] ok
+@Chal.SymmetricMahler.symmetric_mahler : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ {K : Set (Fin n → ℝ)},
+      IsCompact K →
+        Convex ℝ K →
+          (∀ x ∈ K, -x ∈ K) →
+            (interior K).Nonempty →
+              4 ^ n / ↑n.factorial ≤
+                (MeasureTheory.volume K).toReal * (MeasureTheory.volume (Chal.SymmetricMahler.coordinatePolar K)).toReal
+def Chal.SymmetricMahler.coordinatePolar.{u_1} : {I : Type u_1} → [Fintype I] → Set (I → ℝ) → Set (I → ℝ) :=
+fun {I} [Fintype I] K => {p | ∀ v ∈ K, ∑ i, p i * v i ≤ 1}
+'OAI.SymmetricMahler.symmetric_mahler' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MahlerConjecture comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

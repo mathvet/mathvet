@@ -1,0 +1,17 @@
+== EntangledGames comparator start 2026-10-07T07:52:42Z
+Building ComparatorChallenges.EntangledGames
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.EntangledGames
+⚠ [8924/8924] Built ComparatorChallenges.EntangledGames (62s)
+warning: ComparatorChallenges/EntangledGames.lean:64:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.EntangledGames -- Quot Quot.mk Quot.lift Quot.ind OAI.ThresholdParallelRepetition.threshold_parallel_repetition propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.ThresholdParallelRepetition.threshold_parallel_repetition, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.EntangledGames
+Building OAI.Probability.EntangledGames.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Probability.EntangledGames.Main
+Build completed successfully (8953 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Probability.EntangledGames.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.ThresholdParallelRepetition.threshold_parallel_repetition propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.ThresholdParallelRepetition.threshold_parallel_repetition, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Probability.EntangledGames.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-07T08:08:19Z

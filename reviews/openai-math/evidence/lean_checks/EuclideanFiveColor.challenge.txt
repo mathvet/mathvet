@@ -1,0 +1,4 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_EuclideanFiveColor.lean:10:8: warning: declaration uses `sorry`
+OAI.EuclideanFiveColor.no_proper_five_coloring : ¬∃ coloring, OAI.EuclideanFiveColor.ProperColoring 5 coloring
+def OAI.EuclideanFiveColor.ProperColoring : (colorCount : ℕ) → (ℂ → Fin colorCount) → Prop :=
+fun colorCount coloring => ∀ (point otherPoint : ℂ), ‖point - otherPoint‖ = 1 → coloring point ≠ coloring otherPoint

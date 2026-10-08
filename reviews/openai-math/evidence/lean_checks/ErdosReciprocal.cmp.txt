@@ -1,0 +1,13 @@
+CMP OAI.Erdos3.manuscriptReciprocalProgressionTheorem [thm] ok
+CMP OAI.Erdos3.ReciprocalProgressionTheorem [def] ok
+CMP OAI.Erdos3.HasAP [def] ok
+CMP OAI.Erdos3.reciprocalTerm [def] ok
+Chal.Erdos3.manuscriptReciprocalProgressionTheorem : Chal.Erdos3.ReciprocalProgressionTheorem
+def Chal.Erdos3.HasAP : Set ℕ → ℕ → Prop :=
+fun A k => ∃ a d, 0 < d ∧ ∀ i < k, a + i * d ∈ A
+def Chal.Erdos3.reciprocalTerm : Set ℕ → ℕ → ℝ :=
+fun A n => if n ∈ A then (↑n)⁻¹ else 0
+def Chal.Erdos3.ReciprocalProgressionTheorem : Prop :=
+∀ (A : Set ℕ), ¬Summable (Chal.Erdos3.reciprocalTerm A) → ∀ (k : ℕ), Chal.Erdos3.HasAP A k
+'OAI.Erdos3.manuscriptReciprocalProgressionTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ErdosReciprocal comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

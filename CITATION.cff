@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "MathVet: independent fidelity reviews of AI-generated formal mathematics"
+message: "If you use the review or the dataset, cite it as below and state the upstream commit you relied on."
+type: dataset
+authors:
+  - name: "MathVet"
+    website: "https://math.vet"
+repository-code: "https://github.com/ceshanon/mathvet"
+url: "https://math.vet"
+license: Apache-2.0
+date-released: "2026-10-08"
+version: "2026-10-08"
+abstract: "Per-family verdicts on whether the Lean Comparator challenge statements in openai/math (commit adc7f124) state the headline claims of their result families, with the repository's own scope notes, build and Comparator logs, a pre-registered referee protocol, and a 405-row paired dataset of challenge statements and paper theorems. Pre-referee at this version."

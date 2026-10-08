@@ -1,0 +1,46 @@
+== GotsmanLinial  module=OAI.Combinatorics.GotsmanLinial.Main  start=2026-10-07T01:58:27Z
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+✔ [3184/3205] Built OAI.Combinatorics.GotsmanLinial.Model (3.5s)
+✔ [3185/3205] Built OAI.Combinatorics.GotsmanLinial.BinomialMoments (3.8s)
+✔ [3186/3205] Built OAI.Combinatorics.GotsmanLinial.ScalarIncrements (3.9s)
+✔ [3187/3205] Built OAI.Combinatorics.GotsmanLinial.HilbertSchmidt (3.9s)
+✔ [3188/3205] Built OAI.Combinatorics.GotsmanLinial.ProjectionTrace (3.7s)
+✔ [3189/3205] Built OAI.Combinatorics.GotsmanLinial.Statement (2.6s)
+✔ [3190/3205] Built OAI.Combinatorics.GotsmanLinial.FiniteCoupling (2.4s)
+✔ [3191/3205] Built OAI.Combinatorics.GotsmanLinial.ProjectionBlocks (4.3s)
+✔ [3192/3205] Built OAI.Combinatorics.GotsmanLinial.Walsh (3.5s)
+✔ [3193/3205] Built OAI.Combinatorics.GotsmanLinial.CoordinateMultipliers (4.3s)
+✔ [3194/3205] Built OAI.Combinatorics.GotsmanLinial.BlockCoupling (4.9s)
+✔ [3195/3205] Built OAI.Combinatorics.GotsmanLinial.Commutator (4.9s)
+✔ [3196/3205] Built OAI.Combinatorics.GotsmanLinial.WalshDimensions (4.1s)
+✔ [3197/3205] Built OAI.Combinatorics.GotsmanLinial.PolynomialDegree (4.1s)
+✔ [3198/3205] Built OAI.Combinatorics.GotsmanLinial.CubeOperators (4.3s)
+✔ [3199/3205] Built OAI.Combinatorics.GotsmanLinial.CoordinateDegree (3.3s)
+✔ [3200/3205] Built OAI.Combinatorics.GotsmanLinial.SignParity (3.9s)
+✔ [3201/3205] Built OAI.Combinatorics.GotsmanLinial.WeightedGrading (4.8s)
+✔ [3202/3205] Built OAI.Combinatorics.GotsmanLinial.EdgeRecovery (3.5s)
+✔ [3203/3205] Built OAI.Combinatorics.GotsmanLinial.GradingShift (3.9s)
+✔ [3204/3205] Built OAI.Combinatorics.GotsmanLinial.BlockVanishing (3.0s)
+✔ [3205/3205] Built OAI.Combinatorics.GotsmanLinial.Main (2.7s)
+Build completed successfully (3205 jobs).
+== build rc=0 seconds=29
+{"theorems": ["OAI.LeanBlast.GotsmanLinial.gotsmanLinialStatement"], "defs": ["OAI.LeanBlast.GotsmanLinial.Cube", "OAI.LeanBlast.GotsmanLinial.cubeCoord", "OAI.LeanBlast.GotsmanLinial.flip", "OAI.LeanBlast.GotsmanLinial.thresholdSign", "OAI.LeanBlast.GotsmanLinial.sensitiveVertices", "OAI.LeanBlast.GotsmanLinial.averageSensitivity", "OAI.LeanBlast.GotsmanLinial.IsMultilinear", "OAI.LeanBlast.GotsmanLinial.polynomialValue", "OAI.LeanBlast.GotsmanLinial.polynomialThreshold", "OAI.LeanBlast.GotsmanLinial.GotsmanLinialStatement"], "json_theorems": ["OAI.LeanBlast.GotsmanLinial.gotsmanLinialStatement"], "missing_from_parse": []}
+TYPES/DEFS DIFFER GotsmanLinial
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_GotsmanLinial.lean:49:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.LeanBlast.GotsmanLinial.gotsmanLinialStatement' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-07T01:59:06Z

@@ -1,0 +1,57 @@
+== EntangledGames  module=OAI.Probability.EntangledGames.Main  start=2026-10-07T01:53:44Z
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+✔ [8924/8953] Built OAI.Probability.EntangledGames.Model (13s)
+✔ [8925/8953] Built OAI.Probability.EntangledGames.Basic (14s)
+✔ [8926/8953] Built OAI.Probability.EntangledGames.Resolvent (14s)
+✔ [8927/8953] Built OAI.Probability.EntangledGames.SpectralEntropy (21s)
+✔ [8928/8953] Built OAI.Probability.EntangledGames.Purification (11s)
+✔ [8929/8953] Built OAI.Probability.EntangledGames.MeasurementTransport (9.0s)
+✔ [8930/8953] Built OAI.Probability.EntangledGames.HilbertSchmidt (8.3s)
+✔ [8931/8953] Built OAI.Probability.EntangledGames.SpectralBins (8.3s)
+✔ [8932/8953] Built OAI.Probability.EntangledGames.CoherentFilters (7.9s)
+✔ [8933/8953] Built OAI.Probability.EntangledGames.SamplingStrategy (14s)
+✔ [8934/8953] Built OAI.Probability.EntangledGames.CorrelatedSampling (6.1s)
+✔ [8935/8953] Built OAI.Probability.EntangledGames.FiniteProbability (5.7s)
+✔ [8936/8953] Built OAI.Probability.EntangledGames.RelativeEntropy (5.3s)
+✔ [8937/8953] Built OAI.Probability.EntangledGames.Resampling (5.4s)
+✔ [8938/8953] Built OAI.Probability.EntangledGames.EffectExposure (5.3s)
+✔ [8939/8953] Built OAI.Probability.EntangledGames.MixedExposure (5.1s)
+✔ [8940/8953] Built OAI.Probability.EntangledGames.ExposureChain (7.4s)
+✔ [8941/8953] Built OAI.Probability.EntangledGames.BlockStates (5.5s)
+✔ [8942/8953] Built OAI.Probability.EntangledGames.FreshStates (10s)
+✔ [8943/8953] Built OAI.Probability.EntangledGames.ExposureData (6.7s)
+✔ [8944/8953] Built OAI.Probability.EntangledGames.Refinement (9.4s)
+✔ [8945/8953] Built OAI.Probability.EntangledGames.ExposureErrors (7.1s)
+✔ [8946/8953] Built OAI.Probability.EntangledGames.Rounding (6.4s)
+✔ [8947/8953] Built OAI.Probability.EntangledGames.RepeatedModel (5.6s)
+✔ [8948/8953] Built OAI.Probability.EntangledGames.TestMoments (5.0s)
+✔ [8949/8953] Built OAI.Probability.EntangledGames.ConditionedStep (6.9s)
+✔ [8950/8953] Built OAI.Probability.EntangledGames.TestExtraction (5.2s)
+✔ [8951/8953] Built OAI.Probability.EntangledGames.ExponentialBounds (6.9s)
+✔ [8952/8953] Built OAI.Probability.EntangledGames.StrategyBridge (4.0s)
+✔ [8953/8953] Built OAI.Probability.EntangledGames.Main (4.8s)
+Build completed successfully (8953 jobs).
+== build rc=0 seconds=265
+{"theorems": ["OAI.ThresholdParallelRepetition.threshold_parallel_repetition"], "defs": ["OAI.ThresholdParallelRepetition.Game", "OAI.ThresholdParallelRepetition.Strategy", "OAI.ThresholdParallelRepetition.Strategy.born", "OAI.ThresholdParallelRepetition.SingleStrategy", "OAI.ThresholdParallelRepetition.successProbability", "OAI.ThresholdParallelRepetition.entangledValue", "OAI.ThresholdParallelRepetition.RepeatedStrategy", "OAI.ThresholdParallelRepetition.wins", "OAI.ThresholdParallelRepetition.thresholdProbability", "OAI.ThresholdParallelRepetition.thresholdValue"], "json_theorems": ["OAI.ThresholdParallelRepetition.threshold_parallel_repetition"], "missing_from_parse": []}
+TYPES/DEFS DIFFER EntangledGames
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_EntangledGames.lean:64:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+112a108,109
+> Classical.choice,
+> Quot.sound]
+AXIOMS: 'OAI.ThresholdParallelRepetition.threshold_parallel_repetition' depends on axioms: [propext, 
+== end=2026-10-07T01:58:27Z

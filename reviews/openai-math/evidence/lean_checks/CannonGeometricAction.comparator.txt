@@ -1,0 +1,17 @@
+== CannonGeometricAction comparator start 2026-10-07T15:56:28Z
+Building ComparatorChallenges.CannonGeometricAction
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.CannonGeometricAction
+⚠ [8924/8924] Built ComparatorChallenges.CannonGeometricAction (7.3s)
+warning: ComparatorChallenges/CannonGeometricAction.lean:89:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.CannonGeometricAction -- Quot Quot.mk Quot.lift Quot.ind OAI.CannonRelease.cannon propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.CannonRelease.cannon, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.CannonGeometricAction
+Building OAI.Geometry.Cannon.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Geometry.Cannon.Main
+Build completed successfully (9222 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Geometry.Cannon.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.CannonRelease.cannon propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.CannonRelease.cannon, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Geometry.Cannon.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-07T16:01:40Z

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathVet — referee protocol</title>
+<meta name="description" content="MathVet: independent, pre-referee fidelity reviews of AI-generated Lean formalizations. Does the Lean statement say what the paper claims?">
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});"></script>
+
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="">MathVet<span>does the Lean statement say what the paper claims?</span></a>
+  <nav>
+    <a href="" class="">Review: openai/math</a>
+    <a href="openai-math/" class="">Fidelity table</a>
+    <a href="openai-math/challenges.html" class="">Challenges</a>
+    <a href="protocol.html" class="active">Referee protocol</a>
+    <a href="https://github.com/ceshanon/mathvet">GitHub</a>
+  </nav>
+</div></header>
+<main>
+<article class="prose"><h1 id="referee-protocol-error-rate-of-the-mathvet-verdicts-on-openaimath">Referee protocol — error rate of the MathVet verdicts on openai/math</h1>
+<p><em>Pre-registered 8 October 2026, before any family in the sample was re-read by a referee. The thresholds below are not revised after data.</em></p>
+<h2 id="what-is-measured">What is measured</h2>
+<p>Each of the 235 families with Lean in <code>openai/math</code> (commit <code>adc7f124</code>) carries one MathVet verdict in {<code>full</code>, <code>partial</code>, <code>weaker-statement</code>, <code>supporting-only</code>} about whether its Comparator challenge statements state the family's headline claim (the overview summary). The verdicts came from one model-assisted pass per family. The quantity measured here is the <strong>family-level error rate</strong> of those verdicts: the fraction of families on which the adjudicated referee verdict differs from the MathVet verdict, estimated on a stratified sample and weighted to the population. A secondary number, the binary <code>full</code> versus not-<code>full</code> disagreement rate, is reported alongside.</p>
+<h2 id="the-sample-frozen">The sample (frozen)</h2>
+<p>40 families, listed in <a href="reviews/openai-math/sample.txt"><code>reviews/openai-math/sample.txt</code></a> (SHA-256 in <code>sample.sha256</code>), composed of:</p>
+<ul>
+<li><strong>12 with certainty</strong>: the families whose repository scope notes already document a divergence between headline and Lean (197, 261, 266, 281, 247, 262, 207, 267, 307, 157, 159, 365). They are the cases most likely to be argued about, so they are all in.</li>
+<li><strong>14 drawn at random</strong> from the other 79 non-<code>full</code> families.</li>
+<li><strong>14 drawn at random</strong> from the 144 <code>full</code> families.</li>
+</ul>
+<p>The draw is seeded with the reviewed commit hash and reproduced by <code>reviews/openai-math/draw_sample.py</code>; the script refuses to overwrite a differing <code>sample.txt</code>.</p>
+<h2 id="the-referees">The referees</h2>
+<p>Two named research mathematicians who read Lean, neither an author of the reviewed formalization nor affiliated with a lab whose work MathVet reviews, classify all 40 families independently. A named third referee adjudicates every disagreement between the two. Each referee receives, per family: the overview summary (the headline), the repository's scope note <code>lean/docs/NNN.md</code>, every linked challenge <code>.lean</code> file, the paper's main theorem at file and line, and nothing from MathVet (no verdict, no note). They apply the rubric below and record a class and one sentence of justification. A timed three-family pilot precedes the full run. Referees are paid at their stated rate; their names, rates and hours are published with the result. Consent in writing is obtained before the pilot.</p>
+<h2 id="the-rubric-identical-to-the-one-used-for-the-original-pass">The rubric (identical to the one used for the original pass)</h2>
+<p>The verdict is about the summary's primary (first-named) claim.</p>
+<ul>
+<li><code>full</code>: the Lean statement(s) imply that claim after unpacking definitions or one routine step; name the step.</li>
+<li><code>partial</code>: only a special case is stated, or a second co-equal headline claim (joined by "also", "and", "complementary theorem") has no challenge statement. A mere corollary or application ("together with X this shows") does not make a verdict <code>partial</code>.</li>
+<li><code>weaker-statement</code>: the Lean statement does not imply the primary claim (a nontrivially weaker statement).</li>
+<li><code>supporting-only</code>: the Lean states a lemma or auxiliary result, not the headline.</li>
+<li><code>none</code>: nothing in the summary is covered.</li>
+</ul>
+<p>When the scope note and the Lean disagree, the Lean wins. Non-standard definitions are noted but do not by themselves change the class.</p>
+<h2 id="the-estimate-and-the-decision-lines">The estimate and the decision lines</h2>
+<p>Let $e_c$ be the error fraction among the 26 non-<code>full</code> sample families and $e_f$ among the 14 <code>full</code> ones. The published estimate is $\hat e = \tfrac{91}{235}\,e_c + \tfrac{144}{235}\,e_f$, with an 80% Wilson interval computed on the pooled 40 as an approximation. Lines fixed in advance:</p>
+<ul>
+<li><strong>PASS</strong>, $\hat e \le 0.10$: the table carries "referee-verified sample; family-level error rate $\hat e$ [interval]".</li>
+<li><strong>KILL</strong>, $\hat e \ge 0.20$: the table is publicly relabelled "first-pass map, unverified"; the referee-verified subset is published as such.</li>
+<li><strong>RETEST</strong>, otherwise: 20 more families are drawn with the same method and strata; the pooled 60 decide with the same lines; if still in between, the rate is published with its interval and no label is claimed.</li>
+</ul>
+<p>Power of the design, computed before data (<code>b1-thresholds.py</code> below): if the true error rates are 5% (non-full) and 3% (full), P(PASS) = 0.94; at 30% / 15%, P(KILL) = 0.53 and P(RETEST) = 0.44; at 40% / 20%, P(KILL) = 0.85. A sample of 40 cannot certify a rate below about 5%; the number is published with its interval for that reason.</p>
+<h2 id="publication">Publication</h2>
+<p>The rate, its interval, the per-family referee classes, the adjudications and the referees' names are published in this repository whatever the result shows, with a target date of <strong>29 October 2026</strong>. Verdicts that the referees overturn are corrected in the table with a changelog entry naming the change. Until then every verdict is labelled pre-referee and no MathVet prose assigns a verdict class to a named family.</p>
+<h2 id="derivation-code">Derivation code</h2>
+<pre><code class="language-python">from math import comb, sqrt
+W_C, W_F = 91/235, 144/235          # stratum weights
+N_C, N_F = 26, 14                   # sample sizes per stratum
+def binom(n, k, p): return comb(n, k) * p**k * (1-p)**(n-k)
+def dist(true_c, true_f):
+    pr = {&quot;pass&quot;: 0.0, &quot;kill&quot;: 0.0, &quot;retest&quot;: 0.0}
+    for kc in range(N_C + 1):
+        for kf in range(N_F + 1):
+            p = binom(N_C, kc, true_c) * binom(N_F, kf, true_f)
+            e = W_C * kc / N_C + W_F * kf / N_F
+            pr[&quot;pass&quot; if e &lt;= 0.10 else &quot;kill&quot; if e &gt;= 0.20 else &quot;retest&quot;] += p
+    return pr
+def wilson(k, n, z=1.2816):         # 80% interval
+    p = k/n; den = 1 + z*z/n; c = (p + z*z/(2*n))/den
+    h = z*sqrt(p*(1-p)/n + z*z/(4*n*n))/den
+    return max(0, c-h), min(1, c+h)
+for tc, tf in [(0.05, 0.03), (0.10, 0.05), (0.20, 0.10), (0.30, 0.15), (0.40, 0.20)]:
+    print(tc, tf, dist(tc, tf))
+for k in (2, 4, 6, 8, 10):
+    print(k, '/40 -&gt;', wilson(k, 40))
+</code></pre></article>
+</main>
+<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>adc7f124</code>; generated 2026-10-08T03:38:01Z. Corrections: <a href="https://github.com/ceshanon/mathvet/issues">open an issue</a>.</div></footer>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+CMP OAI.ThompsonNonamenability.thompson_F_nonamenable_composition [thm] ok
+CMP OAI.ThompsonNonamenability.InvariantMean [ind] ok
+CMP OAI.ThompsonNonamenability.InvariantMean.mk [ctor] ok
+CMP OAI.ThompsonNonamenability.leftPull [def] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_6 [thm] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_2 [thm] ok
+CMP OAI.ThompsonNonamenability.BoundedReal [def] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_5 [thm] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_1 [thm] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_4 [thm] ok
+CMP OAI.ThompsonNonamenability.leftPull._proof_3 [thm] ok
+CMP OAI.ThompsonNonamenability.HasDyadicPLPieces [def] ok
+CMP OAI.ThompsonNonamenability.DyadicPLWitness [ind] ok
+CMP OAI.ThompsonNonamenability.DyadicPLWitness.mk [ctor] ok
+CMP OAI.ThompsonNonamenability.IntervalHomeomorph.toHomeomorph [def] ok
+CMP OAI.ThompsonNonamenability.IntervalHomeomorph [ind] ok
+CMP OAI.ThompsonNonamenability.IntervalHomeomorph.mk [ctor] ok
+CMP OAI.ThompsonNonamenability.UnitInterval [def] ok
+CMP OAI.ThompsonNonamenability.IsDyadic [def] ok
+CMP OAI.ThompsonNonamenability.IsDyadic._proof_1 [thm] ok
+CMP OAI.ThompsonNonamenability.unitIntervalOne [def] ok
+CMP OAI.ThompsonNonamenability.unitIntervalOne._proof_1 [thm] ok
+CMP OAI.ThompsonNonamenability.unitIntervalZero [def] ok
+CMP OAI.ThompsonNonamenability.unitIntervalZero._proof_1 [thm] ok
+CMP OAI.ThompsonNonamenability.F [def] ok
+Chal.ThompsonNonamenability.thompson_F_nonamenable_composition : ∃ group,
+  (∀ (h g : Chal.ThompsonNonamenability.F) (x : ↑Chal.ThompsonNonamenability.UnitInterval),
+      (↑(h * g)).toHomeomorph x = (↑h).toHomeomorph ((↑g).toHomeomorph x)) ∧
+    ¬Nonempty (Chal.ThompsonNonamenability.InvariantMean Chal.ThompsonNonamenability.F)
+@[reducible] def Chal.ThompsonNonamenability.UnitInterval : Set ℝ :=
+Set.Icc 0 1
+def Chal.ThompsonNonamenability.unitIntervalZero : ↑Chal.ThompsonNonamenability.UnitInterval :=
+⟨0, Chal.ThompsonNonamenability.unitIntervalZero._proof_1⟩
+def Chal.ThompsonNonamenability.unitIntervalOne : ↑Chal.ThompsonNonamenability.UnitInterval :=
+⟨1, Chal.ThompsonNonamenability.unitIntervalOne._proof_1⟩
+structure Chal.ThompsonNonamenability.IntervalHomeomorph : Type
+number of parameters: 0
+fields:
+  Chal.ThompsonNonamenability.IntervalHomeomorph.toHomeomorph : ↑Chal.ThompsonNonamenability.UnitInterval ≃ₜ
+      ↑Chal.ThompsonNonamenability.UnitInterval
+constructor:
+  Chal.ThompsonNonamenability.IntervalHomeomorph.mk
+    (toHomeomorph : ↑Chal.ThompsonNonamenability.UnitInterval ≃ₜ ↑Chal.ThompsonNonamenability.UnitInterval) :
+    Chal.ThompsonNonamenability.IntervalHomeomorph
+def Chal.ThompsonNonamenability.IsDyadic : ℝ → Prop :=
+fun x => ∃ k n, x = ↑k / 2 ^ n
+structure Chal.ThompsonNonamenability.DyadicPLWitness (f : Chal.ThompsonNonamenability.IntervalHomeomorph) : Type
+number of parameters: 1
+fields:
+  Chal.ThompsonNonamenability.DyadicPLWitness.pieceCount : ℕ
+  Chal.ThompsonNonamenability.DyadicPLWitness.positive : 0 < self.pieceCount
+  Chal.ThompsonNonamenability.DyadicPLWitness.knots : Fin (self.pieceCount + 1) →
+      ↑Chal.ThompsonNonamenability.UnitInterval
+  Chal.ThompsonNonamenability.DyadicPLWitness.strictMono_knots : StrictMono self.knots
+  Chal.ThompsonNonamenability.DyadicPLWitness.first : self.knots 0 = Chal.ThompsonNonamenability.unitIntervalZero
+  Chal.ThompsonNonamenability.DyadicPLWitness.last : self.knots (Fin.last self.pieceCount) =
+      Chal.ThompsonNonamenability.unitIntervalOne
+  Chal.ThompsonNonamenability.DyadicPLWitness.dyadic : ∀ (i : Fin (self.pieceCount + 1)),
+      Chal.ThompsonNonamenability.IsDyadic ↑(self.knots i)
+  Chal.ThompsonNonamenability.DyadicPLWitness.cover : ∀ (x : ↑Chal.ThompsonNonamenability.UnitInterval),
+      ∃ i, self.knots i.castSucc ≤ x ∧ x ≤ self.knots i.succ
+  Chal.ThompsonNonamenability.DyadicPLWitness.exponent : Fin self.pieceCount → ℤ
+  Chal.ThompsonNonamenability.DyadicPLWitness.affine : ∀ (i : Fin self.pieceCount)
+      (x : ↑Chal.ThompsonNonamenability.UnitInterval),
+      self.knots i.castSucc ≤ x →
+        x ≤ self.knots i.succ →
+          ↑(f.toHomeomorph x) =
+            ↑(f.toHomeomorph (self.knots i.castSucc)) + 2 ^ self.exponent i * (↑x - ↑(self.knots i.castSucc))
+constructor:
+  Chal.ThompsonNonamenability.DyadicPLWitness.mk {f : Chal.ThompsonNonamenability.IntervalHomeomorph} (pieceCount : ℕ)
+    (positive : 0 < pieceCount) (knots : Fin (pieceCount + 1) → ↑Chal.ThompsonNonamenability.UnitInterval)
+    (strictMono_knots : StrictMono knots) (first : knots 0 = Chal.ThompsonNonamenability.unitIntervalZero)
+    (last : knots (Fin.last pieceCount) = Chal.ThompsonNonamenability.unitIntervalOne)
+    (dyadic : ∀ (i : Fin (pieceCount + 1)), Chal.ThompsonNonamenability.IsDyadic ↑(knots i))
+    (cover : ∀ (x : ↑Chal.ThompsonNonamenability.UnitInterval), ∃ i, knots i.castSucc ≤ x ∧ x ≤ knots i.succ)
+    (exponent : Fin pieceCount → ℤ)
+    (affine :
+      ∀ (i : Fin pieceCount) (x : ↑Chal.ThompsonNonamenability.UnitInterval),
+        knots i.castSucc ≤ x →
+          x ≤ knots i.succ →
+            ↑(f.toHomeomorph x) = ↑(f.toHomeomorph (knots i.castSucc)) + 2 ^ exponent i * (↑x - ↑(knots i.castSucc))) :
+    Chal.ThompsonNonamenability.DyadicPLWitness f
+def Chal.ThompsonNonamenability.HasDyadicPLPieces : Chal.ThompsonNonamenability.IntervalHomeomorph → Prop :=
+fun f => Nonempty (Chal.ThompsonNonamenability.DyadicPLWitness f)
+def Chal.ThompsonNonamenability.F : Type :=
+{ f // StrictMono ⇑f.toHomeomorph ∧ Chal.ThompsonNonamenability.HasDyadicPLPieces f }
+@[reducible] def Chal.ThompsonNonamenability.BoundedReal.{uG} : (G : Type uG) → AddSubgroup (PreLp fun x => ℝ) :=
+fun G => lp (fun x => ℝ) ⊤
+def Chal.ThompsonNonamenability.leftPull.{uG} : {G : Type uG} →
+  [Group G] → G → ↥(Chal.ThompsonNonamenability.BoundedReal G) →ₗ[ℝ] ↥(Chal.ThompsonNonamenability.BoundedReal G) :=
+fun {G} [Group G] h => { toFun := fun f => ⟨fun g => ↑f (h * g), ⋯⟩, map_add' := ⋯, map_smul' := ⋯ }
+structure Chal.ThompsonNonamenability.InvariantMean.{uG} (G : Type uG) [Group G] : Type uG
+number of parameters: 2
+fields:
+  Chal.ThompsonNonamenability.InvariantMean.toLinearMap : ↥(Chal.ThompsonNonamenability.BoundedReal G) →ₗ[ℝ] ℝ
+  Chal.ThompsonNonamenability.InvariantMean.positive : ∀ (f : ↥(Chal.ThompsonNonamenability.BoundedReal G)),
+      (∀ (g : G), 0 ≤ ↑f g) → 0 ≤ self.toLinearMap f
+  Chal.ThompsonNonamenability.InvariantMean.normalized : self.toLinearMap 1 = 1
+  Chal.ThompsonNonamenability.InvariantMean.left_invariant : ∀ (h : G)
+      (f : ↥(Chal.ThompsonNonamenability.BoundedReal G)),
+      self.toLinearMap ((Chal.ThompsonNonamenability.leftPull h) f) = self.toLinearMap f
+constructor:
+  Chal.ThompsonNonamenability.InvariantMean.mk.{uG} {G : Type uG} [Group G]
+    (toLinearMap : ↥(Chal.ThompsonNonamenability.BoundedReal G) →ₗ[ℝ] ℝ)
+    (positive : ∀ (f : ↥(Chal.ThompsonNonamenability.BoundedReal G)), (∀ (g : G), 0 ≤ ↑f g) → 0 ≤ toLinearMap f)
+    (normalized : toLinearMap 1 = 1)
+    (left_invariant :
+      ∀ (h : G) (f : ↥(Chal.ThompsonNonamenability.BoundedReal G)),
+        toLinearMap ((Chal.ThompsonNonamenability.leftPull h) f) = toLinearMap f) :
+    Chal.ThompsonNonamenability.InvariantMean G
+'OAI.ThompsonNonamenability.thompson_F_nonamenable_composition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== ThompsonNonamenability comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, 

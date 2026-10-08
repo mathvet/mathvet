@@ -1,0 +1,20 @@
+CMP OAI.CirculantHadamard.exists_iff_order_one_or_four [thm] ok
+CMP OAI.CirculantHadamard.ExistsRealCirculantHadamard [def] ok
+CMP OAI.CirculantHadamard.IsSignHadamard [def] ok
+CMP OAI.CirculantHadamard.IsSign [def] ok
+CMP OAI.CirculantHadamard.RealMatrix [def] ok
+CMP OAI.CirculantHadamard.IsCirculant [def] ok
+Chal.CirculantHadamard.exists_iff_order_one_or_four : ∀ (n : ℕ),
+  0 < n → (Chal.CirculantHadamard.ExistsRealCirculantHadamard n ↔ n = 1 ∨ n = 4)
+def Chal.CirculantHadamard.IsSign.{u} : {R : Type u} → [One R] → [Neg R] → R → Prop :=
+fun {R} [One R] [Neg R] x => x = 1 ∨ x = -1
+@[reducible] def Chal.CirculantHadamard.RealMatrix : ℕ → Type :=
+fun n => Matrix (Fin n) (Fin n) ℝ
+def Chal.CirculantHadamard.IsCirculant : {n : ℕ} → Chal.CirculantHadamard.RealMatrix n → Prop :=
+fun {n} H => ∃ h, ∀ (i j : Fin n), H i j = h (j - i)
+def Chal.CirculantHadamard.IsSignHadamard : {n : ℕ} → Chal.CirculantHadamard.RealMatrix n → Prop :=
+fun {n} H => (∀ (i j : Fin n), Chal.CirculantHadamard.IsSign (H i j)) ∧ H * Matrix.transpose H = ↑n • 1
+def Chal.CirculantHadamard.ExistsRealCirculantHadamard : ℕ → Prop :=
+fun n => ∃ H, Chal.CirculantHadamard.IsCirculant H ∧ Chal.CirculantHadamard.IsSignHadamard H
+'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CirculantHadamard comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

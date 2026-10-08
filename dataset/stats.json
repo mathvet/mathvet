@@ -1,0 +1,227 @@
+{
+  "built_at": "2026-10-07T18:45:29Z",
+  "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+  "jsonl_bytes": 5898530,
+  "builder": "scripts/build_ml_pairs.py",
+  "builder_sha256": "c8ffe2d440194cf1c5d046edc00a5e5b659b24ff7dd283654961b9e020fca8de",
+  "params": {
+    "max_full_lines": 1000,
+    "keep_head_lines": 400,
+    "max_nl_blocks": 3,
+    "max_block_chars": 12000
+  },
+  "index_json_manuscript_repairs": [
+    "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
+    "Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026"
+  ],
+  "cone_check": {
+    "compared_with_import_cones_json": 405,
+    "differences": {
+      "ArtinParabolicIntersections": {
+        "import_cones_json": [
+          781,
+          73065
+        ],
+        "recomputed": [
+          782,
+          73097
+        ]
+      },
+      "HarmonicArtin": {
+        "import_cones_json": [
+          659,
+          62869
+        ],
+        "recomputed": [
+          660,
+          62901
+        ]
+      },
+      "WeakHessian": {
+        "import_cones_json": [
+          530,
+          64010
+        ],
+        "recomputed": [
+          542,
+          65542
+        ]
+      }
+    },
+    "axiom_files_flagged_in_json": {
+      "OccupiedOverlap": [
+        "OAI.RepresentationTheory.RowColumn.HookModel"
+      ],
+      "OptimalMaxCut": [
+        "OAI.Computability.MaxCut.Machines.Printer"
+      ],
+      "PartitionConsistency": [
+        "OAI.SetTheory.PartitionConsistency.Models.LocalRecords"
+      ]
+    }
+  },
+  "n_challenges": 405,
+  "n_families": 235,
+  "n_papers_in_lean_families": 467,
+  "n_lean_linked_papers": 330,
+  "fidelity_label_challenges": {
+    "full": 261,
+    "partial": 104,
+    "supporting-only": 15,
+    "weaker-statement": 25
+  },
+  "fidelity_label_families": {
+    "full": 144,
+    "partial": 60,
+    "supporting-only": 12,
+    "weaker-statement": 19
+  },
+  "fidelity_class_challenges": {
+    "full": 261,
+    "partial": 104,
+    "supporting": 15,
+    "weaker": 25
+  },
+  "nl_extraction_quality_challenges": {
+    "good": 399,
+    "partial": 6
+  },
+  "nl_extraction_quality_families": {
+    "all_challenges_good": 231,
+    "any_challenge_partial": 4,
+    "any_challenge_none": 0
+  },
+  "nl_first_block_reason": {
+    "first_theorem": 6,
+    "intro_first": 74,
+    "main_env": 1,
+    "main_label": 324
+  },
+  "nl_blocks_per_challenge": {
+    "1": 208,
+    "2": 102,
+    "3": 95
+  },
+  "papers_with_any_block": 467,
+  "papers_with_main_label_block": 388,
+  "challenges_one_to_one": 140,
+  "challenges_one_to_one_good_full": 81,
+  "challenges_good_and_full": 255,
+  "challenges_in_multi_challenge_families": 260,
+  "lean_truncated_challenges": [
+    "EditApproximation",
+    "SnakyCertificate",
+    "ThorpRouting",
+    "CKSBondiPenrose",
+    "CharacterCriterion",
+    "CoarseAssembly",
+    "ThomasonModelStructures",
+    "NavierStokesVelocity"
+  ],
+  "lean_targets_status": {
+    "ok": 405
+  },
+  "lean_target_counts": {
+    "theorems": 507,
+    "definitions": 45
+  },
+  "lean_without_sorry": [
+    "HarmonicGrowth"
+  ],
+  "lean_with_axiom_decl": [
+    "HarmonicGrowth"
+  ],
+  "lean_total_lines": 89411,
+  "lean_total_bytes": 4383001,
+  "cone_axiom_files_challenges": [],
+  "cone_third_party_packages": {
+    "AbsorptionCutoff": 2,
+    "BernoulliRegular": 1,
+    "ClassFieldTheory": 1,
+    "FixedPointTheorems": 3,
+    "Gromov": 1,
+    "PrimeNumberTheoremAnd": 14,
+    "RellichKondrachov": 6,
+    "Schoenflies": 1,
+    "SphereEversion": 1,
+    "StrongPNT": 6
+  },
+  "challenges_with_third_party_cone_dependency": 23,
+  "check_cmp": {
+    "none": 394,
+    "pass": 11
+  },
+  "check_comparator": {
+    "none": 402,
+    "pass": 3
+  },
+  "median_cone_oai_lines": 22691,
+  "fidelity_class_by_nl_quality": {
+    "full": {
+      "good": 255,
+      "partial": 6
+    },
+    "partial": {
+      "good": 104
+    },
+    "supporting": {
+      "good": 15
+    },
+    "weaker": {
+      "good": 25
+    }
+  },
+  "fidelity_class_by_one_to_one": {
+    "full": {
+      "one_to_one": 81,
+      "other": 180
+    },
+    "partial": {
+      "one_to_one": 36,
+      "other": 68
+    },
+    "supporting": {
+      "one_to_one": 10,
+      "other": 5
+    },
+    "weaker": {
+      "one_to_one": 13,
+      "other": 12
+    }
+  },
+  "lean_lines_total_quantiles": {
+    "median": 79,
+    "p90": 312,
+    "max": 19169
+  },
+  "challenges_by_family_size": {
+    "1": 145,
+    "2": 114,
+    "3": 42,
+    "4": 36,
+    "5": 15,
+    "6": 18,
+    "7": 14,
+    "8": 8,
+    "13": 13
+  },
+  "subjects": {
+    "Algebra": 9,
+    "Algebraic and complex geometry": 7,
+    "Combinatorics": 33,
+    "Convex and metric geometry": 13,
+    "Differential geometry": 15,
+    "Dynamical systems and ergodic theory": 9,
+    "Functional analysis": 10,
+    "Group theory": 12,
+    "Mathematical logic": 6,
+    "Mathematical physics": 17,
+    "Number theory": 16,
+    "Operator algebras": 14,
+    "Partial differential equations": 11,
+    "Probability and statistical mechanics": 19,
+    "Real and complex analysis": 9,
+    "Theoretical computer science": 32,
+    "Topology": 3
+  }
+}

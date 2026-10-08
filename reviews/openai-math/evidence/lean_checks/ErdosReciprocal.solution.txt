@@ -1,0 +1,8 @@
+OAI.Erdos3.manuscriptReciprocalProgressionTheorem : OAI.Erdos3.ReciprocalProgressionTheorem
+'OAI.Erdos3.manuscriptReciprocalProgressionTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Erdos3.HasAP : Set ℕ → ℕ → Prop :=
+fun A k => ∃ a d, 0 < d ∧ ∀ i < k, a + i * d ∈ A
+def OAI.Erdos3.reciprocalTerm : Set ℕ → ℕ → ℝ :=
+fun A n => if n ∈ A then (↑n)⁻¹ else 0
+def OAI.Erdos3.ReciprocalProgressionTheorem : Prop :=
+∀ (A : Set ℕ), ¬Summable (OAI.Erdos3.reciprocalTerm A) → ∀ (k : ℕ), OAI.Erdos3.HasAP A k

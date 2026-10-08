@@ -1,0 +1,942 @@
+[
+ {
+  "family": "146",
+  "title": "Sinai's positive-entropy conjecture for the standard map",
+  "headline_formalized": "full",
+  "challenges": [
+   "StandardMapComponents",
+   "StandardMapEntropy",
+   "StandardMapLyapunov"
+  ],
+  "gap_note": "`main_entropy : ∃ k₀ > 0, ∀ k ≥ k₀, 0 < metricEntropy area (standardMap k)` is the headline verbatim (full parameter tail); the Lyapunov and hyperbolic Bernoulli-component claims are also stated (Lyapunov, Components). Parameter is k·sin(2πx) on (ℝ/ℤ)², i.e. Chirikov K = 2πk, immaterial for 'k large'.",
+  "suspicious_defs": [
+   "`metricEntropy μ f := ⨆ r, ⨆ p : FinitePartition r, partitionEntropy μ f p` with `partitionEntropy := ⨅ n, ofReal (blockEntropy μ f p (n+1)/(n+1))`: custom (not in Mathlib); the inf form equals the usual limit only for measure-preserving f, which holds here (checked: the map is a composition of shears) but is not part of the statement",
+   "Two statement files (StandardMapComponents, StandardMapLyapunov) contain the meta command `run_cmd Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.setState env {}` (clears the aux-lemma cache; not a fidelity issue, but non-standard in a Comparator statement)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "StandardMapComponents": 54864,
+   "StandardMapEntropy": 24683,
+   "StandardMapLyapunov": 26018
+  }
+ },
+ {
+  "family": "148",
+  "title": "The dimension formula for self-similar measures on the line",
+  "headline_formalized": "full",
+  "challenges": [
+   "SelfSimilar",
+   "SelfSimilarCorollaries"
+  ],
+  "gap_note": "`entropy_rate_dimension` gives `lowerHausdorffDimension μ = ofReal (min 1 (entropyRate / lyapunov))` for every `System` (signed ratios 0<|r_i|<1, positive weights, arbitrary offsets) and every probability measure with μ = Σ w_i f_i μ, with no separation hypothesis, so exact overlaps are allowed. The two corollaries (homogeneous ratio, attractor formula under no exact overlaps) are stated in SelfSimilarCorollaries.",
+  "suspicious_defs": [
+   "`lowerHausdorffDimension μ := ⨅ E measurable with 0 < μ E, dimH E` (the inf-dimension, as the docs say; equals dim_H for the exact-dimensional self-similar measure)",
+   "`entropyRate S := sInf (range fun n => walkEntropy (n+1)/(n+1))` with `walkEntropy` the base-2 entropy of the law of the composed affine map (words with equal composition merged), and `lyapunov` also in base 2: custom but matches the standard h_RW/chi"
+  ],
+  "external": [],
+  "cone_lines": {
+   "SelfSimilar": 11278,
+   "SelfSimilarCorollaries": 12093
+  }
+ },
+ {
+  "family": "149",
+  "title": "Permanence for weakly reversible reaction networks",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "MassAction"
+  ],
+  "gap_note": "Lean gives, for each positive initial state x0, an ε = ε(N, κ, x0) with ε ≤ x_i(t) ≤ 1/ε for all t ≥ 0 (boundedness and persistence of each trajectory). The summary's permanence (a common compact convex forward-invariant absorbing set for every positive stoichiometric class, uniform over its trajectories) is not stated; docs admit 'the bound may depend on ... the initial state'.",
+  "suspicious_defs": [
+   "`IsGlobalForwardSolution N κ x0 x := x 0 = x0 ∧ ∀ t ≥ 0, HasDerivAt x (massAction N κ (x t)) t` (two-sided derivative at t = 0, harmless for forward solutions of a polynomial field)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "MassAction": 7758
+  }
+ },
+ {
+  "family": "150",
+  "title": "Weak mixing of irrational triangular billiards",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "IrrationalTriangleBilliard"
+  ],
+  "gap_note": "`MainConclusion` states ergodicity (a.e.-invariant measurable sets have measure 0 or 1), plus a.e. existence and uniqueness of flight chains, measure preservation and the a.e. flow law; weak mixing, the summary's headline, is strictly stronger and is not stated (docs also only say 'ergodic').",
+  "suspicious_defs": [
+   "`billiardFlow Q t z := if h : Nonempty (FlightChain Q z) then (Classical.choice h).at t else z` (flow defined by choice on chains; sound because the same statement proves chain uniqueness `∀ z c d : FlightChain Q z, c = d`; singular states are frozen)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "IrrationalTriangleBilliard": 12363
+  }
+ },
+ {
+  "family": "151",
+  "title": "A $C^1$ counterexample to Shub’s entropy conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "C1EntropyCounterexample"
+  ],
+  "gap_note": "Statement: ∃ q > 0 and a non-bijective C¹ self-map f of S¹ × (S²)^(q+1) (C¹ = locally the restriction of an ambient C¹ map) with `Dynamics.coverEntropy f univ = 0`, a nonzero v ∈ H₂(M;ℝ) with f_* v = 2v, and log 2 ≤ log(total real-homology spectral radius): exactly the summary's counterexample. Mathlib's coverEntropy is the topological entropy on compact metric spaces.",
+  "suspicious_defs": [
+   "`totalRealHomologySpectralRadius f := sSup {r | ∃ n a b u v, (u ≠ 0 ∨ v ≠ 0) ∧ f_* u = a•u − b•v ∧ f_* v = b•u + a•v ∧ r = √(a²+b²)}` (custom; moduli of complex eigenvalues over all degrees; if the set were unbounded sSup = 0 and the clause `log 2 ≤ log radius` would fail, so it cannot trivialise)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "C1EntropyCounterexample": 22878
+  }
+ },
+ {
+  "family": "152",
+  "title": "Zero entropy does not guarantee a smooth positive-volume model",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "SmoothObstruction"
+  ],
+  "gap_note": "`main` gives an ergodic invertible T on a standard nonatomic probability space with `FiniteKSEntropy` (all finite-partition entropy rates exist and share one real bound) and `¬ HasSmoothPositiveVolumeModel` (no C^∞ positive-density model on any compact manifold, closed of every dimension or with boundary); the summary's zero-entropy requirement is not stated (docs: 'the paper's stronger zero-entropy conclusion is outside this statement'), so the Lean is implied by the headline but does not imply it.",
+  "suspicious_defs": [
+   "`def FiniteKSEntropy μ T := ∃ C : ℝ, ∀ q (P : X → Fin (q+1)), Measurable P → ∃ h ≤ C, Tendsto (fun n => blockEntropy μ T P n / n) atTop (𝓝 h)`: custom; says sup of partition entropies is finite, not zero",
+   "`HasModelWith`/`SmoothPositiveDensity`/`ConullConjugate`: custom manifold-model encoding (density of `Measure.map (extChartAt I x)` against Lebesgue in every chart, conjugacy on invariant conull sets); read as standard"
+  ],
+  "external": [],
+  "cone_lines": {
+   "SmoothObstruction": 30090
+  }
+ },
+ {
+  "family": "155",
+  "title": "A counterexample to periodic tiling in dimension three",
+  "headline_formalized": "full",
+  "challenges": [
+   "PeriodicTilingThree"
+  ],
+  "gap_note": "One conjunction states all three parts: a nonempty finite T ⊆ ℤ³ with `Tiles T A` for some A but no `FullyPeriodic` (finite-index-subgroup invariant) tiling complement; the unit-cube thickening T + [0,1]³ a.e.-tiles ℝ³ by some arbitrary real translation set A but by none invariant under a full-rank lattice; and `IsLeast {d | HasTileWithoutPeriodicComplement d} 3` (minimality, which absorbs the d = 1, 2 periodicity theorems). `Tiles` is exact (bijective F × A → G) and the ℝ³ version uses closed cubes with `AETiles` (unique representation a.e.), matching the summary and docs.",
+  "suspicious_defs": [
+   "`abbrev Lattice (d : ℕ) := Fin d → ℤ` shadows Mathlib's `Lattice` class name inside the namespace (harmless; means ℤ^d)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "PeriodicTilingThree": 16899
+  }
+ },
+ {
+  "family": "156",
+  "title": "Borsuk's conjecture fails in dimension nine",
+  "headline_formalized": "full",
+  "challenges": [
+   "BorsukNine"
+  ],
+  "gap_note": "`main_theorem`: the set {uu^T : ‖u‖ = 1} ⊆ `EuclideanSpace ℝ (Fin 4 × Fin 4)` (Frobenius metric) is compact, lies in the trace-one symmetric matrices, has `Metric.diam = √2`, and admits no cover by ten sets of diameter < √2 (pieces taken inside the set, w.l.o.g.). The routine step not stated in Lean is that the trace-one symmetric 4×4 matrices form a 9-dimensional affine subspace (10 - 1), isometric to ℝ⁹.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "BorsukNine": 78964
+  }
+ },
+ {
+  "family": "157",
+  "title": "Counterexamples to the Hadwiger and Colin de Verdi\\`ere conjectures",
+  "headline_formalized": "partial",
+  "challenges": [
+   "ListHadwiger"
+  ],
+  "gap_note": "Only the third (positive) claim is stated: `∃ C ≥ 1, ∀ finite nonempty G, listChromaticNumber G ≤ C * hadwigerNumber G`. The headline counterexamples (graphs with α ≤ 2 and χ_f(G) > h(G); failure of χ_f ≤ μ(G)+1) have no statement at all, and docs/paper scope covers only the list-Hadwiger bound.",
+  "suspicious_defs": [
+   "`Choosable G k := ∀ (Color : Type) (L : V → Finset Color), (∀ v, k ≤ (L v).card) → ListColorable G L` and `listChromaticNumber := sInf {k | Choosable G k}`: standard list-chromatic number (colors restricted to `Type`, harmless for finite graphs)",
+   "`HasCliqueMinor G t := ∃ B : Fin t → Set V, (∀ i, (G.induce (B i)).Connected) ∧ pairwise disjoint ∧ pairwise adjacent` and `hadwigerNumber := sSup {t | HasCliqueMinor G t}`: standard (Connected forces nonempty branch sets; set bounded by |V|)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ListHadwiger": 19965
+  }
+ },
+ {
+  "family": "158",
+  "title": "The Euclidean plane cannot be colored with five colors",
+  "headline_formalized": "full",
+  "challenges": [
+   "EuclideanFiveColor",
+   "PlaneColoring"
+  ],
+  "gap_note": "`no_proper_five_coloring : ¬ ∃ coloring : ℂ → Fin 5, ∀ p q, ‖p - q‖ = 1 → coloring p ≠ coloring q` is the headline for arbitrary colorings (no measurability or color-class hypothesis), and `properColoring_seven` gives the classical seven-coloring of `EuclideanSpace ℝ (Fin 2)` (so only 6 or 7 remain). The two statements use different plane models (ℂ with its norm vs `EuclideanSpace ℝ (Fin 2)`, namespace `Problem160`), both genuinely the Euclidean plane; no lemma identifies them, which does not matter for either claim.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "EuclideanFiveColor": 30336,
+   "PlaneColoring": 519
+  }
+ },
+ {
+  "family": "159",
+  "title": "Erd\\H{o}s's reciprocal-sum conjecture and quasipolynomial Szemer\\'edi bounds",
+  "headline_formalized": "partial",
+  "challenges": [
+   "ErdosReciprocal"
+  ],
+  "gap_note": "`ReciprocalProgressionTheorem : ∀ A : Set ℕ, ¬ Summable (reciprocalTerm A) → ∀ k, HasAP A k` (`HasAP`: a k-term progression a + i·d, d > 0, inside A) is exactly the first claim, stated for all A ⊆ ℕ (0 ∈ A is harmless: it contributes 0 to the sum and the positive-integer case is covered). The paper's quantitative bound |A| ≤ C_k N exp(-c_k (log N)^ε_k) for k-AP-free subsets of {1..N} has no statement (docs: 'outside this statement'); the solution cone is by far the largest in this set (4,774 files, 1,122,983 OAI lines).",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "ErdosReciprocal": 1122983
+  }
+ },
+ {
+  "family": "160",
+  "title": "Superexponential van der Waerden numbers",
+  "headline_formalized": "full",
+  "challenges": [
+   "QuantitativeVanDerWaerden"
+  ],
+  "gap_note": "`uniform_lower_bound : ∃ K, ∀ k ≥ K, ∀ r ≥ 2, k^((1/100000)·k·Nat.log 2 r) < W r k` is the headline with c = 10⁻⁵ and the uniformity in r; since `W r k = sInf {N > 0 | every r-coloring of ℕ has a mono k-AP inside [0,N)}` and sInf ∅ = 0, the strict inequality also forces finiteness. The 'in particular W_r(k)^{1/k} → ∞' is the routine corollary (⌊log₂ r⌋ ≥ 1 for fixed r ≥ 2), not stated separately.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "QuantitativeVanDerWaerden": 14837
+  }
+ },
+ {
+  "family": "161",
+  "title": "Counterexamples to Sidorenko's conjecture and the forcing conjecture",
+  "headline_formalized": "partial",
+  "challenges": [
+   "SidorenkoCounterexample"
+  ],
+  "gap_note": "`main : ∃ size > 0, ∃ host : SimpleGraph (Fin size), (host has an edge) ∧ homDensity H host < (edgeDensity host)^66` for a fixed explicit H = incidence graph of 22 triples on 13 points (checked by script: 35 vertices, 66 edges, connected, bipartite by construction), with homomorphism counts including non-injective maps and `edgeDensity = 2e/n²` = t(K₂,G): a faithful Sidorenko counterexample. The second named claim (the same pattern disproves the Skokan-Thoma forcing conjecture) has no statement (docs: 'outside this statement'); connectivity and the counts 35/66 are properties of the defined H, not stated.",
+  "suspicious_defs": [
+   "`homDensity F G := homCount F G / (Nat.card W)^(Nat.card V)` with `homCount := Nat.card {hom : V → W // ∀ l r, F.Adj l r → G.Adj (hom l) (hom r)}` and `edgeDensity G := 2 * Nat.card G.edgeSet / (Nat.card W)^2`: custom but the standard t(H,G) and t(K₂,G) (checked)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "SidorenkoCounterexample": 23761
+  }
+ },
+ {
+  "family": "162",
+  "title": "Counterexamples to Ryser's covering and Gy\\'arf\\'as's tree-cover conjectures",
+  "headline_formalized": "partial",
+  "challenges": [
+   "BalancedRyser",
+   "RyserCovering",
+   "RyserOddExtensions"
+  ],
+  "gap_note": "`BalancedRyser.main_result : ∃ q₀, ∀ q ≥ q₀, q.Prime → ∃ H : PartiteHypergraph (q+1) (q+1), Intersecting ∧ Nonisolated ∧ HasCoverNumber (q+1)` is the first claim verbatim (edges are functions `Fin r → Fin n`, so r-partite r-uniform by construction). RyserCovering/RyserOddExtensions add intersecting r-partite r-uniform hypergraphs with ν = 1, τ = r for ranks r = p^n + 1, but no challenge mentions edge-colorings of K_n or monochromatic tree covers, so the Gyárfás disproof (strictly stronger than a Ryser counterexample, since Ryser implies Gyárfás) is not stated.",
+  "suspicious_defs": [
+   "`matchings`/`matchingNumber`/`coverNumber` in RyserCovering and RyserOddExtensions are custom Finset encodings (`attribute [-instance] instDecidablePairwiseCoeFinsetOfDecidableEqOfDecidableRel` removes a decidability instance to avoid a diamond); read as standard ν and τ",
+   "`CounterexampleRank r := ∃ (V : Type) (fin : Fintype V) (dec : DecidableEq V), ...` quantifies the Fintype/DecidableEq instances as data (harmless)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BalancedRyser": 89028,
+   "RyserCovering": 26678,
+   "RyserOddExtensions": 26954
+  }
+ },
+ {
+  "family": "165",
+  "title": "Exact crossing numbers of complete and complete bipartite graphs",
+  "headline_formalized": "full",
+  "challenges": [
+   "BipartiteCrossing",
+   "CompleteCrossing"
+  ],
+  "gap_note": "`complete_graph_crossing_number : 3 ≤ n → ordinaryCrossingNumber (completeGraph n) = hill n` (Hill's formula; the ℕ-division by 4 is exact because the product of the four floors is divisible by 4) and `MainTarget : ∀ m n > 0, (∃ admissible drawing with Z(m)Z(n) crossings) ∧ (∀ admissible drawings, Z(m)Z(n) ≤ crossings)` state both formulas for all sizes, for drawings by arbitrary continuous simple arcs with crossings counted as points. The minimum ranges only over the custom `AdmissibleDrawing` class (finitely many crossing points, each a topologically transversal crossing, no triple points), which is the usual crossing-number class.",
+  "suspicious_defs": [
+   "`structure AdmissibleDrawing ... extends ContinuousDrawing` with `crossings_finite`, `crossings_proper : ProperCrossing ...` (local chart straightening the two arcs to the axes) and `no_triples`; `ordinaryCrossingNumber := sInf (Set.range crossingCount)` (sInf ∅ = 0, but a nonempty class is forced for n ≥ 5 since hill n > 0); the two files carry separate copies of the definitions (`Zarankiewicz` vs `Paper170` namespaces)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BipartiteCrossing": 20617,
+   "CompleteCrossing": 33427
+  }
+ },
+ {
+  "family": "303",
+  "title": "From ordinary to strong pure infiniteness",
+  "headline_formalized": "full",
+  "challenges": [
+   "ExactInfiniteness",
+   "IndividualStrongInfiniteness"
+  ],
+  "gap_note": "`individual_to_strong_main (hP : PropertyP A) : unrestricted diagonalization ∧ StronglyPurelyInfinite A` holds for every non-unital C*-algebra A, where `PropertyP` = every positive element properly infinite (Kirchberg-Rørdam's characterization of ordinary pure infiniteness is the one routine identification step), and `ExactInfiniteness` gives the fixed-amplification version for exact A (WeaklyPurelyInfinite with some n ≥ 1 ⇒ `ProperlyInfinite (diagonalCopies 1 a)` and strongly purely infinite). The summary's final consequence (separable nuclear algebras with this property absorb O_∞) is not stated.",
+  "suspicious_defs": [
+   "`def Exact (A : Type u) ... := ∀ (C D : Type u) (q : C →⋆ₙₐ[ℂ] D), Surjective q → ∀ z : MinimalTensor A C, (∀ π : SpatialRepresentation A D, z (π.precompRight q) = 0) → z.val ∈ tensorKernelIdeal q`: hand-built exactness via the spatial (min) tensor product as an ℓ^∞ sum over all pairs of Hilbert-space representations; matches the standard exactness of A ⊗_min - but tests only C, D in the universe of A",
+   "Two different hand-built notions of proper infiniteness: matrix-level `CuntzSubequiv (blockSum a a) a` (ε-approximation by v : CStarMatrix k m A) in ExactInfiniteness, and `CuntzLE` in the completed stabilization (`MainGap.Stable.Stabilization`, direct limit of CStarMatrix algebras) in IndividualStrongInfiniteness; both read as standard, the Lean theorem uses the weaker (stable) form as hypothesis in the ordinary-to-strong direction"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ExactInfiniteness": 150750,
+   "IndividualStrongInfiniteness": 6085
+  }
+ },
+ {
+  "family": "307",
+  "title": "Failure of rational injectivity for maximal coarse assembly",
+  "headline_formalized": "partial",
+  "challenges": [
+   "CoarseAssembly"
+  ],
+  "gap_note": "`bounded_geometry_graph_counterexample_unconditional` gives finite connected bounded-degree graphs `fiberedGraph ... j` whose coarse union `VertexUnion` is proper, has uniformly finite balls and separation ≥ 1, and α ∈ `KX1 VertexUnion` of infinite order with `constructedCoarseAssembly α = 0`, `1 ⊗ α ≠ 0` and non-injectivity also after `⊗ ℚ`, but the target is K₁ of the *reduced* Roe algebra (`DiscreteRoe.algebra`; the file header says 'ordinary reduced coarse assembly map'). That is the summary's companion claim (the rational coarse Novikov counterexample); the headline failure for the *maximal* assembly map is strictly stronger (reduced = quotient ∘ maximal, so ker(max) ⊆ ker(reduced)) and has no statement. Title and summary say 'maximal' while docs, lean_scope and the Lean say 'reduced', and Lean wins.",
+  "suspicious_defs": [
+   "The assembly map is built with totalizing fallbacks: `separatedIndexFamily` is `if h : (∀ r s h a, f s (map r s h a) = f r a) then {atScale := f, compatible := h} else {atScale := fun _ => 0, ..}` and `analyticFamilyIndex` is `if h : relations A ≤ (analyticFamilyIndexFree ..).ker then QuotientAddGroup.lift .. else 0`, so from the statement alone the map could be the zero map; the solution proves the genuine branches are taken (`separatedIndexFamily_atScale`, `analyticFamilyIndex_eq_lift` in OAI/Topology/CoarseAssembly)",
+   "6,648-line hand-built stack with no Mathlib counterpart: coarse K-homology `KX1 X := (coarsening X).Homology` (direct limit over Rips complexes of `OddK C₀(P_r X, ℂ)`, odd Fredholm modules mod `CycleRelation` degenerate/unitary/directSum/homotopy), `K1 A := ker (K₁(A⁺) → K₁ ℂ)` via `TopologicalK1.Relation` (mul/stabilize/homotopy), and `vertexUnionMetric` = graph metrics on the fibres glued by `separatedDist` (d(x,o_i) + i + j + 2 + d(o_j,y)); read as standard, not independently re-derived. The statement does not itself say that the fibre metrics are the graph metrics."
+  ],
+  "external": [],
+  "cone_lines": {
+   "CoarseAssembly": 44622
+  }
+ },
+ {
+  "family": "312",
+  "title": "The Grothendieck homotopy hypothesis",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "GrothendieckElementaryExpansion"
+  ],
+  "gap_note": "Only `elementary_expansion`: for a coherator C (Ara-Henry convention, encoded by hand), a cellular model X and a pushout of `J n : disk n → disk (n+1)` along any `disk n → X`, the inclusion X → Y is a `WeakEquivalence` (bijection on π₀ and on every π_n at every basepoint). The homotopy hypothesis itself (comparison of these ∞-groupoid models with spaces) is not stated; docs: 'the later semi-model structure and full comparison with the homotopy theory of spaces are not included'.",
+  "suspicious_defs": [
+   "`GlobularTheory`, `CellularPresentation`, `IsCoherator C := Nonempty C.CellularPresentation ∧ ∀ p : AdmissiblePair, ∃ z, Fills (Morphism.id C) p z` and `Model` are hand-built encodings of Grothendieck coherators and their models",
+   "`noncomputable def unit C hC n := Classical.choose (hC.2 (C.unitPair n))`: the degenerate-cell operation used to define `baseCell`, `Loops`, `HomotopyGroup` and hence `WeakEquivalence` is chosen by `Classical.choose` (any choice is valid, but the notion is not canonical)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "GrothendieckElementaryExpansion": 12753
+  }
+ },
+ {
+  "family": "317",
+  "title": "Thomason model structures in every strict higher dimension",
+  "headline_formalized": "full",
+  "challenges": [
+   "ThomasonModelStructures"
+  ],
+  "gap_note": "`Thomason.main : FullMain` asserts, for strict ω-categories and for every n ≥ 1 for n-categories (`NCategory n`), an `ExactModelEndpoint` for the adjunction (Sd² ⋙ categorification) ⊣ (Street nerve ⋙ Ex ⋙ Ex): a model structure with weak equivalences and fibrations created by the right adjoint, cofibrantly generated by boundary/horn images, complete, cocomplete, locally presentable, left and right proper, with the Quillen-equivalence criterion against simplicial sets (plus the Kan-Quillen model on SSet). `nerveDetection_allDimensions` identifies the weak equivalences with Street-nerve detection for ω and every n, matching the summary and docs.",
+  "suspicious_defs": [
+   "`structure OmegaCategory` (cells with `source/target : ℕ → Cell → Cell`, partial `comp k`, `interchange`, `finite_dimension : ∃ k, source k x = x`) and `NCategory n := {C // ∀ x, C.source n x = x}` are hand-built strict globular ω-/n-categories (no Mathlib counterpart); `Classical.choose` only picks cell dimensions in the presentation colimit",
+   "`ExactModelEndpoint` bundles the model structure, its classes and the Quillen-equivalence criterion by hand (`quillenEquivalence : ∀ K Y fibrant, ∀ f : L K ⟶ Y, weq f ↔ sweq (adj.homEquiv f)`); `simplicialWeakEquivalences` = weak homotopy equivalences of geometric realizations (π₀ bijection and π_n for all n ≥ 1 at all basepoints)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ThomasonModelStructures": 65284
+  }
+ },
+ {
+  "family": "322",
+  "title": "Tingley's sphere-isometry problem",
+  "headline_formalized": "full",
+  "challenges": [
+   "TingleySphereIsometry"
+  ],
+  "gap_note": "`tingley_sphere_isometry_full`: for nontrivial complete real normed spaces X, Y and any surjective `Isometry f : {x // ‖x‖ = 1} → {y // ‖y‖ = 1}` there is `T : X ≃ₗᵢ[ℝ] Y` (bijective real-linear isometry) extending f (radial formula, T 0 = 0) and any ℝ-linear L (not assumed continuous) extending f equals T, so existence, surjectivity and uniqueness are all in the conclusion with no dimension, separability or reflexivity hypothesis.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "TingleySphereIsometry": 9273
+  }
+ },
+ {
+  "family": "323",
+  "title": "Relative independence of the separable quotient problem",
+  "headline_formalized": "partial",
+  "challenges": [
+   "SeparableQuotientNegative"
+  ],
+  "gap_note": "`negative_main (hCH : CH) : ¬ SQ.{u} ℝ ∧ ¬ SQ.{u} ℂ` (CH := `Cardinal.mk ℝ = aleph 1`; `SQ` = every complete infinite-dimensional normed space has a bounded linear surjection onto an infinite-dimensional separable Banach space) is the continuum-hypothesis counterexample half over both fields. The other half of the independence claim, consistency of the positive assertion relative to a measurable cardinal, has no statement (docs: 'the positive consistency direction ... outside the selected statement').",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "SeparableQuotientNegative": 14178
+  }
+ },
+ {
+  "family": "324",
+  "title": "Lipschitz equivalence without linear isomorphism",
+  "headline_formalized": "full",
+  "challenges": [
+   "C0Absorption",
+   "LipschitzEquivalence"
+  ],
+  "gap_note": "`LipschitzEquivalence.main`: ∃ separable real Banach spaces X, Y and a bijection Ψ with (4/21)‖s-t‖ ≤ ‖Ψ s - Ψ t‖ ≤ (76/25)‖s-t‖, `IsEmpty (X ≃L[ℝ] Y)`, X ⊇ isometric c₀(ℓ₂), Y has no bounded-below linear image of c₀(ℓ₂): exactly the summary's bi-Lipschitz-equivalent but not linearly isomorphic pair. C0Absorption adds the second paper's single space Z (no linear c₀, `Z × c₀` bi-Lipschitz onto Z, metrically universal, `¬ Nonempty ((Z × c₀) ≃L Z)`).",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "C0Absorption": 7918,
+   "LipschitzEquivalence": 10807
+  }
+ },
+ {
+  "family": "325",
+  "title": "The complete Crouzeix conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "CompleteCrouzeix",
+   "CrouzeixHilbert",
+   "DirectCrouzeix",
+   "HilbertCrouzeix",
+   "StructuralCrouzeix"
+  ],
+  "gap_note": "`CrouzeixHilbert.hilbert` states, for every complete complex inner-product space H (any dimension, no separability) and bounded A, ‖Σ_k A^k ⊗ B_k‖ ≤ 2·sup_{W(A)} ‖Σ z^k B_k‖ for all m > 0, degrees d and complex m×m coefficients (numerical range {⟨x,Ax⟩ : ‖x‖ = 1}, amplification = completed H ⊗ ℂ^m), plus an explicit `SharpConstant` witness (A on ℂ², scalar degree-1 polynomial, sup = 1 and ‖P[A]‖ = 2); CompleteCrouzeix/DirectCrouzeix give the matrix case with `UniversalBound 2 ∧ ∀ C, UniversalBound C → 2 ≤ C`. HilbertCrouzeix (compactness/convexity of the closed numerical range, finite compressions, trivial space) is supporting-only and StructuralCrouzeix (optimal similarity and boundary density for regular analytic convex Jordan domains) is an extra finite-dimensional result.",
+  "suspicious_defs": [
+   "HilbertCrouzeix: `def chosenContour (K U : Set ℂ) : ℝ → ℂ := Classical.epsilon (IsCauchyContour K U)` feeds `holomorphicCalculus`, but the only theorem using it (`zeroConclusion`) is for a subsingleton H, where every operator is 0, so the choice cannot matter",
+   "CrouzeixHilbert: `holomorphicEval A U f := if h : Nonempty (CalculusContour (numericalClosure A) U) then contourEval A (Classical.choice h).toSmoothContour f else 0`; harmless because `NonzeroConclusion` itself asserts the contour exists and that the value equals `contourEval A Γ` for every contour Γ",
+   "`supNorm S F := sSup (insert 0 ((fun z => ‖F z‖) '' S))` (the `insert 0` only handles the empty numerical range of the zero space)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "CompleteCrouzeix": 14195,
+   "CrouzeixHilbert": 15655,
+   "DirectCrouzeix": 7389,
+   "HilbertCrouzeix": 844,
+   "StructuralCrouzeix": 15245
+  }
+ },
+ {
+  "family": "326",
+  "title": "The cotype--cotype conjecture under the approximation property",
+  "headline_formalized": "full",
+  "challenges": [
+   "Cotype"
+  ],
+  "gap_note": "`mainTarget_proved : [CompleteSpace X] [Nontrivial X], ApproximationProperty X → (KConvex X ↔ FiniteCotype X ∧ FiniteCotype (X →L[ℝ] ℝ))` is the headline for every nonzero real Banach space with AP; the summary's 'equivalently, these cotype assumptions force nontrivial type' is the classical K-convex ⇔ nontrivial-type reformulation (Pisier), which is not stated in Lean.",
+  "suspicious_defs": [
+   "`KConvex E := ∃ K ≥ 0, ∀ n (f : Cube n → E), cubeL2 (radProjection f) ≤ K * cubeL2 f` (uniform L²-boundedness of the Rademacher projection, the standard characterization) and `HasCotype q := 2 ≤ q ∧ ∃ C ≥ 0, ∀ n (x : Fin n → E), (∑ ‖x i‖^q)^(1/q) ≤ C * cubeL2 (rademacherSum x)`: hand-built, standard (L² average in place of the L^q average, equivalent by Kahane)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "Cotype": 11759
+  }
+ },
+ {
+  "family": "327",
+  "title": "Markov type characterizes superreflexivity",
+  "headline_formalized": "full",
+  "challenges": [
+   "MarkovType"
+  ],
+  "gap_note": "`hasNontrivialMarkovType_iff_hasEquivalentUCNorm [CompleteSpace X] : HasNontrivialMarkovType X ↔ HasEquivalentUCNorm X` states both the new direction (Markov type p > 1 ⇒ equivalent uniformly convex norm) and the known converse. The final identification 'admits an equivalent UC norm' = superreflexive (Enflo/Pisier) is not stated in Lean.",
+  "suspicious_defs": [
+   "`MarkovTypeWith p K X := 0 < p ∧ 0 < K ∧ ∀ m (C : FiniteReversibleChain (Fin m)) (f : Fin m → X) (n ≥ 1), E_π‖f(Z_n) - f(Z_0)‖^p ≤ K^p · n · E_π‖f(Z_1) - f(Z_0)‖^p` (stateCost via explicit path weights π(ω₀)∏P): hand-built but matches Ball's stationary reversible Markov type; `UniformConvex` and `EquivalentNorm` (seminorm with two-sided norm bounds) are the usual modulus-of-convexity definitions"
+  ],
+  "external": [],
+  "cone_lines": {
+   "MarkovType": 27054
+  }
+ },
+ {
+  "family": "328",
+  "title": "Fixed points of nonexpansive maps in reflexive Banach spaces",
+  "headline_formalized": "full",
+  "challenges": [
+   "ReflexiveFixedPoints"
+  ],
+  "gap_note": "`exists_fixedPoint_of_canonicallyReflexive`: for a complete real normed space X whose canonical map into the continuous bidual is surjective (`CanonicallyReflexive`), every self-map F of a nonempty closed bounded convex C ⊆ X with ‖F a - F b‖ ≤ ‖a - b‖ in the original norm has a fixed point, with no uniform convexity or normal-structure hypothesis, which is exactly the headline.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "ReflexiveFixedPoints": 11540
+  }
+ },
+ {
+  "family": "329",
+  "title": "A counterexample to Pietsch's metric-entropy duality conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "MetricEntropyDuality"
+  ],
+  "gap_note": "For all a, b ≥ 1 there are n > 0 and an origin-symmetric convex body K ⊆ ℝⁿ (compact, convex, symmetric, nonempty interior) with b·log N(B_∞°, a⁻¹K°) < log N(K, B_∞), where N is the least number of translates covering (`coveringNumber`, ℕ-valued sInf), and `Coverable` hypotheses make both numbers finite and positive; this is the violation of every universal-constant comparison with the cube as covering body.",
+  "suspicious_defs": [
+   "`coveringNumber A B := sInf {M | ∃ centers : Fin M → ℝⁿ, Covers A B centers}` and `polar K := {y | ∀ x ∈ K, ⟨x,y⟩ ≤ 1}` are hand-built (ℝⁿ as `ι → ℝ` with the sum pairing), standard; sInf ∅ = 0 is excluded by the stated `Coverable` clauses"
+  ],
+  "external": [],
+  "cone_lines": {
+   "MetricEntropyDuality": 6520
+  }
+ },
+ {
+  "family": "330",
+  "title": "A negative answer to Kalton's Lipschitz-free approximation question",
+  "headline_formalized": "full",
+  "challenges": [
+   "DiscreteLipschitzFree",
+   "RealL1Renorming"
+  ],
+  "gap_note": "`MainStatement` (inside `source_endpoints`) gives a countable metric space M with all distinct distances ≥ 1, unbounded and not proper, such that the real Lipschitz-free space `FreeSpace o` has `HasAP` but `¬ HasBAP` for every Λ ≥ 1, exactly the summary; `BlockStatement` (finite quantitative blocks) and the ℓ¹ renorming with 2B_p-BAP but not p-BAP are the retained earlier results.",
+  "suspicious_defs": [
+   "`FreeSpace o := closure of span {evaluation o x} ⊆ (Lip0 o →L[ℝ] ℝ)` with `Lip0 o` normed by the slope map into ℓ^∞(M × M): hand-built Lipschitz-free space, standard; `HasAP`/`HasBAP` state approximation of the identity on every compact set by finite-rank operators (with ‖T‖ ≤ Λ for BAP)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "DiscreteLipschitzFree": 4341,
+   "RealL1Renorming": 4516
+  }
+ },
+ {
+  "family": "331",
+  "title": "Asymptotic midpoint uniform convexity without asymptotically uniformly convex renorming",
+  "headline_formalized": "full",
+  "challenges": [
+   "BoundedTreePotentials",
+   "DaugavetModuli",
+   "DiamondDistortion",
+   "ForestSpace",
+   "IndependentProducts",
+   "MidpointLenses",
+   "RecursivePotentials"
+  ],
+  "gap_note": "`ForestSpace.main_theorem` (unconditional) states for `FullDual Vertex` (continuous dual of the completed disjoint-segment-norm space over a forest): infinite-dimensional, separable, canonically reflexive, no equivalent norm is AUC, averaged midpoint modulus ≥ √(1+t²/12) - 1 for all t > 0 (this implies positivity of the usual max-version midpoint modulus, since max ≥ average: the one routine step), and every embedding of the depth-k countably branching diamond has distortion ≥ √(1+k/12). The other six challenges are companion results of the seven papers (lens tail bound, all-pairs diamond bound 1+k/4 ≤ D², exact Daugavet-subspace moduli, tree-potential, independent-product and recursive-potential spaces), not needed for the headline.",
+  "suspicious_defs": [
+   "`aucModulus`, `averageModulus` and `Cofinite` are hand-built (`inf_{N x=1} sup_{F cofinite closed} inf_{y∈F, N y=1} (N(x+ty)-1)`, resp. with the average of N(x±ty) minus 1), matching the standard asymptotic moduli; `IsAUC N := ∀ t > 0, 0 < aucModulus N t` and `EquivalentNorm` as a seminorm with α‖x‖ ≤ N x ≤ β‖x‖",
+   "`Diamond.diamond k := base.iterate k` (each edge replaced by ℕ-many 2-edge paths, graph distance via `SimpleGraph.dist`) and `EmbeddingBound` (∃ scale s > 0, s·d ≤ ‖f u - f v‖ ≤ C·s·d): standard distortion; docs note 22 companion inputs are assumed in some graph deductions, not in the headline theorem"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BoundedTreePotentials": 13085,
+   "DaugavetModuli": 4307,
+   "DiamondDistortion": 10038,
+   "ForestSpace": 4631,
+   "IndependentProducts": 3878,
+   "MidpointLenses": 3297,
+   "RecursivePotentials": 10140
+  }
+ },
+ {
+  "family": "333",
+  "title": "Smooth isometric immersions of surfaces into $\\mathbb R^4$",
+  "headline_formalized": "full",
+  "challenges": [
+   "SurfaceImmersion"
+  ],
+  "gap_note": "`smooth_isometric_immersion (g : SmoothMetric M) : ∃ F : M → ℝ⁴, ContMDiff ∞ F ∧ ∀ p v w, ⟪dF v, dF w⟫ = g.inner p v w` for every compact Hausdorff second-countable C^∞ 2-manifold without boundary and every C^∞ Riemannian metric (Mathlib's `ContMDiffRiemannianMetric`), with no orientability or curvature hypothesis; 'immersion' follows from positive-definiteness (injective differential), and the case is global and closed only, as in the summary.",
+  "suspicious_defs": [],
+  "external": [
+   "SphereEversion"
+  ],
+  "cone_lines": {
+   "SurfaceImmersion": 167865
+  }
+ },
+ {
+  "family": "334",
+  "title": "A smooth surface metric with no local immersion in $\\mathbb R^3$",
+  "headline_formalized": "full",
+  "challenges": [
+   "IsometricImmersion"
+  ],
+  "gap_note": "There is a smooth (C^∞, positive-definite) metric g on (-1,1)² such that for every open U ⊆ the square containing 0 and every F : U → ℝ³ it is false that F is C^∞ with ⟨dF v, dF w⟩ = vᵀ g w at every point of U, so no neighbourhood of the origin admits a smooth isometric immersion, as in the summary.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "IsometricImmersion": 56586
+  }
+ },
+ {
+  "family": "337",
+  "title": "Cartan--Hadamard isoperimetry and CAT$(0)$ fillings",
+  "headline_formalized": "partial",
+  "challenges": [
+   "FillingCoefficient",
+   "SharpCAT0Filling"
+  ],
+  "gap_note": "`sharp_integral_filling` (every compactly supported integral n-cycle, n ≥ 2, in a proper CAT(0) space has a compactly supported integral filling of mass ≤ C_n·mass^((n+1)/n)) and `coefficient_optimal` (Euclidean sharpness) cover the summary's second claim only. The headline, the sharp Cartan-Hadamard isoperimetric inequality for finite-perimeter sets in complete simply connected manifolds with curvature ≤ κ ≤ 0 (and the Euclidean-ball equality case for κ = 0), has no statement; the docs concede only 'the selected integral-current form' is proved, and the Lean form does not imply the set-based inequality.",
+  "suspicious_defs": [
+   "Hand-built metric currents: `Functional X k := (X → ℝ) → (Fin k → X → ℝ) → ℝ`, `IsMetricCurrent` (off-domain zero, multilinearity, sequential continuity, locality, finite mass), `mass T := sInf {μ.real univ | Controls T μ}`, `IntegerRectifiable` via countably many bi-Lipschitz `IntegerChart`s with integer multiplicity, `boundarySucc T b π := if Admissible b π then T 1 (b, π) else 0`; a Lipschitz-functional model of Ambrosio-Kirchheim integral currents, not in Mathlib",
+   "`IsCAT0 X := ∃ segment, geodesic-parametrization ∧ CN-comparison inequality` (hand-built)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "FillingCoefficient": 15653,
+   "SharpCAT0Filling": 50219
+  }
+ },
+ {
+  "family": "342",
+  "title": "Donaldson's tamed-to-compatible conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "TamingCompatibility"
+  ],
+  "gap_note": "`taming_implies_compatibility`: for a closed connected smooth 4-manifold X and a smooth almost complex structure J, if some symplectic form tames J then some symplectic form η satisfies `Compatible η J` (tames and J-invariant), with J fixed and no integrability or cohomology-class condition.",
+  "suspicious_defs": [
+   "Differential forms are hand-built: `TwoForm X := ∀ x, (T_x X)[⋀²]→L[ℝ] ℝ` with `IsSmooth` (pullbacks along every smooth chart-like map f : ℝ⁴ → X are C^∞) and `IsClosed` (`extDerivWithin` of the pullback vanishes); `AlmostComplexStructure` with smoothness as a map of tangent bundles. Reads as the standard notions."
+  ],
+  "external": [],
+  "cone_lines": {
+   "TamingCompatibility": 83060
+  }
+ },
+ {
+  "family": "343",
+  "title": "Sharp symplectic ball-packing criteria in higher dimensions",
+  "headline_formalized": "full",
+  "challenges": [
+   "BallPacking",
+   "BallPackingNecessity"
+  ],
+  "gap_note": "`main_theorem` (n ≥ 3, k ≥ 1, R, r_i > 0): `HasPacking n k R r ↔ (∑ r_i^n < R^n ∧ ∀ i≠j, r_i + r_j < R)`, where a packing is k disjointly-imaged smooth symplectic embeddings (defined on open neighbourhoods of the closed capacity-r_i balls in ℂⁿ with the standard form, capacity π|z|²) into the open ball of capacity R; BallPackingNecessity repeats the forward direction.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "BallPacking": 89175,
+   "BallPackingNecessity": 33020
+  }
+ },
+ {
+  "family": "347",
+  "title": "Counterexamples to strong forms of Arnold's fixed-point conjecture",
+  "headline_formalized": "partial",
+  "challenges": [
+   "ArnoldCounterexample"
+  ],
+  "gap_note": "`main` gives only the second claim: a Hamiltonian diffeomorphism φ of the quadric Q³ ⊂ ℂP⁴ with exactly 3 fixed points (one provably degenerate) while every smooth function has ≥ 4 critical points (`4 ≤ criticalNumber`). The headline nondegenerate stable-Morse counterexample on 22-dimensional Kähler manifolds with unbounded deficit has no statement (docs: 'the separate nondegenerate Morse-number construction is not included').",
+  "suspicious_defs": [
+   "Q³ is a hand-built subtype of `Projectivization ℂ (Fin 5 → ℂ)`, not a Mathlib manifold; smooth functions are those with local C^∞ lifts to the unit isotropic cone (`IsSmoothFunction`), criticality via horizontal lifts, `criticalNumber := ⨅ h, (criticalSet h).encard`, and Hamiltonian-ness via an explicit lifted isotopy `HamiltonianPath` with `omega v w := 2·Im Σ conj(v_j) w_j` tested only on horizontal vectors; all must be trusted to match the standard symplectic notions"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ArnoldCounterexample": 5841
+  }
+ },
+ {
+  "family": "348",
+  "title": "Nonnegatively curved Einstein four-manifolds and a topological gap",
+  "headline_formalized": "partial",
+  "challenges": [
+   "EinsteinFour"
+  ],
+  "gap_note": "The Lean classification assumes strictly positive sectional curvature (`HasPositiveSectionalCurvature`) and concludes scaled isometry to round S⁴, Fubini-Study ℂP² or round ℝP⁴ (oriented case: S⁴ or ℂP²). That is a special case of the summary's nonnegative-curvature classification (which also has the S²×S² product); the L² trace-free-Ricci topological gap theorem is not stated.",
+  "suspicious_defs": [
+   "Curvature is computed by hand in the centre chart of each point (`christoffel`, `curvatureComponent`, `ricciInChart`, `sectionalNumerator`, `IsEinstein := ∃ lam, ricci = lam·g` at `chartAt c c`), and model spaces are only given as distance functions (`roundDistance := arccos ⟨p,q⟩`, `fubiniStudyDistance := arccos(‖⟨p,q⟩‖/(‖p‖‖q‖))`, `realProjectiveDistance`) compared to `Manifold.riemannianEDist` scaled by √a (`ScaledIsometricTo`); two statement-level `run_cmd Lean.modifyEnv ... auxLemmasExt` meta commands; external package RellichKondrachov in the solution cone"
+  ],
+  "external": [
+   "RellichKondrachov"
+  ],
+  "cone_lines": {
+   "EinsteinFour": 207815
+  }
+ },
+ {
+  "family": "350",
+  "title": "Yau's nodal conjecture: surfaces and counterexamples",
+  "headline_formalized": "partial",
+  "challenges": [
+   "NodalLength",
+   "SmoothYau",
+   "YauCounterexample"
+  ],
+  "gap_note": "`NodalLength.Main` is the headline: on every compact connected smooth Riemannian surface there is C with H¹(nodal set) ≤ C√λ for every nonzero smooth eigenfunction with -Δu = λu, λ > 0; `sphere_three` (every C^∞ neighbourhood of the round S³ metric contains a metric with unbounded nodal ratio) and `sphere_two_torus_two` give dimensions 3 and 4. For dimension five, YauCounterexample (S⁴×S¹) only gives H⁴(nodal)/√λ → ∞, not the summary's power-law growth λ^(1/2+ε₀), so that claim is only stated in a weaker form.",
+  "suspicious_defs": [
+   "Laplace-Beltrami and nodal measures are hand-written: `laplaceBeltrami` (det(g)^(-1/2) ∂_i(det(g)^(1/2) g^{ij} ∂_j u) in the centre chart of each point), `nodalMeasure` = d-dimensional Hausdorff measure for `EMetricSpace.ofRiemannianMetric`; NodalLength uses a `MetricSpace M` instance tied to the Riemannian structure only through `[IsRiemannianManifold]`",
+   "`IsSmoothNeighborhood g₀ N` (finitely many compact-chart C^k seminorm tests with one ε) as the C^∞ topology on metrics; `IsRound` as the pullback of the Euclidean inner product"
+  ],
+  "external": [],
+  "cone_lines": {
+   "NodalLength": 32394,
+   "SmoothYau": 99645,
+   "YauCounterexample": 74773
+  }
+ },
+ {
+  "family": "353",
+  "title": "The sharp dimension threshold for affine Bernstein rigidity",
+  "headline_formalized": "partial",
+  "challenges": [
+   "AffineBernstein"
+  ],
+  "gap_note": "`affine_bernstein` (3 ≤ n ≤ 9): a smooth function with positive-definite Hessian on a nonempty open convex Ω solving the affine-maximal equation with graph complete for the induced Euclidean path metric forces Ω = ℝⁿ, u a positive-definite quadratic plus affine term, and the graph an affine image of the standard paraboloid. The sharpness claim (smooth entire nonquadratic example in dimension ten) and the extension to hypersurfaces complete for the affine Berwald-Blaschke metric have no statement (docs: immersed extension outside the statement).",
+  "suspicious_defs": [
+   "`AffineMaximalOn` := Σ U^{ij} ∂_ij ((det D²u)^(-(n+1)/(n+2))) = 0 with U the cofactor matrix (the classical affine maximal equation); `EuclideanGraphComplete` is sequential completeness for the hand-built path metric `graphEDist` = inf of lengths ∫√(|γ'|²+(Du·γ')²) of C¹ paths in Ω"
+  ],
+  "external": [],
+  "cone_lines": {
+   "AffineBernstein": 40454
+  }
+ },
+ {
+  "family": "354",
+  "title": "Isoperimetric regions in the cubic three-torus",
+  "headline_formalized": "full",
+  "challenges": [
+   "CubicTorus"
+  ],
+  "gap_note": "`unit_cubic_isoperimetric` for every V ∈ (0,1): a minimizer exists; every minimizer has perimeter `candidateProfile V` = min((36π)^(1/3)v^(2/3), 2√(πv), 2) with v = min(V,1-V); and minimizers are exactly (up to isometry and null sets, with complements for V > 1/2) balls, tubes about a shortest geodesic, or slabs on the ranges V ≤ 4π/81, 4π/81 ≤ V ≤ 1/π, V ≥ 1/π, with both adjacent types allowed at the transition volumes.",
+  "suspicious_defs": [
+   "`perimeter E := ⨆ F admissible periodic C^∞ field with ‖F‖ ≤ 1, ofReal ∫_{cube ∩ E} div F` (De Giorgi perimeter by hand on the cover) and `torusVolume := map quotientMap (volume.restrict fundamentalCube)`: standard"
+  ],
+  "external": [],
+  "cone_lines": {
+   "CubicTorus": 140491
+  }
+ },
+ {
+  "family": "356",
+  "title": "Gigli's characterization of Alexandrov curvature",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "WeakHessian"
+  ],
+  "gap_note": "Only `every_geodesic`: in a complete separable RCD(K,N) space (N > 1, full-support reference measure finite on bounded sets), a bounded Lipschitz F whose weak Hessian is ≤ G·metric (G bounded continuous) satisfies the distributional bound (F∘σ)'' ≤ G(σ)·d(σ(0),σ(1))² along every constant-speed geodesic. Gigli's conjecture (Alexandrov curvature ≥ κ ⇔ RCD((n-1)κ,n) with H^n and distributional sectional curvature ≥ κ) is not stated.",
+  "suspicious_defs": [
+   "Entire RCD/Sobolev calculus is hand-built: `CurvatureDimension` (unreduced CD(K,N) via optimal dynamical plans, `tauCoeff`/`sigmaCoeff`), `QuadraticCheegerEnergy`, `IsTestPlan`, `IsLocalWeakUpperGradient`, `weakGradient`/`laplacian` defined by `Classical.choose` with fallback 0, `weakHessian`; the cone is 65,542 OAI lines here (recomputed; tmp/import_cones.json says 64,010)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "WeakHessian": 65542
+  }
+ },
+ {
+  "family": "358",
+  "title": "A three-manifold with no conjugate points and no nonpositively curved metric",
+  "headline_formalized": "full",
+  "challenges": [
+   "ConjugatePoints"
+  ],
+  "gap_note": "`MainStatement`: there is a compact connected Hausdorff second-countable C^∞ 3-manifold with oriented atlas carrying a smooth metric with `NoConjugatePoints` (for every geodesic and Jacobi field on any open interval, J vanishing at two distinct parameters vanishes identically, constant geodesics included) while no smooth metric satisfies `NonpositiveSectionalCurvature`.",
+  "suspicious_defs": [
+   "Hand-written chart-wise Christoffel symbols, curvature `curvatureTerm`, geodesics and Jacobi fields (`IsGeodesicOn`, `IsJacobiFieldOn`); sign conventions checked: ⟨R(u,v)v,u⟩ ≤ 0 is sectional curvature ≤ 0 and the Jacobi equation J'' + R(J,γ')γ' = 0 is the standard one"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ConjugatePoints": 24974
+  }
+ },
+ {
+  "family": "359",
+  "title": "Negative K\\\"ahler curvature without bounded holomorphic coordinates",
+  "headline_formalized": "partial",
+  "challenges": [
+   "PinchedKahler"
+  ],
+  "gap_note": "`main_theorem` gives a nonempty open contractible M ⊆ ℂ³ with a smooth Kähler metric that is geodesically complete (all geodesics extend for all time) and negatively pinched (-B ≤ sectional ≤ -A < 0), with no bounded holomorphic map with everywhere-nonvanishing Jacobian and no biholomorphism onto a bounded domain; `controlled_potential` and `metric_transfer` support it. The summary's second claim (a higher-dimensional example with sectional curvature ≤ -1, only constant bounded holomorphic functions, curvature not bounded below) is not stated.",
+  "suspicious_defs": [
+   "Kähler geometry is hand-coded on ℂ²×ℂ: `dz`/`dbar` from real derivatives, `curvature g` (-∂̄_b∂_a g_{c d̄} + g^{-1}∂g ∂̄g), `sectional := (R(u,ū,v,v̄) - R(u,v̄,u... ))/(2·realArea)`, `IsKahlerMetric` (symmetry, positivity, ∂_i g_{kj̄} = ∂_k g_{ij̄}), `GeodesicallyComplete` via smooth solutions of the geodesic ODE; `NoBoundedCoordinates` only excludes bounded holomorphic F with nonvanishing Jacobian (stronger than excluding injective coordinate charts)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "PinchedKahler": 18688
+  }
+ },
+ {
+  "family": "360",
+  "title": "Villani’s convexity conjecture and regular optimal transport",
+  "headline_formalized": "full",
+  "challenges": [
+   "BiholderTransport",
+   "WeakMTWGlobalSupport"
+  ],
+  "gap_note": "`current_main_convexity`: on a compact connected smooth Riemannian manifold of dimension n ≥ 2, weak MTW (-3/2·∂⁴c ≥ 0 for orthogonal ξ, η at interior velocities) implies every open tangent injectivity domain is convex. `uniform_biHolder_transport`: for squared-distance cost and densities between fixed bounds there is one (α, C) such that for all pairs of densities the optimal map exists, is a homeomorphism, is a.e. unique, and T and T⁻¹ are α-Hölder with constant C.",
+  "suspicious_defs": [
+   "Riemannian exponential is defined by `if h : ∃ γ, complete geodesic with initial data then (Classical.choose h) 1 else x` (geodesics characterized metrically as locally constant-speed distance realizers), `injectivityDomain x := {v | ∃ a > 1, dist x (exp x (a•v)) = a‖v‖}`, and `mtw` is an iterated ordinary derivative of the cost along exp-curves; calibrated Hausdorff measure `metricVolume` as volume"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BiholderTransport": 74032,
+   "WeakMTWGlobalSupport": 19463
+  }
+ },
+ {
+  "family": "361",
+  "title": "Counterexamples to Yau's harmonic dimension bound",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "HarmonicGrowth"
+  ],
+  "gap_note": "`MainClaim` is ∃ n (even, ≥ 8), k ≥ 2 and one complete smooth metric on ℝⁿ with Ric ≥ 0, Euclidean near 0, asymptotic volume ratio in (0,1), and euclideanDimension n k + 1 independent harmonic functions of growth ≤ k: a single higher-dimensional counterexample, as the docs say. The summary's claim (complete metrics on ℝ³ with ≥ (k+2)² harmonic functions of growth ≤ k for every sufficiently large integer k) is not implied. The challenge file also contains `axiom mainStatement : MainClaim` and `theorem main := mainStatement` instead of `sorry`, a non-standard stub shape; no `axiom` exists in the solution cone.",
+  "suspicious_defs": [
+   "`axiom mainStatement : MainClaim` in the challenge file (the only challenge here with an axiom and no `sorry`)",
+   "Hand-written Riemannian geometry on ℝⁿ: `ricci`, `laplaceBeltrami`, `distance := sInf of C¹ path lengths`, `Complete`, `PositiveSubunitAVR` (ball volume/(ω_n R^n) → a ∈ (0,1)), `HarmonicGrowth` (|u| ≤ C(1+d(0,x))^k) and `euclideanDimension n k := C(n+k-1,k) + C(n+k-2,k-1)` (dimension of Euclidean harmonic polynomials of degree ≤ k)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "HarmonicGrowth": 36732
+  }
+ },
+ {
+  "family": "362",
+  "title": "Global smoothness for relativistic Vlasov--Maxwell",
+  "headline_formalized": "full",
+  "challenges": [
+   "VlasovMaxwell"
+  ],
+  "gap_note": "`global_classical_solution`: for every admissible datum (f₀ ≥ 0 smooth compactly supported in ℝ³×ℝ³; E₀, B₀ C^∞ with bounded derivatives of all orders, in L², div E₀ = ρ[f₀], div B₀ = 0) there is a solution of the full relativistic system (v̂ = v/√(1+|v|²), force E + v̂×B, ∂ₜE - curl B = -j, ∂ₜB + curl E = 0, Gauss laws) that is C^∞ on every [0,T], and every C¹ solution in the class (nonnegative, L²-continuous fields, compact phase support on finite horizons) coincides with it for t ≥ 0; no smallness, symmetry or neutrality assumption.",
+  "suspicious_defs": [
+   "`def Classical (d) (s)` inside namespace `RVM` shadows the `Classical` namespace name (harmless); the Vlasov, Maxwell and Gauss equations are written out by hand with `derivWithin (Ici 0)` at t = 0"
+  ],
+  "external": [],
+  "cone_lines": {
+   "VlasovMaxwell": 89993
+  }
+ },
+ {
+  "family": "363",
+  "title": "Boltzmann nonuniqueness with exact local conservation",
+  "headline_formalized": "weaker-statement",
+  "challenges": [
+   "BoltzmannNonuniqueness"
+  ],
+  "gap_note": "`nonuniqueness` gives bounded-velocity-support data f₀ and two `AdmissibleGlobal` renormalized solutions F, G (all renormalizations β, gain/loss integrability, weak continuity, local mass conservation as a weak identity, global momentum conservation, global energy inequality ≤ and entropy-dissipation inequality) that are strongly L¹-continuous with integrable gain/loss on a common [0,T] only and differ at some t ≤ T. The summary's exact local conservation of momentum and kinetic energy, and strong L¹ continuity for all times, are not stated (docs: 'later local-conservation refinements are outside it').",
+  "suspicious_defs": [
+   "Hand-built kinetic setup: `gain`/`loss` as Bochner integrals over ℝ³×S² with `sphereArea := volume.toSphere` (the `collision_fibers` hypotheses prevent silent zero values of non-integrable integrals), `extendedEntropyProduction` (lower semicontinuous extension of (A-B)log(A/B)), `entropyDissipation`, `relativeEntropy` against a normalized Maxwellian; a statement-level `run_cmd Lean.modifyEnv ... auxLemmasExt` meta command"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BoltzmannNonuniqueness": 159510
+  }
+ },
+ {
+  "family": "365",
+  "title": "Joint metric and connection recovery from one boundary patch",
+  "headline_formalized": "partial",
+  "challenges": [
+   "Conductivity"
+  ],
+  "gap_note": "`main_nonuniqueness` covers only the contrast claim: on the ball B(0,3) ⊂ ℝ³ there are two bounded measurable conductivities in [c, C], both equal to 1 near the boundary, differing on a positive-measure set, with one and the same weak Dirichlet-to-Neumann operator Λ (`IsDirichletToNeumann`: for every trace a unique harmonic H¹ extension with Λ f (trace v) = ∫γ∇u·∇v). The summary's first-named result, recovery of a smooth metric and unitary connection on a rank-two Hermitian bundle over manifolds of dimension ≥ 3 from zero-frequency data on one boundary patch (up to diffeomorphism and gauge), has no statement; the docs scope also only describes the conductivity result.",
+  "suspicious_defs": [
+   "H¹(B) is hand-built as the closure of smooth jets (f, ∇f) in L²(B; ℝ⁴), H¹₀ as the closure of compactly supported jets, `TraceSpace := H1 ⧸ H10`, and the DN operator is a continuous bilinear map TraceSpace → TraceSpace*; `EqualOneNearBoundary` is only a.e. in r < ‖x‖ < 3"
+  ],
+  "external": [],
+  "cone_lines": {
+   "Conductivity": 75520
+  }
+ },
+ {
+  "family": "367",
+  "title": "The critical dimension for the one-phase Bernoulli problem",
+  "headline_formalized": "partial",
+  "challenges": [
+   "BernoulliNonflatInSeven"
+  ],
+  "gap_note": "`nonflat_in_seven`: there is u : ℝ⁷ → ℝ that is a nonnegative global minimizer of ∫ |∇u|² + 1_{u>0} (ballwise comparison with H¹ competitors agreeing on the boundary, all balls), nonzero, 1-homogeneous and not a half-space solution max(x·e,0): the existence half of 'seven is the first dimension'. The other half (flatness of such minimizers in dimensions ≤ 6) and the consequences (smooth free boundaries through dimension six, singular set dimension ≤ n-7) are not stated (docs: 'outside this selected statement').",
+  "suspicious_defs": [
+   "`LocalMinimizer`/`GlobalMinimizer` written with hand-built H¹, H¹₀ (L²-approximation by compactly supported smooth functions) and the exact energy `∫ ‖G‖² + if 0 < u x then 1 else 0` with an explicit weak-gradient representative G; flatness, homogeneity and nonvanishing are a.e. statements"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BernoulliNonflatInSeven": 13545
+  }
+ },
+ {
+  "family": "369",
+  "title": "The hot spots conjecture for simply connected planar domains",
+  "headline_formalized": "full",
+  "challenges": [
+   "HotSpots"
+  ],
+  "gap_note": "`main_theorem`: on every nonempty bounded open simply connected planar domain with smooth boundary, every nonzero u in the first positive Neumann eigenspace (smooth up to the boundary, mean zero, weak eigen-equation against all H¹ test pairs with eigenvalue = inf of the mean-zero Rayleigh quotient) has ∇u ≠ 0 at every interior point and inf_∂Ω u < u(x) < sup_∂Ω u inside, i.e. no interior critical point and strict hot spots; eigenvalue multiplicity is allowed because the statement is for any element of the eigenspace.",
+  "suspicious_defs": [
+   "`firstPositiveNeumannValue Ω := sInf (rayleighValues Ω)` with hand-built `HasH1Gradient` and `SmoothBoundary` (local defining functions ρ with nonzero gradient); `InFirstNeumannEigenspace` requires `ContDiffOn ℝ ∞ u (closure Ω)`"
+  ],
+  "external": [],
+  "cone_lines": {
+   "HotSpots": 29338
+  }
+ },
+ {
+  "family": "370",
+  "title": "The subcritical Lane--Emden and H\\'enon--Lane--Emden conjectures",
+  "headline_formalized": "full",
+  "challenges": [
+   "HenonEmden"
+  ],
+  "gap_note": "`main_nonexistence`: for n ≥ 2, p, q > 0, real A, B and (n+A)/(p+1) + (n+B)/(q+1) > n-2 there are no positive u, v continuous on ℝⁿ and C² off the origin with -Δu = |x|^A v^p and -Δv = |x|^B u^q for x ≠ 0, with no symmetry or growth assumption; the radial existence criterion mentioned in the summary is background and not stated.",
+  "suspicious_defs": [],
+  "external": [],
+  "cone_lines": {
+   "HenonEmden": 12709
+  }
+ },
+ {
+  "family": "371",
+  "title": "Stable blowup for a defocusing Schr\\\"odinger equation",
+  "headline_formalized": "full",
+  "challenges": [
+   "DefocusingNLS"
+  ],
+  "gap_note": "`stable_blowup`: for every p₀ there are an odd p ≥ max(p₀,3), an integer k > 8 and a nonempty open U ⊆ H^k(𝕋¹²) (as weighted ℓ² Fourier data) such that every f ∈ U has a maximal classical solution of i∂ₜu = -Δu + |u|^(p-1)u (interaction-picture ODE with sobolevOddPower) that blows up self-similarly at a finite time T, ‖u(t)(x)‖ ~ c(T-t)^(-1/(p-1)); the quantifier gives arbitrarily large odd powers rather than visibly all large ones, and the Gaussian-data corollaries are extra. The solution cone uses the external package FixedPointTheorems.",
+  "suspicious_defs": [
+   "The challenge file contains `by sorry` inside a definition: `sobolevProduct k _hk f g : FourierL2 := ⟨fun n => weight * convolution coefficient, by sorry⟩` (the ℓ² membership proof of the Sobolev-algebra product; it is a Prop field so it cannot change the function, but it is a definition-level sorry)",
+   "The PDE is encoded in Fourier space: `lowerSobolevInclusion`/`lowerSobolevGenerator` contraction multipliers, `maximalSobolevInteractionFlow` defined by `Classical.choose` of a patch with fallback 0 and `maximalSobolevInteractionDomain` as a union of patches, `HasFiniteTimeSelfSimilarBlowup` (pointwise value at a torus point via `sobolevTorusFunction`, sup of the domain = T, discontinuity at T); about a dozen statement-level `run_cmd Lean.modifyEnv ... auxLemmasExt` meta commands and `attribute [local irreducible]`"
+  ],
+  "external": [
+   "FixedPointTheorems"
+  ],
+  "cone_lines": {
+   "DefocusingNLS": 180149
+  }
+ },
+ {
+  "family": "372",
+  "title": "Global uniqueness in smooth isotropic elasticity",
+  "headline_formalized": "full",
+  "challenges": [
+   "ElasticityUniqueness"
+  ],
+  "gap_note": "`MainClaim`: for every open connected bounded smooth domain Ω ⊂ ℝ³ and two pairs of Lamé moduli smooth in a neighbourhood of the closure with μ > 0 and 3λ+2μ > 0 on the closure, equality of the full displacement-to-traction pairing `DN` as a function on all pairs of boundary data forces λ₁ = λ₂ and μ₁ = μ₂ on Ω; no analyticity, near-constant or near-boundary assumption. The `Classical.choose` in `dirichletSolution` picks the weak Dirichlet solution but only enters `DN` through energy against it, which is well defined because that solution is a weak solution (unique under the stated positivity); the fallback `f.out` is used only when no solution exists.",
+  "suspicious_defs": [
+   "`dirichletSolution Ω lam mu f := if h : ∃ u, trace u = f ∧ WeakSolution u then Classical.choose h else f.out` and `DN f g := energy (dirichletSolution f) g.out` (Quot.out representatives of the trace classes); H¹ and traces hand-built as closures of smooth jets in L² and `Quot (SameTrace)`, strain and divergence from jets, energy = ∫ λ div u div v + 2μ ε(u):ε(v)"
+  ],
+  "external": [],
+  "cone_lines": {
+   "ElasticityUniqueness": 31645
+  }
+ },
+ {
+  "family": "373",
+  "title": "Nonattainment in three-marginal Coulomb transport",
+  "headline_formalized": "partial",
+  "challenges": [
+   "CoulombCounterexample"
+  ],
+  "gap_note": "`coulomb_counterexample_and_equal_infima`: there is a smooth compactly supported probability density ρ on ℝ³ (with smooth compactly supported √ρ) whose three-marginal Kantorovich problem for the cost Σ 1/|x_i-x_j| with identical marginals has finite value attained by some coupling, no pair of measurable measure-preserving maps (T₂,T₃) attains it, yet the Monge infimum equals the Kantorovich value and finite-cost Monge maps approach it. The summary's extension to every inverse-power Riesz exponent in each dimension ≥ 2 is not stated (docs: 'outside this statement').",
+  "suspicious_defs": [
+   "`invDistance x y := (ofReal ‖x - y‖)⁻¹` in ℝ≥0∞ (value ⊤ on the diagonal), `kantorovichValue`/`mongeValue` as ⨅ over couplings / measure-preserving map pairs; all standard"
+  ],
+  "external": [],
+  "cone_lines": {
+   "CoulombCounterexample": 10668
+  }
+ },
+ {
+  "family": "374",
+  "title": "Sharp one-third stability of optimal transport maps",
+  "headline_formalized": "full",
+  "challenges": [
+   "Brenier"
+  ],
+  "gap_note": "All 12 `definition_names` were read: `uniformMeasure` ((vol S)⁻¹·vol|_S), `IsCoupling`, `quadraticPlanCost` (∫⁻ ofReal ‖x-y‖²), `wasserstein2` (√ toReal sInf of coupling costs), `graphPlan`, `IsQuadraticOptimalMap`, `IsUniqueQuadraticOptimalMap` (optimal and every coupling of cost ≤ it equals the graph plan), `mapL2Dist`, `cube`, `HasExactlyThreeAtoms`, `IsSupported`, `E`; all standard. `one_third_stability` gives, for d ≥ 2, any compact convex source with interior and any compact nonempty container, one constant with ‖T_μ - T_ν‖_{L²(uniform)} ≤ C·W₂(μ,ν)^(1/3) for all probability targets in the container (unique optimal maps exist), and `one_third_exponent_is_sharp` shows for every exponent > 1/3 and constant, three-atom targets in the cube violate the bound (so the conjectured square root fails).",
+  "suspicious_defs": [
+   "`wasserstein2` and `mapL2Dist` use `ENNReal.toReal`/Bochner integrals (value 0 if infinite or non-integrable), harmless here because targets lie in a compact container so all quantities are finite"
+  ],
+  "external": [],
+  "cone_lines": {
+   "Brenier": 33020
+  }
+ },
+ {
+  "family": "376",
+  "title": "Universal computation in forced Navier--Stokes flows",
+  "headline_formalized": "full",
+  "challenges": [
+   "BalancedBoxRouting",
+   "BalancedThreeStack",
+   "ForcedNavierStokesComputation",
+   "NavierStokesAlternating",
+   "NavierStokesVelocity",
+   "SolenoidalSheetPrograms"
+  ],
+  "gap_note": "`NavierStokesAlternating.alternating` (fixed computable ν > 0) gives computable compilers (Machine × input ↦ triple of `Nat.Partrec.Code` programs returning approximations, moduli and rapid-decay bounds) and, for every well-formed Turing machine and input, a smooth force f = residual ν U supported in one compact K, with U the unique energy-class solution from rest (zero pressure), such that the machine halts iff the particle started at (-1,0,0) reaches {x₁ > 0}. ForcedNavierStokesComputation and BalancedThreeStack (one theorem stated twice: all ν > 0, particle from (4,0,0) into (-1,2)³) and NavierStokesVelocity (torus and ℝ²×𝕋 detection) are variants. The forcing is not unconstrained: it must be uniformly computable in (M, w) (`ProgramFor`/`EffectiveFamily`/`Represents`), which excludes a force that already knows the halting answer.",
+  "suspicious_defs": [
+   "The flow is prescribed and the force is derived from it: `f = residual ν U := ∂ₜU + U·∇U - νΔU` (Alternating) or `f₀ := inertialCoefficient U`, `f₁ := viscousCoefficient U`, `affineForce f₀ f₁ ν` with pressure ≡ 0 (Forced/BalancedThreeStack); legitimate for forced Navier-Stokes since solutions are shown unique in an energy comparison class, but it means the force is only constrained through smoothness, compact support, computability and uniqueness",
+   "NavierStokesVelocity: `def compile (B) (M) (w) : Program b N := ⟨B, M, w⟩` is trivial packaging; the effectiveness is carried by the fixed interpreter `evaluate := Nat.rfindOpt (valueTrial ..)` and the clause `Represents`, i.e. 'terminating compiler' there means the interpreter always halts with an ε-approximation (the genuinely computable compiler is `Computable compileForce` in NavierStokesAlternating)",
+   "Three different machine models: `Machine := ℕ × ℕ × ℕ × List ℕ × List (Option Rule)` (Alternating), `FiniteMachine` with `Option Transition` (Forced/BalancedThreeStack), Mathlib `Turing.TM0.Machine` (Velocity), and 'halts' is `∃ n, isHalting (run n)`, `Halts` (reachable configuration without a transition) and `(TM0.eval M w).Dom` respectively; BalancedThreeStack and ForcedNavierStokesComputation share the theorem name `OAI.BalancedTransport.balanced_three_stack_realization` and differ only by a `Fintype Direction` instance"
+  ],
+  "external": [],
+  "cone_lines": {
+   "BalancedBoxRouting": 3480,
+   "BalancedThreeStack": 11109,
+   "ForcedNavierStokesComputation": 11109,
+   "NavierStokesAlternating": 7871,
+   "NavierStokesVelocity": 22602,
+   "SolenoidalSheetPrograms": 6744
+  }
+ }
+]

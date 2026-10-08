@@ -1,0 +1,197 @@
+== CirculantHadamard  module=OAI.LinearAlgebra.CirculantHadamard.Main  start=2026-10-07T01:30:00Z
+note: using toolchain 'leanprover/lean4:v4.34.1' from override set on '/Users/shannon/cc/math/math/lean'
+note: to remove: elan override unset --path '/Users/shannon/cc/math/math/lean' | to suppress: ELAN_NO_OVERRIDE_NOTICE=1
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+✔ [8923/8944] Built OAI.LinearAlgebra.CirculantHadamard.TwoAdicDecomposition (7.6s)
+✔ [8924/8944] Built OAI.LinearAlgebra.CirculantHadamard.ProjectionPairFiber (7.7s)
+✔ [8925/8952] Built OAI.LinearAlgebra.CirculantHadamard.CyclicRing (8.1s)
+✔ [8926/8952] Built OAI.LinearAlgebra.CirculantHadamard.IntegerLocalDivisibility (8.0s)
+✔ [8927/8952] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicRemainder (7.7s)
+✔ [8928/8952] Built OAI.LinearAlgebra.CirculantHadamard.CyclicPolynomial (8.7s)
+✔ [8929/8952] Built OAI.LinearAlgebra.CirculantHadamard.LocalDVR (8.9s)
+✔ [8930/8956] Built OAI.LinearAlgebra.CirculantHadamard.RamifiedConjugation (11s)
+✔ [8931/8959] Built OAI.LinearAlgebra.CirculantHadamard.CyclicEvaluation (4.3s)
+✔ [8932/8959] Built OAI.LinearAlgebra.CirculantHadamard.CyclicProjection (4.3s)
+✔ [8933/8959] Built OAI.LinearAlgebra.CirculantHadamard.RamifiedUnit (4.7s)
+✔ [8934/8962] Built OAI.LinearAlgebra.CirculantHadamard.DyadicRemainder (5.9s)
+✔ [8935/8965] Built OAI.LinearAlgebra.CirculantHadamard.IntegerTwoLocal (4.9s)
+✔ [8936/8965] Built OAI.LinearAlgebra.CirculantHadamard.RamifiedEisenstein (5.0s)
+✔ [8937/8969] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicRings (5.2s)
+✔ [8938/8969] Built OAI.LinearAlgebra.CirculantHadamard.PrimeComponents (4.4s)
+✔ [8939/8969] Built OAI.LinearAlgebra.CirculantHadamard.ProjectionCoefficients (4.1s)
+✔ [8940/8971] Built OAI.LinearAlgebra.CirculantHadamard.AlternatingProducts (3.7s)
+✔ [8941/8973] Built OAI.LinearAlgebra.CirculantHadamard.LocalizationMaps (4.0s)
+✔ [8942/8973] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicIntegerEvaluation (6.0s)
+✔ [8943/8973] Built OAI.LinearAlgebra.CirculantHadamard.RamifiedLocal (6.2s)
+✔ [8944/8975] Built OAI.LinearAlgebra.CirculantHadamard.FirstOrderResidue (3.7s)
+✔ [8945/8975] Built OAI.LinearAlgebra.CirculantHadamard.ResidueTorsion (3.5s)
+✔ [8946/8975] Built OAI.LinearAlgebra.CirculantHadamard.AlternatingNorm (4.4s)
+✔ [8947/8977] Built OAI.LinearAlgebra.CirculantHadamard.LocalizationIntersection (3.9s)
+✔ [8948/8977] Built OAI.LinearAlgebra.CirculantHadamard.BinaryLocalization (4.3s)
+✔ [8949/8977] Built OAI.LinearAlgebra.CirculantHadamard.PrimeCharacterEvaluations (6.8s)
+✔ [8950/8981] Built OAI.LinearAlgebra.CirculantHadamard.ResidueOneAssociation (4.4s)
+✔ [8951/8983] Built OAI.LinearAlgebra.CirculantHadamard.BinaryResidue (4.2s)
+✔ [8952/8985] Built OAI.LinearAlgebra.CirculantHadamard.OrderCyclotomicDivisibility (6.4s)
+✔ [8953/8985] Built OAI.LinearAlgebra.CirculantHadamard.AlternatingField (4.5s)
+✔ [8954/8985] Built OAI.LinearAlgebra.CirculantHadamard.CyclicScalarDivision (4.0s)
+✔ [8956/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicLocalBase (8.0s)
+✔ [8957/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclicProjectionPolynomial (4.3s)
+✔ [8958/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclicEvaluationAt (4.3s)
+✔ [8959/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryLocalRing (7.5s)
+✔ [8960/8991] Built OAI.LinearAlgebra.CirculantHadamard.CoefficientEvaluation (4.9s)
+✔ [8961/8991] Built OAI.LinearAlgebra.CirculantHadamard.OrderHalving (5.6s)
+✔ [8962/8991] Built OAI.LinearAlgebra.CirculantHadamard.LocalComparisonInduction (5.8s)
+✔ [8963/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicAdjoin (4.7s)
+✔ [8964/8991] Built OAI.LinearAlgebra.CirculantHadamard.Model (25s)
+✔ [8965/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicAwayLocal (5.7s)
+✔ [8966/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclicEvaluationProjection (3.4s)
+✔ [8967/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicProjection (4.5s)
+✔ [8968/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryProductTransport (3.8s)
+✔ [8969/8991] Built OAI.LinearAlgebra.CirculantHadamard.Kronecker (3.5s)
+✔ [8970/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicFactorDivision (2.9s)
+✔ [8971/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclotomicTorsion (2.7s)
+✔ [8972/8991] Built OAI.LinearAlgebra.CirculantHadamard.Basic (6.5s)
+✔ [8973/8991] Built OAI.LinearAlgebra.CirculantHadamard.LocalComparison (3.2s)
+✔ [8974/8991] Built OAI.LinearAlgebra.CirculantHadamard.MatrixBridge (8.8s)
+✔ [8975/8991] Built OAI.LinearAlgebra.CirculantHadamard.AlternatingLocalization (8.4s)
+✔ [8976/8991] Built OAI.LinearAlgebra.CirculantHadamard.Witnesses (9.5s)
+✔ [8977/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryCoefficients (9.5s)
+✔ [8978/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryBlocks (9.8s)
+✔ [8979/8991] Built OAI.LinearAlgebra.CirculantHadamard.AlternatingTorsion (4.9s)
+✔ [8980/8991] Built OAI.LinearAlgebra.CirculantHadamard.CyclicNorm (6.8s)
+✔ [8981/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryNorms (7.1s)
+✔ [8982/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryCharacterSum (7.3s)
+✔ [8983/8991] Built OAI.LinearAlgebra.CirculantHadamard.OrderSquareEven (8.4s)
+✔ [8984/8991] Built OAI.LinearAlgebra.CirculantHadamard.OrderProjection (8.4s)
+✔ [8985/8991] Built OAI.LinearAlgebra.CirculantHadamard.ModEight (8.5s)
+✔ [8986/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryEvaluation (8.9s)
+✔ [8987/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryLocalFamily (10s)
+✔ [8988/8991] Built OAI.LinearAlgebra.CirculantHadamard.OrderDescent (5.4s)
+✔ [8989/8991] Built OAI.LinearAlgebra.CirculantHadamard.BinaryContradiction (5.2s)
+✔ [8990/8991] Built OAI.LinearAlgebra.CirculantHadamard.OrderReduction (5.1s)
+✔ [8991/8991] Built OAI.LinearAlgebra.CirculantHadamard.Main (4.8s)
+Build completed successfully (8991 jobs).
+== build rc=0 seconds=89
+== challenge-side print:
+note: using toolchain 'leanprover/lean4:v4.34.1' from override set on '/Users/shannon/cc/math/math/lean'
+note: to remove: elan override unset --path '/Users/shannon/cc/math/math/lean' | to suppress: ELAN_NO_OVERRIDE_NOTICE=1
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+theorem OAI.CirculantHadamard.exists_iff_order_one_or_four : ∀ (n : ℕ),
+  0 < n → (OAI.CirculantHadamard.ExistsRealCirculantHadamard n ↔ n = 1 ∨ n = 4) :=
+fun n hn => sorry
+== solution-side print + axioms:
+note: using toolchain 'leanprover/lean4:v4.34.1' from override set on '/Users/shannon/cc/math/math/lean'
+note: to remove: elan override unset --path '/Users/shannon/cc/math/math/lean' | to suppress: ELAN_NO_OVERRIDE_NOTICE=1
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+theorem OAI.CirculantHadamard.exists_iff_order_one_or_four : ∀ (n : ℕ),
+  0 < n → (OAI.CirculantHadamard.ExistsRealCirculantHadamard n ↔ n = 1 ∨ n = 4) :=
+fun n hn =>
+  {
+    mp := fun hH =>
+      if hn1 : n = 1 then Or.inl hn1
+      else
+        have hnlarge :=
+          Decidable.byContradiction fun a => OAI.CirculantHadamard.exists_iff_order_one_or_four._proof_1_1 n hn hn1 a;
+        Exists.casesOn (OAI.CirculantHadamard.order_reduction hnlarge hH) fun u h =>
+          And.casesOn h fun hu right =>
+            And.casesOn right fun hodd right =>
+              Eq.ndrec (motive := fun n =>
+                0 < n → OAI.CirculantHadamard.ExistsRealCirculantHadamard n → ¬n = 1 → 1 < n → n = 1 ∨ n = 4)
+                (fun hn hH hn1 hnlarge =>
+                  if hu1 : u = 1 then
+                    Or.inr
+                      (of_eq_true
+                        (Eq.trans
+                          (congrFun'
+                            (congrArg Eq
+                              (Eq.trans
+                                (congrArg (HMul.hMul 4) (Eq.trans (congrFun' (congrArg HPow.hPow hu1) 2) (one_pow 2)))
+                                (mul_one 4)))
+                            4)
+                          (eq_self 4)))
+                  else
+                    have hul :=
+                      Decidable.byContradiction fun a =>
+                        OAI.CirculantHadamard.exists_iff_order_one_or_four._proof_1_1 u hu hu1 a;
+                    False.elim (OAI.CirculantHadamard.not_exists_four_mul_odd_square hul hodd hH))
+                (Eq.symm right) hn hH hn1 hnlarge,
+    mpr := OAI.CirculantHadamard.exists_of_order_one_or_four }
+'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+TYPES DIFFER CirculantHadamard (see /Users/shannon/cc/math/verification/lean_checks/CirculantHadamard.*.norm)
+16c16,46
+< fun n hn => sorry
+---
+> fun n hn =>
+>   {
+>     mp := fun hH =>
+>       if hn1 : n = 1 then Or.inl hn1
+>       else
+>         have hnlarge :=
+>           Decidable.byContradiction fun a => OAI.CirculantHadamard.exists_iff_order_one_or_four._proof_1_1 n hn hn1 a;
+>         Exists.casesOn (OAI.CirculantHadamard.order_reduction hnlarge hH) fun u h =>
+>           And.casesOn h fun hu right =>
+>             And.casesOn right fun hodd right =>
+>               Eq.ndrec (motive := fun n =>
+>                 0 < n → OAI.CirculantHadamard.ExistsRealCirculantHadamard n → ¬n = 1 → 1 < n → n = 1 ∨ n = 4)
+>                 (fun hn hH hn1 hnlarge =>
+>                   if hu1 : u = 1 then
+>                     Or.inr
+>                       (of_eq_true
+>                         (Eq.trans
+>                           (congrFun'
+>                             (congrArg Eq
+>                               (Eq.trans
+>                                 (congrArg (HMul.hMul 4) (Eq.trans (congrFun' (congrArg HPow.hPow hu1) 2) (one_pow 2)))
+>                                 (mul_one 4)))
+>                             4)
+>                           (eq_self 4)))
+>                   else
+>                     have hul :=
+>                       Decidable.byContradiction fun a =>
+>                         OAI.CirculantHadamard.exists_iff_order_one_or_four._proof_1_1 u hu hu1 a;
+>                     False.elim (OAI.CirculantHadamard.not_exists_four_mul_odd_square hul hodd hH))
+>                 (Eq.symm right) hn hH hn1 hnlarge,
+>     mpr := OAI.CirculantHadamard.exists_of_order_one_or_four }
+AXIOMS: 'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-07T01:31:48Z
+== CirculantHadamard recheck (no build) 2026-10-07T01:45:20Z
+{"theorems": ["OAI.CirculantHadamard.exists_iff_order_one_or_four"], "defs": ["OAI.CirculantHadamard.IsSign", "OAI.CirculantHadamard.RealMatrix", "OAI.CirculantHadamard.IsCirculant", "OAI.CirculantHadamard.IsSignHadamard", "OAI.CirculantHadamard.ExistsRealCirculantHadamard"], "json_theorems": ["OAI.CirculantHadamard.exists_iff_order_one_or_four"], "missing_from_parse": []}
+TYPES/DEFS DIFFER CirculantHadamard
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_CirculantHadamard.lean:24:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-07T01:47:27Z
