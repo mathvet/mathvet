@@ -1,0 +1,167 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SharpCAT0Filling.lean:135:8: warning: declaration uses `sorry`
+OAI.CAT0Fillings.sharp_integral_filling : ∀ (X : Type u_1) [inst : MetricSpace X] [inst_1 : MeasurableSpace X]
+  [inst_2 : BorelSpace X] [ProperSpace X],
+  OAI.CAT0Fillings.IsCAT0 X →
+    ∀ (n : ℕ),
+      2 ≤ n →
+        ∀ (T : OAI.CAT0Fillings.IntegralCurrent X n),
+          OAI.CAT0Fillings.CompactlySupported ↑T →
+            OAI.CAT0Fillings.IsCycle ↑T →
+              ∃ S,
+                OAI.CAT0Fillings.CompactlySupported ↑S ∧
+                  OAI.CAT0Fillings.boundarySucc ↑S = ↑T ∧
+                    OAI.CAT0Fillings.mass ↑S ≤
+                      OAI.CAT0Fillings.fillingCoefficient n * OAI.CAT0Fillings.mass ↑T ^ OAI.CAT0Fillings.fillingPower n
+@[reducible] def OAI.CAT0Fillings.Euc : ℕ → Type :=
+fun k => EuclideanSpace ℝ (Fin k)
+@[reducible] def OAI.CAT0Fillings.Functional.{u} : Type u → ℕ → Type u :=
+fun X k => (X → ℝ) → (Fin k → X → ℝ) → ℝ
+def OAI.CAT0Fillings.BoundedLip.{u} : {X : Type u} → [MetricSpace X] → (X → ℝ) → Prop :=
+fun {X} [MetricSpace X] b => (∃ K, LipschitzWith K b) ∧ ∃ M, ∀ (x : X), |b x| ≤ M
+def OAI.CAT0Fillings.Admissible.{u} : {X : Type u} → [MetricSpace X] → {k : ℕ} → (X → ℝ) → (Fin k → X → ℝ) → Prop :=
+fun {X} [MetricSpace X] {k} b π => OAI.CAT0Fillings.BoundedLip b ∧ ∀ (i : Fin k), ∃ K, LipschitzWith K (π i)
+def OAI.CAT0Fillings.Controls.{u} : {X : Type u} →
+  [MetricSpace X] →
+    [inst : MeasurableSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → MeasureTheory.Measure X → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T μ =>
+  ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+    OAI.CAT0Fillings.BoundedLip b → (∀ (i : Fin k), LipschitzWith 1 (π i)) → |T b π| ≤ ∫ (x : X), |b x| ∂μ
+def OAI.CAT0Fillings.mass.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → ℝ :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T =>
+  sInf {r | ∃ μ, MeasureTheory.IsFiniteMeasure μ ∧ OAI.CAT0Fillings.Controls T μ ∧ r = μ.real Set.univ}
+structure OAI.CAT0Fillings.IsMetricCurrent.{u} {X : Type u} [MetricSpace X] [MeasurableSpace X] {k : ℕ}
+  (T : OAI.CAT0Fillings.Functional X k) : Prop
+number of parameters: 5
+fields:
+  OAI.CAT0Fillings.IsMetricCurrent.offDomain : ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+      ¬OAI.CAT0Fillings.Admissible b π → T b π = 0
+  OAI.CAT0Fillings.IsMetricCurrent.linearFirst : ∀ (b₁ b₂ : X → ℝ) (π : Fin k → X → ℝ) (a c : ℝ),
+      OAI.CAT0Fillings.BoundedLip b₁ →
+        OAI.CAT0Fillings.BoundedLip b₂ →
+          (∀ (i : Fin k), ∃ K, LipschitzWith K (π i)) → T (fun x => a * b₁ x + c * b₂ x) π = a * T b₁ π + c * T b₂ π
+  OAI.CAT0Fillings.IsMetricCurrent.linearCoord : ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (i : Fin k) (f : X → ℝ) (a c : ℝ),
+      OAI.CAT0Fillings.Admissible b π →
+        (∃ K, LipschitzWith K f) →
+          T b (Function.update π i fun x => a * π i x + c * f x) = a * T b π + c * T b (Function.update π i f)
+  OAI.CAT0Fillings.IsMetricCurrent.sequentialContinuity : ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (πs : ℕ → Fin k → X → ℝ),
+      OAI.CAT0Fillings.BoundedLip b →
+        (∀ (i : Fin k), ∃ K, ∀ (j : ℕ), LipschitzWith K (πs j i)) →
+          (∀ (i : Fin k) (x : X), Filter.Tendsto (fun j => πs j i x) Filter.atTop (nhds (π i x))) →
+            Filter.Tendsto (fun j => T b (πs j)) Filter.atTop (nhds (T b π))
+  OAI.CAT0Fillings.IsMetricCurrent.locality : ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+      OAI.CAT0Fillings.Admissible b π → (∃ i U c, IsOpen U ∧ Function.support b ⊆ U ∧ ∀ x ∈ U, π i x = c) → T b π = 0
+  OAI.CAT0Fillings.IsMetricCurrent.finiteMass : ∃ μ, MeasureTheory.IsFiniteMeasure μ ∧ OAI.CAT0Fillings.Controls T μ
+constructor:
+  OAI.CAT0Fillings.IsMetricCurrent.mk.{u} {X : Type u} [MetricSpace X] [MeasurableSpace X] {k : ℕ}
+    {T : OAI.CAT0Fillings.Functional X k}
+    (offDomain : ∀ (b : X → ℝ) (π : Fin k → X → ℝ), ¬OAI.CAT0Fillings.Admissible b π → T b π = 0)
+    (linearFirst :
+      ∀ (b₁ b₂ : X → ℝ) (π : Fin k → X → ℝ) (a c : ℝ),
+        OAI.CAT0Fillings.BoundedLip b₁ →
+          OAI.CAT0Fillings.BoundedLip b₂ →
+            (∀ (i : Fin k), ∃ K, LipschitzWith K (π i)) → T (fun x => a * b₁ x + c * b₂ x) π = a * T b₁ π + c * T b₂ π)
+    (linearCoord :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (i : Fin k) (f : X → ℝ) (a c : ℝ),
+        OAI.CAT0Fillings.Admissible b π →
+          (∃ K, LipschitzWith K f) →
+            T b (Function.update π i fun x => a * π i x + c * f x) = a * T b π + c * T b (Function.update π i f))
+    (sequentialContinuity :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ) (πs : ℕ → Fin k → X → ℝ),
+        OAI.CAT0Fillings.BoundedLip b →
+          (∀ (i : Fin k), ∃ K, ∀ (j : ℕ), LipschitzWith K (πs j i)) →
+            (∀ (i : Fin k) (x : X), Filter.Tendsto (fun j => πs j i x) Filter.atTop (nhds (π i x))) →
+              Filter.Tendsto (fun j => T b (πs j)) Filter.atTop (nhds (T b π)))
+    (locality :
+      ∀ (b : X → ℝ) (π : Fin k → X → ℝ),
+        OAI.CAT0Fillings.Admissible b π → (∃ i U c, IsOpen U ∧ Function.support b ⊆ U ∧ ∀ x ∈ U, π i x = c) → T b π = 0)
+    (finiteMass : ∃ μ, MeasureTheory.IsFiniteMeasure μ ∧ OAI.CAT0Fillings.Controls T μ) :
+    OAI.CAT0Fillings.IsMetricCurrent T
+def OAI.CAT0Fillings.boundarySucc.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X (k + 1) → OAI.CAT0Fillings.Functional X k :=
+fun {X} [MetricSpace X] {k} T b π => if OAI.CAT0Fillings.Admissible b π then T (fun x => 1) (Matrix.vecCons b π) else 0
+def OAI.CAT0Fillings.boundary.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → OAI.CAT0Fillings.Functional X (k - 1) :=
+fun {X} [MetricSpace X] x x_1 =>
+  match x, x_1 with
+  | 0, x => fun x x_2 => 0
+  | n.succ, T => OAI.CAT0Fillings.boundarySucc T
+structure OAI.CAT0Fillings.IntegerChart.{u} (X : Type u) [MetricSpace X] (k : ℕ) : Type u
+number of parameters: 3
+fields:
+  OAI.CAT0Fillings.IntegerChart.domain : Set (OAI.CAT0Fillings.Euc k)
+  OAI.CAT0Fillings.IntegerChart.borel : MeasurableSet self.domain
+  OAI.CAT0Fillings.IntegerChart.bounded : Bornology.IsBounded self.domain
+  OAI.CAT0Fillings.IntegerChart.param : ↑self.domain → X
+  OAI.CAT0Fillings.IntegerChart.bilipschitz : ∃ L U, LipschitzWith L self.param ∧ AntilipschitzWith U self.param
+  OAI.CAT0Fillings.IntegerChart.multiplicity : OAI.CAT0Fillings.Euc k → ℤ
+  OAI.CAT0Fillings.IntegerChart.integrable : MeasureTheory.Integrable (fun z => ↑(self.multiplicity z))
+      (MeasureTheory.volume.restrict self.domain)
+constructor:
+  OAI.CAT0Fillings.IntegerChart.mk.{u} {X : Type u} [MetricSpace X] {k : ℕ} (domain : Set (OAI.CAT0Fillings.Euc k))
+    (borel : MeasurableSet domain) (bounded : Bornology.IsBounded domain) (param : ↑domain → X)
+    (bilipschitz : ∃ L U, LipschitzWith L param ∧ AntilipschitzWith U param) (multiplicity : OAI.CAT0Fillings.Euc k → ℤ)
+    (integrable : MeasureTheory.Integrable (fun z => ↑(multiplicity z)) (MeasureTheory.volume.restrict domain)) :
+    OAI.CAT0Fillings.IntegerChart X k
+def OAI.CAT0Fillings.IntegerChart.scalar.{u} : {X : Type u} →
+  [inst : MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.IntegerChart X k → (X → ℝ) → OAI.CAT0Fillings.Euc k → ℝ :=
+fun {X} [MetricSpace X] {k} C f z => if hz : z ∈ C.domain then f (C.param ⟨z, hz⟩) else 0
+def OAI.CAT0Fillings.IntegerChart.jacobian.{u} : {X : Type u} →
+  [inst : MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.IntegerChart X k → (Fin k → X → ℝ) → OAI.CAT0Fillings.Euc k → ℝ :=
+fun {X} [MetricSpace X] {k} C π z =>
+  Matrix.det fun i j => (fderivWithin ℝ (C.scalar (π i)) C.domain z) (EuclideanSpace.single j 1)
+def OAI.CAT0Fillings.IntegerChart.action.{u} : {X : Type u} →
+  [inst : MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.IntegerChart X k → OAI.CAT0Fillings.Functional X k :=
+fun {X} [MetricSpace X] {k} C b π =>
+  if OAI.CAT0Fillings.Admissible b π then
+    ∫ (z : OAI.CAT0Fillings.Euc k) in C.domain, ↑(C.multiplicity z) * C.scalar b z * C.jacobian π z
+  else 0
+def OAI.CAT0Fillings.IntegerChart.image.{u} : {X : Type u} →
+  [inst : MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.IntegerChart X k → Set X :=
+fun {X} [MetricSpace X] {k} C => Set.range C.param
+def OAI.CAT0Fillings.IntegerRectifiable.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] {k} T =>
+  ∃ C,
+    (Pairwise fun i j => Disjoint (C i).image (C j).image) ∧
+      (∀ (i : ℕ), OAI.CAT0Fillings.IsMetricCurrent (C i).action) ∧
+        (Summable fun i => OAI.CAT0Fillings.mass (C i).action) ∧
+          ∀ (b : X → ℝ) (π : Fin k → X → ℝ), T b π = ∑' (i : ℕ), (C i).action b π
+def OAI.CAT0Fillings.IsIntegral.{u} : {X : Type u} →
+  [MetricSpace X] → [MeasurableSpace X] → (k : ℕ) → OAI.CAT0Fillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] [MeasurableSpace X] x x_1 =>
+  match x, x_1 with
+  | 0, T => OAI.CAT0Fillings.IsMetricCurrent T ∧ OAI.CAT0Fillings.IntegerRectifiable T
+  | n.succ, T =>
+    OAI.CAT0Fillings.IsMetricCurrent T ∧
+      OAI.CAT0Fillings.IntegerRectifiable T ∧
+        OAI.CAT0Fillings.IsMetricCurrent (OAI.CAT0Fillings.boundarySucc T) ∧
+          OAI.CAT0Fillings.IntegerRectifiable (OAI.CAT0Fillings.boundarySucc T)
+@[reducible] def OAI.CAT0Fillings.IntegralCurrent.{u} : (X : Type u) →
+  [inst : MetricSpace X] → [inst_1 : MeasurableSpace X] → [BorelSpace X] → ℕ → Type (max 0 u) :=
+fun X [MetricSpace X] [MeasurableSpace X] [BorelSpace X] k => { T // OAI.CAT0Fillings.IsIntegral k T }
+def OAI.CAT0Fillings.CompactlySupported.{u} : {X : Type u} →
+  [MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] {k} T =>
+  ∃ K, IsCompact K ∧ ∀ (b : X → ℝ) (π : Fin k → X → ℝ), OAI.CAT0Fillings.Admissible b π → (∀ x ∈ K, b x = 0) → T b π = 0
+def OAI.CAT0Fillings.IsCycle.{u} : {X : Type u} → [MetricSpace X] → {k : ℕ} → OAI.CAT0Fillings.Functional X k → Prop :=
+fun {X} [MetricSpace X] {k} T => OAI.CAT0Fillings.boundary T = fun x x_1 => 0
+def OAI.CAT0Fillings.IsCAT0.{u} : (X : Type u) → [MetricSpace X] → Prop :=
+fun X [MetricSpace X] =>
+  ∃ segment,
+    (∀ (x y : X), segment x y 0 = x ∧ segment x y 1 = y) ∧
+      (∀ (x y : X) (s t : ℝ),
+          s ∈ Set.Icc 0 1 → t ∈ Set.Icc 0 1 → dist (segment x y s) (segment x y t) = |s - t| * dist x y) ∧
+        ∀ (o x y : X) (s t : ℝ),
+          s ∈ Set.Icc 0 1 →
+            t ∈ Set.Icc 0 1 →
+              dist (segment o x s) (segment o y t) ^ 2 ≤
+                (s * dist o x - t * dist o y) ^ 2 + s * t * (dist x y ^ 2 - (dist o x - dist o y) ^ 2)
+def OAI.CAT0Fillings.omega : ℕ → ℝ :=
+fun k => (MeasureTheory.volume (Metric.ball 0 1)).toReal
+def OAI.CAT0Fillings.sphereArea : ℕ → ℝ :=
+fun n => (↑n + 1) * OAI.CAT0Fillings.omega (n + 1)
+def OAI.CAT0Fillings.fillingCoefficient : ℕ → ℝ :=
+fun n => 1 / ((↑n + 1) * OAI.CAT0Fillings.sphereArea n ^ (1 / ↑n))
+def OAI.CAT0Fillings.fillingPower : ℕ → ℝ :=
+fun n => (↑n + 1) / ↑n
