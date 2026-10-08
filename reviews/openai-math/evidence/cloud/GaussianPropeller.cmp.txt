@@ -1,0 +1,55 @@
+CMP OAI.GaussianPropeller.all_partitions [thm] ok
+CMP OAI.GaussianPropeller.AllPartitions [def] ok
+CMP OAI.GaussianPropeller.propeller [def] ok
+CMP OAI.GaussianPropeller.propeller._proof_1 [thm] ok
+CMP OAI.GaussianPropeller.coord [def] ok
+CMP OAI.GaussianPropeller.Space [def] ok
+CMP OAI.GaussianPropeller.AllPartitions._proof_2 [thm] ok
+CMP OAI.GaussianPropeller.AllPartitions._proof_1 [thm] ok
+CMP OAI.GaussianPropeller.value [def] ok
+CMP OAI.GaussianPropeller.centroid [def] ok
+CMP OAI.GaussianPropeller.gaussian [def] ok
+CMP OAI.GaussianPropeller.gaussian._proof_1 [thm] ok
+CMP OAI.GaussianPropeller.IsPartition [def] ok
+CMP OAI.GaussianPropeller.IsPartition._proof_1 [thm] ok
+Chal.GaussianPropeller.all_partitions : Chal.GaussianPropeller.AllPartitions
+@[reducible] def Chal.GaussianPropeller.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.GaussianPropeller.gaussian : (d : ℕ) → MeasureTheory.Measure (Chal.GaussianPropeller.Space d) :=
+fun d => ProbabilityTheory.stdGaussian (Chal.GaussianPropeller.Space d)
+def Chal.GaussianPropeller.IsPartition : {d k : ℕ} → (Fin k → Set (Chal.GaussianPropeller.Space d)) → Prop :=
+fun {d k} A =>
+  (∀ (i : Fin k), MeasurableSet (A i)) ∧
+    ∀ᵐ (x : Chal.GaussianPropeller.Space d) ∂Chal.GaussianPropeller.gaussian d, ∃! i, x ∈ A i
+def Chal.GaussianPropeller.centroid : {d : ℕ} → Set (Chal.GaussianPropeller.Space d) → Chal.GaussianPropeller.Space d :=
+fun {d} A => ∫ (x : Chal.GaussianPropeller.Space d) in A, x ∂Chal.GaussianPropeller.gaussian d
+def Chal.GaussianPropeller.value : {d k : ℕ} → (Fin k → Set (Chal.GaussianPropeller.Space d)) → ℝ :=
+fun {d k} A => ∑ i, ‖Chal.GaussianPropeller.centroid (A i)‖ ^ 2
+def Chal.GaussianPropeller.coord : {d : ℕ} → ℕ → Chal.GaussianPropeller.Space d → ℝ :=
+fun {d} j x => if h : j < d then x.ofLp ⟨j, h⟩ else 0
+def Chal.GaussianPropeller.propeller : (d k : ℕ) → Fin k → Set (Chal.GaussianPropeller.Space d) :=
+fun d k i =>
+  if ↑i = 0 then {x | |Chal.GaussianPropeller.coord 1 x| ≤ √3 * Chal.GaussianPropeller.coord 0 x}
+  else
+    if ↑i = 1 then
+      {x |
+        0 ≤ Chal.GaussianPropeller.coord 1 x ∧ √3 * Chal.GaussianPropeller.coord 0 x ≤ Chal.GaussianPropeller.coord 1 x}
+    else
+      if ↑i = 2 then
+        {x |
+          Chal.GaussianPropeller.coord 1 x ≤ 0 ∧
+            √3 * Chal.GaussianPropeller.coord 0 x ≤ -Chal.GaussianPropeller.coord 1 x}
+      else ∅
+def Chal.GaussianPropeller.AllPartitions : Prop :=
+(∀ (d k : ℕ),
+    0 < d →
+      0 < k →
+        ∀ (A : Fin k → Set (Chal.GaussianPropeller.Space d)),
+          Chal.GaussianPropeller.IsPartition A → Chal.GaussianPropeller.value A ≤ 9 / (8 * Real.pi)) ∧
+  ∀ (d k : ℕ),
+    2 ≤ d →
+      3 ≤ k →
+        Chal.GaussianPropeller.IsPartition (Chal.GaussianPropeller.propeller d k) ∧
+          Chal.GaussianPropeller.value (Chal.GaussianPropeller.propeller d k) = 9 / (8 * Real.pi)
+'OAI.GaussianPropeller.all_partitions' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GaussianPropeller comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
