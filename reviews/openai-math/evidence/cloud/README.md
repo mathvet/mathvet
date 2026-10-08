@@ -37,6 +37,10 @@ Notes on individual logs:
   could not resolve the name (the standalone copy, with the challenge's own `import Mathlib`, could). Closure comparison
   11 and 12 constants, 0 problems; Comparator accepted. The checker now adds the challenge's imports to the comparison
   file (2026-10-08).
+- `VertexCover.cmp.txt` reports two closure problems and one error: the comparison file inlines the checker's Lean
+  meta-code, whose `open Lean` made the challenge's `Literal` ambiguous with `Lean.Literal` when the challenge text was
+  re-elaborated, so two parsing definitions elaborated differently. Comparator accepted (it compares compiled modules, not
+  our re-elaboration). The meta-code is now scoped to a section (2026-10-08); recheck pending.
 - `UniformGamma.cmp.txt` reports six closure problems on `CurrentMain.boundedFamilyProductCStar`, an instance declared
   with an empty `where` (every field is filled by instance inference and auto-generated proofs `_proof_4` … `_proof_8`):
   the same re-elaboration kind as HardSphere (instance paths chosen in the richer solution environment; auxiliary proofs
