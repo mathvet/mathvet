@@ -1,0 +1,44 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_TriangularHilbert.lean:50:8: warning: declaration uses `sorry`
+OAI.TriangularHilbert.main_estimate : OAI.TriangularHilbert.MainEstimate
+@[reducible] def OAI.TriangularHilbert.Plane : Type :=
+ℝ × ℝ
+structure OAI.TriangularHilbert.Endpoints : Type
+number of parameters: 0
+fields:
+  OAI.TriangularHilbert.Endpoints.lower : ℝ
+  OAI.TriangularHilbert.Endpoints.upper : ℝ
+  OAI.TriangularHilbert.Endpoints.lower_pos : 0 < self.lower
+  OAI.TriangularHilbert.Endpoints.lower_lt_upper : self.lower < self.upper
+constructor:
+  OAI.TriangularHilbert.Endpoints.mk (lower upper : ℝ) (lower_pos : 0 < lower) (lower_lt_upper : lower < upper) :
+    OAI.TriangularHilbert.Endpoints
+def OAI.TriangularHilbert.annulus : ℝ → ℝ → Set ℝ :=
+fun ε R => {t | ε < |t| ∧ |t| < R}
+def OAI.TriangularHilbert.integrand : (OAI.TriangularHilbert.Plane → ℂ) →
+  (OAI.TriangularHilbert.Plane → ℂ) → OAI.TriangularHilbert.Plane → ℝ → ℂ :=
+fun F G z t => F (z.1 + t, z.2) * G (z.1, z.2 + t) / ↑t
+def OAI.TriangularHilbert.truncation : (OAI.TriangularHilbert.Plane → ℂ) →
+  (OAI.TriangularHilbert.Plane → ℂ) → OAI.TriangularHilbert.Endpoints → OAI.TriangularHilbert.Plane → ℂ :=
+fun F G E z => ∫ (t : ℝ) in OAI.TriangularHilbert.annulus E.lower E.upper, OAI.TriangularHilbert.integrand F G z t
+def OAI.TriangularHilbert.GoodPoint : (OAI.TriangularHilbert.Plane → ℂ) →
+  (OAI.TriangularHilbert.Plane → ℂ) → OAI.TriangularHilbert.Plane → Prop :=
+fun F G z =>
+  ∀ (n : ℕ),
+    MeasureTheory.IntegrableOn (OAI.TriangularHilbert.integrand F G z)
+      (OAI.TriangularHilbert.annulus (1 / (↑n + 2)) (↑n + 2)) MeasureTheory.volume
+def OAI.TriangularHilbert.maximal : (OAI.TriangularHilbert.Plane → ℂ) →
+  (OAI.TriangularHilbert.Plane → ℂ) → OAI.TriangularHilbert.Plane → ENNReal :=
+fun F G z =>
+  if OAI.TriangularHilbert.GoodPoint F G z then ⨆ E, ENNReal.ofReal ‖OAI.TriangularHilbert.truncation F G E z‖ else 0
+def OAI.TriangularHilbert.maximalNorm : (OAI.TriangularHilbert.Plane → ℂ) →
+  (OAI.TriangularHilbert.Plane → ℂ) → ENNReal :=
+fun F G => (∫⁻ (z : OAI.TriangularHilbert.Plane), OAI.TriangularHilbert.maximal F G z ^ (3 / 2)) ^ (2 / 3)
+def OAI.TriangularHilbert.MainEstimate : Prop :=
+∃ C,
+  ∀ (F G : OAI.TriangularHilbert.Plane → ℂ),
+    MeasureTheory.MemLp F 3 MeasureTheory.volume →
+      MeasureTheory.MemLp G 3 MeasureTheory.volume →
+        (∀ᵐ (z : OAI.TriangularHilbert.Plane), OAI.TriangularHilbert.GoodPoint F G z) ∧
+          AEMeasurable (OAI.TriangularHilbert.maximal F G) MeasureTheory.volume ∧
+            OAI.TriangularHilbert.maximalNorm F G ≤
+              ↑C * MeasureTheory.eLpNorm F 3 MeasureTheory.volume * MeasureTheory.eLpNorm G 3 MeasureTheory.volume

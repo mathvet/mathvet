@@ -1,0 +1,61 @@
+CMP OAI.TriangularHilbert.main_estimate [thm] ok
+CMP OAI.TriangularHilbert.MainEstimate [def] ok
+CMP OAI.TriangularHilbert.maximalNorm [def] ok
+CMP OAI.TriangularHilbert.GoodPoint._proof_1 [thm] ok
+CMP OAI.TriangularHilbert.maximalNorm._proof_1 [thm] ok
+CMP OAI.TriangularHilbert.maximal [def] ok
+CMP OAI.TriangularHilbert.truncation [def] ok
+CMP OAI.TriangularHilbert.integrand [def] ok
+CMP OAI.TriangularHilbert.Plane [def] ok
+CMP OAI.TriangularHilbert.Endpoints.upper [def] ok
+CMP OAI.TriangularHilbert.Endpoints [ind] ok
+CMP OAI.TriangularHilbert.Endpoints.mk [ctor] ok
+CMP OAI.TriangularHilbert.Endpoints.lower [def] ok
+CMP OAI.TriangularHilbert.annulus [def] ok
+CMP OAI.TriangularHilbert.GoodPoint [def] ok
+CMP OAI.TriangularHilbert.MainEstimate._proof_1 [thm] ok
+Chal.TriangularHilbert.main_estimate : Chal.TriangularHilbert.MainEstimate
+@[reducible] def Chal.TriangularHilbert.Plane : Type :=
+ℝ × ℝ
+structure Chal.TriangularHilbert.Endpoints : Type
+number of parameters: 0
+fields:
+  Chal.TriangularHilbert.Endpoints.lower : ℝ
+  Chal.TriangularHilbert.Endpoints.upper : ℝ
+  Chal.TriangularHilbert.Endpoints.lower_pos : 0 < self.lower
+  Chal.TriangularHilbert.Endpoints.lower_lt_upper : self.lower < self.upper
+constructor:
+  Chal.TriangularHilbert.Endpoints.mk (lower upper : ℝ) (lower_pos : 0 < lower) (lower_lt_upper : lower < upper) :
+    Chal.TriangularHilbert.Endpoints
+def Chal.TriangularHilbert.annulus : ℝ → ℝ → Set ℝ :=
+fun ε R => {t | ε < |t| ∧ |t| < R}
+def Chal.TriangularHilbert.integrand : (Chal.TriangularHilbert.Plane → ℂ) →
+  (Chal.TriangularHilbert.Plane → ℂ) → Chal.TriangularHilbert.Plane → ℝ → ℂ :=
+fun F G z t => F (z.1 + t, z.2) * G (z.1, z.2 + t) / ↑t
+def Chal.TriangularHilbert.truncation : (Chal.TriangularHilbert.Plane → ℂ) →
+  (Chal.TriangularHilbert.Plane → ℂ) → Chal.TriangularHilbert.Endpoints → Chal.TriangularHilbert.Plane → ℂ :=
+fun F G E z => ∫ (t : ℝ) in Chal.TriangularHilbert.annulus E.lower E.upper, Chal.TriangularHilbert.integrand F G z t
+def Chal.TriangularHilbert.GoodPoint : (Chal.TriangularHilbert.Plane → ℂ) →
+  (Chal.TriangularHilbert.Plane → ℂ) → Chal.TriangularHilbert.Plane → Prop :=
+fun F G z =>
+  ∀ (n : ℕ),
+    MeasureTheory.IntegrableOn (Chal.TriangularHilbert.integrand F G z)
+      (Chal.TriangularHilbert.annulus (1 / (↑n + 2)) (↑n + 2)) MeasureTheory.volume
+def Chal.TriangularHilbert.maximal : (Chal.TriangularHilbert.Plane → ℂ) →
+  (Chal.TriangularHilbert.Plane → ℂ) → Chal.TriangularHilbert.Plane → ENNReal :=
+fun F G z =>
+  if Chal.TriangularHilbert.GoodPoint F G z then ⨆ E, ENNReal.ofReal ‖Chal.TriangularHilbert.truncation F G E z‖ else 0
+def Chal.TriangularHilbert.maximalNorm : (Chal.TriangularHilbert.Plane → ℂ) →
+  (Chal.TriangularHilbert.Plane → ℂ) → ENNReal :=
+fun F G => (∫⁻ (z : Chal.TriangularHilbert.Plane), Chal.TriangularHilbert.maximal F G z ^ (3 / 2)) ^ (2 / 3)
+def Chal.TriangularHilbert.MainEstimate : Prop :=
+∃ C,
+  ∀ (F G : Chal.TriangularHilbert.Plane → ℂ),
+    MeasureTheory.MemLp F 3 MeasureTheory.volume →
+      MeasureTheory.MemLp G 3 MeasureTheory.volume →
+        (∀ᵐ (z : Chal.TriangularHilbert.Plane), Chal.TriangularHilbert.GoodPoint F G z) ∧
+          AEMeasurable (Chal.TriangularHilbert.maximal F G) MeasureTheory.volume ∧
+            Chal.TriangularHilbert.maximalNorm F G ≤
+              ↑C * MeasureTheory.eLpNorm F 3 MeasureTheory.volume * MeasureTheory.eLpNorm G 3 MeasureTheory.volume
+'OAI.TriangularHilbert.main_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TriangularHilbert comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
