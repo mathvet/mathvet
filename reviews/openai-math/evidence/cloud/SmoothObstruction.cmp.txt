@@ -1,0 +1,102 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SmoothObstruction.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SmoothObstruction.main [thm] ok
+CMP OAI.SmoothObstruction.HasSmoothPositiveVolumeModel [def] ok
+CMP OAI.SmoothObstruction.HasModelWith [def] ok
+CMP OAI.SmoothObstruction.ConullConjugate [def] ok
+CMP OAI.SmoothObstruction.SmoothPositiveDensity [def] ok
+CMP OAI.SmoothObstruction.SmoothPositiveDensity._proof_2 [thm] ok
+CMP OAI.SmoothObstruction.SmoothPositiveDensity._proof_1 [thm] ok
+CMP OAI.SmoothObstruction.FiniteKSEntropy [def] ok
+CMP OAI.SmoothObstruction.blockEntropy [def] ok
+CMP OAI.SmoothObstruction.entropyTerm [def] ok
+CMP OAI.SmoothObstruction.entropyTerm._proof_1 [thm] ok
+CMP OAI.SmoothObstruction.StandardNonatomic [def] ok
+CMP OAI.SmoothObstruction.ConullIsomorphic [def] ok
+Chal.SmoothObstruction.main : ∃ X x μ,
+  ∃ (_ : MeasureTheory.IsProbabilityMeasure μ),
+    ∃ T,
+      Chal.SmoothObstruction.StandardNonatomic μ ∧
+        Ergodic (⇑T) μ ∧
+          Chal.SmoothObstruction.FiniteKSEntropy μ ⇑T ∧ ¬Chal.SmoothObstruction.HasSmoothPositiveVolumeModel μ ⇑T
+def Chal.SmoothObstruction.entropyTerm : ℝ → ℝ :=
+fun p => -(p * Real.log p) / Real.log 2
+def Chal.SmoothObstruction.blockEntropy.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → X) → {q : ℕ} → (X → Fin q) → ℕ → ℝ :=
+fun {X} [MeasurableSpace X] μ T {q} P n =>
+  ∑ w, Chal.SmoothObstruction.entropyTerm (μ {x | ∀ (j : Fin n), P (T^[↑j] x) = w j}).toReal
+def Chal.SmoothObstruction.FiniteKSEntropy.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → X) → Prop :=
+fun {X} [MeasurableSpace X] μ T =>
+  ∃ C,
+    ∀ (q : ℕ) (P : X → Fin (q + 1)),
+      Measurable P →
+        ∃ h ≤ C, Filter.Tendsto (fun n => Chal.SmoothObstruction.blockEntropy μ T P n / ↑n) Filter.atTop (nhds h)
+def Chal.SmoothObstruction.ConullIsomorphic.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} →
+    [inst : MeasurableSpace X] →
+      [inst_1 : MeasurableSpace Y] → MeasureTheory.Measure X → MeasureTheory.Measure Y → Prop :=
+fun {X} {Y} [MeasurableSpace X] [MeasurableSpace Y] μ ν =>
+  ∃ A B,
+    MeasurableSet A ∧
+      MeasurableSet B ∧
+        μ Aᶜ = 0 ∧
+          ν Bᶜ = 0 ∧
+            ∃ e,
+              MeasureTheory.MeasurePreserving (⇑e) (MeasureTheory.Measure.comap Subtype.val μ)
+                (MeasureTheory.Measure.comap Subtype.val ν)
+def Chal.SmoothObstruction.StandardNonatomic.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → MeasureTheory.Measure X → Prop :=
+fun {X} [MeasurableSpace X] μ =>
+  Chal.SmoothObstruction.ConullIsomorphic μ (MeasureTheory.Measure.comap Subtype.val MeasureTheory.volume)
+def Chal.SmoothObstruction.ConullConjugate.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} →
+    [inst : MeasurableSpace X] →
+      [inst_1 : MeasurableSpace Y] → MeasureTheory.Measure X → (X → X) → MeasureTheory.Measure Y → (Y → Y) → Prop :=
+fun {X} {Y} [MeasurableSpace X] [MeasurableSpace Y] μ T ν S =>
+  ∃ A B,
+    MeasurableSet A ∧
+      MeasurableSet B ∧
+        μ Aᶜ = 0 ∧
+          ν Bᶜ = 0 ∧
+            T ⁻¹' A = A ∧
+              S ⁻¹' B = B ∧
+                ∃ e,
+                  MeasureTheory.MeasurePreserving (⇑e) (MeasureTheory.Measure.comap Subtype.val μ)
+                      (MeasureTheory.Measure.comap Subtype.val ν) ∧
+                    ∀ (x y : ↑A), T ↑x = ↑y → ↑(e y) = S ↑(e x)
+def Chal.SmoothObstruction.SmoothPositiveDensity.{u_1, u_2} : {d : ℕ} →
+  {H : Type u_1} →
+    [inst : TopologicalSpace H] →
+      ModelWithCorners ℝ (EuclideanSpace ℝ (Fin d)) H →
+        {M : Type u_2} →
+          [inst_1 : TopologicalSpace M] →
+            [ChartedSpace H M] → [inst : MeasurableSpace M] → MeasureTheory.Measure M → Prop :=
+fun {d} {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M] [MeasurableSpace M] ν =>
+  ∀ (x : M),
+    ∃ f,
+      ContDiffOn ℝ (↑⊤) f (extChartAt I x).target ∧
+        (∀ y ∈ (extChartAt I x).target, 0 < f y) ∧
+          MeasureTheory.Measure.map (↑(extChartAt I x)) (ν.restrict (extChartAt I x).source) =
+            (MeasureTheory.volume.withDensity fun y => ENNReal.ofReal (f y)).restrict (extChartAt I x).target
+def Chal.SmoothObstruction.HasModelWith.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] →
+    MeasureTheory.Measure X →
+      (X → X) →
+        {d : ℕ} → {H : Type} → [inst : TopologicalSpace H] → ModelWithCorners ℝ (EuclideanSpace ℝ (Fin d)) H → Prop :=
+fun {X} [MeasurableSpace X] μ T {d} {H} [TopologicalSpace H] I =>
+  ∃ M x x_1,
+    ∃ (_ : BorelSpace M) (_ : T2Space M) (_ : SecondCountableTopology M) (_ : CompactSpace M),
+      ∃ x_6,
+        ∃ (_ : IsManifold I (↑⊤) M),
+          ∃ ν,
+            ∃ (_ : MeasureTheory.IsProbabilityMeasure ν),
+              ∃ S,
+                Chal.SmoothObstruction.SmoothPositiveDensity I ν ∧
+                  MeasureTheory.MeasurePreserving (⇑S) ν ν ∧ Chal.SmoothObstruction.ConullConjugate μ T ν ⇑S
+def Chal.SmoothObstruction.HasSmoothPositiveVolumeModel.{u_1} : {X : Type u_1} →
+  [inst : MeasurableSpace X] → MeasureTheory.Measure X → (X → X) → Prop :=
+fun {X} [MeasurableSpace X] μ T =>
+  (∃ d, Chal.SmoothObstruction.HasModelWith μ T (modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin d)))) ∨
+    ∃ d, ∃ (x : NeZero d), Chal.SmoothObstruction.HasModelWith μ T (modelWithCornersEuclideanHalfSpace d)
+'OAI.SmoothObstruction.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SmoothObstruction comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
