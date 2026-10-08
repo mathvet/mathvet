@@ -1,0 +1,245 @@
+CMP OAI.HardSphere.condensation_with_mixed [thm] ok
+CMP OAI.HardSphere.mixedOccupation [def] ok
+CMP OAI.HardSphere.Orbital.continuous [def] VALUE_MISMATCH
+CMP OAI.HardSphere.Orbital.continuous._proof_17 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_16 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_14 [thm] ok
+CMP OAI.HardSphere.ScalarL2._proof_1 [thm] ok
+CMP OAI.HardSphere.lengthPositive [thm] ok
+CMP OAI.HardSphere.Length [def] ok
+CMP OAI.HardSphere.Torus [def] ok
+CMP OAI.HardSphere.Configuration [def] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_15 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_10 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_9 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_8 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_7 [thm] ok
+CMP OAI.HardSphere.ScalarL2._proof_2 [thm] ok
+CMP OAI.HardSphere.Orbital.map [def] VALUE_MISMATCH
+CMP OAI.HardSphere.Orbital.map._proof_10 [thm] ok
+CMP OAI.HardSphere.insertFirst [def] ok
+CMP OAI.HardSphere.insertFirst._proof_1 [thm] ok
+CMP OAI.HardSphere.ScalarL2 [def] ok
+CMP OAI.HardSphere.Orbital.sliceIntegral [def] ok
+CMP OAI.HardSphere.Orbital.map._proof_9 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_8 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_7 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_6 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_5 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_4 [thm] ok
+CMP OAI.HardSphere.Orbital.map._proof_3 [thm] TYPE_MISMATCH
+CMP OAI.HardSphere.Orbital.map._proof_1 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_13 [thm] ok
+CMP OAI.HardSphere.occupation [def] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_12 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_11 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_6 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_5 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_4 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_3 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_2 [thm] ok
+CMP OAI.HardSphere.Orbital.continuous._proof_1 [thm] ok
+CMP OAI.HardSphere.mixedOccupation._proof_1 [thm] ok
+CMP OAI.HardSphere.Density.Operator.compressionTrace [def] ok
+CMP OAI.HardSphere.Density.Operator.toCLM [def] ok
+CMP OAI.HardSphere.Density.Operator [ind] ok
+CMP OAI.HardSphere.Density.Operator.mk [ctor] ok
+CMP OAI.HardSphere.Density.basis [def] ok
+CMP OAI.HardSphere.Density.basis._proof_1 [thm] ok
+CMP OAI.HardSphere.Density.basisSet [def] ok
+CMP OAI.HardSphere.Density.Operator.compressionTrace._proof_4 [thm] ok
+CMP OAI.HardSphere.Density.Operator.compressionTrace._proof_3 [thm] ok
+CMP OAI.HardSphere.Density.Operator.compressionTrace._proof_2 [thm] ok
+CMP OAI.HardSphere.Density.Operator.compressionTrace._proof_1 [thm] ok
+CMP OAI.HardSphere.groundScalarL2Complete [thm] ok
+CMP OAI.HardSphere.GroundSupported [def] ok
+CMP OAI.HardSphere.IsGroundVector [def] ok
+CMP OAI.HardSphere.energy [def] ok
+CMP OAI.HardSphere.Direction [def] ok
+CMP OAI.HardSphere.Jet [def] ok
+CMP OAI.HardSphere.bosonic [def] ok
+CMP OAI.HardSphere.bosonic._proof_1 [thm] ok
+CMP OAI.HardSphere.dirichletDomain [def] ok
+CMP OAI.HardSphere.SmoothTest.jet [def] ok
+CMP OAI.HardSphere.SmoothTest.partial_memLp [thm] ok
+CMP OAI.HardSphere.SmoothTest.toFun [def] ok
+CMP OAI.HardSphere.SmoothTest [ind] ok
+CMP OAI.HardSphere.SmoothTest.mk [ctor] ok
+CMP OAI.HardSphere.coordDerivative [def] ok
+CMP OAI.HardSphere.representative [def] ok
+CMP OAI.HardSphere.LiftedConfiguration [def] ok
+CMP OAI.HardSphere.project [def] ok
+CMP OAI.HardSphere.allowed [def] ok
+CMP OAI.HardSphere.torusDistance [def] ok
+CMP OAI.HardSphere.SmoothTest.memLp [thm] ok
+Chal.HardSphere.condensation_with_mixed : ∃ ε₀ c₀,
+  0 < ε₀ ∧
+    0 < c₀ ∧
+      ∀ (a ρ : ℝ),
+        0 < a →
+          0 < ρ →
+            ρ * a ^ 3 < ε₀ →
+              ∀ (N : ℕ → ℕ) (L : ℕ → Chal.HardSphere.Length) (hN : ∀ (k : ℕ), 0 < N k),
+                Tendsto N atTop atTop →
+                  Tendsto (fun k => ↑(L k)) atTop atTop →
+                    Tendsto (fun k => ↑(N k) / ↑(L k) ^ 3) atTop (𝓝 ρ) →
+                      (∀ (Ψ : (k : ℕ) → Chal.HardSphere.Jet (N k) (L k)),
+                          (∀ (k : ℕ), Chal.HardSphere.IsGroundVector (N k) (L k) a (Ψ k)) →
+                            c₀ ≤ liminf (fun k => Chal.HardSphere.occupation ⋯ (Ψ k).1) atTop) ∧
+                        ∀ (T : (k : ℕ) → Chal.HardSphere.Density.Operator (Chal.HardSphere.ScalarL2 (N k) (L k))),
+                          (∀ (k : ℕ), Chal.HardSphere.GroundSupported a (T k)) →
+                            c₀ ≤ liminf (fun k => Chal.HardSphere.mixedOccupation ⋯ (T k)) atTop
+@[reducible] def Chal.HardSphere.Length : Type :=
+{ L // 0 < L }
+@[reducible] def Chal.HardSphere.Torus : Chal.HardSphere.Length → Type :=
+fun L => Fin 3 → AddCircle ↑L
+@[reducible] def Chal.HardSphere.Configuration : ℕ → Chal.HardSphere.Length → Type :=
+fun N L => Fin N → Chal.HardSphere.Torus L
+@[reducible] def Chal.HardSphere.LiftedConfiguration : ℕ → Type :=
+fun N => Fin N → Fin 3 → ℝ
+@[reducible] def Chal.HardSphere.Direction : ℕ → Type :=
+fun N => Fin N × Fin 3
+def Chal.HardSphere.torusDistance : (L : Chal.HardSphere.Length) →
+  Chal.HardSphere.Torus L → Chal.HardSphere.Torus L → ℝ :=
+fun L x y => √(∑ j, dist (x j) (y j) ^ 2)
+def Chal.HardSphere.allowed : (N : ℕ) → (L : Chal.HardSphere.Length) → ℝ → Set (Chal.HardSphere.Configuration N L) :=
+fun N L a => {X | ∀ (i j : Fin N), i < j → a < Chal.HardSphere.torusDistance L (X i) (X j)}
+def Chal.HardSphere.project : (N : ℕ) →
+  (L : Chal.HardSphere.Length) → Chal.HardSphere.LiftedConfiguration N → Chal.HardSphere.Configuration N L :=
+fun N L X i j => ↑(X i j)
+def Chal.HardSphere.representative : (N : ℕ) →
+  (L : Chal.HardSphere.Length) → Chal.HardSphere.Configuration N L → Chal.HardSphere.LiftedConfiguration N :=
+fun N L X i j => ↑((AddCircle.equivIco (↑L) 0) (X i j))
+def Chal.HardSphere.coordDerivative : (N : ℕ) →
+  (L : Chal.HardSphere.Length) →
+    (Chal.HardSphere.Configuration N L → ℂ) → Chal.HardSphere.Direction N → Chal.HardSphere.Configuration N L → ℂ :=
+fun N L f p X =>
+  (fderiv ℝ (fun Y => f (Chal.HardSphere.project N L Y)) (Chal.HardSphere.representative N L X))
+    (Pi.single p.1 (Pi.single p.2 1))
+@[reducible] def Chal.HardSphere.ScalarL2 : ℕ → Chal.HardSphere.Length → Type :=
+fun N L => ↥(Lp ℂ 2 volume)
+@[reducible] def Chal.HardSphere.Jet : ℕ → Chal.HardSphere.Length → Type :=
+fun N L => Chal.HardSphere.ScalarL2 N L × (Chal.HardSphere.Direction N → Chal.HardSphere.ScalarL2 N L)
+structure Chal.HardSphere.SmoothTest (N : ℕ) (L : Chal.HardSphere.Length) (a : ℝ) : Type
+number of parameters: 3
+fields:
+  Chal.HardSphere.SmoothTest.toFun : Chal.HardSphere.Configuration N L → ℂ
+  Chal.HardSphere.SmoothTest.smooth : ContDiff ℝ ↑⊤ fun X => self.toFun (Chal.HardSphere.project N L X)
+  Chal.HardSphere.SmoothTest.compact : HasCompactSupport self.toFun
+  Chal.HardSphere.SmoothTest.support_allowed : tsupport self.toFun ⊆ Chal.HardSphere.allowed N L a
+  Chal.HardSphere.SmoothTest.memLp : MemLp self.toFun (↑2) volume
+  Chal.HardSphere.SmoothTest.partial_memLp : ∀ (p : Chal.HardSphere.Direction N),
+      MemLp (Chal.HardSphere.coordDerivative N L self.toFun p) (↑2) volume
+constructor:
+  Chal.HardSphere.SmoothTest.mk {N : ℕ} {L : Chal.HardSphere.Length} {a : ℝ}
+    (toFun : Chal.HardSphere.Configuration N L → ℂ)
+    (smooth : ContDiff ℝ ↑⊤ fun X => toFun (Chal.HardSphere.project N L X)) (compact : HasCompactSupport toFun)
+    (support_allowed : tsupport toFun ⊆ Chal.HardSphere.allowed N L a) (memLp : MemLp toFun (↑2) volume)
+    (partial_memLp :
+      ∀ (p : Chal.HardSphere.Direction N), MemLp (Chal.HardSphere.coordDerivative N L toFun p) (↑2) volume) :
+    Chal.HardSphere.SmoothTest N L a
+def Chal.HardSphere.SmoothTest.jet : {N : ℕ} →
+  {L : Chal.HardSphere.Length} → {a : ℝ} → Chal.HardSphere.SmoothTest N L a → Chal.HardSphere.Jet N L :=
+fun {N} {L} {a} f => (MemLp.toLp f.toFun ⋯, fun p => MemLp.toLp (Chal.HardSphere.coordDerivative N L f.toFun p) ⋯)
+def Chal.HardSphere.dirichletDomain : (N : ℕ) → (L : Chal.HardSphere.Length) → ℝ → Set (Chal.HardSphere.Jet N L) :=
+fun N L a => closure (range Chal.HardSphere.SmoothTest.jet)
+def Chal.HardSphere.energy : {N : ℕ} → {L : Chal.HardSphere.Length} → Chal.HardSphere.Jet N L → ℝ :=
+fun {N} {L} u => ∑ p, ‖u.2 p‖ ^ 2
+def Chal.HardSphere.bosonic : {N : ℕ} → {L : Chal.HardSphere.Length} → Chal.HardSphere.ScalarL2 N L → Prop :=
+fun {N} {L} ψ => ∀ (σ : Equiv.Perm (Fin N)), (fun X => ↑↑ψ fun i => X (σ i)) =ᵐ[volume] ↑↑ψ
+def Chal.HardSphere.IsGroundVector : (N : ℕ) → (L : Chal.HardSphere.Length) → ℝ → Chal.HardSphere.Jet N L → Prop :=
+fun N L a u =>
+  u ∈ Chal.HardSphere.dirichletDomain N L a ∧
+    Chal.HardSphere.bosonic u.1 ∧
+      ‖u.1‖ = 1 ∧
+        ∀ v ∈ Chal.HardSphere.dirichletDomain N L a,
+          Chal.HardSphere.bosonic v.1 → ‖v.1‖ = 1 → Chal.HardSphere.energy u ≤ Chal.HardSphere.energy v
+def Chal.HardSphere.insertFirst : {N : ℕ} →
+  0 < N →
+    {L : Chal.HardSphere.Length} →
+      Chal.HardSphere.Torus L → Chal.HardSphere.Configuration (N - 1) L → Chal.HardSphere.Configuration N L :=
+fun {N} hN {L} x Y i => Fin.cons x Y (Fin.cast ⋯ i)
+def Chal.HardSphere.occupation : {N : ℕ} → 0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.ScalarL2 N L → ℝ :=
+fun {N} hN {L} ψ =>
+  (↑L ^ 3)⁻¹ *
+    ∫ (Y : Chal.HardSphere.Configuration (N - 1) L),
+      ‖∫ (x : Chal.HardSphere.Torus L), ↑↑ψ (Chal.HardSphere.insertFirst hN x Y)‖ ^ 2
+def Chal.HardSphere.Density.basisSet.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → [CompleteSpace H] → Set H :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] => ⋯.choose
+def Chal.HardSphere.Density.basis.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → HilbertBasis ↑(Chal.HardSphere.Density.basisSet H) ℂ H :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] => ⋯.choose
+structure Chal.HardSphere.Density.Operator.{u_1} (H : Type u_1) [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+  [CompleteSpace H] : Type u_1
+number of parameters: 4
+fields:
+  Chal.HardSphere.Density.Operator.toCLM : H →L[ℂ] H
+  Chal.HardSphere.Density.Operator.positive : 0 ≤ self.toCLM
+  Chal.HardSphere.Density.Operator.trace_one : HasSum
+      (fun i => (⟪(Chal.HardSphere.Density.basis H) i, self.toCLM ((Chal.HardSphere.Density.basis H) i)⟫_ℂ).re) 1
+constructor:
+  Chal.HardSphere.Density.Operator.mk.{u_1} {H : Type u_1} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] (toCLM : H →L[ℂ] H) (positive : 0 ≤ toCLM)
+    (trace_one :
+      HasSum (fun i => (⟪(Chal.HardSphere.Density.basis H) i, toCLM ((Chal.HardSphere.Density.basis H) i)⟫_ℂ).re) 1) :
+    Chal.HardSphere.Density.Operator H
+def Chal.HardSphere.Density.Operator.compressionTrace.{u_2, u_3} : {H : Type u_2} →
+  {K : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [inst_2 : CompleteSpace H] →
+          [inst_3 : NormedAddCommGroup K] →
+            [inst_4 : InnerProductSpace ℂ K] →
+              [CompleteSpace K] → Chal.HardSphere.Density.Operator H → (H →L[ℂ] K) → ℝ :=
+fun {H} {K} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] [NormedAddCommGroup K]
+    [InnerProductSpace ℂ K] [CompleteSpace K] T A =>
+  have adjoint := ContinuousLinearMap.adjoint A;
+  ∑' (j : ↑(Chal.HardSphere.Density.basisSet K)),
+    (⟪adjoint ((Chal.HardSphere.Density.basis K) j), T.toCLM (adjoint ((Chal.HardSphere.Density.basis K) j))⟫_ℂ).re
+def Chal.HardSphere.Orbital.sliceIntegral : {N : ℕ} →
+  0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.ScalarL2 N L → Chal.HardSphere.Configuration (N - 1) L → ℂ :=
+fun {N} hN {L} ψ Y => (√(↑L ^ 3))⁻¹ • ∫ (x : Chal.HardSphere.Torus L), ↑↑ψ (Chal.HardSphere.insertFirst hN x Y)
+def Chal.HardSphere.Orbital.map : {N : ℕ} →
+  0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.ScalarL2 N L → Chal.HardSphere.ScalarL2 (N - 1) L :=
+fun {N} hN {L} ψ =>
+  have integral_mul_le_sqrt := @Chal.HardSphere.Orbital.map._proof_1;
+  have integral_norm_sq_le := ⋯;
+  have memLp_slices := @Chal.HardSphere.Orbital.map._proof_4;
+  have memLp_integral_norm := ⋯;
+  have cons_preserving := @Chal.HardSphere.Orbital.map._proof_6;
+  have insertFirst_preserving := ⋯;
+  have bathFirst_preserving := ⋯;
+  have ground_slice_memLp := ⋯;
+  have sliceIntegral_memLp := ⋯;
+  MemLp.toLp (Chal.HardSphere.Orbital.sliceIntegral hN ψ) ⋯
+def Chal.HardSphere.Orbital.continuous : {N : ℕ} →
+  0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.ScalarL2 N L →L[ℂ] Chal.HardSphere.ScalarL2 (N - 1) L :=
+fun {N} hN {L} =>
+  have scalar_norm_sq_integral := @Chal.HardSphere.Orbital.continuous._proof_1;
+  have volume_torus := Chal.HardSphere.Orbital.continuous._proof_2;
+  have integral_mul_le_sqrt := @Chal.HardSphere.Orbital.map._proof_1;
+  have integral_norm_sq_le := ⋯;
+  have memLp_slices := @Chal.HardSphere.Orbital.map._proof_4;
+  have memLp_integral_norm := ⋯;
+  have cons_preserving := @Chal.HardSphere.Orbital.map._proof_6;
+  have insertFirst_preserving := ⋯;
+  have bathFirst_preserving := ⋯;
+  have ground_slice_memLp := ⋯;
+  have occupation_le_norm_sq := ⋯;
+  have map_ae := @Chal.HardSphere.Orbital.continuous._proof_5;
+  have map_add := ⋯;
+  have map_smul := ⋯;
+  have map_norm_sq := ⋯;
+  have map_norm_le := ⋯;
+  { toFun := Chal.HardSphere.Orbital.map hN, map_add' := ⋯, map_smul' := ⋯ }.mkContinuous 1 ⋯
+def Chal.HardSphere.GroundSupported : {N : ℕ} →
+  {L : Chal.HardSphere.Length} → ℝ → Chal.HardSphere.Density.Operator (Chal.HardSphere.ScalarL2 N L) → Prop :=
+fun {N} {L} a T => ∀ ψ ∈ (↑T.toCLM).kerᗮ, ‖ψ‖ = 1 → ∃ u, u.1 = ψ ∧ Chal.HardSphere.IsGroundVector N L a u
+def Chal.HardSphere.mixedOccupation : {N : ℕ} →
+  0 < N → {L : Chal.HardSphere.Length} → Chal.HardSphere.Density.Operator (Chal.HardSphere.ScalarL2 N L) → ℝ :=
+fun {N} hN {L} T => T.compressionTrace (Chal.HardSphere.Orbital.continuous hN)
+'OAI.HardSphere.condensation_with_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HardSphere comparator-style: ok=71 problems=3 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
