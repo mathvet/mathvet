@@ -1,0 +1,40 @@
+OAI.ThorpCompatibility.weightedCompatibility_main : OAI.ThorpCompatibility.WeightedCompatibilityTheorem
+'OAI.ThorpCompatibility.weightedCompatibility_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.ThorpCompatibility.Rows : ℕ → ℕ → Type :=
+fun A D => Fin A → Equiv.Perm (Fin D)
+@[reducible] def OAI.ThorpCompatibility.Cols : ℕ → ℕ → Type :=
+fun A D => Fin D → Equiv.Perm (Fin A)
+def OAI.ThorpCompatibility.Compatible : {A D : ℕ} →
+  OAI.ThorpCompatibility.Rows A D → OAI.ThorpCompatibility.Cols A D → Prop :=
+fun {A D} r c => ∀ (j : Fin D), Function.Injective fun i => (c ((r i) j)) i
+def OAI.ThorpCompatibility.uniformMean.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] f => (∑ x, f x) / ↑(Fintype.card α)
+def OAI.ThorpCompatibility.marginalFactor.{u_1} : {α : Type u_1} → [Fintype α] → ℝ → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] θ w => (OAI.ThorpCompatibility.uniformMean fun x => (w x).rpow (1 / θ)) ^ θ
+def OAI.ThorpCompatibility.weightedCompatibility : (A D : ℕ) →
+  (Fin A → Equiv.Perm (Fin D) → ℝ) → (Fin D → Equiv.Perm (Fin A) → ℝ) → ℝ :=
+fun A D w v =>
+  ↑(A * D).factorial / (↑D.factorial ^ A * ↑A.factorial ^ D) *
+    OAI.ThorpCompatibility.uniformMean fun rc =>
+      if OAI.ThorpCompatibility.Compatible rc.1 rc.2 then (∏ i, w i (rc.1 i)) * ∏ k, v k (rc.2 k) else 0
+def OAI.ThorpCompatibility.WeightedCompatibilityTheorem : Prop :=
+∃ L C₀ m₀,
+  0 < L ∧
+    0 < C₀ ∧
+      0 < m₀ ∧
+        ∀ (A D : ℕ),
+          have n := ↑A * ↑D;
+          have m := √n;
+          have θ := 1 - L / Real.log m;
+          m₀ ≤ m →
+            0 < θ →
+              m / ↑2 ≤ ↑A →
+                ↑A ≤ ↑2 * m →
+                  m / ↑2 ≤ ↑D →
+                    ↑D ≤ ↑2 * m →
+                      ∀ (w : Fin A → Equiv.Perm (Fin D) → ℝ) (v : Fin D → Equiv.Perm (Fin A) → ℝ),
+                        (∀ (i : Fin A) (σ : Equiv.Perm (Fin D)), 0 ≤ w i σ) →
+                          (∀ (k : Fin D) (σ : Equiv.Perm (Fin A)), 0 ≤ v k σ) →
+                            OAI.ThorpCompatibility.weightedCompatibility A D w v ≤
+                              (Real.exp (C₀ * n ^ (↑54 / ↑100)) * ∏ i, OAI.ThorpCompatibility.marginalFactor θ (w i)) *
+                                ∏ k, OAI.ThorpCompatibility.marginalFactor θ (v k)
