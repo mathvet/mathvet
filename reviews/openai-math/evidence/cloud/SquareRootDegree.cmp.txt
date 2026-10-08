@@ -1,0 +1,55 @@
+CMP OAI.SquareRootDegree.main [thm] ok
+CMP OAI.SquareRootDegree.AbsoluteRatios [def] ok
+CMP OAI.SquareRootDegree.absoluteSingletonSum [def] ok
+CMP OAI.SquareRootDegree.fourierCoeff [def] ok
+CMP OAI.SquareRootDegree.character [def] ok
+CMP OAI.SquareRootDegree.sign [def] ok
+CMP OAI.SquareRootDegree.Cube [def] ok
+CMP OAI.SquareRootDegree.average [def] ok
+CMP OAI.SquareRootDegree.fourierDegree [def] ok
+CMP OAI.SquareRootDegree.IsBoolean [def] ok
+CMP OAI.SquareRootDegree.SignedViolations [def] ok
+CMP OAI.SquareRootDegree.singletonSum [def] ok
+CMP OAI.SquareRootDegree.Nonconstant [def] ok
+Chal.SquareRootDegree.main : Chal.SquareRootDegree.SignedViolations ∧ ¬BddAbove Chal.SquareRootDegree.AbsoluteRatios
+@[reducible] def Chal.SquareRootDegree.Cube.{u_1} : Type u_1 → Type u_1 :=
+fun ι => ι → Bool
+def Chal.SquareRootDegree.sign : Bool → ℝ :=
+fun b => if b = true then -1 else 1
+def Chal.SquareRootDegree.average.{u_1} : {α : Type u_1} → [Fintype α] → (α → ℝ) → ℝ :=
+fun {α} [Fintype α] f => (↑(Fintype.card α))⁻¹ * ∑ x, f x
+def Chal.SquareRootDegree.character.{u_1} : {ι : Type u_1} → Finset ι → Chal.SquareRootDegree.Cube ι → ℝ :=
+fun {ι} s x => ∏ i ∈ s, Chal.SquareRootDegree.sign (x i)
+def Chal.SquareRootDegree.fourierCoeff.{u_1} : {ι : Type u_1} →
+  [Fintype ι] → (Chal.SquareRootDegree.Cube ι → ℝ) → Finset ι → ℝ :=
+fun {ι} [Fintype ι] f s => Chal.SquareRootDegree.average fun x => f x * Chal.SquareRootDegree.character s x
+def Chal.SquareRootDegree.fourierDegree.{u_1} : {ι : Type u_1} → [Fintype ι] → (Chal.SquareRootDegree.Cube ι → ℝ) → ℕ :=
+fun {ι} [Fintype ι] f => {s | Chal.SquareRootDegree.fourierCoeff f s ≠ 0}.sup Finset.card
+def Chal.SquareRootDegree.IsBoolean.{u_1} : {α : Type u_1} → (α → ℝ) → Prop :=
+fun {α} f => ∀ (x : α), f x = -1 ∨ f x = 1
+def Chal.SquareRootDegree.Nonconstant.{u_1} : {α : Type u_1} → (α → ℝ) → Prop :=
+fun {α} f => ∃ x y, f x ≠ f y
+def Chal.SquareRootDegree.singletonSum.{u_1} : {ι : Type u_1} → [Fintype ι] → (Chal.SquareRootDegree.Cube ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] f => ∑ i, Chal.SquareRootDegree.fourierCoeff f {i}
+def Chal.SquareRootDegree.absoluteSingletonSum.{u_1} : {ι : Type u_1} →
+  [Fintype ι] → (Chal.SquareRootDegree.Cube ι → ℝ) → ℝ :=
+fun {ι} [Fintype ι] f => ∑ i, |Chal.SquareRootDegree.fourierCoeff f {i}|
+def Chal.SquareRootDegree.SignedViolations : Prop :=
+∀ (C : ℝ),
+  0 < C →
+    ∃ n,
+      0 < n ∧
+        ∃ f,
+          Chal.SquareRootDegree.IsBoolean f ∧
+            Chal.SquareRootDegree.Nonconstant f ∧
+              C * √↑(Chal.SquareRootDegree.fourierDegree f) < Chal.SquareRootDegree.singletonSum f
+def Chal.SquareRootDegree.AbsoluteRatios : Set ℝ :=
+{r |
+  ∃ n,
+    0 < n ∧
+      ∃ f,
+        Chal.SquareRootDegree.IsBoolean f ∧
+          0 < Chal.SquareRootDegree.fourierDegree f ∧
+            r = Chal.SquareRootDegree.absoluteSingletonSum f / √↑(Chal.SquareRootDegree.fourierDegree f)}
+'OAI.SquareRootDegree.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SquareRootDegree comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
