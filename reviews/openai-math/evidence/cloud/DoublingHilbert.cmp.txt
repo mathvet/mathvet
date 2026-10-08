@@ -1,0 +1,18 @@
+CMP OAI.DoublingHilbert.main [thm] ok
+CMP OAI.DoublingHilbert.AdmitsBiLipschitzEmbedding [def] ok
+CMP OAI.DoublingHilbert.RealL2._proof_1 [thm] ok
+CMP OAI.DoublingHilbert.RealL2 [def] ok
+CMP OAI.DoublingHilbert.DoublingAtMost [def] ok
+Chal.DoublingHilbert.main : ∃ S,
+  Chal.DoublingHilbert.DoublingAtMost S 76800 ∧ ∀ (k : ℕ), 0 < k → ¬Chal.DoublingHilbert.AdmitsBiLipschitzEmbedding S k
+@[reducible] def Chal.DoublingHilbert.RealL2 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 2
+def Chal.DoublingHilbert.DoublingAtMost : Set ↥Chal.DoublingHilbert.RealL2 → ℕ → Prop :=
+fun S bound =>
+  ∀ (x : ↑S) (r : ℝ),
+    0 < r → ∃ centers, centers.card ≤ bound ∧ ∀ (y : ↑S), dist y x < r → ∃ c ∈ centers, dist y c < r / 2
+def Chal.DoublingHilbert.AdmitsBiLipschitzEmbedding : Set ↥Chal.DoublingHilbert.RealL2 → ℕ → Prop :=
+fun S k =>
+  ∃ f a, 0 < a ∧ ∃ D, 1 ≤ D ∧ ∀ (x y : ↑S), a * dist x y ≤ dist (f x) (f y) ∧ dist (f x) (f y) ≤ D * a * dist x y
+'OAI.DoublingHilbert.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DoublingHilbert comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
