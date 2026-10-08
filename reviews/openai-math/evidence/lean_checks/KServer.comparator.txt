@@ -1,0 +1,17 @@
+== KServer comparator start 2026-10-08T10:42:45Z
+Building ComparatorChallenges.KServer
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.KServer
+⚠ [8924/8924] Built ComparatorChallenges.KServer (7.7s)
+warning: ComparatorChallenges/KServer.lean:62:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.KServer -- Quot Quot.mk Quot.lift Quot.ind OAI.KServer.main_theorem propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam OAI.KServer.Configuration OAI.KServer.LabelDistribution OAI.KServer.Policy OAI.KServer.serve OAI.KServer.serviceCost OAI.KServer.pathProbability OAI.KServer.expectedCost OAI.KServer.optimalCost OAI.KServer.MainStatement
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.KServer.main_theorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.KServer.Configuration, OAI.KServer.LabelDistribution, OAI.KServer.Policy, OAI.KServer.serve, OAI.KServer.serviceCost, OAI.KServer.pathProbability, OAI.KServer.expectedCost, OAI.KServer.optimalCost, OAI.KServer.MainStatement] from ComparatorChallenges.KServer
+Building OAI.Combinatorics.KServer.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Combinatorics.KServer.Main
+Build completed successfully (8960 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Combinatorics.KServer.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.KServer.main_theorem propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam OAI.KServer.Configuration OAI.KServer.LabelDistribution OAI.KServer.Policy OAI.KServer.serve OAI.KServer.serviceCost OAI.KServer.pathProbability OAI.KServer.expectedCost OAI.KServer.optimalCost OAI.KServer.MainStatement
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.KServer.main_theorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.KServer.Configuration, OAI.KServer.LabelDistribution, OAI.KServer.Policy, OAI.KServer.serve, OAI.KServer.serviceCost, OAI.KServer.pathProbability, OAI.KServer.expectedCost, OAI.KServer.optimalCost, OAI.KServer.MainStatement] from OAI.Combinatorics.KServer.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T10:45:18Z

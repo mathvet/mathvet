@@ -1,0 +1,40 @@
+== LittlewoodFiniteFlatness  module=OAI.Analysis.Littlewood.FiniteFlatness  start=2026-10-08T10:50:51Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8948/8951] Built OAI.MeasureTheory.Integral.BoundedMoments (3.3s)
+✔ [8949/8951] Built OAI.Analysis.Littlewood.FlatnessModel (5.6s)
+✔ [8950/8951] Built OAI.Analysis.Littlewood.MinimizingFamily (6.6s)
+✔ [8951/8951] Built OAI.Analysis.Littlewood.FiniteFlatness (5.1s)
+Build completed successfully (8951 jobs).
+== build rc=0 seconds=23
+{"theorems": ["OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.main"], "defs": ["OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.littlewoodValue", "OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.IsRealSigning", "OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.MainStatement"], "json_theorems": ["OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.main"], "missing_from_parse": []}
+TYPES/DEFS DIFFER LittlewoodFiniteFlatness
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_LittlewoodFiniteFlatness.lean:34:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.AsymptoticallyMinimalLittlewoodFiniteFlatness.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T10:51:32Z

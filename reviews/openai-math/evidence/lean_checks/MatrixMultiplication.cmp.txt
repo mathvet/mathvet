@@ -1,0 +1,162 @@
+CMP OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250 [thm] ok
+CMP OAI.MatrixMultiplication.Arithmetic.rectangularOmega [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.RectangularAdmissibleExponent [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.cost [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.program [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm [ind] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.mk [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixInput [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program [ind] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.step [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate [ind] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.mul [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.sub [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.add [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.input [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.constant [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.nil [ctor] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.registers [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.cost [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.cost._f [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.cost [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.eval.match_1 [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.casesOn [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.rec [rec] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.cost.match_1 [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.casesOn [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.rec [rec] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.below [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.brecOn [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.brecOn.go [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.Correct [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.eval [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.output [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.matrixInputs [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.matrixInputs.match_1 [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.eval [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.eval._f [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Gate.eval [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.Program.eval.match_1 [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.innerSize [def] ok
+CMP OAI.MatrixMultiplication.complex_alpha_gt_93_div_200 [thm] ok
+CMP OAI.MatrixMultiplication.Arithmetic.complexAlpha [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.complexAlpha._proof_1 [thm] ok
+CMP OAI.MatrixMultiplication.complex_omega_le_nine_quarters [thm] ok
+CMP OAI.MatrixMultiplication.Arithmetic.omega [def] ok
+CMP OAI.MatrixMultiplication.Arithmetic.AdmissibleExponent [def] ok
+Chal.MatrixMultiplication.complex_omega_le_nine_quarters : Chal.MatrixMultiplication.Arithmetic.omega ℂ ≤ 9 / 4
+Chal.MatrixMultiplication.complex_alpha_gt_93_div_200 : 93 / 200 < Chal.MatrixMultiplication.Arithmetic.complexAlpha
+Chal.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250 : Chal.MatrixMultiplication.Arithmetic.rectangularOmega
+    ℂ (709 / 1000) <
+  523 / 250
+inductive Chal.MatrixMultiplication.Arithmetic.Gate.{u_1, u_2, u_3} : Type u_1 →
+  Type u_2 → Type u_3 → Type (max (max u_1 u_2) u_3)
+number of parameters: 3
+constructors:
+Chal.MatrixMultiplication.Arithmetic.Gate.constant : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → F → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register
+Chal.MatrixMultiplication.Arithmetic.Gate.input : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → Input → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register
+Chal.MatrixMultiplication.Arithmetic.Gate.add : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register
+Chal.MatrixMultiplication.Arithmetic.Gate.sub : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register
+Chal.MatrixMultiplication.Arithmetic.Gate.mul : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register
+def Chal.MatrixMultiplication.Arithmetic.Gate.eval.{u_1, u_2, u_3} : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} →
+      [Field F] → (Input → F) → (Register → F) → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register → F :=
+fun {F} {Input} {Register} [Field F] inputs registers x =>
+  match x with
+  | Chal.MatrixMultiplication.Arithmetic.Gate.constant z => z
+  | Chal.MatrixMultiplication.Arithmetic.Gate.input i => inputs i
+  | Chal.MatrixMultiplication.Arithmetic.Gate.add i j => registers i + registers j
+  | Chal.MatrixMultiplication.Arithmetic.Gate.sub i j => registers i - registers j
+  | Chal.MatrixMultiplication.Arithmetic.Gate.mul i j => registers i * registers j
+def Chal.MatrixMultiplication.Arithmetic.Gate.cost.{u_1, u_2, u_3} : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → Chal.MatrixMultiplication.Arithmetic.Gate F Input Register → ℕ :=
+fun {F} {Input} {Register} x =>
+  match x with
+  | Chal.MatrixMultiplication.Arithmetic.Gate.constant a => 0
+  | Chal.MatrixMultiplication.Arithmetic.Gate.input a => 0
+  | Chal.MatrixMultiplication.Arithmetic.Gate.add a a_1 => 1
+  | Chal.MatrixMultiplication.Arithmetic.Gate.sub a a_1 => 1
+  | Chal.MatrixMultiplication.Arithmetic.Gate.mul a a_1 => 1
+inductive Chal.MatrixMultiplication.Arithmetic.Program.{u_1, u_2} : Type u_1 → Type u_2 → ℕ → Type (max u_1 u_2)
+number of parameters: 2
+constructors:
+Chal.MatrixMultiplication.Arithmetic.Program.nil : {F : Type u_1} →
+  {Input : Type u_2} → Chal.MatrixMultiplication.Arithmetic.Program F Input 0
+Chal.MatrixMultiplication.Arithmetic.Program.step : {F : Type u_1} →
+  {Input : Type u_2} →
+    {r : ℕ} →
+      Chal.MatrixMultiplication.Arithmetic.Program F Input r →
+        Chal.MatrixMultiplication.Arithmetic.Gate F Input (Fin r) →
+          Chal.MatrixMultiplication.Arithmetic.Program F Input (r + 1)
+def Chal.MatrixMultiplication.Arithmetic.Program.eval.{u_1, u_2} : {F : Type u_1} →
+  {Input : Type u_2} →
+    [Field F] → {r : ℕ} → Chal.MatrixMultiplication.Arithmetic.Program F Input r → (Input → F) → Fin r → F :=
+fun {F} {Input} [Field F] x x_1 x_2 =>
+  Chal.MatrixMultiplication.Arithmetic.Program.brecOn (motive := fun x x_3 => (Input → F) → Fin x → F) x_1
+    Chal.MatrixMultiplication.Arithmetic.Program.eval._f x_2
+def Chal.MatrixMultiplication.Arithmetic.Program.cost.{u_1, u_2} : {F : Type u_1} →
+  {Input : Type u_2} → {r : ℕ} → Chal.MatrixMultiplication.Arithmetic.Program F Input r → ℕ :=
+fun {F} {Input} x x_1 =>
+  Chal.MatrixMultiplication.Arithmetic.Program.brecOn x_1 Chal.MatrixMultiplication.Arithmetic.Program.cost._f
+@[reducible] def Chal.MatrixMultiplication.Arithmetic.MatrixInput : ℕ → ℕ → ℕ → Type :=
+fun a b c => Fin a × Fin b ⊕ Fin b × Fin c
+def Chal.MatrixMultiplication.Arithmetic.matrixInputs.{u_1} : {F : Type u_1} →
+  {a b c : ℕ} →
+    Matrix (Fin a) (Fin b) F → Matrix (Fin b) (Fin c) F → Chal.MatrixMultiplication.Arithmetic.MatrixInput a b c → F :=
+fun {F} {a b c} A B x =>
+  match x with
+  | Sum.inl (i, j) => A i j
+  | Sum.inr (j, k) => B j k
+structure Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.{u_1} (F : Type u_1) (a b c : ℕ) : Type u_1
+number of parameters: 4
+fields:
+  Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.registers : ℕ
+  Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.program : Chal.MatrixMultiplication.Arithmetic.Program F
+      (Chal.MatrixMultiplication.Arithmetic.MatrixInput a b c) self.registers
+  Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.output : Fin a → Fin c → Fin self.registers
+constructor:
+  Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.mk.{u_1} {F : Type u_1} {a b c : ℕ} (registers : ℕ)
+    (program :
+      Chal.MatrixMultiplication.Arithmetic.Program F (Chal.MatrixMultiplication.Arithmetic.MatrixInput a b c) registers)
+    (output : Fin a → Fin c → Fin registers) : Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c
+def Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.eval.{u_1} : {F : Type u_1} →
+  [Field F] →
+    {a b c : ℕ} →
+      Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c →
+        Matrix (Fin a) (Fin b) F → Matrix (Fin b) (Fin c) F → Matrix (Fin a) (Fin c) F :=
+fun {F} [Field F] {a b c} P A B i k =>
+  P.program.eval (Chal.MatrixMultiplication.Arithmetic.matrixInputs A B) (P.output i k)
+def Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.Correct.{u_1} : {F : Type u_1} →
+  [Field F] → {a b c : ℕ} → Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c → Prop :=
+fun {F} [Field F] {a b c} P => ∀ (A : Matrix (Fin a) (Fin b) F) (B : Matrix (Fin b) (Fin c) F), P.eval A B = A * B
+def Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm.cost.{u_1} : {F : Type u_1} →
+  {a b c : ℕ} → Chal.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c → ℕ :=
+fun {F} {a b c} P => P.program.cost
+def Chal.MatrixMultiplication.Arithmetic.AdmissibleExponent.{u_1} : (F : Type u_1) → [Field F] → ℝ → Prop :=
+fun F [Field F] τ => ∀ (ε : ℝ), 0 < ε → ∃ C, 0 < C ∧ ∀ (n : ℕ), 1 ≤ n → ∃ P, P.Correct ∧ ↑P.cost ≤ C * ↑n ^ (τ + ε)
+def Chal.MatrixMultiplication.Arithmetic.omega.{u_1} : (F : Type u_1) → [Field F] → ℝ :=
+fun F [Field F] => sInf {τ | Chal.MatrixMultiplication.Arithmetic.AdmissibleExponent F τ}
+def Chal.MatrixMultiplication.Arithmetic.innerSize : ℕ → ℝ → ℕ :=
+fun n k => ⌈↑n ^ k⌉₊
+def Chal.MatrixMultiplication.Arithmetic.RectangularAdmissibleExponent.{u_1} : (F : Type u_1) →
+  [Field F] → ℝ → ℝ → Prop :=
+fun F [Field F] k τ => ∀ (ε : ℝ), 0 < ε → ∃ C, 0 < C ∧ ∀ (n : ℕ), 1 ≤ n → ∃ P, P.Correct ∧ ↑P.cost ≤ C * ↑n ^ (τ + ε)
+def Chal.MatrixMultiplication.Arithmetic.rectangularOmega.{u_1} : (F : Type u_1) → [Field F] → ℝ → ℝ :=
+fun F [Field F] k => sInf {τ | Chal.MatrixMultiplication.Arithmetic.RectangularAdmissibleExponent F k τ}
+def Chal.MatrixMultiplication.Arithmetic.complexAlpha : ℝ :=
+sSup {k | k ∈ Set.Icc 0 1 ∧ Chal.MatrixMultiplication.Arithmetic.rectangularOmega ℂ k = 2}
+'OAI.MatrixMultiplication.complex_omega_le_nine_quarters' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.MatrixMultiplication.complex_alpha_gt_93_div_200' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== MatrixMultiplication comparator-style: ok=46 problems=0 errors=0 | no-shadowing | [propext, [propext, Classical.choice, Quot.sound] 

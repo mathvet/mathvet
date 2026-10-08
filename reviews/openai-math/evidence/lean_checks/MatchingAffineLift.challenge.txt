@@ -1,0 +1,16 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_MatchingAffineLift.lean:27:8: warning: declaration uses `sorry`
+OAI.PerfectMatchingPSD.affine_lift_lower_bound : ∀ (C : ℝ),
+  0 < C → ∃ n₀, 4 ≤ n₀ ∧ ∀ (n : ℕ), n₀ ≤ n → Even n → ∀ (r : ℕ), OAI.PerfectMatchingPSD.HasAffineLift n r → ↑n ^ C < ↑r
+@[reducible] def OAI.PerfectMatchingPSD.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+def OAI.PerfectMatchingPSD.IsPerfectMatching : {n : ℕ} → Finset (OAI.PerfectMatchingPSD.Edge n) → Prop :=
+fun {n} M => ∀ (v : Fin n), {e ∈ M | (↑e).1 = v ∨ (↑e).2 = v}.card = 1
+@[reducible] def OAI.PerfectMatchingPSD.PerfectMatching : ℕ → Type :=
+fun n => { M // OAI.PerfectMatchingPSD.IsPerfectMatching M }
+def OAI.PerfectMatchingPSD.matchingPoint : {n : ℕ} →
+  OAI.PerfectMatchingPSD.PerfectMatching n → OAI.PerfectMatchingPSD.Edge n → ℝ :=
+fun {n} M e => if e ∈ ↑M then 1 else 0
+def OAI.PerfectMatchingPSD.matchingPolytope : (n : ℕ) → Set (OAI.PerfectMatchingPSD.Edge n → ℝ) :=
+fun n => (convexHull ℝ) (Set.range OAI.PerfectMatchingPSD.matchingPoint)
+def OAI.PerfectMatchingPSD.HasAffineLift : ℕ → ℕ → Prop :=
+fun n r => ∃ L T, ⇑T '' {X | X ∈ L ∧ X.PosSemidef} = OAI.PerfectMatchingPSD.matchingPolytope n

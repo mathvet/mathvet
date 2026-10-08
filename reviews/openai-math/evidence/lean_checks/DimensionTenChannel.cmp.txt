@@ -1,0 +1,47 @@
+CMP OAI.DimensionTen.exists_channel_fin21 [thm] ok
+CMP OAI.ChannelCompletion.Mat [def] ok
+CMP OAI.ChannelCompletion.EntanglementBreaking [def] ok
+CMP OAI.ChannelCompletion.amplify [def] ok
+CMP OAI.ChannelCompletion.Map [def] ok
+CMP OAI.ChannelCompletion.Separable [def] ok
+CMP OAI.ChannelCompletion.CP [def] ok
+CMP OAI.ChannelCompletion.TracePreserving [def] ok
+CMP OAI.ChannelCompletion.PPT [def] ok
+CMP OAI.ChannelCompletion.transposeMap [def] ok
+CMP OAI.ChannelCompletion.transposeMap._proof_2 [thm] ok
+CMP OAI.ChannelCompletion.transposeMap._proof_1 [thm] ok
+CMP OAI.ChannelCompletion.PPT._proof_1 [thm] ok
+Chal.DimensionTen.exists_channel_fin21 : ∃ Θ,
+  Chal.ChannelCompletion.PPT Θ ∧
+    Chal.ChannelCompletion.TracePreserving Θ ∧ ¬Chal.ChannelCompletion.EntanglementBreaking (Θ ∘ₗ Θ)
+@[reducible] def Chal.ChannelCompletion.Mat : Type → Type :=
+fun n => Matrix n n ℂ
+@[reducible] def Chal.ChannelCompletion.Map : Type → Type → Type :=
+fun n m => Chal.ChannelCompletion.Mat n →ₗ[ℂ] Chal.ChannelCompletion.Mat m
+def Chal.ChannelCompletion.amplify : {n m : Type} →
+  Chal.ChannelCompletion.Map n m →
+    {k : Type} → Chal.ChannelCompletion.Mat (k × n) → Chal.ChannelCompletion.Mat (k × m) :=
+fun {n m} F {k} X a b => F (fun i j => X (a.1, i) (b.1, j)) a.2 b.2
+def Chal.ChannelCompletion.CP : {n m : Type} → Chal.ChannelCompletion.Map n m → Prop :=
+fun {n m} F =>
+  ∀ (k : Type) [Fintype k] (X : Chal.ChannelCompletion.Mat (k × n)),
+    Matrix.PosSemidef X → Matrix.PosSemidef (Chal.ChannelCompletion.amplify F X)
+def Chal.ChannelCompletion.transposeMap : {n : Type} → Chal.ChannelCompletion.Map n n :=
+fun {n} => { toFun := Matrix.transpose, map_add' := ⋯, map_smul' := ⋯ }
+def Chal.ChannelCompletion.PPT : {n m : Type} → Chal.ChannelCompletion.Map n m → Prop :=
+fun {n m} F => Chal.ChannelCompletion.CP F ∧ Chal.ChannelCompletion.CP (Chal.ChannelCompletion.transposeMap ∘ₗ F)
+def Chal.ChannelCompletion.TracePreserving : {n m : Type} →
+  [Fintype n] → [Fintype m] → Chal.ChannelCompletion.Map n m → Prop :=
+fun {n m} [Fintype n] [Fintype m] F => ∀ (X : Chal.ChannelCompletion.Mat n), Matrix.trace (F X) = Matrix.trace X
+def Chal.ChannelCompletion.Separable : {n m : Type} → Chal.ChannelCompletion.Mat (n × m) → Prop :=
+fun {n m} Z =>
+  ∃ r A B,
+    (∀ (i : Fin r), Matrix.PosSemidef (A i)) ∧
+      (∀ (i : Fin r), Matrix.PosSemidef (B i)) ∧ Z = ∑ i, Matrix.kroneckerMap (fun x1 x2 => x1 * x2) (A i) (B i)
+def Chal.ChannelCompletion.EntanglementBreaking : {n m : Type} → Chal.ChannelCompletion.Map n m → Prop :=
+fun {n m} F =>
+  Chal.ChannelCompletion.CP F ∧
+    ∀ (k : Type) [Fintype k] (X : Chal.ChannelCompletion.Mat (k × n)),
+      Matrix.PosSemidef X → Chal.ChannelCompletion.Separable (Chal.ChannelCompletion.amplify F X)
+'OAI.DimensionTen.exists_channel_fin21' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DimensionTenChannel comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

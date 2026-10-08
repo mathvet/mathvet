@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T22:36:51Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T22:37:20Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,7 +2894,7 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 352 accepted by
+    checks: 47 solutions built locally, 44 with a clean closure comparison and standard axioms, 361 accepted by
     the real Comparator, of which 352 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3027,14 +3027,16 @@ alignment:
     module: OAI.NumberTheory.DirichletL.Nonvanishing
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/QuasiRiemannHypothesis.json;
-      MathVet machine check: local build in progress. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 003 — The quasi-Riemann hypothesis: Dirichlet $L$-function $7/8$ bound (the lab''s own result
       label); paper ''The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane $\Re s\gt 7/8$'', theorem thm:main (build/paper.tex:106)'
     lean: OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re
     module: OAI.NumberTheory.DirichletL.Nonvanishing
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DirichletSevenEighths.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 003 — The quasi-Riemann hypothesis: Finite-order Hecke $L$-function $7/8$ bound (the lab''s
       own result label); paper ''The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane $\Re s\gt 7/8$'', theorem
       thm:main (build/paper.tex:106)'
@@ -3049,7 +3051,8 @@ alignment:
     module: OAI.NumberTheory.SiegelZeros.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SiegelZeros.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 005 — Irrationality of Catalan''s constant: Irrationality of Catalan''s constant (the lab''s
       own result label); paper ''Catalan''s constant is irrational'', theorem thm:main (build/sections/introduction.tex:16)'
     lean: OAI.InternalCatalan.catalan_irrational
@@ -3831,7 +3834,8 @@ alignment:
     module: OAI.Computability.UniqueGames.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniqueGamesTheorem.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 102 — The Unique Games Conjecture and optimal approximation thresholds: Optimal Max-Cut hardness
       gap (the lab''s own result label); paper ''A Direct Proof of Optimal Max-Cut Hardness'', theorem thm:main
       (build/sections/introduction.tex:39)'
@@ -3839,7 +3843,8 @@ alignment:
     module: OAI.Computability.MaxCut.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/OptimalMaxCut.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 102 — The Unique Games Conjecture and optimal approximation thresholds: Vertex Cover gap and
       factor-two hardness (the lab''s own result label); paper ''The Factor-Two Hardness Threshold for Vertex Cover'',
       theorem thm:gap (build/sections/introduction.tex:15)'
@@ -3902,7 +3907,8 @@ alignment:
     module: OAI.Computability.PerfectCompleteness.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/PerfectCompleteness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 106 — Hardness of coloring three-colorable graphs: Independent-set hardness in three-colorable
       graphs (the lab''s own result label); paper ''Hardness of finding large independent sets in three-colorable
       graphs'', theorem thm:main (build/source/sections/introduction.tex:12)'
@@ -3919,7 +3925,8 @@ alignment:
     module: OAI.LinearAlgebra.MatrixMultiplication.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatrixMultiplication.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: |-
       family 107 — Matrix multiplication with exponent at most $9/4$: Matrix-multiplication exponent over every field (the lab's own result label); paper 'Complex Matrix Multiplication Below 2.258 and Rectangular Bounds](preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026.pdf) — secondary writeup
 
@@ -4083,7 +4090,8 @@ alignment:
     module: OAI.Combinatorics.ContingencyTables.UnconditionalMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ContingencyTables.json;
-      MathVet machine check: local build in progress. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 116 — Uniform identity testing for noncommutative formulas: One rational matrix tuple hitting
       all bounded-size noncommutative formulas (the lab''s own result label); paper ''One Rational Matrix Hitting
       Point for Noncommutative Formulas'', theorem thm:main (build/introduction.tex:24)'
@@ -4712,8 +4720,8 @@ alignment:
     module: OAI.Combinatorics.Progressions.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ErdosReciprocal.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      partial.'
   - source: 'family 159 — headline claim as stated in the overview: Proves Erd\H{o}s''s conjecture that every set
       of positive integers with divergent reciprocal sum contains arithmetic progressions of every finite length.
       Quantitatively, for each fixed $k\ge3$, every subset of $\{1,\ldots,N\}$ with no nonconstant $k$-term progression
@@ -6698,7 +6706,7 @@ alignment:
     module: OAI.MathematicalPhysics.ContinuumCoulomb.Reduction.Hardness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ContinuumCoulombHardness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: local build in progress. Family verdict (pre-referee): full.'
   - source: 'family 276 — The classical capacity of generalized amplitude damping: Additivity and capacity for generalized
       amplitude damping (the lab''s own result label); paper ''Classical capacity and entropy inequalities for generalized
       amplitude damping'', theorem thm:main (build/paper.tex:208)'
@@ -7814,7 +7822,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T22:36:51Z'
+    generated: '2026-10-08T22:37:20Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7827,29 +7835,98 @@ mathvet:
       supporting-only: 12
     non_full: 91
     built_locally:
+    - AsymptoticallyMinimalLittlewood
+    - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoboundaryExpanders
+    - Conductivity
+    - ContingencyTables
+    - DimensionTenChannel
+    - DimensionTenPair
+    - DirichletSevenEighths
+    - ElasticityUniqueness
     - EntangledGames
     - ErdosReciprocal
     - EuclideanFiveColor
+    - EvenBarker
+    - ExactFourier
+    - GeneralizedStarHeight
     - GotsmanLinial
     - InterpolatedFactors
+    - KServer
+    - ListHadwiger
+    - LittlewoodFiniteFlatness
     - MahlerConjecture
     - MassAction
+    - MatchingAffineLift
+    - MatchingFPRAS
+    - MatchingPSD
+    - MatrixMultiplication
+    - OptimalMaxCut
+    - PerfectCompleteness
     - PiExponent
+    - PlaneColoring
+    - QuasiRiemannHypothesis
+    - RandomizedMeanPayoff
+    - SKFullSupport
+    - SKValue
+    - SidorenkoCounterexample
+    - SiegelZeros
+    - StrongThinTree
+    - Superstring
+    - SwitchChain
     - ThompsonNonamenability
+    - ThreeMachine
+    - TraceReconstruction
+    - UniformSparsestCut
+    - UniqueGamesTheorem
+    - VlasovMaxwell
     closure_check_pass:
+    - AsymptoticallyMinimalLittlewood
+    - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoboundaryExpanders
+    - Conductivity
+    - ContingencyTables
+    - DimensionTenChannel
+    - DimensionTenPair
+    - DirichletSevenEighths
+    - ElasticityUniqueness
     - EntangledGames
     - ErdosReciprocal
     - EuclideanFiveColor
+    - EvenBarker
+    - ExactFourier
+    - GeneralizedStarHeight
     - GotsmanLinial
     - InterpolatedFactors
+    - KServer
+    - ListHadwiger
+    - LittlewoodFiniteFlatness
     - MahlerConjecture
     - MassAction
+    - MatchingAffineLift
+    - MatchingFPRAS
+    - MatchingPSD
+    - MatrixMultiplication
     - PiExponent
+    - PlaneColoring
+    - QuasiRiemannHypothesis
+    - RandomizedMeanPayoff
+    - SKFullSupport
+    - SKValue
+    - SidorenkoCounterexample
+    - SiegelZeros
+    - StrongThinTree
+    - Superstring
+    - SwitchChain
     - ThompsonNonamenability
+    - ThreeMachine
+    - TraceReconstruction
+    - UniformSparsestCut
+    - VlasovMaxwell
     comparator_pass:
     - AbhyankarSathaye
     - AffineBernstein
@@ -7905,6 +7982,7 @@ mathvet:
     - ComplexCancellation
     - Conductivity
     - ConjugatePoints
+    - ContingencyTables
     - ContinuousCircleWeight
     - ContinuumTransition
     - CoordinateSweeps
@@ -7935,6 +8013,7 @@ mathvet:
     - DirectCrouzeix
     - DirectionalBallisticity
     - DirectionalWalk
+    - DirichletSevenEighths
     - DiscreteLipschitzFree
     - DiskMaximal
     - Dixmier
@@ -7949,6 +8028,7 @@ mathvet:
     - ElementaryPositivity
     - EntangledGames
     - EntropyPhotonNumber
+    - ErdosReciprocal
     - EuclideanFiveColor
     - EuclideanRamsey
     - EuclideanRamseyCircle
@@ -8043,6 +8123,7 @@ mathvet:
     - MatchingEntropyBounds
     - MatchingFPRAS
     - MatchingPSD
+    - MatrixMultiplication
     - MatrixRemoval
     - MatroidProphet
     - MatroidSecretary
@@ -8060,11 +8141,13 @@ mathvet:
     - OccupiedOverlap
     - OddKaplansky
     - OneWayLiveness
+    - OptimalMaxCut
     - OrdinaryElliott
     - ParityLifts
     - PartialPermutation
     - PartitionConsistency
     - PerceptronFreeEnergy
+    - PerfectCompleteness
     - PeriodicGroup
     - PeriodicTilingThree
     - PermanentCubic
@@ -8088,6 +8171,7 @@ mathvet:
     - QACParity
     - QuadricBundles
     - QuantitativeVanDerWaerden
+    - QuasiRiemannHypothesis
     - QuinticLienard
     - RadialDensityInterval
     - RadialTransition
@@ -8124,6 +8208,7 @@ mathvet:
     - SharpThreshold
     - ShortEgyptianFractions
     - SidorenkoCounterexample
+    - SiegelZeros
     - SignedFiniteBand
     - SignedSweepMoment
     - SimpleAmenable
@@ -8190,6 +8275,7 @@ mathvet:
     - UniformGamma
     - UniformKServer
     - UniformSparsestCut
+    - UniqueGamesTheorem
     - UniversalFInfinity
     - VariableWL
     - VelocityHemisphere
@@ -8556,11 +8642,9 @@ mathvet:
     - WeisfeilerLeman
     - WitnessedChoice
     - YauCounterexample
-    comparator_running:
-    - ErdosReciprocal
+    comparator_running: []
     build_in_progress:
-    - ContingencyTables
-    - QuasiRiemannHypothesis
+    - ContinuumCoulombHardness
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
     partial: only a special case, or only one of several co-equal headline claims
@@ -8589,7 +8673,7 @@ mathvet:
     - PrimeNumberTheoremAnd
     - RellichKondrachov
     cone_lines_max: 486525
-    machine_check: build-in-progress
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/003.md
     audit_part: 1
   - family: '005'
@@ -9406,7 +9490,7 @@ mathvet:
       (edge list with repeats), outputs written with unary `encodeWord`
     external_packages: []
     cone_lines_max: 257263
-    machine_check: none
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/105.md
     audit_part: 1
   - family: '106'
@@ -9445,7 +9529,7 @@ mathvet:
     external_packages:
     - FixedPointTheorems
     cone_lines_max: 181751
-    machine_check: none
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/107.md
     audit_part: 1
   - family: '108'
@@ -9570,7 +9654,7 @@ mathvet:
       uses an explicit `@Fin.instInhabited 8 alphabetSize_neZero` instance hack
     external_packages: []
     cone_lines_max: 191813
-    machine_check: build-in-progress
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/115.md
     audit_part: 1
   - family: '116'
@@ -10188,7 +10272,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 1122983
-    machine_check: closure-pass
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/159.md
     audit_part: 3
   - family: '160'
@@ -11966,7 +12050,7 @@ mathvet:
     external_packages:
     - RellichKondrachov
     cone_lines_max: 222484
-    machine_check: none
+    machine_check: build-in-progress
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/275.md
     audit_part: 2
   - family: '276'

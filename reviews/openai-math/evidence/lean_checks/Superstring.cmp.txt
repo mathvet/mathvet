@@ -1,0 +1,39 @@
+CMP OAI.Superstring.main [thm] ok
+CMP OAI.Superstring.opt [def] ok
+CMP OAI.Superstring.Symbol [def] ok
+CMP OAI.Superstring.IsCommonSuperstring [def] ok
+CMP OAI.Superstring.Word [def] ok
+CMP OAI.Superstring.Instance [def] ok
+CMP OAI.Superstring.HasPolynomialImplementation [def] ok
+CMP OAI.Superstring.encodeWord [def] ok
+CMP OAI.Superstring.encodeSymbol [def] ok
+CMP OAI.Superstring.encodeList [def] ok
+CMP OAI.Superstring.encodeList._f [def] ok
+CMP OAI.Superstring.encodeList.match_1 [def] ok
+CMP OAI.Superstring.encodeInstance [def] ok
+Chal.Superstring.main : ∃ f,
+  Chal.Superstring.HasPolynomialImplementation f ∧
+    ∀ (S : Chal.Superstring.Instance),
+      Chal.Superstring.IsCommonSuperstring S (f S) ∧ List.length (f S) ≤ 2 * Chal.Superstring.opt S
+@[reducible] def Chal.Superstring.Symbol : Type :=
+List Bool
+@[reducible] def Chal.Superstring.Word : Type :=
+List Chal.Superstring.Symbol
+@[reducible] def Chal.Superstring.Instance : Type :=
+List Chal.Superstring.Word
+def Chal.Superstring.encodeList : {α : Type} → (α → List Bool) → List α → List Bool :=
+fun {α} enc x => List.brecOn x (Chal.Superstring.encodeList._f enc)
+def Chal.Superstring.encodeSymbol : Chal.Superstring.Symbol → List Bool :=
+Chal.Superstring.encodeList fun b => [b]
+def Chal.Superstring.encodeWord : Chal.Superstring.Word → List Bool :=
+Chal.Superstring.encodeList Chal.Superstring.encodeSymbol
+def Chal.Superstring.encodeInstance : Chal.Superstring.Instance → List Bool :=
+Chal.Superstring.encodeList Chal.Superstring.encodeWord
+def Chal.Superstring.IsCommonSuperstring : Chal.Superstring.Instance → Chal.Superstring.Word → Prop :=
+fun S T => ∀ s ∈ S, s <:+: T
+def Chal.Superstring.opt : Chal.Superstring.Instance → ℕ :=
+fun S => sInf {n | ∃ T, Chal.Superstring.IsCommonSuperstring S T ∧ List.length T = n}
+def Chal.Superstring.HasPolynomialImplementation : (Chal.Superstring.Instance → Chal.Superstring.Word) → Prop :=
+fun f => ∃ M, ∀ (k : M.tm.K), Finite (M.tm.Γ k)
+'OAI.Superstring.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Superstring comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

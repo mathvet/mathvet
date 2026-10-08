@@ -1,0 +1,145 @@
+CMP OAI.ZeroTemperatureSK.full_support [thm] ok
+CMP OAI.ZeroTemperatureSK.FullSupportConclusion [def] ok
+CMP OAI.ZeroTemperatureSK.curvature [def] ok
+CMP OAI.ZeroTemperatureSK.gradient [def] ok
+CMP OAI.ZeroTemperatureSK.value [def] ok
+CMP OAI.ZeroTemperatureSK.controlPayoff [def] ok
+CMP OAI.ZeroTemperatureSK.controlPayoff._proof_1 [thm] ok
+CMP OAI.ZeroTemperatureSK.Control.val [def] ok
+CMP OAI.ZeroTemperatureSK.Control [ind] ok
+CMP OAI.ZeroTemperatureSK.Control.mk [ctor] ok
+CMP OAI.ZeroTemperatureSK.incrementFiltration [def] ok
+CMP OAI.ZeroTemperatureSK.incrementFiltration._proof_2 [thm] ok
+CMP OAI.ZeroTemperatureSK.BrownianSystem.B [def] ok
+CMP OAI.ZeroTemperatureSK.BrownianSystem [ind] ok
+CMP OAI.ZeroTemperatureSK.BrownianSystem.mk [ctor] ok
+CMP OAI.ZeroTemperatureSK.incrementFiltration._proof_1 [thm] ok
+CMP OAI.ZeroTemperatureSK.OrderParameter.val [def] ok
+CMP OAI.ZeroTemperatureSK.OrderParameter [ind] ok
+CMP OAI.ZeroTemperatureSK.OrderParameter.mk [ctor] ok
+CMP OAI.ZeroTemperatureSK.extend [def] ok
+CMP OAI.ZeroTemperatureSK.Time [def] ok
+CMP OAI.ZeroTemperatureSK.BrownianSystem.law [def] ok
+CMP OAI.ZeroTemperatureSK.squareMoment [def] ok
+CMP OAI.ZeroTemperatureSK.IsDiffusion [def] ok
+CMP OAI.ZeroTemperatureSK.IsDiffusion._proof_1 [thm] ok
+CMP OAI.ZeroTemperatureSK.IsStieltjesMeasure [def] ok
+CMP OAI.ZeroTemperatureSK.IsMinimizer [def] ok
+CMP OAI.ZeroTemperatureSK.parisi [def] ok
+@Chal.ZeroTemperatureSK.full_support : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (W : Chal.ZeroTemperatureSK.BrownianSystem Ω) (γ : Chal.ZeroTemperatureSK.OrderParameter),
+  Chal.ZeroTemperatureSK.IsMinimizer W γ → Chal.ZeroTemperatureSK.FullSupportConclusion W γ
+@[reducible] def Chal.ZeroTemperatureSK.Time : Set ℝ :=
+Set.Ico 0 1
+def Chal.ZeroTemperatureSK.extend : (↑Chal.ZeroTemperatureSK.Time → ℝ) → ℝ → ℝ :=
+fun γ t => if ht : t ∈ Set.Ico 0 1 then γ ⟨t, ht⟩ else 0
+structure Chal.ZeroTemperatureSK.OrderParameter : Type
+number of parameters: 0
+fields:
+  Chal.ZeroTemperatureSK.OrderParameter.val : ↑Chal.ZeroTemperatureSK.Time → ℝ
+  Chal.ZeroTemperatureSK.OrderParameter.nonneg : ∀ (t : ↑Chal.ZeroTemperatureSK.Time), 0 ≤ self.val t
+  Chal.ZeroTemperatureSK.OrderParameter.monotone : Monotone self.val
+  Chal.ZeroTemperatureSK.OrderParameter.right_continuous : ∀ (t : ↑Chal.ZeroTemperatureSK.Time),
+      ContinuousWithinAt self.val (Set.Ici t) t
+  Chal.ZeroTemperatureSK.OrderParameter.integrable : MeasureTheory.Integrable (Chal.ZeroTemperatureSK.extend self.val)
+      MeasureTheory.volume
+constructor:
+  Chal.ZeroTemperatureSK.OrderParameter.mk (val : ↑Chal.ZeroTemperatureSK.Time → ℝ)
+    (nonneg : ∀ (t : ↑Chal.ZeroTemperatureSK.Time), 0 ≤ val t) (monotone : Monotone val)
+    (right_continuous : ∀ (t : ↑Chal.ZeroTemperatureSK.Time), ContinuousWithinAt val (Set.Ici t) t)
+    (integrable : MeasureTheory.Integrable (Chal.ZeroTemperatureSK.extend val) MeasureTheory.volume) :
+    Chal.ZeroTemperatureSK.OrderParameter
+structure Chal.ZeroTemperatureSK.BrownianSystem.{u_1} (Ω : Type u_1) [MeasurableSpace Ω] : Type u_1
+number of parameters: 2
+fields:
+  Chal.ZeroTemperatureSK.BrownianSystem.law : MeasureTheory.Measure Ω
+  Chal.ZeroTemperatureSK.BrownianSystem.isProbability : MeasureTheory.IsProbabilityMeasure self.law
+  Chal.ZeroTemperatureSK.BrownianSystem.B : NNReal → Ω → ℝ
+  Chal.ZeroTemperatureSK.BrownianSystem.measurable : ∀ (t : NNReal), Measurable (self.B t)
+  Chal.ZeroTemperatureSK.BrownianSystem.brownian : ProbabilityTheory.IsBrownianReal self.B self.law
+constructor:
+  Chal.ZeroTemperatureSK.BrownianSystem.mk.{u_1} {Ω : Type u_1} [MeasurableSpace Ω] (law : MeasureTheory.Measure Ω)
+    (isProbability : MeasureTheory.IsProbabilityMeasure law) (B : NNReal → Ω → ℝ)
+    (measurable : ∀ (t : NNReal), Measurable (B t)) (brownian : ProbabilityTheory.IsBrownianReal B law) :
+    Chal.ZeroTemperatureSK.BrownianSystem Ω
+def Chal.ZeroTemperatureSK.incrementFiltration.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → NNReal → MeasureTheory.Filtration NNReal inst :=
+fun {Ω} [MeasurableSpace Ω] W t => MeasureTheory.Filtration.natural (fun s ω => W.B (t + s) ω - W.B t ω) ⋯
+structure Chal.ZeroTemperatureSK.Control.{u_1} {Ω : Type u_1} [MeasurableSpace Ω]
+  (W : Chal.ZeroTemperatureSK.BrownianSystem Ω) (t : NNReal) : Type u_1
+number of parameters: 4
+fields:
+  Chal.ZeroTemperatureSK.Control.val : NNReal → Ω → ℝ
+  Chal.ZeroTemperatureSK.Control.progressive : MeasureTheory.IsProgressive
+      (Chal.ZeroTemperatureSK.incrementFiltration W t) self.val
+  Chal.ZeroTemperatureSK.Control.bound : ∀ (s : NNReal) (ω : Ω), |self.val s ω| ≤ 1
+constructor:
+  Chal.ZeroTemperatureSK.Control.mk.{u_1} {Ω : Type u_1} [MeasurableSpace Ω]
+    {W : Chal.ZeroTemperatureSK.BrownianSystem Ω} {t : NNReal} (val : NNReal → Ω → ℝ)
+    (progressive : MeasureTheory.IsProgressive (Chal.ZeroTemperatureSK.incrementFiltration W t) val)
+    (bound : ∀ (s : NNReal) (ω : Ω), |val s ω| ≤ 1) : Chal.ZeroTemperatureSK.Control W t
+def Chal.ZeroTemperatureSK.controlPayoff.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    (W : Chal.ZeroTemperatureSK.BrownianSystem Ω) →
+      Chal.ZeroTemperatureSK.OrderParameter → (t : ℝ) → ℝ → Chal.ZeroTemperatureSK.Control W t.toNNReal → Ω → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ t x α ω =>
+  |x + W.B 1 ω - W.B t.toNNReal ω +
+        ∫ (s : ℝ) in t..1, Chal.ZeroTemperatureSK.extend γ.val s * α.val (s - t).toNNReal ω| -
+    1 / 2 * ∫ (s : ℝ) in t..1, Chal.ZeroTemperatureSK.extend γ.val s * α.val (s - t).toNNReal ω ^ 2
+def Chal.ZeroTemperatureSK.value.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → ℝ → ℝ → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ t x =>
+  sSup (Set.range fun α => ∫ (ω : Ω), Chal.ZeroTemperatureSK.controlPayoff W γ t x α ω ∂W.law)
+def Chal.ZeroTemperatureSK.gradient.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → ℝ → ℝ → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ t x => deriv (Chal.ZeroTemperatureSK.value W γ t) x
+def Chal.ZeroTemperatureSK.curvature.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → ℝ → ℝ → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ t x => deriv (Chal.ZeroTemperatureSK.gradient W γ t) x
+def Chal.ZeroTemperatureSK.parisi.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ =>
+  Chal.ZeroTemperatureSK.value W γ 0 0 - 1 / 2 * ∫ (t : ℝ) in 0..1, t * Chal.ZeroTemperatureSK.extend γ.val t
+def Chal.ZeroTemperatureSK.IsMinimizer.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → Prop :=
+fun {Ω} [MeasurableSpace Ω] W γ =>
+  ∀ (η : Chal.ZeroTemperatureSK.OrderParameter), Chal.ZeroTemperatureSK.parisi W γ ≤ Chal.ZeroTemperatureSK.parisi W η
+def Chal.ZeroTemperatureSK.IsStieltjesMeasure : Chal.ZeroTemperatureSK.OrderParameter →
+  MeasureTheory.Measure ↑Chal.ZeroTemperatureSK.Time → Prop :=
+fun γ μ => ∀ (t : ↑Chal.ZeroTemperatureSK.Time), μ (Set.Iic t) = ENNReal.ofReal (γ.val t)
+def Chal.ZeroTemperatureSK.IsDiffusion.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → (NNReal → Ω → ℝ) → Prop :=
+fun {Ω} [MeasurableSpace Ω] W γ X =>
+  MeasureTheory.IsProgressive (MeasureTheory.Filtration.natural W.B ⋯) X ∧
+    ∀ᵐ (ω : Ω) ∂W.law,
+      ContinuousOn (fun t => X t.toNNReal ω) (Set.Icc 0 1) ∧
+        X 0 ω = 0 ∧
+          ∀ t ∈ Set.Icc 0 1,
+            X t.toNNReal ω =
+              W.B t.toNNReal ω +
+                ∫ (s : ℝ) in 0..t,
+                  Chal.ZeroTemperatureSK.extend γ.val s * Chal.ZeroTemperatureSK.gradient W γ s (X s.toNNReal ω)
+def Chal.ZeroTemperatureSK.squareMoment.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → (NNReal → Ω → ℝ) → ℝ → ℝ :=
+fun {Ω} [MeasurableSpace Ω] W γ X t => ∫ (ω : Ω), Chal.ZeroTemperatureSK.gradient W γ t (X t.toNNReal ω) ^ 2 ∂W.law
+def Chal.ZeroTemperatureSK.FullSupportConclusion.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → Chal.ZeroTemperatureSK.BrownianSystem Ω → Chal.ZeroTemperatureSK.OrderParameter → Prop :=
+fun {Ω} [MeasurableSpace Ω] W γ =>
+  (∃ μ, Chal.ZeroTemperatureSK.IsStieltjesMeasure γ μ) ∧
+    (∃ X, Chal.ZeroTemperatureSK.IsDiffusion W γ X) ∧
+      (∀ (μ : MeasureTheory.Measure ↑Chal.ZeroTemperatureSK.Time),
+          Chal.ZeroTemperatureSK.IsStieltjesMeasure γ μ → μ.support = Set.univ) ∧
+        (∀ (a b : ↑Chal.ZeroTemperatureSK.Time), a < b → γ.val a < γ.val b) ∧
+          ∀ (X : NNReal → Ω → ℝ),
+            Chal.ZeroTemperatureSK.IsDiffusion W γ X →
+              ∀ (t : ↑Chal.ZeroTemperatureSK.Time),
+                Chal.ZeroTemperatureSK.squareMoment W γ X ↑t = ↑t ∧
+                  ∫ (ω : Ω), Chal.ZeroTemperatureSK.curvature W γ (↑t) (X (↑t).toNNReal ω) ^ 2 ∂W.law = 1
+'OAI.ZeroTemperatureSK.full_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SKFullSupport comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

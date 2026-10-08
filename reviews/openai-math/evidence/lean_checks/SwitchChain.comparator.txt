@@ -1,0 +1,19 @@
+== SwitchChain comparator start 2026-10-08T14:29:00Z
+Building ComparatorChallenges.SwitchChain
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.SwitchChain
+⚠ [8924/8924] Built ComparatorChallenges.SwitchChain (20s)
+warning: ComparatorChallenges/SwitchChain.lean:155:8: declaration uses `sorry`
+warning: ComparatorChallenges/SwitchChain.lean:159:8: declaration uses `sorry`
+warning: ComparatorChallenges/SwitchChain.lean:163:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.SwitchChain -- Quot Quot.mk Quot.lift Quot.ind OAI.Problem315.switch_chain_main OAI.Problem315.switch_chain_tv_bound OAI.Problem315.switch_connectivity propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem315.switch_chain_main, OAI.Problem315.switch_chain_tv_bound, OAI.Problem315.switch_connectivity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.SwitchChain
+Building OAI.Probability.SwitchChain.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Probability.SwitchChain.Main
+Build completed successfully (9088 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Probability.SwitchChain.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.Problem315.switch_chain_main OAI.Problem315.switch_chain_tv_bound OAI.Problem315.switch_connectivity propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem315.switch_chain_main, OAI.Problem315.switch_chain_tv_bound, OAI.Problem315.switch_connectivity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Probability.SwitchChain.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T14:33:35Z

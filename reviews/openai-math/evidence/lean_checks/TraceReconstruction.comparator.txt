@@ -1,0 +1,19 @@
+== TraceReconstruction comparator start 2026-10-08T12:55:26Z
+Building ComparatorChallenges.TraceReconstruction
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.TraceReconstruction
+⚠ [8924/8924] Built ComparatorChallenges.TraceReconstruction (19s)
+warning: ComparatorChallenges/TraceReconstruction.lean:62:8: declaration uses `sorry`
+warning: ComparatorChallenges/TraceReconstruction.lean:74:8: declaration uses `sorry`
+warning: ComparatorChallenges/TraceReconstruction.lean:79:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.TraceReconstruction -- Quot Quot.mk Quot.lift Quot.ind OAI.TraceReconstruction.quantitative_sample_lower_bound OAI.TraceReconstruction.superpolynomial_one_trace OAI.TraceReconstruction.superpolynomial_sample_complexity propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.TraceReconstruction.quantitative_sample_lower_bound, OAI.TraceReconstruction.superpolynomial_one_trace, OAI.TraceReconstruction.superpolynomial_sample_complexity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.TraceReconstruction
+Building OAI.Probability.TraceReconstruction
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Probability.TraceReconstruction
+Build completed successfully (8954 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Probability.TraceReconstruction -- Quot Quot.mk Quot.lift Quot.ind OAI.TraceReconstruction.quantitative_sample_lower_bound OAI.TraceReconstruction.superpolynomial_one_trace OAI.TraceReconstruction.superpolynomial_sample_complexity propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.TraceReconstruction.quantitative_sample_lower_bound, OAI.TraceReconstruction.superpolynomial_one_trace, OAI.TraceReconstruction.superpolynomial_sample_complexity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Probability.TraceReconstruction
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T12:59:49Z

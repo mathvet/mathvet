@@ -1,0 +1,77 @@
+== TraceReconstruction  module=OAI.Probability.TraceReconstruction  start=2026-10-08T12:24:34Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8954] Built OAI.Probability.TraceReconstruction.Parity (15s)
+✔ [8925/8954] Built OAI.Probability.TraceReconstruction.Scales (22s)
+✔ [8926/8954] Built OAI.Probability.TraceReconstruction.FiniteLaw (22s)
+✔ [8927/8954] Built OAI.Probability.TraceReconstruction.Model (12s)
+✔ [8928/8954] Built OAI.Probability.TraceReconstruction.Binomial (35s)
+✔ [8929/8954] Built OAI.Probability.TraceReconstruction.Kernels (9.0s)
+✔ [8930/8954] Built OAI.Probability.TraceReconstruction.Ranks (24s)
+✔ [8931/8954] Built OAI.Probability.TraceReconstruction.InitialDensity (13s)
+✔ [8932/8954] Built OAI.Probability.TraceReconstruction.Differences (20s)
+✔ [8933/8954] Built OAI.Probability.TraceReconstruction.Patterns (10s)
+✔ [8934/8954] Built OAI.Probability.TraceReconstruction.InitialMoments (12s)
+✔ [8935/8954] Built OAI.Probability.TraceReconstruction.Oracles (16s)
+✔ [8936/8954] Built OAI.Probability.TraceReconstruction.InitialOverlap (24s)
+✔ [8937/8954] Built OAI.Probability.TraceReconstruction.LeafOracle (11s)
+✔ [8938/8954] Built OAI.Probability.TraceReconstruction.Anchors (13s)
+✔ [8939/8954] Built OAI.Probability.TraceReconstruction.Shapes (10s)
+✔ [8940/8954] Built OAI.Probability.TraceReconstruction.Energy (12s)
+✔ [8941/8954] Built OAI.Probability.TraceReconstruction.Layout (13s)
+✔ [8942/8954] Built OAI.Probability.TraceReconstruction.Metadata (10s)
+✔ [8943/8954] Built OAI.Probability.TraceReconstruction.Simulation (13s)
+✔ [8944/8954] Built OAI.Probability.TraceReconstruction.SourceOracle (13s)
+✔ [8945/8954] Built OAI.Probability.TraceReconstruction.Amplification (15s)
+✔ [8946/8954] Built OAI.Probability.TraceReconstruction.InitialOracle (18s)
+✔ [8947/8954] Built OAI.Probability.TraceReconstruction.InitialRates (15s)
+✔ [8948/8954] Built OAI.Probability.TraceReconstruction.LayoutRates (11s)
+✔ [8949/8954] Built OAI.Probability.TraceReconstruction.ErrorRates (10s)
+✔ [8950/8954] Built OAI.Probability.TraceReconstruction.Propagation (12s)
+✔ [8951/8954] Built OAI.Probability.TraceReconstruction.Restoration (9.8s)
+✔ [8952/8954] Built OAI.Probability.TraceReconstruction.Induction (11s)
+✔ [8953/8954] Built OAI.Probability.TraceReconstruction.Testing (8.9s)
+✔ [8954/8954] Built OAI.Probability.TraceReconstruction (8.3s)
+Build completed successfully (8954 jobs).
+== build rc=0 seconds=343
+{"theorems": ["OAI.TraceReconstruction.quantitative_sample_lower_bound", "OAI.TraceReconstruction.superpolynomial_one_trace", "OAI.TraceReconstruction.superpolynomial_sample_complexity"], "defs": ["OAI.TraceReconstruction.Word", "OAI.TraceReconstruction.Mask", "OAI.TraceReconstruction.Trace", "OAI.TraceReconstruction.traceOfMask", "OAI.TraceReconstruction.maskWeight", "OAI.TraceReconstruction.traceMass", "OAI.TraceReconstruction.traceSpace", "OAI.TraceReconstruction.traceTV", "OAI.TraceReconstruction.IsEstimator", "OAI.TraceReconstruction.reconstructionSuccess", "OAI.TraceReconstruction.SufficientBudget", "OAI.TraceReconstruction.sampleComplexity", "OAI.TraceReconstruction.minTraceTV"], "json_theorems": ["OAI.TraceReconstruction.quantitative_sample_lower_bound", "OAI.TraceReconstruction.superpolynomial_one_trace", "OAI.TraceReconstruction.superpolynomial_sample_complexity"], "missing_from_parse": []}
+TYPES/DEFS DIFFER TraceReconstruction
+1,15d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_TraceReconstruction.lean:62:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_TraceReconstruction.lean:74:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_TraceReconstruction.lean:79:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.TraceReconstruction.quantitative_sample_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.TraceReconstruction.superpolynomial_one_trace' depends on axioms: [propext, Classical.choice, Quot.sound] 'OAI.TraceReconstruction.superpolynomial_sample_complexity' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T12:30:47Z

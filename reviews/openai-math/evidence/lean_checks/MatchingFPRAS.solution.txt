@@ -1,0 +1,100 @@
+OAI.MatchingFPRAS.thm_main : OAI.MatchingFPRAS.MainStatement
+'OAI.MatchingFPRAS.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MatchingFPRAS.GraphInput : Type
+number of parameters: 0
+fields:
+  OAI.MatchingFPRAS.GraphInput.n : ℕ
+  OAI.MatchingFPRAS.GraphInput.edges : Finset (Fin self.n × Fin self.n)
+  OAI.MatchingFPRAS.GraphInput.increasing : ∀ e ∈ self.edges, e.1 < e.2
+constructor:
+  OAI.MatchingFPRAS.GraphInput.mk (n : ℕ) (edges : Finset (Fin n × Fin n)) (increasing : ∀ e ∈ edges, e.1 < e.2) :
+    OAI.MatchingFPRAS.GraphInput
+def OAI.MatchingFPRAS.Perfect : (G : OAI.MatchingFPRAS.GraphInput) → Finset (Fin G.n × Fin G.n) → Prop :=
+fun G M => M ⊆ G.edges ∧ ∀ (v : Fin G.n), ∃! e, e ∈ M ∧ (e.1 = v ∨ e.2 = v)
+def OAI.MatchingFPRAS.perfectMatchings : (G : OAI.MatchingFPRAS.GraphInput) → Finset (Finset (Fin G.n × Fin G.n)) :=
+fun G => Finset.filter (OAI.MatchingFPRAS.Perfect G) G.edges.powerset
+def OAI.MatchingFPRAS.Z : OAI.MatchingFPRAS.GraphInput → ℕ :=
+fun G => (OAI.MatchingFPRAS.perfectMatchings G).card
+@[reducible] def OAI.MatchingFPRAS.Symbol : Type :=
+Fin 8
+def OAI.MatchingFPRAS.encodeNat : ℕ → List OAI.MatchingFPRAS.Symbol :=
+fun n => List.map (fun b => if b = true then 2 else 1) n.bits ++ [3]
+def OAI.MatchingFPRAS.encodeInt : ℤ → List OAI.MatchingFPRAS.Symbol :=
+fun z => (if z < 0 then [5] else [4]) ++ OAI.MatchingFPRAS.encodeNat z.natAbs
+def OAI.MatchingFPRAS.encodeRat : ℚ → List OAI.MatchingFPRAS.Symbol :=
+fun q => OAI.MatchingFPRAS.encodeInt q.num ++ OAI.MatchingFPRAS.encodeNat q.den
+def OAI.MatchingFPRAS.encodeInput : OAI.MatchingFPRAS.GraphInput → ℚ → ℚ → List OAI.MatchingFPRAS.Symbol :=
+fun G ε δ =>
+  OAI.MatchingFPRAS.encodeNat G.n ++ OAI.MatchingFPRAS.encodeNat G.edges.card ++
+        List.flatMap (fun e => OAI.MatchingFPRAS.encodeNat ↑(ofLex e).1 ++ OAI.MatchingFPRAS.encodeNat ↑(ofLex e).2)
+          ((Finset.map toLex.toEmbedding G.edges).sort fun x1 x2 => x1 ≤ x2) ++
+      OAI.MatchingFPRAS.encodeRat ε ++
+    OAI.MatchingFPRAS.encodeRat δ
+structure OAI.MatchingFPRAS.RandomMachine : Type
+number of parameters: 0
+fields:
+  OAI.MatchingFPRAS.RandomMachine.states : ℕ
+  OAI.MatchingFPRAS.RandomMachine.transition : Fin (self.states + 1) →
+      OAI.MatchingFPRAS.Symbol → Bool → Option (Fin (self.states + 1) × Turing.TM0.Stmt OAI.MatchingFPRAS.Symbol)
+constructor:
+  OAI.MatchingFPRAS.RandomMachine.mk (states : ℕ)
+    (transition :
+      Fin (states + 1) →
+        OAI.MatchingFPRAS.Symbol → Bool → Option (Fin (states + 1) × Turing.TM0.Stmt OAI.MatchingFPRAS.Symbol)) :
+    OAI.MatchingFPRAS.RandomMachine
+structure OAI.MatchingFPRAS.Configuration (A : OAI.MatchingFPRAS.RandomMachine) : Type
+number of parameters: 1
+fields:
+  OAI.MatchingFPRAS.Configuration.state : Option (Fin (A.states + 1))
+  OAI.MatchingFPRAS.Configuration.tape : Turing.Tape OAI.MatchingFPRAS.Symbol
+constructor:
+  OAI.MatchingFPRAS.Configuration.mk {A : OAI.MatchingFPRAS.RandomMachine} (state : Option (Fin (A.states + 1)))
+    (tape : Turing.Tape OAI.MatchingFPRAS.Symbol) : OAI.MatchingFPRAS.Configuration A
+def OAI.MatchingFPRAS.tick : (A : OAI.MatchingFPRAS.RandomMachine) →
+  OAI.MatchingFPRAS.Configuration A → Bool → OAI.MatchingFPRAS.Configuration A :=
+fun A c bit =>
+  match c.state with
+  | none => c
+  | some s =>
+    match A.transition s c.tape.head bit with
+    | none => { state := none, tape := c.tape }
+    | some (s', action) =>
+      { state := some s',
+        tape :=
+          match action with
+          | Turing.TM0.Stmt.move d => Turing.Tape.move d c.tape
+          | Turing.TM0.Stmt.write a => Turing.Tape.write a c.tape }
+def OAI.MatchingFPRAS.initial : (A : OAI.MatchingFPRAS.RandomMachine) →
+  List OAI.MatchingFPRAS.Symbol → OAI.MatchingFPRAS.Configuration A :=
+fun A input => { state := some 0, tape := Turing.Tape.mk₁ input }
+def OAI.MatchingFPRAS.run : (A : OAI.MatchingFPRAS.RandomMachine) →
+  List OAI.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → OAI.MatchingFPRAS.Configuration A :=
+fun A input {t} bits => List.foldl (OAI.MatchingFPRAS.tick A) (OAI.MatchingFPRAS.initial A input) (List.ofFn bits)
+def OAI.MatchingFPRAS.Outputs : OAI.MatchingFPRAS.RandomMachine →
+  List OAI.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → ℚ → Prop :=
+fun A input {t} bits q =>
+  (OAI.MatchingFPRAS.run A input bits).state = none ∧
+    (OAI.MatchingFPRAS.run A input bits).tape.right₀ = Turing.ListBlank.mk (OAI.MatchingFPRAS.encodeRat q)
+def OAI.MatchingFPRAS.timeBound : ℕ → ℕ → OAI.MatchingFPRAS.GraphInput → ℚ → ℚ → ℕ :=
+fun C d G ε δ => C * ((OAI.MatchingFPRAS.encodeInput G ε δ).length + ⌈ε⁻¹⌉₊ + Nat.clog 2 ⌈δ⁻¹⌉₊ + 1) ^ d
+def OAI.MatchingFPRAS.goodTapes : OAI.MatchingFPRAS.RandomMachine →
+  OAI.MatchingFPRAS.GraphInput → ℚ → ℚ → (t : ℕ) → Finset (Fin t → Bool) :=
+fun A G ε δ t =>
+  {bits |
+    ∃ q,
+      OAI.MatchingFPRAS.Outputs A (OAI.MatchingFPRAS.encodeInput G ε δ) bits q ∧
+        (1 - ε) * ↑(OAI.MatchingFPRAS.Z G) ≤ q ∧ q ≤ (1 + ε) * ↑(OAI.MatchingFPRAS.Z G)}
+def OAI.MatchingFPRAS.MainStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (G : OAI.MatchingFPRAS.GraphInput) (ε δ : ℚ),
+      0 < ε →
+        ε < 1 →
+          0 < δ →
+            δ < 1 / 2 →
+              have t := OAI.MatchingFPRAS.timeBound C d G ε δ;
+              (∀ (bits : Fin t → Bool),
+                  ∃ q, 0 ≤ q ∧ OAI.MatchingFPRAS.Outputs A (OAI.MatchingFPRAS.encodeInput G ε δ) bits q) ∧
+                (OAI.MatchingFPRAS.Z G = 0 →
+                    ∀ (bits : Fin t → Bool), OAI.MatchingFPRAS.Outputs A (OAI.MatchingFPRAS.encodeInput G ε δ) bits 0) ∧
+                  ↑(OAI.MatchingFPRAS.goodTapes A G ε δ t).card / 2 ^ t ≥ 1 - δ

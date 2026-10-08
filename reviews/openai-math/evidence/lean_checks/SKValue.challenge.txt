@@ -1,0 +1,151 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_SKValue.lean:163:8: warning: declaration uses `sorry`
+OAI.SKValue.value_consequences : (∀ (W : OAI.SKValue.BrownianSpace) (γ : OAI.SKValue.OrderParameter) (X : ℝ → W.Ω → ℝ),
+    OAI.SKValue.IsMinimizer W γ → OAI.SKValue.IsDiffusion W γ X → OAI.SKValue.ScalarValueConclusion W γ X) ∧
+  (∀ (W : OAI.SKValue.BrownianSpace) (γ : OAI.SKValue.OrderParameter) (X : ℝ → W.Ω → ℝ) (T : ℝ),
+      0 < T →
+        T < 1 →
+          OAI.SKValue.IsMinimizer W γ → OAI.SKValue.IsDiffusion W γ X → OAI.SKValue.FiniteGaussianConclusion W γ X T) ∧
+    ∀ (W : OAI.SKValue.BrownianSpace) (γ : OAI.SKValue.OrderParameter),
+      OAI.SKValue.IsMinimizer W γ → OAI.SKValue.groundStateValue = OAI.SKValue.parisi W γ
+def OAI.SKValue.standardGaussian : MeasureTheory.Measure ℝ :=
+ProbabilityTheory.gaussianReal 0 1
+def OAI.SKValue.gaussianProduct : (ι : Type) → [Fintype ι] → MeasureTheory.Measure (ι → ℝ) :=
+fun ι [Fintype ι] => MeasureTheory.Measure.pi fun x => OAI.SKValue.standardGaussian
+def OAI.SKValue.coordinate : (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun N j z => z ⟨j % (N + 1), ⋯⟩
+def OAI.SKValue.stepSize : ℝ → ℕ → ℝ :=
+fun T N => T / ↑N
+def OAI.SKValue.meshTime : ℝ → ℕ → ℕ → ℝ :=
+fun T N j => ↑j * OAI.SKValue.stepSize T N
+def OAI.SKValue.euler : ℝ → (N : ℕ) → (ℝ → ℝ) → (ℝ → ℝ → ℝ) → (Fin (N + 1) → ℝ) → ℕ → ℝ :=
+fun T N γ u z x => Nat.brecOn x (OAI.SKValue.euler._f T N γ u z)
+structure OAI.SKValue.OrderParameter : Type
+number of parameters: 0
+fields:
+  OAI.SKValue.OrderParameter.coeff : ℝ → ℝ
+  OAI.SKValue.OrderParameter.nonneg : ∀ t ∈ Set.Ico 0 1, 0 ≤ self.coeff t
+  OAI.SKValue.OrderParameter.monotone : MonotoneOn self.coeff (Set.Ico 0 1)
+  OAI.SKValue.OrderParameter.rightContinuous : ∀ t ∈ Set.Ico 0 1, ContinuousWithinAt self.coeff (Set.Ici t) t
+  OAI.SKValue.OrderParameter.integrable : MeasureTheory.IntegrableOn self.coeff (Set.Ioc 0 1) MeasureTheory.volume
+constructor:
+  OAI.SKValue.OrderParameter.mk (coeff : ℝ → ℝ) (nonneg : ∀ t ∈ Set.Ico 0 1, 0 ≤ coeff t)
+    (monotone : MonotoneOn coeff (Set.Ico 0 1))
+    (rightContinuous : ∀ t ∈ Set.Ico 0 1, ContinuousWithinAt coeff (Set.Ici t) t)
+    (integrable : MeasureTheory.IntegrableOn coeff (Set.Ioc 0 1) MeasureTheory.volume) : OAI.SKValue.OrderParameter
+structure OAI.SKValue.BrownianSpace : Type 1
+number of parameters: 0
+fields:
+  OAI.SKValue.BrownianSpace.Ω : Type
+  OAI.SKValue.BrownianSpace.measurableSpace : MeasurableSpace self.Ω
+  OAI.SKValue.BrownianSpace.μ : MeasureTheory.Measure self.Ω
+  OAI.SKValue.BrownianSpace.probability : MeasureTheory.IsProbabilityMeasure self.μ
+  OAI.SKValue.BrownianSpace.B : NNReal → self.Ω → ℝ
+  OAI.SKValue.BrownianSpace.measurable : ∀ (t : NNReal), MeasureTheory.StronglyMeasurable (self.B t)
+  OAI.SKValue.BrownianSpace.brownian : ProbabilityTheory.IsBrownianReal self.B self.μ
+constructor:
+  OAI.SKValue.BrownianSpace.mk (Ω : Type) (measurableSpace : MeasurableSpace Ω) (μ : MeasureTheory.Measure Ω)
+    (probability : MeasureTheory.IsProbabilityMeasure μ) (B : NNReal → Ω → ℝ)
+    (measurable : ∀ (t : NNReal), MeasureTheory.StronglyMeasurable (B t))
+    (brownian : ProbabilityTheory.IsBrownianReal B μ) : OAI.SKValue.BrownianSpace
+def OAI.SKValue.BrownianSpace.filtration : (W : OAI.SKValue.BrownianSpace) →
+  MeasureTheory.Filtration NNReal W.measurableSpace :=
+fun W => MeasureTheory.Filtration.natural W.B ⋯
+def OAI.SKValue.shiftedFiltration : (W : OAI.SKValue.BrownianSpace) →
+  ℝ → MeasureTheory.Filtration NNReal W.measurableSpace :=
+fun W t => MeasureTheory.Filtration.natural (fun s ω => W.B (t.toNNReal + s) ω - W.B t.toNNReal ω) ⋯
+def OAI.SKValue.Admissible : (W : OAI.SKValue.BrownianSpace) → ℝ → (NNReal → W.Ω → ℝ) → Prop :=
+fun W t α => MeasureTheory.IsProgressive (OAI.SKValue.shiftedFiltration W t) α ∧ ∀ (s : NNReal) (ω : W.Ω), |α s ω| ≤ 1
+def OAI.SKValue.controlPayoff : (W : OAI.SKValue.BrownianSpace) →
+  OAI.SKValue.OrderParameter → ℝ → ℝ → (NNReal → W.Ω → ℝ) → ℝ :=
+fun W γ t x α =>
+  ∫ (ω : W.Ω),
+    |x + W.B 1 ω - W.B t.toNNReal ω + ∫ (s : ℝ) in 0..1 - t, γ.coeff (t + s) * α s.toNNReal ω| -
+      1 / 2 * ∫ (s : ℝ) in 0..1 - t, γ.coeff (t + s) * α s.toNNReal ω ^ 2 ∂W.μ
+def OAI.SKValue.phi : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => sSup {r | ∃ α, OAI.SKValue.Admissible W t α ∧ r = OAI.SKValue.controlPayoff W γ t x α}
+def OAI.SKValue.gradient : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => deriv (OAI.SKValue.phi W γ t) x
+def OAI.SKValue.curvature : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℝ → ℝ :=
+fun W γ t x => deriv (OAI.SKValue.gradient W γ t) x
+def OAI.SKValue.parisi : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ :=
+fun W γ => OAI.SKValue.phi W γ 0 0 - 1 / 2 * ∫ (t : ℝ) in 0..1, t * γ.coeff t
+def OAI.SKValue.IsMinimizer : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → Prop :=
+fun W γ => ∀ (η : OAI.SKValue.OrderParameter), OAI.SKValue.parisi W γ ≤ OAI.SKValue.parisi W η
+def OAI.SKValue.IsDiffusion : (W : OAI.SKValue.BrownianSpace) → OAI.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → Prop :=
+fun W γ X =>
+  (MeasureTheory.Adapted W.filtration fun t ω => X (min (↑t) 1) ω) ∧
+    ∀ᵐ (ω : W.Ω) ∂W.μ,
+      ContinuousOn (fun t => X t ω) (Set.Icc 0 1) ∧
+        ∀ t ∈ Set.Icc 0 1, X t ω = W.B t.toNNReal ω + ∫ (s : ℝ) in 0..t, γ.coeff s * OAI.SKValue.gradient W γ s (X s ω)
+def OAI.SKValue.spin : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.SKValue.hamiltonian : (n : ℕ) → (Fin n × Fin n → ℝ) → (Fin n → Bool) → ℝ :=
+fun n J σ => (√↑n)⁻¹ * ∑ i, ∑ j, if i < j then J (i, j) * OAI.SKValue.spin (σ i) * OAI.SKValue.spin (σ j) else 0
+def OAI.SKValue.groundStateSequence : ℕ → ℝ :=
+fun n =>
+  (↑n)⁻¹ *
+    ∫ (J : Fin n × Fin n → ℝ),
+      sSup (Set.range (OAI.SKValue.hamiltonian n J)) ∂OAI.SKValue.gaussianProduct (Fin n × Fin n)
+def OAI.SKValue.groundStateValue : ℝ :=
+Filter.atTop.limUnder OAI.SKValue.groundStateSequence
+def OAI.SKValue.gradientStopped : (W : OAI.SKValue.BrownianSpace) →
+  OAI.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → (W.Ω → ℝ) → NNReal → W.Ω → ℝ :=
+fun W γ X U t ω => if ↑t < 1 then OAI.SKValue.gradient W γ (↑t) (X (↑t) ω) else U ω
+def OAI.SKValue.ScalarValueConclusion : (W : OAI.SKValue.BrownianSpace) →
+  OAI.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → Prop :=
+fun W γ X =>
+  Filter.Tendsto OAI.SKValue.groundStateSequence Filter.atTop (nhds OAI.SKValue.groundStateValue) ∧
+    ∃ U,
+      MeasureTheory.Martingale (OAI.SKValue.gradientStopped W γ X U) W.filtration W.μ ∧
+        (∀ᵐ (ω : W.Ω) ∂W.μ,
+            |U ω| ≤ 1 ∧
+              U ω ^ 2 = 1 ∧
+                Filter.Tendsto (fun t => OAI.SKValue.gradient W γ t (X t ω)) (nhdsWithin 1 (Set.Iio 1)) (nhds (U ω))) ∧
+          Filter.Tendsto (fun t => ∫ (ω : W.Ω), (OAI.SKValue.gradient W γ t (X t ω) - U ω) ^ 2 ∂W.μ)
+              (nhdsWithin 1 (Set.Iio 1)) (nhds 0) ∧
+            OAI.SKValue.groundStateValue = ∫ (ω : W.Ω), |X 1 ω| ∂W.μ - ∫ (t : ℝ) in 0..1, t * γ.coeff t ∧
+              OAI.SKValue.groundStateValue = ∫ (ω : W.Ω), U ω * W.B 1 ω ∂W.μ ∧
+                OAI.SKValue.groundStateValue =
+                    ∫ (t : ℝ) in 0..1, ∫ (ω : W.Ω), OAI.SKValue.curvature W γ t (X t ω) ∂W.μ ∧
+                  IntervalIntegrable (fun t => ∫ (ω : W.Ω), OAI.SKValue.curvature W γ t (X t ω) ∂W.μ)
+                    MeasureTheory.volume 0 1
+def OAI.SKValue.eulerPath : OAI.SKValue.BrownianSpace →
+  OAI.SKValue.OrderParameter → ℝ → (N : ℕ) → (Fin (N + 1) → ℝ) → ℕ → ℝ :=
+fun W γ T N z j => OAI.SKValue.euler T N γ.coeff (OAI.SKValue.gradient W γ) z j
+def OAI.SKValue.rawCoefficient : OAI.SKValue.BrownianSpace →
+  OAI.SKValue.OrderParameter → ℝ → (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N j z => OAI.SKValue.curvature W γ (OAI.SKValue.meshTime T N j) (OAI.SKValue.eulerPath W γ T N z j)
+def OAI.SKValue.normalizer : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N j =>
+  (√(∫ (z : Fin (N + 1) → ℝ), OAI.SKValue.rawCoefficient W γ T N j z ^ 2 ∂OAI.SKValue.gaussianProduct (Fin (N + 1))))⁻¹
+def OAI.SKValue.gaussianIncrement : OAI.SKValue.BrownianSpace →
+  OAI.SKValue.OrderParameter → ℝ → (N : ℕ) → ℕ → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N j z =>
+  OAI.SKValue.normalizer W γ T N j * OAI.SKValue.rawCoefficient W γ T N j z * OAI.SKValue.coordinate N j z
+def OAI.SKValue.roundedSign : OAI.SKValue.BrownianSpace →
+  OAI.SKValue.OrderParameter → ℝ → (N : ℕ) → (Fin (N + 1) → ℝ) → ℝ :=
+fun W γ T N z =>
+  (OAI.SKValue.gradient W γ T (OAI.SKValue.eulerPath W γ T N z N) +
+        2 * ↑(ProbabilityTheory.cdf OAI.SKValue.standardGaussian) (OAI.SKValue.coordinate N N z) -
+      1).sign
+def OAI.SKValue.coefficientA : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N j =>
+  if j = 0 then 0
+  else
+    ∫ (z : Fin (N + 1) → ℝ),
+      OAI.SKValue.roundedSign W γ T N z *
+        OAI.SKValue.gaussianIncrement W γ T N (j - 1) z ∂OAI.SKValue.gaussianProduct (Fin (N + 1))
+def OAI.SKValue.coefficientB : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℕ → ℕ → ℝ :=
+fun W γ T N i =>
+  ∫ (z : Fin (N + 1) → ℝ),
+    OAI.SKValue.roundedSign W γ T N z * OAI.SKValue.coordinate N (i - 1) z ∂OAI.SKValue.gaussianProduct (Fin (N + 1))
+def OAI.SKValue.shiftedCoefficientSum : OAI.SKValue.BrownianSpace → OAI.SKValue.OrderParameter → ℝ → ℕ → ℝ :=
+fun W γ T N => ∑ j ∈ Finset.range (N + 1), OAI.SKValue.coefficientA W γ T N j * OAI.SKValue.coefficientB W γ T N (j + 1)
+def OAI.SKValue.FiniteGaussianConclusion : (W : OAI.SKValue.BrownianSpace) →
+  OAI.SKValue.OrderParameter → (ℝ → W.Ω → ℝ) → ℝ → Prop :=
+fun W γ X T =>
+  (∀ᶠ (N : ℕ) in Filter.atTop, ∀ j < N, 0 < OAI.SKValue.normalizer W γ T N j) ∧
+    Filter.Tendsto (OAI.SKValue.shiftedCoefficientSum W γ T) Filter.atTop
+        (nhds (∫ (t : ℝ) in 0..T, ∫ (ω : W.Ω), OAI.SKValue.curvature W γ t (X t ω) ∂W.μ)) ∧
+      Filter.Tendsto (fun S => ∫ (t : ℝ) in 0..S, ∫ (ω : W.Ω), OAI.SKValue.curvature W γ t (X t ω) ∂W.μ)
+        (nhdsWithin 1 (Set.Iio 1)) (nhds OAI.SKValue.groundStateValue)

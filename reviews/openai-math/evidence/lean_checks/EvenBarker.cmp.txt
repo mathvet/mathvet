@@ -1,0 +1,18 @@
+CMP OAI.CirculantHadamard.Barker.even_length_eq_two_or_four [thm] ok
+CMP OAI.CirculantHadamard.Barker.IsBarker [def] ok
+CMP OAI.CirculantHadamard.Barker.aperiodic [def] ok
+CMP OAI.CirculantHadamard.Barker.aperiodic._proof_4 [thm] ok
+CMP OAI.CirculantHadamard.Barker.aperiodic._proof_3 [thm] ok
+CMP OAI.CirculantHadamard.IsSign [def] ok
+@Chal.CirculantHadamard.Barker.even_length_eq_two_or_four : ∀ {n : ℕ} (h : Fin n → ℤ),
+  0 < n → Even n → Chal.CirculantHadamard.Barker.IsBarker h → n = 2 ∨ n = 4
+def Chal.CirculantHadamard.IsSign.{u} : {R : Type u} → [One R] → [Neg R] → R → Prop :=
+fun {R} [One R] [Neg R] x => x = 1 ∨ x = -1
+def Chal.CirculantHadamard.Barker.aperiodic : {n : ℕ} → (Fin n → ℤ) → ℕ → ℤ :=
+fun {n} h k => ∑ j, h ⟨↑j, ⋯⟩ * h ⟨↑j + k, ⋯⟩
+def Chal.CirculantHadamard.Barker.IsBarker : {n : ℕ} → (Fin n → ℤ) → Prop :=
+fun {n} h =>
+  (∀ (j : Fin n), Chal.CirculantHadamard.IsSign (h j)) ∧
+    ∀ (k : ℕ), 0 < k → k < n → |Chal.CirculantHadamard.Barker.aperiodic h k| ≤ 1
+'OAI.CirculantHadamard.Barker.even_length_eq_two_or_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EvenBarker comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

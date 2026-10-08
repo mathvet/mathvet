@@ -1,0 +1,47 @@
+CMP OAI.PerfectMatchingPSD.main [thm] ok
+CMP OAI.PerfectMatchingPSD.MainClaim [def] ok
+CMP OAI.PerfectMatchingPSD.psdRank [def] ok
+CMP OAI.PerfectMatchingPSD.HasFactorization [def] ok
+CMP OAI.PerfectMatchingPSD.slack [def] ok
+CMP OAI.PerfectMatchingPSD.crossingCount [def] ok
+CMP OAI.PerfectMatchingPSD.IsPerfectMatching [def] ok
+CMP OAI.PerfectMatchingPSD.Edge [def] ok
+CMP OAI.PerfectMatchingPSD.Crosses [def] ok
+CMP OAI.PerfectMatchingPSD.PerfectMatching [def] ok
+CMP OAI.PerfectMatchingPSD.OddCut [def] ok
+CMP OAI.PerfectMatchingPSD.slack.match_1 [def] ok
+CMP OAI.PerfectMatchingPSD.Row [def] ok
+Chal.PerfectMatchingPSD.main : Chal.PerfectMatchingPSD.MainClaim
+@[reducible] def Chal.PerfectMatchingPSD.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+def Chal.PerfectMatchingPSD.IsPerfectMatching : {n : ℕ} → Finset (Chal.PerfectMatchingPSD.Edge n) → Prop :=
+fun {n} M => ∀ (v : Fin n), {e ∈ M | (↑e).1 = v ∨ (↑e).2 = v}.card = 1
+@[reducible] def Chal.PerfectMatchingPSD.PerfectMatching : ℕ → Type :=
+fun n => { M // Chal.PerfectMatchingPSD.IsPerfectMatching M }
+@[reducible] def Chal.PerfectMatchingPSD.OddCut : ℕ → Type :=
+fun n => { U // Odd U.card }
+@[reducible] def Chal.PerfectMatchingPSD.Row : ℕ → Type :=
+fun n => Chal.PerfectMatchingPSD.Edge n ⊕ Chal.PerfectMatchingPSD.OddCut n
+def Chal.PerfectMatchingPSD.Crosses : {n : ℕ} → Finset (Fin n) → Chal.PerfectMatchingPSD.Edge n → Prop :=
+fun {n} U e => (↑e).1 ∈ U ∧ (↑e).2 ∉ U ∨ (↑e).1 ∉ U ∧ (↑e).2 ∈ U
+def Chal.PerfectMatchingPSD.crossingCount : {n : ℕ} → Finset (Fin n) → Chal.PerfectMatchingPSD.PerfectMatching n → ℕ :=
+fun {n} U M => (Finset.filter (Chal.PerfectMatchingPSD.Crosses U) ↑M).card
+def Chal.PerfectMatchingPSD.slack : {n : ℕ} →
+  Chal.PerfectMatchingPSD.Row n → Chal.PerfectMatchingPSD.PerfectMatching n → ℝ :=
+fun {n} i M =>
+  match i with
+  | Sum.inl e => if e ∈ ↑M then 1 else 0
+  | Sum.inr U => ↑(Chal.PerfectMatchingPSD.crossingCount (↑U) M) - 1
+def Chal.PerfectMatchingPSD.HasFactorization : ℕ → ℕ → Prop :=
+fun n r =>
+  ∃ A B,
+    (∀ (i : Chal.PerfectMatchingPSD.Row n), (A i).PosSemidef) ∧
+      (∀ (M : Chal.PerfectMatchingPSD.PerfectMatching n), (B M).PosSemidef) ∧
+        ∀ (i : Chal.PerfectMatchingPSD.Row n) (M : Chal.PerfectMatchingPSD.PerfectMatching n),
+          Chal.PerfectMatchingPSD.slack i M = (A i * B M).trace
+def Chal.PerfectMatchingPSD.psdRank : ℕ → ℕ :=
+fun n => sInf {r | 0 < r ∧ Chal.PerfectMatchingPSD.HasFactorization n r}
+def Chal.PerfectMatchingPSD.MainClaim : Prop :=
+∀ (C : ℝ), 0 < C → ∃ n₀, 4 ≤ n₀ ∧ ∀ (n : ℕ), n₀ ≤ n → Even n → ↑n ^ C < ↑(Chal.PerfectMatchingPSD.psdRank n)
+'OAI.PerfectMatchingPSD.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatchingPSD comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

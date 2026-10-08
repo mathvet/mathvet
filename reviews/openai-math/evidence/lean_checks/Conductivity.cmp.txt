@@ -1,0 +1,125 @@
+CMP OAI.ScalarConductivity.main_nonuniqueness [thm] ok
+CMP OAI.ScalarConductivity.MainStatement [def] ok
+CMP OAI.ScalarConductivity.IsDirichletToNeumann [def] ok
+CMP OAI.ScalarConductivity.energy [def] ok
+CMP OAI.ScalarConductivity.weakGradient [def] ok
+CMP OAI.ScalarConductivity.H1 [def] ok
+CMP OAI.ScalarConductivity.H1Space [def] ok
+CMP OAI.ScalarConductivity.smoothJets [def] ok
+CMP OAI.ScalarConductivity.JetSpace._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.smoothJet [def] ok
+CMP OAI.ScalarConductivity.smoothJet._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.R3 [def] ok
+CMP OAI.ScalarConductivity.JetFiber [def] ok
+CMP OAI.ScalarConductivity.JetSpace [def] ok
+CMP OAI.ScalarConductivity.ballMeasure [def] ok
+CMP OAI.ScalarConductivity.ball [def] ok
+CMP OAI.ScalarConductivity.ball._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.ballMeasure._proof_2 [thm] ok
+CMP OAI.ScalarConductivity.ballMeasure._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.smoothJets._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_6 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_5 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_4 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_3 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_2 [thm] ok
+CMP OAI.ScalarConductivity.H1Space._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.DNOperator._proof_3 [thm] ok
+CMP OAI.ScalarConductivity.DNOperator._proof_2 [thm] ok
+CMP OAI.ScalarConductivity.DNOperator._proof_1 [thm] ok
+CMP OAI.ScalarConductivity.H10 [def] ok
+CMP OAI.ScalarConductivity.zeroTraceAmbient [def] ok
+CMP OAI.ScalarConductivity.compactSmoothJets [def] ok
+CMP OAI.ScalarConductivity.TraceDual [def] ok
+CMP OAI.ScalarConductivity.TraceSpace [def] ok
+CMP OAI.ScalarConductivity.Harmonic [def] ok
+CMP OAI.ScalarConductivity.trace [def] ok
+CMP OAI.ScalarConductivity.DNOperator [def] ok
+CMP OAI.ScalarConductivity.EqualOneNearBoundary [def] ok
+CMP OAI.ScalarConductivity.EqualOneNearBoundary._proof_1 [thm] ok
+Chal.ScalarConductivity.main_nonuniqueness : Chal.ScalarConductivity.MainStatement
+@[reducible] def Chal.ScalarConductivity.R3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.ScalarConductivity.JetFiber : Type :=
+EuclideanSpace ℝ (Fin 4)
+def Chal.ScalarConductivity.ball : Set Chal.ScalarConductivity.R3 :=
+Metric.ball 0 3
+def Chal.ScalarConductivity.ballMeasure : MeasureTheory.Measure Chal.ScalarConductivity.R3 :=
+MeasureTheory.volume.restrict Chal.ScalarConductivity.ball
+@[reducible] def Chal.ScalarConductivity.JetSpace : AddSubgroup
+  (Chal.ScalarConductivity.R3 →ₘ[Chal.ScalarConductivity.ballMeasure] Chal.ScalarConductivity.JetFiber) :=
+MeasureTheory.Lp Chal.ScalarConductivity.JetFiber 2 Chal.ScalarConductivity.ballMeasure
+def Chal.ScalarConductivity.smoothJet : (Chal.ScalarConductivity.R3 → ℝ) →
+  Chal.ScalarConductivity.R3 → Chal.ScalarConductivity.JetFiber :=
+fun f x => WithLp.toLp 2 fun i => Fin.cases (f x) (fun i => (gradient f x).ofLp i) i
+def Chal.ScalarConductivity.smoothJets : Set ↥Chal.ScalarConductivity.JetSpace :=
+{z |
+  ∃ f,
+    ∃ (_ : ContDiff ℝ (↑⊤) f) (hf :
+      MeasureTheory.MemLp (Chal.ScalarConductivity.smoothJet f) 2 Chal.ScalarConductivity.ballMeasure),
+      z = MeasureTheory.MemLp.toLp (Chal.ScalarConductivity.smoothJet f) hf}
+def Chal.ScalarConductivity.compactSmoothJets : Set ↥Chal.ScalarConductivity.JetSpace :=
+{z |
+  ∃ f,
+    ∃ (_ : ContDiff ℝ (↑⊤) f) (_ : HasCompactSupport f) (_ : tsupport f ⊆ Chal.ScalarConductivity.ball) (hf :
+      MeasureTheory.MemLp (Chal.ScalarConductivity.smoothJet f) 2 Chal.ScalarConductivity.ballMeasure),
+      z = MeasureTheory.MemLp.toLp (Chal.ScalarConductivity.smoothJet f) hf}
+def Chal.ScalarConductivity.H1Space : Submodule ℝ ↥Chal.ScalarConductivity.JetSpace :=
+(Submodule.span ℝ Chal.ScalarConductivity.smoothJets).topologicalClosure
+@[reducible] def Chal.ScalarConductivity.H1 : Submodule ℝ ↥Chal.ScalarConductivity.JetSpace :=
+Chal.ScalarConductivity.H1Space
+def Chal.ScalarConductivity.zeroTraceAmbient : Submodule ℝ ↥Chal.ScalarConductivity.JetSpace :=
+(Submodule.span ℝ Chal.ScalarConductivity.compactSmoothJets).topologicalClosure
+def Chal.ScalarConductivity.H10 : Submodule ℝ ↥Chal.ScalarConductivity.H1 :=
+Submodule.comap Chal.ScalarConductivity.H1Space.subtype Chal.ScalarConductivity.zeroTraceAmbient
+@[reducible] def Chal.ScalarConductivity.TraceSpace : Type :=
+↥Chal.ScalarConductivity.H1 ⧸ Chal.ScalarConductivity.H10
+@[reducible] def Chal.ScalarConductivity.TraceDual : Type :=
+Chal.ScalarConductivity.TraceSpace →L[ℝ] ℝ
+@[reducible] def Chal.ScalarConductivity.DNOperator : Type :=
+Chal.ScalarConductivity.TraceSpace →L[ℝ] Chal.ScalarConductivity.TraceDual
+def Chal.ScalarConductivity.trace : ↥Chal.ScalarConductivity.H1 → Chal.ScalarConductivity.TraceSpace :=
+fun u => Chal.ScalarConductivity.H10.mkQ u
+def Chal.ScalarConductivity.weakGradient : ↥Chal.ScalarConductivity.H1 →
+  Chal.ScalarConductivity.R3 → Chal.ScalarConductivity.R3 :=
+fun u x => WithLp.toLp 2 fun i => (↑↑↑u x).ofLp i.succ
+def Chal.ScalarConductivity.energy : (Chal.ScalarConductivity.R3 → ℝ) →
+  ↥Chal.ScalarConductivity.H1 → ↥Chal.ScalarConductivity.H1 → ℝ :=
+fun γ u v =>
+  ∫ (x : Chal.ScalarConductivity.R3),
+    γ x *
+      inner ℝ (Chal.ScalarConductivity.weakGradient u x)
+        (Chal.ScalarConductivity.weakGradient v x) ∂Chal.ScalarConductivity.ballMeasure
+def Chal.ScalarConductivity.Harmonic : (Chal.ScalarConductivity.R3 → ℝ) → ↥Chal.ScalarConductivity.H1 → Prop :=
+fun γ u => ∀ h ∈ Chal.ScalarConductivity.H10, Chal.ScalarConductivity.energy γ u h = 0
+def Chal.ScalarConductivity.IsDirichletToNeumann : (Chal.ScalarConductivity.R3 → ℝ) →
+  Chal.ScalarConductivity.DNOperator → Prop :=
+fun γ Λ =>
+  ∀ (f : Chal.ScalarConductivity.TraceSpace),
+    ∃ u,
+      Chal.ScalarConductivity.trace u = f ∧
+        Chal.ScalarConductivity.Harmonic γ u ∧
+          (∀ (u' : ↥Chal.ScalarConductivity.H1),
+              Chal.ScalarConductivity.trace u' = f → Chal.ScalarConductivity.Harmonic γ u' → u' = u) ∧
+            ∀ (v : ↥Chal.ScalarConductivity.H1),
+              (Λ f) (Chal.ScalarConductivity.trace v) = Chal.ScalarConductivity.energy γ u v
+def Chal.ScalarConductivity.EqualOneNearBoundary : (Chal.ScalarConductivity.R3 → ℝ) → Prop :=
+fun γ =>
+  ∃ r, 0 < r ∧ r < 3 ∧ ∀ᵐ (x : Chal.ScalarConductivity.R3) ∂Chal.ScalarConductivity.ballMeasure, r < ‖x‖ → γ x = 1
+def Chal.ScalarConductivity.MainStatement : Prop :=
+∃ γ₀ γ₁ c C Λ,
+  0 < c ∧
+    c < C ∧
+      Measurable γ₀ ∧
+        Measurable γ₁ ∧
+          MeasureTheory.MemLp γ₀ ⊤ Chal.ScalarConductivity.ballMeasure ∧
+            MeasureTheory.MemLp γ₁ ⊤ Chal.ScalarConductivity.ballMeasure ∧
+              (∀ᵐ (x : Chal.ScalarConductivity.R3) ∂Chal.ScalarConductivity.ballMeasure, c ≤ γ₀ x ∧ γ₀ x ≤ C) ∧
+                (∀ᵐ (x : Chal.ScalarConductivity.R3) ∂Chal.ScalarConductivity.ballMeasure, c ≤ γ₁ x ∧ γ₁ x ≤ C) ∧
+                  Chal.ScalarConductivity.EqualOneNearBoundary γ₀ ∧
+                    Chal.ScalarConductivity.EqualOneNearBoundary γ₁ ∧
+                      0 < Chal.ScalarConductivity.ballMeasure {x | γ₀ x ≠ γ₁ x} ∧
+                        Chal.ScalarConductivity.IsDirichletToNeumann γ₀ Λ ∧
+                          Chal.ScalarConductivity.IsDirichletToNeumann γ₁ Λ
+'OAI.ScalarConductivity.main_nonuniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Conductivity comparator-style: ok=39 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

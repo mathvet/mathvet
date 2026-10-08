@@ -1,0 +1,135 @@
+OAI.OptimalMaxCut.main : OAI.OptimalMaxCut.MainStatement
+'OAI.OptimalMaxCut.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MaxCutGames.BinaryFormula.Literal : Type
+number of parameters: 0
+fields:
+  OAI.MaxCutGames.BinaryFormula.Literal.name : ℕ
+  OAI.MaxCutGames.BinaryFormula.Literal.positive : Bool
+constructor:
+  OAI.MaxCutGames.BinaryFormula.Literal.mk (name : ℕ) (positive : Bool) : OAI.MaxCutGames.BinaryFormula.Literal
+def OAI.MaxCutGames.BinaryFormula.Literal.eval : OAI.MaxCutGames.BinaryFormula.Literal → (ℕ → Bool) → Bool :=
+fun literal assignment => if literal.positive = true then assignment literal.name else !assignment literal.name
+@[reducible] def OAI.MaxCutGames.BinaryFormula.Clause : Type :=
+Vector OAI.MaxCutGames.BinaryFormula.Literal 3
+def OAI.MaxCutGames.BinaryFormula.Clause.eval : OAI.MaxCutGames.BinaryFormula.Clause → (ℕ → Bool) → Bool :=
+fun clause assignment => clause[0].eval assignment || clause[1].eval assignment || clause[2].eval assignment
+structure OAI.MaxCutGames.BinaryFormula.Formula : Type
+number of parameters: 0
+fields:
+  OAI.MaxCutGames.BinaryFormula.Formula.clauses : List OAI.MaxCutGames.BinaryFormula.Clause
+constructor:
+  OAI.MaxCutGames.BinaryFormula.Formula.mk (clauses : List OAI.MaxCutGames.BinaryFormula.Clause) :
+    OAI.MaxCutGames.BinaryFormula.Formula
+def OAI.MaxCutGames.BinaryFormula.Formula.Satisfiable : OAI.MaxCutGames.BinaryFormula.Formula → Prop :=
+fun F => ∃ assignment, ∀ clause ∈ F.clauses, clause.eval assignment = true
+def OAI.MaxCutGames.BinaryEncoding.bitsValue : List Bool → ℕ :=
+fun x => List.brecOn x OAI.MaxCutGames.BinaryEncoding.bitsValue._f
+def OAI.MaxCutGames.BinaryEncoding.frame : List Bool → List Bool :=
+fun x => List.brecOn x OAI.MaxCutGames.BinaryEncoding.frame._f
+def OAI.MaxCutGames.BinaryEncoding.parseFrame : List Bool → Option (List Bool × List Bool) :=
+fun x => List.brecOn x OAI.MaxCutGames.BinaryEncoding.parseFrame._f
+def OAI.MaxCutGames.BinaryEncoding.nameBits : ℕ → List Bool :=
+fun name => OAI.MaxCutGames.BinaryEncoding.frame name.bits
+def OAI.MaxCutGames.BinaryEncoding.parseName : List Bool → Option (ℕ × List Bool) :=
+fun input => do
+  let __x ← OAI.MaxCutGames.BinaryEncoding.parseFrame input
+  match __x with
+    | (digits, rest) =>
+      have name := OAI.MaxCutGames.BinaryEncoding.bitsValue digits;
+      if digits = name.bits then some (name, rest) else none
+def OAI.MaxCutGames.BinaryEncoding.parseLiteral : List Bool →
+  Option (OAI.MaxCutGames.BinaryFormula.Literal × List Bool) :=
+fun x =>
+  match x with
+  | sign :: input => do
+    let __x ← OAI.MaxCutGames.BinaryEncoding.parseName input
+    match __x with
+      | (name, rest) => pure ({ name := name, positive := sign }, rest)
+  | [] => none
+def OAI.MaxCutGames.BinaryEncoding.parseClause : List Bool →
+  Option (OAI.MaxCutGames.BinaryFormula.Clause × List Bool) :=
+fun input => do
+  let __x ← OAI.MaxCutGames.BinaryEncoding.parseLiteral input
+  match __x with
+    | (a, input) => do
+      let __x ← OAI.MaxCutGames.BinaryEncoding.parseLiteral input
+      match __x with
+        | (b, input) => do
+          let __x ← OAI.MaxCutGames.BinaryEncoding.parseLiteral input
+          match __x with
+            | (c, rest) => pure (#v[a, b, c], rest)
+def OAI.MaxCutGames.BinaryEncoding.parseClauses : ℕ →
+  List Bool → Option (List OAI.MaxCutGames.BinaryFormula.Clause × List Bool) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => List Bool → Option (List OAI.MaxCutGames.BinaryFormula.Clause × List Bool)) x
+    OAI.MaxCutGames.BinaryEncoding.parseClauses._f x_1
+def OAI.MaxCutGames.BinaryEncoding.decodeFormula : List Bool → Option OAI.MaxCutGames.BinaryFormula.Formula :=
+fun input => do
+  let __x ← OAI.MaxCutGames.BinaryEncoding.parseClauses (input.length + 1) input
+  match __x with
+    | (clauses, rest) => if rest = [] then some { clauses := clauses } else none
+def OAI.OptimalMaxCut.alphaGW : ℝ :=
+sInf ((fun ρ => 2 * Real.arccos ρ / (Real.pi * (1 - ρ))) '' Set.Ico (-1) 1)
+def OAI.OptimalMaxCut.binary3SAT : List Bool → Prop :=
+fun input => ∃ formula, OAI.MaxCutGames.BinaryEncoding.decodeFormula input = some formula ∧ formula.Satisfiable
+structure OAI.OptimalMaxCut.Graph : Type
+number of parameters: 0
+fields:
+  OAI.OptimalMaxCut.Graph.vertices : ℕ
+  OAI.OptimalMaxCut.Graph.adj : Fin self.vertices → Fin self.vertices → Bool
+  OAI.OptimalMaxCut.Graph.symmetric : ∀ (u v : Fin self.vertices), self.adj u v = self.adj v u
+  OAI.OptimalMaxCut.Graph.loopless : ∀ (u : Fin self.vertices), self.adj u u = false
+constructor:
+  OAI.OptimalMaxCut.Graph.mk (vertices : ℕ) (adj : Fin vertices → Fin vertices → Bool)
+    (symmetric : ∀ (u v : Fin vertices), adj u v = adj v u) (loopless : ∀ (u : Fin vertices), adj u u = false) :
+    OAI.OptimalMaxCut.Graph
+def OAI.OptimalMaxCut.Graph.cutSize : (G : OAI.OptimalMaxCut.Graph) → (Fin G.vertices → Bool) → ℕ :=
+fun G cut => ∑ u, ∑ v, if u < v ∧ G.adj u v = true ∧ cut u ≠ cut v then 1 else 0
+def OAI.OptimalMaxCut.Graph.maxCut : OAI.OptimalMaxCut.Graph → ℕ :=
+fun G => (Finset.image G.cutSize Finset.univ).sup id
+structure OAI.OptimalMaxCut.ScaledGraph : Type
+number of parameters: 0
+fields:
+  OAI.OptimalMaxCut.ScaledGraph.graph : OAI.OptimalMaxCut.Graph
+  OAI.OptimalMaxCut.ScaledGraph.scale : ℕ
+  OAI.OptimalMaxCut.ScaledGraph.scale_pos : 0 < self.scale
+constructor:
+  OAI.OptimalMaxCut.ScaledGraph.mk (graph : OAI.OptimalMaxCut.Graph) (scale : ℕ) (scale_pos : 0 < scale) :
+    OAI.OptimalMaxCut.ScaledGraph
+def OAI.OptimalMaxCut.ScaledGraph.bits : OAI.OptimalMaxCut.ScaledGraph → List Bool :=
+fun G =>
+  OAI.MaxCutGames.BinaryEncoding.nameBits G.graph.vertices ++ OAI.MaxCutGames.BinaryEncoding.nameBits G.scale ++
+    List.flatMap (fun u => List.map (fun v => G.graph.adj u v) (List.finRange G.graph.vertices))
+      (List.finRange G.graph.vertices)
+structure OAI.OptimalMaxCut.GapReduction (α : ℝ) : Type 1
+number of parameters: 1
+fields:
+  OAI.OptimalMaxCut.GapReduction.yesBound : ℚ
+  OAI.OptimalMaxCut.GapReduction.noBound : ℚ
+  OAI.OptimalMaxCut.GapReduction.yes_pos : 0 < self.yesBound
+  OAI.OptimalMaxCut.GapReduction.no_nonneg : 0 ≤ self.noBound
+  OAI.OptimalMaxCut.GapReduction.gap : ↑self.noBound < α * ↑self.yesBound
+  OAI.OptimalMaxCut.GapReduction.construct : List Bool → OAI.OptimalMaxCut.ScaledGraph
+  OAI.OptimalMaxCut.GapReduction.computation : Turing.TM2ComputableInPolyTime id OAI.OptimalMaxCut.ScaledGraph.bits
+      self.construct
+  OAI.OptimalMaxCut.GapReduction.finiteAlphabet : ∀ (k : self.computation.tm.K), Finite (self.computation.tm.Γ k)
+  OAI.OptimalMaxCut.GapReduction.completeness : ∀ (input : List Bool),
+      OAI.OptimalMaxCut.binary3SAT input →
+        ↑self.yesBound ≤ ↑(self.construct input).graph.maxCut / ↑(self.construct input).scale
+  OAI.OptimalMaxCut.GapReduction.soundness : ∀ (input : List Bool),
+      ¬OAI.OptimalMaxCut.binary3SAT input →
+        ↑(self.construct input).graph.maxCut / ↑(self.construct input).scale ≤ ↑self.noBound
+constructor:
+  OAI.OptimalMaxCut.GapReduction.mk {α : ℝ} (yesBound noBound : ℚ) (yes_pos : 0 < yesBound) (no_nonneg : 0 ≤ noBound)
+    (gap : ↑noBound < α * ↑yesBound) (construct : List Bool → OAI.OptimalMaxCut.ScaledGraph)
+    (computation : Turing.TM2ComputableInPolyTime id OAI.OptimalMaxCut.ScaledGraph.bits construct)
+    (finiteAlphabet : ∀ (k : computation.tm.K), Finite (computation.tm.Γ k))
+    (completeness :
+      ∀ (input : List Bool),
+        OAI.OptimalMaxCut.binary3SAT input → ↑yesBound ≤ ↑(construct input).graph.maxCut / ↑(construct input).scale)
+    (soundness :
+      ∀ (input : List Bool),
+        ¬OAI.OptimalMaxCut.binary3SAT input → ↑(construct input).graph.maxCut / ↑(construct input).scale ≤ ↑noBound) :
+    OAI.OptimalMaxCut.GapReduction α
+def OAI.OptimalMaxCut.MainStatement : Prop :=
+∀ (α : ℝ), OAI.OptimalMaxCut.alphaGW < α → α ≤ 1 → Nonempty (OAI.OptimalMaxCut.GapReduction α)

@@ -1,0 +1,113 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_MatrixMultiplication.lean:118:8: warning: declaration uses `sorry`
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_MatrixMultiplication.lean:122:8: warning: declaration uses `sorry`
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_MatrixMultiplication.lean:126:8: warning: declaration uses `sorry`
+OAI.MatrixMultiplication.complex_omega_le_nine_quarters : OAI.MatrixMultiplication.Arithmetic.omega ℂ ≤ 9 / 4
+OAI.MatrixMultiplication.complex_alpha_gt_93_div_200 : 93 / 200 < OAI.MatrixMultiplication.Arithmetic.complexAlpha
+OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250 : OAI.MatrixMultiplication.Arithmetic.rectangularOmega
+    ℂ (709 / 1000) <
+  523 / 250
+inductive OAI.MatrixMultiplication.Arithmetic.Gate.{u_1, u_2, u_3} : Type u_1 →
+  Type u_2 → Type u_3 → Type (max (max u_1 u_2) u_3)
+number of parameters: 3
+constructors:
+OAI.MatrixMultiplication.Arithmetic.Gate.constant : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → F → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register
+OAI.MatrixMultiplication.Arithmetic.Gate.input : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → Input → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register
+OAI.MatrixMultiplication.Arithmetic.Gate.add : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register
+OAI.MatrixMultiplication.Arithmetic.Gate.sub : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register
+OAI.MatrixMultiplication.Arithmetic.Gate.mul : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} → Register → Register → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register
+def OAI.MatrixMultiplication.Arithmetic.Gate.eval.{u_1, u_2, u_3} : {F : Type u_1} →
+  {Input : Type u_2} →
+    {Register : Type u_3} →
+      [Field F] → (Input → F) → (Register → F) → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register → F :=
+fun {F} {Input} {Register} [Field F] inputs registers x =>
+  match x with
+  | OAI.MatrixMultiplication.Arithmetic.Gate.constant z => z
+  | OAI.MatrixMultiplication.Arithmetic.Gate.input i => inputs i
+  | OAI.MatrixMultiplication.Arithmetic.Gate.add i j => registers i + registers j
+  | OAI.MatrixMultiplication.Arithmetic.Gate.sub i j => registers i - registers j
+  | OAI.MatrixMultiplication.Arithmetic.Gate.mul i j => registers i * registers j
+def OAI.MatrixMultiplication.Arithmetic.Gate.cost.{u_1, u_2, u_3} : {F : Type u_1} →
+  {Input : Type u_2} → {Register : Type u_3} → OAI.MatrixMultiplication.Arithmetic.Gate F Input Register → ℕ :=
+fun {F} {Input} {Register} x =>
+  match x with
+  | OAI.MatrixMultiplication.Arithmetic.Gate.constant a => 0
+  | OAI.MatrixMultiplication.Arithmetic.Gate.input a => 0
+  | OAI.MatrixMultiplication.Arithmetic.Gate.add a a_1 => 1
+  | OAI.MatrixMultiplication.Arithmetic.Gate.sub a a_1 => 1
+  | OAI.MatrixMultiplication.Arithmetic.Gate.mul a a_1 => 1
+inductive OAI.MatrixMultiplication.Arithmetic.Program.{u_1, u_2} : Type u_1 → Type u_2 → ℕ → Type (max u_1 u_2)
+number of parameters: 2
+constructors:
+OAI.MatrixMultiplication.Arithmetic.Program.nil : {F : Type u_1} →
+  {Input : Type u_2} → OAI.MatrixMultiplication.Arithmetic.Program F Input 0
+OAI.MatrixMultiplication.Arithmetic.Program.step : {F : Type u_1} →
+  {Input : Type u_2} →
+    {r : ℕ} →
+      OAI.MatrixMultiplication.Arithmetic.Program F Input r →
+        OAI.MatrixMultiplication.Arithmetic.Gate F Input (Fin r) →
+          OAI.MatrixMultiplication.Arithmetic.Program F Input (r + 1)
+def OAI.MatrixMultiplication.Arithmetic.Program.eval.{u_1, u_2} : {F : Type u_1} →
+  {Input : Type u_2} →
+    [Field F] → {r : ℕ} → OAI.MatrixMultiplication.Arithmetic.Program F Input r → (Input → F) → Fin r → F :=
+fun {F} {Input} [Field F] x x_1 x_2 =>
+  OAI.MatrixMultiplication.Arithmetic.Program.brecOn (motive := fun x x_3 => (Input → F) → Fin x → F) x_1
+    OAI.MatrixMultiplication.Arithmetic.Program.eval._f x_2
+def OAI.MatrixMultiplication.Arithmetic.Program.cost.{u_1, u_2} : {F : Type u_1} →
+  {Input : Type u_2} → {r : ℕ} → OAI.MatrixMultiplication.Arithmetic.Program F Input r → ℕ :=
+fun {F} {Input} x x_1 =>
+  OAI.MatrixMultiplication.Arithmetic.Program.brecOn x_1 OAI.MatrixMultiplication.Arithmetic.Program.cost._f
+@[reducible] def OAI.MatrixMultiplication.Arithmetic.MatrixInput : ℕ → ℕ → ℕ → Type :=
+fun a b c => Fin a × Fin b ⊕ Fin b × Fin c
+def OAI.MatrixMultiplication.Arithmetic.matrixInputs.{u_1} : {F : Type u_1} →
+  {a b c : ℕ} →
+    Matrix (Fin a) (Fin b) F → Matrix (Fin b) (Fin c) F → OAI.MatrixMultiplication.Arithmetic.MatrixInput a b c → F :=
+fun {F} {a b c} A B x =>
+  match x with
+  | Sum.inl (i, j) => A i j
+  | Sum.inr (j, k) => B j k
+structure OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.{u_1} (F : Type u_1) (a b c : ℕ) : Type u_1
+number of parameters: 4
+fields:
+  OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.registers : ℕ
+  OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.program : OAI.MatrixMultiplication.Arithmetic.Program F
+      (OAI.MatrixMultiplication.Arithmetic.MatrixInput a b c) self.registers
+  OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.output : Fin a → Fin c → Fin self.registers
+constructor:
+  OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.mk.{u_1} {F : Type u_1} {a b c : ℕ} (registers : ℕ)
+    (program :
+      OAI.MatrixMultiplication.Arithmetic.Program F (OAI.MatrixMultiplication.Arithmetic.MatrixInput a b c) registers)
+    (output : Fin a → Fin c → Fin registers) : OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c
+def OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.eval.{u_1} : {F : Type u_1} →
+  [Field F] →
+    {a b c : ℕ} →
+      OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c →
+        Matrix (Fin a) (Fin b) F → Matrix (Fin b) (Fin c) F → Matrix (Fin a) (Fin c) F :=
+fun {F} [Field F] {a b c} P A B i k =>
+  P.program.eval (OAI.MatrixMultiplication.Arithmetic.matrixInputs A B) (P.output i k)
+def OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.Correct.{u_1} : {F : Type u_1} →
+  [Field F] → {a b c : ℕ} → OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c → Prop :=
+fun {F} [Field F] {a b c} P => ∀ (A : Matrix (Fin a) (Fin b) F) (B : Matrix (Fin b) (Fin c) F), P.eval A B = A * B
+def OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm.cost.{u_1} : {F : Type u_1} →
+  {a b c : ℕ} → OAI.MatrixMultiplication.Arithmetic.MatrixAlgorithm F a b c → ℕ :=
+fun {F} {a b c} P => P.program.cost
+def OAI.MatrixMultiplication.Arithmetic.AdmissibleExponent.{u_1} : (F : Type u_1) → [Field F] → ℝ → Prop :=
+fun F [Field F] τ => ∀ (ε : ℝ), 0 < ε → ∃ C, 0 < C ∧ ∀ (n : ℕ), 1 ≤ n → ∃ P, P.Correct ∧ ↑P.cost ≤ C * ↑n ^ (τ + ε)
+def OAI.MatrixMultiplication.Arithmetic.omega.{u_1} : (F : Type u_1) → [Field F] → ℝ :=
+fun F [Field F] => sInf {τ | OAI.MatrixMultiplication.Arithmetic.AdmissibleExponent F τ}
+def OAI.MatrixMultiplication.Arithmetic.innerSize : ℕ → ℝ → ℕ :=
+fun n k => ⌈↑n ^ k⌉₊
+def OAI.MatrixMultiplication.Arithmetic.RectangularAdmissibleExponent.{u_1} : (F : Type u_1) →
+  [Field F] → ℝ → ℝ → Prop :=
+fun F [Field F] k τ => ∀ (ε : ℝ), 0 < ε → ∃ C, 0 < C ∧ ∀ (n : ℕ), 1 ≤ n → ∃ P, P.Correct ∧ ↑P.cost ≤ C * ↑n ^ (τ + ε)
+def OAI.MatrixMultiplication.Arithmetic.rectangularOmega.{u_1} : (F : Type u_1) → [Field F] → ℝ → ℝ :=
+fun F [Field F] k => sInf {τ | OAI.MatrixMultiplication.Arithmetic.RectangularAdmissibleExponent F k τ}
+def OAI.MatrixMultiplication.Arithmetic.complexAlpha : ℝ :=
+sSup {k | k ∈ Set.Icc 0 1 ∧ OAI.MatrixMultiplication.Arithmetic.rectangularOmega ℂ k = 2}

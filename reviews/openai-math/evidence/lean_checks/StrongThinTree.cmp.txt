@@ -1,0 +1,45 @@
+CMP OAI.StrongThinTree.strongThinTree [thm] ok
+CMP OAI.StrongThinTree.MainStatement [def] ok
+CMP OAI.StrongThinTree.MultiGraph.cut [def] ok
+CMP OAI.StrongThinTree.MultiGraph.right [def] ok
+CMP OAI.StrongThinTree.MultiGraph [ind] ok
+CMP OAI.StrongThinTree.MultiGraph.mk [ctor] ok
+CMP OAI.StrongThinTree.MultiGraph.left [def] ok
+CMP OAI.StrongThinTree.MultiGraph.SpanningTree [def] ok
+CMP OAI.StrongThinTree.MultiGraph.Connected [def] ok
+CMP OAI.StrongThinTree.MultiGraph.EdgeConnected [def] ok
+Chal.StrongThinTree.strongThinTree : Chal.StrongThinTree.MainStatement
+structure Chal.StrongThinTree.MultiGraph (n m : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.StrongThinTree.MultiGraph.left : Fin m → Fin n
+  Chal.StrongThinTree.MultiGraph.right : Fin m → Fin n
+  Chal.StrongThinTree.MultiGraph.loopless : ∀ (e : Fin m), self.left e ≠ self.right e
+constructor:
+  Chal.StrongThinTree.MultiGraph.mk {n m : ℕ} (left right : Fin m → Fin n)
+    (loopless : ∀ (e : Fin m), left e ≠ right e) : Chal.StrongThinTree.MultiGraph n m
+def Chal.StrongThinTree.MultiGraph.cut : {n m : ℕ} →
+  Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Finset (Fin n) → Finset (Fin m) :=
+fun {n m} G T S => {e ∈ T | G.left e ∈ S ∧ G.right e ∉ S ∨ G.right e ∈ S ∧ G.left e ∉ S}
+def Chal.StrongThinTree.MultiGraph.Connected : {n m : ℕ} → Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → (G.cut T S).Nonempty
+def Chal.StrongThinTree.MultiGraph.SpanningTree : {n m : ℕ} →
+  Chal.StrongThinTree.MultiGraph n m → Finset (Fin m) → Prop :=
+fun {n m} G T => G.Connected T ∧ ∀ e ∈ T, ¬G.Connected (T.erase e)
+def Chal.StrongThinTree.MultiGraph.EdgeConnected : {n m : ℕ} → Chal.StrongThinTree.MultiGraph n m → ℕ → Prop :=
+fun {n m} G k => ∀ (S : Finset (Fin n)), S.Nonempty → S ≠ Finset.univ → k ≤ (G.cut Finset.univ S).card
+def Chal.StrongThinTree.MainStatement : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (k : ℕ),
+      1 ≤ k →
+        ∀ (n m : ℕ),
+          2 ≤ n →
+            ∀ (G : Chal.StrongThinTree.MultiGraph n m),
+              G.EdgeConnected k →
+                ∃ T,
+                  G.SpanningTree T ∧
+                    ∀ (S : Finset (Fin n)),
+                      S.Nonempty → S ≠ Finset.univ → ↑(G.cut T S).card ≤ C / ↑k * ↑(G.cut Finset.univ S).card
+'OAI.StrongThinTree.strongThinTree' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StrongThinTree comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

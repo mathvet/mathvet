@@ -1,0 +1,167 @@
+OAI.ContingencyTables.boundedSampling : OAI.ContingencyTables.Algorithms.BoundedSamplingStatement
+'OAI.ContingencyTables.boundedSampling' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.ContingencyTables.exactSampling : OAI.ContingencyTables.Algorithms.ExactSamplingStatement
+'OAI.ContingencyTables.exactSampling' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.ContingencyTables.counting : OAI.ContingencyTables.Algorithms.CountingStatement
+'OAI.ContingencyTables.counting' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.MatchingFPRAS.Symbol : Type :=
+Fin 8
+def OAI.MatchingFPRAS.encodeNat : ℕ → List OAI.MatchingFPRAS.Symbol :=
+fun n => List.map (fun b => if b = true then 2 else 1) n.bits ++ [3]
+def OAI.MatchingFPRAS.encodeInt : ℤ → List OAI.MatchingFPRAS.Symbol :=
+fun z => (if z < 0 then [5] else [4]) ++ OAI.MatchingFPRAS.encodeNat z.natAbs
+def OAI.MatchingFPRAS.encodeRat : ℚ → List OAI.MatchingFPRAS.Symbol :=
+fun q => OAI.MatchingFPRAS.encodeInt q.num ++ OAI.MatchingFPRAS.encodeNat q.den
+structure OAI.MatchingFPRAS.RandomMachine : Type
+number of parameters: 0
+fields:
+  OAI.MatchingFPRAS.RandomMachine.states : ℕ
+  OAI.MatchingFPRAS.RandomMachine.transition : Fin (self.states + 1) →
+      OAI.MatchingFPRAS.Symbol → Bool → Option (Fin (self.states + 1) × Turing.TM0.Stmt OAI.MatchingFPRAS.Symbol)
+constructor:
+  OAI.MatchingFPRAS.RandomMachine.mk (states : ℕ)
+    (transition :
+      Fin (states + 1) →
+        OAI.MatchingFPRAS.Symbol → Bool → Option (Fin (states + 1) × Turing.TM0.Stmt OAI.MatchingFPRAS.Symbol)) :
+    OAI.MatchingFPRAS.RandomMachine
+structure OAI.MatchingFPRAS.Configuration (A : OAI.MatchingFPRAS.RandomMachine) : Type
+number of parameters: 1
+fields:
+  OAI.MatchingFPRAS.Configuration.state : Option (Fin (A.states + 1))
+  OAI.MatchingFPRAS.Configuration.tape : Turing.Tape OAI.MatchingFPRAS.Symbol
+constructor:
+  OAI.MatchingFPRAS.Configuration.mk {A : OAI.MatchingFPRAS.RandomMachine} (state : Option (Fin (A.states + 1)))
+    (tape : Turing.Tape OAI.MatchingFPRAS.Symbol) : OAI.MatchingFPRAS.Configuration A
+def OAI.MatchingFPRAS.tick : (A : OAI.MatchingFPRAS.RandomMachine) →
+  OAI.MatchingFPRAS.Configuration A → Bool → OAI.MatchingFPRAS.Configuration A :=
+fun A c bit =>
+  match c.state with
+  | none => c
+  | some s =>
+    match A.transition s c.tape.head bit with
+    | none => { state := none, tape := c.tape }
+    | some (s', action) =>
+      { state := some s',
+        tape :=
+          match action with
+          | Turing.TM0.Stmt.move d => Turing.Tape.move d c.tape
+          | Turing.TM0.Stmt.write a => Turing.Tape.write a c.tape }
+def OAI.MatchingFPRAS.initial : (A : OAI.MatchingFPRAS.RandomMachine) →
+  List OAI.MatchingFPRAS.Symbol → OAI.MatchingFPRAS.Configuration A :=
+fun A input => { state := some 0, tape := Turing.Tape.mk₁ input }
+def OAI.MatchingFPRAS.run : (A : OAI.MatchingFPRAS.RandomMachine) →
+  List OAI.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → OAI.MatchingFPRAS.Configuration A :=
+fun A input {t} bits => List.foldl (OAI.MatchingFPRAS.tick A) (OAI.MatchingFPRAS.initial A input) (List.ofFn bits)
+def OAI.MatchingFPRAS.Outputs : OAI.MatchingFPRAS.RandomMachine →
+  List OAI.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → ℚ → Prop :=
+fun A input {t} bits q =>
+  (OAI.MatchingFPRAS.run A input bits).state = none ∧
+    (OAI.MatchingFPRAS.run A input bits).tape.right₀ = Turing.ListBlank.mk (OAI.MatchingFPRAS.encodeRat q)
+def OAI.ContingencyTables.HasMargins.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → J → ℕ) → (I → ℕ) → (J → ℕ) → Prop :=
+fun {I} {J} [Fintype I] [Fintype J] X r c => (∀ (i : I), ∑ j, X i j = r i) ∧ ∀ (j : J), ∑ i, X i j = c j
+def OAI.ContingencyTables.Table.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → ℕ) → (J → ℕ) → Type (max 0 u_1 u_2) :=
+fun {I} {J} [Fintype I] [Fintype J] r c => { X // OAI.ContingencyTables.HasMargins X r c }
+def OAI.ContingencyTables.BoundedTable.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → ℕ) → (J → ℕ) → (I → J → ℕ) → Type (max 0 u_1 u_2) :=
+fun {I} {J} [Fintype I] [Fintype J] r c b => { X // ∀ (i : I) (j : J), ↑X i j ≤ b i j }
+@[reducible] def OAI.ContingencyTables.Algorithms.Machine : Type :=
+OAI.MatchingFPRAS.RandomMachine
+@[reducible] def OAI.ContingencyTables.Algorithms.Symbol : Type :=
+OAI.MatchingFPRAS.Symbol
+def OAI.ContingencyTables.Algorithms.encodeMatrix : {m n : ℕ} →
+  (Fin m → Fin n → ℕ) → List OAI.ContingencyTables.Algorithms.Symbol :=
+fun {m n} X => (List.ofFn fun i => (List.ofFn fun j => OAI.MatchingFPRAS.encodeNat (X i j)).flatten).flatten
+def OAI.ContingencyTables.Algorithms.encodeMargins : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → List OAI.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c =>
+  OAI.MatchingFPRAS.encodeNat m ++ OAI.MatchingFPRAS.encodeNat n ++
+      (List.ofFn fun i => OAI.MatchingFPRAS.encodeNat (r i)).flatten ++
+    (List.ofFn fun j => OAI.MatchingFPRAS.encodeNat (c j)).flatten
+def OAI.ContingencyTables.Algorithms.encodeSamplingInput : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → ℕ → List OAI.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c k => OAI.ContingencyTables.Algorithms.encodeMargins r c ++ OAI.MatchingFPRAS.encodeNat k
+def OAI.ContingencyTables.Algorithms.encodeCountingInput : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → List OAI.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c b ε δ =>
+  OAI.ContingencyTables.Algorithms.encodeMargins r c ++ OAI.ContingencyTables.Algorithms.encodeMatrix b ++
+      OAI.MatchingFPRAS.encodeRat ε ++
+    OAI.MatchingFPRAS.encodeRat δ
+def OAI.ContingencyTables.Algorithms.OutputsTable : OAI.ContingencyTables.Algorithms.Machine →
+  List OAI.ContingencyTables.Algorithms.Symbol → {t m n : ℕ} → (Fin t → Bool) → (Fin m → Fin n → ℕ) → Prop :=
+fun A input {t m n} bits X =>
+  (OAI.MatchingFPRAS.run A input bits).state = none ∧
+    (OAI.MatchingFPRAS.run A input bits).tape.right₀ =
+      Turing.ListBlank.mk (OAI.ContingencyTables.Algorithms.encodeMatrix X)
+def OAI.ContingencyTables.Algorithms.tableMass : OAI.ContingencyTables.Algorithms.Machine →
+  List OAI.ContingencyTables.Algorithms.Symbol → ℕ → {m n : ℕ} → (Fin m → Fin n → ℕ) → ℝ :=
+fun A input t {m n} X => ↑{bits | OAI.ContingencyTables.Algorithms.OutputsTable A input bits X}.card / 2 ^ t
+def OAI.ContingencyTables.Algorithms.haltMass : OAI.ContingencyTables.Algorithms.Machine →
+  List OAI.ContingencyTables.Algorithms.Symbol → ℕ → ℝ :=
+fun A input t => ↑{bits | (OAI.MatchingFPRAS.run A input bits).state = none}.card / 2 ^ t
+def OAI.ContingencyTables.Algorithms.samplingSize : ℕ → {m : ℕ} → (Fin m → ℕ) → ℕ → ℕ :=
+fun n {m} r k => m + n + Nat.clog 2 (∑ i, r i + 1) + k + 1
+def OAI.ContingencyTables.Algorithms.BoundedSamplingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ) (r : Fin m → ℕ) (c : Fin n → ℕ),
+      ∑ i, r i = ∑ j, c j →
+        ∀ (k : ℕ),
+          1 ≤ k →
+            have input := OAI.ContingencyTables.Algorithms.encodeSamplingInput r c k;
+            have t := C * OAI.ContingencyTables.Algorithms.samplingSize n r k ^ d;
+            (∀ (bits : Fin t → Bool), ∃ X, OAI.ContingencyTables.Algorithms.OutputsTable A input bits ↑X) ∧
+              (∑ X,
+                    |OAI.ContingencyTables.Algorithms.tableMass A input t ↑X -
+                        (↑(Fintype.card (OAI.ContingencyTables.Table r c)))⁻¹|) /
+                  2 ≤
+                (2 ^ k)⁻¹
+def OAI.ContingencyTables.Algorithms.ExactSamplingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ) (r : Fin m → ℕ) (c : Fin n → ℕ),
+      ∑ i, r i = ∑ j, c j →
+        have input := OAI.ContingencyTables.Algorithms.encodeMargins r c;
+        have tail := fun t => 1 - OAI.ContingencyTables.Algorithms.haltMass A input t;
+        (∀ (t : ℕ) (bits : Fin t → Bool),
+            (OAI.MatchingFPRAS.run A input bits).state = none →
+              ∃ X, OAI.ContingencyTables.Algorithms.OutputsTable A input bits ↑X) ∧
+          (∀ (X : OAI.ContingencyTables.Table r c),
+              Filter.Tendsto (fun t => OAI.ContingencyTables.Algorithms.tableMass A input t ↑X) Filter.atTop
+                (nhds (↑(Fintype.card (OAI.ContingencyTables.Table r c)))⁻¹)) ∧
+            Filter.Tendsto (OAI.ContingencyTables.Algorithms.haltMass A input) Filter.atTop (nhds 1) ∧
+              Summable tail ∧ tsum tail ≤ ↑C * ↑(OAI.ContingencyTables.Algorithms.samplingSize n r 0) ^ d
+def OAI.ContingencyTables.Algorithms.count : {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℕ :=
+fun {m n} r c b => Fintype.card (OAI.ContingencyTables.BoundedTable r c b)
+def OAI.ContingencyTables.Algorithms.countingTime : ℕ →
+  ℕ → {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → ℕ :=
+fun C d {m n} r c b ε δ =>
+  C * ((OAI.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ).length + ⌈ε⁻¹⌉₊ + Nat.clog 2 ⌈δ⁻¹⌉₊ + 1) ^ d
+def OAI.ContingencyTables.Algorithms.goodCountingTapes : OAI.ContingencyTables.Algorithms.Machine →
+  {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → (t : ℕ) → Finset (Fin t → Bool) :=
+fun A {m n} r c b ε δ t =>
+  {bits |
+    ∃ q,
+      OAI.MatchingFPRAS.Outputs A (OAI.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ) bits q ∧
+        (1 - ε) * ↑(OAI.ContingencyTables.Algorithms.count r c b) ≤ q ∧
+          q ≤ (1 + ε) * ↑(OAI.ContingencyTables.Algorithms.count r c b)}
+def OAI.ContingencyTables.Algorithms.CountingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ),
+      0 < m →
+        0 < n →
+          ∀ (r : Fin m → ℕ) (c : Fin n → ℕ) (b : Fin m → Fin n → ℕ),
+            ∑ i, r i = ∑ j, c j →
+              ∀ (ε δ : ℚ),
+                0 < ε →
+                  ε < 1 →
+                    0 < δ →
+                      δ < 1 →
+                        have input := OAI.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ;
+                        have t := OAI.ContingencyTables.Algorithms.countingTime C d r c b ε δ;
+                        (∀ (bits : Fin t → Bool), ∃ q, 0 ≤ q ∧ OAI.MatchingFPRAS.Outputs A input bits q) ∧
+                          (OAI.ContingencyTables.Algorithms.count r c b = 0 →
+                              ∀ (bits : Fin t → Bool), OAI.MatchingFPRAS.Outputs A input bits 0) ∧
+                            ↑(OAI.ContingencyTables.Algorithms.goodCountingTapes A r c b ε δ t).card / 2 ^ t ≥ 1 - δ

@@ -1,0 +1,123 @@
+OAI.RVM.global_classical_solution : ∀ (d : OAI.RVM.Datum),
+  OAI.RVM.Admissible d →
+    ∃ s,
+      OAI.RVM.Classical d s ∧
+        OAI.RVM.SmoothOnFiniteHorizons s ∧
+          ∀ (s' : OAI.RVM.Solution), OAI.RVM.Classical d s' → OAI.RVM.SameNonnegativeTime s s'
+'OAI.RVM.global_classical_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.RVM.Vec : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def OAI.RVM.Phase : Type :=
+OAI.RVM.Vec × OAI.RVM.Vec
+@[reducible] def OAI.RVM.Particle : Type :=
+ℝ × OAI.RVM.Phase → ℝ
+@[reducible] def OAI.RVM.Field : Type :=
+ℝ × OAI.RVM.Vec → OAI.RVM.Vec
+def OAI.RVM.q : OAI.RVM.Vec → ℝ :=
+fun v => √(1 + ‖v‖ ^ 2)
+def OAI.RVM.velocity : OAI.RVM.Vec → OAI.RVM.Vec :=
+fun v => (OAI.RVM.q v)⁻¹ • v
+def OAI.RVM.basis : Fin 3 → OAI.RVM.Vec :=
+fun i => WithLp.toLp 2 (Pi.single i 1)
+def OAI.RVM.dot : OAI.RVM.Vec → OAI.RVM.Vec → ℝ :=
+fun a b => ∑ i, a.ofLp i * b.ofLp i
+def OAI.RVM.cross : OAI.RVM.Vec → OAI.RVM.Vec → OAI.RVM.Vec :=
+fun a b =>
+  !₂[a.ofLp 1 * b.ofLp 2 - a.ofLp 2 * b.ofLp 1, a.ofLp 2 * b.ofLp 0 - a.ofLp 0 * b.ofLp 2,
+    a.ofLp 0 * b.ofLp 1 - a.ofLp 1 * b.ofLp 0]
+def OAI.RVM.spatialPartial : (OAI.RVM.Vec → ℝ) → OAI.RVM.Vec → Fin 3 → ℝ :=
+fun g x i => (fderiv ℝ g x) (OAI.RVM.basis i)
+def OAI.RVM.divergence : (OAI.RVM.Vec → OAI.RVM.Vec) → OAI.RVM.Vec → ℝ :=
+fun F x => ∑ i, OAI.RVM.spatialPartial (fun y => (F y).ofLp i) x i
+def OAI.RVM.curl : (OAI.RVM.Vec → OAI.RVM.Vec) → OAI.RVM.Vec → OAI.RVM.Vec :=
+fun F x =>
+  !₂[OAI.RVM.spatialPartial (fun y => (F y).ofLp 2) x 1 - OAI.RVM.spatialPartial (fun y => (F y).ofLp 1) x 2,
+    OAI.RVM.spatialPartial (fun y => (F y).ofLp 0) x 2 - OAI.RVM.spatialPartial (fun y => (F y).ofLp 2) x 0,
+    OAI.RVM.spatialPartial (fun y => (F y).ofLp 1) x 0 - OAI.RVM.spatialPartial (fun y => (F y).ofLp 0) x 1]
+def OAI.RVM.rho : (OAI.RVM.Phase → ℝ) → OAI.RVM.Vec → ℝ :=
+fun g x => ∫ (v : OAI.RVM.Vec), g (x, v)
+def OAI.RVM.current : (OAI.RVM.Phase → ℝ) → OAI.RVM.Vec → OAI.RVM.Vec :=
+fun g x => ∫ (v : OAI.RVM.Vec), g (x, v) • OAI.RVM.velocity v
+structure OAI.RVM.Datum : Type
+number of parameters: 0
+fields:
+  OAI.RVM.Datum.f₀ : OAI.RVM.Phase → ℝ
+  OAI.RVM.Datum.E₀ : OAI.RVM.Vec → OAI.RVM.Vec
+  OAI.RVM.Datum.B₀ : OAI.RVM.Vec → OAI.RVM.Vec
+constructor:
+  OAI.RVM.Datum.mk (f₀ : OAI.RVM.Phase → ℝ) (E₀ B₀ : OAI.RVM.Vec → OAI.RVM.Vec) : OAI.RVM.Datum
+def OAI.RVM.BoundedSmooth : (OAI.RVM.Vec → OAI.RVM.Vec) → Prop :=
+fun F => ContDiff ℝ (↑⊤) F ∧ ∀ (n : ℕ), ∃ C, ∀ (x : OAI.RVM.Vec), ‖iteratedFDeriv ℝ n F x‖ ≤ C
+def OAI.RVM.Admissible : OAI.RVM.Datum → Prop :=
+fun d =>
+  ContDiff ℝ (↑⊤) d.f₀ ∧
+    HasCompactSupport d.f₀ ∧
+      (∀ (z : OAI.RVM.Phase), 0 ≤ d.f₀ z) ∧
+        OAI.RVM.BoundedSmooth d.E₀ ∧
+          OAI.RVM.BoundedSmooth d.B₀ ∧
+            MeasureTheory.MemLp d.E₀ 2 MeasureTheory.volume ∧
+              MeasureTheory.MemLp d.B₀ 2 MeasureTheory.volume ∧
+                (∀ (x : OAI.RVM.Vec), OAI.RVM.divergence d.E₀ x = OAI.RVM.rho d.f₀ x) ∧
+                  ∀ (x : OAI.RVM.Vec), OAI.RVM.divergence d.B₀ x = 0
+structure OAI.RVM.Solution : Type
+number of parameters: 0
+fields:
+  OAI.RVM.Solution.f : OAI.RVM.Particle
+  OAI.RVM.Solution.E : OAI.RVM.Field
+  OAI.RVM.Solution.B : OAI.RVM.Field
+constructor:
+  OAI.RVM.Solution.mk (f : OAI.RVM.Particle) (E B : OAI.RVM.Field) : OAI.RVM.Solution
+def OAI.RVM.particleHalfSpace : Set (ℝ × OAI.RVM.Phase) :=
+{z | 0 ≤ z.1}
+def OAI.RVM.fieldHalfSpace : Set (ℝ × OAI.RVM.Vec) :=
+{z | 0 ≤ z.1}
+def OAI.RVM.particleSlab : ℝ → Set (ℝ × OAI.RVM.Phase) :=
+fun T => {z | z.1 ∈ Set.Icc 0 T}
+def OAI.RVM.fieldSlab : ℝ → Set (ℝ × OAI.RVM.Vec) :=
+fun T => {z | z.1 ∈ Set.Icc 0 T}
+def OAI.RVM.TimeContinuousL2 : OAI.RVM.Field → Prop :=
+fun F => ∃ F₂, ContinuousOn F₂ (Set.Ici 0) ∧ ∀ (t : ℝ), 0 ≤ t → ↑↑(F₂ t) =ᵐ[MeasureTheory.volume] fun x => F (t, x)
+def OAI.RVM.Equations : OAI.RVM.Solution → Prop :=
+fun s =>
+  ∀ (t : ℝ),
+    0 ≤ t →
+      (∀ (x v : OAI.RVM.Vec),
+          derivWithin (fun t' => s.f (t', x, v)) (Set.Ici 0) t +
+                ∑ i, (OAI.RVM.velocity v).ofLp i * OAI.RVM.spatialPartial (fun y => s.f (t, y, v)) x i +
+              ∑ i,
+                (s.E (t, x) + OAI.RVM.cross (OAI.RVM.velocity v) (s.B (t, x))).ofLp i *
+                  OAI.RVM.spatialPartial (fun v' => s.f (t, x, v')) v i =
+            0) ∧
+        (∀ (x : OAI.RVM.Vec),
+            derivWithin (fun t' => s.E (t', x)) (Set.Ici 0) t - OAI.RVM.curl (fun y => s.B (t, y)) x =
+              -OAI.RVM.current (fun z => s.f (t, z)) x) ∧
+          (∀ (x : OAI.RVM.Vec),
+              derivWithin (fun t' => s.B (t', x)) (Set.Ici 0) t + OAI.RVM.curl (fun y => s.E (t, y)) x = 0) ∧
+            (∀ (x : OAI.RVM.Vec), OAI.RVM.divergence (fun y => s.E (t, y)) x = OAI.RVM.rho (fun z => s.f (t, z)) x) ∧
+              ∀ (x : OAI.RVM.Vec), OAI.RVM.divergence (fun y => s.B (t, y)) x = 0
+def OAI.RVM.CompactOnFiniteHorizons : OAI.RVM.Solution → Prop :=
+fun s => ∀ (T : ℝ), 0 ≤ T → ∃ K, IsCompact K ∧ ∀ t ∈ Set.Icc 0 T, (tsupport fun z => s.f (t, z)) ⊆ K
+def OAI.RVM.Classical : OAI.RVM.Datum → OAI.RVM.Solution → Prop :=
+fun d s =>
+  ContDiffOn ℝ 1 s.f OAI.RVM.particleHalfSpace ∧
+    ContDiffOn ℝ 1 s.E OAI.RVM.fieldHalfSpace ∧
+      ContDiffOn ℝ 1 s.B OAI.RVM.fieldHalfSpace ∧
+        (∀ (t : ℝ), 0 ≤ t → ∀ (z : OAI.RVM.Phase), 0 ≤ s.f (t, z)) ∧
+          OAI.RVM.TimeContinuousL2 s.E ∧
+            OAI.RVM.TimeContinuousL2 s.B ∧
+              OAI.RVM.CompactOnFiniteHorizons s ∧
+                OAI.RVM.Equations s ∧
+                  (∀ (z : OAI.RVM.Phase), s.f (0, z) = d.f₀ z) ∧
+                    (∀ (x : OAI.RVM.Vec), s.E (0, x) = d.E₀ x) ∧ ∀ (x : OAI.RVM.Vec), s.B (0, x) = d.B₀ x
+def OAI.RVM.SmoothOnFiniteHorizons : OAI.RVM.Solution → Prop :=
+fun s =>
+  ∀ (T : ℝ),
+    0 ≤ T →
+      ContDiffOn ℝ (↑⊤) s.f (OAI.RVM.particleSlab T) ∧
+        ContDiffOn ℝ (↑⊤) s.E (OAI.RVM.fieldSlab T) ∧ ContDiffOn ℝ (↑⊤) s.B (OAI.RVM.fieldSlab T)
+def OAI.RVM.SameNonnegativeTime : OAI.RVM.Solution → OAI.RVM.Solution → Prop :=
+fun s s' =>
+  ∀ (t : ℝ),
+    0 ≤ t →
+      (∀ (z : OAI.RVM.Phase), s.f (t, z) = s'.f (t, z)) ∧
+        (∀ (x : OAI.RVM.Vec), s.E (t, x) = s'.E (t, x)) ∧ ∀ (x : OAI.RVM.Vec), s.B (t, x) = s'.B (t, x)

@@ -1,0 +1,310 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_UniqueGamesTheorem.lean:158:39: error: Ambiguous term
+  Literal
+Possible interpretations:
+  BinaryFormula.Literal : Type
+  
+  Lean.Literal : Type
+CMP OAI.UniqueGamesTheorem.theorem11 [thm] ok
+CMP OAI.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction [ind] ok
+CMP OAI.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint [ind] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.PermutationTable [ind] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.PermutationTable.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.PermutationTable._proof_2 [thm] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.PermutationTable._proof_1 [thm] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Instance.constraints [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Instance [ind] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Instance.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Instance.vertices [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.countSatisfied [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.countSatisfied._f [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.satisfied [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.target [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.satisfied._proof_2 [thm] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.source [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.Constraint.permutation [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.PermutationTable.images [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Target.countSatisfied.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryLanguage.language [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Formula.Satisfiable [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Clause.eval [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Clause.eval._proof_6 [thm] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Clause.eval._proof_5 [thm] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Clause.eval._proof_4 [thm] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Literal [ind] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Literal.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Literal.eval [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Literal.name [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Literal.positive [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Clause [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Formula.clauses [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Formula [ind] ok
+CMP OAI.UniqueGamesTheorem.BinaryFormula.Formula.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.decodeFormula [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClauses.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClauses [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClauses._f [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClauses.match_3 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClause [def] VALUE_MISMATCH
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClause.match_1 [def] TYPE_MISMATCH
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseLiteral [def] TYPE_MISMATCH
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseLiteral.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseName [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.bitsValue [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.bitsValue._f [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.bitsValue.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseFrame.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseFrame [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseFrame._f [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseFrame.match_3 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseFrame._sparseCasesOn_3 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseLiteral.match_3 [def] ok
+CMP OAI.UniqueGamesTheorem.BinaryEncoding.parseClauses.match_5 [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.gameBits [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.gameWords [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.constraintWords [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.tableWords [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.encodeWords [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.encodeWords._f [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.encodeWord [def] ok
+CMP OAI.UniqueGamesTheorem.Foundations.Complexity.encodeWords.match_1 [def] ok
+CMP OAI.UniqueGamesTheorem.Integration.TranslationTarget.IsTranslationInstance [def] ok
+CMP OAI.UniqueGamesTheorem.Integration.BinaryLinear.F2 [def] ok
+CMP OAI.UniqueGamesTheorem.Integration.TranslationTarget.IsTranslationInstance._proof_1 [thm] ok
+CMP OAI.UniqueGamesTheorem.Integration.BinaryLinear.Vector [def] ok
+CMP OAI.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite [ind] ok
+CMP OAI.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.mk [ctor] ok
+CMP OAI.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite._proof_1 [thm] ok
+Chal.UniqueGamesTheorem.theorem11 : ∀ (ε δ : ℝ),
+  0 < ε →
+    ε < 1 / 2 →
+      0 < δ → δ < 1 / 2 → Nonempty (Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction ε δ)
+structure Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable (alphabet : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable.images : Vector (Fin alphabet) alphabet
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable.inverseImages : Vector (Fin alphabet) alphabet
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable.leftInverse : ∀ (label : Fin alphabet),
+      self.inverseImages[self.images[label]] = label
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable.rightInverse : ∀ (label : Fin alphabet),
+      self.images[self.inverseImages[label]] = label
+constructor:
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable.mk {alphabet : ℕ}
+    (images inverseImages : Vector (Fin alphabet) alphabet)
+    (leftInverse : ∀ (label : Fin alphabet), inverseImages[images[label]] = label)
+    (rightInverse : ∀ (label : Fin alphabet), images[inverseImages[label]] = label) :
+    Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable alphabet
+structure Chal.UniqueGamesTheorem.Foundations.Target.Constraint (vertices alphabet : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint.source : Fin vertices
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint.target : Fin vertices
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint.permutation : Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable
+      alphabet
+constructor:
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint.mk {vertices alphabet : ℕ} (source target : Fin vertices)
+    (permutation : Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable alphabet) :
+    Chal.UniqueGamesTheorem.Foundations.Target.Constraint vertices alphabet
+def Chal.UniqueGamesTheorem.Foundations.Target.Constraint.satisfied : {n q : ℕ} →
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint n q → (Fin n → Fin q) → Bool :=
+fun {n q} constraint labeling =>
+  decide (constraint.permutation.images[labeling constraint.source] = labeling constraint.target)
+structure Chal.UniqueGamesTheorem.Foundations.Target.Instance (alphabet : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance.vertices : ℕ
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance.constraints : List
+      (Chal.UniqueGamesTheorem.Foundations.Target.Constraint self.vertices alphabet)
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance.nonempty : self.constraints ≠ []
+constructor:
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance.mk {alphabet : ℕ} (vertices : ℕ)
+    (constraints : List (Chal.UniqueGamesTheorem.Foundations.Target.Constraint vertices alphabet))
+    (nonempty : constraints ≠ []) : Chal.UniqueGamesTheorem.Foundations.Target.Instance alphabet
+def Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied : {n q : ℕ} →
+  (Fin n → Fin q) → List (Chal.UniqueGamesTheorem.Foundations.Target.Constraint n q) → ℕ :=
+fun {n q} labeling x => List.brecOn x (Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied._f labeling)
+structure Chal.UniqueGamesTheorem.BinaryFormula.Literal : Type
+number of parameters: 0
+fields:
+  Chal.UniqueGamesTheorem.BinaryFormula.Literal.name : ℕ
+  Chal.UniqueGamesTheorem.BinaryFormula.Literal.positive : Bool
+constructor:
+  Chal.UniqueGamesTheorem.BinaryFormula.Literal.mk (name : ℕ) (positive : Bool) :
+    Chal.UniqueGamesTheorem.BinaryFormula.Literal
+def Chal.UniqueGamesTheorem.BinaryFormula.Literal.eval : Chal.UniqueGamesTheorem.BinaryFormula.Literal →
+  (ℕ → Bool) → Bool :=
+fun literal assignment => if literal.positive = true then assignment literal.name else !assignment literal.name
+@[reducible] def Chal.UniqueGamesTheorem.BinaryFormula.Clause : Type :=
+Vector Chal.UniqueGamesTheorem.BinaryFormula.Literal 3
+def Chal.UniqueGamesTheorem.BinaryFormula.Clause.eval : Chal.UniqueGamesTheorem.BinaryFormula.Clause →
+  (ℕ → Bool) → Bool :=
+fun clause assignment => clause[0].eval assignment || clause[1].eval assignment || clause[2].eval assignment
+structure Chal.UniqueGamesTheorem.BinaryFormula.Formula : Type
+number of parameters: 0
+fields:
+  Chal.UniqueGamesTheorem.BinaryFormula.Formula.clauses : List Chal.UniqueGamesTheorem.BinaryFormula.Clause
+constructor:
+  Chal.UniqueGamesTheorem.BinaryFormula.Formula.mk (clauses : List Chal.UniqueGamesTheorem.BinaryFormula.Clause) :
+    Chal.UniqueGamesTheorem.BinaryFormula.Formula
+def Chal.UniqueGamesTheorem.BinaryFormula.Formula.Satisfiable : Chal.UniqueGamesTheorem.BinaryFormula.Formula → Prop :=
+fun F => ∃ assignment, ∀ clause ∈ F.clauses, clause.eval assignment = true
+def Chal.UniqueGamesTheorem.BinaryEncoding.bitsValue : List Bool → ℕ :=
+fun x => List.brecOn x Chal.UniqueGamesTheorem.BinaryEncoding.bitsValue._f
+def Chal.UniqueGamesTheorem.BinaryEncoding.parseFrame : List Bool → Option (List Bool × List Bool) :=
+fun x => List.brecOn x Chal.UniqueGamesTheorem.BinaryEncoding.parseFrame._f
+def Chal.UniqueGamesTheorem.BinaryEncoding.parseName : List Bool → Option (ℕ × List Bool) :=
+fun input => do
+  let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseFrame input
+  match __x with
+    | (digits, rest) =>
+      have name := Chal.UniqueGamesTheorem.BinaryEncoding.bitsValue digits;
+      if digits = name.bits then some (name, rest) else none
+def Chal.UniqueGamesTheorem.BinaryEncoding.parseLiteral : List Bool → Option (sorry × List Bool) :=
+fun x =>
+  match x with
+  | sign :: input => do
+    let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseName input
+    match __x with
+      | (name, rest) => pure (sorry, rest)
+  | [] => none
+def Chal.UniqueGamesTheorem.BinaryEncoding.parseClause : List Bool →
+  Option (Chal.UniqueGamesTheorem.BinaryFormula.Clause × List Bool) :=
+fun input => do
+  let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseLiteral input
+  match __x with
+    | (a, input) => do
+      let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseLiteral input
+      match __x with
+        | (b, input) => do
+          let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseLiteral input
+          match __x with
+            | (c, rest) => pure (#v[sorry, sorry, sorry], rest)
+def Chal.UniqueGamesTheorem.BinaryEncoding.parseClauses : ℕ →
+  List Bool → Option (List Chal.UniqueGamesTheorem.BinaryFormula.Clause × List Bool) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => List Bool → Option (List Chal.UniqueGamesTheorem.BinaryFormula.Clause × List Bool)) x
+    Chal.UniqueGamesTheorem.BinaryEncoding.parseClauses._f x_1
+def Chal.UniqueGamesTheorem.BinaryEncoding.decodeFormula : List Bool →
+  Option Chal.UniqueGamesTheorem.BinaryFormula.Formula :=
+fun input => do
+  let __x ← Chal.UniqueGamesTheorem.BinaryEncoding.parseClauses (input.length + 1) input
+  match __x with
+    | (clauses, rest) => if rest = [] then some { clauses := clauses } else none
+def Chal.UniqueGamesTheorem.BinaryLanguage.language : List Bool → Prop :=
+fun input => ∃ formula, Chal.UniqueGamesTheorem.BinaryEncoding.decodeFormula input = some formula ∧ formula.Satisfiable
+@[reducible] def Chal.UniqueGamesTheorem.Integration.BinaryLinear.F2 : Type :=
+ZMod 2
+@[reducible] def Chal.UniqueGamesTheorem.Integration.BinaryLinear.Vector : ℕ → Type :=
+fun n => Fin n → Chal.UniqueGamesTheorem.Integration.BinaryLinear.F2
+def Chal.UniqueGamesTheorem.Integration.TranslationTarget.IsTranslationInstance : {q s : ℕ} →
+  Fin q ≃ Chal.UniqueGamesTheorem.Integration.BinaryLinear.Vector s →
+    Chal.UniqueGamesTheorem.Foundations.Target.Instance q → Prop :=
+fun {q s} coordinates g =>
+  ∀ constraint ∈ g.constraints,
+    ∃ shift, ∀ (label : Fin q), coordinates constraint.permutation.images[label] = coordinates label + shift
+def Chal.UniqueGamesTheorem.Foundations.Complexity.encodeWord : ℕ → List Bool :=
+fun n => List.replicate n true ++ [false]
+def Chal.UniqueGamesTheorem.Foundations.Complexity.encodeWords : List ℕ → List Bool :=
+fun x => List.brecOn x Chal.UniqueGamesTheorem.Foundations.Complexity.encodeWords._f
+def Chal.UniqueGamesTheorem.Foundations.Complexity.tableWords : {q : ℕ} →
+  Chal.UniqueGamesTheorem.Foundations.Target.PermutationTable q → List ℕ :=
+fun {q} table => List.map Fin.val table.images.toList
+def Chal.UniqueGamesTheorem.Foundations.Complexity.constraintWords : {n q : ℕ} →
+  Chal.UniqueGamesTheorem.Foundations.Target.Constraint n q → List ℕ :=
+fun {n q} constraint =>
+  [↑constraint.source, ↑constraint.target] ++
+    Chal.UniqueGamesTheorem.Foundations.Complexity.tableWords constraint.permutation
+def Chal.UniqueGamesTheorem.Foundations.Complexity.gameWords : {q : ℕ} →
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance q → List ℕ :=
+fun {q} game =>
+  [game.vertices, q, game.constraints.length] ++
+    List.flatMap Chal.UniqueGamesTheorem.Foundations.Complexity.constraintWords game.constraints
+def Chal.UniqueGamesTheorem.Foundations.Complexity.gameBits : {q : ℕ} →
+  Chal.UniqueGamesTheorem.Foundations.Target.Instance q → List Bool :=
+fun {q} game =>
+  Chal.UniqueGamesTheorem.Foundations.Complexity.encodeWords
+    (Chal.UniqueGamesTheorem.Foundations.Complexity.gameWords game)
+def Chal.UniqueGamesTheorem.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet : Turing.FinTM2 → Prop :=
+fun M => ∀ (k : M.K), Finite (M.Γ k)
+structure Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite {q : ℕ}
+  (game : Chal.UniqueGamesTheorem.Foundations.Target.Instance q) : Type
+number of parameters: 2
+fields:
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.side : Fin game.vertices → Bool
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.sourceSide : ∀
+      (i : Fin game.constraints.length), self.side game.constraints[i].source = false
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.targetSide : ∀
+      (i : Fin game.constraints.length), self.side game.constraints[i].target = true
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.endpoints_injective : Function.Injective
+      fun i => (game.constraints[i].source, game.constraints[i].target)
+constructor:
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite.mk {q : ℕ}
+    {game : Chal.UniqueGamesTheorem.Foundations.Target.Instance q} (side : Fin game.vertices → Bool)
+    (sourceSide : ∀ (i : Fin game.constraints.length), side game.constraints[i].source = false)
+    (targetSide : ∀ (i : Fin game.constraints.length), side game.constraints[i].target = true)
+    (endpoints_injective : Function.Injective fun i => (game.constraints[i].source, game.constraints[i].target)) :
+    Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite game
+structure Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction (ε δ : ℝ) : Type 1
+number of parameters: 2
+fields:
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.alphabet : ℕ
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.alphabetAtLeastTwo : 2 ≤ self.alphabet
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.dimension : ℕ
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.dimensionPositive : 1 ≤ self.dimension
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.coordinates : Fin self.alphabet ≃
+      Chal.UniqueGamesTheorem.Integration.BinaryLinear.Vector self.dimension
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.construct : List Bool →
+      Chal.UniqueGamesTheorem.Foundations.Target.Instance self.alphabet
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.simpleBipartite : (input : List Bool) →
+      Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite (self.construct input)
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.translations : ∀ (input : List Bool),
+      Chal.UniqueGamesTheorem.Integration.TranslationTarget.IsTranslationInstance self.coordinates
+        (self.construct input)
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.computation : Turing.TM2ComputableInPolyTime
+      id Chal.UniqueGamesTheorem.Foundations.Complexity.gameBits self.construct
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.finiteAlphabet : Chal.UniqueGamesTheorem.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet
+      self.computation.tm
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.completeness : ∀ (input : List Bool),
+      Chal.UniqueGamesTheorem.BinaryLanguage.language input →
+        ∃ labeling,
+          1 - ε ≤
+            ↑(Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied labeling (self.construct input).constraints) /
+              ↑(self.construct input).constraints.length
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.soundness : ∀ (input : List Bool),
+      ¬Chal.UniqueGamesTheorem.BinaryLanguage.language input →
+        ∀ (labeling : Fin (self.construct input).vertices → Fin self.alphabet),
+          ↑(Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied labeling (self.construct input).constraints) /
+              ↑(self.construct input).constraints.length ≤
+            δ
+constructor:
+  Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction.mk {ε δ : ℝ} (alphabet : ℕ)
+    (alphabetAtLeastTwo : 2 ≤ alphabet) (dimension : ℕ) (dimensionPositive : 1 ≤ dimension)
+    (coordinates : Fin alphabet ≃ Chal.UniqueGamesTheorem.Integration.BinaryLinear.Vector dimension)
+    (construct : List Bool → Chal.UniqueGamesTheorem.Foundations.Target.Instance alphabet)
+    (simpleBipartite :
+      (input : List Bool) → Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.SimpleBipartite (construct input))
+    (translations :
+      ∀ (input : List Bool),
+        Chal.UniqueGamesTheorem.Integration.TranslationTarget.IsTranslationInstance coordinates (construct input))
+    (computation : Turing.TM2ComputableInPolyTime id Chal.UniqueGamesTheorem.Foundations.Complexity.gameBits construct)
+    (finiteAlphabet :
+      Chal.UniqueGamesTheorem.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm)
+    (completeness :
+      ∀ (input : List Bool),
+        Chal.UniqueGamesTheorem.BinaryLanguage.language input →
+          ∃ labeling,
+            1 - ε ≤
+              ↑(Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied labeling (construct input).constraints) /
+                ↑(construct input).constraints.length)
+    (soundness :
+      ∀ (input : List Bool),
+        ¬Chal.UniqueGamesTheorem.BinaryLanguage.language input →
+          ∀ (labeling : Fin (construct input).vertices → Fin alphabet),
+            ↑(Chal.UniqueGamesTheorem.Foundations.Target.countSatisfied labeling (construct input).constraints) /
+                ↑(construct input).constraints.length ≤
+              δ) :
+    Chal.UniqueGamesTheorem.Explicit.MachineOutputContract.BinaryGapReduction ε δ
+'OAI.UniqueGamesTheorem.theorem11' depends on axioms: [propext, Classical.choice, Quot.sound]
+== UniqueGamesTheorem comparator-style: ok=70 problems=3 errors=1 | SHADOW-DIFF(see UniqueGamesTheorem.standalone.norm vs UniqueGamesTheorem.insolution.norm) | [propext, Classical.choice, Quot.sound] 

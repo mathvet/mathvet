@@ -1,0 +1,142 @@
+CMP OAI.ThreeMachine.main_theorem [thm] ok
+CMP OAI.ThreeMachine.ReleaseTheorem [def] ok
+CMP OAI.ThreeMachine.encodeInput [def] ok
+CMP OAI.ThreeMachine.Instance.edges [def] ok
+CMP OAI.ThreeMachine.Instance [ind] ok
+CMP OAI.ThreeMachine.Instance.mk [ctor] ok
+CMP OAI.ThreeMachine.encodeList [def] ok
+CMP OAI.ThreeMachine.encodeNat [def] ok
+CMP OAI.ThreeMachine.encodeInput.match_1 [def] ok
+CMP OAI.ThreeMachine.Machine.Produces [def] ok
+CMP OAI.ThreeMachine.bitSymbol [def] ok
+CMP OAI.ThreeMachine.bitSymbol._proof_4 [thm] ok
+CMP OAI.ThreeMachine.bitSymbol._proof_3 [thm] ok
+CMP OAI.ThreeMachine.Machine.initial._proof_1 [thm] ok
+CMP OAI.ThreeMachine.Configuration.tapes [def] ok
+CMP OAI.ThreeMachine.Configuration [ind] ok
+CMP OAI.ThreeMachine.Configuration.mk [ctor] ok
+CMP OAI.ThreeMachine.Machine.step._proof_1 [thm] ok
+CMP OAI.ThreeMachine.Machine.run [def] ok
+CMP OAI.ThreeMachine.Machine.initial [def] ok
+CMP OAI.ThreeMachine.Machine [ind] ok
+CMP OAI.ThreeMachine.Machine.mk [ctor] ok
+CMP OAI.ThreeMachine.Machine.step [def] ok
+CMP OAI.ThreeMachine.Machine.step.match_1 [def] ok
+CMP OAI.ThreeMachine.Machine.step.match_3 [def] ok
+CMP OAI.ThreeMachine.Configuration.state [def] ok
+CMP OAI.ThreeMachine.Machine.transition [def] ok
+CMP OAI.ThreeMachine.CorrectOutput [def] ok
+CMP OAI.ThreeMachine.slots [def] ok
+CMP OAI.ThreeMachine.encodeAnswer [def] ok
+CMP OAI.ThreeMachine.encodeAnswer.match_1 [def] ok
+CMP OAI.ThreeMachine.Feasible [def] ok
+CMP OAI.ThreeMachine.Instance.edge [def] ok
+CMP OAI.ThreeMachine.Instance.acyclic [def] ok
+Chal.ThreeMachine.main_theorem : Chal.ThreeMachine.ReleaseTheorem
+structure Chal.ThreeMachine.Instance (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.ThreeMachine.Instance.edges : List (Fin n × Fin n)
+constructor:
+  Chal.ThreeMachine.Instance.mk {n : ℕ} (edges : List (Fin n × Fin n)) : Chal.ThreeMachine.Instance n
+def Chal.ThreeMachine.Instance.edge : {n : ℕ} → Chal.ThreeMachine.Instance n → Fin n → Fin n → Prop :=
+fun {n} G u v => (u, v) ∈ G.edges
+def Chal.ThreeMachine.Instance.acyclic : {n : ℕ} → Chal.ThreeMachine.Instance n → Prop :=
+fun {n} G => ∀ (v : Fin n), ¬Relation.TransGen G.edge v v
+def Chal.ThreeMachine.Feasible : {n : ℕ} → Chal.ThreeMachine.Instance n → ℕ → (Fin n → ℕ) → Prop :=
+fun {n} G T τ =>
+  (∀ (v : Fin n), 1 ≤ τ v ∧ τ v ≤ T) ∧ (∀ (t : ℕ), {v | τ v = t}.card ≤ 3) ∧ ∀ (u v : Fin n), G.edge u v → τ u < τ v
+def Chal.ThreeMachine.encodeNat : ℕ → List Bool :=
+fun n =>
+  have b := Computability.encodeNat n;
+  List.replicate b.length true ++ false :: b
+def Chal.ThreeMachine.encodeList : {α : Type} → (α → List Bool) → List α → List Bool :=
+fun {α} f xs => Chal.ThreeMachine.encodeNat xs.length ++ List.flatMap f xs
+def Chal.ThreeMachine.encodeInput : {n : ℕ} → Chal.ThreeMachine.Instance n → Option ℕ → List Bool :=
+fun {n} G deadline =>
+  (match deadline with
+      | none => [false]
+      | some T => true :: Chal.ThreeMachine.encodeNat T) ++
+      Chal.ThreeMachine.encodeList Chal.ThreeMachine.encodeNat (List.map (fun x => x + 1) (List.range n)) ++
+    Chal.ThreeMachine.encodeList
+      (fun e => Chal.ThreeMachine.encodeNat (↑e.1 + 1) ++ Chal.ThreeMachine.encodeNat (↑e.2 + 1)) G.edges
+def Chal.ThreeMachine.encodeAnswer : Option (List ℕ) → List Bool :=
+fun x =>
+  match x with
+  | none => [false]
+  | some slots => true :: Chal.ThreeMachine.encodeList Chal.ThreeMachine.encodeNat slots
+def Chal.ThreeMachine.slots : {n : ℕ} → (Fin n → ℕ) → List ℕ :=
+fun {n} τ => List.ofFn τ
+def Chal.ThreeMachine.CorrectOutput : {n : ℕ} → Chal.ThreeMachine.Instance n → Option ℕ → List Bool → Prop :=
+fun {n} G deadline out =>
+  match deadline with
+  | none =>
+    ∃ T τ,
+      Chal.ThreeMachine.Feasible G T τ ∧
+        (∀ (T' : ℕ) (τ' : Fin n → ℕ), Chal.ThreeMachine.Feasible G T' τ' → T ≤ T') ∧
+          out = Chal.ThreeMachine.encodeAnswer (some (Chal.ThreeMachine.slots τ))
+  | some T =>
+    (out = Chal.ThreeMachine.encodeAnswer none ∧ ¬∃ τ, Chal.ThreeMachine.Feasible G T τ) ∨
+      ∃ τ, Chal.ThreeMachine.Feasible G T τ ∧ out = Chal.ThreeMachine.encodeAnswer (some (Chal.ThreeMachine.slots τ))
+structure Chal.ThreeMachine.Machine (k q g : ℕ) : Type
+number of parameters: 3
+fields:
+  Chal.ThreeMachine.Machine.transition : Fin (q + 1) →
+      (Fin (k + 1) → Fin (g + 3)) → Option (Fin (q + 1) × (Fin (k + 1) → Fin (g + 3) × Option Turing.Dir))
+constructor:
+  Chal.ThreeMachine.Machine.mk {k q g : ℕ}
+    (transition :
+      Fin (q + 1) →
+        (Fin (k + 1) → Fin (g + 3)) → Option (Fin (q + 1) × (Fin (k + 1) → Fin (g + 3) × Option Turing.Dir))) :
+    Chal.ThreeMachine.Machine k q g
+structure Chal.ThreeMachine.Configuration (k q g : ℕ) : Type
+number of parameters: 3
+fields:
+  Chal.ThreeMachine.Configuration.state : Fin (q + 1)
+  Chal.ThreeMachine.Configuration.tapes : Fin (k + 1) → Turing.Tape (Fin (g + 3))
+constructor:
+  Chal.ThreeMachine.Configuration.mk {k q g : ℕ} (state : Fin (q + 1))
+    (tapes : Fin (k + 1) → Turing.Tape (Fin (g + 3))) : Chal.ThreeMachine.Configuration k q g
+def Chal.ThreeMachine.bitSymbol : {g : ℕ} → Bool → Fin (g + 3) :=
+fun {g} b => if b = true then ⟨2, ⋯⟩ else ⟨1, ⋯⟩
+def Chal.ThreeMachine.Machine.step : {k q g : ℕ} →
+  Chal.ThreeMachine.Machine k q g →
+    Chal.ThreeMachine.Configuration k q g → Option (Chal.ThreeMachine.Configuration k q g) :=
+fun {k q g} M c => do
+  let __x ← M.transition c.state fun i => (c.tapes i).head
+  match __x with
+    | (state, action) =>
+      pure
+        { state := state,
+          tapes := fun i =>
+            have tape := Turing.Tape.write (action i).1 (c.tapes i);
+            match (action i).2 with
+            | none => tape
+            | some d => Turing.Tape.move d tape }
+def Chal.ThreeMachine.Machine.initial : {k q g : ℕ} →
+  Chal.ThreeMachine.Machine k q g → List Bool → Chal.ThreeMachine.Configuration k q g :=
+fun {k q g} _M input =>
+  { state := 0, tapes := fun i => Turing.Tape.mk₁ (if i = 0 then List.map Chal.ThreeMachine.bitSymbol input else []) }
+def Chal.ThreeMachine.Machine.run : {k q g : ℕ} →
+  Chal.ThreeMachine.Machine k q g → List Bool → ℕ → Chal.ThreeMachine.Configuration k q g :=
+fun {k q g} M input t => (fun c => (M.step c).getD c)^[t] (M.initial input)
+def Chal.ThreeMachine.Machine.Produces : {k q g : ℕ} →
+  Chal.ThreeMachine.Machine k q g → List Bool → List Bool → ℕ → Prop :=
+fun {k q g} M input out timeBound =>
+  ∃ t ≤ timeBound,
+    M.step (M.run input t) = none ∧
+      ((M.run input t).tapes 0).right₀ = Turing.ListBlank.mk (List.map Chal.ThreeMachine.bitSymbol out)
+def Chal.ThreeMachine.ReleaseTheorem : Prop :=
+∃ k q g M C,
+  0 < C ∧
+    ∀ (n : ℕ) (G : Chal.ThreeMachine.Instance n),
+      1 ≤ n →
+        G.acyclic →
+          ∀ (deadline : Option ℕ),
+            (∀ T ∈ deadline, 1 ≤ T ∧ T ≤ n) →
+              ∃ out,
+                Chal.ThreeMachine.CorrectOutput G deadline out ∧
+                  M.Produces (Chal.ThreeMachine.encodeInput G deadline) out
+                    (C * ((Chal.ThreeMachine.encodeInput G deadline).length + 2) ^ 150020)
+'OAI.ThreeMachine.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ThreeMachine comparator-style: ok=34 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

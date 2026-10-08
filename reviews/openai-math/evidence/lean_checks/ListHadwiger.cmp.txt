@@ -1,0 +1,29 @@
+CMP OAI.LinearListHadwiger.main_theorem [thm] ok
+CMP OAI.LinearListHadwiger.MainStatement [def] ok
+CMP OAI.LinearListHadwiger.hadwigerNumber [def] ok
+CMP OAI.LinearListHadwiger.HasCliqueMinor [def] ok
+CMP OAI.LinearListHadwiger.listChromaticNumber [def] ok
+CMP OAI.LinearListHadwiger.Choosable [def] ok
+CMP OAI.LinearListHadwiger.ListColorable [def] ok
+Chal.LinearListHadwiger.main_theorem : Chal.LinearListHadwiger.MainStatement
+def Chal.LinearListHadwiger.ListColorable : {V : Type} → SimpleGraph V → {Color : Type} → (V → Finset Color) → Prop :=
+fun {V} G {Color} L => ∃ c, (∀ (v : V), c v ∈ L v) ∧ ∀ ⦃v w : V⦄, G.Adj v w → c v ≠ c w
+def Chal.LinearListHadwiger.Choosable : {V : Type} → SimpleGraph V → ℕ → Prop :=
+fun {V} G k =>
+  ∀ (Color : Type) (L : V → Finset Color), (∀ (v : V), k ≤ (L v).card) → Chal.LinearListHadwiger.ListColorable G L
+def Chal.LinearListHadwiger.listChromaticNumber : {V : Type} → SimpleGraph V → ℕ :=
+fun {V} G => sInf {k | Chal.LinearListHadwiger.Choosable G k}
+def Chal.LinearListHadwiger.HasCliqueMinor : {V : Type} → SimpleGraph V → ℕ → Prop :=
+fun {V} G t =>
+  ∃ B,
+    (∀ (i : Fin t), (SimpleGraph.induce (B i) G).Connected) ∧
+      (∀ (i j : Fin t), i ≠ j → Disjoint (B i) (B j)) ∧ ∀ (i j : Fin t), i ≠ j → ∃ v ∈ B i, ∃ w ∈ B j, G.Adj v w
+def Chal.LinearListHadwiger.hadwigerNumber : {V : Type} → SimpleGraph V → ℕ :=
+fun {V} G => sSup {t | Chal.LinearListHadwiger.HasCliqueMinor G t}
+def Chal.LinearListHadwiger.MainStatement : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (V : Type) [Fintype V] [Nonempty V] (G : SimpleGraph V),
+      Chal.LinearListHadwiger.listChromaticNumber G ≤ C * Chal.LinearListHadwiger.hadwigerNumber G
+'OAI.LinearListHadwiger.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ListHadwiger comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

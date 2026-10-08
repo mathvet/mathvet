@@ -1,0 +1,20 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_SiegelZeros.lean:8:8: warning: declaration uses `sorry`
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_SiegelZeros.lean:19:8: warning: declaration uses `sorry`
+OAI.SiegelZeros.WeightedTorusJets.exists_absolute_real_zero_gap : ∃ c,
+  0 < c ∧
+    ∀ (q : ℕ) [inst : NeZero q],
+      3 ≤ q →
+        ∀ (χ : DirichletCharacter ℂ q),
+          χ.IsPrimitive →
+            χ ≠ 1 →
+              (∀ (a : ZMod q), (χ a).im = 0) →
+                ∀ (β : ℝ), 0 < β → β < 1 → DirichletCharacter.LFunction χ ↑β = 0 → c ≤ (1 - β) * Real.log ↑q
+OAI.SiegelZeros.WeightedTorusJets.dirichletRealZeroBound_proof : ∃ c,
+  0 < c ∧
+    ∀ (q : ℕ) [inst : NeZero q],
+      3 ≤ q →
+        ∀ (χ : DirichletCharacter ℂ q),
+          χ.IsPrimitive →
+            χ ≠ 1 →
+              (∀ (a : ZMod q), (χ a).im = 0) →
+                ∀ (β : ℝ), 0 < β ∧ β < 1 ∧ DirichletCharacter.LFunction χ ↑β = 0 → c ≤ (1 - β) * Real.log ↑q

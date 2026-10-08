@@ -1,0 +1,216 @@
+CMP OAI.ContingencyTables.counting [thm] ok
+CMP OAI.ContingencyTables.Algorithms.CountingStatement [def] ok
+CMP OAI.ContingencyTables.Algorithms.goodCountingTapes [def] ok
+CMP OAI.ContingencyTables.Algorithms.count [def] ok
+CMP OAI.ContingencyTables.boundedTable_fintype [def] ok
+CMP OAI.ContingencyTables.table_fintype [def] ok
+CMP OAI.ContingencyTables.table_finite [thm] ok
+CMP OAI.ContingencyTables.Table [def] ok
+CMP OAI.ContingencyTables.HasMargins [def] ok
+CMP OAI.ContingencyTables.BoundedTable [def] ok
+CMP OAI.ContingencyTables.Algorithms.encodeCountingInput [def] ok
+CMP OAI.MatchingFPRAS.encodeRat [def] ok
+CMP OAI.MatchingFPRAS.encodeNat [def] ok
+CMP OAI.MatchingFPRAS.encodeNat._proof_1 [thm] ok
+CMP OAI.MatchingFPRAS.Symbol [def] ok
+CMP OAI.MatchingFPRAS.encodeInt [def] ok
+CMP OAI.ContingencyTables.Algorithms.encodeMatrix [def] ok
+CMP OAI.ContingencyTables.Algorithms.Symbol [def] ok
+CMP OAI.ContingencyTables.Algorithms.encodeMargins [def] ok
+CMP OAI.MatchingFPRAS.Outputs [def] ok
+CMP OAI.MatchingFPRAS.Configuration.tape [def] ok
+CMP OAI.MatchingFPRAS.Configuration [ind] ok
+CMP OAI.MatchingFPRAS.Configuration.mk [ctor] ok
+CMP OAI.MatchingFPRAS.RandomMachine.states [def] ok
+CMP OAI.MatchingFPRAS.RandomMachine [ind] ok
+CMP OAI.MatchingFPRAS.RandomMachine.mk [ctor] ok
+CMP OAI.MatchingFPRAS.run [def] ok
+CMP OAI.MatchingFPRAS.initial [def] ok
+CMP OAI.MatchingFPRAS.initial._proof_1 [thm] ok
+CMP OAI.MatchingFPRAS.tick [def] ok
+CMP OAI.MatchingFPRAS.tick.match_1 [def] ok
+CMP OAI.MatchingFPRAS.RandomMachine.transition [def] ok
+CMP OAI.MatchingFPRAS.tick.match_3 [def] ok
+CMP OAI.MatchingFPRAS.Configuration.state [def] ok
+CMP OAI.MatchingFPRAS.tick.match_5 [def] ok
+CMP OAI.ContingencyTables.Algorithms.Machine [def] ok
+CMP OAI.ContingencyTables.Algorithms.countingTime [def] ok
+CMP OAI.ContingencyTables.exactSampling [thm] ok
+CMP OAI.ContingencyTables.Algorithms.ExactSamplingStatement [def] ok
+CMP OAI.ContingencyTables.Algorithms.samplingSize [def] ok
+CMP OAI.ContingencyTables.Algorithms.tableMass [def] ok
+CMP OAI.ContingencyTables.Algorithms.tableMass._proof_1 [thm] ok
+CMP OAI.ContingencyTables.Algorithms.OutputsTable [def] ok
+CMP OAI.ContingencyTables.Algorithms.alphabetSize_neZero [thm] ok
+CMP OAI.ContingencyTables.Algorithms.haltMass [def] ok
+CMP OAI.ContingencyTables.boundedSampling [thm] ok
+CMP OAI.ContingencyTables.Algorithms.BoundedSamplingStatement [def] ok
+CMP OAI.ContingencyTables.Algorithms.encodeSamplingInput [def] ok
+Chal.ContingencyTables.boundedSampling : Chal.ContingencyTables.Algorithms.BoundedSamplingStatement
+Chal.ContingencyTables.exactSampling : Chal.ContingencyTables.Algorithms.ExactSamplingStatement
+Chal.ContingencyTables.counting : Chal.ContingencyTables.Algorithms.CountingStatement
+@[reducible] def Chal.MatchingFPRAS.Symbol : Type :=
+Fin 8
+def Chal.MatchingFPRAS.encodeNat : ℕ → List Chal.MatchingFPRAS.Symbol :=
+fun n => List.map (fun b => if b = true then 2 else 1) n.bits ++ [3]
+def Chal.MatchingFPRAS.encodeInt : ℤ → List Chal.MatchingFPRAS.Symbol :=
+fun z => (if z < 0 then [5] else [4]) ++ Chal.MatchingFPRAS.encodeNat z.natAbs
+def Chal.MatchingFPRAS.encodeRat : ℚ → List Chal.MatchingFPRAS.Symbol :=
+fun q => Chal.MatchingFPRAS.encodeInt q.num ++ Chal.MatchingFPRAS.encodeNat q.den
+structure Chal.MatchingFPRAS.RandomMachine : Type
+number of parameters: 0
+fields:
+  Chal.MatchingFPRAS.RandomMachine.states : ℕ
+  Chal.MatchingFPRAS.RandomMachine.transition : Fin (self.states + 1) →
+      Chal.MatchingFPRAS.Symbol → Bool → Option (Fin (self.states + 1) × Turing.TM0.Stmt Chal.MatchingFPRAS.Symbol)
+constructor:
+  Chal.MatchingFPRAS.RandomMachine.mk (states : ℕ)
+    (transition :
+      Fin (states + 1) →
+        Chal.MatchingFPRAS.Symbol → Bool → Option (Fin (states + 1) × Turing.TM0.Stmt Chal.MatchingFPRAS.Symbol)) :
+    Chal.MatchingFPRAS.RandomMachine
+structure Chal.MatchingFPRAS.Configuration (A : Chal.MatchingFPRAS.RandomMachine) : Type
+number of parameters: 1
+fields:
+  Chal.MatchingFPRAS.Configuration.state : Option (Fin (A.states + 1))
+  Chal.MatchingFPRAS.Configuration.tape : Turing.Tape Chal.MatchingFPRAS.Symbol
+constructor:
+  Chal.MatchingFPRAS.Configuration.mk {A : Chal.MatchingFPRAS.RandomMachine} (state : Option (Fin (A.states + 1)))
+    (tape : Turing.Tape Chal.MatchingFPRAS.Symbol) : Chal.MatchingFPRAS.Configuration A
+def Chal.MatchingFPRAS.tick : (A : Chal.MatchingFPRAS.RandomMachine) →
+  Chal.MatchingFPRAS.Configuration A → Bool → Chal.MatchingFPRAS.Configuration A :=
+fun A c bit =>
+  match c.state with
+  | none => c
+  | some s =>
+    match A.transition s c.tape.head bit with
+    | none => { state := none, tape := c.tape }
+    | some (s', action) =>
+      { state := some s',
+        tape :=
+          match action with
+          | Turing.TM0.Stmt.move d => Turing.Tape.move d c.tape
+          | Turing.TM0.Stmt.write a => Turing.Tape.write a c.tape }
+def Chal.MatchingFPRAS.initial : (A : Chal.MatchingFPRAS.RandomMachine) →
+  List Chal.MatchingFPRAS.Symbol → Chal.MatchingFPRAS.Configuration A :=
+fun A input => { state := some 0, tape := Turing.Tape.mk₁ input }
+def Chal.MatchingFPRAS.run : (A : Chal.MatchingFPRAS.RandomMachine) →
+  List Chal.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → Chal.MatchingFPRAS.Configuration A :=
+fun A input {t} bits => List.foldl (Chal.MatchingFPRAS.tick A) (Chal.MatchingFPRAS.initial A input) (List.ofFn bits)
+def Chal.MatchingFPRAS.Outputs : Chal.MatchingFPRAS.RandomMachine →
+  List Chal.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → ℚ → Prop :=
+fun A input {t} bits q =>
+  (Chal.MatchingFPRAS.run A input bits).state = none ∧
+    (Chal.MatchingFPRAS.run A input bits).tape.right₀ = Turing.ListBlank.mk (Chal.MatchingFPRAS.encodeRat q)
+def Chal.ContingencyTables.HasMargins.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → J → ℕ) → (I → ℕ) → (J → ℕ) → Prop :=
+fun {I} {J} [Fintype I] [Fintype J] X r c => (∀ (i : I), ∑ j, X i j = r i) ∧ ∀ (j : J), ∑ i, X i j = c j
+def Chal.ContingencyTables.Table.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → ℕ) → (J → ℕ) → Type (max 0 u_1 u_2) :=
+fun {I} {J} [Fintype I] [Fintype J] r c => { X // Chal.ContingencyTables.HasMargins X r c }
+def Chal.ContingencyTables.BoundedTable.{u_1, u_2} : {I : Type u_1} →
+  {J : Type u_2} → [Fintype I] → [Fintype J] → (I → ℕ) → (J → ℕ) → (I → J → ℕ) → Type (max 0 u_1 u_2) :=
+fun {I} {J} [Fintype I] [Fintype J] r c b => { X // ∀ (i : I) (j : J), ↑X i j ≤ b i j }
+@[reducible] def Chal.ContingencyTables.Algorithms.Machine : Type :=
+Chal.MatchingFPRAS.RandomMachine
+@[reducible] def Chal.ContingencyTables.Algorithms.Symbol : Type :=
+Chal.MatchingFPRAS.Symbol
+def Chal.ContingencyTables.Algorithms.encodeMatrix : {m n : ℕ} →
+  (Fin m → Fin n → ℕ) → List Chal.ContingencyTables.Algorithms.Symbol :=
+fun {m n} X => (List.ofFn fun i => (List.ofFn fun j => Chal.MatchingFPRAS.encodeNat (X i j)).flatten).flatten
+def Chal.ContingencyTables.Algorithms.encodeMargins : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → List Chal.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c =>
+  Chal.MatchingFPRAS.encodeNat m ++ Chal.MatchingFPRAS.encodeNat n ++
+      (List.ofFn fun i => Chal.MatchingFPRAS.encodeNat (r i)).flatten ++
+    (List.ofFn fun j => Chal.MatchingFPRAS.encodeNat (c j)).flatten
+def Chal.ContingencyTables.Algorithms.encodeSamplingInput : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → ℕ → List Chal.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c k => Chal.ContingencyTables.Algorithms.encodeMargins r c ++ Chal.MatchingFPRAS.encodeNat k
+def Chal.ContingencyTables.Algorithms.encodeCountingInput : {m n : ℕ} →
+  (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → List Chal.ContingencyTables.Algorithms.Symbol :=
+fun {m n} r c b ε δ =>
+  Chal.ContingencyTables.Algorithms.encodeMargins r c ++ Chal.ContingencyTables.Algorithms.encodeMatrix b ++
+      Chal.MatchingFPRAS.encodeRat ε ++
+    Chal.MatchingFPRAS.encodeRat δ
+def Chal.ContingencyTables.Algorithms.OutputsTable : Chal.ContingencyTables.Algorithms.Machine →
+  List Chal.ContingencyTables.Algorithms.Symbol → {t m n : ℕ} → (Fin t → Bool) → (Fin m → Fin n → ℕ) → Prop :=
+fun A input {t m n} bits X =>
+  (Chal.MatchingFPRAS.run A input bits).state = none ∧
+    (Chal.MatchingFPRAS.run A input bits).tape.right₀ =
+      Turing.ListBlank.mk (Chal.ContingencyTables.Algorithms.encodeMatrix X)
+def Chal.ContingencyTables.Algorithms.tableMass : Chal.ContingencyTables.Algorithms.Machine →
+  List Chal.ContingencyTables.Algorithms.Symbol → ℕ → {m n : ℕ} → (Fin m → Fin n → ℕ) → ℝ :=
+fun A input t {m n} X => ↑{bits | Chal.ContingencyTables.Algorithms.OutputsTable A input bits X}.card / 2 ^ t
+def Chal.ContingencyTables.Algorithms.haltMass : Chal.ContingencyTables.Algorithms.Machine →
+  List Chal.ContingencyTables.Algorithms.Symbol → ℕ → ℝ :=
+fun A input t => ↑{bits | (Chal.MatchingFPRAS.run A input bits).state = none}.card / 2 ^ t
+def Chal.ContingencyTables.Algorithms.samplingSize : ℕ → {m : ℕ} → (Fin m → ℕ) → ℕ → ℕ :=
+fun n {m} r k => m + n + Nat.clog 2 (∑ i, r i + 1) + k + 1
+def Chal.ContingencyTables.Algorithms.BoundedSamplingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ) (r : Fin m → ℕ) (c : Fin n → ℕ),
+      ∑ i, r i = ∑ j, c j →
+        ∀ (k : ℕ),
+          1 ≤ k →
+            have input := Chal.ContingencyTables.Algorithms.encodeSamplingInput r c k;
+            have t := C * Chal.ContingencyTables.Algorithms.samplingSize n r k ^ d;
+            (∀ (bits : Fin t → Bool), ∃ X, Chal.ContingencyTables.Algorithms.OutputsTable A input bits ↑X) ∧
+              (∑ X,
+                    |Chal.ContingencyTables.Algorithms.tableMass A input t ↑X -
+                        (↑(Fintype.card (Chal.ContingencyTables.Table r c)))⁻¹|) /
+                  2 ≤
+                (2 ^ k)⁻¹
+def Chal.ContingencyTables.Algorithms.ExactSamplingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ) (r : Fin m → ℕ) (c : Fin n → ℕ),
+      ∑ i, r i = ∑ j, c j →
+        have input := Chal.ContingencyTables.Algorithms.encodeMargins r c;
+        have tail := fun t => 1 - Chal.ContingencyTables.Algorithms.haltMass A input t;
+        (∀ (t : ℕ) (bits : Fin t → Bool),
+            (Chal.MatchingFPRAS.run A input bits).state = none →
+              ∃ X, Chal.ContingencyTables.Algorithms.OutputsTable A input bits ↑X) ∧
+          (∀ (X : Chal.ContingencyTables.Table r c),
+              Filter.Tendsto (fun t => Chal.ContingencyTables.Algorithms.tableMass A input t ↑X) Filter.atTop
+                (nhds (↑(Fintype.card (Chal.ContingencyTables.Table r c)))⁻¹)) ∧
+            Filter.Tendsto (Chal.ContingencyTables.Algorithms.haltMass A input) Filter.atTop (nhds 1) ∧
+              Summable tail ∧ tsum tail ≤ ↑C * ↑(Chal.ContingencyTables.Algorithms.samplingSize n r 0) ^ d
+def Chal.ContingencyTables.Algorithms.count : {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℕ :=
+fun {m n} r c b => Fintype.card (Chal.ContingencyTables.BoundedTable r c b)
+def Chal.ContingencyTables.Algorithms.countingTime : ℕ →
+  ℕ → {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → ℕ :=
+fun C d {m n} r c b ε δ =>
+  C * ((Chal.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ).length + ⌈ε⁻¹⌉₊ + Nat.clog 2 ⌈δ⁻¹⌉₊ + 1) ^ d
+def Chal.ContingencyTables.Algorithms.goodCountingTapes : Chal.ContingencyTables.Algorithms.Machine →
+  {m n : ℕ} → (Fin m → ℕ) → (Fin n → ℕ) → (Fin m → Fin n → ℕ) → ℚ → ℚ → (t : ℕ) → Finset (Fin t → Bool) :=
+fun A {m n} r c b ε δ t =>
+  {bits |
+    ∃ q,
+      Chal.MatchingFPRAS.Outputs A (Chal.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ) bits q ∧
+        (1 - ε) * ↑(Chal.ContingencyTables.Algorithms.count r c b) ≤ q ∧
+          q ≤ (1 + ε) * ↑(Chal.ContingencyTables.Algorithms.count r c b)}
+def Chal.ContingencyTables.Algorithms.CountingStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (m n : ℕ),
+      0 < m →
+        0 < n →
+          ∀ (r : Fin m → ℕ) (c : Fin n → ℕ) (b : Fin m → Fin n → ℕ),
+            ∑ i, r i = ∑ j, c j →
+              ∀ (ε δ : ℚ),
+                0 < ε →
+                  ε < 1 →
+                    0 < δ →
+                      δ < 1 →
+                        have input := Chal.ContingencyTables.Algorithms.encodeCountingInput r c b ε δ;
+                        have t := Chal.ContingencyTables.Algorithms.countingTime C d r c b ε δ;
+                        (∀ (bits : Fin t → Bool), ∃ q, 0 ≤ q ∧ Chal.MatchingFPRAS.Outputs A input bits q) ∧
+                          (Chal.ContingencyTables.Algorithms.count r c b = 0 →
+                              ∀ (bits : Fin t → Bool), Chal.MatchingFPRAS.Outputs A input bits 0) ∧
+                            ↑(Chal.ContingencyTables.Algorithms.goodCountingTapes A r c b ε δ t).card / 2 ^ t ≥ 1 - δ
+'OAI.ContingencyTables.boundedSampling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ContingencyTables.exactSampling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ContingencyTables.counting' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ContingencyTables comparator-style: ok=48 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,5 @@
+@OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re : ∀ {q : ℕ} [inst : NeZero q]
+  (χ : DirichletCharacter ℂ q) {s : ℂ}, 7 / 8 < s.re → ¬(χ = 1 ∧ s = 1) → DirichletCharacter.LFunction χ s ≠ 0
+'OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

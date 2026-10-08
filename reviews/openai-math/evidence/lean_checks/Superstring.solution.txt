@@ -1,0 +1,25 @@
+OAI.Superstring.main : ∃ f,
+  OAI.Superstring.HasPolynomialImplementation f ∧
+    ∀ (S : OAI.Superstring.Instance),
+      OAI.Superstring.IsCommonSuperstring S (f S) ∧ List.length (f S) ≤ 2 * OAI.Superstring.opt S
+'OAI.Superstring.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Superstring.Symbol : Type :=
+List Bool
+@[reducible] def OAI.Superstring.Word : Type :=
+List OAI.Superstring.Symbol
+@[reducible] def OAI.Superstring.Instance : Type :=
+List OAI.Superstring.Word
+def OAI.Superstring.encodeList : {α : Type} → (α → List Bool) → List α → List Bool :=
+fun {α} enc x => List.brecOn x (OAI.Superstring.encodeList._f enc)
+def OAI.Superstring.encodeSymbol : OAI.Superstring.Symbol → List Bool :=
+OAI.Superstring.encodeList fun b => [b]
+def OAI.Superstring.encodeWord : OAI.Superstring.Word → List Bool :=
+OAI.Superstring.encodeList OAI.Superstring.encodeSymbol
+def OAI.Superstring.encodeInstance : OAI.Superstring.Instance → List Bool :=
+OAI.Superstring.encodeList OAI.Superstring.encodeWord
+def OAI.Superstring.IsCommonSuperstring : OAI.Superstring.Instance → OAI.Superstring.Word → Prop :=
+fun S T => ∀ s ∈ S, s <:+: T
+def OAI.Superstring.opt : OAI.Superstring.Instance → ℕ :=
+fun S => sInf {n | ∃ T, OAI.Superstring.IsCommonSuperstring S T ∧ List.length T = n}
+def OAI.Superstring.HasPolynomialImplementation : (OAI.Superstring.Instance → OAI.Superstring.Word) → Prop :=
+fun f => ∃ M, ∀ (k : M.tm.K), Finite (M.tm.Γ k)

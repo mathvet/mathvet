@@ -1,0 +1,79 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_ExactFourier.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ExactFourier.main_theorem [thm] ok
+CMP OAI.ExactFourier.MainStatement [def] ok
+CMP OAI.ExactFourier.zeta._proof_1 [thm] ok
+CMP OAI.ExactFourier.Circuit.size [def] ok
+CMP OAI.ExactFourier.Circuit [ind] ok
+CMP OAI.ExactFourier.Circuit.mk [ctor] ok
+CMP OAI.ExactFourier.Program [ind] ok
+CMP OAI.ExactFourier.Program.step [ctor] ok
+CMP OAI.ExactFourier.Gate [ind] ok
+CMP OAI.ExactFourier.Gate.scale [ctor] ok
+CMP OAI.ExactFourier.Gate.sub [ctor] ok
+CMP OAI.ExactFourier.Gate.add [ctor] ok
+CMP OAI.ExactFourier.Program.nil [ctor] ok
+CMP OAI.ExactFourier.fourierMatrix [def] ok
+CMP OAI.ExactFourier.zeta [def] ok
+CMP OAI.ExactFourier.Circuit.Computes [def] ok
+CMP OAI.ExactFourier.Circuit.eval [def] ok
+CMP OAI.ExactFourier.Circuit.outputs [def] ok
+CMP OAI.ExactFourier.Circuit.program [def] ok
+CMP OAI.ExactFourier.Program.eval [def] ok
+CMP OAI.ExactFourier.Program.eval._f [def] ok
+CMP OAI.ExactFourier.Gate.eval [def] ok
+CMP OAI.ExactFourier.Gate.eval.match_1 [def] ok
+CMP OAI.ExactFourier.Gate.casesOn [def] ok
+CMP OAI.ExactFourier.Gate.rec [rec] ok
+CMP OAI.ExactFourier.Program.eval.match_1 [def] ok
+CMP OAI.ExactFourier.Program.casesOn [def] ok
+CMP OAI.ExactFourier.Program.rec [rec] ok
+CMP OAI.ExactFourier.Program.below [def] ok
+CMP OAI.ExactFourier.Program.brecOn [def] ok
+CMP OAI.ExactFourier.Program.brecOn.go [def] ok
+Chal.ExactFourier.main_theorem : Chal.ExactFourier.MainStatement
+inductive Chal.ExactFourier.Gate : ℕ → Type
+number of parameters: 1
+constructors:
+Chal.ExactFourier.Gate.add : {w : ℕ} → Fin w → Fin w → Chal.ExactFourier.Gate w
+Chal.ExactFourier.Gate.sub : {w : ℕ} → Fin w → Fin w → Chal.ExactFourier.Gate w
+Chal.ExactFourier.Gate.scale : {w : ℕ} → ℂ → Fin w → Chal.ExactFourier.Gate w
+def Chal.ExactFourier.Gate.eval : {w : ℕ} → (Fin w → ℂ) → Chal.ExactFourier.Gate w → ℂ :=
+fun {w} v x =>
+  match x with
+  | Chal.ExactFourier.Gate.add i j => v i + v j
+  | Chal.ExactFourier.Gate.sub i j => v i - v j
+  | Chal.ExactFourier.Gate.scale c i => c * v i
+inductive Chal.ExactFourier.Program : ℕ → ℕ → Type
+number of parameters: 1
+constructors:
+Chal.ExactFourier.Program.nil : {n : ℕ} → Chal.ExactFourier.Program n 0
+Chal.ExactFourier.Program.step : {n k : ℕ} →
+  Chal.ExactFourier.Program n k → Chal.ExactFourier.Gate (n + 1 + k) → Chal.ExactFourier.Program n (k + 1)
+def Chal.ExactFourier.Program.eval : {n k : ℕ} → Chal.ExactFourier.Program n k → (Fin n → ℂ) → Fin (n + 1 + k) → ℂ :=
+fun {n} x x_1 x_2 =>
+  Chal.ExactFourier.Program.brecOn (motive := fun x x_3 => (Fin n → ℂ) → Fin (n + 1 + x) → ℂ) x_1
+    Chal.ExactFourier.Program.eval._f x_2
+structure Chal.ExactFourier.Circuit (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.ExactFourier.Circuit.size : ℕ
+  Chal.ExactFourier.Circuit.program : Chal.ExactFourier.Program n self.size
+  Chal.ExactFourier.Circuit.outputs : Fin n → Fin (n + 1 + self.size)
+constructor:
+  Chal.ExactFourier.Circuit.mk {n : ℕ} (size : ℕ) (program : Chal.ExactFourier.Program n size)
+    (outputs : Fin n → Fin (n + 1 + size)) : Chal.ExactFourier.Circuit n
+def Chal.ExactFourier.Circuit.eval : {n : ℕ} → Chal.ExactFourier.Circuit n → (Fin n → ℂ) → Fin n → ℂ :=
+fun {n} C x i => C.program.eval x (C.outputs i)
+def Chal.ExactFourier.zeta : ℕ → ℂ :=
+fun n => Complex.exp (2 * ↑Real.pi * Complex.I / ↑n)
+def Chal.ExactFourier.fourierMatrix : (n : ℕ) → Matrix (Fin n) (Fin n) ℂ :=
+fun n j k => Chal.ExactFourier.zeta n ^ (↑j * ↑k)
+def Chal.ExactFourier.Circuit.Computes : {n : ℕ} → Chal.ExactFourier.Circuit n → Matrix (Fin n) (Fin n) ℂ → Prop :=
+fun {n} C A => ∀ (x : Fin n → ℂ), C.eval x = A.mulVec x
+def Chal.ExactFourier.MainStatement : Prop :=
+∀ (c : ℝ),
+  0 < c →
+    ∀ (N₀ : ℕ),
+      2 ≤ N₀ → ∃ n, N₀ ≤ n ∧ ∃ C, C.Computes (Chal.ExactFourier.fourierMatrix n) ∧ ↑C.size < c * ↑n * Real.logb 2 ↑n
+'OAI.ExactFourier.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ExactFourier comparator-style: ok=31 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

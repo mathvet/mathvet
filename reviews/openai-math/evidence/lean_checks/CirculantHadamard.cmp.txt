@@ -1,3 +1,4 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_CirculantHadamard.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.CirculantHadamard.exists_iff_order_one_or_four [thm] ok
 CMP OAI.CirculantHadamard.ExistsRealCirculantHadamard [def] ok
 CMP OAI.CirculantHadamard.IsSignHadamard [def] ok
@@ -17,4 +18,4 @@ fun {n} H => (∀ (i j : Fin n), Chal.CirculantHadamard.IsSign (H i j)) ∧ H * 
 def Chal.CirculantHadamard.ExistsRealCirculantHadamard : ℕ → Prop :=
 fun n => ∃ H, Chal.CirculantHadamard.IsCirculant H ∧ Chal.CirculantHadamard.IsSignHadamard H
 'OAI.CirculantHadamard.exists_iff_order_one_or_four' depends on axioms: [propext, Classical.choice, Quot.sound]
-== CirculantHadamard comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== CirculantHadamard comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

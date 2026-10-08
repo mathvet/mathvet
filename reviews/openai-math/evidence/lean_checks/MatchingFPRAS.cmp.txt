@@ -1,0 +1,138 @@
+CMP OAI.MatchingFPRAS.thm_main [thm] ok
+CMP OAI.MatchingFPRAS.MainStatement [def] ok
+CMP OAI.MatchingFPRAS.goodTapes [def] ok
+CMP OAI.MatchingFPRAS.Z [def] ok
+CMP OAI.MatchingFPRAS.perfectMatchings [def] ok
+CMP OAI.MatchingFPRAS.GraphInput.edges [def] ok
+CMP OAI.MatchingFPRAS.GraphInput [ind] ok
+CMP OAI.MatchingFPRAS.GraphInput.mk [ctor] ok
+CMP OAI.MatchingFPRAS.GraphInput.n [def] ok
+CMP OAI.MatchingFPRAS.Perfect [def] ok
+CMP OAI.MatchingFPRAS.encodeInput [def] ok
+CMP OAI.MatchingFPRAS.encodeRat [def] ok
+CMP OAI.MatchingFPRAS.encodeNat [def] ok
+CMP OAI.MatchingFPRAS.encodeNat._proof_1 [thm] ok
+CMP OAI.MatchingFPRAS.Symbol [def] ok
+CMP OAI.MatchingFPRAS.encodeInt [def] ok
+CMP OAI.MatchingFPRAS.encodeInput._proof_3 [thm] ok
+CMP OAI.MatchingFPRAS.encodeInput._proof_2 [thm] ok
+CMP OAI.MatchingFPRAS.encodeInput._proof_1 [thm] ok
+CMP OAI.MatchingFPRAS.Outputs [def] ok
+CMP OAI.MatchingFPRAS.Configuration.tape [def] ok
+CMP OAI.MatchingFPRAS.Configuration [ind] ok
+CMP OAI.MatchingFPRAS.Configuration.mk [ctor] ok
+CMP OAI.MatchingFPRAS.RandomMachine.states [def] ok
+CMP OAI.MatchingFPRAS.RandomMachine [ind] ok
+CMP OAI.MatchingFPRAS.RandomMachine.mk [ctor] ok
+CMP OAI.MatchingFPRAS.run [def] ok
+CMP OAI.MatchingFPRAS.initial [def] ok
+CMP OAI.MatchingFPRAS.initial._proof_1 [thm] ok
+CMP OAI.MatchingFPRAS.tick [def] ok
+CMP OAI.MatchingFPRAS.tick.match_1 [def] ok
+CMP OAI.MatchingFPRAS.RandomMachine.transition [def] ok
+CMP OAI.MatchingFPRAS.tick.match_3 [def] ok
+CMP OAI.MatchingFPRAS.Configuration.state [def] ok
+CMP OAI.MatchingFPRAS.tick.match_5 [def] ok
+CMP OAI.MatchingFPRAS.timeBound [def] ok
+Chal.MatchingFPRAS.thm_main : Chal.MatchingFPRAS.MainStatement
+structure Chal.MatchingFPRAS.GraphInput : Type
+number of parameters: 0
+fields:
+  Chal.MatchingFPRAS.GraphInput.n : ℕ
+  Chal.MatchingFPRAS.GraphInput.edges : Finset (Fin self.n × Fin self.n)
+  Chal.MatchingFPRAS.GraphInput.increasing : ∀ e ∈ self.edges, e.1 < e.2
+constructor:
+  Chal.MatchingFPRAS.GraphInput.mk (n : ℕ) (edges : Finset (Fin n × Fin n)) (increasing : ∀ e ∈ edges, e.1 < e.2) :
+    Chal.MatchingFPRAS.GraphInput
+def Chal.MatchingFPRAS.Perfect : (G : Chal.MatchingFPRAS.GraphInput) → Finset (Fin G.n × Fin G.n) → Prop :=
+fun G M => M ⊆ G.edges ∧ ∀ (v : Fin G.n), ∃! e, e ∈ M ∧ (e.1 = v ∨ e.2 = v)
+def Chal.MatchingFPRAS.perfectMatchings : (G : Chal.MatchingFPRAS.GraphInput) → Finset (Finset (Fin G.n × Fin G.n)) :=
+fun G => Finset.filter (Chal.MatchingFPRAS.Perfect G) G.edges.powerset
+def Chal.MatchingFPRAS.Z : Chal.MatchingFPRAS.GraphInput → ℕ :=
+fun G => (Chal.MatchingFPRAS.perfectMatchings G).card
+@[reducible] def Chal.MatchingFPRAS.Symbol : Type :=
+Fin 8
+def Chal.MatchingFPRAS.encodeNat : ℕ → List Chal.MatchingFPRAS.Symbol :=
+fun n => List.map (fun b => if b = true then 2 else 1) n.bits ++ [3]
+def Chal.MatchingFPRAS.encodeInt : ℤ → List Chal.MatchingFPRAS.Symbol :=
+fun z => (if z < 0 then [5] else [4]) ++ Chal.MatchingFPRAS.encodeNat z.natAbs
+def Chal.MatchingFPRAS.encodeRat : ℚ → List Chal.MatchingFPRAS.Symbol :=
+fun q => Chal.MatchingFPRAS.encodeInt q.num ++ Chal.MatchingFPRAS.encodeNat q.den
+def Chal.MatchingFPRAS.encodeInput : Chal.MatchingFPRAS.GraphInput → ℚ → ℚ → List Chal.MatchingFPRAS.Symbol :=
+fun G ε δ =>
+  Chal.MatchingFPRAS.encodeNat G.n ++ Chal.MatchingFPRAS.encodeNat G.edges.card ++
+        List.flatMap (fun e => Chal.MatchingFPRAS.encodeNat ↑(ofLex e).1 ++ Chal.MatchingFPRAS.encodeNat ↑(ofLex e).2)
+          ((Finset.map toLex.toEmbedding G.edges).sort fun x1 x2 => x1 ≤ x2) ++
+      Chal.MatchingFPRAS.encodeRat ε ++
+    Chal.MatchingFPRAS.encodeRat δ
+structure Chal.MatchingFPRAS.RandomMachine : Type
+number of parameters: 0
+fields:
+  Chal.MatchingFPRAS.RandomMachine.states : ℕ
+  Chal.MatchingFPRAS.RandomMachine.transition : Fin (self.states + 1) →
+      Chal.MatchingFPRAS.Symbol → Bool → Option (Fin (self.states + 1) × Turing.TM0.Stmt Chal.MatchingFPRAS.Symbol)
+constructor:
+  Chal.MatchingFPRAS.RandomMachine.mk (states : ℕ)
+    (transition :
+      Fin (states + 1) →
+        Chal.MatchingFPRAS.Symbol → Bool → Option (Fin (states + 1) × Turing.TM0.Stmt Chal.MatchingFPRAS.Symbol)) :
+    Chal.MatchingFPRAS.RandomMachine
+structure Chal.MatchingFPRAS.Configuration (A : Chal.MatchingFPRAS.RandomMachine) : Type
+number of parameters: 1
+fields:
+  Chal.MatchingFPRAS.Configuration.state : Option (Fin (A.states + 1))
+  Chal.MatchingFPRAS.Configuration.tape : Turing.Tape Chal.MatchingFPRAS.Symbol
+constructor:
+  Chal.MatchingFPRAS.Configuration.mk {A : Chal.MatchingFPRAS.RandomMachine} (state : Option (Fin (A.states + 1)))
+    (tape : Turing.Tape Chal.MatchingFPRAS.Symbol) : Chal.MatchingFPRAS.Configuration A
+def Chal.MatchingFPRAS.tick : (A : Chal.MatchingFPRAS.RandomMachine) →
+  Chal.MatchingFPRAS.Configuration A → Bool → Chal.MatchingFPRAS.Configuration A :=
+fun A c bit =>
+  match c.state with
+  | none => c
+  | some s =>
+    match A.transition s c.tape.head bit with
+    | none => { state := none, tape := c.tape }
+    | some (s', action) =>
+      { state := some s',
+        tape :=
+          match action with
+          | Turing.TM0.Stmt.move d => Turing.Tape.move d c.tape
+          | Turing.TM0.Stmt.write a => Turing.Tape.write a c.tape }
+def Chal.MatchingFPRAS.initial : (A : Chal.MatchingFPRAS.RandomMachine) →
+  List Chal.MatchingFPRAS.Symbol → Chal.MatchingFPRAS.Configuration A :=
+fun A input => { state := some 0, tape := Turing.Tape.mk₁ input }
+def Chal.MatchingFPRAS.run : (A : Chal.MatchingFPRAS.RandomMachine) →
+  List Chal.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → Chal.MatchingFPRAS.Configuration A :=
+fun A input {t} bits => List.foldl (Chal.MatchingFPRAS.tick A) (Chal.MatchingFPRAS.initial A input) (List.ofFn bits)
+def Chal.MatchingFPRAS.Outputs : Chal.MatchingFPRAS.RandomMachine →
+  List Chal.MatchingFPRAS.Symbol → {t : ℕ} → (Fin t → Bool) → ℚ → Prop :=
+fun A input {t} bits q =>
+  (Chal.MatchingFPRAS.run A input bits).state = none ∧
+    (Chal.MatchingFPRAS.run A input bits).tape.right₀ = Turing.ListBlank.mk (Chal.MatchingFPRAS.encodeRat q)
+def Chal.MatchingFPRAS.timeBound : ℕ → ℕ → Chal.MatchingFPRAS.GraphInput → ℚ → ℚ → ℕ :=
+fun C d G ε δ => C * ((Chal.MatchingFPRAS.encodeInput G ε δ).length + ⌈ε⁻¹⌉₊ + Nat.clog 2 ⌈δ⁻¹⌉₊ + 1) ^ d
+def Chal.MatchingFPRAS.goodTapes : Chal.MatchingFPRAS.RandomMachine →
+  Chal.MatchingFPRAS.GraphInput → ℚ → ℚ → (t : ℕ) → Finset (Fin t → Bool) :=
+fun A G ε δ t =>
+  {bits |
+    ∃ q,
+      Chal.MatchingFPRAS.Outputs A (Chal.MatchingFPRAS.encodeInput G ε δ) bits q ∧
+        (1 - ε) * ↑(Chal.MatchingFPRAS.Z G) ≤ q ∧ q ≤ (1 + ε) * ↑(Chal.MatchingFPRAS.Z G)}
+def Chal.MatchingFPRAS.MainStatement : Prop :=
+∃ A C d,
+  0 < C ∧
+    ∀ (G : Chal.MatchingFPRAS.GraphInput) (ε δ : ℚ),
+      0 < ε →
+        ε < 1 →
+          0 < δ →
+            δ < 1 / 2 →
+              have t := Chal.MatchingFPRAS.timeBound C d G ε δ;
+              (∀ (bits : Fin t → Bool),
+                  ∃ q, 0 ≤ q ∧ Chal.MatchingFPRAS.Outputs A (Chal.MatchingFPRAS.encodeInput G ε δ) bits q) ∧
+                (Chal.MatchingFPRAS.Z G = 0 →
+                    ∀ (bits : Fin t → Bool),
+                      Chal.MatchingFPRAS.Outputs A (Chal.MatchingFPRAS.encodeInput G ε δ) bits 0) ∧
+                  ↑(Chal.MatchingFPRAS.goodTapes A G ε δ t).card / 2 ^ t ≥ 1 - δ
+'OAI.MatchingFPRAS.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatchingFPRAS comparator-style: ok=36 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

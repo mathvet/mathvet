@@ -1,0 +1,24 @@
+CMP OAI.PerfectMatchingPSD.affine_lift_lower_bound [thm] ok
+CMP OAI.PerfectMatchingPSD.HasAffineLift [def] ok
+CMP OAI.PerfectMatchingPSD.matchingPolytope [def] ok
+CMP OAI.PerfectMatchingPSD.matchingPoint [def] ok
+CMP OAI.PerfectMatchingPSD.IsPerfectMatching [def] ok
+CMP OAI.PerfectMatchingPSD.Edge [def] ok
+CMP OAI.PerfectMatchingPSD.PerfectMatching [def] ok
+Chal.PerfectMatchingPSD.affine_lift_lower_bound : ∀ (C : ℝ),
+  0 < C → ∃ n₀, 4 ≤ n₀ ∧ ∀ (n : ℕ), n₀ ≤ n → Even n → ∀ (r : ℕ), Chal.PerfectMatchingPSD.HasAffineLift n r → ↑n ^ C < ↑r
+@[reducible] def Chal.PerfectMatchingPSD.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+def Chal.PerfectMatchingPSD.IsPerfectMatching : {n : ℕ} → Finset (Chal.PerfectMatchingPSD.Edge n) → Prop :=
+fun {n} M => ∀ (v : Fin n), {e ∈ M | (↑e).1 = v ∨ (↑e).2 = v}.card = 1
+@[reducible] def Chal.PerfectMatchingPSD.PerfectMatching : ℕ → Type :=
+fun n => { M // Chal.PerfectMatchingPSD.IsPerfectMatching M }
+def Chal.PerfectMatchingPSD.matchingPoint : {n : ℕ} →
+  Chal.PerfectMatchingPSD.PerfectMatching n → Chal.PerfectMatchingPSD.Edge n → ℝ :=
+fun {n} M e => if e ∈ ↑M then 1 else 0
+def Chal.PerfectMatchingPSD.matchingPolytope : (n : ℕ) → Set (Chal.PerfectMatchingPSD.Edge n → ℝ) :=
+fun n => (convexHull ℝ) (Set.range Chal.PerfectMatchingPSD.matchingPoint)
+def Chal.PerfectMatchingPSD.HasAffineLift : ℕ → ℕ → Prop :=
+fun n r => ∃ L T, ⇑T '' {X | X ∈ L ∧ X.PosSemidef} = Chal.PerfectMatchingPSD.matchingPolytope n
+'OAI.PerfectMatchingPSD.affine_lift_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatchingAffineLift comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

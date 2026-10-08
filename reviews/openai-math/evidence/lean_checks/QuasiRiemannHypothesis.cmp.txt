@@ -1,1 +1,4 @@
-/Users/shannon/cc/math/math/lean/Scratch/Cmp_QuasiRiemannHypothesis.lean:1:0: error: object file '/Users/shannon/cc/math/math/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL/Nonvanishing.olean' of module OAI.NumberTheory.DirichletL.Nonvanishing does not exist
+CMP OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re [thm] ok
+@Chal.riemannZeta_ne_zero_of_seven_eighths_lt_re : ∀ {s : ℂ}, 7 / 8 < s.re → riemannZeta s ≠ 0
+'OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+== QuasiRiemannHypothesis comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

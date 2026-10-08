@@ -1,0 +1,19 @@
+== MatrixMultiplication comparator start 2026-10-08T09:50:57Z
+Building ComparatorChallenges.MatrixMultiplication
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.MatrixMultiplication
+⚠ [8924/8924] Built ComparatorChallenges.MatrixMultiplication (8.4s)
+warning: ComparatorChallenges/MatrixMultiplication.lean:118:8: declaration uses `sorry`
+warning: ComparatorChallenges/MatrixMultiplication.lean:122:8: declaration uses `sorry`
+warning: ComparatorChallenges/MatrixMultiplication.lean:126:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.MatrixMultiplication -- Quot Quot.mk Quot.lift Quot.ind OAI.MatrixMultiplication.complex_omega_le_nine_quarters OAI.MatrixMultiplication.complex_alpha_gt_93_div_200 OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250 propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.MatrixMultiplication.complex_omega_le_nine_quarters, OAI.MatrixMultiplication.complex_alpha_gt_93_div_200, OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.MatrixMultiplication
+Building OAI.LinearAlgebra.MatrixMultiplication.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.LinearAlgebra.MatrixMultiplication.Main
+Build completed successfully (9433 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.LinearAlgebra.MatrixMultiplication.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.MatrixMultiplication.complex_omega_le_nine_quarters OAI.MatrixMultiplication.complex_alpha_gt_93_div_200 OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250 propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.MatrixMultiplication.complex_omega_le_nine_quarters, OAI.MatrixMultiplication.complex_alpha_gt_93_div_200, OAI.MatrixMultiplication.complex_rectangular_omega_lt_523_div_250, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.LinearAlgebra.MatrixMultiplication.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T09:54:15Z
