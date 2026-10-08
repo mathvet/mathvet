@@ -1,0 +1,55 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_DirectionalWalk.lean:85:8: warning: declaration uses `sorry`
+OAI.DirectionalZeroOne.directional_zero_one : ∀ (d : ℕ),
+  3 ≤ d →
+    ∀ (μ : MeasureTheory.Measure (OAI.DirectionalZeroOne.Row d)) [inst : MeasureTheory.IsProbabilityMeasure μ],
+      OAI.DirectionalZeroOne.StrictEllipticity μ →
+        ∀ (ℓ : Fin d → ℝ),
+          ℓ ≠ 0 →
+            (OAI.DirectionalZeroOne.annealed μ 0) (OAI.DirectionalZeroOne.escape ℓ) = 0 ∨
+              (OAI.DirectionalZeroOne.annealed μ 0) (OAI.DirectionalZeroOne.escape ℓ) = 1
+@[reducible] def OAI.DirectionalZeroOne.Site : ℕ → Type :=
+fun d => Fin d → ℤ
+@[reducible] def OAI.DirectionalZeroOne.Step : ℕ → Type :=
+fun d => Fin d × Bool
+def OAI.DirectionalZeroOne.stepVector : {d : ℕ} → OAI.DirectionalZeroOne.Step d → OAI.DirectionalZeroOne.Site d :=
+fun {d} e i => if i = e.1 then if e.2 = true then 1 else -1 else 0
+def OAI.DirectionalZeroOne.Row : ℕ → Type :=
+fun d => { p // (∀ (e : OAI.DirectionalZeroOne.Step d), p e ∈ Set.Icc 0 1) ∧ ∑ e, p e = 1 }
+@[reducible] def OAI.DirectionalZeroOne.Environment : ℕ → Type :=
+fun d => OAI.DirectionalZeroOne.Site d → OAI.DirectionalZeroOne.Row d
+@[reducible] def OAI.DirectionalZeroOne.Path : ℕ → Type :=
+fun d => ℕ → OAI.DirectionalZeroOne.Site d
+@[reducible] def OAI.DirectionalZeroOne.State : ℕ → Type :=
+fun d => OAI.DirectionalZeroOne.Environment d × OAI.DirectionalZeroOne.Site d
+def OAI.DirectionalZeroOne.StrictEllipticity : {d : ℕ} → MeasureTheory.Measure (OAI.DirectionalZeroOne.Row d) → Prop :=
+fun {d} μ => ∀ᵐ (p : OAI.DirectionalZeroOne.Row d) ∂μ, ∀ (e : OAI.DirectionalZeroOne.Step d), 0 < ↑p e
+def OAI.DirectionalZeroOne.environmentLaw : {d : ℕ} →
+  (μ : MeasureTheory.Measure (OAI.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] → MeasureTheory.Measure (OAI.DirectionalZeroOne.Environment d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] => MeasureTheory.Measure.infinitePi fun x => μ
+def OAI.DirectionalZeroOne.transition : (d : ℕ) →
+  ProbabilityTheory.Kernel (OAI.DirectionalZeroOne.State d) (OAI.DirectionalZeroOne.State d) :=
+fun d =>
+  {
+    toFun := fun s =>
+      ∑ e, ENNReal.ofReal (↑(s.1 s.2) e) • MeasureTheory.Measure.dirac (s.1, s.2 + OAI.DirectionalZeroOne.stepVector e),
+    measurable' := ⋯ }
+def OAI.DirectionalZeroOne.historyKernel : (d n : ℕ) →
+  ProbabilityTheory.Kernel (↥(Finset.Iic n) → OAI.DirectionalZeroOne.State d) (OAI.DirectionalZeroOne.State d) :=
+fun d n => (OAI.DirectionalZeroOne.transition d).comap (fun h => h ⟨n, ⋯⟩) ⋯
+def OAI.DirectionalZeroOne.initialLaw : {d : ℕ} →
+  (μ : MeasureTheory.Measure (OAI.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] →
+      OAI.DirectionalZeroOne.Site d → MeasureTheory.Measure (OAI.DirectionalZeroOne.State d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] x =>
+  MeasureTheory.Measure.map (fun ω => (ω, x)) (OAI.DirectionalZeroOne.environmentLaw μ)
+def OAI.DirectionalZeroOne.annealed : {d : ℕ} →
+  (μ : MeasureTheory.Measure (OAI.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] →
+      OAI.DirectionalZeroOne.Site d → MeasureTheory.Measure (OAI.DirectionalZeroOne.Path d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] x =>
+  MeasureTheory.Measure.map (fun z n => (z n).2)
+    (ProbabilityTheory.Kernel.trajMeasure (OAI.DirectionalZeroOne.initialLaw μ x)
+      (OAI.DirectionalZeroOne.historyKernel d))
+def OAI.DirectionalZeroOne.escape : {d : ℕ} → (Fin d → ℝ) → Set (OAI.DirectionalZeroOne.Path d) :=
+fun {d} ℓ => {X | Filter.Tendsto (fun n => ∑ i, ↑(X n i) * ℓ i) Filter.atTop Filter.atTop}

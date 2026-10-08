@@ -1,0 +1,73 @@
+CMP OAI.EntropyRateDimension.entropy_rate_dimension [thm] ok
+CMP OAI.EntropyRateDimension.System.lyapunov [def] ok
+CMP OAI.EntropyRateDimension.System.walkEntropy._proof_1 [thm] ok
+CMP OAI.EntropyRateDimension.System.ratio [def] ok
+CMP OAI.EntropyRateDimension.System [ind] ok
+CMP OAI.EntropyRateDimension.System.mk [ctor] ok
+CMP OAI.EntropyRateDimension.System.weight [def] ok
+CMP OAI.EntropyRateDimension.System.entropyRate [def] ok
+CMP OAI.EntropyRateDimension.System.walkEntropy [def] ok
+CMP OAI.EntropyRateDimension.System.mapMass [def] ok
+CMP OAI.EntropyRateDimension.System.wordWeight [def] ok
+CMP OAI.EntropyRateDimension.System.completeMap [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine._f [def] ok
+CMP OAI.EntropyRateDimension.System.offset [def] ok
+CMP OAI.EntropyRateDimension.System.wordAffine.match_1 [def] ok
+CMP OAI.EntropyRateDimension.System.mapSupport [def] ok
+CMP OAI.EntropyRateDimension.lowerHausdorffDimension [def] ok
+CMP OAI.EntropyRateDimension.System.SelfSimilar [def] ok
+CMP OAI.EntropyRateDimension.System.affine [def] ok
+CMP OAI.EntropyRateDimension.System.SelfSimilar._proof_1 [thm] ok
+@Chal.EntropyRateDimension.entropy_rate_dimension : ∀ {ι : Type u_1} [inst : Fintype ι] [Nonempty ι]
+  (S : Chal.EntropyRateDimension.System ι) (μ : MeasureTheory.Measure ℝ) [MeasureTheory.IsProbabilityMeasure μ],
+  S.SelfSimilar μ →
+    Chal.EntropyRateDimension.lowerHausdorffDimension μ = ENNReal.ofReal (min 1 (S.entropyRate / S.lyapunov))
+structure Chal.EntropyRateDimension.System.{uι} (ι : Type uι) [Fintype ι] : Type uι
+number of parameters: 2
+fields:
+  Chal.EntropyRateDimension.System.ratio : ι → ℝ
+  Chal.EntropyRateDimension.System.offset : ι → ℝ
+  Chal.EntropyRateDimension.System.weight : ι → ℝ
+  Chal.EntropyRateDimension.System.ratio_pos : ∀ (i : ι), 0 < |self.ratio i|
+  Chal.EntropyRateDimension.System.ratio_lt_one : ∀ (i : ι), |self.ratio i| < 1
+  Chal.EntropyRateDimension.System.weight_pos : ∀ (i : ι), 0 < self.weight i
+  Chal.EntropyRateDimension.System.weight_sum : ∑ i, self.weight i = 1
+constructor:
+  Chal.EntropyRateDimension.System.mk.{uι} {ι : Type uι} [Fintype ι] (ratio offset weight : ι → ℝ)
+    (ratio_pos : ∀ (i : ι), 0 < |ratio i|) (ratio_lt_one : ∀ (i : ι), |ratio i| < 1)
+    (weight_pos : ∀ (i : ι), 0 < weight i) (weight_sum : ∑ i, weight i = 1) : Chal.EntropyRateDimension.System ι
+def Chal.EntropyRateDimension.System.affine.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ι → ℝ → ℝ :=
+fun {ι} [Fintype ι] S i x => S.ratio i * x + S.offset i
+def Chal.EntropyRateDimension.System.wordAffine.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → List ι → ℝ × ℝ :=
+fun {ι} [Fintype ι] S x => List.brecOn x (Chal.EntropyRateDimension.System.wordAffine._f S)
+def Chal.EntropyRateDimension.System.completeMap.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → {n : ℕ} → (Fin n → ι) → ℝ × ℝ :=
+fun {ι} [Fintype ι] S {n} w => S.wordAffine (List.ofFn w)
+def Chal.EntropyRateDimension.System.wordWeight.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → {n : ℕ} → (Fin n → ι) → ℝ :=
+fun {ι} [Fintype ι] S {n} w => ∏ j, S.weight (w j)
+def Chal.EntropyRateDimension.System.mapSupport.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℕ → Finset (ℝ × ℝ) :=
+fun {ι} [Fintype ι] S n => Finset.image S.completeMap Finset.univ
+def Chal.EntropyRateDimension.System.mapMass.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℕ → ℝ × ℝ → ℝ :=
+fun {ι} [Fintype ι] S n g => ∑ w with S.completeMap w = g, S.wordWeight w
+def Chal.EntropyRateDimension.System.walkEntropy.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℕ → ℝ :=
+fun {ι} [Fintype ι] S n => (∑ g ∈ S.mapSupport n, (S.mapMass n g).negMulLog) / Real.log 2
+def Chal.EntropyRateDimension.System.entropyRate.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℝ :=
+fun {ι} [Fintype ι] S => sInf (Set.range fun n => S.walkEntropy (n + 1) / ↑(n + 1))
+def Chal.EntropyRateDimension.System.lyapunov.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → ℝ :=
+fun {ι} [Fintype ι] S => -∑ i, S.weight i * (Real.log |S.ratio i| / Real.log 2)
+def Chal.EntropyRateDimension.System.SelfSimilar.{uι} : {ι : Type uι} →
+  [inst : Fintype ι] → Chal.EntropyRateDimension.System ι → MeasureTheory.Measure ℝ → Prop :=
+fun {ι} [Fintype ι] S μ => μ = ∑ i, ENNReal.ofReal (S.weight i) • MeasureTheory.Measure.map (S.affine i) μ
+def Chal.EntropyRateDimension.lowerHausdorffDimension : MeasureTheory.Measure ℝ → ENNReal :=
+fun μ => ⨅ E, ⨅ (_ : MeasurableSet E), ⨅ (_ : 0 < μ E), dimH E
+'OAI.EntropyRateDimension.entropy_rate_dimension' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SelfSimilar comparator-style: ok=21 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

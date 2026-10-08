@@ -1,0 +1,33 @@
+CMP OAI.CompleteCrouzeix.main [thm] ok
+CMP OAI.CompleteCrouzeix.UniversalBound [def] ok
+CMP OAI.CompleteCrouzeix.rangeMaximum [def] ok
+CMP OAI.CompleteCrouzeix.numericalRange [def] ok
+CMP OAI.CompleteCrouzeix.numericalRange._proof_4 [thm] ok
+CMP OAI.CompleteCrouzeix.numericalRange._proof_3 [thm] ok
+CMP OAI.CompleteCrouzeix.numericalRange._proof_2 [thm] ok
+CMP OAI.CompleteCrouzeix.numericalRange._proof_1 [thm] ok
+CMP OAI.CompleteCrouzeix.polynomialValue [def] ok
+CMP OAI.CompleteCrouzeix.polynomialAt [def] ok
+Chal.CompleteCrouzeix.main : Chal.CompleteCrouzeix.UniversalBound 2 ∧
+  ∀ (C : ℝ), Chal.CompleteCrouzeix.UniversalBound C → 2 ≤ C
+def Chal.CompleteCrouzeix.numericalRange : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Set ℂ :=
+fun {n} A => {z | ∃ x, ‖x‖ = 1 ∧ inner ℂ x ((Matrix.toEuclideanCLM A) x) = z}
+def Chal.CompleteCrouzeix.polynomialValue : {m d : ℕ} →
+  (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℂ → Matrix (Fin m) (Fin m) ℂ :=
+fun {m d} B z => ∑ k, z ^ ↑k • B k
+def Chal.CompleteCrouzeix.polynomialAt : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → Matrix (Fin n × Fin m) (Fin n × Fin m) ℂ :=
+fun {n m d} A B => ∑ k, (A ^ ↑k).kronecker (B k)
+def Chal.CompleteCrouzeix.rangeMaximum : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℝ :=
+fun {n m d} A B =>
+  sSup ((fun z => ‖Chal.CompleteCrouzeix.polynomialValue B z‖) '' Chal.CompleteCrouzeix.numericalRange A)
+def Chal.CompleteCrouzeix.UniversalBound : ℝ → Prop :=
+fun C =>
+  ∀ (n m d : ℕ),
+    0 < n →
+      0 < m →
+        ∀ (A : Matrix (Fin n) (Fin n) ℂ) (B : Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ),
+          ‖Chal.CompleteCrouzeix.polynomialAt A B‖ ≤ C * Chal.CompleteCrouzeix.rangeMaximum A B
+'OAI.CompleteCrouzeix.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CompleteCrouzeix comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

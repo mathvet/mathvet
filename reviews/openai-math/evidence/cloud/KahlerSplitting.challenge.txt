@@ -1,0 +1,207 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_KahlerSplitting.lean:124:8: warning: declaration uses `sorry`
+@OAI.UniversalCoverSplitting.main : ∀ {n r₁ r₂ : ℕ} (X : OAI.UniversalCoverSplitting.ComplexManifold n)
+  [CompactSpace X.Carrier] [ConnectedSpace X.Carrier],
+  2 ≤ n →
+    0 < r₁ →
+      0 < r₂ →
+        ∀ (g : OAI.UniversalCoverSplitting.KahlerMetric X)
+          (S : OAI.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂),
+          OAI.UniversalCoverSplitting.Integrable S.projection →
+            OAI.UniversalCoverSplitting.Integrable (OAI.UniversalCoverSplitting.complementaryProjection S) →
+              ∀ (Z : OAI.UniversalCoverSplitting.ComplexManifold n)
+                (π : OAI.UniversalCoverSplitting.OrdinaryUniversalCover X Z),
+                ∃ Y₁ Y₂,
+                  ConnectedSpace Y₁.Carrier ∧
+                    ConnectedSpace Y₂.Carrier ∧
+                      SimplyConnectedSpace Y₁.Carrier ∧
+                        SimplyConnectedSpace Y₂.Carrier ∧ OAI.UniversalCoverSplitting.CompatibleProduct S π Y₁ Y₂
+@[reducible] def OAI.UniversalCoverSplitting.Model : ℕ → Type :=
+fun n => Fin n → ℂ
+@[reducible] def OAI.UniversalCoverSplitting.model : (n : ℕ) →
+  ModelWithCorners ℂ (OAI.UniversalCoverSplitting.Model n) (OAI.UniversalCoverSplitting.Model n) :=
+fun n => modelWithCornersSelf ℂ (OAI.UniversalCoverSplitting.Model n)
+structure OAI.UniversalCoverSplitting.ComplexManifold.{u} (n : ℕ) : Type (u + 1)
+number of parameters: 1
+fields:
+  OAI.UniversalCoverSplitting.ComplexManifold.Carrier : Type u
+  OAI.UniversalCoverSplitting.ComplexManifold.topology : TopologicalSpace self.Carrier
+  OAI.UniversalCoverSplitting.ComplexManifold.charted : ChartedSpace (OAI.UniversalCoverSplitting.Model n) self.Carrier
+  OAI.UniversalCoverSplitting.ComplexManifold.hausdorff : T2Space self.Carrier
+  OAI.UniversalCoverSplitting.ComplexManifold.secondCountable : SecondCountableTopology self.Carrier
+  OAI.UniversalCoverSplitting.ComplexManifold.complexSmooth : IsManifold (OAI.UniversalCoverSplitting.model n) (↑⊤)
+      self.Carrier
+constructor:
+  OAI.UniversalCoverSplitting.ComplexManifold.mk.{u} {n : ℕ} (Carrier : Type u) [topology : TopologicalSpace Carrier]
+    [charted : ChartedSpace (OAI.UniversalCoverSplitting.Model n) Carrier] [hausdorff : T2Space Carrier]
+    [secondCountable : SecondCountableTopology Carrier]
+    [complexSmooth : IsManifold (OAI.UniversalCoverSplitting.model n) (↑⊤) Carrier] :
+    OAI.UniversalCoverSplitting.ComplexManifold n
+@[reducible] def OAI.UniversalCoverSplitting.Tangent.{u} : {n : ℕ} →
+  (X : OAI.UniversalCoverSplitting.ComplexManifold n) → X.Carrier → Type :=
+fun {n} X x => TangentSpace (OAI.UniversalCoverSplitting.model n) x
+@[reducible] def OAI.UniversalCoverSplitting.RealMetricField.{u} : {n : ℕ} →
+  OAI.UniversalCoverSplitting.ComplexManifold n → Type (max u 0) :=
+fun {n} X =>
+  (x : X.Carrier) → OAI.UniversalCoverSplitting.Tangent X x →ₗ[ℝ] OAI.UniversalCoverSplitting.Tangent X x →ₗ[ℝ] ℝ
+def OAI.UniversalCoverSplitting.metricInChart.{u} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    OAI.UniversalCoverSplitting.RealMetricField X →
+      X.Carrier →
+        OAI.UniversalCoverSplitting.Model n →
+          OAI.UniversalCoverSplitting.Model n → OAI.UniversalCoverSplitting.Model n → ℝ :=
+fun {n} {X} g c z u v =>
+  have e := extChartAt (OAI.UniversalCoverSplitting.model n) c;
+  have q := mfderiv% ↑e.symm z;
+  ((g (↑e.symm z)) (q u)) (q v)
+def OAI.UniversalCoverSplitting.fundamentalInChart.{u} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    OAI.UniversalCoverSplitting.RealMetricField X →
+      X.Carrier →
+        OAI.UniversalCoverSplitting.Model n →
+          OAI.UniversalCoverSplitting.Model n → OAI.UniversalCoverSplitting.Model n → ℝ :=
+fun {n} {X} g c z u v => OAI.UniversalCoverSplitting.metricInChart g c z (Complex.I • u) v
+structure OAI.UniversalCoverSplitting.KahlerMetric.{u} {n : ℕ} (X : OAI.UniversalCoverSplitting.ComplexManifold n) :
+  Type u
+number of parameters: 2
+fields:
+  OAI.UniversalCoverSplitting.KahlerMetric.metric : OAI.UniversalCoverSplitting.RealMetricField X
+  OAI.UniversalCoverSplitting.KahlerMetric.symmetric : ∀ (x : X.Carrier)
+      (u v : OAI.UniversalCoverSplitting.Tangent X x), ((self.metric x) u) v = ((self.metric x) v) u
+  OAI.UniversalCoverSplitting.KahlerMetric.positive : ∀ (x : X.Carrier) (u : OAI.UniversalCoverSplitting.Tangent X x),
+      u ≠ 0 → 0 < ((self.metric x) u) u
+  OAI.UniversalCoverSplitting.KahlerMetric.hermitian : ∀ (x : X.Carrier)
+      (u v : OAI.UniversalCoverSplitting.Tangent X x),
+      ((self.metric x) (Complex.I • u)) (Complex.I • v) = ((self.metric x) u) v
+  OAI.UniversalCoverSplitting.KahlerMetric.smooth : ∀ (c : X.Carrier) (u v : OAI.UniversalCoverSplitting.Model n),
+      ContDiffOn ℝ (↑⊤) (fun z => OAI.UniversalCoverSplitting.metricInChart self.metric c z u v)
+        (extChartAt (OAI.UniversalCoverSplitting.model n) c).target
+  OAI.UniversalCoverSplitting.KahlerMetric.closed : ∀ (c : X.Carrier),
+      ∀ z ∈ (extChartAt (OAI.UniversalCoverSplitting.model n) c).target,
+        ∀ (u v w : OAI.UniversalCoverSplitting.Model n),
+          (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart self.metric c y v w) z) u +
+                (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart self.metric c y w u) z) v +
+              (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart self.metric c y u v) z) w =
+            0
+constructor:
+  OAI.UniversalCoverSplitting.KahlerMetric.mk.{u} {n : ℕ} {X : OAI.UniversalCoverSplitting.ComplexManifold n}
+    (metric : OAI.UniversalCoverSplitting.RealMetricField X)
+    (symmetric : ∀ (x : X.Carrier) (u v : OAI.UniversalCoverSplitting.Tangent X x), ((metric x) u) v = ((metric x) v) u)
+    (positive : ∀ (x : X.Carrier) (u : OAI.UniversalCoverSplitting.Tangent X x), u ≠ 0 → 0 < ((metric x) u) u)
+    (hermitian :
+      ∀ (x : X.Carrier) (u v : OAI.UniversalCoverSplitting.Tangent X x),
+        ((metric x) (Complex.I • u)) (Complex.I • v) = ((metric x) u) v)
+    (smooth :
+      ∀ (c : X.Carrier) (u v : OAI.UniversalCoverSplitting.Model n),
+        ContDiffOn ℝ (↑⊤) (fun z => OAI.UniversalCoverSplitting.metricInChart metric c z u v)
+          (extChartAt (OAI.UniversalCoverSplitting.model n) c).target)
+    (closed :
+      ∀ (c : X.Carrier),
+        ∀ z ∈ (extChartAt (OAI.UniversalCoverSplitting.model n) c).target,
+          ∀ (u v w : OAI.UniversalCoverSplitting.Model n),
+            (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart metric c y v w) z) u +
+                  (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart metric c y w u) z) v +
+                (fderiv ℝ (fun y => OAI.UniversalCoverSplitting.fundamentalInChart metric c y u v) z) w =
+              0) :
+    OAI.UniversalCoverSplitting.KahlerMetric X
+@[reducible] def OAI.UniversalCoverSplitting.ProjectionField.{u} : {n : ℕ} →
+  OAI.UniversalCoverSplitting.ComplexManifold n → Type (max u 0) :=
+fun {n} X => (x : X.Carrier) → OAI.UniversalCoverSplitting.Tangent X x →L[ℂ] OAI.UniversalCoverSplitting.Tangent X x
+def OAI.UniversalCoverSplitting.projectionInChart.{u} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    OAI.UniversalCoverSplitting.ProjectionField X →
+      X.Carrier →
+        OAI.UniversalCoverSplitting.Model n →
+          OAI.UniversalCoverSplitting.Model n →L[ℂ] OAI.UniversalCoverSplitting.Model n :=
+fun {n} {X} P c z =>
+  have e := extChartAt (OAI.UniversalCoverSplitting.model n) c;
+  mfderiv% ↑e (↑e.symm z) ∘SL P (↑e.symm z) ∘SL mfderiv% ↑e.symm z
+def OAI.UniversalCoverSplitting.HolomorphicProjection.{u} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} → OAI.UniversalCoverSplitting.ProjectionField X → Prop :=
+fun {n} {X} P =>
+  ∀ (c : X.Carrier),
+    DifferentiableOn ℂ (OAI.UniversalCoverSplitting.projectionInChart P c)
+      (extChartAt (OAI.UniversalCoverSplitting.model n) c).target
+def OAI.UniversalCoverSplitting.Integrable.{u} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} → OAI.UniversalCoverSplitting.ProjectionField X → Prop :=
+fun {n} {X} P =>
+  ∀ (c : X.Carrier) (U : Set (OAI.UniversalCoverSplitting.Model n)),
+    IsOpen U →
+      U ⊆ (extChartAt (OAI.UniversalCoverSplitting.model n) c).target →
+        ∀ (V W : OAI.UniversalCoverSplitting.Model n → OAI.UniversalCoverSplitting.Model n),
+          DifferentiableOn ℂ V U →
+            DifferentiableOn ℂ W U →
+              (∀ z ∈ U, (OAI.UniversalCoverSplitting.projectionInChart P c z) (V z) = V z) →
+                (∀ z ∈ U, (OAI.UniversalCoverSplitting.projectionInChart P c z) (W z) = W z) →
+                  ∀ z ∈ U,
+                    (OAI.UniversalCoverSplitting.projectionInChart P c z) (VectorField.lieBracket ℂ V W z) =
+                      VectorField.lieBracket ℂ V W z
+structure OAI.UniversalCoverSplitting.HolomorphicSplitting.{u} {n : ℕ}
+  (X : OAI.UniversalCoverSplitting.ComplexManifold n) (r₁ r₂ : ℕ) : Type u
+number of parameters: 4
+fields:
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.projection : OAI.UniversalCoverSplitting.ProjectionField X
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.idempotent : ∀ (x : X.Carrier)
+      (v : OAI.UniversalCoverSplitting.Tangent X x), (self.projection x) ((self.projection x) v) = (self.projection x) v
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.holomorphic : OAI.UniversalCoverSplitting.HolomorphicProjection
+      self.projection
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.first_rank : ∀ (x : X.Carrier),
+      Module.finrank ℂ ↥(↑(self.projection x)).range = r₁
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.second_rank : ∀ (x : X.Carrier),
+      Module.finrank ℂ ↥(↑(self.projection x)).ker = r₂
+constructor:
+  OAI.UniversalCoverSplitting.HolomorphicSplitting.mk.{u} {n : ℕ} {X : OAI.UniversalCoverSplitting.ComplexManifold n}
+    {r₁ r₂ : ℕ} (projection : OAI.UniversalCoverSplitting.ProjectionField X)
+    (idempotent :
+      ∀ (x : X.Carrier) (v : OAI.UniversalCoverSplitting.Tangent X x),
+        (projection x) ((projection x) v) = (projection x) v)
+    (holomorphic : OAI.UniversalCoverSplitting.HolomorphicProjection projection)
+    (first_rank : ∀ (x : X.Carrier), Module.finrank ℂ ↥(↑(projection x)).range = r₁)
+    (second_rank : ∀ (x : X.Carrier), Module.finrank ℂ ↥(↑(projection x)).ker = r₂) :
+    OAI.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂
+def OAI.UniversalCoverSplitting.complementaryProjection.{u} : {n r₁ r₂ : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    OAI.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂ → OAI.UniversalCoverSplitting.ProjectionField X :=
+fun {n r₁ r₂} {X} S x => ContinuousLinearMap.id ℂ (OAI.UniversalCoverSplitting.Tangent X x) - S.projection x
+def OAI.UniversalCoverSplitting.LocalBiholomorphism.{u, v} : {n : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    {Z : OAI.UniversalCoverSplitting.ComplexManifold n} → (Z.Carrier → X.Carrier) → Prop :=
+fun {n} {X} {Z} π =>
+  ∀ (z : Z.Carrier), ∃ e, z ∈ e.source ∧ (∀ w ∈ e.source, ↑e w = π w) ∧ MDiff[e.source] ↑e ∧ MDiff[e.target] ↑e.symm
+structure OAI.UniversalCoverSplitting.OrdinaryUniversalCover.{u, v} {n : ℕ}
+  (X : OAI.UniversalCoverSplitting.ComplexManifold n) (Z : OAI.UniversalCoverSplitting.ComplexManifold n) :
+  Type (max u v)
+number of parameters: 3
+fields:
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.projection : Z.Carrier → X.Carrier
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.covering : IsCoveringMap self.projection
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.connected : ConnectedSpace Z.Carrier
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.simplyConnected : SimplyConnectedSpace Z.Carrier
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.liftedComplexStructure : OAI.UniversalCoverSplitting.LocalBiholomorphism
+      self.projection
+constructor:
+  OAI.UniversalCoverSplitting.OrdinaryUniversalCover.mk.{u, v} {n : ℕ}
+    {X : OAI.UniversalCoverSplitting.ComplexManifold n} {Z : OAI.UniversalCoverSplitting.ComplexManifold n}
+    (projection : Z.Carrier → X.Carrier) (covering : IsCoveringMap projection) [connected : ConnectedSpace Z.Carrier]
+    [simplyConnected : SimplyConnectedSpace Z.Carrier]
+    (liftedComplexStructure : OAI.UniversalCoverSplitting.LocalBiholomorphism projection) :
+    OAI.UniversalCoverSplitting.OrdinaryUniversalCover X Z
+def OAI.UniversalCoverSplitting.CompatibleProduct.{u, v} : {n r₁ r₂ : ℕ} →
+  {X : OAI.UniversalCoverSplitting.ComplexManifold n} →
+    {Z : OAI.UniversalCoverSplitting.ComplexManifold n} →
+      OAI.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂ →
+        OAI.UniversalCoverSplitting.OrdinaryUniversalCover X Z →
+          OAI.UniversalCoverSplitting.ComplexManifold r₁ → OAI.UniversalCoverSplitting.ComplexManifold r₂ → Prop :=
+fun {n r₁ r₂} {X} {Z} S π Y₁ Y₂ =>
+  ∃ Φ,
+    MDiff ⇑Φ ∧
+      MDiff ⇑Φ.symm ∧
+        (∀ (z : Z.Carrier),
+            Submodule.map (↑(mfderiv% ⇑Φ z))
+                (Submodule.comap (↑(mfderiv% π.projection z)) (↑(S.projection (π.projection z))).range) =
+              (↑(ContinuousLinearMap.snd ℂ (OAI.UniversalCoverSplitting.Model r₁)
+                    (OAI.UniversalCoverSplitting.Model r₂))).ker) ∧
+          ∀ (z : Z.Carrier),
+            Submodule.map (↑(mfderiv% ⇑Φ z))
+                (Submodule.comap (↑(mfderiv% π.projection z)) (↑(S.projection (π.projection z))).ker) =
+              (↑(ContinuousLinearMap.fst ℂ (OAI.UniversalCoverSplitting.Model r₁)
+                    (OAI.UniversalCoverSplitting.Model r₂))).ker

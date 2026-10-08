@@ -1,0 +1,84 @@
+CMP OAI.DirectionalZeroOne.directional_zero_one [thm] ok
+CMP OAI.DirectionalZeroOne.escape [def] ok
+CMP OAI.DirectionalZeroOne.Path [def] ok
+CMP OAI.DirectionalZeroOne.Site [def] ok
+CMP OAI.DirectionalZeroOne.annealed [def] ok
+CMP OAI.DirectionalZeroOne.instIsMarkovKernelForallSubtypeNatMemFinsetIicStateHistoryKernel [thm] ok
+CMP OAI.DirectionalZeroOne.historyKernel [def] ok
+CMP OAI.DirectionalZeroOne.historyKernel._proof_2 [thm] ok
+CMP OAI.DirectionalZeroOne.historyKernel._proof_1 [thm] ok
+CMP OAI.DirectionalZeroOne.instMeasurableSpaceRow [def] ok
+CMP OAI.DirectionalZeroOne.instMeasurableSpaceRow._proof_5 [thm] ok
+CMP OAI.DirectionalZeroOne.instMeasurableSpaceRow._aux_1 [def] ok
+CMP OAI.DirectionalZeroOne.Step [def] ok
+CMP OAI.DirectionalZeroOne.Row [def] ok
+CMP OAI.DirectionalZeroOne.instMeasurableSpaceRow._proof_4 [thm] ok
+CMP OAI.DirectionalZeroOne.instMeasurableSpaceRow._proof_3 [thm] ok
+CMP OAI.DirectionalZeroOne.Environment [def] ok
+CMP OAI.DirectionalZeroOne.State [def] ok
+CMP OAI.DirectionalZeroOne.transition [def] ok
+CMP OAI.DirectionalZeroOne.transition._proof_2 [thm] ok
+CMP OAI.DirectionalZeroOne.stepVector [def] ok
+CMP OAI.DirectionalZeroOne.transition._proof_1 [thm] ok
+CMP OAI.DirectionalZeroOne.initialLaw [def] ok
+CMP OAI.DirectionalZeroOne.environmentLaw [def] ok
+CMP OAI.DirectionalZeroOne.StrictEllipticity [def] ok
+CMP OAI.DirectionalZeroOne.StrictEllipticity._proof_1 [thm] ok
+Chal.DirectionalZeroOne.directional_zero_one : ∀ (d : ℕ),
+  3 ≤ d →
+    ∀ (μ : MeasureTheory.Measure (Chal.DirectionalZeroOne.Row d)) [inst : MeasureTheory.IsProbabilityMeasure μ],
+      Chal.DirectionalZeroOne.StrictEllipticity μ →
+        ∀ (ℓ : Fin d → ℝ),
+          ℓ ≠ 0 →
+            (Chal.DirectionalZeroOne.annealed μ 0) (Chal.DirectionalZeroOne.escape ℓ) = 0 ∨
+              (Chal.DirectionalZeroOne.annealed μ 0) (Chal.DirectionalZeroOne.escape ℓ) = 1
+@[reducible] def Chal.DirectionalZeroOne.Site : ℕ → Type :=
+fun d => Fin d → ℤ
+@[reducible] def Chal.DirectionalZeroOne.Step : ℕ → Type :=
+fun d => Fin d × Bool
+def Chal.DirectionalZeroOne.stepVector : {d : ℕ} → Chal.DirectionalZeroOne.Step d → Chal.DirectionalZeroOne.Site d :=
+fun {d} e i => if i = e.1 then if e.2 = true then 1 else -1 else 0
+def Chal.DirectionalZeroOne.Row : ℕ → Type :=
+fun d => { p // (∀ (e : Chal.DirectionalZeroOne.Step d), p e ∈ Set.Icc 0 1) ∧ ∑ e, p e = 1 }
+@[reducible] def Chal.DirectionalZeroOne.Environment : ℕ → Type :=
+fun d => Chal.DirectionalZeroOne.Site d → Chal.DirectionalZeroOne.Row d
+@[reducible] def Chal.DirectionalZeroOne.Path : ℕ → Type :=
+fun d => ℕ → Chal.DirectionalZeroOne.Site d
+@[reducible] def Chal.DirectionalZeroOne.State : ℕ → Type :=
+fun d => Chal.DirectionalZeroOne.Environment d × Chal.DirectionalZeroOne.Site d
+def Chal.DirectionalZeroOne.StrictEllipticity : {d : ℕ} →
+  MeasureTheory.Measure (Chal.DirectionalZeroOne.Row d) → Prop :=
+fun {d} μ => ∀ᵐ (p : Chal.DirectionalZeroOne.Row d) ∂μ, ∀ (e : Chal.DirectionalZeroOne.Step d), 0 < ↑p e
+def Chal.DirectionalZeroOne.environmentLaw : {d : ℕ} →
+  (μ : MeasureTheory.Measure (Chal.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] → MeasureTheory.Measure (Chal.DirectionalZeroOne.Environment d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] => MeasureTheory.Measure.infinitePi fun x => μ
+def Chal.DirectionalZeroOne.transition : (d : ℕ) →
+  ProbabilityTheory.Kernel (Chal.DirectionalZeroOne.State d) (Chal.DirectionalZeroOne.State d) :=
+fun d =>
+  {
+    toFun := fun s =>
+      ∑ e,
+        ENNReal.ofReal (↑(s.1 s.2) e) • MeasureTheory.Measure.dirac (s.1, s.2 + Chal.DirectionalZeroOne.stepVector e),
+    measurable' := ⋯ }
+def Chal.DirectionalZeroOne.historyKernel : (d n : ℕ) →
+  ProbabilityTheory.Kernel (↥(Finset.Iic n) → Chal.DirectionalZeroOne.State d) (Chal.DirectionalZeroOne.State d) :=
+fun d n => (Chal.DirectionalZeroOne.transition d).comap (fun h => h ⟨n, ⋯⟩) ⋯
+def Chal.DirectionalZeroOne.initialLaw : {d : ℕ} →
+  (μ : MeasureTheory.Measure (Chal.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] →
+      Chal.DirectionalZeroOne.Site d → MeasureTheory.Measure (Chal.DirectionalZeroOne.State d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] x =>
+  MeasureTheory.Measure.map (fun ω => (ω, x)) (Chal.DirectionalZeroOne.environmentLaw μ)
+def Chal.DirectionalZeroOne.annealed : {d : ℕ} →
+  (μ : MeasureTheory.Measure (Chal.DirectionalZeroOne.Row d)) →
+    [MeasureTheory.IsProbabilityMeasure μ] →
+      Chal.DirectionalZeroOne.Site d → MeasureTheory.Measure (Chal.DirectionalZeroOne.Path d) :=
+fun {d} μ [MeasureTheory.IsProbabilityMeasure μ] x =>
+  MeasureTheory.Measure.map (fun z n => (z n).2)
+    (ProbabilityTheory.Kernel.trajMeasure (Chal.DirectionalZeroOne.initialLaw μ x)
+      (Chal.DirectionalZeroOne.historyKernel d))
+def Chal.DirectionalZeroOne.escape : {d : ℕ} → (Fin d → ℝ) → Set (Chal.DirectionalZeroOne.Path d) :=
+fun {d} ℓ => {X | Filter.Tendsto (fun n => ∑ i, ↑(X n i) * ℓ i) Filter.atTop Filter.atTop}
+'OAI.DirectionalZeroOne.directional_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DirectionalWalk comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

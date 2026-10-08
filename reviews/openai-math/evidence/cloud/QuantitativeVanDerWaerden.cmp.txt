@@ -1,0 +1,17 @@
+CMP OAI.QuantitativeVanDerWaerden.uniform_lower_bound [thm] ok
+CMP OAI.QuantitativeVanDerWaerden.W [def] ok
+CMP OAI.QuantitativeVanDerWaerden.IsRamsey [def] ok
+CMP OAI.QuantitativeVanDerWaerden.HasMonoAP [def] ok
+CMP OAI.QuantitativeVanDerWaerden.MonoAP [def] ok
+Chal.QuantitativeVanDerWaerden.uniform_lower_bound : ∃ K,
+  ∀ k ≥ K, ∀ r ≥ 2, ↑k ^ (1 / 100000 * ↑k * ↑(Nat.log 2 r)) < ↑(Chal.QuantitativeVanDerWaerden.W r k)
+def Chal.QuantitativeVanDerWaerden.MonoAP.{u} : {α : Type u} → (ℕ → α) → ℕ → ℕ → ℕ → Prop :=
+fun {α} c k a d => ∀ j < k, c (a + j * d) = c a
+def Chal.QuantitativeVanDerWaerden.HasMonoAP.{u} : {α : Type u} → (ℕ → α) → ℕ → ℕ → Prop :=
+fun {α} c k N => ∃ a d, 0 < d ∧ a + (k - 1) * d < N ∧ Chal.QuantitativeVanDerWaerden.MonoAP c k a d
+def Chal.QuantitativeVanDerWaerden.IsRamsey.{u} : Type u → ℕ → ℕ → Prop :=
+fun α k N => ∀ (c : ℕ → α), Chal.QuantitativeVanDerWaerden.HasMonoAP c k N
+def Chal.QuantitativeVanDerWaerden.W : ℕ → ℕ → ℕ :=
+fun r k => sInf {N | 0 < N ∧ Chal.QuantitativeVanDerWaerden.IsRamsey (Fin r) k N}
+'OAI.QuantitativeVanDerWaerden.uniform_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== QuantitativeVanDerWaerden comparator-style: ok=5 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

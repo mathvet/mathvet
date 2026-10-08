@@ -1,0 +1,654 @@
+CMP OAI.PosteriorReplicas.source_main [thm] ok
+CMP OAI.PosteriorRegression.KernelSubquadraticMemory [def] ok
+CMP OAI.PosteriorRegression.JointKernelExperiment.uniformSuccess [def] ok
+CMP OAI.PosteriorRegression.Learner.angularError [def] ok
+CMP OAI.PosteriorReplicas.labels._proof_1 [thm] ok
+CMP OAI.PosteriorRegression.UnitSphere [def] ok
+CMP OAI.PosteriorRegression.Vector [def] ok
+CMP OAI.PosteriorRegression.JointKernelExperiment.law [def] ok
+CMP OAI.PosteriorRegression.JointKernelExperiment.outputKernel [def] ok
+CMP OAI.PosteriorRegression.JointKernelExperiment [ind] ok
+CMP OAI.PosteriorRegression.JointKernelExperiment.mk [ctor] ok
+CMP OAI.PosteriorRegression.sampleLaw [def] ok
+CMP OAI.PosteriorReplicas.sphereLaw._proof_1 [thm] ok
+CMP OAI.PosteriorRegression.Samples [def] ok
+CMP OAI.PosteriorRegression.uniformSphere [def] ok
+CMP OAI.PosteriorReplicas.sphereLaw._proof_3 [thm] ok
+CMP OAI.PosteriorReplicas.sphereLaw._proof_2 [thm] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.estimateLaw [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.output [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner [ind] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.mk [ctor] ok
+CMP OAI.PosteriorRegression.observationReference [def] ok
+CMP OAI.PosteriorRegression.CompletedObservation [def] ok
+CMP OAI.PosteriorRegression.State [def] ok
+CMP OAI.PosteriorRegression.Destination [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.terminalLaw [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.runMeasure [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.runMeasure._f [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.stepMeasure [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.transition [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.destStatus [def] ok
+CMP OAI.PosteriorRegression.Learner.RunStatus [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.stepMeasure.match_1 [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.initial [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.runMeasure.match_1 [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.finishState [def] ok
+CMP OAI.PosteriorRegression.CompletedKernelLearner.finishState.match_1 [def] ok
+CMP OAI.PosteriorRegression.KernelSubquadraticMemory._proof_2 [thm] ok
+CMP OAI.PosteriorRegression.KernelSubquadraticMemory._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.IncidenceReplicaBlock [def] ok
+CMP OAI.PosteriorReplicas.IncidenceReplicaBlock._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.signalMessageLaw [def] ok
+CMP OAI.PosteriorReplicas.messageKernel [def] ok
+CMP OAI.PosteriorReplicas.messageKernel._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.labels [def] ok
+CMP OAI.PosteriorReplicas.Vec [def] ok
+CMP OAI.PosteriorReplicas.Rows [def] ok
+CMP OAI.PosteriorReplicas.Labels [def] ok
+CMP OAI.PosteriorReplicas.Data [def] ok
+CMP OAI.PosteriorReplicas.gaussianRows [def] ok
+CMP OAI.PosteriorReplicas.sideLaw [def] ok
+CMP OAI.PosteriorReplicas.conditionalInformation [def] ok
+CMP OAI.PosteriorReplicas.conditionalInformation._proof_2 [thm] ok
+CMP OAI.PosteriorReplicas.conditionalInformation._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.sphereLaw [def] ok
+CMP OAI.PosteriorReplicas.SyntheticReplicaBlock [def] ok
+CMP OAI.PosteriorReplicas.SyntheticReplicaBlock._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock [def] ok
+CMP OAI.PosteriorReplicas.finiteEntropy [def] ok
+CMP OAI.PosteriorReplicas.terminalConditionalEntropy [def] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock._proof_5 [thm] ok
+CMP OAI.PosteriorReplicas.stateMessageLaw [def] ok
+CMP OAI.PosteriorReplicas.stateMessageKernel [def] ok
+CMP OAI.PosteriorReplicas.stateMessageKernel._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.stateHaarSideLaw [def] ok
+CMP OAI.PosteriorReplicas.haarRows [def] ok
+CMP OAI.PosteriorReplicas.haarRows._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock._proof_4 [thm] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock._proof_3 [thm] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock._proof_2 [thm] ok
+CMP OAI.PosteriorReplicas.HaarReplicaBlock._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.cmi [def] ok
+CMP OAI.PosteriorReplicas.DistanceReplicaBlock [def] ok
+CMP OAI.PosteriorReplicas.messageEntropy [def] ok
+CMP OAI.PosteriorReplicas.DistanceReplicaBlock._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.GaussianReplicaBlock [def] ok
+CMP OAI.PosteriorReplicas.GaussianReplicaBlock._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.EqualLabelVersions [def] ok
+CMP OAI.PosteriorReplicas.EqualLabelVersions._proof_3 [thm] ok
+CMP OAI.PosteriorReplicas.constrainedRows [def] ok
+CMP OAI.PosteriorReplicas.constrainedRows._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.differenceSpan [def] ok
+CMP OAI.PosteriorReplicas.differences [def] ok
+CMP OAI.PosteriorReplicas.differences._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.Tuple [def] ok
+CMP OAI.PosteriorReplicas.EqualLabelVersions._proof_2 [thm] ok
+CMP OAI.PosteriorReplicas.liftLabel [def] ok
+CMP OAI.PosteriorReplicas.rowGram [def] ok
+CMP OAI.PosteriorReplicas.BaseLaw.spherical [ctor] ok
+CMP OAI.PosteriorReplicas.BaseLaw [ind] ok
+CMP OAI.PosteriorReplicas.BaseLaw.gaussian [ctor] ok
+CMP OAI.PosteriorReplicas.EqualLabelVersions._proof_1 [thm] ok
+CMP OAI.PosteriorReplicas.gaussianDensityVersion [def] ok
+CMP OAI.PosteriorReplicas.labelNorm [def] ok
+CMP OAI.PosteriorReplicas.ballDensityVersion [def] ok
+CMP OAI.PosteriorReplicas.projectedDensity [def] ok
+CMP OAI.PosteriorReplicas.tiltMass [def] ok
+CMP OAI.PosteriorReplicas.baseFiber [def] ok
+CMP OAI.PosteriorReplicas.kernelComponent [def] ok
+CMP OAI.PosteriorReplicas.baseFiber.match_1 [def] ok
+CMP OAI.PosteriorReplicas.BaseLaw.casesOn [def] ok
+CMP OAI.PosteriorReplicas.BaseLaw.rec [rec] ok
+CMP OAI.PosteriorReplicas.baseDensity [def] ok
+CMP OAI.PosteriorReplicas.BaseLaw.measure [def] ok
+CMP OAI.PosteriorReplicas.BaseLaw.measure.match_1 [def] ok
+CMP OAI.PosteriorReplicas.EqualLabelMeasureIdentity [def] ok
+CMP OAI.PosteriorReplicas.equalLabelRight [def] ok
+CMP OAI.PosteriorReplicas.affineVolume [def] ok
+CMP OAI.PosteriorReplicas.equalLabelLeft [def] ok
+CMP OAI.PosteriorReplicas.tiltedFiber [def] ok
+Chal.PosteriorReplicas.source_main : Chal.PosteriorReplicas.EqualLabelMeasureIdentity ∧
+  Chal.PosteriorReplicas.EqualLabelVersions ∧
+    Chal.PosteriorReplicas.GaussianReplicaBlock ∧
+      Chal.PosteriorReplicas.DistanceReplicaBlock ∧
+        Chal.PosteriorReplicas.HaarReplicaBlock ∧
+          Chal.PosteriorReplicas.SyntheticReplicaBlock ∧
+            Chal.PosteriorReplicas.IncidenceReplicaBlock ∧ Chal.PosteriorRegression.KernelSubquadraticMemory
+@[reducible] def Chal.PosteriorReplicas.Vec : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def Chal.PosteriorReplicas.Rows : ℕ → ℕ → Type :=
+fun d k => Fin k → Chal.PosteriorReplicas.Vec d
+@[reducible] def Chal.PosteriorReplicas.Labels : ℕ → Type :=
+fun k => Fin k → ℝ
+@[reducible] def Chal.PosteriorReplicas.Data : ℕ → ℕ → Type :=
+fun d k => Chal.PosteriorReplicas.Rows d k × Chal.PosteriorReplicas.Labels k
+@[reducible] def Chal.PosteriorReplicas.Tuple : ℕ → ℕ → Type :=
+fun d m => Fin (m + 1) → Chal.PosteriorReplicas.Vec d
+def Chal.PosteriorReplicas.sphereLaw : (d : ℕ) → MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  MeasureTheory.Measure.map Subtype.val ((σ Set.univ)⁻¹ • σ)
+def Chal.PosteriorReplicas.gaussianRows : (d k : ℕ) → MeasureTheory.Measure (Chal.PosteriorReplicas.Rows d k) :=
+fun d k => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (Chal.PosteriorReplicas.Vec d)
+def Chal.PosteriorReplicas.labels : {d k : ℕ} →
+  Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Vec d → Chal.PosteriorReplicas.Labels k :=
+fun {d k} A s i => inner ℝ (A i) s
+def Chal.PosteriorReplicas.messageKernel : {d k N : ℕ} →
+  ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Data d k) (Fin N) →
+    ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Vec d × Chal.PosteriorReplicas.Rows d k) (Fin N) :=
+fun {d k N} κ => κ.comap (fun z => (z.2, Chal.PosteriorReplicas.labels z.2 z.1)) ⋯
+def Chal.PosteriorReplicas.signalMessageLaw : {d k N : ℕ} →
+  MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) →
+    ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Data d k) (Fin N) →
+      MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d × Fin N) :=
+fun {d k N} p κ =>
+  MeasureTheory.Measure.map (fun z => (z.1.1, z.2))
+    ((p.prod (Chal.PosteriorReplicas.gaussianRows d k)).compProd (Chal.PosteriorReplicas.messageKernel κ))
+def Chal.PosteriorReplicas.sideLaw : {d N : ℕ} →
+  (ℓ : ℕ) →
+    MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d × Fin N) →
+      MeasureTheory.Measure (Chal.PosteriorReplicas.Data d ℓ × Chal.PosteriorReplicas.Vec d × Fin N) :=
+fun {d N} ℓ q =>
+  MeasureTheory.Measure.map (fun z => ((z.1, Chal.PosteriorReplicas.labels z.1 z.2.1), z.2))
+    ((Chal.PosteriorReplicas.gaussianRows d ℓ).prod q)
+def Chal.PosteriorReplicas.messageEntropy : {d N : ℕ} →
+  MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d × Fin N) → ℝ :=
+fun {d N} q => ∑ w, -q.snd.real {w} * Real.log (q.snd.real {w})
+def Chal.PosteriorReplicas.conditionalInformation : {d ℓ N : ℕ} →
+  [NeZero N] →
+    (μ : MeasureTheory.Measure (Chal.PosteriorReplicas.Data d ℓ × Chal.PosteriorReplicas.Vec d × Fin N)) →
+      [MeasureTheory.IsFiniteMeasure μ] → ENNReal :=
+fun {d ℓ N} [NeZero N] μ [MeasureTheory.IsFiniteMeasure μ] =>
+  InformationTheory.klDiv μ (μ.fst.compProd (μ.condKernel.fst.prod μ.condKernel.snd))
+def Chal.PosteriorReplicas.GaussianReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          let k := 2 * (d / 16);
+          have t := k + 1;
+          let ℓ := 4 * k;
+          ∀ (p : MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : Chal.PosteriorReplicas.Vec d → ℝ) (L : ℝ),
+            Measurable f →
+              (∀ (x : Chal.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ L) →
+                (p = (Chal.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                  ∀ (N : ℕ) [inst_1 : NeZero N] (κ : ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Data d k) (Fin N))
+                    [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                    Chal.PosteriorReplicas.conditionalInformation
+                        (Chal.PosteriorReplicas.sideLaw ℓ (Chal.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                      ENNReal.ofReal
+                        (Chal.PosteriorReplicas.messageEntropy (Chal.PosteriorReplicas.signalMessageLaw p κ) / ↑t +
+                            C * ↑d +
+                          C * Real.log (2 + Real.log L))
+inductive Chal.PosteriorReplicas.BaseLaw : Type
+number of parameters: 0
+constructors:
+Chal.PosteriorReplicas.BaseLaw.spherical : Chal.PosteriorReplicas.BaseLaw
+Chal.PosteriorReplicas.BaseLaw.gaussian : Chal.PosteriorReplicas.BaseLaw
+def Chal.PosteriorReplicas.BaseLaw.measure : Chal.PosteriorReplicas.BaseLaw →
+  (d : ℕ) → MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) :=
+fun base d =>
+  match base with
+  | Chal.PosteriorReplicas.BaseLaw.spherical => Chal.PosteriorReplicas.sphereLaw d
+  | Chal.PosteriorReplicas.BaseLaw.gaussian => ProbabilityTheory.stdGaussian (Chal.PosteriorReplicas.Vec d)
+def Chal.PosteriorReplicas.rowGram : {d k : ℕ} → Chal.PosteriorReplicas.Rows d k → Matrix (Fin k) (Fin k) ℝ :=
+fun {d k} A i j => inner ℝ (A i) (A j)
+def Chal.PosteriorReplicas.liftLabel : {d k : ℕ} →
+  Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → Chal.PosteriorReplicas.Vec d :=
+fun {d k} A y => ∑ i, (Chal.PosteriorReplicas.rowGram A)⁻¹.mulVec y i • A i
+def Chal.PosteriorReplicas.kernelComponent : {d k : ℕ} →
+  Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Vec d → Chal.PosteriorReplicas.Vec d :=
+fun {d k} A x => x - Chal.PosteriorReplicas.liftLabel A (Chal.PosteriorReplicas.labels A x)
+def Chal.PosteriorReplicas.baseFiber : {d k : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    Chal.PosteriorReplicas.Rows d k →
+      Chal.PosteriorReplicas.Labels k → MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) :=
+fun {d k} base A y =>
+  match base with
+  | Chal.PosteriorReplicas.BaseLaw.gaussian =>
+    MeasureTheory.Measure.map
+      (fun x => Chal.PosteriorReplicas.liftLabel A y + Chal.PosteriorReplicas.kernelComponent A x)
+      (ProbabilityTheory.stdGaussian (Chal.PosteriorReplicas.Vec d))
+  | Chal.PosteriorReplicas.BaseLaw.spherical =>
+    MeasureTheory.Measure.map
+      (fun x =>
+        Chal.PosteriorReplicas.liftLabel A y +
+          (√(1 - ‖Chal.PosteriorReplicas.liftLabel A y‖ ^ 2) / ‖Chal.PosteriorReplicas.kernelComponent A x‖) •
+            Chal.PosteriorReplicas.kernelComponent A x)
+      (ProbabilityTheory.stdGaussian (Chal.PosteriorReplicas.Vec d))
+def Chal.PosteriorReplicas.baseDensity : {d k : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw → Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base A y =>
+  if LinearIndependent ℝ A then
+    match base with
+    | Chal.PosteriorReplicas.BaseLaw.gaussian =>
+      ENNReal.ofReal
+        ((2 * Real.pi) ^ (-↑k / 2) * Real.exp (-‖Chal.PosteriorReplicas.liftLabel A y‖ ^ 2 / 2) /
+          √(Chal.PosteriorReplicas.rowGram A).det)
+    | Chal.PosteriorReplicas.BaseLaw.spherical =>
+      if ‖Chal.PosteriorReplicas.liftLabel A y‖ < 1 then
+        ENNReal.ofReal
+          (Real.Gamma (↑d / 2) / (Real.pi ^ (↑k / 2) * Real.Gamma ((↑d - ↑k) / 2)) *
+              (1 - ‖Chal.PosteriorReplicas.liftLabel A y‖ ^ 2) ^ ((↑d - ↑k - 2) / 2) /
+            √(Chal.PosteriorReplicas.rowGram A).det)
+      else 0
+  else 0
+def Chal.PosteriorReplicas.tiltMass : {d k : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    (Chal.PosteriorReplicas.Vec d → ENNReal) →
+      Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base f A y => ∫⁻ (x : Chal.PosteriorReplicas.Vec d), f x ∂Chal.PosteriorReplicas.baseFiber base A y
+def Chal.PosteriorReplicas.projectedDensity : {d k : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    (Chal.PosteriorReplicas.Vec d → ENNReal) →
+      Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} base f A y => Chal.PosteriorReplicas.baseDensity base A y * Chal.PosteriorReplicas.tiltMass base f A y
+def Chal.PosteriorReplicas.tiltedFiber : {d k : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    (Chal.PosteriorReplicas.Vec d → ENNReal) →
+      Chal.PosteriorReplicas.Rows d k →
+        Chal.PosteriorReplicas.Labels k → MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) :=
+fun {d k} base f A y =>
+  if Chal.PosteriorReplicas.tiltMass base f A y = 0 then MeasureTheory.Measure.dirac 0
+  else (Chal.PosteriorReplicas.tiltMass base f A y)⁻¹ • (Chal.PosteriorReplicas.baseFiber base A y).withDensity f
+def Chal.PosteriorReplicas.differences : {d m : ℕ} →
+  Chal.PosteriorReplicas.Tuple d m → Fin m → Chal.PosteriorReplicas.Vec d :=
+fun {d m} u i => u i.succ - u 0
+def Chal.PosteriorReplicas.differenceSpan : {d m : ℕ} →
+  Chal.PosteriorReplicas.Tuple d m → Submodule ℝ (Chal.PosteriorReplicas.Vec d) :=
+fun {d m} u => Submodule.span ℝ (Set.range (Chal.PosteriorReplicas.differences u))
+def Chal.PosteriorReplicas.affineVolume : {d m : ℕ} → Chal.PosteriorReplicas.Tuple d m → ℝ :=
+fun {d m} u => √(Matrix.gram ℝ (Chal.PosteriorReplicas.differences u)).det
+def Chal.PosteriorReplicas.constrainedRows : {d m : ℕ} →
+  (k : ℕ) → Chal.PosteriorReplicas.Tuple d m → MeasureTheory.Measure (Chal.PosteriorReplicas.Rows d k) :=
+fun {d m} k u =>
+  MeasureTheory.Measure.map (fun A i => (Chal.PosteriorReplicas.differenceSpan u)ᗮ.starProjection (A i))
+    (Chal.PosteriorReplicas.gaussianRows d k)
+def Chal.PosteriorReplicas.equalLabelLeft : {d k m : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    (Chal.PosteriorReplicas.Vec d → ENNReal) →
+      (Chal.PosteriorReplicas.Rows d k × Chal.PosteriorReplicas.Labels k × Chal.PosteriorReplicas.Tuple d m → ENNReal) →
+        ENNReal :=
+fun {d k m} base f H =>
+  ∫⁻ (A : Chal.PosteriorReplicas.Rows d k),
+    ∫⁻ (y : Chal.PosteriorReplicas.Labels k),
+      Chal.PosteriorReplicas.projectedDensity base f A y ^ (m + 1) *
+        ∫⁻ (u : Fin (m + 1) → Chal.PosteriorReplicas.Vec d),
+          H
+            (A, y,
+              u) ∂MeasureTheory.Measure.pi fun x =>
+            Chal.PosteriorReplicas.tiltedFiber base f A y ∂Chal.PosteriorReplicas.gaussianRows d k
+def Chal.PosteriorReplicas.equalLabelRight : {d k m : ℕ} →
+  Chal.PosteriorReplicas.BaseLaw →
+    (Chal.PosteriorReplicas.Vec d → ENNReal) →
+      (Chal.PosteriorReplicas.Rows d k × Chal.PosteriorReplicas.Labels k × Chal.PosteriorReplicas.Tuple d m → ENNReal) →
+        ENNReal :=
+fun {d k m} base f H =>
+  ENNReal.ofReal ((2 * Real.pi) ^ (-(↑k * ↑m) / 2)) *
+    ∫⁻ (u : Fin (m + 1) → Chal.PosteriorReplicas.Vec d),
+      (ENNReal.ofReal (Chal.PosteriorReplicas.affineVolume u))⁻¹ ^ k *
+        ∫⁻ (A : Chal.PosteriorReplicas.Rows d k),
+          H
+            (A, Chal.PosteriorReplicas.labels A (u 0),
+              u) ∂Chal.PosteriorReplicas.constrainedRows k
+            u ∂MeasureTheory.Measure.pi fun x => (base.measure d).withDensity f
+def Chal.PosteriorReplicas.EqualLabelMeasureIdentity : Prop :=
+∀ (d k m : ℕ),
+  1 ≤ k →
+    1 ≤ m →
+      k + m ≤ d - 2 →
+        ∀ (base : Chal.PosteriorReplicas.BaseLaw) (f : Chal.PosteriorReplicas.Vec d → ENNReal),
+          Measurable f →
+            (∃ L, L ≠ ⊤ ∧ ∀ (x : Chal.PosteriorReplicas.Vec d), f x ≤ L) →
+              (Chal.PosteriorReplicas.equalLabelLeft base f fun x => 1) < ⊤ ∧
+                ∀
+                  (H :
+                    Chal.PosteriorReplicas.Rows d k ×
+                        Chal.PosteriorReplicas.Labels k × Chal.PosteriorReplicas.Tuple d m →
+                      ENNReal),
+                  Measurable H →
+                    Chal.PosteriorReplicas.equalLabelLeft base f H = Chal.PosteriorReplicas.equalLabelRight base f H
+def Chal.PosteriorReplicas.DistanceReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (p : MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : Chal.PosteriorReplicas.Vec d → ℝ) (b : ℝ),
+            0 ≤ b →
+              Measurable f →
+                (∀ (x : Chal.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ Real.exp b) →
+                  (p = (Chal.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                    ∀ (N : ℕ) [inst_1 : NeZero N]
+                      (κ : ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Data d (d / 16)) (Fin N))
+                      [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                      Chal.PosteriorReplicas.conditionalInformation
+                          (Chal.PosteriorReplicas.sideLaw (d / 2) (Chal.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                        ENNReal.ofReal
+                          (Chal.PosteriorReplicas.messageEntropy (Chal.PosteriorReplicas.signalMessageLaw p κ) /
+                              ↑(d / 8) +
+                            C * (↑d + b / ↑d))
+def Chal.PosteriorReplicas.SyntheticReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d : ℕ),
+      16 ≤ d →
+        ∀ (p : MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+          (f : Chal.PosteriorReplicas.Vec d → ℝ) (L : ℝ),
+          1 ≤ L →
+            Measurable f →
+              (∀ (x : Chal.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ L) →
+                (p = (Chal.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                  ∀ (N : ℕ) [inst_1 : NeZero N] (z : Chal.PosteriorReplicas.Data d (d / 8) → Fin N) (hz : Measurable z),
+                    Chal.PosteriorReplicas.conditionalInformation
+                        (Chal.PosteriorReplicas.sideLaw (d / 2)
+                          (Chal.PosteriorReplicas.signalMessageLaw p (ProbabilityTheory.Kernel.deterministic z hz))) ≤
+                      ENNReal.ofReal (Real.log ↑N / ↑(d / 8) + C * (↑d + Real.log (1 + Real.log L)))
+def Chal.PosteriorReplicas.IncidenceReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∀ (p : MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d)) [inst : MeasureTheory.IsProbabilityMeasure p]
+            (f : Chal.PosteriorReplicas.Vec d → ℝ) (F : ℝ),
+            1 ≤ F →
+              Measurable f →
+                (∀ (x : Chal.PosteriorReplicas.Vec d), 0 ≤ f x ∧ f x ≤ F) →
+                  (p = (Chal.PosteriorReplicas.sphereLaw d).withDensity fun x => ENNReal.ofReal (f x)) →
+                    ∀ (N : ℕ) [inst_1 : NeZero N]
+                      (κ : ProbabilityTheory.Kernel (Chal.PosteriorReplicas.Data d (d / 16)) (Fin N))
+                      [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+                      Chal.PosteriorReplicas.conditionalInformation
+                          (Chal.PosteriorReplicas.sideLaw (d / 4) (Chal.PosteriorReplicas.signalMessageLaw p κ)) ≤
+                        ENNReal.ofReal (Real.log ↑N / ↑(d / 16) + C * ↑d + C * Real.log (1 + Real.log F))
+def Chal.PosteriorReplicas.labelNorm : {k : ℕ} → Chal.PosteriorReplicas.Labels k → ℝ :=
+fun {k} y => ‖WithLp.toLp 2 y‖
+def Chal.PosteriorReplicas.ballDensityVersion : {d k : ℕ} →
+  MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) →
+    Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} ν A y =>
+  Filter.liminf
+    (fun n =>
+      (MeasureTheory.volume {v | Chal.PosteriorReplicas.labelNorm v < (↑n + 1)⁻¹})⁻¹ *
+        ν {x | Chal.PosteriorReplicas.labelNorm (Chal.PosteriorReplicas.labels A x - y) < (↑n + 1)⁻¹})
+    Filter.atTop
+def Chal.PosteriorReplicas.gaussianDensityVersion : {d k : ℕ} →
+  MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d) →
+    Chal.PosteriorReplicas.Rows d k → Chal.PosteriorReplicas.Labels k → ENNReal :=
+fun {d k} ν A y =>
+  Filter.liminf
+    (fun n =>
+      ∫⁻ (x : Chal.PosteriorReplicas.Vec d),
+        ENNReal.ofReal
+          ((2 * Real.pi * (↑n + 1)⁻¹ ^ 2) ^ (-↑k / 2) *
+            Real.exp
+              (-Chal.PosteriorReplicas.labelNorm (Chal.PosteriorReplicas.labels A x - y) ^ 2 /
+                (2 * (↑n + 1)⁻¹ ^ 2))) ∂ν)
+    Filter.atTop
+def Chal.PosteriorReplicas.EqualLabelVersions : Prop :=
+∀ (d k m : ℕ),
+  1 ≤ k →
+    1 ≤ m →
+      k + m ≤ d - 2 →
+        ∀ (base : Chal.PosteriorReplicas.BaseLaw) (f : Chal.PosteriorReplicas.Vec d → ENNReal),
+          Measurable f →
+            (∃ L, L ≠ ⊤ ∧ ∀ (x : Chal.PosteriorReplicas.Vec d), f x ≤ L) →
+              have ν := (base.measure d).withDensity f;
+              (Measurable fun z => Chal.PosteriorReplicas.projectedDensity base f z.1 z.2) ∧
+                (Measurable fun z => Chal.PosteriorReplicas.ballDensityVersion ν z.1 z.2) ∧
+                  (Measurable fun z => Chal.PosteriorReplicas.gaussianDensityVersion ν z.1 z.2) ∧
+                    (∀ (A : Chal.PosteriorReplicas.Rows d k),
+                        LinearIndependent ℝ A →
+                          MeasureTheory.Measure.map (Chal.PosteriorReplicas.labels A) ν =
+                              MeasureTheory.volume.withDensity (Chal.PosteriorReplicas.projectedDensity base f A) ∧
+                            Chal.PosteriorReplicas.projectedDensity base f A =ᵐ[MeasureTheory.volume]
+                                Chal.PosteriorReplicas.ballDensityVersion ν A ∧
+                              Chal.PosteriorReplicas.projectedDensity base f A =ᵐ[MeasureTheory.volume]
+                                Chal.PosteriorReplicas.gaussianDensityVersion ν A) ∧
+                      ∀ᵐ (u : Chal.PosteriorReplicas.Tuple d m) ∂MeasureTheory.Measure.pi fun x => ν,
+                        LinearIndependent ℝ (Chal.PosteriorReplicas.differences u) ∧
+                          ∀ᵐ (A : Fin k → Chal.PosteriorReplicas.Vec d) ∂Chal.PosteriorReplicas.constrainedRows k u,
+                            LinearIndependent ℝ A ∧
+                              (∀ (i : Fin (m + 1)),
+                                  Chal.PosteriorReplicas.labels A (u i) = Chal.PosteriorReplicas.labels A (u 0)) ∧
+                                (base = Chal.PosteriorReplicas.BaseLaw.spherical →
+                                    ‖Chal.PosteriorReplicas.liftLabel A (Chal.PosteriorReplicas.labels A (u 0))‖ < 1) ∧
+                                  0 <
+                                      Chal.PosteriorReplicas.projectedDensity base f A
+                                        (Chal.PosteriorReplicas.labels A (u 0)) ∧
+                                    Chal.PosteriorReplicas.projectedDensity base f A
+                                          (Chal.PosteriorReplicas.labels A (u 0)) ≠
+                                        ⊤ ∧
+                                      Chal.PosteriorReplicas.projectedDensity base f A
+                                            (Chal.PosteriorReplicas.labels A (u 0)) =
+                                          Chal.PosteriorReplicas.ballDensityVersion ν A
+                                            (Chal.PosteriorReplicas.labels A (u 0)) ∧
+                                        Chal.PosteriorReplicas.projectedDensity base f A
+                                            (Chal.PosteriorReplicas.labels A (u 0)) =
+                                          Chal.PosteriorReplicas.gaussianDensityVersion ν A
+                                            (Chal.PosteriorReplicas.labels A (u 0))
+def Chal.PosteriorReplicas.haarRows : (d ℓ : ℕ) → MeasureTheory.Measure (Chal.PosteriorReplicas.Rows d ℓ) :=
+fun d ℓ => MeasureTheory.Measure.map (InnerProductSpace.gramSchmidtNormed ℝ) (Chal.PosteriorReplicas.gaussianRows d ℓ)
+def Chal.PosteriorReplicas.cmi.{u_1, u_2, u_3} : {Z : Type u_1} →
+  {X : Type u_2} →
+    {Y : Type u_3} →
+      [inst : MeasurableSpace Z] →
+        [inst_1 : MeasurableSpace X] →
+          [inst_2 : MeasurableSpace Y] →
+            [StandardBorelSpace X] →
+              [StandardBorelSpace Y] →
+                [Nonempty X] →
+                  [Nonempty Y] →
+                    (μ : MeasureTheory.Measure (Z × X × Y)) → [MeasureTheory.IsFiniteMeasure μ] → ENNReal :=
+fun {Z} {X} {Y} [MeasurableSpace Z] [MeasurableSpace X] [MeasurableSpace Y] [StandardBorelSpace X]
+    [StandardBorelSpace Y] [Nonempty X] [Nonempty Y] μ [MeasureTheory.IsFiniteMeasure μ] =>
+  InformationTheory.klDiv μ (μ.fst.compProd (μ.condKernel.fst.prod μ.condKernel.snd))
+def Chal.PosteriorReplicas.finiteEntropy.{u_1} : {J : Type u_1} →
+  [Fintype J] → [inst : MeasurableSpace J] → MeasureTheory.Measure J → ℝ :=
+fun {J} [Fintype J] [MeasurableSpace J] μ => ∑ j, -μ.real {j} * Real.log (μ.real {j})
+def Chal.PosteriorReplicas.stateMessageKernel : {d k V W : ℕ} →
+  ProbabilityTheory.Kernel (Fin V × Chal.PosteriorReplicas.Data d k) (Fin W) →
+    ProbabilityTheory.Kernel ((Chal.PosteriorReplicas.Vec d × Fin V) × Chal.PosteriorReplicas.Rows d k) (Fin W) :=
+fun {d k V W} κ => κ.comap (fun z => (z.1.2, z.2, Chal.PosteriorReplicas.labels z.2 z.1.1)) ⋯
+def Chal.PosteriorReplicas.stateMessageLaw : {d k V W : ℕ} →
+  MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d × Fin V) →
+    ProbabilityTheory.Kernel (Fin V × Chal.PosteriorReplicas.Data d k) (Fin W) →
+      MeasureTheory.Measure ((Chal.PosteriorReplicas.Vec d × Fin V) × Fin W) :=
+fun {d k V W} q κ =>
+  MeasureTheory.Measure.map (fun z => (z.1.1, z.2))
+    ((q.prod (Chal.PosteriorReplicas.gaussianRows d k)).compProd (Chal.PosteriorReplicas.stateMessageKernel κ))
+def Chal.PosteriorReplicas.stateHaarSideLaw : {d V W : ℕ} →
+  (ℓ : ℕ) →
+    MeasureTheory.Measure ((Chal.PosteriorReplicas.Vec d × Fin V) × Fin W) →
+      MeasureTheory.Measure ((Fin V × Chal.PosteriorReplicas.Data d ℓ) × Chal.PosteriorReplicas.Vec d × Fin W) :=
+fun {d V W} ℓ q =>
+  MeasureTheory.Measure.map (fun z => ((z.2.1.2, z.1, Chal.PosteriorReplicas.labels z.1 z.2.1.1), z.2.1.1, z.2.2))
+    ((Chal.PosteriorReplicas.haarRows d ℓ).prod q)
+def Chal.PosteriorReplicas.terminalConditionalEntropy : {d V W : ℕ} →
+  MeasureTheory.Measure ((Chal.PosteriorReplicas.Vec d × Fin V) × Fin W) → ℝ :=
+fun {d V W} q =>
+  Chal.PosteriorReplicas.finiteEntropy (MeasureTheory.Measure.map (fun z => (z.1.2, z.2)) q) -
+    Chal.PosteriorReplicas.finiteEntropy (MeasureTheory.Measure.map (fun z => z.1.2) q)
+def Chal.PosteriorReplicas.HaarReplicaBlock : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d : ℕ),
+      64 ≤ d →
+        ∀ (V W : ℕ) [NeZero V] [inst : NeZero W] (q : MeasureTheory.Measure (Chal.PosteriorReplicas.Vec d × Fin V))
+          [inst_1 : MeasureTheory.IsProbabilityMeasure q],
+          q.fst = Chal.PosteriorReplicas.sphereLaw d →
+            ∀ (κ : ProbabilityTheory.Kernel (Fin V × Chal.PosteriorReplicas.Data d (d / 16)) (Fin W))
+              [inst_2 : ProbabilityTheory.IsMarkovKernel κ],
+              Chal.PosteriorReplicas.cmi
+                  (Chal.PosteriorReplicas.stateHaarSideLaw (d / 4) (Chal.PosteriorReplicas.stateMessageLaw q κ)) ≤
+                ENNReal.ofReal
+                  (Chal.PosteriorReplicas.terminalConditionalEntropy (Chal.PosteriorReplicas.stateMessageLaw q κ) /
+                          ↑(d / 16 + 1) +
+                        C * ↑d +
+                      Real.log (1 + C * ↑d + Chal.PosteriorReplicas.finiteEntropy q.snd) +
+                    C * (Chal.PosteriorReplicas.finiteEntropy q.snd + Real.log ↑d) / ↑d ^ 2)
+@[reducible] def Chal.PosteriorRegression.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def Chal.PosteriorRegression.UnitSphere : (d : ℕ) → Set (Chal.PosteriorRegression.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def Chal.PosteriorRegression.State : ℕ → Type :=
+fun M => Fin (2 ^ M)
+@[reducible] def Chal.PosteriorRegression.Samples : ℕ → ℕ → Type :=
+fun d T => Fin T → Chal.PosteriorRegression.Vector d
+def Chal.PosteriorRegression.uniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(Chal.PosteriorRegression.UnitSphere d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def Chal.PosteriorRegression.sampleLaw : (d T : ℕ) → MeasureTheory.Measure (Chal.PosteriorRegression.Samples d T) :=
+fun d T => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (Chal.PosteriorRegression.Vector d)
+def Chal.PosteriorRegression.observationReference : (d : ℕ) →
+  MeasureTheory.Measure (Chal.PosteriorRegression.Vector d × ℝ) :=
+fun d => (ProbabilityTheory.stdGaussian (Chal.PosteriorRegression.Vector d)).prod MeasureTheory.volume
+@[reducible] def Chal.PosteriorRegression.Learner.RunStatus : ℕ → Type :=
+fun M => Chal.PosteriorRegression.State M ⊕ ℕ × Chal.PosteriorRegression.State M
+def Chal.PosteriorRegression.Learner.angularError : {d : ℕ} →
+  ↑(Chal.PosteriorRegression.UnitSphere d) → ↑(Chal.PosteriorRegression.UnitSphere d) → ℝ :=
+fun {d} s ŝ => Real.arccos (inner ℝ ↑ŝ ↑s)
+@[reducible] def Chal.PosteriorRegression.CompletedObservation : ℕ → Type :=
+fun d =>
+  MeasureTheory.NullMeasurableSpace (Chal.PosteriorRegression.Vector d × ℝ)
+    (Chal.PosteriorRegression.observationReference d)
+@[reducible] def Chal.PosteriorRegression.Destination : ℕ → Type :=
+fun M => Bool × Chal.PosteriorRegression.State M
+structure Chal.PosteriorRegression.CompletedKernelLearner (d M : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.PosteriorRegression.CompletedKernelLearner.initial : MeasureTheory.Measure
+      (Chal.PosteriorRegression.Destination M)
+  Chal.PosteriorRegression.CompletedKernelLearner.initial_probability : MeasureTheory.IsProbabilityMeasure self.initial
+  Chal.PosteriorRegression.CompletedKernelLearner.transition : ℕ →
+      Chal.PosteriorRegression.State M →
+        ProbabilityTheory.Kernel (Chal.PosteriorRegression.CompletedObservation d)
+          (Chal.PosteriorRegression.Destination M)
+  Chal.PosteriorRegression.CompletedKernelLearner.transition_markov : ∀ (t : ℕ) (a : Chal.PosteriorRegression.State M),
+      ProbabilityTheory.IsMarkovKernel (self.transition t a)
+  Chal.PosteriorRegression.CompletedKernelLearner.output : ℕ →
+      Chal.PosteriorRegression.State M → MeasureTheory.Measure ↑(Chal.PosteriorRegression.UnitSphere d)
+  Chal.PosteriorRegression.CompletedKernelLearner.output_probability : ∀ (t : ℕ) (a : Chal.PosteriorRegression.State M),
+      MeasureTheory.IsProbabilityMeasure (self.output t a)
+constructor:
+  Chal.PosteriorRegression.CompletedKernelLearner.mk {d M : ℕ}
+    (initial : MeasureTheory.Measure (Chal.PosteriorRegression.Destination M))
+    (initial_probability : MeasureTheory.IsProbabilityMeasure initial)
+    (transition :
+      ℕ →
+        Chal.PosteriorRegression.State M →
+          ProbabilityTheory.Kernel (Chal.PosteriorRegression.CompletedObservation d)
+            (Chal.PosteriorRegression.Destination M))
+    (transition_markov :
+      ∀ (t : ℕ) (a : Chal.PosteriorRegression.State M), ProbabilityTheory.IsMarkovKernel (transition t a))
+    (output : ℕ → Chal.PosteriorRegression.State M → MeasureTheory.Measure ↑(Chal.PosteriorRegression.UnitSphere d))
+    (output_probability :
+      ∀ (t : ℕ) (a : Chal.PosteriorRegression.State M), MeasureTheory.IsProbabilityMeasure (output t a)) :
+    Chal.PosteriorRegression.CompletedKernelLearner d M
+def Chal.PosteriorRegression.CompletedKernelLearner.destStatus : {M : ℕ} →
+  ℕ → Chal.PosteriorRegression.Destination M → Chal.PosteriorRegression.Learner.RunStatus M :=
+fun {M} n v => if v.1 = true then Sum.inr (n, v.2) else Sum.inl v.2
+def Chal.PosteriorRegression.CompletedKernelLearner.finishState : {M : ℕ} →
+  ℕ → Chal.PosteriorRegression.Learner.RunStatus M → ℕ × Chal.PosteriorRegression.State M :=
+fun {M} T x =>
+  match x with
+  | Sum.inl a => (T, a)
+  | Sum.inr done => done
+def Chal.PosteriorRegression.CompletedKernelLearner.stepMeasure : {d M T : ℕ} →
+  Chal.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(Chal.PosteriorRegression.UnitSphere d) →
+      Chal.PosteriorRegression.Samples d T →
+        Fin T →
+          Chal.PosteriorRegression.Learner.RunStatus M →
+            MeasureTheory.Measure (Chal.PosteriorRegression.Learner.RunStatus M) :=
+fun {d M T} K s x i x_1 =>
+  match x_1 with
+  | Sum.inr done => MeasureTheory.Measure.dirac (Sum.inr done)
+  | Sum.inl a =>
+    MeasureTheory.Measure.map (Chal.PosteriorRegression.CompletedKernelLearner.destStatus (↑i + 1))
+      ((K.transition (↑i + 1) a) (x i, inner ℝ (x i) ↑s))
+def Chal.PosteriorRegression.CompletedKernelLearner.runMeasure : {d M T : ℕ} →
+  Chal.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(Chal.PosteriorRegression.UnitSphere d) →
+      Chal.PosteriorRegression.Samples d T → ℕ → MeasureTheory.Measure (Chal.PosteriorRegression.Learner.RunStatus M) :=
+fun {d M T} K s x x_1 => Nat.brecOn x_1 (Chal.PosteriorRegression.CompletedKernelLearner.runMeasure._f K s x)
+def Chal.PosteriorRegression.CompletedKernelLearner.terminalLaw : {d M T : ℕ} →
+  Chal.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(Chal.PosteriorRegression.UnitSphere d) →
+      Chal.PosteriorRegression.Samples d T → MeasureTheory.Measure (ℕ × Chal.PosteriorRegression.State M) :=
+fun {d M T} K s x =>
+  MeasureTheory.Measure.map (Chal.PosteriorRegression.CompletedKernelLearner.finishState T) (K.runMeasure s x T)
+def Chal.PosteriorRegression.CompletedKernelLearner.estimateLaw : {d M T : ℕ} →
+  Chal.PosteriorRegression.CompletedKernelLearner d M →
+    ↑(Chal.PosteriorRegression.UnitSphere d) →
+      Chal.PosteriorRegression.Samples d T → MeasureTheory.Measure ↑(Chal.PosteriorRegression.UnitSphere d) :=
+fun {d M T} K s x => (K.terminalLaw s x).bind fun a => K.output a.1 a.2
+structure Chal.PosteriorRegression.JointKernelExperiment.{u} (d M T : ℕ) (Ω : Type u) [MeasurableSpace Ω]
+  (ρ : MeasureTheory.Measure Ω) : Type u
+number of parameters: 6
+fields:
+  Chal.PosteriorRegression.JointKernelExperiment.rules : Ω → Chal.PosteriorRegression.CompletedKernelLearner d M
+  Chal.PosteriorRegression.JointKernelExperiment.outputKernel : ProbabilityTheory.Kernel
+      (Ω × ↑(Chal.PosteriorRegression.UnitSphere d) × Chal.PosteriorRegression.Samples d T)
+      ↑(Chal.PosteriorRegression.UnitSphere d)
+  Chal.PosteriorRegression.JointKernelExperiment.output_markov : ProbabilityTheory.IsMarkovKernel self.outputKernel
+  Chal.PosteriorRegression.JointKernelExperiment.conditional_output : ∀ᵐ (ω : Ω) ∂ρ,
+      ∀ᵐ (z :
+        ↑(Chal.PosteriorRegression.UnitSphere d) ×
+          Chal.PosteriorRegression.Samples d
+            T) ∂(Chal.PosteriorRegression.uniformSphere d).prod (Chal.PosteriorRegression.sampleLaw d T),
+        self.outputKernel (ω, z) = (self.rules ω).estimateLaw z.1 z.2
+constructor:
+  Chal.PosteriorRegression.JointKernelExperiment.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {ρ : MeasureTheory.Measure Ω} (rules : Ω → Chal.PosteriorRegression.CompletedKernelLearner d M)
+    (outputKernel :
+      ProbabilityTheory.Kernel (Ω × ↑(Chal.PosteriorRegression.UnitSphere d) × Chal.PosteriorRegression.Samples d T)
+        ↑(Chal.PosteriorRegression.UnitSphere d))
+    (output_markov : ProbabilityTheory.IsMarkovKernel outputKernel)
+    (conditional_output :
+      ∀ᵐ (ω : Ω) ∂ρ,
+        ∀ᵐ (z :
+          ↑(Chal.PosteriorRegression.UnitSphere d) ×
+            Chal.PosteriorRegression.Samples d
+              T) ∂(Chal.PosteriorRegression.uniformSphere d).prod (Chal.PosteriorRegression.sampleLaw d T),
+          outputKernel (ω, z) = (rules ω).estimateLaw z.1 z.2) :
+    Chal.PosteriorRegression.JointKernelExperiment d M T Ω ρ
+def Chal.PosteriorRegression.JointKernelExperiment.law.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      {ρ : MeasureTheory.Measure Ω} →
+        Chal.PosteriorRegression.JointKernelExperiment d M T Ω ρ →
+          MeasureTheory.Measure
+            ((Ω × ↑(Chal.PosteriorRegression.UnitSphere d) × Chal.PosteriorRegression.Samples d T) ×
+              ↑(Chal.PosteriorRegression.UnitSphere d)) :=
+fun {d M T} {Ω} [MeasurableSpace Ω] {ρ} E =>
+  (ρ.prod ((Chal.PosteriorRegression.uniformSphere d).prod (Chal.PosteriorRegression.sampleLaw d T))).compProd
+    E.outputKernel
+def Chal.PosteriorRegression.JointKernelExperiment.uniformSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      {ρ : MeasureTheory.Measure Ω} → Chal.PosteriorRegression.JointKernelExperiment d M T Ω ρ → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] {ρ} E ε => E.law {z | Chal.PosteriorRegression.Learner.angularError z.1.2.1 z.2 ≤ ε}
+def Chal.PosteriorRegression.KernelSubquadraticMemory.{u} : Prop :=
+∃ c,
+  0 < c ∧
+    ∀ (M : ℕ → ℕ),
+      ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (T : ℕ) (ε : ℝ),
+                0 < ε →
+                  ε ≤ 1 / 10 →
+                    ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀ (E : Chal.PosteriorRegression.JointKernelExperiment d (M d) T Ω ρ),
+                          2 / 3 ≤ E.uniformSuccess ε → c * ↑d * Real.log (1 / ε) ≤ ↑T
+'OAI.PosteriorReplicas.source_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PosteriorReplicas comparator-style: ok=110 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

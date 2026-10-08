@@ -1,0 +1,16 @@
+CMP OAI.SingleFold.main [thm] ok
+CMP OAI.SingleFold.MainStatement [def] ok
+CMP OAI.SingleFold.Represents [def] ok
+CMP OAI.SingleFold.evalNat [def] ok
+Chal.SingleFold.main : Chal.SingleFold.MainStatement
+def Chal.SingleFold.evalNat : {n m : ℕ} → MvPolynomial (Fin n ⊕ Fin m) ℤ → (Fin n → ℕ) → (Fin m → ℕ) → ℤ :=
+fun {n m} P a w => (MvPolynomial.eval (Sum.elim (fun i => ↑(a i)) fun j => ↑(w j))) P
+def Chal.SingleFold.Represents : {n m : ℕ} → MvPolynomial (Fin n ⊕ Fin m) ℤ → Set (Fin n → ℕ) → Prop :=
+fun {n m} P S =>
+  ∀ (a : Fin n → ℕ),
+    (a ∈ S ↔ ∃ w, Chal.SingleFold.evalNat P a w = 0) ∧
+      ∀ (w v : Fin m → ℕ), Chal.SingleFold.evalNat P a w = 0 → Chal.SingleFold.evalNat P a v = 0 → w = v
+def Chal.SingleFold.MainStatement : Prop :=
+∀ (n : ℕ), 1 ≤ n → ∀ (S : Set (Fin n → ℕ)), (REPred fun a => a ∈ S) → ∃ m, 1 ≤ m ∧ ∃ P, Chal.SingleFold.Represents P S
+'OAI.SingleFold.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SingleFold comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

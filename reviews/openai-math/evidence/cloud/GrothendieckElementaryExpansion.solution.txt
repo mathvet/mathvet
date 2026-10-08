@@ -1,0 +1,490 @@
+OAI.Grothendieck.elementary_expansion : ∀ (C : OAI.Grothendieck.GlobularTheory) (hC : C.IsCoherator) (X : C.Model),
+  X.IsCellular →
+    ∀ (n : ℕ) (a : OAI.Grothendieck.GlobularTheory.Model.disk C n ⟶ X) (Y : C.Model) (i : X ⟶ Y)
+      (b : OAI.Grothendieck.GlobularTheory.Model.disk C (n + 1) ⟶ Y),
+      CategoryTheory.IsPushout a (OAI.Grothendieck.GlobularTheory.Model.J C n) i b →
+        OAI.Grothendieck.GlobularTheory.Model.WeakEquivalence hC i
+'OAI.Grothendieck.elementary_expansion' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.Grothendieck.GlobularSet.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.Grothendieck.GlobularSet.Cell : ℕ → Type u
+  OAI.Grothendieck.GlobularSet.source : (n : ℕ) → self.Cell (n + 1) → self.Cell n
+  OAI.Grothendieck.GlobularSet.target : (n : ℕ) → self.Cell (n + 1) → self.Cell n
+  OAI.Grothendieck.GlobularSet.source_source : ∀ (n : ℕ) (x : self.Cell (n + 1 + 1)),
+      self.source n (self.source (n + 1) x) = self.source n (self.target (n + 1) x)
+  OAI.Grothendieck.GlobularSet.target_source : ∀ (n : ℕ) (x : self.Cell (n + 1 + 1)),
+      self.target n (self.source (n + 1) x) = self.target n (self.target (n + 1) x)
+constructor:
+  OAI.Grothendieck.GlobularSet.mk.{u} (Cell : ℕ → Type u) (source target : (n : ℕ) → Cell (n + 1) → Cell n)
+    (source_source : ∀ (n : ℕ) (x : Cell (n + 1 + 1)), source n (source (n + 1) x) = source n (target (n + 1) x))
+    (target_source : ∀ (n : ℕ) (x : Cell (n + 1 + 1)), target n (source (n + 1) x) = target n (target (n + 1) x)) :
+    OAI.Grothendieck.GlobularSet
+structure OAI.Grothendieck.GlobularSet.Hom.{u} (X Y : OAI.Grothendieck.GlobularSet) : Type u
+number of parameters: 2
+fields:
+  OAI.Grothendieck.GlobularSet.Hom.app : (n : ℕ) → X.Cell n → Y.Cell n
+  OAI.Grothendieck.GlobularSet.Hom.source_app : ∀ (n : ℕ) (x : X.Cell (n + 1)),
+      self.app n (X.source n x) = Y.source n (self.app (n + 1) x)
+  OAI.Grothendieck.GlobularSet.Hom.target_app : ∀ (n : ℕ) (x : X.Cell (n + 1)),
+      self.app n (X.target n x) = Y.target n (self.app (n + 1) x)
+constructor:
+  OAI.Grothendieck.GlobularSet.Hom.mk.{u} {X Y : OAI.Grothendieck.GlobularSet} (app : (n : ℕ) → X.Cell n → Y.Cell n)
+    (source_app : ∀ (n : ℕ) (x : X.Cell (n + 1)), app n (X.source n x) = Y.source n (app (n + 1) x))
+    (target_app : ∀ (n : ℕ) (x : X.Cell (n + 1)), app n (X.target n x) = Y.target n (app (n + 1) x)) : X.Hom Y
+def OAI.Grothendieck.GlobularSet.Parallel.{u} : (X : OAI.Grothendieck.GlobularSet) →
+  (n : ℕ) → X.Cell n → X.Cell n → Prop :=
+fun X x x_1 x_2 =>
+  match x, x_1, x_2 with
+  | 0, x, x_3 => True
+  | n.succ, x, y => X.source n x = X.source n y ∧ X.target n x = X.target n y
+def OAI.Grothendieck.GlobularSet.Joined.{u} : (X : OAI.Grothendieck.GlobularSet) →
+  (n : ℕ) → X.Cell n → X.Cell n → Prop :=
+fun X n x y => ∃ h, X.source n h = x ∧ X.target n h = y
+def OAI.Grothendieck.GlobularSet.Boundary.{u} : OAI.Grothendieck.GlobularSet → ℕ → Type u :=
+fun X x =>
+  match x with
+  | 0 => PUnit.{u + 1}
+  | n.succ => { p // X.Parallel n p.1 p.2 }
+def OAI.Grothendieck.GlobularSet.boundary.{u} : (X : OAI.Grothendieck.GlobularSet) →
+  (n : ℕ) → X.Cell n → X.Boundary n :=
+fun X x x_1 =>
+  match x, x_1 with
+  | 0, x => PUnit.unit
+  | n.succ, x => ⟨(X.source n x, X.target n x), ⋯⟩
+def OAI.Grothendieck.GlobularSet.Hom.boundaryMap.{u} : {X Y : OAI.Grothendieck.GlobularSet} →
+  X.Hom Y → (n : ℕ) → X.Boundary n → Y.Boundary n :=
+fun {X Y} f x x_1 =>
+  match x, x_1 with
+  | 0, x => PUnit.unit
+  | n.succ, b => ⟨(f.app n (↑b).1, f.app n (↑b).2), ⋯⟩
+structure OAI.Grothendieck.Globe : Type
+number of parameters: 0
+fields:
+  OAI.Grothendieck.Globe.dim : ℕ
+constructor:
+  OAI.Grothendieck.Globe.mk (dim : ℕ) : OAI.Grothendieck.Globe
+inductive OAI.Grothendieck.Globe.Face : ℕ → ℕ → Type
+number of parameters: 1
+constructors:
+OAI.Grothendieck.Globe.Face.id : (n : ℕ) → OAI.Grothendieck.Globe.Face n n
+OAI.Grothendieck.Globe.Face.face : {m n : ℕ} → m < n → Bool → OAI.Grothendieck.Globe.Face m n
+def OAI.Grothendieck.Globe.Face.comp : {m n k : ℕ} →
+  OAI.Grothendieck.Globe.Face m n → OAI.Grothendieck.Globe.Face n k → OAI.Grothendieck.Globe.Face m k :=
+fun {m n k} x x_1 =>
+  match n, x, x_1 with
+  | .(m), OAI.Grothendieck.Globe.Face.id .(m), g => g
+  | .(k), OAI.Grothendieck.Globe.Face.face h b, OAI.Grothendieck.Globe.Face.id .(k) =>
+    OAI.Grothendieck.Globe.Face.face h b
+  | n, OAI.Grothendieck.Globe.Face.face h b, OAI.Grothendieck.Globe.Face.face h' side =>
+    OAI.Grothendieck.Globe.Face.face ⋯ b
+def OAI.Grothendieck.Globe.face : {m n : ℕ} → m < n → Bool → ({ dim := m } ⟶ { dim := n }) :=
+fun {m n} h side => OAI.Grothendieck.Globe.Face.face h side
+def OAI.Grothendieck.Globe.source : (n : ℕ) → { dim := n } ⟶ { dim := n + 1 } :=
+fun n => OAI.Grothendieck.Globe.face ⋯ false
+def OAI.Grothendieck.Globe.target : (n : ℕ) → { dim := n } ⟶ { dim := n + 1 } :=
+fun n => OAI.Grothendieck.Globe.face ⋯ true
+@[reducible] def OAI.Grothendieck.GlobularPresheaf.{u} : Type (u + 1) :=
+CategoryTheory.Functor OAI.Grothendieck.Globeᵒᵖ (Type u)
+def OAI.Grothendieck.GlobularPresheaf.underlying.{u} : OAI.Grothendieck.GlobularPresheaf →
+  OAI.Grothendieck.GlobularSet :=
+fun X =>
+  { Cell := fun n => X.obj (Opposite.op { dim := n }),
+    source := fun n => ⇑(CategoryTheory.ConcreteCategory.hom (X.map (OAI.Grothendieck.Globe.source n).op)),
+    target := fun n => ⇑(CategoryTheory.ConcreteCategory.hom (X.map (OAI.Grothendieck.Globe.target n).op)),
+    source_source := ⋯, target_source := ⋯ }
+def OAI.Grothendieck.GlobularPresheaf.underlyingMap.{u} : {X Y : OAI.Grothendieck.GlobularPresheaf} →
+  (X ⟶ Y) → X.underlying.Hom Y.underlying :=
+fun {X Y} f =>
+  { app := fun n => ⇑(CategoryTheory.ConcreteCategory.hom (f.app (Opposite.op { dim := n }))), source_app := ⋯,
+    target_app := ⋯ }
+def OAI.Grothendieck.GlobularPresheaf.disk.{u} : ℕ → OAI.Grothendieck.GlobularPresheaf :=
+fun n => CategoryTheory.uliftYoneda.{u, 0, 0}.obj { dim := n }
+def OAI.Grothendieck.GlobularPresheaf.face.{u} : {m n : ℕ} →
+  m < n → Bool → (OAI.Grothendieck.GlobularPresheaf.disk m ⟶ OAI.Grothendieck.GlobularPresheaf.disk n) :=
+fun {m n} h side => CategoryTheory.uliftYoneda.{u, 0, 0}.map (OAI.Grothendieck.Globe.face h side)
+inductive OAI.Grothendieck.Table : ℕ → Type
+number of parameters: 0
+constructors:
+OAI.Grothendieck.Table.globe : (n : ℕ) → OAI.Grothendieck.Table n
+OAI.Grothendieck.Table.attach : {last : ℕ} →
+  OAI.Grothendieck.Table last → (b h : ℕ) → b < last → b < h → OAI.Grothendieck.Table h
+def OAI.Grothendieck.Table.height : {n : ℕ} → OAI.Grothendieck.Table n → ℕ :=
+fun x x_1 => OAI.Grothendieck.Table.brecOn x_1 OAI.Grothendieck.Table.height._f
+def OAI.Grothendieck.Table.realizeWithLast : {n : ℕ} →
+  OAI.Grothendieck.Table n → (X : OAI.Grothendieck.GlobularPresheaf) × (OAI.Grothendieck.GlobularPresheaf.disk n ⟶ X) :=
+fun x x_1 => OAI.Grothendieck.Table.brecOn x_1 OAI.Grothendieck.Table.realizeWithLast._f
+def OAI.Grothendieck.Table.realize : {n : ℕ} → OAI.Grothendieck.Table n → OAI.Grothendieck.GlobularPresheaf :=
+fun {n} T => T.realizeWithLast.fst
+def OAI.Grothendieck.Table.lastInclusion : {n : ℕ} →
+  (T : OAI.Grothendieck.Table n) → OAI.Grothendieck.GlobularPresheaf.disk n ⟶ T.realize :=
+fun {n} T => T.realizeWithLast.snd
+@[reducible] def OAI.Grothendieck.Shape : Type :=
+(n : ℕ) × OAI.Grothendieck.Table n
+def OAI.Grothendieck.Shape.realize : OAI.Grothendieck.Shape → OAI.Grothendieck.GlobularPresheaf :=
+fun S => S.snd.realize
+def OAI.Grothendieck.Shape.height : OAI.Grothendieck.Shape → ℕ :=
+fun S => S.snd.height
+def OAI.Grothendieck.Shape.globe : ℕ → OAI.Grothendieck.Shape :=
+fun n => ⟨n, OAI.Grothendieck.Table.globe n⟩
+def OAI.Grothendieck.Shape.face : {m n : ℕ} →
+  m < n → Bool → (OAI.Grothendieck.Shape.globe m ⟶ OAI.Grothendieck.Shape.globe n) :=
+fun {m n} h side => OAI.Grothendieck.GlobularPresheaf.face h side
+def OAI.Grothendieck.Shape.source : (n : ℕ) → OAI.Grothendieck.Shape.globe n ⟶ OAI.Grothendieck.Shape.globe (n + 1) :=
+fun n => OAI.Grothendieck.Shape.face ⋯ false
+def OAI.Grothendieck.Shape.target : (n : ℕ) → OAI.Grothendieck.Shape.globe n ⟶ OAI.Grothendieck.Shape.globe (n + 1) :=
+fun n => OAI.Grothendieck.Shape.face ⋯ true
+def OAI.Grothendieck.Shape.attach : (S : OAI.Grothendieck.Shape) →
+  (b h : ℕ) → b < S.fst → b < h → OAI.Grothendieck.Shape :=
+fun S b h hl hr => ⟨h, S.snd.attach b h hl hr⟩
+def OAI.Grothendieck.Shape.seam : (S : OAI.Grothendieck.Shape) →
+  {b : ℕ} → b < S.fst → (OAI.Grothendieck.Shape.globe b ⟶ S) :=
+fun S {b} hl =>
+  have this := CategoryTheory.CategoryStruct.comp (OAI.Grothendieck.GlobularPresheaf.face hl true) S.snd.lastInclusion;
+  this
+def OAI.Grothendieck.Shape.inl : (S : OAI.Grothendieck.Shape) →
+  (b h : ℕ) → (hl : b < S.fst) → (hr : b < h) → S ⟶ S.attach b h hl hr :=
+fun S b h hl hr =>
+  CategoryTheory.Limits.pushout.inl
+    (CategoryTheory.CategoryStruct.comp (OAI.Grothendieck.GlobularPresheaf.face hl true) S.snd.lastInclusion)
+    (OAI.Grothendieck.GlobularPresheaf.face hr false)
+def OAI.Grothendieck.Shape.inr : (S : OAI.Grothendieck.Shape) →
+  (b h : ℕ) → (hl : b < S.fst) → (hr : b < h) → OAI.Grothendieck.Shape.globe h ⟶ S.attach b h hl hr :=
+fun S b h hl hr =>
+  CategoryTheory.Limits.pushout.inr
+    (CategoryTheory.CategoryStruct.comp (OAI.Grothendieck.GlobularPresheaf.face hl true) S.snd.lastInclusion)
+    (OAI.Grothendieck.GlobularPresheaf.face hr false)
+structure OAI.Grothendieck.TheoryData.{v} : Type (v + 1)
+number of parameters: 0
+fields:
+  OAI.Grothendieck.TheoryData.Hom : OAI.Grothendieck.Shape → OAI.Grothendieck.Shape → Type v
+  OAI.Grothendieck.TheoryData.id : (S : OAI.Grothendieck.Shape) → self.Hom S S
+  OAI.Grothendieck.TheoryData.comp : {S T U : OAI.Grothendieck.Shape} → self.Hom S T → self.Hom T U → self.Hom S U
+  OAI.Grothendieck.TheoryData.id_comp : ∀ {S T : OAI.Grothendieck.Shape} (f : self.Hom S T), self.comp (self.id S) f = f
+  OAI.Grothendieck.TheoryData.comp_id : ∀ {S T : OAI.Grothendieck.Shape} (f : self.Hom S T), self.comp f (self.id T) = f
+  OAI.Grothendieck.TheoryData.assoc : ∀ {R S T U : OAI.Grothendieck.Shape} (f : self.Hom R S) (g : self.Hom S T)
+      (h : self.Hom T U), self.comp (self.comp f g) h = self.comp f (self.comp g h)
+  OAI.Grothendieck.TheoryData.base : {S T : OAI.Grothendieck.Shape} → (S ⟶ T) → self.Hom S T
+  OAI.Grothendieck.TheoryData.base_id : ∀ (S : OAI.Grothendieck.Shape),
+      self.base (CategoryTheory.CategoryStruct.id S) = self.id S
+  OAI.Grothendieck.TheoryData.base_comp : ∀ {R S T : OAI.Grothendieck.Shape} (f : R ⟶ S) (g : S ⟶ T),
+      self.base (CategoryTheory.CategoryStruct.comp f g) = self.comp (self.base f) (self.base g)
+constructor:
+  OAI.Grothendieck.TheoryData.mk.{v} (Hom : OAI.Grothendieck.Shape → OAI.Grothendieck.Shape → Type v)
+    (id : (S : OAI.Grothendieck.Shape) → Hom S S)
+    (comp : {S T U : OAI.Grothendieck.Shape} → Hom S T → Hom T U → Hom S U)
+    (id_comp : ∀ {S T : OAI.Grothendieck.Shape} (f : Hom S T), comp (id S) f = f)
+    (comp_id : ∀ {S T : OAI.Grothendieck.Shape} (f : Hom S T), comp f (id T) = f)
+    (assoc :
+      ∀ {R S T U : OAI.Grothendieck.Shape} (f : Hom R S) (g : Hom S T) (h : Hom T U),
+        comp (comp f g) h = comp f (comp g h))
+    (base : {S T : OAI.Grothendieck.Shape} → (S ⟶ T) → Hom S T)
+    (base_id : ∀ (S : OAI.Grothendieck.Shape), base (CategoryTheory.CategoryStruct.id S) = id S)
+    (base_comp :
+      ∀ {R S T : OAI.Grothendieck.Shape} (f : R ⟶ S) (g : S ⟶ T),
+        base (CategoryTheory.CategoryStruct.comp f g) = comp (base f) (base g)) :
+    OAI.Grothendieck.TheoryData
+structure OAI.Grothendieck.TheoryData.Obj.{v} (C : OAI.Grothendieck.TheoryData) : Type
+number of parameters: 1
+fields:
+  OAI.Grothendieck.TheoryData.Obj.shape : OAI.Grothendieck.Shape
+constructor:
+  OAI.Grothendieck.TheoryData.Obj.mk.{v} {C : OAI.Grothendieck.TheoryData} (shape : OAI.Grothendieck.Shape) : C.Obj
+def OAI.Grothendieck.TheoryData.arity.{v} : (C : OAI.Grothendieck.TheoryData) →
+  CategoryTheory.Functor OAI.Grothendieck.Shape C.Obj :=
+fun C => { obj := fun S => { shape := S }, map := fun {X Y} f => C.base f, map_id := ⋯, map_comp := ⋯ }
+def OAI.Grothendieck.TheoryData.PreservesGlobularSums.{v} : OAI.Grothendieck.TheoryData → Prop :=
+fun C =>
+  ∀ (S : OAI.Grothendieck.Shape) (b h : ℕ) (hl : b < S.fst) (hr : b < h),
+    CategoryTheory.IsPushout (C.arity.map (S.seam hl)) (C.arity.map (OAI.Grothendieck.Shape.face hr false))
+      (C.arity.map (S.inl b h hl hr)) (C.arity.map (S.inr b h hl hr))
+structure OAI.Grothendieck.GlobularTheory.{v} : Type (v + 1)
+number of parameters: 0
+parents:
+  OAI.Grothendieck.GlobularTheory.toTheoryData : OAI.Grothendieck.TheoryData
+fields:
+  OAI.Grothendieck.TheoryData.Hom : OAI.Grothendieck.Shape → OAI.Grothendieck.Shape → Type v
+  OAI.Grothendieck.TheoryData.id : (S : OAI.Grothendieck.Shape) → self.Hom S S
+  OAI.Grothendieck.TheoryData.comp : {S T U : OAI.Grothendieck.Shape} → self.Hom S T → self.Hom T U → self.Hom S U
+  OAI.Grothendieck.TheoryData.id_comp : ∀ {S T : OAI.Grothendieck.Shape} (f : self.Hom S T), self.comp (self.id S) f = f
+  OAI.Grothendieck.TheoryData.comp_id : ∀ {S T : OAI.Grothendieck.Shape} (f : self.Hom S T), self.comp f (self.id T) = f
+  OAI.Grothendieck.TheoryData.assoc : ∀ {R S T U : OAI.Grothendieck.Shape} (f : self.Hom R S) (g : self.Hom S T)
+      (h : self.Hom T U), self.comp (self.comp f g) h = self.comp f (self.comp g h)
+  OAI.Grothendieck.TheoryData.base : {S T : OAI.Grothendieck.Shape} → (S ⟶ T) → self.Hom S T
+  OAI.Grothendieck.TheoryData.base_id : ∀ (S : OAI.Grothendieck.Shape),
+      self.base (CategoryTheory.CategoryStruct.id S) = self.id S
+  OAI.Grothendieck.TheoryData.base_comp : ∀ {R S T : OAI.Grothendieck.Shape} (f : R ⟶ S) (g : S ⟶ T),
+      self.base (CategoryTheory.CategoryStruct.comp f g) = self.comp (self.base f) (self.base g)
+  OAI.Grothendieck.GlobularTheory.sums : self.PreservesGlobularSums
+constructor:
+  OAI.Grothendieck.GlobularTheory.mk.{v} (toTheoryData : OAI.Grothendieck.TheoryData)
+    (sums : toTheoryData.PreservesGlobularSums) : OAI.Grothendieck.GlobularTheory
+field notation resolution order:
+  OAI.Grothendieck.GlobularTheory, OAI.Grothendieck.TheoryData
+@[reducible] def OAI.Grothendieck.GlobularTheory.Obj.{v} : OAI.Grothendieck.GlobularTheory → Type :=
+fun C => C.Obj
+structure OAI.Grothendieck.GlobularTheory.Morphism.{v} (C D : OAI.Grothendieck.GlobularTheory) : Type v
+number of parameters: 2
+fields:
+  OAI.Grothendieck.GlobularTheory.Morphism.map : {S T : OAI.Grothendieck.Shape} → C.Hom S T → D.Hom S T
+  OAI.Grothendieck.GlobularTheory.Morphism.map_id : ∀ (S : OAI.Grothendieck.Shape), self.map (C.id S) = D.id S
+  OAI.Grothendieck.GlobularTheory.Morphism.map_comp : ∀ {R S T : OAI.Grothendieck.Shape} (f : C.Hom R S)
+      (g : C.Hom S T), self.map (C.comp f g) = D.comp (self.map f) (self.map g)
+  OAI.Grothendieck.GlobularTheory.Morphism.map_base : ∀ {S T : OAI.Grothendieck.Shape} (f : S ⟶ T),
+      self.map (C.base f) = D.base f
+constructor:
+  OAI.Grothendieck.GlobularTheory.Morphism.mk.{v} {C D : OAI.Grothendieck.GlobularTheory}
+    (map : {S T : OAI.Grothendieck.Shape} → C.Hom S T → D.Hom S T)
+    (map_id : ∀ (S : OAI.Grothendieck.Shape), map (C.id S) = D.id S)
+    (map_comp :
+      ∀ {R S T : OAI.Grothendieck.Shape} (f : C.Hom R S) (g : C.Hom S T), map (C.comp f g) = D.comp (map f) (map g))
+    (map_base : ∀ {S T : OAI.Grothendieck.Shape} (f : S ⟶ T), map (C.base f) = D.base f) : C.Morphism D
+def OAI.Grothendieck.GlobularTheory.Morphism.id.{v} : (C : OAI.Grothendieck.GlobularTheory) → C.Morphism C :=
+fun C => { map := fun {S T} f => f, map_id := ⋯, map_comp := ⋯, map_base := ⋯ }
+def OAI.Grothendieck.GlobularTheory.Morphism.comp.{v} : {C D E : OAI.Grothendieck.GlobularTheory} →
+  C.Morphism D → D.Morphism E → C.Morphism E :=
+fun {C D E} f g => { map := fun {S T} a => g.map (f.map a), map_id := ⋯, map_comp := ⋯, map_base := ⋯ }
+def OAI.Grothendieck.GlobularTheory.Parallel.{v} : (C : OAI.Grothendieck.GlobularTheory) →
+  {S : OAI.Grothendieck.Shape} →
+    (n : ℕ) → C.Hom (OAI.Grothendieck.Shape.globe n) S → C.Hom (OAI.Grothendieck.Shape.globe n) S → Prop :=
+fun C {S} x x_1 x_2 =>
+  match x, x_1, x_2 with
+  | 0, x, x_3 => True
+  | n.succ, f, g =>
+    C.comp (C.base (OAI.Grothendieck.Shape.source n)) f = C.comp (C.base (OAI.Grothendieck.Shape.source n)) g ∧
+      C.comp (C.base (OAI.Grothendieck.Shape.target n)) f = C.comp (C.base (OAI.Grothendieck.Shape.target n)) g
+structure OAI.Grothendieck.GlobularTheory.AdmissiblePair.{v} (C : OAI.Grothendieck.GlobularTheory) : Type v
+number of parameters: 1
+fields:
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.n : ℕ
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.arity : OAI.Grothendieck.Shape
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.height : self.arity.height ≤ self.n + 1
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.source : C.Hom (OAI.Grothendieck.Shape.globe self.n) self.arity
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.target : C.Hom (OAI.Grothendieck.Shape.globe self.n) self.arity
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.parallel : C.Parallel self.n self.source self.target
+constructor:
+  OAI.Grothendieck.GlobularTheory.AdmissiblePair.mk.{v} {C : OAI.Grothendieck.GlobularTheory} (n : ℕ)
+    (arity : OAI.Grothendieck.Shape) (height : arity.height ≤ n + 1)
+    (source target : C.Hom (OAI.Grothendieck.Shape.globe n) arity) (parallel : C.Parallel n source target) :
+    C.AdmissiblePair
+def OAI.Grothendieck.GlobularTheory.Fills.{v} : {C D : OAI.Grothendieck.GlobularTheory} →
+  C.Morphism D → (p : C.AdmissiblePair) → D.Hom (OAI.Grothendieck.Shape.globe (p.n + 1)) p.arity → Prop :=
+fun {C D} f p z =>
+  D.comp (D.base (OAI.Grothendieck.Shape.source p.n)) z = f.map p.source ∧
+    D.comp (D.base (OAI.Grothendieck.Shape.target p.n)) z = f.map p.target
+def OAI.Grothendieck.GlobularTheory.IsFreeExtension.{v} : {C D : OAI.Grothendieck.GlobularTheory} →
+  C.Morphism D →
+    (G : Type v) →
+      (pair : G → C.AdmissiblePair) →
+        ((g : G) → D.Hom (OAI.Grothendieck.Shape.globe ((pair g).n + 1)) (pair g).arity) → Prop :=
+fun {C D} f G pair filler =>
+  (∀ (g : G), OAI.Grothendieck.GlobularTheory.Fills f (pair g) (filler g)) ∧
+    ∀ (E : OAI.Grothendieck.GlobularTheory) (a : C.Morphism E)
+      (chosen : (g : G) → E.Hom (OAI.Grothendieck.Shape.globe ((pair g).n + 1)) (pair g).arity),
+      (∀ (g : G), OAI.Grothendieck.GlobularTheory.Fills a (pair g) (chosen g)) →
+        ∃! b, f.comp b = a ∧ ∀ (g : G), b.map (filler g) = chosen g
+structure OAI.Grothendieck.GlobularTheory.CellularPresentation.{v} (C : OAI.Grothendieck.GlobularTheory) : Type (v + 1)
+number of parameters: 1
+fields:
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.stage : ℕ → OAI.Grothendieck.GlobularTheory
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.initial : ∀ (D : OAI.Grothendieck.GlobularTheory),
+      Nonempty (Unique ((self.stage 0).Morphism D))
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.step : (r : ℕ) → (self.stage r).Morphism (self.stage (r + 1))
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.generators : ℕ → Type v
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.pair : (r : ℕ) →
+      self.generators r → (self.stage r).AdmissiblePair
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.filler : (r : ℕ) →
+      (g : self.generators r) →
+        (self.stage (r + 1)).Hom (OAI.Grothendieck.Shape.globe ((self.pair r g).n + 1)) (self.pair r g).arity
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.free : ∀ (r : ℕ),
+      OAI.Grothendieck.GlobularTheory.IsFreeExtension (self.step r) (self.generators r) (self.pair r) (self.filler r)
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.inclusion : (r : ℕ) → (self.stage r).Morphism C
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.compatible : ∀ (r : ℕ),
+      (self.step r).comp (self.inclusion (r + 1)) = self.inclusion r
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.colimit : ∀ (D : OAI.Grothendieck.GlobularTheory)
+      (a : (r : ℕ) → (self.stage r).Morphism D),
+      (∀ (r : ℕ), (self.step r).comp (a (r + 1)) = a r) → ∃! b, ∀ (r : ℕ), (self.inclusion r).comp b = a r
+constructor:
+  OAI.Grothendieck.GlobularTheory.CellularPresentation.mk.{v} {C : OAI.Grothendieck.GlobularTheory}
+    (stage : ℕ → OAI.Grothendieck.GlobularTheory)
+    (initial : ∀ (D : OAI.Grothendieck.GlobularTheory), Nonempty (Unique ((stage 0).Morphism D)))
+    (step : (r : ℕ) → (stage r).Morphism (stage (r + 1))) (generators : ℕ → Type v)
+    (pair : (r : ℕ) → generators r → (stage r).AdmissiblePair)
+    (filler :
+      (r : ℕ) →
+        (g : generators r) → (stage (r + 1)).Hom (OAI.Grothendieck.Shape.globe ((pair r g).n + 1)) (pair r g).arity)
+    (free : ∀ (r : ℕ), OAI.Grothendieck.GlobularTheory.IsFreeExtension (step r) (generators r) (pair r) (filler r))
+    (inclusion : (r : ℕ) → (stage r).Morphism C)
+    (compatible : ∀ (r : ℕ), (step r).comp (inclusion (r + 1)) = inclusion r)
+    (colimit :
+      ∀ (D : OAI.Grothendieck.GlobularTheory) (a : (r : ℕ) → (stage r).Morphism D),
+        (∀ (r : ℕ), (step r).comp (a (r + 1)) = a r) → ∃! b, ∀ (r : ℕ), (inclusion r).comp b = a r) :
+    C.CellularPresentation
+def OAI.Grothendieck.GlobularTheory.IsCoherator.{v} : OAI.Grothendieck.GlobularTheory → Prop :=
+fun C =>
+  Nonempty C.CellularPresentation ∧
+    ∀ (p : C.AdmissiblePair),
+      ∃ z, OAI.Grothendieck.GlobularTheory.Fills (OAI.Grothendieck.GlobularTheory.Morphism.id C) p z
+def OAI.Grothendieck.GlobularTheory.shapeGlobes : CategoryTheory.Functor OAI.Grothendieck.Globe
+  OAI.Grothendieck.Shape :=
+{ obj := fun n => OAI.Grothendieck.Shape.globe n.dim, map := fun {X Y} f => CategoryTheory.uliftYoneda.{0, 0, 0}.map f,
+  map_id := OAI.Grothendieck.GlobularTheory.shapeGlobes._proof_1,
+  map_comp := @OAI.Grothendieck.GlobularTheory.shapeGlobes._proof_2 }
+def OAI.Grothendieck.GlobularTheory.globes.{v} : (C : OAI.Grothendieck.GlobularTheory) →
+  CategoryTheory.Functor OAI.Grothendieck.Globe C.Obj :=
+fun C => OAI.Grothendieck.GlobularTheory.shapeGlobes.comp C.arity
+structure OAI.Grothendieck.GlobularTheory.Model.{v} (C : OAI.Grothendieck.GlobularTheory) : Type (v + 1)
+number of parameters: 1
+fields:
+  OAI.Grothendieck.GlobularTheory.Model.presheaf : CategoryTheory.Functor C.Objᵒᵖ (Type v)
+  OAI.Grothendieck.GlobularTheory.Model.sums : ∀ (S : OAI.Grothendieck.Shape) (b h : ℕ) (hl : b < S.fst) (hr : b < h),
+      CategoryTheory.IsPullback (self.presheaf.map (C.arity.map (S.inl b h hl hr)).op)
+        (self.presheaf.map (C.arity.map (S.inr b h hl hr)).op) (self.presheaf.map (C.arity.map (S.seam hl)).op)
+        (self.presheaf.map (C.arity.map (OAI.Grothendieck.Shape.face hr false)).op)
+constructor:
+  OAI.Grothendieck.GlobularTheory.Model.mk.{v} {C : OAI.Grothendieck.GlobularTheory}
+    (presheaf : CategoryTheory.Functor C.Objᵒᵖ (Type v))
+    (sums :
+      ∀ (S : OAI.Grothendieck.Shape) (b h : ℕ) (hl : b < S.fst) (hr : b < h),
+        CategoryTheory.IsPullback (presheaf.map (C.arity.map (S.inl b h hl hr)).op)
+          (presheaf.map (C.arity.map (S.inr b h hl hr)).op) (presheaf.map (C.arity.map (S.seam hl)).op)
+          (presheaf.map (C.arity.map (OAI.Grothendieck.Shape.face hr false)).op)) :
+    C.Model
+def OAI.Grothendieck.GlobularTheory.Model.underlying.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  C.Model → OAI.Grothendieck.GlobularSet :=
+fun {C} X => OAI.Grothendieck.GlobularPresheaf.underlying (C.globes.op.comp X.presheaf)
+def OAI.Grothendieck.GlobularTheory.Model.underlyingMap.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  {X Y : C.Model} → (X ⟶ Y) → X.underlying.Hom Y.underlying :=
+fun {C} {X Y} f => OAI.Grothendieck.GlobularPresheaf.underlyingMap (C.globes.op.whiskerLeft f)
+def OAI.Grothendieck.GlobularTheory.Model.freeShape.{v} : (C : OAI.Grothendieck.GlobularTheory) →
+  OAI.Grothendieck.Shape → C.Model :=
+fun C S => { presheaf := CategoryTheory.yoneda.obj { shape := S }, sums := ⋯ }
+def OAI.Grothendieck.GlobularTheory.Model.disk.{v} : (C : OAI.Grothendieck.GlobularTheory) → ℕ → C.Model :=
+fun C n => OAI.Grothendieck.GlobularTheory.Model.freeShape C (OAI.Grothendieck.Shape.globe n)
+def OAI.Grothendieck.GlobularTheory.Model.J.{v} : (C : OAI.Grothendieck.GlobularTheory) →
+  (n : ℕ) → OAI.Grothendieck.GlobularTheory.Model.disk C n ⟶ OAI.Grothendieck.GlobularTheory.Model.disk C (n + 1) :=
+fun C n =>
+  have this := CategoryTheory.yoneda.map (C.arity.map (OAI.Grothendieck.Shape.source n));
+  this
+structure OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.{v} {C : OAI.Grothendieck.GlobularTheory}
+  {X Y : C.Model} (f : X ⟶ Y) : Type (v + 1)
+number of parameters: 4
+fields:
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.index : Type v
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.dimension : self.index → ℕ
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.boundary : (k : self.index) →
+      X.underlying.Boundary (self.dimension k)
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.cell : (k : self.index) →
+      Y.underlying.Cell (self.dimension k)
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.cell_boundary : ∀ (k : self.index),
+      Y.underlying.boundary (self.dimension k) (self.cell k) =
+        (OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).boundaryMap (self.dimension k) (self.boundary k)
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.universal : ∀ (Z : C.Model) (g : X ⟶ Z)
+      (z : (k : self.index) → Z.underlying.Cell (self.dimension k)),
+      (∀ (k : self.index),
+          Z.underlying.boundary (self.dimension k) (z k) =
+            (OAI.Grothendieck.GlobularTheory.Model.underlyingMap g).boundaryMap (self.dimension k) (self.boundary k)) →
+        ∃! h,
+          CategoryTheory.CategoryStruct.comp f h = g ∧
+            ∀ (k : self.index),
+              (OAI.Grothendieck.GlobularTheory.Model.underlyingMap h).app (self.dimension k) (self.cell k) = z k
+constructor:
+  OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment.mk.{v} {C : OAI.Grothendieck.GlobularTheory} {X Y : C.Model}
+    {f : X ⟶ Y} (index : Type v) (dimension : index → ℕ) (boundary : (k : index) → X.underlying.Boundary (dimension k))
+    (cell : (k : index) → Y.underlying.Cell (dimension k))
+    (cell_boundary :
+      ∀ (k : index),
+        Y.underlying.boundary (dimension k) (cell k) =
+          (OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).boundaryMap (dimension k) (boundary k))
+    (universal :
+      ∀ (Z : C.Model) (g : X ⟶ Z) (z : (k : index) → Z.underlying.Cell (dimension k)),
+        (∀ (k : index),
+            Z.underlying.boundary (dimension k) (z k) =
+              (OAI.Grothendieck.GlobularTheory.Model.underlyingMap g).boundaryMap (dimension k) (boundary k)) →
+          ∃! h,
+            CategoryTheory.CategoryStruct.comp f h = g ∧
+              ∀ (k : index), (OAI.Grothendieck.GlobularTheory.Model.underlyingMap h).app (dimension k) (cell k) = z k) :
+    OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment f
+structure OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.{v} {C : OAI.Grothendieck.GlobularTheory}
+  (X : C.Model) : Type (v + 1)
+number of parameters: 2
+fields:
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.order : Type v
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.linearOrder : LinearOrder self.order
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.orderBot : OrderBot self.order
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.succOrder : SuccOrder self.order
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.wellFoundedLT : WellFoundedLT self.order
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.initial : C.Model
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.isInitial : CategoryTheory.Limits.IsInitial self.initial
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.start : self.initial ⟶ X
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.chain : CategoryTheory.TransfiniteCompositionOfShape
+      self.order self.start
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.attachment : (j : self.order) →
+      ¬IsMax j → OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment (self.chain.F.map (CategoryTheory.homOfLE ⋯))
+constructor:
+  OAI.Grothendieck.GlobularTheory.Model.CellularPresentation.mk.{v} {C : OAI.Grothendieck.GlobularTheory} {X : C.Model}
+    (order : Type v) (linearOrder : LinearOrder order) (orderBot : OrderBot order) (succOrder : SuccOrder order)
+    (wellFoundedLT : WellFoundedLT order) (initial : C.Model) (isInitial : CategoryTheory.Limits.IsInitial initial)
+    (start : initial ⟶ X) (chain : CategoryTheory.TransfiniteCompositionOfShape order start)
+    (attachment :
+      (j : order) →
+        ¬IsMax j → OAI.Grothendieck.GlobularTheory.Model.BoundaryAttachment (chain.F.map (CategoryTheory.homOfLE ⋯))) :
+    X.CellularPresentation
+def OAI.Grothendieck.GlobularTheory.Model.IsCellular.{v} : {C : OAI.Grothendieck.GlobularTheory} → C.Model → Prop :=
+fun {C} X => Nonempty X.CellularPresentation
+def OAI.Grothendieck.GlobularTheory.unitPair.{v} : (C : OAI.Grothendieck.GlobularTheory) → ℕ → C.AdmissiblePair :=
+fun C n =>
+  { n := n, arity := OAI.Grothendieck.Shape.globe n, height := ⋯, source := C.id (OAI.Grothendieck.Shape.globe n),
+    target := C.id (OAI.Grothendieck.Shape.globe n), parallel := ⋯ }
+def OAI.Grothendieck.GlobularTheory.unit.{v} : (C : OAI.Grothendieck.GlobularTheory) →
+  C.IsCoherator → (n : ℕ) → C.Hom (OAI.Grothendieck.Shape.globe (n + 1)) (OAI.Grothendieck.Shape.globe n) :=
+fun C hC n => Classical.choose ⋯
+def OAI.Grothendieck.GlobularTheory.Model.eval.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  (X : C.Model) →
+    {S T : OAI.Grothendieck.Shape} →
+      C.Hom S T → X.presheaf.obj (Opposite.op { shape := T }) → X.presheaf.obj (Opposite.op { shape := S }) :=
+fun {C} X {S T} f =>
+  ⇑(CategoryTheory.ConcreteCategory.hom
+      (X.presheaf.map
+        (have this := f;
+          this).op))
+def OAI.Grothendieck.GlobularTheory.Model.unitCell.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  (X : C.Model) → C.IsCoherator → (n : ℕ) → X.underlying.Cell n → X.underlying.Cell (n + 1) :=
+fun {C} X hC n x => X.eval (C.unit hC n) x
+def OAI.Grothendieck.GlobularTheory.Model.baseCell.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  (X : C.Model) → C.IsCoherator → X.underlying.Cell 0 → (n : ℕ) → X.underlying.Cell n :=
+fun {C} X hC x x_1 => Nat.brecOn x_1 (OAI.Grothendieck.GlobularTheory.Model.baseCell._f X hC x)
+def OAI.Grothendieck.GlobularTheory.Model.Loops.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  (X : C.Model) → C.IsCoherator → X.underlying.Cell 0 → ℕ → Type v :=
+fun {C} X hC x n => { z // X.underlying.source n z = X.baseCell hC x n ∧ X.underlying.target n z = X.baseCell hC x n }
+def OAI.Grothendieck.GlobularTheory.Model.Components.{v} : {C : OAI.Grothendieck.GlobularTheory} → C.Model → Type v :=
+fun {C} X => Quot (X.underlying.Joined 0)
+def OAI.Grothendieck.GlobularTheory.Model.HomotopyGroup.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  (X : C.Model) → C.IsCoherator → X.underlying.Cell 0 → ℕ → Type v :=
+fun {C} X hC x n => Quot fun a b => X.underlying.Joined (n + 1) ↑a ↑b
+def OAI.Grothendieck.GlobularTheory.Model.loopsMap.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  {X Y : C.Model} →
+    (f : X ⟶ Y) →
+      (hC : C.IsCoherator) →
+        (x : X.underlying.Cell 0) →
+          (n : ℕ) → X.Loops hC x n → Y.Loops hC ((OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).app 0 x) n :=
+fun {C} {X Y} f hC x n =>
+  have hb := ⋯;
+  fun z => ⟨(OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).app (n + 1) ↑z, ⋯⟩
+def OAI.Grothendieck.GlobularTheory.Model.componentsMap.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  {X Y : C.Model} → (X ⟶ Y) → X.Components → Y.Components :=
+fun {C} {X Y} f => Quot.map ((OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).app 0) ⋯
+def OAI.Grothendieck.GlobularTheory.Model.homotopyMap.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  {X Y : C.Model} →
+    (f : X ⟶ Y) →
+      (hC : C.IsCoherator) →
+        (x : X.underlying.Cell 0) →
+          (n : ℕ) →
+            X.HomotopyGroup hC x n →
+              Y.HomotopyGroup hC ((OAI.Grothendieck.GlobularTheory.Model.underlyingMap f).app 0 x) n :=
+fun {C} {X Y} f hC x n => Quot.map (OAI.Grothendieck.GlobularTheory.Model.loopsMap f hC x n) ⋯
+def OAI.Grothendieck.GlobularTheory.Model.WeakEquivalence.{v} : {C : OAI.Grothendieck.GlobularTheory} →
+  C.IsCoherator → {X Y : C.Model} → (X ⟶ Y) → Prop :=
+fun {C} hC {X Y} f =>
+  Function.Bijective (OAI.Grothendieck.GlobularTheory.Model.componentsMap f) ∧
+    ∀ (x : X.underlying.Cell 0) (n : ℕ), Function.Bijective (OAI.Grothendieck.GlobularTheory.Model.homotopyMap f hC x n)

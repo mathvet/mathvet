@@ -1,0 +1,653 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_MemoryPrecision.lean:771:8: warning: declaration uses `sorry`
+OAI.MemoryPrecision.main : OAI.MemoryPrecision.AmbientGramStatement ∧
+  OAI.MemoryPrecision.FiniteDensityStatement ∧
+    OAI.MemoryPrecision.MeasurableTestStatement ∧
+      OAI.MemoryPrecision.JointL1Statement ∧
+        OAI.MemoryPrecision.PointwiseDensityStatement ∧
+          OAI.MemoryPrecision.CoefficientStepStatement ∧
+            OAI.MemoryPrecision.Kernel.SourceEllipsoidStatement ∧
+              OAI.MemoryPrecision.CubeBlockStatement ∧
+                (∃ D,
+                    Real.exp 1 ≤ D ∧
+                      ∃ d₀,
+                        ∃ (hd₀ : 16 ≤ d₀),
+                          ∃ c,
+                            0 < c ∧
+                              ∀ (d M T : ℕ) (hd : d₀ ≤ d),
+                                M ≤ d ^ 2 →
+                                  ∀ (ε : ℝ),
+                                    0 < ε →
+                                      ε ≤ 1 / 10 →
+                                        ∀ (Ω : Type u_1) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                                          MeasureTheory.IsProbabilityMeasure ρ →
+                                            ∀ (K : Ω → OAI.MemoryPrecision.Kernel.Policy d M T),
+                                              OAI.MemoryPrecision.Kernel.Policy.ModelAdmissible K ρ →
+                                                OAI.MemoryPrecision.Kernel.Policy.Success K ρ
+                                                      (OAI.MemoryPrecision.Kernel.CubePrior ⋯) ε ≤
+                                                    min 1
+                                                      (ENNReal.ofReal
+                                                        (D ^
+                                                            (d / 2 *
+                                                              (OAI.MemoryPrecision.Kernel.BlockCount T (d / 2 / 4) +
+                                                                1)) *
+                                                          ε ^ (↑(d / 2) / 4))) ∧
+                                                  ((∀ (signal : ↑(OAI.MemoryPrecision.Kernel.Sphere d)),
+                                                      OfNat.ofNat 2 / OfNat.ofNat 3 ≤
+                                                        ∫⁻ (observation : Ω × OAI.MemoryPrecision.Kernel.Rows d T),
+                                                          OAI.MemoryPrecision.Kernel.Policy.experiment K
+                                                            (OAI.MemoryPrecision.Kernel.Policy.angleTest ε)
+                                                            (signal,
+                                                              observation) ∂ρ.prod
+                                                            (OAI.MemoryPrecision.Kernel.RowLaw d T)) →
+                                                    c * ↑d * Real.log (1 / ε) ≤ ↑T)) ∧
+                  ∃ C,
+                    0 < C ∧
+                      ∃ d₀,
+                        0 < d₀ ∧
+                          ∀ (d M T : ℕ),
+                            d₀ ≤ d →
+                              ∀ (ε : ℝ),
+                                0 < ε →
+                                  ε ≤ 1 / 10 →
+                                    ∀ (Ω : Type u_1) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                                      MeasureTheory.IsProbabilityMeasure ρ →
+                                        ∀ (L : Ω → OAI.MemoryPrecision.Kernel.Policy d M T),
+                                          OAI.MemoryPrecision.Kernel.Policy.Admissible L ρ
+                                              (OAI.MemoryPrecision.Kernel.UniformSphere d) →
+                                            OAI.MemoryPrecision.Kernel.Policy.Success L ρ
+                                                (OAI.MemoryPrecision.Kernel.UniformSphere d) ε ≤
+                                              min 1
+                                                (ENNReal.ofReal
+                                                  ((2 * ε *
+                                                      Real.exp
+                                                        (C * (1 + ↑M / ↑d ^ 2) *
+                                                          ↑(OAI.MemoryPrecision.Kernel.BlockCount T ((d - 1) / 8)))) ^
+                                                    ((↑d - 1) / 2)))
+@[reducible] def OAI.MemoryPrecision.Kernel.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.MemoryPrecision.Kernel.Sphere : (d : ℕ) → Set (OAI.MemoryPrecision.Kernel.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.MemoryPrecision.Kernel.State : ℕ → Type :=
+fun M => Fin (2 ^ M)
+@[reducible] def OAI.MemoryPrecision.Kernel.Action : ℕ → Type :=
+fun M => Bool × OAI.MemoryPrecision.Kernel.State M
+@[reducible] def OAI.MemoryPrecision.Kernel.Observations : ℕ → ℕ → Type :=
+fun d k => Fin k → OAI.MemoryPrecision.Kernel.Vector d × ℝ
+@[reducible] def OAI.MemoryPrecision.Kernel.Rows : ℕ → ℕ → Type :=
+fun d k => Fin k → OAI.MemoryPrecision.Kernel.Vector d
+def OAI.MemoryPrecision.Kernel.UniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d) :=
+fun d =>
+  let euclideanGroup := PiLp.normedAddCommGroup (OfNat.ofNat 2) fun x => ℝ;
+  let euclideanInner := PiLp.innerProductSpace fun x => ℝ;
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.MemoryPrecision.Kernel.RowLaw : (d k : ℕ) → MeasureTheory.Measure (OAI.MemoryPrecision.Kernel.Rows d k) :=
+fun d k =>
+  let euclideanMeasurable := WithLp.measurableSpace (OfNat.ofNat 2) (Fin d → ℝ);
+  MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.MemoryPrecision.Kernel.Vector d)
+def OAI.MemoryPrecision.Kernel.ObservationReference : (d : ℕ) →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Kernel.Vector d × ℝ) :=
+fun d => (ProbabilityTheory.stdGaussian (OAI.MemoryPrecision.Kernel.Vector d)).prod MeasureTheory.volume
+structure OAI.MemoryPrecision.Kernel.Policy (d M T : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.MemoryPrecision.Kernel.Policy.initial : OAI.MemoryPrecision.Kernel.Action M → ENNReal
+  OAI.MemoryPrecision.Kernel.Policy.initial_sum : ∑ a, self.initial a = 1
+  OAI.MemoryPrecision.Kernel.Policy.transition : ℕ →
+      OAI.MemoryPrecision.Kernel.State M →
+        OAI.MemoryPrecision.Kernel.Vector d × ℝ → OAI.MemoryPrecision.Kernel.Action M → ENNReal
+  OAI.MemoryPrecision.Kernel.Policy.transition_sum : ∀ (t : ℕ) (j : OAI.MemoryPrecision.Kernel.State M)
+      (obs : OAI.MemoryPrecision.Kernel.Vector d × ℝ), ∑ a, self.transition t j obs a = 1
+  OAI.MemoryPrecision.Kernel.Policy.output : ℕ →
+      OAI.MemoryPrecision.Kernel.State M → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d)
+  OAI.MemoryPrecision.Kernel.Policy.output_probability : ∀ (t : ℕ) (j : OAI.MemoryPrecision.Kernel.State M),
+      MeasureTheory.IsProbabilityMeasure (self.output t j)
+constructor:
+  OAI.MemoryPrecision.Kernel.Policy.mk {d M T : ℕ} (initial : OAI.MemoryPrecision.Kernel.Action M → ENNReal)
+    (initial_sum : ∑ a, initial a = 1)
+    (transition :
+      ℕ →
+        OAI.MemoryPrecision.Kernel.State M →
+          OAI.MemoryPrecision.Kernel.Vector d × ℝ → OAI.MemoryPrecision.Kernel.Action M → ENNReal)
+    (transition_sum :
+      ∀ (t : ℕ) (j : OAI.MemoryPrecision.Kernel.State M) (obs : OAI.MemoryPrecision.Kernel.Vector d × ℝ),
+        ∑ a, transition t j obs a = 1)
+    (output : ℕ → OAI.MemoryPrecision.Kernel.State M → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d))
+    (output_probability :
+      ∀ (t : ℕ) (j : OAI.MemoryPrecision.Kernel.State M), MeasureTheory.IsProbabilityMeasure (output t j)) :
+    OAI.MemoryPrecision.Kernel.Policy d M T
+def OAI.MemoryPrecision.Kernel.Policy.Completed : {d M T : ℕ} → OAI.MemoryPrecision.Kernel.Policy d M T → Prop :=
+fun {d M T} K =>
+  ∀ (t : ℕ) (j : OAI.MemoryPrecision.Kernel.State M) (a : OAI.MemoryPrecision.Kernel.Action M),
+    AEMeasurable (fun obs => K.transition t j obs a) (OAI.MemoryPrecision.Kernel.ObservationReference d)
+def OAI.MemoryPrecision.Kernel.Policy.eval.{u_1} : {d M T : ℕ} →
+  {X : Type u_1} →
+    OAI.MemoryPrecision.Kernel.Policy d M T →
+      (ℕ → OAI.MemoryPrecision.Kernel.State M → X → ENNReal) →
+        ℕ → (k : ℕ) → OAI.MemoryPrecision.Kernel.State M → X → OAI.MemoryPrecision.Kernel.Observations d k → ENNReal :=
+fun {d M T} {X} K w n x x_1 x_2 x_3 =>
+  Nat.brecOn (motive := fun x =>
+    ℕ → OAI.MemoryPrecision.Kernel.State M → X → OAI.MemoryPrecision.Kernel.Observations d x → ENNReal) x
+    (OAI.MemoryPrecision.Kernel.Policy.eval._f K w) n x_1 x_2 x_3
+def OAI.MemoryPrecision.Kernel.Policy.pathValue.{u_1} : {d M T : ℕ} →
+  {X : Type u_1} →
+    OAI.MemoryPrecision.Kernel.Policy d M T →
+      (ℕ → OAI.MemoryPrecision.Kernel.State M → X → ENNReal) →
+        X → OAI.MemoryPrecision.Kernel.Observations d T → ENNReal :=
+fun {d M T} {X} K w s obs => ∑ a, K.initial a * if a.1 = true then w 0 a.2 s else K.eval w 0 T a.2 s obs
+def OAI.MemoryPrecision.Kernel.Policy.records : {d T : ℕ} →
+  ↑(OAI.MemoryPrecision.Kernel.Sphere d) →
+    OAI.MemoryPrecision.Kernel.Rows d T → OAI.MemoryPrecision.Kernel.Observations d T :=
+fun {d T} s A index => (A index, inner ℝ (↑s) (A index))
+def OAI.MemoryPrecision.Kernel.Policy.outputTest : {d M T : ℕ} →
+  OAI.MemoryPrecision.Kernel.Policy d M T →
+    (↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal) →
+      ℕ → OAI.MemoryPrecision.Kernel.State M → ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal :=
+fun {d M T} K f t j s => ∫⁻ (v : ↑(OAI.MemoryPrecision.Kernel.Sphere d)), f (s, v) ∂K.output t j
+def OAI.MemoryPrecision.Kernel.Policy.angleTest : {d : ℕ} →
+  ℝ → ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal :=
+fun {d} ε point => if Real.arccos (inner ℝ ↑point.2 ↑point.1) ≤ ε then 1 else 0
+def OAI.MemoryPrecision.Kernel.Policy.chordTest : {d : ℕ} →
+  ℝ → ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal :=
+fun {d} ε x => {x | dist ↑x.2 ↑x.1 ≤ ε}.indicator (fun x => 1) x
+def OAI.MemoryPrecision.Kernel.Policy.experiment.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    (Ω → OAI.MemoryPrecision.Kernel.Policy d M T) →
+      (↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal) →
+        ↑(OAI.MemoryPrecision.Kernel.Sphere d) × Ω × OAI.MemoryPrecision.Kernel.Rows d T → ENNReal :=
+fun {d M T} {Ω} K f z =>
+  (K z.2.1).pathValue ((K z.2.1).outputTest f) z.1 (OAI.MemoryPrecision.Kernel.Policy.records z.1 z.2.2)
+structure OAI.MemoryPrecision.Kernel.Policy.Admissible.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+  (K : Ω → OAI.MemoryPrecision.Kernel.Policy d M T) (ρ : MeasureTheory.Measure Ω)
+  (π : MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d)) : Prop
+number of parameters: 8
+fields:
+  OAI.MemoryPrecision.Kernel.Policy.Admissible.completed : ∀ᵐ (ω : Ω) ∂ρ, (K ω).Completed
+  OAI.MemoryPrecision.Kernel.Policy.Admissible.experiment : ∀
+      (f : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal),
+      Measurable f →
+        (∀ (x : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d)), f x ≤ 1) →
+          AEMeasurable (OAI.MemoryPrecision.Kernel.Policy.experiment K f)
+            (π.prod (ρ.prod (OAI.MemoryPrecision.Kernel.RowLaw d T)))
+constructor:
+  OAI.MemoryPrecision.Kernel.Policy.Admissible.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {K : Ω → OAI.MemoryPrecision.Kernel.Policy d M T} {ρ : MeasureTheory.Measure Ω}
+    {π : MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d)} (completed : ∀ᵐ (ω : Ω) ∂ρ, (K ω).Completed)
+    (experiment :
+      ∀ (f : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ENNReal),
+        Measurable f →
+          (∀ (x : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × ↑(OAI.MemoryPrecision.Kernel.Sphere d)), f x ≤ 1) →
+            AEMeasurable (OAI.MemoryPrecision.Kernel.Policy.experiment K f)
+              (π.prod (ρ.prod (OAI.MemoryPrecision.Kernel.RowLaw d T)))) :
+    OAI.MemoryPrecision.Kernel.Policy.Admissible K ρ π
+def OAI.MemoryPrecision.Kernel.Policy.Success.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      (Ω → OAI.MemoryPrecision.Kernel.Policy d M T) →
+        MeasureTheory.Measure Ω → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] K ρ π ε =>
+  ∫⁻ (z : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × Ω × OAI.MemoryPrecision.Kernel.Rows d T),
+    OAI.MemoryPrecision.Kernel.Policy.experiment K (OAI.MemoryPrecision.Kernel.Policy.angleTest ε)
+      z ∂π.prod (ρ.prod (OAI.MemoryPrecision.Kernel.RowLaw d T))
+def OAI.MemoryPrecision.Kernel.Policy.ChordSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] →
+      (Ω → OAI.MemoryPrecision.Kernel.Policy d M T) →
+        MeasureTheory.Measure Ω → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d) → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] K ρ π ε =>
+  ∫⁻ (z : ↑(OAI.MemoryPrecision.Kernel.Sphere d) × Ω × OAI.MemoryPrecision.Kernel.Rows d T),
+    OAI.MemoryPrecision.Kernel.Policy.experiment K (OAI.MemoryPrecision.Kernel.Policy.chordTest ε)
+      z ∂π.prod (ρ.prod (OAI.MemoryPrecision.Kernel.RowLaw d T))
+@[reducible] def OAI.NoiselessRegression.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.NoiselessRegression.UnitSphere : (d : ℕ) → Set (OAI.NoiselessRegression.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.MemoryPrecision.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def OAI.MemoryPrecision.J : ℝ → ℕ → ℕ → ℝ :=
+fun β m j =>
+  have two := OfNat.ofNat 2;
+  have three := OfNat.ofNat 3;
+  1 + three ^ j * two ^ β * ↑m / (β - ↑j - ↑m)
+def OAI.MemoryPrecision.AmbientBallBound : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) → ℝ → ℝ → Prop :=
+fun {d} μ H β =>
+  ∀ (x : OAI.MemoryPrecision.Space d) (r : ℝ), 0 < r → μ (Metric.closedBall x r) ≤ ENNReal.ofReal (H * r ^ β)
+def OAI.MemoryPrecision.InverseGram : {d p : ℕ} →
+  ℕ → OAI.MemoryPrecision.Space d × (Fin (p - 1) → OAI.MemoryPrecision.Space d) → ENNReal :=
+fun {d p} m v =>
+  let exponent := OfNat.ofNat 2;
+  ENNReal.ofReal ((√(Matrix.gram ℝ fun i => v.2 i - v.1).det)⁻¹ ^ m)
+def OAI.MemoryPrecision.MatrixLabelReference : (d m : ℕ) →
+  MeasureTheory.Measure ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) :=
+fun d m =>
+  let exponent := OfNat.ofNat 2;
+  let euclideanMeasurable := WithLp.measurableSpace exponent (Fin d → ℝ);
+  let rowMeasurable := MeasurableSpace.pi;
+  have rowLaw := MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.MemoryPrecision.Space d);
+  rowLaw.prod MeasureTheory.volume
+def OAI.MemoryPrecision.ProjectionLaw : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) →
+    (m : ℕ) → MeasureTheory.Measure ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) :=
+fun {d} μ m =>
+  let exponent := OfNat.ofNat 2;
+  let euclideanMeasurable := WithLp.measurableSpace exponent (Fin d → ℝ);
+  let rowMeasurable := MeasurableSpace.pi;
+  have rowLaw := MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.MemoryPrecision.Space d);
+  MeasureTheory.Measure.map (fun pair => (pair.1, fun index => inner ℝ pair.2 (pair.1 index))) (rowLaw.prod μ)
+def OAI.MemoryPrecision.ProjectedEllipsoid : {d m : ℕ} →
+  OAI.MemoryPrecision.Space d → ℝ → Set ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) :=
+fun {d m} z R =>
+  let exponent := OfNat.ofNat 2;
+  have euclideanInner := (PiLp.innerProductSpace fun x => ℝ).toInner;
+  {pair |
+    ∃ displacement ∈ Metric.closedBall (WithLp.toLp exponent fun x => 0) R,
+      pair.2 = fun index => inner ℝ z (pair.1 index) + inner ℝ displacement (pair.1 index)}
+def OAI.MemoryPrecision.ProjectionNormScale : ℕ → ℕ → ℝ → ℝ → ℝ → ℝ :=
+fun m p H β R =>
+  have two := OfNat.ofNat 2;
+  (two * Real.pi) ^ (-↑m * (↑p - 1) / (two * ↑p)) * H * R ^ (β - ↑m * (1 - 1 / ↑p)) *
+    (∏ j ∈ Finset.range (p - 1), OAI.MemoryPrecision.J β m j) ^ (1 / ↑p)
+def OAI.MemoryPrecision.UniformSphere : (d : ℕ) → MeasureTheory.Measure (OAI.MemoryPrecision.Space d) :=
+fun d =>
+  let euclideanMeasurable := WithLp.measurableSpace (OfNat.ofNat 2) (Fin d → ℝ);
+  MeasureTheory.Measure.map Subtype.val (OAI.MemoryPrecision.Kernel.UniformSphere d)
+def OAI.MemoryPrecision.GaussianRegularization : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) →
+    (m : ℕ) → ℝ → (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ℝ :=
+fun {d} μ m δ Ay =>
+  let exponent := OfNat.ofNat 2;
+  ∫ (signal : OAI.MemoryPrecision.Space d),
+    ∏ index, ProbabilityTheory.gaussianPDFReal 0 ⟨δ ^ 2, ⋯⟩ (Ay.2 index - inner ℝ signal (Ay.1 index)) ∂μ
+def OAI.MemoryPrecision.PointwiseDensity : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) →
+    (m : ℕ) → (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ℝ :=
+fun {d} μ m x =>
+  if h :
+      ∃ l,
+        Filter.Tendsto (fun i => OAI.MemoryPrecision.GaussianRegularization μ m (1 / ↑i) x) Filter.atTop (nhds l) then
+    Classical.choose h
+  else 0
+def OAI.MemoryPrecision.UnitBallVolume : ℕ → ℝ :=
+fun m =>
+  let exponent := OfNat.ofNat 2;
+  let euclideanGroup := PiLp.normedAddCommGroup exponent fun x => ℝ;
+  have euclideanVolume := MeasureTheory.volume;
+  (euclideanVolume (Metric.ball (WithLp.toLp exponent fun x => 0) 1)).toReal
+def OAI.MemoryPrecision.CoordinateUnit : (m : ℕ) → OAI.MemoryPrecision.Space m :=
+fun m =>
+  have exponent := OfNat.ofNat 2;
+  WithLp.toLp exponent fun j => if ↑j = 0 then 1 else 0
+def OAI.MemoryPrecision.GaussianKernel : (m : ℕ) → ℝ → OAI.MemoryPrecision.Space m → ℝ :=
+fun m δ y =>
+  let exponent := OfNat.ofNat 2;
+  ∏ index, ProbabilityTheory.gaussianPDFReal 0 ⟨δ ^ 2, ⋯⟩ (y.ofLp index)
+def OAI.MemoryPrecision.RadialMixture : ℕ → ℝ → ℝ → ℝ :=
+fun m δ r =>
+  OAI.MemoryPrecision.UnitBallVolume m * r ^ m * (r / δ ^ 2) *
+    OAI.MemoryPrecision.GaussianKernel m δ (r • OAI.MemoryPrecision.CoordinateUnit m)
+@[reducible] def OAI.MemoryPrecision.Sphere : (d : ℕ) → Set (OAI.MemoryPrecision.Space d) :=
+fun d => Metric.sphere 0 1
+def OAI.MemoryPrecision.SpherePrior : (d : ℕ) → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Sphere d) :=
+fun d => OAI.MemoryPrecision.Kernel.UniformSphere d
+def OAI.MemoryPrecision.SphereBallBound : {d : ℕ} → (↑(OAI.MemoryPrecision.Sphere d) → ENNReal) → ℝ → ℝ → Prop :=
+fun {d} h H α =>
+  ∀ (z : OAI.MemoryPrecision.Space d) (r : ℝ),
+    0 < r →
+      ∫⁻ (s : ↑(OAI.MemoryPrecision.Sphere d)) in {s | dist (↑s) z ≤ r}, h s ∂OAI.MemoryPrecision.SpherePrior d ≤
+        ENNReal.ofReal (H * r ^ α)
+def OAI.MemoryPrecision.WeightedBlock.{u_1} : {X : Type u_1} →
+  {d m N : ℕ} →
+    (X → OAI.MemoryPrecision.Space d) →
+      (Fin N → X → ENNReal) → (Fin N → (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ENNReal) → X → ENNReal :=
+fun {X} {d m N} ι h g x =>
+  let exponent := OfNat.ofNat 2;
+  let euclideanMeasurable := WithLp.measurableSpace exponent (Fin d → ℝ);
+  let rowMeasurable := MeasurableSpace.pi;
+  ∫⁻ (rows : Fin m → OAI.MemoryPrecision.Space d),
+    ∑ state,
+      g state (rows, fun index => inner ℝ (ι x) (rows index)) *
+        h state x ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.MemoryPrecision.Space d)
+def OAI.MemoryPrecision.SphereBlock : {d m N : ℕ} →
+  (Fin N → ↑(OAI.MemoryPrecision.Sphere d) → ENNReal) →
+    (Fin N → (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ENNReal) →
+      ↑(OAI.MemoryPrecision.Sphere d) → ENNReal :=
+fun {d m N} h g s => OAI.MemoryPrecision.WeightedBlock Subtype.val h g s
+@[reducible] def OAI.MemoryPrecision.CubeSet : (n : ℕ) → Set (EuclideanSpace ℝ (Fin n)) :=
+fun n point => ∀ (index : Fin n), |point.ofLp index| ≤ OfNat.ofNat 1 / OfNat.ofNat 2
+@[reducible] def OAI.MemoryPrecision.Cube : (d : ℕ) → Set (EuclideanSpace ℝ (Fin (d / 2))) :=
+fun d => OAI.MemoryPrecision.CubeSet (d / 2)
+def OAI.MemoryPrecision.CubeLaw : (d : ℕ) → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Cube d) :=
+fun d => MeasureTheory.Measure.comap Subtype.val MeasureTheory.volume
+def OAI.MemoryPrecision.cubeRaw : (d : ℕ) → OAI.MemoryPrecision.Space (d / 2) → OAI.MemoryPrecision.Space d :=
+fun d u =>
+  let exponent := OfNat.ofNat 2;
+  (√↑(d / 2))⁻¹ •
+    WithLp.toLp exponent fun index =>
+      if lower : ↑index < d / 2 then u.ofLp ⟨↑index, lower⟩
+      else if upper : ↑index < 2 * (d / 2) then √(1 - u.ofLp ⟨↑index - d / 2, ⋯⟩ ^ 2) else 0
+def OAI.MemoryPrecision.CubeEmbedding : (d : ℕ) → ↑(OAI.MemoryPrecision.Cube d) → OAI.MemoryPrecision.Space d :=
+fun d u => OAI.MemoryPrecision.cubeRaw d ↑u
+def OAI.MemoryPrecision.CubeBall : (d : ℕ) →
+  OAI.MemoryPrecision.Space (d / 2) → ℝ → Set ↑(OAI.MemoryPrecision.Cube d) :=
+fun d z r => {u | dist (↑u) z ≤ √↑(d / 2) * r}
+def OAI.MemoryPrecision.CubeLocal : {d : ℕ} → (↑(OAI.MemoryPrecision.Cube d) → ENNReal) → ℝ → Prop :=
+fun {d} f L =>
+  let exponent := OfNat.ofNat 2;
+  let cubeMeasurable := Subtype.instMeasurableSpace;
+  ∀ (z : OAI.MemoryPrecision.Space (d / 2)) (r : ℝ),
+    0 < r →
+      MeasureTheory.lintegral ((OAI.MemoryPrecision.CubeLaw d).restrict (OAI.MemoryPrecision.CubeBall d z r)) f ≤
+        ENNReal.ofReal (L * r ^ (OfNat.ofNat 3 * ↑(d / 2) / OfNat.ofNat 4))
+def OAI.MemoryPrecision.cubeCoords : (d : ℕ) → OAI.MemoryPrecision.Space (d / 2) → OAI.MemoryPrecision.Space d :=
+fun d u =>
+  let exponent := OfNat.ofNat 2;
+  WithLp.toLp exponent fun index =>
+    if lower : ↑index < d / 2 then u.ofLp ⟨↑index, lower⟩
+    else if upper : ↑index < 2 * (d / 2) then √(1 - u.ofLp ⟨↑index - d / 2, ⋯⟩ ^ 2) else 0
+def OAI.MemoryPrecision.CubeSphere : {d : ℕ} →
+  2 ≤ d → ↑(OAI.MemoryPrecision.Cube d) → ↑(OAI.NoiselessRegression.UnitSphere d) :=
+fun {d} hd u => ⟨OAI.MemoryPrecision.CubeEmbedding d u, ⋯⟩
+def OAI.MemoryPrecision.AmbientGramStatement : Prop :=
+have two := OfNat.ofNat 2;
+have three := OfNat.ofNat 3;
+have four := OfNat.ofNat 4;
+let exponent := OfNat.ofNat 2;
+(∀ (d m p : ℕ),
+    1 ≤ d →
+      1 ≤ m →
+        2 ≤ p →
+          ∀ (β R H : ℝ),
+            ↑m + ↑p - two < β →
+              0 < R →
+                0 < H →
+                  ∀ (μ : MeasureTheory.Measure (OAI.MemoryPrecision.Space d)),
+                    MeasureTheory.IsFiniteMeasure μ →
+                      ∀ (z : OAI.MemoryPrecision.Space d),
+                        μ.support ⊆ Metric.closedBall z R →
+                          OAI.MemoryPrecision.AmbientBallBound μ H β →
+                            (∀ j ≤ p - 2,
+                                ∀ (L : AffineSubspace ℝ (OAI.MemoryPrecision.Space d)),
+                                  Nonempty ↥L →
+                                    Module.finrank ℝ ↥L.direction = j →
+                                      (∀ (t : ℝ),
+                                          0 < t →
+                                            t ≤ R →
+                                              μ {s | Metric.infDist s ↑L ≤ t} ≤
+                                                ENNReal.ofReal (three ^ j * two ^ β * H * R ^ j * t ^ (β - ↑j))) ∧
+                                        ∫⁻ (s : OAI.MemoryPrecision.Space d),
+                                            ENNReal.ofReal (Metric.infDist s ↑L) ^ (-↑m) ∂μ ≤
+                                          ENNReal.ofReal (OAI.MemoryPrecision.J β m j * H * R ^ (β - ↑m))) ∧
+                              (∀ᵐ (v :
+                                  OAI.MemoryPrecision.Space d ×
+                                    (Fin (p - 1) →
+                                      OAI.MemoryPrecision.Space d)) ∂μ.prod (MeasureTheory.Measure.pi fun x => μ),
+                                  LinearIndependent ℝ fun i => v.2 i - v.1) ∧
+                                ∫⁻ (v : OAI.MemoryPrecision.Space d × (Fin (p - 1) → OAI.MemoryPrecision.Space d)),
+                                    OAI.MemoryPrecision.InverseGram m v ∂μ.prod (MeasureTheory.Measure.pi fun x => μ) ≤
+                                  ENNReal.ofReal
+                                    (H ^ p * R ^ (β * ↑p - ↑m * ↑(p - 1)) * ∏ j, OAI.MemoryPrecision.J β m ↑j)) ∧
+  ∃ C,
+    1 ≤ C ∧
+      ∀ (d m p : ℕ),
+        16 ≤ d →
+          p = d / 8 →
+            1 ≤ m →
+              m ≤ p →
+                ∀ (β : ℝ),
+                  (↑d - 1) / two ≤ β →
+                    β ≤ ↑d / two →
+                      (∀ j ≤ p - 2,
+                          (↑d - 1) / two - two * ↑p + two ≤ β - ↑j - ↑m ∧
+                            ↑d / four + three / two ≤ (↑d - 1) / two - two * ↑p + two ∧
+                              OAI.MemoryPrecision.J β m j ≤ C ^ d) ∧
+                        ∀ (H R : ℝ),
+                          0 < H →
+                            0 < R →
+                              H ^ p * R ^ (β * ↑p - ↑m * ↑(p - 1)) * ∏ j, OAI.MemoryPrecision.J β m ↑j ≤
+                                C ^ (d * (p - 1)) * H ^ p * R ^ (β * ↑p - ↑m * ↑(p - 1))
+def OAI.MemoryPrecision.FiniteDensityStatement : Prop :=
+have two := OfNat.ofNat 2;
+let exponent := OfNat.ofNat 2;
+∀ (d m p : ℕ),
+  1 ≤ d →
+    1 ≤ m →
+      2 ≤ p →
+        ∀ (β H R : ℝ),
+          ↑m + ↑p - two < β →
+            0 < H →
+              0 < R →
+                ∀ (z : OAI.MemoryPrecision.Space d) (μ : MeasureTheory.Measure (OAI.MemoryPrecision.Space d)),
+                  MeasureTheory.IsFiniteMeasure μ →
+                    μ.support ⊆ Metric.closedBall z R →
+                      OAI.MemoryPrecision.AmbientBallBound μ H β →
+                        ∃ F,
+                          Measurable F ∧
+                            (∀ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)), 0 ≤ F x) ∧
+                              ((OAI.MemoryPrecision.MatrixLabelReference d m).withDensity fun x =>
+                                    ENNReal.ofReal (F x)) =
+                                  OAI.MemoryPrecision.ProjectionLaw μ m ∧
+                                (∀ᵐ (x :
+                                    (Fin m → OAI.MemoryPrecision.Space d) ×
+                                      (Fin m → ℝ)) ∂OAI.MemoryPrecision.MatrixLabelReference d m,
+                                    x ∉ OAI.MemoryPrecision.ProjectedEllipsoid z R → F x = 0) ∧
+                                  MeasureTheory.eLpNorm F (↑p) (OAI.MemoryPrecision.MatrixLabelReference d m) ≤
+                                    ENNReal.ofReal (OAI.MemoryPrecision.ProjectionNormScale m p H β R)
+def OAI.MemoryPrecision.MeasurableTestStatement : Prop :=
+have two := OfNat.ofNat 2;
+let exponent := OfNat.ofNat 2;
+∀ (d m p : ℕ),
+  1 ≤ d →
+    1 ≤ m →
+      2 ≤ p →
+        ∀ (β H R : ℝ),
+          ↑m + ↑p - two < β →
+            0 < H →
+              0 < R →
+                ∀ (z : OAI.MemoryPrecision.Space d) (μ : MeasureTheory.Measure (OAI.MemoryPrecision.Space d)),
+                  MeasureTheory.IsFiniteMeasure μ →
+                    μ.support ⊆ Metric.closedBall z R →
+                      OAI.MemoryPrecision.AmbientBallBound μ H β →
+                        have ν := OAI.MemoryPrecision.MatrixLabelReference d m;
+                        have η := OAI.MemoryPrecision.ProjectionLaw μ m;
+                        have B := ENNReal.ofReal (OAI.MemoryPrecision.ProjectionNormScale m p H β R);
+                        have α := 1 - 1 / ↑p;
+                        (∀ (E : Set ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ))),
+                            MeasurableSet E → ν E ≠ ⊤ → η E ≤ B * ν E ^ α) ∧
+                          η.AbsolutelyContinuous ν ∧
+                            ∃ ηc,
+                              (∀ (E : Set ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ))),
+                                  MeasureTheory.NullMeasurableSet E ν → ηc E = η E) ∧
+                                (∀ (E : Set ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ))),
+                                    MeasureTheory.NullMeasurableSet E ν →
+                                      ν.completion E ≠ ⊤ → ηc E ≤ B * ν.completion E ^ α) ∧
+                                  ∀
+                                    (φ :
+                                      MeasureTheory.NullMeasurableSpace
+                                          ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) ν →
+                                        ENNReal),
+                                    Measurable φ →
+                                      (∀
+                                          (x :
+                                            MeasureTheory.NullMeasurableSpace
+                                              ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) ν),
+                                          φ x ≤ 1) →
+                                        ∫⁻ (x :
+                                            MeasureTheory.NullMeasurableSpace
+                                              ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) ν),
+                                            φ x ∂ηc ≤
+                                          B *
+                                            (∫⁻ (x :
+                                                MeasureTheory.NullMeasurableSpace
+                                                  ((Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)) ν) in
+                                                OAI.MemoryPrecision.ProjectedEllipsoid z R, φ x ∂ν.completion) ^
+                                              α
+def OAI.MemoryPrecision.JointL1Statement : Prop :=
+have two := OfNat.ofNat 2;
+let exponent := OfNat.ofNat 2;
+∀ (d m p : ℕ),
+  2 ≤ d →
+    1 ≤ m →
+      m < d →
+        2 ≤ p →
+          ∀ (β H R : ℝ),
+            ↑m + ↑p - two < β →
+              0 < H →
+                0 < R →
+                  ∀ (z : OAI.MemoryPrecision.Space d) (μ : MeasureTheory.Measure (OAI.MemoryPrecision.Space d)),
+                    MeasureTheory.IsFiniteMeasure μ →
+                      μ.support ⊆ Metric.closedBall z R →
+                        OAI.MemoryPrecision.AmbientBallBound μ H β →
+                          μ.AbsolutelyContinuous (OAI.MemoryPrecision.UniformSphere d) →
+                            ∀ (F : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ℝ),
+                              Measurable F →
+                                (∀ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)), 0 ≤ F x) →
+                                  ((OAI.MemoryPrecision.MatrixLabelReference d m).withDensity fun x =>
+                                        ENNReal.ofReal (F x)) =
+                                      OAI.MemoryPrecision.ProjectionLaw μ m →
+                                    Filter.Tendsto
+                                        (fun δ =>
+                                          MeasureTheory.eLpNorm
+                                            (fun Ay => OAI.MemoryPrecision.GaussianRegularization μ m δ Ay - F Ay) 1
+                                            (OAI.MemoryPrecision.MatrixLabelReference d m))
+                                        (nhdsWithin 0 (Set.Ioi 0)) (nhds 0) ∧
+                                      MeasureTheory.eLpNorm F (↑p) (OAI.MemoryPrecision.MatrixLabelReference d m) ≤
+                                        ENNReal.ofReal (OAI.MemoryPrecision.ProjectionNormScale m p H β R)
+def OAI.MemoryPrecision.RadialMixtureRepresentation : ℕ → Prop :=
+fun m =>
+  ∀ (δ : ℝ),
+    0 < δ →
+      (∀ (r : ℝ), 0 < r → 0 ≤ OAI.MemoryPrecision.RadialMixture m δ r) ∧
+        Measurable (OAI.MemoryPrecision.RadialMixture m δ) ∧
+          ∫ (r : ℝ) in Set.Ioi 0, OAI.MemoryPrecision.RadialMixture m δ r = 1 ∧
+            ∀ (y : OAI.MemoryPrecision.Space m),
+              OAI.MemoryPrecision.GaussianKernel m δ y =
+                ∫ (r : ℝ) in Set.Ioi ‖y‖,
+                  OAI.MemoryPrecision.RadialMixture m δ r / (OAI.MemoryPrecision.UnitBallVolume m * r ^ m)
+def OAI.MemoryPrecision.FullRankDensityFormula : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) → ℕ → Prop :=
+fun {d} μ m =>
+  let exponent := OfNat.ofNat 2;
+  ∀ (A : Fin m → OAI.MemoryPrecision.Space d),
+    LinearIndependent ℝ A →
+      (MeasureTheory.volume.withDensity fun y => ENNReal.ofReal (OAI.MemoryPrecision.PointwiseDensity μ m (A, y))) =
+        MeasureTheory.Measure.map (fun signal index => inner ℝ signal (A index)) μ
+def OAI.MemoryPrecision.PointwiseDensityProperties : {d : ℕ} →
+  MeasureTheory.Measure (OAI.MemoryPrecision.Space d) → ℕ → ℕ → ℝ → ℝ → ℝ → Prop :=
+fun {d} μ m p H β R =>
+  have reference := OAI.MemoryPrecision.MatrixLabelReference d m;
+  OAI.MemoryPrecision.RadialMixtureRepresentation m ∧
+    (∀ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)), 0 ≤ OAI.MemoryPrecision.PointwiseDensity μ m x) ∧
+      Measurable (OAI.MemoryPrecision.PointwiseDensity μ m) ∧
+        OAI.MemoryPrecision.FullRankDensityFormula μ m ∧
+          (reference.withDensity fun x => ENNReal.ofReal (OAI.MemoryPrecision.PointwiseDensity μ m x)) =
+              OAI.MemoryPrecision.ProjectionLaw μ m ∧
+            (∀ (F : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ℝ),
+                Measurable F →
+                  (∀ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)), 0 ≤ F x) →
+                    (reference.withDensity fun x => ENNReal.ofReal (F x)) = OAI.MemoryPrecision.ProjectionLaw μ m →
+                      OAI.MemoryPrecision.PointwiseDensity μ m =ᵐ[reference] F) ∧
+              ∫⁻ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)),
+                  ENNReal.ofReal (OAI.MemoryPrecision.PointwiseDensity μ m x) ^ p ∂reference ≤
+                ENNReal.ofReal (OAI.MemoryPrecision.ProjectionNormScale m p H β R) ^ p
+def OAI.MemoryPrecision.PointwiseDensityStatement : Prop :=
+have two := OfNat.ofNat 2;
+let exponent := OfNat.ofNat 2;
+∀ (d m p : ℕ),
+  2 ≤ d →
+    1 ≤ m →
+      m < d →
+        2 ≤ p →
+          ∀ (β H R : ℝ),
+            ↑m + ↑p - two < β →
+              0 < H →
+                0 < R →
+                  ∀ (z : OAI.MemoryPrecision.Space d) (μ : MeasureTheory.Measure (OAI.MemoryPrecision.Space d)),
+                    MeasureTheory.IsFiniteMeasure μ →
+                      μ.support ⊆ Metric.closedBall z R →
+                        OAI.MemoryPrecision.AmbientBallBound μ H β →
+                          μ.AbsolutelyContinuous (OAI.MemoryPrecision.UniformSphere d) →
+                            OAI.MemoryPrecision.PointwiseDensityProperties μ m p H β R
+def OAI.MemoryPrecision.CoefficientStepStatement : Prop :=
+have two := OfNat.ofNat 2;
+∃ C,
+  1 ≤ C ∧
+    ∀ (d m N : ℕ),
+      16 ≤ d →
+        1 ≤ m →
+          m ≤ d / 8 →
+            1 ≤ N →
+              ∀ (α H : ℝ),
+                (↑d - 1) / two ≤ α →
+                  α ≤ ↑d / two →
+                    0 < H →
+                      ∀ (h : Fin N → ↑(OAI.MemoryPrecision.Sphere d) → ENNReal),
+                        (∀ (w : Fin N), Measurable (h w)) →
+                          (∀ (w : Fin N) (s : ↑(OAI.MemoryPrecision.Sphere d)), h w s ≤ 1) →
+                            (∀ (w : Fin N), OAI.MemoryPrecision.SphereBallBound (h w) H α) →
+                              ∀ (g : Fin N → (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ) → ENNReal),
+                                (∀ (w : Fin N), Measurable (g w)) →
+                                  (∀ (x : (Fin m → OAI.MemoryPrecision.Space d) × (Fin m → ℝ)), ∑ w, g w x ≤ 1) →
+                                    OAI.MemoryPrecision.SphereBallBound (OAI.MemoryPrecision.SphereBlock h g)
+                                      (C ^ d * ↑N ^ (1 / ↑(d / 8)) * H) α
+def OAI.MemoryPrecision.CubeBlockStatement : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d k N : ℕ),
+      16 ≤ d →
+        1 ≤ k →
+          k ≤ d / 2 / 4 →
+            1 ≤ N →
+              ∀ (L : ℝ),
+                0 ≤ L →
+                  ∀ (f : Fin N → ↑(OAI.MemoryPrecision.Cube d) → ENNReal),
+                    (∀ (v : Fin N), Measurable (f v)) →
+                      (∀ (v : Fin N) (u : ↑(OAI.MemoryPrecision.Cube d)), f v u ≤ 1) →
+                        (∀ (v : Fin N), OAI.MemoryPrecision.CubeLocal (f v) L) →
+                          ∀ (g : Fin N → (Fin k → OAI.MemoryPrecision.Space d) × (Fin k → ℝ) → ENNReal),
+                            (∀ (v : Fin N), Measurable (g v)) →
+                              (∀ (x : (Fin k → OAI.MemoryPrecision.Space d) × (Fin k → ℝ)), ∑ v, g v x ≤ 1) →
+                                OAI.MemoryPrecision.CubeLocal
+                                  (OAI.MemoryPrecision.WeightedBlock (OAI.MemoryPrecision.CubeEmbedding d) f g)
+                                  (C ^ (d / 2) * ↑N ^ (1 / ↑(d / 2 / 4)) * L)
+def OAI.MemoryPrecision.Kernel.Policy.ModelAdmissible.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] → (Ω → OAI.MemoryPrecision.Kernel.Policy d M T) → MeasureTheory.Measure Ω → Prop :=
+fun {d M T} {Ω} [MeasurableSpace Ω] K ρ =>
+  ∀ (π : MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d)),
+    MeasureTheory.IsProbabilityMeasure π → OAI.MemoryPrecision.Kernel.Policy.Admissible K ρ π
+def OAI.MemoryPrecision.Kernel.CubePrior : {d : ℕ} →
+  2 ≤ d → MeasureTheory.Measure ↑(OAI.MemoryPrecision.Kernel.Sphere d) :=
+fun {d} hd => MeasureTheory.Measure.map (OAI.MemoryPrecision.CubeSphere hd) (OAI.MemoryPrecision.CubeLaw d)
+def OAI.MemoryPrecision.Kernel.BlockCount : ℕ → ℕ → ℕ :=
+fun T p => ⌈↑T / ↑p⌉₊
+def OAI.MemoryPrecision.Kernel.SourceEllipsoidStatement.{u} : Prop :=
+have two := OfNat.ofNat 2;
+have four := OfNat.ofNat 4;
+have ten := OfNat.ofNat 10;
+∃ C C₀,
+  1 ≤ C ∧
+    1 ≤ C₀ ∧
+      ∀ (d M T : ℕ),
+        16 ≤ d →
+          ∀ (ε : ℝ),
+            0 < ε →
+              ε ≤ 1 / ten →
+                ∀ (Ω : Type u) [inst : MeasurableSpace Ω] (ρ : MeasureTheory.Measure Ω),
+                  MeasureTheory.IsProbabilityMeasure ρ →
+                    ∀ (K : Ω → OAI.MemoryPrecision.Kernel.Policy d M T),
+                      OAI.MemoryPrecision.Kernel.Policy.Admissible K ρ (OAI.MemoryPrecision.Kernel.UniformSphere d) →
+                        OAI.MemoryPrecision.Kernel.Policy.Success K ρ (OAI.MemoryPrecision.Kernel.UniformSphere d) ε ≤
+                            min 1
+                              (ENNReal.ofReal
+                                (four ^ d * ε ^ ((↑d - 1) / two) *
+                                  (C ^ d * ↑((d / 8 + 2) * 2 ^ M) ^ (1 / ↑(d / 8))) ^
+                                    OAI.MemoryPrecision.Kernel.BlockCount T (d / 8))) ∧
+                          OAI.MemoryPrecision.Kernel.Policy.ChordSuccess K ρ
+                                (OAI.MemoryPrecision.Kernel.UniformSphere d) ε ≤
+                              min 1
+                                (ENNReal.ofReal
+                                  (C₀ ^ d * ε ^ (↑d / two - 1) *
+                                    (C ^ d * ↑((2 * (d / 8) + 4) * 2 ^ M) ^ (1 / ↑(d / 8))) ^
+                                      OAI.MemoryPrecision.Kernel.BlockCount T (d / 8))) ∧
+                            {x | Real.arccos (inner ℝ ↑x.2 ↑x.1) ≤ ε} ⊆ {x | dist ↑x.2 ↑x.1 ≤ ε}

@@ -1,0 +1,159 @@
+CMP OAI.RationalHitting.main [thm] ok
+CMP OAI.RationalHitting.MainStatement [def] ok
+CMP OAI.RationalHitting.Hits [def] ok
+CMP OAI.RationalHitting.Evaluates [def] ok
+CMP OAI.RationalHitting.Formula.Eval [ind] ok
+CMP OAI.RationalHitting.Formula.Eval.inv [ctor] ok
+CMP OAI.RationalHitting.Formula.inv [ctor] ok
+CMP OAI.RationalHitting.Formula [ind] ok
+CMP OAI.RationalHitting.Formula.mul [ctor] ok
+CMP OAI.RationalHitting.Formula.add [ctor] ok
+CMP OAI.RationalHitting.Formula.const [ctor] ok
+CMP OAI.RationalHitting.Formula.var [ctor] ok
+CMP OAI.RationalHitting.Formula.Eval.mul [ctor] ok
+CMP OAI.RationalHitting.Formula.Eval.add [ctor] ok
+CMP OAI.RationalHitting.Formula.Eval.const [ctor] ok
+CMP OAI.RationalHitting.Formula.Eval.var [ctor] ok
+CMP OAI.RationalHitting.Mat [def] ok
+CMP OAI.RationalHitting.Tuple [def] ok
+CMP OAI.RationalHitting.Output.tuples [def] ok
+CMP OAI.RationalHitting.Output [ind] ok
+CMP OAI.RationalHitting.Output.mk [ctor] ok
+CMP OAI.RationalHitting.Output.dimension [def] ok
+CMP OAI.RationalHitting.Nonzero [def] ok
+CMP OAI.RationalHitting.Admissible [def] ok
+CMP OAI.RationalHitting.Formula.size [def] ok
+CMP OAI.RationalHitting.Formula.size._f [def] ok
+CMP OAI.RationalHitting.Formula.size.match_1 [def] ok
+CMP OAI.RationalHitting.Formula.casesOn [def] ok
+CMP OAI.RationalHitting.Formula.rec [rec] ok
+CMP OAI.RationalHitting.Formula.below [def] ok
+CMP OAI.RationalHitting.Formula.brecOn [def] ok
+CMP OAI.RationalHitting.Formula.brecOn.go [def] ok
+CMP OAI.RationalHitting.OutputsWithin [def] ok
+CMP OAI.RationalHitting.encodeOutput [def] ok
+CMP OAI.RationalHitting.encodeTuple [def] ok
+CMP OAI.RationalHitting.encodeRat [def] ok
+CMP OAI.RationalHitting.encodeNat [def] ok
+CMP OAI.RationalHitting.tapeBit [def] ok
+CMP OAI.RationalHitting.Config._proof_1 [thm] ok
+CMP OAI.RationalHitting.Alphabet [def] ok
+CMP OAI.RationalHitting.unaryInput [def] ok
+CMP OAI.RationalHitting.Machine._proof_1 [thm] ok
+CMP OAI.RationalHitting.run [def] ok
+CMP OAI.RationalHitting.run._f [def] ok
+CMP OAI.RationalHitting.run.match_1 [def] ok
+CMP OAI.RationalHitting.Config [def] ok
+CMP OAI.RationalHitting.Machine [def] ok
+Chal.RationalHitting.main : Chal.RationalHitting.MainStatement
+inductive Chal.RationalHitting.Formula : ℕ → Type
+number of parameters: 1
+constructors:
+Chal.RationalHitting.Formula.var : {n : ℕ} → Fin n → Chal.RationalHitting.Formula n
+Chal.RationalHitting.Formula.const : {n : ℕ} → ℚ → Chal.RationalHitting.Formula n
+Chal.RationalHitting.Formula.add : {n : ℕ} →
+  Chal.RationalHitting.Formula n → Chal.RationalHitting.Formula n → Chal.RationalHitting.Formula n
+Chal.RationalHitting.Formula.mul : {n : ℕ} →
+  Chal.RationalHitting.Formula n → Chal.RationalHitting.Formula n → Chal.RationalHitting.Formula n
+Chal.RationalHitting.Formula.inv : {n : ℕ} → Chal.RationalHitting.Formula n → Chal.RationalHitting.Formula n
+def Chal.RationalHitting.Formula.size : {n : ℕ} → Chal.RationalHitting.Formula n → ℕ :=
+fun {n} x => Chal.RationalHitting.Formula.brecOn x Chal.RationalHitting.Formula.size._f
+inductive Chal.RationalHitting.Formula.Eval.{u} : {n : ℕ} →
+  {R : Type u} → [inst : Ring R] → (ℚ →+* R) → (Fin n → R) → Chal.RationalHitting.Formula n → R → Prop
+number of parameters: 5
+constructors:
+Chal.RationalHitting.Formula.Eval.var : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  (i : Fin n), Chal.RationalHitting.Formula.Eval c X (Chal.RationalHitting.Formula.var i) (X i)
+Chal.RationalHitting.Formula.Eval.const : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R} (a : ℚ),
+  Chal.RationalHitting.Formula.Eval c X (Chal.RationalHitting.Formula.const a) (c a)
+Chal.RationalHitting.Formula.Eval.add : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f g : Chal.RationalHitting.Formula n} {a b : R},
+  Chal.RationalHitting.Formula.Eval c X f a →
+    Chal.RationalHitting.Formula.Eval c X g b → Chal.RationalHitting.Formula.Eval c X (f.add g) (a + b)
+Chal.RationalHitting.Formula.Eval.mul : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f g : Chal.RationalHitting.Formula n} {a b : R},
+  Chal.RationalHitting.Formula.Eval c X f a →
+    Chal.RationalHitting.Formula.Eval c X g b → Chal.RationalHitting.Formula.Eval c X (f.mul g) (a * b)
+Chal.RationalHitting.Formula.Eval.inv : ∀ {n : ℕ} {R : Type u} [inst : Ring R] {c : ℚ →+* R} {X : Fin n → R}
+  {f : Chal.RationalHitting.Formula n} {a b : R},
+  Chal.RationalHitting.Formula.Eval c X f a → a * b = 1 → b * a = 1 → Chal.RationalHitting.Formula.Eval c X f.inv b
+@[reducible] def Chal.RationalHitting.Mat : ℕ → Type :=
+fun d => Matrix (Fin d) (Fin d) ℚ
+@[reducible] def Chal.RationalHitting.Tuple : ℕ → ℕ → Type :=
+fun n d => Fin n → Chal.RationalHitting.Mat d
+def Chal.RationalHitting.Evaluates : {n d : ℕ} →
+  Chal.RationalHitting.Formula n → Chal.RationalHitting.Tuple n d → Chal.RationalHitting.Mat d → Prop :=
+fun {n d} f X v => Chal.RationalHitting.Formula.Eval (algebraMap ℚ (Chal.RationalHitting.Mat d)) X f v
+def Chal.RationalHitting.Admissible : {n : ℕ} → Chal.RationalHitting.Formula n → Prop :=
+fun {n} f => ∃ d, 0 < d ∧ ∃ X v, Chal.RationalHitting.Evaluates f X v
+def Chal.RationalHitting.Nonzero : {n : ℕ} → Chal.RationalHitting.Formula n → Prop :=
+fun {n} f => ∃ d, 0 < d ∧ ∃ X v, Chal.RationalHitting.Evaluates f X v ∧ v ≠ 0
+structure Chal.RationalHitting.Output (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.RationalHitting.Output.dimension : ℕ
+  Chal.RationalHitting.Output.dimension_pos : 0 < self.dimension
+  Chal.RationalHitting.Output.tuples : List (Chal.RationalHitting.Tuple n self.dimension)
+constructor:
+  Chal.RationalHitting.Output.mk {n : ℕ} (dimension : ℕ) (dimension_pos : 0 < dimension)
+    (tuples : List (Chal.RationalHitting.Tuple n dimension)) : Chal.RationalHitting.Output n
+def Chal.RationalHitting.encodeNat : ℕ → List Bool :=
+fun a =>
+  have ds := List.map (fun b => b != 0) (Nat.digits 2 a);
+  List.replicate ds.length true ++ [false] ++ ds
+def Chal.RationalHitting.encodeRat : ℚ → List Bool :=
+fun a => [decide (a.num < 0)] ++ Chal.RationalHitting.encodeNat a.num.natAbs ++ Chal.RationalHitting.encodeNat a.den
+def Chal.RationalHitting.encodeTuple : {n d : ℕ} → Chal.RationalHitting.Tuple n d → List Bool :=
+fun {n d} X =>
+  List.flatMap
+    (fun i =>
+      List.flatMap (fun j => List.flatMap (fun k => Chal.RationalHitting.encodeRat (X i j k)) (List.finRange d))
+        (List.finRange d))
+    (List.finRange n)
+def Chal.RationalHitting.encodeOutput : {n : ℕ} → Chal.RationalHitting.Output n → List Bool :=
+fun {n} H =>
+  Chal.RationalHitting.encodeNat H.dimension ++ Chal.RationalHitting.encodeNat H.tuples.length ++
+    List.flatMap Chal.RationalHitting.encodeTuple H.tuples
+@[reducible] def Chal.RationalHitting.Alphabet : Type :=
+Fin 4
+@[reducible] def Chal.RationalHitting.Machine : ℕ → Type :=
+fun m => Turing.TM0.Machine Chal.RationalHitting.Alphabet (Fin (m + 1))
+@[reducible] def Chal.RationalHitting.Config : ℕ → Type :=
+fun m => Turing.TM0.Cfg Chal.RationalHitting.Alphabet (Fin (m + 1))
+def Chal.RationalHitting.tapeBit : Bool → Chal.RationalHitting.Alphabet :=
+fun b => if b = true then 2 else 1
+def Chal.RationalHitting.unaryInput : ℕ → ℕ → List Chal.RationalHitting.Alphabet :=
+fun n s => List.replicate n 2 ++ [1] ++ List.replicate s 2
+def Chal.RationalHitting.run : {m : ℕ} →
+  Chal.RationalHitting.Machine m → ℕ → Chal.RationalHitting.Config m → Option (Chal.RationalHitting.Config m) :=
+fun {m} G x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.RationalHitting.Config m → Option (Chal.RationalHitting.Config m)) x
+    (Chal.RationalHitting.run._f G) x_1
+def Chal.RationalHitting.OutputsWithin : {m n : ℕ} →
+  Chal.RationalHitting.Machine m → ℕ → ℕ → Chal.RationalHitting.Output n → Prop :=
+fun {m n} G s bound H =>
+  ∃ t ≤ bound,
+    ∃ a,
+      Chal.RationalHitting.run G t (Turing.TM0.init (Chal.RationalHitting.unaryInput n s)) = some a ∧
+        Turing.TM0.step G a = none ∧
+          a.Tape.right₀ =
+            Turing.ListBlank.mk (List.map Chal.RationalHitting.tapeBit (Chal.RationalHitting.encodeOutput H))
+def Chal.RationalHitting.Hits : {n : ℕ} → ℕ → Chal.RationalHitting.Output n → Prop :=
+fun {n} s H =>
+  ∀ (f : Chal.RationalHitting.Formula n),
+    f.size ≤ s →
+      Chal.RationalHitting.Admissible f →
+        Chal.RationalHitting.Nonzero f → ∃ X ∈ H.tuples, ∃ v, Chal.RationalHitting.Evaluates f X v ∧ IsUnit v
+def Chal.RationalHitting.MainStatement : Prop :=
+∃ m G C k,
+  0 < C ∧
+    0 < k ∧
+      ∀ (n s : ℕ),
+        1 ≤ n →
+          1 ≤ s →
+            ∃ H,
+              H.dimension ≤ C * (n + s + 1) ^ k ∧
+                (Chal.RationalHitting.encodeOutput H).length ≤ C * (n + s + 1) ^ k ∧
+                  Chal.RationalHitting.OutputsWithin G s (C * (n + s + 1) ^ k) H ∧ Chal.RationalHitting.Hits s H
+'OAI.RationalHitting.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RationalHitting comparator-style: ok=47 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

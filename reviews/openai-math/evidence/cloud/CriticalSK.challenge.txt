@@ -1,0 +1,110 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CriticalSK.lean:112:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CriticalSK.lean:127:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CriticalSK.lean:138:8: warning: declaration uses `sorry`
+OAI.CriticalSK.realized_equilibrium_initial_states : (∀ (t : ℕ → ℝ),
+    (∀ (n : ℕ), 0 ≤ t n) →
+      Filter.Tendsto (fun n => t n / ↑n ^ (2 / 3)) Filter.atTop (nhds 0) →
+        ∀ (δ : ℝ),
+          0 < δ →
+            Filter.Tendsto
+              (fun n =>
+                ((OAI.CriticalSK.disorderLaw n) {W | δ ≤ |OAI.CriticalSK.continuousGoodMass W (t n) - 1|}).toReal)
+              Filter.atTop (nhds 0)) ∧
+  ∀ (k : ℕ → ℕ),
+    Filter.Tendsto (fun n => ↑(k n) / ↑n ^ (5 / 3)) Filter.atTop (nhds 0) →
+      ∀ (δ : ℝ),
+        0 < δ →
+          Filter.Tendsto
+            (fun n => ((OAI.CriticalSK.disorderLaw n) {W | δ ≤ |OAI.CriticalSK.discreteGoodMass W (k n) - 1|}).toReal)
+            Filter.atTop (nhds 0)
+OAI.CriticalSK.covariance_and_linear_tests : ∀ (M : ℕ → ℝ),
+  (∀ (n : ℕ), 0 < M n) →
+    Filter.Tendsto M Filter.atTop Filter.atTop →
+      Filter.Tendsto
+        (fun n =>
+          ((OAI.CriticalSK.disorderLaw n)
+              {W |
+                ↑n ^ (2 / 3) / M n ≤ OAI.CriticalSK.covarianceNorm W ∧
+                  OAI.CriticalSK.covarianceNorm W ≤ M n * ↑n ^ (2 / 3) ∧
+                    ↑n ^ (2 / 3) / M n ≤ OAI.CriticalSK.linearRayleigh W ∧
+                      OAI.CriticalSK.linearRayleigh W ≤ M n * ↑n ^ (2 / 3)}).toReal)
+        Filter.atTop (nhds 1)
+OAI.CriticalSK.critical_mixing_lower_bounds : ∀ (ε : ℝ),
+  0 < ε →
+    Filter.Tendsto
+        (fun n => (OAI.CriticalSK.disorderLaw n).real {W | ↑n ^ (2 / 3 - ε) ≤ OAI.CriticalSK.continuousMixingTime W})
+        Filter.atTop (nhds 1) ∧
+      Filter.Tendsto
+        (fun n => (OAI.CriticalSK.disorderLaw n).real {W | ↑n ^ (5 / 3 - ε) ≤ ↑(OAI.CriticalSK.discreteMixingTime W)})
+        Filter.atTop (nhds 1)
+@[reducible] def OAI.CriticalSK.Spin : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.CriticalSK.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def OAI.CriticalSK.Disorder : ℕ → Type :=
+fun n => OAI.CriticalSK.Edge n → ℝ
+def OAI.CriticalSK.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.CriticalSK.hamiltonian : {n : ℕ} → OAI.CriticalSK.Disorder n → OAI.CriticalSK.Spin n → ℝ :=
+fun {n} W x => ∑ e, W e * OAI.CriticalSK.spinValue (x (↑e).1) * OAI.CriticalSK.spinValue (x (↑e).2)
+def OAI.CriticalSK.partition : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ :=
+fun {n} W => ∑ x, Real.exp (OAI.CriticalSK.hamiltonian W x)
+def OAI.CriticalSK.gibbs : {n : ℕ} → OAI.CriticalSK.Disorder n → OAI.CriticalSK.Spin n → ℝ :=
+fun {n} W x => Real.exp (OAI.CriticalSK.hamiltonian W x) / OAI.CriticalSK.partition W
+def OAI.CriticalSK.disorderLaw : (n : ℕ) → MeasureTheory.Measure (OAI.CriticalSK.Disorder n) :=
+fun n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 (↑n)⁻¹
+def OAI.CriticalSK.sameExcept : {n : ℕ} → Fin n → OAI.CriticalSK.Spin n → OAI.CriticalSK.Spin n → Prop :=
+fun {n} i x y => ∀ (j : Fin n), j ≠ i → y j = x j
+def OAI.CriticalSK.siteKernel : {n : ℕ} →
+  OAI.CriticalSK.Disorder n → Fin n → Matrix (OAI.CriticalSK.Spin n) (OAI.CriticalSK.Spin n) ℝ :=
+fun {n} W i x y =>
+  if OAI.CriticalSK.sameExcept i x y then
+    OAI.CriticalSK.gibbs W y / ∑ z, if OAI.CriticalSK.sameExcept i x z then OAI.CriticalSK.gibbs W z else 0
+  else 0
+def OAI.CriticalSK.discreteKernel : {n : ℕ} →
+  OAI.CriticalSK.Disorder n → Matrix (OAI.CriticalSK.Spin n) (OAI.CriticalSK.Spin n) ℝ :=
+fun {n} W => (↑n)⁻¹ • ∑ i, OAI.CriticalSK.siteKernel W i
+def OAI.CriticalSK.generator : {n : ℕ} →
+  OAI.CriticalSK.Disorder n → Matrix (OAI.CriticalSK.Spin n) (OAI.CriticalSK.Spin n) ℝ :=
+fun {n} W => ∑ i, (OAI.CriticalSK.siteKernel W i - 1)
+def OAI.CriticalSK.continuousKernel : {n : ℕ} →
+  OAI.CriticalSK.Disorder n → ℝ → Matrix (OAI.CriticalSK.Spin n) (OAI.CriticalSK.Spin n) ℝ :=
+fun {n} W t => NormedSpace.exp (t • OAI.CriticalSK.generator W)
+def OAI.CriticalSK.totalVariation : {n : ℕ} → OAI.CriticalSK.Disorder n → (OAI.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W p => 1 / 2 * ∑ y, |p y - OAI.CriticalSK.gibbs W y|
+def OAI.CriticalSK.continuousDistance : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ → OAI.CriticalSK.Spin n → ℝ :=
+fun {n} W t x => OAI.CriticalSK.totalVariation W (OAI.CriticalSK.continuousKernel W t x)
+def OAI.CriticalSK.discreteDistance : {n : ℕ} → OAI.CriticalSK.Disorder n → ℕ → OAI.CriticalSK.Spin n → ℝ :=
+fun {n} W k x => OAI.CriticalSK.totalVariation W ((OAI.CriticalSK.discreteKernel W ^ k) x)
+def OAI.CriticalSK.continuousMixingTime : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ :=
+fun {n} W => sInf {t | 0 ≤ t ∧ ∀ (x : OAI.CriticalSK.Spin n), OAI.CriticalSK.continuousDistance W t x ≤ 1 / 4}
+def OAI.CriticalSK.discreteMixingTime : {n : ℕ} → OAI.CriticalSK.Disorder n → ℕ :=
+fun {n} W => sInf {k | ∀ (x : OAI.CriticalSK.Spin n), OAI.CriticalSK.discreteDistance W k x ≤ 1 / 4}
+def OAI.CriticalSK.mean : {n : ℕ} → OAI.CriticalSK.Disorder n → (OAI.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => ∑ x, OAI.CriticalSK.gibbs W x * f x
+def OAI.CriticalSK.variance : {n : ℕ} → OAI.CriticalSK.Disorder n → (OAI.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => OAI.CriticalSK.mean W fun x => (f x - OAI.CriticalSK.mean W f) ^ 2
+def OAI.CriticalSK.dirichlet : {n : ℕ} → OAI.CriticalSK.Disorder n → (OAI.CriticalSK.Spin n → ℝ) → ℝ :=
+fun {n} W f => ∑ i, OAI.CriticalSK.mean W fun x => (f x - ∑ y, OAI.CriticalSK.siteKernel W i x y * f y) ^ 2
+def OAI.CriticalSK.linearObservable : {n : ℕ} → (Fin n → ℝ) → OAI.CriticalSK.Spin n → ℝ :=
+fun {n} a x => ∑ i, a i * OAI.CriticalSK.spinValue (x i)
+def OAI.CriticalSK.covariance : {n : ℕ} → OAI.CriticalSK.Disorder n → Matrix (Fin n) (Fin n) ℝ :=
+fun {n} W i j =>
+  OAI.CriticalSK.mean W fun x =>
+    (OAI.CriticalSK.spinValue (x i) - OAI.CriticalSK.mean W fun y => OAI.CriticalSK.spinValue (y i)) *
+      (OAI.CriticalSK.spinValue (x j) - OAI.CriticalSK.mean W fun y => OAI.CriticalSK.spinValue (y j))
+def OAI.CriticalSK.covarianceNorm : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ :=
+fun {n} W => ‖LinearMap.toContinuousLinearMap (Matrix.toEuclideanLin (OAI.CriticalSK.covariance W))‖
+def OAI.CriticalSK.linearRayleigh : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ :=
+fun {n} W =>
+  sSup
+    {r |
+      ∃ a,
+        a ≠ 0 ∧
+          r =
+            OAI.CriticalSK.variance W (OAI.CriticalSK.linearObservable a) /
+              OAI.CriticalSK.dirichlet W (OAI.CriticalSK.linearObservable a)}
+def OAI.CriticalSK.continuousGoodMass : {n : ℕ} → OAI.CriticalSK.Disorder n → ℝ → ℝ :=
+fun {n} W t => ∑ x, if 1 / 4 < OAI.CriticalSK.continuousDistance W t x then OAI.CriticalSK.gibbs W x else 0
+def OAI.CriticalSK.discreteGoodMass : {n : ℕ} → OAI.CriticalSK.Disorder n → ℕ → ℝ :=
+fun {n} W k => ∑ x, if 1 / 4 < OAI.CriticalSK.discreteDistance W k x then OAI.CriticalSK.gibbs W x else 0

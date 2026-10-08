@@ -1,0 +1,154 @@
+CMP OAI.SoftChannel204.fullMain [thm] ok
+CMP OAI.SoftChannel204.FullMain [def] ok
+CMP OAI.SoftChannel204.SharpProduction [def] ok
+CMP OAI.SoftChannel204.F [def] ok
+CMP OAI.SoftChannel204.psiInv [def] ok
+CMP OAI.SoftChannel204.psi [def] ok
+CMP OAI.SoftChannel204.avg._proof_1 [thm] ok
+CMP OAI.SoftChannel204.production [def] ok
+CMP OAI.SoftChannel204.numberOperator [def] ok
+CMP OAI.SoftChannel204.flip [def] ok
+CMP OAI.SoftChannel204.Cube [def] ok
+CMP OAI.SoftChannel204.avg [def] ok
+CMP OAI.SoftChannel204.info [def] ok
+CMP OAI.SoftChannel204.H [def] ok
+CMP OAI.SoftChannel204.L [def] ok
+CMP OAI.SoftChannel204.hybrid [def] ok
+CMP OAI.SoftChannel204.reserve [def] ok
+CMP OAI.SoftChannel204.S [def] ok
+CMP OAI.SoftChannel204.Interior [def] ok
+CMP OAI.SoftChannel204.BitsConversion [def] ok
+CMP OAI.SoftChannel204.boolJoint [def] ok
+CMP OAI.SoftChannel204.kernel [def] ok
+CMP OAI.SoftChannel204.mutualInformation [def] ok
+CMP OAI.SoftChannel204.rightMarginal [def] ok
+CMP OAI.SoftChannel204.leftMarginal [def] ok
+CMP OAI.SoftChannel204.binaryEntropyBits [def] ok
+CMP OAI.SoftChannel204.BooleanAttainment [def] ok
+CMP OAI.SoftChannel204.RefinedBoolean [def] ok
+CMP OAI.SoftChannel204.noise [def] ok
+CMP OAI.SoftChannel204.sign [def] ok
+CMP OAI.SoftChannel204.SoftInformationIdentity [def] ok
+CMP OAI.SoftChannel204.softJoint [def] ok
+CMP OAI.SoftChannel204.Closed [def] ok
+CMP OAI.SoftChannel204.SoftAttainment [def] ok
+CMP OAI.SoftChannel204.softCoordinate [def] ok
+CMP OAI.SoftChannel204.SoftContraction [def] ok
+Chal.SoftChannel204.fullMain : Chal.SoftChannel204.FullMain
+@[reducible] def Chal.SoftChannel204.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+def Chal.SoftChannel204.sign : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.SoftChannel204.avg : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} g => (∑ x, g x) / 2 ^ n
+def Chal.SoftChannel204.L : ℝ :=
+Real.log 2
+def Chal.SoftChannel204.psi : ℝ → ℝ :=
+fun r => (1 + r) / 2 * Real.log (1 + r) + (1 - r) / 2 * Real.log (1 - r)
+def Chal.SoftChannel204.H : ℝ → ℝ :=
+fun r => Chal.SoftChannel204.L - Chal.SoftChannel204.psi r
+def Chal.SoftChannel204.info : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} u => Chal.SoftChannel204.H (Chal.SoftChannel204.avg u) - Chal.SoftChannel204.avg (Chal.SoftChannel204.H ∘ u)
+def Chal.SoftChannel204.psiInv : ℝ → ℝ :=
+fun s => Function.invFunOn Chal.SoftChannel204.psi (Set.Icc 0 1) s
+def Chal.SoftChannel204.kernel : {n : ℕ} → ℝ → Chal.SoftChannel204.Cube n → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ x y => ∏ i, if x i = y i then (1 + ρ) / 2 else (1 - ρ) / 2
+def Chal.SoftChannel204.noise : {n : ℕ} → ℝ → (Chal.SoftChannel204.Cube n → ℝ) → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ u y => ∑ x, Chal.SoftChannel204.kernel ρ y x * u x
+def Chal.SoftChannel204.Closed : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → Prop :=
+fun {n} u => ∀ (x : Chal.SoftChannel204.Cube n), u x ∈ Set.Icc (-1) 1
+def Chal.SoftChannel204.Interior : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → Prop :=
+fun {n} g => ∀ (x : Chal.SoftChannel204.Cube n), g x ∈ Set.Ioo (-1) 1
+def Chal.SoftChannel204.softCoordinate : {n : ℕ} → Fin n → ℝ → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} i a x => a * Chal.SoftChannel204.sign (x i)
+def Chal.SoftChannel204.flip : {n : ℕ} → Fin n → Chal.SoftChannel204.Cube n → Chal.SoftChannel204.Cube n :=
+fun {n} i x => Function.update x i !x i
+def Chal.SoftChannel204.numberOperator : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} g x => 1 / 2 * ∑ i, (g x - g (Chal.SoftChannel204.flip i x))
+def Chal.SoftChannel204.production : {n : ℕ} → (Chal.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} g => Chal.SoftChannel204.avg fun x => Real.artanh (g x) * Chal.SoftChannel204.numberOperator g x
+def Chal.SoftChannel204.F : ℝ → ℝ :=
+fun s => Chal.SoftChannel204.psiInv s * Real.artanh (Chal.SoftChannel204.psiInv s)
+def Chal.SoftChannel204.S : ℝ → ℝ :=
+fun s => if s < 0 then 0 else Chal.SoftChannel204.F s - 2 * s
+def Chal.SoftChannel204.reserve : ℝ → ℝ → ℝ :=
+fun m I =>
+  2 * I + (1 - m ^ 2) * Chal.SoftChannel204.S (Chal.SoftChannel204.L - (Chal.SoftChannel204.H m - I) / (1 - m ^ 2))
+def Chal.SoftChannel204.hybrid : ℝ → ℝ → ℝ :=
+fun m I => max (Chal.SoftChannel204.reserve m I) (Chal.SoftChannel204.F I)
+def Chal.SoftChannel204.softJoint : {n : ℕ} →
+  ℝ → (Chal.SoftChannel204.Cube n → ℝ) → Bool → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ u b y =>
+  Chal.SoftChannel204.avg fun x => (1 + Chal.SoftChannel204.sign b * u x) / 2 * Chal.SoftChannel204.kernel ρ x y
+def Chal.SoftChannel204.boolJoint : {n : ℕ} →
+  ℝ → (Chal.SoftChannel204.Cube n → Bool) → Bool → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ f b y => Chal.SoftChannel204.avg fun x => if f x = b then Chal.SoftChannel204.kernel ρ x y else 0
+def Chal.SoftChannel204.leftMarginal : {n : ℕ} → (Bool → Chal.SoftChannel204.Cube n → ℝ) → Bool → ℝ :=
+fun {n} p b => ∑ y, p b y
+def Chal.SoftChannel204.rightMarginal : {n : ℕ} →
+  (Bool → Chal.SoftChannel204.Cube n → ℝ) → Chal.SoftChannel204.Cube n → ℝ :=
+fun {n} p y => ∑ b, p b y
+def Chal.SoftChannel204.mutualInformation : {n : ℕ} → (Bool → Chal.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} p =>
+  ∑ b,
+    ∑ y,
+      if 0 < p b y then
+        p b y * Real.log (p b y / (Chal.SoftChannel204.leftMarginal p b * Chal.SoftChannel204.rightMarginal p y))
+      else 0
+def Chal.SoftChannel204.binaryEntropyBits : ℝ → ℝ :=
+fun ε => -(ε * Real.log ε + (1 - ε) * Real.log (1 - ε)) / Chal.SoftChannel204.L
+def Chal.SoftChannel204.SoftContraction : Prop :=
+∀ (n : ℕ) (u : Chal.SoftChannel204.Cube n → ℝ),
+  Chal.SoftChannel204.Closed u →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      Chal.SoftChannel204.info (Chal.SoftChannel204.noise ρ u) ≤
+        Chal.SoftChannel204.psi (|ρ| * Chal.SoftChannel204.psiInv (Chal.SoftChannel204.info u))
+def Chal.SoftChannel204.SoftAttainment : Prop :=
+∀ (n : ℕ) (i : Fin n) (a : ℝ),
+  |a| ≤ 1 →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      Chal.SoftChannel204.info (Chal.SoftChannel204.noise ρ (Chal.SoftChannel204.softCoordinate i a)) =
+        Chal.SoftChannel204.psi
+          (|ρ| * Chal.SoftChannel204.psiInv (Chal.SoftChannel204.info (Chal.SoftChannel204.softCoordinate i a)))
+def Chal.SoftChannel204.SoftInformationIdentity : Prop :=
+∀ (n : ℕ) (u : Chal.SoftChannel204.Cube n → ℝ),
+  Chal.SoftChannel204.Closed u →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.softJoint ρ u) =
+        Chal.SoftChannel204.info (Chal.SoftChannel204.noise ρ u)
+def Chal.SoftChannel204.RefinedBoolean : Prop :=
+∀ (n : ℕ) (f : Chal.SoftChannel204.Cube n → Bool),
+  ∀ ρ ∈ Set.Icc (-1) 1,
+    have m := Chal.SoftChannel204.avg (Chal.SoftChannel204.sign ∘ f);
+    have bound := Chal.SoftChannel204.psi (|ρ| * Chal.SoftChannel204.psiInv (Chal.SoftChannel204.H m));
+    Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.boolJoint ρ f) =
+        Chal.SoftChannel204.info (Chal.SoftChannel204.noise ρ (Chal.SoftChannel204.sign ∘ f)) ∧
+      Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.boolJoint ρ f) ≤ bound ∧
+        bound ≤ Chal.SoftChannel204.psi |ρ| ∧ (0 < |m| → |m| < 1 → 0 < |ρ| → bound < Chal.SoftChannel204.psi |ρ|)
+def Chal.SoftChannel204.BooleanAttainment : Prop :=
+∀ (n : ℕ) (i : Fin n),
+  ∀ ρ ∈ Set.Icc (-1) 1,
+    Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.boolJoint ρ fun x => x i) = Chal.SoftChannel204.psi |ρ| ∧
+      Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.boolJoint ρ fun x => !x i) =
+        Chal.SoftChannel204.psi |ρ|
+def Chal.SoftChannel204.BitsConversion : Prop :=
+∀ (n : ℕ) (f : Chal.SoftChannel204.Cube n → Bool),
+  ∀ ε ∈ Set.Icc 0 (1 / 2),
+    Chal.SoftChannel204.psi (1 - 2 * ε) / Chal.SoftChannel204.L = 1 - Chal.SoftChannel204.binaryEntropyBits ε ∧
+      Chal.SoftChannel204.mutualInformation (Chal.SoftChannel204.boolJoint (1 - 2 * ε) f) / Chal.SoftChannel204.L ≤
+        1 - Chal.SoftChannel204.binaryEntropyBits ε
+def Chal.SoftChannel204.SharpProduction : Prop :=
+∀ (n : ℕ) (g : Chal.SoftChannel204.Cube n → ℝ),
+  Chal.SoftChannel204.Interior g →
+    Chal.SoftChannel204.hybrid (Chal.SoftChannel204.avg g) (Chal.SoftChannel204.info g) ≤
+        Chal.SoftChannel204.production g ∧
+      Chal.SoftChannel204.F (Chal.SoftChannel204.info g) ≤
+        Chal.SoftChannel204.hybrid (Chal.SoftChannel204.avg g) (Chal.SoftChannel204.info g)
+def Chal.SoftChannel204.FullMain : Prop :=
+Chal.SoftChannel204.SoftContraction ∧
+  Chal.SoftChannel204.SoftAttainment ∧
+    Chal.SoftChannel204.SoftInformationIdentity ∧
+      Chal.SoftChannel204.RefinedBoolean ∧
+        Chal.SoftChannel204.BooleanAttainment ∧ Chal.SoftChannel204.BitsConversion ∧ Chal.SoftChannel204.SharpProduction
+'OAI.SoftChannel204.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SoftChannel204 comparator-style: ok=36 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

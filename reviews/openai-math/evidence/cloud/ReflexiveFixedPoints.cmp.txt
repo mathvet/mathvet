@@ -1,0 +1,21 @@
+CMP OAI.ReflexiveFixedPoints.exists_fixedPoint_of_canonicallyReflexive [thm] ok
+CMP OAI.ReflexiveFixedPoints.CanonicallyReflexive [def] ok
+CMP OAI.ReflexiveFixedPoints.CanonicallyReflexive._proof_4 [thm] ok
+CMP OAI.ReflexiveFixedPoints.CanonicallyReflexive._proof_3 [thm] ok
+CMP OAI.ReflexiveFixedPoints.CanonicallyReflexive._proof_2 [thm] ok
+CMP OAI.ReflexiveFixedPoints.CanonicallyReflexive._proof_1 [thm] ok
+@Chal.ReflexiveFixedPoints.exists_fixedPoint_of_canonicallyReflexive : ∀ {X : Type u_1} [inst : NormedAddCommGroup X]
+  [inst_1 : NormedSpace ℝ X] [CompleteSpace X],
+  Chal.ReflexiveFixedPoints.CanonicallyReflexive X →
+    ∀ (C : Set X),
+      C.Nonempty →
+        IsClosed C →
+          Bornology.IsBounded C →
+            Convex ℝ C → ∀ (F : ↑C → ↑C), (∀ (a b : ↑C), ‖↑(F a) - ↑(F b)‖ ≤ ‖↑a - ↑b‖) → ∃ a, F a = a
+def Chal.ReflexiveFixedPoints.CanonicallyReflexive.{u} : (X : Type u) →
+  [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] => Function.Surjective ⇑(NormedSpace.inclusionInDoubleDual ℝ X)
+'OAI.ReflexiveFixedPoints.exists_fixedPoint_of_canonicallyReflexive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== ReflexiveFixedPoints comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, 

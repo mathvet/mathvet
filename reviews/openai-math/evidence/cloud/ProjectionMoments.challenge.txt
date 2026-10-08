@@ -1,0 +1,872 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_ProjectionMoments.lean:707:8: warning: declaration uses `sorry`
+OAI.ProjectionMoments.main : OAI.ProjectionMoments.MainStatement
+@[reducible] def OAI.NoiselessRegression.Vector : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+@[reducible] def OAI.NoiselessRegression.UnitSphere : (d : ℕ) → Set (OAI.NoiselessRegression.Vector d) :=
+fun d => Metric.sphere 0 1
+@[reducible] def OAI.NoiselessRegression.State : ℕ → Type :=
+fun M => Fin (2 ^ M)
+@[reducible] def OAI.NoiselessRegression.Samples : ℕ → ℕ → Type :=
+fun d T => Fin T → OAI.NoiselessRegression.Vector d
+def OAI.NoiselessRegression.uniformSphere : (d : ℕ) → MeasureTheory.Measure ↑(OAI.NoiselessRegression.UnitSphere d) :=
+fun d =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.NoiselessRegression.sampleLaw : (d T : ℕ) → MeasureTheory.Measure (OAI.NoiselessRegression.Samples d T) :=
+fun d T => MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian (OAI.NoiselessRegression.Vector d)
+def OAI.NoiselessRegression.observationReference : (d : ℕ) →
+  MeasureTheory.Measure (OAI.NoiselessRegression.Vector d × ℝ) :=
+fun d => (ProbabilityTheory.stdGaussian (OAI.NoiselessRegression.Vector d)).prod MeasureTheory.volume
+structure OAI.NoiselessRegression.Learner.{u} (d M T : ℕ) (Ω : Type u) : Type u
+number of parameters: 4
+fields:
+  OAI.NoiselessRegression.Learner.initialChoice : Ω → Bool × OAI.NoiselessRegression.State M
+  OAI.NoiselessRegression.Learner.transition : ℕ →
+      Ω →
+        OAI.NoiselessRegression.State M → OAI.NoiselessRegression.Vector d × ℝ → Bool × OAI.NoiselessRegression.State M
+  OAI.NoiselessRegression.Learner.output : ℕ →
+      Ω → OAI.NoiselessRegression.State M → ↑(OAI.NoiselessRegression.UnitSphere d)
+constructor:
+  OAI.NoiselessRegression.Learner.mk.{u} {d M T : ℕ} {Ω : Type u}
+    (initialChoice : Ω → Bool × OAI.NoiselessRegression.State M)
+    (transition :
+      ℕ →
+        Ω →
+          OAI.NoiselessRegression.State M →
+            OAI.NoiselessRegression.Vector d × ℝ → Bool × OAI.NoiselessRegression.State M)
+    (output : ℕ → Ω → OAI.NoiselessRegression.State M → ↑(OAI.NoiselessRegression.UnitSphere d)) :
+    OAI.NoiselessRegression.Learner d M T Ω
+@[reducible] def OAI.NoiselessRegression.Learner.RunStatus : ℕ → Type :=
+fun M => OAI.NoiselessRegression.State M ⊕ ℕ × OAI.NoiselessRegression.State M
+def OAI.NoiselessRegression.Learner.start.{u} : {d M T : ℕ} →
+  {Ω : Type u} → OAI.NoiselessRegression.Learner d M T Ω → Ω → OAI.NoiselessRegression.Learner.RunStatus M :=
+fun {d M T} {Ω} L ω =>
+  have a := L.initialChoice ω;
+  if a.1 = true then Sum.inr (0, a.2) else Sum.inl a.2
+def OAI.NoiselessRegression.Learner.run.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    OAI.NoiselessRegression.Learner d M T Ω →
+      ↑(OAI.NoiselessRegression.UnitSphere d) →
+        Ω → OAI.NoiselessRegression.Samples d T → ℕ → OAI.NoiselessRegression.Learner.RunStatus M :=
+fun {d M T} {Ω} L s ω x x_1 => Nat.brecOn x_1 (OAI.NoiselessRegression.Learner.run._f L s ω x)
+def OAI.NoiselessRegression.Learner.terminal.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    OAI.NoiselessRegression.Learner d M T Ω →
+      ↑(OAI.NoiselessRegression.UnitSphere d) →
+        Ω → OAI.NoiselessRegression.Samples d T → ℕ × OAI.NoiselessRegression.State M :=
+fun {d M T} {Ω} L s ω x =>
+  match L.run s ω x T with
+  | Sum.inl state => (T, state)
+  | Sum.inr done => done
+def OAI.NoiselessRegression.Learner.estimate.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    OAI.NoiselessRegression.Learner d M T Ω →
+      ↑(OAI.NoiselessRegression.UnitSphere d) →
+        Ω → OAI.NoiselessRegression.Samples d T → ↑(OAI.NoiselessRegression.UnitSphere d) :=
+fun {d M T} {Ω} L s ω x =>
+  have a := L.terminal s ω x;
+  L.output a.1 ω a.2
+structure OAI.NoiselessRegression.Learner.Admissible.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+  (L : OAI.NoiselessRegression.Learner d M T Ω) (ρ : MeasureTheory.Measure Ω) : Prop
+number of parameters: 7
+fields:
+  OAI.NoiselessRegression.Learner.Admissible.initialChoice : AEMeasurable L.initialChoice ρ
+  OAI.NoiselessRegression.Learner.Admissible.transition : ∀ (t : ℕ) (a : OAI.NoiselessRegression.State M),
+      AEMeasurable (fun z => L.transition t z.1 a z.2) (ρ.prod (OAI.NoiselessRegression.observationReference d))
+  OAI.NoiselessRegression.Learner.Admissible.output : ∀ (t : ℕ) (a : OAI.NoiselessRegression.State M),
+      AEMeasurable (fun ω => L.output t ω a) ρ
+  OAI.NoiselessRegression.Learner.Admissible.fixed_experiment : ∀ (s : ↑(OAI.NoiselessRegression.UnitSphere d)),
+      AEMeasurable (fun z => L.estimate s z.1 z.2) (ρ.prod (OAI.NoiselessRegression.sampleLaw d T))
+  OAI.NoiselessRegression.Learner.Admissible.uniform_experiment : AEMeasurable (fun z => L.estimate z.1 z.2.1 z.2.2)
+      ((OAI.NoiselessRegression.uniformSphere d).prod (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))
+constructor:
+  OAI.NoiselessRegression.Learner.Admissible.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {L : OAI.NoiselessRegression.Learner d M T Ω} {ρ : MeasureTheory.Measure Ω}
+    (initialChoice : AEMeasurable L.initialChoice ρ)
+    (transition :
+      ∀ (t : ℕ) (a : OAI.NoiselessRegression.State M),
+        AEMeasurable (fun z => L.transition t z.1 a z.2) (ρ.prod (OAI.NoiselessRegression.observationReference d)))
+    (output : ∀ (t : ℕ) (a : OAI.NoiselessRegression.State M), AEMeasurable (fun ω => L.output t ω a) ρ)
+    (fixed_experiment :
+      ∀ (s : ↑(OAI.NoiselessRegression.UnitSphere d)),
+        AEMeasurable (fun z => L.estimate s z.1 z.2) (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))
+    (uniform_experiment :
+      AEMeasurable (fun z => L.estimate z.1 z.2.1 z.2.2)
+        ((OAI.NoiselessRegression.uniformSphere d).prod (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))) :
+    L.Admissible ρ
+def OAI.NoiselessRegression.Learner.angularError : {d : ℕ} →
+  ↑(OAI.NoiselessRegression.UnitSphere d) → ↑(OAI.NoiselessRegression.UnitSphere d) → ℝ :=
+fun {d} s ŝ => Real.arccos (inner ℝ ↑ŝ ↑s)
+def OAI.NoiselessRegression.Learner.uniformSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] → OAI.NoiselessRegression.Learner d M T Ω → MeasureTheory.Measure Ω → ℝ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] L ρ ε =>
+  ((OAI.NoiselessRegression.uniformSphere d).prod (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))
+    {z | OAI.NoiselessRegression.Learner.angularError z.1 (L.estimate z.1 z.2.1 z.2.2) ≤ ε}
+def OAI.NoiselessRegression.sphereLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure ↑(Metric.sphere 0 1) :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  have σ := MeasureTheory.volume.toSphere;
+  (σ Set.univ)⁻¹ • σ
+def OAI.NoiselessRegression.ambientSphereLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] → [inst_3 : MeasurableSpace E] → [BorelSpace E] → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] =>
+  MeasureTheory.Measure.map Subtype.val OAI.NoiselessRegression.sphereLaw
+@[reducible] def OAI.NoiselessRegression.Learner.TaggedState : ℕ → ℕ → Type :=
+fun M T => OAI.NoiselessRegression.State M ⊕ Fin (T + 1) × OAI.NoiselessRegression.State M
+def OAI.NoiselessRegression.Learner.taggedStart : {M T : ℕ} →
+  Bool × OAI.NoiselessRegression.State M → OAI.NoiselessRegression.Learner.TaggedState M T :=
+fun {M T} a => if a.1 = true then Sum.inr (⟨0, ⋯⟩, a.2) else Sum.inl a.2
+structure OAI.NoiselessRegression.Learner.MeasurableRules.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+  (L : OAI.NoiselessRegression.Learner d M T Ω) : Prop
+number of parameters: 6
+fields:
+  OAI.NoiselessRegression.Learner.MeasurableRules.initial : Measurable L.initialChoice
+  OAI.NoiselessRegression.Learner.MeasurableRules.transition : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M),
+      Measurable fun z => L.transition t z.1 j z.2
+  OAI.NoiselessRegression.Learner.MeasurableRules.output : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M),
+      Measurable fun ω => L.output t ω j
+constructor:
+  OAI.NoiselessRegression.Learner.MeasurableRules.mk.{u} {d M T : ℕ} {Ω : Type u} [MeasurableSpace Ω]
+    {L : OAI.NoiselessRegression.Learner d M T Ω} (initial : Measurable L.initialChoice)
+    (transition : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M), Measurable fun z => L.transition t z.1 j z.2)
+    (output : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M), Measurable fun ω => L.output t ω j) : L.MeasurableRules
+structure OAI.NoiselessRegression.FiniteKernelLearner (d M T : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.NoiselessRegression.FiniteKernelLearner.initial : MeasureTheory.Measure (Bool × OAI.NoiselessRegression.State M)
+  OAI.NoiselessRegression.FiniteKernelLearner.initial_probability : MeasureTheory.IsProbabilityMeasure self.initial
+  OAI.NoiselessRegression.FiniteKernelLearner.transition : ℕ →
+      OAI.NoiselessRegression.State M →
+        OAI.NoiselessRegression.Vector d × ℝ → MeasureTheory.Measure (Bool × OAI.NoiselessRegression.State M)
+  OAI.NoiselessRegression.FiniteKernelLearner.transition_probability : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M)
+      (obs : OAI.NoiselessRegression.Vector d × ℝ), MeasureTheory.IsProbabilityMeasure (self.transition t j obs)
+  OAI.NoiselessRegression.FiniteKernelLearner.output : ℕ →
+      OAI.NoiselessRegression.State M → MeasureTheory.Measure ↑(OAI.NoiselessRegression.UnitSphere d)
+  OAI.NoiselessRegression.FiniteKernelLearner.output_probability : ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M),
+      MeasureTheory.IsProbabilityMeasure (self.output t j)
+constructor:
+  OAI.NoiselessRegression.FiniteKernelLearner.mk {d M T : ℕ}
+    (initial : MeasureTheory.Measure (Bool × OAI.NoiselessRegression.State M))
+    (initial_probability : MeasureTheory.IsProbabilityMeasure initial)
+    (transition :
+      ℕ →
+        OAI.NoiselessRegression.State M →
+          OAI.NoiselessRegression.Vector d × ℝ → MeasureTheory.Measure (Bool × OAI.NoiselessRegression.State M))
+    (transition_probability :
+      ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M) (obs : OAI.NoiselessRegression.Vector d × ℝ),
+        MeasureTheory.IsProbabilityMeasure (transition t j obs))
+    (output : ℕ → OAI.NoiselessRegression.State M → MeasureTheory.Measure ↑(OAI.NoiselessRegression.UnitSphere d))
+    (output_probability :
+      ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M), MeasureTheory.IsProbabilityMeasure (output t j)) :
+    OAI.NoiselessRegression.FiniteKernelLearner d M T
+structure OAI.NoiselessRegression.FiniteKernelLearner.CompletedRules {d M T : ℕ}
+  (K : OAI.NoiselessRegression.FiniteKernelLearner d M T) : Prop
+number of parameters: 4
+fields:
+  OAI.NoiselessRegression.FiniteKernelLearner.CompletedRules.transition : ∀ (t : ℕ)
+      (j : OAI.NoiselessRegression.State M) (a : Bool × OAI.NoiselessRegression.State M),
+      AEMeasurable (fun obs => (K.transition t j obs) {a}) (OAI.NoiselessRegression.observationReference d)
+constructor:
+  OAI.NoiselessRegression.FiniteKernelLearner.CompletedRules.mk {d M T : ℕ}
+    {K : OAI.NoiselessRegression.FiniteKernelLearner d M T}
+    (transition :
+      ∀ (t : ℕ) (j : OAI.NoiselessRegression.State M) (a : Bool × OAI.NoiselessRegression.State M),
+        AEMeasurable (fun obs => (K.transition t j obs) {a}) (OAI.NoiselessRegression.observationReference d)) :
+    K.CompletedRules
+def OAI.NoiselessRegression.kernelRun.{u_1, u_2} : {J : Type u_1} →
+  {O : Type u_2} →
+    [inst : MeasurableSpace J] →
+      (ℕ → J → O → MeasureTheory.Measure J) → (n : ℕ) → J → (Fin n → O) → MeasureTheory.Measure J :=
+fun {J} {O} [MeasurableSpace J] P x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => J → (Fin x → O) → MeasureTheory.Measure J) x (OAI.NoiselessRegression.kernelRun._f P)
+    x_1 x_2
+@[reducible] def OAI.NoiselessRegression.FiniteKernelLearner.Tape : ℕ → ℕ → Type :=
+fun M T => (Bool × OAI.NoiselessRegression.State M) × (Fin T → ↑unitInterval) × ↑unitInterval
+def OAI.NoiselessRegression.FiniteKernelLearner.destination : {M T : ℕ} →
+  (t : ℕ) → t ≤ T → Bool × OAI.NoiselessRegression.State M → OAI.NoiselessRegression.Learner.TaggedState M T :=
+fun {M T} t h a => if a.1 = true then Sum.inr (⟨t, ⋯⟩, a.2) else Sum.inl a.2
+def OAI.NoiselessRegression.FiniteKernelLearner.taggedKernel : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T →
+    ℕ →
+      OAI.NoiselessRegression.Learner.TaggedState M T →
+        OAI.NoiselessRegression.Vector d × ℝ →
+          MeasureTheory.Measure (OAI.NoiselessRegression.Learner.TaggedState M T) :=
+fun {d M T} K t x x_1 =>
+  match x, x_1 with
+  | Sum.inr a, x => MeasureTheory.Measure.dirac (Sum.inr a)
+  | Sum.inl j, obs =>
+    if ht : t ≤ T then
+      MeasureTheory.Measure.map (OAI.NoiselessRegression.FiniteKernelLearner.destination t ht) (K.transition t j obs)
+    else MeasureTheory.Measure.dirac (Sum.inl j)
+def OAI.NoiselessRegression.FiniteKernelLearner.terminalOutput : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T →
+    OAI.NoiselessRegression.Learner.TaggedState M T → MeasureTheory.Measure ↑(OAI.NoiselessRegression.UnitSphere d) :=
+fun {d M T} K x =>
+  match x with
+  | Sum.inl j => K.output T j
+  | Sum.inr (t, j) => K.output (↑t) j
+@[reducible] def OAI.NoiselessRegression.FiniteKernelLearner.Result : ℕ → ℕ → Type :=
+fun d M => (ℕ × OAI.NoiselessRegression.State M) × ↑(OAI.NoiselessRegression.UnitSphere d)
+def OAI.NoiselessRegression.FiniteKernelLearner.terminalTag : {M T : ℕ} →
+  OAI.NoiselessRegression.Learner.TaggedState M T → ℕ × OAI.NoiselessRegression.State M :=
+fun {M T} x =>
+  match x with
+  | Sum.inl j => (T, j)
+  | Sum.inr (t, j) => (↑t, j)
+def OAI.NoiselessRegression.FiniteKernelLearner.terminalJointOutput : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T →
+    OAI.NoiselessRegression.Learner.TaggedState M T →
+      MeasureTheory.Measure (OAI.NoiselessRegression.FiniteKernelLearner.Result d M) :=
+fun {d M T} K j =>
+  MeasureTheory.Measure.map (fun y => (OAI.NoiselessRegression.FiniteKernelLearner.terminalTag j, y))
+    (K.terminalOutput j)
+def OAI.NoiselessRegression.FiniteKernelLearner.jointExperimentLaw : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T →
+    (Fin T → OAI.NoiselessRegression.Vector d × ℝ) →
+      MeasureTheory.Measure (OAI.NoiselessRegression.FiniteKernelLearner.Result d M) :=
+fun {d M T} K obs =>
+  K.initial.bind fun a =>
+    (OAI.NoiselessRegression.kernelRun K.taggedKernel T (OAI.NoiselessRegression.Learner.taggedStart a) obs).bind
+      K.terminalJointOutput
+def OAI.NoiselessRegression.FiniteKernelLearner.uniformSuccess : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T → ℝ → ENNReal :=
+fun {d M T} K ε =>
+  ∫⁻ (z : ↑(OAI.NoiselessRegression.UnitSphere d) × OAI.NoiselessRegression.Samples d T),
+    (K.jointExperimentLaw fun i => (z.2 i, inner ℝ (↑z.1) (z.2 i)))
+      {r |
+        OAI.NoiselessRegression.Learner.angularError z.1 r.2 ≤
+          ε} ∂(OAI.NoiselessRegression.uniformSphere d).prod (OAI.NoiselessRegression.sampleLaw d T)
+def OAI.NoiselessRegression.FiniteKernelLearner.uniformFixedSuccess : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T → ℝ → ℕ → ENNReal :=
+fun {d M T} K ε t =>
+  ∫⁻ (z : ↑(OAI.NoiselessRegression.UnitSphere d) × OAI.NoiselessRegression.Samples d T),
+    (K.jointExperimentLaw fun i => (z.2 i, inner ℝ (↑z.1) (z.2 i)))
+      {r |
+        r.1.1 = t ∧
+          OAI.NoiselessRegression.Learner.angularError z.1 r.2 ≤
+            ε} ∂(OAI.NoiselessRegression.uniformSphere d).prod (OAI.NoiselessRegression.sampleLaw d T)
+def OAI.NoiselessRegression.Learner.uniformFixedSuccess.{u} : {d M T : ℕ} →
+  {Ω : Type u} →
+    [inst : MeasurableSpace Ω] → OAI.NoiselessRegression.Learner d M T Ω → MeasureTheory.Measure Ω → ℝ → ℕ → ENNReal :=
+fun {d M T} {Ω} [MeasurableSpace Ω] L ρ ε t =>
+  ((OAI.NoiselessRegression.uniformSphere d).prod (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))
+    {z |
+      (L.terminal z.1 z.2.1 z.2.2).1 = t ∧
+        OAI.NoiselessRegression.Learner.angularError z.1 (L.estimate z.1 z.2.1 z.2.2) ≤ ε}
+def OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess.{u} : {d M T : ℕ} →
+  {Ξ : Type u} →
+    [inst : MeasurableSpace Ξ] →
+      (Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T) → MeasureTheory.Measure Ξ → ℝ → ENNReal :=
+fun {d M T} {Ξ} [MeasurableSpace Ξ] K ρ ε => ∫⁻ (ξ : Ξ), (K ξ).uniformSuccess ε ∂ρ
+def OAI.NoiselessRegression.FiniteKernelLearner.seededFixedSuccess.{u} : {d M T : ℕ} →
+  {Ξ : Type u} →
+    [inst : MeasurableSpace Ξ] →
+      (Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T) → MeasureTheory.Measure Ξ → ℝ → ℕ → ENNReal :=
+fun {d M T} {Ξ} [MeasurableSpace Ξ] K ρ ε t => ∫⁻ (ξ : Ξ), (K ξ).uniformFixedSuccess ε t ∂ρ
+def OAI.NoiselessRegression.FiniteKernelLearner.FixedQuadraticMemory.{u} : Prop :=
+∀ (A₀ : ℝ),
+  0 < A₀ →
+    ∃ c,
+      0 < c ∧
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (M T : ℕ),
+                ↑M ≤ A₀ * ↑d ^ 2 →
+                  ∀ (ε : ℝ),
+                    0 < ε →
+                      ε ≤ 1 / 10 →
+                        ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                          MeasureTheory.IsProbabilityMeasure ρ →
+                            ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T),
+                              (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                                2 / 3 ≤ OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε →
+                                  c * ↑d * Real.log (1 / ε) ≤ ↑T
+def OAI.NoiselessRegression.FiniteKernelLearner.conditionalSuccess : {d M T : ℕ} →
+  OAI.NoiselessRegression.FiniteKernelLearner d M T →
+    ℝ → ↑(OAI.NoiselessRegression.UnitSphere d) → OAI.NoiselessRegression.Samples d T → ENNReal :=
+fun {d M T} K ε s x =>
+  (K.jointExperimentLaw fun i => (x i, inner ℝ (↑s) (x i))) {r | OAI.NoiselessRegression.Learner.angularError s r.2 ≤ ε}
+def OAI.NoiselessRegression.FiniteKernelLearner.seededPointwiseSuccess.{u} : {d M T : ℕ} →
+  {Ξ : Type u} →
+    [inst : MeasurableSpace Ξ] →
+      (Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T) →
+        MeasureTheory.Measure Ξ → ℝ → ↑(OAI.NoiselessRegression.UnitSphere d) → ENNReal :=
+fun {d M T} {Ξ} [MeasurableSpace Ξ] K ρ ε s =>
+  ∫⁻ (z : Ξ × OAI.NoiselessRegression.Samples d T),
+    (K z.1).conditionalSuccess ε s z.2 ∂ρ.prod (OAI.NoiselessRegression.sampleLaw d T)
+def OAI.NoiselessRegression.FiniteKernelLearner.JointSuccessMeasurable.{u} : {d M T : ℕ} →
+  {Ξ : Type u} →
+    [inst : MeasurableSpace Ξ] →
+      (Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T) → MeasureTheory.Measure Ξ → ℝ → Prop :=
+fun {d M T} {Ξ} [MeasurableSpace Ξ] K ρ ε =>
+  AEMeasurable (fun z => (K z.2.1).conditionalSuccess ε z.1 z.2.2)
+    ((OAI.NoiselessRegression.uniformSphere d).prod (ρ.prod (OAI.NoiselessRegression.sampleLaw d T)))
+def OAI.NoiselessRegression.FiniteKernelLearner.SubquadraticMemoryWithPointwise.{u} : Prop :=
+∃ c,
+  0 < c ∧
+    ∀ (M : ℕ → ℕ),
+      ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (T : ℕ) (ε : ℝ),
+                0 < ε →
+                  ε ≤ 1 / 10 →
+                    ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d (M d) T),
+                          (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                            (2 / 3 ≤ OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε ∨
+                                OAI.NoiselessRegression.FiniteKernelLearner.JointSuccessMeasurable K ρ ε ∧
+                                  ∀ (s : ↑(OAI.NoiselessRegression.UnitSphere d)),
+                                    2 / 3 ≤
+                                      OAI.NoiselessRegression.FiniteKernelLearner.seededPointwiseSuccess K ρ ε s) →
+                              c * ↑d * Real.log (1 / ε) ≤ ↑T
+def OAI.ProjectionMoments.vectorSmoothing.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      [inst : MeasurableSpace E] →
+        MeasureTheory.Measure E → (m : ℕ) → ((Fin m → ℝ) → ENNReal) → (Fin m → E) × (Fin m → ℝ) → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] ν m φ z =>
+  ∫⁻ (t : E), φ fun j => z.2 j - inner ℝ t (z.1 j) ∂ν
+@[reducible] def OAI.ProjectionMoments.Label : ℕ → Type :=
+fun m => EuclideanSpace ℝ (Fin m)
+def OAI.ProjectionMoments.ballKernel : (m : ℕ) → ℝ → (Fin m → ℝ) → ENNReal :=
+fun m η y =>
+  (Metric.closedBall 0 η).indicator (fun x => (MeasureTheory.volume (Metric.closedBall 0 η))⁻¹) (WithLp.toLp 2 y)
+def OAI.ProjectionMoments.rowMap.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] → {m : ℕ} → (Fin m → E) → E →L[ℝ] OAI.ProjectionMoments.Label m :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {m} A =>
+  ↑(PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm ∘SL ContinuousLinearMap.pi fun j => (innerSL ℝ) (A j)
+def OAI.ProjectionMoments.ballAverage.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      [inst : MeasurableSpace E] →
+        MeasureTheory.Measure E → (m : ℕ) → ℝ → (Fin m → E) × OAI.ProjectionMoments.Label m → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] ν m η z =>
+  OAI.ProjectionMoments.vectorSmoothing ν m (OAI.ProjectionMoments.ballKernel m η) (z.1, z.2.ofLp)
+def OAI.ProjectionMoments.lowerDensity.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      [inst : MeasurableSpace E] →
+        MeasureTheory.Measure E → (m : ℕ) → (Fin m → E) × OAI.ProjectionMoments.Label m → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] ν m z =>
+  Filter.liminf (fun n => OAI.ProjectionMoments.ballAverage ν m (↑n + 1)⁻¹ z) Filter.atTop
+def OAI.ProjectionMoments.AllBallMass.{u_1} : {E : Type u_1} →
+  [NormedAddCommGroup E] → [inst : MeasurableSpace E] → MeasureTheory.Measure E → ℝ → ℝ → Prop :=
+fun {E} [NormedAddCommGroup E] [MeasurableSpace E] ν K a =>
+  ∀ (b : E) (t : ℝ), 0 < t → ν (Metric.closedBall b t) ≤ ENNReal.ofReal (K * t ^ a)
+@[reducible] def OAI.ProjectionMoments.Rotation.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] → [inst_1 : InnerProductSpace ℝ E] → [FiniteDimensional ℝ E] → Submonoid (E →L[ℝ] E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] => unitary (E →L[ℝ] E)
+def OAI.ProjectionMoments.rotationLaw.{u_1} : (E : Type u_1) →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] → MeasureTheory.Measure ↥(OAI.ProjectionMoments.Rotation E) :=
+fun E [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] =>
+  (MeasureTheory.Measure.haar Set.univ)⁻¹ • MeasureTheory.Measure.haar
+def OAI.ProjectionMoments.rotateRows.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [inst_2 : FiniteDimensional ℝ E] → {ι : Type u_2} → ↥(OAI.ProjectionMoments.Rotation E) → (ι → E) → ι → E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] {ι} O v i => ↑O (v i)
+def OAI.ProjectionMoments.coordinateMap.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [inst_1 : InnerProductSpace ℝ E] → {m : ℕ} → (Fin m → E) → E →ₗ[ℝ] Fin m → ℝ :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {m} A =>
+  ↑(WithLp.linearEquiv 2 ℝ (Fin m → ℝ)) ∘ₗ ↑(OAI.ProjectionMoments.rowMap A)
+def OAI.ProjectionMoments.coordinateDensity.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      [inst : MeasurableSpace E] → MeasureTheory.Measure E → (m : ℕ) → (Fin m → E) × (Fin m → ℝ) → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] ν m z =>
+  OAI.ProjectionMoments.lowerDensity ν m (z.1, WithLp.toLp 2 z.2)
+def OAI.ProjectionMoments.frameLaw.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst : MeasurableSpace E] → {m : ℕ} → (Fin m → E) → MeasureTheory.Measure (Fin m → E) :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] {m} u =>
+  MeasureTheory.Measure.map (fun O => OAI.ProjectionMoments.rotateRows O u) (OAI.ProjectionMoments.rotationLaw E)
+def OAI.ProjectionMoments.rieszKernel.{u_1} : {E : Type u_1} → [NormedAddCommGroup E] → ℝ → E → E → ENNReal :=
+fun {E} [NormedAddCommGroup E] α z s => ENNReal.ofReal ‖s - z‖ ^ (-α)
+def OAI.ProjectionMoments.rieszPotential.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] → [inst_3 : MeasurableSpace E] → [BorelSpace E] → ℝ → (E → ENNReal) → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] α h =>
+  ⨆ z, ∫⁻ (s : E), h s * OAI.ProjectionMoments.rieszKernel α z s ∂OAI.NoiselessRegression.ambientSphereLaw
+def OAI.ProjectionMoments.mixRows.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] → {k : ℕ} → Matrix (Fin k) (Fin k) ℝ → (Fin k → E) → Fin k → E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} M X i => ∑ j, M i j • X j
+def OAI.ProjectionMoments.polarRadial.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [InnerProductSpace ℝ E] → {k : ℕ} → (Fin k → E) → Matrix (Fin k) (Fin k) ℝ :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} X => CFC.sqrt (Matrix.gram ℝ X)
+def OAI.ProjectionMoments.rawPolarRows.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [InnerProductSpace ℝ E] → {k : ℕ} → (Fin k → E) → Fin k → E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} X =>
+  OAI.ProjectionMoments.mixRows (OAI.ProjectionMoments.polarRadial X)⁻¹ X
+def OAI.ProjectionMoments.polarRows.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [InnerProductSpace ℝ E] → {k : ℕ} → (Fin k → E) → (Fin k → E) → Fin k → E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} u X =>
+  if LinearIndependent ℝ X then OAI.ProjectionMoments.rawPolarRows X else u
+def OAI.ProjectionMoments.unitBallVolume : ℕ → ENNReal :=
+fun k => MeasureTheory.volume (Metric.closedBall 0 1)
+def OAI.ProjectionMoments.unitBallLaw : (k : ℕ) → MeasureTheory.Measure (OAI.ProjectionMoments.Label k) :=
+fun k => (OAI.ProjectionMoments.unitBallVolume k)⁻¹ • MeasureTheory.volume.restrict (Metric.closedBall 0 1)
+def OAI.ProjectionMoments.normalizedDensity.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      [inst : MeasurableSpace E] →
+        MeasureTheory.Measure E → (k : ℕ) → (Fin k → E) → (Fin k → E) × OAI.ProjectionMoments.Label k → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E] ν k u z =>
+  OAI.ProjectionMoments.unitBallVolume k *
+    OAI.ProjectionMoments.lowerDensity ν k (OAI.ProjectionMoments.polarRows u z.1, z.2)
+def OAI.ProjectionMoments.sphereWeightedRestriction.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [inst_3 : MeasurableSpace E] → [BorelSpace E] → (E → ENNReal) → Set E → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] h H =>
+  (OAI.NoiselessRegression.ambientSphereLaw.withDensity h).restrict H
+def OAI.ProjectionMoments.capMeasure.{u} : {E : Type u} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] → [inst_3 : MeasurableSpace E] → [BorelSpace E] → E → ℝ → MeasureTheory.Measure E :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] c r =>
+  (OAI.NoiselessRegression.ambientSphereLaw (Metric.closedBall c r))⁻¹ •
+    OAI.NoiselessRegression.ambientSphereLaw.restrict (Metric.closedBall c r)
+structure OAI.ProjectionMoments.CapDictionary.{u} {E : Type u} [NormedAddCommGroup E] (c : E) (r α : ℝ) : Type (u + 1)
+number of parameters: 5
+fields:
+  OAI.ProjectionMoments.CapDictionary.I : Type u
+  OAI.ProjectionMoments.CapDictionary.countable : Countable self.I
+  OAI.ProjectionMoments.CapDictionary.center : self.I → E
+  OAI.ProjectionMoments.CapDictionary.radius : self.I → ℝ
+  OAI.ProjectionMoments.CapDictionary.center_norm : ∀ (i : self.I), ‖self.center i‖ = 1
+  OAI.ProjectionMoments.CapDictionary.radius_pos : ∀ (i : self.I), 0 < self.radius i
+  OAI.ProjectionMoments.CapDictionary.radius_le : ∀ (i : self.I), self.radius i ≤ r
+  OAI.ProjectionMoments.CapDictionary.parent : self.I
+  OAI.ProjectionMoments.CapDictionary.parent_center : self.center self.parent = c
+  OAI.ProjectionMoments.CapDictionary.parent_radius : self.radius self.parent = r
+  OAI.ProjectionMoments.CapDictionary.proper : ∀ (R : ℝ), {i | (r / self.radius i) ^ α ≤ R}.Finite
+  OAI.ProjectionMoments.CapDictionary.cover : ∀ (s : E),
+      ‖s‖ = 1 →
+        ∀ (t : ℝ),
+          0 < t →
+            t ≤ 1 / 4 →
+              ∃ i, 4 * r * t ≤ self.radius i ∧ self.radius i < 8 * r * t ∧ dist s (self.center i) ≤ self.radius i / 2
+constructor:
+  OAI.ProjectionMoments.CapDictionary.mk.{u} {E : Type u} [NormedAddCommGroup E] {c : E} {r α : ℝ} (I : Type u)
+    (countable : Countable I) (center : I → E) (radius : I → ℝ) (center_norm : ∀ (i : I), ‖center i‖ = 1)
+    (radius_pos : ∀ (i : I), 0 < radius i) (radius_le : ∀ (i : I), radius i ≤ r) (parent : I)
+    (parent_center : center parent = c) (parent_radius : radius parent = r)
+    (proper : ∀ (R : ℝ), {i | (r / radius i) ^ α ≤ R}.Finite)
+    (cover :
+      ∀ (s : E),
+        ‖s‖ = 1 →
+          ∀ (t : ℝ),
+            0 < t → t ≤ 1 / 4 → ∃ i, 4 * r * t ≤ radius i ∧ radius i < 8 * r * t ∧ dist s (center i) ≤ radius i / 2) :
+    OAI.ProjectionMoments.CapDictionary c r α
+def OAI.ProjectionMoments.radialLabel.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] → {k : ℕ} → (Fin k → E) → OAI.ProjectionMoments.Label k → OAI.ProjectionMoments.Label k :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} X y =>
+  WithLp.toLp 2 ((OAI.ProjectionMoments.polarRadial X).mulVec y.ofLp)
+def OAI.ProjectionMoments.capKernelValue.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [MeasurableSpace E] → {k : ℕ} → ((Fin k → E) × OAI.ProjectionMoments.Label k → ENNReal) → E → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] {k} K s =>
+  ∫⁻ (X : Fin k → E),
+    K (X, (OAI.ProjectionMoments.rowMap X) s) ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian E
+def OAI.ProjectionMoments.capReferenceLabel.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [InnerProductSpace ℝ E] →
+      {k : ℕ} → E → ℝ → (Fin k → E) → OAI.ProjectionMoments.Label k → OAI.ProjectionMoments.Label k :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] {k} c r X z =>
+  (OAI.ProjectionMoments.rowMap X) c + r • OAI.ProjectionMoments.radialLabel X z
+def OAI.ProjectionMoments.capReference.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [MeasurableSpace E] → {k : ℕ} → ((Fin k → E) × OAI.ProjectionMoments.Label k → ENNReal) → E → ℝ → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] {k} K c r =>
+  ∫⁻ (X : Fin k → E),
+    ∫⁻ (z : OAI.ProjectionMoments.Label k),
+      K
+        (X,
+          OAI.ProjectionMoments.capReferenceLabel c r X
+            z) ∂OAI.ProjectionMoments.unitBallLaw k ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian E
+def OAI.ProjectionMoments.fractionalBlock.{u_1, u_2} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : InnerProductSpace ℝ E] →
+      [FiniteDimensional ℝ E] →
+        [MeasurableSpace E] →
+          {J : Type u_2} →
+            [Fintype J] →
+              {k : ℕ} → (J → (Fin k → E) × OAI.ProjectionMoments.Label k → ENNReal) → (J → E → ENNReal) → E → ENNReal :=
+fun {E} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E] {J} [Fintype J] {k} Q
+    f s =>
+  ∫⁻ (X : Fin k → E),
+    ∑ j,
+      Q j (X, (OAI.ProjectionMoments.rowMap X) s) *
+        f j s ∂MeasureTheory.Measure.pi fun x => ProbabilityTheory.stdGaussian E
+def OAI.ProjectionMoments.IntegratedFrameMoment : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d k q : ℕ) (β K R : ℝ) (ν : MeasureTheory.Measure (EuclideanSpace ℝ (Fin d))) [MeasureTheory.IsFiniteMeasure ν]
+      (z : EuclideanSpace ℝ (Fin d)) (u : Fin k → EuclideanSpace ℝ (Fin d)),
+      1 ≤ k →
+        2 ≤ q →
+          k + q ≤ d →
+            0 < β →
+              β ≤ ↑d →
+                1 ≤ β - ↑k - (↑q - 2) →
+                  0 ≤ K →
+                    0 < R →
+                      ν.support ⊆ Metric.closedBall z R →
+                        OAI.ProjectionMoments.AllBallMass ν K β →
+                          Orthonormal ℝ u →
+                            (∀ᵐ (A : Fin k → EuclideanSpace ℝ (Fin d)) ∂OAI.ProjectionMoments.frameLaw u,
+                                (MeasureTheory.Measure.map (⇑(OAI.ProjectionMoments.coordinateMap A))
+                                      ν).AbsolutelyContinuous
+                                  MeasureTheory.volume) →
+                              Measurable (OAI.ProjectionMoments.coordinateDensity ν k) ∧
+                                (∀ᵐ (A : Fin k → EuclideanSpace ℝ (Fin d)) ∂OAI.ProjectionMoments.frameLaw u,
+                                    (MeasureTheory.volume.withDensity fun y =>
+                                        OAI.ProjectionMoments.coordinateDensity ν k (A, y)) =
+                                      MeasureTheory.Measure.map (⇑(OAI.ProjectionMoments.coordinateMap A)) ν) ∧
+                                  (∀ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                      Orthonormal ℝ A →
+                                        ∀ (y : Fin k → ℝ),
+                                          R < ‖WithLp.toLp 2 (y - (OAI.ProjectionMoments.coordinateMap A) z)‖ →
+                                            OAI.ProjectionMoments.coordinateDensity ν k (A, y) = 0) ∧
+                                    (∫⁻ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                          ∫⁻ (y : Fin k → ℝ),
+                                            OAI.ProjectionMoments.coordinateDensity ν k (A, y) ^
+                                              q ∂OAI.ProjectionMoments.frameLaw u) ^
+                                        (1 / ↑q) ≤
+                                      ENNReal.ofReal
+                                        (C ^ d * (C * √↑d) ^ (↑k * (1 - 1 / ↑q)) * K * R ^ (β - ↑k * (1 - 1 / ↑q)))
+def OAI.ProjectionMoments.NormalizedUnitBallMoment : Prop :=
+∀ (D : ℝ),
+  0 < D →
+    ∃ C_D,
+      0 < C_D ∧
+        ∀ (d : ℕ),
+          32 ≤ d →
+            let k := d / 16;
+            have lam := (↑d - 1) / 2;
+            ∀ (ν : MeasureTheory.Measure (EuclideanSpace ℝ (Fin d))) [MeasureTheory.IsFiniteMeasure ν]
+              (u : Fin k → EuclideanSpace ℝ (Fin d)),
+              ν Set.univ ≤ 1 →
+                ν.support ⊆ Metric.closedBall 0 1 →
+                  OAI.ProjectionMoments.AllBallMass ν (D ^ d) lam →
+                    Orthonormal ℝ u →
+                      (∀ᵐ (X :
+                          Fin k →
+                            EuclideanSpace ℝ
+                              (Fin
+                                d)) ∂MeasureTheory.Measure.pi fun x =>
+                            ProbabilityTheory.stdGaussian (EuclideanSpace ℝ (Fin d)),
+                          (MeasureTheory.Measure.map
+                                (⇑(OAI.ProjectionMoments.rowMap (OAI.ProjectionMoments.polarRows u X)))
+                                ν).AbsolutelyContinuous
+                            MeasureTheory.volume) →
+                        Measurable (OAI.ProjectionMoments.normalizedDensity ν k u) ∧
+                          (∀ᵐ (X :
+                              Fin k →
+                                EuclideanSpace ℝ
+                                  (Fin
+                                    d)) ∂MeasureTheory.Measure.pi fun x =>
+                                ProbabilityTheory.stdGaussian (EuclideanSpace ℝ (Fin d)),
+                              (((OAI.ProjectionMoments.unitBallVolume k)⁻¹ • MeasureTheory.volume).withDensity fun y =>
+                                  OAI.ProjectionMoments.normalizedDensity ν k u (X, y)) =
+                                MeasureTheory.Measure.map
+                                  (⇑(OAI.ProjectionMoments.rowMap (OAI.ProjectionMoments.polarRows u X))) ν) ∧
+                            (∀ (X : Fin k → EuclideanSpace ℝ (Fin d)) (y : OAI.ProjectionMoments.Label k),
+                                1 < ‖y‖ → OAI.ProjectionMoments.normalizedDensity ν k u (X, y) = 0) ∧
+                              (∫⁻ (X : Fin k → EuclideanSpace ℝ (Fin d)),
+                                  ∫⁻ (y : OAI.ProjectionMoments.Label k),
+                                    OAI.ProjectionMoments.normalizedDensity ν k u (X, y) ^
+                                      k ∂OAI.ProjectionMoments.unitBallLaw
+                                      k ∂MeasureTheory.Measure.pi fun x =>
+                                    ProbabilityTheory.stdGaussian (EuclideanSpace ℝ (Fin d))) ≤
+                                ENNReal.ofReal (Real.exp (C_D * ↑d * ↑k))
+def OAI.ProjectionMoments.AllRadiiSphereMoment : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d : ℕ),
+      16 ≤ d →
+        have k := d / 4;
+        have β := ↑d - 1 - ↑k;
+        ∀ (f : EuclideanSpace ℝ (Fin d) → ENNReal),
+          Measurable f →
+            (∀ (s : EuclideanSpace ℝ (Fin d)), f s ≤ 1) →
+              ∀ (K : ℝ),
+                0 ≤ K →
+                  OAI.ProjectionMoments.AllBallMass (OAI.NoiselessRegression.ambientSphereLaw.withDensity f) K β →
+                    ∀ (z : EuclideanSpace ℝ (Fin d)) (R : ℝ),
+                      0 < R →
+                        ∀ (u : Fin k → EuclideanSpace ℝ (Fin d)),
+                          Orthonormal ℝ u →
+                            have μ := OAI.ProjectionMoments.sphereWeightedRestriction f (Metric.closedBall z R);
+                            Measurable (OAI.ProjectionMoments.coordinateDensity μ k) ∧
+                              (∀ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                  Orthonormal ℝ A →
+                                    (MeasureTheory.volume.withDensity fun y =>
+                                        OAI.ProjectionMoments.coordinateDensity μ k (A, y)) =
+                                      MeasureTheory.Measure.map (⇑(OAI.ProjectionMoments.coordinateMap A)) μ) ∧
+                                (∀ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                    Orthonormal ℝ A →
+                                      ∀ (y : Fin k → ℝ),
+                                        R < ‖WithLp.toLp 2 (y - (OAI.ProjectionMoments.coordinateMap A) z)‖ →
+                                          OAI.ProjectionMoments.coordinateDensity μ k (A, y) = 0) ∧
+                                  (∫⁻ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                        ∫⁻ (y : Fin k → ℝ),
+                                          OAI.ProjectionMoments.coordinateDensity μ k (A, y) ^
+                                            k ∂OAI.ProjectionMoments.frameLaw u) ^
+                                      (1 / ↑k) ≤
+                                    ENNReal.ofReal
+                                      (C ^ d * (C * √↑d) ^ (↑k * (1 - 1 / ↑k)) * K * R ^ (β - ↑k * (1 - 1 / ↑k)))
+def OAI.ProjectionMoments.PositiveCapDomination : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d : ℕ),
+      32 ≤ d →
+        have k := d / 16;
+        have α := (↑d - 1) / 2;
+        ∀ (c : EuclideanSpace ℝ (Fin d)),
+          ‖c‖ = 1 →
+            ∀ (r : ℝ),
+              0 < r →
+                r ≤ 2 →
+                  ∀ (N : ℕ) (K : Fin N → (Fin k → EuclideanSpace ℝ (Fin d)) × OAI.ProjectionMoments.Label k → ENNReal),
+                    (∀ (j : Fin N), Measurable (K j)) →
+                      (∀ (z : (Fin k → EuclideanSpace ℝ (Fin d)) × OAI.ProjectionMoments.Label k), ∑ j, K j z ≤ 1) →
+                        ∑ j, OAI.ProjectionMoments.capReference (K j) c r ≤ 1 ∧
+                          ∀ (j : Fin N),
+                            ∃ D a,
+                              (∀ (i : D.I), 0 ≤ a i) ∧
+                                (Summable fun i => a i * (r / D.radius i) ^ α) ∧
+                                  ∑' (i : D.I), a i * (r / D.radius i) ^ α ≤
+                                      Real.exp (C * ↑d) *
+                                        (OAI.ProjectionMoments.capReference (K j) c r).toReal ^ (1 - 1 / ↑k) ∧
+                                    ((OAI.ProjectionMoments.capMeasure c r).withDensity
+                                          (OAI.ProjectionMoments.capKernelValue (K j)) ≤
+                                        MeasureTheory.Measure.sum fun i =>
+                                          ENNReal.ofReal (a i) •
+                                            OAI.ProjectionMoments.capMeasure (D.center i) (D.radius i)) ∧
+                                      (MeasureTheory.Measure.sum fun i =>
+                                            ENNReal.ofReal (a i) •
+                                              OAI.ProjectionMoments.capMeasure (D.center i) (D.radius i))
+                                          Set.univ <
+                                        ⊤
+def OAI.ProjectionMoments.DeterministicOffsetDensity : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d : ℕ),
+      16 ≤ d →
+        let k := d / 8;
+        have α := ↑d / 2;
+        ∀ (h : EuclideanSpace ℝ (Fin d) → ENNReal),
+          Measurable h →
+            (∀ (s : EuclideanSpace ℝ (Fin d)), h s ≤ 1) →
+              ∀ (z : EuclideanSpace ℝ (Fin d)) (ρ : ℝ),
+                0 < ρ →
+                  ∀ (H : Set (EuclideanSpace ℝ (Fin d))),
+                    MeasurableSet H →
+                      H ⊆ Metric.closedBall z ρ →
+                        OAI.ProjectionMoments.rieszPotential α h < ⊤ ∧
+                          Measurable
+                              (OAI.ProjectionMoments.lowerDensity (OAI.ProjectionMoments.sphereWeightedRestriction h H)
+                                k) ∧
+                            (∀ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                LinearIndependent ℝ A →
+                                  (MeasureTheory.volume.withDensity fun y =>
+                                      OAI.ProjectionMoments.lowerDensity
+                                        (OAI.ProjectionMoments.sphereWeightedRestriction h H) k (A, y)) =
+                                    MeasureTheory.Measure.map (⇑(OAI.ProjectionMoments.rowMap A))
+                                      (OAI.ProjectionMoments.sphereWeightedRestriction h H)) ∧
+                              (∀ (b : OAI.ProjectionMoments.Label k),
+                                  (∫⁻ (A : Fin k → EuclideanSpace ℝ (Fin d)),
+                                        OAI.ProjectionMoments.lowerDensity
+                                            (OAI.ProjectionMoments.sphereWeightedRestriction h H) k
+                                            (A, (OAI.ProjectionMoments.rowMap A) z + b) ^
+                                          k ∂MeasureTheory.Measure.pi fun x =>
+                                          ProbabilityTheory.stdGaussian (EuclideanSpace ℝ (Fin d))) ^
+                                      (1 / ↑k) ≤
+                                    ENNReal.ofReal (C ^ d) * OAI.ProjectionMoments.rieszPotential α h *
+                                      ENNReal.ofReal (ρ ^ (α - ↑k))) ∧
+                                ∀ (A : Fin k → EuclideanSpace ℝ (Fin d)) (y : OAI.ProjectionMoments.Label k),
+                                  ‖OAI.ProjectionMoments.rowMap A‖ * ρ < ‖y - (OAI.ProjectionMoments.rowMap A) z‖ →
+                                    OAI.ProjectionMoments.lowerDensity
+                                        (OAI.ProjectionMoments.sphereWeightedRestriction h H) k (A, y) =
+                                      0
+def OAI.ProjectionMoments.AllRadiiBlockBound : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d : ℕ),
+      16 ≤ d →
+        have k := d / 4;
+        have β := ↑d - 1 - ↑k;
+        ∀ (N : ℕ) (f : Fin N → EuclideanSpace ℝ (Fin d) → ENNReal),
+          (∀ (j : Fin N), Measurable (f j)) →
+            (∀ (j : Fin N) (s : EuclideanSpace ℝ (Fin d)), f j s ≤ 1) →
+              ∀ (K : ℝ),
+                0 ≤ K →
+                  (∀ (j : Fin N),
+                      OAI.ProjectionMoments.AllBallMass (OAI.NoiselessRegression.ambientSphereLaw.withDensity (f j)) K
+                        β) →
+                    ∀ (Q : Fin N → (Fin k → EuclideanSpace ℝ (Fin d)) × OAI.ProjectionMoments.Label k → ENNReal),
+                      (∀ (j : Fin N), Measurable (Q j)) →
+                        (∀ (z : (Fin k → EuclideanSpace ℝ (Fin d)) × OAI.ProjectionMoments.Label k), ∑ j, Q j z ≤ 1) →
+                          OAI.ProjectionMoments.AllBallMass
+                            (OAI.NoiselessRegression.ambientSphereLaw.withDensity
+                              (OAI.ProjectionMoments.fractionalBlock Q f))
+                            (C ^ d * ↑N ^ (1 / ↑k) * K) β
+def OAI.ProjectionMoments.HaarStreamingCost.{u} : Prop :=
+∃ C,
+  1 ≤ C ∧
+    ∀ (d M T : ℕ),
+      16 ≤ d →
+        ∀ (ε : ℝ),
+          0 < ε →
+            ε ≤ 1 / 10 →
+              ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                MeasureTheory.IsProbabilityMeasure ρ →
+                  ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T),
+                    (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                      have k := d / 4;
+                      have Nstar := (↑k + 2) * 2 ^ M;
+                      OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε ≤
+                        ENNReal.ofReal (C ^ d * ε ^ k * (C ^ d * Nstar ^ (1 / ↑k)) ^ ((T + k - 1) / k))
+def OAI.ProjectionMoments.RieszStreamingCost.{u} : Prop :=
+∃ C₀,
+  1 ≤ C₀ ∧
+    ∀ (d M T : ℕ),
+      16 ≤ d →
+        ∀ (ε : ℝ),
+          0 < ε →
+            ε ≤ 1 / 10 →
+              ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                MeasureTheory.IsProbabilityMeasure ρ →
+                  ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T),
+                    (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                      have q := d / 8;
+                      have W := (↑T + 2) * 2 ^ M;
+                      OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε ≤
+                        ENNReal.ofReal
+                          (C₀ ^ d * ε ^ (↑d / 2 - 1) *
+                            (1 + C₀ ^ d * (1 + Real.log (1 / ε)) * W ^ (1 / ↑q)) ^ ((T + q - 1) / q))
+def OAI.ProjectionMoments.CapFixedStoppingCost.{u} : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d M T : ℕ),
+      32 ≤ d →
+        ∀ (ε : ℝ),
+          0 < ε →
+            ε ≤ 1 / 10 →
+              ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                MeasureTheory.IsProbabilityMeasure ρ →
+                  ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T),
+                    (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                      ∀ t ≤ T,
+                        have k := d / 16;
+                        have α := (↑d - 1) / 2;
+                        OAI.NoiselessRegression.FiniteKernelLearner.seededFixedSuccess K ρ ε t ≤
+                          ENNReal.ofReal
+                            (Real.exp (C * ↑d) * (ε / 2) ^ α * (Real.exp (C * ↑d) * 2 ^ (↑M / ↑k)) ^ ((t + k - 1) / k))
+def OAI.ProjectionMoments.CapTotalStoppingCost.{u} : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (d M T : ℕ),
+      32 ≤ d →
+        ∀ (ε : ℝ),
+          0 < ε →
+            ε ≤ 1 / 10 →
+              ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                MeasureTheory.IsProbabilityMeasure ρ →
+                  ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d M T),
+                    (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                      have k := d / 16;
+                      have α := (↑d - 1) / 2;
+                      OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε ≤
+                        ENNReal.ofReal
+                          ((↑T + 1) * Real.exp (C * ↑d) * (ε / 2) ^ α *
+                            (Real.exp (C * ↑d) * 2 ^ (↑M / ↑k)) ^ ((T + k - 1) / k))
+def OAI.ProjectionMoments.CapFixedStoppingAsymptotic.{u} : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (M : ℕ → ℕ),
+      ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+        ∃ d₀,
+          ∀ (d : ℕ),
+            d₀ ≤ d →
+              ∀ (T : ℕ) (ε : ℝ),
+                0 < ε →
+                  ε ≤ 1 / 10 →
+                    ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                      MeasureTheory.IsProbabilityMeasure ρ →
+                        ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d (M d) T),
+                          (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                            ∀ t ≤ T,
+                              have k := d / 16;
+                              have α := (↑d - 1) / 2;
+                              OAI.NoiselessRegression.FiniteKernelLearner.seededFixedSuccess K ρ ε t ≤
+                                ENNReal.ofReal (Real.exp (C * ↑d * (1 + ↑((t + k - 1) / k))) * (ε / 2) ^ α)
+def OAI.ProjectionMoments.CapTotalStoppingAsymptotic.{u} : Prop :=
+∃ C₁ C₂,
+  0 < C₁ ∧
+    0 < C₂ ∧
+      ∀ (M : ℕ → ℕ),
+        ((fun d => ↑(M d)) =o[Filter.atTop] fun d => ↑d ^ 2) →
+          ∃ d₀,
+            ∀ (d : ℕ),
+              d₀ ≤ d →
+                ∀ (T : ℕ) (ε : ℝ),
+                  0 < ε →
+                    ε ≤ 1 / 10 →
+                      ∀ (Ξ : Type u) [inst : MeasurableSpace Ξ] (ρ : MeasureTheory.Measure Ξ),
+                        MeasureTheory.IsProbabilityMeasure ρ →
+                          ∀ (K : Ξ → OAI.NoiselessRegression.FiniteKernelLearner d (M d) T),
+                            (∀ᵐ (ξ : Ξ) ∂ρ, (K ξ).CompletedRules) →
+                              OAI.NoiselessRegression.FiniteKernelLearner.seededSuccess K ρ ε ≤
+                                ENNReal.ofReal ((↑T + 1) * Real.exp (C₁ * ↑d + C₂ * ↑T - ↑d * Real.log (1 / ε) / 3))
+def OAI.ProjectionMoments.KernelModelBridge : Prop :=
+∀ (d M T : ℕ),
+  3 ≤ d →
+    ∀ (K : OAI.NoiselessRegression.FiniteKernelLearner d M T),
+      K.CompletedRules →
+        ∃ ρ L,
+          MeasureTheory.IsProbabilityMeasure ρ ∧
+            L.MeasurableRules ∧
+              L.Admissible ρ ∧
+                (∀ (ε : ℝ), L.uniformSuccess ρ ε = K.uniformSuccess ε) ∧
+                  ∀ (ε : ℝ) (t : ℕ), L.uniformFixedSuccess ρ ε t = K.uniformFixedSuccess ε t
+def OAI.ProjectionMoments.MainStatement.{u} : Prop :=
+OAI.ProjectionMoments.IntegratedFrameMoment ∧
+  OAI.ProjectionMoments.NormalizedUnitBallMoment ∧
+    OAI.ProjectionMoments.AllRadiiSphereMoment ∧
+      OAI.ProjectionMoments.PositiveCapDomination ∧
+        OAI.ProjectionMoments.DeterministicOffsetDensity ∧
+          OAI.ProjectionMoments.AllRadiiBlockBound ∧
+            OAI.ProjectionMoments.HaarStreamingCost ∧
+              OAI.ProjectionMoments.RieszStreamingCost ∧
+                OAI.ProjectionMoments.CapFixedStoppingCost ∧
+                  OAI.ProjectionMoments.CapTotalStoppingCost ∧
+                    OAI.ProjectionMoments.CapFixedStoppingAsymptotic ∧
+                      OAI.ProjectionMoments.CapTotalStoppingAsymptotic ∧
+                        OAI.ProjectionMoments.KernelModelBridge ∧
+                          OAI.NoiselessRegression.FiniteKernelLearner.SubquadraticMemoryWithPointwise ∧
+                            OAI.NoiselessRegression.FiniteKernelLearner.FixedQuadraticMemory

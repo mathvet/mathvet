@@ -1,0 +1,247 @@
+CMP OAI.UniversalCoverSplitting.main [thm] ok
+CMP OAI.UniversalCoverSplitting.CompatibleProduct [def] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicSplitting.projection [def] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicSplitting [ind] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicSplitting.mk [ctor] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicProjection [def] ok
+CMP OAI.UniversalCoverSplitting.ComplexManifold.charted [def] ok
+CMP OAI.UniversalCoverSplitting.ComplexManifold [ind] ok
+CMP OAI.UniversalCoverSplitting.ComplexManifold.mk [ctor] ok
+CMP OAI.UniversalCoverSplitting.model [def] ok
+CMP OAI.UniversalCoverSplitting.Model [def] ok
+CMP OAI.UniversalCoverSplitting.ComplexManifold.topology [def] ok
+CMP OAI.UniversalCoverSplitting.ComplexManifold.Carrier [def] ok
+CMP OAI.UniversalCoverSplitting.projectionInChart [def] ok
+CMP OAI.UniversalCoverSplitting.projectionInChart._proof_2 [thm] ok
+CMP OAI.UniversalCoverSplitting.Tangent [def] ok
+CMP OAI.UniversalCoverSplitting.projectionInChart._proof_1 [thm] ok
+CMP OAI.UniversalCoverSplitting.ProjectionField [def] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicProjection._proof_4 [thm] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicProjection._proof_3 [thm] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicProjection._proof_2 [thm] ok
+CMP OAI.UniversalCoverSplitting.HolomorphicProjection._proof_1 [thm] ok
+CMP OAI.UniversalCoverSplitting.OrdinaryUniversalCover.projection [def] ok
+CMP OAI.UniversalCoverSplitting.OrdinaryUniversalCover [ind] ok
+CMP OAI.UniversalCoverSplitting.OrdinaryUniversalCover.mk [ctor] ok
+CMP OAI.UniversalCoverSplitting.LocalBiholomorphism [def] ok
+CMP OAI.UniversalCoverSplitting.CompatibleProduct._proof_1 [thm] ok
+CMP OAI.UniversalCoverSplitting.complementaryProjection [def] ok
+CMP OAI.UniversalCoverSplitting.complementaryProjection._proof_1 [thm] ok
+CMP OAI.UniversalCoverSplitting.Integrable [def] ok
+CMP OAI.UniversalCoverSplitting.KahlerMetric [ind] ok
+CMP OAI.UniversalCoverSplitting.KahlerMetric.mk [ctor] ok
+CMP OAI.UniversalCoverSplitting.fundamentalInChart [def] ok
+CMP OAI.UniversalCoverSplitting.metricInChart [def] ok
+CMP OAI.UniversalCoverSplitting.RealMetricField._proof_1 [thm] ok
+CMP OAI.UniversalCoverSplitting.RealMetricField [def] ok
+@Chal.UniversalCoverSplitting.main : ∀ {n r₁ r₂ : ℕ} (X : Chal.UniversalCoverSplitting.ComplexManifold n)
+  [CompactSpace X.Carrier] [ConnectedSpace X.Carrier],
+  2 ≤ n →
+    0 < r₁ →
+      0 < r₂ →
+        ∀ (g : Chal.UniversalCoverSplitting.KahlerMetric X)
+          (S : Chal.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂),
+          Chal.UniversalCoverSplitting.Integrable S.projection →
+            Chal.UniversalCoverSplitting.Integrable (Chal.UniversalCoverSplitting.complementaryProjection S) →
+              ∀ (Z : Chal.UniversalCoverSplitting.ComplexManifold n)
+                (π : Chal.UniversalCoverSplitting.OrdinaryUniversalCover X Z),
+                ∃ Y₁ Y₂,
+                  ConnectedSpace Y₁.Carrier ∧
+                    ConnectedSpace Y₂.Carrier ∧
+                      SimplyConnectedSpace Y₁.Carrier ∧
+                        SimplyConnectedSpace Y₂.Carrier ∧ Chal.UniversalCoverSplitting.CompatibleProduct S π Y₁ Y₂
+@[reducible] def Chal.UniversalCoverSplitting.Model : ℕ → Type :=
+fun n => Fin n → ℂ
+@[reducible] def Chal.UniversalCoverSplitting.model : (n : ℕ) →
+  ModelWithCorners ℂ (Chal.UniversalCoverSplitting.Model n) (Chal.UniversalCoverSplitting.Model n) :=
+fun n => modelWithCornersSelf ℂ (Chal.UniversalCoverSplitting.Model n)
+structure Chal.UniversalCoverSplitting.ComplexManifold.{u} (n : ℕ) : Type (u + 1)
+number of parameters: 1
+fields:
+  Chal.UniversalCoverSplitting.ComplexManifold.Carrier : Type u
+  Chal.UniversalCoverSplitting.ComplexManifold.topology : TopologicalSpace self.Carrier
+  Chal.UniversalCoverSplitting.ComplexManifold.charted : ChartedSpace (Chal.UniversalCoverSplitting.Model n)
+      self.Carrier
+  Chal.UniversalCoverSplitting.ComplexManifold.hausdorff : T2Space self.Carrier
+  Chal.UniversalCoverSplitting.ComplexManifold.secondCountable : SecondCountableTopology self.Carrier
+  Chal.UniversalCoverSplitting.ComplexManifold.complexSmooth : IsManifold (Chal.UniversalCoverSplitting.model n) (↑⊤)
+      self.Carrier
+constructor:
+  Chal.UniversalCoverSplitting.ComplexManifold.mk.{u} {n : ℕ} (Carrier : Type u) [topology : TopologicalSpace Carrier]
+    [charted : ChartedSpace (Chal.UniversalCoverSplitting.Model n) Carrier] [hausdorff : T2Space Carrier]
+    [secondCountable : SecondCountableTopology Carrier]
+    [complexSmooth : IsManifold (Chal.UniversalCoverSplitting.model n) (↑⊤) Carrier] :
+    Chal.UniversalCoverSplitting.ComplexManifold n
+@[reducible] def Chal.UniversalCoverSplitting.Tangent.{u} : {n : ℕ} →
+  (X : Chal.UniversalCoverSplitting.ComplexManifold n) → X.Carrier → Type :=
+fun {n} X x => TangentSpace (Chal.UniversalCoverSplitting.model n) x
+@[reducible] def Chal.UniversalCoverSplitting.RealMetricField.{u} : {n : ℕ} →
+  Chal.UniversalCoverSplitting.ComplexManifold n → Type (max u 0) :=
+fun {n} X =>
+  (x : X.Carrier) → Chal.UniversalCoverSplitting.Tangent X x →ₗ[ℝ] Chal.UniversalCoverSplitting.Tangent X x →ₗ[ℝ] ℝ
+def Chal.UniversalCoverSplitting.metricInChart.{u} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    Chal.UniversalCoverSplitting.RealMetricField X →
+      X.Carrier →
+        Chal.UniversalCoverSplitting.Model n →
+          Chal.UniversalCoverSplitting.Model n → Chal.UniversalCoverSplitting.Model n → ℝ :=
+fun {n} {X} g c z u v =>
+  have e := extChartAt (Chal.UniversalCoverSplitting.model n) c;
+  have q := mfderiv% ↑e.symm z;
+  ((g (↑e.symm z)) (q u)) (q v)
+def Chal.UniversalCoverSplitting.fundamentalInChart.{u} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    Chal.UniversalCoverSplitting.RealMetricField X →
+      X.Carrier →
+        Chal.UniversalCoverSplitting.Model n →
+          Chal.UniversalCoverSplitting.Model n → Chal.UniversalCoverSplitting.Model n → ℝ :=
+fun {n} {X} g c z u v => Chal.UniversalCoverSplitting.metricInChart g c z (Complex.I • u) v
+structure Chal.UniversalCoverSplitting.KahlerMetric.{u} {n : ℕ} (X : Chal.UniversalCoverSplitting.ComplexManifold n) :
+  Type u
+number of parameters: 2
+fields:
+  Chal.UniversalCoverSplitting.KahlerMetric.metric : Chal.UniversalCoverSplitting.RealMetricField X
+  Chal.UniversalCoverSplitting.KahlerMetric.symmetric : ∀ (x : X.Carrier)
+      (u v : Chal.UniversalCoverSplitting.Tangent X x), ((self.metric x) u) v = ((self.metric x) v) u
+  Chal.UniversalCoverSplitting.KahlerMetric.positive : ∀ (x : X.Carrier) (u : Chal.UniversalCoverSplitting.Tangent X x),
+      u ≠ 0 → 0 < ((self.metric x) u) u
+  Chal.UniversalCoverSplitting.KahlerMetric.hermitian : ∀ (x : X.Carrier)
+      (u v : Chal.UniversalCoverSplitting.Tangent X x),
+      ((self.metric x) (Complex.I • u)) (Complex.I • v) = ((self.metric x) u) v
+  Chal.UniversalCoverSplitting.KahlerMetric.smooth : ∀ (c : X.Carrier) (u v : Chal.UniversalCoverSplitting.Model n),
+      ContDiffOn ℝ (↑⊤) (fun z => Chal.UniversalCoverSplitting.metricInChart self.metric c z u v)
+        (extChartAt (Chal.UniversalCoverSplitting.model n) c).target
+  Chal.UniversalCoverSplitting.KahlerMetric.closed : ∀ (c : X.Carrier),
+      ∀ z ∈ (extChartAt (Chal.UniversalCoverSplitting.model n) c).target,
+        ∀ (u v w : Chal.UniversalCoverSplitting.Model n),
+          (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart self.metric c y v w) z) u +
+                (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart self.metric c y w u) z) v +
+              (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart self.metric c y u v) z) w =
+            0
+constructor:
+  Chal.UniversalCoverSplitting.KahlerMetric.mk.{u} {n : ℕ} {X : Chal.UniversalCoverSplitting.ComplexManifold n}
+    (metric : Chal.UniversalCoverSplitting.RealMetricField X)
+    (symmetric :
+      ∀ (x : X.Carrier) (u v : Chal.UniversalCoverSplitting.Tangent X x), ((metric x) u) v = ((metric x) v) u)
+    (positive : ∀ (x : X.Carrier) (u : Chal.UniversalCoverSplitting.Tangent X x), u ≠ 0 → 0 < ((metric x) u) u)
+    (hermitian :
+      ∀ (x : X.Carrier) (u v : Chal.UniversalCoverSplitting.Tangent X x),
+        ((metric x) (Complex.I • u)) (Complex.I • v) = ((metric x) u) v)
+    (smooth :
+      ∀ (c : X.Carrier) (u v : Chal.UniversalCoverSplitting.Model n),
+        ContDiffOn ℝ (↑⊤) (fun z => Chal.UniversalCoverSplitting.metricInChart metric c z u v)
+          (extChartAt (Chal.UniversalCoverSplitting.model n) c).target)
+    (closed :
+      ∀ (c : X.Carrier),
+        ∀ z ∈ (extChartAt (Chal.UniversalCoverSplitting.model n) c).target,
+          ∀ (u v w : Chal.UniversalCoverSplitting.Model n),
+            (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart metric c y v w) z) u +
+                  (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart metric c y w u) z) v +
+                (fderiv ℝ (fun y => Chal.UniversalCoverSplitting.fundamentalInChart metric c y u v) z) w =
+              0) :
+    Chal.UniversalCoverSplitting.KahlerMetric X
+@[reducible] def Chal.UniversalCoverSplitting.ProjectionField.{u} : {n : ℕ} →
+  Chal.UniversalCoverSplitting.ComplexManifold n → Type (max u 0) :=
+fun {n} X => (x : X.Carrier) → Chal.UniversalCoverSplitting.Tangent X x →L[ℂ] Chal.UniversalCoverSplitting.Tangent X x
+def Chal.UniversalCoverSplitting.projectionInChart.{u} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    Chal.UniversalCoverSplitting.ProjectionField X →
+      X.Carrier →
+        Chal.UniversalCoverSplitting.Model n →
+          Chal.UniversalCoverSplitting.Model n →L[ℂ] Chal.UniversalCoverSplitting.Model n :=
+fun {n} {X} P c z =>
+  have e := extChartAt (Chal.UniversalCoverSplitting.model n) c;
+  mfderiv% ↑e (↑e.symm z) ∘SL P (↑e.symm z) ∘SL mfderiv% ↑e.symm z
+def Chal.UniversalCoverSplitting.HolomorphicProjection.{u} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} → Chal.UniversalCoverSplitting.ProjectionField X → Prop :=
+fun {n} {X} P =>
+  ∀ (c : X.Carrier),
+    DifferentiableOn ℂ (Chal.UniversalCoverSplitting.projectionInChart P c)
+      (extChartAt (Chal.UniversalCoverSplitting.model n) c).target
+def Chal.UniversalCoverSplitting.Integrable.{u} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} → Chal.UniversalCoverSplitting.ProjectionField X → Prop :=
+fun {n} {X} P =>
+  ∀ (c : X.Carrier) (U : Set (Chal.UniversalCoverSplitting.Model n)),
+    IsOpen U →
+      U ⊆ (extChartAt (Chal.UniversalCoverSplitting.model n) c).target →
+        ∀ (V W : Chal.UniversalCoverSplitting.Model n → Chal.UniversalCoverSplitting.Model n),
+          DifferentiableOn ℂ V U →
+            DifferentiableOn ℂ W U →
+              (∀ z ∈ U, (Chal.UniversalCoverSplitting.projectionInChart P c z) (V z) = V z) →
+                (∀ z ∈ U, (Chal.UniversalCoverSplitting.projectionInChart P c z) (W z) = W z) →
+                  ∀ z ∈ U,
+                    (Chal.UniversalCoverSplitting.projectionInChart P c z) (VectorField.lieBracket ℂ V W z) =
+                      VectorField.lieBracket ℂ V W z
+structure Chal.UniversalCoverSplitting.HolomorphicSplitting.{u} {n : ℕ}
+  (X : Chal.UniversalCoverSplitting.ComplexManifold n) (r₁ r₂ : ℕ) : Type u
+number of parameters: 4
+fields:
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.projection : Chal.UniversalCoverSplitting.ProjectionField X
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.idempotent : ∀ (x : X.Carrier)
+      (v : Chal.UniversalCoverSplitting.Tangent X x),
+      (self.projection x) ((self.projection x) v) = (self.projection x) v
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.holomorphic : Chal.UniversalCoverSplitting.HolomorphicProjection
+      self.projection
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.first_rank : ∀ (x : X.Carrier),
+      Module.finrank ℂ ↥(↑(self.projection x)).range = r₁
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.second_rank : ∀ (x : X.Carrier),
+      Module.finrank ℂ ↥(↑(self.projection x)).ker = r₂
+constructor:
+  Chal.UniversalCoverSplitting.HolomorphicSplitting.mk.{u} {n : ℕ} {X : Chal.UniversalCoverSplitting.ComplexManifold n}
+    {r₁ r₂ : ℕ} (projection : Chal.UniversalCoverSplitting.ProjectionField X)
+    (idempotent :
+      ∀ (x : X.Carrier) (v : Chal.UniversalCoverSplitting.Tangent X x),
+        (projection x) ((projection x) v) = (projection x) v)
+    (holomorphic : Chal.UniversalCoverSplitting.HolomorphicProjection projection)
+    (first_rank : ∀ (x : X.Carrier), Module.finrank ℂ ↥(↑(projection x)).range = r₁)
+    (second_rank : ∀ (x : X.Carrier), Module.finrank ℂ ↥(↑(projection x)).ker = r₂) :
+    Chal.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂
+def Chal.UniversalCoverSplitting.complementaryProjection.{u} : {n r₁ r₂ : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    Chal.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂ → Chal.UniversalCoverSplitting.ProjectionField X :=
+fun {n r₁ r₂} {X} S x => ContinuousLinearMap.id ℂ (Chal.UniversalCoverSplitting.Tangent X x) - S.projection x
+def Chal.UniversalCoverSplitting.LocalBiholomorphism.{u, v} : {n : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    {Z : Chal.UniversalCoverSplitting.ComplexManifold n} → (Z.Carrier → X.Carrier) → Prop :=
+fun {n} {X} {Z} π =>
+  ∀ (z : Z.Carrier), ∃ e, z ∈ e.source ∧ (∀ w ∈ e.source, ↑e w = π w) ∧ MDiff[e.source] ↑e ∧ MDiff[e.target] ↑e.symm
+structure Chal.UniversalCoverSplitting.OrdinaryUniversalCover.{u, v} {n : ℕ}
+  (X : Chal.UniversalCoverSplitting.ComplexManifold n) (Z : Chal.UniversalCoverSplitting.ComplexManifold n) :
+  Type (max u v)
+number of parameters: 3
+fields:
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.projection : Z.Carrier → X.Carrier
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.covering : IsCoveringMap self.projection
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.connected : ConnectedSpace Z.Carrier
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.simplyConnected : SimplyConnectedSpace Z.Carrier
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.liftedComplexStructure : Chal.UniversalCoverSplitting.LocalBiholomorphism
+      self.projection
+constructor:
+  Chal.UniversalCoverSplitting.OrdinaryUniversalCover.mk.{u, v} {n : ℕ}
+    {X : Chal.UniversalCoverSplitting.ComplexManifold n} {Z : Chal.UniversalCoverSplitting.ComplexManifold n}
+    (projection : Z.Carrier → X.Carrier) (covering : IsCoveringMap projection) [connected : ConnectedSpace Z.Carrier]
+    [simplyConnected : SimplyConnectedSpace Z.Carrier]
+    (liftedComplexStructure : Chal.UniversalCoverSplitting.LocalBiholomorphism projection) :
+    Chal.UniversalCoverSplitting.OrdinaryUniversalCover X Z
+def Chal.UniversalCoverSplitting.CompatibleProduct.{u, v} : {n r₁ r₂ : ℕ} →
+  {X : Chal.UniversalCoverSplitting.ComplexManifold n} →
+    {Z : Chal.UniversalCoverSplitting.ComplexManifold n} →
+      Chal.UniversalCoverSplitting.HolomorphicSplitting X r₁ r₂ →
+        Chal.UniversalCoverSplitting.OrdinaryUniversalCover X Z →
+          Chal.UniversalCoverSplitting.ComplexManifold r₁ → Chal.UniversalCoverSplitting.ComplexManifold r₂ → Prop :=
+fun {n r₁ r₂} {X} {Z} S π Y₁ Y₂ =>
+  ∃ Φ,
+    MDiff ⇑Φ ∧
+      MDiff ⇑Φ.symm ∧
+        (∀ (z : Z.Carrier),
+            Submodule.map (↑(mfderiv% ⇑Φ z))
+                (Submodule.comap (↑(mfderiv% π.projection z)) (↑(S.projection (π.projection z))).range) =
+              (↑(ContinuousLinearMap.snd ℂ (Chal.UniversalCoverSplitting.Model r₁)
+                    (Chal.UniversalCoverSplitting.Model r₂))).ker) ∧
+          ∀ (z : Z.Carrier),
+            Submodule.map (↑(mfderiv% ⇑Φ z))
+                (Submodule.comap (↑(mfderiv% π.projection z)) (↑(S.projection (π.projection z))).ker) =
+              (↑(ContinuousLinearMap.fst ℂ (Chal.UniversalCoverSplitting.Model r₁)
+                    (Chal.UniversalCoverSplitting.Model r₂))).ker
+'OAI.UniversalCoverSplitting.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KahlerSplitting comparator-style: ok=36 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

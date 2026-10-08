@@ -1,0 +1,45 @@
+OAI.CenteredDiskEndpoint.main_endpoint : OAI.CenteredDiskEndpoint.EndpointStatement
+'OAI.CenteredDiskEndpoint.main_endpoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.CenteredDiskEndpoint.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.CenteredDiskEndpoint.absoluteDiskAverage : (OAI.CenteredDiskEndpoint.Plane → ℝ) →
+  OAI.CenteredDiskEndpoint.Plane → ℝ → ENNReal :=
+fun f x r =>
+  (∫⁻ (y : OAI.CenteredDiskEndpoint.Plane) in Metric.ball x r, ENNReal.ofReal |f y|) / ENNReal.ofReal (Real.pi * r ^ 2)
+def OAI.CenteredDiskEndpoint.maximal : (OAI.CenteredDiskEndpoint.Plane → ℝ) →
+  OAI.CenteredDiskEndpoint.Plane → ENNReal :=
+fun f x => ⨆ r, ⨆ (_ : 0 < r), OAI.CenteredDiskEndpoint.absoluteDiskAverage f x r
+def OAI.CenteredDiskEndpoint.maximalReal : (OAI.CenteredDiskEndpoint.Plane → ℝ) → OAI.CenteredDiskEndpoint.Plane → ℝ :=
+fun f x => (OAI.CenteredDiskEndpoint.maximal f x).toReal
+def OAI.CenteredDiskEndpoint.testPartial : (OAI.CenteredDiskEndpoint.Plane → ℝ) →
+  Fin 2 → OAI.CenteredDiskEndpoint.Plane → ℝ :=
+fun φ i x => (fderiv ℝ φ x) (EuclideanSpace.single i 1)
+def OAI.CenteredDiskEndpoint.HasWeakGradient : (OAI.CenteredDiskEndpoint.Plane → ℝ) →
+  (OAI.CenteredDiskEndpoint.Plane → OAI.CenteredDiskEndpoint.Plane) → Prop :=
+fun f g =>
+  ∀ (φ : OAI.CenteredDiskEndpoint.Plane → ℝ),
+    ContDiff ℝ (↑⊤) φ →
+      HasCompactSupport φ →
+        ∀ (i : Fin 2),
+          ∫ (x : OAI.CenteredDiskEndpoint.Plane), f x * OAI.CenteredDiskEndpoint.testPartial φ i x =
+            -∫ (x : OAI.CenteredDiskEndpoint.Plane), (g x).ofLp i * φ x
+def OAI.CenteredDiskEndpoint.InW11Loc : (OAI.CenteredDiskEndpoint.Plane → ℝ) → Prop :=
+fun f =>
+  MeasureTheory.LocallyIntegrable f MeasureTheory.volume ∧
+    ∃ g, MeasureTheory.LocallyIntegrable g MeasureTheory.volume ∧ OAI.CenteredDiskEndpoint.HasWeakGradient f g
+def OAI.CenteredDiskEndpoint.gradientNorm : (OAI.CenteredDiskEndpoint.Plane → OAI.CenteredDiskEndpoint.Plane) → ℝ :=
+fun g => ∫ (x : OAI.CenteredDiskEndpoint.Plane), ‖g x‖
+def OAI.CenteredDiskEndpoint.EndpointStatement : Prop :=
+∃ C,
+  0 ≤ C ∧
+    ∀ (f : OAI.CenteredDiskEndpoint.Plane → ℝ) (g : OAI.CenteredDiskEndpoint.Plane → OAI.CenteredDiskEndpoint.Plane),
+      MeasureTheory.Integrable f MeasureTheory.volume →
+        MeasureTheory.Integrable g MeasureTheory.volume →
+          OAI.CenteredDiskEndpoint.HasWeakGradient f g →
+            (∀ᵐ (x : OAI.CenteredDiskEndpoint.Plane), OAI.CenteredDiskEndpoint.maximal f x ≠ ⊤) ∧
+              MeasureTheory.LocallyIntegrable (OAI.CenteredDiskEndpoint.maximalReal f) MeasureTheory.volume ∧
+                OAI.CenteredDiskEndpoint.InW11Loc (OAI.CenteredDiskEndpoint.maximalReal f) ∧
+                  ∃ G,
+                    MeasureTheory.Integrable G MeasureTheory.volume ∧
+                      OAI.CenteredDiskEndpoint.HasWeakGradient (OAI.CenteredDiskEndpoint.maximalReal f) G ∧
+                        OAI.CenteredDiskEndpoint.gradientNorm G ≤ C * OAI.CenteredDiskEndpoint.gradientNorm g

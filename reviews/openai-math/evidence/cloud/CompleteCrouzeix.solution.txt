@@ -1,0 +1,21 @@
+OAI.CompleteCrouzeix.main : OAI.CompleteCrouzeix.UniversalBound 2 ∧
+  ∀ (C : ℝ), OAI.CompleteCrouzeix.UniversalBound C → 2 ≤ C
+'OAI.CompleteCrouzeix.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.CompleteCrouzeix.numericalRange : {n : ℕ} → Matrix (Fin n) (Fin n) ℂ → Set ℂ :=
+fun {n} A => {z | ∃ x, ‖x‖ = 1 ∧ inner ℂ x ((Matrix.toEuclideanCLM A) x) = z}
+def OAI.CompleteCrouzeix.polynomialValue : {m d : ℕ} →
+  (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℂ → Matrix (Fin m) (Fin m) ℂ :=
+fun {m d} B z => ∑ k, z ^ ↑k • B k
+def OAI.CompleteCrouzeix.polynomialAt : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → Matrix (Fin n × Fin m) (Fin n × Fin m) ℂ :=
+fun {n m d} A B => ∑ k, (A ^ ↑k).kronecker (B k)
+def OAI.CompleteCrouzeix.rangeMaximum : {n m d : ℕ} →
+  Matrix (Fin n) (Fin n) ℂ → (Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ) → ℝ :=
+fun {n m d} A B => sSup ((fun z => ‖OAI.CompleteCrouzeix.polynomialValue B z‖) '' OAI.CompleteCrouzeix.numericalRange A)
+def OAI.CompleteCrouzeix.UniversalBound : ℝ → Prop :=
+fun C =>
+  ∀ (n m d : ℕ),
+    0 < n →
+      0 < m →
+        ∀ (A : Matrix (Fin n) (Fin n) ℂ) (B : Fin (d + 1) → Matrix (Fin m) (Fin m) ℂ),
+          ‖OAI.CompleteCrouzeix.polynomialAt A B‖ ≤ C * OAI.CompleteCrouzeix.rangeMaximum A B

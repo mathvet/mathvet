@@ -1,0 +1,64 @@
+CMP OAI.PlanarHalving.power_bounds [thm] ok
+CMP OAI.PlanarHalving.switchCount [def] ok
+CMP OAI.PlanarHalving.belowCount [def] ok
+CMP OAI.PlanarHalving.slope [def] ok
+CMP OAI.PlanarHalving.Point [def] ok
+CMP OAI.PlanarHalving.Generic [def] ok
+CMP OAI.PlanarHalving.GeneralPosition [def] ok
+CMP OAI.PlanarHalving.orient [def] ok
+CMP OAI.PlanarHalving.halvingCount [def] ok
+CMP OAI.PlanarHalving.sideCount [def] ok
+Chal.PlanarHalving.power_bounds : (∃ ε,
+    0 < ε ∧
+      ∃ C n₀,
+        ∀ (n : ℕ),
+          Even n →
+            n₀ ≤ n →
+              ∀ (P : Fin n → Chal.PlanarHalving.Point),
+                Chal.PlanarHalving.GeneralPosition P → ↑(Chal.PlanarHalving.halvingCount P) ≤ C * ↑n ^ (4 / 3 - ε)) ∧
+  ∃ ε,
+    0 < ε ∧
+      ∃ C,
+        ∀ (n : ℕ),
+          1 ≤ n →
+            ∀ (P : Fin n → Chal.PlanarHalving.Point),
+              Chal.PlanarHalving.Generic P → ∀ k ≤ n, ↑(Chal.PlanarHalving.switchCount P k) ≤ C * ↑n ^ (4 / 3 - ε)
+@[reducible] def Chal.PlanarHalving.Point : Type :=
+ℝ × ℝ
+def Chal.PlanarHalving.orient : Chal.PlanarHalving.Point → Chal.PlanarHalving.Point → Chal.PlanarHalving.Point → ℝ :=
+fun p q r => (q.1 - p.1) * (r.2 - p.2) - (q.2 - p.2) * (r.1 - p.1)
+def Chal.PlanarHalving.GeneralPosition : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → Prop :=
+fun {n} P =>
+  Function.Injective P ∧ ∀ (i j l : Fin n), i ≠ j → j ≠ l → i ≠ l → Chal.PlanarHalving.orient (P i) (P j) (P l) ≠ 0
+def Chal.PlanarHalving.sideCount : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → Fin n → Fin n → ℕ :=
+fun {n} P i j => {l | 0 < Chal.PlanarHalving.orient (P i) (P j) (P l)}.card
+def Chal.PlanarHalving.halvingCount : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → ℕ :=
+fun {n} P =>
+  {ij |
+      ij.1 < ij.2 ∧
+        Chal.PlanarHalving.sideCount P ij.1 ij.2 = (n - 2) / 2 ∧
+          Chal.PlanarHalving.sideCount P ij.2 ij.1 = (n - 2) / 2}.card
+def Chal.PlanarHalving.slope : Chal.PlanarHalving.Point → Chal.PlanarHalving.Point → ℝ :=
+fun p q => (q.2 - p.2) / (q.1 - p.1)
+def Chal.PlanarHalving.Generic : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → Prop :=
+fun {n} P =>
+  Chal.PlanarHalving.GeneralPosition P ∧
+    (∀ (i j : Fin n), i ≠ j → (P i).1 ≠ (P j).1) ∧
+      (∀ (i j a b : Fin n),
+          i < j → a < b → Chal.PlanarHalving.slope (P i) (P j) = Chal.PlanarHalving.slope (P a) (P b) → i = a ∧ j = b) ∧
+        ∀ (i j a b c d : Fin n),
+          i < j →
+            a < b →
+              c < d →
+                (i, j) ≠ (a, b) →
+                  (c, d) ≠ (i, j) →
+                    (c, d) ≠ (a, b) →
+                      ∀ z ∈ openSegment ℝ (P i) (P j), z ∈ openSegment ℝ (P a) (P b) → z ∉ segment ℝ (P c) (P d)
+def Chal.PlanarHalving.belowCount : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → Fin n → Fin n → ℕ :=
+fun {n} P i j =>
+  have s := Chal.PlanarHalving.slope (P i) (P j);
+  {l | (P l).2 - s * (P l).1 < (P i).2 - s * (P i).1}.card
+def Chal.PlanarHalving.switchCount : {n : ℕ} → (Fin n → Chal.PlanarHalving.Point) → ℕ → ℕ :=
+fun {n} P k => {ij | ij.1 < ij.2 ∧ 0 < k ∧ k < n ∧ Chal.PlanarHalving.belowCount P ij.1 ij.2 = k - 1}.card
+'OAI.PlanarHalving.power_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HalvingLines comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

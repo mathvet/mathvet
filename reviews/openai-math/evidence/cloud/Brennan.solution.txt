@@ -1,0 +1,42 @@
+OAI.Brennan.main_theorem : OAI.Brennan.MainStatement
+'OAI.Brennan.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Brennan.disk : Set ℂ :=
+Metric.ball 0 1
+def OAI.Brennan.UnivalentOn : (ℂ → ℂ) → Set ℂ → Prop :=
+fun f U => DifferentiableOn ℂ f U ∧ Set.InjOn f U
+def OAI.Brennan.Schlicht : (ℂ → ℂ) → Prop :=
+fun f => OAI.Brennan.UnivalentOn f OAI.Brennan.disk ∧ f 0 = 0 ∧ deriv f 0 = 1
+def OAI.Brennan.integralMean : (ℂ → ℂ) → ℝ → ℝ → ℝ :=
+fun f t r => (2 * Real.pi)⁻¹ * ∫ (θ : ℝ) in -Real.pi..Real.pi, ‖deriv f (↑r * Complex.exp (↑θ * Complex.I))‖ ^ t
+def OAI.Brennan.beta : (ℂ → ℂ) → ℝ → EReal :=
+fun f t =>
+  Filter.limsup (fun r => ↑(Real.log (OAI.Brennan.integralMean f t r) / Real.log (1 / (1 - r))))
+    (nhdsWithin 1 (Set.Iio 1))
+def OAI.Brennan.spectrum : ℝ → EReal :=
+fun t => sSup {b | ∃ f, OAI.Brennan.Schlicht f ∧ OAI.Brennan.beta f t = b}
+def OAI.Brennan.SphericalBoundaryNontrivial : Set ℂ → Prop :=
+fun W => (frontier (OnePoint.some '' W)).Nontrivial
+def OAI.Brennan.MainStatement : Prop :=
+(∀ (ε : ℝ),
+    0 < ε →
+      ∃ C,
+        ∀ (f : ℂ → ℂ),
+          OAI.Brennan.Schlicht f →
+            ∀ (r : ℝ), 1 / 2 ≤ r → r < 1 → OAI.Brennan.integralMean f (-2) r ≤ C * (1 - r) ^ (-1 - ε)) ∧
+  OAI.Brennan.spectrum (-2) = 1 ∧
+    (∀ (W : Set ℂ),
+        IsOpen W →
+          IsConnected W →
+            SimplyConnectedSpace ↑W →
+              OAI.Brennan.SphericalBoundaryNontrivial W →
+                ∀ (φ : ℂ → ℂ),
+                  DifferentiableOn ℂ φ W →
+                    Set.BijOn φ W OAI.Brennan.disk →
+                      ∀ (s : ℝ),
+                        4 / 3 < s →
+                          s < 4 → MeasureTheory.IntegrableOn (fun z => ‖deriv φ z‖ ^ s) W MeasureTheory.volume) ∧
+      ∀ (f : ℂ → ℂ),
+        OAI.Brennan.UnivalentOn f OAI.Brennan.disk →
+          ∀ (t : ℝ),
+            -2 < t →
+              t < 2 / 3 → MeasureTheory.IntegrableOn (fun z => ‖deriv f z‖ ^ t) OAI.Brennan.disk MeasureTheory.volume

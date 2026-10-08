@@ -1,0 +1,53 @@
+OAI.PlanarHalving.power_bounds : (∃ ε,
+    0 < ε ∧
+      ∃ C n₀,
+        ∀ (n : ℕ),
+          Even n →
+            n₀ ≤ n →
+              ∀ (P : Fin n → OAI.PlanarHalving.Point),
+                OAI.PlanarHalving.GeneralPosition P → ↑(OAI.PlanarHalving.halvingCount P) ≤ C * ↑n ^ (4 / 3 - ε)) ∧
+  ∃ ε,
+    0 < ε ∧
+      ∃ C,
+        ∀ (n : ℕ),
+          1 ≤ n →
+            ∀ (P : Fin n → OAI.PlanarHalving.Point),
+              OAI.PlanarHalving.Generic P → ∀ k ≤ n, ↑(OAI.PlanarHalving.switchCount P k) ≤ C * ↑n ^ (4 / 3 - ε)
+'OAI.PlanarHalving.power_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.PlanarHalving.Point : Type :=
+ℝ × ℝ
+def OAI.PlanarHalving.orient : OAI.PlanarHalving.Point → OAI.PlanarHalving.Point → OAI.PlanarHalving.Point → ℝ :=
+fun p q r => (q.1 - p.1) * (r.2 - p.2) - (q.2 - p.2) * (r.1 - p.1)
+def OAI.PlanarHalving.GeneralPosition : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → Prop :=
+fun {n} P =>
+  Function.Injective P ∧ ∀ (i j l : Fin n), i ≠ j → j ≠ l → i ≠ l → OAI.PlanarHalving.orient (P i) (P j) (P l) ≠ 0
+def OAI.PlanarHalving.sideCount : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → Fin n → Fin n → ℕ :=
+fun {n} P i j => {l | 0 < OAI.PlanarHalving.orient (P i) (P j) (P l)}.card
+def OAI.PlanarHalving.halvingCount : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → ℕ :=
+fun {n} P =>
+  {ij |
+      ij.1 < ij.2 ∧
+        OAI.PlanarHalving.sideCount P ij.1 ij.2 = (n - 2) / 2 ∧
+          OAI.PlanarHalving.sideCount P ij.2 ij.1 = (n - 2) / 2}.card
+def OAI.PlanarHalving.slope : OAI.PlanarHalving.Point → OAI.PlanarHalving.Point → ℝ :=
+fun p q => (q.2 - p.2) / (q.1 - p.1)
+def OAI.PlanarHalving.Generic : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → Prop :=
+fun {n} P =>
+  OAI.PlanarHalving.GeneralPosition P ∧
+    (∀ (i j : Fin n), i ≠ j → (P i).1 ≠ (P j).1) ∧
+      (∀ (i j a b : Fin n),
+          i < j → a < b → OAI.PlanarHalving.slope (P i) (P j) = OAI.PlanarHalving.slope (P a) (P b) → i = a ∧ j = b) ∧
+        ∀ (i j a b c d : Fin n),
+          i < j →
+            a < b →
+              c < d →
+                (i, j) ≠ (a, b) →
+                  (c, d) ≠ (i, j) →
+                    (c, d) ≠ (a, b) →
+                      ∀ z ∈ openSegment ℝ (P i) (P j), z ∈ openSegment ℝ (P a) (P b) → z ∉ segment ℝ (P c) (P d)
+def OAI.PlanarHalving.belowCount : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → Fin n → Fin n → ℕ :=
+fun {n} P i j =>
+  have s := OAI.PlanarHalving.slope (P i) (P j);
+  {l | (P l).2 - s * (P l).1 < (P i).2 - s * (P i).1}.card
+def OAI.PlanarHalving.switchCount : {n : ℕ} → (Fin n → OAI.PlanarHalving.Point) → ℕ → ℕ :=
+fun {n} P k => {ij | ij.1 < ij.2 ∧ 0 < k ∧ k < n ∧ OAI.PlanarHalving.belowCount P ij.1 ij.2 = k - 1}.card
