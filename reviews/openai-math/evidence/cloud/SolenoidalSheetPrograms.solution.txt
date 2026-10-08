@@ -1,0 +1,231 @@
+@OAI.Solenoidal.sheet_theorem : ∀ {N : ℕ} (D : OAI.Solenoidal.SheetData N) (ν : ℝ),
+  0 < ν →
+    OAI.Solenoidal.ComputableReal ν →
+      ∃ f u X,
+        OAI.Solenoidal.SpatiallyPeriodic f ∧
+          OAI.Solenoidal.SpatiallyPeriodic u ∧
+            OAI.Solenoidal.Smooth f ∧
+              OAI.Solenoidal.Smooth u ∧
+                OAI.Solenoidal.Effective f ∧
+                  OAI.Solenoidal.MeanZero f ∧
+                    OAI.Solenoidal.DivergenceFree f ∧
+                      OAI.Solenoidal.OnePeriodic f ∧
+                        (OAI.Solenoidal.ClassicalSolution ν f u fun x x_1 => 0) ∧
+                          (∀ (v : OAI.Solenoidal.Field) (p : OAI.Solenoidal.Pressure),
+                              OAI.Solenoidal.ClassicalSolution ν f v p →
+                                ∀ (t : ℝ), 0 ≤ t → ∀ (x : OAI.Solenoidal.Space), v t x = u t x ∧ p t x = 0) ∧
+                            OAI.Solenoidal.MaterialFlow u X ∧
+                              (∀ (i : Fin N),
+                                  ∀ y ∈ (D.source i).carrier,
+                                    OAI.Solenoidal.toTorus (X 1 (OAI.Solenoidal.sheet y)) =
+                                      OAI.Solenoidal.toTorus
+                                        (OAI.Solenoidal.sheet
+                                          (OAI.Solenoidal.diagonalMap (D.source i) (D.target i) (D.ratio i) y))) ∧
+                                OAI.Solenoidal.IntegerCollars u ∧
+                                  (∀ (t : ℝ) (x : OAI.Solenoidal.Space), OAI.Solenoidal.advection u t x = 0) ∧
+                                    OAI.Solenoidal.EffectiveBounds f ∧
+                                      OAI.Solenoidal.EffectiveBounds u ∧ (N = 0 → f = 0 ∧ u = 0)
+'OAI.Solenoidal.sheet_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Solenoidal.Plane : Type :=
+Fin 2 → ℝ
+@[reducible] def OAI.Solenoidal.Space : Type :=
+Fin 3 → ℝ
+@[reducible] def OAI.Solenoidal.SpaceTime : Type :=
+ℝ × OAI.Solenoidal.Space
+@[reducible] def OAI.Solenoidal.Field : Type :=
+ℝ → OAI.Solenoidal.Space → OAI.Solenoidal.Space
+@[reducible] def OAI.Solenoidal.Pressure : Type :=
+ℝ → OAI.Solenoidal.Space → ℝ
+@[reducible] def OAI.Solenoidal.Torus : Type :=
+Fin 3 → AddCircle 10
+def OAI.Solenoidal.toTorus : OAI.Solenoidal.Space → OAI.Solenoidal.Torus :=
+fun x i => ↑(x i)
+def OAI.Solenoidal.sheet : OAI.Solenoidal.Plane → OAI.Solenoidal.Space :=
+fun y => ![y 0, y 1, 2]
+structure OAI.Solenoidal.Rectangle : Type
+number of parameters: 0
+fields:
+  OAI.Solenoidal.Rectangle.lower : Fin 2 → ℚ
+  OAI.Solenoidal.Rectangle.upper : Fin 2 → ℚ
+  OAI.Solenoidal.Rectangle.positive : ∀ (j : Fin 2), self.lower j < self.upper j
+constructor:
+  OAI.Solenoidal.Rectangle.mk (lower upper : Fin 2 → ℚ) (positive : ∀ (j : Fin 2), lower j < upper j) :
+    OAI.Solenoidal.Rectangle
+def OAI.Solenoidal.Rectangle.carrier : OAI.Solenoidal.Rectangle → Set OAI.Solenoidal.Plane :=
+fun R => {y | ∀ (j : Fin 2), ↑(R.lower j) ≤ y j ∧ y j ≤ ↑(R.upper j)}
+def OAI.Solenoidal.Rectangle.center : OAI.Solenoidal.Rectangle → OAI.Solenoidal.Plane :=
+fun R j => (↑(R.lower j) + ↑(R.upper j)) / 2
+def OAI.Solenoidal.Rectangle.halfWidth : OAI.Solenoidal.Rectangle → OAI.Solenoidal.Plane :=
+fun R j => (↑(R.upper j) - ↑(R.lower j)) / 2
+def OAI.Solenoidal.Rectangle.inCodingSquare : OAI.Solenoidal.Rectangle → Prop :=
+fun R => ∀ (j : Fin 2), 2 ≤ R.lower j ∧ R.upper j ≤ 3
+def OAI.Solenoidal.SeparatelySeparated : {N : ℕ} → (Fin N → OAI.Solenoidal.Rectangle) → Prop :=
+fun {N} R => ∀ (i j : Fin N), i ≠ j → ∃ δ, 0 < δ ∧ ∀ x ∈ (R i).carrier, ∀ y ∈ (R j).carrier, δ ≤ ‖x - y‖
+def OAI.Solenoidal.diagonalMap : OAI.Solenoidal.Rectangle →
+  OAI.Solenoidal.Rectangle → (Fin 2 → ℚ) → OAI.Solenoidal.Plane → OAI.Solenoidal.Plane :=
+fun P Q r y j => Q.center j + ↑(r j) * (y j - P.center j)
+structure OAI.Solenoidal.SheetData (N : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Solenoidal.SheetData.source : Fin N → OAI.Solenoidal.Rectangle
+  OAI.Solenoidal.SheetData.target : Fin N → OAI.Solenoidal.Rectangle
+  OAI.Solenoidal.SheetData.source_inside : ∀ (i : Fin N), (self.source i).inCodingSquare
+  OAI.Solenoidal.SheetData.target_inside : ∀ (i : Fin N), (self.target i).inCodingSquare
+  OAI.Solenoidal.SheetData.source_separated : OAI.Solenoidal.SeparatelySeparated self.source
+  OAI.Solenoidal.SheetData.target_separated : OAI.Solenoidal.SeparatelySeparated self.target
+  OAI.Solenoidal.SheetData.ratio : Fin N → Fin 2 → ℚ
+  OAI.Solenoidal.SheetData.ratio_positive : ∀ (i : Fin N) (j : Fin 2), 0 < self.ratio i j
+  OAI.Solenoidal.SheetData.image_eq : ∀ (i : Fin N),
+      OAI.Solenoidal.diagonalMap (self.source i) (self.target i) (self.ratio i) '' (self.source i).carrier =
+        (self.target i).carrier
+constructor:
+  OAI.Solenoidal.SheetData.mk {N : ℕ} (source target : Fin N → OAI.Solenoidal.Rectangle)
+    (source_inside : ∀ (i : Fin N), (source i).inCodingSquare)
+    (target_inside : ∀ (i : Fin N), (target i).inCodingSquare)
+    (source_separated : OAI.Solenoidal.SeparatelySeparated source)
+    (target_separated : OAI.Solenoidal.SeparatelySeparated target) (ratio : Fin N → Fin 2 → ℚ)
+    (ratio_positive : ∀ (i : Fin N) (j : Fin 2), 0 < ratio i j)
+    (image_eq :
+      ∀ (i : Fin N),
+        OAI.Solenoidal.diagonalMap (source i) (target i) (ratio i) '' (source i).carrier = (target i).carrier) :
+    OAI.Solenoidal.SheetData N
+def OAI.Solenoidal.deck : (Fin 3 → ℤ) → OAI.Solenoidal.Space :=
+fun k j => 10 * ↑(k j)
+def OAI.Solenoidal.SpatiallyPeriodic.{u_1} : {E : Type u_1} → (ℝ → OAI.Solenoidal.Space → E) → Prop :=
+fun {E} g => ∀ (t : ℝ) (x : OAI.Solenoidal.Space) (k : Fin 3 → ℤ), g t (x + OAI.Solenoidal.deck k) = g t x
+def OAI.Solenoidal.fundamentalCell : Set OAI.Solenoidal.Space :=
+Set.univ.pi fun x => Set.Ico 0 10
+def OAI.Solenoidal.basis : Fin 3 → OAI.Solenoidal.Space :=
+fun j => Pi.single j 1
+def OAI.Solenoidal.spatialPartial : OAI.Solenoidal.Field → Fin 3 → OAI.Solenoidal.Field :=
+fun u j t x => (fderiv ℝ (u t) x) (OAI.Solenoidal.basis j)
+def OAI.Solenoidal.timePartial : OAI.Solenoidal.Field → OAI.Solenoidal.Field :=
+fun u t x => derivWithin (fun s => u s x) (Set.Ici 0) t
+def OAI.Solenoidal.divergence : OAI.Solenoidal.Field → ℝ → OAI.Solenoidal.Space → ℝ :=
+fun u t x => ∑ j, OAI.Solenoidal.spatialPartial u j t x j
+def OAI.Solenoidal.laplacian : OAI.Solenoidal.Field → OAI.Solenoidal.Field :=
+fun u t x => ∑ j, OAI.Solenoidal.spatialPartial (OAI.Solenoidal.spatialPartial u j) j t x
+def OAI.Solenoidal.advection : OAI.Solenoidal.Field → OAI.Solenoidal.Field :=
+fun u t x => (fderiv ℝ (u t) x) (u t x)
+def OAI.Solenoidal.gradient : OAI.Solenoidal.Pressure → OAI.Solenoidal.Field :=
+fun p t x j => (fderiv ℝ (p t) x) (OAI.Solenoidal.basis j)
+def OAI.Solenoidal.DivergenceFree : OAI.Solenoidal.Field → Prop :=
+fun u => ∀ (t : ℝ) (x : OAI.Solenoidal.Space), OAI.Solenoidal.divergence u t x = 0
+def OAI.Solenoidal.MeanZero : OAI.Solenoidal.Field → Prop :=
+fun u => ∀ (t : ℝ), ∫ (x : OAI.Solenoidal.Space) in OAI.Solenoidal.fundamentalCell, u t x = 0
+def OAI.Solenoidal.Smooth : OAI.Solenoidal.Field → Prop :=
+fun u => ContDiff ℝ ↑⊤ fun z => u z.1 z.2
+def OAI.Solenoidal.OnePeriodic : OAI.Solenoidal.Field → Prop :=
+fun u => ∀ (t : ℝ) (x : OAI.Solenoidal.Space), u (t + 1) x = u t x
+def OAI.Solenoidal.IntegerCollars : OAI.Solenoidal.Field → Prop :=
+fun u => ∃ ε, 0 < ε ∧ ∀ (n : ℤ) (t : ℝ) (x : OAI.Solenoidal.Space), |t - ↑n| < ε → u t x = 0
+def OAI.Solenoidal.cylinder : ℝ → Set OAI.Solenoidal.SpaceTime :=
+fun T => Set.Icc 0 T ×ˢ Set.univ
+structure OAI.Solenoidal.ClassicalSolution (ν : ℝ) (f u : OAI.Solenoidal.Field) (p : OAI.Solenoidal.Pressure) : Prop
+number of parameters: 4
+fields:
+  OAI.Solenoidal.ClassicalSolution.spatial_periodic_u : OAI.Solenoidal.SpatiallyPeriodic u
+  OAI.Solenoidal.ClassicalSolution.spatial_periodic_p : OAI.Solenoidal.SpatiallyPeriodic p
+  OAI.Solenoidal.ClassicalSolution.continuous_u : ∀ (T : ℝ),
+      0 ≤ T → ContinuousOn (fun z => u z.1 z.2) (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.differentiable_t : ∀ (t : ℝ),
+      0 ≤ t → ∀ (x : OAI.Solenoidal.Space), DifferentiableWithinAt ℝ (fun s => u s x) (Set.Ici 0) t
+  OAI.Solenoidal.ClassicalSolution.continuous_t : ∀ (T : ℝ),
+      0 ≤ T → ContinuousOn (fun z => OAI.Solenoidal.timePartial u z.1 z.2) (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.differentiable_x : ∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (u t)
+  OAI.Solenoidal.ClassicalSolution.continuous_x : ∀ (T : ℝ),
+      0 ≤ T →
+        ∀ (j : Fin 3), ContinuousOn (fun z => OAI.Solenoidal.spatialPartial u j z.1 z.2) (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.differentiable_xx : ∀ (t : ℝ),
+      0 ≤ t → ∀ (j : Fin 3), Differentiable ℝ (OAI.Solenoidal.spatialPartial u j t)
+  OAI.Solenoidal.ClassicalSolution.continuous_xx : ∀ (T : ℝ),
+      0 ≤ T →
+        ∀ (i j : Fin 3),
+          ContinuousOn (fun z => OAI.Solenoidal.spatialPartial (OAI.Solenoidal.spatialPartial u i) j z.1 z.2)
+            (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.continuous_p : ∀ (T : ℝ),
+      0 ≤ T → ContinuousOn (fun z => p z.1 z.2) (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.differentiable_p : ∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (p t)
+  OAI.Solenoidal.ClassicalSolution.continuous_px : ∀ (T : ℝ),
+      0 ≤ T → ContinuousOn (fun z => OAI.Solenoidal.gradient p z.1 z.2) (OAI.Solenoidal.cylinder T)
+  OAI.Solenoidal.ClassicalSolution.pressure_mean_zero : ∀ (t : ℝ),
+      0 ≤ t → ∫ (x : OAI.Solenoidal.Space) in OAI.Solenoidal.fundamentalCell, p t x = 0
+  OAI.Solenoidal.ClassicalSolution.incompressible : ∀ (t : ℝ),
+      0 ≤ t → ∀ (x : OAI.Solenoidal.Space), OAI.Solenoidal.divergence u t x = 0
+  OAI.Solenoidal.ClassicalSolution.initial : ∀ (x : OAI.Solenoidal.Space), u 0 x = 0
+  OAI.Solenoidal.ClassicalSolution.equation : ∀ (t : ℝ),
+      0 ≤ t →
+        ∀ (x : OAI.Solenoidal.Space),
+          OAI.Solenoidal.timePartial u t x + OAI.Solenoidal.advection u t x =
+            -OAI.Solenoidal.gradient p t x + ν • OAI.Solenoidal.laplacian u t x + f t x
+constructor:
+  OAI.Solenoidal.ClassicalSolution.mk {ν : ℝ} {f u : OAI.Solenoidal.Field} {p : OAI.Solenoidal.Pressure}
+    (spatial_periodic_u : OAI.Solenoidal.SpatiallyPeriodic u) (spatial_periodic_p : OAI.Solenoidal.SpatiallyPeriodic p)
+    (continuous_u : ∀ (T : ℝ), 0 ≤ T → ContinuousOn (fun z => u z.1 z.2) (OAI.Solenoidal.cylinder T))
+    (differentiable_t :
+      ∀ (t : ℝ), 0 ≤ t → ∀ (x : OAI.Solenoidal.Space), DifferentiableWithinAt ℝ (fun s => u s x) (Set.Ici 0) t)
+    (continuous_t :
+      ∀ (T : ℝ), 0 ≤ T → ContinuousOn (fun z => OAI.Solenoidal.timePartial u z.1 z.2) (OAI.Solenoidal.cylinder T))
+    (differentiable_x : ∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (u t))
+    (continuous_x :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          ∀ (j : Fin 3), ContinuousOn (fun z => OAI.Solenoidal.spatialPartial u j z.1 z.2) (OAI.Solenoidal.cylinder T))
+    (differentiable_xx : ∀ (t : ℝ), 0 ≤ t → ∀ (j : Fin 3), Differentiable ℝ (OAI.Solenoidal.spatialPartial u j t))
+    (continuous_xx :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          ∀ (i j : Fin 3),
+            ContinuousOn (fun z => OAI.Solenoidal.spatialPartial (OAI.Solenoidal.spatialPartial u i) j z.1 z.2)
+              (OAI.Solenoidal.cylinder T))
+    (continuous_p : ∀ (T : ℝ), 0 ≤ T → ContinuousOn (fun z => p z.1 z.2) (OAI.Solenoidal.cylinder T))
+    (differentiable_p : ∀ (t : ℝ), 0 ≤ t → Differentiable ℝ (p t))
+    (continuous_px :
+      ∀ (T : ℝ), 0 ≤ T → ContinuousOn (fun z => OAI.Solenoidal.gradient p z.1 z.2) (OAI.Solenoidal.cylinder T))
+    (pressure_mean_zero : ∀ (t : ℝ), 0 ≤ t → ∫ (x : OAI.Solenoidal.Space) in OAI.Solenoidal.fundamentalCell, p t x = 0)
+    (incompressible : ∀ (t : ℝ), 0 ≤ t → ∀ (x : OAI.Solenoidal.Space), OAI.Solenoidal.divergence u t x = 0)
+    (initial : ∀ (x : OAI.Solenoidal.Space), u 0 x = 0)
+    (equation :
+      ∀ (t : ℝ),
+        0 ≤ t →
+          ∀ (x : OAI.Solenoidal.Space),
+            OAI.Solenoidal.timePartial u t x + OAI.Solenoidal.advection u t x =
+              -OAI.Solenoidal.gradient p t x + ν • OAI.Solenoidal.laplacian u t x + f t x) :
+    OAI.Solenoidal.ClassicalSolution ν f u p
+def OAI.Solenoidal.MaterialFlow : OAI.Solenoidal.Field → (ℝ → OAI.Solenoidal.Space → OAI.Solenoidal.Space) → Prop :=
+fun u X =>
+  (∀ (a : OAI.Solenoidal.Space), X 0 a = a) ∧
+    (∀ (a : OAI.Solenoidal.Space), ContinuousOn (fun t => X t a) (Set.Ici 0)) ∧
+      ∀ (a : OAI.Solenoidal.Space) (t : ℝ), 0 ≤ t → HasDerivWithinAt (fun s => X s a) (u t (X t a)) (Set.Ici 0) t
+def OAI.Solenoidal.spacetimeBasis : Fin 4 → OAI.Solenoidal.SpaceTime :=
+![(1, 0), (0, OAI.Solenoidal.basis 0), (0, OAI.Solenoidal.basis 1), (0, OAI.Solenoidal.basis 2)]
+def OAI.Solenoidal.mixedDerivative : OAI.Solenoidal.Field →
+  List (Fin 4) → OAI.Solenoidal.SpaceTime → OAI.Solenoidal.Space :=
+fun u x =>
+  List.brecOn (motive := fun x => OAI.Solenoidal.SpaceTime → OAI.Solenoidal.Space) x
+    (OAI.Solenoidal.mixedDerivative._f u)
+def OAI.Solenoidal.flatten : OAI.Solenoidal.SpaceTime → Fin 4 → ℝ :=
+fun z => ![z.1, z.2 0, z.2 1, z.2 2]
+def OAI.Solenoidal.NamesReal : Nat.Partrec.Code → ℝ → Prop :=
+fun c r => ∀ (n : ℕ), ∃ q, Encodable.encode q ∈ c.eval n ∧ |↑q - r| ≤ (1 / 2) ^ n
+def OAI.Solenoidal.ComputableReal : ℝ → Prop :=
+fun r => ∃ c, OAI.Solenoidal.NamesReal c r
+def OAI.Solenoidal.NamesPoint : Nat.Partrec.Code → OAI.Solenoidal.SpaceTime → Prop :=
+fun c z => ∀ (n : ℕ), ∃ q, Encodable.encode q ∈ c.eval n ∧ ‖(fun j => ↑(q j)) - OAI.Solenoidal.flatten z‖ ≤ (1 / 2) ^ n
+def OAI.Solenoidal.Effective : OAI.Solenoidal.Field → Prop :=
+fun u =>
+  ∃ e,
+    ∀ (α : List (Fin 4)) (c : Nat.Partrec.Code) (z : OAI.Solenoidal.SpaceTime),
+      OAI.Solenoidal.NamesPoint c z →
+        ∀ (ε : ℚ),
+          0 < ε →
+            ∃ q,
+              Encodable.encode q ∈ e.eval (Encodable.encode (α, c, ε)) ∧
+                ‖(fun j => ↑(q j)) - OAI.Solenoidal.mixedDerivative u α z‖ < ↑ε
+def OAI.Solenoidal.EffectiveBounds : OAI.Solenoidal.Field → Prop :=
+fun u =>
+  ∃ e,
+    ∀ (α : List (Fin 4)),
+      ∃ B,
+        Encodable.encode B ∈ e.eval (Encodable.encode α) ∧
+          0 ≤ B ∧ ∀ (z : OAI.Solenoidal.SpaceTime), ‖OAI.Solenoidal.mixedDerivative u α z‖ ≤ ↑B
