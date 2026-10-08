@@ -1,0 +1,46 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_SATComputability.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.FixedClauseThreshold.Computability.main [thm] ok
+CMP OAI.FixedClauseThreshold.Computability.MainStatement [def] ok
+CMP OAI.FixedClauseThreshold.Computability.MainStatement._proof_1 [thm] ok
+CMP OAI.FixedClauseThreshold.properSATProbability [def] ok
+CMP OAI.FixedClauseThreshold.ProperClause [def] ok
+CMP OAI.FixedClauseThreshold.Satisfiable [def] ok
+CMP OAI.FixedClauseThreshold.Satisfies [def] ok
+CMP OAI.FixedClauseThreshold.SatisfiesClause [def] ok
+CMP OAI.FixedClauseThreshold.Assignment [def] ok
+CMP OAI.FixedClauseThreshold.Formula [def] ok
+Chal.FixedClauseThreshold.Computability.main : Chal.FixedClauseThreshold.Computability.MainStatement
+@[reducible] def Chal.FixedClauseThreshold.Assignment : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.FixedClauseThreshold.ProperClause : ℕ → ℕ → Type :=
+fun n k => { C // {i | (C i).isSome = true}.card = k }
+@[reducible] def Chal.FixedClauseThreshold.Formula : ℕ → ℕ → ℕ → Type :=
+fun n k m => Fin m → Chal.FixedClauseThreshold.ProperClause n k
+def Chal.FixedClauseThreshold.SatisfiesClause : {n k : ℕ} →
+  Chal.FixedClauseThreshold.Assignment n → Chal.FixedClauseThreshold.ProperClause n k → Prop :=
+fun {n k} σ C => ∃ i, ↑C i = some (σ i)
+def Chal.FixedClauseThreshold.Satisfies : {n k m : ℕ} →
+  Chal.FixedClauseThreshold.Assignment n → Chal.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} σ F => ∀ (j : Fin m), Chal.FixedClauseThreshold.SatisfiesClause σ (F j)
+def Chal.FixedClauseThreshold.Satisfiable : {n k m : ℕ} → Chal.FixedClauseThreshold.Formula n k m → Prop :=
+fun {n k m} F => ∃ σ, Chal.FixedClauseThreshold.Satisfies σ F
+def Chal.FixedClauseThreshold.properSATProbability : ℕ → ℕ → ℕ → ℝ :=
+fun n k m =>
+  ↑(Fintype.card { F // Chal.FixedClauseThreshold.Satisfiable F }) /
+    ↑(Fintype.card (Chal.FixedClauseThreshold.Formula n k m))
+def Chal.FixedClauseThreshold.Computability.MainStatement : Prop :=
+∃ α q c,
+  0 < α ∧
+    (∀ (a : ℝ),
+        0 ≤ a →
+          a < α →
+            Filter.Tendsto (fun n => Chal.FixedClauseThreshold.properSATProbability n 3 ⌊a * ↑n⌋₊) Filter.atTop
+              (nhds 1)) ∧
+      (∀ (a : ℝ),
+          α < a →
+            Filter.Tendsto (fun n => Chal.FixedClauseThreshold.properSATProbability n 3 ⌊a * ↑n⌋₊) Filter.atTop
+              (nhds 0)) ∧
+        (Computable fun r => Encodable.encode (q r)) ∧
+          (∀ (r : ℕ), c.eval r = Part.some (Encodable.encode (q r))) ∧ ∀ (r : ℕ), |↑(q r) - α| ≤ (2 ^ r)⁻¹
+'OAI.FixedClauseThreshold.Computability.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SATComputability comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
