@@ -1,0 +1,66 @@
+CMP OAI.MetricEntropyDuality.exists_entropy_duality_counterexample_with_covers [thm] ok
+CMP OAI.MetricEntropyDuality.coveringNumber [def] ok
+CMP OAI.MetricEntropyDuality.Covers [def] ok
+CMP OAI.MetricEntropyDuality.RealSpace [def] ok
+CMP OAI.MetricEntropyDuality.polar [def] ok
+CMP OAI.MetricEntropyDuality.pairing [def] ok
+CMP OAI.MetricEntropyDuality.cube [def] ok
+CMP OAI.MetricEntropyDuality.Coverable [def] ok
+CMP OAI.MetricEntropyDuality.IsSymmetricConvexBody [ind] ok
+CMP OAI.MetricEntropyDuality.IsSymmetricConvexBody.mk [ctor] ok
+Chal.MetricEntropyDuality.exists_entropy_duality_counterexample_with_covers : ∀ (a b : ℝ),
+  1 ≤ a →
+    1 ≤ b →
+      ∃ n,
+        0 < n ∧
+          ∃ K,
+            Chal.MetricEntropyDuality.IsSymmetricConvexBody K ∧
+              Chal.MetricEntropyDuality.Coverable K (Chal.MetricEntropyDuality.cube (Fin n)) ∧
+                Chal.MetricEntropyDuality.Coverable
+                    (Chal.MetricEntropyDuality.polar (Chal.MetricEntropyDuality.cube (Fin n)))
+                    (a⁻¹ • Chal.MetricEntropyDuality.polar K) ∧
+                  b *
+                      Real.log
+                        ↑(Chal.MetricEntropyDuality.coveringNumber
+                            (Chal.MetricEntropyDuality.polar (Chal.MetricEntropyDuality.cube (Fin n)))
+                            (a⁻¹ • Chal.MetricEntropyDuality.polar K)) <
+                    Real.log ↑(Chal.MetricEntropyDuality.coveringNumber K (Chal.MetricEntropyDuality.cube (Fin n)))
+@[reducible] def Chal.MetricEntropyDuality.RealSpace.{u} : Type u → Type u :=
+fun ι => ι → ℝ
+def Chal.MetricEntropyDuality.pairing.{u} : {ι : Type u} →
+  [Fintype ι] → Chal.MetricEntropyDuality.RealSpace ι → Chal.MetricEntropyDuality.RealSpace ι → ℝ :=
+fun {ι} [Fintype ι] x y => ∑ i, x i * y i
+def Chal.MetricEntropyDuality.cube.{u} : (ι : Type u) → Set (Chal.MetricEntropyDuality.RealSpace ι) :=
+fun ι => {x | ∀ (i : ι), |x i| ≤ 1}
+def Chal.MetricEntropyDuality.polar.{u} : {ι : Type u} →
+  [Fintype ι] → Set (Chal.MetricEntropyDuality.RealSpace ι) → Set (Chal.MetricEntropyDuality.RealSpace ι) :=
+fun {ι} [Fintype ι] K => {y | ∀ x ∈ K, Chal.MetricEntropyDuality.pairing x y ≤ 1}
+def Chal.MetricEntropyDuality.Covers.{u} : {ι : Type u} →
+  {M : ℕ} →
+    Set (Chal.MetricEntropyDuality.RealSpace ι) →
+      Set (Chal.MetricEntropyDuality.RealSpace ι) → (Fin M → Chal.MetricEntropyDuality.RealSpace ι) → Prop :=
+fun {ι} {M} A B centers => ∀ x ∈ A, ∃ j, x - centers j ∈ B
+def Chal.MetricEntropyDuality.Coverable.{u} : {ι : Type u} →
+  Set (Chal.MetricEntropyDuality.RealSpace ι) → Set (Chal.MetricEntropyDuality.RealSpace ι) → Prop :=
+fun {ι} A B => ∃ M centers, Chal.MetricEntropyDuality.Covers A B centers
+def Chal.MetricEntropyDuality.coveringNumber.{u} : {ι : Type u} →
+  Set (Chal.MetricEntropyDuality.RealSpace ι) → Set (Chal.MetricEntropyDuality.RealSpace ι) → ℕ :=
+fun {ι} A B => sInf {M | ∃ centers, Chal.MetricEntropyDuality.Covers A B centers}
+structure Chal.MetricEntropyDuality.IsSymmetricConvexBody.{u} {ι : Type u} [Fintype ι]
+  (K : Set (Chal.MetricEntropyDuality.RealSpace ι)) : Prop
+number of parameters: 3
+fields:
+  Chal.MetricEntropyDuality.IsSymmetricConvexBody.isCompact : IsCompact K
+  Chal.MetricEntropyDuality.IsSymmetricConvexBody.convex : Convex ℝ K
+  Chal.MetricEntropyDuality.IsSymmetricConvexBody.symmetric : ∀ (x : Chal.MetricEntropyDuality.RealSpace ι),
+      x ∈ K ↔ -x ∈ K
+  Chal.MetricEntropyDuality.IsSymmetricConvexBody.interior_nonempty : (interior K).Nonempty
+constructor:
+  Chal.MetricEntropyDuality.IsSymmetricConvexBody.mk.{u} {ι : Type u} [Fintype ι]
+    {K : Set (Chal.MetricEntropyDuality.RealSpace ι)} (isCompact : IsCompact K) (convex : Convex ℝ K)
+    (symmetric : ∀ (x : Chal.MetricEntropyDuality.RealSpace ι), x ∈ K ↔ -x ∈ K)
+    (interior_nonempty : (interior K).Nonempty) : Chal.MetricEntropyDuality.IsSymmetricConvexBody K
+'OAI.MetricEntropyDuality.exists_entropy_duality_counterexample_with_covers' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== MetricEntropyDuality comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, 
