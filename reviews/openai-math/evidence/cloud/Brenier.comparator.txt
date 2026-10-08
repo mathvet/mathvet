@@ -1,0 +1,22 @@
+== provenance: mathvet cloud run
+machine: Linux 6.18.44-fc-v80 x86_64, 4 vCPU, 15 GB RAM, Ubuntu 24.04
+kernel lsm: 
+sandbox: landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+comparator: ca04cfc  lean4export: v4.34.0
+upstream: openai/math adc7f1241b42e322a6451854ab7e4b4c146bf78a
+session: https://claude.ai/code/session_017ZHFijZPk75ahT9J1MUqok
+== Brenier comparator start 2026-10-08T16:14:07Z landrun=/root/.local/bin/landrun
+Building ComparatorChallenges.Brenier
+⚠ [8924/8924] Built ComparatorChallenges.Brenier (9.0s)
+warning: ComparatorChallenges/Brenier.lean:73:8: declaration uses `sorry`
+warning: ComparatorChallenges/Brenier.lean:88:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem358.one_third_stability, OAI.Problem358.one_third_exponent_is_sharp, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.Problem358.E, OAI.Problem358.uniformMeasure, OAI.Problem358.IsSupported, OAI.Problem358.IsCoupling, OAI.Problem358.quadraticPlanCost, OAI.Problem358.wasserstein2, OAI.Problem358.graphPlan, OAI.Problem358.IsQuadraticOptimalMap, OAI.Problem358.IsUniqueQuadraticOptimalMap, OAI.Problem358.mapL2Dist, OAI.Problem358.cube, OAI.Problem358.HasExactlyThreeAtoms] from ComparatorChallenges.Brenier
+Building OAI.Analysis.Brenier.Stability
+Build completed successfully (9012 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem358.one_third_stability, OAI.Problem358.one_third_exponent_is_sharp, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.Problem358.E, OAI.Problem358.uniformMeasure, OAI.Problem358.IsSupported, OAI.Problem358.IsCoupling, OAI.Problem358.quadraticPlanCost, OAI.Problem358.wasserstein2, OAI.Problem358.graphPlan, OAI.Problem358.IsQuadraticOptimalMap, OAI.Problem358.IsUniqueQuadraticOptimalMap, OAI.Problem358.mapL2Dist, OAI.Problem358.cube, OAI.Problem358.HasExactlyThreeAtoms] from OAI.Analysis.Brenier.Stability
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-08T16:18:37Z
