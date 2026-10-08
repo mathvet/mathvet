@@ -1,0 +1,8 @@
+CMP OAI.AbhyankarSathaye.exists_noncoordinate_polynomial [thm] ok
+Chal.AbhyankarSathaye.exists_noncoordinate_polynomial : ∀ (n : ℕ),
+  4 ≤ n →
+    ∃ F,
+      Nonempty ((MvPolynomial (Fin n) ℂ ⧸ Ideal.span {F}) ≃ₐ[ℂ] MvPolynomial (Fin (n - 1)) ℂ) ∧
+        ¬∃ equiv index, equiv (MvPolynomial.X index) = F
+'OAI.AbhyankarSathaye.exists_noncoordinate_polynomial' depends on axioms: [propext, Classical.choice, Quot.sound]
+== AbhyankarSathaye comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
