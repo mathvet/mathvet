@@ -1,0 +1,24 @@
+OAI.GaussianMoat.fullMain : OAI.GaussianMoat.MainEndpoint ∧ OAI.GaussianMoat.UniformEndpoint
+'OAI.GaussianMoat.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.GaussianMoat.PrimeVertex : Type :=
+{ z // Irreducible z }
+def OAI.GaussianMoat.primeGraph : ℝ → SimpleGraph OAI.GaussianMoat.PrimeVertex :=
+fun D =>
+  { Adj := fun p q => p ≠ q ∧ dist (GaussianInt.toComplex ↑p) (GaussianInt.toComplex ↑q) ≤ D, symm := ⋯, loopless := ⋯ }
+def OAI.GaussianMoat.component : ℝ → OAI.GaussianMoat.PrimeVertex → Set OAI.GaussianMoat.PrimeVertex :=
+fun D p => {q | (OAI.GaussianMoat.primeGraph D).Reachable p q}
+def OAI.GaussianMoat.MainEndpoint : Prop :=
+∀ (D : ℝ) (z : ℕ → GaussianInt),
+  (∀ (t : ℕ), Irreducible (z t)) →
+    Function.Injective z →
+      (∀ (t : ℕ), dist (GaussianInt.toComplex (z (t + 1))) (GaussianInt.toComplex (z t)) ≤ D) → False
+def OAI.GaussianMoat.UniformEndpoint : Prop :=
+∀ (D : ℝ),
+  ∃ B,
+    (∀ (p : OAI.GaussianMoat.PrimeVertex),
+        (OAI.GaussianMoat.component D p).Finite ∧ (OAI.GaussianMoat.component D p).ncard ≤ B) ∧
+      ∀ (n : ℕ) (z : Fin n → GaussianInt),
+        (∀ (i : Fin n), Irreducible (z i)) →
+          Function.Injective z →
+            (∀ (i j : Fin n), ↑j = ↑i + 1 → dist (GaussianInt.toComplex (z j)) (GaussianInt.toComplex (z i)) ≤ D) →
+              n ≤ B

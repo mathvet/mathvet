@@ -1,0 +1,33 @@
+CMP OAI.GaussianMoat.fullMain [thm] ok
+CMP OAI.GaussianMoat.UniformEndpoint [def] ok
+CMP OAI.GaussianMoat.component [def] ok
+CMP OAI.GaussianMoat.primeGraph [def] ok
+CMP OAI.GaussianMoat.primeGraph._proof_2 [thm] ok
+CMP OAI.GaussianMoat.PrimeVertex [def] ok
+CMP OAI.GaussianMoat.primeGraph._proof_1 [thm] ok
+CMP OAI.GaussianMoat.MainEndpoint [def] ok
+Chal.GaussianMoat.fullMain : Chal.GaussianMoat.MainEndpoint ∧ Chal.GaussianMoat.UniformEndpoint
+@[reducible] def Chal.GaussianMoat.PrimeVertex : Type :=
+{ z // Irreducible z }
+def Chal.GaussianMoat.primeGraph : ℝ → SimpleGraph Chal.GaussianMoat.PrimeVertex :=
+fun D =>
+  { Adj := fun p q => p ≠ q ∧ dist (GaussianInt.toComplex ↑p) (GaussianInt.toComplex ↑q) ≤ D, symm := ⋯, loopless := ⋯ }
+def Chal.GaussianMoat.component : ℝ → Chal.GaussianMoat.PrimeVertex → Set Chal.GaussianMoat.PrimeVertex :=
+fun D p => {q | (Chal.GaussianMoat.primeGraph D).Reachable p q}
+def Chal.GaussianMoat.MainEndpoint : Prop :=
+∀ (D : ℝ) (z : ℕ → GaussianInt),
+  (∀ (t : ℕ), Irreducible (z t)) →
+    Function.Injective z →
+      (∀ (t : ℕ), dist (GaussianInt.toComplex (z (t + 1))) (GaussianInt.toComplex (z t)) ≤ D) → False
+def Chal.GaussianMoat.UniformEndpoint : Prop :=
+∀ (D : ℝ),
+  ∃ B,
+    (∀ (p : Chal.GaussianMoat.PrimeVertex),
+        (Chal.GaussianMoat.component D p).Finite ∧ (Chal.GaussianMoat.component D p).ncard ≤ B) ∧
+      ∀ (n : ℕ) (z : Fin n → GaussianInt),
+        (∀ (i : Fin n), Irreducible (z i)) →
+          Function.Injective z →
+            (∀ (i j : Fin n), ↑j = ↑i + 1 → dist (GaussianInt.toComplex (z j)) (GaussianInt.toComplex (z i)) ≤ D) →
+              n ≤ B
+'OAI.GaussianMoat.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GaussianMoat comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
