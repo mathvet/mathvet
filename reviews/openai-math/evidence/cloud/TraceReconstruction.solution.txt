@@ -1,0 +1,63 @@
+OAI.TraceReconstruction.quantitative_sample_lower_bound : ∀ (s c : ℝ),
+  s ∈ Set.Ioc 0 1 →
+    c ∈ Set.Ioo 0 (1 / (4 * Real.log 2)) →
+      ∀ (n : ℕ → ℕ) (q : ℕ → ℝ),
+        Filter.Tendsto n Filter.atTop Filter.atTop →
+          (∀ (k : ℕ), q k ∈ Set.Ioo 0 1) →
+            Filter.Tendsto (fun k => q k ^ 3 * Real.log ↑(n k)) Filter.atTop Filter.atTop →
+              ∀ᶠ (k : ℕ) in Filter.atTop,
+                ENNReal.ofReal (↑(n k) ^ (c * Real.log (q k ^ 3 * Real.log ↑(n k)))) ≤
+                  OAI.TraceReconstruction.sampleComplexity (n k) (q k) s
+'OAI.TraceReconstruction.quantitative_sample_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.TraceReconstruction.superpolynomial_one_trace : ∀ q ∈ Set.Ioo 0 1,
+  ∀ (C : ℝ), 0 < C → Filter.Tendsto (fun n => ↑n ^ C * OAI.TraceReconstruction.minTraceTV n q) Filter.atTop (nhds 0)
+'OAI.TraceReconstruction.superpolynomial_one_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.TraceReconstruction.superpolynomial_sample_complexity : ∀ q ∈ Set.Ioo 0 1,
+  ∀ s ∈ Set.Ioc 0 1,
+    ∀ (C : ℝ),
+      0 < C →
+        Filter.Tendsto (fun n => OAI.TraceReconstruction.sampleComplexity n q s / ENNReal.ofReal (↑n ^ C)) Filter.atTop
+          (nhds ⊤)
+'OAI.TraceReconstruction.superpolynomial_sample_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.TraceReconstruction.Word : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.TraceReconstruction.Mask : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.TraceReconstruction.Trace : Type :=
+List Bool
+def OAI.TraceReconstruction.traceOfMask : {n : ℕ} →
+  OAI.TraceReconstruction.Word n → OAI.TraceReconstruction.Mask n → OAI.TraceReconstruction.Trace :=
+fun {n} x a => List.map x (List.filter (fun i => a i) (List.finRange n))
+def OAI.TraceReconstruction.maskWeight : {n : ℕ} → ℝ → OAI.TraceReconstruction.Mask n → ℝ :=
+fun {n} q a => ∏ i, if a i = true then 1 - q else q
+def OAI.TraceReconstruction.traceMass : {n : ℕ} →
+  ℝ → OAI.TraceReconstruction.Word n → OAI.TraceReconstruction.Trace → ℝ :=
+fun {n} q x w => ∑ a, if OAI.TraceReconstruction.traceOfMask x a = w then OAI.TraceReconstruction.maskWeight q a else 0
+def OAI.TraceReconstruction.traceSpace : ℕ → Finset OAI.TraceReconstruction.Trace :=
+fun n => Finset.univ.biUnion fun k => Finset.image (fun x => List.ofFn x) Finset.univ
+def OAI.TraceReconstruction.traceTV : {n : ℕ} →
+  ℝ → OAI.TraceReconstruction.Word n → OAI.TraceReconstruction.Word n → ℝ :=
+fun {n} q x y =>
+  1 / 2 *
+    ∑ w ∈ OAI.TraceReconstruction.traceSpace n,
+      |OAI.TraceReconstruction.traceMass q x w - OAI.TraceReconstruction.traceMass q y w|
+def OAI.TraceReconstruction.IsEstimator : {n m : ℕ} →
+  ((Fin m → OAI.TraceReconstruction.Trace) → OAI.TraceReconstruction.Word n → ℝ) → Prop :=
+fun {n m} A =>
+  (∀ (z : Fin m → OAI.TraceReconstruction.Trace) (x : OAI.TraceReconstruction.Word n), 0 ≤ A z x) ∧
+    ∀ (z : Fin m → OAI.TraceReconstruction.Trace), ∑ x, A z x = 1
+def OAI.TraceReconstruction.reconstructionSuccess : {n m : ℕ} →
+  ℝ →
+    ((Fin m → OAI.TraceReconstruction.Trace) → OAI.TraceReconstruction.Word n → ℝ) →
+      OAI.TraceReconstruction.Word n → ℝ :=
+fun {n m} q A x =>
+  ∑ a, (∏ j, OAI.TraceReconstruction.maskWeight q (a j)) * A (fun j => OAI.TraceReconstruction.traceOfMask x (a j)) x
+def OAI.TraceReconstruction.SufficientBudget : ℕ → ℝ → ℝ → ℕ → Prop :=
+fun n q s m =>
+  ∃ A,
+    OAI.TraceReconstruction.IsEstimator A ∧
+      ∀ (x : OAI.TraceReconstruction.Word n), s ≤ OAI.TraceReconstruction.reconstructionSuccess q A x
+def OAI.TraceReconstruction.sampleComplexity : ℕ → ℝ → ℝ → ENNReal :=
+fun n q s => sInf {t | ∃ m, OAI.TraceReconstruction.SufficientBudget n q s m ∧ t = ↑m}
+def OAI.TraceReconstruction.minTraceTV : ℕ → ℝ → ℝ :=
+fun n q => sInf {t | ∃ x y, x ≠ y ∧ t = OAI.TraceReconstruction.traceTV q x y}

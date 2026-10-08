@@ -1,0 +1,7 @@
+CMP OAI.EuclideanFiveColor.no_proper_five_coloring [thm] ok
+CMP OAI.EuclideanFiveColor.ProperColoring [def] ok
+Chal.EuclideanFiveColor.no_proper_five_coloring : ¬∃ coloring, Chal.EuclideanFiveColor.ProperColoring 5 coloring
+def Chal.EuclideanFiveColor.ProperColoring : (colorCount : ℕ) → (ℂ → Fin colorCount) → Prop :=
+fun colorCount coloring => ∀ (point otherPoint : ℂ), ‖point - otherPoint‖ = 1 → coloring point ≠ coloring otherPoint
+'OAI.EuclideanFiveColor.no_proper_five_coloring' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EuclideanFiveColor comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

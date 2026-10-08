@@ -1,0 +1,378 @@
+CMP OAI.WLTime.unconditional_time_lower_bound [thm] ok
+CMP OAI.WLTime.MainClaim [def] ok
+CMP OAI.WLTime.worstTime [def] ok
+CMP OAI.WLTime.encodePair [def] ok
+CMP OAI.WLTime.matrixBits [def] ok
+CMP OAI.WLTime.Graph.adj [def] ok
+CMP OAI.WLTime.Graph [def] ok
+CMP OAI.WLTime.encodeNat [def] ok
+CMP OAI.WLTime.Model.time [def] ok
+CMP OAI.WLTime.RAM.time [def] ok
+CMP OAI.WLTime.RAM.run [def] ok
+CMP OAI.WLTime.RAM.initial [def] ok
+CMP OAI.WLTime.RAM.packedWord [def] ok
+CMP OAI.WLTime.RAM.packedWord._proof_1 [thm] ok
+CMP OAI.WLTime.Word [def] ok
+CMP OAI.WLTime.RAM.initial._proof_1 [thm] ok
+CMP OAI.WLTime.RAM.width [def] ok
+CMP OAI.WLTime.RAM [ind] ok
+CMP OAI.WLTime.RAM.mk [ctor] ok
+CMP OAI.WLTime.WordWidth.bits [def] ok
+CMP OAI.WLTime.WordWidth [ind] ok
+CMP OAI.WLTime.WordWidth.mk [ctor] ok
+CMP OAI.WLTime.RAMInstruction [ind] ok
+CMP OAI.WLTime.RAMInstruction.branchZero [ctor] ok
+CMP OAI.WLTime.RAMInstruction.store [ctor] ok
+CMP OAI.WLTime.RAMInstruction.load [ctor] ok
+CMP OAI.WLTime.RAMInstruction.compute [ctor] ok
+CMP OAI.WLTime.WordOperation [ind] ok
+CMP OAI.WLTime.WordOperation.mk [ctor] ok
+CMP OAI.WLTime.TM.time [def] ok
+CMP OAI.WLTime.TM.instDecidableHalted [def] ok
+CMP OAI.WLTime.TM.instDecidableHalted._aux_1 [def] ok
+CMP OAI.WLTime.TM.Config.state [def] ok
+CMP OAI.WLTime.TM.Config [ind] ok
+CMP OAI.WLTime.TM.Config.mk [ctor] ok
+CMP OAI.WLTime.TM.symbols [def] ok
+CMP OAI.WLTime.TM [ind] ok
+CMP OAI.WLTime.TM.mk [ctor] ok
+CMP OAI.WLTime.Move [ind] ok
+CMP OAI.WLTime.Move.right [ctor] ok
+CMP OAI.WLTime.Move.stay [ctor] ok
+CMP OAI.WLTime.Move.left [ctor] ok
+CMP OAI.WLTime.TM.tapes [def] ok
+CMP OAI.WLTime.TM.states [def] ok
+CMP OAI.WLTime.TM.halted [def] ok
+CMP OAI.WLTime.TM.run [def] ok
+CMP OAI.WLTime.TM.initial [def] ok
+CMP OAI.WLTime.TM.initial._proof_4 [thm] ok
+CMP OAI.WLTime.TM.symbol [def] ok
+CMP OAI.WLTime.TM.symbol._proof_4 [thm] ok
+CMP OAI.WLTime.TM.symbol._proof_3 [thm] ok
+CMP OAI.WLTime.TM.initial._proof_3 [thm] ok
+CMP OAI.WLTime.TM.step [def] ok
+CMP OAI.WLTime.Move.displacement [def] ok
+CMP OAI.WLTime.Move.displacement.match_1 [def] ok
+CMP OAI.WLTime.Move.casesOn [def] ok
+CMP OAI.WLTime.Move.rec [rec] ok
+CMP OAI.WLTime.TM.Config.head [def] ok
+CMP OAI.WLTime.TM.Config.tape [def] ok
+CMP OAI.WLTime.TM.transition [def] ok
+CMP OAI.WLTime.TM.halts [def] ok
+CMP OAI.WLTime.registerBits [def] ok
+CMP OAI.WLTime.wordBits [def] ok
+CMP OAI.WLTime.TM.outputs [def] ok
+CMP OAI.WLTime.TM.tapes_pos [thm] ok
+CMP OAI.WLTime.RAMInstruction.jump [ctor] ok
+CMP OAI.WLTime.RAMInstruction.halt [ctor] ok
+CMP OAI.WLTime.RAM.registers [def] ok
+CMP OAI.WLTime.RAM.locations_pos [thm] ok
+CMP OAI.WLTime.RAM.locations [def] ok
+CMP OAI.WLTime.RAM.Config.mk [ctor] ok
+CMP OAI.WLTime.RAM.Config [ind] ok
+CMP OAI.WLTime.RAM.step [def] ok
+CMP OAI.WLTime.RAM.Config.pc [def] ok
+CMP OAI.WLTime.RAM.program [def] ok
+CMP OAI.WLTime.RAM.execute [def] ok
+CMP OAI.WLTime.RAM.execute._f [def] ok
+CMP OAI.WLTime.WordOperation.apply [def] ok
+CMP OAI.WLTime.RAM.Config.answer [def] ok
+CMP OAI.WLTime.RAM.Config.memory [def] ok
+CMP OAI.WLTime.RAM.Config.registers [def] ok
+CMP OAI.WLTime.RAM.execute.match_1 [def] ok
+CMP OAI.WLTime.RAMInstruction.casesOn [def] ok
+CMP OAI.WLTime.RAMInstruction.rec [rec] ok
+CMP OAI.WLTime.RAMInstruction.below [def] ok
+CMP OAI.WLTime.RAMInstruction.brecOn [def] ok
+CMP OAI.WLTime.RAMInstruction.brecOn.go [def] ok
+CMP OAI.WLTime.RAM.step.match_1 [def] ok
+CMP OAI.WLTime.RAM.halts [def] ok
+CMP OAI.WLTime.Model.halts.match_1 [def] ok
+CMP OAI.WLTime.Model.casesOn [def] ok
+CMP OAI.WLTime.Model.rec [rec] ok
+CMP OAI.WLTime.Model.ram [ctor] ok
+CMP OAI.WLTime.Model [ind] ok
+CMP OAI.WLTime.Model.turing [ctor] ok
+CMP OAI.WLTime.InputClass.contains [def] ok
+CMP OAI.WLTime.Graph.diameterTwo [def] ok
+CMP OAI.WLTime.InputClass.contains.match_1 [def] ok
+CMP OAI.WLTime.InputClass.casesOn [def] ok
+CMP OAI.WLTime.InputClass.rec [rec] ok
+CMP OAI.WLTime.InputClass.diameterTwo [ctor] ok
+CMP OAI.WLTime.InputClass [ind] ok
+CMP OAI.WLTime.InputClass.unrestricted [ctor] ok
+CMP OAI.WLTime.Graph.instFintype [def] ok
+CMP OAI.WLTime.Decides [def] ok
+CMP OAI.WLTime.Equivalent [def] ok
+CMP OAI.WLTime.histogram [def] ok
+CMP OAI.WLTime.tupleColor [def] ok
+CMP OAI.WLTime.tupleColor._f [def] ok
+CMP OAI.WLTime.Convention.separate [ctor] ok
+CMP OAI.WLTime.Convention [ind] ok
+CMP OAI.WLTime.Convention.joint [ctor] ok
+CMP OAI.WLTime.Color.match_1 [def] ok
+CMP OAI.WLTime.Convention.casesOn [def] ok
+CMP OAI.WLTime.Convention.rec [rec] ok
+CMP OAI.WLTime.tupleColor.match_1 [def] ok
+CMP OAI.WLTime.Color [def] ok
+CMP OAI.WLTime.Color._f [def] ok
+CMP OAI.WLTime.AtomicColor [def] ok
+CMP OAI.WLTime.Color.match_3 [def] ok
+CMP OAI.WLTime.Model.accepts [def] ok
+CMP OAI.WLTime.RAM.accepts [def] ok
+CMP OAI.WLTime.TM.accepts [def] ok
+CMP OAI.WLTime.Model.halts [def] ok
+Chal.WLTime.unconditional_time_lower_bound : Chal.WLTime.MainClaim
+inductive Chal.WLTime.Convention : Type
+number of parameters: 0
+constructors:
+Chal.WLTime.Convention.joint : Chal.WLTime.Convention
+Chal.WLTime.Convention.separate : Chal.WLTime.Convention
+def Chal.WLTime.Graph : ℕ → Type :=
+fun n => { a // (∀ (x y : Fin n), a x y = a y x) ∧ ∀ (x : Fin n), a x x = false }
+def Chal.WLTime.Graph.adj : {n : ℕ} → Chal.WLTime.Graph n → Fin n → Fin n → Bool :=
+fun {n} G => ↑G
+def Chal.WLTime.Graph.diameterTwo : {n : ℕ} → Chal.WLTime.Graph n → Prop :=
+fun {n} G => 0 < n ∧ ∀ (x y : Fin n), x = y ∨ G.adj x y = true ∨ ∃ z, G.adj x z = true ∧ G.adj z y = true
+@[reducible] def Chal.WLTime.AtomicColor : ℕ → Type :=
+fun k => (Fin k → Fin k → Bool) × (Fin k → Fin k → Bool)
+def Chal.WLTime.Color : Chal.WLTime.Convention → ℕ → ℕ → Type :=
+fun c k x => Nat.brecOn x (Chal.WLTime.Color._f c k)
+def Chal.WLTime.tupleColor : {n : ℕ} →
+  (c : Chal.WLTime.Convention) → (k : ℕ) → Chal.WLTime.Graph n → (t : ℕ) → (Fin k → Fin n) → Chal.WLTime.Color c k t :=
+fun {n} c k G x x_1 =>
+  Nat.brecOn (motive := fun x => (c : Chal.WLTime.Convention) → (Fin k → Fin n) → Chal.WLTime.Color c k x) x
+    (Chal.WLTime.tupleColor._f k G) c x_1
+def Chal.WLTime.histogram : {n : ℕ} →
+  (c : Chal.WLTime.Convention) → (k : ℕ) → Chal.WLTime.Graph n → (t : ℕ) → Multiset (Chal.WLTime.Color c k t) :=
+fun {n} c k G t => Multiset.map (Chal.WLTime.tupleColor c k G t) Finset.univ.val
+def Chal.WLTime.Equivalent : {n : ℕ} → Chal.WLTime.Convention → ℕ → Chal.WLTime.Graph n → Chal.WLTime.Graph n → Prop :=
+fun {n} c k G H => ∀ (t : ℕ), Chal.WLTime.histogram c k G t = Chal.WLTime.histogram c k H t
+def Chal.WLTime.encodeNat : ℕ → List Bool :=
+fun n =>
+  have bits := List.map (fun b => decide (b = 1)) (Nat.digits 2 n);
+  List.replicate bits.length true ++ [false] ++ bits
+def Chal.WLTime.matrixBits : {n : ℕ} → Chal.WLTime.Graph n → List Bool :=
+fun {n} G => (List.ofFn fun i => List.ofFn fun j => G.adj i j).flatten
+def Chal.WLTime.encodePair : {n : ℕ} → Chal.WLTime.Graph n → Chal.WLTime.Graph n → List Bool :=
+fun {n} G H => Chal.WLTime.encodeNat n ++ Chal.WLTime.matrixBits G ++ Chal.WLTime.matrixBits H
+inductive Chal.WLTime.Move : Type
+number of parameters: 0
+constructors:
+Chal.WLTime.Move.left : Chal.WLTime.Move
+Chal.WLTime.Move.stay : Chal.WLTime.Move
+Chal.WLTime.Move.right : Chal.WLTime.Move
+def Chal.WLTime.Move.displacement : Chal.WLTime.Move → ℤ :=
+fun x =>
+  match x with
+  | Chal.WLTime.Move.left => -1
+  | Chal.WLTime.Move.stay => 0
+  | Chal.WLTime.Move.right => 1
+structure Chal.WLTime.TM : Type
+number of parameters: 0
+fields:
+  Chal.WLTime.TM.tapes : ℕ
+  Chal.WLTime.TM.states : ℕ
+  Chal.WLTime.TM.symbols : ℕ
+  Chal.WLTime.TM.tapes_pos : 0 < self.tapes
+  Chal.WLTime.TM.states_ge : 3 ≤ self.states
+  Chal.WLTime.TM.symbols_ge : 3 ≤ self.symbols
+  Chal.WLTime.TM.transition : Fin self.states →
+      (Fin self.tapes → Fin self.symbols) →
+        Fin self.states × (Fin self.tapes → Fin self.symbols) × (Fin self.tapes → Chal.WLTime.Move)
+constructor:
+  Chal.WLTime.TM.mk (tapes states symbols : ℕ) (tapes_pos : 0 < tapes) (states_ge : 3 ≤ states)
+    (symbols_ge : 3 ≤ symbols)
+    (transition :
+      Fin states →
+        (Fin tapes → Fin symbols) → Fin states × (Fin tapes → Fin symbols) × (Fin tapes → Chal.WLTime.Move)) :
+    Chal.WLTime.TM
+structure Chal.WLTime.TM.Config (M : Chal.WLTime.TM) : Type
+number of parameters: 1
+fields:
+  Chal.WLTime.TM.Config.state : Fin M.states
+  Chal.WLTime.TM.Config.head : Fin M.tapes → ℤ
+  Chal.WLTime.TM.Config.tape : Fin M.tapes → ℤ → Fin M.symbols
+constructor:
+  Chal.WLTime.TM.Config.mk {M : Chal.WLTime.TM} (state : Fin M.states) (head : Fin M.tapes → ℤ)
+    (tape : Fin M.tapes → ℤ → Fin M.symbols) : M.Config
+def Chal.WLTime.TM.symbol : (M : Chal.WLTime.TM) → Bool → Fin M.symbols :=
+fun M b => if b = true then ⟨2, ⋯⟩ else ⟨1, ⋯⟩
+def Chal.WLTime.TM.initial : (M : Chal.WLTime.TM) → List Bool → M.Config :=
+fun M w =>
+  { state := ⟨0, ⋯⟩, head := fun x => 0,
+    tape := fun a z => if ↑a = 0 ∧ 0 ≤ z ∧ z.toNat < w.length then M.symbol (w.getD z.toNat false) else ⟨0, ⋯⟩ }
+def Chal.WLTime.TM.halted : (M : Chal.WLTime.TM) → M.Config → Prop :=
+fun M C => ↑C.state = 1 ∨ ↑C.state = 2
+def Chal.WLTime.TM.step : (M : Chal.WLTime.TM) → M.Config → M.Config :=
+fun M C =>
+  if M.halted C then C
+  else
+    have tr := M.transition C.state fun a => C.tape a (C.head a);
+    { state := tr.1, head := fun a => C.head a + (tr.2.2 a).displacement,
+      tape := fun a z => if z = C.head a then tr.2.1 a else C.tape a z }
+def Chal.WLTime.TM.run : (M : Chal.WLTime.TM) → List Bool → ℕ → M.Config :=
+fun M w t => M.step^[t] (M.initial w)
+def Chal.WLTime.TM.halts : Chal.WLTime.TM → List Bool → Prop :=
+fun M w => ∃ t, M.halted (M.run w t)
+def Chal.WLTime.TM.time : Chal.WLTime.TM → List Bool → ℕ :=
+fun M w => if h : M.halts w then Nat.find h else 0
+def Chal.WLTime.TM.accepts : Chal.WLTime.TM → List Bool → Prop :=
+fun M w => ∃ t, ↑(M.run w t).state = 1
+def Chal.WLTime.TM.outputs : Chal.WLTime.TM → List Bool → List Bool → Prop :=
+fun M input output =>
+  M.halts input ∧ ∀ (i : Fin output.length), (M.run input (M.time input)).tape ⟨0, ⋯⟩ ↑↑i = M.symbol (output.get i)
+@[reducible] def Chal.WLTime.Word : ℕ → Type :=
+fun w => Fin (2 ^ w)
+def Chal.WLTime.wordBits : {w : ℕ} → Chal.WLTime.Word w → List Bool :=
+fun {w} a => List.ofFn fun i => (↑a).testBit ↑i
+def Chal.WLTime.registerBits : {R w : ℕ} → (Fin R → Chal.WLTime.Word w) → List Bool :=
+fun {R w} a => (List.ofFn fun i => Chal.WLTime.wordBits (a i)).flatten
+structure Chal.WLTime.WordOperation (R : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.WLTime.WordOperation.apply : (w : ℕ) → (Fin R → Chal.WLTime.Word w) → Fin R → Chal.WLTime.Word w
+  Chal.WLTime.WordOperation.implementation : Chal.WLTime.TM
+  Chal.WLTime.WordOperation.exponent : ℕ
+  Chal.WLTime.WordOperation.constant : ℕ
+  Chal.WLTime.WordOperation.computes : ∀ (w : ℕ) (a : Fin R → Chal.WLTime.Word w),
+      self.implementation.outputs (Chal.WLTime.encodeNat w ++ Chal.WLTime.registerBits a)
+        (Chal.WLTime.registerBits (self.apply w a))
+  Chal.WLTime.WordOperation.cost : ∀ (w : ℕ) (a : Fin R → Chal.WLTime.Word w),
+      self.implementation.time (Chal.WLTime.encodeNat w ++ Chal.WLTime.registerBits a) ≤
+        self.constant * (w + 1) ^ self.exponent
+constructor:
+  Chal.WLTime.WordOperation.mk {R : ℕ} (apply : (w : ℕ) → (Fin R → Chal.WLTime.Word w) → Fin R → Chal.WLTime.Word w)
+    (implementation : Chal.WLTime.TM) (exponent constant : ℕ)
+    (computes :
+      ∀ (w : ℕ) (a : Fin R → Chal.WLTime.Word w),
+        implementation.outputs (Chal.WLTime.encodeNat w ++ Chal.WLTime.registerBits a)
+          (Chal.WLTime.registerBits (apply w a)))
+    (cost :
+      ∀ (w : ℕ) (a : Fin R → Chal.WLTime.Word w),
+        implementation.time (Chal.WLTime.encodeNat w ++ Chal.WLTime.registerBits a) ≤ constant * (w + 1) ^ exponent) :
+    Chal.WLTime.WordOperation R
+inductive Chal.WLTime.RAMInstruction : ℕ → ℕ → Type
+number of parameters: 2
+constructors:
+Chal.WLTime.RAMInstruction.halt : {R P : ℕ} → Bool → Chal.WLTime.RAMInstruction R P
+Chal.WLTime.RAMInstruction.jump : {R P : ℕ} → Fin P → Chal.WLTime.RAMInstruction R P
+Chal.WLTime.RAMInstruction.compute : {R P : ℕ} →
+  Chal.WLTime.WordOperation R → Chal.WLTime.RAMInstruction R P → Chal.WLTime.RAMInstruction R P
+Chal.WLTime.RAMInstruction.load : {R P : ℕ} →
+  Fin R → Fin R → Chal.WLTime.RAMInstruction R P → Chal.WLTime.RAMInstruction R P
+Chal.WLTime.RAMInstruction.store : {R P : ℕ} →
+  Fin R → Fin R → Chal.WLTime.RAMInstruction R P → Chal.WLTime.RAMInstruction R P
+Chal.WLTime.RAMInstruction.branchZero : {R P : ℕ} →
+  Fin R → Chal.WLTime.RAMInstruction R P → Chal.WLTime.RAMInstruction R P → Chal.WLTime.RAMInstruction R P
+structure Chal.WLTime.WordWidth : Type
+number of parameters: 0
+fields:
+  Chal.WLTime.WordWidth.bits : ℕ → ℕ
+  Chal.WLTime.WordWidth.positive : ∀ (n : ℕ), 0 < self.bits n
+  Chal.WLTime.WordWidth.bound : ℕ
+  Chal.WLTime.WordWidth.logarithmic : ∀ (n : ℕ), self.bits n ≤ self.bound * ((n + 2).log2 + 1)
+constructor:
+  Chal.WLTime.WordWidth.mk (bits : ℕ → ℕ) (positive : ∀ (n : ℕ), 0 < bits n) (bound : ℕ)
+    (logarithmic : ∀ (n : ℕ), bits n ≤ bound * ((n + 2).log2 + 1)) : Chal.WLTime.WordWidth
+structure Chal.WLTime.RAM : Type
+number of parameters: 0
+fields:
+  Chal.WLTime.RAM.registers : ℕ
+  Chal.WLTime.RAM.locations : ℕ
+  Chal.WLTime.RAM.locations_pos : 0 < self.locations
+  Chal.WLTime.RAM.width : Chal.WLTime.WordWidth
+  Chal.WLTime.RAM.program : Fin self.locations → Chal.WLTime.RAMInstruction self.registers self.locations
+  Chal.WLTime.RAM.input_fits : ∀ (n : ℕ) (G H : Chal.WLTime.Graph n),
+      (Chal.WLTime.encodePair G H).length ≤ self.width.bits n * 2 ^ self.width.bits n
+constructor:
+  Chal.WLTime.RAM.mk (registers locations : ℕ) (locations_pos : 0 < locations) (width : Chal.WLTime.WordWidth)
+    (program : Fin locations → Chal.WLTime.RAMInstruction registers locations)
+    (input_fits :
+      ∀ (n : ℕ) (G H : Chal.WLTime.Graph n), (Chal.WLTime.encodePair G H).length ≤ width.bits n * 2 ^ width.bits n) :
+    Chal.WLTime.RAM
+structure Chal.WLTime.RAM.Config (A : Chal.WLTime.RAM) (n : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.WLTime.RAM.Config.pc : Fin A.locations
+  Chal.WLTime.RAM.Config.registers : Fin A.registers → Chal.WLTime.Word (A.width.bits n)
+  Chal.WLTime.RAM.Config.memory : Chal.WLTime.Word (A.width.bits n) → Chal.WLTime.Word (A.width.bits n)
+  Chal.WLTime.RAM.Config.answer : Option Bool
+constructor:
+  Chal.WLTime.RAM.Config.mk {A : Chal.WLTime.RAM} {n : ℕ} (pc : Fin A.locations)
+    (registers : Fin A.registers → Chal.WLTime.Word (A.width.bits n))
+    (memory : Chal.WLTime.Word (A.width.bits n) → Chal.WLTime.Word (A.width.bits n)) (answer : Option Bool) : A.Config n
+def Chal.WLTime.RAM.packedWord : (w : ℕ) → List Bool → Chal.WLTime.Word w → Chal.WLTime.Word w :=
+fun w input a => ⟨(∑ i ∈ Finset.range w, if input.getD (w * ↑a + i) false = true then 2 ^ i else 0) % 2 ^ w, ⋯⟩
+def Chal.WLTime.RAM.initial : (A : Chal.WLTime.RAM) → (n : ℕ) → List Bool → A.Config n :=
+fun A n w =>
+  { pc := ⟨0, ⋯⟩, registers := fun x => ⟨0, ⋯⟩, memory := Chal.WLTime.RAM.packedWord (A.width.bits n) w,
+    answer := none }
+def Chal.WLTime.RAM.execute : (A : Chal.WLTime.RAM) →
+  {n : ℕ} → Chal.WLTime.RAMInstruction A.registers A.locations → A.Config n → A.Config n :=
+fun A {n} x x_1 =>
+  Chal.WLTime.RAMInstruction.brecOn (motive := fun x => A.Config n → A.Config n) x (Chal.WLTime.RAM.execute._f A) x_1
+def Chal.WLTime.RAM.step : (A : Chal.WLTime.RAM) → {n : ℕ} → A.Config n → A.Config n :=
+fun A {n} C =>
+  match C.answer with
+  | some val => C
+  | none => A.execute (A.program C.pc) C
+def Chal.WLTime.RAM.run : (A : Chal.WLTime.RAM) → (n : ℕ) → List Bool → ℕ → A.Config n :=
+fun A n w t => A.step^[t] (A.initial n w)
+def Chal.WLTime.RAM.halts : Chal.WLTime.RAM → ℕ → List Bool → Prop :=
+fun A n w => ∃ t, (A.run n w t).answer.isSome = true
+def Chal.WLTime.RAM.time : Chal.WLTime.RAM → ℕ → List Bool → ℕ :=
+fun A n w => if h : A.halts n w then Nat.find h else 0
+def Chal.WLTime.RAM.accepts : Chal.WLTime.RAM → ℕ → List Bool → Prop :=
+fun A n w => ∃ t, (A.run n w t).answer = some true
+inductive Chal.WLTime.Model : Type
+number of parameters: 0
+constructors:
+Chal.WLTime.Model.turing : Chal.WLTime.TM → Chal.WLTime.Model
+Chal.WLTime.Model.ram : Chal.WLTime.RAM → Chal.WLTime.Model
+def Chal.WLTime.Model.halts : Chal.WLTime.Model → ℕ → List Bool → Prop :=
+fun A n w =>
+  match A with
+  | Chal.WLTime.Model.turing M => M.halts w
+  | Chal.WLTime.Model.ram M => M.halts n w
+def Chal.WLTime.Model.accepts : Chal.WLTime.Model → ℕ → List Bool → Prop :=
+fun A n w =>
+  match A with
+  | Chal.WLTime.Model.turing M => M.accepts w
+  | Chal.WLTime.Model.ram M => M.accepts n w
+def Chal.WLTime.Model.time : Chal.WLTime.Model → ℕ → List Bool → ℕ :=
+fun A n w =>
+  match A with
+  | Chal.WLTime.Model.turing M => M.time w
+  | Chal.WLTime.Model.ram M => M.time n w
+inductive Chal.WLTime.InputClass : Type
+number of parameters: 0
+constructors:
+Chal.WLTime.InputClass.unrestricted : Chal.WLTime.InputClass
+Chal.WLTime.InputClass.diameterTwo : Chal.WLTime.InputClass
+def Chal.WLTime.InputClass.contains : Chal.WLTime.InputClass →
+  {n : ℕ} → Chal.WLTime.Graph n → Chal.WLTime.Graph n → Prop :=
+fun p {n} G H =>
+  match p with
+  | Chal.WLTime.InputClass.unrestricted => True
+  | Chal.WLTime.InputClass.diameterTwo => G.diameterTwo ∧ H.diameterTwo
+def Chal.WLTime.Decides : Chal.WLTime.Model → Chal.WLTime.Convention → ℕ → Chal.WLTime.InputClass → Prop :=
+fun A c k p =>
+  ∀ (n : ℕ) (G H : Chal.WLTime.Graph n),
+    p.contains G H →
+      A.halts n (Chal.WLTime.encodePair G H) ∧
+        (A.accepts n (Chal.WLTime.encodePair G H) ↔ Chal.WLTime.Equivalent c k G H)
+def Chal.WLTime.worstTime : Chal.WLTime.Model → Chal.WLTime.InputClass → ℕ → ℕ :=
+fun A p n =>
+  Finset.univ.sup fun pair => if p.contains pair.1 pair.2 then A.time n (Chal.WLTime.encodePair pair.1 pair.2) else 0
+def Chal.WLTime.MainClaim : Prop :=
+∃ c,
+  0 < c ∧
+    ∃ k₀,
+      ∀ (k : ℕ),
+        k₀ ≤ k →
+          ∀ (convention : Chal.WLTime.Convention) (p : Chal.WLTime.InputClass) (A : Chal.WLTime.Model),
+            Chal.WLTime.Decides A convention k p →
+              ∃ n₀, ∀ (n : ℕ), n₀ ≤ n → ↑n ^ (c * ↑k) ≤ ↑(Chal.WLTime.worstTime A p n)
+'OAI.WLTime.unconditional_time_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== WeisfeilerLeman comparator-style: ok=124 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

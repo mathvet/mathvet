@@ -1,0 +1,27 @@
+CMP OAI.BorsukNine.main_theorem [thm] ok
+CMP OAI.BorsukNine.HasTenSmallCover [def] ok
+CMP OAI.BorsukNine.projector._proof_1 [thm] ok
+CMP OAI.BorsukNine.projectorSet [def] ok
+CMP OAI.BorsukNine.projector [def] ok
+CMP OAI.BorsukNine.Vector4 [def] ok
+CMP OAI.BorsukNine.Matrix4 [def] ok
+CMP OAI.BorsukNine.traceOneSymmetric [def] ok
+Chal.BorsukNine.main_theorem : IsCompact Chal.BorsukNine.projectorSet ∧
+  Chal.BorsukNine.projectorSet ⊆ Chal.BorsukNine.traceOneSymmetric ∧
+    Metric.diam Chal.BorsukNine.projectorSet = √2 ∧ ¬Chal.BorsukNine.HasTenSmallCover
+@[reducible] def Chal.BorsukNine.Vector4 : Type :=
+EuclideanSpace ℝ (Fin 4)
+@[reducible] def Chal.BorsukNine.Matrix4 : Type :=
+EuclideanSpace ℝ (Fin 4 × Fin 4)
+def Chal.BorsukNine.projector : Chal.BorsukNine.Vector4 → Chal.BorsukNine.Matrix4 :=
+fun u => WithLp.toLp 2 fun ij => u.ofLp ij.1 * u.ofLp ij.2
+def Chal.BorsukNine.projectorSet : Set Chal.BorsukNine.Matrix4 :=
+Chal.BorsukNine.projector '' {u | ‖u‖ = 1}
+def Chal.BorsukNine.traceOneSymmetric : Set Chal.BorsukNine.Matrix4 :=
+{A | (∀ (i j : Fin 4), A.ofLp (i, j) = A.ofLp (j, i)) ∧ ∑ i, A.ofLp (i, i) = 1}
+def Chal.BorsukNine.HasTenSmallCover : Prop :=
+∃ C,
+  (∀ (i : Fin 10), C i ⊆ Chal.BorsukNine.projectorSet) ∧
+    Chal.BorsukNine.projectorSet ⊆ ⋃ i, C i ∧ ∀ (i : Fin 10), Metric.diam (C i) < √2
+'OAI.BorsukNine.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BorsukNine comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

@@ -1,0 +1,46 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CriticalZ3.lean:56:8: warning: declaration uses `sorry`
+OAI.CriticalZ3.critical_no_infinite : (∀ᵐ (ω :
+    OAI.CriticalZ3.BondConfig) ∂OAI.CriticalZ3.bondLaw OAI.CriticalZ3.bondCritical,
+    ∀ (x : OAI.CriticalZ3.Vertex), (OAI.CriticalZ3.bondCluster ω x).Finite) ∧
+  ∀ᵐ (ω : OAI.CriticalZ3.SiteConfig) ∂OAI.CriticalZ3.siteLaw OAI.CriticalZ3.siteCritical,
+    ∀ (x : OAI.CriticalZ3.Vertex), (OAI.CriticalZ3.siteCluster ω x).Finite
+@[reducible] def OAI.CriticalZ3.Vertex : Type :=
+Fin 3 → ℤ
+@[reducible] def OAI.CriticalZ3.Bond : Type :=
+OAI.CriticalZ3.Vertex × Fin 3
+@[reducible] def OAI.CriticalZ3.BondConfig : Type :=
+OAI.CriticalZ3.Bond → Bool
+@[reducible] def OAI.CriticalZ3.SiteConfig : Type :=
+OAI.CriticalZ3.Vertex → Bool
+def OAI.CriticalZ3.step : OAI.CriticalZ3.Vertex → Fin 3 → OAI.CriticalZ3.Vertex :=
+fun x i j => x j + if i = j then 1 else 0
+def OAI.CriticalZ3.NearestNeighbor : OAI.CriticalZ3.Vertex → OAI.CriticalZ3.Vertex → Prop :=
+fun x y => ∃ i, y = OAI.CriticalZ3.step x i ∨ x = OAI.CriticalZ3.step y i
+def OAI.CriticalZ3.BondOpen : OAI.CriticalZ3.BondConfig → OAI.CriticalZ3.Vertex → OAI.CriticalZ3.Vertex → Prop :=
+fun ω x y => (∃ i, y = OAI.CriticalZ3.step x i ∧ ω (x, i) = true) ∨ ∃ i, x = OAI.CriticalZ3.step y i ∧ ω (y, i) = true
+def OAI.CriticalZ3.SiteOpen : OAI.CriticalZ3.SiteConfig → OAI.CriticalZ3.Vertex → OAI.CriticalZ3.Vertex → Prop :=
+fun ω x y => OAI.CriticalZ3.NearestNeighbor x y ∧ ω x = true ∧ ω y = true
+def OAI.CriticalZ3.BondConnected : OAI.CriticalZ3.BondConfig → OAI.CriticalZ3.Vertex → OAI.CriticalZ3.Vertex → Prop :=
+fun ω x y => Relation.ReflTransGen (OAI.CriticalZ3.BondOpen ω) x y
+def OAI.CriticalZ3.SiteConnected : OAI.CriticalZ3.SiteConfig → OAI.CriticalZ3.Vertex → OAI.CriticalZ3.Vertex → Prop :=
+fun ω x y => ω x = true ∧ Relation.ReflTransGen (OAI.CriticalZ3.SiteOpen ω) x y
+def OAI.CriticalZ3.bondCluster : OAI.CriticalZ3.BondConfig → OAI.CriticalZ3.Vertex → Set OAI.CriticalZ3.Vertex :=
+fun ω x => {y | OAI.CriticalZ3.BondConnected ω x y}
+def OAI.CriticalZ3.siteCluster : OAI.CriticalZ3.SiteConfig → OAI.CriticalZ3.Vertex → Set OAI.CriticalZ3.Vertex :=
+fun ω x => {y | OAI.CriticalZ3.SiteConnected ω x y}
+def OAI.CriticalZ3.bondInfiniteAt : OAI.CriticalZ3.Vertex → Set OAI.CriticalZ3.BondConfig :=
+fun x => {ω | (OAI.CriticalZ3.bondCluster ω x).Infinite}
+def OAI.CriticalZ3.siteInfiniteAt : OAI.CriticalZ3.Vertex → Set OAI.CriticalZ3.SiteConfig :=
+fun x => {ω | (OAI.CriticalZ3.siteCluster ω x).Infinite}
+def OAI.CriticalZ3.parameter : ℝ → ↑(Set.Icc 0 1) :=
+fun p => ⟨max 0 (min 1 p), ⋯⟩
+def OAI.CriticalZ3.bondLaw : ℝ → MeasureTheory.Measure OAI.CriticalZ3.BondConfig :=
+fun p =>
+  MeasureTheory.Measure.infinitePi fun x => ProbabilityTheory.bernoulliMeasure true false (OAI.CriticalZ3.parameter p)
+def OAI.CriticalZ3.siteLaw : ℝ → MeasureTheory.Measure OAI.CriticalZ3.SiteConfig :=
+fun p =>
+  MeasureTheory.Measure.infinitePi fun x => ProbabilityTheory.bernoulliMeasure true false (OAI.CriticalZ3.parameter p)
+def OAI.CriticalZ3.bondCritical : ℝ :=
+sInf {p | p ∈ Set.Icc 0 1 ∧ 0 < (OAI.CriticalZ3.bondLaw p) (OAI.CriticalZ3.bondInfiniteAt 0)}
+def OAI.CriticalZ3.siteCritical : ℝ :=
+sInf {p | p ∈ Set.Icc 0 1 ∧ 0 < (OAI.CriticalZ3.siteLaw p) (OAI.CriticalZ3.siteInfiniteAt 0)}

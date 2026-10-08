@@ -1,0 +1,49 @@
+CMP OAI.GeneralizedStarHeight.main [thm] ok
+CMP OAI.GeneralizedStarHeight.HasHeightAtMost [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.height [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.height._f [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.star [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression [ind] ok
+CMP OAI.GeneralizedStarHeight.Expression.compl [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.concat [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.union [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.letter [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.one [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.zero [ctor] ok
+CMP OAI.GeneralizedStarHeight.Expression.language.match_1 [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.casesOn [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.rec [rec] ok
+CMP OAI.GeneralizedStarHeight.Expression.below [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.brecOn [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.brecOn.go [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.language [def] ok
+CMP OAI.GeneralizedStarHeight.Expression.language._f [def] ok
+@Chal.GeneralizedStarHeight.main : ∀ {Alphabet : Type u_1} [Finite Alphabet] (L : Language Alphabet),
+  L.IsRegular → Chal.GeneralizedStarHeight.HasHeightAtMost L 3
+inductive Chal.GeneralizedStarHeight.Expression.{u} : Type u → Type u
+number of parameters: 1
+constructors:
+Chal.GeneralizedStarHeight.Expression.zero : {Alphabet : Type u} → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.one : {Alphabet : Type u} → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.letter : {Alphabet : Type u} →
+  Alphabet → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.union : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet →
+    Chal.GeneralizedStarHeight.Expression Alphabet → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.concat : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet →
+    Chal.GeneralizedStarHeight.Expression Alphabet → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.compl : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet → Chal.GeneralizedStarHeight.Expression Alphabet
+Chal.GeneralizedStarHeight.Expression.star : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet → Chal.GeneralizedStarHeight.Expression Alphabet
+def Chal.GeneralizedStarHeight.Expression.language.{u} : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet → Language Alphabet :=
+fun {Alphabet} x => Chal.GeneralizedStarHeight.Expression.brecOn x Chal.GeneralizedStarHeight.Expression.language._f
+def Chal.GeneralizedStarHeight.Expression.height.{u} : {Alphabet : Type u} →
+  Chal.GeneralizedStarHeight.Expression Alphabet → ℕ :=
+fun {Alphabet} x => Chal.GeneralizedStarHeight.Expression.brecOn x Chal.GeneralizedStarHeight.Expression.height._f
+def Chal.GeneralizedStarHeight.HasHeightAtMost.{u} : {Alphabet : Type u} → Language Alphabet → ℕ → Prop :=
+fun {Alphabet} L n => ∃ P, P.language = L ∧ P.height ≤ n
+'OAI.GeneralizedStarHeight.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== GeneralizedStarHeight comparator-style: ok=20 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

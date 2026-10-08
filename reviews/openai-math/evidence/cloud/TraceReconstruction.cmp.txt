@@ -1,0 +1,82 @@
+CMP OAI.TraceReconstruction.superpolynomial_sample_complexity [thm] ok
+CMP OAI.TraceReconstruction.sampleComplexity [def] ok
+CMP OAI.TraceReconstruction.SufficientBudget [def] ok
+CMP OAI.TraceReconstruction.reconstructionSuccess [def] ok
+CMP OAI.TraceReconstruction.traceOfMask [def] ok
+CMP OAI.TraceReconstruction.Mask [def] ok
+CMP OAI.TraceReconstruction.Word [def] ok
+CMP OAI.TraceReconstruction.Trace [def] ok
+CMP OAI.TraceReconstruction.maskWeight [def] ok
+CMP OAI.TraceReconstruction.IsEstimator [def] ok
+CMP OAI.TraceReconstruction.superpolynomial_one_trace [thm] ok
+CMP OAI.TraceReconstruction.minTraceTV [def] ok
+CMP OAI.TraceReconstruction.traceTV [def] ok
+CMP OAI.TraceReconstruction.traceMass [def] ok
+CMP OAI.TraceReconstruction.traceSpace [def] ok
+CMP OAI.TraceReconstruction.traceTV._proof_1 [thm] ok
+CMP OAI.TraceReconstruction.quantitative_sample_lower_bound [thm] ok
+Chal.TraceReconstruction.quantitative_sample_lower_bound : ∀ (s c : ℝ),
+  s ∈ Set.Ioc 0 1 →
+    c ∈ Set.Ioo 0 (1 / (4 * Real.log 2)) →
+      ∀ (n : ℕ → ℕ) (q : ℕ → ℝ),
+        Filter.Tendsto n Filter.atTop Filter.atTop →
+          (∀ (k : ℕ), q k ∈ Set.Ioo 0 1) →
+            Filter.Tendsto (fun k => q k ^ 3 * Real.log ↑(n k)) Filter.atTop Filter.atTop →
+              ∀ᶠ (k : ℕ) in Filter.atTop,
+                ENNReal.ofReal (↑(n k) ^ (c * Real.log (q k ^ 3 * Real.log ↑(n k)))) ≤
+                  Chal.TraceReconstruction.sampleComplexity (n k) (q k) s
+Chal.TraceReconstruction.superpolynomial_one_trace : ∀ q ∈ Set.Ioo 0 1,
+  ∀ (C : ℝ), 0 < C → Filter.Tendsto (fun n => ↑n ^ C * Chal.TraceReconstruction.minTraceTV n q) Filter.atTop (nhds 0)
+Chal.TraceReconstruction.superpolynomial_sample_complexity : ∀ q ∈ Set.Ioo 0 1,
+  ∀ s ∈ Set.Ioc 0 1,
+    ∀ (C : ℝ),
+      0 < C →
+        Filter.Tendsto (fun n => Chal.TraceReconstruction.sampleComplexity n q s / ENNReal.ofReal (↑n ^ C)) Filter.atTop
+          (nhds ⊤)
+@[reducible] def Chal.TraceReconstruction.Word : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.TraceReconstruction.Mask : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.TraceReconstruction.Trace : Type :=
+List Bool
+def Chal.TraceReconstruction.traceOfMask : {n : ℕ} →
+  Chal.TraceReconstruction.Word n → Chal.TraceReconstruction.Mask n → Chal.TraceReconstruction.Trace :=
+fun {n} x a => List.map x (List.filter (fun i => a i) (List.finRange n))
+def Chal.TraceReconstruction.maskWeight : {n : ℕ} → ℝ → Chal.TraceReconstruction.Mask n → ℝ :=
+fun {n} q a => ∏ i, if a i = true then 1 - q else q
+def Chal.TraceReconstruction.traceMass : {n : ℕ} →
+  ℝ → Chal.TraceReconstruction.Word n → Chal.TraceReconstruction.Trace → ℝ :=
+fun {n} q x w =>
+  ∑ a, if Chal.TraceReconstruction.traceOfMask x a = w then Chal.TraceReconstruction.maskWeight q a else 0
+def Chal.TraceReconstruction.traceSpace : ℕ → Finset Chal.TraceReconstruction.Trace :=
+fun n => Finset.univ.biUnion fun k => Finset.image (fun x => List.ofFn x) Finset.univ
+def Chal.TraceReconstruction.traceTV : {n : ℕ} →
+  ℝ → Chal.TraceReconstruction.Word n → Chal.TraceReconstruction.Word n → ℝ :=
+fun {n} q x y =>
+  1 / 2 *
+    ∑ w ∈ Chal.TraceReconstruction.traceSpace n,
+      |Chal.TraceReconstruction.traceMass q x w - Chal.TraceReconstruction.traceMass q y w|
+def Chal.TraceReconstruction.IsEstimator : {n m : ℕ} →
+  ((Fin m → Chal.TraceReconstruction.Trace) → Chal.TraceReconstruction.Word n → ℝ) → Prop :=
+fun {n m} A =>
+  (∀ (z : Fin m → Chal.TraceReconstruction.Trace) (x : Chal.TraceReconstruction.Word n), 0 ≤ A z x) ∧
+    ∀ (z : Fin m → Chal.TraceReconstruction.Trace), ∑ x, A z x = 1
+def Chal.TraceReconstruction.reconstructionSuccess : {n m : ℕ} →
+  ℝ →
+    ((Fin m → Chal.TraceReconstruction.Trace) → Chal.TraceReconstruction.Word n → ℝ) →
+      Chal.TraceReconstruction.Word n → ℝ :=
+fun {n m} q A x =>
+  ∑ a, (∏ j, Chal.TraceReconstruction.maskWeight q (a j)) * A (fun j => Chal.TraceReconstruction.traceOfMask x (a j)) x
+def Chal.TraceReconstruction.SufficientBudget : ℕ → ℝ → ℝ → ℕ → Prop :=
+fun n q s m =>
+  ∃ A,
+    Chal.TraceReconstruction.IsEstimator A ∧
+      ∀ (x : Chal.TraceReconstruction.Word n), s ≤ Chal.TraceReconstruction.reconstructionSuccess q A x
+def Chal.TraceReconstruction.sampleComplexity : ℕ → ℝ → ℝ → ENNReal :=
+fun n q s => sInf {t | ∃ m, Chal.TraceReconstruction.SufficientBudget n q s m ∧ t = ↑m}
+def Chal.TraceReconstruction.minTraceTV : ℕ → ℝ → ℝ :=
+fun n q => sInf {t | ∃ x y, x ≠ y ∧ t = Chal.TraceReconstruction.traceTV q x y}
+'OAI.TraceReconstruction.quantitative_sample_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceReconstruction.superpolynomial_one_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceReconstruction.superpolynomial_sample_complexity' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TraceReconstruction comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

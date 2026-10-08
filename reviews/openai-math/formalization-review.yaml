@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T08:21:13Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T09:07:21Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 13 accepted by the
-    real Comparator, of which 13 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 32 accepted by the
+    real Comparator, of which 32 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3532,7 +3532,8 @@ alignment:
     module: OAI.Geometry.PolarProducts.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SymmetricPolar.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 088 — Petty''s projection-volume conjecture and simplex counterexamples: Petty''s projection-volume
       inequality (the lab''s own result label); paper ''Petty’s projection-volume conjecture in dimensions at least
       four'', theorem thm:main (build/latex/sections/01_introduction.tex:36)'
@@ -3852,7 +3853,8 @@ alignment:
     module: OAI.Combinatorics.IndependentSets.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IndependentSets.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 107 — Matrix multiplication with exponent at most $9/4$: Complex square, dual, and rectangular
       exponent bounds (the lab''s own result label); paper ''None'', theorem thm:main (build/introduction.tex:72)'
     lean: OAI.MatrixMultiplication.complex_omega_le_nine_quarters, OAI.MatrixMultiplication.complex_alpha_gt_93_div_200,
@@ -4104,7 +4106,8 @@ alignment:
     module: OAI.Probability.TraceReconstruction
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TraceReconstruction.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 122 — headline claim as stated in the overview: At every fixed deletion probability in $(0,1)$,
       reconstructing an arbitrary length-$n$ binary string requires $n^{\Omega(\log\log n)}$ independent traces,
       ruling out polynomial-sample reconstruction. A uniform decoder achieves quasipolynomial sample and running-time
@@ -4197,7 +4200,8 @@ alignment:
     module: OAI.Computability.Superstring.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Superstring.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 129 — Exponential state costs for two-way automata: Two-way nondeterministic complementation
       lower bound (the lab''s own result label); paper ''An exponential state lower bound for two-way nondeterministic
       complementation'', theorem main:theorem (build/sections/introduction.tex:38)'
@@ -4247,7 +4251,8 @@ alignment:
     module: OAI.Probability.SwitchChain.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SwitchChain.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 132 — A counterexample to the quadratic sensitivity conjecture: Superquadratic sensitivity separation
       (the lab''s own result label); paper ''A superquadratic separation between sensitivity and block sensitivity'',
       theorem thm:main (build/sections/00-introduction.tex:53)'
@@ -4288,7 +4293,8 @@ alignment:
     module: OAI.Computability.WeisfeilerLeman.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/WeisfeilerLeman.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 133 — The complexity of Weisfeiler--Leman refinement: EXPTIME-completeness of variable-dimension
       Weisfeiler–Leman equivalence (the lab''s own result label); paper ''Variable-dimension Weisfeiler–Leman equivalence
       on general and subcubic graphs'', theorem thm:main (build/sections/01-introduction.tex:28)'
@@ -4304,7 +4310,8 @@ alignment:
     module: OAI.Computability.StarHeight.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GeneralizedStarHeight.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 135 — Sharp homogeneous depth-five complexity of matrix products: Homogeneous depth-five bounds
       for iterated matrix multiplication (the lab''s own result label); paper ''Homogeneous depth-five lower bounds
       for iterated matrix multiplication'', theorem thm:main (build/sections/01-introduction.tex:53)'
@@ -4547,7 +4554,8 @@ alignment:
     module: OAI.Geometry.Borsuk.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BorsukNine.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 157 — Counterexamples to the Hadwiger and Colin de Verdi\`ere conjectures: Linear list-coloring
       bound in the Hadwiger number (the lab''s own result label); paper ''A linear list-coloring bound in terms
       of the Hadwiger number'', theorem thm:main (build/sections/01-introduction.tex:25)'
@@ -4574,8 +4582,8 @@ alignment:
     module: OAI.Geometry.PlaneColoring.Five
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EuclideanFiveColor.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 158 — The Euclidean plane cannot be colored with five colors: Proper seven-coloring (the lab''s
       own result label); paper ''The Euclidean plane is not five-colorable'', theorem thm:main (build/sections/introduction.tex:62)'
     lean: OAI.Problem160.properColoring_seven
@@ -4621,7 +4629,8 @@ alignment:
     module: OAI.Combinatorics.Sidorenko.RandomHost
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SidorenkoCounterexample.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 161 — headline claim as stated in the overview: Disproves Sidorenko''s conjecture with a connected
       bipartite pattern on $35$ vertices and $66$ edges that occurs less frequently than in a random graph of the
       same edge density. The same pattern disproves the forcing conjecture of Skokan and Thoma: matching its density
@@ -5113,7 +5122,8 @@ alignment:
     module: OAI.Analysis.GroupDeterminants.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GroupRingDeterminant.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 197 — Nonsofic groups and group-ring counterexamples: Characteristic-two direct-finiteness counterexample
       (the lab''s own result label); paper ''A Counterexample to Kaplansky''s Direct-Finiteness Conjecture in Characteristic
       Two'', theorem thm:main (build/sections/01-introduction.tex:8)'
@@ -5121,7 +5131,8 @@ alignment:
     module: OAI.RingTheory.DirectFiniteness.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyDirectFiniteness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 197 — Nonsofic groups and group-ring counterexamples: Finitely presented characteristic-two
       counterexample (the lab''s own result label); paper ''A Counterexample to Kaplansky''s Direct-Finiteness Conjecture
       in Characteristic Two'', theorem thm:main (build/sections/01-introduction.tex:8)'
@@ -5129,7 +5140,8 @@ alignment:
     module: OAI.RingTheory.DirectFiniteness.FinitelyPresented
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyFinitelyPresented.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 197 — Nonsofic groups and group-ring counterexamples: Prescribed odd-characteristic counterexample
       (the lab''s own result label); paper ''A Counterexample to Kaplansky''s Direct-Finiteness Conjecture in Odd
       Characteristic'', theorem op:main (build/sections/01-introduction.tex:13)'
@@ -5357,7 +5369,8 @@ alignment:
     module: OAI.Probability.CriticalZ3.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalZ3.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 214 — The Benjamini--Schramm nonuniqueness conjecture: Nonuniqueness phase and critical laws
       on quasi-transitive graphs (the lab''s own result label); paper ''Nonuniqueness of percolation on nonamenable
       quasi-transitive graphs'', theorem thm:main (build/sections/introduction.tex:58)'
@@ -5846,7 +5859,8 @@ alignment:
     module: OAI.Probability.ThorpResults.FullDevelopment
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThorpRemaining.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 238 — Optimal logarithmic mixing of the Thorp shuffle: Nine routing-density and representation
       estimates (the lab''s own result label); paper ''Routing densities and representation contraction for Thorp
       sweeps'', theorem fac:main (build/sections/00-introduction.tex:30)'
@@ -6220,7 +6234,8 @@ alignment:
     module: OAI.Analysis.CoulombIonization.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoulombIonization.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 263 — The ionization and generalized ionization conjectures: Asymptotic outer-electron radii
       of neutral atoms (the lab''s own result label); paper ''Generalized outer-electron radii of neutral Coulomb
       atoms'', theorem intro:main (build/sections/01-introduction.tex:38)'
@@ -6285,7 +6300,8 @@ alignment:
     module: OAI.Analysis.HardSphere.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HardSphere.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 267 — headline claim as stated in the overview: Proves Bose--Einstein condensation for the exact
       canonical Gibbs state of the three-dimensional hard-sphere gas: each fixed exclusion distance and sufficiently
       small fixed density admit a strictly positive temperature, independent of volume, with positive condensate
@@ -7288,7 +7304,8 @@ alignment:
     module: OAI.Analysis.VlasovMaxwell.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/VlasovMaxwell.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 363 — Boltzmann nonuniqueness with exact local conservation: Two periodic hard-sphere Boltzmann
       solutions with the same data (the lab''s own result label); paper ''Nonuniqueness for the periodic hard-sphere
       Boltzmann equation'', theorem thm:main (build/sections/01-introduction.tex:55)'
@@ -7387,7 +7404,8 @@ alignment:
     module: OAI.MathematicalPhysics.Elasticity.Uniqueness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ElasticityUniqueness.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 373 — Nonattainment in three-marginal Coulomb transport: Coulomb Monge nonattainment with equality
       of infima (the lab''s own result label); paper ''A counterexample to the Monge ansatz for the three-marginal
       Coulomb cost'', theorem thm:main (build/sections/introduction.tex:29)'
@@ -7476,7 +7494,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T08:21:13Z'
+    generated: '2026-10-08T09:07:21Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7513,33 +7531,71 @@ mathvet:
     - PiExponent
     - ThompsonNonamenability
     comparator_pass:
+    - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoulombIonization
+    - CriticalZ3
+    - ElasticityUniqueness
     - EntangledGames
+    - EuclideanFiveColor
     - EvenBarker
+    - GeneralizedStarHeight
     - GotsmanLinial
+    - GroupRingDeterminant
+    - HardSphere
+    - IndependentSets
     - InterpolatedFactors
     - KServer
+    - KaplanskyDirectFiniteness
+    - KaplanskyFinitelyPresented
     - MahlerConjecture
     - MassAction
     - PiExponent
     - PlaneColoring
+    - SidorenkoCounterexample
+    - Superstring
+    - SwitchChain
+    - SymmetricPolar
     - ThompsonNonamenability
+    - ThorpRemaining
     - TorsionFreeZeroDivisors
+    - TraceReconstruction
+    - VlasovMaxwell
+    - WeisfeilerLeman
     comparator_sandboxed_pass:
+    - BorsukNine
     - CannonGeometricAction
     - CirculantHadamard
+    - CoulombIonization
+    - CriticalZ3
+    - ElasticityUniqueness
     - EntangledGames
+    - EuclideanFiveColor
     - EvenBarker
+    - GeneralizedStarHeight
     - GotsmanLinial
+    - GroupRingDeterminant
+    - HardSphere
+    - IndependentSets
     - InterpolatedFactors
     - KServer
+    - KaplanskyDirectFiniteness
+    - KaplanskyFinitelyPresented
     - MahlerConjecture
     - MassAction
     - PiExponent
     - PlaneColoring
+    - SidorenkoCounterexample
+    - Superstring
+    - SwitchChain
+    - SymmetricPolar
     - ThompsonNonamenability
+    - ThorpRemaining
     - TorsionFreeZeroDivisors
+    - TraceReconstruction
+    - VlasovMaxwell
+    - WeisfeilerLeman
     comparator_running:
     - ErdosReciprocal
     build_in_progress:
@@ -8408,7 +8464,7 @@ mathvet:
       `Gap.lean:128 fixedWalkParameter`), which are sound (arbitrary inhabitants, not axioms)'
     external_packages: []
     cone_lines_max: 94095
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/106.md
     audit_part: 1
   - family: '107'
@@ -8664,7 +8720,7 @@ mathvet:
       over deletion masks; standard)'
     external_packages: []
     cone_lines_max: 33984
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/122.md
     audit_part: 1
   - family: '124'
@@ -8747,7 +8803,7 @@ mathvet:
       symbols are arbitrary bit lists so the alphabet is unbounded, as the summary intends
     external_packages: []
     cone_lines_max: 20361
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/128.md
     audit_part: 1
   - family: '129'
@@ -8802,7 +8858,7 @@ mathvet:
       statement), `hasSpectralGapAtLeast` via Dirichlet form; standard in content, no Mathlib Markov-chain objects'
     external_packages: []
     cone_lines_max: 22691
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/131.md
     audit_part: 1
   - family: '132'
@@ -8841,7 +8897,7 @@ mathvet:
       G t = histogram H t`'
     external_packages: []
     cone_lines_max: 24602
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/133.md
     audit_part: 1
   - family: '134'
@@ -8854,7 +8910,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 11956
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/134.md
     audit_part: 1
   - family: '135'
@@ -9116,7 +9172,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 78964
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/156.md
     audit_part: 3
   - family: '157'
@@ -9209,7 +9265,7 @@ mathvet:
       but the standard t(H,G) and t(K₂,G) (checked)'
     external_packages: []
     cone_lines_max: 23761
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/161.md
     audit_part: 3
   - family: '162'
@@ -9748,7 +9804,7 @@ mathvet:
       for one prescribed p).'
     external_packages: []
     cone_lines_max: 18517
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/197.md
     audit_part: 2
   - family: '198'
@@ -9930,7 +9986,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 68224
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/213.md
     audit_part: 2
   - family: '214'
@@ -10294,7 +10350,7 @@ mathvet:
       false positive.'
     external_packages: []
     cone_lines_max: 142145
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/238.md
     audit_part: 2
   - family: '240'
@@ -10763,7 +10819,7 @@ mathvet:
       by hand.'
     external_packages: []
     cone_lines_max: 95362
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/263.md
     audit_part: 2
   - family: '266'
@@ -10808,7 +10864,7 @@ mathvet:
       but all objects are hand-written.'
     external_packages: []
     cone_lines_max: 71853
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/267.md
     audit_part: 2
   - family: '269'
@@ -12001,7 +12057,7 @@ mathvet:
       Maxwell and Gauss equations are written out by hand with `derivWithin (Ici 0)` at t = 0'
     external_packages: []
     cone_lines_max: 89993
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/362.md
     audit_part: 3
   - family: '363'
@@ -12149,7 +12205,7 @@ mathvet:
       energy = ∫ λ div u div v + 2μ ε(u):ε(v)'
     external_packages: []
     cone_lines_max: 31645
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/372.md
     audit_part: 3
   - family: '373'

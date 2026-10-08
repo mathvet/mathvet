@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T08:21:13Z",
+  "generated": "2026-10-08T09:07:21Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -43,34 +43,72 @@
    "ThompsonNonamenability"
   ],
   "comparator_pass": [
+   "BorsukNine",
    "CannonGeometricAction",
    "CirculantHadamard",
+   "CoulombIonization",
+   "CriticalZ3",
+   "ElasticityUniqueness",
    "EntangledGames",
+   "EuclideanFiveColor",
    "EvenBarker",
+   "GeneralizedStarHeight",
    "GotsmanLinial",
+   "GroupRingDeterminant",
+   "HardSphere",
+   "IndependentSets",
    "InterpolatedFactors",
    "KServer",
+   "KaplanskyDirectFiniteness",
+   "KaplanskyFinitelyPresented",
    "MahlerConjecture",
    "MassAction",
    "PiExponent",
    "PlaneColoring",
+   "SidorenkoCounterexample",
+   "Superstring",
+   "SwitchChain",
+   "SymmetricPolar",
    "ThompsonNonamenability",
-   "TorsionFreeZeroDivisors"
+   "ThorpRemaining",
+   "TorsionFreeZeroDivisors",
+   "TraceReconstruction",
+   "VlasovMaxwell",
+   "WeisfeilerLeman"
   ],
   "comparator_sandboxed_pass": [
+   "BorsukNine",
    "CannonGeometricAction",
    "CirculantHadamard",
+   "CoulombIonization",
+   "CriticalZ3",
+   "ElasticityUniqueness",
    "EntangledGames",
+   "EuclideanFiveColor",
    "EvenBarker",
+   "GeneralizedStarHeight",
    "GotsmanLinial",
+   "GroupRingDeterminant",
+   "HardSphere",
+   "IndependentSets",
    "InterpolatedFactors",
    "KServer",
+   "KaplanskyDirectFiniteness",
+   "KaplanskyFinitelyPresented",
    "MahlerConjecture",
    "MassAction",
    "PiExponent",
    "PlaneColoring",
+   "SidorenkoCounterexample",
+   "Superstring",
+   "SwitchChain",
+   "SymmetricPolar",
    "ThompsonNonamenability",
-   "TorsionFreeZeroDivisors"
+   "ThorpRemaining",
+   "TorsionFreeZeroDivisors",
+   "TraceReconstruction",
+   "VlasovMaxwell",
+   "WeisfeilerLeman"
   ],
   "comparator_running": [
    "ErdosReciprocal"
@@ -1462,7 +1500,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BorsukNine.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BorsukNine.json",
    "lean_sha256": "c097288178f7b71023274b9cc3e5b600fad2e9b4c85bd635b7bf06c307fc631c",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -1474,12 +1512,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:58:05Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "BorsukNine.comparator.txt",
+    "BorsukNine.log",
+    "BorsukNine.cmp.txt"
+   ]
   },
   {
    "challenge": "BoundedRecovery",
@@ -3225,7 +3267,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoulombIonization.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CoulombIonization.json",
    "lean_sha256": "c7dbbf25bf29ad6ad3dd6af5e9bfe32ad9a878d8db2f8e14e2de581e809d0f44",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -3237,12 +3279,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:56:01Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "CoulombIonization.comparator.txt",
+    "CoulombIonization.log",
+    "CoulombIonization.cmp.txt"
+   ]
   },
   {
    "challenge": "CoulombRadii",
@@ -3587,7 +3633,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalZ3.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CriticalZ3.json",
    "lean_sha256": "34ea3ff4648b6ea92c3e7d94bcb7b66047a9d0fbd1f583c461c34636cbb854d8",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -3599,12 +3645,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:27:43Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "CriticalZ3.comparator.txt",
+    "CriticalZ3.log",
+    "CriticalZ3.cmp.txt"
+   ]
   },
   {
    "challenge": "CrouzeixHilbert",
@@ -5146,7 +5196,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ElasticityUniqueness.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ElasticityUniqueness.json",
    "lean_sha256": "c4c928a811cce5bd5bc46642e8dbf7e6ffd698856f1bf6ff12a511dddfaccb20",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -5158,12 +5208,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:42:14Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "ElasticityUniqueness.comparator.txt",
+    "ElasticityUniqueness.log",
+    "ElasticityUniqueness.cmp.txt"
+   ]
   },
   {
    "challenge": "ElementaryPositivity",
@@ -5397,7 +5451,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EuclideanFiveColor.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EuclideanFiveColor.json",
    "lean_sha256": "7055ba6ec44990ca1da798f3fab5db8398b58485e633102acf6732e5bbe957cd",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "built",
    "build_seconds": null,
    "closure": "ok",
@@ -5418,12 +5472,16 @@
     "EuclideanFiveColor.challenge.txt",
     "EuclideanFiveColor.solution.txt"
    ],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:29:24Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "EuclideanFiveColor.comparator.txt",
+    "EuclideanFiveColor.log",
+    "EuclideanFiveColor.cmp.txt"
+   ]
   },
   {
    "challenge": "EuclideanRamsey",
@@ -6999,7 +7057,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GeneralizedStarHeight.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GeneralizedStarHeight.json",
    "lean_sha256": "795709e34771f1c786ecae7c123e8a586c426d8e93c8b5bc82f2904d5340556e",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -7011,12 +7069,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T09:06:25Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "GeneralizedStarHeight.comparator.txt",
+    "GeneralizedStarHeight.log",
+    "GeneralizedStarHeight.cmp.txt"
+   ]
   },
   {
    "challenge": "GotsmanLinial",
@@ -7192,7 +7254,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GroupRingDeterminant.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/GroupRingDeterminant.json",
    "lean_sha256": "4100354a6076d4108fee4bb23e41fed8da04098510d5330e56f3508e446239ac",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -7204,12 +7266,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:43:01Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "GroupRingDeterminant.comparator.txt",
+    "GroupRingDeterminant.log",
+    "GroupRingDeterminant.cmp.txt"
+   ]
   },
   {
    "challenge": "HadamardCubeFiber",
@@ -7327,7 +7393,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HardSphere.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/HardSphere.json",
    "lean_sha256": "cd20c3a47cffa87359dade3ab4d69b625a5c15aa8d0c070932c968442e250b70",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -7339,12 +7405,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:51:57Z",
+   "cloud_build": "built",
+   "cloud_closure": "problems",
+   "cloud_files": [
+    "HardSphere.comparator.txt",
+    "HardSphere.log",
+    "HardSphere.cmp.txt"
+   ]
   },
   {
    "challenge": "HarmonicArtin",
@@ -8012,7 +8082,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IndependentSets.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/IndependentSets.json",
    "lean_sha256": "60887f5c9f2971774d7c87005df03b86853bcfb1689e2f7f0ac521035555a033",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -8024,12 +8094,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:38:01Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "IndependentSets.comparator.txt",
+    "IndependentSets.log",
+    "IndependentSets.cmp.txt"
+   ]
   },
   {
    "challenge": "IndividualStrongInfiniteness",
@@ -9011,7 +9085,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyDirectFiniteness.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyDirectFiniteness.json",
    "lean_sha256": "f576c3207dcde3eeefd59aef6f2d5a8f28a1f6df4f35307399e38528dcb6c52a",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -9023,12 +9097,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:51:08Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "KaplanskyDirectFiniteness.comparator.txt",
+    "KaplanskyDirectFiniteness.log",
+    "KaplanskyDirectFiniteness.cmp.txt"
+   ]
   },
   {
    "challenge": "KaplanskyFinitelyPresented",
@@ -9056,7 +9134,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/KaplanskyFinitelyPresented.json",
    "lean_sha256": "1f7ec0c0ee0fed8abd5fabd58dfeb116f5afc0bc37d7041b2975412aca4f1638",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -9068,12 +9146,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:59:50Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "KaplanskyFinitelyPresented.comparator.txt",
+    "KaplanskyFinitelyPresented.log",
+    "KaplanskyFinitelyPresented.cmp.txt"
+   ]
   },
   {
    "challenge": "KaplanskyQuasitrace",
@@ -14652,7 +14734,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SidorenkoCounterexample.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SidorenkoCounterexample.json",
    "lean_sha256": "489688f5c4eb60c6dd8cfe0ef69663aaf11e795d6252e9626972764a50187de9",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -14664,12 +14746,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:34:45Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "SidorenkoCounterexample.comparator.txt",
+    "SidorenkoCounterexample.log",
+    "SidorenkoCounterexample.cmp.txt"
+   ]
   },
   {
    "challenge": "SiegelZeros",
@@ -16150,7 +16236,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Superstring.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Superstring.json",
    "lean_sha256": "8930f17794dfd3ca55e5c238019e5ccecf8c189d2df87df83773d00d1f4d1d3a",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -16162,12 +16248,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:42:58Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "Superstring.comparator.txt",
+    "Superstring.log",
+    "Superstring.cmp.txt"
+   ]
   },
   {
    "challenge": "SurfaceImmersion",
@@ -16244,7 +16334,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SwitchChain.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SwitchChain.json",
    "lean_sha256": "b138abf5c2f30bf7124064f3b9c1464ff9110ca4647e6a2f1117b131f636e18e",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -16256,12 +16346,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:25:33Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "SwitchChain.comparator.txt",
+    "SwitchChain.log",
+    "SwitchChain.cmp.txt"
+   ]
   },
   {
    "challenge": "SymmetricDomains",
@@ -16379,7 +16473,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SymmetricPolar.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SymmetricPolar.json",
    "lean_sha256": "3683f15ea0cf510f677e40d0db8aff6c2b442bac325241984ff5a57ca4d9075a",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -16391,12 +16485,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:51:34Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "SymmetricPolar.comparator.txt",
+    "SymmetricPolar.log",
+    "SymmetricPolar.cmp.txt"
+   ]
   },
   {
    "challenge": "Tachikawa",
@@ -16753,7 +16851,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThorpRemaining.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ThorpRemaining.json",
    "lean_sha256": "fa405f8d522221d4f7c22ef1c41e5c95509cd00c04456c6047bdd2670113ed63",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -16765,12 +16863,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:53:42Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "ThorpRemaining.comparator.txt",
+    "ThorpRemaining.log",
+    "ThorpRemaining.cmp.txt"
+   ]
   },
   {
    "challenge": "ThorpRouting",
@@ -17308,7 +17410,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TraceReconstruction.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/TraceReconstruction.json",
    "lean_sha256": "68df708f0b20b524cbc8fd02164731245982749eba0b2e8e0e1a520c85b0e70d",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -17320,12 +17422,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:55:12Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "TraceReconstruction.comparator.txt",
+    "TraceReconstruction.log",
+    "TraceReconstruction.cmp.txt"
+   ]
   },
   {
    "challenge": "TreeEdit",
@@ -18344,7 +18450,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/VlasovMaxwell.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/VlasovMaxwell.json",
    "lean_sha256": "67941fd3f10cf129d42dc4ef6ea6b8585fb90ad942108d7d71827ce9960b9cf5",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -18356,12 +18462,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:33:58Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "VlasovMaxwell.comparator.txt",
+    "VlasovMaxwell.log",
+    "VlasovMaxwell.cmp.txt"
+   ]
   },
   {
    "challenge": "WLIdentification",
@@ -18569,7 +18679,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/WeisfeilerLeman.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/WeisfeilerLeman.json",
    "lean_sha256": "b541464a2729ed16e95cb44cbb15a4737a523c406b181d3e33f70dd53baadb69",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -18581,12 +18691,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T08:41:01Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "WeisfeilerLeman.comparator.txt",
+    "WeisfeilerLeman.log",
+    "WeisfeilerLeman.cmp.txt"
+   ]
   },
   {
    "challenge": "WitnessedChoice",

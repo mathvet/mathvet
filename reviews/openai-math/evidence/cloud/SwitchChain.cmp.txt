@@ -1,0 +1,143 @@
+CMP OAI.Problem315.switch_connectivity [thm] ok
+CMP OAI.Problem315.SwitchStep [def] ok
+CMP OAI.Problem315.proposalResult [def] ok
+CMP OAI.Problem315.addedMatching [def] ok
+CMP OAI.Problem315.PerfectMatching [def] ok
+CMP OAI.Problem315.IsPerfectMatchingOn [def] ok
+CMP OAI.Problem315.FourSet [def] ok
+CMP OAI.Problem315.SwitchProposal [def] ok
+CMP OAI.Problem315.removedMatching [def] ok
+CMP OAI.Problem315.replaceEdges [def] ok
+CMP OAI.Problem315.replaceEdges._proof_2 [thm] ok
+CMP OAI.Problem315.replaceEdges._proof_1 [thm] ok
+CMP OAI.Problem315.validSwitch [def] ok
+CMP OAI.Problem315.Realizes [def] ok
+CMP OAI.Problem315.graphDegree [def] ok
+CMP OAI.Problem315.GraphState [def] ok
+CMP OAI.Problem315.Graphical [def] ok
+CMP OAI.Problem315.switch_chain_tv_bound [thm] ok
+CMP OAI.Problem315.tvDistanceFrom [def] ok
+CMP OAI.Problem315.stateCount [def] ok
+CMP OAI.Problem315.allGraphStates [def] ok
+CMP OAI.Problem315.kernelPow [def] ok
+CMP OAI.Problem315.switchKernel [def] ok
+CMP OAI.Problem315.switchKernel._proof_2 [thm] ok
+CMP OAI.Problem315.allProposals [def] ok
+CMP OAI.Problem315.switchKernel._proof_1 [thm] ok
+CMP OAI.Problem315.switch_chain_main [thm] ok
+CMP OAI.Problem315.hasSpectralGapAtLeast [def] ok
+CMP OAI.Problem315.dirichletEnergy [def] ok
+CMP OAI.Problem315.markovApply [def] ok
+CMP OAI.Problem315.uniformInner [def] ok
+CMP OAI.Problem315.uniformAverage [def] ok
+CMP OAI.Problem315.uniformVariance [def] ok
+CMP OAI.Problem315.mixingTime [def] ok
+CMP OAI.Problem315.MixedAt [def] ok
+CMP OAI.Problem315.MixedAt._proof_1 [thm] ok
+Chal.Problem315.switch_chain_main : ∀ (n : ℕ) (d : Fin n → ℕ),
+  4 ≤ n →
+    (∀ (v : Fin n), d v ≤ n - 1) →
+      Chal.Problem315.Graphical n d →
+        (∃ (h : ∃ t, Chal.Problem315.MixedAt n d t), Chal.Problem315.mixingTime n d h ≤ 2 * n ^ 8) ∧
+          (Chal.Problem315.stateCount n d = 1 →
+              Chal.Problem315.MixedAt n d 0 ∧
+                ∀ (h : ∃ t, Chal.Problem315.MixedAt n d t), Chal.Problem315.mixingTime n d h = 0) ∧
+            (1 < Chal.Problem315.stateCount n d →
+              Chal.Problem315.hasSpectralGapAtLeast n d (1 / (24 * ↑n ^ 2 * ↑(n.choose 4))))
+Chal.Problem315.switch_chain_tv_bound : ∀ (n : ℕ) (d : Fin n → ℕ),
+  4 ≤ n →
+    (∀ (v : Fin n), d v ≤ n - 1) →
+      Chal.Problem315.Graphical n d →
+        1 < Chal.Problem315.stateCount n d →
+          ∀ (t : ℕ) (G : Chal.Problem315.GraphState n d),
+            Chal.Problem315.tvDistanceFrom n d t G ≤
+              √↑(Chal.Problem315.stateCount n d) / 2 * Real.exp (-↑t / (24 * ↑n ^ 2 * ↑(n.choose 4)))
+Chal.Problem315.switch_connectivity : ∀ (n : ℕ) (d : Fin n → ℕ),
+  4 ≤ n →
+    (∀ (v : Fin n), d v ≤ n - 1) →
+      Chal.Problem315.Graphical n d →
+        ∀ (G H : Chal.Problem315.GraphState n d), Relation.ReflTransGen (Chal.Problem315.SwitchStep n d) G H
+def Chal.Problem315.graphDegree : {n : ℕ} → SimpleGraph (Fin n) → Fin n → ℕ :=
+fun {n} G v => {w | G.Adj v w}.card
+def Chal.Problem315.Realizes : (n : ℕ) → (Fin n → ℕ) → SimpleGraph (Fin n) → Prop :=
+fun n d G => ∀ (v : Fin n), Chal.Problem315.graphDegree G v = d v
+@[reducible] def Chal.Problem315.GraphState : (n : ℕ) → (Fin n → ℕ) → Type :=
+fun n d => { G // Chal.Problem315.Realizes n d G }
+def Chal.Problem315.Graphical : (n : ℕ) → (Fin n → ℕ) → Prop :=
+fun n d => Nonempty (Chal.Problem315.GraphState n d)
+@[reducible] def Chal.Problem315.FourSet : ℕ → Type :=
+fun n => { S // S.card = 4 }
+def Chal.Problem315.IsPerfectMatchingOn : {n : ℕ} → Finset (Fin n) → SimpleGraph (Fin n) → Prop :=
+fun {n} S M => ∀ (v : Fin n), (v ∈ S → ∃! w, M.Adj v w) ∧ (v ∉ S → ∀ (w : Fin n), ¬M.Adj v w)
+@[reducible] def Chal.Problem315.PerfectMatching : {n : ℕ} → Chal.Problem315.FourSet n → Type :=
+fun {n} S => { M // Chal.Problem315.IsPerfectMatchingOn (↑S) M }
+@[reducible] def Chal.Problem315.SwitchProposal : ℕ → Type :=
+fun n => (S : Chal.Problem315.FourSet n) × { p // p.1 ≠ p.2 }
+def Chal.Problem315.removedMatching : {n : ℕ} → Chal.Problem315.SwitchProposal n → SimpleGraph (Fin n) :=
+fun {n} p => ↑(↑p.snd).1
+def Chal.Problem315.addedMatching : {n : ℕ} → Chal.Problem315.SwitchProposal n → SimpleGraph (Fin n) :=
+fun {n} p => ↑(↑p.snd).2
+def Chal.Problem315.validSwitch : {n : ℕ} → SimpleGraph (Fin n) → Chal.Problem315.SwitchProposal n → Prop :=
+fun {n} G p =>
+  (∀ ⦃u v : Fin n⦄, (Chal.Problem315.removedMatching p).Adj u v → G.Adj u v) ∧
+    ∀ ⦃u v : Fin n⦄, (Chal.Problem315.addedMatching p).Adj u v → ¬G.Adj u v
+def Chal.Problem315.replaceEdges : {n : ℕ} →
+  SimpleGraph (Fin n) → SimpleGraph (Fin n) → SimpleGraph (Fin n) → SimpleGraph (Fin n) :=
+fun {n} G M N => { Adj := fun u v => G.Adj u v ∧ ¬M.Adj u v ∨ N.Adj u v, symm := ⋯, loopless := ⋯ }
+def Chal.Problem315.proposalResult : {n : ℕ} →
+  SimpleGraph (Fin n) → Chal.Problem315.SwitchProposal n → SimpleGraph (Fin n) :=
+fun {n} G p =>
+  if Chal.Problem315.validSwitch G p then
+    Chal.Problem315.replaceEdges G (Chal.Problem315.removedMatching p) (Chal.Problem315.addedMatching p)
+  else G
+def Chal.Problem315.allGraphStates : (n : ℕ) → (d : Fin n → ℕ) → Finset (Chal.Problem315.GraphState n d) :=
+fun n d => Finset.univ
+def Chal.Problem315.allProposals : (n : ℕ) → Finset (Chal.Problem315.SwitchProposal n) :=
+fun n => Finset.univ
+def Chal.Problem315.stateCount : (n : ℕ) → (Fin n → ℕ) → ℕ :=
+fun n d => (Chal.Problem315.allGraphStates n d).card
+def Chal.Problem315.switchKernel : (n : ℕ) →
+  (d : Fin n → ℕ) → Chal.Problem315.GraphState n d → Chal.Problem315.GraphState n d → ℝ :=
+fun n d G H =>
+  (if G = H then 1 / 2 else 0) +
+    ↑{p ∈ Chal.Problem315.allProposals n | Chal.Problem315.proposalResult (↑G) p = ↑H}.card / (12 * ↑(n.choose 4))
+def Chal.Problem315.kernelPow : (n : ℕ) →
+  (d : Fin n → ℕ) → ℕ → Chal.Problem315.GraphState n d → Chal.Problem315.GraphState n d → ℝ :=
+fun n d t =>
+  Nat.recAux (motive := fun t => Chal.Problem315.GraphState n d → Chal.Problem315.GraphState n d → ℝ)
+    (fun G H => if G = H then 1 else 0)
+    (fun t previous G H =>
+      ∑ K ∈ Chal.Problem315.allGraphStates n d, previous G K * Chal.Problem315.switchKernel n d K H)
+    t
+def Chal.Problem315.uniformAverage : (n : ℕ) → (d : Fin n → ℕ) → (Chal.Problem315.GraphState n d → ℝ) → ℝ :=
+fun n d f => (∑ G ∈ Chal.Problem315.allGraphStates n d, f G) / ↑(Chal.Problem315.stateCount n d)
+def Chal.Problem315.uniformInner : (n : ℕ) →
+  (d : Fin n → ℕ) → (Chal.Problem315.GraphState n d → ℝ) → (Chal.Problem315.GraphState n d → ℝ) → ℝ :=
+fun n d f g => Chal.Problem315.uniformAverage n d fun G => f G * g G
+def Chal.Problem315.uniformVariance : (n : ℕ) → (d : Fin n → ℕ) → (Chal.Problem315.GraphState n d → ℝ) → ℝ :=
+fun n d f => Chal.Problem315.uniformAverage n d fun G => (f G - Chal.Problem315.uniformAverage n d f) ^ 2
+def Chal.Problem315.markovApply : (n : ℕ) →
+  (d : Fin n → ℕ) → (Chal.Problem315.GraphState n d → ℝ) → Chal.Problem315.GraphState n d → ℝ :=
+fun n d f G => ∑ H ∈ Chal.Problem315.allGraphStates n d, Chal.Problem315.switchKernel n d G H * f H
+def Chal.Problem315.dirichletEnergy : (n : ℕ) → (d : Fin n → ℕ) → (Chal.Problem315.GraphState n d → ℝ) → ℝ :=
+fun n d f => Chal.Problem315.uniformInner n d f fun G => f G - Chal.Problem315.markovApply n d f G
+def Chal.Problem315.hasSpectralGapAtLeast : (n : ℕ) → (Fin n → ℕ) → ℝ → Prop :=
+fun n d γ =>
+  ∀ (f : Chal.Problem315.GraphState n d → ℝ),
+    γ * Chal.Problem315.uniformVariance n d f ≤ Chal.Problem315.dirichletEnergy n d f
+def Chal.Problem315.tvDistanceFrom : (n : ℕ) → (d : Fin n → ℕ) → ℕ → Chal.Problem315.GraphState n d → ℝ :=
+fun n d t G =>
+  1 / 2 *
+    ∑ H ∈ Chal.Problem315.allGraphStates n d,
+      |Chal.Problem315.kernelPow n d t G H - 1 / ↑(Chal.Problem315.stateCount n d)|
+def Chal.Problem315.MixedAt : (n : ℕ) → (Fin n → ℕ) → ℕ → Prop :=
+fun n d t => ∀ (G : Chal.Problem315.GraphState n d), Chal.Problem315.tvDistanceFrom n d t G ≤ 1 / 4
+def Chal.Problem315.mixingTime : (n : ℕ) → (d : Fin n → ℕ) → (∃ t, Chal.Problem315.MixedAt n d t) → ℕ :=
+fun n d h => Nat.find h
+def Chal.Problem315.SwitchStep : (n : ℕ) →
+  (d : Fin n → ℕ) → Chal.Problem315.GraphState n d → Chal.Problem315.GraphState n d → Prop :=
+fun n d G H => ∃ p, Chal.Problem315.validSwitch (↑G) p ∧ Chal.Problem315.proposalResult (↑G) p = ↑H
+'OAI.Problem315.switch_chain_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem315.switch_chain_tv_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem315.switch_connectivity' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SwitchChain comparator-style: ok=36 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

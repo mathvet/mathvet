@@ -1,0 +1,1 @@
+OAI.KaplanskyCounterexample.main_theorem : OAI.KaplanskyCounterexample.MainClaim def OAI.KaplanskyCounterexample.MainClaim : Prop := ∃ K x x_1, ∃ (_ : CharP K 2), ∃ G x_3, ∃ (_ : Group.FG G), ∃ a b, a * b = 1 ∧ b * a ≠ 1 

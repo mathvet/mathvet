@@ -1,0 +1,7 @@
+CMP OAI.KaplanskyCounterexample.main_theorem [thm] ok
+CMP OAI.KaplanskyCounterexample.MainClaim [def] ok
+Chal.KaplanskyCounterexample.main_theorem : Chal.KaplanskyCounterexample.MainClaim
+def Chal.KaplanskyCounterexample.MainClaim : Prop :=
+∃ K x x_1, ∃ (_ : CharP K 2), ∃ G x_3, ∃ (_ : Group.FG G), ∃ a b, a * b = 1 ∧ b * a ≠ 1
+'OAI.KaplanskyCounterexample.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KaplanskyDirectFiniteness comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
