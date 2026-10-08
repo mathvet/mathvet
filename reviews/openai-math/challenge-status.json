@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-08T20:09:10Z",
+  "generated": "2026-10-08T20:30:35Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -115,6 +115,7 @@
    "CycleDecomposition",
    "CylinderCovering",
    "DaugavetModuli",
+   "DegreeRigidity",
    "DeligneDrinfeld",
    "DepthFive",
    "DepthThree",
@@ -214,6 +215,7 @@
    "Kervaire",
    "Laughlin",
    "LaughlinGap",
+   "LaughlinPlanar",
    "LiebThirring",
    "LipschitzEquivalence",
    "ListHadwiger",
@@ -294,6 +296,7 @@
    "SATVariance",
    "SKBarriers",
    "SKFullSupport",
+   "SKHighTemperature",
    "SKValue",
    "SLELowerPositivity",
    "Saxl",
@@ -368,6 +371,7 @@
    "TwoWayComplementation",
    "TwoWayDeterminization",
    "TypeSystemNormalization",
+   "UniformCommutator",
    "UniformGamma",
    "UniformKServer",
    "UniformSparsestCut",
@@ -381,7 +385,8 @@
    "WeakMTWGlobalSupport",
    "WeightedSweepMoments",
    "WeisfeilerLeman",
-   "WitnessedChoice"
+   "WitnessedChoice",
+   "YauCounterexample"
   ],
   "comparator_sandboxed_pass": [
    "AbhyankarSathaye",
@@ -456,6 +461,7 @@
    "CycleDecomposition",
    "CylinderCovering",
    "DaugavetModuli",
+   "DegreeRigidity",
    "DeligneDrinfeld",
    "DepthFive",
    "DepthThree",
@@ -555,6 +561,7 @@
    "Kervaire",
    "Laughlin",
    "LaughlinGap",
+   "LaughlinPlanar",
    "LiebThirring",
    "LipschitzEquivalence",
    "ListHadwiger",
@@ -635,6 +642,7 @@
    "SATVariance",
    "SKBarriers",
    "SKFullSupport",
+   "SKHighTemperature",
    "SKValue",
    "SLELowerPositivity",
    "Saxl",
@@ -709,6 +717,7 @@
    "TwoWayComplementation",
    "TwoWayDeterminization",
    "TypeSystemNormalization",
+   "UniformCommutator",
    "UniformGamma",
    "UniformKServer",
    "UniformSparsestCut",
@@ -722,7 +731,8 @@
    "WeakMTWGlobalSupport",
    "WeightedSweepMoments",
    "WeisfeilerLeman",
-   "WitnessedChoice"
+   "WitnessedChoice",
+   "YauCounterexample"
   ],
   "comparator_running": [
    "ErdosReciprocal"
@@ -4895,7 +4905,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DegreeRigidity.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DegreeRigidity.json",
    "lean_sha256": "ae3fcff2aca95957449bafd932cb00464a4432b4c1652a36be1c69a5dd32d999",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -4907,12 +4917,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T20:21:34Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "DegreeRigidity.comparator.txt",
+    "DegreeRigidity.log",
+    "DegreeRigidity.cmp.txt"
+   ]
   },
   {
    "challenge": "DeligneDrinfeld",
@@ -10733,7 +10747,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LaughlinPlanar.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LaughlinPlanar.json",
    "lean_sha256": "c7efdae7e11eeffda4a8391b7151c8488cd9344fed05fdb94d7c5409aeaedf91",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -10745,12 +10759,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T20:22:49Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "LaughlinPlanar.comparator.txt",
+    "LaughlinPlanar.log",
+    "LaughlinPlanar.cmp.txt"
+   ]
   },
   {
    "challenge": "LiebThirring",
@@ -15596,7 +15614,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKHighTemperature.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKHighTemperature.json",
    "lean_sha256": "9645fa7fe2545c287b000cb0583288a0ab9b2382207215006935f8e9278de436",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -15608,12 +15626,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T20:21:20Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "SKHighTemperature.comparator.txt",
+    "SKHighTemperature.log",
+    "SKHighTemperature.cmp.txt"
+   ]
   },
   {
    "challenge": "SKRatio",
@@ -19758,7 +19780,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformCommutator.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformCommutator.json",
    "lean_sha256": "152688a0c92f3a06a9b9309d6741959dfcbbd53e2d66859d21dd214131288e10",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -19770,12 +19792,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T20:11:46Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "UniformCommutator.comparator.txt",
+    "UniformCommutator.log",
+    "UniformCommutator.cmp.txt"
+   ]
   },
   {
    "challenge": "UniformGamma",
@@ -20625,7 +20651,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/YauCounterexample.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/YauCounterexample.json",
    "lean_sha256": "6e754e1c8ece1e9678e51999783d54e3cdc282b8b3bdfc4b1d60fe301cbfaf66",
-   "machine_check": "none",
+   "machine_check": "comparator-sandboxed-pass",
    "build": "none",
    "build_seconds": null,
    "closure": "none",
@@ -20637,12 +20663,16 @@
    "comparator": "none",
    "comparator_finished": null,
    "evidence_files": [],
-   "cloud_comparator": "none",
-   "cloud_sandbox": null,
-   "cloud_finished": null,
-   "cloud_build": null,
-   "cloud_closure": null,
-   "cloud_files": []
+   "cloud_comparator": "pass",
+   "cloud_sandbox": "landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)",
+   "cloud_finished": "2026-10-08T20:27:52Z",
+   "cloud_build": "built",
+   "cloud_closure": "ok",
+   "cloud_files": [
+    "YauCounterexample.comparator.txt",
+    "YauCounterexample.log",
+    "YauCounterexample.cmp.txt"
+   ]
   }
  ]
 }

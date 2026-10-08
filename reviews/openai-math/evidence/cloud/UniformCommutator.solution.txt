@@ -1,0 +1,28 @@
+OAI.Kadison.uniform_commutator : ∃ C,
+  0 ≤ C ∧
+    ∀ (K : Type u_1) [inst : NormedAddCommGroup K] [inst_1 : InnerProductSpace ℂ K] [inst_2 : CompleteSpace K]
+      (P : VonNeumannAlgebra K) (Y : K →L[ℂ] K) (h : ℕ),
+      1 ≤ h →
+        ∀ (X : Matrix (Fin h) (Fin h) (K →L[ℂ] K)),
+          (∀ (i j : Fin h), X i j ∈ P) →
+            ‖OAI.Kadison.diagonalAmplification h Y * OAI.Kadison.matrixOperator h X -
+                  OAI.Kadison.matrixOperator h X * OAI.Kadison.diagonalAmplification h Y‖ ≤
+              C * OAI.Kadison.commutatorSeminorm P Y * ‖OAI.Kadison.matrixOperator h X‖
+'OAI.Kadison.uniform_commutator' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Kadison.commutatorSeminorm.{u} : {K : Type u} →
+  [inst : NormedAddCommGroup K] →
+    [inst_1 : InnerProductSpace ℂ K] → [inst_2 : CompleteSpace K] → VonNeumannAlgebra K → (K →L[ℂ] K) → ℝ :=
+fun {K} [NormedAddCommGroup K] [InnerProductSpace ℂ K] [CompleteSpace K] P Y =>
+  sSup {r | ∃ a ∈ P, ‖a‖ ≤ 1 ∧ r = ‖Y * a - a * Y‖}
+def OAI.Kadison.matrixOperator.{u} : {K : Type u} →
+  [inst : NormedAddCommGroup K] →
+    [inst_1 : InnerProductSpace ℂ K] →
+      (h : ℕ) → Matrix (Fin h) (Fin h) (K →L[ℂ] K) → (PiLp 2 fun x => K) →L[ℂ] PiLp 2 fun x => K :=
+fun {K} [NormedAddCommGroup K] [InnerProductSpace ℂ K] h X =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => K).symm ∘SL
+    ContinuousLinearMap.pi fun i => ∑ j, X i j ∘SL PiLp.proj 2 (fun x => K) j
+def OAI.Kadison.diagonalAmplification.{u} : {K : Type u} →
+  [inst : NormedAddCommGroup K] →
+    [inst_1 : InnerProductSpace ℂ K] → (h : ℕ) → (K →L[ℂ] K) → (PiLp 2 fun x => K) →L[ℂ] PiLp 2 fun x => K :=
+fun {K} [NormedAddCommGroup K] [InnerProductSpace ℂ K] h Y =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => K).symm ∘SL ContinuousLinearMap.pi fun i => Y ∘SL PiLp.proj 2 (fun x => K) i

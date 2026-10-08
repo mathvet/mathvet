@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T20:09:10Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T20:30:35Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 339 accepted by
-    the real Comparator, of which 339 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 344 accepted by
+    the real Comparator, of which 344 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -5727,7 +5727,8 @@ alignment:
     module: OAI.Probability.SKGap.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/SKHighTemperature.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 227 — The dynamical phase transition in the Sherrington--Kirkpatrick model: Discrete mixing-time
       ratio cutoff for $\beta<1/2$ (the lab''s own result label); paper ''Cutoff throughout the high-temperature
       Sherrington–Kirkpatrick phase'', theorem thm:main (build/sections/01-introduction.tex:80)'
@@ -6119,7 +6120,8 @@ alignment:
     module: OAI.Computability.DegreeRigidity.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/DegreeRigidity.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 242 — Single-fold Diophantine representations: Single-fold Diophantine representations (the
       lab''s own result label); paper ''Single-fold Diophantine representations'', theorem thm:main (build/main.tex:56)'
     lean: OAI.SingleFold.main
@@ -6580,7 +6582,8 @@ alignment:
     module: OAI.Analysis.Laughlin.UniformGap
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LaughlinPlanar.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 269 — headline claim as stated in the overview: Proves the fermionic Laughlin spectral-gap conjecture
       for the full $V_1$ interaction at filling $1/3$ on the round sphere. The unique ground state remains uniformly
       gapped under sufficiently weak bounded real scalar one-body potentials projected to the lowest Landau level.
@@ -6817,7 +6820,8 @@ alignment:
     module: OAI.Analysis.Commutator.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/UniformCommutator.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 289 — The strong Kadison--Kastler conjecture: Universal near-identity unitary conjugacy for
       close von Neumann algebras (the lab''s own result label); paper ''Universal strong Kadison–Kastler stability'',
       theorem thm:main (build/sections/01-introduction.tex:18)'
@@ -7454,7 +7458,8 @@ alignment:
     module: OAI.Geometry.NodalSets.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/YauCounterexample.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 350 — headline claim as stated in the overview: Proves the sharp $C\sqrt\lambda$ upper bound
       for nodal length on every fixed smooth closed surface, completing Yau''s conjecture there. The upper bound
       fails for fixed smooth metrics in dimensions three and four, including metrics on $S^3$ arbitrarily close
@@ -7801,7 +7806,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T20:09:10Z'
+    generated: '2026-10-08T20:30:35Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7910,6 +7915,7 @@ mathvet:
     - CycleDecomposition
     - CylinderCovering
     - DaugavetModuli
+    - DegreeRigidity
     - DeligneDrinfeld
     - DepthFive
     - DepthThree
@@ -8009,6 +8015,7 @@ mathvet:
     - Kervaire
     - Laughlin
     - LaughlinGap
+    - LaughlinPlanar
     - LiebThirring
     - LipschitzEquivalence
     - ListHadwiger
@@ -8089,6 +8096,7 @@ mathvet:
     - SATVariance
     - SKBarriers
     - SKFullSupport
+    - SKHighTemperature
     - SKValue
     - SLELowerPositivity
     - Saxl
@@ -8163,6 +8171,7 @@ mathvet:
     - TwoWayComplementation
     - TwoWayDeterminization
     - TypeSystemNormalization
+    - UniformCommutator
     - UniformGamma
     - UniformKServer
     - UniformSparsestCut
@@ -8177,6 +8186,7 @@ mathvet:
     - WeightedSweepMoments
     - WeisfeilerLeman
     - WitnessedChoice
+    - YauCounterexample
     comparator_sandboxed_pass:
     - AbhyankarSathaye
     - AffineBernstein
@@ -8250,6 +8260,7 @@ mathvet:
     - CycleDecomposition
     - CylinderCovering
     - DaugavetModuli
+    - DegreeRigidity
     - DeligneDrinfeld
     - DepthFive
     - DepthThree
@@ -8349,6 +8360,7 @@ mathvet:
     - Kervaire
     - Laughlin
     - LaughlinGap
+    - LaughlinPlanar
     - LiebThirring
     - LipschitzEquivalence
     - ListHadwiger
@@ -8429,6 +8441,7 @@ mathvet:
     - SATVariance
     - SKBarriers
     - SKFullSupport
+    - SKHighTemperature
     - SKValue
     - SLELowerPositivity
     - Saxl
@@ -8503,6 +8516,7 @@ mathvet:
     - TwoWayComplementation
     - TwoWayDeterminization
     - TypeSystemNormalization
+    - UniformCommutator
     - UniformGamma
     - UniformKServer
     - UniformSparsestCut
@@ -8517,6 +8531,7 @@ mathvet:
     - WeightedSweepMoments
     - WeisfeilerLeman
     - WitnessedChoice
+    - YauCounterexample
     comparator_running:
     - ErdosReciprocal
     build_in_progress:
@@ -11309,7 +11324,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 84081
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/241.md
     audit_part: 2
   - family: '242'
@@ -12083,7 +12098,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 127680
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/288.md
     audit_part: 2
   - family: '289'

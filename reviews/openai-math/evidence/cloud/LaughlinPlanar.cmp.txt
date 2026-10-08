@@ -1,0 +1,99 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_LaughlinPlanar.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Laughlin.planar_gap [thm] ok
+CMP OAI.Laughlin.Planar.fullSquareNorm [def] ok
+CMP OAI.Laughlin.Planar.HomogeneousState.block [def] ok
+CMP OAI.Laughlin.Planar.HomogeneousState [ind] ok
+CMP OAI.Laughlin.Planar.HomogeneousState.mk [ctor] ok
+CMP OAI.Laughlin.Fock.OccupationBidegree [def] ok
+CMP OAI.Laughlin.Fock.occupationBasis [def] ok
+CMP OAI.Laughlin.Fock.occupationBasis._proof_1 [thm] ok
+CMP OAI.Laughlin.Fock.Orbital [def] ok
+CMP OAI.Laughlin.Fock.Space [def] ok
+CMP OAI.Laughlin.Planar.Occupations [def] ok
+CMP OAI.Laughlin.Planar.planarHamiltonian [def] ok
+CMP OAI.Laughlin.Planar.planarPairMatrix [def] ok
+CMP OAI.Laughlin.Planar.planarCoefficient [def] ok
+CMP OAI.Laughlin.pairLimitCoefficient [def] ok
+CMP OAI.Laughlin.Planar.pairMatrix [def] ok
+CMP OAI.Laughlin.Fock.annihilate [def] ok
+CMP OAI.Laughlin.Fock.annihilate._proof_3 [thm] ok
+CMP OAI.Laughlin.Fock.annihilate._proof_2 [thm] ok
+CMP OAI.Laughlin.Fock.annihilate._proof_1 [thm] ok
+CMP OAI.Laughlin.Planar.squareNorm [def] ok
+CMP OAI.Laughlin.Planar.fullEnergy [def] ok
+CMP OAI.Laughlin.Planar.pairEnergy [def] ok
+CMP OAI.Laughlin.gammaStar [def] ok
+CMP OAI.Laughlin.gammaStar._proof_2 [thm] ok
+CMP OAI.Laughlin.gammaStar._proof_1 [thm] ok
+@Chal.Laughlin.planar_gap : ∀ {N : ℕ} (ψ : Chal.Laughlin.Planar.HomogeneousState N),
+  ENNReal.ofReal Chal.Laughlin.gammaStar * Chal.Laughlin.Planar.fullEnergy ψ ≤ Chal.Laughlin.Planar.fullSquareNorm ψ
+def Chal.Laughlin.gammaStar : ℝ :=
+4616733319001 / 10 ^ 14
+def Chal.Laughlin.pairLimitCoefficient : ℕ → ℕ → ℕ → ℝ :=
+fun p x y => if x + y = p + 1 then (↑x - ↑y) * √(↑p.factorial / (↑2 ^ p * ↑x.factorial * ↑y.factorial)) / √↑2 else 0
+@[reducible] def Chal.Laughlin.Fock.Orbital : ℕ → Type :=
+fun Q => Fin (Q + 1) → ℂ
+@[reducible] def Chal.Laughlin.Fock.Space : ℕ → Type :=
+fun Q => ExteriorAlgebra ℂ (Chal.Laughlin.Fock.Orbital Q)
+def Chal.Laughlin.Fock.annihilate : {Q : ℕ} → Fin (Q + 1) → Module.End ℂ (Chal.Laughlin.Fock.Space Q) :=
+fun {Q} i => CliffordAlgebra.contractLeft (LinearMap.proj i)
+def Chal.Laughlin.Fock.occupationBasis : (Q : ℕ) → Module.Basis (Finset (Fin (Q + 1))) ℂ (Chal.Laughlin.Fock.Space Q) :=
+fun Q => (Pi.basisFun ℂ (Fin (Q + 1))).ExteriorAlgebra
+def Chal.Laughlin.Fock.OccupationBidegree : (Q : ℕ) → ℕ → ℕ → Chal.Laughlin.Fock.Space Q → Prop :=
+fun Q n w x =>
+  ∀ (A : Finset (Fin (Q + 1))), A.card ≠ n ∨ ∑ i ∈ A, ↑i ≠ w → ((Chal.Laughlin.Fock.occupationBasis Q).repr x) A = 0
+@[reducible] def Chal.Laughlin.Planar.Occupations : ℕ → Type :=
+fun L => Finset (Fin (L + 1))
+def Chal.Laughlin.Planar.pairMatrix : (L : ℕ) →
+  (Fin (L + 1) → Fin (L + 1) → ℂ) →
+    Matrix (Chal.Laughlin.Planar.Occupations L) (Chal.Laughlin.Planar.Occupations L) ℂ :=
+fun L c A B =>
+  ∑ i,
+    ∑ j,
+      c i j *
+        ((Chal.Laughlin.Fock.occupationBasis L).repr
+            ((Chal.Laughlin.Fock.annihilate j)
+              ((Chal.Laughlin.Fock.annihilate i) ((Chal.Laughlin.Fock.occupationBasis L) B))))
+          A
+def Chal.Laughlin.Planar.planarCoefficient : ℕ → ℕ → ℕ → ℂ :=
+fun p i j => ↑(Chal.Laughlin.pairLimitCoefficient p i j / √↑2)
+def Chal.Laughlin.Planar.planarPairMatrix : (L : ℕ) →
+  ℕ → Matrix (Chal.Laughlin.Planar.Occupations L) (Chal.Laughlin.Planar.Occupations L) ℂ :=
+fun L p => Chal.Laughlin.Planar.pairMatrix L fun i j => Chal.Laughlin.Planar.planarCoefficient p ↑i ↑j
+def Chal.Laughlin.Planar.planarHamiltonian : (L : ℕ) →
+  Matrix (Chal.Laughlin.Planar.Occupations L) (Chal.Laughlin.Planar.Occupations L) ℂ :=
+fun L =>
+  ∑ p ∈ Finset.range (2 * L + 1),
+    (Chal.Laughlin.Planar.planarPairMatrix L p).conjTranspose * Chal.Laughlin.Planar.planarPairMatrix L p
+def Chal.Laughlin.Planar.pairEnergy : (L : ℕ) →
+  (ℕ → Matrix (Chal.Laughlin.Planar.Occupations L) (Chal.Laughlin.Planar.Occupations L) ℂ) →
+    (Chal.Laughlin.Planar.Occupations L → ℂ) → ℝ :=
+fun L P x => ∑ p ∈ Finset.range (2 * L + 1), ∑ A, ‖(P p).mulVec x A‖ ^ 2
+def Chal.Laughlin.Planar.squareNorm : (L : ℕ) →
+  Matrix (Chal.Laughlin.Planar.Occupations L) (Chal.Laughlin.Planar.Occupations L) ℂ →
+    (Chal.Laughlin.Planar.Occupations L → ℂ) → ℝ :=
+fun L H x => ∑ A, ‖H.mulVec x A‖ ^ 2
+structure Chal.Laughlin.Planar.HomogeneousState (N : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.Laughlin.Planar.HomogeneousState.block : (L : ℕ) → Chal.Laughlin.Fock.Space L
+  Chal.Laughlin.Planar.HomogeneousState.homogeneous : ∀ (L : ℕ),
+      Chal.Laughlin.Fock.OccupationBidegree L N L (self.block L)
+constructor:
+  Chal.Laughlin.Planar.HomogeneousState.mk {N : ℕ} (block : (L : ℕ) → Chal.Laughlin.Fock.Space L)
+    (homogeneous : ∀ (L : ℕ), Chal.Laughlin.Fock.OccupationBidegree L N L (block L)) :
+    Chal.Laughlin.Planar.HomogeneousState N
+def Chal.Laughlin.Planar.fullEnergy : {N : ℕ} → Chal.Laughlin.Planar.HomogeneousState N → ENNReal :=
+fun {N} ψ =>
+  ∑' (L : ℕ),
+    ENNReal.ofReal
+      (Chal.Laughlin.Planar.pairEnergy L (Chal.Laughlin.Planar.planarPairMatrix L) fun A =>
+        ((Chal.Laughlin.Fock.occupationBasis L).repr (ψ.block L)) A)
+def Chal.Laughlin.Planar.fullSquareNorm : {N : ℕ} → Chal.Laughlin.Planar.HomogeneousState N → ENNReal :=
+fun {N} ψ =>
+  ∑' (L : ℕ),
+    ENNReal.ofReal
+      (Chal.Laughlin.Planar.squareNorm L (Chal.Laughlin.Planar.planarHamiltonian L) fun A =>
+        ((Chal.Laughlin.Fock.occupationBasis L).repr (ψ.block L)) A)
+'OAI.Laughlin.planar_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LaughlinPlanar comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

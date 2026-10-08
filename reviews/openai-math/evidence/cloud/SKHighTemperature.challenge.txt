@@ -1,0 +1,49 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SKHighTemperature.lean:70:8: warning: declaration uses `sorry`
+OAI.SKGap.sk_main : ∀ (β : ℝ), 0 < β → β < 1 → OAI.SKGap.MainStatement β
+@[reducible] def OAI.SKGap.Spin : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def OAI.SKGap.Edge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+@[reducible] def OAI.SKGap.Disorder : ℕ → Type :=
+fun n => OAI.SKGap.Edge n → ℝ
+def OAI.SKGap.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.SKGap.coupling : {n : ℕ} → OAI.SKGap.Disorder n → Fin n → Fin n → ℝ :=
+fun {n} g i k => if h : i < k then g ⟨(i, k), h⟩ else if h : k < i then g ⟨(k, i), h⟩ else 0
+def OAI.SKGap.hamiltonian : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → OAI.SKGap.Spin n → ℝ :=
+fun {n} g h x =>
+  1 / 2 * ∑ i, ∑ k, OAI.SKGap.spinValue (x i) * OAI.SKGap.coupling g i k * OAI.SKGap.spinValue (x k) +
+    ∑ i, h i * OAI.SKGap.spinValue (x i)
+def OAI.SKGap.weight : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → OAI.SKGap.Spin n → ℝ :=
+fun {n} g h x => Real.exp (OAI.SKGap.hamiltonian g h x)
+def OAI.SKGap.partition : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → ℝ :=
+fun {n} g h => ∑ x, OAI.SKGap.weight g h x
+def OAI.SKGap.mass : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → OAI.SKGap.Spin n → ℝ :=
+fun {n} g h x => OAI.SKGap.weight g h x / OAI.SKGap.partition g h
+def OAI.SKGap.expectation : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → (OAI.SKGap.Spin n → ℝ) → ℝ :=
+fun {n} g h f => ∑ x, OAI.SKGap.mass g h x * f x
+def OAI.SKGap.variance : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → (OAI.SKGap.Spin n → ℝ) → ℝ :=
+fun {n} g h f => OAI.SKGap.expectation g h fun x => (f x - OAI.SKGap.expectation g h f) ^ 2
+def OAI.SKGap.flip : {n : ℕ} → Fin n → OAI.SKGap.Spin n → OAI.SKGap.Spin n :=
+fun {n} i x => Function.update x i !x i
+def OAI.SKGap.conditionalExpectation : {n : ℕ} →
+  OAI.SKGap.Disorder n → (Fin n → ℝ) → Fin n → (OAI.SKGap.Spin n → ℝ) → OAI.SKGap.Spin n → ℝ :=
+fun {n} g h i f x =>
+  (OAI.SKGap.weight g h x * f x + OAI.SKGap.weight g h (OAI.SKGap.flip i x) * f (OAI.SKGap.flip i x)) /
+    (OAI.SKGap.weight g h x + OAI.SKGap.weight g h (OAI.SKGap.flip i x))
+def OAI.SKGap.dirichlet : {n : ℕ} → OAI.SKGap.Disorder n → (Fin n → ℝ) → (OAI.SKGap.Spin n → ℝ) → ℝ :=
+fun {n} g h f => ∑ i, OAI.SKGap.expectation g h fun x => (f x - OAI.SKGap.conditionalExpectation g h i f x) ^ 2
+def OAI.SKGap.disorderLaw : ℝ → (n : ℕ) → MeasureTheory.Measure (OAI.SKGap.Disorder n) :=
+fun β n => MeasureTheory.Measure.pi fun x => ProbabilityTheory.gaussianReal 0 (β ^ 2 / ↑n).toNNReal
+def OAI.SKGap.poincareEvent : (n : ℕ) → ℝ → Set (OAI.SKGap.Disorder n) :=
+fun n C => {g | ∀ (f : OAI.SKGap.Spin n → ℝ), OAI.SKGap.variance g 0 f ≤ C * OAI.SKGap.dirichlet g 0 f}
+def OAI.SKGap.discreteGap : {n : ℕ} → OAI.SKGap.Disorder n → ℝ :=
+fun {n} g =>
+  sInf {r | ∃ f, 0 < OAI.SKGap.variance g 0 f ∧ r = OAI.SKGap.dirichlet g 0 f / (↑n * OAI.SKGap.variance g 0 f)}
+def OAI.SKGap.MainStatement : ℝ → Prop :=
+fun β =>
+  ∃ C,
+    0 < C ∧
+      Filter.Tendsto (fun n => (OAI.SKGap.disorderLaw β n) (OAI.SKGap.poincareEvent n C)) Filter.atTop (nhds 1) ∧
+        Filter.Tendsto (fun n => (OAI.SKGap.disorderLaw β n) {g | 1 / (C * ↑n) ≤ OAI.SKGap.discreteGap g}) Filter.atTop
+          (nhds 1)

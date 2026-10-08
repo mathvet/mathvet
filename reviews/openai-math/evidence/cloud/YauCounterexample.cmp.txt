@@ -1,0 +1,84 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_YauCounterexample.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Yau.Target.yau_nodal_set_upper_bound_counterexample [thm] ok
+CMP OAI.Yau.Target.MainTarget [def] ok
+CMP OAI.Yau.Target.nodalMeasure [def] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_8 [thm] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_7 [thm] ok
+CMP OAI.Yau.Target.Base [def] ok
+CMP OAI.Yau.Target.Manifold5 [def] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_6 [thm] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_5 [thm] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_4 [thm] ok
+CMP OAI.Yau.Target.modelWithCorners [def] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_3 [thm] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_2 [thm] ok
+CMP OAI.Yau.Target.nodalMeasure._proof_1 [thm] ok
+CMP OAI.Yau.Target.SmoothMetric._proof_2 [thm] ok
+CMP OAI.Yau.Target.SmoothMetric._proof_1 [thm] ok
+CMP OAI.Yau.Target.Model [def] ok
+CMP OAI.Yau.Target.SmoothMetric [def] ok
+CMP OAI.Yau.Target.chartLaplacian [def] ok
+CMP OAI.Yau.Target.frame [def] ok
+CMP OAI.Yau.Target.frame._proof_2 [thm] ok
+CMP OAI.Yau.Target.frame._proof_1 [thm] ok
+CMP OAI.Yau.Target.Index [def] ok
+CMP OAI.Yau.Target.metricMatrix [def] ok
+CMP OAI.Yau.Target.metricMatrix._proof_3 [thm] ok
+CMP OAI.Yau.Target.metricMatrix._proof_2 [thm] ok
+CMP OAI.Yau.Target.metricMatrix._proof_1 [thm] ok
+CMP OAI.Yau.Target.volumeFactor [def] ok
+Chal.Yau.Target.yau_nodal_set_upper_bound_counterexample : Chal.Yau.Target.MainTarget
+@[reducible] def Chal.Yau.Target.Base : Set (EuclideanSpace ℝ (Fin 5)) :=
+Metric.sphere 0 1
+@[reducible] def Chal.Yau.Target.Manifold5 : Type :=
+↑Chal.Yau.Target.Base × Circle
+@[reducible] def Chal.Yau.Target.Model : Type :=
+EuclideanSpace ℝ (Fin 4) × EuclideanSpace ℝ (Fin 1)
+@[reducible] def Chal.Yau.Target.modelWithCorners : ModelWithCorners ℝ
+  (EuclideanSpace ℝ (Fin 4) × EuclideanSpace ℝ (Fin 1))
+  (ModelProd (EuclideanSpace ℝ (Fin 4)) (EuclideanSpace ℝ (Fin 1))) :=
+(modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin 4))).prod (modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin 1)))
+@[reducible] def Chal.Yau.Target.SmoothMetric : Type :=
+Bundle.ContMDiffRiemannianMetric Chal.Yau.Target.modelWithCorners (↑⊤) Chal.Yau.Target.Model fun x =>
+  TangentSpace Chal.Yau.Target.modelWithCorners x
+@[reducible] def Chal.Yau.Target.Index : Type :=
+Fin (Module.finrank ℝ Chal.Yau.Target.Model)
+def Chal.Yau.Target.frame : Module.Basis Chal.Yau.Target.Index ℝ Chal.Yau.Target.Model :=
+Module.finBasis ℝ Chal.Yau.Target.Model
+def Chal.Yau.Target.metricMatrix : Chal.Yau.Target.SmoothMetric →
+  PartialEquiv Chal.Yau.Target.Manifold5 Chal.Yau.Target.Model →
+    Chal.Yau.Target.Model → Matrix Chal.Yau.Target.Index Chal.Yau.Target.Index ℝ :=
+fun g c y i j =>
+  ((g.inner (↑c.symm y)) ((mfderiv% ↑c.symm y) (Chal.Yau.Target.frame i)))
+    ((mfderiv% ↑c.symm y) (Chal.Yau.Target.frame j))
+def Chal.Yau.Target.volumeFactor : Chal.Yau.Target.SmoothMetric →
+  PartialEquiv Chal.Yau.Target.Manifold5 Chal.Yau.Target.Model → Chal.Yau.Target.Model → ℝ :=
+fun g c y => √(Chal.Yau.Target.metricMatrix g c y).det
+def Chal.Yau.Target.chartLaplacian : Chal.Yau.Target.SmoothMetric →
+  PartialEquiv Chal.Yau.Target.Manifold5 Chal.Yau.Target.Model →
+    (Chal.Yau.Target.Manifold5 → ℝ) → Chal.Yau.Target.Model → ℝ :=
+fun g c u y =>
+  (Chal.Yau.Target.volumeFactor g c y)⁻¹ *
+    ∑ i,
+      (fderiv ℝ
+          (fun z =>
+            Chal.Yau.Target.volumeFactor g c z *
+              ∑ j, (Chal.Yau.Target.metricMatrix g c z)⁻¹ i j * (fderiv ℝ (u ∘ ↑c.symm) z) (Chal.Yau.Target.frame j))
+          y)
+        (Chal.Yau.Target.frame i)
+def Chal.Yau.Target.nodalMeasure : Chal.Yau.Target.SmoothMetric → (Chal.Yau.Target.Manifold5 → ℝ) → ENNReal :=
+fun g u => (MeasureTheory.Measure.hausdorffMeasure 4) {x | u x = 0}
+def Chal.Yau.Target.MainTarget : Prop :=
+∃ g lam u,
+  (∀ (k : ℕ), 0 < lam k) ∧
+    (∀ (k : ℕ), u k ≠ 0) ∧
+      (∀ (k : ℕ), ContMDiff Chal.Yau.Target.modelWithCorners (modelWithCornersSelf ℝ ℝ) (↑⊤) (u k)) ∧
+        (∀ (k : ℕ) (x : Chal.Yau.Target.Manifold5),
+            -Chal.Yau.Target.chartLaplacian g (extChartAt Chal.Yau.Target.modelWithCorners x) (u k)
+                  (↑(extChartAt Chal.Yau.Target.modelWithCorners x) x) =
+              lam k * u k x) ∧
+          Filter.Tendsto lam Filter.atTop Filter.atTop ∧
+            Filter.Tendsto (fun k => Chal.Yau.Target.nodalMeasure g (u k) / ENNReal.ofReal √(lam k)) Filter.atTop
+              (nhds ⊤)
+'OAI.Yau.Target.yau_nodal_set_upper_bound_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+== YauCounterexample comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
