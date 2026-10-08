@@ -1,0 +1,81 @@
+CMP OAI.DiscreteFree.real_l1_quantitative_renorming [thm] ok
+CMP OAI.DiscreteFree.RealL1RenormingStatement [def] ok
+CMP OAI.DiscreteFree.HasBAP [def] ok
+CMP OAI.DiscreteFree.blockBound [def] ok
+CMP OAI.DiscreteFree.blockBound._proof_3 [thm] ok
+CMP OAI.DiscreteFree.blockBound._proof_2 [thm] ok
+CMP OAI.DiscreteFree.blockBound._proof_1 [thm] ok
+CMP OAI.DiscreteFree.RealL1RenormingStatement._proof_1 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1 [def] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_9 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_8 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_6 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_50 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_25 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_24 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_23 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_14 [def] ok
+CMP OAI.DiscreteFree.RealL1 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_18 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_22 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_13 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_5 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_10 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_12 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_3 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_9 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_8 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_7 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_21 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_20 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_16 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_1 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_49 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_48 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_26 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_47 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_45 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_44 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_43 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_39 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_38 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_34 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_37 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_36 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_42 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_41 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_33 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._aux_31 [def] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_30 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_29 [thm] ok
+CMP OAI.DiscreteFree.instNormedAddCommGroupRealL1._proof_28 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_4 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_3 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._aux_1 [def] VALUE_MISMATCH
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_5 [thm] ok
+CMP OAI.DiscreteFree.instNormedSpaceRealRealL1._proof_7 [thm] ok
+Chal.DiscreteFree.real_l1_quantitative_renorming : Chal.DiscreteFree.RealL1RenormingStatement
+def Chal.DiscreteFree.HasBAP.{u_2} : (X : Type u_2) → [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → ℝ → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] Λ =>
+  ∀ (C : Set X),
+    IsCompact C → ∀ (ε : ℝ), 0 < ε → ∃ T, Module.Finite ℝ ↥(↑T).range ∧ ‖T‖ ≤ Λ ∧ ∃ η < ε, ∀ u ∈ C, ‖T u - u‖ ≤ η
+def Chal.DiscreteFree.blockBound : ℕ → ℝ :=
+fun p => 300 * ↑p ^ 2 + 150 * ↑p + 5
+def Chal.DiscreteFree.RealL1 : Type :=
+↥(lp (fun x => ℝ) 1)
+def Chal.DiscreteFree.RealL1RenormingStatement : Prop :=
+∀ (p : ℕ),
+  1 ≤ p →
+    ∃ N,
+      (∀ (r : ℝ) (c : Chal.DiscreteFree.RealL1), N (r • c) = |r| * N c) ∧
+        (∀ (c : Chal.DiscreteFree.RealL1), 1 / 2 * ‖c‖ ≤ N c ∧ N c ≤ Chal.DiscreteFree.blockBound p * ‖c‖) ∧
+          have m := inferInstance;
+          ∃ s,
+            s.toModule = m ∧
+              CompleteSpace Chal.DiscreteFree.RealL1 ∧
+                Chal.DiscreteFree.HasBAP Chal.DiscreteFree.RealL1 (2 * Chal.DiscreteFree.blockBound p) ∧
+                  ¬Chal.DiscreteFree.HasBAP Chal.DiscreteFree.RealL1 ↑p ∧
+                    (p = 1 → ¬Chal.DiscreteFree.HasBAP Chal.DiscreteFree.RealL1 1)
+'OAI.DiscreteFree.real_l1_quantitative_renorming' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RealL1Renorming comparator-style: ok=56 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

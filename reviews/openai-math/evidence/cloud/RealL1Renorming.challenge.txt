@@ -1,0 +1,23 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_RealL1Renorming.lean:48:8: warning: declaration uses `sorry`
+OAI.DiscreteFree.real_l1_quantitative_renorming : OAI.DiscreteFree.RealL1RenormingStatement
+def OAI.DiscreteFree.HasBAP.{u_2} : (X : Type u_2) → [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → ℝ → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] Λ =>
+  ∀ (C : Set X),
+    IsCompact C → ∀ (ε : ℝ), 0 < ε → ∃ T, Module.Finite ℝ ↥(↑T).range ∧ ‖T‖ ≤ Λ ∧ ∃ η < ε, ∀ u ∈ C, ‖T u - u‖ ≤ η
+def OAI.DiscreteFree.blockBound : ℕ → ℝ :=
+fun p => 300 * ↑p ^ 2 + 150 * ↑p + 5
+def OAI.DiscreteFree.RealL1 : Type :=
+↥(lp (fun x => ℝ) 1)
+def OAI.DiscreteFree.RealL1RenormingStatement : Prop :=
+∀ (p : ℕ),
+  1 ≤ p →
+    ∃ N,
+      (∀ (r : ℝ) (c : OAI.DiscreteFree.RealL1), N (r • c) = |r| * N c) ∧
+        (∀ (c : OAI.DiscreteFree.RealL1), 1 / 2 * ‖c‖ ≤ N c ∧ N c ≤ OAI.DiscreteFree.blockBound p * ‖c‖) ∧
+          have m := inferInstance;
+          ∃ s,
+            s.toModule = m ∧
+              CompleteSpace OAI.DiscreteFree.RealL1 ∧
+                OAI.DiscreteFree.HasBAP OAI.DiscreteFree.RealL1 (2 * OAI.DiscreteFree.blockBound p) ∧
+                  ¬OAI.DiscreteFree.HasBAP OAI.DiscreteFree.RealL1 ↑p ∧
+                    (p = 1 → ¬OAI.DiscreteFree.HasBAP OAI.DiscreteFree.RealL1 1)
