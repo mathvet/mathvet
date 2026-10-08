@@ -1,0 +1,130 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_VariableWL.lean:125:8: warning: declaration uses `sorry`
+OAI.VariableWL.main : OAI.VariableWL.EXPTIMEComplete OAI.VariableWL.WL ∧
+  OAI.VariableWL.EXPTIMEComplete OAI.VariableWL.SubWL
+@[reducible] def OAI.VariableWL.Word : Type :=
+List Bool
+inductive OAI.VariableWL.Motion : Type
+number of parameters: 0
+constructors:
+OAI.VariableWL.Motion.left : OAI.VariableWL.Motion
+OAI.VariableWL.Motion.stay : OAI.VariableWL.Motion
+OAI.VariableWL.Motion.right : OAI.VariableWL.Motion
+def OAI.VariableWL.Motion.displacement : OAI.VariableWL.Motion → ℤ :=
+fun x =>
+  match x with
+  | OAI.VariableWL.Motion.left => -1
+  | OAI.VariableWL.Motion.stay => 0
+  | OAI.VariableWL.Motion.right => 1
+structure OAI.VariableWL.Machine : Type
+number of parameters: 0
+fields:
+  OAI.VariableWL.Machine.states : ℕ
+  OAI.VariableWL.Machine.workSymbols : ℕ
+  OAI.VariableWL.Machine.extraTapes : ℕ
+  OAI.VariableWL.Machine.transition : Fin (self.states + 1) →
+      (Fin (self.extraTapes + 1) → Fin (self.workSymbols + 3)) →
+        Option
+          (Fin (self.states + 1) × (Fin (self.extraTapes + 1) → Fin (self.workSymbols + 3) × OAI.VariableWL.Motion))
+constructor:
+  OAI.VariableWL.Machine.mk (states workSymbols extraTapes : ℕ)
+    (transition :
+      Fin (states + 1) →
+        (Fin (extraTapes + 1) → Fin (workSymbols + 3)) →
+          Option (Fin (states + 1) × (Fin (extraTapes + 1) → Fin (workSymbols + 3) × OAI.VariableWL.Motion))) :
+    OAI.VariableWL.Machine
+structure OAI.VariableWL.Configuration (M : OAI.VariableWL.Machine) : Type
+number of parameters: 1
+fields:
+  OAI.VariableWL.Configuration.control : Fin (M.states + 1)
+  OAI.VariableWL.Configuration.heads : Fin (M.extraTapes + 1) → ℤ
+  OAI.VariableWL.Configuration.cells : Fin (M.extraTapes + 1) → ℤ → Fin (M.workSymbols + 3)
+constructor:
+  OAI.VariableWL.Configuration.mk {M : OAI.VariableWL.Machine} (control : Fin (M.states + 1))
+    (heads : Fin (M.extraTapes + 1) → ℤ) (cells : Fin (M.extraTapes + 1) → ℤ → Fin (M.workSymbols + 3)) :
+    OAI.VariableWL.Configuration M
+def OAI.VariableWL.wordCells : (a : ℕ) → OAI.VariableWL.Word → ℤ → Fin (a + 3) :=
+fun a w i =>
+  if 0 ≤ i then
+    match w[i.toNat]? with
+    | none => 0
+    | some false => 1
+    | some true => 2
+  else 0
+def OAI.VariableWL.initial : (M : OAI.VariableWL.Machine) → OAI.VariableWL.Word → OAI.VariableWL.Configuration M :=
+fun M w =>
+  { control := 0, heads := fun x => 0,
+    cells := fun j => if j = 0 then OAI.VariableWL.wordCells M.workSymbols w else fun x => 0 }
+def OAI.VariableWL.scanned : {M : OAI.VariableWL.Machine} →
+  OAI.VariableWL.Configuration M → Fin (M.extraTapes + 1) → Fin (M.workSymbols + 3) :=
+fun {M} c j => c.cells j (c.heads j)
+def OAI.VariableWL.step : (M : OAI.VariableWL.Machine) →
+  OAI.VariableWL.Configuration M → Option (OAI.VariableWL.Configuration M) :=
+fun M c =>
+  Option.map
+    (fun data =>
+      { control := data.1, heads := fun j => c.heads j + (data.2 j).2.displacement,
+        cells := fun j i => if i = c.heads j then (data.2 j).1 else c.cells j i })
+    (M.transition c.control (OAI.VariableWL.scanned c))
+def OAI.VariableWL.run : (M : OAI.VariableWL.Machine) → OAI.VariableWL.Word → ℕ → OAI.VariableWL.Configuration M :=
+fun M w x => Nat.brecOn x (OAI.VariableWL.run._f M w)
+def OAI.VariableWL.OutputsWithin : OAI.VariableWL.Machine → OAI.VariableWL.Word → OAI.VariableWL.Word → ℕ → Prop :=
+fun M w out bound =>
+  ∃ t ≤ bound,
+    OAI.VariableWL.step M (OAI.VariableWL.run M w t) = none ∧
+      (OAI.VariableWL.run M w t).cells 0 = OAI.VariableWL.wordCells M.workSymbols out
+@[reducible] def OAI.VariableWL.Language : Type :=
+Set OAI.VariableWL.Word
+def OAI.VariableWL.InEXPTIME : OAI.VariableWL.Language → Prop :=
+fun L =>
+  ∃ M c d,
+    ∀ (w : OAI.VariableWL.Word),
+      ∃ b, (b = true ↔ w ∈ L) ∧ OAI.VariableWL.OutputsWithin M w [b] (2 ^ (c * (List.length w + 1) ^ d))
+def OAI.VariableWL.PolytimeReduces : OAI.VariableWL.Language → OAI.VariableWL.Language → Prop :=
+fun L R =>
+  ∃ M c d,
+    ∀ (w : OAI.VariableWL.Word),
+      ∃ out, OAI.VariableWL.OutputsWithin M w out (c * (List.length w + 1) ^ d) ∧ (w ∈ L ↔ out ∈ R)
+def OAI.VariableWL.EXPTIMEComplete : OAI.VariableWL.Language → Prop :=
+fun L =>
+  OAI.VariableWL.InEXPTIME L ∧
+    ∀ (R : OAI.VariableWL.Language), OAI.VariableWL.InEXPTIME R → OAI.VariableWL.PolytimeReduces R L
+structure OAI.VariableWL.Graph : Type
+number of parameters: 0
+fields:
+  OAI.VariableWL.Graph.order : ℕ
+  OAI.VariableWL.Graph.graph : SimpleGraph (Fin self.order)
+constructor:
+  OAI.VariableWL.Graph.mk (order : ℕ) (graph : SimpleGraph (Fin order)) : OAI.VariableWL.Graph
+@[reducible] def OAI.VariableWL.Tuple : OAI.VariableWL.Graph → ℕ → Type :=
+fun G k => Fin k → Fin G.order
+def OAI.VariableWL.Color : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (OAI.VariableWL.Color._f k)
+def OAI.VariableWL.color : (G : OAI.VariableWL.Graph) →
+  (k s : ℕ) → OAI.VariableWL.Tuple G k → OAI.VariableWL.Color k s :=
+fun G k x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.VariableWL.Tuple G k → OAI.VariableWL.Color k x) x (OAI.VariableWL.color._f G k)
+    x_1
+def OAI.VariableWL.histogram : OAI.VariableWL.Graph → (k s : ℕ) → Multiset (OAI.VariableWL.Color k s) :=
+fun G k s => Multiset.map (OAI.VariableWL.color G k s) Finset.univ.val
+def OAI.VariableWL.Equivalent : OAI.VariableWL.Graph → OAI.VariableWL.Graph → ℕ → Prop :=
+fun G H k => ∀ (s : ℕ), OAI.VariableWL.histogram G k s = OAI.VariableWL.histogram H k s
+def OAI.VariableWL.integerCode : ℕ → OAI.VariableWL.Word :=
+fun n => List.replicate n.bits.length true ++ [false] ++ n.bits
+def OAI.VariableWL.graphCode : OAI.VariableWL.Graph → OAI.VariableWL.Word :=
+fun G => OAI.VariableWL.integerCode G.order ++ (List.ofFn fun i => List.ofFn fun j => decide (G.graph.Adj i j)).flatten
+def OAI.VariableWL.pairCode : OAI.VariableWL.Graph → OAI.VariableWL.Graph → ℕ → OAI.VariableWL.Word :=
+fun G H k => OAI.VariableWL.graphCode G ++ OAI.VariableWL.graphCode H ++ OAI.VariableWL.integerCode k
+def OAI.VariableWL.WL : OAI.VariableWL.Language :=
+{w | ∃ G H k, w = OAI.VariableWL.pairCode G H k ∧ 2 ≤ k ∧ OAI.VariableWL.Equivalent G H k}
+def OAI.VariableWL.Subcubic : OAI.VariableWL.Graph → Prop :=
+fun G => ∀ (v : Fin G.order), G.graph.degree v ≤ 3
+def OAI.VariableWL.SubWL : OAI.VariableWL.Language :=
+{w |
+  ∃ G H k,
+    w = OAI.VariableWL.pairCode G H k ∧
+      2 ≤ k ∧
+        0 < G.order ∧
+          G.order = H.order ∧
+            G.graph.Connected ∧
+              H.graph.Connected ∧
+                OAI.VariableWL.Subcubic G ∧ OAI.VariableWL.Subcubic H ∧ OAI.VariableWL.Equivalent G H k}
