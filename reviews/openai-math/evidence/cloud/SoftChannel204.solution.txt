@@ -1,0 +1,115 @@
+OAI.SoftChannel204.fullMain : OAI.SoftChannel204.FullMain
+'OAI.SoftChannel204.fullMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SoftChannel204.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+def OAI.SoftChannel204.sign : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.SoftChannel204.avg : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} g => (∑ x, g x) / 2 ^ n
+def OAI.SoftChannel204.L : ℝ :=
+Real.log 2
+def OAI.SoftChannel204.psi : ℝ → ℝ :=
+fun r => (1 + r) / 2 * Real.log (1 + r) + (1 - r) / 2 * Real.log (1 - r)
+def OAI.SoftChannel204.H : ℝ → ℝ :=
+fun r => OAI.SoftChannel204.L - OAI.SoftChannel204.psi r
+def OAI.SoftChannel204.info : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} u => OAI.SoftChannel204.H (OAI.SoftChannel204.avg u) - OAI.SoftChannel204.avg (OAI.SoftChannel204.H ∘ u)
+def OAI.SoftChannel204.psiInv : ℝ → ℝ :=
+fun s => Function.invFunOn OAI.SoftChannel204.psi (Set.Icc 0 1) s
+def OAI.SoftChannel204.kernel : {n : ℕ} → ℝ → OAI.SoftChannel204.Cube n → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ x y => ∏ i, if x i = y i then (1 + ρ) / 2 else (1 - ρ) / 2
+def OAI.SoftChannel204.noise : {n : ℕ} → ℝ → (OAI.SoftChannel204.Cube n → ℝ) → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ u y => ∑ x, OAI.SoftChannel204.kernel ρ y x * u x
+def OAI.SoftChannel204.Closed : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → Prop :=
+fun {n} u => ∀ (x : OAI.SoftChannel204.Cube n), u x ∈ Set.Icc (-1) 1
+def OAI.SoftChannel204.Interior : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → Prop :=
+fun {n} g => ∀ (x : OAI.SoftChannel204.Cube n), g x ∈ Set.Ioo (-1) 1
+def OAI.SoftChannel204.softCoordinate : {n : ℕ} → Fin n → ℝ → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} i a x => a * OAI.SoftChannel204.sign (x i)
+def OAI.SoftChannel204.flip : {n : ℕ} → Fin n → OAI.SoftChannel204.Cube n → OAI.SoftChannel204.Cube n :=
+fun {n} i x => Function.update x i !x i
+def OAI.SoftChannel204.numberOperator : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} g x => 1 / 2 * ∑ i, (g x - g (OAI.SoftChannel204.flip i x))
+def OAI.SoftChannel204.production : {n : ℕ} → (OAI.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} g => OAI.SoftChannel204.avg fun x => Real.artanh (g x) * OAI.SoftChannel204.numberOperator g x
+def OAI.SoftChannel204.F : ℝ → ℝ :=
+fun s => OAI.SoftChannel204.psiInv s * Real.artanh (OAI.SoftChannel204.psiInv s)
+def OAI.SoftChannel204.S : ℝ → ℝ :=
+fun s => if s < 0 then 0 else OAI.SoftChannel204.F s - 2 * s
+def OAI.SoftChannel204.reserve : ℝ → ℝ → ℝ :=
+fun m I =>
+  2 * I + (1 - m ^ 2) * OAI.SoftChannel204.S (OAI.SoftChannel204.L - (OAI.SoftChannel204.H m - I) / (1 - m ^ 2))
+def OAI.SoftChannel204.hybrid : ℝ → ℝ → ℝ :=
+fun m I => max (OAI.SoftChannel204.reserve m I) (OAI.SoftChannel204.F I)
+def OAI.SoftChannel204.softJoint : {n : ℕ} →
+  ℝ → (OAI.SoftChannel204.Cube n → ℝ) → Bool → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ u b y =>
+  OAI.SoftChannel204.avg fun x => (1 + OAI.SoftChannel204.sign b * u x) / 2 * OAI.SoftChannel204.kernel ρ x y
+def OAI.SoftChannel204.boolJoint : {n : ℕ} →
+  ℝ → (OAI.SoftChannel204.Cube n → Bool) → Bool → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} ρ f b y => OAI.SoftChannel204.avg fun x => if f x = b then OAI.SoftChannel204.kernel ρ x y else 0
+def OAI.SoftChannel204.leftMarginal : {n : ℕ} → (Bool → OAI.SoftChannel204.Cube n → ℝ) → Bool → ℝ :=
+fun {n} p b => ∑ y, p b y
+def OAI.SoftChannel204.rightMarginal : {n : ℕ} →
+  (Bool → OAI.SoftChannel204.Cube n → ℝ) → OAI.SoftChannel204.Cube n → ℝ :=
+fun {n} p y => ∑ b, p b y
+def OAI.SoftChannel204.mutualInformation : {n : ℕ} → (Bool → OAI.SoftChannel204.Cube n → ℝ) → ℝ :=
+fun {n} p =>
+  ∑ b,
+    ∑ y,
+      if 0 < p b y then
+        p b y * Real.log (p b y / (OAI.SoftChannel204.leftMarginal p b * OAI.SoftChannel204.rightMarginal p y))
+      else 0
+def OAI.SoftChannel204.binaryEntropyBits : ℝ → ℝ :=
+fun ε => -(ε * Real.log ε + (1 - ε) * Real.log (1 - ε)) / OAI.SoftChannel204.L
+def OAI.SoftChannel204.SoftContraction : Prop :=
+∀ (n : ℕ) (u : OAI.SoftChannel204.Cube n → ℝ),
+  OAI.SoftChannel204.Closed u →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      OAI.SoftChannel204.info (OAI.SoftChannel204.noise ρ u) ≤
+        OAI.SoftChannel204.psi (|ρ| * OAI.SoftChannel204.psiInv (OAI.SoftChannel204.info u))
+def OAI.SoftChannel204.SoftAttainment : Prop :=
+∀ (n : ℕ) (i : Fin n) (a : ℝ),
+  |a| ≤ 1 →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      OAI.SoftChannel204.info (OAI.SoftChannel204.noise ρ (OAI.SoftChannel204.softCoordinate i a)) =
+        OAI.SoftChannel204.psi
+          (|ρ| * OAI.SoftChannel204.psiInv (OAI.SoftChannel204.info (OAI.SoftChannel204.softCoordinate i a)))
+def OAI.SoftChannel204.SoftInformationIdentity : Prop :=
+∀ (n : ℕ) (u : OAI.SoftChannel204.Cube n → ℝ),
+  OAI.SoftChannel204.Closed u →
+    ∀ ρ ∈ Set.Icc (-1) 1,
+      OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.softJoint ρ u) =
+        OAI.SoftChannel204.info (OAI.SoftChannel204.noise ρ u)
+def OAI.SoftChannel204.RefinedBoolean : Prop :=
+∀ (n : ℕ) (f : OAI.SoftChannel204.Cube n → Bool),
+  ∀ ρ ∈ Set.Icc (-1) 1,
+    have m := OAI.SoftChannel204.avg (OAI.SoftChannel204.sign ∘ f);
+    have bound := OAI.SoftChannel204.psi (|ρ| * OAI.SoftChannel204.psiInv (OAI.SoftChannel204.H m));
+    OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.boolJoint ρ f) =
+        OAI.SoftChannel204.info (OAI.SoftChannel204.noise ρ (OAI.SoftChannel204.sign ∘ f)) ∧
+      OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.boolJoint ρ f) ≤ bound ∧
+        bound ≤ OAI.SoftChannel204.psi |ρ| ∧ (0 < |m| → |m| < 1 → 0 < |ρ| → bound < OAI.SoftChannel204.psi |ρ|)
+def OAI.SoftChannel204.BooleanAttainment : Prop :=
+∀ (n : ℕ) (i : Fin n),
+  ∀ ρ ∈ Set.Icc (-1) 1,
+    OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.boolJoint ρ fun x => x i) = OAI.SoftChannel204.psi |ρ| ∧
+      OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.boolJoint ρ fun x => !x i) = OAI.SoftChannel204.psi |ρ|
+def OAI.SoftChannel204.BitsConversion : Prop :=
+∀ (n : ℕ) (f : OAI.SoftChannel204.Cube n → Bool),
+  ∀ ε ∈ Set.Icc 0 (1 / 2),
+    OAI.SoftChannel204.psi (1 - 2 * ε) / OAI.SoftChannel204.L = 1 - OAI.SoftChannel204.binaryEntropyBits ε ∧
+      OAI.SoftChannel204.mutualInformation (OAI.SoftChannel204.boolJoint (1 - 2 * ε) f) / OAI.SoftChannel204.L ≤
+        1 - OAI.SoftChannel204.binaryEntropyBits ε
+def OAI.SoftChannel204.SharpProduction : Prop :=
+∀ (n : ℕ) (g : OAI.SoftChannel204.Cube n → ℝ),
+  OAI.SoftChannel204.Interior g →
+    OAI.SoftChannel204.hybrid (OAI.SoftChannel204.avg g) (OAI.SoftChannel204.info g) ≤ OAI.SoftChannel204.production g ∧
+      OAI.SoftChannel204.F (OAI.SoftChannel204.info g) ≤
+        OAI.SoftChannel204.hybrid (OAI.SoftChannel204.avg g) (OAI.SoftChannel204.info g)
+def OAI.SoftChannel204.FullMain : Prop :=
+OAI.SoftChannel204.SoftContraction ∧
+  OAI.SoftChannel204.SoftAttainment ∧
+    OAI.SoftChannel204.SoftInformationIdentity ∧
+      OAI.SoftChannel204.RefinedBoolean ∧
+        OAI.SoftChannel204.BooleanAttainment ∧ OAI.SoftChannel204.BitsConversion ∧ OAI.SoftChannel204.SharpProduction
