@@ -1,0 +1,17 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_LittleFinitistic.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LittleFinitistic.Main.exists_counterexample [thm] ok
+CMP OAI.LittleFinitistic.littleFinitisticDimension [def] ok
+Chal.LittleFinitistic.Main.exists_counterexample : ∃ A x x_1,
+  FiniteDimensional ℂ A ∧
+    Chal.LittleFinitistic.littleFinitisticDimension A = ⊤ ∧
+      ∀ (m : ℕ),
+        0 < m →
+          ∃ N,
+            Module.Finite A ↑N ∧
+              ↑(2 * m - 2) ≤ CategoryTheory.projectiveDimension N ∧ CategoryTheory.projectiveDimension N < ⊤
+def Chal.LittleFinitistic.littleFinitisticDimension.{u} : (A : Type u) → [Ring A] → WithBot ℕ∞ :=
+fun A [Ring A] =>
+  ⨆ M,
+    ⨆ (_ : Module.Finite A ↑M), ⨆ (_ : CategoryTheory.projectiveDimension M < ⊤), CategoryTheory.projectiveDimension M
+'OAI.LittleFinitistic.Main.exists_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LittleFinitistic comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

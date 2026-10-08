@@ -1,0 +1,372 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_MaximalSeshadriConstants.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.MaximalSeshadri.Geometry.maximalSeshadriConstants [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.EventualMaximalSeshadri [def] ok
+CMP OAI.MaximalSeshadri.Geometry.selfIntersection [def] ok
+CMP OAI.MaximalSeshadri.Geometry.LineBundle.sheaf [def] ok
+CMP OAI.MaximalSeshadri.Geometry.LineBundle [ind] ok
+CMP OAI.MaximalSeshadri.Geometry.LineBundle.mk [ctor] ok
+CMP OAI.MaximalSeshadri.Geometry.modulePow [def] ok
+CMP OAI.MaximalSeshadri.Geometry.modulePow._f [def] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleTensor [def] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleTensor._proof_4 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleTensor._proof_3 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleTensor._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleTensor._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.modulePow.match_1 [def] ok
+CMP OAI.MaximalSeshadri.Geometry.Surface.structureMap [def] ok
+CMP OAI.MaximalSeshadri.Geometry.Surface [ind] ok
+CMP OAI.MaximalSeshadri.Geometry.Surface.mk [ctor] ok
+CMP OAI.MaximalSeshadri.Geometry.projectiveSpaceToSpec [def] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero [def] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_11 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_3 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_10 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_9 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_8 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_7 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_6 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_5 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.constantsInDegreeZero._proof_4 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.projectiveSpaceToSpec._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.complexProjectiveSpace._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.complexProjectiveSpace [def] ok
+CMP OAI.MaximalSeshadri.Geometry.Surface.scheme [def] ok
+CMP OAI.MaximalSeshadri.Geometry.eulerCharacteristic [def] ok
+CMP OAI.MaximalSeshadri.Geometry.cohomologyDimension [def] ok
+CMP OAI.MaximalSeshadri.Geometry.baseScalars [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafLinear [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafLinear._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_6 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomSMul [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomSMul._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.restrictScalar [def] ok
+CMP OAI.MaximalSeshadri.Geometry.restrictScalar._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomSMul._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_5 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_4 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_3 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafHomModule._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.sheafLinear._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.structureSheaf [def] ok
+CMP OAI.MaximalSeshadri.Geometry.schemeHasExt [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.cohomology [def] ok
+CMP OAI.MaximalSeshadri.Geometry.seshadriConstant [def] ok
+CMP OAI.MaximalSeshadri.Geometry.curveDegree [def] ok
+CMP OAI.MaximalSeshadri.Geometry.IntegralCurve.embedding [def] ok
+CMP OAI.MaximalSeshadri.Geometry.IntegralCurve [ind] ok
+CMP OAI.MaximalSeshadri.Geometry.IntegralCurve.mk [ctor] ok
+CMP OAI.MaximalSeshadri.Geometry.IntegralCurve.scheme [def] ok
+CMP OAI.MaximalSeshadri.Geometry.totalMultiplicity [def] ok
+CMP OAI.MaximalSeshadri.Geometry.ComplexPoint.image [def] ok
+CMP OAI.MaximalSeshadri.Geometry.ComplexPoint.image._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.complexBase [def] ok
+CMP OAI.MaximalSeshadri.Geometry.ComplexPoint [def] ok
+CMP OAI.MaximalSeshadri.Geometry.curveMultiplicity [def] ok
+CMP OAI.MaximalSeshadri.Geometry.curveMultiplicity._proof_2 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.curveMultiplicity._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.idealOrder [def] ok
+CMP OAI.MaximalSeshadri.Geometry.idealOrder._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.Configuration [def] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup.BoundaryNef [def] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup.exceptionalIdeal [def] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup [ind] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup.mk [ctor] ok
+CMP OAI.MaximalSeshadri.Geometry.PresentsPullbackIdeal [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sectionImageIdeal [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sectionImageIdeal._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.centreIdeal [def] ok
+CMP OAI.MaximalSeshadri.Geometry.IsBlowup [def] ok
+CMP OAI.MaximalSeshadri.Geometry.InvertiblePullbackIdeal [def] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup.surface [def] ok
+CMP OAI.MaximalSeshadri.Geometry.PointBlowup.projection [def] ok
+CMP OAI.MaximalSeshadri.Geometry.moduleCurveDegree [def] ok
+CMP OAI.MaximalSeshadri.Geometry.configurationTopology [def] ok
+CMP OAI.MaximalSeshadri.Geometry.configurationTopology._proof_5 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.tupleZariskiTopology [def] ok
+CMP OAI.MaximalSeshadri.Geometry.tupleImage [def] ok
+CMP OAI.MaximalSeshadri.Geometry.surfacePower._proof_1 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.surfacePower [def] ok
+CMP OAI.MaximalSeshadri.Geometry.configurationTopology._aux_1 [def] ok
+CMP OAI.MaximalSeshadri.Geometry.configurationTopology._proof_4 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.configurationTopology._proof_3 [thm] ok
+CMP OAI.MaximalSeshadri.Geometry.LineBundle.IsAmple [def] ok
+CMP OAI.MaximalSeshadri.Geometry.sectionOpen [def] ok
+CMP OAI.MaximalSeshadri.Geometry.GlobalSections [def] ok
+Chal.MaximalSeshadri.Geometry.maximalSeshadriConstants : ∀ (S : Chal.MaximalSeshadri.Geometry.Surface)
+  (L : Chal.MaximalSeshadri.Geometry.LineBundle S.scheme),
+  Chal.MaximalSeshadri.Geometry.LineBundle.IsAmple S.scheme L →
+    Chal.MaximalSeshadri.Geometry.EventualMaximalSeshadri S L
+def Chal.MaximalSeshadri.Geometry.complexProjectiveSpace : ℕ → AlgebraicGeometry.Scheme :=
+fun N => AlgebraicGeometry.Proj (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) ℂ)
+def Chal.MaximalSeshadri.Geometry.constantsInDegreeZero : (N : ℕ) →
+  ℂ →+* ↥(MvPolynomial.homogeneousSubmodule (Fin (N + 1)) ℂ 0) :=
+fun N => { toFun := fun c => ⟨MvPolynomial.C c, ⋯⟩, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯ }
+def Chal.MaximalSeshadri.Geometry.projectiveSpaceToSpec : (N : ℕ) →
+  Chal.MaximalSeshadri.Geometry.complexProjectiveSpace N ⟶ AlgebraicGeometry.Spec ↧ℂ :=
+fun N =>
+  CategoryTheory.CategoryStruct.comp
+    (AlgebraicGeometry.Proj.toSpecZero (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) ℂ))
+    (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Chal.MaximalSeshadri.Geometry.constantsInDegreeZero N)))
+structure Chal.MaximalSeshadri.Geometry.Surface : Type 1
+number of parameters: 0
+fields:
+  Chal.MaximalSeshadri.Geometry.Surface.scheme : AlgebraicGeometry.Scheme
+  Chal.MaximalSeshadri.Geometry.Surface.structureMap : self.scheme ⟶ AlgebraicGeometry.Spec ↧ℂ
+  Chal.MaximalSeshadri.Geometry.Surface.integral : AlgebraicGeometry.IsIntegral self.scheme
+  Chal.MaximalSeshadri.Geometry.Surface.smooth : AlgebraicGeometry.SmoothOfRelativeDimension 2 self.structureMap
+  Chal.MaximalSeshadri.Geometry.Surface.embeddingDimension : ℕ
+  Chal.MaximalSeshadri.Geometry.Surface.embedding : self.scheme ⟶
+      Chal.MaximalSeshadri.Geometry.complexProjectiveSpace self.embeddingDimension
+  Chal.MaximalSeshadri.Geometry.Surface.closedImmersion : AlgebraicGeometry.IsClosedImmersion self.embedding
+  Chal.MaximalSeshadri.Geometry.Surface.overComplex : CategoryTheory.CategoryStruct.comp self.embedding
+        (Chal.MaximalSeshadri.Geometry.projectiveSpaceToSpec self.embeddingDimension) =
+      self.structureMap
+constructor:
+  Chal.MaximalSeshadri.Geometry.Surface.mk (scheme : AlgebraicGeometry.Scheme)
+    (structureMap : scheme ⟶ AlgebraicGeometry.Spec ↧ℂ) (integral : AlgebraicGeometry.IsIntegral scheme)
+    (smooth : AlgebraicGeometry.SmoothOfRelativeDimension 2 structureMap) (embeddingDimension : ℕ)
+    (embedding : scheme ⟶ Chal.MaximalSeshadri.Geometry.complexProjectiveSpace embeddingDimension)
+    (closedImmersion : AlgebraicGeometry.IsClosedImmersion embedding)
+    (overComplex :
+      CategoryTheory.CategoryStruct.comp embedding
+          (Chal.MaximalSeshadri.Geometry.projectiveSpaceToSpec embeddingDimension) =
+        structureMap) :
+    Chal.MaximalSeshadri.Geometry.Surface
+structure Chal.MaximalSeshadri.Geometry.LineBundle.{u_1} (X : AlgebraicGeometry.Scheme) : Type (u_1 + 1)
+number of parameters: 1
+fields:
+  Chal.MaximalSeshadri.Geometry.LineBundle.sheaf : X.Modules
+  Chal.MaximalSeshadri.Geometry.LineBundle.locallyRankOne : ∀ (x : ↥X),
+      ∃ U, x ∈ U ∧ Nonempty (self.sheaf.restrict U.ι ≅ SheafOfModules.unit (↑U).ringCatSheaf)
+constructor:
+  Chal.MaximalSeshadri.Geometry.LineBundle.mk.{u_1} {X : AlgebraicGeometry.Scheme} (sheaf : X.Modules)
+    (locallyRankOne : ∀ (x : ↥X), ∃ U, x ∈ U ∧ Nonempty (sheaf.restrict U.ι ≅ SheafOfModules.unit (↑U).ringCatSheaf)) :
+    Chal.MaximalSeshadri.Geometry.LineBundle X
+def Chal.MaximalSeshadri.Geometry.moduleTensor : (X : AlgebraicGeometry.Scheme) → X.Modules → X.Modules → X.Modules :=
+fun X M N =>
+  (PresheafOfModules.sheafification (CategoryTheory.CategoryStruct.id X.ringCatSheaf.obj)).obj
+    (PresheafOfModulesOfCommRing.Monoidal.tensorObj M.val N.val)
+def Chal.MaximalSeshadri.Geometry.modulePow : (X : AlgebraicGeometry.Scheme) → X.Modules → ℕ → X.Modules :=
+fun X M x => Nat.brecOn x (Chal.MaximalSeshadri.Geometry.modulePow._f X M)
+def Chal.MaximalSeshadri.Geometry.structureSheaf.{u_1} : (X : AlgebraicGeometry.Scheme) → X.Modules :=
+fun X => SheafOfModules.unit X.ringCatSheaf
+@[reducible] def Chal.MaximalSeshadri.Geometry.GlobalSections.{u_1} : (X : AlgebraicGeometry.Scheme) →
+  X.Modules → Type u_1 :=
+fun X M => Chal.MaximalSeshadri.Geometry.structureSheaf X ⟶ M
+def Chal.MaximalSeshadri.Geometry.sectionOpen.{u_1} : (X : AlgebraicGeometry.Scheme) →
+  {M : X.Modules} → Chal.MaximalSeshadri.Geometry.GlobalSections X M → X.Opens :=
+fun X {M} s => ⨆ U, ⨆ (_ : CategoryTheory.IsIso ((AlgebraicGeometry.Scheme.Modules.restrictFunctor U.ι).map s)), U
+def Chal.MaximalSeshadri.Geometry.LineBundle.IsAmple : (X : AlgebraicGeometry.Scheme) →
+  Chal.MaximalSeshadri.Geometry.LineBundle X → Prop :=
+fun X L =>
+  ∀ (x : ↥X) (V : X.Opens),
+    x ∈ V →
+      ∃ n,
+        0 < n ∧
+          ∃ s,
+            x ∈ Chal.MaximalSeshadri.Geometry.sectionOpen X s ∧
+              Chal.MaximalSeshadri.Geometry.sectionOpen X s ≤ V ∧
+                AlgebraicGeometry.IsAffineOpen (Chal.MaximalSeshadri.Geometry.sectionOpen X s)
+def Chal.MaximalSeshadri.Geometry.restrictScalar.{u_1} : (X : AlgebraicGeometry.Scheme) →
+  (U : X.Opens) → ↑(X.presheaf.obj (Opposite.op ⊤)) →+* ↑(X.presheaf.obj (Opposite.op U)) :=
+fun X U => CommRingCat.Hom.hom (X.presheaf.map (CategoryTheory.homOfLE ⋯).op)
+def Chal.MaximalSeshadri.Geometry.sheafHomSMul.{u_1} : (X : AlgebraicGeometry.Scheme) →
+  {M N : X.Modules} → ↑(X.presheaf.obj (Opposite.op ⊤)) → (M ⟶ N) → (M ⟶ N) :=
+fun X {M N} r f =>
+  {
+    val :=
+      {
+        app := fun U =>
+          have g := ModuleCat.Hom.hom (f.val.app U);
+          ModuleCat.ofHom ((Chal.MaximalSeshadri.Geometry.restrictScalar X (Opposite.unop U)) r • g),
+        naturality := ⋯ } }
+def Chal.MaximalSeshadri.Geometry.baseScalars : {X : AlgebraicGeometry.Scheme} →
+  (X ⟶ AlgebraicGeometry.Spec ↧ℂ) → ℂ →+* ↑(X.presheaf.obj (Opposite.op ⊤)) :=
+fun {X} f =>
+  (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.Hom.appTop f)).comp
+    (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.ΓSpecIso ↧ℂ).inv)
+@[reducible] def Chal.MaximalSeshadri.Geometry.cohomology : {X : AlgebraicGeometry.Scheme} → X.Modules → ℕ → Type 1 :=
+fun {X} M n => CategoryTheory.Abelian.Ext (Chal.MaximalSeshadri.Geometry.structureSheaf X) M n
+def Chal.MaximalSeshadri.Geometry.cohomologyDimension : {X : AlgebraicGeometry.Scheme} →
+  (X ⟶ AlgebraicGeometry.Spec ↧ℂ) → X.Modules → ℕ → ℕ :=
+fun {X} f M n => Module.finrank ℂ (Chal.MaximalSeshadri.Geometry.cohomology M n)
+def Chal.MaximalSeshadri.Geometry.eulerCharacteristic : {X : AlgebraicGeometry.Scheme} →
+  (X ⟶ AlgebraicGeometry.Spec ↧ℂ) → ℕ → X.Modules → ℤ :=
+fun {X} f d M => ∑ n ∈ Finset.range (d + 1), (-1) ^ n * ↑(Chal.MaximalSeshadri.Geometry.cohomologyDimension f M n)
+def Chal.MaximalSeshadri.Geometry.selfIntersection : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  Chal.MaximalSeshadri.Geometry.LineBundle S.scheme → ℤ :=
+fun S L =>
+  Chal.MaximalSeshadri.Geometry.eulerCharacteristic S.structureMap 2
+        (Chal.MaximalSeshadri.Geometry.modulePow S.scheme L.sheaf 2) -
+      2 * Chal.MaximalSeshadri.Geometry.eulerCharacteristic S.structureMap 2 L.sheaf +
+    Chal.MaximalSeshadri.Geometry.eulerCharacteristic S.structureMap 2 (SheafOfModules.unit S.scheme.ringCatSheaf)
+structure Chal.MaximalSeshadri.Geometry.IntegralCurve (S : Chal.MaximalSeshadri.Geometry.Surface) : Type 1
+number of parameters: 1
+fields:
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.scheme : AlgebraicGeometry.Scheme
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.embedding : self.scheme ⟶ S.scheme
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.closedImmersion : AlgebraicGeometry.IsClosedImmersion self.embedding
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.integral : AlgebraicGeometry.IsIntegral self.scheme
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.dimension : topologicalKrullDim ↥self.scheme = 1
+constructor:
+  Chal.MaximalSeshadri.Geometry.IntegralCurve.mk {S : Chal.MaximalSeshadri.Geometry.Surface}
+    (scheme : AlgebraicGeometry.Scheme) (embedding : scheme ⟶ S.scheme)
+    (closedImmersion : AlgebraicGeometry.IsClosedImmersion embedding) (integral : AlgebraicGeometry.IsIntegral scheme)
+    (dimension : topologicalKrullDim ↥scheme = 1) : Chal.MaximalSeshadri.Geometry.IntegralCurve S
+def Chal.MaximalSeshadri.Geometry.curveDegree : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  Chal.MaximalSeshadri.Geometry.LineBundle S.scheme → Chal.MaximalSeshadri.Geometry.IntegralCurve S → ℤ :=
+fun S L C =>
+  Chal.MaximalSeshadri.Geometry.eulerCharacteristic (CategoryTheory.CategoryStruct.comp C.embedding S.structureMap) 1
+      ((AlgebraicGeometry.Scheme.Modules.pullback C.embedding).obj L.sheaf) -
+    Chal.MaximalSeshadri.Geometry.eulerCharacteristic (CategoryTheory.CategoryStruct.comp C.embedding S.structureMap) 1
+      (SheafOfModules.unit C.scheme.ringCatSheaf)
+@[reducible] def Chal.MaximalSeshadri.Geometry.complexBase : AlgebraicGeometry.Scheme :=
+AlgebraicGeometry.Spec ↧ℂ
+@[reducible] def Chal.MaximalSeshadri.Geometry.ComplexPoint : Chal.MaximalSeshadri.Geometry.Surface → Type :=
+fun S =>
+  CategoryTheory.Over.mk (CategoryTheory.CategoryStruct.id Chal.MaximalSeshadri.Geometry.complexBase) ⟶
+    CategoryTheory.Over.mk S.structureMap
+def Chal.MaximalSeshadri.Geometry.ComplexPoint.image : {S : Chal.MaximalSeshadri.Geometry.Surface} →
+  Chal.MaximalSeshadri.Geometry.ComplexPoint S → ↥S.scheme :=
+fun {S} p =>
+  (CategoryTheory.Over.Hom.left p)
+    { asIdeal := ⊥, isPrime := Chal.MaximalSeshadri.Geometry.ComplexPoint.image._proof_1 }
+def Chal.MaximalSeshadri.Geometry.surfacePower : Chal.MaximalSeshadri.Geometry.Surface →
+  ℕ → CategoryTheory.Over Chal.MaximalSeshadri.Geometry.complexBase :=
+fun S r => ∏ᶜ fun x => CategoryTheory.Over.mk S.structureMap
+def Chal.MaximalSeshadri.Geometry.tupleImage : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  (r : ℕ) →
+    (Fin r → Chal.MaximalSeshadri.Geometry.ComplexPoint S) → ↥(Chal.MaximalSeshadri.Geometry.surfacePower S r).left :=
+fun S r p =>
+  (CategoryTheory.Over.Hom.left (CategoryTheory.Limits.Pi.lift p))
+    { asIdeal := ⊥, isPrime := Chal.MaximalSeshadri.Geometry.ComplexPoint.image._proof_1 }
+@[instance_reducible] def Chal.MaximalSeshadri.Geometry.tupleZariskiTopology : (S :
+    Chal.MaximalSeshadri.Geometry.Surface) →
+  (r : ℕ) → TopologicalSpace (Fin r → Chal.MaximalSeshadri.Geometry.ComplexPoint S) :=
+fun S r => TopologicalSpace.induced (Chal.MaximalSeshadri.Geometry.tupleImage S r) inferInstance
+def Chal.MaximalSeshadri.Geometry.Configuration : Chal.MaximalSeshadri.Geometry.Surface → ℕ → Type :=
+fun S r => { p // Function.Injective fun i => (p i).image }
+def Chal.MaximalSeshadri.Geometry.idealOrder : {R : Type} → [inst : CommRing R] → [IsLocalRing R] → Ideal R → ℕ :=
+fun {R} [CommRing R] [IsLocalRing R] I => sInf {n | ¬I ≤ IsLocalRing.maximalIdeal R ^ (n + 1)}
+def Chal.MaximalSeshadri.Geometry.curveMultiplicity : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  Chal.MaximalSeshadri.Geometry.IntegralCurve S → Chal.MaximalSeshadri.Geometry.ComplexPoint S → ℕ :=
+fun S C p =>
+  if h : ∃ q, C.embedding q = p.image then
+    Chal.MaximalSeshadri.Geometry.idealOrder
+      (RingHom.ker (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.Hom.stalkMap C.embedding h.choose)))
+  else 0
+def Chal.MaximalSeshadri.Geometry.totalMultiplicity : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  (r : ℕ) → Chal.MaximalSeshadri.Geometry.IntegralCurve S → Chal.MaximalSeshadri.Geometry.Configuration S r → ℕ :=
+fun S r C p => ∑ i, Chal.MaximalSeshadri.Geometry.curveMultiplicity S C (↑p i)
+def Chal.MaximalSeshadri.Geometry.seshadriConstant : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  Chal.MaximalSeshadri.Geometry.LineBundle S.scheme → (r : ℕ) → Chal.MaximalSeshadri.Geometry.Configuration S r → ℝ :=
+fun S L r p =>
+  sInf
+    {a |
+      ∃ C,
+        0 < Chal.MaximalSeshadri.Geometry.totalMultiplicity S r C p ∧
+          a =
+            ↑(Chal.MaximalSeshadri.Geometry.curveDegree S L C) /
+              ↑(Chal.MaximalSeshadri.Geometry.totalMultiplicity S r C p)}
+def Chal.MaximalSeshadri.Geometry.moduleCurveDegree : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  S.scheme.Modules → Chal.MaximalSeshadri.Geometry.IntegralCurve S → ℤ :=
+fun S M C =>
+  Chal.MaximalSeshadri.Geometry.eulerCharacteristic (CategoryTheory.CategoryStruct.comp C.embedding S.structureMap) 1
+      ((AlgebraicGeometry.Scheme.Modules.pullback C.embedding).obj M) -
+    Chal.MaximalSeshadri.Geometry.eulerCharacteristic (CategoryTheory.CategoryStruct.comp C.embedding S.structureMap) 1
+      (Chal.MaximalSeshadri.Geometry.structureSheaf C.scheme)
+def Chal.MaximalSeshadri.Geometry.sectionImageIdeal.{u_1} : {X : AlgebraicGeometry.Scheme} →
+  (J : Chal.MaximalSeshadri.Geometry.LineBundle X) →
+    (J.sheaf ⟶ Chal.MaximalSeshadri.Geometry.structureSheaf X) →
+      (U : X.Opens) → Ideal ↑(X.presheaf.obj (Opposite.op U)) :=
+fun {X} J ι U =>
+  have φ := ModuleCat.Hom.hom (ι.val.app (Opposite.op U));
+  φ.range
+def Chal.MaximalSeshadri.Geometry.PresentsPullbackIdeal.{u_1} : {X Y : AlgebraicGeometry.Scheme} →
+  X.IdealSheafData →
+    (Y ⟶ X) →
+      (J : Chal.MaximalSeshadri.Geometry.LineBundle Y) →
+        (J.sheaf ⟶ Chal.MaximalSeshadri.Geometry.structureSheaf Y) → Prop :=
+fun {X Y} I f J ι =>
+  CategoryTheory.Mono ι ∧
+    ∀ (U : ↑Y.affineOpens) (V : ↑X.affineOpens) (e : ↑U ≤ (TopologicalSpace.Opens.map f.base).obj ↑V),
+      Chal.MaximalSeshadri.Geometry.sectionImageIdeal J ι ↑U =
+        Ideal.map (CommRingCat.Hom.hom (AlgebraicGeometry.Scheme.Hom.appLE f (↑V) (↑U) e)) (I.ideal V)
+def Chal.MaximalSeshadri.Geometry.InvertiblePullbackIdeal.{u_1} : {X Y : AlgebraicGeometry.Scheme} →
+  X.IdealSheafData → (Y ⟶ X) → Prop :=
+fun {X Y} I f => ∃ J ι, Chal.MaximalSeshadri.Geometry.PresentsPullbackIdeal I f J ι
+def Chal.MaximalSeshadri.Geometry.centreIdeal : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  (r : ℕ) → Chal.MaximalSeshadri.Geometry.Configuration S r → S.scheme.IdealSheafData :=
+fun S r p => ∏ i, AlgebraicGeometry.Scheme.Hom.ker (CategoryTheory.Over.Hom.left (↑p i))
+def Chal.MaximalSeshadri.Geometry.IsBlowup.{u_1} : {X B : AlgebraicGeometry.Scheme} →
+  X.IdealSheafData → (B ⟶ X) → Prop :=
+fun {X B} I π =>
+  Chal.MaximalSeshadri.Geometry.InvertiblePullbackIdeal I π ∧
+    ∀ (Y : AlgebraicGeometry.Scheme) (f : Y ⟶ X),
+      Chal.MaximalSeshadri.Geometry.InvertiblePullbackIdeal I f → ∃! h, CategoryTheory.CategoryStruct.comp h π = f
+structure Chal.MaximalSeshadri.Geometry.PointBlowup (S : Chal.MaximalSeshadri.Geometry.Surface) (r : ℕ)
+  (p : Chal.MaximalSeshadri.Geometry.Configuration S r) : Type 1
+number of parameters: 3
+fields:
+  Chal.MaximalSeshadri.Geometry.PointBlowup.surface : Chal.MaximalSeshadri.Geometry.Surface
+  Chal.MaximalSeshadri.Geometry.PointBlowup.projection : self.surface.scheme ⟶ S.scheme
+  Chal.MaximalSeshadri.Geometry.PointBlowup.overComplex : CategoryTheory.CategoryStruct.comp self.projection
+        S.structureMap =
+      self.surface.structureMap
+  Chal.MaximalSeshadri.Geometry.PointBlowup.isBlowup : Chal.MaximalSeshadri.Geometry.IsBlowup
+      (Chal.MaximalSeshadri.Geometry.centreIdeal S r p) self.projection
+  Chal.MaximalSeshadri.Geometry.PointBlowup.exceptionalIdeal : Fin r →
+      Chal.MaximalSeshadri.Geometry.LineBundle self.surface.scheme
+  Chal.MaximalSeshadri.Geometry.PointBlowup.exceptionalInclusion : (i : Fin r) →
+      (self.exceptionalIdeal i).sheaf ⟶ Chal.MaximalSeshadri.Geometry.structureSheaf self.surface.scheme
+  Chal.MaximalSeshadri.Geometry.PointBlowup.exceptionalPullback : ∀ (i : Fin r),
+      Chal.MaximalSeshadri.Geometry.PresentsPullbackIdeal
+        (AlgebraicGeometry.Scheme.Hom.ker (CategoryTheory.Over.Hom.left (↑p i))) self.projection
+        (self.exceptionalIdeal i) (self.exceptionalInclusion i)
+constructor:
+  Chal.MaximalSeshadri.Geometry.PointBlowup.mk {S : Chal.MaximalSeshadri.Geometry.Surface} {r : ℕ}
+    {p : Chal.MaximalSeshadri.Geometry.Configuration S r} (surface : Chal.MaximalSeshadri.Geometry.Surface)
+    (projection : surface.scheme ⟶ S.scheme)
+    (overComplex : CategoryTheory.CategoryStruct.comp projection S.structureMap = surface.structureMap)
+    (isBlowup : Chal.MaximalSeshadri.Geometry.IsBlowup (Chal.MaximalSeshadri.Geometry.centreIdeal S r p) projection)
+    (exceptionalIdeal : Fin r → Chal.MaximalSeshadri.Geometry.LineBundle surface.scheme)
+    (exceptionalInclusion :
+      (i : Fin r) → (exceptionalIdeal i).sheaf ⟶ Chal.MaximalSeshadri.Geometry.structureSheaf surface.scheme)
+    (exceptionalPullback :
+      ∀ (i : Fin r),
+        Chal.MaximalSeshadri.Geometry.PresentsPullbackIdeal
+          (AlgebraicGeometry.Scheme.Hom.ker (CategoryTheory.Over.Hom.left (↑p i))) projection (exceptionalIdeal i)
+          (exceptionalInclusion i)) :
+    Chal.MaximalSeshadri.Geometry.PointBlowup S r p
+def Chal.MaximalSeshadri.Geometry.PointBlowup.BoundaryNef : {S : Chal.MaximalSeshadri.Geometry.Surface} →
+  {r : ℕ} →
+    {p : Chal.MaximalSeshadri.Geometry.Configuration S r} →
+      Chal.MaximalSeshadri.Geometry.PointBlowup S r p → Chal.MaximalSeshadri.Geometry.LineBundle S.scheme → Prop :=
+fun {S} {r} {p} B L =>
+  ∀ (C : Chal.MaximalSeshadri.Geometry.IntegralCurve B.surface),
+    0 ≤
+      ↑(Chal.MaximalSeshadri.Geometry.moduleCurveDegree B.surface
+            ((AlgebraicGeometry.Scheme.Modules.pullback B.projection).obj L.sheaf) C) +
+        √(↑(Chal.MaximalSeshadri.Geometry.selfIntersection S L) / ↑r) *
+          ∑ i, ↑(Chal.MaximalSeshadri.Geometry.curveDegree B.surface (B.exceptionalIdeal i) C)
+def Chal.MaximalSeshadri.Geometry.EventualMaximalSeshadri : (S : Chal.MaximalSeshadri.Geometry.Surface) →
+  Chal.MaximalSeshadri.Geometry.LineBundle S.scheme → Prop :=
+fun S L =>
+  ∃ r₀,
+    0 < r₀ ∧
+      ∀ (r : ℕ),
+        r₀ ≤ r →
+          ∃ Z,
+            (∀ (n : ℕ), IsClosed (Z n) ∧ Z n ≠ Set.univ) ∧
+              (∃ p, ∀ (n : ℕ), p ∉ Z n) ∧
+                ∀ (p : Chal.MaximalSeshadri.Geometry.Configuration S r),
+                  (∀ (n : ℕ), p ∉ Z n) →
+                    (∃ B, B.BoundaryNef L) ∧
+                      Chal.MaximalSeshadri.Geometry.seshadriConstant S L r p =
+                        √(↑(Chal.MaximalSeshadri.Geometry.selfIntersection S L) / ↑r)
+'OAI.MaximalSeshadri.Geometry.maximalSeshadriConstants' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MaximalSeshadriConstants comparator-style: ok=97 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

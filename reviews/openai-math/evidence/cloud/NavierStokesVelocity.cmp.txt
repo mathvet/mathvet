@@ -1,3 +1,4 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_NavierStokesVelocity.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.VelocityDetection.main_result [thm] ok
 CMP OAI.VelocityDetection.Observation.planeEvent [def] ok
 CMP OAI.VelocityDetection.Observation.planeMass [def] ok
@@ -732,7 +733,13 @@ fun {b N} [NeZero N] M q a => Option.map (fun p => Chal.VelocityDetection.TapeCo
 def Chal.VelocityDetection.Prelude.rule : {N b : ℕ} →
   Chal.VelocityDetection.Stacks.Rule (Fin N) b → Chal.VelocityDetection.Stacks.Rule (Fin (N + 1)) b :=
 fun {N b} r => { target := r.target.castSucc, written := r.written, move := r.move }
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_NavierStokesVelocity.lean:1451:7: error(lean.unknownIdentifier): Unknown constant `Chal.VelocityDetection.Prelude.table`
+def Chal.VelocityDetection.Prelude.table' : {N b : ℕ} →
+  (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+    Fin N → Fin (N + 1) → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin (N + 1)) b) :=
+fun {N b} table q₀ i =>
+  Fin.lastCases (motive := fun x => Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin (N + 1)) b))
+    (fun a => some { target := q₀.castSucc, written := a, move := Chal.VelocityDetection.Stacks.Move.stay })
+    (fun q a => Option.map Chal.VelocityDetection.Prelude.rule (table q a)) i
 def Chal.VelocityDetection.Prelude.initial : {N : ℕ} →
   ℕ → ℕ → Chal.VelocityDetection.Stacks.Configuration (Fin (N + 1)) :=
 fun {N} x y => { state := Fin.last N, leftStack := x, rightStack := y }
@@ -1515,4 +1522,4 @@ fun {b N} [NeZero b] [NeZero N] P d F =>
 def Chal.VelocityDetection.Effective.ComputableReal : ℝ → Prop :=
 fun x => ∃ q, Computable q ∧ ∀ (k : ℕ), |x - ↑(q k)| ≤ ↑(Chal.VelocityDetection.Effective.accuracy k)
 'OAI.VelocityDetection.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
-== NavierStokesVelocity comparator-style: ok=260 problems=0 errors=1 | SHADOW-DIFF(see NavierStokesVelocity.standalone.norm vs NavierStokesVelocity.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0
+== NavierStokesVelocity comparator-style: ok=260 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

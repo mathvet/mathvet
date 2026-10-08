@@ -1,0 +1,221 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VertexCover.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VertexCover.lean:165:39: error: Ambiguous term
+  Literal
+Possible interpretations:
+  BinaryFormula.Literal : Type
+  
+  Lean.Literal : Type
+CMP OAI.VertexCover.every_fixed_factor_below_two [thm] ok
+CMP OAI.VertexCover.ThreeSATDecision [ind] ok
+CMP OAI.VertexCover.ThreeSATDecision.mk [ctor] ok
+CMP OAI.VertexCover.ThreeSAT [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Formula.Satisfiable [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Clause.eval [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Clause.eval._proof_6 [thm] ok
+CMP OAI.UniqueGames.BinaryFormula.Clause.eval._proof_5 [thm] ok
+CMP OAI.UniqueGames.BinaryFormula.Clause.eval._proof_4 [thm] ok
+CMP OAI.UniqueGames.BinaryFormula.Literal [ind] ok
+CMP OAI.UniqueGames.BinaryFormula.Literal.mk [ctor] ok
+CMP OAI.UniqueGames.BinaryFormula.Literal.eval [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Literal.name [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Literal.positive [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Clause [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Formula.clauses [def] ok
+CMP OAI.UniqueGames.BinaryFormula.Formula [ind] ok
+CMP OAI.UniqueGames.BinaryFormula.Formula.mk [ctor] ok
+CMP OAI.UniqueGames.BinaryEncoding.decodeFormula [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClauses.match_1 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClauses [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClauses._f [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClauses.match_3 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClause [def] VALUE_MISMATCH (types definitionally equal, values NOT)
+CMP OAI.UniqueGames.BinaryEncoding.parseClause.match_1 [def] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
+CMP OAI.UniqueGames.BinaryEncoding.parseLiteral [def] TYPE_MISMATCH (types NOT definitionally equal)
+CMP OAI.UniqueGames.BinaryEncoding.parseLiteral.match_1 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseName [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.bitsValue [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.bitsValue._f [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.bitsValue.match_1 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseFrame.match_1 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseFrame [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseFrame._f [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseFrame.match_3 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseFrame._sparseCasesOn_3 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseLiteral.match_3 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClauses.match_5 [def] ok
+CMP OAI.VertexCover.FiniteAlphabet [def] ok
+CMP OAI.VertexCover.Approximation [ind] ok
+CMP OAI.VertexCover.Approximation.mk [ctor] ok
+CMP OAI.VertexCover.ExplicitGraph.coverNumber [def] ok
+CMP OAI.VertexCover.ExplicitGraph.coverNumber._proof_1 [thm] ok
+CMP OAI.VertexCover.ExplicitGraph.Cover [def] ok
+CMP OAI.VertexCover.ExplicitGraph.edges [def] ok
+CMP OAI.VertexCover.ExplicitGraph [ind] ok
+CMP OAI.VertexCover.ExplicitGraph.mk [ctor] ok
+CMP OAI.VertexCover.ExplicitGraph.n [def] ok
+CMP OAI.VertexCover.ExplicitGraph.instDecidableCover [def] ok
+CMP OAI.VertexCover.ExplicitGraph.instDecidableCover._aux_1 [def] ok
+CMP OAI.VertexCover.natListBits [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.nameBits [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.frame [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.frame._f [def] ok
+CMP OAI.VertexCover.ExplicitGraph.bits [def] ok
+CMP OAI.VertexCover.explicit_cover_gap [thm] ok
+CMP OAI.VertexCover.GapReduction [ind] ok
+CMP OAI.VertexCover.GapReduction.mk [ctor] ok
+Chal.VertexCover.explicit_cover_gap : ∀ (m : ℕ), 4 ≤ m → Nonempty (Chal.VertexCover.GapReduction m)
+Chal.VertexCover.every_fixed_factor_below_two : ∀ (α : ℝ),
+  1 ≤ α → α < 2 → ∀ (algorithm : Chal.VertexCover.Approximation α), Nonempty Chal.VertexCover.ThreeSATDecision
+structure Chal.UniqueGames.BinaryFormula.Literal : Type
+number of parameters: 0
+fields:
+  Chal.UniqueGames.BinaryFormula.Literal.name : ℕ
+  Chal.UniqueGames.BinaryFormula.Literal.positive : Bool
+constructor:
+  Chal.UniqueGames.BinaryFormula.Literal.mk (name : ℕ) (positive : Bool) : Chal.UniqueGames.BinaryFormula.Literal
+def Chal.UniqueGames.BinaryFormula.Literal.eval : Chal.UniqueGames.BinaryFormula.Literal → (ℕ → Bool) → Bool :=
+fun literal assignment => if literal.positive = true then assignment literal.name else !assignment literal.name
+@[reducible] def Chal.UniqueGames.BinaryFormula.Clause : Type :=
+Vector Chal.UniqueGames.BinaryFormula.Literal 3
+def Chal.UniqueGames.BinaryFormula.Clause.eval : Chal.UniqueGames.BinaryFormula.Clause → (ℕ → Bool) → Bool :=
+fun clause assignment => clause[0].eval assignment || clause[1].eval assignment || clause[2].eval assignment
+structure Chal.UniqueGames.BinaryFormula.Formula : Type
+number of parameters: 0
+fields:
+  Chal.UniqueGames.BinaryFormula.Formula.clauses : List Chal.UniqueGames.BinaryFormula.Clause
+constructor:
+  Chal.UniqueGames.BinaryFormula.Formula.mk (clauses : List Chal.UniqueGames.BinaryFormula.Clause) :
+    Chal.UniqueGames.BinaryFormula.Formula
+def Chal.UniqueGames.BinaryFormula.Formula.Satisfiable : Chal.UniqueGames.BinaryFormula.Formula → Prop :=
+fun F => ∃ assignment, ∀ clause ∈ F.clauses, clause.eval assignment = true
+def Chal.UniqueGames.BinaryEncoding.bitsValue : List Bool → ℕ :=
+fun x => List.brecOn x Chal.UniqueGames.BinaryEncoding.bitsValue._f
+def Chal.UniqueGames.BinaryEncoding.frame : List Bool → List Bool :=
+fun x => List.brecOn x Chal.UniqueGames.BinaryEncoding.frame._f
+def Chal.UniqueGames.BinaryEncoding.parseFrame : List Bool → Option (List Bool × List Bool) :=
+fun x => List.brecOn x Chal.UniqueGames.BinaryEncoding.parseFrame._f
+def Chal.UniqueGames.BinaryEncoding.nameBits : ℕ → List Bool :=
+fun name => Chal.UniqueGames.BinaryEncoding.frame name.bits
+def Chal.UniqueGames.BinaryEncoding.parseName : List Bool → Option (ℕ × List Bool) :=
+fun input => do
+  let __x ← Chal.UniqueGames.BinaryEncoding.parseFrame input
+  match __x with
+    | (digits, rest) =>
+      have name := Chal.UniqueGames.BinaryEncoding.bitsValue digits;
+      if digits = name.bits then some (name, rest) else none
+def Chal.UniqueGames.BinaryEncoding.parseLiteral : List Bool → Option (sorry × List Bool) :=
+fun x =>
+  match x with
+  | sign :: input => do
+    let __x ← Chal.UniqueGames.BinaryEncoding.parseName input
+    match __x with
+      | (name, rest) => pure (sorry, rest)
+  | [] => none
+def Chal.UniqueGames.BinaryEncoding.parseClause : List Bool →
+  Option (Chal.UniqueGames.BinaryFormula.Clause × List Bool) :=
+fun input => do
+  let __x ← Chal.UniqueGames.BinaryEncoding.parseLiteral input
+  match __x with
+    | (a, input) => do
+      let __x ← Chal.UniqueGames.BinaryEncoding.parseLiteral input
+      match __x with
+        | (b, input) => do
+          let __x ← Chal.UniqueGames.BinaryEncoding.parseLiteral input
+          match __x with
+            | (c, rest) => pure (#v[sorry, sorry, sorry], rest)
+def Chal.UniqueGames.BinaryEncoding.parseClauses : ℕ →
+  List Bool → Option (List Chal.UniqueGames.BinaryFormula.Clause × List Bool) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => List Bool → Option (List Chal.UniqueGames.BinaryFormula.Clause × List Bool)) x
+    Chal.UniqueGames.BinaryEncoding.parseClauses._f x_1
+def Chal.UniqueGames.BinaryEncoding.decodeFormula : List Bool → Option Chal.UniqueGames.BinaryFormula.Formula :=
+fun input => do
+  let __x ← Chal.UniqueGames.BinaryEncoding.parseClauses (input.length + 1) input
+  match __x with
+    | (clauses, rest) => if rest = [] then some { clauses := clauses } else none
+def Chal.VertexCover.ThreeSAT : List Bool → Prop :=
+fun input => ∃ formula, Chal.UniqueGames.BinaryEncoding.decodeFormula input = some formula ∧ formula.Satisfiable
+structure Chal.VertexCover.ExplicitGraph : Type
+number of parameters: 0
+fields:
+  Chal.VertexCover.ExplicitGraph.n : ℕ
+  Chal.VertexCover.ExplicitGraph.edges : List (Fin self.n × Fin self.n)
+  Chal.VertexCover.ExplicitGraph.increasing : ∀ e ∈ self.edges, e.1 < e.2
+  Chal.VertexCover.ExplicitGraph.nodup : self.edges.Nodup
+constructor:
+  Chal.VertexCover.ExplicitGraph.mk (n : ℕ) (edges : List (Fin n × Fin n)) (increasing : ∀ e ∈ edges, e.1 < e.2)
+    (nodup : edges.Nodup) : Chal.VertexCover.ExplicitGraph
+def Chal.VertexCover.ExplicitGraph.Cover : (G : Chal.VertexCover.ExplicitGraph) → Finset (Fin G.n) → Prop :=
+fun G S => ∀ e ∈ G.edges, e.1 ∈ S ∨ e.2 ∈ S
+def Chal.VertexCover.ExplicitGraph.coverNumber : Chal.VertexCover.ExplicitGraph → ℕ :=
+fun G => Nat.find ⋯
+def Chal.VertexCover.ExplicitGraph.bits : Chal.VertexCover.ExplicitGraph → List Bool :=
+fun G =>
+  have names := [G.n] ++ List.range G.n ++ [G.edges.length] ++ List.flatMap (fun e => [↑e.1, ↑e.2]) G.edges;
+  List.flatMap Chal.UniqueGames.BinaryEncoding.nameBits names
+def Chal.VertexCover.FiniteAlphabet : Turing.FinTM2 → Prop :=
+fun M => ∀ (k : M.K), Finite (M.Γ k)
+structure Chal.VertexCover.GapReduction (m : ℕ) : Type 1
+number of parameters: 1
+fields:
+  Chal.VertexCover.GapReduction.construct : List Bool → Chal.VertexCover.ExplicitGraph
+  Chal.VertexCover.GapReduction.computation : Turing.TM2ComputableInPolyTime id Chal.VertexCover.ExplicitGraph.bits
+      self.construct
+  Chal.VertexCover.GapReduction.finiteAlphabet : Chal.VertexCover.FiniteAlphabet self.computation.tm
+  Chal.VertexCover.GapReduction.completeness : ∀ (input : List Bool),
+      Chal.VertexCover.ThreeSAT input →
+        ↑(self.construct input).coverNumber < (1 / 2 + 1 / ↑m) * ↑(self.construct input).n
+  Chal.VertexCover.GapReduction.soundness : ∀ (input : List Bool),
+      ¬Chal.VertexCover.ThreeSAT input → (1 - 1 / ↑m) * ↑(self.construct input).n < ↑(self.construct input).coverNumber
+constructor:
+  Chal.VertexCover.GapReduction.mk {m : ℕ} (construct : List Bool → Chal.VertexCover.ExplicitGraph)
+    (computation : Turing.TM2ComputableInPolyTime id Chal.VertexCover.ExplicitGraph.bits construct)
+    (finiteAlphabet : Chal.VertexCover.FiniteAlphabet computation.tm)
+    (completeness :
+      ∀ (input : List Bool),
+        Chal.VertexCover.ThreeSAT input → ↑(construct input).coverNumber < (1 / 2 + 1 / ↑m) * ↑(construct input).n)
+    (soundness :
+      ∀ (input : List Bool),
+        ¬Chal.VertexCover.ThreeSAT input → (1 - 1 / ↑m) * ↑(construct input).n < ↑(construct input).coverNumber) :
+    Chal.VertexCover.GapReduction m
+def Chal.VertexCover.natListBits : List ℕ → List Bool :=
+fun L => List.flatMap Chal.UniqueGames.BinaryEncoding.nameBits (L.length :: L)
+structure Chal.VertexCover.Approximation (α : ℝ) : Type 1
+number of parameters: 1
+fields:
+  Chal.VertexCover.Approximation.run : Chal.VertexCover.ExplicitGraph → List ℕ
+  Chal.VertexCover.Approximation.computation : Turing.TM2ComputableInPolyTime Chal.VertexCover.ExplicitGraph.bits
+      Chal.VertexCover.natListBits self.run
+  Chal.VertexCover.Approximation.finiteAlphabet : Chal.VertexCover.FiniteAlphabet self.computation.tm
+  Chal.VertexCover.Approximation.nodup : ∀ (G : Chal.VertexCover.ExplicitGraph), (self.run G).Nodup
+  Chal.VertexCover.Approximation.vertices : ∀ (G : Chal.VertexCover.ExplicitGraph), ∀ v ∈ self.run G, v < G.n
+  Chal.VertexCover.Approximation.covers : ∀ (G : Chal.VertexCover.ExplicitGraph),
+      ∀ e ∈ G.edges, ↑e.1 ∈ self.run G ∨ ↑e.2 ∈ self.run G
+  Chal.VertexCover.Approximation.quality : ∀ (G : Chal.VertexCover.ExplicitGraph),
+      ↑(self.run G).length ≤ α * ↑G.coverNumber
+constructor:
+  Chal.VertexCover.Approximation.mk {α : ℝ} (run : Chal.VertexCover.ExplicitGraph → List ℕ)
+    (computation : Turing.TM2ComputableInPolyTime Chal.VertexCover.ExplicitGraph.bits Chal.VertexCover.natListBits run)
+    (finiteAlphabet : Chal.VertexCover.FiniteAlphabet computation.tm)
+    (nodup : ∀ (G : Chal.VertexCover.ExplicitGraph), (run G).Nodup)
+    (vertices : ∀ (G : Chal.VertexCover.ExplicitGraph), ∀ v ∈ run G, v < G.n)
+    (covers : ∀ (G : Chal.VertexCover.ExplicitGraph), ∀ e ∈ G.edges, ↑e.1 ∈ run G ∨ ↑e.2 ∈ run G)
+    (quality : ∀ (G : Chal.VertexCover.ExplicitGraph), ↑(run G).length ≤ α * ↑G.coverNumber) :
+    Chal.VertexCover.Approximation α
+structure Chal.VertexCover.ThreeSATDecision : Type 1
+number of parameters: 0
+fields:
+  Chal.VertexCover.ThreeSATDecision.run : List Bool → Bool
+  Chal.VertexCover.ThreeSATDecision.computation : Turing.TM2ComputableInPolyTime id (fun b => [b]) self.run
+  Chal.VertexCover.ThreeSATDecision.finiteAlphabet : Chal.VertexCover.FiniteAlphabet self.computation.tm
+  Chal.VertexCover.ThreeSATDecision.correct : ∀ (input : List Bool),
+      self.run input = true ↔ Chal.VertexCover.ThreeSAT input
+constructor:
+  Chal.VertexCover.ThreeSATDecision.mk (run : List Bool → Bool)
+    (computation : Turing.TM2ComputableInPolyTime id (fun b => [b]) run)
+    (finiteAlphabet : Chal.VertexCover.FiniteAlphabet computation.tm)
+    (correct : ∀ (input : List Bool), run input = true ↔ Chal.VertexCover.ThreeSAT input) :
+    Chal.VertexCover.ThreeSATDecision
+'OAI.VertexCover.explicit_cover_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.VertexCover.every_fixed_factor_below_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+== VertexCover comparator-style: ok=55 problems=2 errors=1 | SHADOW-DIFF(see VertexCover.standalone.norm vs VertexCover.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=1

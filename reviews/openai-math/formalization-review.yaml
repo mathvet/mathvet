@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T17:50:40Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T18:19:51Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,8 +2894,8 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 300 accepted by
-    the real Comparator, of which 300 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 11 solutions built locally, 11 with a clean closure comparison and standard axioms, 308 accepted by
+    the real Comparator, of which 308 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3269,7 +3269,8 @@ alignment:
     module: OAI.AlgebraicGeometry.Seshadri.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MaximalSeshadriConstants.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 039 — headline claim as stated in the overview: Proves Nagata''s strict inequality $\sum_i m_i<d\sqrt
       r$ for every nonzero effective plane curve of degree $d$ through $r\ge10$ very general complex points, with
       arbitrary multiplicities $m_i$. It also proves maximal multipoint Seshadri constants $(L^n/r)^{1/n}$ for every
@@ -3838,7 +3839,8 @@ alignment:
     module: OAI.Computability.VertexCover.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/VertexCover.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 102 — The Unique Games Conjecture and optimal approximation thresholds: Arbitrary constant-factor
       hardness of Min-UnCut (the lab''s own result label); paper ''Constant-factor hardness of Min-UnCut'', theorem
       thm:main (build/sections/introduction.tex:50)'
@@ -4529,7 +4531,8 @@ alignment:
     module: OAI.Dynamics.StandardMap.ComponentsMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/StandardMapComponents.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 146 — Sinai''s positive-entropy conjecture for the standard map: Positive metric entropy for
       all sufficiently large parameters (the lab''s own result label); paper ''Positive Metric Entropy for the Standard
       Map at Large Parameters'', theorem main:entropy (build/sections/introduction.tex:15)'
@@ -5312,7 +5315,8 @@ alignment:
     module: OAI.Algebra.FinitisticAsymmetry.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/FinitisticAsymmetry.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 198 — A counterexample to the little finitistic-dimension conjecture: Infinite little finitistic
       dimension (the lab''s own result label); paper ''An algebra of infinite little finitistic dimension'', theorem
       thm:main (build/sections/01-introduction.tex:24)'
@@ -5320,7 +5324,8 @@ alignment:
     module: OAI.Algebra.Finitistic.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/LittleFinitistic.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 199 — Counterexamples to conjectures of Auslander--Reiten, Tachikawa, and Nakayama: Auslander–Reiten
       counterexample (the lab''s own result label); paper ''An explicit counterexample to the Auslander-Reiten conjecture'',
       theorem thm:main (build/01-introduction.tex:26)'
@@ -6358,7 +6363,8 @@ alignment:
     module: OAI.Geometry.Relativity.CKS.ComparatorMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/CKSBondiPenrose.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 260 — headline claim as stated in the overview: Proves the sharp enclosing-area spacetime Penrose
       inequality for smooth one-ended asymptotically flat initial data in every spatial dimension $n\ge3$, under
       dominant energy, weak future trapping, positive enclosing area, and the stated decay assumptions. It bounds
@@ -6962,7 +6968,8 @@ alignment:
     module: OAI.Analysis.RelativeGeneration.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/RelativeGeneration.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 297 — A ZFC counterexample to Naimark''s problem: Counterexample to Naimark''s problem in ZFC
       (the lab''s own result label); paper ''A counterexample to Naimark''s problem in ZFC'', theorem na:main (build/sections/introduction.tex:10)'
     lean: OAI.NaimarkZFC.main, OAI.NaimarkZFC.IsSimpleCStar, OAI.NaimarkZFC.IsState, OAI.NaimarkZFC.IsFaithfulTracialState,
@@ -7439,7 +7446,8 @@ alignment:
     module: OAI.Analysis.AffineBernstein.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/AffineBernstein.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 353 — headline claim as stated in the overview: Proves that every smooth locally uniformly convex
       affine-maximal graph of dimension three through nine, complete for its induced Euclidean metric, is an elliptic
       paraboloid. A smooth entire nonquadratic example in dimension ten makes this range sharp. In dimensions three
@@ -7762,7 +7770,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T17:50:40Z'
+    generated: '2026-10-08T18:19:51Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7800,6 +7808,7 @@ mathvet:
     - ThompsonNonamenability
     comparator_pass:
     - AbhyankarSathaye
+    - AffineBernstein
     - AlgorithmicThinTrees
     - AmplitudeDamping
     - ArnoldCounterexample
@@ -7830,6 +7839,7 @@ mathvet:
     - C0Absorption
     - C1EntropyCounterexample
     - CHObstruction
+    - CKSBondiPenrose
     - CannonGeometricAction
     - CharacterCriterion
     - ChoicelessPolynomialTime
@@ -7900,6 +7910,7 @@ mathvet:
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
     - FiniteFactor
+    - FinitisticAsymmetry
     - FixedClauseThreshold
     - ForcedNavierStokesComputation
     - ForestSpace
@@ -7955,6 +7966,7 @@ mathvet:
     - LiebThirring
     - LipschitzEquivalence
     - ListHadwiger
+    - LittleFinitistic
     - LittlewoodFiniteFlatness
     - LogBrunnMinkowski
     - LogConcaveQuery
@@ -7969,6 +7981,7 @@ mathvet:
     - MatchingPSD
     - MatrixRemoval
     - MatroidProphet
+    - MaximalSeshadriConstants
     - MemoryPrecision
     - MetricEntropyDuality
     - MetricKMedian
@@ -8015,6 +8028,7 @@ mathvet:
     - RecursivePotentials
     - ReflexiveFixedPoints
     - RegularParity
+    - RelativeGeneration
     - Rokhlin
     - RuledCovering
     - RyserCovering
@@ -8048,6 +8062,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapComponents
     - StandardMapEntropy
     - StandardMapLyapunov
     - SteinitzBergstrom
@@ -8093,6 +8108,7 @@ mathvet:
     - UniversalFInfinity
     - VariableWL
     - VertexAlgebraNet
+    - VertexCover
     - VlasovMaxwell
     - WLIdentification
     - WeakMTWGlobalSupport
@@ -8101,6 +8117,7 @@ mathvet:
     - WitnessedChoice
     comparator_sandboxed_pass:
     - AbhyankarSathaye
+    - AffineBernstein
     - AlgorithmicThinTrees
     - AmplitudeDamping
     - ArnoldCounterexample
@@ -8131,6 +8148,7 @@ mathvet:
     - C0Absorption
     - C1EntropyCounterexample
     - CHObstruction
+    - CKSBondiPenrose
     - CannonGeometricAction
     - CharacterCriterion
     - ChoicelessPolynomialTime
@@ -8201,6 +8219,7 @@ mathvet:
     - FiniteCongruenceGraph
     - FiniteEntropySeparation
     - FiniteFactor
+    - FinitisticAsymmetry
     - FixedClauseThreshold
     - ForcedNavierStokesComputation
     - ForestSpace
@@ -8256,6 +8275,7 @@ mathvet:
     - LiebThirring
     - LipschitzEquivalence
     - ListHadwiger
+    - LittleFinitistic
     - LittlewoodFiniteFlatness
     - LogBrunnMinkowski
     - LogConcaveQuery
@@ -8270,6 +8290,7 @@ mathvet:
     - MatchingPSD
     - MatrixRemoval
     - MatroidProphet
+    - MaximalSeshadriConstants
     - MemoryPrecision
     - MetricEntropyDuality
     - MetricKMedian
@@ -8316,6 +8337,7 @@ mathvet:
     - RecursivePotentials
     - ReflexiveFixedPoints
     - RegularParity
+    - RelativeGeneration
     - Rokhlin
     - RuledCovering
     - RyserCovering
@@ -8349,6 +8371,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StandardMapComponents
     - StandardMapEntropy
     - StandardMapLyapunov
     - SteinitzBergstrom
@@ -8394,6 +8417,7 @@ mathvet:
     - UniversalFInfinity
     - VariableWL
     - VertexAlgebraNet
+    - VertexCover
     - VlasovMaxwell
     - WLIdentification
     - WeakMTWGlobalSupport
@@ -8725,7 +8749,7 @@ mathvet:
       existence theorem (`curveEquation`) that is itself a checked theorem_name'
     external_packages: []
     cone_lines_max: 56552
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/039.md
     audit_part: 1
   - family: '047'
@@ -9213,7 +9237,7 @@ mathvet:
       via `NPVerifier` with a polynomial `witnessBound`'
     external_packages: []
     cone_lines_max: 188149
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/102.md
     audit_part: 1
   - family: '104'
@@ -10626,7 +10650,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 50191
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/198.md
     audit_part: 2
   - family: '199'
@@ -11556,7 +11580,7 @@ mathvet:
       manifolds; none is a Mathlib notion and the file has dozens of auxiliary definitions.
     external_packages: []
     cone_lines_max: 58903
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/260.md
     audit_part: 2
   - family: '261'
@@ -12718,7 +12742,7 @@ mathvet:
       `graphEDist` = inf of lengths ∫√(|γ''|²+(Du·γ'')²) of C¹ paths in Ω'
     external_packages: []
     cone_lines_max: 40454
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/353.md
     audit_part: 3
   - family: '354'

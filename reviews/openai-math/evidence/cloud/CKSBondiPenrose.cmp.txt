@@ -1,0 +1,2263 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CKSBondiPenrose.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CKSMain.schwarzschild_equality_examples [thm] ok
+CMP OAI.CKSMain.SchwarzschildExample [def] ok
+CMP OAI.CKSLorentz.sixteen_atLeastTwo [thm] ok
+CMP OAI.CKSSourceExterior.minimumEnclosingArea [def] ok
+CMP OAI.CKSSourceExterior.cutArea [def] ok
+CMP OAI.CKSFullCutArea.area [def] ok
+CMP OAI.CKSFullCutArea.cutMetric [def] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_12 [thm] ok
+CMP OAI.CKSFullCutArea.domainSmooth [thm] ok
+CMP OAI.CKSFullCutArea.domainCharts [def] ok
+CMP OAI.CKSGeometricCuts.OuterDomain.charts [def] ok
+CMP OAI.CKSGeometricCuts.OuterDomain [ind] ok
+CMP OAI.CKSGeometricCuts.OuterDomain.mk [ctor] ok
+CMP OAI.CKSGeometricCuts.I3 [def] ok
+CMP OAI.CKSGeometricCuts.halfSpaceDimension_neZero [thm] ok
+CMP OAI.CKSGeometricCuts.E3 [def] ok
+CMP OAI.CKSGeometricCuts.H3 [def] ok
+CMP OAI.CKSGeometricCuts.OuterDomain.topology [def] ok
+CMP OAI.CKSGeometricCuts.OuterDomain.Carrier [def] ok
+CMP OAI.CKSBoundarySurface.halfSpaceDimension_neZero [thm] ok
+CMP OAI.CKSBoundarySurface.H3 [def] ok
+CMP OAI.CKSFullCutArea.domainTopology [def] ok
+CMP OAI.CKSBoundarySurface.I3 [def] ok
+CMP OAI.CKSBoundarySurface.boundaryChartedSpace [def] ok
+CMP OAI.CKSBoundarySurface.boundaryChartedSpace._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart [def] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_15 [thm] ok
+CMP OAI.CKSBoundarySurface.liftHalf [def] ok
+CMP OAI.CKSBoundarySurface.liftHalf._proof_4 [thm] ok
+CMP OAI.CKSBoundarySurface.liftPlane [def] ok
+CMP OAI.CKSBoundarySurface.liftPlane._proof_3 [thm] ok
+CMP OAI.CKSBoundarySurface.two_atLeastTwo [thm] ok
+CMP OAI.CKSBoundarySurface.E2 [def] ok
+CMP OAI.CKSBoundarySurface.liftPlane._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.E3 [def] ok
+CMP OAI.CKSBoundarySurface.insertNormalZero [def] ok
+CMP OAI.CKSBoundarySurface.liftPlane._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.liftHalf._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.liftHalf._proof_3 [thm] ok
+CMP OAI.CKSBoundarySurface.liftHalf._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.Boundary [def] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_14 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_13 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse [def] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse._proof_5 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse._proof_4 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse._proof_3 [thm] ok
+CMP OAI.CKSIntrinsicGeometry.I3 [def] ok
+CMP OAI.CKSIntrinsicGeometry.halfSpaceDimension_neZero [thm] ok
+CMP OAI.CKSIntrinsicGeometry.H3 [def] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryInverse._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_12 [thm] ok
+CMP OAI.CKSBoundarySurface.dropPlane [def] ok
+CMP OAI.CKSBoundarySurface.dropPlane._proof_3 [thm] ok
+CMP OAI.CKSBoundarySurface.dropPlane._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.tangentialCoordinates [def] ok
+CMP OAI.CKSBoundarySurface.dropPlane._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_11 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_10 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_9 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_8 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_7 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_6 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_5 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_4 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_3 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_2 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChart._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryChartedSpace._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.I2 [def] ok
+CMP OAI.CKSInducedArea.inducedMetric [def] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_36 [thm] ok
+CMP OAI.CKSInducedArea.inducedInner [def] ok
+CMP OAI.CKSInducedArea.Smooth3._proof_2 [thm] ok
+CMP OAI.CKSInducedArea.Smooth3._proof_1 [thm] ok
+CMP OAI.CKSInducedArea.E3 [def] ok
+CMP OAI.CKSInducedArea.real_id_isometric [thm] ok
+CMP OAI.CKSInducedArea.real_id_compTriple [thm] ok
+CMP OAI.CKSInducedArea.I2 [def] ok
+CMP OAI.CKSInducedArea.E2 [def] ok
+CMP OAI.CKSInducedArea.Smooth3 [def] ok
+CMP OAI.CKSInducedArea.Inner2 [def] ok
+CMP OAI.CKSInducedArea.real_continuousConstSMul [thm] ok
+CMP OAI.CKSInducedArea.real_smulCommClass [thm] ok
+CMP OAI.CKSInducedArea.real_continuousAdd [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_35 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_34 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_33 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_32 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_31 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_26 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_25 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_24 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_23 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_30 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_29 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_28 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_27 [thm] ok
+CMP OAI.CKSInducedArea.bilinearTriv [def] ok
+CMP OAI.CKSInducedArea.covector_atlas [thm] ok
+CMP OAI.CKSInducedArea.scalarAtlas [thm] ok
+CMP OAI.CKSInducedArea.scalar_continuousSMul [thm] ok
+CMP OAI.CKSInducedArea.scalar_vectorBundle [thm] ok
+CMP OAI.CKSInducedArea.tangent_vectorBundle [thm] ok
+CMP OAI.CKSInducedArea.tangent_manifold_one [thm] ok
+CMP OAI.CKSInducedArea.covector_continuousSMul [thm] ok
+CMP OAI.CKSInducedArea.covector_topologicalAddGroup [thm] ok
+CMP OAI.CKSInducedArea.covector_vectorBundle [thm] ok
+CMP OAI.CKSInducedArea.scalar_smulCommClass [thm] ok
+CMP OAI.CKSInducedArea.bilSpace2 [def] ok
+CMP OAI.CKSInducedArea.bilSpace2._proof_1 [thm] ok
+CMP OAI.CKSInducedArea.Bil2 [def] ok
+CMP OAI.CKSInducedArea.bilNorm2 [def] ok
+CMP OAI.CKSInducedArea.bilSpace3 [def] ok
+CMP OAI.CKSInducedArea.bilSpace3._proof_1 [thm] ok
+CMP OAI.CKSInducedArea.Bil3 [def] ok
+CMP OAI.CKSInducedArea.bilNorm3 [def] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_22 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_21 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_20 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_17 [thm] ok
+CMP OAI.CKSMetricGluing.innerSection._proof_1 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_19 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_18 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_16 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_15 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_14 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_12 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_11 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_10 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_9 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_8 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_7 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_6 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_13 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_5 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_4 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_3 [thm] ok
+CMP OAI.CKSMetricGluing.innerSection._proof_2 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_1 [thm] ok
+CMP OAI.CKSInducedArea.inducedMetric._proof_2 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_11 [thm] ok
+CMP OAI.CKSFullCutArea.cutInclusion [def] ok
+CMP OAI.CKSGeometricCuts.OuterDomain.inclusion [def] ok
+CMP OAI.CKSFullCutArea.Surface [def] ok
+CMP OAI.CKSEmbeddingDerivative.I [def] ok
+CMP OAI.CKSEmbeddingDerivative.halfSpaceDimension_neZero [thm] ok
+CMP OAI.CKSEmbeddingDerivative.H [def] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_10 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_9 [thm] ok
+CMP OAI.CKSSpatialManifold.endInner._proof_1 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_8 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_7 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_6 [thm] ok
+CMP OAI.CKSEmbeddingDerivative.E [def] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_5 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_4 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_3 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_2 [thm] ok
+CMP OAI.CKSFullCutArea.cutMetric._proof_1 [thm] ok
+CMP OAI.CKSFullCutArea.SmoothMetric [def] ok
+CMP OAI.CKSFullCutArea.SmoothMetric._proof_3 [thm] ok
+CMP OAI.CKSFullCutArea.SmoothMetric._proof_2 [thm] ok
+CMP OAI.CKSFullCutArea.SmoothMetric._proof_1 [thm] ok
+CMP OAI.CKSBoundarySurface.boundaryIsManifold [thm] ok
+CMP OAI.CKSFullCutArea.area._proof_4 [thm] ok
+CMP OAI.CKSFullCutArea.area._proof_1 [thm] ok
+CMP OAI.CKSFullCutArea.area._proof_3 [thm] ok
+CMP OAI.CKSFullCutArea.area._proof_2 [thm] ok
+CMP OAI.CKSSurfaceVolume.riemannianVolume [def] ok
+CMP OAI.CKSSurfaceVolume.IsVolume [def] ok
+CMP OAI.CKSSurfaceVolume.localVolume [def] ok
+CMP OAI.CKSSurfaceVolume.chartDensity [def] ok
+CMP OAI.CKSSurfaceVolume.chartMatrix [def] ok
+CMP OAI.CKSSurfaceVolume.basis [def] ok
+CMP OAI.CKSSurfaceVolume.E [def] ok
+CMP OAI.CKSSurfaceVolume.chartFrame [def] ok
+CMP OAI.CKSSurfaceVolume.I [def] ok
+CMP OAI.CKSSurfaceVolume.H [def] ok
+CMP OAI.CKSSurfaceVolume.Metric._proof_1 [thm] ok
+CMP OAI.CKSSurfaceVolume.real_continuousConstSMul [thm] ok
+CMP OAI.CKSSurfaceVolume.real_smulCommClass [thm] ok
+CMP OAI.CKSSurfaceVolume.real_continuousAdd [thm] ok
+CMP OAI.CKSSurfaceVolume.Metric [def] ok
+CMP OAI.CKSSurfaceVolume.localVolume._proof_2 [thm] ok
+CMP OAI.CKSSurfaceVolume.localVolume._proof_1 [thm] ok
+CMP OAI.CKSIntrinsicVolume.riemannianVolume._proof_1 [thm] ok
+CMP OAI.CKSMetricGluing.SmoothMetric [def] ok
+CMP OAI.CKSMetricGluing.SmoothMetric._proof_2 [thm] ok
+CMP OAI.CKSMetricGluing.SmoothMetric._proof_1 [thm] ok
+CMP OAI.CKSMain.bondiMass [def] ok
+CMP OAI.CKSSourceExterior.CKSData.massAspect [def] ok
+CMP OAI.CKSSourceExterior.CKSData [ind] ok
+CMP OAI.CKSSourceExterior.CKSData.mk [ctor] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.RepresentsMassAspect [def] ok
+CMP OAI.CKSLorentz.SmoothAngularPatch.chart [def] ok
+CMP OAI.CKSLorentz.SmoothAngularPatch [ind] ok
+CMP OAI.CKSLorentz.SmoothAngularPatch.mk [ctor] ok
+CMP OAI.CKSMixedGeometry.A [def] ok
+CMP OAI.CKSLorentz.E [def] ok
+CMP OAI.CKSMixedGeometry.Angle [def] ok
+CMP OAI.CKSLorentz.Sphere [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.mK [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch [ind] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.mk [ctor] ok
+CMP OAI.CKSLorentz.angularRadialTail [def] ok
+CMP OAI.CKSMixedGeometry.angularProjection [def] ok
+CMP OAI.CKSMixedGeometry.I [def] ok
+CMP OAI.CKSMixedGeometry.Point [def] ok
+CMP OAI.CKSLorentz.pointDimension_neZero [thm] ok
+CMP OAI.CKSLorentz.SourceCKSComponents [ind] ok
+CMP OAI.CKSLorentz.SourceCKSComponents.mk [ctor] ok
+CMP OAI.CKSLorentz.ordinaryLeadingComponent [def] ok
+CMP OAI.CKSMixedGeometry.SourceRemainderOn [ind] ok
+CMP OAI.CKSMixedGeometry.SourceRemainderOn.mk [ctor] ok
+CMP OAI.CKSMixedGeometry.ScaledComponentBound [def] ok
+CMP OAI.CKSMixedGeometry.pointDimension_neZero [thm] ok
+CMP OAI.CKSMixedGeometry.scaledIter [def] ok
+CMP OAI.CKSMixedGeometry.scaledIter._f [def] ok
+CMP OAI.CKSMixedGeometry.scaledD [def] ok
+CMP OAI.CKSMixedGeometry.basis [def] ok
+CMP OAI.CKSCalculus.D [def] ok
+CMP OAI.CKSMixedGeometry.radialFactor [def] ok
+CMP OAI.CKSMixedGeometry.scaledIter.match_1 [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.mg [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.mr [def] ok
+CMP OAI.CKSLorentz.SmoothAngularPatch.param [def] ok
+CMP OAI.CKSLorentz.cksChartMassAspect [def] ok
+CMP OAI.CKSLorentz.two_atLeastTwo [thm] ok
+CMP OAI.CKSLorentz.angularRoundMetric [def] ok
+CMP OAI.CKSAngularGeometry.basis [def] ok
+CMP OAI.CKSAngularGeometry.I [def] ok
+CMP OAI.CKSAngularGeometry.Point [def] ok
+CMP OAI.CKSLorentz.AngularMatrix [def] ok
+CMP OAI.CKSLorentz.angularMetricTrace [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.region [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.patch [def] ok
+CMP OAI.CKSLorentz.SmoothAngularPatch.sphereRegion [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.Realizes [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.second [def] ok
+CMP OAI.CKSLorentz.polarTensorComponents [def] ok
+CMP OAI.CKSLorentz.polarParam [def] ok
+CMP OAI.CKSLorentz.three_neZero [thm] ok
+CMP OAI.CKSLorentz.real_continuousConstSMul [thm] ok
+CMP OAI.CKSLorentz.real_smulCommClass [thm] ok
+CMP OAI.CKSLorentz.real_continuousAdd [thm] ok
+CMP OAI.CKSLorentz.SpatialBilinear [def] ok
+CMP OAI.CKSLorentz.SpatialTensor [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.metric [def] ok
+CMP OAI.CKSLorentz.CKSTensorPatch.radius [def] ok
+CMP OAI.CKSSphericalHarmonics.SmoothSphere [def] ok
+CMP OAI.CKSSphericalHarmonics.Ambient [def] ok
+CMP OAI.CKSSphericalHarmonics.Sphere [def] ok
+CMP OAI.CKSMetricGluing.real_continuousConstSMul [thm] ok
+CMP OAI.CKSMetricGluing.real_smulCommClass [thm] ok
+CMP OAI.CKSMetricGluing.real_continuousAdd [thm] ok
+CMP OAI.CKSLorentz.sourceSpatial [def] ok
+CMP OAI.CKSLorentz.hyperbolicField [def] ok
+CMP OAI.CKSLorentz.spatialDual_continuousSMul [thm] ok
+CMP OAI.CKSLorentz.real_isTopologicalAddGroup [thm] ok
+CMP OAI.CKSLorentz.spatialDual_isScalarTower [thm] ok
+CMP OAI.CKSLorentz.spatialDual_continuousConstSMul [thm] ok
+CMP OAI.CKSLorentz.spatialDual_smulCommClass [thm] ok
+CMP OAI.CKSLorentz.spatialDual_isTopologicalAddGroup [thm] ok
+CMP OAI.CKSLorentz.sourceSpatial._proof_1 [thm] ok
+CMP OAI.CKSSourceExterior.CoordinateEnd.coordinate [def] ok
+CMP OAI.CKSSourceExterior.CoordinateEnd [ind] ok
+CMP OAI.CKSSourceExterior.CoordinateEnd.mk [ctor] ok
+CMP OAI.CKSSpatialManifold.endInner [def] ok
+CMP OAI.CKSSpatialManifold.real_id_isometric [thm] ok
+CMP OAI.CKSSpatialManifold.real_id_compTriple [thm] ok
+CMP OAI.CKSMetricGluing.InnerField [def] ok
+CMP OAI.CKSSourceExterior.CoordinateEnd.domain [def] ok
+CMP OAI.CKSSourceExterior.CoordinateEnd.radius [def] ok
+CMP OAI.CKSLorentz.bondiCharge [def] ok
+CMP OAI.CKSLorentz.rawCharge [def] ok
+CMP OAI.CKSLorentz.nullDirection [def] ok
+CMP OAI.CKSLorentz.V [def] ok
+CMP OAI.CKSSphericalHarmonics.surfaceMeasure [def] ok
+CMP OAI.CKSSphericalHarmonics.surfaceMeasure._proof_2 [thm] ok
+CMP OAI.CKSSphericalHarmonics.surfaceMeasure._proof_1 [thm] ok
+CMP OAI.CKSLorentz.bondiCharge._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.HorizonRegularGraph [ind] ok
+CMP OAI.CKSSchwarzschild.HorizonRegularGraph.mk [ctor] ok
+CMP OAI.CKSSchwarzschild.cartTensor [def] ok
+CMP OAI.CKSSchwarzschild.radialForm [def] ok
+CMP OAI.CKSSchwarzschild.radialUnit [def] ok
+CMP OAI.CKSSchwarzschild.real_isScalarTower [thm] ok
+CMP OAI.CKSSchwarzschild.lapseSquared [def] ok
+CMP OAI.CKSSchwarzschild.velocity [def] ok
+CMP OAI.CKSSchwarzschild.euclideanForm [def] ok
+CMP OAI.CKSSchwarzschild.spatialDual_continuousAdd [thm] ok
+CMP OAI.CKSSchwarzschild.covariantPair [def] ok
+CMP OAI.CKSSchwarzschild.futureNormal [def] ok
+CMP OAI.CKSSchwarzschild.lapse [def] ok
+CMP OAI.CKSSchwarzschild.Spacetime [def] ok
+CMP OAI.CKSSchwarzschild.cartMetric [def] ok
+CMP OAI.CKSSchwarzschild.advancedSlope [def] ok
+CMP OAI.CKSSchwarzschild.advancedTime [def] ok
+CMP OAI.CKSSchwarzschild.graphTangent [def] ok
+CMP OAI.CKSSchwarzschild.advancedGraph [def] ok
+CMP OAI.CKSSchwarzschild.advancedMetric [def] ok
+CMP OAI.CKSSchwarzschild.radiusForm [def] ok
+CMP OAI.CKSSchwarzschild.spacePart [def] ok
+CMP OAI.CKSSchwarzschild.radiusForm._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.timeForm [def] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_continuousSMul [thm] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_isScalarTower [thm] ok
+CMP OAI.CKSSchwarzschild.schwarzschildH [def] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_continuousConstSMul [thm] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_smulCommClass [thm] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_continuousAdd [thm] ok
+CMP OAI.CKSSchwarzschild.spacetimeDual_isTopologicalAddGroup [thm] ok
+CMP OAI.CKSSchwarzschild.SpacetimeBilinear [def] ok
+CMP OAI.CKSSchwarzschild.exteriorConnected [thm] ok
+CMP OAI.CKSSchwarzschild.Sphere [def] ok
+CMP OAI.CKSSchwarzschild.Radial [def] ok
+CMP OAI.CKSSchwarzschild.Exterior [def] ok
+CMP OAI.CKSMain.SchwarzschildExample._proof_4 [thm] ok
+CMP OAI.CKSMain.SchwarzschildExample._proof_3 [thm] ok
+CMP OAI.CKSMain.MainHypotheses [ind] ok
+CMP OAI.CKSMain.MainHypotheses.mk [ctor] ok
+CMP OAI.CKSSourceExterior.CKSData.chart [def] ok
+CMP OAI.CKSMain.NoAdditionalHorizons [def] ok
+CMP OAI.CKSMain.InteriorSurface.ComponentwiseApparent [def] ok
+CMP OAI.CKSMain.InteriorSurface.thetaMinus [def] ok
+CMP OAI.CKSMain.InteriorSurface.trace [def] ok
+CMP OAI.CKSMain.InteriorSurface.parameter [def] ok
+CMP OAI.CKSMain.InteriorSurface.map [def] ok
+CMP OAI.CKSMain.InteriorSurface [ind] ok
+CMP OAI.CKSMain.InteriorSurface.mk [ctor] ok
+CMP OAI.CKSMain.atlas_tangent_vectorBundle [thm] ok
+CMP OAI.CKSMain.atlas_manifold_one [thm] ok
+CMP OAI.CKSIntrinsicConstraints.halfSpaceDimension_neZero [thm] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.coordinate [def] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart [ind] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.mk [ctor] ok
+CMP OAI.CKSIntrinsicConstraints.E [def] ok
+CMP OAI.CKSIntrinsicConstraints.I [def] ok
+CMP OAI.CKSIntrinsicConstraints.H [def] ok
+CMP OAI.CKSMain.CoefficientAtlas [def] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.tensor [def] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.metric [def] ok
+CMP OAI.CKSMain.tangentialTrace [def] ok
+CMP OAI.CKSSchwarzschild.secondFrame [def] ok
+CMP OAI.CKSSchwarzschild.secondResidual [def] ok
+CMP OAI.CKSSchwarzschild.firstFrame._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.frameCovectorModule [def] ok
+CMP OAI.CKSSchwarzschild.firstFrame [def] ok
+CMP OAI.CKSMain.InteriorSurface.mean [def] ok
+CMP OAI.CKSMain.InteriorSurface.normal [def] ok
+CMP OAI.CKSMain.meanCurvature [def] ok
+CMP OAI.CKSMain.secondForm [def] ok
+CMP OAI.CKSSchwarzschild.christoffelPair [def] ok
+CMP OAI.CKSMain.InteriorSurface.thetaPlus [def] ok
+CMP OAI.CKSMain.InteriorSurface.SeparatesAway [def] ok
+CMP OAI.CKSMain.MarginalBoundary [def] ok
+CMP OAI.CKSMain.BoundaryGeometry.thetaPlus [def] ok
+CMP OAI.CKSMain.BoundaryGeometry.normal [def] ok
+CMP OAI.CKSMain.BoundaryGeometry [ind] ok
+CMP OAI.CKSMain.BoundaryGeometry.mk [ctor] ok
+CMP OAI.CKSMain.BoundaryGeometry.parameter [def] ok
+CMP OAI.CKSMain.BoundaryGeometry.chart [def] ok
+CMP OAI.CKSMain.BoundaryGeometry.parameter._proof_2 [thm] ok
+CMP OAI.CKSMain.BoundaryGeometry.parameter._proof_1 [thm] ok
+CMP OAI.CKSSpatialManifold.PhysicalDEC [def] ok
+CMP OAI.CKSSpatialManifold.PhysicalDECAt [def] ok
+CMP OAI.CKSLorentz.spatialDEC [def] ok
+CMP OAI.CKSAngularGeometry.physicalTensorJet [def] ok
+CMP OAI.CKSRealizedRound.basis [def] ok
+CMP OAI.CKSRound.Idx [def] ok
+CMP OAI.CKSRealizedRound.Point [def] ok
+CMP OAI.CKSRound.TensorJet.mk [ctor] ok
+CMP OAI.CKSRound.TensorJet [ind] ok
+CMP OAI.CKSRound.Mat [def] ok
+CMP OAI.CKSAngularGeometry.AmbientMat [def] ok
+CMP OAI.CKSAngularGeometry.PhysicalPoint [def] ok
+CMP OAI.CKSCartesianOuter.toPoint [def] ok
+CMP OAI.CKSInducedSphere.Ix [def] ok
+CMP OAI.CKSInducedSphere.E [def] ok
+CMP OAI.CKSLorentz.spatialCoefficients [def] ok
+CMP OAI.CKSAngularGeometry.physicalMetricJet [def] ok
+CMP OAI.CKSRound.MetricJet.mk [ctor] ok
+CMP OAI.CKSRound.MetricJet [ind] ok
+CMP OAI.CKSLocalBending.DEC [def] ok
+CMP OAI.CKSRound.MetricJet.energy [def] ok
+CMP OAI.CKSRound.MetricJet.gamma._proof_1 [thm] ok
+CMP OAI.CKSRound.MetricJet.normSq [def] ok
+CMP OAI.CKSRound.TensorJet.val [def] ok
+CMP OAI.CKSRound.MetricJet.inv [def] ok
+CMP OAI.CKSRound.MetricJet.trace [def] ok
+CMP OAI.CKSRound.MetricJet.scalar [def] ok
+CMP OAI.CKSRound.MetricJet.ricci [def] ok
+CMP OAI.CKSRound.MetricJet.gamma [def] ok
+CMP OAI.CKSRound.MetricJet.d [def] ok
+CMP OAI.CKSRound.MetricJet.dGamma [def] ok
+CMP OAI.CKSRound.MetricJet.dd [def] ok
+CMP OAI.CKSRound.MetricJet.dInv [def] ok
+CMP OAI.CKSLocalBending.momentumSq [def] ok
+CMP OAI.CKSRound.MetricJet.momentum [def] ok
+CMP OAI.CKSRound.MetricJet.dTrace [def] ok
+CMP OAI.CKSRound.TensorJet.d [def] ok
+CMP OAI.CKSRound.MetricJet.tensorDivergence [def] ok
+CMP OAI.CKSLorentz.hsgSpace [def] ok
+CMP OAI.CKSLorentz.hsgNorm [def] ok
+CMP OAI.CKSSourceExterior.manifold_regular [thm] ok
+CMP OAI.CKSReplacementCompleteness.IsComplete [def] ok
+CMP OAI.CKSReplacementCompleteness.metricSpace [def] ok
+CMP OAI.CKSReplacementCompleteness.metric_isContinuousRiemannianBundle [thm] ok
+CMP OAI.CKSReplacementCompleteness.Metric._proof_1 [thm] ok
+CMP OAI.CKSReplacementCompleteness.Metric [def] ok
+CMP OAI.CKSSourceExterior.Orientable [def] ok
+CMP OAI.CKSSourceExterior.source_trivialization_isLinear [thm] ok
+CMP OAI.CKSSourceExterior.source_manifold_one [thm] ok
+CMP OAI.CKSSourceExterior.id_invPair [thm] ok
+CMP OAI.CKSMetricGluing.innerSection [def] ok
+CMP OAI.CKSSchwarzschild.metricInner [def] ok
+CMP OAI.CKSSchwarzschild.position [def] ok
+CMP OAI.CKSSchwarzschild.directionAmbient [def] ok
+CMP OAI.CKSSchwarzschild.radius [def] ok
+CMP OAI.CKSSchwarzschild.height [def] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace [def] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace._proof_5 [thm] ok
+CMP OAI.CKSSchwarzschild.productChart [def] ok
+CMP OAI.CKSSchwarzschild.halfProduct [def] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_13 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_6 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_12 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_11 [thm] ok
+CMP OAI.CKSSchwarzschild.join [def] ok
+CMP OAI.CKSSchwarzschild.join._proof_11 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_10 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_9 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_8 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_7 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_6 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_5 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_4 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_3 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_2 [thm] ok
+CMP OAI.CKSSchwarzschild.join._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.real_id_invPair [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_10 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_9 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_8 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_7 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_5 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_4 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_3 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_2 [thm] ok
+CMP OAI.CKSSchwarzschild.halfProduct._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace._proof_4 [thm] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace._proof_3 [thm] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace._proof_2 [thm] ok
+CMP OAI.CKSSchwarzschild.exteriorChartedSpace._proof_1 [thm] ok
+CMP OAI.CKSMain.SchwarzschildExample._proof_2 [thm] ok
+CMP OAI.CKSMain.SchwarzschildExample._proof_1 [thm] ok
+CMP OAI.CKSSchwarzschild.tensorInner [def] ok
+CMP OAI.CKSSchwarzschild.exteriorIsManifold [thm] ok
+CMP OAI.CKSSourceExterior.area_controlled_end_replacement [thm] ok
+CMP OAI.CKSLorentz.spatialADMMomentum [def] ok
+CMP OAI.CKSADM.normal [def] ok
+CMP OAI.CKSLorentz.spatialCartesian [def] ok
+CMP OAI.CKSLorentz.spatialADMMomentum._proof_1 [thm] ok
+CMP OAI.CKSLorentz.spatialADMEnergy [def] ok
+CMP OAI.CKSInducedSphere.pd [def] ok
+CMP OAI.CKSInducedSphere.e [def] ok
+CMP OAI.CKSADM.Symbol [def] ok
+CMP OAI.CKSADM.SymbolN [def] ok
+CMP OAI.CKSADM.SymbolN._f [def] ok
+CMP OAI.CKSADM.Decay [def] ok
+CMP OAI.CKSADM.spatialInfinity [def] ok
+CMP OAI.CKSADM.SymbolN.match_1 [def] ok
+CMP OAI.CKSADM.TailRegular [def] ok
+CMP OAI.CKSSourceExterior.constraintsIntegrable [def] ok
+CMP OAI.CKSIntrinsicConstraints.IntegrableConstraints [def] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.momentumNorm [def] ok
+CMP OAI.CKSIntrinsicConstraints.coordinateMomentumNorm [def] ok
+CMP OAI.CKSIntrinsicConstraints.ConstraintChart.energy [def] ok
+CMP OAI.CKSLorentz.spatialEnergy [def] ok
+CMP OAI.CKSIntrinsicConstraints.eight_atLeastTwo [thm] ok
+CMP OAI.CKSIntrinsicConstraints.IntegrableConstraints._proof_2 [thm] ok
+CMP OAI.CKSIntrinsicConstraints.IntegrableConstraints._proof_1 [thm] ok
+CMP OAI.CKSIntrinsicVolume.riemannianVolume [def] ok
+CMP OAI.CKSIntrinsicVolume.IsVolume [def] ok
+CMP OAI.CKSIntrinsicVolume.localVolume [def] ok
+CMP OAI.CKSIntrinsicVolume.chartDensity [def] ok
+CMP OAI.CKSIntrinsicVolume.chartMatrix [def] ok
+CMP OAI.CKSIntrinsicVolume.basis [def] ok
+CMP OAI.CKSIntrinsicVolume.E [def] ok
+CMP OAI.CKSIntrinsicVolume.chartFrame [def] ok
+CMP OAI.CKSIntrinsicVolume.I [def] ok
+CMP OAI.CKSIntrinsicVolume.H [def] ok
+CMP OAI.CKSIntrinsicVolume.Metric._proof_1 [thm] ok
+CMP OAI.CKSIntrinsicVolume.Metric [def] ok
+CMP OAI.CKSIntrinsicVolume.model_borelSpace [thm] ok
+CMP OAI.CKSIntrinsicVolume.model_finiteDimensional [thm] ok
+CMP OAI.CKSFullCutArea.minEnclosingArea [def] ok
+@Chal.CKSSourceExterior.area_controlled_end_replacement : ∀ {N : Type u_1} [inst : TopologicalSpace N]
+  [inst_1 : ChartedSpace Chal.CKSGeometricCuts.H3 N] [inst_2 : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N]
+  [inst_3 : T2Space N] [inst_4 : SecondCountableTopology N] [ConnectedSpace N]
+  (g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3)
+  (K : Chal.CKSMetricGluing.InnerField Chal.CKSGeometricCuts.I3),
+  ContMDiff Chal.CKSGeometricCuts.I3
+      (Chal.CKSGeometricCuts.I3.prod (modelWithCornersSelf ℝ Chal.CKSLorentz.SpatialBilinear)) (↑⊤)
+      (Chal.CKSMetricGluing.innerSection Chal.CKSGeometricCuts.I3 K) →
+    (∀ (x : N) (v w : TangentSpace Chal.CKSGeometricCuts.I3 x), ((K x) v) w = ((K x) w) v) →
+      Chal.CKSSourceExterior.Orientable →
+        IsCompact (ModelWithCorners.boundary N) →
+          (ModelWithCorners.boundary N).Nonempty →
+            Chal.CKSReplacementCompleteness.IsComplete Chal.CKSGeometricCuts.I3
+                (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric g) →
+              Chal.CKSSpatialManifold.PhysicalDEC Chal.CKSGeometricCuts.I3 g.inner K →
+                ∀ (d : Chal.CKSSourceExterior.CKSData g K),
+                  ‖(Chal.CKSLorentz.bondiCharge d.massAspect).2‖ < (Chal.CKSLorentz.bondiCharge d.massAspect).1 →
+                    ∃ d' R₀ ε,
+                      Chal.CKSLorentz.bondiCharge d'.massAspect =
+                          (√((Chal.CKSLorentz.bondiCharge d.massAspect).1 ^ 2 -
+                                ‖(Chal.CKSLorentz.bondiCharge d.massAspect).2‖ ^ 2),
+                            0) ∧
+                        d'.chart.radius < R₀ ∧
+                          12 ≤ R₀ ∧
+                            Filter.Tendsto ε Filter.atTop (nhds 0) ∧
+                              Chal.CKSFullCutArea.minEnclosingArea g < ⊤ ∧
+                                ∀ R ≥ R₀,
+                                  (0 ≤ ε R ∧ ε R < 1) ∧
+                                    ∃ gR kR G k η,
+                                      ContMDiff Chal.CKSGeometricCuts.I3
+                                          (Chal.CKSGeometricCuts.I3.prod
+                                            (modelWithCornersSelf ℝ Chal.CKSLorentz.SpatialBilinear))
+                                          (↑⊤) (Chal.CKSMetricGluing.innerSection Chal.CKSGeometricCuts.I3 kR) ∧
+                                        (∀ (x : N) (v w : TangentSpace Chal.CKSGeometricCuts.I3 x),
+                                            ((kR x) v) w = ((kR x) w) v) ∧
+                                          (∀ (x : N),
+                                              x ∉ d'.chart.domain ∨ ‖d'.chart.coordinate x‖ ≤ R →
+                                                gR.inner x = g.inner x ∧ kR x = K x) ∧
+                                            Chal.CKSSpatialManifold.PhysicalDEC Chal.CKSGeometricCuts.I3 gR.inner kR ∧
+                                              (∀ (x : N) (v : TangentSpace Chal.CKSGeometricCuts.I3 x),
+                                                  (1 - ε R) * ((g.inner x) v) v ≤ ((gR.inner x) v) v) ∧
+                                                Chal.CKSReplacementCompleteness.IsComplete Chal.CKSGeometricCuts.I3
+                                                    (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric gR) ∧
+                                                  Chal.CKSSourceExterior.constraintsIntegrable gR kR ∧
+                                                    (∀ x ∈ d'.chart.domain,
+                                                        gR.inner x =
+                                                            Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3
+                                                              d'.chart.coordinate G x ∧
+                                                          kR x =
+                                                            Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3
+                                                              d'.chart.coordinate k x) ∧
+                                                      (∀ (i j : Fin 3),
+                                                          Chal.CKSADM.Symbol 1 fun x =>
+                                                            Chal.CKSLorentz.spatialCartesian G x i j -
+                                                              if i = j then 1 else 0) ∧
+                                                        (∀ (x : Chal.CKSLorentz.E), 2 * R ^ 2 < ‖x‖ → k x = 0) ∧
+                                                          Filter.Tendsto (Chal.CKSLorentz.spatialADMEnergy G)
+                                                              Filter.atTop
+                                                              (nhds
+                                                                (√((Chal.CKSLorentz.bondiCharge d.massAspect).1 ^ 2 -
+                                                                      ⋯ ^ 2) +
+                                                                  η)) ∧
+                                                            Filter.Tendsto (Chal.CKSLorentz.spatialADMMomentum G k)
+                                                                Filter.atTop (nhds 0) ∧
+                                                              0 ≤ η ∧
+                                                                η ≤ 2 * R ^ (-(1 / 2)) ∧
+                                                                  Chal.CKSFullCutArea.minEnclosingArea gR < ⊤ ∧
+                                                                    (1 - ε R) *
+                                                                          Chal.CKSSourceExterior.minimumEnclosingArea
+                                                                            g ≤
+                                                                        Chal.CKSSourceExterior.minimumEnclosingArea gR ∧
+                                                                      ∀ (D : Chal.CKSGeometricCuts.OuterDomain N), ⋯
+Chal.CKSMain.schwarzschild_equality_examples : ∀ (m : ℝ) (hm : 0 < m), Chal.CKSMain.SchwarzschildExample m hm
+@[reducible] def Chal.CKSMetricGluing.InnerField.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          ModelWithCorners ℝ E H →
+            {M : Type u_3} → [inst : TopologicalSpace M] → [ChartedSpace H M] → Type (max u_3 u_1) :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M]
+    [ChartedSpace H M] =>
+  (x : M) → TangentSpace I x →L[ℝ] TangentSpace I x →L[ℝ] ℝ
+@[reducible] def Chal.CKSMetricGluing.SmoothMetric.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_3} →
+              [inst_3 : TopologicalSpace M] →
+                [inst_4 : ChartedSpace H M] → [IsManifold I (↑⊤) M] → Type (max u_3 u_1) :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    [IsManifold I (↑⊤) M] =>
+  Bundle.ContMDiffRiemannianMetric I (↑⊤) E fun x => TangentSpace I x
+def Chal.CKSMetricGluing.innerSection.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_3} →
+              [inst_3 : TopologicalSpace M] →
+                [inst_4 : ChartedSpace H M] →
+                  Chal.CKSMetricGluing.InnerField I →
+                    M →
+                      Bundle.TotalSpace (E →L[ℝ] E →L[ℝ] ℝ) fun x => TangentSpace I x →L[ℝ] TangentSpace I x →L[ℝ] ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    q x =>
+  ⟨x, q x⟩
+@[reducible] def Chal.CKSAngularGeometry.I : Type :=
+Fin 2
+def Chal.CKSCalculus.D.{u_1} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → E → (E → ℝ) → E → ℝ :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] e f x => (fderiv ℝ f x) e
+@[reducible] def Chal.CKSRound.Idx : Type :=
+Fin 3
+@[reducible] def Chal.CKSRound.Mat : Type :=
+Matrix Chal.CKSRound.Idx Chal.CKSRound.Idx ℝ
+structure Chal.CKSRound.MetricJet : Type
+number of parameters: 0
+fields:
+  Chal.CKSRound.MetricJet.inv : Chal.CKSRound.Mat
+  Chal.CKSRound.MetricJet.d : Chal.CKSRound.Idx → Chal.CKSRound.Mat
+  Chal.CKSRound.MetricJet.dd : Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Mat
+constructor:
+  Chal.CKSRound.MetricJet.mk (inv : Chal.CKSRound.Mat) (d : Chal.CKSRound.Idx → Chal.CKSRound.Mat)
+    (dd : Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Mat) : Chal.CKSRound.MetricJet
+def Chal.CKSRound.MetricJet.gamma : Chal.CKSRound.MetricJet →
+  Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Idx → ℝ :=
+fun j a i k => (∑ l, j.inv a l * (j.d i k l + j.d k i l - j.d l i k)) / 2
+def Chal.CKSRound.MetricJet.dInv : Chal.CKSRound.MetricJet →
+  Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Idx → ℝ :=
+fun j s a b => -∑ i, ∑ k, j.inv a i * j.d s i k * j.inv k b
+def Chal.CKSRound.MetricJet.dGamma : Chal.CKSRound.MetricJet →
+  Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Idx → Chal.CKSRound.Idx → ℝ :=
+fun j s a i k =>
+  (∑ l,
+      (j.dInv s a l * (j.d i k l + j.d k i l - j.d l i k) + j.inv a l * (j.dd s i k l + j.dd s k i l - j.dd s l i k))) /
+    2
+def Chal.CKSRound.MetricJet.ricci : Chal.CKSRound.MetricJet → Chal.CKSRound.Idx → Chal.CKSRound.Idx → ℝ :=
+fun j i k =>
+  ∑ a, (j.dGamma a a i k - j.dGamma k a i a) + ∑ a, ∑ b, (j.gamma a a b * j.gamma b i k - j.gamma a k b * j.gamma b i a)
+def Chal.CKSRound.MetricJet.scalar : Chal.CKSRound.MetricJet → ℝ :=
+fun j => ∑ i, ∑ k, j.inv i k * j.ricci i k
+structure Chal.CKSRound.TensorJet : Type
+number of parameters: 0
+fields:
+  Chal.CKSRound.TensorJet.val : Chal.CKSRound.Mat
+  Chal.CKSRound.TensorJet.d : Chal.CKSRound.Idx → Chal.CKSRound.Mat
+constructor:
+  Chal.CKSRound.TensorJet.mk (val : Chal.CKSRound.Mat) (d : Chal.CKSRound.Idx → Chal.CKSRound.Mat) :
+    Chal.CKSRound.TensorJet
+def Chal.CKSRound.MetricJet.trace : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → ℝ :=
+fun g k => ∑ a, ∑ b, g.inv a b * k.val a b
+def Chal.CKSRound.MetricJet.normSq : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → ℝ :=
+fun g k => ∑ a, ∑ b, ∑ c, ∑ d, g.inv a c * g.inv b d * k.val a b * k.val c d
+def Chal.CKSRound.MetricJet.dTrace : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → Chal.CKSRound.Idx → ℝ :=
+fun g k i => ∑ a, ∑ b, (g.dInv i a b * k.val a b + g.inv a b * k.d i a b)
+def Chal.CKSRound.MetricJet.tensorDivergence : Chal.CKSRound.MetricJet →
+  Chal.CKSRound.TensorJet → Chal.CKSRound.Idx → ℝ :=
+fun g k i => ∑ a, ∑ b, g.inv a b * (k.d a b i - ∑ c, g.gamma c a b * k.val c i - ∑ c, g.gamma c a i * k.val b c)
+def Chal.CKSRound.MetricJet.energy : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → ℝ :=
+fun g k => (g.scalar + g.trace k ^ 2 - g.normSq k) / 2
+def Chal.CKSRound.MetricJet.momentum : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → Chal.CKSRound.Idx → ℝ :=
+fun g k i => g.tensorDivergence k i - g.dTrace k i
+@[reducible] def Chal.CKSRealizedRound.Point : Type :=
+Fin 3 → ℝ
+def Chal.CKSRealizedRound.basis : Chal.CKSRound.Idx → Chal.CKSRealizedRound.Point :=
+fun a => Pi.single a 1
+def Chal.CKSLocalBending.momentumSq : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → ℝ :=
+fun j k => ∑ i, ∑ l, j.inv i l * j.momentum k i * j.momentum k l
+def Chal.CKSLocalBending.DEC : Chal.CKSRound.MetricJet → Chal.CKSRound.TensorJet → Prop :=
+fun j k => √(Chal.CKSLocalBending.momentumSq j k) ≤ j.energy k
+@[reducible] def Chal.CKSAngularGeometry.Point : Type :=
+Chal.CKSAngularGeometry.I → ℝ
+def Chal.CKSAngularGeometry.basis : Chal.CKSAngularGeometry.I → Chal.CKSAngularGeometry.Point :=
+fun a => Pi.single a 1
+@[reducible] def Chal.CKSAngularGeometry.AmbientMat : Type :=
+Matrix (Fin 3) (Fin 3) ℝ
+@[reducible] def Chal.CKSAngularGeometry.PhysicalPoint : Type :=
+Fin 3 → ℝ
+@[reducible] def Chal.CKSMixedGeometry.I : Type :=
+Fin 3
+@[reducible] def Chal.CKSMixedGeometry.A : Type :=
+Fin 2
+@[reducible] def Chal.CKSMixedGeometry.Point : Type :=
+Chal.CKSMixedGeometry.I → ℝ
+def Chal.CKSMixedGeometry.basis : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point :=
+fun a => Pi.single a 1
+def Chal.CKSMixedGeometry.radialFactor : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ :=
+fun a y => if a = 0 then y 0 else 1
+def Chal.CKSMixedGeometry.scaledD : Chal.CKSMixedGeometry.I →
+  (Chal.CKSMixedGeometry.Point → ℝ) → Chal.CKSMixedGeometry.Point → ℝ :=
+fun a f y => Chal.CKSMixedGeometry.radialFactor a y * Chal.CKSCalculus.D (Chal.CKSMixedGeometry.basis a) f y
+def Chal.CKSMixedGeometry.scaledIter : List Chal.CKSMixedGeometry.I →
+  (Chal.CKSMixedGeometry.Point → ℝ) → Chal.CKSMixedGeometry.Point → ℝ :=
+fun x x_1 =>
+  List.brecOn (motive := fun x => (Chal.CKSMixedGeometry.Point → ℝ) → Chal.CKSMixedGeometry.Point → ℝ) x
+    Chal.CKSMixedGeometry.scaledIter._f x_1
+@[reducible] def Chal.CKSMixedGeometry.Angle : Type :=
+Chal.CKSMixedGeometry.A → ℝ
+def Chal.CKSMixedGeometry.angularProjection : Chal.CKSMixedGeometry.Point →L[ℝ] Chal.CKSMixedGeometry.Angle :=
+ContinuousLinearMap.pi fun a => ContinuousLinearMap.proj (Fin.succ a)
+def Chal.CKSMixedGeometry.ScaledComponentBound : (Chal.CKSMixedGeometry.Point → ℝ) →
+  ℕ → ℕ → ℝ → Chal.CKSMixedGeometry.Point → Prop :=
+fun f j q B y =>
+  ∀ (l : List Chal.CKSMixedGeometry.I), l.length ≤ j → |Chal.CKSMixedGeometry.scaledIter l f y| ≤ B / y 0 ^ q
+@[reducible] def Chal.CKSInducedSphere.Ix : Type :=
+Fin 3
+@[reducible] def Chal.CKSSphericalHarmonics.Ambient : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSSphericalHarmonics.Sphere : Type :=
+↑(Metric.sphere 0 1)
+@[reducible] def Chal.CKSSphericalHarmonics.surfaceMeasure : MeasureTheory.Measure Chal.CKSSphericalHarmonics.Sphere :=
+MeasureTheory.volume.toSphere
+def Chal.CKSSphericalHarmonics.SmoothSphere : (Chal.CKSSphericalHarmonics.Sphere → ℝ) → Prop :=
+fun f => ContMDiff (modelWithCornersSelf ℝ (EuclideanSpace ℝ (Fin 2))) (modelWithCornersSelf ℝ ℝ) (↑⊤) f
+@[reducible] def Chal.CKSInducedSphere.E : Type :=
+EuclideanSpace ℝ Chal.CKSInducedSphere.Ix
+def Chal.CKSInducedSphere.e : Chal.CKSInducedSphere.Ix → Chal.CKSInducedSphere.E :=
+fun i => WithLp.toLp 2 (Pi.single i 1)
+def Chal.CKSInducedSphere.pd : Chal.CKSInducedSphere.Ix → (Chal.CKSInducedSphere.E → ℝ) → Chal.CKSInducedSphere.E → ℝ :=
+fun i F x => (fderiv ℝ F x) (Chal.CKSInducedSphere.e i)
+@[reducible] def Chal.CKSLorentz.E : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSLorentz.V : Type :=
+ℝ × Chal.CKSLorentz.E
+@[reducible] def Chal.CKSLorentz.Sphere : Type :=
+↑(Metric.sphere 0 1)
+def Chal.CKSLorentz.ordinaryLeadingComponent : ℕ →
+  (Chal.CKSMixedGeometry.Angle → ℝ) → Chal.CKSMixedGeometry.Point → ℝ :=
+fun q M y => 1 / y 0 ^ q * M (Chal.CKSMixedGeometry.angularProjection y)
+structure Chal.CKSMixedGeometry.SourceRemainderOn (j q : ℕ) (V : Set Chal.CKSMixedGeometry.Point)
+  (f : Chal.CKSMixedGeometry.Point → ℝ) : Prop
+number of parameters: 4
+fields:
+  Chal.CKSMixedGeometry.SourceRemainderOn.regular : ∀ y ∈ V, ContDiffAt ℝ (↑j) f y
+  Chal.CKSMixedGeometry.SourceRemainderOn.bound : ∃ B,
+      0 ≤ B ∧ ∀ y ∈ V, Chal.CKSMixedGeometry.ScaledComponentBound f j q B y
+constructor:
+  Chal.CKSMixedGeometry.SourceRemainderOn.mk {j q : ℕ} {V : Set Chal.CKSMixedGeometry.Point}
+    {f : Chal.CKSMixedGeometry.Point → ℝ} (regular : ∀ y ∈ V, ContDiffAt ℝ (↑j) f y)
+    (bound : ∃ B, 0 ≤ B ∧ ∀ y ∈ V, Chal.CKSMixedGeometry.ScaledComponentBound f j q B y) :
+    Chal.CKSMixedGeometry.SourceRemainderOn j q V f
+structure Chal.CKSLorentz.SourceCKSComponents (j qrad : ℕ) (V : Set Chal.CKSMixedGeometry.Point)
+  (A : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ)
+  (mr : Chal.CKSMixedGeometry.Angle → ℝ)
+  (mg : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ) : Prop
+number of parameters: 6
+fields:
+  Chal.CKSLorentz.SourceCKSComponents.radial : Chal.CKSMixedGeometry.SourceRemainderOn j qrad V fun y =>
+      A 0 0 y - Chal.CKSLorentz.ordinaryLeadingComponent 5 mr y
+  Chal.CKSLorentz.SourceCKSComponents.mixed : ∀ (i k : Chal.CKSMixedGeometry.I),
+      i = 0 ∧ k ≠ 0 ∨ i ≠ 0 ∧ k = 0 → Chal.CKSMixedGeometry.SourceRemainderOn j 3 V (A i k)
+  Chal.CKSLorentz.SourceCKSComponents.angular : ∀ (i k : Chal.CKSMixedGeometry.I),
+      i ≠ 0 →
+        k ≠ 0 →
+          Chal.CKSMixedGeometry.SourceRemainderOn j 2 V fun y =>
+            A i k y - Chal.CKSLorentz.ordinaryLeadingComponent 1 (mg i k) y
+constructor:
+  Chal.CKSLorentz.SourceCKSComponents.mk {j qrad : ℕ} {V : Set Chal.CKSMixedGeometry.Point}
+    {A : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ}
+    {mr : Chal.CKSMixedGeometry.Angle → ℝ}
+    {mg : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ}
+    (radial :
+      Chal.CKSMixedGeometry.SourceRemainderOn j qrad V fun y =>
+        A 0 0 y - Chal.CKSLorentz.ordinaryLeadingComponent 5 mr y)
+    (mixed :
+      ∀ (i k : Chal.CKSMixedGeometry.I),
+        i = 0 ∧ k ≠ 0 ∨ i ≠ 0 ∧ k = 0 → Chal.CKSMixedGeometry.SourceRemainderOn j 3 V (A i k))
+    (angular :
+      ∀ (i k : Chal.CKSMixedGeometry.I),
+        i ≠ 0 →
+          k ≠ 0 →
+            Chal.CKSMixedGeometry.SourceRemainderOn j 2 V fun y =>
+              A i k y - Chal.CKSLorentz.ordinaryLeadingComponent 1 (mg i k) y) :
+    Chal.CKSLorentz.SourceCKSComponents j qrad V A mr mg
+def Chal.CKSLorentz.angularRadialTail : ℝ → Set Chal.CKSMixedGeometry.Angle → Set Chal.CKSMixedGeometry.Point :=
+fun R W => {y | R < y 0 ∧ Chal.CKSMixedGeometry.angularProjection y ∈ W}
+structure Chal.CKSLorentz.SmoothAngularPatch : Type
+number of parameters: 0
+fields:
+  Chal.CKSLorentz.SmoothAngularPatch.chart : OpenPartialHomeomorph Chal.CKSLorentz.Sphere Chal.CKSMixedGeometry.Angle
+  Chal.CKSLorentz.SmoothAngularPatch.param_smooth : ContDiffOn ℝ (↑⊤) (fun θ => ↑(↑self.chart.symm θ)) self.chart.target
+  Chal.CKSLorentz.SmoothAngularPatch.extension : Chal.CKSLorentz.E → Chal.CKSMixedGeometry.Angle
+  Chal.CKSLorentz.SmoothAngularPatch.domain : Set Chal.CKSLorentz.E
+  Chal.CKSLorentz.SmoothAngularPatch.isOpen_domain : IsOpen self.domain
+  Chal.CKSLorentz.SmoothAngularPatch.extension_smooth : ContDiffOn ℝ (↑⊤) self.extension self.domain
+  Chal.CKSLorentz.SmoothAngularPatch.source_domain : ∀ n ∈ self.chart.source, ↑n ∈ self.domain
+  Chal.CKSLorentz.SmoothAngularPatch.extension_eq : ∀ n ∈ self.chart.source, self.extension ↑n = ↑self.chart n
+constructor:
+  Chal.CKSLorentz.SmoothAngularPatch.mk
+    (chart : OpenPartialHomeomorph Chal.CKSLorentz.Sphere Chal.CKSMixedGeometry.Angle)
+    (param_smooth : ContDiffOn ℝ (↑⊤) (fun θ => ↑(↑chart.symm θ)) chart.target)
+    (extension : Chal.CKSLorentz.E → Chal.CKSMixedGeometry.Angle) (domain : Set Chal.CKSLorentz.E)
+    (isOpen_domain : IsOpen domain) (extension_smooth : ContDiffOn ℝ (↑⊤) extension domain)
+    (source_domain : ∀ n ∈ chart.source, ↑n ∈ domain) (extension_eq : ∀ n ∈ chart.source, extension ↑n = ↑chart n) :
+    Chal.CKSLorentz.SmoothAngularPatch
+def Chal.CKSLorentz.SmoothAngularPatch.param : Chal.CKSLorentz.SmoothAngularPatch →
+  Chal.CKSMixedGeometry.Angle → Chal.CKSLorentz.E :=
+fun P θ => ↑(↑P.chart.symm θ)
+def Chal.CKSLorentz.SmoothAngularPatch.sphereRegion : Chal.CKSLorentz.SmoothAngularPatch →
+  Set Chal.CKSMixedGeometry.Angle → Set Chal.CKSLorentz.Sphere :=
+fun P W => P.chart.source ∩ ↑P.chart ⁻¹' W
+structure Chal.CKSLorentz.CKSTensorPatch : Type
+number of parameters: 0
+fields:
+  Chal.CKSLorentz.CKSTensorPatch.patch : Chal.CKSLorentz.SmoothAngularPatch
+  Chal.CKSLorentz.CKSTensorPatch.region : Set Chal.CKSMixedGeometry.Angle
+  Chal.CKSLorentz.CKSTensorPatch.open_region : IsOpen self.region
+  Chal.CKSLorentz.CKSTensorPatch.region_target : self.region ⊆ self.patch.chart.target
+  Chal.CKSLorentz.CKSTensorPatch.radius : ℝ
+  Chal.CKSLorentz.CKSTensorPatch.metric : Chal.CKSMixedGeometry.I →
+      Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ
+  Chal.CKSLorentz.CKSTensorPatch.second : Chal.CKSMixedGeometry.I →
+      Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ
+  Chal.CKSLorentz.CKSTensorPatch.mr : Chal.CKSMixedGeometry.Angle → ℝ
+  Chal.CKSLorentz.CKSTensorPatch.mg : Chal.CKSMixedGeometry.I →
+      Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ
+  Chal.CKSLorentz.CKSTensorPatch.mK : Chal.CKSMixedGeometry.I →
+      Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ
+  Chal.CKSLorentz.CKSTensorPatch.mr_smooth : ContDiffOn ℝ (↑⊤) self.mr self.region
+  Chal.CKSLorentz.CKSTensorPatch.mg_smooth : ∀ (i k : Chal.CKSMixedGeometry.I),
+      i ≠ 0 → k ≠ 0 → ContDiffOn ℝ (↑⊤) (self.mg i k) self.region
+  Chal.CKSLorentz.CKSTensorPatch.mK_smooth : ∀ (i k : Chal.CKSMixedGeometry.I),
+      i ≠ 0 → k ≠ 0 → ContDiffOn ℝ (↑⊤) (self.mK i k) self.region
+  Chal.CKSLorentz.CKSTensorPatch.metric_CKS : Chal.CKSLorentz.SourceCKSComponents 3 6
+      (Chal.CKSLorentz.angularRadialTail self.radius self.region) self.metric self.mr self.mg
+  Chal.CKSLorentz.CKSTensorPatch.second_CKS : Chal.CKSLorentz.SourceCKSComponents 2 5
+      (Chal.CKSLorentz.angularRadialTail self.radius self.region) self.second (fun x => 0) self.mK
+constructor:
+  Chal.CKSLorentz.CKSTensorPatch.mk (patch : Chal.CKSLorentz.SmoothAngularPatch)
+    (region : Set Chal.CKSMixedGeometry.Angle) (open_region : IsOpen region)
+    (region_target : region ⊆ patch.chart.target) (radius : ℝ)
+    (metric second : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ)
+    (mr : Chal.CKSMixedGeometry.Angle → ℝ)
+    (mg mK : Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ)
+    (mr_smooth : ContDiffOn ℝ (↑⊤) mr region)
+    (mg_smooth : ∀ (i k : Chal.CKSMixedGeometry.I), i ≠ 0 → k ≠ 0 → ContDiffOn ℝ (↑⊤) (mg i k) region)
+    (mK_smooth : ∀ (i k : Chal.CKSMixedGeometry.I), i ≠ 0 → k ≠ 0 → ContDiffOn ℝ (↑⊤) (mK i k) region)
+    (metric_CKS :
+      Chal.CKSLorentz.SourceCKSComponents 3 6 (Chal.CKSLorentz.angularRadialTail radius region) metric mr mg)
+    (second_CKS :
+      Chal.CKSLorentz.SourceCKSComponents 2 5 (Chal.CKSLorentz.angularRadialTail radius region) second (fun x => 0)
+        mK) :
+    Chal.CKSLorentz.CKSTensorPatch
+@[reducible] def Chal.CKSLorentz.SpatialBilinear : Type :=
+Chal.CKSLorentz.E →L[ℝ] Chal.CKSLorentz.E →L[ℝ] ℝ
+@[reducible] def Chal.CKSLorentz.SpatialTensor : Type :=
+Chal.CKSLorentz.E → Chal.CKSLorentz.SpatialBilinear
+def Chal.CKSLorentz.polarParam : Chal.CKSLorentz.SmoothAngularPatch → Chal.CKSMixedGeometry.Point → Chal.CKSLorentz.E :=
+fun P y => y 0 • P.param (Chal.CKSMixedGeometry.angularProjection y)
+def Chal.CKSLorentz.polarTensorComponents : Chal.CKSLorentz.SmoothAngularPatch →
+  Chal.CKSLorentz.SpatialTensor → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Point → ℝ :=
+fun P A i k y =>
+  ((A (Chal.CKSLorentz.polarParam P y)) ((fderiv ℝ (Chal.CKSLorentz.polarParam P) y) (Chal.CKSMixedGeometry.basis i)))
+    ((fderiv ℝ (Chal.CKSLorentz.polarParam P) y) (Chal.CKSMixedGeometry.basis k))
+def Chal.CKSLorentz.CKSTensorPatch.Realizes : Chal.CKSLorentz.CKSTensorPatch →
+  Chal.CKSLorentz.SpatialTensor → Chal.CKSLorentz.SpatialTensor → Prop :=
+fun Q A B =>
+  ∀ y ∈ Chal.CKSLorentz.angularRadialTail Q.radius Q.region,
+    ∀ (i k : Chal.CKSMixedGeometry.I),
+      Q.metric i k y = Chal.CKSLorentz.polarTensorComponents Q.patch A i k y ∧
+        Q.second i k y = Chal.CKSLorentz.polarTensorComponents Q.patch B i k y
+@[reducible] def Chal.CKSLorentz.AngularMatrix : Type :=
+Matrix (Fin 2) (Fin 2) ℝ
+def Chal.CKSLorentz.angularMetricTrace : Chal.CKSLorentz.AngularMatrix → Chal.CKSLorentz.AngularMatrix → ℝ :=
+fun σ A => (σ⁻¹ * A).trace
+def Chal.CKSLorentz.angularRoundMetric : (Chal.CKSMixedGeometry.Angle → Chal.CKSLorentz.E) →
+  Chal.CKSMixedGeometry.Angle → Chal.CKSLorentz.AngularMatrix :=
+fun φ θ a b =>
+  inner ℝ ((fderiv ℝ φ θ) (Chal.CKSAngularGeometry.basis a)) ((fderiv ℝ φ θ) (Chal.CKSAngularGeometry.basis b))
+def Chal.CKSLorentz.nullDirection : Chal.CKSLorentz.Sphere → Chal.CKSLorentz.V :=
+fun n => (1, ↑n)
+def Chal.CKSLorentz.rawCharge : (Chal.CKSLorentz.Sphere → ℝ) → Chal.CKSLorentz.V :=
+fun M =>
+  ∫ (n : Chal.CKSLorentz.Sphere), M n • Chal.CKSLorentz.nullDirection n ∂Chal.CKSSphericalHarmonics.surfaceMeasure
+def Chal.CKSLorentz.bondiCharge : (Chal.CKSLorentz.Sphere → ℝ) → Chal.CKSLorentz.V :=
+fun M => (16 * Real.pi)⁻¹ • Chal.CKSLorentz.rawCharge M
+def Chal.CKSLorentz.hyperbolicField : Chal.CKSLorentz.E → Chal.CKSLorentz.SpatialBilinear :=
+fun x =>
+  have f := innerSL ℝ;
+  f - (1 / (1 + ‖x‖ ^ 2)) • (f x).smulRight (f x)
+def Chal.CKSLorentz.sourceSpatial : Chal.CKSLorentz.SpatialTensor → Chal.CKSLorentz.SpatialTensor :=
+fun A x => Chal.CKSLorentz.hyperbolicField x + A x
+def Chal.CKSADM.normal : Chal.CKSInducedSphere.E → Chal.CKSInducedSphere.Ix → ℝ :=
+fun x i => x.ofLp i / ‖x‖
+def Chal.CKSADM.spatialInfinity : Filter Chal.CKSInducedSphere.E :=
+Filter.comap (fun x => ‖x‖) Filter.atTop
+def Chal.CKSADM.TailRegular : (Chal.CKSInducedSphere.E → ℝ) → Prop :=
+fun F => ∀ᶠ (x : Chal.CKSInducedSphere.E) in Chal.CKSADM.spatialInfinity, ContDiffAt ℝ (↑⊤) F x
+def Chal.CKSADM.Decay : ℝ → (Chal.CKSInducedSphere.E → ℝ) → Prop :=
+fun d F => ∃ C, 0 ≤ C ∧ ∀ᶠ (x : Chal.CKSInducedSphere.E) in Chal.CKSADM.spatialInfinity, |F x| ≤ C * ‖x‖ ^ (-d)
+def Chal.CKSADM.SymbolN : ℕ → ℝ → (Chal.CKSInducedSphere.E → ℝ) → Prop :=
+fun x x_1 x_2 =>
+  Nat.brecOn (motive := fun x => ℝ → (Chal.CKSInducedSphere.E → ℝ) → Prop) x Chal.CKSADM.SymbolN._f x_1 x_2
+def Chal.CKSADM.Symbol : ℝ → (Chal.CKSInducedSphere.E → ℝ) → Prop :=
+fun d F => Chal.CKSADM.TailRegular F ∧ ∀ (n : ℕ), Chal.CKSADM.SymbolN n d F
+def Chal.CKSAngularGeometry.physicalMetricJet : (Chal.CKSAngularGeometry.PhysicalPoint →
+    Chal.CKSAngularGeometry.AmbientMat) →
+  Chal.CKSAngularGeometry.PhysicalPoint → Chal.CKSRound.MetricJet :=
+fun G x =>
+  { inv := (G x)⁻¹, d := fun a i j => Chal.CKSCalculus.D (Chal.CKSRealizedRound.basis a) (fun y => G y i j) x,
+    dd := fun a b i j =>
+      Chal.CKSCalculus.D (Chal.CKSRealizedRound.basis a)
+        (Chal.CKSCalculus.D (Chal.CKSRealizedRound.basis b) fun y => G y i j) x }
+def Chal.CKSAngularGeometry.physicalTensorJet : (Chal.CKSAngularGeometry.PhysicalPoint →
+    Chal.CKSAngularGeometry.AmbientMat) →
+  Chal.CKSAngularGeometry.PhysicalPoint → Chal.CKSRound.TensorJet :=
+fun K x => { val := K x, d := fun a i j => Chal.CKSCalculus.D (Chal.CKSRealizedRound.basis a) (fun y => K y i j) x }
+@[reducible] def Chal.CKSCartesianOuter.toPoint : Chal.CKSInducedSphere.E ≃L[ℝ] Chal.CKSAngularGeometry.PhysicalPoint :=
+EuclideanSpace.equiv (Fin 3) ℝ
+def Chal.CKSLorentz.cksChartMassAspect : (Chal.CKSMixedGeometry.Angle → Chal.CKSLorentz.E) →
+  (Chal.CKSMixedGeometry.Angle → ℝ) →
+    (Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ) →
+      (Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.I → Chal.CKSMixedGeometry.Angle → ℝ) →
+        Chal.CKSMixedGeometry.Angle → ℝ :=
+fun φ mr mg mK θ =>
+  (Chal.CKSLorentz.angularMetricTrace (Chal.CKSLorentz.angularRoundMetric φ θ) fun a b =>
+      mg a.succ b.succ θ + 2 * mK a.succ b.succ θ) +
+    2 * mr θ
+def Chal.CKSLorentz.spatialCoefficients : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSAngularGeometry.PhysicalPoint → Chal.CKSAngularGeometry.AmbientMat :=
+fun A y i j =>
+  ((A (Chal.CKSCartesianOuter.toPoint.symm y)) (Chal.CKSCartesianOuter.toPoint.symm (Chal.CKSMixedGeometry.basis i)))
+    (Chal.CKSCartesianOuter.toPoint.symm (Chal.CKSMixedGeometry.basis j))
+def Chal.CKSLorentz.spatialDEC : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.SpatialTensor → Chal.CKSLorentz.E → Prop :=
+fun A B x =>
+  Chal.CKSLocalBending.DEC
+    (Chal.CKSAngularGeometry.physicalMetricJet (Chal.CKSLorentz.spatialCoefficients A)
+      (Chal.CKSCartesianOuter.toPoint x))
+    (Chal.CKSAngularGeometry.physicalTensorJet (Chal.CKSLorentz.spatialCoefficients B)
+      (Chal.CKSCartesianOuter.toPoint x))
+def Chal.CKSLorentz.CKSTensorPatch.RepresentsMassAspect : Chal.CKSLorentz.CKSTensorPatch →
+  (Chal.CKSLorentz.Sphere → ℝ) → Prop :=
+fun Q M =>
+  ∀ n ∈ Q.patch.sphereRegion Q.region,
+    Chal.CKSLorentz.cksChartMassAspect Q.patch.param Q.mr Q.mg Q.mK (↑Q.patch.chart n) = M n
+def Chal.CKSLorentz.spatialCartesian : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.E → Chal.CKSAngularGeometry.AmbientMat :=
+fun A x => Chal.CKSLorentz.spatialCoefficients A (Chal.CKSCartesianOuter.toPoint x)
+def Chal.CKSLorentz.spatialADMEnergy : Chal.CKSLorentz.SpatialTensor → ℝ → ℝ :=
+fun A r =>
+  r ^ 2 / (16 * Real.pi) *
+    ∫ (n : Chal.CKSLorentz.Sphere),
+      ∑ i,
+        (∑ j,
+            (Chal.CKSInducedSphere.pd j (fun y => Chal.CKSLorentz.spatialCartesian A y i j) (r • ↑n) -
+              Chal.CKSInducedSphere.pd i (fun y => Chal.CKSLorentz.spatialCartesian A y j j) (r • ↑n))) *
+          Chal.CKSADM.normal (r • ↑n) i ∂Chal.CKSSphericalHarmonics.surfaceMeasure
+def Chal.CKSLorentz.spatialADMMomentum : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.SpatialTensor → ℝ → Fin 3 → ℝ :=
+fun A B r i =>
+  r ^ 2 / (8 * Real.pi) *
+    ∫ (n : Chal.CKSLorentz.Sphere),
+      ∑ j,
+        (Chal.CKSLorentz.spatialCartesian B (r • ↑n) i j -
+            (∑ a,
+                ∑ b,
+                  (Chal.CKSLorentz.spatialCartesian A (r • ↑n))⁻¹ a b *
+                    Chal.CKSLorentz.spatialCartesian B (r • ↑n) a b) *
+              Chal.CKSLorentz.spatialCartesian A (r • ↑n) i j) *
+          Chal.CKSADM.normal (r • ↑n) j ∂Chal.CKSSphericalHarmonics.surfaceMeasure
+def Chal.CKSLorentz.spatialEnergy : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.SpatialTensor → Chal.CKSLorentz.E → ℝ :=
+fun A B x =>
+  (Chal.CKSAngularGeometry.physicalMetricJet (Chal.CKSLorentz.spatialCoefficients A)
+        (Chal.CKSCartesianOuter.toPoint x)).energy
+    (Chal.CKSAngularGeometry.physicalTensorJet (Chal.CKSLorentz.spatialCoefficients B)
+      (Chal.CKSCartesianOuter.toPoint x))
+@[reducible] def Chal.CKSReplacementCompleteness.Metric.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_3} →
+              [inst_3 : TopologicalSpace M] → [inst_4 : ChartedSpace H M] → [IsManifold I 1 M] → Type (max u_3 u_1) :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    [IsManifold I 1 M] =>
+  Bundle.ContinuousRiemannianMetric E fun x => TangentSpace I x
+@[instance_reducible] def Chal.CKSReplacementCompleteness.metricSpace.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_3} →
+              [inst_3 : TopologicalSpace M] →
+                [inst_4 : ChartedSpace H M] →
+                  [inst_5 : IsManifold I 1 M] →
+                    [T3Space M] → Chal.CKSReplacementCompleteness.Metric I → EMetricSpace M :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    [IsManifold I 1 M] [T3Space M] g =>
+  EMetricSpace.ofRiemannianMetric I M
+def Chal.CKSReplacementCompleteness.IsComplete.{u_1, u_2, u_3} : {E : Type u_1} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_2} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_3} →
+              [inst_3 : TopologicalSpace M] →
+                [inst_4 : ChartedSpace H M] →
+                  [inst_5 : IsManifold I 1 M] → [T3Space M] → Chal.CKSReplacementCompleteness.Metric I → Prop :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    [IsManifold I 1 M] [T3Space M] g =>
+  CompleteSpace M
+@[reducible] def Chal.CKSGeometricCuts.E3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSGeometricCuts.H3 : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSGeometricCuts.I3 : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3)) (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+structure Chal.CKSGeometricCuts.OuterDomain.{u} (M : Type u) [TopologicalSpace M]
+  [ChartedSpace Chal.CKSGeometricCuts.H3 M] : Type (u + 1)
+number of parameters: 3
+fields:
+  Chal.CKSGeometricCuts.OuterDomain.Carrier : Type u
+  Chal.CKSGeometricCuts.OuterDomain.topology : TopologicalSpace self.Carrier
+  Chal.CKSGeometricCuts.OuterDomain.charts : ChartedSpace Chal.CKSGeometricCuts.H3 self.Carrier
+  Chal.CKSGeometricCuts.OuterDomain.smooth : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) self.Carrier
+  Chal.CKSGeometricCuts.OuterDomain.inclusion : self.Carrier → M
+  Chal.CKSGeometricCuts.OuterDomain.embedding : Manifold.IsSmoothEmbedding Chal.CKSGeometricCuts.I3
+      Chal.CKSGeometricCuts.I3 (↑⊤) self.inclusion
+  Chal.CKSGeometricCuts.OuterDomain.closed : IsClosed (Set.range self.inclusion)
+  Chal.CKSGeometricCuts.OuterDomain.connected : IsConnected (Set.range self.inclusion)
+  Chal.CKSGeometricCuts.OuterDomain.contains_distant_end : ∃ K, IsCompact K ∧ Kᶜ ⊆ Set.range self.inclusion
+  Chal.CKSGeometricCuts.OuterDomain.interior_into : self.inclusion '' ModelWithCorners.interior self.Carrier ⊆
+      ModelWithCorners.interior M
+  Chal.CKSGeometricCuts.OuterDomain.compact_boundary : IsCompact
+      (self.inclusion '' ModelWithCorners.boundary self.Carrier)
+constructor:
+  Chal.CKSGeometricCuts.OuterDomain.mk.{u} {M : Type u} [TopologicalSpace M] [ChartedSpace Chal.CKSGeometricCuts.H3 M]
+    (Carrier : Type u) (topology : TopologicalSpace Carrier) (charts : ChartedSpace Chal.CKSGeometricCuts.H3 Carrier)
+    (smooth : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) Carrier) (inclusion : Carrier → M)
+    (embedding : Manifold.IsSmoothEmbedding Chal.CKSGeometricCuts.I3 Chal.CKSGeometricCuts.I3 (↑⊤) inclusion)
+    (closed : IsClosed (Set.range inclusion)) (connected : IsConnected (Set.range inclusion))
+    (contains_distant_end : ∃ K, IsCompact K ∧ Kᶜ ⊆ Set.range inclusion)
+    (interior_into : inclusion '' ModelWithCorners.interior Carrier ⊆ ModelWithCorners.interior M)
+    (compact_boundary : IsCompact (inclusion '' ModelWithCorners.boundary Carrier)) :
+    Chal.CKSGeometricCuts.OuterDomain M
+def Chal.CKSSpatialManifold.endInner.{u_1, u_2} : {H : Type u_1} →
+  [inst : TopologicalSpace H] →
+    (I : ModelWithCorners ℝ Chal.CKSLorentz.E H) →
+      {M : Type u_2} →
+        [inst_1 : TopologicalSpace M] →
+          [inst_2 : ChartedSpace H M] →
+            (M → Chal.CKSLorentz.E) → Chal.CKSLorentz.SpatialTensor → Chal.CKSMetricGluing.InnerField I :=
+fun {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M] f A x =>
+  have df := ↑(NormedSpace.fromTangentSpace (f x)) ∘SL mfderiv% f x;
+  ContinuousLinearMap.bilinearComp (A (f x)) df df
+def Chal.CKSSpatialManifold.PhysicalDECAt.{u_1, u_2} : {H : Type u_1} →
+  [inst : TopologicalSpace H] →
+    (I : ModelWithCorners ℝ Chal.CKSLorentz.E H) →
+      {M : Type u_2} →
+        [inst_1 : TopologicalSpace M] →
+          [inst_2 : ChartedSpace H M] →
+            Chal.CKSMetricGluing.InnerField I → Chal.CKSMetricGluing.InnerField I → M → Prop :=
+fun {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M] g K x =>
+  ∃ V f A B,
+    IsOpen V ∧
+      x ∈ V ∧
+        ContMDiffOn I (modelWithCornersSelf ℝ Chal.CKSLorentz.E) (↑⊤) f V ∧
+          (∀ y ∈ V, Function.Bijective ⇑(mfderiv% f y)) ∧
+            (∀ y ∈ V, ContDiffAt ℝ (↑⊤) A (f y) ∧ ContDiffAt ℝ (↑⊤) B (f y)) ∧
+              (∀ y ∈ V,
+                  (∀ (v w : Chal.CKSLorentz.E), ((A (f y)) v) w = ((A (f y)) w) v) ∧
+                    (∀ (v : Chal.CKSLorentz.E), v ≠ 0 → 0 < ((A (f y)) v) v) ∧
+                      ∀ (v w : Chal.CKSLorentz.E), ((B (f y)) v) w = ((B (f y)) w) v) ∧
+                (∀ y ∈ V,
+                    g y = Chal.CKSSpatialManifold.endInner I f A y ∧ K y = Chal.CKSSpatialManifold.endInner I f B y) ∧
+                  Chal.CKSLorentz.spatialDEC A B (f x)
+def Chal.CKSSpatialManifold.PhysicalDEC.{u_1, u_2} : {H : Type u_1} →
+  [inst : TopologicalSpace H] →
+    (I : ModelWithCorners ℝ Chal.CKSLorentz.E H) →
+      {M : Type u_2} →
+        [inst_1 : TopologicalSpace M] →
+          [inst_2 : ChartedSpace H M] → Chal.CKSMetricGluing.InnerField I → Chal.CKSMetricGluing.InnerField I → Prop :=
+fun {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M] g K =>
+  ∀ (x : M), Chal.CKSSpatialManifold.PhysicalDECAt I g K x
+@[reducible] def Chal.CKSIntrinsicGeometry.H3 : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSIntrinsicGeometry.I3 : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3)) (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+@[reducible] def Chal.CKSBoundarySurface.E2 : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.CKSBoundarySurface.E3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSBoundarySurface.H3 : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSBoundarySurface.I2 : ModelWithCorners ℝ Chal.CKSBoundarySurface.E2
+  Chal.CKSBoundarySurface.E2 :=
+modelWithCornersSelf ℝ Chal.CKSBoundarySurface.E2
+@[reducible] def Chal.CKSBoundarySurface.I3 : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3)) (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+def Chal.CKSBoundarySurface.insertNormalZero : Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3 :=
+fun point => WithLp.toLp 2 (Fin.cons 0 point.ofLp)
+def Chal.CKSBoundarySurface.liftPlane : Chal.CKSBoundarySurface.E2 →L[ℝ] Chal.CKSBoundarySurface.E3 :=
+have proof_insertNormalZero_add_0 := Chal.CKSBoundarySurface.liftPlane._proof_1;
+have proof_insertNormalZero_smul_1 := Chal.CKSBoundarySurface.liftPlane._proof_2;
+have proof_insertNormalZero_continuous_2 := Chal.CKSBoundarySurface.liftPlane._proof_3;
+{ toFun := Chal.CKSBoundarySurface.insertNormalZero, map_add' := proof_insertNormalZero_add_0,
+  map_smul' := proof_insertNormalZero_smul_1, cont := proof_insertNormalZero_continuous_2 }
+def Chal.CKSBoundarySurface.tangentialCoordinates : Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E2 :=
+fun point => WithLp.toLp 2 fun index => point.ofLp index.succ
+def Chal.CKSBoundarySurface.dropPlane : Chal.CKSBoundarySurface.E3 →L[ℝ] Chal.CKSBoundarySurface.E2 :=
+have proof_tangentialCoordinates_add_3 := Chal.CKSBoundarySurface.dropPlane._proof_1;
+have proof_tangentialCoordinates_smul_4 := Chal.CKSBoundarySurface.dropPlane._proof_2;
+have proof_tangentialCoordinates_continuous_5 := Chal.CKSBoundarySurface.dropPlane._proof_3;
+{ toFun := Chal.CKSBoundarySurface.tangentialCoordinates, map_add' := proof_tangentialCoordinates_add_3,
+  map_smul' := proof_tangentialCoordinates_smul_4, cont := proof_tangentialCoordinates_continuous_5 }
+def Chal.CKSBoundarySurface.liftHalf : Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.H3 :=
+fun z =>
+  have proof_liftPlane_zero_6 := Chal.CKSBoundarySurface.liftHalf._proof_2;
+  have proof_liftPlane_succ_7 := Chal.CKSBoundarySurface.liftHalf._proof_3;
+  ⟨Chal.CKSBoundarySurface.liftPlane z, ⋯⟩
+@[reducible] def Chal.CKSSchwarzschild.Radial : Type :=
+{ t // 0 ≤ t }
+@[reducible] def Chal.CKSSchwarzschild.Sphere : Set Chal.CKSBoundarySurface.E3 :=
+Metric.sphere 0 1
+@[reducible] def Chal.CKSSchwarzschild.Exterior : Type :=
+Chal.CKSSchwarzschild.Radial × ↑Chal.CKSSchwarzschild.Sphere
+def Chal.CKSSchwarzschild.join : ℝ × Chal.CKSBoundarySurface.E2 →L[ℝ] Chal.CKSBoundarySurface.E3 :=
+have continuousLinearMap := LinearMap.toContinuousLinearMap;
+continuousLinearMap
+  { toFun := fun z => WithLp.toLp 2 (Fin.cons z.1 z.2.ofLp), map_add' := Chal.CKSSchwarzschild.join._proof_10,
+    map_smul' := Chal.CKSSchwarzschild.join._proof_11 }
+def Chal.CKSSchwarzschild.halfProduct : Chal.CKSSchwarzschild.Radial × Chal.CKSBoundarySurface.E2 ≃ₜ
+  Chal.CKSBoundarySurface.H3 :=
+have proof_join_zero_9 := Chal.CKSSchwarzschild.halfProduct._proof_1;
+have proof_join_succ_10 := Chal.CKSSchwarzschild.halfProduct._proof_2;
+have proof_join_drop_8 := Chal.CKSSchwarzschild.halfProduct._proof_3;
+have proof_drop_join_11 := Chal.CKSSchwarzschild.halfProduct._proof_4;
+{ toFun := fun z => ⟨Chal.CKSSchwarzschild.join (↑z.1, z.2), ⋯⟩,
+  invFun := fun z => (⟨(↑z).ofLp 0, ⋯⟩, Chal.CKSBoundarySurface.dropPlane ↑z), left_inv := ⋯, right_inv := ⋯,
+  continuous_toFun := Chal.CKSSchwarzschild.halfProduct._proof_12,
+  continuous_invFun := Chal.CKSSchwarzschild.halfProduct._proof_13 }
+def Chal.CKSSchwarzschild.productChart : ↑Chal.CKSSchwarzschild.Sphere →
+  OpenPartialHomeomorph Chal.CKSSchwarzschild.Exterior Chal.CKSBoundarySurface.H3 :=
+fun s =>
+  ((OpenPartialHomeomorph.refl Chal.CKSSchwarzschild.Radial).prod (chartAt Chal.CKSBoundarySurface.E2 s)).trans
+    Chal.CKSSchwarzschild.halfProduct.toOpenPartialHomeomorph
+def Chal.CKSSchwarzschild.height : Chal.CKSSchwarzschild.Exterior → ℝ :=
+fun p => ↑p.1
+def Chal.CKSSchwarzschild.radius : ℝ → Chal.CKSSchwarzschild.Exterior → ℝ :=
+fun m p => 2 * m + Chal.CKSSchwarzschild.height p
+def Chal.CKSSchwarzschild.directionAmbient : Chal.CKSSchwarzschild.Exterior → Chal.CKSBoundarySurface.E3 :=
+fun p => ↑p.2
+def Chal.CKSSchwarzschild.position : ℝ → Chal.CKSSchwarzschild.Exterior → Chal.CKSBoundarySurface.E3 :=
+fun m p => Chal.CKSSchwarzschild.radius m p • Chal.CKSSchwarzschild.directionAmbient p
+def Chal.CKSSchwarzschild.velocity : ℝ → ℝ → ℝ :=
+fun m r => -1 + (r + 1) * (r - 2 * m - 1).smoothTransition
+def Chal.CKSSchwarzschild.lapseSquared : ℝ → ℝ → ℝ :=
+fun m r => 1 - 2 * m / r + Chal.CKSSchwarzschild.velocity m r ^ 2
+def Chal.CKSSchwarzschild.lapse : ℝ → ℝ → ℝ :=
+fun m r => √(Chal.CKSSchwarzschild.lapseSquared m r)
+def Chal.CKSSchwarzschild.euclideanForm : Chal.CKSLorentz.SpatialBilinear :=
+innerSL ℝ
+def Chal.CKSSchwarzschild.radialUnit : Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E3 :=
+fun x => ‖x‖⁻¹ • x
+def Chal.CKSSchwarzschild.radialForm : Chal.CKSBoundarySurface.E3 → Chal.CKSLorentz.SpatialBilinear :=
+fun x =>
+  have innerForm := innerSL ℝ;
+  (ContinuousLinearMap.mul ℝ ℝ).bilinearComp (innerForm (Chal.CKSSchwarzschild.radialUnit x))
+    (innerForm (Chal.CKSSchwarzschild.radialUnit x))
+def Chal.CKSSchwarzschild.cartMetric : ℝ → Chal.CKSBoundarySurface.E3 → Chal.CKSLorentz.SpatialBilinear :=
+fun m x =>
+  Chal.CKSSchwarzschild.euclideanForm +
+    ((Chal.CKSSchwarzschild.lapseSquared m ‖x‖)⁻¹ - 1) • Chal.CKSSchwarzschild.radialForm x
+def Chal.CKSSchwarzschild.cartTensor : ℝ → Chal.CKSBoundarySurface.E3 → Chal.CKSLorentz.SpatialBilinear :=
+fun m x =>
+  (Chal.CKSSchwarzschild.velocity m ‖x‖ / ‖x‖) • Chal.CKSSchwarzschild.euclideanForm +
+    (deriv (Chal.CKSSchwarzschild.velocity m) ‖x‖ / Chal.CKSSchwarzschild.lapseSquared m ‖x‖ -
+        Chal.CKSSchwarzschild.velocity m ‖x‖ / ‖x‖) •
+      Chal.CKSSchwarzschild.radialForm x
+def Chal.CKSSchwarzschild.metricInner : ℝ → Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3 :=
+fun m =>
+  Chal.CKSSpatialManifold.endInner Chal.CKSBoundarySurface.I3 (Chal.CKSSchwarzschild.position m)
+    (Chal.CKSSchwarzschild.cartMetric m)
+def Chal.CKSSchwarzschild.tensorInner : ℝ → Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3 :=
+fun m =>
+  Chal.CKSSpatialManifold.endInner Chal.CKSBoundarySurface.I3 (Chal.CKSSchwarzschild.position m)
+    (Chal.CKSSchwarzschild.cartTensor m)
+@[reducible] def Chal.CKSIntrinsicConstraints.E : Type :=
+Chal.CKSLorentz.E
+@[reducible] def Chal.CKSIntrinsicConstraints.H : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSIntrinsicConstraints.I : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3))
+  (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+def Chal.CKSIntrinsicConstraints.coordinateMomentumNorm : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.SpatialTensor → Chal.CKSIntrinsicConstraints.E → ℝ :=
+fun A B x =>
+  √(Chal.CKSLocalBending.momentumSq
+      (Chal.CKSAngularGeometry.physicalMetricJet (Chal.CKSLorentz.spatialCoefficients A)
+        (Chal.CKSCartesianOuter.toPoint x))
+      (Chal.CKSAngularGeometry.physicalTensorJet (Chal.CKSLorentz.spatialCoefficients B)
+        (Chal.CKSCartesianOuter.toPoint x)))
+structure Chal.CKSIntrinsicConstraints.ConstraintChart.{u_1} {M : Type u_1} [TopologicalSpace M]
+  [ChartedSpace Chal.CKSIntrinsicConstraints.H M] (g K : Chal.CKSMetricGluing.InnerField Chal.CKSIntrinsicConstraints.I)
+  (x : M) : Type u_1
+number of parameters: 6
+fields:
+  Chal.CKSIntrinsicConstraints.ConstraintChart.domain : Set M
+  Chal.CKSIntrinsicConstraints.ConstraintChart.coordinate : M → Chal.CKSIntrinsicConstraints.E
+  Chal.CKSIntrinsicConstraints.ConstraintChart.metric : Chal.CKSLorentz.SpatialTensor
+  Chal.CKSIntrinsicConstraints.ConstraintChart.tensor : Chal.CKSLorentz.SpatialTensor
+  Chal.CKSIntrinsicConstraints.ConstraintChart.isOpen : IsOpen self.domain
+  Chal.CKSIntrinsicConstraints.ConstraintChart.mem : x ∈ self.domain
+  Chal.CKSIntrinsicConstraints.ConstraintChart.smooth : ContMDiffOn Chal.CKSIntrinsicConstraints.I
+      (modelWithCornersSelf ℝ Chal.CKSIntrinsicConstraints.E) (↑⊤) self.coordinate self.domain
+  Chal.CKSIntrinsicConstraints.ConstraintChart.fullRank : ∀ y ∈ self.domain,
+      Function.Bijective ⇑(mfderiv% self.coordinate y)
+  Chal.CKSIntrinsicConstraints.ConstraintChart.coefficientSmooth : ∀ y ∈ self.domain,
+      ContDiffAt ℝ (↑⊤) self.metric (self.coordinate y) ∧ ContDiffAt ℝ (↑⊤) self.tensor (self.coordinate y)
+  Chal.CKSIntrinsicConstraints.ConstraintChart.positiveSymmetric : ∀ y ∈ self.domain,
+      (∀ (v w : Chal.CKSLorentz.E), ((self.metric (self.coordinate y)) v) w = ((self.metric (self.coordinate y)) w) v) ∧
+        (∀ (v : Chal.CKSIntrinsicConstraints.E), v ≠ 0 → 0 < ((self.metric (self.coordinate y)) v) v) ∧
+          ∀ (v w : Chal.CKSLorentz.E), ((self.tensor (self.coordinate y)) v) w = ((self.tensor (self.coordinate y)) w) v
+  Chal.CKSIntrinsicConstraints.ConstraintChart.represents : ∀ y ∈ self.domain,
+      g y = Chal.CKSSpatialManifold.endInner Chal.CKSIntrinsicConstraints.I self.coordinate self.metric y ∧
+        K y = Chal.CKSSpatialManifold.endInner Chal.CKSIntrinsicConstraints.I self.coordinate self.tensor y
+constructor:
+  Chal.CKSIntrinsicConstraints.ConstraintChart.mk.{u_1} {M : Type u_1} [TopologicalSpace M]
+    [ChartedSpace Chal.CKSIntrinsicConstraints.H M]
+    {g K : Chal.CKSMetricGluing.InnerField Chal.CKSIntrinsicConstraints.I} {x : M} (domain : Set M)
+    (coordinate : M → Chal.CKSIntrinsicConstraints.E) (metric tensor : Chal.CKSLorentz.SpatialTensor)
+    (isOpen : IsOpen domain) (mem : x ∈ domain)
+    (smooth :
+      ContMDiffOn Chal.CKSIntrinsicConstraints.I (modelWithCornersSelf ℝ Chal.CKSIntrinsicConstraints.E) (↑⊤) coordinate
+        domain)
+    (fullRank : ∀ y ∈ domain, Function.Bijective ⇑(mfderiv% coordinate y))
+    (coefficientSmooth :
+      ∀ y ∈ domain, ContDiffAt ℝ (↑⊤) metric (coordinate y) ∧ ContDiffAt ℝ (↑⊤) tensor (coordinate y))
+    (positiveSymmetric :
+      ∀ y ∈ domain,
+        (∀ (v w : Chal.CKSLorentz.E), ((metric (coordinate y)) v) w = ((metric (coordinate y)) w) v) ∧
+          (∀ (v : Chal.CKSIntrinsicConstraints.E), v ≠ 0 → 0 < ((metric (coordinate y)) v) v) ∧
+            ∀ (v w : Chal.CKSLorentz.E), ((tensor (coordinate y)) v) w = ((tensor (coordinate y)) w) v)
+    (represents :
+      ∀ y ∈ domain,
+        g y = Chal.CKSSpatialManifold.endInner Chal.CKSIntrinsicConstraints.I coordinate metric y ∧
+          K y = Chal.CKSSpatialManifold.endInner Chal.CKSIntrinsicConstraints.I coordinate tensor y) :
+    Chal.CKSIntrinsicConstraints.ConstraintChart g K x
+def Chal.CKSIntrinsicConstraints.ConstraintChart.energy.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicConstraints.H M] →
+      {g K : Chal.CKSMetricGluing.InnerField Chal.CKSIntrinsicConstraints.I} →
+        {x : M} → Chal.CKSIntrinsicConstraints.ConstraintChart g K x → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicConstraints.H M] {g K} {x} c =>
+  Chal.CKSLorentz.spatialEnergy c.metric c.tensor (c.coordinate x)
+def Chal.CKSIntrinsicConstraints.ConstraintChart.momentumNorm.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicConstraints.H M] →
+      {g K : Chal.CKSMetricGluing.InnerField Chal.CKSIntrinsicConstraints.I} →
+        {x : M} → Chal.CKSIntrinsicConstraints.ConstraintChart g K x → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicConstraints.H M] {g K} {x} c =>
+  Chal.CKSIntrinsicConstraints.coordinateMomentumNorm c.metric c.tensor (c.coordinate x)
+@[reducible] def Chal.CKSIntrinsicVolume.E : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSIntrinsicVolume.H : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSIntrinsicVolume.I : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3)) (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+@[reducible] def Chal.CKSIntrinsicVolume.basis : Fin 3 → Chal.CKSIntrinsicVolume.E :=
+fun i => EuclideanSpace.single i 1
+@[reducible] def Chal.CKSIntrinsicVolume.Metric.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [IsManifold Chal.CKSIntrinsicVolume.I 1 M] → Type (max u_1 0) :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [IsManifold Chal.CKSIntrinsicVolume.I 1 M] =>
+  Bundle.ContinuousRiemannianMetric Chal.CKSIntrinsicVolume.E fun x => TangentSpace Chal.CKSIntrinsicVolume.I x
+def Chal.CKSIntrinsicVolume.chartFrame.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      (x : M) →
+        (y : Chal.CKSIntrinsicVolume.E) →
+          Chal.CKSIntrinsicVolume.E →L[ℝ]
+            TangentSpace Chal.CKSIntrinsicVolume.I (↑(extChartAt Chal.CKSIntrinsicVolume.I x).symm y) :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] x y =>
+  mfderiv[Set.range ↑Chal.CKSIntrinsicVolume.I] ↑(extChartAt Chal.CKSIntrinsicVolume.I x).symm y
+def Chal.CKSIntrinsicVolume.chartMatrix.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSIntrinsicVolume.I 1 M] →
+        Chal.CKSIntrinsicVolume.Metric → M → Chal.CKSIntrinsicVolume.E → Matrix (Fin 3) (Fin 3) ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [IsManifold Chal.CKSIntrinsicVolume.I 1 M] g x
+    y =>
+  have form := g.inner (↑(extChartAt Chal.CKSIntrinsicVolume.I x).symm y);
+  fun first second =>
+  (form ((Chal.CKSIntrinsicVolume.chartFrame x y) (Chal.CKSIntrinsicVolume.basis first)))
+    ((Chal.CKSIntrinsicVolume.chartFrame x y) (Chal.CKSIntrinsicVolume.basis second))
+def Chal.CKSIntrinsicVolume.chartDensity.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSIntrinsicVolume.I 1 M] →
+        Chal.CKSIntrinsicVolume.Metric → M → Chal.CKSIntrinsicVolume.E → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [IsManifold Chal.CKSIntrinsicVolume.I 1 M] g x
+    y =>
+  √(Chal.CKSIntrinsicVolume.chartMatrix g x y).det
+def Chal.CKSIntrinsicVolume.localVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSIntrinsicVolume.I 1 M] →
+        [inst_3 : MeasurableSpace M] → Chal.CKSIntrinsicVolume.Metric → M → MeasureTheory.Measure M :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [IsManifold Chal.CKSIntrinsicVolume.I 1 M]
+    [MeasurableSpace M] g x =>
+  MeasureTheory.Measure.map (↑(extChartAt Chal.CKSIntrinsicVolume.I x).symm)
+    ((MeasureTheory.volume.restrict (extChartAt Chal.CKSIntrinsicVolume.I x).target).withDensity fun y =>
+      ENNReal.ofReal (Chal.CKSIntrinsicVolume.chartDensity g x y))
+def Chal.CKSIntrinsicVolume.IsVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSIntrinsicVolume.I 1 M] →
+        [inst_3 : MeasurableSpace M] → Chal.CKSIntrinsicVolume.Metric → MeasureTheory.Measure M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [IsManifold Chal.CKSIntrinsicVolume.I 1 M]
+    [MeasurableSpace M] g ν =>
+  ∀ (x : M), ν.restrict (extChartAt Chal.CKSIntrinsicVolume.I x).source = Chal.CKSIntrinsicVolume.localVolume g x
+def Chal.CKSIntrinsicVolume.riemannianVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicVolume.H M] →
+      [inst_2 : MeasurableSpace M] →
+        [inst_3 : IsManifold Chal.CKSIntrinsicVolume.I 1 M] →
+          Chal.CKSIntrinsicVolume.Metric → MeasureTheory.Measure M :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicVolume.H M] [MeasurableSpace M]
+    [IsManifold Chal.CKSIntrinsicVolume.I 1 M] g =>
+  Classical.epsilon fun ν => Chal.CKSIntrinsicVolume.IsVolume g ν
+@[reducible] def Chal.CKSBoundarySurface.Boundary.{u_2} : (M : Type u_2) →
+  [inst : TopologicalSpace M] → [ChartedSpace Chal.CKSBoundarySurface.H3 M] → Set M :=
+fun M [TopologicalSpace M] [ChartedSpace Chal.CKSBoundarySurface.H3 M] => ModelWithCorners.boundary M
+def Chal.CKSBoundarySurface.boundaryInverse.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 M] →
+      [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) M] →
+        ↑(Chal.CKSBoundarySurface.Boundary M) → Chal.CKSBoundarySurface.E2 → ↑(Chal.CKSBoundarySurface.Boundary M) :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSBoundarySurface.H3 M] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) M]
+    x z =>
+  have proof_boundary_chart_zero_22 := @Chal.CKSBoundarySurface.boundaryInverse._proof_1;
+  have proof_liftPlane_zero_6 := Chal.CKSBoundarySurface.liftHalf._proof_2;
+  have proof_liftPlane_succ_7 := Chal.CKSBoundarySurface.liftHalf._proof_3;
+  have proof_I3_liftHalf_23 := Chal.CKSBoundarySurface.boundaryInverse._proof_2;
+  have proof_boundary_iff_zero_24 := ⋯;
+  have proof_chart_inverse_boundary_25 := ⋯;
+  have proof_boundaryInverse_mem_21 := ⋯;
+  if hz : Chal.CKSBoundarySurface.liftHalf z ∈ (chartAt Chal.CKSBoundarySurface.H3 ↑x).target then
+    ⟨↑(chartAt Chal.CKSBoundarySurface.H3 ↑x).symm (Chal.CKSBoundarySurface.liftHalf z), ⋯⟩
+  else x
+def Chal.CKSBoundarySurface.boundaryChart.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 M] →
+      [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) M] →
+        ↑(Chal.CKSBoundarySurface.Boundary M) →
+          OpenPartialHomeomorph (↑(Chal.CKSBoundarySurface.Boundary M)) Chal.CKSBoundarySurface.E2 :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSBoundarySurface.H3 M] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) M]
+    x =>
+  have proof_lift_drop_30 := @Chal.CKSBoundarySurface.boundaryChart._proof_1;
+  have proof_boundary_chart_zero_22 := @Chal.CKSBoundarySurface.boundaryInverse._proof_1;
+  have proof_liftPlane_zero_6 := Chal.CKSBoundarySurface.liftHalf._proof_2;
+  have proof_liftPlane_succ_7 := Chal.CKSBoundarySurface.liftHalf._proof_3;
+  have proof_I3_liftHalf_23 := Chal.CKSBoundarySurface.boundaryInverse._proof_2;
+  have proof_boundary_iff_zero_24 := ⋯;
+  have proof_liftHalf_drop_chart_26 := ⋯;
+  have proof_chart_inverse_boundary_25 := ⋯;
+  have proof_boundaryInverse_mem_21 := ⋯;
+  have proof_boundaryInverse_val_27 := @Chal.CKSBoundarySurface.boundaryChart._proof_3;
+  have proof_dropPlane_apply_31 := Chal.CKSBoundarySurface.boundaryChart._proof_4;
+  have proof_drop_lift_28 := Chal.CKSBoundarySurface.boundaryChart._proof_5;
+  have proof_liftHalf_continuous_29 := ⋯;
+  {
+    toFun := fun y =>
+      Chal.CKSBoundarySurface.dropPlane (↑Chal.CKSBoundarySurface.I3 (↑(chartAt Chal.CKSBoundarySurface.H3 ↑x) ↑y)),
+    invFun := Chal.CKSBoundarySurface.boundaryInverse x,
+    source := Subtype.val ⁻¹' (chartAt Chal.CKSBoundarySurface.H3 ↑x).source,
+    target := Chal.CKSBoundarySurface.liftHalf ⁻¹' (chartAt Chal.CKSBoundarySurface.H3 ↑x).target, map_source' := ⋯,
+    map_target' := ⋯, left_inv' := ⋯, right_inv' := ⋯, continuousOn_toFun := ⋯, continuousOn_invFun := ⋯,
+    open_source := ⋯, open_target := ⋯ }
+@[reducible] def Chal.CKSSurfaceVolume.E : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.CKSSurfaceVolume.H : Type :=
+Chal.CKSSurfaceVolume.E
+@[reducible] def Chal.CKSSurfaceVolume.I : ModelWithCorners ℝ Chal.CKSSurfaceVolume.E Chal.CKSSurfaceVolume.E :=
+modelWithCornersSelf ℝ Chal.CKSSurfaceVolume.E
+@[reducible] def Chal.CKSSurfaceVolume.basis : Fin 2 → Chal.CKSSurfaceVolume.E :=
+fun i => EuclideanSpace.single i 1
+@[reducible] def Chal.CKSSurfaceVolume.Metric.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] → [IsManifold Chal.CKSSurfaceVolume.I 1 M] → Type (max u_1 0) :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M] =>
+  Bundle.ContinuousRiemannianMetric Chal.CKSSurfaceVolume.E fun x => TangentSpace Chal.CKSSurfaceVolume.I x
+def Chal.CKSSurfaceVolume.chartFrame.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      (x : M) →
+        (y : Chal.CKSSurfaceVolume.E) →
+          Chal.CKSSurfaceVolume.E →L[ℝ]
+            TangentSpace Chal.CKSSurfaceVolume.I (↑(extChartAt Chal.CKSSurfaceVolume.I x).symm y) :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] x y =>
+  mfderiv[Set.range ↑Chal.CKSSurfaceVolume.I] ↑(extChartAt Chal.CKSSurfaceVolume.I x).symm y
+def Chal.CKSSurfaceVolume.chartMatrix.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSSurfaceVolume.I 1 M] →
+        Chal.CKSSurfaceVolume.Metric → M → Chal.CKSSurfaceVolume.E → Matrix (Fin 2) (Fin 2) ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M] g x y =>
+  have inner := g.inner (↑(extChartAt Chal.CKSSurfaceVolume.I x).symm y);
+  fun i j =>
+  (inner ((Chal.CKSSurfaceVolume.chartFrame x y) (Chal.CKSSurfaceVolume.basis i)))
+    ((Chal.CKSSurfaceVolume.chartFrame x y) (Chal.CKSSurfaceVolume.basis j))
+def Chal.CKSSurfaceVolume.chartDensity.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSSurfaceVolume.I 1 M] →
+        Chal.CKSSurfaceVolume.Metric → M → Chal.CKSSurfaceVolume.E → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M] g x y =>
+  √(Chal.CKSSurfaceVolume.chartMatrix g x y).det
+def Chal.CKSSurfaceVolume.localVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSSurfaceVolume.I 1 M] →
+        [inst_3 : MeasurableSpace M] → Chal.CKSSurfaceVolume.Metric → M → MeasureTheory.Measure M :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M]
+    [MeasurableSpace M] g x =>
+  MeasureTheory.Measure.map (↑(extChartAt Chal.CKSSurfaceVolume.I x).symm)
+    ((MeasureTheory.volume.restrict (extChartAt Chal.CKSSurfaceVolume.I x).target).withDensity fun y =>
+      ENNReal.ofReal (Chal.CKSSurfaceVolume.chartDensity g x y))
+def Chal.CKSSurfaceVolume.IsVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSSurfaceVolume.I 1 M] →
+        [inst_3 : MeasurableSpace M] → Chal.CKSSurfaceVolume.Metric → MeasureTheory.Measure M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M]
+    [MeasurableSpace M] g ν =>
+  ∀ (x : M), ν.restrict (extChartAt Chal.CKSSurfaceVolume.I x).source = Chal.CKSSurfaceVolume.localVolume g x
+def Chal.CKSSurfaceVolume.riemannianVolume.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSSurfaceVolume.H M] →
+      [inst_2 : IsManifold Chal.CKSSurfaceVolume.I 1 M] →
+        [inst_3 : MeasurableSpace M] →
+          [BorelSpace M] → [SecondCountableTopology M] → Chal.CKSSurfaceVolume.Metric → MeasureTheory.Measure M :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSSurfaceVolume.H M] [IsManifold Chal.CKSSurfaceVolume.I 1 M]
+    [MeasurableSpace M] [BorelSpace M] [SecondCountableTopology M] g =>
+  Classical.epsilon fun ν => Chal.CKSSurfaceVolume.IsVolume g ν
+@[reducible] def Chal.CKSInducedArea.E2 : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.CKSInducedArea.I2 : ModelWithCorners ℝ Chal.CKSInducedArea.E2 Chal.CKSInducedArea.E2 :=
+modelWithCornersSelf ℝ Chal.CKSInducedArea.E2
+@[reducible] def Chal.CKSInducedArea.E3 : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSInducedArea.Inner2.{u_3} : {S : Type u_3} →
+  [inst : TopologicalSpace S] → [ChartedSpace Chal.CKSInducedArea.E2 S] → Type (max u_3 0) :=
+fun {S} [TopologicalSpace S] [ChartedSpace Chal.CKSInducedArea.E2 S] =>
+  (x : S) → TangentSpace Chal.CKSInducedArea.I2 x →L[ℝ] TangentSpace Chal.CKSInducedArea.I2 x →L[ℝ] ℝ
+@[reducible] def Chal.CKSInducedArea.Smooth3.{u_1, u_2} : {H3 : Type u_1} →
+  [inst : TopologicalSpace H3] →
+    {I3 : ModelWithCorners ℝ Chal.CKSInducedArea.E3 H3} →
+      {N : Type u_2} →
+        [inst_1 : TopologicalSpace N] → [inst_2 : ChartedSpace H3 N] → [IsManifold I3 (↑⊤) N] → Type (max u_2 0) :=
+fun {H3} [TopologicalSpace H3] {I3} {N} [TopologicalSpace N] [ChartedSpace H3 N] [IsManifold I3 (↑⊤) N] =>
+  Bundle.ContMDiffRiemannianMetric I3 (↑⊤) Chal.CKSInducedArea.E3 fun x => TangentSpace I3 x
+@[reducible] def Chal.CKSInducedArea.Bil2 : Type :=
+Chal.CKSInducedArea.E2 →L[ℝ] Chal.CKSInducedArea.E2 →L[ℝ] ℝ
+@[reducible] def Chal.CKSInducedArea.Bil3 : Type :=
+Chal.CKSInducedArea.E3 →L[ℝ] Chal.CKSInducedArea.E3 →L[ℝ] ℝ
+def Chal.CKSInducedArea.inducedInner.{u_1, u_2, u_3} : {H3 : Type u_1} →
+  [inst : TopologicalSpace H3] →
+    {I3 : ModelWithCorners ℝ Chal.CKSInducedArea.E3 H3} →
+      {N : Type u_2} →
+        [inst_1 : TopologicalSpace N] →
+          [inst_2 : ChartedSpace H3 N] →
+            [inst_3 : IsManifold I3 (↑⊤) N] →
+              {S : Type u_3} →
+                [inst_4 : TopologicalSpace S] →
+                  [inst_5 : ChartedSpace Chal.CKSInducedArea.E2 S] →
+                    Chal.CKSInducedArea.Smooth3 → (S → N) → Chal.CKSInducedArea.Inner2 :=
+fun {H3} [TopologicalSpace H3] {I3} {N} [TopologicalSpace N] [ChartedSpace H3 N] [IsManifold I3 (↑⊤) N] {S}
+    [TopologicalSpace S] [ChartedSpace Chal.CKSInducedArea.E2 S] g φ x =>
+  let this := id inferInstance;
+  let this_1 := id inferInstance;
+  let this_2 := id inferInstance;
+  let this_3 := id inferInstance;
+  (g.inner (φ x)).bilinearComp (mfderiv% φ x) (mfderiv% φ x)
+def Chal.CKSInducedArea.bilinearTriv.{u_4, u_5, u_6} : {E : Type u_4} →
+  [inst : NormedAddCommGroup E] →
+    [inst_1 : NormedSpace ℝ E] →
+      {H : Type u_5} →
+        [inst_2 : TopologicalSpace H] →
+          (I : ModelWithCorners ℝ E H) →
+            {M : Type u_6} →
+              [inst_3 : TopologicalSpace M] →
+                [inst_4 : ChartedSpace H M] →
+                  [inst_5 : IsManifold I (↑⊤) M] →
+                    (e : Bundle.Trivialization E Bundle.TotalSpace.proj) →
+                      [MemTrivializationAtlas e] → Bundle.Trivialization (E →L[ℝ] E →L[ℝ] ℝ) Bundle.TotalSpace.proj :=
+fun {E} [NormedAddCommGroup E] [NormedSpace ℝ E] {H} [TopologicalSpace H] I {M} [TopologicalSpace M] [ChartedSpace H M]
+    [IsManifold I (↑⊤) M] e [MemTrivializationAtlas e] =>
+  Bundle.Trivialization.continuousLinearMap (RingHom.id ℝ) e
+    (Bundle.Trivialization.continuousLinearMap (RingHom.id ℝ) e (Bundle.Trivial.trivialization M ℝ))
+def Chal.CKSInducedArea.inducedMetric.{u_1, u_2, u_3} : {H3 : Type u_1} →
+  [inst : TopologicalSpace H3] →
+    {I3 : ModelWithCorners ℝ Chal.CKSInducedArea.E3 H3} →
+      {N : Type u_2} →
+        [inst_1 : TopologicalSpace N] →
+          [inst_2 : ChartedSpace H3 N] →
+            [inst_3 : IsManifold I3 (↑⊤) N] →
+              {S : Type u_3} →
+                [inst_4 : TopologicalSpace S] →
+                  [inst_5 : ChartedSpace Chal.CKSInducedArea.E2 S] →
+                    [inst_6 : IsManifold Chal.CKSInducedArea.I2 (↑⊤) S] →
+                      Chal.CKSInducedArea.Smooth3 →
+                        (φ : S → N) →
+                          ContMDiff Chal.CKSInducedArea.I2 I3 (↑⊤) φ →
+                            (∀ (x : S), Function.Injective ⇑(mfderiv% φ x)) →
+                              Bundle.ContMDiffRiemannianMetric Chal.CKSInducedArea.I2 (↑⊤) Chal.CKSInducedArea.E2
+                                fun x => TangentSpace Chal.CKSInducedArea.I2 x :=
+fun {H3} [TopologicalSpace H3] {I3} {N} [TopologicalSpace N] [ChartedSpace H3 N] [IsManifold I3 (↑⊤) N] {S}
+    [TopologicalSpace S] [ChartedSpace Chal.CKSInducedArea.E2 S] [IsManifold Chal.CKSInducedArea.I2 (↑⊤) S] g φ hφ
+    hinj =>
+  have proof_inducedInner_symm_37 := @Chal.CKSInducedArea.inducedMetric._proof_2;
+  have proof_inducedInner_pos_38 := @Chal.CKSInducedArea.inducedMetric._proof_3;
+  have proof_positive_bilinear_bounded_41 := Chal.CKSInducedArea.inducedMetric._proof_4;
+  have proof_inducedInner_bounded_39 := ⋯;
+  have proof_bilinearComp_smoothAt_42 := @Chal.CKSInducedArea.inducedMetric._proof_15;
+  have proof_bilinearTriv_pair_43 := @Chal.CKSInducedArea.inducedMetric._proof_19;
+  have proof_bilinearTriv_pair_44 := @Chal.CKSInducedArea.inducedMetric._proof_22;
+  have proof_inducedInner_smooth_40 := ⋯;
+  { inner := Chal.CKSInducedArea.inducedInner g φ, symm := ⋯, pos := ⋯, isVonNBounded := ⋯, contMDiff := ⋯ }
+@[reducible] def Chal.CKSEmbeddingDerivative.E : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CKSEmbeddingDerivative.H : Type :=
+EuclideanHalfSpace 3
+@[reducible] def Chal.CKSEmbeddingDerivative.I : ModelWithCorners ℝ (EuclideanSpace ℝ (Fin 3)) (EuclideanHalfSpace 3) :=
+modelWithCornersEuclideanHalfSpace 3
+@[reducible] def Chal.CKSFullCutArea.Surface.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] → (D : Chal.CKSGeometricCuts.OuterDomain N) → Set D.Carrier :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] D => Chal.CKSBoundarySurface.Boundary D.Carrier
+def Chal.CKSFullCutArea.cutInclusion.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      (D : Chal.CKSGeometricCuts.OuterDomain N) → ↑(Chal.CKSFullCutArea.Surface D) → N :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] D => D.inclusion ∘ Subtype.val
+@[reducible] def Chal.CKSFullCutArea.SmoothMetric.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] → Type (max u 0) :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N]
+    [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] =>
+  Bundle.ContMDiffRiemannianMetric Chal.CKSBoundarySurface.I3 (↑⊤) Chal.CKSBoundarySurface.E3 fun x =>
+    TangentSpace Chal.CKSBoundarySurface.I3 x
+def Chal.CKSFullCutArea.cutMetric.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        Chal.CKSFullCutArea.SmoothMetric →
+          (D : Chal.CKSGeometricCuts.OuterDomain N) →
+            Bundle.ContMDiffRiemannianMetric Chal.CKSBoundarySurface.I2 (↑⊤) Chal.CKSBoundarySurface.E2 fun x =>
+              TangentSpace Chal.CKSBoundarySurface.I2 x :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    g D =>
+  have proof_boundary_chart_zero_49 := @Chal.CKSBoundarySurface.boundaryInverse._proof_1;
+  have proof_liftPlane_zero_6 := Chal.CKSBoundarySurface.liftHalf._proof_2;
+  have proof_liftPlane_succ_7 := Chal.CKSBoundarySurface.liftHalf._proof_3;
+  have proof_I3_liftHalf_23 := Chal.CKSBoundarySurface.boundaryInverse._proof_2;
+  have proof_boundary_iff_zero_50 := ⋯;
+  have proof_chart_inverse_boundary_51 := ⋯;
+  have proof_boundaryInverse_mem_52 := ⋯;
+  have proof_boundaryInverse_val_53 := @Chal.CKSBoundarySurface.boundaryChart._proof_3;
+  have proof_boundaryChart_symm_val_54 := ⋯;
+  have proof_inclusion_chart_formula_55 := ⋯;
+  have proof_inclusion_chart_eventually_56 := ⋯;
+  have proof_inclusion_smooth_57 := ⋯;
+  have proof_cutInclusion_smooth_47 := ⋯;
+  have proof_extended_chart_derivative_injective_58 := @Chal.CKSFullCutArea.cutMetric._proof_5;
+  have proof_immersion_derivative_injective_59 := ⋯;
+  have proof_smooth_embedding_derivative_injective_60 := ⋯;
+  have proof_inclusion_hasMFDeriv_61 := ⋯;
+  have proof_dropPlane_apply_31 := Chal.CKSBoundarySurface.boundaryChart._proof_4;
+  have proof_drop_lift_28 := Chal.CKSBoundarySurface.boundaryChart._proof_5;
+  have proof_inclusion_mfderiv_injective_62 := ⋯;
+  have proof_cutInclusion_derivative_injective_48 := ⋯;
+  Chal.CKSInducedArea.inducedMetric g (Chal.CKSFullCutArea.cutInclusion D) ⋯ ⋯
+def Chal.CKSFullCutArea.area.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        [SecondCountableTopology N] →
+          Chal.CKSFullCutArea.SmoothMetric → Chal.CKSGeometricCuts.OuterDomain N → ENNReal :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    [SecondCountableTopology N] g D =>
+  (Chal.CKSSurfaceVolume.riemannianVolume (Chal.CKSFullCutArea.cutMetric g D).toContinuousRiemannianMetric) Set.univ
+def Chal.CKSFullCutArea.minEnclosingArea.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        [SecondCountableTopology N] → Chal.CKSFullCutArea.SmoothMetric → ENNReal :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    [SecondCountableTopology N] g =>
+  ⨅ D, Chal.CKSFullCutArea.area g D
+def Chal.CKSIntrinsicConstraints.IntegrableConstraints.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.CKSIntrinsicConstraints.H M] →
+      [inst_2 : IsManifold Chal.CKSIntrinsicConstraints.I (↑⊤) M] →
+        [MeasurableSpace M] →
+          Chal.CKSMetricGluing.SmoothMetric Chal.CKSIntrinsicConstraints.I →
+            Chal.CKSMetricGluing.InnerField Chal.CKSIntrinsicConstraints.I → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace Chal.CKSIntrinsicConstraints.H M]
+    [IsManifold Chal.CKSIntrinsicConstraints.I (↑⊤) M] [MeasurableSpace M] g K =>
+  ∃ μ j,
+    Continuous μ ∧
+      Continuous j ∧
+        MeasureTheory.Integrable μ
+            (Chal.CKSIntrinsicVolume.riemannianVolume
+              (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric g)) ∧
+          MeasureTheory.Integrable j
+              (Chal.CKSIntrinsicVolume.riemannianVolume
+                (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric g)) ∧
+            (∀ (x : M), 0 ≤ j x ∧ j x ≤ μ x) ∧
+              ∀ (x : M) (c : Chal.CKSIntrinsicConstraints.ConstraintChart g.inner K x),
+                8 * Real.pi * μ x = c.energy ∧ 8 * Real.pi * j x = c.momentumNorm
+def Chal.CKSSourceExterior.Orientable.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSGeometricCuts.H3 N] → [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N] [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] =>
+  ∃ o,
+    ∀ (x : N),
+      let e := trivializationAt Chal.CKSLorentz.E (TangentSpace Chal.CKSGeometricCuts.I3) x;
+      ∃ V,
+        IsOpen V ∧
+          ∃ (hx : x ∈ V) (hV : V ⊆ e.baseSet),
+            ∀ (y : N) (hy : y ∈ V),
+              have atPoint := Bundle.Trivialization.continuousLinearEquivAt ℝ e y ⋯;
+              have atBase := Bundle.Trivialization.continuousLinearEquivAt ℝ e x ⋯;
+              (Orientation.map (Fin 3) ↑atPoint) (o y) = (Orientation.map (Fin 3) ↑atBase) (o x)
+structure Chal.CKSSourceExterior.CoordinateEnd.{u} {N : Type u} [TopologicalSpace N]
+  [ChartedSpace Chal.CKSGeometricCuts.H3 N] : Type u
+number of parameters: 3
+fields:
+  Chal.CKSSourceExterior.CoordinateEnd.radius : ℝ
+  Chal.CKSSourceExterior.CoordinateEnd.radius_pos : 0 < self.radius
+  Chal.CKSSourceExterior.CoordinateEnd.domain : Set N
+  Chal.CKSSourceExterior.CoordinateEnd.isOpen : IsOpen self.domain
+  Chal.CKSSourceExterior.CoordinateEnd.coordinate : N → Chal.CKSLorentz.E
+  Chal.CKSSourceExterior.CoordinateEnd.inverse : Chal.CKSLorentz.E → N
+  Chal.CKSSourceExterior.CoordinateEnd.smooth : ContMDiffOn Chal.CKSGeometricCuts.I3
+      (modelWithCornersSelf ℝ Chal.CKSLorentz.E) (↑⊤) self.coordinate self.domain
+  Chal.CKSSourceExterior.CoordinateEnd.inverse_smooth : ContMDiffOn (modelWithCornersSelf ℝ Chal.CKSLorentz.E)
+      Chal.CKSGeometricCuts.I3 (↑⊤) self.inverse {y | self.radius < ‖y‖}
+  Chal.CKSSourceExterior.CoordinateEnd.mapsTo : ∀ x ∈ self.domain, self.radius < ‖self.coordinate x‖
+  Chal.CKSSourceExterior.CoordinateEnd.left_inverse : ∀ x ∈ self.domain, self.inverse (self.coordinate x) = x
+  Chal.CKSSourceExterior.CoordinateEnd.right_inverse : ∀ (y : Chal.CKSLorentz.E),
+      self.radius < ‖y‖ → self.inverse y ∈ self.domain ∧ self.coordinate (self.inverse y) = y
+  Chal.CKSSourceExterior.CoordinateEnd.closed_far_side : ∀ (r : ℝ),
+      self.radius < r → IsClosed {x | x ∈ self.domain ∧ r ≤ ‖self.coordinate x‖}
+  Chal.CKSSourceExterior.CoordinateEnd.compact_inner_side : ∀ (r : ℝ),
+      self.radius < r → IsCompact {x | x ∉ self.domain ∨ ‖self.coordinate x‖ ≤ r}
+constructor:
+  Chal.CKSSourceExterior.CoordinateEnd.mk.{u} {N : Type u} [TopologicalSpace N]
+    [ChartedSpace Chal.CKSGeometricCuts.H3 N] (radius : ℝ) (radius_pos : 0 < radius) (domain : Set N)
+    (isOpen : IsOpen domain) (coordinate : N → Chal.CKSLorentz.E) (inverse : Chal.CKSLorentz.E → N)
+    (smooth : ContMDiffOn Chal.CKSGeometricCuts.I3 (modelWithCornersSelf ℝ Chal.CKSLorentz.E) (↑⊤) coordinate domain)
+    (inverse_smooth :
+      ContMDiffOn (modelWithCornersSelf ℝ Chal.CKSLorentz.E) Chal.CKSGeometricCuts.I3 (↑⊤) inverse {y | radius < ‖y‖})
+    (mapsTo : ∀ x ∈ domain, radius < ‖coordinate x‖) (left_inverse : ∀ x ∈ domain, inverse (coordinate x) = x)
+    (right_inverse : ∀ (y : Chal.CKSLorentz.E), radius < ‖y‖ → inverse y ∈ domain ∧ coordinate (inverse y) = y)
+    (closed_far_side : ∀ (r : ℝ), radius < r → IsClosed {x | x ∈ domain ∧ r ≤ ‖coordinate x‖})
+    (compact_inner_side : ∀ (r : ℝ), radius < r → IsCompact {x | x ∉ domain ∨ ‖coordinate x‖ ≤ r}) :
+    Chal.CKSSourceExterior.CoordinateEnd
+structure Chal.CKSSourceExterior.CKSData.{u} {N : Type u} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N]
+  [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] (g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3)
+  (K : Chal.CKSMetricGluing.InnerField Chal.CKSGeometricCuts.I3) : Type u
+number of parameters: 6
+fields:
+  Chal.CKSSourceExterior.CKSData.chart : Chal.CKSSourceExterior.CoordinateEnd
+  Chal.CKSSourceExterior.CKSData.metricPerturbation : Chal.CKSLorentz.SpatialTensor
+  Chal.CKSSourceExterior.CKSData.tensorPerturbation : Chal.CKSLorentz.SpatialTensor
+  Chal.CKSSourceExterior.CKSData.metric_smooth : ∀ (y : Chal.CKSLorentz.E),
+      self.chart.radius < ‖y‖ → ContDiffAt ℝ (↑⊤) self.metricPerturbation y
+  Chal.CKSSourceExterior.CKSData.tensor_smooth : ∀ (y : Chal.CKSLorentz.E),
+      self.chart.radius < ‖y‖ → ContDiffAt ℝ (↑⊤) self.tensorPerturbation y
+  Chal.CKSSourceExterior.CKSData.represents : ∀ x ∈ self.chart.domain,
+      g.inner x =
+          Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3 self.chart.coordinate
+            (Chal.CKSLorentz.sourceSpatial self.metricPerturbation) x ∧
+        K x =
+          Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3 self.chart.coordinate
+            (Chal.CKSLorentz.sourceSpatial self.tensorPerturbation) x
+  Chal.CKSSourceExterior.CKSData.massAspect : Chal.CKSLorentz.Sphere → ℝ
+  Chal.CKSSourceExterior.CKSData.aspect_smooth : Chal.CKSSphericalHarmonics.SmoothSphere self.massAspect
+  Chal.CKSSourceExterior.CKSData.patches : Chal.CKSLorentz.Sphere → Chal.CKSLorentz.CKSTensorPatch
+  Chal.CKSSourceExterior.CKSData.covers : ∀ (n : Chal.CKSLorentz.Sphere),
+      n ∈ (self.patches n).patch.sphereRegion (self.patches n).region
+  Chal.CKSSourceExterior.CKSData.realizes : ∀ (n : Chal.CKSLorentz.Sphere),
+      (self.patches n).Realizes self.metricPerturbation self.tensorPerturbation
+  Chal.CKSSourceExterior.CKSData.aspect_eq : ∀ (n : Chal.CKSLorentz.Sphere),
+      (self.patches n).RepresentsMassAspect self.massAspect
+constructor:
+  Chal.CKSSourceExterior.CKSData.mk.{u} {N : Type u} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N]
+    [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] {g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3}
+    {K : Chal.CKSMetricGluing.InnerField Chal.CKSGeometricCuts.I3} (chart : Chal.CKSSourceExterior.CoordinateEnd)
+    (metricPerturbation tensorPerturbation : Chal.CKSLorentz.SpatialTensor)
+    (metric_smooth : ∀ (y : Chal.CKSLorentz.E), chart.radius < ‖y‖ → ContDiffAt ℝ (↑⊤) metricPerturbation y)
+    (tensor_smooth : ∀ (y : Chal.CKSLorentz.E), chart.radius < ‖y‖ → ContDiffAt ℝ (↑⊤) tensorPerturbation y)
+    (represents :
+      ∀ x ∈ chart.domain,
+        g.inner x =
+            Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3 chart.coordinate
+              (Chal.CKSLorentz.sourceSpatial metricPerturbation) x ∧
+          K x =
+            Chal.CKSSpatialManifold.endInner Chal.CKSGeometricCuts.I3 chart.coordinate
+              (Chal.CKSLorentz.sourceSpatial tensorPerturbation) x)
+    (massAspect : Chal.CKSLorentz.Sphere → ℝ) (aspect_smooth : Chal.CKSSphericalHarmonics.SmoothSphere massAspect)
+    (patches : Chal.CKSLorentz.Sphere → Chal.CKSLorentz.CKSTensorPatch)
+    (covers : ∀ (n : Chal.CKSLorentz.Sphere), n ∈ (patches n).patch.sphereRegion (patches n).region)
+    (realizes : ∀ (n : Chal.CKSLorentz.Sphere), (patches n).Realizes metricPerturbation tensorPerturbation)
+    (aspect_eq : ∀ (n : Chal.CKSLorentz.Sphere), (patches n).RepresentsMassAspect massAspect) :
+    Chal.CKSSourceExterior.CKSData g K
+def Chal.CKSSourceExterior.cutArea.{u_1} : {N : Type u_1} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSGeometricCuts.H3 N] →
+      [inst_2 : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] →
+        [SecondCountableTopology N] →
+          Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3 → Chal.CKSGeometricCuts.OuterDomain N → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N] [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N]
+    [SecondCountableTopology N] g D =>
+  (Chal.CKSFullCutArea.area g D).toReal
+def Chal.CKSSourceExterior.minimumEnclosingArea.{u_1} : {N : Type u_1} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSGeometricCuts.H3 N] →
+      [inst_2 : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] →
+        [SecondCountableTopology N] → Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3 → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N] [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N]
+    [SecondCountableTopology N] g =>
+  ⨅ D, Chal.CKSSourceExterior.cutArea g D
+def Chal.CKSSourceExterior.constraintsIntegrable.{u_1} : {N : Type u_1} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSGeometricCuts.H3 N] →
+      [inst_2 : IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] →
+        Chal.CKSMetricGluing.SmoothMetric Chal.CKSGeometricCuts.I3 →
+          Chal.CKSMetricGluing.InnerField Chal.CKSGeometricCuts.I3 → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSGeometricCuts.H3 N] [IsManifold Chal.CKSGeometricCuts.I3 (↑⊤) N] g
+    K =>
+  Chal.CKSIntrinsicConstraints.IntegrableConstraints g K
+def Chal.CKSSchwarzschild.covariantPair.{u_1} : {V : Type u_1} →
+  [inst : NormedAddCommGroup V] → [inst_1 : NormedSpace ℝ V] → (V → V →L[ℝ] V →L[ℝ] ℝ) → (V → V) → V → V → V → ℝ :=
+fun {V} [NormedAddCommGroup V] [NormedSpace ℝ V] g N x a b =>
+  ((g x) ((fderiv ℝ N x) a)) b +
+    1 / 2 *
+      ((fderiv ℝ (fun y => ((g y) (N x)) b) x) a + (fderiv ℝ (fun y => ((g y) a) b) x) (N x) -
+        (fderiv ℝ (fun y => ((g y) a) (N x)) x) b)
+@[reducible] def Chal.CKSSchwarzschild.Spacetime : Type :=
+ℝ × Chal.CKSBoundarySurface.E3
+@[reducible] def Chal.CKSSchwarzschild.SpacetimeBilinear : Type :=
+Chal.CKSSchwarzschild.Spacetime →L[ℝ] Chal.CKSSchwarzschild.Spacetime →L[ℝ] ℝ
+def Chal.CKSSchwarzschild.timeForm : Chal.CKSSchwarzschild.Spacetime →L[ℝ] ℝ :=
+ContinuousLinearMap.fst ℝ ℝ Chal.CKSBoundarySurface.E3
+def Chal.CKSSchwarzschild.spacePart : Chal.CKSSchwarzschild.Spacetime →L[ℝ] Chal.CKSBoundarySurface.E3 :=
+ContinuousLinearMap.snd ℝ ℝ Chal.CKSBoundarySurface.E3
+def Chal.CKSSchwarzschild.radiusForm : Chal.CKSBoundarySurface.E3 → Chal.CKSSchwarzschild.Spacetime →L[ℝ] ℝ :=
+fun x => Chal.CKSSchwarzschild.euclideanForm (Chal.CKSSchwarzschild.radialUnit x) ∘SL Chal.CKSSchwarzschild.spacePart
+def Chal.CKSSchwarzschild.schwarzschildH : ℝ → ℝ → ℝ :=
+fun m r => 1 - 2 * m / r
+def Chal.CKSSchwarzschild.advancedMetric : ℝ →
+  Chal.CKSSchwarzschild.Spacetime → Chal.CKSSchwarzschild.SpacetimeBilinear :=
+fun m z =>
+  have spatialMetric :=
+    ContinuousLinearMap.bilinearComp Chal.CKSSchwarzschild.euclideanForm Chal.CKSSchwarzschild.spacePart
+      Chal.CKSSchwarzschild.spacePart;
+  -Chal.CKSSchwarzschild.schwarzschildH m ‖z.2‖ •
+            Chal.CKSSchwarzschild.timeForm.smulRight Chal.CKSSchwarzschild.timeForm +
+          Chal.CKSSchwarzschild.timeForm.smulRight (Chal.CKSSchwarzschild.radiusForm z.2) +
+        (Chal.CKSSchwarzschild.radiusForm z.2).smulRight Chal.CKSSchwarzschild.timeForm +
+      spatialMetric -
+    (Chal.CKSSchwarzschild.radiusForm z.2).smulRight (Chal.CKSSchwarzschild.radiusForm z.2)
+def Chal.CKSSchwarzschild.advancedSlope : ℝ → ℝ → ℝ :=
+fun m r => (Chal.CKSSchwarzschild.lapse m r * (Chal.CKSSchwarzschild.lapse m r - Chal.CKSSchwarzschild.velocity m r))⁻¹
+def Chal.CKSSchwarzschild.advancedTime : ℝ → ℝ → ℝ :=
+fun m r => ∫ (s : ℝ) in 2 * m..r, Chal.CKSSchwarzschild.advancedSlope m s
+def Chal.CKSSchwarzschild.advancedGraph : ℝ → Chal.CKSBoundarySurface.E3 → Chal.CKSSchwarzschild.Spacetime :=
+fun m x => (Chal.CKSSchwarzschild.advancedTime m ‖x‖, x)
+def Chal.CKSSchwarzschild.futureNormal : ℝ → Chal.CKSSchwarzschild.Spacetime → Chal.CKSSchwarzschild.Spacetime :=
+fun m z =>
+  ((Chal.CKSSchwarzschild.lapse m ‖z.2‖ - Chal.CKSSchwarzschild.velocity m ‖z.2‖)⁻¹,
+    Chal.CKSSchwarzschild.velocity m ‖z.2‖ • Chal.CKSSchwarzschild.radialUnit z.2)
+def Chal.CKSSchwarzschild.graphTangent : ℝ →
+  Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E3 → Chal.CKSSchwarzschild.Spacetime :=
+fun m x a => (Chal.CKSSchwarzschild.advancedSlope m ‖x‖ * inner ℝ (Chal.CKSSchwarzschild.radialUnit x) a, a)
+structure Chal.CKSSchwarzschild.HorizonRegularGraph (m : ℝ) : Prop
+number of parameters: 1
+fields:
+  Chal.CKSSchwarzschild.HorizonRegularGraph.ambient_smooth : ∀ (z : Chal.CKSSchwarzschild.Spacetime),
+      z.2 ≠ 0 → ContDiffAt ℝ (↑⊤) (Chal.CKSSchwarzschild.advancedMetric m) z
+  Chal.CKSSchwarzschild.HorizonRegularGraph.ambient_symmetric : ∀ (z a b : Chal.CKSSchwarzschild.Spacetime),
+      ((Chal.CKSSchwarzschild.advancedMetric m z) a) b = ((Chal.CKSSchwarzschild.advancedMetric m z) b) a
+  Chal.CKSSchwarzschild.HorizonRegularGraph.ambient_nondegenerate : ∀ (z : Chal.CKSSchwarzschild.Spacetime),
+      z.2 ≠ 0 →
+        ∀ (a : Chal.CKSSchwarzschild.Spacetime),
+          (∀ (b : Chal.CKSSchwarzschild.Spacetime), ((Chal.CKSSchwarzschild.advancedMetric m z) a) b = 0) → a = 0
+  Chal.CKSSchwarzschild.HorizonRegularGraph.graph_smooth_across : ∀ (x : Chal.CKSBoundarySurface.E3),
+      m < ‖x‖ → ContDiffAt ℝ (↑⊤) (Chal.CKSSchwarzschild.advancedGraph m) x
+  Chal.CKSSchwarzschild.HorizonRegularGraph.graph_injective : Function.Injective (Chal.CKSSchwarzschild.advancedGraph m)
+  Chal.CKSSchwarzschild.HorizonRegularGraph.graph_derivative : ∀ (x : Chal.CKSBoundarySurface.E3),
+      m < ‖x‖ →
+        ∀ (a : Chal.CKSBoundarySurface.E3),
+          (fderiv ℝ (Chal.CKSSchwarzschild.advancedGraph m) x) a = Chal.CKSSchwarzschild.graphTangent m x a
+  Chal.CKSSchwarzschild.HorizonRegularGraph.horizon_time : Chal.CKSSchwarzschild.advancedTime m (2 * m) = 0
+  Chal.CKSSchwarzschild.HorizonRegularGraph.horizon_slope : Chal.CKSSchwarzschild.advancedSlope m (2 * m) = 1 / 2
+  Chal.CKSSchwarzschild.HorizonRegularGraph.induced_metric : ∀ (x : Chal.CKSBoundarySurface.E3),
+      2 * m ≤ ‖x‖ →
+        ∀ (a b : Chal.CKSBoundarySurface.E3),
+          ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+                (Chal.CKSSchwarzschild.graphTangent m x a))
+              (Chal.CKSSchwarzschild.graphTangent m x b) =
+            ((Chal.CKSSchwarzschild.cartMetric m x) a) b
+  Chal.CKSSchwarzschild.HorizonRegularGraph.normal_unit : ∀ (x : Chal.CKSBoundarySurface.E3),
+      2 * m ≤ ‖x‖ →
+        ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+              (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)))
+            (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)) =
+          -1
+  Chal.CKSSchwarzschild.HorizonRegularGraph.normal_orthogonal : ∀ (x : Chal.CKSBoundarySurface.E3),
+      2 * m ≤ ‖x‖ →
+        ∀ (a : Chal.CKSBoundarySurface.E3),
+          ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+                (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)))
+              (Chal.CKSSchwarzschild.graphTangent m x a) =
+            0
+  Chal.CKSSchwarzschild.HorizonRegularGraph.future_facing : ∀ (x : Chal.CKSBoundarySurface.E3),
+      2 * m ≤ ‖x‖ → 0 < (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)).1
+  Chal.CKSSchwarzschild.HorizonRegularGraph.induced_second_form : ∀ (x : Chal.CKSBoundarySurface.E3),
+      2 * m ≤ ‖x‖ →
+        ∀ (a b : Chal.CKSBoundarySurface.E3),
+          Chal.CKSSchwarzschild.covariantPair (Chal.CKSSchwarzschild.advancedMetric m)
+              (Chal.CKSSchwarzschild.futureNormal m) (Chal.CKSSchwarzschild.advancedGraph m x)
+              (Chal.CKSSchwarzschild.graphTangent m x a) (Chal.CKSSchwarzschild.graphTangent m x b) =
+            ((Chal.CKSSchwarzschild.cartTensor m x) a) b
+constructor:
+  Chal.CKSSchwarzschild.HorizonRegularGraph.mk {m : ℝ}
+    (ambient_smooth :
+      ∀ (z : Chal.CKSSchwarzschild.Spacetime), z.2 ≠ 0 → ContDiffAt ℝ (↑⊤) (Chal.CKSSchwarzschild.advancedMetric m) z)
+    (ambient_symmetric :
+      ∀ (z a b : Chal.CKSSchwarzschild.Spacetime),
+        ((Chal.CKSSchwarzschild.advancedMetric m z) a) b = ((Chal.CKSSchwarzschild.advancedMetric m z) b) a)
+    (ambient_nondegenerate :
+      ∀ (z : Chal.CKSSchwarzschild.Spacetime),
+        z.2 ≠ 0 →
+          ∀ (a : Chal.CKSSchwarzschild.Spacetime),
+            (∀ (b : Chal.CKSSchwarzschild.Spacetime), ((Chal.CKSSchwarzschild.advancedMetric m z) a) b = 0) → a = 0)
+    (graph_smooth_across :
+      ∀ (x : Chal.CKSBoundarySurface.E3), m < ‖x‖ → ContDiffAt ℝ (↑⊤) (Chal.CKSSchwarzschild.advancedGraph m) x)
+    (graph_injective : Function.Injective (Chal.CKSSchwarzschild.advancedGraph m))
+    (graph_derivative :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        m < ‖x‖ →
+          ∀ (a : Chal.CKSBoundarySurface.E3),
+            (fderiv ℝ (Chal.CKSSchwarzschild.advancedGraph m) x) a = Chal.CKSSchwarzschild.graphTangent m x a)
+    (horizon_time : Chal.CKSSchwarzschild.advancedTime m (2 * m) = 0)
+    (horizon_slope : Chal.CKSSchwarzschild.advancedSlope m (2 * m) = 1 / 2)
+    (induced_metric :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        2 * m ≤ ‖x‖ →
+          ∀ (a b : Chal.CKSBoundarySurface.E3),
+            ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+                  (Chal.CKSSchwarzschild.graphTangent m x a))
+                (Chal.CKSSchwarzschild.graphTangent m x b) =
+              ((Chal.CKSSchwarzschild.cartMetric m x) a) b)
+    (normal_unit :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        2 * m ≤ ‖x‖ →
+          ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+                (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)))
+              (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)) =
+            -1)
+    (normal_orthogonal :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        2 * m ≤ ‖x‖ →
+          ∀ (a : Chal.CKSBoundarySurface.E3),
+            ((Chal.CKSSchwarzschild.advancedMetric m (Chal.CKSSchwarzschild.advancedGraph m x))
+                  (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)))
+                (Chal.CKSSchwarzschild.graphTangent m x a) =
+              0)
+    (future_facing :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        2 * m ≤ ‖x‖ → 0 < (Chal.CKSSchwarzschild.futureNormal m (Chal.CKSSchwarzschild.advancedGraph m x)).1)
+    (induced_second_form :
+      ∀ (x : Chal.CKSBoundarySurface.E3),
+        2 * m ≤ ‖x‖ →
+          ∀ (a b : Chal.CKSBoundarySurface.E3),
+            Chal.CKSSchwarzschild.covariantPair (Chal.CKSSchwarzschild.advancedMetric m)
+                (Chal.CKSSchwarzschild.futureNormal m) (Chal.CKSSchwarzschild.advancedGraph m x)
+                (Chal.CKSSchwarzschild.graphTangent m x a) (Chal.CKSSchwarzschild.graphTangent m x b) =
+              ((Chal.CKSSchwarzschild.cartTensor m x) a) b) :
+    Chal.CKSSchwarzschild.HorizonRegularGraph m
+def Chal.CKSSchwarzschild.christoffelPair : (Chal.CKSBoundarySurface.E3 →
+    Chal.CKSBoundarySurface.E3 →L[ℝ] Chal.CKSBoundarySurface.E3 →L[ℝ] ℝ) →
+  Chal.CKSBoundarySurface.E3 →
+    Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E3 → ℝ :=
+fun g x a b c =>
+  1 / 2 *
+    ((fderiv ℝ (fun z => ((g z) b) c) x) a + (fderiv ℝ (fun z => ((g z) a) c) x) b -
+      (fderiv ℝ (fun z => ((g z) a) b) x) c)
+def Chal.CKSSchwarzschild.firstFrame : (Chal.CKSBoundarySurface.E3 →L[ℝ] Chal.CKSBoundarySurface.E3 →L[ℝ] ℝ) →
+  (Chal.CKSBoundarySurface.E2 →L[ℝ] Chal.CKSBoundarySurface.E3) → Chal.CKSBoundarySurface.E2 :=
+fun g T => (√((g (T (EuclideanSpace.single 0 1))) (T (EuclideanSpace.single 0 1))))⁻¹ • EuclideanSpace.single 0 1
+def Chal.CKSSchwarzschild.secondResidual : (Chal.CKSBoundarySurface.E3 →L[ℝ] Chal.CKSBoundarySurface.E3 →L[ℝ] ℝ) →
+  (Chal.CKSBoundarySurface.E2 →L[ℝ] Chal.CKSBoundarySurface.E3) → Chal.CKSBoundarySurface.E2 :=
+fun g T =>
+  EuclideanSpace.single 1 1 -
+    ((g (T (EuclideanSpace.single 0 1))) (T (EuclideanSpace.single 1 1)) /
+        (g (T (EuclideanSpace.single 0 1))) (T (EuclideanSpace.single 0 1))) •
+      EuclideanSpace.single 0 1
+def Chal.CKSSchwarzschild.secondFrame : (Chal.CKSBoundarySurface.E3 →L[ℝ] Chal.CKSBoundarySurface.E3 →L[ℝ] ℝ) →
+  (Chal.CKSBoundarySurface.E2 →L[ℝ] Chal.CKSBoundarySurface.E3) → Chal.CKSBoundarySurface.E2 :=
+fun g T =>
+  (√((g (T (Chal.CKSSchwarzschild.secondResidual g T))) (T (Chal.CKSSchwarzschild.secondResidual g T))))⁻¹ •
+    Chal.CKSSchwarzschild.secondResidual g T
+def Chal.CKSMain.secondForm : Chal.CKSLorentz.SpatialTensor →
+  (Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3) →
+    Chal.CKSBoundarySurface.E2 →
+      Chal.CKSBoundarySurface.E3 → Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E2 → ℝ :=
+fun q f y ν a b =>
+  -(((q (f y)) ν) ((fderiv ℝ (fun z => (fderiv ℝ f z) b) y) a) +
+      Chal.CKSSchwarzschild.christoffelPair q (f y) ((fderiv ℝ f y) a) ((fderiv ℝ f y) b) ν)
+def Chal.CKSMain.meanCurvature : Chal.CKSLorentz.SpatialTensor →
+  (Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3) →
+    Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3 → ℝ :=
+fun q f y ν =>
+  have a := Chal.CKSSchwarzschild.firstFrame (q (f y)) (fderiv ℝ f y);
+  have b := Chal.CKSSchwarzschild.secondFrame (q (f y)) (fderiv ℝ f y);
+  Chal.CKSMain.secondForm q f y ν a a + Chal.CKSMain.secondForm q f y ν b b
+def Chal.CKSMain.tangentialTrace : Chal.CKSLorentz.SpatialTensor →
+  Chal.CKSLorentz.SpatialTensor →
+    (Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3) → Chal.CKSBoundarySurface.E2 → ℝ :=
+fun q k f y =>
+  have a := (fderiv ℝ f y) (Chal.CKSSchwarzschild.firstFrame (q (f y)) (fderiv ℝ f y));
+  have b := (fderiv ℝ f y) (Chal.CKSSchwarzschild.secondFrame (q (f y)) (fderiv ℝ f y));
+  ((k (f y)) a) a + ((k (f y)) b) b
+structure Chal.CKSMain.BoundaryGeometry.{u} {N : Type u} [TopologicalSpace N]
+  [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+  (q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3)
+  (k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3) : Type u
+number of parameters: 6
+fields:
+  Chal.CKSMain.BoundaryGeometry.normal : (p : ↑(Chal.CKSBoundarySurface.Boundary N)) →
+      TangentSpace Chal.CKSBoundarySurface.I3 ↑p
+  Chal.CKSMain.BoundaryGeometry.unit : ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)),
+      ((q.inner ↑p) (self.normal p)) (self.normal p) = 1
+  Chal.CKSMain.BoundaryGeometry.orthogonal : ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N))
+      (a : TangentSpace Chal.CKSBoundarySurface.I2 p), ((q.inner ↑p) (self.normal p)) ((mfderiv% Subtype.val p) a) = 0
+  Chal.CKSMain.BoundaryGeometry.inward : ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)),
+      0 <
+        (have this := self.normal p;
+            this).ofLp
+          0
+  Chal.CKSMain.BoundaryGeometry.chart : (p : ↑(Chal.CKSBoundarySurface.Boundary N)) →
+      Chal.CKSIntrinsicConstraints.ConstraintChart q.inner k ↑p
+  Chal.CKSMain.BoundaryGeometry.normal_smooth : ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)),
+      ContMDiffAt Chal.CKSBoundarySurface.I2 (modelWithCornersSelf ℝ Chal.CKSBoundarySurface.E3) (↑⊤)
+        (fun z => (mfderiv% (self.chart p).coordinate ↑z) (self.normal z)) p
+constructor:
+  Chal.CKSMain.BoundaryGeometry.mk.{u} {N : Type u} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N]
+    [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3}
+    {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3}
+    (normal : (p : ↑(Chal.CKSBoundarySurface.Boundary N)) → TangentSpace Chal.CKSBoundarySurface.I3 ↑p)
+    (unit : ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)), ((q.inner ↑p) (normal p)) (normal p) = 1)
+    (orthogonal :
+      ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)) (a : TangentSpace Chal.CKSBoundarySurface.I2 p),
+        ((q.inner ↑p) (normal p)) ((mfderiv% Subtype.val p) a) = 0)
+    (inward :
+      ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)),
+        0 <
+          (have this := normal p;
+              this).ofLp
+            0)
+    (chart : (p : ↑(Chal.CKSBoundarySurface.Boundary N)) → Chal.CKSIntrinsicConstraints.ConstraintChart q.inner k ↑p)
+    (normal_smooth :
+      ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)),
+        ContMDiffAt Chal.CKSBoundarySurface.I2 (modelWithCornersSelf ℝ Chal.CKSBoundarySurface.E3) (↑⊤)
+          (fun z => (mfderiv% (chart p).coordinate ↑z) (normal z)) p) :
+    Chal.CKSMain.BoundaryGeometry q k
+def Chal.CKSMain.BoundaryGeometry.parameter.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            Chal.CKSMain.BoundaryGeometry q k →
+              ↑(Chal.CKSBoundarySurface.Boundary N) → Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3 :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} B p =>
+  (B.chart p).coordinate ∘ Subtype.val ∘ ↑(extChartAt Chal.CKSBoundarySurface.I2 p).symm
+def Chal.CKSMain.BoundaryGeometry.thetaPlus.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            Chal.CKSMain.BoundaryGeometry q k → ↑(Chal.CKSBoundarySurface.Boundary N) → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} B p =>
+  have c := B.chart p;
+  have f := B.parameter p;
+  have y := ↑(extChartAt Chal.CKSBoundarySurface.I2 p) p;
+  have ν := (mfderiv% c.coordinate ↑p) (B.normal p);
+  Chal.CKSMain.meanCurvature c.metric f y ν + Chal.CKSMain.tangentialTrace c.metric c.tensor f y
+def Chal.CKSMain.MarginalBoundary.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3 →
+          Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3 → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    q k =>
+  ∃ B, ∀ (p : ↑(Chal.CKSBoundarySurface.Boundary N)), B.thetaPlus p = 0
+def Chal.CKSMain.bondiMass.{u} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {K : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} → Chal.CKSSourceExterior.CKSData g K → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {g} {K} d =>
+  √((Chal.CKSLorentz.bondiCharge d.massAspect).1 ^ 2 - ‖(Chal.CKSLorentz.bondiCharge d.massAspect).2‖ ^ 2)
+@[reducible] def Chal.CKSMain.CoefficientAtlas.{u_1} : {N : Type u_1} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3 →
+          Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3 → Type u_1 :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    q k =>
+  have metric := q;
+  (x : N) → Chal.CKSIntrinsicConstraints.ConstraintChart metric.inner k x
+structure Chal.CKSMain.InteriorSurface.{u, v} {N : Type u} [TopologicalSpace N]
+  [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+  (q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3)
+  (k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3) (A : Chal.CKSMain.CoefficientAtlas q k) (T : Type v)
+  [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T] [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] :
+  Type (max u v)
+number of parameters: 11
+fields:
+  Chal.CKSMain.InteriorSurface.map : T → N
+  Chal.CKSMain.InteriorSurface.smooth : ContMDiff Chal.CKSBoundarySurface.I2 Chal.CKSBoundarySurface.I3 (↑⊤) self.map
+  Chal.CKSMain.InteriorSurface.embedding : Topology.IsEmbedding self.map
+  Chal.CKSMain.InteriorSurface.immersion : ∀ (p : T), Function.Injective ⇑(mfderiv% self.map p)
+  Chal.CKSMain.InteriorSurface.interior : ∀ (p : T), self.map p ∈ ModelWithCorners.interior N
+  Chal.CKSMain.InteriorSurface.normal : (p : T) → TangentSpace Chal.CKSBoundarySurface.I3 (self.map p)
+  Chal.CKSMain.InteriorSurface.normal_unit : ∀ (p : T), ((q.inner (self.map p)) (self.normal p)) (self.normal p) = 1
+  Chal.CKSMain.InteriorSurface.normal_orthogonal : ∀ (p : T) (a : TangentSpace Chal.CKSBoundarySurface.I2 p),
+      ((q.inner (self.map p)) (self.normal p)) ((mfderiv% self.map p) a) = 0
+  Chal.CKSMain.InteriorSurface.normal_smooth : ∀ (p : T),
+      ContMDiffAt Chal.CKSBoundarySurface.I2 (modelWithCornersSelf ℝ Chal.CKSBoundarySurface.E3) (↑⊤)
+        (fun t => (mfderiv% (A (self.map p)).coordinate (self.map t)) (self.normal t)) p
+constructor:
+  Chal.CKSMain.InteriorSurface.mk.{u, v} {N : Type u} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N]
+    [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3}
+    {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} {A : Chal.CKSMain.CoefficientAtlas q k}
+    {T : Type v} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] (map : T → N)
+    (smooth : ContMDiff Chal.CKSBoundarySurface.I2 Chal.CKSBoundarySurface.I3 (↑⊤) map)
+    (embedding : Topology.IsEmbedding map) (immersion : ∀ (p : T), Function.Injective ⇑(mfderiv% map p))
+    (interior : ∀ (p : T), map p ∈ ModelWithCorners.interior N)
+    (normal : (p : T) → TangentSpace Chal.CKSBoundarySurface.I3 (map p))
+    (normal_unit : ∀ (p : T), ((q.inner (map p)) (normal p)) (normal p) = 1)
+    (normal_orthogonal :
+      ∀ (p : T) (a : TangentSpace Chal.CKSBoundarySurface.I2 p),
+        ((q.inner (map p)) (normal p)) ((mfderiv% map p) a) = 0)
+    (normal_smooth :
+      ∀ (p : T),
+        ContMDiffAt Chal.CKSBoundarySurface.I2 (modelWithCornersSelf ℝ Chal.CKSBoundarySurface.E3) (↑⊤)
+          (fun t => (mfderiv% (A (map p)).coordinate (map t)) (normal t)) p) :
+    Chal.CKSMain.InteriorSurface q k A T
+def Chal.CKSMain.InteriorSurface.parameter.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T →
+                        T → Chal.CKSBoundarySurface.E2 → Chal.CKSBoundarySurface.E3 :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D p =>
+  (A (D.map p)).coordinate ∘ D.map ∘ ↑(extChartAt Chal.CKSBoundarySurface.I2 p).symm
+def Chal.CKSMain.InteriorSurface.mean.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → T → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D p =>
+  have c := A (D.map p);
+  Chal.CKSMain.meanCurvature c.metric (D.parameter p) (↑(extChartAt Chal.CKSBoundarySurface.I2 p) p)
+    ((mfderiv% c.coordinate (D.map p)) (D.normal p))
+def Chal.CKSMain.InteriorSurface.trace.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → T → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D p =>
+  have c := A (D.map p);
+  Chal.CKSMain.tangentialTrace c.metric c.tensor (D.parameter p) (↑(extChartAt Chal.CKSBoundarySurface.I2 p) p)
+def Chal.CKSMain.InteriorSurface.thetaPlus.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → T → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D p =>
+  D.mean p + D.trace p
+def Chal.CKSMain.InteriorSurface.thetaMinus.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → T → ℝ :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D p =>
+  D.mean p - D.trace p
+def Chal.CKSMain.InteriorSurface.SeparatesAway.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → Chal.CKSSourceExterior.CoordinateEnd → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D c =>
+  ∃ B,
+    B = closure (interior B) ∧
+      (interior B).Nonempty ∧
+        frontier B = Set.range D.map ∧ ∃ r, c.radius < r ∧ B ⊆ {x | x ∉ c.domain ∨ ‖c.coordinate x‖ ≤ r}
+def Chal.CKSMain.InteriorSurface.ComponentwiseApparent.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        {q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3} →
+          {k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} →
+            {A : Chal.CKSMain.CoefficientAtlas q k} →
+              {T : Type v} →
+                [inst_3 : TopologicalSpace T] →
+                  [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T] →
+                    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] →
+                      Chal.CKSMain.InteriorSurface q k A T → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    {q} {k} {A} {T} [TopologicalSpace T] [ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] D =>
+  ∀ (p : T), (∀ z ∈ connectedComponent p, D.thetaPlus z = 0) ∨ ∀ z ∈ connectedComponent p, D.thetaMinus z = 0
+def Chal.CKSMain.NoAdditionalHorizons.{u, v} : {N : Type u} →
+  [inst : TopologicalSpace N] →
+    [inst_1 : ChartedSpace Chal.CKSBoundarySurface.H3 N] →
+      [inst_2 : IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] →
+        (q : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3) →
+          (k : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3) →
+            Chal.CKSSourceExterior.CoordinateEnd → Chal.CKSMain.CoefficientAtlas q k → Prop :=
+fun {N} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N]
+    q k c A =>
+  ∀ (T : Type v) [inst_3 : TopologicalSpace T] [inst_4 : ChartedSpace Chal.CKSBoundarySurface.E2 T]
+    [inst_5 : IsManifold Chal.CKSBoundarySurface.I2 (↑⊤) T] [T2Space T] [SecondCountableTopology T] [CompactSpace T]
+    [Nonempty T] (D : Chal.CKSMain.InteriorSurface q k A T), D.SeparatesAway c → ¬D.ComponentwiseApparent
+structure Chal.CKSMain.MainHypotheses.{u, v} {N : Type u} [TopologicalSpace N]
+  [ChartedSpace Chal.CKSBoundarySurface.H3 N] [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] [T2Space N]
+  [SecondCountableTopology N] [ConnectedSpace N] (g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3)
+  (K : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3) (d : Chal.CKSSourceExterior.CKSData g K)
+  (A : Chal.CKSMain.CoefficientAtlas g K) : Prop
+number of parameters: 11
+fields:
+  Chal.CKSMain.MainHypotheses.smooth_tensor : ContMDiff Chal.CKSBoundarySurface.I3
+      (Chal.CKSBoundarySurface.I3.prod (modelWithCornersSelf ℝ Chal.CKSLorentz.SpatialBilinear)) (↑⊤)
+      (Chal.CKSMetricGluing.innerSection Chal.CKSBoundarySurface.I3 K)
+  Chal.CKSMain.MainHypotheses.symmetric_tensor : ∀ (x : N) (v w : TangentSpace Chal.CKSBoundarySurface.I3 x),
+      ((K x) v) w = ((K x) w) v
+  Chal.CKSMain.MainHypotheses.orientable : Chal.CKSSourceExterior.Orientable
+  Chal.CKSMain.MainHypotheses.boundary_compact : IsCompact (ModelWithCorners.boundary N)
+  Chal.CKSMain.MainHypotheses.boundary_nonempty : (ModelWithCorners.boundary N).Nonempty
+  Chal.CKSMain.MainHypotheses.complete : Chal.CKSReplacementCompleteness.IsComplete Chal.CKSBoundarySurface.I3
+      (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric g)
+  Chal.CKSMain.MainHypotheses.dec : Chal.CKSSpatialManifold.PhysicalDEC Chal.CKSBoundarySurface.I3 g.inner K
+  Chal.CKSMain.MainHypotheses.timelike : ‖(Chal.CKSLorentz.bondiCharge d.massAspect).2‖ <
+      (Chal.CKSLorentz.bondiCharge d.massAspect).1
+  Chal.CKSMain.MainHypotheses.boundary_connected : ConnectedSpace ↑(Chal.CKSBoundarySurface.Boundary N)
+  Chal.CKSMain.MainHypotheses.boundary_marginal : Chal.CKSMain.MarginalBoundary g K
+  Chal.CKSMain.MainHypotheses.positive_area : 0 < Chal.CKSSourceExterior.minimumEnclosingArea g
+  Chal.CKSMain.MainHypotheses.no_horizons : Chal.CKSMain.NoAdditionalHorizons g K d.chart A
+constructor:
+  Chal.CKSMain.MainHypotheses.mk.{u, v} {N : Type u} [TopologicalSpace N] [ChartedSpace Chal.CKSBoundarySurface.H3 N]
+    [IsManifold Chal.CKSBoundarySurface.I3 (↑⊤) N] [T2Space N] [SecondCountableTopology N] [ConnectedSpace N]
+    {g : Chal.CKSMetricGluing.SmoothMetric Chal.CKSBoundarySurface.I3}
+    {K : Chal.CKSMetricGluing.InnerField Chal.CKSBoundarySurface.I3} {d : Chal.CKSSourceExterior.CKSData g K}
+    {A : Chal.CKSMain.CoefficientAtlas g K}
+    (smooth_tensor :
+      ContMDiff Chal.CKSBoundarySurface.I3
+        (Chal.CKSBoundarySurface.I3.prod (modelWithCornersSelf ℝ Chal.CKSLorentz.SpatialBilinear)) (↑⊤)
+        (Chal.CKSMetricGluing.innerSection Chal.CKSBoundarySurface.I3 K))
+    (symmetric_tensor : ∀ (x : N) (v w : TangentSpace Chal.CKSBoundarySurface.I3 x), ((K x) v) w = ((K x) w) v)
+    (orientable : Chal.CKSSourceExterior.Orientable) (boundary_compact : IsCompact (ModelWithCorners.boundary N))
+    (boundary_nonempty : (ModelWithCorners.boundary N).Nonempty)
+    (complete :
+      Chal.CKSReplacementCompleteness.IsComplete Chal.CKSBoundarySurface.I3
+        (Bundle.ContMDiffRiemannianMetric.toContinuousRiemannianMetric g))
+    (dec : Chal.CKSSpatialManifold.PhysicalDEC Chal.CKSBoundarySurface.I3 g.inner K)
+    (timelike : ‖(Chal.CKSLorentz.bondiCharge d.massAspect).2‖ < (Chal.CKSLorentz.bondiCharge d.massAspect).1)
+    (boundary_connected : ConnectedSpace ↑(Chal.CKSBoundarySurface.Boundary N))
+    (boundary_marginal : Chal.CKSMain.MarginalBoundary g K)
+    (positive_area : 0 < Chal.CKSSourceExterior.minimumEnclosingArea g)
+    (no_horizons : Chal.CKSMain.NoAdditionalHorizons g K d.chart A) : Chal.CKSMain.MainHypotheses g K d A
+def Chal.CKSMain.SchwarzschildExample.{v} : (m : ℝ) → 0 < m → Prop :=
+fun m _hm =>
+  ∃ g d A,
+    (∀ (p : Chal.CKSSchwarzschild.Exterior), g.inner p = Chal.CKSSchwarzschild.metricInner m p) ∧
+      Chal.CKSMain.MainHypotheses g (Chal.CKSSchwarzschild.tensorInner m) d A ∧
+        Chal.CKSSchwarzschild.HorizonRegularGraph m ∧
+          Chal.CKSMain.bondiMass d = m ∧
+            Chal.CKSSourceExterior.minimumEnclosingArea g = 16 * Real.pi * m ^ 2 ∧
+              Chal.CKSMain.bondiMass d = √(Chal.CKSSourceExterior.minimumEnclosingArea g / (16 * Real.pi))
+'OAI.CKSSourceExterior.area_controlled_end_replacement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CKSMain.schwarzschild_equality_examples' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CKSBondiPenrose comparator-style: ok=499 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

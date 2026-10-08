@@ -1,0 +1,91 @@
+OAI.StandardMapEntropy.main_components : OAI.StandardMapEntropy.MainComponentsObligation
+'OAI.StandardMapEntropy.main_components' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.StandardMapEntropy.Circle : Type :=
+AddCircle 1
+@[reducible] def OAI.StandardMapEntropy.Torus : Type :=
+OAI.StandardMapEntropy.Circle × OAI.StandardMapEntropy.Circle
+def OAI.StandardMapEntropy.sine : OAI.StandardMapEntropy.Circle → ℝ :=
+fun x => OAI.StandardMapEntropy.sine_periodic.lift x
+def OAI.StandardMapEntropy.standardMap : ℝ → OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus :=
+fun k z => (z.1 + z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1), z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1))
+def OAI.StandardMapEntropy.area : MeasureTheory.Measure OAI.StandardMapEntropy.Torus :=
+MeasureTheory.volume.prod MeasureTheory.volume
+def OAI.StandardMapEntropy.cosine : OAI.StandardMapEntropy.Circle → ℝ :=
+fun x => OAI.StandardMapEntropy.cosine_periodic.lift x
+def OAI.StandardMapEntropy.torusPotential : ℝ → OAI.StandardMapEntropy.Circle → ℝ :=
+fun k x => 2 + 2 * Real.pi * k * OAI.StandardMapEntropy.cosine x
+def OAI.StandardMapEntropy.transferStep : ℝ → ℂ →L[ℝ] ℂ :=
+fun v =>
+  let __LinearMap := { toFun := fun z => { re := v * z.re - z.im, im := z.re }, map_add' := ⋯, map_smul' := ⋯ };
+  { toLinearMap := __LinearMap, cont := ⋯ }
+def OAI.StandardMapEntropy.wedge : ℂ → ℂ → ℝ :=
+fun z w => z.re * w.im - z.im * w.re
+def OAI.StandardMapEntropy.tangentCoordinates : ℂ →L[ℝ] ℂ :=
+let __LinearMap :=
+  { toFun := fun z => { re := z.re, im := z.re - z.im }, map_add' := OAI.StandardMapEntropy.tangentCoordinates._proof_1,
+    map_smul' := OAI.StandardMapEntropy.tangentCoordinates._proof_2 };
+{ toLinearMap := __LinearMap, cont := OAI.StandardMapEntropy.tangentCoordinates._proof_3 }
+def OAI.StandardMapEntropy.standardDerivative : ℝ → OAI.StandardMapEntropy.Torus → ℂ →L[ℝ] ℂ :=
+fun k z =>
+  OAI.StandardMapEntropy.tangentCoordinates ∘SL
+    OAI.StandardMapEntropy.transferStep (OAI.StandardMapEntropy.torusPotential k z.1) ∘SL
+      OAI.StandardMapEntropy.tangentCoordinates
+def OAI.StandardMapEntropy.standardDerivativeProduct : ℝ → OAI.StandardMapEntropy.Torus → ℕ → ℂ →L[ℝ] ℂ :=
+fun k z n =>
+  Nat.rec (ContinuousLinearMap.id ℝ ℂ)
+    (fun i A => OAI.StandardMapEntropy.standardDerivative k ((OAI.StandardMapEntropy.standardMap k)^[i] z) ∘SL A) n
+def OAI.StandardMapEntropy.VectorGrowth : ℝ → OAI.StandardMapEntropy.Torus → ℂ → ℝ → Prop :=
+fun k z v l =>
+  v ≠ 0 ∧
+    Filter.Tendsto (fun n => Real.log ‖(OAI.StandardMapEntropy.standardDerivativeProduct k z n) v‖ / ↑n) Filter.atTop
+      (nhds l)
+def OAI.StandardMapEntropy.LyapunovSpectrumAt : ℝ → OAI.StandardMapEntropy.Torus → ℝ → Prop :=
+fun k z l =>
+  0 ≤ l ∧
+    ((l = 0 ∧ ∀ (v : ℂ), v ≠ 0 → OAI.StandardMapEntropy.VectorGrowth k z v 0) ∨
+      0 < l ∧
+        ∃ s,
+          s ≠ 0 ∧
+            ∀ (v : ℂ),
+              v ≠ 0 →
+                OAI.StandardMapEntropy.VectorGrowth k z v (if OAI.StandardMapEntropy.wedge s v = 0 then -l else l))
+def OAI.StandardMapEntropy.normalizedArea : Set OAI.StandardMapEntropy.Torus →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus :=
+fun E => (OAI.StandardMapEntropy.area E)⁻¹ • OAI.StandardMapEntropy.area.restrict E
+def OAI.StandardMapEntropy.IsBernoulli : (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus → Prop :=
+fun f μ =>
+  ∃ β,
+    MeasureTheory.IsProbabilityMeasure β ∧
+      ∃ encode decode,
+        MeasureTheory.MeasurePreserving encode μ (MeasureTheory.Measure.infinitePi fun x => β) ∧
+          MeasureTheory.MeasurePreserving decode (MeasureTheory.Measure.infinitePi fun x => β) μ ∧
+            (∀ᵐ (z : OAI.StandardMapEntropy.Torus) ∂μ, decode (encode z) = z) ∧
+              (∀ᵐ (w : ℤ → ℝ) ∂MeasureTheory.Measure.infinitePi fun x => β, encode (decode w) = w) ∧
+                ∀ᵐ (z : OAI.StandardMapEntropy.Torus) ∂μ, encode (f z) = fun i => encode z (i + 1)
+def OAI.StandardMapEntropy.HyperbolicBernoulliComponent : ℝ → Prop :=
+fun k =>
+  ∃ E,
+    MeasurableSet E ∧
+      0 < OAI.StandardMapEntropy.area E ∧
+        OAI.StandardMapEntropy.standardMap k ⁻¹' E =ᵐ[OAI.StandardMapEntropy.area] E ∧
+          Ergodic (OAI.StandardMapEntropy.standardMap k) (OAI.StandardMapEntropy.normalizedArea E) ∧
+            (∀ᵐ (z : OAI.StandardMapEntropy.Torus) ∂OAI.StandardMapEntropy.normalizedArea E,
+                ∃ l, 0 < l ∧ OAI.StandardMapEntropy.LyapunovSpectrumAt k z l) ∧
+              ∃ N,
+                ∃ (hN : 0 < N),
+                  ∃ P,
+                    (∀ (j : Fin N), MeasurableSet (P j)) ∧
+                      ⋃ j, P j =ᵐ[OAI.StandardMapEntropy.area] E ∧
+                        (∀ (i j : Fin N), i ≠ j → OAI.StandardMapEntropy.area (P i ∩ P j) = 0) ∧
+                          (∀ (j : Fin N),
+                              OAI.StandardMapEntropy.standardMap k '' P j =ᵐ[OAI.StandardMapEntropy.area]
+                                P ⟨(↑j + 1) % N, ⋯⟩) ∧
+                            (∀ (j : Fin N),
+                                OAI.StandardMapEntropy.area (P j) = OAI.StandardMapEntropy.area E / ↑N ∧
+                                  0 < OAI.StandardMapEntropy.area (P j)) ∧
+                              ∀ (j : Fin N),
+                                OAI.StandardMapEntropy.IsBernoulli (OAI.StandardMapEntropy.standardMap k)^[N]
+                                  (OAI.StandardMapEntropy.normalizedArea (P j))
+def OAI.StandardMapEntropy.MainComponentsObligation : Prop :=
+∃ k₀, 0 < k₀ ∧ ∀ (k : ℝ), k₀ ≤ k → OAI.StandardMapEntropy.HyperbolicBernoulliComponent k
