@@ -1,0 +1,55 @@
+OAI.SnakyConditional.snaky_winning_strategy_with_legal_states : ∃ σ,
+  (∀ (r : ℕ) (M B : Finset OAI.SnakyConditional.Cell), σ r M B ∉ M ∧ σ r M B ∉ B) ∧
+    ∀ (β : ℕ → OAI.SnakyConditional.Cell),
+      OAI.SnakyConditional.OrdinaryStrategy.LegalRepliesBeforeFinal σ 35 β ∅ ∅ →
+        OAI.SnakyConditional.HasSnaky (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ 35).1 ∧
+          (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ 35).1.card = 35 ∧
+            Disjoint (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ 35).1
+                (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ 34).2 ∧
+              ∀ k < 35,
+                Disjoint (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ k).1
+                    (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ k).2 ∧
+                  (OAI.SnakyConditional.OrdinaryStrategy.playState σ 35 β ∅ ∅ k).2.card = k
+'OAI.SnakyConditional.snaky_winning_strategy_with_legal_states' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@[reducible] def OAI.SnakyConditional.Cell : Type :=
+ℤ × ℤ
+def OAI.SnakyConditional.snaky : Finset OAI.SnakyConditional.Cell :=
+{(0, 0), (1, 0), (2, 0), (3, 0), (3, 1), (4, 1)}
+def OAI.SnakyConditional.orient : Fin 8 → OAI.SnakyConditional.Cell → OAI.SnakyConditional.Cell :=
+fun r p =>
+  match ↑r with
+  | 0 => (p.1, p.2)
+  | 1 => (p.2, p.1)
+  | 2 => (p.1, -p.2)
+  | 3 => (-p.2, p.1)
+  | 4 => (-p.1, p.2)
+  | 5 => (p.2, -p.1)
+  | 6 => (-p.1, -p.2)
+  | x => (-p.2, -p.1)
+def OAI.SnakyConditional.placement : Fin 8 →
+  OAI.SnakyConditional.Cell → OAI.SnakyConditional.Cell → OAI.SnakyConditional.Cell :=
+fun r t p => OAI.SnakyConditional.orient r p + t
+def OAI.SnakyConditional.HasSnaky : Finset OAI.SnakyConditional.Cell → Prop :=
+fun M => ∃ r t, Finset.image (OAI.SnakyConditional.placement r t) OAI.SnakyConditional.snaky ⊆ M
+@[reducible] def OAI.SnakyConditional.OrdinaryStrategy.Policy.{u_2} : Type u_2 → Type u_2 :=
+fun α => ℕ → Finset α → Finset α → α
+def OAI.SnakyConditional.OrdinaryStrategy.playState.{u_1} : {α : Type u_1} →
+  [DecidableEq α] →
+    OAI.SnakyConditional.OrdinaryStrategy.Policy α → ℕ → (ℕ → α) → Finset α → Finset α → ℕ → Finset α × Finset α :=
+fun {α} [DecidableEq α] σ N β M₀ B₀ x => Nat.brecOn x (OAI.SnakyConditional.OrdinaryStrategy.playState._f σ N β M₀ B₀)
+def OAI.SnakyConditional.OrdinaryStrategy.makerAt.{u_1} : {α : Type u_1} →
+  [DecidableEq α] → OAI.SnakyConditional.OrdinaryStrategy.Policy α → ℕ → (ℕ → α) → Finset α → Finset α → ℕ → α :=
+fun {α} [DecidableEq α] σ N β M₀ B₀ k =>
+  have state := OAI.SnakyConditional.OrdinaryStrategy.playState σ N β M₀ B₀ k;
+  σ (N - k) state.1 state.2
+def OAI.SnakyConditional.OrdinaryStrategy.LegalRepliesBeforeFinal.{u_1} : {α : Type u_1} →
+  [DecidableEq α] → OAI.SnakyConditional.OrdinaryStrategy.Policy α → ℕ → (ℕ → α) → Finset α → Finset α → Prop :=
+fun {α} [DecidableEq α] σ N β M₀ B₀ =>
+  ∀ (k : ℕ),
+    k + 1 < N →
+      β k ∉
+          insert (OAI.SnakyConditional.OrdinaryStrategy.makerAt σ N β M₀ B₀ k)
+            (OAI.SnakyConditional.OrdinaryStrategy.playState σ N β M₀ B₀ k).1 ∧
+        β k ∉ (OAI.SnakyConditional.OrdinaryStrategy.playState σ N β M₀ B₀ k).2

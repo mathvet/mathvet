@@ -1,0 +1,74 @@
+OAI.binary_sweep_contraction_and_mixing : OAI.BinaryCoordinateSweeps.BinaryContractionTarget ∧
+  (∀ (d : ℕ), 0 < d → ∑ g, OAI.BinaryCoordinateSweeps.binaryLaw d g * OAI.BinaryCoordinateSweeps.realSign g = 0) ∧
+    OAI.BinaryCoordinateSweeps.UniformSweepMixingTarget
+'OAI.binary_sweep_contraction_and_mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.BinaryCoordinateSweeps.Slot : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.BinaryCoordinateSweeps.coordinateLayer : (d : ℕ) →
+  (j : Fin d) → (({ i // i ≠ j } → Bool) → Bool) → Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d) :=
+fun d j c =>
+  have e := Equiv.piSplitAt j fun x => Bool;
+  have sw :=
+    { toFun := fun x => (x.1 ^^ c x.2, x.2), invFun := fun x => (x.1 ^^ c x.2, x.2), left_inv := ⋯, right_inv := ⋯ };
+  e.trans (Equiv.trans sw e.symm)
+@[reducible] def OAI.BinaryCoordinateSweeps.SweepCoins : ℕ → Type :=
+fun d => (j : Fin d) → ({ i // i ≠ j } → Bool) → Bool
+def OAI.BinaryCoordinateSweeps.binarySweep : (d : ℕ) →
+  OAI.BinaryCoordinateSweeps.SweepCoins d → Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d) :=
+fun d c => (List.ofFn fun j => OAI.BinaryCoordinateSweeps.coordinateLayer d j (c j)).reverse.prod
+def OAI.BinaryCoordinateSweeps.finiteLaw.{u_1, u_2} : {Ω : Type u_1} →
+  {G : Type u_2} → [Fintype Ω] → [Fintype G] → (Ω → G) → G → ℝ :=
+fun {Ω} {G} [Fintype Ω] [Fintype G] f g => ∑ ω, if f ω = g then (↑(Fintype.card Ω))⁻¹ else 0
+def OAI.BinaryCoordinateSweeps.totalVariation.{u_1} : {G : Type u_1} → [Fintype G] → (G → ℝ) → (G → ℝ) → ℝ :=
+fun {G} [Fintype G] p q => 1 / ↑2 * ∑ g, |p g - q g|
+def OAI.BinaryCoordinateSweeps.uniformLaw.{u_1} : (G : Type u_1) → [Fintype G] → G → ℝ :=
+fun G [Fintype G] x => (↑(Fintype.card G))⁻¹
+def OAI.BinaryCoordinateSweeps.binaryLaw : (d : ℕ) → Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d) → ℝ :=
+fun d => OAI.BinaryCoordinateSweeps.finiteLaw (OAI.BinaryCoordinateSweeps.binarySweep d)
+@[reducible] def OAI.BinaryCoordinateSweeps.RepSpace : ℕ → Type :=
+fun D => EuclideanSpace ℂ (Fin D)
+def OAI.BinaryCoordinateSweeps.IsUnitaryRep.{u_1} : {G : Type u_1} →
+  [inst : Monoid G] → {D : ℕ} → Representation ℂ G (OAI.BinaryCoordinateSweeps.RepSpace D) → Prop :=
+fun {G} [Monoid G] {D} ρ => ∀ (g : G) (x : OAI.BinaryCoordinateSweeps.RepSpace D), ‖(ρ g) x‖ = ‖x‖
+def OAI.BinaryCoordinateSweeps.averageOperator.{u_1} : {G : Type u_1} →
+  [Fintype G] →
+    [inst : Monoid G] →
+      {D : ℕ} →
+        (G → ℝ) →
+          Representation ℂ G (OAI.BinaryCoordinateSweeps.RepSpace D) →
+            OAI.BinaryCoordinateSweeps.RepSpace D →L[ℂ] OAI.BinaryCoordinateSweeps.RepSpace D :=
+fun {G} [Fintype G] [Monoid G] {D} p ρ => LinearMap.toContinuousLinearMap (∑ g, ↑(p g) • ρ g)
+def OAI.BinaryCoordinateSweeps.BinaryContractionTarget : Prop :=
+∃ g,
+  0 < g ∧
+    ∃ d₀,
+      ∀ d ≥ d₀,
+        ∀ (D : ℕ)
+          (ρ :
+            Representation ℂ (Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d)) (OAI.BinaryCoordinateSweeps.RepSpace D)),
+          ρ.IsIrreducible →
+            OAI.BinaryCoordinateSweeps.IsUnitaryRep ρ →
+              ‖OAI.BinaryCoordinateSweeps.averageOperator (OAI.BinaryCoordinateSweeps.binaryLaw d) ρ‖ ≤ ↑D ^ (-g)
+def OAI.BinaryCoordinateSweeps.realSign.{u_1} : {α : Type u_1} → [Fintype α] → [DecidableEq α] → Equiv.Perm α →* ℝ :=
+fun {α} [Fintype α] [DecidableEq α] => (↑(Int.castRingHom ℝ)).comp ((Units.coeHom ℤ).comp Equiv.Perm.sign)
+def OAI.BinaryCoordinateSweeps.convolution.{u_1} : {G : Type u_1} →
+  [Fintype G] → [Group G] → (G → ℝ) → (G → ℝ) → G → ℝ :=
+fun {G} [Fintype G] [Group G] p q g => ∑ x, p x * q (x⁻¹ * g)
+def OAI.BinaryCoordinateSweeps.pointMassOne.{u_1} : {G : Type u_1} → [Group G] → G → ℝ :=
+fun {G} [Group G] g => if g = 1 then 1 else 0
+def OAI.BinaryCoordinateSweeps.convolutionPower.{u_1} : {G : Type u_1} →
+  [Fintype G] → [Group G] → (G → ℝ) → ℕ → G → ℝ :=
+fun {G} [Fintype G] [Group G] p x =>
+  Nat.brecOn (motive := fun x => G → ℝ) x (OAI.BinaryCoordinateSweeps.convolutionPower._f p)
+def OAI.BinaryCoordinateSweeps.sweepLaw : (d : ℕ) → ℕ → Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d) → ℝ :=
+fun d t => OAI.BinaryCoordinateSweeps.convolutionPower (OAI.BinaryCoordinateSweeps.binaryLaw d) t
+def OAI.BinaryCoordinateSweeps.UniformSweepMixingTarget : Prop :=
+∃ w,
+  ∀ (ε : ℝ),
+    0 < ε →
+      ∃ d₀,
+        ∀ d ≥ d₀,
+          ∀ (τ : Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d)),
+            OAI.BinaryCoordinateSweeps.totalVariation (fun g => OAI.BinaryCoordinateSweeps.sweepLaw d w (g * τ⁻¹))
+                (OAI.BinaryCoordinateSweeps.uniformLaw (Equiv.Perm (OAI.BinaryCoordinateSweeps.Slot d))) ≤
+              ε

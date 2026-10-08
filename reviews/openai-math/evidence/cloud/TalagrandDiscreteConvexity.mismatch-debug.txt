@@ -1,4 +1,4 @@
-== mismatch debug for TalagrandDiscreteConvexity 2026-10-08T15:35:28Z: the Chal.* constant is the challenge source re-elaborated inside the solution environment; OAI.* is the solution's
+== mismatch debug for TalagrandDiscreteConvexity 2026-10-08T16:22:13Z: the Chal.* constant is the challenge source re-elaborated inside the solution environment; OAI.* is the solution's
 Scratch/Dbg_TalagrandDiscreteConvexity.lean:145:8: warning: declaration uses `sorry`
 Chal.TalagrandDiscreteConvexity.talagrand_discrete_convexity : ∀ (N : ℕ),
   1 ≤ N →
@@ -67,3 +67,100 @@ fun {α} [Fintype.{u_1} α] [inst_1 : DecidableEq.{u_1 + 1} α] k D =>
             (@Preorder.toLE.{u_1} (Finset.{u_1} α)
               (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
             S (@OAI.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k f))}
+def Chal.TalagrandDiscreteConvexity.exceptional.{u_1} : {α : Type u_1} →
+  [Fintype.{u_1} α] →
+    [DecidableEq.{u_1 + 1} α] →
+      Nat → Chal.TalagrandDiscreteConvexity.Family.{u_1} α → Chal.TalagrandDiscreteConvexity.Family.{u_1} α :=
+fun {α} [inst : Fintype.{u_1} α] [inst_1 : DecidableEq.{u_1 + 1} α] k D =>
+  @Finset.filter.{u_1} (Finset.{u_1} α)
+    (fun S =>
+      ∀ (f : Fin k → Finset.{u_1} α),
+        (∀ (j : Fin k),
+            @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (Chal.TalagrandDiscreteConvexity.Family.{u_1} α)
+              (@SetLike.instMembership.{u_1, u_1} (Chal.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+              D (f j)) →
+          Not
+            (@LE.le.{u_1} (Finset.{u_1} α)
+              (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+              S (@Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k f)))
+    (fun a =>
+      @Fintype.decidableForallFintype.{u_1} (Fin k → Finset.{u_1} α)
+        (fun f =>
+          (∀ (j : Fin k),
+              @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (Chal.TalagrandDiscreteConvexity.Family.{u_1} α)
+                (@SetLike.instMembership.{u_1, u_1} (Chal.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                  (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+                D (f j)) →
+            Not
+              (@LE.le.{u_1} (Finset.{u_1} α)
+                (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                  (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+                a (@Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k f)))
+        (fun a_1 =>
+          @forall_prop_decidable
+            (∀ (j : Fin k),
+              @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (Chal.TalagrandDiscreteConvexity.Family.{u_1} α)
+                (@SetLike.instMembership.{u_1, u_1} (Chal.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                  (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+                D (a_1 j))
+            (fun a_2 =>
+              Not
+                (@LE.le.{u_1} (Finset.{u_1} α)
+                  (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                    (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+                  a (@Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k a_1)))
+            (@Nat.decidableForallFin k
+              (fun j =>
+                @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (Chal.TalagrandDiscreteConvexity.Family.{u_1} α)
+                  (@SetLike.instMembership.{u_1, u_1} (Chal.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                    (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+                  D (a_1 j))
+              fun a =>
+              @Finset.decidableMem.{u_1} (Finset.{u_1} α) (fun a b => @Finset.decidableEq.{u_1} α inst_1 a b) (a_1 a) D)
+            fun h =>
+            (fun a a_2 =>
+                @instDecidableNot
+                  (@LE.le.{u_1} (Finset.{u_1} α)
+                    (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                      (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+                    a (@Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k a_2))
+                  (@Finset.instDecidableLE.{u_1} α inst_1 a
+                    (@Chal.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k a_2)))
+              a a_1)
+        (@Pi.instFintype.{0, u_1} (Fin k) (fun a => Finset.{u_1} α) (instDecidableEqFin k) (Fin.fintype k) fun a =>
+          @Finset.fintype.{u_1} α inst))
+    (@Finset.univ.{u_1} (Finset.{u_1} α) (@Finset.fintype.{u_1} α inst))
+def OAI.TalagrandDiscreteConvexity.exceptional.{u_1} : {α : Type u_1} →
+  [Fintype.{u_1} α] →
+    [DecidableEq.{u_1 + 1} α] →
+      Nat → OAI.TalagrandDiscreteConvexity.Family.{u_1} α → OAI.TalagrandDiscreteConvexity.Family.{u_1} α :=
+fun {α} [inst : Fintype.{u_1} α] [inst_1 : DecidableEq.{u_1 + 1} α] k D =>
+  @Finset.filter.{u_1} (Finset.{u_1} α)
+    (fun S =>
+      ∀ (f : Fin k → Finset.{u_1} α),
+        (∀ (j : Fin k),
+            @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (OAI.TalagrandDiscreteConvexity.Family.{u_1} α)
+              (@SetLike.instMembership.{u_1, u_1} (OAI.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+              D (f j)) →
+          Not
+            (@LE.le.{u_1} (Finset.{u_1} α)
+              (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+              S (@OAI.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k f)))
+    (fun a =>
+      Classical.propDecidable
+        (∀ (f : Fin k → Finset.{u_1} α),
+          (∀ (j : Fin k),
+              @Membership.mem.{u_1, u_1} (Finset.{u_1} α) (OAI.TalagrandDiscreteConvexity.Family.{u_1} α)
+                (@SetLike.instMembership.{u_1, u_1} (OAI.TalagrandDiscreteConvexity.Family.{u_1} α) (Finset.{u_1} α)
+                  (@Finset.instSetLike.{u_1} (Finset.{u_1} α)))
+                D (f j)) →
+            Not
+              (@LE.le.{u_1} (Finset.{u_1} α)
+                (@Preorder.toLE.{u_1} (Finset.{u_1} α)
+                  (@PartialOrder.toPreorder.{u_1} (Finset.{u_1} α) (@Finset.instPartialOrder.{u_1} α)))
+                a (@OAI.TalagrandDiscreteConvexity.unionTuple.{u_1} α inst_1 k f))))
+    (@Finset.univ.{u_1} (Finset.{u_1} α) (@Finset.fintype.{u_1} α inst))

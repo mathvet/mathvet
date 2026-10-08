@@ -1,0 +1,1518 @@
+CMP OAI.VelocityDetection.main_result [thm] ok
+CMP OAI.VelocityDetection.Observation.planeEvent [def] ok
+CMP OAI.VelocityDetection.Observation.planeMass [def] ok
+CMP OAI.VelocityDetection.neZeroThree [thm] ok
+CMP OAI.VelocityDetection.Observation.join [def] ok
+CMP OAI.VelocityDetection.Observation.join._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Coord [def] ok
+CMP OAI.VelocityDetection.Observation.upperHalfPlane [def] ok
+CMP OAI.VelocityDetection.VectorField [def] ok
+CMP OAI.VelocityDetection.Cylinder.measure [def] ok
+CMP OAI.VelocityDetection.Cylinder.Space [def] ok
+CMP OAI.VelocityDetection.Cylinder.join [def] ok
+CMP OAI.VelocityDetection.neZeroTwo [thm] ok
+CMP OAI.VelocityDetection.Cylinder.ComparisonClass [ind] ok
+CMP OAI.VelocityDetection.Cylinder.ComparisonClass.mk [ctor] ok
+CMP OAI.VelocityDetection.Cylinder.D [def] ok
+CMP OAI.VelocityDetection.Cylinder.frame [def] ok
+CMP OAI.VelocityDetection.Cylinder.dt [def] ok
+CMP OAI.VelocityDetection.Cylinder.Vect [def] ok
+CMP OAI.VelocityDetection.Cylinder.continuousH1On [def] ok
+CMP OAI.VelocityDetection.Cylinder.continuousL2On [def] ok
+CMP OAI.VelocityDetection.Cylinder.spaceOuterMeasureClass [thm] ok
+CMP OAI.VelocityDetection.Cylinder.twoAtLeastTwo [thm] ok
+CMP OAI.VelocityDetection.Cylinder.L2Space [def] ok
+CMP OAI.VelocityDetection.Cylinder.LpSpace [def] ok
+CMP OAI.VelocityDetection.Cylinder.LpSpace._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Cylinder.PressureH1 [ind] ok
+CMP OAI.VelocityDetection.Cylinder.PressureH1.mk [ctor] ok
+CMP OAI.VelocityDetection.Cylinder.periodic [def] ok
+CMP OAI.VelocityDetection.Cylinder.C1L2On [def] ok
+CMP OAI.VelocityDetection.Cylinder.C1L2On._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Cylinder.continuousH2On [def] ok
+CMP OAI.VelocityDetection.Cylinder.SliceH2 [ind] ok
+CMP OAI.VelocityDetection.Cylinder.SliceH2.mk [ctor] ok
+CMP OAI.VelocityDetection.UniformDerivatives.Bounded [def] ok
+CMP OAI.VelocityDetection.ScalarField [def] ok
+CMP OAI.VelocityDetection.Observation.torusEvent [def] ok
+CMP OAI.VelocityDetection.NavierStokes [def] ok
+CMP OAI.VelocityDetection.divergence [def] ok
+CMP OAI.VelocityDetection.spatialD [def] ok
+CMP OAI.VelocityDetection.laplacian [def] ok
+CMP OAI.VelocityDetection.advection [def] ok
+CMP OAI.VelocityDetection.timeD [def] ok
+CMP OAI.VelocityDetection.TorusClass.ComparisonClass [ind] ok
+CMP OAI.VelocityDetection.TorusClass.ComparisonClass.mk [ctor] ok
+CMP OAI.VelocityDetection.TorusClass.D [def] ok
+CMP OAI.VelocityDetection.TorusClass.frame [def] ok
+CMP OAI.VelocityDetection.TorusClass.Space [def] ok
+CMP OAI.VelocityDetection.TorusClass.dt [def] ok
+CMP OAI.VelocityDetection.TorusClass.measure [def] ok
+CMP OAI.VelocityDetection.TorusClass.periodic [def] ok
+CMP OAI.VelocityDetection.PeriodicSpace.cover [def] ok
+CMP OAI.VelocityDetection.PeriodicSpace.Torus [def] ok
+CMP OAI.VelocityDetection.horizontal [def] ok
+CMP OAI.VelocityDetection.horizontal._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Domain.cylinder [ctor] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Domain [ind] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Domain.torus [ctor] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.compile [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.mk [ctor] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program [ind] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.Represents [def] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.carrier [def] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.upper [def] ok
+CMP OAI.VelocityDetection.Effective.RationalBox [ind] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.mk [ctor] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.lower [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.derivativeBounds [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.boundTrial [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.input [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.table [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.derivativeBound [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.runBoundTrial [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.boxTimeCutoff [def] ok
+CMP OAI.VelocityDetection.neZeroFive [thm] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.boxSpaceCutoff [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.force [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.source [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.source [def] ok
+CMP OAI.VelocityDetection.Effective.Expr [ind] ok
+CMP OAI.VelocityDetection.Effective.Expr.flat [ctor] ok
+CMP OAI.VelocityDetection.Effective.Poly [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.inv [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.mul [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.neg [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.add [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.var [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.rat [ctor] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.initialCode [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.instNeg [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.spacing [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.radius [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.radius._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Effective.Expr.instOfNat [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.instAdd [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.K [def] ok
+CMP OAI.VelocityDetection.Stacks.capacity [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.D [def] ok
+CMP OAI.VelocityDetection.History.radix [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.instMul [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.Code [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.impulse [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.instSub [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.pulse [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.unaryD._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Effective.Recipe.step [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.glue [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.instDiv [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.unaryD [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.diff [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.diff._f [def] ok
+CMP OAI.VelocityDetection.Effective.nextPoly [def] ok
+CMP OAI.VelocityDetection.Effective.nextPoly._f [def] ok
+CMP OAI.VelocityDetection.Effective.poly.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.eval.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.casesOn [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.rec [rec] ok
+CMP OAI.VelocityDetection.Effective.Expr.below [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.brecOn [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.brecOn.go [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.subst [def] ok
+CMP OAI.VelocityDetection.MachineTorus.initialAddress [def] ok
+CMP OAI.VelocityDetection.MachineHistory.initial [def] ok
+CMP OAI.VelocityDetection.TapeCodes.word [def] ok
+CMP OAI.VelocityDetection.Prelude.initial [def] ok
+CMP OAI.VelocityDetection.Stacks.Configuration.mk [ctor] ok
+CMP OAI.VelocityDetection.Stacks.Configuration [ind] ok
+CMP OAI.VelocityDetection.History.Configuration.mk [ctor] ok
+CMP OAI.VelocityDetection.History.Configuration [ind] ok
+CMP OAI.VelocityDetection.History.address [def] ok
+CMP OAI.VelocityDetection.Stacks.Configuration.rightStack [def] ok
+CMP OAI.VelocityDetection.History.Configuration.tape [def] ok
+CMP OAI.VelocityDetection.Stacks.Configuration.leftStack [def] ok
+CMP OAI.VelocityDetection.History.packedState [def] ok
+CMP OAI.VelocityDetection.Stacks.Configuration.state [def] ok
+CMP OAI.VelocityDetection.History.Configuration.history [def] ok
+CMP OAI.VelocityDetection.Stacks.address [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.source [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.sourceBlock [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.rawSource [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.initial [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.scale [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.radius [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.packet [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.window [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.weight [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.localTime [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.duration [def] ok
+CMP OAI.VelocityDetection.Effective.periodize [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.sumFin [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.sumList [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.sumList._f [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.sumList.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.instReprDomain.repr.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Domain.casesOn [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Domain.rec [rec] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.field [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.field [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.stage [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.gate [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.path [def] ok
+CMP OAI.VelocityDetection.History.targetAddress [def] ok
+CMP OAI.VelocityDetection.History.target [def] ok
+CMP OAI.VelocityDetection.Stacks.lookup [def] ok
+CMP OAI.VelocityDetection.Stacks.lookup._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Stacks.Rule [ind] ok
+CMP OAI.VelocityDetection.Stacks.Rule.mk [ctor] ok
+CMP OAI.VelocityDetection.Stacks.Move [ind] ok
+CMP OAI.VelocityDetection.Stacks.Move.left [ctor] ok
+CMP OAI.VelocityDetection.Stacks.Move.stay [ctor] ok
+CMP OAI.VelocityDetection.Stacks.Move.right [ctor] ok
+CMP OAI.VelocityDetection.History.Box [def] ok
+CMP OAI.VelocityDetection.History.config [def] ok
+CMP OAI.VelocityDetection.History.rule [def] ok
+CMP OAI.VelocityDetection.History.rule._proof_1 [thm] ok
+CMP OAI.VelocityDetection.History.Active [def] ok
+CMP OAI.VelocityDetection.History.applyRule [def] ok
+CMP OAI.VelocityDetection.History.tag [def] ok
+CMP OAI.VelocityDetection.Stacks.applyRule [def] ok
+CMP OAI.VelocityDetection.Stacks.Rule.target [def] ok
+CMP OAI.VelocityDetection.Stacks.Rule.written [def] ok
+CMP OAI.VelocityDetection.Stacks.Rule.move [def] ok
+CMP OAI.VelocityDetection.Stacks.update [def] ok
+CMP OAI.VelocityDetection.Stacks.instReprMove.repr.match_1 [def] ok
+CMP OAI.VelocityDetection.Stacks.Move.casesOn [def] ok
+CMP OAI.VelocityDetection.Stacks.Move.rec [rec] ok
+CMP OAI.VelocityDetection.History.sourceAddress [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.sign [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.duration [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.start [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.start._f [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.start.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.center [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.theta [def] ok
+CMP OAI.VelocityDetection.Effective.ArrayRecipe.Instruction [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.gate [def] ok
+CMP OAI.VelocityDetection.Effective.Recipe.windowD [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.activeSum [def] ok
+CMP OAI.VelocityDetection.MachineHistory.table [def] ok
+CMP OAI.VelocityDetection.TapeCodes.table [def] ok
+CMP OAI.VelocityDetection.TapeCodes.rule [def] ok
+CMP OAI.VelocityDetection.TapeCodes.rule.match_1 [def] ok
+CMP OAI.VelocityDetection.Prelude.table' [def] ok
+CMP OAI.VelocityDetection.Prelude.rule [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.field._proof_1 [thm] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.field [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.fieldBlock [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.rawField [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.prefixCode [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.stage [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.gate [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.path [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.targetHeight [def] ok
+CMP OAI.VelocityDetection.Effective.ChartRecipe.clock [def] ok
+CMP OAI.VelocityDetection.Effective.residualCode [def] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.boundTrial [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.radius [def] ok
+CMP OAI.VelocityDetection.Effective.Ball [ind] ok
+CMP OAI.VelocityDetection.Effective.Ball.mk [ctor] ok
+CMP OAI.VelocityDetection.Effective.Expr.round [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.flat [def] ok
+CMP OAI.VelocityDetection.Effective.polyBound [def] ok
+CMP OAI.VelocityDetection.Effective.polyBound._f [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.center [def] ok
+CMP OAI.VelocityDetection.Effective.flatRound [def] ok
+CMP OAI.VelocityDetection.Effective.expSum [def] ok
+CMP OAI.VelocityDetection.Effective.expError [def] ok
+CMP OAI.VelocityDetection.Effective.polyEval [def] ok
+CMP OAI.VelocityDetection.Effective.polyEval._f [def] ok
+CMP OAI.VelocityDetection.Effective.polyEval.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.inv [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.mul [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.neg [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.add [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.atom [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.jet [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.jet._f [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.jet.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.RationalBox.cell [def] ok
+CMP OAI.VelocityDetection.Effective.Expr.safe [def] ok
+CMP OAI.VelocityDetection.Effective.Ball.invSafe [def] ok
+CMP OAI.VelocityDetection.Effective.forceFunction [def] ok
+CMP OAI.VelocityDetection.Effective.mixedD [def] ok
+CMP OAI.VelocityDetection.Effective.mixedD._f [def] ok
+CMP OAI.VelocityDetection.Effective.coordinateD [def] ok
+CMP OAI.VelocityDetection.Effective.mixedD.match_1 [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.evaluate [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.Program.valueTrial [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.runTrial [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.timeCutoff [def] ok
+CMP OAI.VelocityDetection.Effective.MachineRecipe.spaceCutoff [def] ok
+CMP OAI.VelocityDetection.Effective.trial [def] ok
+CMP OAI.VelocityDetection.Effective.inputBall [def] ok
+CMP OAI.VelocityDetection.Effective.accuracy [def] ok
+CMP OAI.VelocityDetection.Effective.Names [def] ok
+CMP OAI.VelocityDetection.Effective.ComputableReal [def] ok
+CMP OAI.VelocityDetection.SmoothBump.profile [def] ok
+CMP OAI.VelocityDetection.TranslationGates.window [def] ok
+CMP OAI.VelocityDetection.TranslationGates.window._proof_1 [thm] ok
+CMP OAI.VelocityDetection.SmoothProfiles.step [def] ok
+Chal.VelocityDetection.main_result : ∃ B,
+  0 < B ∧
+    (∀ (s : ℝ), |deriv (deriv Chal.VelocityDetection.SmoothBump.profile) s| ≤ ↑B) ∧
+      ∀ (ν : ℝ),
+        0 < ν →
+          Chal.VelocityDetection.Effective.ComputableReal ν →
+            ∀ (b N : ℕ) [inst : NeZero b] [inst_1 : NeZero N] (M : Turing.TM0.Machine (Fin b) (Fin N))
+              (w : List (Fin b)),
+              ∃ Ftor Fcyl,
+                (Chal.VelocityDetection.Effective.MachineRecipe.compile B M w).Represents
+                    Chal.VelocityDetection.Effective.MachineRecipe.Domain.torus Ftor ∧
+                  (Chal.VelocityDetection.Effective.MachineRecipe.compile B M w).Represents
+                      Chal.VelocityDetection.Effective.MachineRecipe.Domain.cylinder Fcyl ∧
+                    (ContDiff ℝ (↑⊤) (Function.uncurry (Ftor ν)) ∧
+                        (∀ (t : ℝ), Function.FactorsThrough (Ftor ν t) Chal.VelocityDetection.PeriodicSpace.cover) ∧
+                          (∃ K,
+                              IsCompact K ∧
+                                (∀ X ∈ K, ∀ (i : Fin 2), X i ∈ Set.Ioo 0 1) ∧
+                                  ∀ (t : ℝ) (X : Chal.VelocityDetection.Coord 3),
+                                    Chal.VelocityDetection.PeriodicSpace.cover (Chal.VelocityDetection.horizontal X) ∉
+                                        Chal.VelocityDetection.PeriodicSpace.cover '' K →
+                                      Ftor ν t X = 0) ∧
+                            (∀ (T : ℝ) (d : ℕ),
+                                ∃ C,
+                                  0 ≤ C ∧
+                                    ∀ t ∈ Set.Icc 0 T,
+                                      ∀ (X : Chal.VelocityDetection.Coord 3),
+                                        ‖iteratedFDeriv ℝ d (Function.uncurry (Ftor ν)) (t, X)‖ ≤ C) ∧
+                              ∃ u,
+                                ContDiff ℝ (↑⊤) (Function.uncurry u) ∧
+                                  (Chal.VelocityDetection.TorusClass.ComparisonClass u fun x x_1 => 0) ∧
+                                    Chal.VelocityDetection.NavierStokes ν u (fun x x_1 => 0) (Ftor ν) ∧
+                                      (Chal.VelocityDetection.Observation.torusEvent u ↔ (Turing.TM0.eval M w).Dom) ∧
+                                        ∀ (v : Chal.VelocityDetection.VectorField 3)
+                                          (p : Chal.VelocityDetection.ScalarField 3),
+                                          Chal.VelocityDetection.TorusClass.ComparisonClass v p →
+                                            Chal.VelocityDetection.NavierStokes ν v p (Ftor ν) →
+                                              ∀ t ≥ 0,
+                                                (∀ (X : Chal.VelocityDetection.Coord 3), v t X = u t X) ∧
+                                                  ∀ (X : Chal.VelocityDetection.Coord 3), p t X = 0) ∧
+                      ContDiff ℝ (↑⊤) (Function.uncurry (Fcyl ν)) ∧
+                        (Chal.VelocityDetection.UniformDerivatives.Bounded fun x => Function.uncurry (Fcyl ν)) ∧
+                          (∀ (t : ℝ) (X : Fin 3 → ℝ) (z : ℝ), Fcyl ν t (Function.update X 2 z) = Fcyl ν t X) ∧
+                            (∀ (T : ℝ),
+                                ∃ K,
+                                  IsCompact K ∧
+                                    ∀ t ∈ Set.Icc 0 T,
+                                      ∀ (X : Chal.VelocityDetection.Coord 3),
+                                        Chal.VelocityDetection.horizontal X ∉ K → Fcyl ν t X = 0) ∧
+                              ∃ u,
+                                ContDiff ℝ (↑⊤) (Function.uncurry u) ∧
+                                  (Chal.VelocityDetection.Cylinder.ComparisonClass
+                                      (fun t x => u t (Chal.VelocityDetection.Cylinder.join x)) fun x x_1 => 0) ∧
+                                    Chal.VelocityDetection.NavierStokes ν u (fun x x_1 => 0) (Fcyl ν) ∧
+                                      (∀ t ≥ 0,
+                                          (∀ (x : Chal.VelocityDetection.Cylinder.Space),
+                                              0 ≤ u t (Chal.VelocityDetection.Cylinder.join x) 2) ∧
+                                            MeasureTheory.Integrable
+                                              (fun x => u t (Chal.VelocityDetection.Cylinder.join x) 2)
+                                              Chal.VelocityDetection.Cylinder.measure) ∧
+                                        (Chal.VelocityDetection.Observation.planeEvent u ↔ (Turing.TM0.eval M w).Dom) ∧
+                                          ∀ (v : Chal.VelocityDetection.VectorField 3)
+                                            (p : Chal.VelocityDetection.ScalarField 3),
+                                            (Chal.VelocityDetection.Cylinder.ComparisonClass
+                                                (fun t x => v t (Chal.VelocityDetection.Cylinder.join x)) fun t x =>
+                                                p t (Chal.VelocityDetection.Cylinder.join x)) →
+                                              Chal.VelocityDetection.NavierStokes ν v p (Fcyl ν) →
+                                                ∀ t ≥ 0,
+                                                  (∀ (X : Chal.VelocityDetection.Coord 3), v t X = u t X) ∧
+                                                    ∀ (X : Chal.VelocityDetection.Coord 3), p t X = 0
+@[reducible] def Chal.VelocityDetection.Coord : ℕ → Type :=
+fun n => Fin n → ℝ
+@[reducible] def Chal.VelocityDetection.ScalarField : ℕ → Type :=
+fun n => ℝ → Chal.VelocityDetection.Coord n → ℝ
+@[reducible] def Chal.VelocityDetection.VectorField : ℕ → Type :=
+fun n => ℝ → Chal.VelocityDetection.Coord n → Chal.VelocityDetection.Coord n
+def Chal.VelocityDetection.spatialD : {n : ℕ} →
+  Fin n → Chal.VelocityDetection.ScalarField n → Chal.VelocityDetection.ScalarField n :=
+fun {n} i q t x => deriv (fun s => q t (Function.update x i s)) (x i)
+def Chal.VelocityDetection.timeD : {n : ℕ} →
+  Chal.VelocityDetection.ScalarField n → Chal.VelocityDetection.ScalarField n :=
+fun {n} q t x => derivWithin (fun s => q s x) (Set.Ici 0) t
+def Chal.VelocityDetection.laplacian : {n : ℕ} →
+  Chal.VelocityDetection.ScalarField n → Chal.VelocityDetection.ScalarField n :=
+fun {n} q t x => ∑ i, Chal.VelocityDetection.spatialD i (Chal.VelocityDetection.spatialD i q) t x
+def Chal.VelocityDetection.advection : {n : ℕ} →
+  Chal.VelocityDetection.VectorField n → Chal.VelocityDetection.ScalarField n → Chal.VelocityDetection.ScalarField n :=
+fun {n} a q t x => ∑ i, a t x i * Chal.VelocityDetection.spatialD i q t x
+def Chal.VelocityDetection.divergence : {n : ℕ} →
+  Chal.VelocityDetection.VectorField n → Chal.VelocityDetection.ScalarField n :=
+fun {n} a t x => ∑ i, Chal.VelocityDetection.spatialD i (fun s y => a s y i) t x
+def Chal.VelocityDetection.NavierStokes : ℝ →
+  Chal.VelocityDetection.VectorField 3 →
+    Chal.VelocityDetection.ScalarField 3 → Chal.VelocityDetection.VectorField 3 → Prop :=
+fun ν u p f =>
+  (∀ (t : ℝ),
+      0 ≤ t →
+        ∀ (x : Chal.VelocityDetection.Coord 3) (i : Fin 3),
+          Chal.VelocityDetection.timeD (fun s y => u s y i) t x +
+              Chal.VelocityDetection.advection u (fun s y => u s y i) t x =
+            -Chal.VelocityDetection.spatialD i p t x + ν * Chal.VelocityDetection.laplacian (fun s y => u s y i) t x +
+              f t x i) ∧
+    (∀ (t : ℝ), 0 ≤ t → ∀ (x : Chal.VelocityDetection.Coord 3), Chal.VelocityDetection.divergence u t x = 0) ∧
+      ∀ (x : Chal.VelocityDetection.Coord 3), u 0 x = 0
+def Chal.VelocityDetection.horizontal : Chal.VelocityDetection.Coord 3 → Chal.VelocityDetection.Coord 2 :=
+fun x => ![x 0, x 1]
+inductive Chal.VelocityDetection.Stacks.Move : Type
+number of parameters: 0
+constructors:
+Chal.VelocityDetection.Stacks.Move.right : Chal.VelocityDetection.Stacks.Move
+Chal.VelocityDetection.Stacks.Move.stay : Chal.VelocityDetection.Stacks.Move
+Chal.VelocityDetection.Stacks.Move.left : Chal.VelocityDetection.Stacks.Move
+def Chal.VelocityDetection.Stacks.update : ℕ → Chal.VelocityDetection.Stacks.Move → ℕ → ℕ → ℕ → ℕ × ℕ :=
+fun b m β x y =>
+  match m with
+  | Chal.VelocityDetection.Stacks.Move.right => (b * x + β, y / b)
+  | Chal.VelocityDetection.Stacks.Move.stay => (x, y - y % b + β)
+  | Chal.VelocityDetection.Stacks.Move.left => (x / b, x % b + b * β + b ^ 2 * (y / b))
+structure Chal.VelocityDetection.Stacks.Rule.{u_1} (σ : Type u_1) (b : ℕ) : Type u_1
+number of parameters: 2
+fields:
+  Chal.VelocityDetection.Stacks.Rule.target : σ
+  Chal.VelocityDetection.Stacks.Rule.written : Fin b
+  Chal.VelocityDetection.Stacks.Rule.move : Chal.VelocityDetection.Stacks.Move
+constructor:
+  Chal.VelocityDetection.Stacks.Rule.mk.{u_1} {σ : Type u_1} {b : ℕ} (target : σ) (written : Fin b)
+    (move : Chal.VelocityDetection.Stacks.Move) : Chal.VelocityDetection.Stacks.Rule σ b
+structure Chal.VelocityDetection.Stacks.Configuration.{u_1} (σ : Type u_1) : Type u_1
+number of parameters: 1
+fields:
+  Chal.VelocityDetection.Stacks.Configuration.state : σ
+  Chal.VelocityDetection.Stacks.Configuration.leftStack : ℕ
+  Chal.VelocityDetection.Stacks.Configuration.rightStack : ℕ
+constructor:
+  Chal.VelocityDetection.Stacks.Configuration.mk.{u_1} {σ : Type u_1} (state : σ) (leftStack rightStack : ℕ) :
+    Chal.VelocityDetection.Stacks.Configuration σ
+def Chal.VelocityDetection.Stacks.applyRule.{u_1} : {σ : Type u_1} →
+  {b : ℕ} →
+    Chal.VelocityDetection.Stacks.Rule σ b →
+      Chal.VelocityDetection.Stacks.Configuration σ → Chal.VelocityDetection.Stacks.Configuration σ :=
+fun {σ} {b} r c =>
+  have st := Chal.VelocityDetection.Stacks.update b r.move (↑r.written) c.leftStack c.rightStack;
+  { state := r.target, leftStack := st.1, rightStack := st.2 }
+def Chal.VelocityDetection.Stacks.address : ℕ → ℕ → ℕ → ℕ → ℕ :=
+fun B i x y => 1 + x + B * y + B ^ 2 * i
+def Chal.VelocityDetection.Stacks.capacity : ℕ → ℕ → ℕ → ℕ :=
+fun b m n => b ^ (m + n)
+def Chal.VelocityDetection.Expanding.lambda : ℝ → ℝ :=
+fun D => 4 * D
+def Chal.VelocityDetection.Expanding.initialRadius : ℝ → ℝ → ℝ → ℝ :=
+fun ν K D => 1024 * 3000 * (1 + ν) * Chal.VelocityDetection.Expanding.lambda D * (K * D + 2)
+def Chal.VelocityDetection.Expanding.radius : ℝ → ℝ → ℝ → ℕ → ℝ :=
+fun ν K D n => Chal.VelocityDetection.Expanding.initialRadius ν K D * Chal.VelocityDetection.Expanding.lambda D ^ n
+def Chal.VelocityDetection.Observation.join : Chal.VelocityDetection.Coord 2 → ℝ → Chal.VelocityDetection.Coord 3 :=
+fun X z => ![X 0, X 1, z]
+def Chal.VelocityDetection.Observation.torusEvent : Chal.VelocityDetection.VectorField 3 → Prop :=
+fun u => ∃ t, 0 ≤ t ∧ ∃ x, 1 / ↑32 < x 1 ∧ x 1 < 1 / ↑8 ∧ 1 / ↑2 < u t x 2
+def Chal.VelocityDetection.Observation.upperHalfPlane : Set (Chal.VelocityDetection.Coord 2) :=
+{X | 0 < X 1}
+def Chal.VelocityDetection.Observation.planeMass : Chal.VelocityDetection.VectorField 3 → ℝ → ℝ :=
+fun u t =>
+  ∫ (q : Chal.VelocityDetection.Coord 2 × ℝ) in Chal.VelocityDetection.Observation.upperHalfPlane ×ˢ Set.Ioc 0 1,
+    u t (Chal.VelocityDetection.Observation.join q.1 q.2) 2 ∂MeasureTheory.volume.prod MeasureTheory.volume
+def Chal.VelocityDetection.Observation.planeEvent : Chal.VelocityDetection.VectorField 3 → Prop :=
+fun u => ∃ t, 0 ≤ t ∧ 1 / ↑2 < Chal.VelocityDetection.Observation.planeMass u t
+@[reducible] def Chal.VelocityDetection.SmoothProfiles.step : ℝ → ℝ :=
+Real.smoothTransition
+def Chal.VelocityDetection.TranslationGates.window : ℝ → ℝ :=
+fun s => Chal.VelocityDetection.SmoothProfiles.step (s + 3) * Chal.VelocityDetection.SmoothProfiles.step (3 - s)
+def Chal.VelocityDetection.CenterPaths.ramp : ℝ → ℝ :=
+fun r => Chal.VelocityDetection.SmoothProfiles.step (2 * r - 1 / 2)
+def Chal.VelocityDetection.CenterPaths.theta : ℝ → ℝ → ℕ → ℝ → ℝ :=
+fun a T j t => Chal.VelocityDetection.CenterPaths.ramp (3 * (t - a) / T - ↑j)
+def Chal.VelocityDetection.CenterPaths.privateRow : ℝ → ℕ → ℝ :=
+fun S k => -(↑k + 2) * S
+def Chal.VelocityDetection.CenterPaths.center : ℝ → ℝ → ℝ → ℝ → ℝ → ℕ → ℕ → ℝ → Chal.VelocityDetection.Coord 2 :=
+fun a T S S' σ k l t =>
+  ![(1 - Chal.VelocityDetection.CenterPaths.theta a T 1 t) * S * ↑k +
+      Chal.VelocityDetection.CenterPaths.theta a T 1 t * S' * ↑l,
+    -(1 - Chal.VelocityDetection.CenterPaths.theta a T 0 t) * S +
+        (Chal.VelocityDetection.CenterPaths.theta a T 0 t - Chal.VelocityDetection.CenterPaths.theta a T 2 t) *
+          Chal.VelocityDetection.CenterPaths.privateRow S k +
+      Chal.VelocityDetection.CenterPaths.theta a T 2 t * σ * S']
+def Chal.VelocityDetection.UniformDerivatives.Bounded.{u_1, u_2, u_3} : {I : Type u_1} →
+  {E : Type u_2} →
+    {F : Type u_3} →
+      [inst : NormedAddCommGroup E] →
+        [NormedSpace ℝ E] → [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → (I → E → F) → Prop :=
+fun {I} {E} {F} [NormedAddCommGroup E] [NormedSpace ℝ E] [NormedAddCommGroup F] [NormedSpace ℝ F] f =>
+  ∀ (n : ℕ), ∃ C, 0 ≤ C ∧ ∀ (a : I) (x : E), ‖iteratedFDeriv ℝ n (f a) x‖ ≤ C
+def Chal.VelocityDetection.Stacks.lookup : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      Chal.VelocityDetection.Stacks.Configuration (Fin N) → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b) :=
+fun {N b} hb table c => table c.state ⟨c.rightStack % b, ⋯⟩
+def Chal.VelocityDetection.TailSpace.compatible : (n : ℕ) →
+  Submodule ℝ
+    (ZeroAtInftyContinuousMap (Chal.VelocityDetection.Coord n) ℝ × ↥(MeasureTheory.Lp ℝ 1 MeasureTheory.volume)) :=
+fun n =>
+  { carrier := {v | (fun X => ↑↑v.2 X) =ᵐ[MeasureTheory.volume] fun X => v.1 X}, add_mem' := ⋯, zero_mem' := ⋯,
+    smul_mem' := ⋯ }
+@[reducible] def Chal.VelocityDetection.Cylinder.Space : Type :=
+Chal.VelocityDetection.Coord 2 × ℝ
+@[reducible] def Chal.VelocityDetection.Cylinder.Vect : Type :=
+Fin 3 → ℝ
+def Chal.VelocityDetection.Cylinder.measure : MeasureTheory.Measure Chal.VelocityDetection.Cylinder.Space :=
+MeasureTheory.volume.prod (MeasureTheory.volume.restrict (Set.Ioc 0 1))
+def Chal.VelocityDetection.Cylinder.periodic : (Chal.VelocityDetection.Cylinder.Space → ℝ) → Prop :=
+fun f => ∀ (X : Chal.VelocityDetection.Coord 2) (z : ℝ), f (X, z + 1) = f (X, z)
+def Chal.VelocityDetection.Cylinder.frame : Fin 3 → Chal.VelocityDetection.Cylinder.Space :=
+fun i => ![(![1, 0], 0), (![0, 1], 0), (0, 1)] i
+def Chal.VelocityDetection.Cylinder.D : Fin 3 →
+  (Chal.VelocityDetection.Cylinder.Space → ℝ) → Chal.VelocityDetection.Cylinder.Space → ℝ :=
+fun i f x => (fderiv ℝ f x) (Chal.VelocityDetection.Cylinder.frame i)
+structure Chal.VelocityDetection.Cylinder.SliceH2
+  (v : Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect) : Prop
+number of parameters: 1
+fields:
+  Chal.VelocityDetection.Cylinder.SliceH2.smooth : ∀ (i : Fin 3), ContDiff ℝ 2 fun x => v x i
+  Chal.VelocityDetection.Cylinder.SliceH2.per : ∀ (i : Fin 3), Chal.VelocityDetection.Cylinder.periodic fun x => v x i
+  Chal.VelocityDetection.Cylinder.SliceH2.square_integrable : ∀ (i : Fin 3),
+      MeasureTheory.MemLp (fun x => v x i) 2 Chal.VelocityDetection.Cylinder.measure
+  Chal.VelocityDetection.Cylinder.SliceH2.derivative_square_integrable : ∀ (i k : Fin 3),
+      MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D k fun x => v x i) 2 Chal.VelocityDetection.Cylinder.measure
+  Chal.VelocityDetection.Cylinder.SliceH2.second_square_integrable : ∀ (i k l : Fin 3),
+      MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D l (Chal.VelocityDetection.Cylinder.D k fun x => v x i)) 2
+        Chal.VelocityDetection.Cylinder.measure
+constructor:
+  Chal.VelocityDetection.Cylinder.SliceH2.mk
+    {v : Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect}
+    (smooth : ∀ (i : Fin 3), ContDiff ℝ 2 fun x => v x i)
+    (per : ∀ (i : Fin 3), Chal.VelocityDetection.Cylinder.periodic fun x => v x i)
+    (square_integrable : ∀ (i : Fin 3), MeasureTheory.MemLp (fun x => v x i) 2 Chal.VelocityDetection.Cylinder.measure)
+    (derivative_square_integrable :
+      ∀ (i k : Fin 3),
+        MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D k fun x => v x i) 2
+          Chal.VelocityDetection.Cylinder.measure)
+    (second_square_integrable :
+      ∀ (i k l : Fin 3),
+        MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D l (Chal.VelocityDetection.Cylinder.D k fun x => v x i)) 2
+          Chal.VelocityDetection.Cylinder.measure) :
+    Chal.VelocityDetection.Cylinder.SliceH2 v
+structure Chal.VelocityDetection.Cylinder.PressureH1 (q : Chal.VelocityDetection.Cylinder.Space → ℝ) : Prop
+number of parameters: 1
+fields:
+  Chal.VelocityDetection.Cylinder.PressureH1.smooth : ContDiff ℝ 1 q
+  Chal.VelocityDetection.Cylinder.PressureH1.per : Chal.VelocityDetection.Cylinder.periodic q
+  Chal.VelocityDetection.Cylinder.PressureH1.square_integrable : MeasureTheory.MemLp q 2
+      Chal.VelocityDetection.Cylinder.measure
+  Chal.VelocityDetection.Cylinder.PressureH1.derivative_square_integrable : ∀ (k : Fin 3),
+      MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D k q) 2 Chal.VelocityDetection.Cylinder.measure
+constructor:
+  Chal.VelocityDetection.Cylinder.PressureH1.mk {q : Chal.VelocityDetection.Cylinder.Space → ℝ}
+    (smooth : ContDiff ℝ 1 q) (per : Chal.VelocityDetection.Cylinder.periodic q)
+    (square_integrable : MeasureTheory.MemLp q 2 Chal.VelocityDetection.Cylinder.measure)
+    (derivative_square_integrable :
+      ∀ (k : Fin 3),
+        MeasureTheory.MemLp (Chal.VelocityDetection.Cylinder.D k q) 2 Chal.VelocityDetection.Cylinder.measure) :
+    Chal.VelocityDetection.Cylinder.PressureH1 q
+@[reducible] def Chal.VelocityDetection.Cylinder.LpSpace.{u_1, u_2} : {α : Type u_1} →
+  [inst : MeasurableSpace α] →
+    (E : Type u_2) → [NormedAddCommGroup E] → ENNReal → MeasureTheory.Measure α → Type (max u_1 u_2) :=
+fun {α} [MeasurableSpace α] E [NormedAddCommGroup E] p μ => ↥(MeasureTheory.Lp E p μ)
+@[reducible] def Chal.VelocityDetection.Cylinder.L2Space : Type :=
+Chal.VelocityDetection.Cylinder.LpSpace ℝ 2 Chal.VelocityDetection.Cylinder.measure
+def Chal.VelocityDetection.Cylinder.dt : (ℝ →
+    Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect) →
+  ℝ → Chal.VelocityDetection.Cylinder.Space → Fin 3 → ℝ :=
+fun u t x i => derivWithin (fun s => u s x i) (Set.Ici 0) t
+def Chal.VelocityDetection.Cylinder.continuousL2On : (ℝ → Chal.VelocityDetection.Cylinder.Space → ℝ) → ℝ → Prop :=
+fun g T =>
+  ∃ G,
+    ContinuousOn G (Set.Icc 0 T) ∧
+      ∀ t ∈ Set.Icc 0 T, (fun x => ↑↑(G t) x) =ᵐ[Chal.VelocityDetection.Cylinder.measure] g t
+def Chal.VelocityDetection.Cylinder.continuousH2On : (ℝ →
+    Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect) →
+  ℝ → Prop :=
+fun u T =>
+  (∀ t ∈ Set.Icc 0 T, Chal.VelocityDetection.Cylinder.SliceH2 (u t)) ∧
+    (∀ (i : Fin 3), Chal.VelocityDetection.Cylinder.continuousL2On (fun t x => u t x i) T) ∧
+      (∀ (i k : Fin 3),
+          Chal.VelocityDetection.Cylinder.continuousL2On (fun t => Chal.VelocityDetection.Cylinder.D k fun x => u t x i)
+            T) ∧
+        ∀ (i k l : Fin 3),
+          Chal.VelocityDetection.Cylinder.continuousL2On
+            (fun t => Chal.VelocityDetection.Cylinder.D l (Chal.VelocityDetection.Cylinder.D k fun x => u t x i)) T
+def Chal.VelocityDetection.Cylinder.continuousH1On : (ℝ → Chal.VelocityDetection.Cylinder.Space → ℝ) → ℝ → Prop :=
+fun p T =>
+  (∀ t ∈ Set.Icc 0 T, Chal.VelocityDetection.Cylinder.PressureH1 (p t)) ∧
+    Chal.VelocityDetection.Cylinder.continuousL2On p T ∧
+      ∀ (i : Fin 3),
+        Chal.VelocityDetection.Cylinder.continuousL2On (fun t => Chal.VelocityDetection.Cylinder.D i (p t)) T
+def Chal.VelocityDetection.Cylinder.C1L2On : (ℝ →
+    Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect) →
+  ℝ → Prop :=
+fun u T =>
+  ∃ U dU,
+    (∀ (i : Fin 3), ContinuousOn (fun t => U t i) (Set.Icc 0 T)) ∧
+      (∀ (i : Fin 3), ContinuousOn (fun t => dU t i) (Set.Icc 0 T)) ∧
+        (∀ t ∈ Set.Icc 0 T,
+            ∀ (i : Fin 3), (fun x => ↑↑(U t i) x) =ᵐ[Chal.VelocityDetection.Cylinder.measure] fun x => u t x i) ∧
+          (∀ t ∈ Set.Icc 0 T,
+              ∀ (i : Fin 3),
+                (fun x => ↑↑(dU t i) x) =ᵐ[Chal.VelocityDetection.Cylinder.measure] fun x =>
+                  Chal.VelocityDetection.Cylinder.dt u t x i) ∧
+            ∀ t ∈ Set.Icc 0 T, ∀ (i : Fin 3), HasDerivWithinAt (fun s => U s i) (dU t i) (Set.Icc 0 T) t
+structure Chal.VelocityDetection.Cylinder.ComparisonClass
+  (u : ℝ → Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect)
+  (p : ℝ → Chal.VelocityDetection.Cylinder.Space → ℝ) : Prop
+number of parameters: 2
+fields:
+  Chal.VelocityDetection.Cylinder.ComparisonClass.velocity_H2 : ∀ T > 0,
+      Chal.VelocityDetection.Cylinder.continuousH2On u T
+  Chal.VelocityDetection.Cylinder.ComparisonClass.velocity_C1L2 : ∀ T > 0, Chal.VelocityDetection.Cylinder.C1L2On u T
+  Chal.VelocityDetection.Cylinder.ComparisonClass.pressure_H1 : ∀ T > 0,
+      Chal.VelocityDetection.Cylinder.continuousH1On p T
+  Chal.VelocityDetection.Cylinder.ComparisonClass.time_derivative : ∀ t ≥ 0,
+      ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i : Fin 3),
+        HasDerivWithinAt (fun s => u s x i) (Chal.VelocityDetection.Cylinder.dt u t x i) (Set.Ici 0) t
+  Chal.VelocityDetection.Cylinder.ComparisonClass.velocity_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.time_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.dt u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.gradient_continuous : ∀ T > 0,
+      ∀ (i k : Fin 3),
+        ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.D k (fun x => u y.1 x i) y.2) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.second_continuous : ∀ T > 0,
+      ∀ (i k l : Fin 3),
+        ContinuousOn
+          (fun y => Chal.VelocityDetection.Cylinder.D l (Chal.VelocityDetection.Cylinder.D k fun x => u y.1 x i) y.2)
+          (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.pressure_continuous : ∀ T > 0,
+      ContinuousOn (fun y => p y.1 y.2) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.pressure_gradient_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.D i (p y.1) y.2) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.Cylinder.ComparisonClass.bounds : ∀ T > 0,
+      ∃ B,
+        0 ≤ B ∧
+          (∀ t ∈ Set.Icc 0 T, ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i : Fin 3), |u t x i| ≤ B) ∧
+            ∀ t ∈ Set.Icc 0 T,
+              ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i k : Fin 3),
+                |Chal.VelocityDetection.Cylinder.D k (fun y => u t y i) x| ≤ B
+constructor:
+  Chal.VelocityDetection.Cylinder.ComparisonClass.mk
+    {u : ℝ → Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Cylinder.Vect}
+    {p : ℝ → Chal.VelocityDetection.Cylinder.Space → ℝ}
+    (velocity_H2 : ∀ T > 0, Chal.VelocityDetection.Cylinder.continuousH2On u T)
+    (velocity_C1L2 : ∀ T > 0, Chal.VelocityDetection.Cylinder.C1L2On u T)
+    (pressure_H1 : ∀ T > 0, Chal.VelocityDetection.Cylinder.continuousH1On p T)
+    (time_derivative :
+      ∀ t ≥ 0,
+        ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i : Fin 3),
+          HasDerivWithinAt (fun s => u s x i) (Chal.VelocityDetection.Cylinder.dt u t x i) (Set.Ici 0) t)
+    (velocity_continuous : ∀ T > 0, ∀ (i : Fin 3), ContinuousOn (fun y => u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ))
+    (time_continuous :
+      ∀ T > 0,
+        ∀ (i : Fin 3), ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.dt u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ))
+    (gradient_continuous :
+      ∀ T > 0,
+        ∀ (i k : Fin 3),
+          ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.D k (fun x => u y.1 x i) y.2)
+            (Set.Icc 0 T ×ˢ Set.univ))
+    (second_continuous :
+      ∀ T > 0,
+        ∀ (i k l : Fin 3),
+          ContinuousOn
+            (fun y => Chal.VelocityDetection.Cylinder.D l (Chal.VelocityDetection.Cylinder.D k fun x => u y.1 x i) y.2)
+            (Set.Icc 0 T ×ˢ Set.univ))
+    (pressure_continuous : ∀ T > 0, ContinuousOn (fun y => p y.1 y.2) (Set.Icc 0 T ×ˢ Set.univ))
+    (pressure_gradient_continuous :
+      ∀ T > 0,
+        ∀ (i : Fin 3),
+          ContinuousOn (fun y => Chal.VelocityDetection.Cylinder.D i (p y.1) y.2) (Set.Icc 0 T ×ˢ Set.univ))
+    (bounds :
+      ∀ T > 0,
+        ∃ B,
+          0 ≤ B ∧
+            (∀ t ∈ Set.Icc 0 T, ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i : Fin 3), |u t x i| ≤ B) ∧
+              ∀ t ∈ Set.Icc 0 T,
+                ∀ (x : Chal.VelocityDetection.Cylinder.Space) (i k : Fin 3),
+                  |Chal.VelocityDetection.Cylinder.D k (fun y => u t y i) x| ≤ B) :
+    Chal.VelocityDetection.Cylinder.ComparisonClass u p
+def Chal.VelocityDetection.Cylinder.join : Chal.VelocityDetection.Cylinder.Space → Chal.VelocityDetection.Coord 3 :=
+fun x => ![x.1 0, x.1 1, x.2]
+def Chal.VelocityDetection.TailSpace.evalLinear : Chal.VelocityDetection.Coord 2 →
+  ↥(Chal.VelocityDetection.TailSpace.compatible 2) →ₗ[ℝ] ℝ :=
+fun X => { toFun := fun f => (↑f).1 X, map_add' := ⋯, map_smul' := ⋯ }
+def Chal.VelocityDetection.TailSpace.eval : Chal.VelocityDetection.Coord 2 →
+  ↥(Chal.VelocityDetection.TailSpace.compatible 2) →L[ℝ] ℝ :=
+fun X =>
+  let __LinearMap := Chal.VelocityDetection.TailSpace.evalLinear X;
+  { toLinearMap := __LinearMap, cont := ⋯ }
+structure Chal.VelocityDetection.History.Configuration (N : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.VelocityDetection.History.Configuration.tape : Chal.VelocityDetection.Stacks.Configuration (Fin N)
+  Chal.VelocityDetection.History.Configuration.history : ℕ
+constructor:
+  Chal.VelocityDetection.History.Configuration.mk {N : ℕ} (tape : Chal.VelocityDetection.Stacks.Configuration (Fin N))
+    (history : ℕ) : Chal.VelocityDetection.History.Configuration N
+def Chal.VelocityDetection.History.radix : ℕ → ℕ → ℕ :=
+fun N b => N * b
+def Chal.VelocityDetection.History.tag : {N : ℕ} → {b : ℕ} → Chal.VelocityDetection.Stacks.Configuration (Fin N) → ℕ :=
+fun {N b} c => b * ↑c.state + c.rightStack % b
+def Chal.VelocityDetection.History.applyRule : {N b : ℕ} →
+  Chal.VelocityDetection.Stacks.Rule (Fin N) b →
+    Chal.VelocityDetection.History.Configuration N → Chal.VelocityDetection.History.Configuration N :=
+fun {N b} r c =>
+  { tape := Chal.VelocityDetection.Stacks.applyRule r c.tape,
+    history := Chal.VelocityDetection.History.radix N b * c.history + Chal.VelocityDetection.History.tag c.tape }
+def Chal.VelocityDetection.History.packedState : {N : ℕ} → Chal.VelocityDetection.History.Configuration N → ℕ :=
+fun {N} c => N * c.history + ↑c.tape.state
+def Chal.VelocityDetection.History.address : {N : ℕ} → ℕ → Chal.VelocityDetection.History.Configuration N → ℕ :=
+fun {N} B c =>
+  Chal.VelocityDetection.Stacks.address B (Chal.VelocityDetection.History.packedState c) c.tape.leftStack
+    c.tape.rightStack
+@[reducible] def Chal.VelocityDetection.History.Box : ℕ → ℕ → ℕ → Type :=
+fun N B H => Fin N × Fin B × Fin B × Fin H
+def Chal.VelocityDetection.History.config : {N B H : ℕ} →
+  Chal.VelocityDetection.History.Box N B H → Chal.VelocityDetection.History.Configuration N :=
+fun {N B H} c => { tape := { state := c.1, leftStack := ↑c.2.1, rightStack := ↑c.2.2.1 }, history := ↑c.2.2.2 }
+def Chal.VelocityDetection.History.Active : {N b : ℕ} →
+  0 < b → (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) → ℕ → ℕ → Type :=
+fun {N b} hb table B H =>
+  { c // (Chal.VelocityDetection.Stacks.lookup hb table (Chal.VelocityDetection.History.config c).tape).isSome = true }
+def Chal.VelocityDetection.History.rule : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      {B H : ℕ} → Chal.VelocityDetection.History.Active hb table B H → Chal.VelocityDetection.Stacks.Rule (Fin N) b :=
+fun {N b} hb table {B H} c =>
+  (Chal.VelocityDetection.Stacks.lookup hb table (Chal.VelocityDetection.History.config ↑c).tape).get ⋯
+def Chal.VelocityDetection.History.target : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      {B H : ℕ} → Chal.VelocityDetection.History.Active hb table B H → Chal.VelocityDetection.History.Configuration N :=
+fun {N b} hb table {B H} c =>
+  Chal.VelocityDetection.History.applyRule (Chal.VelocityDetection.History.rule hb table c)
+    (Chal.VelocityDetection.History.config ↑c)
+def Chal.VelocityDetection.History.sourceAddress : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      {B H : ℕ} → Chal.VelocityDetection.History.Active hb table B H → ℕ :=
+fun {N b} hb table {B H} c => Chal.VelocityDetection.History.address B (Chal.VelocityDetection.History.config ↑c)
+def Chal.VelocityDetection.History.targetAddress : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      {B H : ℕ} → Chal.VelocityDetection.History.Active hb table B H → ℕ :=
+fun {N b} hb table {B H} c =>
+  Chal.VelocityDetection.History.address (b * B) (Chal.VelocityDetection.History.target hb table c)
+def Chal.VelocityDetection.TapeCodes.word : {b : ℕ} → List (Fin b) → ℕ :=
+fun {b} w => Nat.ofDigits b (List.map Fin.val w)
+def Chal.VelocityDetection.TapeCodes.half : {b : ℕ} → [inst : NeZero b] → Turing.ListBlank (Fin b) → ℕ :=
+fun {b} [NeZero b] w => w.liftOn Chal.VelocityDetection.TapeCodes.word ⋯
+def Chal.VelocityDetection.TapeCodes.tape : {b N : ℕ} →
+  [inst : NeZero b] → Fin N → Turing.Tape (Fin b) → Chal.VelocityDetection.Stacks.Configuration (Fin N) :=
+fun {b N} [NeZero b] q T =>
+  { state := q, leftStack := Chal.VelocityDetection.TapeCodes.half T.left,
+    rightStack := Chal.VelocityDetection.TapeCodes.half T.right₀ }
+def Chal.VelocityDetection.TapeCodes.rule : {b N : ℕ} →
+  Fin b → Fin N → Turing.TM0.Stmt (Fin b) → Chal.VelocityDetection.Stacks.Rule (Fin N) b :=
+fun {b N} a q x =>
+  match x with
+  | Turing.TM0.Stmt.move Turing.Dir.left =>
+    { target := q, written := a, move := Chal.VelocityDetection.Stacks.Move.left }
+  | Turing.TM0.Stmt.move Turing.Dir.right =>
+    { target := q, written := a, move := Chal.VelocityDetection.Stacks.Move.right }
+  | Turing.TM0.Stmt.write β => { target := q, written := β, move := Chal.VelocityDetection.Stacks.Move.stay }
+def Chal.VelocityDetection.TapeCodes.table : {b N : ℕ} →
+  [inst : NeZero N] →
+    Turing.TM0.Machine (Fin b) (Fin N) → Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b) :=
+fun {b N} [NeZero N] M q a => Option.map (fun p => Chal.VelocityDetection.TapeCodes.rule a p.1 p.2) (M q a)
+def Chal.VelocityDetection.Prelude.rule : {N b : ℕ} →
+  Chal.VelocityDetection.Stacks.Rule (Fin N) b → Chal.VelocityDetection.Stacks.Rule (Fin (N + 1)) b :=
+fun {N b} r => { target := r.target.castSucc, written := r.written, move := r.move }
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_NavierStokesVelocity.lean:1451:7: error(lean.unknownIdentifier): Unknown constant `Chal.VelocityDetection.Prelude.table`
+def Chal.VelocityDetection.Prelude.initial : {N : ℕ} →
+  ℕ → ℕ → Chal.VelocityDetection.Stacks.Configuration (Fin (N + 1)) :=
+fun {N} x y => { state := Fin.last N, leftStack := x, rightStack := y }
+def Chal.VelocityDetection.MachineHistory.table : {b N : ℕ} →
+  [inst : NeZero N] →
+    Turing.TM0.Machine (Fin b) (Fin N) →
+      Fin (N + 1) → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin (N + 1)) b) :=
+fun {b N} [NeZero N] M => Chal.VelocityDetection.Prelude.table' (Chal.VelocityDetection.TapeCodes.table M) 0
+def Chal.VelocityDetection.MachineHistory.initial : {b N : ℕ} →
+  List (Fin b) → Chal.VelocityDetection.Stacks.Configuration (Fin (N + 1)) :=
+fun {b N} w => Chal.VelocityDetection.Prelude.initial 0 (Chal.VelocityDetection.TapeCodes.word w)
+@[reducible] def Chal.VelocityDetection.Effective.Poly : Type :=
+List (ℕ × ℚ)
+def Chal.VelocityDetection.Effective.poly : Chal.VelocityDetection.Effective.Poly → Polynomial ℝ :=
+fun x => List.brecOn x Chal.VelocityDetection.Effective.poly._f
+def Chal.VelocityDetection.Effective.nextPoly : Chal.VelocityDetection.Effective.Poly →
+  Chal.VelocityDetection.Effective.Poly :=
+fun x => List.brecOn x Chal.VelocityDetection.Effective.nextPoly._f
+def Chal.VelocityDetection.Effective.flat : Chal.VelocityDetection.Effective.Poly → ℝ → ℝ :=
+fun p x => Polynomial.eval x⁻¹ (Chal.VelocityDetection.Effective.poly p) * expNegInvGlue x
+def Chal.VelocityDetection.Effective.polyBound : Chal.VelocityDetection.Effective.Poly → ℚ :=
+fun x => List.brecOn x Chal.VelocityDetection.Effective.polyBound._f
+inductive Chal.VelocityDetection.Effective.Expr : ℕ → Type
+number of parameters: 1
+constructors:
+Chal.VelocityDetection.Effective.Expr.rat : {n : ℕ} → ℚ → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.var : {n : ℕ} → Fin n → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.add : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.neg : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.mul : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.inv : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n
+Chal.VelocityDetection.Effective.Expr.flat : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Poly →
+    Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n
+def Chal.VelocityDetection.Effective.Expr.eval : {n : ℕ} → (Fin n → ℝ) → Chal.VelocityDetection.Effective.Expr n → ℝ :=
+fun {n} x x_1 => Chal.VelocityDetection.Effective.Expr.brecOn x_1 (Chal.VelocityDetection.Effective.Expr.eval._f x)
+def Chal.VelocityDetection.Effective.Expr.diff : {n : ℕ} →
+  Fin n → Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} i x => Chal.VelocityDetection.Effective.Expr.brecOn x (Chal.VelocityDetection.Effective.Expr.diff._f i)
+def Chal.VelocityDetection.Effective.Expr.jet : {n : ℕ} →
+  List (Fin n) → Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} x x_1 =>
+  List.brecOn (motive := fun x => Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n) x
+    Chal.VelocityDetection.Effective.Expr.jet._f x_1
+structure Chal.VelocityDetection.Effective.Ball : Type
+number of parameters: 0
+fields:
+  Chal.VelocityDetection.Effective.Ball.center : ℚ
+  Chal.VelocityDetection.Effective.Ball.radius : ℚ
+constructor:
+  Chal.VelocityDetection.Effective.Ball.mk (center radius : ℚ) : Chal.VelocityDetection.Effective.Ball
+def Chal.VelocityDetection.Effective.polyEval : Chal.VelocityDetection.Effective.Poly → ℚ → ℚ :=
+fun x x_1 => List.brecOn (motive := fun x => ℚ → ℚ) x Chal.VelocityDetection.Effective.polyEval._f x_1
+def Chal.VelocityDetection.Effective.expSum : ℚ → ℕ → ℚ :=
+fun q n => ∑ k ∈ Finset.range n, q ^ k / ↑k.factorial
+def Chal.VelocityDetection.Effective.expError : ℚ → ℕ → ℚ :=
+fun q n => |q| ^ n / ↑n.factorial * 2
+def Chal.VelocityDetection.Effective.flatRound : Chal.VelocityDetection.Effective.Poly →
+  ℚ → ℕ → Chal.VelocityDetection.Effective.Ball :=
+fun p q n =>
+  if q ≤ 0 then { center := 0, radius := 0 }
+  else
+    if
+        |q⁻¹| / (↑n + 1) ≤ 1 / 2 ∧
+          |Chal.VelocityDetection.Effective.polyEval p q⁻¹| * Chal.VelocityDetection.Effective.expError (-q⁻¹) n ≤
+            Chal.VelocityDetection.Effective.polyBound (Chal.VelocityDetection.Effective.nextPoly p) * |q| then
+      { center := Chal.VelocityDetection.Effective.polyEval p q⁻¹ * Chal.VelocityDetection.Effective.expSum (-q⁻¹) n,
+        radius :=
+          |Chal.VelocityDetection.Effective.polyEval p q⁻¹| * Chal.VelocityDetection.Effective.expError (-q⁻¹) n }
+    else
+      { center := 0,
+        radius := Chal.VelocityDetection.Effective.polyBound (Chal.VelocityDetection.Effective.nextPoly p) * |q| }
+def Chal.VelocityDetection.Effective.Ball.atom : ℚ → Chal.VelocityDetection.Effective.Ball :=
+fun q => { center := q, radius := 0 }
+def Chal.VelocityDetection.Effective.Ball.add : Chal.VelocityDetection.Effective.Ball →
+  Chal.VelocityDetection.Effective.Ball → Chal.VelocityDetection.Effective.Ball :=
+fun a b => { center := a.center + b.center, radius := a.radius + b.radius }
+def Chal.VelocityDetection.Effective.Ball.neg : Chal.VelocityDetection.Effective.Ball →
+  Chal.VelocityDetection.Effective.Ball :=
+fun a => { center := -a.center, radius := a.radius }
+def Chal.VelocityDetection.Effective.Ball.mul : Chal.VelocityDetection.Effective.Ball →
+  Chal.VelocityDetection.Effective.Ball → Chal.VelocityDetection.Effective.Ball :=
+fun a b =>
+  { center := a.center * b.center, radius := |a.center| * b.radius + |b.center| * a.radius + a.radius * b.radius }
+def Chal.VelocityDetection.Effective.Ball.inv : Chal.VelocityDetection.Effective.Ball →
+  Chal.VelocityDetection.Effective.Ball :=
+fun a => { center := a.center⁻¹, radius := a.radius / (|a.center| * (|a.center| - a.radius)) }
+def Chal.VelocityDetection.Effective.Ball.invSafe : Chal.VelocityDetection.Effective.Ball → Bool :=
+fun a => decide (a.radius < |a.center|)
+def Chal.VelocityDetection.Effective.Ball.flat : Chal.VelocityDetection.Effective.Poly →
+  Chal.VelocityDetection.Effective.Ball → ℕ → Chal.VelocityDetection.Effective.Ball :=
+fun p a k =>
+  have b := Chal.VelocityDetection.Effective.flatRound p a.center k;
+  { center := b.center,
+    radius :=
+      b.radius + Chal.VelocityDetection.Effective.polyBound (Chal.VelocityDetection.Effective.nextPoly p) * a.radius }
+def Chal.VelocityDetection.Effective.Expr.round : {n : ℕ} →
+  (Fin n → Chal.VelocityDetection.Effective.Ball) →
+    ℕ → Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Ball :=
+fun {n} a k =>
+  Chal.VelocityDetection.Effective.Expr.rec Chal.VelocityDetection.Effective.Ball.atom a (fun x x_1 e f => e.add f)
+    (fun x e => e.neg) (fun x x_1 e f => e.mul f) (fun x e => e.inv) fun p x e =>
+    Chal.VelocityDetection.Effective.Ball.flat p e k
+def Chal.VelocityDetection.Effective.Expr.safe : {n : ℕ} →
+  (Fin n → Chal.VelocityDetection.Effective.Ball) → ℕ → Chal.VelocityDetection.Effective.Expr n → Bool :=
+fun {n} a k =>
+  Chal.VelocityDetection.Effective.Expr.rec (fun x => true) (fun x => true) (fun x x_1 e f => e && f) (fun x e => e)
+    (fun x x_1 e f => e && f) (fun e safe_e => safe_e && (Chal.VelocityDetection.Effective.Expr.round a k e).invSafe)
+    fun x x_1 e => e
+def Chal.VelocityDetection.Effective.coordinateD : {n : ℕ} → Fin n → ((Fin n → ℝ) → ℝ) → (Fin n → ℝ) → ℝ :=
+fun {n} i f x => deriv (fun s => f (Function.update x i s)) (x i)
+def Chal.VelocityDetection.Effective.mixedD : {n : ℕ} → List (Fin n) → ((Fin n → ℝ) → ℝ) → (Fin n → ℝ) → ℝ :=
+fun {n} x x_1 =>
+  List.brecOn (motive := fun x => ((Fin n → ℝ) → ℝ) → (Fin n → ℝ) → ℝ) x Chal.VelocityDetection.Effective.mixedD._f x_1
+def Chal.VelocityDetection.Effective.accuracy : ℕ → ℚ :=
+fun k => (1 / 2) ^ k
+def Chal.VelocityDetection.Effective.Names : {n : ℕ} → (Fin n → ℕ → ℚ) → (Fin n → ℝ) → Prop :=
+fun {n} q x => ∀ (i : Fin n) (k : ℕ), |x i - ↑(q i k)| ≤ ↑(Chal.VelocityDetection.Effective.accuracy k)
+def Chal.VelocityDetection.Effective.inputBall : {n : ℕ} →
+  (Fin n → ℕ → ℚ) → ℕ → Fin n → Chal.VelocityDetection.Effective.Ball :=
+fun {n} q k i => { center := q i k, radius := Chal.VelocityDetection.Effective.accuracy k }
+def Chal.VelocityDetection.Effective.trial : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → List (Fin n) → (Fin n → ℕ → ℚ) → ℚ → ℕ → Option ℚ :=
+fun {n} e is q ε k =>
+  have d := Chal.VelocityDetection.Effective.Expr.jet is e;
+  have a := Chal.VelocityDetection.Effective.inputBall q k;
+  if
+      (Chal.VelocityDetection.Effective.Expr.safe a k d &&
+          decide ((Chal.VelocityDetection.Effective.Expr.round a k d).radius ≤ ε)) =
+        true then
+    some (Chal.VelocityDetection.Effective.Expr.round a k d).center
+  else none
+@[reducible] def Chal.VelocityDetection.PeriodicSpace.Torus : ℕ → Type :=
+fun n => Fin n → AddCircle 1
+def Chal.VelocityDetection.PeriodicSpace.cover : {n : ℕ} →
+  Chal.VelocityDetection.Coord n → Chal.VelocityDetection.PeriodicSpace.Torus n :=
+fun {n} X i => ↑(X i)
+def Chal.VelocityDetection.SmoothBump.profile : ℝ → ℝ :=
+fun s => Chal.VelocityDetection.TranslationGates.window (↑3 * s)
+@[reducible] def Chal.VelocityDetection.TorusClass.Space : Type :=
+Chal.VelocityDetection.Coord 3
+def Chal.VelocityDetection.TorusClass.measure : MeasureTheory.Measure Chal.VelocityDetection.TorusClass.Space :=
+MeasureTheory.volume.restrict (Set.Icc 0 1)
+def Chal.VelocityDetection.TorusClass.periodic : (Chal.VelocityDetection.TorusClass.Space → ℝ) → Prop :=
+fun f => Function.FactorsThrough f Chal.VelocityDetection.PeriodicSpace.cover
+def Chal.VelocityDetection.TorusClass.frame : Fin 3 → Chal.VelocityDetection.TorusClass.Space :=
+fun i => Pi.single i 1
+def Chal.VelocityDetection.TorusClass.D : Fin 3 →
+  (Chal.VelocityDetection.TorusClass.Space → ℝ) → Chal.VelocityDetection.TorusClass.Space → ℝ :=
+fun i f x => (fderiv ℝ f x) (Chal.VelocityDetection.TorusClass.frame i)
+def Chal.VelocityDetection.TorusClass.dt : Chal.VelocityDetection.VectorField 3 →
+  ℝ → Chal.VelocityDetection.TorusClass.Space → Fin 3 → ℝ :=
+fun u t x i => derivWithin (fun s => u s x i) (Set.Ici 0) t
+structure Chal.VelocityDetection.TorusClass.ComparisonClass (u : Chal.VelocityDetection.VectorField 3)
+  (p : Chal.VelocityDetection.ScalarField 3) : Prop
+number of parameters: 2
+fields:
+  Chal.VelocityDetection.TorusClass.ComparisonClass.velocity_slices : ∀ t ≥ 0,
+      ∀ (i : Fin 3), ContDiff ℝ 2 fun x => u t x i
+  Chal.VelocityDetection.TorusClass.ComparisonClass.pressure_slices : ∀ t ≥ 0, ContDiff ℝ 1 (p t)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.velocity_periodic : ∀ t ≥ 0,
+      Function.FactorsThrough (u t) Chal.VelocityDetection.PeriodicSpace.cover
+  Chal.VelocityDetection.TorusClass.ComparisonClass.pressure_periodic : ∀ t ≥ 0,
+      Chal.VelocityDetection.TorusClass.periodic (p t)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.pressure_mean : ∀ t ≥ 0,
+      ∫ (x : Chal.VelocityDetection.TorusClass.Space), p t x ∂Chal.VelocityDetection.TorusClass.measure = 0
+  Chal.VelocityDetection.TorusClass.ComparisonClass.time_derivative : ∀ t ≥ 0,
+      ∀ (x : Chal.VelocityDetection.Coord 3) (i : Fin 3),
+        HasDerivWithinAt (fun s => u s x i) (Chal.VelocityDetection.TorusClass.dt u t x i) (Set.Ici 0) t
+  Chal.VelocityDetection.TorusClass.ComparisonClass.velocity_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.time_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.dt u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.gradient_continuous : ∀ T > 0,
+      ∀ (i k : Fin 3),
+        ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.D k (fun x => u y.1 x i) y.2) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.second_continuous : ∀ T > 0,
+      ∀ (i k l : Fin 3),
+        ContinuousOn
+          (fun y =>
+            Chal.VelocityDetection.TorusClass.D l (Chal.VelocityDetection.TorusClass.D k fun x => u y.1 x i) y.2)
+          (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.pressure_continuous : ∀ T > 0,
+      ContinuousOn (fun y => p y.1 y.2) (Set.Icc 0 T ×ˢ Set.univ)
+  Chal.VelocityDetection.TorusClass.ComparisonClass.pressure_gradient_continuous : ∀ T > 0,
+      ∀ (i : Fin 3), ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.D i (p y.1) y.2) (Set.Icc 0 T ×ˢ Set.univ)
+constructor:
+  Chal.VelocityDetection.TorusClass.ComparisonClass.mk {u : Chal.VelocityDetection.VectorField 3}
+    {p : Chal.VelocityDetection.ScalarField 3} (velocity_slices : ∀ t ≥ 0, ∀ (i : Fin 3), ContDiff ℝ 2 fun x => u t x i)
+    (pressure_slices : ∀ t ≥ 0, ContDiff ℝ 1 (p t))
+    (velocity_periodic : ∀ t ≥ 0, Function.FactorsThrough (u t) Chal.VelocityDetection.PeriodicSpace.cover)
+    (pressure_periodic : ∀ t ≥ 0, Chal.VelocityDetection.TorusClass.periodic (p t))
+    (pressure_mean :
+      ∀ t ≥ 0, ∫ (x : Chal.VelocityDetection.TorusClass.Space), p t x ∂Chal.VelocityDetection.TorusClass.measure = 0)
+    (time_derivative :
+      ∀ t ≥ 0,
+        ∀ (x : Chal.VelocityDetection.Coord 3) (i : Fin 3),
+          HasDerivWithinAt (fun s => u s x i) (Chal.VelocityDetection.TorusClass.dt u t x i) (Set.Ici 0) t)
+    (velocity_continuous : ∀ T > 0, ∀ (i : Fin 3), ContinuousOn (fun y => u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ))
+    (time_continuous :
+      ∀ T > 0,
+        ∀ (i : Fin 3),
+          ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.dt u y.1 y.2 i) (Set.Icc 0 T ×ˢ Set.univ))
+    (gradient_continuous :
+      ∀ T > 0,
+        ∀ (i k : Fin 3),
+          ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.D k (fun x => u y.1 x i) y.2)
+            (Set.Icc 0 T ×ˢ Set.univ))
+    (second_continuous :
+      ∀ T > 0,
+        ∀ (i k l : Fin 3),
+          ContinuousOn
+            (fun y =>
+              Chal.VelocityDetection.TorusClass.D l (Chal.VelocityDetection.TorusClass.D k fun x => u y.1 x i) y.2)
+            (Set.Icc 0 T ×ˢ Set.univ))
+    (pressure_continuous : ∀ T > 0, ContinuousOn (fun y => p y.1 y.2) (Set.Icc 0 T ×ˢ Set.univ))
+    (pressure_gradient_continuous :
+      ∀ T > 0,
+        ∀ (i : Fin 3),
+          ContinuousOn (fun y => Chal.VelocityDetection.TorusClass.D i (p y.1) y.2) (Set.Icc 0 T ×ˢ Set.univ)) :
+    Chal.VelocityDetection.TorusClass.ComparisonClass u p
+def Chal.VelocityDetection.MachineTorus.initialAddress : {b : ℕ} → {N : ℕ} → List (Fin b) → ℕ :=
+fun {b N} w =>
+  Chal.VelocityDetection.History.address (Chal.VelocityDetection.Stacks.capacity b (w.length + 1) 0)
+    { tape := Chal.VelocityDetection.MachineHistory.initial w, history := 0 }
+def Chal.VelocityDetection.Effective.Expr.subst : {n m : ℕ} →
+  (Fin m → Chal.VelocityDetection.Effective.Expr n) →
+    Chal.VelocityDetection.Effective.Expr m → Chal.VelocityDetection.Effective.Expr n :=
+fun {n m} v =>
+  Chal.VelocityDetection.Effective.Expr.rec Chal.VelocityDetection.Effective.Expr.rat v (fun x x_1 a b => a.add b)
+    (fun x a => a.neg) (fun x x_1 a b => a.mul b) (fun x a => a.inv) fun p x a =>
+    Chal.VelocityDetection.Effective.Expr.flat p a
+def Chal.VelocityDetection.Effective.Expr.sumList : {n : ℕ} →
+  List (Chal.VelocityDetection.Effective.Expr n) → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} x => List.brecOn x Chal.VelocityDetection.Effective.Expr.sumList._f
+def Chal.VelocityDetection.Effective.Expr.sumFin : {n : ℕ} →
+  (k : ℕ) → (Fin k → Chal.VelocityDetection.Effective.Expr n) → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} k f => Chal.VelocityDetection.Effective.Expr.sumList (List.ofFn f)
+def Chal.VelocityDetection.Effective.Expr.unaryD : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr 1 →
+    Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} e a => Chal.VelocityDetection.Effective.Expr.subst (fun x => a) (Chal.VelocityDetection.Effective.Expr.diff 0 e)
+def Chal.VelocityDetection.Effective.Recipe.glue : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a => Chal.VelocityDetection.Effective.Expr.flat [(0, 1)] a
+def Chal.VelocityDetection.Effective.Recipe.step : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a =>
+  Chal.VelocityDetection.Effective.Recipe.glue a /
+    (Chal.VelocityDetection.Effective.Recipe.glue a + Chal.VelocityDetection.Effective.Recipe.glue (1 - a))
+def Chal.VelocityDetection.Effective.Recipe.pulse : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a => (Chal.VelocityDetection.Effective.Recipe.step (Chal.VelocityDetection.Effective.Expr.var 0)).unaryD a
+def Chal.VelocityDetection.Effective.Recipe.window : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a => Chal.VelocityDetection.Effective.Recipe.step (a + 3) * Chal.VelocityDetection.Effective.Recipe.step (3 - a)
+def Chal.VelocityDetection.Effective.Recipe.windowD : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a =>
+  Chal.VelocityDetection.Effective.Recipe.pulse (a + 3) * Chal.VelocityDetection.Effective.Recipe.step (3 - a) -
+    Chal.VelocityDetection.Effective.Recipe.step (a + 3) * Chal.VelocityDetection.Effective.Recipe.pulse (3 - a)
+def Chal.VelocityDetection.Effective.Recipe.theta : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    Chal.VelocityDetection.Effective.Expr n →
+      ℕ → Chal.VelocityDetection.Effective.Expr n → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a T j t =>
+  Chal.VelocityDetection.Effective.Recipe.step
+    (2 * (3 * (t - a) / T - Chal.VelocityDetection.Effective.Expr.rat ↑j) -
+      Chal.VelocityDetection.Effective.Expr.rat (1 / 2))
+def Chal.VelocityDetection.Effective.Recipe.center : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    Chal.VelocityDetection.Effective.Expr n →
+      Chal.VelocityDetection.Effective.Expr n →
+        Chal.VelocityDetection.Effective.Expr n →
+          Chal.VelocityDetection.Effective.Expr n →
+            ℕ → ℕ → Chal.VelocityDetection.Effective.Expr n → Fin 2 → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} a T S S' σ k l t =>
+  ![(1 - Chal.VelocityDetection.Effective.Recipe.theta a T 1 t) * S * Chal.VelocityDetection.Effective.Expr.rat ↑k +
+      Chal.VelocityDetection.Effective.Recipe.theta a T 1 t * S' * Chal.VelocityDetection.Effective.Expr.rat ↑l,
+    -(1 - Chal.VelocityDetection.Effective.Recipe.theta a T 0 t) * S +
+        (Chal.VelocityDetection.Effective.Recipe.theta a T 0 t -
+            Chal.VelocityDetection.Effective.Recipe.theta a T 2 t) *
+          (-(Chal.VelocityDetection.Effective.Expr.rat ↑k + 2) * S) +
+      Chal.VelocityDetection.Effective.Recipe.theta a T 2 t * σ * S']
+def Chal.VelocityDetection.Effective.Recipe.gate : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    (Fin 2 → Chal.VelocityDetection.Effective.Expr n) →
+      (Fin 2 → Chal.VelocityDetection.Effective.Expr n) →
+        (Fin 2 → Chal.VelocityDetection.Effective.Expr n) → Fin 2 → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} R c G X =>
+  ![Chal.VelocityDetection.Effective.Recipe.window ((X 0 - c 0) / R) *
+          (Chal.VelocityDetection.Effective.Recipe.windowD ((X 1 - c 1) / R) / R) *
+        (G 0 * (X 1 - c 1) - G 1 * (X 0 - c 0)) +
+      Chal.VelocityDetection.Effective.Recipe.window ((X 0 - c 0) / R) *
+          Chal.VelocityDetection.Effective.Recipe.window ((X 1 - c 1) / R) *
+        G 0,
+    Chal.VelocityDetection.Effective.Recipe.window ((X 0 - c 0) / R) *
+          Chal.VelocityDetection.Effective.Recipe.window ((X 1 - c 1) / R) *
+        G 1 -
+      Chal.VelocityDetection.Effective.Recipe.windowD ((X 0 - c 0) / R) / R *
+          Chal.VelocityDetection.Effective.Recipe.window ((X 1 - c 1) / R) *
+        (G 0 * (X 1 - c 1) - G 1 * (X 0 - c 0))]
+def Chal.VelocityDetection.Effective.Recipe.impulse : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    (Fin 2 → Chal.VelocityDetection.Effective.Expr n) →
+      (Fin 2 → Chal.VelocityDetection.Effective.Expr n) → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} t p X =>
+  Chal.VelocityDetection.Effective.Recipe.pulse t *
+      Chal.VelocityDetection.Effective.Recipe.pulse (X 0 - p 0 + Chal.VelocityDetection.Effective.Expr.rat (1 / 2)) *
+    Chal.VelocityDetection.Effective.Recipe.pulse (X 1 - p 1 + Chal.VelocityDetection.Effective.Expr.rat (1 / 2))
+def Chal.VelocityDetection.Effective.Recipe.packet : {n : ℕ} →
+  Chal.VelocityDetection.Effective.Expr n →
+    (Fin 2 → Chal.VelocityDetection.Effective.Expr n) → Chal.VelocityDetection.Effective.Expr n :=
+fun {n} R X =>
+  Chal.VelocityDetection.Effective.Recipe.window (3 * (X 0 / R)) *
+    Chal.VelocityDetection.Effective.Recipe.window (3 * (X 1 / R))
+def Chal.VelocityDetection.Effective.Expr.activeSum : {n N b B H : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (Chal.VelocityDetection.History.Active hb table B H → Chal.VelocityDetection.Effective.Expr n) →
+        Chal.VelocityDetection.Effective.Expr n :=
+fun {n N b B H} hb table f =>
+  Chal.VelocityDetection.Effective.Expr.sumFin N fun s =>
+    Chal.VelocityDetection.Effective.Expr.sumFin B fun l =>
+      Chal.VelocityDetection.Effective.Expr.sumFin B fun r =>
+        Chal.VelocityDetection.Effective.Expr.sumFin H fun h =>
+          if hp :
+              (Chal.VelocityDetection.Stacks.lookup hb table
+                    (Chal.VelocityDetection.History.config (s, l, r, h)).tape).isSome =
+                true then
+            f ⟨(s, l, r, h), hp⟩
+          else 0
+@[reducible] def Chal.VelocityDetection.Effective.ArrayRecipe.Code : Type :=
+Chal.VelocityDetection.Effective.Expr 5
+def Chal.VelocityDetection.Effective.ArrayRecipe.K : ℕ → ℕ → ℕ → ℕ :=
+fun N b m => N * Chal.VelocityDetection.Stacks.capacity b (m + 1) 0 ^ 2
+def Chal.VelocityDetection.Effective.ArrayRecipe.D : ℕ → ℕ → ℕ :=
+fun N b => b ^ 2 * Chal.VelocityDetection.History.radix N b
+def Chal.VelocityDetection.Effective.ArrayRecipe.radius : ℕ →
+  ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m n =>
+  Chal.VelocityDetection.Effective.Expr.rat
+      (1024 * 3000 * (4 * ↑(Chal.VelocityDetection.Effective.ArrayRecipe.D N b)) *
+          (↑(Chal.VelocityDetection.Effective.ArrayRecipe.K N b m) *
+              ↑(Chal.VelocityDetection.Effective.ArrayRecipe.D N b) +
+            2) *
+        (4 * ↑(Chal.VelocityDetection.Effective.ArrayRecipe.D N b)) ^ n) *
+    (1 + Chal.VelocityDetection.Effective.Expr.var 0)
+def Chal.VelocityDetection.Effective.ArrayRecipe.spacing : ℕ →
+  ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m n => 16 * Chal.VelocityDetection.Effective.ArrayRecipe.radius N b m n
+def Chal.VelocityDetection.Effective.ArrayRecipe.duration : ℕ →
+  ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m n =>
+  Chal.VelocityDetection.Effective.ArrayRecipe.spacing N b m (n + 1) *
+    Chal.VelocityDetection.Effective.Expr.rat
+      (↑(Chal.VelocityDetection.Effective.ArrayRecipe.K N b m) *
+          ↑(Chal.VelocityDetection.Effective.ArrayRecipe.D N b) ^ (n + 1) +
+        2)
+def Chal.VelocityDetection.Effective.ArrayRecipe.start : ℕ →
+  ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m x => Nat.brecOn x (Chal.VelocityDetection.Effective.ArrayRecipe.start._f N b m)
+def Chal.VelocityDetection.Effective.ArrayRecipe.sign : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      Chal.VelocityDetection.History.Configuration N → ℚ :=
+fun {N b} hb table c => if (Chal.VelocityDetection.Stacks.lookup hb table c.tape).isNone = true then 1 else -1
+@[reducible] def Chal.VelocityDetection.Effective.ArrayRecipe.Instruction : {N b : ℕ} →
+  0 < b → (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) → ℕ → ℕ → Type :=
+fun {N b} hb table m n =>
+  Chal.VelocityDetection.History.Active hb table (Chal.VelocityDetection.Stacks.capacity b (m + 1) n)
+    (Chal.VelocityDetection.History.radix N b ^ n)
+def Chal.VelocityDetection.Effective.ArrayRecipe.path : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (m n : ℕ) →
+        Chal.VelocityDetection.Effective.ArrayRecipe.Instruction hb table m n →
+          Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m n c =>
+  Chal.VelocityDetection.Effective.Recipe.center (Chal.VelocityDetection.Effective.ArrayRecipe.start N b m n)
+    (Chal.VelocityDetection.Effective.ArrayRecipe.duration N b m n)
+    (Chal.VelocityDetection.Effective.ArrayRecipe.spacing N b m n)
+    (Chal.VelocityDetection.Effective.ArrayRecipe.spacing N b m (n + 1))
+    (Chal.VelocityDetection.Effective.Expr.rat
+      (Chal.VelocityDetection.Effective.ArrayRecipe.sign hb table (Chal.VelocityDetection.History.target hb table c)))
+    (Chal.VelocityDetection.History.sourceAddress hb table c) (Chal.VelocityDetection.History.targetAddress hb table c)
+    (Chal.VelocityDetection.Effective.Expr.var 1)
+def Chal.VelocityDetection.Effective.ArrayRecipe.gate : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (m n : ℕ) →
+        Chal.VelocityDetection.Effective.ArrayRecipe.Instruction hb table m n →
+          Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m n c =>
+  Chal.VelocityDetection.Effective.Recipe.gate (Chal.VelocityDetection.Effective.ArrayRecipe.radius N b m n)
+    (Chal.VelocityDetection.Effective.ArrayRecipe.path hb table m n c)
+    (fun i =>
+      Chal.VelocityDetection.Effective.Expr.diff 1 (Chal.VelocityDetection.Effective.ArrayRecipe.path hb table m n c i))
+    ![Chal.VelocityDetection.Effective.Expr.var 2, Chal.VelocityDetection.Effective.Expr.var 3]
+def Chal.VelocityDetection.Effective.ArrayRecipe.stage : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m n i =>
+  Chal.VelocityDetection.Effective.Expr.activeSum hb table fun c =>
+    Chal.VelocityDetection.Effective.ArrayRecipe.gate hb table m n c i
+def Chal.VelocityDetection.Effective.ArrayRecipe.field : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m L i =>
+  Chal.VelocityDetection.Effective.Expr.sumFin L fun n =>
+    Chal.VelocityDetection.Effective.ArrayRecipe.stage hb table m (↑n) i
+def Chal.VelocityDetection.Effective.ChartRecipe.scale : ℕ → ℕ → ℕ → ℕ → ℚ :=
+fun N b m P =>
+  (1024 *
+      (↑(Chal.VelocityDetection.Effective.ArrayRecipe.K N b m) *
+          ↑(Chal.VelocityDetection.Effective.ArrayRecipe.D N b) ^ (P + 1) +
+        4))⁻¹
+def Chal.VelocityDetection.Effective.ChartRecipe.radius : ℕ → ℕ → ℕ → ℕ → ℚ :=
+fun N b m P => Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P / 16
+def Chal.VelocityDetection.Effective.ChartRecipe.targetHeight : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (m : ℕ) → ℕ → (n : ℕ) → Chal.VelocityDetection.Effective.ArrayRecipe.Instruction hb table m n → ℚ :=
+fun {N b} hb table m P n c =>
+  if
+      Chal.VelocityDetection.Effective.ArrayRecipe.sign hb table (Chal.VelocityDetection.History.target hb table c) =
+        1 then
+    -(7 / 16)
+  else -Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P
+def Chal.VelocityDetection.Effective.ChartRecipe.path : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (m : ℕ) →
+        ℕ →
+          (n : ℕ) →
+            Chal.VelocityDetection.Effective.ArrayRecipe.Instruction hb table m n →
+              Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m P n c i =>
+  Chal.VelocityDetection.Effective.Expr.rat (![1 / 4, 1 / 2] i) +
+    Chal.VelocityDetection.Effective.Recipe.center (Chal.VelocityDetection.Effective.Expr.rat ↑n) 1
+      (Chal.VelocityDetection.Effective.Expr.rat (Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P))
+      (Chal.VelocityDetection.Effective.Expr.rat (Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P))
+      (Chal.VelocityDetection.Effective.Expr.rat
+        (Chal.VelocityDetection.Effective.ChartRecipe.targetHeight hb table m P n c /
+          Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P))
+      (Chal.VelocityDetection.History.sourceAddress hb table c)
+      (Chal.VelocityDetection.History.targetAddress hb table c) (Chal.VelocityDetection.Effective.Expr.var 1) i
+def Chal.VelocityDetection.Effective.ChartRecipe.gate : {N b : ℕ} →
+  (hb : 0 < b) →
+    (table : Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      (m : ℕ) →
+        ℕ →
+          (n : ℕ) →
+            Chal.VelocityDetection.Effective.ArrayRecipe.Instruction hb table m n →
+              Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m P n c =>
+  Chal.VelocityDetection.Effective.Recipe.gate
+    (Chal.VelocityDetection.Effective.Expr.rat (Chal.VelocityDetection.Effective.ChartRecipe.radius N b m P))
+    (Chal.VelocityDetection.Effective.ChartRecipe.path hb table m P n c)
+    (fun i =>
+      Chal.VelocityDetection.Effective.Expr.diff 1
+        (Chal.VelocityDetection.Effective.ChartRecipe.path hb table m P n c i))
+    ![Chal.VelocityDetection.Effective.Expr.var 2, Chal.VelocityDetection.Effective.Expr.var 3]
+def Chal.VelocityDetection.Effective.ChartRecipe.stage : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m P n i =>
+  Chal.VelocityDetection.Effective.Expr.activeSum hb table fun c =>
+    Chal.VelocityDetection.Effective.ChartRecipe.gate hb table m P n c i
+def Chal.VelocityDetection.Effective.ChartRecipe.prefixCode : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m P i =>
+  Chal.VelocityDetection.Effective.Expr.sumFin P fun n =>
+    Chal.VelocityDetection.Effective.ChartRecipe.stage hb table m P (↑n) i
+def Chal.VelocityDetection.Effective.ChartRecipe.duration : ℕ →
+  ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B k =>
+  Chal.VelocityDetection.Effective.Expr.rat (1 / 16 * (1 / 2) ^ k) /
+    (3 *
+      (1 +
+        Chal.VelocityDetection.Effective.Expr.var 0 *
+          Chal.VelocityDetection.Effective.Expr.rat
+            (2 * ↑B / Chal.VelocityDetection.Effective.ChartRecipe.radius N b m (k + 1) ^ 2)))
+def Chal.VelocityDetection.Effective.ChartRecipe.localTime : ℕ →
+  ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B k =>
+  (Chal.VelocityDetection.Effective.Expr.var 1 - Chal.VelocityDetection.Effective.Expr.rat (↑k + 1)) /
+    Chal.VelocityDetection.Effective.ChartRecipe.duration N b m B k
+def Chal.VelocityDetection.Effective.ChartRecipe.weight : ℕ →
+  ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B k =>
+  Chal.VelocityDetection.Effective.Recipe.step (8 * Chal.VelocityDetection.Effective.ChartRecipe.localTime N b m B k) -
+    Chal.VelocityDetection.Effective.Recipe.step
+      (8 * Chal.VelocityDetection.Effective.ChartRecipe.localTime N b m B k -
+        Chal.VelocityDetection.Effective.Expr.rat 7)
+def Chal.VelocityDetection.Effective.ChartRecipe.clock : ℕ →
+  ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B k =>
+  Chal.VelocityDetection.Effective.Expr.rat (↑k + 1) *
+    (Chal.VelocityDetection.Effective.Recipe.step
+        (8 * Chal.VelocityDetection.Effective.ChartRecipe.localTime N b m B k - 1) -
+      Chal.VelocityDetection.Effective.Recipe.step
+        (8 * Chal.VelocityDetection.Effective.ChartRecipe.localTime N b m B k -
+          Chal.VelocityDetection.Effective.Expr.rat 5))
+def Chal.VelocityDetection.Effective.ChartRecipe.rawField : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m B k i =>
+  Chal.VelocityDetection.Effective.Expr.diff 1 (Chal.VelocityDetection.Effective.ChartRecipe.clock N b m B k) *
+    Chal.VelocityDetection.Effective.Expr.subst
+      ![Chal.VelocityDetection.Effective.Expr.var 0, Chal.VelocityDetection.Effective.ChartRecipe.clock N b m B k,
+        Chal.VelocityDetection.Effective.Expr.var 2, Chal.VelocityDetection.Effective.Expr.var 3,
+        Chal.VelocityDetection.Effective.Expr.var 4]
+      (Chal.VelocityDetection.Effective.ChartRecipe.prefixCode hb table m (k + 1) i)
+def Chal.VelocityDetection.Effective.ChartRecipe.initial : ℕ →
+  ℕ → ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m P q =>
+  ![Chal.VelocityDetection.Effective.Expr.rat (1 / 4 + Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P * ↑q),
+    Chal.VelocityDetection.Effective.Expr.rat (1 / 2 - Chal.VelocityDetection.Effective.ChartRecipe.scale N b m P)]
+def Chal.VelocityDetection.Effective.ChartRecipe.rawSource : {N b : ℕ} →
+  ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} m B q k =>
+  Chal.VelocityDetection.Effective.Expr.diff 1 (Chal.VelocityDetection.Effective.ChartRecipe.weight N b m B k) *
+    Chal.VelocityDetection.Effective.Recipe.packet
+      (Chal.VelocityDetection.Effective.Expr.rat (Chal.VelocityDetection.Effective.ChartRecipe.radius N b m (k + 1)))
+      fun i =>
+      ![Chal.VelocityDetection.Effective.Expr.var 2, Chal.VelocityDetection.Effective.Expr.var 3] i -
+        Chal.VelocityDetection.Effective.ChartRecipe.initial N b m (k + 1) q i
+def Chal.VelocityDetection.Effective.periodize : ℕ →
+  Chal.VelocityDetection.Effective.ArrayRecipe.Code → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun R e =>
+  Chal.VelocityDetection.Effective.Expr.sumFin (2 * R + 1) fun i =>
+    Chal.VelocityDetection.Effective.Expr.sumFin (2 * R + 1) fun j =>
+      Chal.VelocityDetection.Effective.Expr.subst
+        ![Chal.VelocityDetection.Effective.Expr.var 0, Chal.VelocityDetection.Effective.Expr.var 1,
+          Chal.VelocityDetection.Effective.Expr.var 2 - Chal.VelocityDetection.Effective.Expr.rat (↑↑i - ↑R),
+          Chal.VelocityDetection.Effective.Expr.var 3 - Chal.VelocityDetection.Effective.Expr.rat (↑↑j - ↑R),
+          Chal.VelocityDetection.Effective.Expr.var 4]
+        e
+def Chal.VelocityDetection.Effective.ChartRecipe.fieldBlock : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m B R k i =>
+  Chal.VelocityDetection.Effective.periodize R (Chal.VelocityDetection.Effective.ChartRecipe.rawField hb table m B k i)
+def Chal.VelocityDetection.Effective.ChartRecipe.sourceBlock : ℕ →
+  ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B q R k =>
+  Chal.VelocityDetection.Effective.periodize R (Chal.VelocityDetection.Effective.ChartRecipe.rawSource m B q k)
+def Chal.VelocityDetection.Effective.ChartRecipe.field : {N b : ℕ} →
+  0 < b →
+    (Fin N → Fin b → Option (Chal.VelocityDetection.Stacks.Rule (Fin N) b)) →
+      ℕ → ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {N b} hb table m B R L i =>
+  Chal.VelocityDetection.Effective.Expr.sumFin L fun k =>
+    Chal.VelocityDetection.Effective.ChartRecipe.fieldBlock hb table m B R (↑k) i
+def Chal.VelocityDetection.Effective.ChartRecipe.source : ℕ →
+  ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m B q R L =>
+  Chal.VelocityDetection.Effective.Expr.sumFin L fun k =>
+    Chal.VelocityDetection.Effective.ChartRecipe.sourceBlock N b m B q R ↑k
+def Chal.VelocityDetection.Effective.residualCode : (Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code) →
+  Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun a i =>
+  Chal.VelocityDetection.Effective.Expr.diff 1 (a i) + a 0 * Chal.VelocityDetection.Effective.Expr.diff 2 (a i) +
+      a 1 * Chal.VelocityDetection.Effective.Expr.diff 3 (a i) -
+    Chal.VelocityDetection.Effective.Expr.var 0 *
+      (Chal.VelocityDetection.Effective.Expr.diff 2 (Chal.VelocityDetection.Effective.Expr.diff 2 (a i)) +
+        Chal.VelocityDetection.Effective.Expr.diff 3 (Chal.VelocityDetection.Effective.Expr.diff 3 (a i)))
+def Chal.VelocityDetection.Effective.ArrayRecipe.initialCode : ℕ →
+  ℕ → ℕ → ℕ → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m q =>
+  ![Chal.VelocityDetection.Effective.ArrayRecipe.spacing N b m 0 * Chal.VelocityDetection.Effective.Expr.rat ↑q,
+    -Chal.VelocityDetection.Effective.ArrayRecipe.spacing N b m 0]
+def Chal.VelocityDetection.Effective.ArrayRecipe.source : ℕ →
+  ℕ → ℕ → ℕ → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun N b m q =>
+  Chal.VelocityDetection.Effective.Recipe.impulse (Chal.VelocityDetection.Effective.Expr.var 1)
+    (Chal.VelocityDetection.Effective.ArrayRecipe.initialCode N b m q)
+    ![Chal.VelocityDetection.Effective.Expr.var 2, Chal.VelocityDetection.Effective.Expr.var 3]
+def Chal.VelocityDetection.Effective.forceFunction : (ℝ → Chal.VelocityDetection.VectorField 3) →
+  Fin 3 → (Fin 5 → ℝ) → ℝ :=
+fun f i x => f (x 0) (x 1) ![x 2, x 3, x 4] i
+inductive Chal.VelocityDetection.Effective.MachineRecipe.Domain : Type
+number of parameters: 0
+constructors:
+Chal.VelocityDetection.Effective.MachineRecipe.Domain.torus : Chal.VelocityDetection.Effective.MachineRecipe.Domain
+Chal.VelocityDetection.Effective.MachineRecipe.Domain.cylinder : Chal.VelocityDetection.Effective.MachineRecipe.Domain
+def Chal.VelocityDetection.Effective.MachineRecipe.field : {b N : ℕ} →
+  [NeZero b] →
+    [inst : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+        ℕ →
+          ℕ →
+            ℕ →
+              Turing.TM0.Machine (Fin b) (Fin N) →
+                List (Fin b) → Fin 2 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {b N} [NeZero b] [NeZero N] d B R L M w i =>
+  match d with
+  | Chal.VelocityDetection.Effective.MachineRecipe.Domain.torus =>
+    Chal.VelocityDetection.Effective.ChartRecipe.field ⋯ (Chal.VelocityDetection.MachineHistory.table M) w.length B R L
+      i
+  | Chal.VelocityDetection.Effective.MachineRecipe.Domain.cylinder =>
+    Chal.VelocityDetection.Effective.ArrayRecipe.field ⋯ (Chal.VelocityDetection.MachineHistory.table M) w.length L i
+def Chal.VelocityDetection.Effective.MachineRecipe.source : {b : ℕ} →
+  {N : ℕ} →
+    Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+      ℕ → ℕ → ℕ → List (Fin b) → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {b N} d B R L w =>
+  match d with
+  | Chal.VelocityDetection.Effective.MachineRecipe.Domain.torus =>
+    Chal.VelocityDetection.Effective.ChartRecipe.source (N + 1) b w.length B
+      (Chal.VelocityDetection.MachineTorus.initialAddress w) R L
+  | Chal.VelocityDetection.Effective.MachineRecipe.Domain.cylinder =>
+    Chal.VelocityDetection.Effective.ArrayRecipe.source (N + 1) b w.length
+      (Chal.VelocityDetection.MachineTorus.initialAddress w)
+def Chal.VelocityDetection.Effective.MachineRecipe.force : {b N : ℕ} →
+  [NeZero b] →
+    [inst : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+        ℕ →
+          ℕ →
+            ℕ →
+              Turing.TM0.Machine (Fin b) (Fin N) →
+                List (Fin b) → Fin 3 → Chal.VelocityDetection.Effective.ArrayRecipe.Code :=
+fun {b N} [NeZero b] [NeZero N] d B R L M w i =>
+  ![Chal.VelocityDetection.Effective.residualCode (Chal.VelocityDetection.Effective.MachineRecipe.field d B R L M w) 0,
+      Chal.VelocityDetection.Effective.residualCode (Chal.VelocityDetection.Effective.MachineRecipe.field d B R L M w)
+        1,
+      Chal.VelocityDetection.Effective.MachineRecipe.source d B R L w]
+    i
+def Chal.VelocityDetection.Effective.MachineRecipe.timeCutoff : (Fin 5 → ℕ → ℚ) → ℕ :=
+fun q => ⌈q 1 0 + 2⌉₊
+def Chal.VelocityDetection.Effective.MachineRecipe.spaceCutoff : (Fin 5 → ℕ → ℚ) → ℕ :=
+fun q => ⌈|q 2 0| + |q 3 0| + 3⌉₊
+def Chal.VelocityDetection.Effective.MachineRecipe.runTrial : {b N : ℕ} →
+  [NeZero b] →
+    [inst : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+        ℕ →
+          Turing.TM0.Machine (Fin b) (Fin N) →
+            List (Fin b) → Fin 3 → List (Fin 5) → (Fin 5 → ℕ → ℚ) → ℚ → ℕ → Option ℚ :=
+fun {b N} [NeZero b] [NeZero N] d B M w i is q ε k =>
+  Chal.VelocityDetection.Effective.trial
+    (Chal.VelocityDetection.Effective.MachineRecipe.force d B
+      (Chal.VelocityDetection.Effective.MachineRecipe.spaceCutoff q)
+      (Chal.VelocityDetection.Effective.MachineRecipe.timeCutoff q) M w i)
+    is q ε k
+structure Chal.VelocityDetection.Effective.RationalBox (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.VelocityDetection.Effective.RationalBox.lower : Fin n → ℚ
+  Chal.VelocityDetection.Effective.RationalBox.upper : Fin n → ℚ
+  Chal.VelocityDetection.Effective.RationalBox.ordered : ∀ (i : Fin n), self.lower i ≤ self.upper i
+constructor:
+  Chal.VelocityDetection.Effective.RationalBox.mk {n : ℕ} (lower upper : Fin n → ℚ)
+    (ordered : ∀ (i : Fin n), lower i ≤ upper i) : Chal.VelocityDetection.Effective.RationalBox n
+def Chal.VelocityDetection.Effective.RationalBox.carrier : {n : ℕ} →
+  Chal.VelocityDetection.Effective.RationalBox n → Set (Fin n → ℝ) :=
+fun {n} Q => Set.Icc (fun i => ↑(Q.lower i)) fun i => ↑(Q.upper i)
+def Chal.VelocityDetection.Effective.RationalBox.cell : {n : ℕ} →
+  Chal.VelocityDetection.Effective.RationalBox n →
+    (k : ℕ) → (Fin n → Fin (k + 2)) → Fin n → Chal.VelocityDetection.Effective.Ball :=
+fun {n} Q k j i =>
+  { center := Q.lower i + (Q.upper i - Q.lower i) * ↑↑(j i) / (↑k + 1), radius := (Q.upper i - Q.lower i) / (↑k + 1) }
+def Chal.VelocityDetection.Effective.RationalBox.boundTrial : {n : ℕ} →
+  Chal.VelocityDetection.Effective.RationalBox n →
+    Chal.VelocityDetection.Effective.Expr n → List (Fin n) → ℕ → Option ℚ :=
+fun {n} Q e is k =>
+  if
+      ∀ (j : Fin n → Fin (k + 2)),
+        Chal.VelocityDetection.Effective.Expr.safe (Q.cell k j) k (Chal.VelocityDetection.Effective.Expr.jet is e) =
+          true then
+    some
+      (∑ j,
+        (|(Chal.VelocityDetection.Effective.Expr.round (Q.cell k j) k
+                (Chal.VelocityDetection.Effective.Expr.jet is e)).center| +
+          |(Chal.VelocityDetection.Effective.Expr.round (Q.cell k j) k
+                (Chal.VelocityDetection.Effective.Expr.jet is e)).radius|))
+  else none
+def Chal.VelocityDetection.Effective.MachineRecipe.boxTimeCutoff : Chal.VelocityDetection.Effective.RationalBox 5 → ℕ :=
+fun Q => ⌈Q.upper 1 + 1⌉₊
+def Chal.VelocityDetection.Effective.MachineRecipe.boxSpaceCutoff : Chal.VelocityDetection.Effective.RationalBox 5 →
+  ℕ :=
+fun Q => ⌈|Q.lower 2| + |Q.upper 2| + |Q.lower 3| + |Q.upper 3| + 2⌉₊
+def Chal.VelocityDetection.Effective.MachineRecipe.runBoundTrial : {b N : ℕ} →
+  [NeZero b] →
+    [inst : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+        ℕ →
+          Turing.TM0.Machine (Fin b) (Fin N) →
+            List (Fin b) → Fin 3 → List (Fin 5) → Chal.VelocityDetection.Effective.RationalBox 5 → ℕ → Option ℚ :=
+fun {b N} [NeZero b] [NeZero N] d B M w i is Q k =>
+  Q.boundTrial
+    (Chal.VelocityDetection.Effective.MachineRecipe.force d B
+      (Chal.VelocityDetection.Effective.MachineRecipe.boxSpaceCutoff Q)
+      (Chal.VelocityDetection.Effective.MachineRecipe.boxTimeCutoff Q) M w i)
+    is k
+structure Chal.VelocityDetection.Effective.MachineRecipe.Program (b N : ℕ) [NeZero b] [NeZero N] : Type
+number of parameters: 4
+fields:
+  Chal.VelocityDetection.Effective.MachineRecipe.Program.derivativeBound : ℕ
+  Chal.VelocityDetection.Effective.MachineRecipe.Program.table : Turing.TM0.Machine (Fin b) (Fin N)
+  Chal.VelocityDetection.Effective.MachineRecipe.Program.input : List (Fin b)
+constructor:
+  Chal.VelocityDetection.Effective.MachineRecipe.Program.mk {b N : ℕ} [NeZero b] [NeZero N] (derivativeBound : ℕ)
+    (table : Turing.TM0.Machine (Fin b) (Fin N)) (input : List (Fin b)) :
+    Chal.VelocityDetection.Effective.MachineRecipe.Program b N
+def Chal.VelocityDetection.Effective.MachineRecipe.compile : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      ℕ →
+        Turing.TM0.Machine (Fin b) (Fin N) →
+          List (Fin b) → Chal.VelocityDetection.Effective.MachineRecipe.Program b N :=
+fun {b N} [NeZero b] [NeZero N] B M w => { derivativeBound := B, table := M, input := w }
+def Chal.VelocityDetection.Effective.MachineRecipe.Program.valueTrial : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Program b N →
+        Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+          Fin 3 → List (Fin 5) → (Fin 5 → ℕ → ℚ) → ℚ → ℕ → Option ℚ :=
+fun {b N} [NeZero b] [NeZero N] P d i is q ε k =>
+  Chal.VelocityDetection.Effective.MachineRecipe.runTrial d P.derivativeBound P.table P.input i is q ε k
+def Chal.VelocityDetection.Effective.MachineRecipe.Program.boundTrial : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Program b N →
+        Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+          Fin 3 → List (Fin 5) → Chal.VelocityDetection.Effective.RationalBox 5 → ℕ → Option ℚ :=
+fun {b N} [NeZero b] [NeZero N] P d i is Q k =>
+  Chal.VelocityDetection.Effective.MachineRecipe.runBoundTrial d P.derivativeBound P.table P.input i is Q k
+def Chal.VelocityDetection.Effective.MachineRecipe.Program.evaluate : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Program b N →
+        Chal.VelocityDetection.Effective.MachineRecipe.Domain → Fin 3 → List (Fin 5) → (Fin 5 → ℕ → ℚ) → ℚ → Part ℚ :=
+fun {b N} [NeZero b] [NeZero N] P d i is q ε => Nat.rfindOpt (P.valueTrial d i is q ε)
+def Chal.VelocityDetection.Effective.MachineRecipe.Program.derivativeBounds : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Program b N →
+        Chal.VelocityDetection.Effective.MachineRecipe.Domain →
+          Fin 3 → List (Fin 5) → Chal.VelocityDetection.Effective.RationalBox 5 → Part ℚ :=
+fun {b N} [NeZero b] [NeZero N] P d i is Q => Nat.rfindOpt (P.boundTrial d i is Q)
+def Chal.VelocityDetection.Effective.MachineRecipe.Program.Represents : {b N : ℕ} →
+  [inst : NeZero b] →
+    [inst_1 : NeZero N] →
+      Chal.VelocityDetection.Effective.MachineRecipe.Program b N →
+        Chal.VelocityDetection.Effective.MachineRecipe.Domain → (ℝ → Chal.VelocityDetection.VectorField 3) → Prop :=
+fun {b N} [NeZero b] [NeZero N] P d F =>
+  (∀ (i : Fin 3) (is : List (Fin 5)) (q : Fin 5 → ℕ → ℚ) (x : Fin 5 → ℝ),
+      Chal.VelocityDetection.Effective.Names q x →
+        0 < x 0 →
+          ∀ (ε : ℚ),
+            0 < ε →
+              (P.evaluate d i is q ε).Dom ∧
+                ∀ r ∈ P.evaluate d i is q ε,
+                  |Chal.VelocityDetection.Effective.mixedD is (Chal.VelocityDetection.Effective.forceFunction F i) x -
+                        ↑r| ≤
+                    ↑ε) ∧
+    ∀ (i : Fin 3) (is : List (Fin 5)) (Q : Chal.VelocityDetection.Effective.RationalBox 5),
+      0 < Q.lower 0 →
+        (P.derivativeBounds d i is Q).Dom ∧
+          ∀ C ∈ P.derivativeBounds d i is Q,
+            0 ≤ C ∧
+              ∀ x ∈ Q.carrier,
+                |Chal.VelocityDetection.Effective.mixedD is (Chal.VelocityDetection.Effective.forceFunction F i) x| ≤ ↑C
+def Chal.VelocityDetection.Effective.ComputableReal : ℝ → Prop :=
+fun x => ∃ q, Computable q ∧ ∀ (k : ℕ), |x - ↑(q k)| ≤ ↑(Chal.VelocityDetection.Effective.accuracy k)
+'OAI.VelocityDetection.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+== NavierStokesVelocity comparator-style: ok=260 problems=0 errors=1 | SHADOW-DIFF(see NavierStokesVelocity.standalone.norm vs NavierStokesVelocity.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0

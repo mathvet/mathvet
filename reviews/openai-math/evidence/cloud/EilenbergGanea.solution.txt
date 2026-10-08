@@ -1,0 +1,85 @@
+OAI.EilenbergGanea.source_main : Group.FG ↥OAI.EilenbergGanea.SourceGroup ∧
+  Group.ResiduallyFinite ↥OAI.EilenbergGanea.SourceGroup ∧
+    OAI.EilenbergGanea.cohomologicalDimension ↥OAI.EilenbergGanea.SourceGroup = 2 ∧
+      OAI.EilenbergGanea.HasClassifyingSpace (↥OAI.EilenbergGanea.SourceGroup) 3 ∧
+        ¬OAI.EilenbergGanea.HasClassifyingSpace (↥OAI.EilenbergGanea.SourceGroup) 2
+'OAI.EilenbergGanea.source_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.EilenbergGanea.seedWord : Bool → List (Bool × Bool) :=
+fun x =>
+  match x with
+  | false => [(false, true), (false, true), (true, false), (true, false), (true, false), (true, false), (true, false)]
+  | true =>
+    [(false, true), (false, true), (true, true), (false, false), (true, true), (false, false), (true, true),
+      (false, false)]
+def OAI.EilenbergGanea.boundaryLength : Bool → ℕ :=
+fun r => 3 * (OAI.EilenbergGanea.seedWord r).length
+@[reducible] def OAI.EilenbergGanea.RoseVertex : Type :=
+Option (Bool × Fin 2)
+@[reducible] def OAI.EilenbergGanea.SeedVertex : Type :=
+OAI.EilenbergGanea.RoseVertex ⊕ Bool
+@[reducible] def OAI.EilenbergGanea.CircleEdge : Type :=
+Bool × Fin 3
+@[reducible] def OAI.EilenbergGanea.Sector : Type :=
+(r : Bool) × Fin (OAI.EilenbergGanea.boundaryLength r)
+@[reducible] def OAI.EilenbergGanea.SeedEdge : Type :=
+OAI.EilenbergGanea.CircleEdge ⊕ OAI.EilenbergGanea.Sector
+@[reducible] def OAI.EilenbergGanea.SeedCell : Type :=
+OAI.EilenbergGanea.SeedVertex ⊕ OAI.EilenbergGanea.SeedEdge ⊕ OAI.EilenbergGanea.Sector
+def OAI.EilenbergGanea.circleStart : OAI.EilenbergGanea.CircleEdge → OAI.EilenbergGanea.RoseVertex :=
+fun e => ![none, some (e.1, 0), some (e.1, 1)] e.2
+def OAI.EilenbergGanea.circleEnd : OAI.EilenbergGanea.CircleEdge → OAI.EilenbergGanea.RoseVertex :=
+fun e => ![some (e.1, 0), some (e.1, 1), none] e.2
+def OAI.EilenbergGanea.sectorLetter : OAI.EilenbergGanea.Sector → Bool × Bool :=
+fun s => (OAI.EilenbergGanea.seedWord s.fst).get ⟨↑s.snd / 3, ⋯⟩
+def OAI.EilenbergGanea.sectorCircleEdge : OAI.EilenbergGanea.Sector → OAI.EilenbergGanea.CircleEdge :=
+fun s =>
+  ((OAI.EilenbergGanea.sectorLetter s).1,
+    if (OAI.EilenbergGanea.sectorLetter s).2 = true then ⟨↑s.snd % 3, ⋯⟩ else ⟨2 - ↑s.snd % 3, ⋯⟩)
+def OAI.EilenbergGanea.sectorStart : OAI.EilenbergGanea.Sector → OAI.EilenbergGanea.RoseVertex :=
+fun s =>
+  if (OAI.EilenbergGanea.sectorLetter s).2 = true then
+    OAI.EilenbergGanea.circleStart (OAI.EilenbergGanea.sectorCircleEdge s)
+  else OAI.EilenbergGanea.circleEnd (OAI.EilenbergGanea.sectorCircleEdge s)
+def OAI.EilenbergGanea.nextSector : OAI.EilenbergGanea.Sector → OAI.EilenbergGanea.Sector :=
+fun s => ⟨s.fst, ⟨(↑s.snd + 1) % OAI.EilenbergGanea.boundaryLength s.fst, ⋯⟩⟩
+def OAI.EilenbergGanea.edgeVertices : OAI.EilenbergGanea.SeedEdge → Finset OAI.EilenbergGanea.SeedVertex :=
+fun x =>
+  match x with
+  | Sum.inl e => {Sum.inl (OAI.EilenbergGanea.circleStart e), Sum.inl (OAI.EilenbergGanea.circleEnd e)}
+  | Sum.inr s => {Sum.inr s.fst, Sum.inl (OAI.EilenbergGanea.sectorStart s)}
+def OAI.EilenbergGanea.sectorEdges : OAI.EilenbergGanea.Sector → Finset OAI.EilenbergGanea.SeedEdge :=
+fun s => {Sum.inl (OAI.EilenbergGanea.sectorCircleEdge s), Sum.inr s, Sum.inr (OAI.EilenbergGanea.nextSector s)}
+def OAI.EilenbergGanea.sectorVertices : OAI.EilenbergGanea.Sector → Finset OAI.EilenbergGanea.SeedVertex :=
+fun s => (OAI.EilenbergGanea.sectorEdges s).biUnion OAI.EilenbergGanea.edgeVertices
+def OAI.EilenbergGanea.properFace : OAI.EilenbergGanea.SeedCell → OAI.EilenbergGanea.SeedCell → Prop :=
+fun x x_1 =>
+  match x, x_1 with
+  | Sum.inl v, Sum.inr (Sum.inl e) => v ∈ OAI.EilenbergGanea.edgeVertices e
+  | Sum.inl v, Sum.inr (Sum.inr s) => v ∈ OAI.EilenbergGanea.sectorVertices s
+  | Sum.inr (Sum.inl e), Sum.inr (Sum.inr s) => e ∈ OAI.EilenbergGanea.sectorEdges s
+  | x, x_2 => False
+def OAI.EilenbergGanea.seedGraph : SimpleGraph OAI.EilenbergGanea.SeedCell :=
+{ Adj := fun a b => OAI.EilenbergGanea.properFace a b ∨ OAI.EilenbergGanea.properFace b a,
+  symm := OAI.EilenbergGanea.seedGraph._proof_1, loopless := OAI.EilenbergGanea.seedGraph._proof_2 }
+def OAI.EilenbergGanea.artinRelations.{u_1} : {V : Type u_1} → SimpleGraph V → Set (FreeGroup V) :=
+fun {V} L => {w | ∃ q r, L.Adj q r ∧ w = FreeGroup.of q * FreeGroup.of r * (FreeGroup.of q)⁻¹ * (FreeGroup.of r)⁻¹}
+@[reducible] def OAI.EilenbergGanea.ArtinGroup.{u_1} : {V : Type u_1} → SimpleGraph V → Type u_1 :=
+fun {V} L => PresentedGroup (OAI.EilenbergGanea.artinRelations L)
+def OAI.EilenbergGanea.height.{u_1} : {V : Type u_1} →
+  (L : SimpleGraph V) → OAI.EilenbergGanea.ArtinGroup L →* Multiplicative ℤ :=
+fun {V} L => PresentedGroup.toGroup ⋯
+@[reducible] def OAI.EilenbergGanea.SourceGroup : Subgroup
+  (OAI.EilenbergGanea.ArtinGroup OAI.EilenbergGanea.seedGraph) :=
+(OAI.EilenbergGanea.height OAI.EilenbergGanea.seedGraph).ker
+def OAI.EilenbergGanea.cohomologicalDimension.{u_1} : (G : Type u_1) → [Group G] → WithBot ℕ∞ :=
+fun G [Group G] => CategoryTheory.projectiveDimension ↧(Representation.trivial ℤ G ℤ).asModule
+def OAI.EilenbergGanea.HasClassifyingSpace.{u, u_1} : (G : Type u_1) → [Group G] → ℕ → Prop :=
+fun G [Group G] n =>
+  ∃ X x,
+    ∃ (_ : T2Space X),
+      ∃ x_2,
+        (∀ (k : ℕ), n < k → IsEmpty (Topology.CWComplex.cell Set.univ k)) ∧
+          PathConnectedSpace X ∧
+            ∃ x_3,
+              Nonempty (FundamentalGroup X x_3 ≃* G) ∧
+                ∃ E x_4, ContractibleSpace E ∧ ∃ p, IsCoveringMap p ∧ Function.Surjective p

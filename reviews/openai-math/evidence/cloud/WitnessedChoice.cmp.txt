@@ -1,0 +1,478 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_WitnessedChoice.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.WitnessedChoice.main [thm] ok
+CMP OAI.WitnessedChoice.BGS.MainStatement [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.TrueModels [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.eval [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.HF [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.formula [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence [ind] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.mk [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula [ind] ok
+CMP OAI.WitnessedChoice.BGS.Formula.wsc [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term [ind] ok
+CMP OAI.WitnessedChoice.BGS.Term.iterate [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.comprehend [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.card [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.unique [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.union [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.pair [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.atoms [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.empty [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Term.var [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula.or [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula.and [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula.neg [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula.input [ctor] ok
+CMP OAI.WitnessedSeparation.Symbol [ind] ok
+CMP OAI.WitnessedSeparation.Symbol.Z [ctor] ok
+CMP OAI.WitnessedSeparation.Scalar [def] ok
+CMP OAI.WitnessedSeparation.Symbol.I [ctor] ok
+CMP OAI.WitnessedSeparation.Symbol.VB [ctor] ok
+CMP OAI.WitnessedSeparation.Symbol.EB [ctor] ok
+CMP OAI.WitnessedSeparation.Symbol.Cf [ctor] ok
+CMP OAI.WitnessedSeparation.Symbol.Ed [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Formula.equal [ctor] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.polynomial [def] ok
+CMP OAI.WitnessedChoice.BGS.FiniteInput.input [def] ok
+CMP OAI.WitnessedChoice.BGS.FiniteInput [ind] ok
+CMP OAI.WitnessedChoice.BGS.FiniteInput.mk [ctor] ok
+CMP OAI.WitnessedSeparation.Input [ind] ok
+CMP OAI.WitnessedSeparation.Input.mk [ctor] ok
+CMP OAI.WitnessedChoice.BGS.FiniteInput.Carrier [def] ok
+CMP OAI.WitnessedChoice.BGS.FiniteInput.finite [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.eval [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.eval._f [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.free [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.free._f [def] ok
+CMP OAI.WitnessedChoice.BGS.dropFree [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.free.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.casesOn [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.rec [rec] ok
+CMP OAI.WitnessedChoice.BGS.Formula.below [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.free._f [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.free.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.casesOn [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.rec [rec] ok
+CMP OAI.WitnessedChoice.BGS.Term.below [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.brecOn [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.brecOn.go [def] ok
+CMP OAI.WitnessedChoice.BGS.resource [def] ok
+CMP OAI.WitnessedChoice.BGS.witnessedIteration [def] ok
+CMP OAI.WitnessedChoice.BGS.FirstPath [def] ok
+CMP OAI.WitnessedChoice.BGS.StrictPrefix [def] ok
+CMP OAI.WitnessedChoice.BGS.ChoicePrefix [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.elements [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.elements._proof_1 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawElements [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.mk [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.instDecidableEqHF [def] ok
+CMP OAI.WitnessedChoice.BGS.emptyHF [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.ofFinset [def] ok
+CMP OAI.WitnessedChoice.BGS.Result [def] ok
+CMP OAI.WitnessedChoice.BGS.GoodWSC [def] ok
+CMP OAI.WitnessedChoice.BGS.WitnessesHistory [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_7 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.map [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.map._proof_3 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawMap [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawMap' [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawMap'._f [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawRank'.match_1 [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.map._proof_2 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.map._proof_1 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_6 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_5 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_4 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_3 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_2 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.instMulActionHF._proof_1 [thm] ok
+CMP OAI.WitnessedChoice.BGS.FixesParameters [def] ok
+CMP OAI.WitnessedChoice.BGS.Automorphism [def] ok
+CMP OAI.WitnessedSeparation.Input.rel [def] ok
+CMP OAI.WitnessedChoice.BGS.permutationGraph [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.atom [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.pair [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.singleton [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.double [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.isSet [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.isSet._proof_1 [thm] ok
+CMP OAI.WitnessedChoice.BGS.TC [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.closure [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.closure._proof_1 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.rank [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rank._proof_1 [thm] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawRank [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawRank' [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.rawRank'._f [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.instDecidableEqHF_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.inputHF [def] ok
+CMP OAI.WitnessedChoice.BGS.lift₂ [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.eval.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.eval._f [def] ok
+CMP OAI.WitnessedChoice.BGS.ordinaryIteration [def] ok
+CMP OAI.WitnessedChoice.BGS.iterationLoop [def] ok
+CMP OAI.WitnessedChoice.BGS.iterationLoop._f [def] ok
+CMP OAI.WitnessedChoice.BGS.iterationLoop.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.collect [def] ok
+CMP OAI.WitnessedChoice.BGS.cardHF [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.ordinal [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.ordinal._f [def] ok
+CMP OAI.WitnessedSeparation.Hereditary.ordinal.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.uniqueHF [def] ok
+CMP OAI.WitnessedChoice.BGS.unionHF [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.eval.match_1 [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.isCPT [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.wscCount [def] ok
+CMP OAI.WitnessedChoice.BGS.Formula.wscCount._f [def] ok
+CMP OAI.WitnessedChoice.BGS.Term.wscCount._f [def] ok
+CMP OAI.WitnessedChoice.BGS.Sentence.BooleanOnAllInputs [def] ok
+Chal.WitnessedChoice.main : Chal.WitnessedChoice.BGS.MainStatement
+@[reducible] def Chal.WitnessedSeparation.Hereditary.HF.{u} : Type u → Type u :=
+fun A => Quotient Lists.instSetoidLists
+def Chal.WitnessedSeparation.Hereditary.mk.{u} : {A : Type u} → Lists A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} l => ⟦l⟧
+def Chal.WitnessedSeparation.Hereditary.atom.{u} : {A : Type u} → A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a => Chal.WitnessedSeparation.Hereditary.mk (Lists.atom a)
+def Chal.WitnessedSeparation.Hereditary.isSet.{u} : {A : Type u} → Chal.WitnessedSeparation.Hereditary.HF A → Bool :=
+fun {A} x => Quotient.liftOn x (fun l => l.fst) ⋯
+def Chal.WitnessedSeparation.Hereditary.rawElements.{u} : {A : Type u} →
+  Lists A → Finset (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} l => Finset.image Chal.WitnessedSeparation.Hereditary.mk l.toList.toFinset
+def Chal.WitnessedSeparation.Hereditary.elements.{u} : {A : Type u} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Finset (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} x => Quotient.liftOn x Chal.WitnessedSeparation.Hereditary.rawElements ⋯
+def Chal.WitnessedSeparation.Hereditary.ofFinset.{u} : {A : Type u} →
+  Finset (Chal.WitnessedSeparation.Hereditary.HF A) → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} s => Chal.WitnessedSeparation.Hereditary.mk (Lists.ofList (List.map Quotient.out s.toList))
+def Chal.WitnessedSeparation.Hereditary.rawRank.{u} : {A : Type u} → Lists A → ℕ :=
+fun {A} l => Chal.WitnessedSeparation.Hereditary.rawRank' l.snd
+def Chal.WitnessedSeparation.Hereditary.rawRank.{u} : {A : Type u} → Lists A → ℕ :=
+fun {A} l => Chal.WitnessedSeparation.Hereditary.rawRank' l.snd
+def Chal.WitnessedSeparation.Hereditary.rank.{u} : {A : Type u} → Chal.WitnessedSeparation.Hereditary.HF A → ℕ :=
+fun {A} x => Quotient.liftOn x Chal.WitnessedSeparation.Hereditary.rawRank ⋯
+def Chal.WitnessedSeparation.Hereditary.rawMap.{u, v} : {A : Type u} → {B : Type v} → (A → B) → Lists A → Lists B :=
+fun {A} {B} f l => ⟨l.fst, Chal.WitnessedSeparation.Hereditary.rawMap' f l.snd⟩
+def Chal.WitnessedSeparation.Hereditary.rawMap.{u, v} : {A : Type u} → {B : Type v} → (A → B) → Lists A → Lists B :=
+fun {A} {B} f l => ⟨l.fst, Chal.WitnessedSeparation.Hereditary.rawMap' f l.snd⟩
+def Chal.WitnessedSeparation.Hereditary.map.{u, v} : {A : Type u} →
+  {B : Type v} → (A → B) → Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF B :=
+fun {A} {B} f x =>
+  have toList_rawMap' := ⋯;
+  have rawMap_congr := ⋯;
+  Quotient.liftOn x (fun l => Chal.WitnessedSeparation.Hereditary.mk (Chal.WitnessedSeparation.Hereditary.rawMap f l)) ⋯
+def Chal.WitnessedSeparation.Hereditary.singleton.{u} : {A : Type u} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a => Chal.WitnessedSeparation.Hereditary.ofFinset {a}
+def Chal.WitnessedSeparation.Hereditary.double.{u} : {A : Type u} →
+  Chal.WitnessedSeparation.Hereditary.HF A →
+    Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a b => Chal.WitnessedSeparation.Hereditary.ofFinset {a, b}
+def Chal.WitnessedSeparation.Hereditary.pair.{u} : {A : Type u} →
+  Chal.WitnessedSeparation.Hereditary.HF A →
+    Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a b =>
+  Chal.WitnessedSeparation.Hereditary.double (Chal.WitnessedSeparation.Hereditary.singleton a)
+    (Chal.WitnessedSeparation.Hereditary.double a b)
+def Chal.WitnessedSeparation.Hereditary.ordinal.{u} : {A : Type u} → ℕ → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x => Nat.brecOn x Chal.WitnessedSeparation.Hereditary.ordinal._f
+@[irreducible] def Chal.WitnessedSeparation.Hereditary.closure.{u} : {A : Type u} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Finset (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} =>
+  WellFounded.Nat.fix (fun x => Chal.WitnessedSeparation.Hereditary.rank x) fun x a =>
+    insert x ((Chal.WitnessedSeparation.Hereditary.elements x).attach.biUnion fun y => a ↑y ⋯)
+@[reducible] def Chal.WitnessedSeparation.Scalar : Type :=
+ZMod 3
+inductive Chal.WitnessedSeparation.Symbol : Type
+number of parameters: 0
+constructors:
+Chal.WitnessedSeparation.Symbol.Ed : Chal.WitnessedSeparation.Symbol
+Chal.WitnessedSeparation.Symbol.Cf : Chal.WitnessedSeparation.Symbol
+Chal.WitnessedSeparation.Symbol.EB : Chal.WitnessedSeparation.Symbol
+Chal.WitnessedSeparation.Symbol.VB : Chal.WitnessedSeparation.Symbol
+Chal.WitnessedSeparation.Symbol.I : Chal.WitnessedSeparation.Symbol
+Chal.WitnessedSeparation.Symbol.Z : Chal.WitnessedSeparation.Scalar → Chal.WitnessedSeparation.Symbol
+structure Chal.WitnessedSeparation.Input (A : Type) : Type
+number of parameters: 1
+fields:
+  Chal.WitnessedSeparation.Input.rel : Chal.WitnessedSeparation.Symbol → A → A → Bool
+constructor:
+  Chal.WitnessedSeparation.Input.mk {A : Type} (rel : Chal.WitnessedSeparation.Symbol → A → A → Bool) :
+    Chal.WitnessedSeparation.Input A
+inductive Chal.WitnessedChoice.BGS.Term : ℕ → Type
+number of parameters: 0
+constructors:
+Chal.WitnessedChoice.BGS.Term.var : {n : ℕ} → Fin n → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.empty : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.atoms : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.pair : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.union : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.unique : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.card : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.comprehend : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Term (n + 1) →
+    Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Formula (n + 1) → Chal.WitnessedChoice.BGS.Term n
+Chal.WitnessedChoice.BGS.Term.iterate : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Term (n + 1) → Chal.WitnessedChoice.BGS.Term n
+inductive Chal.WitnessedChoice.BGS.Formula : ℕ → Type
+number of parameters: 0
+constructors:
+Chal.WitnessedChoice.BGS.Formula.equal : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Formula n
+Chal.WitnessedChoice.BGS.Formula.input : {n : ℕ} →
+  Chal.WitnessedSeparation.Symbol →
+    Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Term n → Chal.WitnessedChoice.BGS.Formula n
+Chal.WitnessedChoice.BGS.Formula.neg : {n : ℕ} → Chal.WitnessedChoice.BGS.Formula n → Chal.WitnessedChoice.BGS.Formula n
+Chal.WitnessedChoice.BGS.Formula.and : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Formula n → Chal.WitnessedChoice.BGS.Formula n → Chal.WitnessedChoice.BGS.Formula n
+Chal.WitnessedChoice.BGS.Formula.or : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Formula n → Chal.WitnessedChoice.BGS.Formula n → Chal.WitnessedChoice.BGS.Formula n
+Chal.WitnessedChoice.BGS.Formula.wsc : {n : ℕ} →
+  Chal.WitnessedChoice.BGS.Term (n + 2) →
+    Chal.WitnessedChoice.BGS.Term (n + 1) →
+      Chal.WitnessedChoice.BGS.Term (n + 2) →
+        Chal.WitnessedChoice.BGS.Formula (n + 1) → Chal.WitnessedChoice.BGS.Formula n
+def Chal.WitnessedChoice.BGS.dropFree : {n : ℕ} → Finset (Fin (n + 1)) → Finset (Fin n) :=
+fun {n} f => {i | i.succ ∈ f}
+def Chal.WitnessedChoice.BGS.Term.free : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n → Finset (Fin n) :=
+fun x x_1 => x_1.brecOn Chal.WitnessedChoice.BGS.Term.free._f Chal.WitnessedChoice.BGS.Formula.free._f
+def Chal.WitnessedChoice.BGS.Formula.free : {n : ℕ} → Chal.WitnessedChoice.BGS.Formula n → Finset (Fin n) :=
+fun x x_1 => x_1.brecOn Chal.WitnessedChoice.BGS.Term.free._f Chal.WitnessedChoice.BGS.Formula.free._f
+def Chal.WitnessedChoice.BGS.Term.wscCount : {n : ℕ} → Chal.WitnessedChoice.BGS.Term n → ℕ :=
+fun x x_1 => x_1.brecOn Chal.WitnessedChoice.BGS.Term.wscCount._f Chal.WitnessedChoice.BGS.Formula.wscCount._f
+def Chal.WitnessedChoice.BGS.Formula.wscCount : {n : ℕ} → Chal.WitnessedChoice.BGS.Formula n → ℕ :=
+fun x x_1 => x_1.brecOn Chal.WitnessedChoice.BGS.Term.wscCount._f Chal.WitnessedChoice.BGS.Formula.wscCount._f
+@[reducible] def Chal.WitnessedChoice.BGS.Result : Type → Type :=
+fun α => Option α
+def Chal.WitnessedChoice.BGS.emptyHF : {A : Type} → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} => Chal.WitnessedSeparation.Hereditary.ofFinset ∅
+def Chal.WitnessedChoice.BGS.TC : {A : Type} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Finset (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} x => (Chal.WitnessedSeparation.Hereditary.elements x).biUnion Chal.WitnessedSeparation.Hereditary.closure
+def Chal.WitnessedChoice.BGS.unionHF : {A : Type} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x =>
+  Chal.WitnessedSeparation.Hereditary.ofFinset
+    ((Chal.WitnessedSeparation.Hereditary.elements x).biUnion Chal.WitnessedSeparation.Hereditary.elements)
+def Chal.WitnessedChoice.BGS.uniqueHF : {A : Type} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x =>
+  if h : ∃ y, Chal.WitnessedSeparation.Hereditary.elements x = {y} then h.choose else Chal.WitnessedChoice.BGS.emptyHF
+def Chal.WitnessedChoice.BGS.cardHF : {A : Type} →
+  Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x => Chal.WitnessedSeparation.Hereditary.ordinal (Chal.WitnessedSeparation.Hereditary.elements x).card
+def Chal.WitnessedChoice.BGS.inputHF : {A : Type} →
+  Chal.WitnessedSeparation.Input A →
+    Chal.WitnessedSeparation.Symbol →
+      Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A → Bool :=
+fun {A} S r x y =>
+  decide
+    (∃ a b,
+      x = Chal.WitnessedSeparation.Hereditary.atom a ∧
+        y = Chal.WitnessedSeparation.Hereditary.atom b ∧ S.rel r a b = true)
+def Chal.WitnessedChoice.BGS.lift₂ : {X Y Z : Type} →
+  (X → Y → Z) →
+    Chal.WitnessedChoice.BGS.Result X → Chal.WitnessedChoice.BGS.Result Y → Chal.WitnessedChoice.BGS.Result Z :=
+fun {X Y Z} f a b => Option.bind a fun x => Option.map (f x) b
+def Chal.WitnessedChoice.BGS.collect : {A : Type} →
+  Chal.WitnessedSeparation.Hereditary.HF A →
+    (Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedChoice.BGS.Result Bool) →
+      (Chal.WitnessedSeparation.Hereditary.HF A →
+          Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} r guard body =>
+  if
+      (∀ x ∈ Chal.WitnessedSeparation.Hereditary.elements r, Option.isSome (guard x) = true) ∧
+        ∀ x ∈ Chal.WitnessedSeparation.Hereditary.elements r, guard x = some true → Option.isSome (body x) = true then
+    some
+      (Chal.WitnessedSeparation.Hereditary.ofFinset
+        (Finset.image (fun x => Option.getD (body x) Chal.WitnessedChoice.BGS.emptyHF)
+          ({x ∈ Chal.WitnessedSeparation.Hereditary.elements r | guard x = some true})))
+  else none
+def Chal.WitnessedChoice.BGS.iterationLoop : {A : Type} →
+  ℕ →
+    (Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+      ℕ →
+        Chal.WitnessedSeparation.Hereditary.HF A →
+          Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} p step x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    Chal.WitnessedSeparation.Hereditary.HF A →
+      Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A))
+    x (Chal.WitnessedChoice.BGS.iterationLoop._f p step) x_1
+def Chal.WitnessedChoice.BGS.ordinaryIteration : {A : Type} →
+  ℕ →
+    (Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+      Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} p step => Chal.WitnessedChoice.BGS.iterationLoop p step (p + 1) Chal.WitnessedChoice.BGS.emptyHF
+def Chal.WitnessedChoice.BGS.resource : Polynomial ℝ → ℕ → ℕ :=
+fun p n => ⌊Polynomial.eval (↑n) p⌋₊
+def Chal.WitnessedChoice.BGS.permutationGraph : {A : Type} →
+  [Fintype A] → Equiv.Perm A → Chal.WitnessedSeparation.Hereditary.HF A :=
+fun {A} [Fintype A] g =>
+  Chal.WitnessedSeparation.Hereditary.ofFinset
+    (Finset.image
+      (fun a =>
+        Chal.WitnessedSeparation.Hereditary.pair (Chal.WitnessedSeparation.Hereditary.atom a)
+          (Chal.WitnessedSeparation.Hereditary.atom (g a)))
+      Finset.univ)
+def Chal.WitnessedChoice.BGS.Automorphism : {A : Type} → Chal.WitnessedSeparation.Input A → Equiv.Perm A → Prop :=
+fun {A} S g => ∀ (r : Chal.WitnessedSeparation.Symbol) (a b : A), S.rel r (g a) (g b) = S.rel r a b
+def Chal.WitnessedChoice.BGS.ChoicePrefix : {A : Type} →
+  (Chal.WitnessedSeparation.Hereditary.HF A →
+      Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+    (Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+      (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) → (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} step choice b c k =>
+  b 0 = Chal.WitnessedChoice.BGS.emptyHF ∧
+    ∀ i < k,
+      (∃ D, choice (b i) = some D ∧ c i ∈ Chal.WitnessedSeparation.Hereditary.elements D) ∧
+        step (b i) (c i) = some (b (i + 1))
+def Chal.WitnessedChoice.BGS.StrictPrefix : {A : Type} → (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} b k => ∀ i < k, b i ≠ b (i + 1)
+def Chal.WitnessedChoice.BGS.FirstPath : {A : Type} →
+  (Chal.WitnessedSeparation.Hereditary.HF A →
+      Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+    (Chal.WitnessedSeparation.Hereditary.HF A →
+        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+      (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) → (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} step choice b c t =>
+  Chal.WitnessedChoice.BGS.ChoicePrefix step choice b c (t + 1) ∧
+    Chal.WitnessedChoice.BGS.StrictPrefix b t ∧ b t = b (t + 1)
+def Chal.WitnessedChoice.BGS.FixesParameters : {A : Type} →
+  {n : ℕ} → Finset (Fin n) → (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) → Equiv.Perm A → Prop :=
+fun {A} {n} free env g => ∀ i ∈ free, g • env i = env i
+def Chal.WitnessedChoice.BGS.WitnessesHistory : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      Chal.WitnessedSeparation.Input A →
+        Finset (Fin n) →
+          (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) →
+            (ℕ → Chal.WitnessedSeparation.Hereditary.HF A) →
+              ℕ → Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedSeparation.Hereditary.HF A → Prop :=
+fun {A} [Fintype A] {n} S free env b i D M =>
+  Chal.WitnessedSeparation.Hereditary.isSet M = true ∧
+    (∀ w ∈ Chal.WitnessedSeparation.Hereditary.elements M,
+        ∃ g,
+          w = Chal.WitnessedChoice.BGS.permutationGraph g ∧
+            Chal.WitnessedChoice.BGS.Automorphism S g ∧
+              Chal.WitnessedChoice.BGS.FixesParameters free env g ∧ ∀ j ≤ i, g • b j = b j) ∧
+      ∀ u ∈ Chal.WitnessedSeparation.Hereditary.elements D,
+        ∀ v ∈ Chal.WitnessedSeparation.Hereditary.elements D,
+          ∃ g, Chal.WitnessedChoice.BGS.permutationGraph g ∈ Chal.WitnessedSeparation.Hereditary.elements M ∧ g • u = v
+def Chal.WitnessedChoice.BGS.GoodWSC : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      Chal.WitnessedSeparation.Input A →
+        ℕ →
+          Finset (Fin n) →
+            (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) →
+              (Chal.WitnessedSeparation.Hereditary.HF A →
+                  Chal.WitnessedSeparation.Hereditary.HF A →
+                    Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                (Chal.WitnessedSeparation.Hereditary.HF A →
+                    Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                  (Chal.WitnessedSeparation.Hereditary.HF A →
+                      Chal.WitnessedSeparation.Hereditary.HF A →
+                        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                    (Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedChoice.BGS.Result Bool) → Prop :=
+fun {A} [Fintype A] {n} S p free env step choice witness output =>
+  (∀ (b c : ℕ → Chal.WitnessedSeparation.Hereditary.HF A) (k : ℕ),
+      Chal.WitnessedChoice.BGS.ChoicePrefix step choice b c k →
+        Chal.WitnessedChoice.BGS.StrictPrefix b k →
+          k ≤ p ∧
+            (Chal.WitnessedChoice.BGS.TC (b k)).card ≤ p ∧
+              ∃ D,
+                choice (b k) = some D ∧
+                  (Chal.WitnessedSeparation.Hereditary.elements D).Nonempty ∧
+                    ∀ u ∈ Chal.WitnessedSeparation.Hereditary.elements D, Option.isSome (step (b k) u) = true) ∧
+    ∀ (b c : ℕ → Chal.WitnessedSeparation.Hereditary.HF A) (t : ℕ),
+      Chal.WitnessedChoice.BGS.FirstPath step choice b c t →
+        t + 2 ≤ p ∧
+          (∀ i ≤ t,
+              ∃ D M,
+                choice (b i) = some D ∧
+                  witness (b t) (b i) = some M ∧ Chal.WitnessedChoice.BGS.WitnessesHistory S free env b i D M) ∧
+            Option.isSome (output (b t)) = true
+def Chal.WitnessedChoice.BGS.witnessedIteration : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      Chal.WitnessedSeparation.Input A →
+        ℕ →
+          Finset (Fin n) →
+            (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) →
+              (Chal.WitnessedSeparation.Hereditary.HF A →
+                  Chal.WitnessedSeparation.Hereditary.HF A →
+                    Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                (Chal.WitnessedSeparation.Hereditary.HF A →
+                    Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                  (Chal.WitnessedSeparation.Hereditary.HF A →
+                      Chal.WitnessedSeparation.Hereditary.HF A →
+                        Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A)) →
+                    (Chal.WitnessedSeparation.Hereditary.HF A → Chal.WitnessedChoice.BGS.Result Bool) →
+                      Chal.WitnessedChoice.BGS.Result Bool :=
+fun {A} [Fintype A] {n} S p free env step choice witness output =>
+  if Chal.WitnessedChoice.BGS.GoodWSC S p free env step choice witness output then
+    some
+      (decide
+        (∀ (b c : ℕ → Chal.WitnessedSeparation.Hereditary.HF A) (t : ℕ),
+          Chal.WitnessedChoice.BGS.FirstPath step choice b c t → output (b t) = some true))
+  else none
+def Chal.WitnessedChoice.BGS.Term.eval : {A : Type} →
+  [Fintype A] →
+    Chal.WitnessedSeparation.Input A →
+      Polynomial ℝ →
+        {n : ℕ} →
+          Chal.WitnessedChoice.BGS.Term n →
+            (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) →
+              Chal.WitnessedChoice.BGS.Result (Chal.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} [Fintype A] S p x x_1 x_2 =>
+  x_1.brecOn (Chal.WitnessedChoice.BGS.Term.eval._f S p) (Chal.WitnessedChoice.BGS.Formula.eval._f S p) x_2
+def Chal.WitnessedChoice.BGS.Formula.eval : {A : Type} →
+  [Fintype A] →
+    Chal.WitnessedSeparation.Input A →
+      Polynomial ℝ →
+        {n : ℕ} →
+          Chal.WitnessedChoice.BGS.Formula n →
+            (Fin n → Chal.WitnessedSeparation.Hereditary.HF A) → Chal.WitnessedChoice.BGS.Result Bool :=
+fun {A} [Fintype A] S p x x_1 x_2 =>
+  x_1.brecOn (Chal.WitnessedChoice.BGS.Term.eval._f S p) (Chal.WitnessedChoice.BGS.Formula.eval._f S p) x_2
+structure Chal.WitnessedChoice.BGS.FiniteInput : Type 1
+number of parameters: 0
+fields:
+  Chal.WitnessedChoice.BGS.FiniteInput.Carrier : Type
+  Chal.WitnessedChoice.BGS.FiniteInput.finite : Fintype self.Carrier
+  Chal.WitnessedChoice.BGS.FiniteInput.input : Chal.WitnessedSeparation.Input self.Carrier
+constructor:
+  Chal.WitnessedChoice.BGS.FiniteInput.mk (Carrier : Type) (finite : Fintype Carrier)
+    (input : Chal.WitnessedSeparation.Input Carrier) : Chal.WitnessedChoice.BGS.FiniteInput
+structure Chal.WitnessedChoice.BGS.Sentence : Type
+number of parameters: 0
+fields:
+  Chal.WitnessedChoice.BGS.Sentence.formula : Chal.WitnessedChoice.BGS.Formula 0
+  Chal.WitnessedChoice.BGS.Sentence.polynomial : Polynomial ℝ
+constructor:
+  Chal.WitnessedChoice.BGS.Sentence.mk (formula : Chal.WitnessedChoice.BGS.Formula 0) (polynomial : Polynomial ℝ) :
+    Chal.WitnessedChoice.BGS.Sentence
+def Chal.WitnessedChoice.BGS.Sentence.eval : Chal.WitnessedChoice.BGS.Sentence →
+  Chal.WitnessedChoice.BGS.FiniteInput → Chal.WitnessedChoice.BGS.Result Bool :=
+fun φ S => Chal.WitnessedChoice.BGS.Formula.eval S.input φ.polynomial φ.formula Fin.elim0
+def Chal.WitnessedChoice.BGS.Sentence.isCPT : Chal.WitnessedChoice.BGS.Sentence → Prop :=
+fun φ => φ.formula.wscCount = 0
+def Chal.WitnessedChoice.BGS.Sentence.BooleanOnAllInputs : Chal.WitnessedChoice.BGS.Sentence → Prop :=
+fun φ => ∀ (S : Chal.WitnessedChoice.BGS.FiniteInput), ∃ b, φ.eval S = some b
+def Chal.WitnessedChoice.BGS.Sentence.TrueModels : Chal.WitnessedChoice.BGS.Sentence →
+  Set Chal.WitnessedChoice.BGS.FiniteInput :=
+fun φ => {S | φ.eval S = some true}
+def Chal.WitnessedChoice.BGS.MainStatement : Prop :=
+∃ φ,
+  φ.formula.wscCount = 1 ∧
+    φ.BooleanOnAllInputs ∧ ∀ (ψ : Chal.WitnessedChoice.BGS.Sentence), ψ.isCPT → φ.TrueModels ≠ ψ.TrueModels
+'OAI.WitnessedChoice.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== WitnessedChoice comparator-style: ok=128 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,0 +1,68 @@
+@OAI.KLInvariance.combinatorial_invariance : ∀ {B : Type u_1} {W : Type u_2} [inst : Group W] {M : CoxeterMatrix B}
+  {B' : Type u_3} {W' : Type u_4} [inst_1 : Group W'] {M' : CoxeterMatrix B'} (cs : CoxeterSystem M W)
+  (cs' : CoxeterSystem M' W') {u b : W} {u' b' : W'},
+  OAI.KLInvariance.BruhatLE cs u b →
+    OAI.KLInvariance.BruhatLE cs' u' b' →
+      ∀ (ι : OAI.KLInvariance.Interval cs u b ≃o OAI.KLInvariance.Interval cs' u' b'),
+        OAI.KLInvariance.klPolynomial cs u b = OAI.KLInvariance.klPolynomial cs' u' b'
+'OAI.KLInvariance.combinatorial_invariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.KLInvariance.BruhatStep.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Prop :=
+fun {B} {W} [Group W] {M} cs x y => cs.length x < cs.length y ∧ ∃ t, cs.IsReflection t ∧ y = t * x
+def OAI.KLInvariance.BruhatLE.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Prop :=
+fun {B} {W} [Group W] {M} cs => Relation.ReflTransGen (OAI.KLInvariance.BruhatStep cs)
+def OAI.KLInvariance.Interval.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Type (max 0 v) :=
+fun {B} {W} [Group W] {M} cs u b => { x // OAI.KLInvariance.BruhatLE cs u x ∧ OAI.KLInvariance.BruhatLE cs x b }
+def OAI.KLInvariance.rankDifference.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → ℕ :=
+fun {B} {W} [Group W] {M} cs x y => cs.length y - cs.length x
+@[reducible] def OAI.KLInvariance.PolynomialFamilies.{v} : Type v → Type v :=
+fun W => (W → W → Polynomial ℤ) × (W → W → Polynomial ℤ)
+structure OAI.KLInvariance.NormalizedKL.{u, v} {B : Type u} {W : Type v} [Group W] {M : CoxeterMatrix B}
+  (cs : CoxeterSystem M W) (RP : OAI.KLInvariance.PolynomialFamilies W) : Prop
+number of parameters: 6
+fields:
+  OAI.KLInvariance.NormalizedKL.R_diagonal : ∀ (x : W), RP.1 x x = 1
+  OAI.KLInvariance.NormalizedKL.R_zero : ∀ (x y : W), ¬OAI.KLInvariance.BruhatLE cs x y → RP.1 x y = 0
+  OAI.KLInvariance.NormalizedKL.R_recursion : ∀ (x y : W) (i : B),
+      cs.length (cs.simple i * y) < cs.length y →
+        RP.1 x y =
+          if cs.length (cs.simple i * x) < cs.length x then RP.1 (cs.simple i * x) (cs.simple i * y)
+          else (Polynomial.X - 1) * RP.1 x (cs.simple i * y) + Polynomial.X * RP.1 (cs.simple i * x) (cs.simple i * y)
+  OAI.KLInvariance.NormalizedKL.P_diagonal : ∀ (x : W), RP.2 x x = 1
+  OAI.KLInvariance.NormalizedKL.P_zero : ∀ (x y : W), ¬OAI.KLInvariance.BruhatLE cs x y → RP.2 x y = 0
+  OAI.KLInvariance.NormalizedKL.P_degree : ∀ (x y : W),
+      OAI.KLInvariance.BruhatLE cs x y → x ≠ y → 2 * (RP.2 x y).natDegree < OAI.KLInvariance.rankDifference cs x y
+  OAI.KLInvariance.NormalizedKL.reciprocity : ∀ (x y : W),
+      OAI.KLInvariance.BruhatLE cs x y →
+        Polynomial.reflect (OAI.KLInvariance.rankDifference cs x y) (RP.2 x y) =
+          ∑ᶠ (z : OAI.KLInvariance.Interval cs x y), RP.1 x ↑z * RP.2 (↑z) y
+constructor:
+  OAI.KLInvariance.NormalizedKL.mk.{u, v} {B : Type u} {W : Type v} [Group W] {M : CoxeterMatrix B}
+    {cs : CoxeterSystem M W} {RP : OAI.KLInvariance.PolynomialFamilies W} (R_diagonal : ∀ (x : W), RP.1 x x = 1)
+    (R_zero : ∀ (x y : W), ¬OAI.KLInvariance.BruhatLE cs x y → RP.1 x y = 0)
+    (R_recursion :
+      ∀ (x y : W) (i : B),
+        cs.length (cs.simple i * y) < cs.length y →
+          RP.1 x y =
+            if cs.length (cs.simple i * x) < cs.length x then RP.1 (cs.simple i * x) (cs.simple i * y)
+            else
+              (Polynomial.X - 1) * RP.1 x (cs.simple i * y) + Polynomial.X * RP.1 (cs.simple i * x) (cs.simple i * y))
+    (P_diagonal : ∀ (x : W), RP.2 x x = 1) (P_zero : ∀ (x y : W), ¬OAI.KLInvariance.BruhatLE cs x y → RP.2 x y = 0)
+    (P_degree :
+      ∀ (x y : W),
+        OAI.KLInvariance.BruhatLE cs x y → x ≠ y → 2 * (RP.2 x y).natDegree < OAI.KLInvariance.rankDifference cs x y)
+    (reciprocity :
+      ∀ (x y : W),
+        OAI.KLInvariance.BruhatLE cs x y →
+          Polynomial.reflect (OAI.KLInvariance.rankDifference cs x y) (RP.2 x y) =
+            ∑ᶠ (z : OAI.KLInvariance.Interval cs x y), RP.1 x ↑z * RP.2 (↑z) y) :
+    OAI.KLInvariance.NormalizedKL cs RP
+def OAI.KLInvariance.klFamilies.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → OAI.KLInvariance.PolynomialFamilies W :=
+fun {B} {W} [Group W] {M} cs => Classical.epsilon (OAI.KLInvariance.NormalizedKL cs)
+def OAI.KLInvariance.klPolynomial.{u, v} : {B : Type u} →
+  {W : Type v} → [inst : Group W] → {M : CoxeterMatrix B} → CoxeterSystem M W → W → W → Polynomial ℤ :=
+fun {B} {W} [Group W] {M} cs x y => (OAI.KLInvariance.klFamilies cs).2 x y

@@ -1,0 +1,51 @@
+== KLInvariance  module=OAI.RepresentationTheory.KazhdanLusztig.Invariance  start=2026-10-08T16:25:17Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Model (10s)
+✔ [8925/8957] Built OAI.RepresentationTheory.KazhdanLusztig.ReflectionPlane (10s)
+✔ [8926/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Sheaves (11s)
+✔ [8927/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Coxeter (12s)
+✔ [8928/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Comparison (7.9s)
+✔ [8929/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Bruhat (9.6s)
+✔ [8930/8957] Built OAI.RepresentationTheory.KazhdanLusztig.ModuleAlgebra (13s)
+✔ [8931/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Hecke (14s)
+✔ [8932/8957] Built OAI.RepresentationTheory.KazhdanLusztig.OrdinaryR (7.4s)
+✔ [8933/8957] Built OAI.RepresentationTheory.KazhdanLusztig.GradedModules (21s)
+✔ [8934/8957] Built OAI.RepresentationTheory.KazhdanLusztig.CanonicalKL (7.1s)
+✔ [8935/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Dihedral (9.5s)
+✔ [8936/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Tits (22s)
+✔ [8937/8957] Built OAI.RepresentationTheory.KazhdanLusztig.ReflectionSchedules (19s)
+✔ [8938/8957] Built OAI.RepresentationTheory.KazhdanLusztig.GradedSheaves (15s)
+✔ [8939/8957] Built OAI.RepresentationTheory.KazhdanLusztig.HilbertSeries (13s)
+✔ [8940/8957] Built OAI.RepresentationTheory.KazhdanLusztig.MinimalExtensions (22s)
+✔ [8941/8957] Built OAI.RepresentationTheory.KazhdanLusztig.SheafMorphisms (25s)
+✔ [8942/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Decomposition (20s)
+✔ [8943/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Frobenius (58s)
+✔ [8944/8957] Built OAI.RepresentationTheory.KazhdanLusztig.BottSamelson (173s)
+✔ [8945/8957] Built OAI.RepresentationTheory.KazhdanLusztig.IntegralPairings (698s)
+✔ [8946/8957] Built OAI.RepresentationTheory.KazhdanLusztig.BalancedPairings (51s)
+✔ [8947/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Support (33s)
+✔ [8948/8957] Built OAI.RepresentationTheory.KazhdanLusztig.CharacterReciprocity (42s)
+✔ [8949/8957] Built OAI.RepresentationTheory.KazhdanLusztig.DyerPaths (19s)
+✔ [8950/8957] Built OAI.RepresentationTheory.KazhdanLusztig.ReflectionOrders (10s)
+✔ [8951/8957] Built OAI.RepresentationTheory.KazhdanLusztig.DihedralIntervals (20s)
+✔ [8952/8957] Built OAI.RepresentationTheory.KazhdanLusztig.PlaneLocalization (22s)
+✔ [8953/8957] Built OAI.RepresentationTheory.KazhdanLusztig.EdgeLocalization (27s)
+✔ [8954/8957] Built OAI.RepresentationTheory.KazhdanLusztig.PositiveTransfer (20s)
+✔ [8955/8957] Built OAI.RepresentationTheory.KazhdanLusztig.TerminalKernels (19s)
+✔ [8956/8957] Built OAI.RepresentationTheory.KazhdanLusztig.SimultaneousInvariance (10s)
+✔ [8957/8957] Built OAI.RepresentationTheory.KazhdanLusztig.Invariance (9.6s)
+Build completed successfully (8957 jobs).
+== build rc=0 seconds=1429
+{"theorems": ["OAI.KLInvariance.combinatorial_invariance"], "defs": ["OAI.KLInvariance.BruhatStep", "OAI.KLInvariance.BruhatLE", "OAI.KLInvariance.Interval", "OAI.KLInvariance.rankDifference", "OAI.KLInvariance.PolynomialFamilies", "OAI.KLInvariance.NormalizedKL", "OAI.KLInvariance.klFamilies", "OAI.KLInvariance.klPolynomial"], "json_theorems": ["OAI.KLInvariance.combinatorial_invariance"], "missing_from_parse": []}
+AXIOMS: 'OAI.KLInvariance.combinatorial_invariance' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T16:49:28Z

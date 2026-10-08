@@ -1,0 +1,62 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_HotSpots.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.StrictHotSpots.main_theorem [thm] ok
+CMP OAI.StrictHotSpots.MainConclusion [def] ok
+CMP OAI.StrictHotSpots.InFirstNeumannEigenspace._proof_1 [thm] ok
+CMP OAI.StrictHotSpots.Plane [def] ok
+CMP OAI.StrictHotSpots.InFirstNeumannEigenspace [def] ok
+CMP OAI.StrictHotSpots.firstPositiveNeumannValue [def] ok
+CMP OAI.StrictHotSpots.rayleighValues [def] ok
+CMP OAI.StrictHotSpots.HasH1Gradient._proof_2 [thm] ok
+CMP OAI.StrictHotSpots.HasH1Gradient._proof_1 [thm] ok
+CMP OAI.StrictHotSpots.HasH1Gradient [def] ok
+CMP OAI.StrictHotSpots.HasH1Gradient._proof_3 [thm] ok
+CMP OAI.StrictHotSpots.AdmissibleDomain [def] ok
+CMP OAI.StrictHotSpots.SmoothBoundary [def] ok
+Chal.StrictHotSpots.main_theorem : ∀ (Ω : Set Chal.StrictHotSpots.Plane),
+  Chal.StrictHotSpots.AdmissibleDomain Ω →
+    ∀ (u : Chal.StrictHotSpots.Plane → ℝ),
+      Chal.StrictHotSpots.InFirstNeumannEigenspace Ω u → (∃ x ∈ Ω, u x ≠ 0) → Chal.StrictHotSpots.MainConclusion Ω u
+@[reducible] def Chal.StrictHotSpots.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.StrictHotSpots.SmoothBoundary : Set Chal.StrictHotSpots.Plane → Prop :=
+fun Ω =>
+  ∀ p ∈ frontier Ω,
+    ∃ U ρ, IsOpen U ∧ p ∈ U ∧ ContDiffOn ℝ (↑⊤) ρ U ∧ fderiv ℝ ρ p ≠ 0 ∧ ρ p = 0 ∧ Ω ∩ U = {x | ρ x < 0} ∩ U
+def Chal.StrictHotSpots.AdmissibleDomain : Set Chal.StrictHotSpots.Plane → Prop :=
+fun Ω => Ω.Nonempty ∧ IsOpen Ω ∧ Bornology.IsBounded Ω ∧ IsSimplyConnected Ω ∧ Chal.StrictHotSpots.SmoothBoundary Ω
+def Chal.StrictHotSpots.HasH1Gradient : Set Chal.StrictHotSpots.Plane →
+  (Chal.StrictHotSpots.Plane → ℝ) → (Chal.StrictHotSpots.Plane → Chal.StrictHotSpots.Plane) → Prop :=
+fun Ω v g =>
+  MeasureTheory.MemLp v 2 (MeasureTheory.volume.restrict Ω) ∧
+    MeasureTheory.MemLp g 2 (MeasureTheory.volume.restrict Ω) ∧
+      ∀ (φ : Chal.StrictHotSpots.Plane → ℝ),
+        ContDiff ℝ (↑⊤) φ →
+          HasCompactSupport φ →
+            tsupport φ ⊆ Ω →
+              ∀ (e : Chal.StrictHotSpots.Plane),
+                ∫ (x : Chal.StrictHotSpots.Plane) in Ω, v x * (fderiv ℝ φ x) e =
+                  -∫ (x : Chal.StrictHotSpots.Plane) in Ω, inner ℝ (g x) e * φ x
+def Chal.StrictHotSpots.rayleighValues : Set Chal.StrictHotSpots.Plane → Set ℝ :=
+fun Ω =>
+  {r |
+    ∃ v g,
+      Chal.StrictHotSpots.HasH1Gradient Ω v g ∧
+        ∫ (x : Chal.StrictHotSpots.Plane) in Ω, v x = 0 ∧
+          0 < ∫ (x : Chal.StrictHotSpots.Plane) in Ω, v x ^ 2 ∧
+            r = (∫ (x : Chal.StrictHotSpots.Plane) in Ω, ‖g x‖ ^ 2) / ∫ (x : Chal.StrictHotSpots.Plane) in Ω, v x ^ 2}
+def Chal.StrictHotSpots.firstPositiveNeumannValue : Set Chal.StrictHotSpots.Plane → ℝ :=
+fun Ω => sInf (Chal.StrictHotSpots.rayleighValues Ω)
+def Chal.StrictHotSpots.InFirstNeumannEigenspace : Set Chal.StrictHotSpots.Plane →
+  (Chal.StrictHotSpots.Plane → ℝ) → Prop :=
+fun Ω u =>
+  ContDiffOn ℝ (↑⊤) u (closure Ω) ∧
+    Chal.StrictHotSpots.HasH1Gradient Ω u (gradient u) ∧
+      ∫ (x : Chal.StrictHotSpots.Plane) in Ω, u x = 0 ∧
+        ∀ (v : Chal.StrictHotSpots.Plane → ℝ) (g : Chal.StrictHotSpots.Plane → Chal.StrictHotSpots.Plane),
+          Chal.StrictHotSpots.HasH1Gradient Ω v g →
+            ∫ (x : Chal.StrictHotSpots.Plane) in Ω, inner ℝ (gradient u x) (g x) =
+              Chal.StrictHotSpots.firstPositiveNeumannValue Ω * ∫ (x : Chal.StrictHotSpots.Plane) in Ω, u x * v x
+def Chal.StrictHotSpots.MainConclusion : Set Chal.StrictHotSpots.Plane → (Chal.StrictHotSpots.Plane → ℝ) → Prop :=
+fun Ω u => (∀ x ∈ Ω, gradient u x ≠ 0) ∧ ∀ x ∈ Ω, sInf (u '' frontier Ω) < u x ∧ u x < sSup (u '' frontier Ω)
+'OAI.StrictHotSpots.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HotSpots comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

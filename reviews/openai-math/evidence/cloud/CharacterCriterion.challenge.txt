@@ -1,0 +1,803 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CharacterCriterion.lean:2128:8: warning: declaration uses `sorry`
+OAI.KirchbergRordam.character_criterion : ∀ (A : Type) [inst : CStarAlgebra A] [Nontrivial A]
+  [TopologicalSpace.SeparableSpace A] (ω : Ultrafilter ℕ),
+  ↑ω ≤ Filter.cofinite →
+    (OAI.KirchbergRordam.HasNoCharacters ↥(OAI.KirchbergRordam.NormUltrapower.CentralAlgebra A ω) ↔
+      Nonempty (A ≃⋆ₐ[ℂ] OAI.KirchbergRordam.MinTensor.Algebra A OAI.KirchbergRordam.JiangSu.Algebra))
+@[instance_reducible] def OAI.KirchbergRordam.QuotientNormSupport.normedRing.{uQuot} : {R : Type uQuot} →
+  [inst : NormedRing R] → (I : Ideal R) → [I.IsTwoSided] → [IsClosed ↑I] → NormedRing (R ⧸ I) :=
+fun {R} [NormedRing R] I [I.IsTwoSided] [IsClosed ↑I] =>
+  have h_QuotientNormSupport_distance_eq := @OAI.KirchbergRordam.QuotientNormSupport.normedRing._proof_1;
+  have h_QuotientNormSupport_multiplication_bound := @OAI.KirchbergRordam.QuotientNormSupport.normedRing._proof_2;
+  let __Norm := inferInstance;
+  let __Ring := inferInstance;
+  let __MetricSpace := inferInstance;
+  { toNorm := __Norm, toRing := __Ring, toMetricSpace := __MetricSpace, dist_eq := ⋯, norm_mul_le := ⋯ }
+@[reducible] def OAI.KirchbergRordam.NormUltrapower.BoundedSeq.{u_2} : (A : Type u_2) → [CStarAlgebra A] → Type u_2 :=
+fun A [CStarAlgebra A] => BoundedContinuousFunction ℕ A
+def OAI.KirchbergRordam.NormUltrapower.normLimit.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → Ultrafilter ℕ → OAI.KirchbergRordam.NormUltrapower.BoundedSeq A → ℝ :=
+fun {A} [CStarAlgebra A] ω x =>
+  have h_NormUltrapower_exists_norm_limit := ⋯;
+  ⋯.choose
+def OAI.KirchbergRordam.NormUltrapower.nullIdeal.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → Ultrafilter ℕ → Ideal (OAI.KirchbergRordam.NormUltrapower.BoundedSeq A) :=
+fun {A} [CStarAlgebra A] ω =>
+  have h_NormUltrapower_exists_norm_limit := ⋯;
+  have h_NormUltrapower_tendsto_norm := ⋯;
+  have h_NormUltrapower_normLimit_add_le := ⋯;
+  have h_NormUltrapower_normLimit_mul_le := ⋯;
+  have h_NormUltrapower_normLimit_nonneg := ⋯;
+  have h_NormUltrapower_normLimit_zero := ⋯;
+  { carrier := {x | OAI.KirchbergRordam.NormUltrapower.normLimit ω x = 0}, add_mem' := ⋯, zero_mem' := ⋯,
+    smul_mem' := ⋯ }
+@[reducible] def OAI.KirchbergRordam.NormUltrapower.Algebra.{u_2} : (A : Type u_2) →
+  [CStarAlgebra A] → Ultrafilter ℕ → Type u_2 :=
+fun A [CStarAlgebra A] ω =>
+  OAI.KirchbergRordam.NormUltrapower.BoundedSeq A ⧸ OAI.KirchbergRordam.NormUltrapower.nullIdeal ω
+def OAI.KirchbergRordam.NormUltrapower.cutRepresentative.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] →
+    OAI.KirchbergRordam.NormUltrapower.BoundedSeq A →
+      (c : ℝ) → 0 ≤ c → OAI.KirchbergRordam.NormUltrapower.BoundedSeq A :=
+fun {A} [CStarAlgebra A] x c hc =>
+  BoundedContinuousFunction.ofNormedAddCommGroupDiscrete (fun n => if ‖x n‖ < c then x n else 0) c ⋯
+def OAI.KirchbergRordam.NormUltrapower.quotientMap.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] →
+    (ω : Ultrafilter ℕ) →
+      OAI.KirchbergRordam.NormUltrapower.BoundedSeq A →⋆ₐ[ℂ] OAI.KirchbergRordam.NormUltrapower.Algebra A ω :=
+fun {A} [CStarAlgebra A] ω =>
+  let __spread.0 := Ideal.Quotient.mkₐ ℂ (OAI.KirchbergRordam.NormUltrapower.nullIdeal ω);
+  { toAlgHom := __spread.0, map_star' := ⋯ }
+def OAI.KirchbergRordam.NormUltrapower.constantSeq.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → A →⋆ₐ[ℂ] OAI.KirchbergRordam.NormUltrapower.BoundedSeq A :=
+fun {A} [CStarAlgebra A] =>
+  { toFun := BoundedContinuousFunction.const ℕ, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯,
+    commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.NormUltrapower.diagonal.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (ω : Ultrafilter ℕ) → A →⋆ₐ[ℂ] OAI.KirchbergRordam.NormUltrapower.Algebra A ω :=
+fun {A} [CStarAlgebra A] ω =>
+  (OAI.KirchbergRordam.NormUltrapower.quotientMap ω).comp OAI.KirchbergRordam.NormUltrapower.constantSeq
+def OAI.KirchbergRordam.NormUltrapower.centralSubalgebra.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (ω : Ultrafilter ℕ) → StarSubalgebra ℂ (OAI.KirchbergRordam.NormUltrapower.Algebra A ω) :=
+fun {A} [CStarAlgebra A] ω => StarSubalgebra.centralizer ℂ (Set.range ⇑(OAI.KirchbergRordam.NormUltrapower.diagonal ω))
+@[reducible] def OAI.KirchbergRordam.NormUltrapower.CentralAlgebra.{u_2} : (A : Type u_2) →
+  [inst : CStarAlgebra A] → (ω : Ultrafilter ℕ) → StarSubalgebra ℂ (OAI.KirchbergRordam.NormUltrapower.Algebra A ω) :=
+fun A [CStarAlgebra A] ω => OAI.KirchbergRordam.NormUltrapower.centralSubalgebra ω
+structure OAI.KirchbergRordam.CStarInductiveLimit.System.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.KirchbergRordam.CStarInductiveLimit.System.obj : ℕ → Type u
+  OAI.KirchbergRordam.CStarInductiveLimit.System.cstar : (n : ℕ) → CStarAlgebra (self.obj n)
+  OAI.KirchbergRordam.CStarInductiveLimit.System.map : (i j : ℕ) → i ≤ j → self.obj i →⋆ₐ[ℂ] self.obj j
+  OAI.KirchbergRordam.CStarInductiveLimit.System.map_self : ∀ (i : ℕ) (x : self.obj i), (self.map i i ⋯) x = x
+  OAI.KirchbergRordam.CStarInductiveLimit.System.map_map : ∀ (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (x : self.obj i),
+      (self.map j k hjk) ((self.map i j hij) x) = (self.map i k ⋯) x
+  OAI.KirchbergRordam.CStarInductiveLimit.System.norm_map : ∀ (i j : ℕ) (h : i ≤ j) (x : self.obj i),
+      ‖(self.map i j h) x‖ = ‖x‖
+constructor:
+  OAI.KirchbergRordam.CStarInductiveLimit.System.mk.{u} (obj : ℕ → Type u) [cstar : (n : ℕ) → CStarAlgebra (obj n)]
+    (map : (i j : ℕ) → i ≤ j → obj i →⋆ₐ[ℂ] obj j) (map_self : ∀ (i : ℕ) (x : obj i), (map i i ⋯) x = x)
+    (map_map : ∀ (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (x : obj i), (map j k hjk) ((map i j hij) x) = (map i k ⋯) x)
+    (norm_map : ∀ (i j : ℕ) (h : i ≤ j) (x : obj i), ‖(map i j h) x‖ = ‖x‖) :
+    OAI.KirchbergRordam.CStarInductiveLimit.System
+def OAI.KirchbergRordam.CStarInductiveLimit.Raw.{u} : OAI.KirchbergRordam.CStarInductiveLimit.System → Type u :=
+fun S => DirectLimit S.obj S.map
+def OAI.KirchbergRordam.CStarInductiveLimit.rawOf.{u} : (S : OAI.KirchbergRordam.CStarInductiveLimit.System) →
+  (n : ℕ) → S.obj n →⋆ₐ[ℂ] OAI.KirchbergRordam.CStarInductiveLimit.Raw S :=
+fun S n =>
+  let __spread.0 := DirectLimit.Algebra.of S.obj S.map n;
+  { toAlgHom := __spread.0, map_star' := ⋯ }
+def OAI.KirchbergRordam.CStarInductiveLimit.normLift.{u} : (S : OAI.KirchbergRordam.CStarInductiveLimit.System) →
+  OAI.KirchbergRordam.CStarInductiveLimit.Raw S → ℝ :=
+fun S => DirectLimit.lift S.map (fun x x_1 => ‖x_1‖) ⋯
+def OAI.KirchbergRordam.CStarInductiveLimit.ringNorm.{u} : (S : OAI.KirchbergRordam.CStarInductiveLimit.System) →
+  RingNorm (OAI.KirchbergRordam.CStarInductiveLimit.Raw S) :=
+fun S =>
+  have h_CStarInductiveLimit_normLift_mk := OAI.KirchbergRordam.CStarInductiveLimit.ringNorm._proof_1;
+  { toFun := OAI.KirchbergRordam.CStarInductiveLimit.normLift S, map_zero' := ⋯, add_le' := ⋯, neg' := ⋯, mul_le' := ⋯,
+    eq_zero_of_map_eq_zero' := ⋯ }
+@[reducible] def OAI.KirchbergRordam.CStarInductiveLimit.Algebra.{u} : OAI.KirchbergRordam.CStarInductiveLimit.System →
+  Type u :=
+fun S => UniformSpace.Completion (OAI.KirchbergRordam.CStarInductiveLimit.Raw S)
+structure OAI.KirchbergRordam.CStarInductiveLimit.Chain.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain.obj : ℕ → Type u
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain.cstar : (n : ℕ) → CStarAlgebra (self.obj n)
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain.step : (n : ℕ) → self.obj n →⋆ₐ[ℂ] self.obj (n + 1)
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain.norm_step : ∀ (n : ℕ) (x : self.obj n), ‖(self.step n) x‖ = ‖x‖
+constructor:
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain.mk.{u} (obj : ℕ → Type u) [cstar : (n : ℕ) → CStarAlgebra (obj n)]
+    (step : (n : ℕ) → obj n →⋆ₐ[ℂ] obj (n + 1)) (norm_step : ∀ (n : ℕ) (x : obj n), ‖(step n) x‖ = ‖x‖) :
+    OAI.KirchbergRordam.CStarInductiveLimit.Chain
+def OAI.KirchbergRordam.CStarInductiveLimit.Chain.map.{u} : (S : OAI.KirchbergRordam.CStarInductiveLimit.Chain) →
+  (i j : ℕ) → i ≤ j → S.obj i →⋆ₐ[ℂ] S.obj j :=
+fun S i j h => Nat.leRecOn h (fun {n} φ => (S.step n).comp φ) (StarAlgHom.id ℂ (S.obj i))
+def OAI.KirchbergRordam.CStarInductiveLimit.Chain.system.{u} : OAI.KirchbergRordam.CStarInductiveLimit.Chain →
+  OAI.KirchbergRordam.CStarInductiveLimit.System :=
+fun S =>
+  have h_CStarInductiveLimit_Chain_map_self := OAI.KirchbergRordam.CStarInductiveLimit.Chain.system._proof_1;
+  have h_CStarInductiveLimit_Chain_map_succ := OAI.KirchbergRordam.CStarInductiveLimit.Chain.system._proof_3;
+  have h_CStarInductiveLimit_Chain_map_map := ⋯;
+  have h_CStarInductiveLimit_Chain_norm_map := ⋯;
+  { obj := S.obj, cstar := S.cstar, map := S.map, map_self := ⋯, map_map := ⋯, norm_map := ⋯ }
+structure OAI.KirchbergRordam.MaxTensor.CrossSeminorm.{u_1, u_2} (A : Type u_1) (B : Type u_2) [CStarAlgebra A]
+  [CStarAlgebra B] : Type (max u_1 u_2)
+number of parameters: 4
+parents:
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.toSeminorm : Seminorm ℂ (TensorProduct ℂ A B)
+fields:
+  AddGroupSeminorm.toFun : TensorProduct ℂ A B → ℝ
+  AddGroupSeminorm.map_zero' : self.toFun 0 = 0
+  AddGroupSeminorm.add_le' : ∀ (r s : TensorProduct ℂ A B), self.toFun (r + s) ≤ self.toFun r + self.toFun s
+  AddGroupSeminorm.neg' : ∀ (r : TensorProduct ℂ A B), self.toFun (-r) = self.toFun r
+  Seminorm.smul' : ∀ (a : ℂ) (x : TensorProduct ℂ A B), self.toFun (a • x) = ‖a‖ * self.toFun x
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.mul_le : ∀ (x y : TensorProduct ℂ A B),
+      self.toSeminorm (x * y) ≤ self.toSeminorm x * self.toSeminorm y
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.star_eq : ∀ (x : TensorProduct ℂ A B),
+      self.toSeminorm (star x) = self.toSeminorm x
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.cstar_eq : ∀ (x : TensorProduct ℂ A B),
+      self.toSeminorm (star x * x) = self.toSeminorm x * self.toSeminorm x
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.tmul_le : ∀ (a : A) (b : B), self.toSeminorm (a ⊗ₜ[ℂ] b) ≤ ‖a‖ * ‖b‖
+constructor:
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm.mk.{u_1, u_2} {A : Type u_1} {B : Type u_2} [CStarAlgebra A]
+    [CStarAlgebra B] (toSeminorm : Seminorm ℂ (TensorProduct ℂ A B))
+    (mul_le : ∀ (x y : TensorProduct ℂ A B), toSeminorm (x * y) ≤ toSeminorm x * toSeminorm y)
+    (star_eq : ∀ (x : TensorProduct ℂ A B), toSeminorm (star x) = toSeminorm x)
+    (cstar_eq : ∀ (x : TensorProduct ℂ A B), toSeminorm (star x * x) = toSeminorm x * toSeminorm x)
+    (tmul_le : ∀ (a : A) (b : B), toSeminorm (a ⊗ₜ[ℂ] b) ≤ ‖a‖ * ‖b‖) : OAI.KirchbergRordam.MaxTensor.CrossSeminorm A B
+field notation resolution order:
+  OAI.KirchbergRordam.MaxTensor.CrossSeminorm, Seminorm, AddGroupSeminorm
+def OAI.KirchbergRordam.MaxTensor.Raw.{u_3, u_4} : (A : Type u_3) →
+  (B : Type u_4) → [CStarAlgebra A] → [CStarAlgebra B] → Type (max u_3 u_4) :=
+fun A B [CStarAlgebra A] [CStarAlgebra B] => TensorProduct ℂ A B
+def OAI.KirchbergRordam.MaxTensor.rawEquiv.{u_1, u_2} : {A : Type u_1} →
+  {B : Type u_2} →
+    [inst : CStarAlgebra A] →
+      [inst_1 : CStarAlgebra B] → TensorProduct ℂ A B ≃⋆ₐ[ℂ] OAI.KirchbergRordam.MaxTensor.Raw A B :=
+fun {A} {B} [CStarAlgebra A] [CStarAlgebra B] => StarAlgEquiv.refl ℂ (TensorProduct ℂ A B)
+def OAI.KirchbergRordam.MaxTensor.liftRaw.{u_1, u_2, u_3} : {A : Type u_1} →
+  {B : Type u_2} →
+    [inst : CStarAlgebra A] →
+      [inst_1 : CStarAlgebra B] →
+        {C : Type u_3} →
+          [inst_2 : CStarAlgebra C] →
+            (φ : A →⋆ₐ[ℂ] C) →
+              (ψ : B →⋆ₐ[ℂ] C) →
+                (∀ (a : A) (b : B), Commute (φ a) (ψ b)) → OAI.KirchbergRordam.MaxTensor.Raw A B →⋆ₐ[ℂ] C :=
+fun {A} {B} [CStarAlgebra A] [CStarAlgebra B] {C} [CStarAlgebra C] φ ψ h =>
+  let __AlgHom := Algebra.TensorProduct.lift (↑φ) (↑ψ) h;
+  { toAlgHom := __AlgHom, map_star' := ⋯ }
+def OAI.KirchbergRordam.MaxTensor.representationSeminorm.{u_1, u_2, u_3} : {A : Type u_1} →
+  {B : Type u_2} →
+    [inst : CStarAlgebra A] →
+      [inst_1 : CStarAlgebra B] →
+        {C : Type u_3} →
+          [inst_2 : CStarAlgebra C] →
+            (φ : A →⋆ₐ[ℂ] C) →
+              (ψ : B →⋆ₐ[ℂ] C) →
+                (∀ (a : A) (b : B), Commute (φ a) (ψ b)) → OAI.KirchbergRordam.MaxTensor.CrossSeminorm A B :=
+fun {A} {B} [CStarAlgebra A] [CStarAlgebra B] {C} [CStarAlgebra C] φ ψ h =>
+  have h_MaxTensor_liftRaw_tmul := ⋯;
+  let __Seminorm := (normSeminorm ℂ C).comp (↑(OAI.KirchbergRordam.MaxTensor.liftRaw φ ψ h)).toLinearMap;
+  { toSeminorm := __Seminorm, mul_le := ⋯, star_eq := ⋯, cstar_eq := ⋯, tmul_le := ⋯ }
+@[reducible] def OAI.KirchbergRordam.Spatial.Hilbert.{u_3, u_4} : (H : Type u_3) →
+  (K : Type u_4) →
+    [inst : NormedAddCommGroup H] →
+      [InnerProductSpace ℂ H] → [inst : NormedAddCommGroup K] → [InnerProductSpace ℂ K] → Type (max u_4 u_3) :=
+fun H K [NormedAddCommGroup H] [InnerProductSpace ℂ H] [NormedAddCommGroup K] [InnerProductSpace ℂ K] =>
+  UniformSpace.Completion (TensorProduct ℂ H K)
+def OAI.KirchbergRordam.Spatial.map.{u_1, u_2} : {H : Type u_1} →
+  {K : Type u_2} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [inst_2 : NormedAddCommGroup K] →
+          [inst_3 : InnerProductSpace ℂ K] →
+            (H →L[ℂ] H) →
+              (K →L[ℂ] K) → OAI.KirchbergRordam.Spatial.Hilbert H K →L[ℂ] OAI.KirchbergRordam.Spatial.Hilbert H K :=
+fun {H} {K} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [NormedAddCommGroup K] [InnerProductSpace ℂ K] T S =>
+  (TensorProduct.mapL T S).completion
+def OAI.KirchbergRordam.Spatial.left.{u_1, u_2} : {H : Type u_1} →
+  {K : Type u_2} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [inst_2 : NormedAddCommGroup K] →
+          [inst_3 : InnerProductSpace ℂ K] →
+            [inst_4 : CompleteSpace H] →
+              [CompleteSpace K] →
+                (H →L[ℂ] H) →⋆ₐ[ℂ]
+                  OAI.KirchbergRordam.Spatial.Hilbert H K →L[ℂ] OAI.KirchbergRordam.Spatial.Hilbert H K :=
+fun {H} {K} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [NormedAddCommGroup K] [InnerProductSpace ℂ K]
+    [CompleteSpace H] [CompleteSpace K] =>
+  have h_Spatial_ext := ⋯;
+  have h_Spatial_map_add_left__simp_1_1 := ⋯;
+  have h_Spatial_map_coe := ⋯;
+  have h_Spatial_map_add_left := ⋯;
+  have h_Spatial_map_mul := ⋯;
+  have h_Spatial_map_one := ⋯;
+  have h_Spatial_map_smul_left := ⋯;
+  have h_Spatial_map_inner_algebraic := ⋯;
+  have h_Spatial_map_inner := ⋯;
+  have h_Spatial_map_star := ⋯;
+  { toFun := fun T => OAI.KirchbergRordam.Spatial.map T 1, map_one' := h_Spatial_map_one, map_mul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.Spatial.right.{u_1, u_2} : {H : Type u_1} →
+  {K : Type u_2} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [inst_2 : NormedAddCommGroup K] →
+          [inst_3 : InnerProductSpace ℂ K] →
+            [CompleteSpace H] →
+              [inst_5 : CompleteSpace K] →
+                (K →L[ℂ] K) →⋆ₐ[ℂ]
+                  OAI.KirchbergRordam.Spatial.Hilbert H K →L[ℂ] OAI.KirchbergRordam.Spatial.Hilbert H K :=
+fun {H} {K} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [NormedAddCommGroup K] [InnerProductSpace ℂ K]
+    [CompleteSpace H] [CompleteSpace K] =>
+  have h_Spatial_ext := ⋯;
+  have h_Spatial_map_add_right__simp_1_1 := ⋯;
+  have h_Spatial_map_coe := ⋯;
+  have h_Spatial_map_add_right := ⋯;
+  have h_Spatial_map_mul := ⋯;
+  have h_Spatial_map_one := ⋯;
+  have h_Spatial_map_smul_right := ⋯;
+  have h_Spatial_map_inner_algebraic := ⋯;
+  have h_Spatial_map_inner := ⋯;
+  have h_Spatial_map_star := ⋯;
+  { toFun := fun S => OAI.KirchbergRordam.Spatial.map 1 S, map_one' := h_Spatial_map_one, map_mul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+structure OAI.KirchbergRordam.MinTensor.RepresentationPair.{u} (A B : Type u) [CStarAlgebra A] [CStarAlgebra B] :
+  Type (u + 1)
+number of parameters: 4
+fields:
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.H : Type u
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.K : Type u
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.normH : NormedAddCommGroup self.H
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.innerH : InnerProductSpace ℂ self.H
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.completeH : CompleteSpace self.H
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.normK : NormedAddCommGroup self.K
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.innerK : InnerProductSpace ℂ self.K
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.completeK : CompleteSpace self.K
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.leftRep : A →⋆ₐ[ℂ] self.H →L[ℂ] self.H
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.rightRep : B →⋆ₐ[ℂ] self.K →L[ℂ] self.K
+constructor:
+  OAI.KirchbergRordam.MinTensor.RepresentationPair.mk.{u} {A B : Type u} [CStarAlgebra A] [CStarAlgebra B]
+    (H K : Type u) (normH : NormedAddCommGroup H) (innerH : InnerProductSpace ℂ H) (completeH : CompleteSpace H)
+    (normK : NormedAddCommGroup K) (innerK : InnerProductSpace ℂ K) (completeK : CompleteSpace K)
+    (leftRep : A →⋆ₐ[ℂ] H →L[ℂ] H) (rightRep : B →⋆ₐ[ℂ] K →L[ℂ] K) :
+    OAI.KirchbergRordam.MinTensor.RepresentationPair A B
+def OAI.KirchbergRordam.MinTensor.RepresentationPair.left.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] →
+    [inst_1 : CStarAlgebra B] →
+      (ρ : OAI.KirchbergRordam.MinTensor.RepresentationPair A B) →
+        A →⋆ₐ[ℂ] OAI.KirchbergRordam.Spatial.Hilbert ρ.H ρ.K →L[ℂ] OAI.KirchbergRordam.Spatial.Hilbert ρ.H ρ.K :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] ρ => OAI.KirchbergRordam.Spatial.left.comp ρ.leftRep
+def OAI.KirchbergRordam.MinTensor.RepresentationPair.right.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] →
+    [inst_1 : CStarAlgebra B] →
+      (ρ : OAI.KirchbergRordam.MinTensor.RepresentationPair A B) →
+        B →⋆ₐ[ℂ] OAI.KirchbergRordam.Spatial.Hilbert ρ.H ρ.K →L[ℂ] OAI.KirchbergRordam.Spatial.Hilbert ρ.H ρ.K :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] ρ => OAI.KirchbergRordam.Spatial.right.comp ρ.rightRep
+def OAI.KirchbergRordam.MinTensor.RepresentationPair.crossSeminorm.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] →
+    [inst_1 : CStarAlgebra B] →
+      OAI.KirchbergRordam.MinTensor.RepresentationPair A B → OAI.KirchbergRordam.MaxTensor.CrossSeminorm A B :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] ρ =>
+  have h_Spatial_ext := @OAI.KirchbergRordam.MinTensor.RepresentationPair.crossSeminorm._proof_3;
+  have h_Spatial_map_coe := @OAI.KirchbergRordam.MinTensor.RepresentationPair.crossSeminorm._proof_4;
+  have h_Spatial_map_mul := ⋯;
+  have h_Spatial_left_right_commute := ⋯;
+  have h_MinTensor_RepresentationPair_commute := ⋯;
+  OAI.KirchbergRordam.MaxTensor.representationSeminorm ρ.left ρ.right ⋯
+def OAI.KirchbergRordam.MinTensor.spatialIndex.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] →
+    [inst_1 : CStarAlgebra B] →
+      Option (OAI.KirchbergRordam.MinTensor.RepresentationPair A B) → OAI.KirchbergRordam.MaxTensor.CrossSeminorm A B :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] x =>
+  match x with
+  | none => default
+  | some ρ => ρ.crossSeminorm
+def OAI.KirchbergRordam.MinTensor.seminorm.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] → [inst_1 : CStarAlgebra B] → Seminorm ℂ (TensorProduct ℂ A B) :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] => ⨆ ρ, (OAI.KirchbergRordam.MinTensor.spatialIndex ρ).toSeminorm
+def OAI.KirchbergRordam.MinTensor.Raw.{u} : (A B : Type u) → [CStarAlgebra A] → [CStarAlgebra B] → Type u :=
+fun A B [CStarAlgebra A] [CStarAlgebra B] => TensorProduct ℂ A B
+def OAI.KirchbergRordam.MinTensor.rawRingSeminorm.{u} : {A B : Type u} →
+  [inst : CStarAlgebra A] → [inst_1 : CStarAlgebra B] → RingSeminorm (OAI.KirchbergRordam.MinTensor.Raw A B) :=
+fun {A B} [CStarAlgebra A] [CStarAlgebra B] =>
+  have h_MaxTensor_bounded_at := @OAI.KirchbergRordam.MinTensor.rawRingSeminorm._proof_1;
+  have h_MinTensor_bounded := ⋯;
+  have h_MinTensor_seminorm_apply := ⋯;
+  have h_MinTensor_le_seminorm := ⋯;
+  have h_MinTensor_seminorm_le := ⋯;
+  have h_MinTensor_seminorm_mul_le := ⋯;
+  let __spread.0 := OAI.KirchbergRordam.MinTensor.seminorm.toAddGroupSeminorm;
+  { toAddGroupSeminorm := __spread.0, mul_le' := h_MinTensor_seminorm_mul_le }
+@[reducible] def OAI.KirchbergRordam.MinTensor.Algebra.{u} : (A B : Type u) →
+  [CStarAlgebra A] → [CStarAlgebra B] → Type u :=
+fun A B [CStarAlgebra A] [CStarAlgebra B] => UniformSpace.Completion (OAI.KirchbergRordam.MinTensor.Raw A B)
+@[reducible] def OAI.KirchbergRordam.MatrixTensor.Mat.{u_3} : Type u_3 → Type u_3 :=
+fun ι => CStarMatrix ι ι ℂ
+def OAI.KirchbergRordam.MatrixTensor.leftMatrixAlgebra.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : Fintype κ] →
+        [inst_2 : DecidableEq ι] → [inst_3 : DecidableEq κ] → Matrix ι ι ℂ →⋆ₐ[ℂ] Matrix (ι × κ) (ι × κ) ℂ :=
+fun {ι} {κ} [Fintype ι] [Fintype κ] [DecidableEq ι] [DecidableEq κ] =>
+  { toFun := fun a => Matrix.kroneckerMap (fun x1 x2 => x1 * x2) a 1, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.MatrixTensor.rightMatrixAlgebra.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : Fintype κ] →
+        [inst_2 : DecidableEq ι] → [inst_3 : DecidableEq κ] → Matrix κ κ ℂ →⋆ₐ[ℂ] Matrix (ι × κ) (ι × κ) ℂ :=
+fun {ι} {κ} [Fintype ι] [Fintype κ] [DecidableEq ι] [DecidableEq κ] =>
+  { toFun := fun a => Matrix.kroneckerMap (fun x1 x2 => x1 * x2) 1 a, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.MatrixTensor.leftMatrix.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : Fintype κ] →
+        [inst_2 : DecidableEq ι] →
+          [inst_3 : DecidableEq κ] →
+            OAI.KirchbergRordam.MatrixTensor.Mat ι →⋆ₐ[ℂ] OAI.KirchbergRordam.MatrixTensor.Mat (ι × κ) :=
+fun {ι} {κ} [Fintype ι] [Fintype κ] [DecidableEq ι] [DecidableEq κ] =>
+  CStarMatrix.ofMatrixStarAlgEquiv.toStarAlgHom.comp
+    (OAI.KirchbergRordam.MatrixTensor.leftMatrixAlgebra.comp CStarMatrix.ofMatrixStarAlgEquiv.symm.toStarAlgHom)
+def OAI.KirchbergRordam.MatrixTensor.rightMatrix.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : Fintype κ] →
+        [inst_2 : DecidableEq ι] →
+          [inst_3 : DecidableEq κ] →
+            OAI.KirchbergRordam.MatrixTensor.Mat κ →⋆ₐ[ℂ] OAI.KirchbergRordam.MatrixTensor.Mat (ι × κ) :=
+fun {ι} {κ} [Fintype ι] [Fintype κ] [DecidableEq ι] [DecidableEq κ] =>
+  CStarMatrix.ofMatrixStarAlgEquiv.toStarAlgHom.comp
+    (OAI.KirchbergRordam.MatrixTensor.rightMatrixAlgebra.comp CStarMatrix.ofMatrixStarAlgEquiv.symm.toStarAlgHom)
+@[reducible] def OAI.KirchbergRordam.PrimeDimensionDrop.Fiber : ℕ → ℕ → Type :=
+fun p q => OAI.KirchbergRordam.MatrixTensor.Mat (Fin p × Fin q)
+def OAI.KirchbergRordam.PrimeDimensionDrop.eval : (p q : ℕ) →
+  ↑unitInterval →
+    C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q) →⋆ₐ[ℂ]
+      OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q :=
+fun p q t =>
+  { toFun := fun f => f t, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra : (p q : ℕ) →
+  StarSubalgebra ℂ C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q) :=
+fun p q =>
+  StarSubalgebra.comap (OAI.KirchbergRordam.PrimeDimensionDrop.eval p q 0)
+      OAI.KirchbergRordam.MatrixTensor.leftMatrix.range ⊓
+    StarSubalgebra.comap (OAI.KirchbergRordam.PrimeDimensionDrop.eval p q 1)
+      OAI.KirchbergRordam.MatrixTensor.rightMatrix.range
+@[reducible] def OAI.KirchbergRordam.PrimeDimensionDrop.Algebra : (p q : ℕ) →
+  StarSubalgebra ℂ C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q) :=
+fun p q => OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra p q
+def OAI.KirchbergRordam.UnitaryPaths.phase : ↑unitInterval → ℂ :=
+fun t => Complex.exp (↑↑t * ↑Real.pi * Complex.I)
+def OAI.KirchbergRordam.UnitaryPaths.involutionValue.{u_1} : {A : Type u_1} →
+  [CStarAlgebra A] → A → ↑unitInterval → A :=
+fun {A} [CStarAlgebra A] U t =>
+  ((1 + OAI.KirchbergRordam.UnitaryPaths.phase t) / 2) • 1 + ((1 - OAI.KirchbergRordam.UnitaryPaths.phase t) / 2) • U
+def OAI.KirchbergRordam.UnitaryPaths.involutionPath.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (U : ↥(unitary A)) → star ↑U = ↑U → Path 1 U :=
+fun {A} [CStarAlgebra A] U hs =>
+  have h_UnitaryPaths_phase_continuous := OAI.KirchbergRordam.UnitaryPaths.involutionPath._proof_1;
+  have h_UnitaryPaths_involutionValue_continuous := ⋯;
+  have h_UnitaryPaths_phase_unitary := OAI.KirchbergRordam.UnitaryPaths.involutionPath._proof_3;
+  have h_UnitaryPaths_involutionValue_unitary := ⋯;
+  have h_UnitaryPaths_phase_one := OAI.KirchbergRordam.UnitaryPaths.involutionPath._proof_5;
+  have h_UnitaryPaths_phase_zero := OAI.KirchbergRordam.UnitaryPaths.involutionPath._proof_6;
+  { toFun := fun t => ⟨OAI.KirchbergRordam.UnitaryPaths.involutionValue (↑U) t, ⋯⟩, continuous_toFun := ⋯, source' := ⋯,
+    target' := ⋯ }
+@[reducible] def OAI.KirchbergRordam.MatrixPermutationPath.Mat.{u_2} : Type u_2 → Type u_2 :=
+fun ι => CStarMatrix ι ι ℂ
+def OAI.KirchbergRordam.MatrixPermutationPath.perm.{u_1} : {ι : Type u_1} →
+  [inst : Fintype ι] →
+    [inst_1 : DecidableEq ι] → Equiv.Perm ι → ↥(unitary (OAI.KirchbergRordam.MatrixPermutationPath.Mat ι)) :=
+fun {ι} [Fintype ι] [DecidableEq ι] σ => ⟨CStarMatrix.ofMatrix (Equiv.Perm.permMatrix ℂ σ⁻¹), ⋯⟩
+def OAI.KirchbergRordam.MatrixPermutationPath.path.{u_1} : {ι : Type u_1} →
+  [inst : Fintype ι] →
+    [inst_1 : DecidableEq ι] →
+      (σ τ : Equiv.Perm ι) →
+        Path (OAI.KirchbergRordam.MatrixPermutationPath.perm σ) (OAI.KirchbergRordam.MatrixPermutationPath.perm τ) :=
+fun {ι} [Fintype ι] [DecidableEq ι] σ τ =>
+  have h_MatrixPermutationPath_perm_mul := ⋯;
+  have h_MatrixPermutationPath_perm_one := ⋯;
+  have h_MatrixPermutationPath_perm_swap_selfadjoint := ⋯;
+  have h_MatrixPermutationPath_joined_one_perm := ⋯;
+  ⋯.somePath
+@[reducible] def OAI.KirchbergRordam.MatrixDiagonalPath.Mat.{u_4} : Type u_4 → Type u_4 :=
+fun ι => CStarMatrix ι ι ℂ
+def OAI.KirchbergRordam.MatrixDiagonalPath.block.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : DecidableEq ι] →
+        [inst_2 : Fintype κ] →
+          [instDecidableEqκ : DecidableEq κ] →
+            (ι → OAI.KirchbergRordam.MatrixDiagonalPath.Mat κ) →⋆ₐ[ℂ]
+              OAI.KirchbergRordam.MatrixDiagonalPath.Mat (κ × ι) :=
+fun {ι} {κ} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] =>
+  { toFun := fun a => CStarMatrix.ofMatrix (Matrix.blockDiagonal a), map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.MatrixDiagonalPath.evaluationBlock.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : DecidableEq ι] →
+        [inst_2 : Fintype κ] →
+          [instDecidableEqκ : DecidableEq κ] →
+            (ι → C(↑unitInterval, ↑unitInterval)) →
+              ↑unitInterval →
+                C(↑unitInterval, OAI.KirchbergRordam.MatrixDiagonalPath.Mat κ) →⋆ₐ[ℂ]
+                  OAI.KirchbergRordam.MatrixDiagonalPath.Mat (κ × ι) :=
+fun {ι} {κ} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] ξ t =>
+  { toFun := fun f => OAI.KirchbergRordam.MatrixDiagonalPath.block fun i => f ((ξ i) t), map_one' := ⋯, map_mul' := ⋯,
+    map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.MatrixDiagonalPath.diagonal.{u_1, u_2} : {ι : Type u_1} →
+  {κ : Type u_2} →
+    [inst : Fintype ι] →
+      [inst_1 : DecidableEq ι] →
+        [inst_2 : Fintype κ] →
+          [instDecidableEqκ : DecidableEq κ] →
+            (ι → C(↑unitInterval, ↑unitInterval)) →
+              C(↑unitInterval, OAI.KirchbergRordam.MatrixDiagonalPath.Mat κ) →⋆ₐ[ℂ]
+                C(↑unitInterval, OAI.KirchbergRordam.MatrixDiagonalPath.Mat (κ × ι)) :=
+fun {ι} {κ} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] ξ =>
+  have h_MatrixDiagonalPath_evaluationBlock_continuous := ⋯;
+  {
+    toFun := fun f =>
+      { toFun := fun t => (OAI.KirchbergRordam.MatrixDiagonalPath.evaluationBlock ξ t) f, continuous_toFun := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.MatrixDiagonalPath.interpolate.{u_2, u_3} : {κ : Type u_2} →
+  {ν : Type u_3} →
+    [inst : Fintype κ] →
+      [inst_1 : Fintype ν] →
+        [DecidableEq ν] →
+          κ ≃ ν →
+            κ ≃ ν →
+              ↑unitInterval →
+                OAI.KirchbergRordam.MatrixDiagonalPath.Mat κ ≃⋆ₐ[ℂ] OAI.KirchbergRordam.MatrixDiagonalPath.Mat ν :=
+fun {κ} {ν} [Fintype κ] [Fintype ν] [DecidableEq ν] e₀ e₁ t =>
+  (CStarMatrix.reindexₐ ℂ ℂ e₀).trans
+    ((Unitary.conjStarAlgAut ℂ (CStarMatrix ν ν ℂ))
+      ((OAI.KirchbergRordam.MatrixPermutationPath.path 1 (e₀.symm.trans e₁)) t))
+def OAI.KirchbergRordam.MatrixBlockReindex.sumBlock.{u_1, u_2} : {P : Type u_1} →
+  {Q : Type u_2} →
+    [instFintypeP : Fintype P] →
+      [instFintypeQ : Fintype Q] →
+        [instDecidableEqP : DecidableEq P] →
+          [instDecidableEqQ : DecidableEq Q] →
+            OAI.KirchbergRordam.MatrixDiagonalPath.Mat P × OAI.KirchbergRordam.MatrixDiagonalPath.Mat Q →⋆ₐ[ℂ]
+              OAI.KirchbergRordam.MatrixDiagonalPath.Mat (P ⊕ Q) :=
+fun {P} {Q} [Fintype P] [Fintype Q] [DecidableEq P] [DecidableEq Q] =>
+  { toFun := fun a => CStarMatrix.ofMatrix (Matrix.fromBlocks a.1 0 0 a.2), map_one' := ⋯, map_mul' := ⋯,
+    map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.BalancedDropSystem.cardEquiv.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} → [inst : Fintype α] → [inst_1 : Fintype β] → Fintype.card α = Fintype.card β → α ≃ β :=
+fun {α} {β} [Fintype α] [Fintype β] h => Classical.choice ⋯
+def OAI.KirchbergRordam.BalancedDropSystem.half : ↑unitInterval :=
+have h_BalancedDropSystem_half_mem := OAI.KirchbergRordam.BalancedDropSystem.half._proof_1;
+⟨Div.div One.one ↑2, h_BalancedDropSystem_half_mem⟩
+def OAI.KirchbergRordam.BalancedDropSystem.lowerPath : C(↑unitInterval, ↑unitInterval) :=
+{ toFun := fun point => ⟨Div.div ↑point ↑2, ⋯⟩,
+  continuous_toFun := OAI.KirchbergRordam.BalancedDropSystem.lowerPath._proof_2 }
+def OAI.KirchbergRordam.BalancedDropSystem.upperPath : C(↑unitInterval, ↑unitInterval) :=
+{ toFun := fun point => ⟨Div.div (Add.add (↑point) One.one) ↑2, ⋯⟩,
+  continuous_toFun := OAI.KirchbergRordam.BalancedDropSystem.upperPath._proof_2 }
+def OAI.KirchbergRordam.GeneralBlockReindex.repackLeft.{u_1, u_2, u_3, u_4, u_5, u_6, u_7} : {P : Type u_1} →
+  {Q : Type u_2} →
+    {L : Type u_3} →
+      {R : Type u_4} →
+        {S : Type u_5} →
+          {T : Type u_6} → {U : Type u_7} → Q × L ≃ U × T → R ≃ S × T → (P × Q) × (L ⊕ R) ≃ (P × U ⊕ (P × Q) × S) × T :=
+fun {P} {Q} {L} {R} {S} {T} {U} hL hR =>
+  {
+    toFun := fun x =>
+      match x.2 with
+      | Sum.inl l => (Sum.inl (x.1.1, (hL (x.1.2, l)).1), (hL (x.1.2, l)).2)
+      | Sum.inr r => (Sum.inr (x.1, (hR r).1), (hR r).2),
+    invFun := fun x =>
+      match x.1 with
+      | Sum.inl y => ((y.1, (hL.symm (y.2, x.2)).1), Sum.inl (hL.symm (y.2, x.2)).2)
+      | Sum.inr y => (y.1, Sum.inr (hR.symm (y.2, x.2))),
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.KirchbergRordam.GeneralBlockReindex.repackRight.{u_1, u_2, u_3, u_4, u_5, u_6, u_7} : {P : Type u_1} →
+  {Q : Type u_2} →
+    {L : Type u_3} →
+      {R : Type u_4} →
+        {S : Type u_5} →
+          {T : Type u_6} → {U : Type u_7} → P × L ≃ T × U → R ≃ T × S → (P × Q) × (L ⊕ R) ≃ T × (Q × U ⊕ (P × Q) × S) :=
+fun {P} {Q} {L} {R} {S} {T} {U} hL hR =>
+  have h_GeneralBlockReindex_left_low := @OAI.KirchbergRordam.GeneralBlockReindex.repackRight._proof_1;
+  have h_GeneralBlockReindex_left_full := @OAI.KirchbergRordam.GeneralBlockReindex.repackRight._proof_2;
+  {
+    toFun := fun x =>
+      match x.2 with
+      | Sum.inl l => ((hL (x.1.1, l)).1, Sum.inl (x.1.2, (hL (x.1.1, l)).2))
+      | Sum.inr r => ((hR r).1, Sum.inr (x.1, (hR r).2)),
+    invFun := fun x =>
+      match x.2 with
+      | Sum.inl y => (((hL.symm (x.1, y.2)).1, y.1), Sum.inl (hL.symm (x.1, y.2)).2)
+      | Sum.inr y => (y.1, Sum.inr (hR.symm (x.1, y.2))),
+    left_inv := ⋯, right_inv := ⋯ }
+structure OAI.KirchbergRordam.GeneralDropSystem.Data (p q P Q : ℕ) : Type
+number of parameters: 4
+fields:
+  OAI.KirchbergRordam.GeneralDropSystem.Data.lower : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.upper : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.middle : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.zeroEnd : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.zeroMid : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.oneEnd : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.oneMid : ℕ
+  OAI.KirchbergRordam.GeneralDropSystem.Data.lower_pos : 0 < self.lower
+  OAI.KirchbergRordam.GeneralDropSystem.Data.upper_pos : 0 < self.upper
+  OAI.KirchbergRordam.GeneralDropSystem.Data.zero_low : q * self.lower = self.zeroEnd * Q
+  OAI.KirchbergRordam.GeneralDropSystem.Data.zero_mid : self.upper + self.middle = self.zeroMid * Q
+  OAI.KirchbergRordam.GeneralDropSystem.Data.one_low : p * self.upper = P * self.oneEnd
+  OAI.KirchbergRordam.GeneralDropSystem.Data.one_mid : self.lower + self.middle = P * self.oneMid
+  OAI.KirchbergRordam.GeneralDropSystem.Data.zero_dim : p * self.zeroEnd + p * q * self.zeroMid = P
+  OAI.KirchbergRordam.GeneralDropSystem.Data.one_dim : q * self.oneEnd + p * q * self.oneMid = Q
+constructor:
+  OAI.KirchbergRordam.GeneralDropSystem.Data.mk {p q P Q : ℕ} (lower upper middle zeroEnd zeroMid oneEnd oneMid : ℕ)
+    (lower_pos : 0 < lower) (upper_pos : 0 < upper) (zero_low : q * lower = zeroEnd * Q)
+    (zero_mid : upper + middle = zeroMid * Q) (one_low : p * upper = P * oneEnd) (one_mid : lower + middle = P * oneMid)
+    (zero_dim : p * zeroEnd + p * q * zeroMid = P) (one_dim : q * oneEnd + p * q * oneMid = Q) :
+    OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.Low : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => Fin d.lower
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.High : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => Fin d.upper
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.Mid : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => Fin d.middle
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.Slot : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d =>
+  OAI.KirchbergRordam.GeneralDropSystem.Low d ⊕
+    OAI.KirchbergRordam.GeneralDropSystem.High d ⊕ OAI.KirchbergRordam.GeneralDropSystem.Mid d
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.Index : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => (Fin p × Fin q) × OAI.KirchbergRordam.GeneralDropSystem.Slot d
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.ZeroSpace : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => Fin p × Fin d.zeroEnd ⊕ (Fin p × Fin q) × Fin d.zeroMid
+@[reducible] def OAI.KirchbergRordam.GeneralDropSystem.OneSpace : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q → Type :=
+fun {p q P Q} d => Fin q × Fin d.oneEnd ⊕ (Fin p × Fin q) × Fin d.oneMid
+def OAI.KirchbergRordam.GeneralDropSystem.zeroLow : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    Fin q × OAI.KirchbergRordam.GeneralDropSystem.Low d ≃ Fin d.zeroEnd × Fin Q :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.zeroMid : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.High d ⊕ OAI.KirchbergRordam.GeneralDropSystem.Mid d ≃
+      Fin d.zeroMid × Fin Q :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.zeroOuter : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.ZeroSpace d ≃ Fin P :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.oneLow : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    Fin p × OAI.KirchbergRordam.GeneralDropSystem.High d ≃ Fin P × Fin d.oneEnd :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.oneMid : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.Low d ⊕ OAI.KirchbergRordam.GeneralDropSystem.Mid d ≃ Fin P × Fin d.oneMid :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.oneOuter : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) → OAI.KirchbergRordam.GeneralDropSystem.OneSpace d ≃ Fin Q :=
+fun {p q P Q} d => OAI.KirchbergRordam.BalancedDropSystem.cardEquiv ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.slotSwap : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.Slot d ≃
+      OAI.KirchbergRordam.GeneralDropSystem.High d ⊕
+        OAI.KirchbergRordam.GeneralDropSystem.Low d ⊕ OAI.KirchbergRordam.GeneralDropSystem.Mid d :=
+fun {p q P Q} d =>
+  { toFun := Sum.elim (Sum.inr ∘ Sum.inl) (Sum.elim Sum.inl (Sum.inr ∘ Sum.inr)),
+    invFun := Sum.elim (Sum.inr ∘ Sum.inl) (Sum.elim Sum.inl (Sum.inr ∘ Sum.inr)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.KirchbergRordam.GeneralDropSystem.zeroReindex : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.Index d ≃ Fin P × Fin Q :=
+fun {p q P Q} d =>
+  (OAI.KirchbergRordam.GeneralBlockReindex.repackLeft (OAI.KirchbergRordam.GeneralDropSystem.zeroLow d)
+        (OAI.KirchbergRordam.GeneralDropSystem.zeroMid d)).trans
+    ((OAI.KirchbergRordam.GeneralDropSystem.zeroOuter d).prodCongr (Equiv.refl (Fin Q)))
+def OAI.KirchbergRordam.GeneralDropSystem.oneReindex : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.Index d ≃ Fin P × Fin Q :=
+fun {p q P Q} d =>
+  ((Equiv.refl (Fin p × Fin q)).prodCongr (OAI.KirchbergRordam.GeneralDropSystem.slotSwap d)).trans
+    ((OAI.KirchbergRordam.GeneralBlockReindex.repackRight (OAI.KirchbergRordam.GeneralDropSystem.oneLow d)
+          (OAI.KirchbergRordam.GeneralDropSystem.oneMid d)).trans
+      ((Equiv.refl (Fin P)).prodCongr (OAI.KirchbergRordam.GeneralDropSystem.oneOuter d)))
+def OAI.KirchbergRordam.GeneralDropSystem.eigenpath : {p q P Q : ℕ} →
+  (d : OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q) →
+    OAI.KirchbergRordam.GeneralDropSystem.Slot d → C(↑unitInterval, ↑unitInterval) :=
+fun {p q P Q} d =>
+  Sum.elim (fun x => OAI.KirchbergRordam.BalancedDropSystem.lowerPath)
+    (Sum.elim (fun x => OAI.KirchbergRordam.BalancedDropSystem.upperPath) fun x =>
+      ContinuousMap.const (↑unitInterval) OAI.KirchbergRordam.BalancedDropSystem.half)
+def OAI.KirchbergRordam.GeneralDropSystem.interpolatedEvaluation.{sourceLevel, blockLevel, targetLevel} : {SourceIndex :
+    Type sourceLevel} →
+  {BlockIndex : Type blockLevel} →
+    {TargetIndex : Type targetLevel} →
+      [sourceFintype : Fintype SourceIndex] →
+        [sourceDecidableEq : DecidableEq SourceIndex] →
+          [blockFintype : Fintype BlockIndex] →
+            [blockDecidableEq : DecidableEq BlockIndex] →
+              [targetFintype : Fintype TargetIndex] →
+                [targetDecidableEq : DecidableEq TargetIndex] →
+                  SourceIndex × BlockIndex ≃ TargetIndex →
+                    SourceIndex × BlockIndex ≃ TargetIndex →
+                      (BlockIndex → C(↑unitInterval, ↑unitInterval)) →
+                        ↑unitInterval →
+                          C(↑unitInterval, OAI.KirchbergRordam.MatrixDiagonalPath.Mat SourceIndex) →⋆ₐ[ℂ]
+                            OAI.KirchbergRordam.MatrixDiagonalPath.Mat TargetIndex :=
+fun {SourceIndex} {BlockIndex} {TargetIndex} [Fintype SourceIndex] [DecidableEq SourceIndex] [Fintype BlockIndex]
+    [DecidableEq BlockIndex] [Fintype TargetIndex] [DecidableEq TargetIndex] zeroReindex oneReindex eigenpath point =>
+  (OAI.KirchbergRordam.MatrixDiagonalPath.interpolate zeroReindex oneReindex point).toStarAlgHom.comp
+    (OAI.KirchbergRordam.MatrixDiagonalPath.evaluationBlock eigenpath point)
+def OAI.KirchbergRordam.GeneralDropSystem.fiberMap : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q →
+    ↑unitInterval →
+      C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q) →⋆ₐ[ℂ]
+        OAI.KirchbergRordam.PrimeDimensionDrop.Fiber P Q :=
+fun {p q P Q} d t =>
+  OAI.KirchbergRordam.GeneralDropSystem.interpolatedEvaluation (OAI.KirchbergRordam.GeneralDropSystem.zeroReindex d)
+    (OAI.KirchbergRordam.GeneralDropSystem.oneReindex d) (OAI.KirchbergRordam.GeneralDropSystem.eigenpath d) t
+def OAI.KirchbergRordam.GeneralDropSystem.continuousFamily.{u_1, u_2} : {Source : Type u_1} →
+  {Target : Type u_2} →
+    [inst : CStarAlgebra Source] →
+      [inst_1 : CStarAlgebra Target] →
+        (family : ↑unitInterval → Source →⋆ₐ[ℂ] Target) →
+          (∀ (value : Source), Continuous fun point => (family point) value) → Source →⋆ₐ[ℂ] C(↑unitInterval, Target) :=
+fun {Source} {Target} [CStarAlgebra Source] [CStarAlgebra Target] family continuous_family =>
+  { toFun := fun value => { toFun := fun point => (family point) value, continuous_toFun := ⋯ }, map_one' := ⋯,
+    map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.KirchbergRordam.GeneralDropSystem.rawStep : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q →
+    C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber p q) →⋆ₐ[ℂ]
+      C(↑unitInterval, OAI.KirchbergRordam.PrimeDimensionDrop.Fiber P Q) :=
+fun {p q P Q} d =>
+  have h_MatrixDiagonalPath_evaluationBlock_continuous := @OAI.KirchbergRordam.GeneralDropSystem.rawStep._proof_3;
+  have h_MatrixDiagonalPath_interpolate_continuous := @OAI.KirchbergRordam.GeneralDropSystem.rawStep._proof_4;
+  have h_GeneralDropSystem_fiberMap_continuous := ⋯;
+  OAI.KirchbergRordam.GeneralDropSystem.continuousFamily (OAI.KirchbergRordam.GeneralDropSystem.fiberMap d) ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.restrictToSubalgebras.{u_1, u_2} : {Source : Type u_1} →
+  {Target : Type u_2} →
+    [inst : CStarAlgebra Source] →
+      [inst_1 : CStarAlgebra Target] →
+        (hom : Source →⋆ₐ[ℂ] Target) →
+          (domain : StarSubalgebra ℂ Source) →
+            (codomain : StarSubalgebra ℂ Target) →
+              (∀ value ∈ domain, hom value ∈ codomain) → ↥domain →⋆ₐ[ℂ] ↥codomain :=
+fun {Source} {Target} [CStarAlgebra Source] [CStarAlgebra Target] hom domain codomain map_mem =>
+  (hom.comp domain.subtype).codRestrict codomain ⋯
+def OAI.KirchbergRordam.GeneralDropSystem.step : {p q P Q : ℕ} →
+  OAI.KirchbergRordam.GeneralDropSystem.Data p q P Q →
+    ↥(OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra p q) →⋆ₐ[ℂ]
+      ↥(OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra P Q) :=
+fun {p q P Q} d =>
+  have h_GeneralBlockReindex_right_low := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_1;
+  have h_GeneralBlockReindex_right_full := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_2;
+  have h_MatrixBlockReindex_sumBlock_ll := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_3;
+  have h_MatrixBlockReindex_sumBlock_lr := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_4;
+  have h_MatrixBlockReindex_sumBlock_rl := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_5;
+  have h_MatrixBlockReindex_sumBlock_rr := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_6;
+  have h_MatrixBlockReindex_right_apply := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_7;
+  have h_MatrixDiagonalPath_block_apply := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_8;
+  have h_GeneralBlockReindex_right_entry := ⋯;
+  have h_GeneralBlockReindex_right_matrix := ⋯;
+  have h_BalancedDropSystem_lower_one := OAI.KirchbergRordam.GeneralDropSystem.step._proof_11;
+  have h_BalancedDropSystem_upper_one := OAI.KirchbergRordam.GeneralDropSystem.step._proof_12;
+  have h_GeneralDropSystem_rawStep_apply := ⋯;
+  have h_MatrixBlockReindex_reindex_block := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_14;
+  have h_GeneralDropSystem_one_eval := ⋯;
+  have h_MatrixBlockReindex_reindex_right := ⋯;
+  have h_MatrixBlockReindex_reindex_trans := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_17;
+  have h_MatrixPermutationPath_perm_conjugation := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_20;
+  have h_MatrixDiagonalPath_interpolate_one := ⋯;
+  have h_GeneralDropSystem_rawStep_one := ⋯;
+  have h_GeneralBlockReindex_left_low := @OAI.KirchbergRordam.GeneralBlockReindex.repackRight._proof_1;
+  have h_GeneralBlockReindex_left_full := @OAI.KirchbergRordam.GeneralBlockReindex.repackRight._proof_2;
+  have h_MatrixBlockReindex_left_apply := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_23;
+  have h_GeneralBlockReindex_left_entry := ⋯;
+  have h_GeneralBlockReindex_left_matrix := ⋯;
+  have h_BalancedDropSystem_lower_zero := OAI.KirchbergRordam.GeneralDropSystem.step._proof_26;
+  have h_BalancedDropSystem_upper_zero := OAI.KirchbergRordam.GeneralDropSystem.step._proof_27;
+  have h_GeneralDropSystem_zero_eval := ⋯;
+  have h_MatrixBlockReindex_reindex_left := ⋯;
+  have h_MatrixPermutationPath_perm_one := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_30;
+  have h_MatrixDiagonalPath_interpolate_zero := ⋯;
+  have h_GeneralDropSystem_rawStep_zero := ⋯;
+  have h_GeneralDropSystem_rawStep_mem := ⋯;
+  OAI.KirchbergRordam.GeneralDropSystem.restrictToSubalgebras (OAI.KirchbergRordam.GeneralDropSystem.rawStep d)
+    (OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra p q) (OAI.KirchbergRordam.PrimeDimensionDrop.subalgebra P Q) ⋯
+structure OAI.KirchbergRordam.PrimeDropPresentation : Type
+number of parameters: 0
+fields:
+  OAI.KirchbergRordam.PrimeDropPresentation.size : ℕ → ℕ
+  OAI.KirchbergRordam.PrimeDropPresentation.exponent : ℕ → ℕ
+  OAI.KirchbergRordam.PrimeDropPresentation.size_power : ∀ (n : ℕ), self.size n = 2 ^ (self.exponent n + 1)
+  OAI.KirchbergRordam.PrimeDropPresentation.stepData : (n : ℕ) →
+      OAI.KirchbergRordam.GeneralDropSystem.Data (self.size n) (self.size n + 1) (self.size (n + 1))
+        (self.size (n + 1) + 1)
+  OAI.KirchbergRordam.PrimeDropPresentation.zero_copies : ∀ (n : ℕ),
+      2 ≤ (self.stepData n).zeroEnd + (self.size n + 1) * (self.stepData n).zeroMid
+  OAI.KirchbergRordam.PrimeDropPresentation.one_copies : ∀ (n : ℕ),
+      2 ≤ (self.stepData n).oneEnd + self.size n * (self.stepData n).oneMid
+constructor:
+  OAI.KirchbergRordam.PrimeDropPresentation.mk (size exponent : ℕ → ℕ)
+    (size_power : ∀ (n : ℕ), size n = 2 ^ (exponent n + 1))
+    (stepData :
+      (n : ℕ) → OAI.KirchbergRordam.GeneralDropSystem.Data (size n) (size n + 1) (size (n + 1)) (size (n + 1) + 1))
+    (zero_copies : ∀ (n : ℕ), 2 ≤ (stepData n).zeroEnd + (size n + 1) * (stepData n).zeroMid)
+    (one_copies : ∀ (n : ℕ), 2 ≤ (stepData n).oneEnd + size n * (stepData n).oneMid) :
+    OAI.KirchbergRordam.PrimeDropPresentation
+def OAI.KirchbergRordam.PrimeDropPresentation.Stage : OAI.KirchbergRordam.PrimeDropPresentation → ℕ → Type :=
+fun S n => ↥(OAI.KirchbergRordam.PrimeDimensionDrop.Algebra (S.size n) (S.size n + 1))
+def OAI.KirchbergRordam.PrimeDropPresentation.chain : OAI.KirchbergRordam.PrimeDropPresentation →
+  OAI.KirchbergRordam.CStarInductiveLimit.Chain :=
+fun S =>
+  have h_GeneralDropSystem_eigen_cover := @OAI.KirchbergRordam.PrimeDropPresentation.chain._proof_1;
+  have h_MatrixDiagonalPath_block_apply := @OAI.KirchbergRordam.GeneralDropSystem.step._proof_8;
+  have h_MatrixDiagonalPath_block_injective := ⋯;
+  have h_MatrixDiagonalPath_diagonal_injective := ⋯;
+  have h_GeneralDropSystem_rawStep_injective := ⋯;
+  have h_GeneralDropSystem_step_injective := ⋯;
+  have h_GeneralDropSystem_step_norm := ⋯;
+  have h_PrimeDropPresentation_stage_step_norm := ⋯;
+  { obj := S.Stage, cstar := S.instCStarAlgebraStage,
+    step := fun stage => OAI.KirchbergRordam.GeneralDropSystem.step (S.stepData stage), norm_step := ⋯ }
+@[reducible] def OAI.KirchbergRordam.PrimeDropPresentation.system : OAI.KirchbergRordam.PrimeDropPresentation →
+  OAI.KirchbergRordam.CStarInductiveLimit.System :=
+fun S => S.chain.system
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.copies : ℕ → ℕ :=
+fun p => (p - 1) * (p ^ 4 + p ^ 2 + 1)
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.lower : ℕ → ℕ :=
+fun p => p * OAI.KirchbergRordam.StandardPrimeMultiplicity.copies p + 1
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.upper : ℕ → ℕ :=
+fun p => (p + 1) * OAI.KirchbergRordam.StandardPrimeMultiplicity.copies p + 1
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.middle : ℕ → ℕ :=
+fun p => p * (p + 1) * OAI.KirchbergRordam.StandardPrimeMultiplicity.copies p ^ 2 - 1
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.next : ℕ → ℕ :=
+fun p => p ^ 7
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.data : (p : ℕ) →
+  2 ≤ p →
+    OAI.KirchbergRordam.GeneralDropSystem.Data p (p + 1) (OAI.KirchbergRordam.StandardPrimeMultiplicity.next p)
+      (OAI.KirchbergRordam.StandardPrimeMultiplicity.next p + 1) :=
+fun p hp =>
+  have h_StandardPrimeMultiplicity_dimension := ⋯;
+  have h_StandardPrimeMultiplicity_lower_pos := ⋯;
+  have h_StandardPrimeMultiplicity_one_low := ⋯;
+  have h_StandardPrimeMultiplicity_copies_pos := ⋯;
+  have h_StandardPrimeMultiplicity_middle_add_one := ⋯;
+  have h_StandardPrimeMultiplicity_one_mid := ⋯;
+  have h_StandardPrimeMultiplicity_upper_pos := ⋯;
+  have h_StandardPrimeMultiplicity_zero_low := ⋯;
+  have h_StandardPrimeMultiplicity_zero_mid := ⋯;
+  { lower := OAI.KirchbergRordam.StandardPrimeMultiplicity.lower p,
+    upper := OAI.KirchbergRordam.StandardPrimeMultiplicity.upper p,
+    middle := OAI.KirchbergRordam.StandardPrimeMultiplicity.middle p, zeroEnd := 1,
+    zeroMid := OAI.KirchbergRordam.StandardPrimeMultiplicity.copies p, oneEnd := 1,
+    oneMid := OAI.KirchbergRordam.StandardPrimeMultiplicity.copies p, lower_pos := ⋯, upper_pos := ⋯, zero_low := ⋯,
+    zero_mid := ⋯, one_low := ⋯, one_mid := ⋯, zero_dim := ⋯, one_dim := ⋯ }
+def OAI.KirchbergRordam.StandardPrimeMultiplicity.size : ℕ → ℕ :=
+fun x => Nat.brecOn x OAI.KirchbergRordam.StandardPrimeMultiplicity.size._f
+def OAI.KirchbergRordam.StandardPrimeModel.presentation : OAI.KirchbergRordam.PrimeDropPresentation :=
+have h_StandardPrimeMultiplicity_copies_pos := OAI.KirchbergRordam.StandardPrimeModel.presentation._proof_2;
+have h_StandardPrimeMultiplicity_size_zero := OAI.KirchbergRordam.StandardPrimeModel.presentation._proof_3;
+have h_StandardPrimeMultiplicity_size_succ := OAI.KirchbergRordam.StandardPrimeModel.presentation._proof_4;
+have h_StandardPrimeMultiplicity_size_power := ⋯;
+have h_StandardPrimeMultiplicity_next_two := OAI.KirchbergRordam.StandardPrimeModel.presentation._proof_6;
+have h_StandardPrimeMultiplicity_size_two := ⋯;
+{ size := OAI.KirchbergRordam.StandardPrimeMultiplicity.size, exponent := fun n => 7 ^ n - 1, size_power := ⋯,
+  stepData := fun n =>
+    OAI.KirchbergRordam.StandardPrimeMultiplicity.data (OAI.KirchbergRordam.StandardPrimeMultiplicity.size n) ⋯,
+  zero_copies := ⋯, one_copies := ⋯ }
+def OAI.KirchbergRordam.JiangSu.Algebra : Type :=
+OAI.KirchbergRordam.CStarInductiveLimit.Algebra OAI.KirchbergRordam.StandardPrimeModel.presentation.system
+def OAI.KirchbergRordam.HasNoCharacters.{u_1} : (A : Type u_1) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] => ∀ (χ : A →⋆ₙₐ[ℂ] ℂ), χ = 0

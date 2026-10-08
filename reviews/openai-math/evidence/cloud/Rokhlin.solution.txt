@@ -1,0 +1,24 @@
+@OAI.Rokhlin.mixing_all_finite_orders : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (μ : MeasureTheory.Measure Ω)
+  [MeasureTheory.IsProbabilityMeasure μ] (T : Ω ≃ᵐ Ω),
+  MeasureTheory.MeasurePreserving (⇑T) μ μ →
+    OAI.Rokhlin.IsMixing μ T → ∀ (k : ℕ), 3 ≤ k → OAI.Rokhlin.MixingOfOrder μ T k
+'OAI.Rokhlin.mixing_all_finite_orders' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Rokhlin.timeMap.{u_1} : {Ω : Type u_1} → [inst : MeasurableSpace Ω] → Ω ≃ᵐ Ω → ℤ → Ω → Ω :=
+fun {Ω} [MeasurableSpace Ω] T n => ⇑(T.toEquiv ^ n)
+def OAI.Rokhlin.IsMixing.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → Ω ≃ᵐ Ω → Prop :=
+fun {Ω} [MeasurableSpace Ω] μ T =>
+  ∀ (A B : Set Ω),
+    MeasurableSet A →
+      MeasurableSet B →
+        Filter.Tendsto (fun n => μ (A ∩ OAI.Rokhlin.timeMap T n ⁻¹' B)) (Filter.comap Int.natAbs Filter.atTop)
+          (nhds (μ A * μ B))
+def OAI.Rokhlin.layoutTime : {k : ℕ} → (Fin (k - 1) → ℕ+) → Fin k → ℕ :=
+fun {k} gaps i => ∑ j, if ↑j < ↑i then ↑(gaps j) else 0
+def OAI.Rokhlin.MixingOfOrder.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → Ω ≃ᵐ Ω → ℕ → Prop :=
+fun {Ω} [MeasurableSpace Ω] μ T k =>
+  ∀ (A : Fin k → Set Ω),
+    (∀ (i : Fin k), MeasurableSet (A i)) →
+      Filter.Tendsto (fun gaps => μ (⋂ i, OAI.Rokhlin.timeMap T ↑(OAI.Rokhlin.layoutTime gaps i) ⁻¹' A i)) Filter.atTop
+        (nhds (∏ i, μ (A i)))

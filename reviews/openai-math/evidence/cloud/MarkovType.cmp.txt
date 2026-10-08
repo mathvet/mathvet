@@ -1,0 +1,86 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_MarkovType.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.MarkovSuperreflexivity.hasNontrivialMarkovType_iff_hasEquivalentUCNorm [thm] ok
+CMP OAI.MarkovSuperreflexivity.HasEquivalentUCNorm [def] ok
+CMP OAI.MarkovSuperreflexivity.EquivalentNorm.p [def] ok
+CMP OAI.MarkovSuperreflexivity.EquivalentNorm [ind] ok
+CMP OAI.MarkovSuperreflexivity.EquivalentNorm.mk [ctor] ok
+CMP OAI.MarkovSuperreflexivity.UniformConvex [def] ok
+CMP OAI.MarkovSuperreflexivity.UniformConvex._proof_1 [thm] ok
+CMP OAI.MarkovSuperreflexivity.HasNontrivialMarkovType [def] ok
+CMP OAI.MarkovSuperreflexivity.HasMarkovType [def] ok
+CMP OAI.MarkovSuperreflexivity.MarkovTypeWith [def] ok
+CMP OAI.MarkovSuperreflexivity.stateCost [def] ok
+CMP OAI.MarkovSuperreflexivity.pathWeight._proof_1 [thm] ok
+CMP OAI.MarkovSuperreflexivity.pathWeight [def] ok
+CMP OAI.MarkovSuperreflexivity.FiniteReversibleChain.P [def] ok
+CMP OAI.MarkovSuperreflexivity.FiniteReversibleChain [ind] ok
+CMP OAI.MarkovSuperreflexivity.FiniteReversibleChain.mk [ctor] ok
+CMP OAI.MarkovSuperreflexivity.FiniteReversibleChain.π [def] ok
+CMP OAI.MarkovSuperreflexivity.StatePath [def] ok
+@Chal.MarkovSuperreflexivity.hasNontrivialMarkovType_iff_hasEquivalentUCNorm : ∀ {X : Type u_1}
+  [inst : NormedAddCommGroup X] [inst_1 : NormedSpace ℝ X] [CompleteSpace X],
+  Chal.MarkovSuperreflexivity.HasNontrivialMarkovType X ↔ Chal.MarkovSuperreflexivity.HasEquivalentUCNorm X
+structure Chal.MarkovSuperreflexivity.FiniteReversibleChain.{u_1} (S : Type u_1) [Fintype S] : Type u_1
+number of parameters: 2
+fields:
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.π : S → ℝ
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.P : S → S → ℝ
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.π_nonneg : ∀ (s : S), 0 ≤ self.π s
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.sum_π : ∑ s, self.π s = 1
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.P_nonneg : ∀ (s t : S), 0 ≤ self.P s t
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.sum_P : ∀ (s : S), ∑ t, self.P s t = 1
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.balance : ∀ (s t : S), self.π s * self.P s t = self.π t * self.P t s
+constructor:
+  Chal.MarkovSuperreflexivity.FiniteReversibleChain.mk.{u_1} {S : Type u_1} [Fintype S] (π : S → ℝ) (P : S → S → ℝ)
+    (π_nonneg : ∀ (s : S), 0 ≤ π s) (sum_π : ∑ s, π s = 1) (P_nonneg : ∀ (s t : S), 0 ≤ P s t)
+    (sum_P : ∀ (s : S), ∑ t, P s t = 1) (balance : ∀ (s t : S), π s * P s t = π t * P t s) :
+    Chal.MarkovSuperreflexivity.FiniteReversibleChain S
+@[reducible] def Chal.MarkovSuperreflexivity.StatePath.{u_1} : Type u_1 → ℕ → Type u_1 :=
+fun S n => Fin (n + 1) → S
+def Chal.MarkovSuperreflexivity.pathWeight.{u_1} : {S : Type u_1} →
+  [inst : Fintype S] →
+    Chal.MarkovSuperreflexivity.FiniteReversibleChain S → (n : ℕ) → Chal.MarkovSuperreflexivity.StatePath S n → ℝ :=
+fun {S} [Fintype S] C n ω => C.π (ω 0) * ∏ i, C.P (ω i.castSucc) (ω i.succ)
+def Chal.MarkovSuperreflexivity.stateCost.{u_1, u_2} : {S : Type u_1} →
+  {X : Type u_2} →
+    [inst : Fintype S] →
+      [NormedAddCommGroup X] → Chal.MarkovSuperreflexivity.FiniteReversibleChain S → (S → X) → ℝ → ℕ → ℝ :=
+fun {S} {X} [Fintype S] [NormedAddCommGroup X] C f p n =>
+  ∑ ω, Chal.MarkovSuperreflexivity.pathWeight C n ω * ‖f (ω (Fin.last n)) - f (ω 0)‖.rpow p
+def Chal.MarkovSuperreflexivity.MarkovTypeWith.{u_1} : ℝ → ℝ → (X : Type u_1) → [NormedAddCommGroup X] → Prop :=
+fun p K X [NormedAddCommGroup X] =>
+  0 < p ∧
+    0 < K ∧
+      ∀ (m : ℕ) (C : Chal.MarkovSuperreflexivity.FiniteReversibleChain (Fin m)) (f : Fin m → X) (n : ℕ),
+        1 ≤ n →
+          Chal.MarkovSuperreflexivity.stateCost C f p n ≤ K.rpow p * ↑n * Chal.MarkovSuperreflexivity.stateCost C f p 1
+def Chal.MarkovSuperreflexivity.HasMarkovType.{u_1} : ℝ → (X : Type u_1) → [NormedAddCommGroup X] → Prop :=
+fun p X [NormedAddCommGroup X] => ∃ K, Chal.MarkovSuperreflexivity.MarkovTypeWith p K X
+def Chal.MarkovSuperreflexivity.HasNontrivialMarkovType.{u_1} : (X : Type u_1) → [NormedAddCommGroup X] → Prop :=
+fun X [NormedAddCommGroup X] => ∃ p, 1 < p ∧ Chal.MarkovSuperreflexivity.HasMarkovType p X
+structure Chal.MarkovSuperreflexivity.EquivalentNorm.{u} (X : Type u) [NormedAddCommGroup X] [NormedSpace ℝ X] : Type u
+number of parameters: 3
+fields:
+  Chal.MarkovSuperreflexivity.EquivalentNorm.p : Seminorm ℝ X
+  Chal.MarkovSuperreflexivity.EquivalentNorm.lower : ℝ
+  Chal.MarkovSuperreflexivity.EquivalentNorm.upper : ℝ
+  Chal.MarkovSuperreflexivity.EquivalentNorm.lower_pos : 0 < self.lower
+  Chal.MarkovSuperreflexivity.EquivalentNorm.upper_pos : 0 < self.upper
+  Chal.MarkovSuperreflexivity.EquivalentNorm.lower_bound : ∀ (x : X), self.lower * ‖x‖ ≤ self.p x
+  Chal.MarkovSuperreflexivity.EquivalentNorm.upper_bound : ∀ (x : X), self.p x ≤ self.upper * ‖x‖
+constructor:
+  Chal.MarkovSuperreflexivity.EquivalentNorm.mk.{u} {X : Type u} [NormedAddCommGroup X] [NormedSpace ℝ X]
+    (p : Seminorm ℝ X) (lower upper : ℝ) (lower_pos : 0 < lower) (upper_pos : 0 < upper)
+    (lower_bound : ∀ (x : X), lower * ‖x‖ ≤ p x) (upper_bound : ∀ (x : X), p x ≤ upper * ‖x‖) :
+    Chal.MarkovSuperreflexivity.EquivalentNorm X
+def Chal.MarkovSuperreflexivity.UniformConvex.{u} : {X : Type u} →
+  [inst : NormedAddCommGroup X] → [inst_1 : NormedSpace ℝ X] → Seminorm ℝ X → Prop :=
+fun {X} [NormedAddCommGroup X] [NormedSpace ℝ X] p =>
+  ∀ (ε : ℝ), 0 < ε → ε ≤ 2 → ∃ δ, 0 < δ ∧ ∀ (x y : X), p x ≤ 1 → p y ≤ 1 → ε ≤ p (x - y) → p ((1 / 2) • (x + y)) ≤ 1 - δ
+def Chal.MarkovSuperreflexivity.HasEquivalentUCNorm.{u} : (X : Type u) →
+  [inst : NormedAddCommGroup X] → [NormedSpace ℝ X] → Prop :=
+fun X [NormedAddCommGroup X] [NormedSpace ℝ X] => ∃ N, Chal.MarkovSuperreflexivity.UniformConvex N.p
+'OAI.MarkovSuperreflexivity.hasNontrivialMarkovType_iff_hasEquivalentUCNorm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== MarkovType comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0

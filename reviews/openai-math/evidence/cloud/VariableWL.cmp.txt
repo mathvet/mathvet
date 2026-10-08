@@ -1,0 +1,187 @@
+CMP OAI.VariableWL.main [thm] ok
+CMP OAI.VariableWL.SubWL [def] ok
+CMP OAI.VariableWL.Equivalent [def] ok
+CMP OAI.VariableWL.histogram [def] ok
+CMP OAI.VariableWL.Graph.order [def] ok
+CMP OAI.VariableWL.Graph [ind] ok
+CMP OAI.VariableWL.Graph.mk [ctor] ok
+CMP OAI.VariableWL.color [def] ok
+CMP OAI.VariableWL.color._f [def] ok
+CMP OAI.VariableWL.Graph.graph [def] ok
+CMP OAI.VariableWL.color.match_1 [def] ok
+CMP OAI.VariableWL.Tuple [def] ok
+CMP OAI.VariableWL.Color [def] ok
+CMP OAI.VariableWL.Color._f [def] ok
+CMP OAI.VariableWL.run.match_1 [def] ok
+CMP OAI.VariableWL.Subcubic [def] ok
+CMP OAI.VariableWL.pairCode [def] ok
+CMP OAI.VariableWL.integerCode [def] ok
+CMP OAI.VariableWL.Word [def] ok
+CMP OAI.VariableWL.graphCode [def] ok
+CMP OAI.VariableWL.Language [def] ok
+CMP OAI.VariableWL.WL [def] ok
+CMP OAI.VariableWL.EXPTIMEComplete [def] ok
+CMP OAI.VariableWL.PolytimeReduces [def] ok
+CMP OAI.VariableWL.OutputsWithin [def] ok
+CMP OAI.VariableWL.wordCells [def] ok
+CMP OAI.VariableWL.wordCells._proof_1 [thm] ok
+CMP OAI.VariableWL.wordCells.match_1 [def] ok
+CMP OAI.VariableWL.initial._proof_2 [thm] ok
+CMP OAI.VariableWL.Machine.extraTapes [def] ok
+CMP OAI.VariableWL.Machine [ind] ok
+CMP OAI.VariableWL.Machine.mk [ctor] ok
+CMP OAI.VariableWL.Motion [ind] ok
+CMP OAI.VariableWL.Motion.right [ctor] ok
+CMP OAI.VariableWL.Motion.stay [ctor] ok
+CMP OAI.VariableWL.Motion.left [ctor] ok
+CMP OAI.VariableWL.Configuration.cells [def] ok
+CMP OAI.VariableWL.Configuration [ind] ok
+CMP OAI.VariableWL.Configuration.mk [ctor] ok
+CMP OAI.VariableWL.Machine.workSymbols [def] ok
+CMP OAI.VariableWL.Machine.states [def] ok
+CMP OAI.VariableWL.run [def] ok
+CMP OAI.VariableWL.run._f [def] ok
+CMP OAI.VariableWL.step [def] ok
+CMP OAI.VariableWL.scanned [def] ok
+CMP OAI.VariableWL.Configuration.heads [def] ok
+CMP OAI.VariableWL.Configuration.control [def] ok
+CMP OAI.VariableWL.Machine.transition [def] ok
+CMP OAI.VariableWL.Motion.displacement [def] ok
+CMP OAI.VariableWL.Motion.displacement.match_1 [def] ok
+CMP OAI.VariableWL.Motion.casesOn [def] ok
+CMP OAI.VariableWL.Motion.rec [rec] ok
+CMP OAI.VariableWL.initial [def] ok
+CMP OAI.VariableWL.initial._proof_3 [thm] ok
+CMP OAI.VariableWL.initial._proof_1 [thm] ok
+CMP OAI.VariableWL.InEXPTIME [def] ok
+Chal.VariableWL.main : Chal.VariableWL.EXPTIMEComplete Chal.VariableWL.WL ∧
+  Chal.VariableWL.EXPTIMEComplete Chal.VariableWL.SubWL
+@[reducible] def Chal.VariableWL.Word : Type :=
+List Bool
+inductive Chal.VariableWL.Motion : Type
+number of parameters: 0
+constructors:
+Chal.VariableWL.Motion.left : Chal.VariableWL.Motion
+Chal.VariableWL.Motion.stay : Chal.VariableWL.Motion
+Chal.VariableWL.Motion.right : Chal.VariableWL.Motion
+def Chal.VariableWL.Motion.displacement : Chal.VariableWL.Motion → ℤ :=
+fun x =>
+  match x with
+  | Chal.VariableWL.Motion.left => -1
+  | Chal.VariableWL.Motion.stay => 0
+  | Chal.VariableWL.Motion.right => 1
+structure Chal.VariableWL.Machine : Type
+number of parameters: 0
+fields:
+  Chal.VariableWL.Machine.states : ℕ
+  Chal.VariableWL.Machine.workSymbols : ℕ
+  Chal.VariableWL.Machine.extraTapes : ℕ
+  Chal.VariableWL.Machine.transition : Fin (self.states + 1) →
+      (Fin (self.extraTapes + 1) → Fin (self.workSymbols + 3)) →
+        Option
+          (Fin (self.states + 1) × (Fin (self.extraTapes + 1) → Fin (self.workSymbols + 3) × Chal.VariableWL.Motion))
+constructor:
+  Chal.VariableWL.Machine.mk (states workSymbols extraTapes : ℕ)
+    (transition :
+      Fin (states + 1) →
+        (Fin (extraTapes + 1) → Fin (workSymbols + 3)) →
+          Option (Fin (states + 1) × (Fin (extraTapes + 1) → Fin (workSymbols + 3) × Chal.VariableWL.Motion))) :
+    Chal.VariableWL.Machine
+structure Chal.VariableWL.Configuration (M : Chal.VariableWL.Machine) : Type
+number of parameters: 1
+fields:
+  Chal.VariableWL.Configuration.control : Fin (M.states + 1)
+  Chal.VariableWL.Configuration.heads : Fin (M.extraTapes + 1) → ℤ
+  Chal.VariableWL.Configuration.cells : Fin (M.extraTapes + 1) → ℤ → Fin (M.workSymbols + 3)
+constructor:
+  Chal.VariableWL.Configuration.mk {M : Chal.VariableWL.Machine} (control : Fin (M.states + 1))
+    (heads : Fin (M.extraTapes + 1) → ℤ) (cells : Fin (M.extraTapes + 1) → ℤ → Fin (M.workSymbols + 3)) :
+    Chal.VariableWL.Configuration M
+def Chal.VariableWL.wordCells : (a : ℕ) → Chal.VariableWL.Word → ℤ → Fin (a + 3) :=
+fun a w i =>
+  if 0 ≤ i then
+    match w[i.toNat]? with
+    | none => 0
+    | some false => 1
+    | some true => 2
+  else 0
+def Chal.VariableWL.initial : (M : Chal.VariableWL.Machine) → Chal.VariableWL.Word → Chal.VariableWL.Configuration M :=
+fun M w =>
+  { control := 0, heads := fun x => 0,
+    cells := fun j => if j = 0 then Chal.VariableWL.wordCells M.workSymbols w else fun x => 0 }
+def Chal.VariableWL.scanned : {M : Chal.VariableWL.Machine} →
+  Chal.VariableWL.Configuration M → Fin (M.extraTapes + 1) → Fin (M.workSymbols + 3) :=
+fun {M} c j => c.cells j (c.heads j)
+def Chal.VariableWL.step : (M : Chal.VariableWL.Machine) →
+  Chal.VariableWL.Configuration M → Option (Chal.VariableWL.Configuration M) :=
+fun M c =>
+  Option.map
+    (fun data =>
+      { control := data.1, heads := fun j => c.heads j + (data.2 j).2.displacement,
+        cells := fun j i => if i = c.heads j then (data.2 j).1 else c.cells j i })
+    (M.transition c.control (Chal.VariableWL.scanned c))
+def Chal.VariableWL.run : (M : Chal.VariableWL.Machine) → Chal.VariableWL.Word → ℕ → Chal.VariableWL.Configuration M :=
+fun M w x => Nat.brecOn x (Chal.VariableWL.run._f M w)
+def Chal.VariableWL.OutputsWithin : Chal.VariableWL.Machine → Chal.VariableWL.Word → Chal.VariableWL.Word → ℕ → Prop :=
+fun M w out bound =>
+  ∃ t ≤ bound,
+    Chal.VariableWL.step M (Chal.VariableWL.run M w t) = none ∧
+      (Chal.VariableWL.run M w t).cells 0 = Chal.VariableWL.wordCells M.workSymbols out
+@[reducible] def Chal.VariableWL.Language : Type :=
+Set Chal.VariableWL.Word
+def Chal.VariableWL.InEXPTIME : Chal.VariableWL.Language → Prop :=
+fun L =>
+  ∃ M c d,
+    ∀ (w : Chal.VariableWL.Word),
+      ∃ b, (b = true ↔ w ∈ L) ∧ Chal.VariableWL.OutputsWithin M w [b] (2 ^ (c * (List.length w + 1) ^ d))
+def Chal.VariableWL.PolytimeReduces : Chal.VariableWL.Language → Chal.VariableWL.Language → Prop :=
+fun L R =>
+  ∃ M c d,
+    ∀ (w : Chal.VariableWL.Word),
+      ∃ out, Chal.VariableWL.OutputsWithin M w out (c * (List.length w + 1) ^ d) ∧ (w ∈ L ↔ out ∈ R)
+def Chal.VariableWL.EXPTIMEComplete : Chal.VariableWL.Language → Prop :=
+fun L =>
+  Chal.VariableWL.InEXPTIME L ∧
+    ∀ (R : Chal.VariableWL.Language), Chal.VariableWL.InEXPTIME R → Chal.VariableWL.PolytimeReduces R L
+structure Chal.VariableWL.Graph : Type
+number of parameters: 0
+fields:
+  Chal.VariableWL.Graph.order : ℕ
+  Chal.VariableWL.Graph.graph : SimpleGraph (Fin self.order)
+constructor:
+  Chal.VariableWL.Graph.mk (order : ℕ) (graph : SimpleGraph (Fin order)) : Chal.VariableWL.Graph
+@[reducible] def Chal.VariableWL.Tuple : Chal.VariableWL.Graph → ℕ → Type :=
+fun G k => Fin k → Fin G.order
+def Chal.VariableWL.Color : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (Chal.VariableWL.Color._f k)
+def Chal.VariableWL.color : (G : Chal.VariableWL.Graph) →
+  (k s : ℕ) → Chal.VariableWL.Tuple G k → Chal.VariableWL.Color k s :=
+fun G k x x_1 =>
+  Nat.brecOn (motive := fun x => Chal.VariableWL.Tuple G k → Chal.VariableWL.Color k x) x (Chal.VariableWL.color._f G k)
+    x_1
+def Chal.VariableWL.histogram : Chal.VariableWL.Graph → (k s : ℕ) → Multiset (Chal.VariableWL.Color k s) :=
+fun G k s => Multiset.map (Chal.VariableWL.color G k s) Finset.univ.val
+def Chal.VariableWL.Equivalent : Chal.VariableWL.Graph → Chal.VariableWL.Graph → ℕ → Prop :=
+fun G H k => ∀ (s : ℕ), Chal.VariableWL.histogram G k s = Chal.VariableWL.histogram H k s
+def Chal.VariableWL.integerCode : ℕ → Chal.VariableWL.Word :=
+fun n => List.replicate n.bits.length true ++ [false] ++ n.bits
+def Chal.VariableWL.graphCode : Chal.VariableWL.Graph → Chal.VariableWL.Word :=
+fun G => Chal.VariableWL.integerCode G.order ++ (List.ofFn fun i => List.ofFn fun j => decide (G.graph.Adj i j)).flatten
+def Chal.VariableWL.pairCode : Chal.VariableWL.Graph → Chal.VariableWL.Graph → ℕ → Chal.VariableWL.Word :=
+fun G H k => Chal.VariableWL.graphCode G ++ Chal.VariableWL.graphCode H ++ Chal.VariableWL.integerCode k
+def Chal.VariableWL.WL : Chal.VariableWL.Language :=
+{w | ∃ G H k, w = Chal.VariableWL.pairCode G H k ∧ 2 ≤ k ∧ Chal.VariableWL.Equivalent G H k}
+def Chal.VariableWL.Subcubic : Chal.VariableWL.Graph → Prop :=
+fun G => ∀ (v : Fin G.order), G.graph.degree v ≤ 3
+def Chal.VariableWL.SubWL : Chal.VariableWL.Language :=
+{w |
+  ∃ G H k,
+    w = Chal.VariableWL.pairCode G H k ∧
+      2 ≤ k ∧
+        0 < G.order ∧
+          G.order = H.order ∧
+            G.graph.Connected ∧
+              H.graph.Connected ∧
+                Chal.VariableWL.Subcubic G ∧ Chal.VariableWL.Subcubic H ∧ Chal.VariableWL.Equivalent G H k}
+'OAI.VariableWL.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== VariableWL comparator-style: ok=56 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0

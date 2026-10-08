@@ -1,0 +1,108 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_BinarySweep.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.binary_sweep_contraction_and_mixing [thm] ok
+CMP OAI.BinaryCoordinateSweeps.UniformSweepMixingTarget [def] ok
+CMP OAI.BinaryCoordinateSweeps.uniformLaw [def] ok
+CMP OAI.BinaryCoordinateSweeps.sweepLaw [def] ok
+CMP OAI.BinaryCoordinateSweeps.binaryLaw [def] ok
+CMP OAI.BinaryCoordinateSweeps.binarySweep [def] ok
+CMP OAI.BinaryCoordinateSweeps.coordinateLayer [def] ok
+CMP OAI.BinaryCoordinateSweeps.Slot [def] ok
+CMP OAI.BinaryCoordinateSweeps.coordinateLayer._proof_1 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.SweepCoins [def] ok
+CMP OAI.BinaryCoordinateSweeps.finiteLaw [def] ok
+CMP OAI.BinaryCoordinateSweeps.convolutionPower [def] ok
+CMP OAI.BinaryCoordinateSweeps.convolutionPower._f [def] ok
+CMP OAI.BinaryCoordinateSweeps.convolution [def] ok
+CMP OAI.BinaryCoordinateSweeps.pointMassOne [def] ok
+CMP OAI.BinaryCoordinateSweeps.convolutionPower.match_1 [def] ok
+CMP OAI.BinaryCoordinateSweeps.totalVariation [def] ok
+CMP OAI.BinaryCoordinateSweeps.realSign [def] ok
+CMP OAI.BinaryCoordinateSweeps.BinaryContractionTarget [def] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator [def] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_9 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_8 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_7 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.RepSpace [def] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_6 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_5 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_4 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_3 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_2 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.averageOperator._proof_1 [thm] ok
+CMP OAI.BinaryCoordinateSweeps.IsUnitaryRep [def] ok
+Chal.binary_sweep_contraction_and_mixing : Chal.BinaryCoordinateSweeps.BinaryContractionTarget ∧
+  (∀ (d : ℕ), 0 < d → ∑ g, Chal.BinaryCoordinateSweeps.binaryLaw d g * Chal.BinaryCoordinateSweeps.realSign g = 0) ∧
+    Chal.BinaryCoordinateSweeps.UniformSweepMixingTarget
+@[reducible] def Chal.BinaryCoordinateSweeps.Slot : ℕ → Type :=
+fun d => Fin d → Bool
+def Chal.BinaryCoordinateSweeps.coordinateLayer : (d : ℕ) →
+  (j : Fin d) → (({ i // i ≠ j } → Bool) → Bool) → Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d) :=
+fun d j c =>
+  have e := Equiv.piSplitAt j fun x => Bool;
+  have sw :=
+    { toFun := fun x => (x.1 ^^ c x.2, x.2), invFun := fun x => (x.1 ^^ c x.2, x.2), left_inv := ⋯, right_inv := ⋯ };
+  e.trans (Equiv.trans sw e.symm)
+@[reducible] def Chal.BinaryCoordinateSweeps.SweepCoins : ℕ → Type :=
+fun d => (j : Fin d) → ({ i // i ≠ j } → Bool) → Bool
+def Chal.BinaryCoordinateSweeps.binarySweep : (d : ℕ) →
+  Chal.BinaryCoordinateSweeps.SweepCoins d → Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d) :=
+fun d c => (List.ofFn fun j => Chal.BinaryCoordinateSweeps.coordinateLayer d j (c j)).reverse.prod
+def Chal.BinaryCoordinateSweeps.finiteLaw.{u_1, u_2} : {Ω : Type u_1} →
+  {G : Type u_2} → [Fintype Ω] → [Fintype G] → (Ω → G) → G → ℝ :=
+fun {Ω} {G} [Fintype Ω] [Fintype G] f g => ∑ ω, if f ω = g then (↑(Fintype.card Ω))⁻¹ else 0
+def Chal.BinaryCoordinateSweeps.totalVariation.{u_1} : {G : Type u_1} → [Fintype G] → (G → ℝ) → (G → ℝ) → ℝ :=
+fun {G} [Fintype G] p q => 1 / ↑2 * ∑ g, |p g - q g|
+def Chal.BinaryCoordinateSweeps.uniformLaw.{u_1} : (G : Type u_1) → [Fintype G] → G → ℝ :=
+fun G [Fintype G] x => (↑(Fintype.card G))⁻¹
+def Chal.BinaryCoordinateSweeps.binaryLaw : (d : ℕ) → Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d) → ℝ :=
+fun d => Chal.BinaryCoordinateSweeps.finiteLaw (Chal.BinaryCoordinateSweeps.binarySweep d)
+@[reducible] def Chal.BinaryCoordinateSweeps.RepSpace : ℕ → Type :=
+fun D => EuclideanSpace ℂ (Fin D)
+def Chal.BinaryCoordinateSweeps.IsUnitaryRep.{u_1} : {G : Type u_1} →
+  [inst : Monoid G] → {D : ℕ} → Representation ℂ G (Chal.BinaryCoordinateSweeps.RepSpace D) → Prop :=
+fun {G} [Monoid G] {D} ρ => ∀ (g : G) (x : Chal.BinaryCoordinateSweeps.RepSpace D), ‖(ρ g) x‖ = ‖x‖
+def Chal.BinaryCoordinateSweeps.averageOperator.{u_1} : {G : Type u_1} →
+  [Fintype G] →
+    [inst : Monoid G] →
+      {D : ℕ} →
+        (G → ℝ) →
+          Representation ℂ G (Chal.BinaryCoordinateSweeps.RepSpace D) →
+            Chal.BinaryCoordinateSweeps.RepSpace D →L[ℂ] Chal.BinaryCoordinateSweeps.RepSpace D :=
+fun {G} [Fintype G] [Monoid G] {D} p ρ => LinearMap.toContinuousLinearMap (∑ g, ↑(p g) • ρ g)
+def Chal.BinaryCoordinateSweeps.BinaryContractionTarget : Prop :=
+∃ g,
+  0 < g ∧
+    ∃ d₀,
+      ∀ d ≥ d₀,
+        ∀ (D : ℕ)
+          (ρ :
+            Representation ℂ (Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d))
+              (Chal.BinaryCoordinateSweeps.RepSpace D)),
+          ρ.IsIrreducible →
+            Chal.BinaryCoordinateSweeps.IsUnitaryRep ρ →
+              ‖Chal.BinaryCoordinateSweeps.averageOperator (Chal.BinaryCoordinateSweeps.binaryLaw d) ρ‖ ≤ ↑D ^ (-g)
+def Chal.BinaryCoordinateSweeps.realSign.{u_1} : {α : Type u_1} → [Fintype α] → [DecidableEq α] → Equiv.Perm α →* ℝ :=
+fun {α} [Fintype α] [DecidableEq α] => (↑(Int.castRingHom ℝ)).comp ((Units.coeHom ℤ).comp Equiv.Perm.sign)
+def Chal.BinaryCoordinateSweeps.convolution.{u_1} : {G : Type u_1} →
+  [Fintype G] → [Group G] → (G → ℝ) → (G → ℝ) → G → ℝ :=
+fun {G} [Fintype G] [Group G] p q g => ∑ x, p x * q (x⁻¹ * g)
+def Chal.BinaryCoordinateSweeps.pointMassOne.{u_1} : {G : Type u_1} → [Group G] → G → ℝ :=
+fun {G} [Group G] g => if g = 1 then 1 else 0
+def Chal.BinaryCoordinateSweeps.convolutionPower.{u_1} : {G : Type u_1} →
+  [Fintype G] → [Group G] → (G → ℝ) → ℕ → G → ℝ :=
+fun {G} [Fintype G] [Group G] p x =>
+  Nat.brecOn (motive := fun x => G → ℝ) x (Chal.BinaryCoordinateSweeps.convolutionPower._f p)
+def Chal.BinaryCoordinateSweeps.sweepLaw : (d : ℕ) → ℕ → Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d) → ℝ :=
+fun d t => Chal.BinaryCoordinateSweeps.convolutionPower (Chal.BinaryCoordinateSweeps.binaryLaw d) t
+def Chal.BinaryCoordinateSweeps.UniformSweepMixingTarget : Prop :=
+∃ w,
+  ∀ (ε : ℝ),
+    0 < ε →
+      ∃ d₀,
+        ∀ d ≥ d₀,
+          ∀ (τ : Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d)),
+            Chal.BinaryCoordinateSweeps.totalVariation (fun g => Chal.BinaryCoordinateSweeps.sweepLaw d w (g * τ⁻¹))
+                (Chal.BinaryCoordinateSweeps.uniformLaw (Equiv.Perm (Chal.BinaryCoordinateSweeps.Slot d))) ≤
+              ε
+'OAI.binary_sweep_contraction_and_mixing' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BinarySweep comparator-style: ok=31 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

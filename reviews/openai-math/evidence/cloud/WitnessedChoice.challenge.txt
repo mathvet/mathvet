@@ -1,0 +1,345 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_WitnessedChoice.lean:469:8: warning: declaration uses `sorry`
+OAI.WitnessedChoice.main : OAI.WitnessedChoice.BGS.MainStatement
+@[reducible] def OAI.WitnessedSeparation.Hereditary.HF.{u} : Type u → Type u :=
+fun A => Quotient Lists.instSetoidLists
+def OAI.WitnessedSeparation.Hereditary.mk.{u} : {A : Type u} → Lists A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} l => ⟦l⟧
+def OAI.WitnessedSeparation.Hereditary.atom.{u} : {A : Type u} → A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a => OAI.WitnessedSeparation.Hereditary.mk (Lists.atom a)
+def OAI.WitnessedSeparation.Hereditary.isSet.{u} : {A : Type u} → OAI.WitnessedSeparation.Hereditary.HF A → Bool :=
+fun {A} x => Quotient.liftOn x (fun l => l.fst) ⋯
+def OAI.WitnessedSeparation.Hereditary.rawElements.{u} : {A : Type u} →
+  Lists A → Finset (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} l => Finset.image OAI.WitnessedSeparation.Hereditary.mk l.toList.toFinset
+def OAI.WitnessedSeparation.Hereditary.elements.{u} : {A : Type u} →
+  OAI.WitnessedSeparation.Hereditary.HF A → Finset (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} x => Quotient.liftOn x OAI.WitnessedSeparation.Hereditary.rawElements ⋯
+def OAI.WitnessedSeparation.Hereditary.ofFinset.{u} : {A : Type u} →
+  Finset (OAI.WitnessedSeparation.Hereditary.HF A) → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} s => OAI.WitnessedSeparation.Hereditary.mk (Lists.ofList (List.map Quotient.out s.toList))
+def OAI.WitnessedSeparation.Hereditary.rawRank.{u} : {A : Type u} → Lists A → ℕ :=
+fun {A} l => OAI.WitnessedSeparation.Hereditary.rawRank' l.snd
+def OAI.WitnessedSeparation.Hereditary.rawRank.{u} : {A : Type u} → Lists A → ℕ :=
+fun {A} l => OAI.WitnessedSeparation.Hereditary.rawRank' l.snd
+def OAI.WitnessedSeparation.Hereditary.rank.{u} : {A : Type u} → OAI.WitnessedSeparation.Hereditary.HF A → ℕ :=
+fun {A} x => Quotient.liftOn x OAI.WitnessedSeparation.Hereditary.rawRank ⋯
+def OAI.WitnessedSeparation.Hereditary.rawMap.{u, v} : {A : Type u} → {B : Type v} → (A → B) → Lists A → Lists B :=
+fun {A} {B} f l => ⟨l.fst, OAI.WitnessedSeparation.Hereditary.rawMap' f l.snd⟩
+def OAI.WitnessedSeparation.Hereditary.rawMap.{u, v} : {A : Type u} → {B : Type v} → (A → B) → Lists A → Lists B :=
+fun {A} {B} f l => ⟨l.fst, OAI.WitnessedSeparation.Hereditary.rawMap' f l.snd⟩
+def OAI.WitnessedSeparation.Hereditary.map.{u, v} : {A : Type u} →
+  {B : Type v} → (A → B) → OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF B :=
+fun {A} {B} f x =>
+  have toList_rawMap' := ⋯;
+  have rawMap_congr := ⋯;
+  Quotient.liftOn x (fun l => OAI.WitnessedSeparation.Hereditary.mk (OAI.WitnessedSeparation.Hereditary.rawMap f l)) ⋯
+def OAI.WitnessedSeparation.Hereditary.singleton.{u} : {A : Type u} →
+  OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a => OAI.WitnessedSeparation.Hereditary.ofFinset {a}
+def OAI.WitnessedSeparation.Hereditary.double.{u} : {A : Type u} →
+  OAI.WitnessedSeparation.Hereditary.HF A →
+    OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a b => OAI.WitnessedSeparation.Hereditary.ofFinset {a, b}
+def OAI.WitnessedSeparation.Hereditary.pair.{u} : {A : Type u} →
+  OAI.WitnessedSeparation.Hereditary.HF A →
+    OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} a b =>
+  OAI.WitnessedSeparation.Hereditary.double (OAI.WitnessedSeparation.Hereditary.singleton a)
+    (OAI.WitnessedSeparation.Hereditary.double a b)
+def OAI.WitnessedSeparation.Hereditary.ordinal.{u} : {A : Type u} → ℕ → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x => Nat.brecOn x OAI.WitnessedSeparation.Hereditary.ordinal._f
+@[irreducible] def OAI.WitnessedSeparation.Hereditary.closure.{u} : {A : Type u} →
+  OAI.WitnessedSeparation.Hereditary.HF A → Finset (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} =>
+  WellFounded.Nat.fix (fun x => OAI.WitnessedSeparation.Hereditary.rank x) fun x a =>
+    insert x ((OAI.WitnessedSeparation.Hereditary.elements x).attach.biUnion fun y => a ↑y ⋯)
+@[reducible] def OAI.WitnessedSeparation.Scalar : Type :=
+ZMod 3
+inductive OAI.WitnessedSeparation.Symbol : Type
+number of parameters: 0
+constructors:
+OAI.WitnessedSeparation.Symbol.Ed : OAI.WitnessedSeparation.Symbol
+OAI.WitnessedSeparation.Symbol.Cf : OAI.WitnessedSeparation.Symbol
+OAI.WitnessedSeparation.Symbol.EB : OAI.WitnessedSeparation.Symbol
+OAI.WitnessedSeparation.Symbol.VB : OAI.WitnessedSeparation.Symbol
+OAI.WitnessedSeparation.Symbol.I : OAI.WitnessedSeparation.Symbol
+OAI.WitnessedSeparation.Symbol.Z : OAI.WitnessedSeparation.Scalar → OAI.WitnessedSeparation.Symbol
+structure OAI.WitnessedSeparation.Input (A : Type) : Type
+number of parameters: 1
+fields:
+  OAI.WitnessedSeparation.Input.rel : OAI.WitnessedSeparation.Symbol → A → A → Bool
+constructor:
+  OAI.WitnessedSeparation.Input.mk {A : Type} (rel : OAI.WitnessedSeparation.Symbol → A → A → Bool) :
+    OAI.WitnessedSeparation.Input A
+inductive OAI.WitnessedChoice.BGS.Term : ℕ → Type
+number of parameters: 0
+constructors:
+OAI.WitnessedChoice.BGS.Term.var : {n : ℕ} → Fin n → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.empty : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.atoms : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.pair : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.union : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.unique : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.card : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.comprehend : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Term (n + 1) →
+    OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Formula (n + 1) → OAI.WitnessedChoice.BGS.Term n
+OAI.WitnessedChoice.BGS.Term.iterate : {n : ℕ} → OAI.WitnessedChoice.BGS.Term (n + 1) → OAI.WitnessedChoice.BGS.Term n
+inductive OAI.WitnessedChoice.BGS.Formula : ℕ → Type
+number of parameters: 0
+constructors:
+OAI.WitnessedChoice.BGS.Formula.equal : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Formula n
+OAI.WitnessedChoice.BGS.Formula.input : {n : ℕ} →
+  OAI.WitnessedSeparation.Symbol →
+    OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Term n → OAI.WitnessedChoice.BGS.Formula n
+OAI.WitnessedChoice.BGS.Formula.neg : {n : ℕ} → OAI.WitnessedChoice.BGS.Formula n → OAI.WitnessedChoice.BGS.Formula n
+OAI.WitnessedChoice.BGS.Formula.and : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Formula n → OAI.WitnessedChoice.BGS.Formula n → OAI.WitnessedChoice.BGS.Formula n
+OAI.WitnessedChoice.BGS.Formula.or : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Formula n → OAI.WitnessedChoice.BGS.Formula n → OAI.WitnessedChoice.BGS.Formula n
+OAI.WitnessedChoice.BGS.Formula.wsc : {n : ℕ} →
+  OAI.WitnessedChoice.BGS.Term (n + 2) →
+    OAI.WitnessedChoice.BGS.Term (n + 1) →
+      OAI.WitnessedChoice.BGS.Term (n + 2) → OAI.WitnessedChoice.BGS.Formula (n + 1) → OAI.WitnessedChoice.BGS.Formula n
+def OAI.WitnessedChoice.BGS.dropFree : {n : ℕ} → Finset (Fin (n + 1)) → Finset (Fin n) :=
+fun {n} f => {i | i.succ ∈ f}
+def OAI.WitnessedChoice.BGS.Term.free : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n → Finset (Fin n) :=
+fun x x_1 => x_1.brecOn OAI.WitnessedChoice.BGS.Term.free._f OAI.WitnessedChoice.BGS.Formula.free._f
+def OAI.WitnessedChoice.BGS.Formula.free : {n : ℕ} → OAI.WitnessedChoice.BGS.Formula n → Finset (Fin n) :=
+fun x x_1 => x_1.brecOn OAI.WitnessedChoice.BGS.Term.free._f OAI.WitnessedChoice.BGS.Formula.free._f
+def OAI.WitnessedChoice.BGS.Term.wscCount : {n : ℕ} → OAI.WitnessedChoice.BGS.Term n → ℕ :=
+fun x x_1 => x_1.brecOn OAI.WitnessedChoice.BGS.Term.wscCount._f OAI.WitnessedChoice.BGS.Formula.wscCount._f
+def OAI.WitnessedChoice.BGS.Formula.wscCount : {n : ℕ} → OAI.WitnessedChoice.BGS.Formula n → ℕ :=
+fun x x_1 => x_1.brecOn OAI.WitnessedChoice.BGS.Term.wscCount._f OAI.WitnessedChoice.BGS.Formula.wscCount._f
+@[reducible] def OAI.WitnessedChoice.BGS.Result : Type → Type :=
+fun α => Option α
+def OAI.WitnessedChoice.BGS.emptyHF : {A : Type} → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} => OAI.WitnessedSeparation.Hereditary.ofFinset ∅
+def OAI.WitnessedChoice.BGS.TC : {A : Type} →
+  OAI.WitnessedSeparation.Hereditary.HF A → Finset (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} x => (OAI.WitnessedSeparation.Hereditary.elements x).biUnion OAI.WitnessedSeparation.Hereditary.closure
+def OAI.WitnessedChoice.BGS.unionHF : {A : Type} →
+  OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x =>
+  OAI.WitnessedSeparation.Hereditary.ofFinset
+    ((OAI.WitnessedSeparation.Hereditary.elements x).biUnion OAI.WitnessedSeparation.Hereditary.elements)
+def OAI.WitnessedChoice.BGS.uniqueHF : {A : Type} →
+  OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x =>
+  if h : ∃ y, OAI.WitnessedSeparation.Hereditary.elements x = {y} then h.choose else OAI.WitnessedChoice.BGS.emptyHF
+def OAI.WitnessedChoice.BGS.cardHF : {A : Type} →
+  OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} x => OAI.WitnessedSeparation.Hereditary.ordinal (OAI.WitnessedSeparation.Hereditary.elements x).card
+def OAI.WitnessedChoice.BGS.inputHF : {A : Type} →
+  OAI.WitnessedSeparation.Input A →
+    OAI.WitnessedSeparation.Symbol →
+      OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A → Bool :=
+fun {A} S r x y =>
+  decide
+    (∃ a b,
+      x = OAI.WitnessedSeparation.Hereditary.atom a ∧
+        y = OAI.WitnessedSeparation.Hereditary.atom b ∧ S.rel r a b = true)
+def OAI.WitnessedChoice.BGS.lift₂ : {X Y Z : Type} →
+  (X → Y → Z) →
+    OAI.WitnessedChoice.BGS.Result X → OAI.WitnessedChoice.BGS.Result Y → OAI.WitnessedChoice.BGS.Result Z :=
+fun {X Y Z} f a b => Option.bind a fun x => Option.map (f x) b
+def OAI.WitnessedChoice.BGS.collect : {A : Type} →
+  OAI.WitnessedSeparation.Hereditary.HF A →
+    (OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedChoice.BGS.Result Bool) →
+      (OAI.WitnessedSeparation.Hereditary.HF A →
+          OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} r guard body =>
+  if
+      (∀ x ∈ OAI.WitnessedSeparation.Hereditary.elements r, Option.isSome (guard x) = true) ∧
+        ∀ x ∈ OAI.WitnessedSeparation.Hereditary.elements r, guard x = some true → Option.isSome (body x) = true then
+    some
+      (OAI.WitnessedSeparation.Hereditary.ofFinset
+        (Finset.image (fun x => Option.getD (body x) OAI.WitnessedChoice.BGS.emptyHF)
+          ({x ∈ OAI.WitnessedSeparation.Hereditary.elements r | guard x = some true})))
+  else none
+def OAI.WitnessedChoice.BGS.iterationLoop : {A : Type} →
+  ℕ →
+    (OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+      ℕ →
+        OAI.WitnessedSeparation.Hereditary.HF A →
+          OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} p step x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A))
+    x (OAI.WitnessedChoice.BGS.iterationLoop._f p step) x_1
+def OAI.WitnessedChoice.BGS.ordinaryIteration : {A : Type} →
+  ℕ →
+    (OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+      OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} p step => OAI.WitnessedChoice.BGS.iterationLoop p step (p + 1) OAI.WitnessedChoice.BGS.emptyHF
+def OAI.WitnessedChoice.BGS.resource : Polynomial ℝ → ℕ → ℕ :=
+fun p n => ⌊Polynomial.eval (↑n) p⌋₊
+def OAI.WitnessedChoice.BGS.permutationGraph : {A : Type} →
+  [Fintype A] → Equiv.Perm A → OAI.WitnessedSeparation.Hereditary.HF A :=
+fun {A} [Fintype A] g =>
+  OAI.WitnessedSeparation.Hereditary.ofFinset
+    (Finset.image
+      (fun a =>
+        OAI.WitnessedSeparation.Hereditary.pair (OAI.WitnessedSeparation.Hereditary.atom a)
+          (OAI.WitnessedSeparation.Hereditary.atom (g a)))
+      Finset.univ)
+def OAI.WitnessedChoice.BGS.Automorphism : {A : Type} → OAI.WitnessedSeparation.Input A → Equiv.Perm A → Prop :=
+fun {A} S g => ∀ (r : OAI.WitnessedSeparation.Symbol) (a b : A), S.rel r (g a) (g b) = S.rel r a b
+def OAI.WitnessedChoice.BGS.ChoicePrefix : {A : Type} →
+  (OAI.WitnessedSeparation.Hereditary.HF A →
+      OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+    (OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+      (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) → (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} step choice b c k =>
+  b 0 = OAI.WitnessedChoice.BGS.emptyHF ∧
+    ∀ i < k,
+      (∃ D, choice (b i) = some D ∧ c i ∈ OAI.WitnessedSeparation.Hereditary.elements D) ∧
+        step (b i) (c i) = some (b (i + 1))
+def OAI.WitnessedChoice.BGS.StrictPrefix : {A : Type} → (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} b k => ∀ i < k, b i ≠ b (i + 1)
+def OAI.WitnessedChoice.BGS.FirstPath : {A : Type} →
+  (OAI.WitnessedSeparation.Hereditary.HF A →
+      OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+    (OAI.WitnessedSeparation.Hereditary.HF A →
+        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+      (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) → (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) → ℕ → Prop :=
+fun {A} step choice b c t =>
+  OAI.WitnessedChoice.BGS.ChoicePrefix step choice b c (t + 1) ∧
+    OAI.WitnessedChoice.BGS.StrictPrefix b t ∧ b t = b (t + 1)
+def OAI.WitnessedChoice.BGS.FixesParameters : {A : Type} →
+  {n : ℕ} → Finset (Fin n) → (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) → Equiv.Perm A → Prop :=
+fun {A} {n} free env g => ∀ i ∈ free, g • env i = env i
+def OAI.WitnessedChoice.BGS.WitnessesHistory : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      OAI.WitnessedSeparation.Input A →
+        Finset (Fin n) →
+          (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) →
+            (ℕ → OAI.WitnessedSeparation.Hereditary.HF A) →
+              ℕ → OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedSeparation.Hereditary.HF A → Prop :=
+fun {A} [Fintype A] {n} S free env b i D M =>
+  OAI.WitnessedSeparation.Hereditary.isSet M = true ∧
+    (∀ w ∈ OAI.WitnessedSeparation.Hereditary.elements M,
+        ∃ g,
+          w = OAI.WitnessedChoice.BGS.permutationGraph g ∧
+            OAI.WitnessedChoice.BGS.Automorphism S g ∧
+              OAI.WitnessedChoice.BGS.FixesParameters free env g ∧ ∀ j ≤ i, g • b j = b j) ∧
+      ∀ u ∈ OAI.WitnessedSeparation.Hereditary.elements D,
+        ∀ v ∈ OAI.WitnessedSeparation.Hereditary.elements D,
+          ∃ g, OAI.WitnessedChoice.BGS.permutationGraph g ∈ OAI.WitnessedSeparation.Hereditary.elements M ∧ g • u = v
+def OAI.WitnessedChoice.BGS.GoodWSC : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      OAI.WitnessedSeparation.Input A →
+        ℕ →
+          Finset (Fin n) →
+            (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) →
+              (OAI.WitnessedSeparation.Hereditary.HF A →
+                  OAI.WitnessedSeparation.Hereditary.HF A →
+                    OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                (OAI.WitnessedSeparation.Hereditary.HF A →
+                    OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                  (OAI.WitnessedSeparation.Hereditary.HF A →
+                      OAI.WitnessedSeparation.Hereditary.HF A →
+                        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                    (OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedChoice.BGS.Result Bool) → Prop :=
+fun {A} [Fintype A] {n} S p free env step choice witness output =>
+  (∀ (b c : ℕ → OAI.WitnessedSeparation.Hereditary.HF A) (k : ℕ),
+      OAI.WitnessedChoice.BGS.ChoicePrefix step choice b c k →
+        OAI.WitnessedChoice.BGS.StrictPrefix b k →
+          k ≤ p ∧
+            (OAI.WitnessedChoice.BGS.TC (b k)).card ≤ p ∧
+              ∃ D,
+                choice (b k) = some D ∧
+                  (OAI.WitnessedSeparation.Hereditary.elements D).Nonempty ∧
+                    ∀ u ∈ OAI.WitnessedSeparation.Hereditary.elements D, Option.isSome (step (b k) u) = true) ∧
+    ∀ (b c : ℕ → OAI.WitnessedSeparation.Hereditary.HF A) (t : ℕ),
+      OAI.WitnessedChoice.BGS.FirstPath step choice b c t →
+        t + 2 ≤ p ∧
+          (∀ i ≤ t,
+              ∃ D M,
+                choice (b i) = some D ∧
+                  witness (b t) (b i) = some M ∧ OAI.WitnessedChoice.BGS.WitnessesHistory S free env b i D M) ∧
+            Option.isSome (output (b t)) = true
+def OAI.WitnessedChoice.BGS.witnessedIteration : {A : Type} →
+  [Fintype A] →
+    {n : ℕ} →
+      OAI.WitnessedSeparation.Input A →
+        ℕ →
+          Finset (Fin n) →
+            (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) →
+              (OAI.WitnessedSeparation.Hereditary.HF A →
+                  OAI.WitnessedSeparation.Hereditary.HF A →
+                    OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                (OAI.WitnessedSeparation.Hereditary.HF A →
+                    OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                  (OAI.WitnessedSeparation.Hereditary.HF A →
+                      OAI.WitnessedSeparation.Hereditary.HF A →
+                        OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A)) →
+                    (OAI.WitnessedSeparation.Hereditary.HF A → OAI.WitnessedChoice.BGS.Result Bool) →
+                      OAI.WitnessedChoice.BGS.Result Bool :=
+fun {A} [Fintype A] {n} S p free env step choice witness output =>
+  if OAI.WitnessedChoice.BGS.GoodWSC S p free env step choice witness output then
+    some
+      (decide
+        (∀ (b c : ℕ → OAI.WitnessedSeparation.Hereditary.HF A) (t : ℕ),
+          OAI.WitnessedChoice.BGS.FirstPath step choice b c t → output (b t) = some true))
+  else none
+def OAI.WitnessedChoice.BGS.Term.eval : {A : Type} →
+  [Fintype A] →
+    OAI.WitnessedSeparation.Input A →
+      Polynomial ℝ →
+        {n : ℕ} →
+          OAI.WitnessedChoice.BGS.Term n →
+            (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) →
+              OAI.WitnessedChoice.BGS.Result (OAI.WitnessedSeparation.Hereditary.HF A) :=
+fun {A} [Fintype A] S p x x_1 x_2 =>
+  x_1.brecOn (OAI.WitnessedChoice.BGS.Term.eval._f S p) (OAI.WitnessedChoice.BGS.Formula.eval._f S p) x_2
+def OAI.WitnessedChoice.BGS.Formula.eval : {A : Type} →
+  [Fintype A] →
+    OAI.WitnessedSeparation.Input A →
+      Polynomial ℝ →
+        {n : ℕ} →
+          OAI.WitnessedChoice.BGS.Formula n →
+            (Fin n → OAI.WitnessedSeparation.Hereditary.HF A) → OAI.WitnessedChoice.BGS.Result Bool :=
+fun {A} [Fintype A] S p x x_1 x_2 =>
+  x_1.brecOn (OAI.WitnessedChoice.BGS.Term.eval._f S p) (OAI.WitnessedChoice.BGS.Formula.eval._f S p) x_2
+structure OAI.WitnessedChoice.BGS.FiniteInput : Type 1
+number of parameters: 0
+fields:
+  OAI.WitnessedChoice.BGS.FiniteInput.Carrier : Type
+  OAI.WitnessedChoice.BGS.FiniteInput.finite : Fintype self.Carrier
+  OAI.WitnessedChoice.BGS.FiniteInput.input : OAI.WitnessedSeparation.Input self.Carrier
+constructor:
+  OAI.WitnessedChoice.BGS.FiniteInput.mk (Carrier : Type) (finite : Fintype Carrier)
+    (input : OAI.WitnessedSeparation.Input Carrier) : OAI.WitnessedChoice.BGS.FiniteInput
+structure OAI.WitnessedChoice.BGS.Sentence : Type
+number of parameters: 0
+fields:
+  OAI.WitnessedChoice.BGS.Sentence.formula : OAI.WitnessedChoice.BGS.Formula 0
+  OAI.WitnessedChoice.BGS.Sentence.polynomial : Polynomial ℝ
+constructor:
+  OAI.WitnessedChoice.BGS.Sentence.mk (formula : OAI.WitnessedChoice.BGS.Formula 0) (polynomial : Polynomial ℝ) :
+    OAI.WitnessedChoice.BGS.Sentence
+def OAI.WitnessedChoice.BGS.Sentence.eval : OAI.WitnessedChoice.BGS.Sentence →
+  OAI.WitnessedChoice.BGS.FiniteInput → OAI.WitnessedChoice.BGS.Result Bool :=
+fun φ S => OAI.WitnessedChoice.BGS.Formula.eval S.input φ.polynomial φ.formula Fin.elim0
+def OAI.WitnessedChoice.BGS.Sentence.isCPT : OAI.WitnessedChoice.BGS.Sentence → Prop :=
+fun φ => φ.formula.wscCount = 0
+def OAI.WitnessedChoice.BGS.Sentence.BooleanOnAllInputs : OAI.WitnessedChoice.BGS.Sentence → Prop :=
+fun φ => ∀ (S : OAI.WitnessedChoice.BGS.FiniteInput), ∃ b, φ.eval S = some b
+def OAI.WitnessedChoice.BGS.Sentence.TrueModels : OAI.WitnessedChoice.BGS.Sentence →
+  Set OAI.WitnessedChoice.BGS.FiniteInput :=
+fun φ => {S | φ.eval S = some true}
+def OAI.WitnessedChoice.BGS.MainStatement : Prop :=
+∃ φ,
+  φ.formula.wscCount = 1 ∧
+    φ.BooleanOnAllInputs ∧ ∀ (ψ : OAI.WitnessedChoice.BGS.Sentence), ψ.isCPT → φ.TrueModels ≠ ψ.TrueModels

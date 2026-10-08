@@ -1,0 +1,134 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_Brenier.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Problem358.one_third_exponent_is_sharp [thm] ok
+CMP OAI.Problem358.mapL2Dist [def] ok
+CMP OAI.Problem358.E [def] ok
+CMP OAI.Problem358.wasserstein2 [def] ok
+CMP OAI.Problem358.quadraticPlanCost [def] ok
+CMP OAI.Problem358.IsCoupling [def] ok
+CMP OAI.Problem358.uniformMeasure [def] ok
+CMP OAI.Problem358.uniformMeasure._proof_3 [thm] ok
+CMP OAI.Problem358.uniformMeasure._proof_2 [thm] ok
+CMP OAI.Problem358.uniformMeasure._proof_1 [thm] ok
+CMP OAI.Problem358.IsUniqueQuadraticOptimalMap [def] ok
+CMP OAI.Problem358.graphPlan [def] ok
+CMP OAI.Problem358.IsQuadraticOptimalMap [def] ok
+CMP OAI.Problem358.HasExactlyThreeAtoms [def] ok
+CMP OAI.Problem358.cube [def] ok
+CMP OAI.Problem358.IsSupported [def] ok
+CMP OAI.Problem358.one_third_stability [thm] ok
+Chal.Problem358.one_third_stability : ∀ (dimension : ℕ) (source container : Set (Chal.Problem358.E dimension)),
+  2 ≤ dimension →
+    IsCompact source →
+      Convex ℝ source →
+        (interior source).Nonempty →
+          IsCompact container →
+            container.Nonempty →
+              ∃ constant,
+                0 ≤ constant ∧
+                  ∀ (first second : MeasureTheory.Measure (Chal.Problem358.E dimension)),
+                    MeasureTheory.IsProbabilityMeasure first →
+                      MeasureTheory.IsProbabilityMeasure second →
+                        Chal.Problem358.IsSupported first container →
+                          Chal.Problem358.IsSupported second container →
+                            ∃ firstMap secondMap,
+                              Chal.Problem358.IsUniqueQuadraticOptimalMap (Chal.Problem358.uniformMeasure source) first
+                                  firstMap ∧
+                                Chal.Problem358.IsUniqueQuadraticOptimalMap (Chal.Problem358.uniformMeasure source)
+                                    second secondMap ∧
+                                  Chal.Problem358.mapL2Dist (Chal.Problem358.uniformMeasure source) firstMap secondMap ≤
+                                    constant * (Chal.Problem358.wasserstein2 first second).rpow (1 / 3)
+Chal.Problem358.one_third_exponent_is_sharp : ∀ (dimension : ℕ),
+  2 ≤ dimension →
+    ∀ (exponent : ℝ),
+      1 / 3 < exponent →
+        ∀ (constant : ℝ),
+          0 < constant →
+            ∃ first second firstMap secondMap,
+              MeasureTheory.IsProbabilityMeasure first ∧
+                MeasureTheory.IsProbabilityMeasure second ∧
+                  Chal.Problem358.IsSupported first (Chal.Problem358.cube dimension) ∧
+                    Chal.Problem358.IsSupported second (Chal.Problem358.cube dimension) ∧
+                      Chal.Problem358.HasExactlyThreeAtoms first (Chal.Problem358.cube dimension) ∧
+                        Chal.Problem358.HasExactlyThreeAtoms second (Chal.Problem358.cube dimension) ∧
+                          first ≠ second ∧
+                            Chal.Problem358.IsUniqueQuadraticOptimalMap
+                                (Chal.Problem358.uniformMeasure (Chal.Problem358.cube dimension)) first firstMap ∧
+                              Chal.Problem358.IsUniqueQuadraticOptimalMap
+                                  (Chal.Problem358.uniformMeasure (Chal.Problem358.cube dimension)) second secondMap ∧
+                                0 < Chal.Problem358.wasserstein2 first second ∧
+                                  constant * (Chal.Problem358.wasserstein2 first second).rpow exponent <
+                                    Chal.Problem358.mapL2Dist
+                                      (Chal.Problem358.uniformMeasure (Chal.Problem358.cube dimension)) firstMap
+                                      secondMap
+@[reducible] def Chal.Problem358.E : ℕ → Type :=
+fun dimension => EuclideanSpace ℝ (Fin dimension)
+def Chal.Problem358.uniformMeasure : {dimension : ℕ} →
+  Set (Chal.Problem358.E dimension) → MeasureTheory.Measure (Chal.Problem358.E dimension) :=
+fun {dimension} source => (MeasureTheory.volume source)⁻¹ • MeasureTheory.volume.restrict source
+def Chal.Problem358.IsSupported : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) → Set (Chal.Problem358.E dimension) → Prop :=
+fun {dimension} measure container => measure containerᶜ = 0
+def Chal.Problem358.IsCoupling : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) →
+    MeasureTheory.Measure (Chal.Problem358.E dimension) →
+      MeasureTheory.Measure (Chal.Problem358.E dimension × Chal.Problem358.E dimension) → Prop :=
+fun {dimension} source target plan =>
+  MeasureTheory.IsProbabilityMeasure plan ∧
+    MeasureTheory.Measure.map Prod.fst plan = source ∧ MeasureTheory.Measure.map Prod.snd plan = target
+def Chal.Problem358.quadraticPlanCost : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension × Chal.Problem358.E dimension) → ENNReal :=
+fun {dimension} plan =>
+  ∫⁻ (pair : Chal.Problem358.E dimension × Chal.Problem358.E dimension), ENNReal.ofReal (‖pair.1 - pair.2‖ ^ 2) ∂plan
+def Chal.Problem358.wasserstein2 : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) → MeasureTheory.Measure (Chal.Problem358.E dimension) → ℝ :=
+fun {dimension} source target =>
+  √(sInf
+        {cost |
+          ∃ plan, Chal.Problem358.IsCoupling source target plan ∧ Chal.Problem358.quadraticPlanCost plan = cost}).toReal
+def Chal.Problem358.graphPlan : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) →
+    (Chal.Problem358.E dimension → Chal.Problem358.E dimension) →
+      MeasureTheory.Measure (Chal.Problem358.E dimension × Chal.Problem358.E dimension) :=
+fun {dimension} source transport => MeasureTheory.Measure.map (fun point => (point, transport point)) source
+def Chal.Problem358.IsQuadraticOptimalMap : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) →
+    MeasureTheory.Measure (Chal.Problem358.E dimension) →
+      (Chal.Problem358.E dimension → Chal.Problem358.E dimension) → Prop :=
+fun {dimension} source target transport =>
+  Measurable transport ∧
+    MeasureTheory.Measure.map transport source = target ∧
+      ∀ (plan : MeasureTheory.Measure (Chal.Problem358.E dimension × Chal.Problem358.E dimension)),
+        Chal.Problem358.IsCoupling source target plan →
+          Chal.Problem358.quadraticPlanCost (Chal.Problem358.graphPlan source transport) ≤
+            Chal.Problem358.quadraticPlanCost plan
+def Chal.Problem358.IsUniqueQuadraticOptimalMap : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) →
+    MeasureTheory.Measure (Chal.Problem358.E dimension) →
+      (Chal.Problem358.E dimension → Chal.Problem358.E dimension) → Prop :=
+fun {dimension} source target transport =>
+  Chal.Problem358.IsQuadraticOptimalMap source target transport ∧
+    ∀ (plan : MeasureTheory.Measure (Chal.Problem358.E dimension × Chal.Problem358.E dimension)),
+      Chal.Problem358.IsCoupling source target plan →
+        Chal.Problem358.quadraticPlanCost plan ≤
+            Chal.Problem358.quadraticPlanCost (Chal.Problem358.graphPlan source transport) →
+          plan = Chal.Problem358.graphPlan source transport
+def Chal.Problem358.mapL2Dist : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) →
+    (Chal.Problem358.E dimension → Chal.Problem358.E dimension) →
+      (Chal.Problem358.E dimension → Chal.Problem358.E dimension) → ℝ :=
+fun {dimension} source first second =>
+  √(∫ (point : Chal.Problem358.E dimension), ‖first point - second point‖ ^ 2 ∂source)
+def Chal.Problem358.cube : (dimension : ℕ) → Set (Chal.Problem358.E dimension) :=
+fun dimension => {point | ∀ (index : Fin dimension), |point.ofLp index| ≤ 1}
+def Chal.Problem358.HasExactlyThreeAtoms : {dimension : ℕ} →
+  MeasureTheory.Measure (Chal.Problem358.E dimension) → Set (Chal.Problem358.E dimension) → Prop :=
+fun {dimension} measure container =>
+  ∃ atoms,
+    Function.Injective atoms ∧
+      (∀ (index : Fin 3), atoms index ∈ container) ∧
+        ∃ weights,
+          (∀ (index : Fin 3), 0 < weights index) ∧
+            ∑ index, weights index = 1 ∧ measure = ∑ index, weights index • MeasureTheory.Measure.dirac (atoms index)
+'OAI.Problem358.one_third_stability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem358.one_third_exponent_is_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Brenier comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

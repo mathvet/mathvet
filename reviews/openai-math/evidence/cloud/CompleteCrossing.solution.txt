@@ -1,0 +1,113 @@
+OAI.Paper170.complete_graph_crossing_number : ∀ (n : ℕ),
+  3 ≤ n → OAI.Paper170.ordinaryCrossingNumber (OAI.Paper170.completeGraph n) = OAI.Paper170.hill n
+'OAI.Paper170.complete_graph_crossing_number' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Paper170.Plane : Type :=
+ℝ × ℝ
+structure OAI.Paper170.Graph (V E : Type) : Type
+number of parameters: 2
+fields:
+  OAI.Paper170.Graph.src : E → V
+  OAI.Paper170.Graph.dst : E → V
+  OAI.Paper170.Graph.loopless : ∀ (e : E), self.src e ≠ self.dst e
+  OAI.Paper170.Graph.simple : ∀ (e f : E),
+      self.src e = self.src f ∧ self.dst e = self.dst f ∨ self.src e = self.dst f ∧ self.dst e = self.src f → e = f
+constructor:
+  OAI.Paper170.Graph.mk {V E : Type} (src dst : E → V) (loopless : ∀ (e : E), src e ≠ dst e)
+    (simple : ∀ (e f : E), src e = src f ∧ dst e = dst f ∨ src e = dst f ∧ dst e = src f → e = f) :
+    OAI.Paper170.Graph V E
+@[reducible] def OAI.Paper170.CompleteEdge : ℕ → Type :=
+fun n => { p // p.1 < p.2 }
+def OAI.Paper170.completeGraph : (n : ℕ) → OAI.Paper170.Graph (Fin n) (OAI.Paper170.CompleteEdge n) :=
+fun n => { src := fun e => (↑e).1, dst := fun e => (↑e).2, loopless := ⋯, simple := ⋯ }
+structure OAI.Paper170.ContinuousDrawing {V E : Type} (G : OAI.Paper170.Graph V E) : Type
+number of parameters: 3
+fields:
+  OAI.Paper170.ContinuousDrawing.vertex : V → OAI.Paper170.Plane
+  OAI.Paper170.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  OAI.Paper170.ContinuousDrawing.edge : (e : E) → Path (self.vertex (G.src e)) (self.vertex (G.dst e))
+  OAI.Paper170.ContinuousDrawing.edge_injective : ∀ (e : E), Function.Injective ⇑(self.edge e)
+  OAI.Paper170.ContinuousDrawing.interior_avoids_vertices : ∀ (e : E),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : V), (self.edge e) t ≠ self.vertex v
+constructor:
+  OAI.Paper170.ContinuousDrawing.mk {V E : Type} {G : OAI.Paper170.Graph V E} (vertex : V → OAI.Paper170.Plane)
+    (vertex_injective : Function.Injective vertex) (edge : (e : E) → Path (vertex (G.src e)) (vertex (G.dst e)))
+    (edge_injective : ∀ (e : E), Function.Injective ⇑(edge e))
+    (interior_avoids_vertices : ∀ (e : E), ∀ t ∈ Set.Ioo 0 1, ∀ (v : V), (edge e) t ≠ vertex v) :
+    OAI.Paper170.ContinuousDrawing G
+def OAI.Paper170.edgeInterior : {V E : Type} →
+  {G : OAI.Paper170.Graph V E} → OAI.Paper170.ContinuousDrawing G → E → Set OAI.Paper170.Plane :=
+fun {V E} {G} D e => ⇑(D.edge e) '' Set.Ioo 0 1
+structure OAI.Paper170.ProperCrossing (A B : Set OAI.Paper170.Plane) (x : OAI.Paper170.Plane) : Prop
+number of parameters: 3
+fields:
+  OAI.Paper170.ProperCrossing.chart_exists : ∃ chart,
+      x ∈ chart.source ∧
+        ↑chart x = (0, 0) ∧
+          ↑chart '' (chart.source ∩ A) = chart.target ∩ {y | y.2 = 0} ∧
+            ↑chart '' (chart.source ∩ B) = chart.target ∩ {y | y.1 = 0}
+constructor:
+  OAI.Paper170.ProperCrossing.mk {A B : Set OAI.Paper170.Plane} {x : OAI.Paper170.Plane}
+    (chart_exists :
+      ∃ chart,
+        x ∈ chart.source ∧
+          ↑chart x = (0, 0) ∧
+            ↑chart '' (chart.source ∩ A) = chart.target ∩ {y | y.2 = 0} ∧
+              ↑chart '' (chart.source ∩ B) = chart.target ∩ {y | y.1 = 0}) :
+    OAI.Paper170.ProperCrossing A B x
+def OAI.Paper170.crossingPoints : {V E : Type} →
+  {G : OAI.Paper170.Graph V E} → OAI.Paper170.ContinuousDrawing G → Set OAI.Paper170.Plane :=
+fun {V E} {G} D => {x | ∃ e f, e ≠ f ∧ x ∈ OAI.Paper170.edgeInterior D e ∧ x ∈ OAI.Paper170.edgeInterior D f}
+structure OAI.Paper170.AdmissibleDrawing {V E : Type} (G : OAI.Paper170.Graph V E) : Type
+number of parameters: 3
+parents:
+  OAI.Paper170.AdmissibleDrawing.toContinuousDrawing : OAI.Paper170.ContinuousDrawing G
+fields:
+  OAI.Paper170.ContinuousDrawing.vertex : V → OAI.Paper170.Plane
+  OAI.Paper170.ContinuousDrawing.vertex_injective : Function.Injective self.vertex
+  OAI.Paper170.ContinuousDrawing.edge : (e : E) → Path (self.vertex (G.src e)) (self.vertex (G.dst e))
+  OAI.Paper170.ContinuousDrawing.edge_injective : ∀ (e : E), Function.Injective ⇑(self.edge e)
+  OAI.Paper170.ContinuousDrawing.interior_avoids_vertices : ∀ (e : E),
+      ∀ t ∈ Set.Ioo 0 1, ∀ (v : V), (self.edge e) t ≠ self.vertex v
+  OAI.Paper170.AdmissibleDrawing.crossings_finite : (OAI.Paper170.crossingPoints self.toContinuousDrawing).Finite
+  OAI.Paper170.AdmissibleDrawing.crossings_proper : ∀ (e f : E),
+      e ≠ f →
+        ∀ x ∈ OAI.Paper170.edgeInterior self.toContinuousDrawing e,
+          x ∈ OAI.Paper170.edgeInterior self.toContinuousDrawing f →
+            OAI.Paper170.ProperCrossing (OAI.Paper170.edgeInterior self.toContinuousDrawing e)
+              (OAI.Paper170.edgeInterior self.toContinuousDrawing f) x
+  OAI.Paper170.AdmissibleDrawing.no_triples : ∀ (e f g : E),
+      e ≠ f →
+        e ≠ g →
+          f ≠ g →
+            OAI.Paper170.edgeInterior self.toContinuousDrawing e ∩
+                  OAI.Paper170.edgeInterior self.toContinuousDrawing f ∩
+                OAI.Paper170.edgeInterior self.toContinuousDrawing g =
+              ∅
+constructor:
+  OAI.Paper170.AdmissibleDrawing.mk {V E : Type} {G : OAI.Paper170.Graph V E}
+    (toContinuousDrawing : OAI.Paper170.ContinuousDrawing G)
+    (crossings_finite : (OAI.Paper170.crossingPoints toContinuousDrawing).Finite)
+    (crossings_proper :
+      ∀ (e f : E),
+        e ≠ f →
+          ∀ x ∈ OAI.Paper170.edgeInterior toContinuousDrawing e,
+            x ∈ OAI.Paper170.edgeInterior toContinuousDrawing f →
+              OAI.Paper170.ProperCrossing (OAI.Paper170.edgeInterior toContinuousDrawing e)
+                (OAI.Paper170.edgeInterior toContinuousDrawing f) x)
+    (no_triples :
+      ∀ (e f g : E),
+        e ≠ f →
+          e ≠ g →
+            f ≠ g →
+              OAI.Paper170.edgeInterior toContinuousDrawing e ∩ OAI.Paper170.edgeInterior toContinuousDrawing f ∩
+                  OAI.Paper170.edgeInterior toContinuousDrawing g =
+                ∅) :
+    OAI.Paper170.AdmissibleDrawing G
+field notation resolution order:
+  OAI.Paper170.AdmissibleDrawing, OAI.Paper170.ContinuousDrawing
+def OAI.Paper170.crossingCount : {V E : Type} → {G : OAI.Paper170.Graph V E} → OAI.Paper170.AdmissibleDrawing G → ℕ :=
+fun {V E} {G} D => ⋯.toFinset.card
+def OAI.Paper170.ordinaryCrossingNumber : {V E : Type} → OAI.Paper170.Graph V E → ℕ :=
+fun {V E} G => sInf (Set.range OAI.Paper170.crossingCount)
+def OAI.Paper170.hill : ℕ → ℕ :=
+fun n => n / 2 * ((n - 1) / 2) * ((n - 2) / 2) * ((n - 3) / 2) / 4

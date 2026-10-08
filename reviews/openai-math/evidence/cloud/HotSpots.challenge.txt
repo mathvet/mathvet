@@ -1,0 +1,47 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_HotSpots.lean:49:8: warning: declaration uses `sorry`
+OAI.StrictHotSpots.main_theorem : ∀ (Ω : Set OAI.StrictHotSpots.Plane),
+  OAI.StrictHotSpots.AdmissibleDomain Ω →
+    ∀ (u : OAI.StrictHotSpots.Plane → ℝ),
+      OAI.StrictHotSpots.InFirstNeumannEigenspace Ω u → (∃ x ∈ Ω, u x ≠ 0) → OAI.StrictHotSpots.MainConclusion Ω u
+@[reducible] def OAI.StrictHotSpots.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.StrictHotSpots.SmoothBoundary : Set OAI.StrictHotSpots.Plane → Prop :=
+fun Ω =>
+  ∀ p ∈ frontier Ω,
+    ∃ U ρ, IsOpen U ∧ p ∈ U ∧ ContDiffOn ℝ (↑⊤) ρ U ∧ fderiv ℝ ρ p ≠ 0 ∧ ρ p = 0 ∧ Ω ∩ U = {x | ρ x < 0} ∩ U
+def OAI.StrictHotSpots.AdmissibleDomain : Set OAI.StrictHotSpots.Plane → Prop :=
+fun Ω => Ω.Nonempty ∧ IsOpen Ω ∧ Bornology.IsBounded Ω ∧ IsSimplyConnected Ω ∧ OAI.StrictHotSpots.SmoothBoundary Ω
+def OAI.StrictHotSpots.HasH1Gradient : Set OAI.StrictHotSpots.Plane →
+  (OAI.StrictHotSpots.Plane → ℝ) → (OAI.StrictHotSpots.Plane → OAI.StrictHotSpots.Plane) → Prop :=
+fun Ω v g =>
+  MeasureTheory.MemLp v 2 (MeasureTheory.volume.restrict Ω) ∧
+    MeasureTheory.MemLp g 2 (MeasureTheory.volume.restrict Ω) ∧
+      ∀ (φ : OAI.StrictHotSpots.Plane → ℝ),
+        ContDiff ℝ (↑⊤) φ →
+          HasCompactSupport φ →
+            tsupport φ ⊆ Ω →
+              ∀ (e : OAI.StrictHotSpots.Plane),
+                ∫ (x : OAI.StrictHotSpots.Plane) in Ω, v x * (fderiv ℝ φ x) e =
+                  -∫ (x : OAI.StrictHotSpots.Plane) in Ω, inner ℝ (g x) e * φ x
+def OAI.StrictHotSpots.rayleighValues : Set OAI.StrictHotSpots.Plane → Set ℝ :=
+fun Ω =>
+  {r |
+    ∃ v g,
+      OAI.StrictHotSpots.HasH1Gradient Ω v g ∧
+        ∫ (x : OAI.StrictHotSpots.Plane) in Ω, v x = 0 ∧
+          0 < ∫ (x : OAI.StrictHotSpots.Plane) in Ω, v x ^ 2 ∧
+            r = (∫ (x : OAI.StrictHotSpots.Plane) in Ω, ‖g x‖ ^ 2) / ∫ (x : OAI.StrictHotSpots.Plane) in Ω, v x ^ 2}
+def OAI.StrictHotSpots.firstPositiveNeumannValue : Set OAI.StrictHotSpots.Plane → ℝ :=
+fun Ω => sInf (OAI.StrictHotSpots.rayleighValues Ω)
+def OAI.StrictHotSpots.InFirstNeumannEigenspace : Set OAI.StrictHotSpots.Plane →
+  (OAI.StrictHotSpots.Plane → ℝ) → Prop :=
+fun Ω u =>
+  ContDiffOn ℝ (↑⊤) u (closure Ω) ∧
+    OAI.StrictHotSpots.HasH1Gradient Ω u (gradient u) ∧
+      ∫ (x : OAI.StrictHotSpots.Plane) in Ω, u x = 0 ∧
+        ∀ (v : OAI.StrictHotSpots.Plane → ℝ) (g : OAI.StrictHotSpots.Plane → OAI.StrictHotSpots.Plane),
+          OAI.StrictHotSpots.HasH1Gradient Ω v g →
+            ∫ (x : OAI.StrictHotSpots.Plane) in Ω, inner ℝ (gradient u x) (g x) =
+              OAI.StrictHotSpots.firstPositiveNeumannValue Ω * ∫ (x : OAI.StrictHotSpots.Plane) in Ω, u x * v x
+def OAI.StrictHotSpots.MainConclusion : Set OAI.StrictHotSpots.Plane → (OAI.StrictHotSpots.Plane → ℝ) → Prop :=
+fun Ω u => (∀ x ∈ Ω, gradient u x ≠ 0) ∧ ∀ x ∈ Ω, sInf (u '' frontier Ω) < u x ∧ u x < sSup (u '' frontier Ω)
