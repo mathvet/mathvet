@@ -1,0 +1,71 @@
+CMP OAI.FiniteCongruence.graph_criterion [thm] ok
+CMP OAI.FiniteCongruence.HasGraphWitness [def] ok
+CMP OAI.FiniteCongruence.IsGraphWitness [def] ok
+CMP OAI.FiniteCongruence.Connected [def] ok
+CMP OAI.FiniteCongruence.Marked [def] ok
+CMP OAI.FiniteCongruence.Admissible [def] ok
+CMP OAI.FiniteCongruence.Representable [def] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence [def] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._proof_8 [thm] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._proof_7 [thm] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._aux_1 [def] ok
+CMP OAI.FiniteCongruence.Compatible [def] ok
+CMP OAI.FiniteCongruence.Algebra.op [def] ok
+CMP OAI.FiniteCongruence.Algebra [ind] ok
+CMP OAI.FiniteCongruence.Algebra.mk [ctor] ok
+CMP OAI.FiniteCongruence.Algebra.arity [def] ok
+CMP OAI.FiniteCongruence.Algebra.numOps [def] ok
+CMP OAI.FiniteCongruence.Congruence [def] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._aux_3 [def] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._proof_6 [thm] ok
+CMP OAI.FiniteCongruence.instPartialOrderCongruence._proof_5 [thm] ok
+Chal.FiniteCongruence.graph_criterion : ∀ (Lat : Type) [Fintype Lat] [inst : Lattice Lat] [inst_1 : OrderBot Lat],
+  Chal.FiniteCongruence.Representable Lat ↔ Chal.FiniteCongruence.HasGraphWitness Lat
+structure Chal.FiniteCongruence.Algebra (Carrier : Type) : Type
+number of parameters: 1
+fields:
+  Chal.FiniteCongruence.Algebra.numOps : ℕ
+  Chal.FiniteCongruence.Algebra.arity : Fin self.numOps → ℕ
+  Chal.FiniteCongruence.Algebra.op : (index : Fin self.numOps) → (Fin (self.arity index) → Carrier) → Carrier
+constructor:
+  Chal.FiniteCongruence.Algebra.mk {Carrier : Type} (numOps : ℕ) (arity : Fin numOps → ℕ)
+    (op : (index : Fin numOps) → (Fin (arity index) → Carrier) → Carrier) : Chal.FiniteCongruence.Algebra Carrier
+def Chal.FiniteCongruence.Compatible : {Carrier : Type} →
+  Chal.FiniteCongruence.Algebra Carrier → Setoid Carrier → Prop :=
+fun {Carrier} alg rel =>
+  ∀ (index : Fin alg.numOps) (left right : Fin (alg.arity index) → Carrier),
+    (∀ (coord : Fin (alg.arity index)), rel (left coord) (right coord)) → rel (alg.op index left) (alg.op index right)
+def Chal.FiniteCongruence.Congruence : {Carrier : Type} → Chal.FiniteCongruence.Algebra Carrier → Type :=
+fun {Carrier} alg => { rel // Chal.FiniteCongruence.Compatible alg rel }
+def Chal.FiniteCongruence.Representable : (Lat : Type) → [PartialOrder Lat] → Prop :=
+fun Lat [PartialOrder Lat] => ∃ size, 0 < size ∧ ∃ alg, Nonempty (Lat ≃o Chal.FiniteCongruence.Congruence alg)
+def Chal.FiniteCongruence.Admissible : {Lat Carrier : Type} →
+  [LE Lat] → (Carrier → Carrier → Lat) → (Carrier → Carrier) → Prop :=
+fun {Lat Carrier} [LE Lat] color placement =>
+  ∀ (left right : Carrier), color (placement left) (placement right) ≤ color left right
+def Chal.FiniteCongruence.Marked : {Lat Carrier : Type} →
+  [LE Lat] → (Carrier → Carrier → Lat) → Finset (Carrier × Carrier) → Carrier → Carrier → Prop :=
+fun {Lat Carrier} [LE Lat] color seeds left right =>
+  ∃ placement,
+    Chal.FiniteCongruence.Admissible color placement ∧
+      ∃ edge ∈ seeds, placement edge.1 = left ∧ placement edge.2 = right
+def Chal.FiniteCongruence.Connected : {Lat Carrier : Type} →
+  [LE Lat] → (Carrier → Carrier → Lat) → Finset (Carrier × Carrier) → Carrier → Carrier → Prop :=
+fun {Lat Carrier} [LE Lat] color seeds left right =>
+  Relation.EqvGen (Chal.FiniteCongruence.Marked color seeds) left right
+def Chal.FiniteCongruence.IsGraphWitness : {Lat Carrier : Type} →
+  [inst : Lattice Lat] → [OrderBot Lat] → (Carrier → Carrier → Lat) → Prop :=
+fun {Lat Carrier} [Lattice Lat] [OrderBot Lat] color =>
+  (∀ (left right : Carrier), color left right = color right left) ∧
+    (∀ (left right : Carrier), color left right = ⊥ ↔ left = right) ∧
+      (∀ (left right middle : Carrier), color left right ≤ color left middle ⊔ color middle right) ∧
+        (∀ (lower upper : Lat), ¬lower ≤ upper → ∃ left right, color left right ≤ lower ∧ ¬color left right ≤ upper) ∧
+          ∀ (seeds : Finset (Carrier × Carrier)),
+            seeds.Nonempty →
+              ∀ (left right : Carrier),
+                (color left right ≤ seeds.sup fun edge => color edge.1 edge.2) →
+                  Chal.FiniteCongruence.Connected color seeds left right
+def Chal.FiniteCongruence.HasGraphWitness : (Lat : Type) → [inst : Lattice Lat] → [OrderBot Lat] → Prop :=
+fun Lat [Lattice Lat] [OrderBot Lat] => ∃ size, 0 < size ∧ ∃ color, Chal.FiniteCongruence.IsGraphWitness color
+'OAI.FiniteCongruence.graph_criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FiniteCongruenceGraph comparator-style: ok=21 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
