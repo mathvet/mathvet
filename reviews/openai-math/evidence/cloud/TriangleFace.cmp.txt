@@ -1,0 +1,138 @@
+CMP OAI.TriangleFace198.triangle_expansion_face [thm] ok
+CMP OAI.CanonicalFace198.minFace [def] ok
+CMP OAI.CanonicalFace198.facesThrough [def] ok
+CMP OAI.TriangleFace198.localEdge [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.Incident [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.right [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph [ind] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.mk [ctor] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.left [def] ok
+CMP OAI.TriangleFace198.LocalLabels [def] ok
+CMP OAI.TriangleFace198.oldRestriction [def] ok
+CMP OAI.TriangleFace198.oldRestriction._proof_2 [thm] ok
+CMP OAI.TriangleFace198.oldRestriction._proof_1 [thm] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleVertices [def] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleTip [def] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleTip._proof_1 [thm] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.cutMass [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.cut [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.crossesDecidable [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.crossesDecidable._aux_1 [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.Crosses [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.polytope [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.indicator [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.IsPerfectMatching [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.Matching [def] ok
+CMP OAI.TriangleFace198.localExtension [def] ok
+CMP OAI.TriangleFace198.localExtension._proof_2 [thm] ok
+CMP OAI.TriangleFace198.localExtension._proof_1 [thm] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleExpansion [def] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleExpansion._proof_2 [thm] ok
+CMP OAI.MatchingEntropyBounds.Refined.triangleExpansion._proof_1 [thm] ok
+CMP OAI.MatchingEntropyBounds.Refined.reattach [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.incidentDecidable [def] ok
+CMP OAI.MatchingEntropyBounds.LooplessGraph.incidentDecidable._aux_1 [def] ok
+@Chal.TriangleFace198.triangle_expansion_face : ∀ {V : Type u_1} {E : Type u_2} [Fintype V] [inst : Fintype E]
+  [inst_1 : DecidableEq V] [inst_2 : DecidableEq E] (G : Chal.MatchingEntropyBounds.LooplessGraph V E) (v : V),
+  Fintype.card { e // G.Incident v e } = 3 →
+    Nonempty G.Matching →
+      ∃ c,
+        ∃ (hc : Chal.TriangleFace198.LocalLabels G v c),
+          have H := Chal.MatchingEntropyBounds.Refined.triangleExpansion G c v;
+          have f := Chal.TriangleFace198.localExtension G c v hc;
+          have Q := {y | y ∈ H.polytope ∧ H.cutMass y (Chal.MatchingEntropyBounds.Refined.triangleVertices v) = 1};
+          ⇑f '' G.polytope = Q ∧
+            Convex ℝ Q ∧
+              IsExtreme ℝ H.polytope Q ∧
+                (∀ (x : E → ℝ), Chal.TriangleFace198.oldRestriction (f x) = x) ∧
+                  (∀ y ∈ Q, f (Chal.TriangleFace198.oldRestriction y) = y) ∧
+                    (∀ (x : E → ℝ) (e : E), f x (Sum.inl e) = x e) ∧
+                      (∀ (x : E → ℝ) (i : Fin 3), f x (Sum.inr i) = x (Chal.TriangleFace198.localEdge G c v hc i)) ∧
+                        (∀ (x : E → ℝ), (∀ (e : E), x e = 1 / 3) → ∀ (e : E ⊕ Fin 3), f x e = 1 / 3) ∧
+                          ∀ x ∈ G.polytope,
+                            Chal.CanonicalFace198.minFace H.polytope (f x) =
+                              ⇑f '' Chal.CanonicalFace198.minFace G.polytope x
+structure Chal.MatchingEntropyBounds.LooplessGraph.{uV, uE} (V : Type uV) (E : Type uE) : Type (max uE uV)
+number of parameters: 2
+fields:
+  Chal.MatchingEntropyBounds.LooplessGraph.left : E → V
+  Chal.MatchingEntropyBounds.LooplessGraph.right : E → V
+  Chal.MatchingEntropyBounds.LooplessGraph.loopless : ∀ (e : E), self.left e ≠ self.right e
+constructor:
+  Chal.MatchingEntropyBounds.LooplessGraph.mk.{uV, uE} {V : Type uV} {E : Type uE} (left right : E → V)
+    (loopless : ∀ (e : E), left e ≠ right e) : Chal.MatchingEntropyBounds.LooplessGraph V E
+def Chal.MatchingEntropyBounds.LooplessGraph.Incident.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → V → E → Prop :=
+fun {V} {E} G v e => G.left e = v ∨ G.right e = v
+def Chal.MatchingEntropyBounds.LooplessGraph.IsPerfectMatching.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → Finset E → Prop :=
+fun {V} {E} G M => ∀ (v : V), ∃! e, e ∈ M ∧ G.Incident v e
+@[reducible] def Chal.MatchingEntropyBounds.LooplessGraph.Matching.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → Type (max 0 uE) :=
+fun {V} {E} G => { M // G.IsPerfectMatching M }
+def Chal.MatchingEntropyBounds.LooplessGraph.indicator.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [DecidableEq E] → (G : Chal.MatchingEntropyBounds.LooplessGraph V E) → G.Matching → E → ℝ :=
+fun {V} {E} [DecidableEq E] G M e => if e ∈ ↑M then 1 else 0
+def Chal.MatchingEntropyBounds.LooplessGraph.polytope.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [DecidableEq E] → Chal.MatchingEntropyBounds.LooplessGraph V E → Set (E → ℝ) :=
+fun {V} {E} [DecidableEq E] G => (convexHull ℝ) (Set.range G.indicator)
+def Chal.MatchingEntropyBounds.LooplessGraph.Crosses.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → Chal.MatchingEntropyBounds.LooplessGraph V E → Finset V → E → Prop :=
+fun {V} {E} G S e => G.left e ∈ S ∧ G.right e ∉ S ∨ G.left e ∉ S ∧ G.right e ∈ S
+def Chal.MatchingEntropyBounds.LooplessGraph.cut.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [Fintype E] → [DecidableEq V] → Chal.MatchingEntropyBounds.LooplessGraph V E → Finset V → Finset E :=
+fun {V} {E} [Fintype E] [DecidableEq V] G S => Finset.filter (G.Crosses S) Finset.univ
+def Chal.MatchingEntropyBounds.LooplessGraph.degree.{uV, uE} : {V : Type uV} →
+  {E : Type uE} → [Fintype E] → [DecidableEq V] → Chal.MatchingEntropyBounds.LooplessGraph V E → (E → ℝ) → V → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq V] G x v => ∑ e, if G.Incident v e then x e else 0
+def Chal.MatchingEntropyBounds.LooplessGraph.cutMass.{uV, uE} : {V : Type uV} →
+  {E : Type uE} →
+    [Fintype E] → [DecidableEq V] → Chal.MatchingEntropyBounds.LooplessGraph V E → (E → ℝ) → Finset V → ℝ :=
+fun {V} {E} [Fintype E] [DecidableEq V] G x S => ∑ e ∈ G.cut S, x e
+def Chal.MatchingEntropyBounds.Refined.triangleTip.{uV} : {V : Type uV} → V → Fin 3 → V ⊕ Fin 2 :=
+fun {V} v i => ![Sum.inl v, Sum.inr 0, Sum.inr 1] i
+def Chal.MatchingEntropyBounds.Refined.triangleCollapse.{uV} : {V : Type uV} → V → V ⊕ Fin 2 → V :=
+fun {V} v => Sum.elim id fun x => v
+def Chal.MatchingEntropyBounds.Refined.reattach.{uV} : {V : Type uV} → [DecidableEq V] → V → Fin 3 → V → V ⊕ Fin 2 :=
+fun {V} [DecidableEq V] v i w => if w = v then Chal.MatchingEntropyBounds.Refined.triangleTip v i else Sum.inl w
+def Chal.MatchingEntropyBounds.Refined.triangleExpansion.{uV, uE} : {V : Type uV} →
+  {E : Type uE} →
+    [DecidableEq V] →
+      Chal.MatchingEntropyBounds.LooplessGraph V E →
+        (E → Fin 3) → V → Chal.MatchingEntropyBounds.LooplessGraph (V ⊕ Fin 2) (E ⊕ Fin 3) :=
+fun {V} {E} [DecidableEq V] G c v =>
+  {
+    left :=
+      Sum.elim (fun e => Chal.MatchingEntropyBounds.Refined.reattach v (c e) (G.left e)) fun i =>
+        Chal.MatchingEntropyBounds.Refined.triangleTip v (i + 1),
+    right :=
+      Sum.elim (fun e => Chal.MatchingEntropyBounds.Refined.reattach v (c e) (G.right e)) fun i =>
+        Chal.MatchingEntropyBounds.Refined.triangleTip v (i + 2),
+    loopless := ⋯ }
+def Chal.MatchingEntropyBounds.Refined.triangleVertices.{uV} : {V : Type uV} →
+  [DecidableEq V] → V → Finset (V ⊕ Fin 2) :=
+fun {V} [DecidableEq V] v => Finset.image (Chal.MatchingEntropyBounds.Refined.triangleTip v) Finset.univ
+def Chal.CanonicalFace198.facesThrough.{u_1} : {A : Type u_1} →
+  [inst : AddCommGroup A] → [_root_.Module ℝ A] → Set A → A → Set (Set A) :=
+fun {A} [AddCommGroup A] [_root_.Module ℝ A] P x => {F | Convex ℝ F ∧ IsExtreme ℝ P F ∧ x ∈ F}
+def Chal.CanonicalFace198.minFace.{u_1} : {A : Type u_1} →
+  [inst : AddCommGroup A] → [_root_.Module ℝ A] → Set A → A → Set A :=
+fun {A} [AddCommGroup A] [_root_.Module ℝ A] P x => ⋂₀ Chal.CanonicalFace198.facesThrough P x
+def Chal.TriangleFace198.LocalLabels.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} → Chal.MatchingEntropyBounds.LooplessGraph V E → V → (E → Fin 3) → Prop :=
+fun {V} {E} G v c => ∀ (i : Fin 3), ∃! e, G.Incident v e ∧ c e = i
+def Chal.TriangleFace198.localEdge.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    (G : Chal.MatchingEntropyBounds.LooplessGraph V E) →
+      (c : E → Fin 3) → (v : V) → Chal.TriangleFace198.LocalLabels G v c → Fin 3 → E :=
+fun {V} {E} G c v hc i => Classical.choose ⋯
+def Chal.TriangleFace198.localExtension.{u_1, u_2} : {V : Type u_1} →
+  {E : Type u_2} →
+    (G : Chal.MatchingEntropyBounds.LooplessGraph V E) →
+      (c : E → Fin 3) → (v : V) → Chal.TriangleFace198.LocalLabels G v c → (E → ℝ) →ₗ[ℝ] E ⊕ Fin 3 → ℝ :=
+fun {V} {E} G c v hc =>
+  { toFun := fun x => Sum.elim x fun i => x (Chal.TriangleFace198.localEdge G c v hc i), map_add' := ⋯, map_smul' := ⋯ }
+def Chal.TriangleFace198.oldRestriction.{u_2} : {E : Type u_2} → (E ⊕ Fin 3 → ℝ) →ₗ[ℝ] E → ℝ :=
+fun {E} => { toFun := fun y e => y (Sum.inl e), map_add' := ⋯, map_smul' := ⋯ }
+'OAI.TriangleFace198.triangle_expansion_face' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TriangleFace comparator-style: ok=34 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
