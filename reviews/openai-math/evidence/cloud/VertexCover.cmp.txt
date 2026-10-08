@@ -1,10 +1,4 @@
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VertexCover.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
-/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VertexCover.lean:165:39: error: Ambiguous term
-  Literal
-Possible interpretations:
-  BinaryFormula.Literal : Type
-  
-  Lean.Literal : Type
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_VertexCover.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.VertexCover.every_fixed_factor_below_two [thm] ok
 CMP OAI.VertexCover.ThreeSATDecision [ind] ok
 CMP OAI.VertexCover.ThreeSATDecision.mk [ctor] ok
@@ -28,9 +22,10 @@ CMP OAI.UniqueGames.BinaryEncoding.parseClauses.match_1 [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.parseClauses [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.parseClauses._f [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.parseClauses.match_3 [def] ok
-CMP OAI.UniqueGames.BinaryEncoding.parseClause [def] VALUE_MISMATCH (types definitionally equal, values NOT)
-CMP OAI.UniqueGames.BinaryEncoding.parseClause.match_1 [def] TYPE_MISMATCH (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)
-CMP OAI.UniqueGames.BinaryEncoding.parseLiteral [def] TYPE_MISMATCH (types NOT definitionally equal)
+CMP OAI.UniqueGames.BinaryEncoding.parseClause [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClause._proof_1 [thm] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseClause.match_1 [def] ok
+CMP OAI.UniqueGames.BinaryEncoding.parseLiteral [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.parseLiteral.match_1 [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.parseName [def] ok
 CMP OAI.UniqueGames.BinaryEncoding.bitsValue [def] ok
@@ -103,13 +98,14 @@ fun input => do
     | (digits, rest) =>
       have name := Chal.UniqueGames.BinaryEncoding.bitsValue digits;
       if digits = name.bits then some (name, rest) else none
-def Chal.UniqueGames.BinaryEncoding.parseLiteral : List Bool → Option (sorry × List Bool) :=
+def Chal.UniqueGames.BinaryEncoding.parseLiteral : List Bool →
+  Option (Chal.UniqueGames.BinaryFormula.Literal × List Bool) :=
 fun x =>
   match x with
   | sign :: input => do
     let __x ← Chal.UniqueGames.BinaryEncoding.parseName input
     match __x with
-      | (name, rest) => pure (sorry, rest)
+      | (name, rest) => pure ({ name := name, positive := sign }, rest)
   | [] => none
 def Chal.UniqueGames.BinaryEncoding.parseClause : List Bool →
   Option (Chal.UniqueGames.BinaryFormula.Clause × List Bool) :=
@@ -122,7 +118,7 @@ fun input => do
         | (b, input) => do
           let __x ← Chal.UniqueGames.BinaryEncoding.parseLiteral input
           match __x with
-            | (c, rest) => pure (#v[sorry, sorry, sorry], rest)
+            | (c, rest) => pure (#v[a, b, c], rest)
 def Chal.UniqueGames.BinaryEncoding.parseClauses : ℕ →
   List Bool → Option (List Chal.UniqueGames.BinaryFormula.Clause × List Bool) :=
 fun x x_1 =>
@@ -218,4 +214,4 @@ constructor:
     Chal.VertexCover.ThreeSATDecision
 'OAI.VertexCover.explicit_cover_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
 'OAI.VertexCover.every_fixed_factor_below_two' depends on axioms: [propext, Classical.choice, Quot.sound]
-== VertexCover comparator-style: ok=55 problems=2 errors=1 | SHADOW-DIFF(see VertexCover.standalone.norm vs VertexCover.insolution.norm) | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=1
+== VertexCover comparator-style: ok=59 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
