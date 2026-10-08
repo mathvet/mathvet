@@ -1,0 +1,28 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RamseyFive.lean:83:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SharpRamseyFive.main [thm] ok
+CMP OAI.SharpRamseyFive.SharpExponent [def] ok
+CMP OAI.SharpRamseyFive.SharpBounds._proof_1 [thm] ok
+CMP OAI.SharpRamseyFive.ramsey [def] ok
+CMP OAI.SharpRamseyFive.RamseyProperty [def] ok
+CMP OAI.SharpRamseyFive.SharpExponent._proof_1 [thm] ok
+CMP OAI.SharpRamseyFive.SharpBounds [def] ok
+Chal.SharpRamseyFive.main : Chal.SharpRamseyFive.SharpBounds ∧ Chal.SharpRamseyFive.SharpExponent
+def Chal.SharpRamseyFive.RamseyProperty : ℕ → ℕ → ℕ → Prop :=
+fun s t n => ∀ (G : SimpleGraph (Fin n)), (∃ A, G.IsNClique s A) ∨ ∃ B, G.IsNIndepSet t B
+def Chal.SharpRamseyFive.ramsey : ℕ → ℕ → ℕ :=
+fun s t => sInf {n | Chal.SharpRamseyFive.RamseyProperty s t n}
+def Chal.SharpRamseyFive.SharpBounds : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ t₀,
+          ∀ (t : ℕ),
+            t₀ ≤ t →
+              ↑t ^ 4 / (Real.log ↑t).rpow (3 + ε) ≤ ↑(Chal.SharpRamseyFive.ramsey 5 t) ∧
+                ↑(Chal.SharpRamseyFive.ramsey 5 t) ≤ C * ↑t ^ 4 / Real.log ↑t ^ 3
+def Chal.SharpRamseyFive.SharpExponent : Prop :=
+Filter.Tendsto (fun t => (4 * Real.log ↑t - Real.log ↑(Chal.SharpRamseyFive.ramsey 5 t)) / Real.log (Real.log ↑t))
+  Filter.atTop (nhds 3)
+'OAI.SharpRamseyFive.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== RamseyFive comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
