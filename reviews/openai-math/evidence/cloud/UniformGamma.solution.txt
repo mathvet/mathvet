@@ -1,0 +1,583 @@
+OAI.ComparatorModel.CurrentMain.main : OAI.ComparatorModel.CurrentMain.MainClaim
+'OAI.ComparatorModel.CurrentMain.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.Pureness.CStarAlgebraNorm.{uR} (R : Type uR) [Ring R] [StarRing R] [Algebra ℂ R] : Type uR
+number of parameters: 4
+parents:
+  OAI.Pureness.CStarAlgebraNorm.toAlgebraNorm : AlgebraNorm ℂ R
+fields:
+  AddGroupSeminorm.toFun : R → ℝ
+  AddGroupSeminorm.map_zero' : self.toFun 0 = 0
+  AddGroupSeminorm.add_le' : ∀ (r s : R), self.toFun (r + s) ≤ self.toFun r + self.toFun s
+  AddGroupSeminorm.neg' : ∀ (r : R), self.toFun (-r) = self.toFun r
+  RingSeminorm.mul_le' : ∀ (x y : R), self.toFun (x * y) ≤ self.toFun x * self.toFun y
+  AddGroupNorm.eq_zero_of_map_eq_zero' : ∀ (x : R), self.toFun x = 0 → x = 0
+  Seminorm.smul' : ∀ (a : ℂ) (x : R), self.toFun (a • x) = ‖a‖ * self.toFun x
+  OAI.Pureness.CStarAlgebraNorm.cstar : ∀ (x : R),
+      self.toAlgebraNorm (star x * x) = self.toAlgebraNorm x * self.toAlgebraNorm x
+constructor:
+  OAI.Pureness.CStarAlgebraNorm.mk.{uR} {R : Type uR} [Ring R] [StarRing R] [Algebra ℂ R]
+    (toAlgebraNorm : AlgebraNorm ℂ R)
+    (cstar : ∀ (x : R), toAlgebraNorm (star x * x) = toAlgebraNorm x * toAlgebraNorm x) :
+    OAI.Pureness.CStarAlgebraNorm R
+field notation resolution order:
+  OAI.Pureness.CStarAlgebraNorm, AlgebraNorm, RingNorm, Seminorm, RingSeminorm, AddGroupNorm, AddGroupSeminorm
+structure OAI.Pureness.TracialState.{uA} (A : Type uA) [CStarAlgebra A] [PartialOrder A] : Type uA
+number of parameters: 3
+fields:
+  OAI.Pureness.TracialState.functional : A →ₚ[ℂ] ℂ
+  OAI.Pureness.TracialState.normalized : self.functional 1 = 1
+  OAI.Pureness.TracialState.tracial : ∀ (a b : A), self.functional (a * b) = self.functional (b * a)
+constructor:
+  OAI.Pureness.TracialState.mk.{uA} {A : Type uA} [CStarAlgebra A] [PartialOrder A] (functional : A →ₚ[ℂ] ℂ)
+    (normalized : functional 1 = 1) (tracial : ∀ (a b : A), functional (a * b) = functional (b * a)) :
+    OAI.Pureness.TracialState A
+structure OAI.Pureness.ClosedStarIdeal.{uD} (D : Type uD) [CStarAlgebra D] : Type uD
+number of parameters: 2
+fields:
+  OAI.Pureness.ClosedStarIdeal.ideal : TwoSidedIdeal D
+  OAI.Pureness.ClosedStarIdeal.star_mem : ∀ {u : D}, u ∈ self.ideal → star u ∈ self.ideal
+  OAI.Pureness.ClosedStarIdeal.isClosed : IsClosed ↑self.ideal
+constructor:
+  OAI.Pureness.ClosedStarIdeal.mk.{uD} {D : Type uD} [CStarAlgebra D] (ideal : TwoSidedIdeal D)
+    (star_mem : ∀ {u : D}, u ∈ ideal → star u ∈ ideal) (isClosed : IsClosed ↑ideal) : OAI.Pureness.ClosedStarIdeal D
+@[reducible] def OAI.ComparatorModel.Pureness.CStarAlgebraNorm.{u_1} : (R : Type u_1) →
+  [inst : Ring R] → [StarRing R] → [Algebra ℂ R] → Type u_1 :=
+OAI.Pureness.CStarAlgebraNorm
+def OAI.ComparatorModel.Pureness.IsNuclear.{u, v} : (A : Type u) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] =>
+  ∀ (B : Type v) [inst_1 : CStarAlgebra B],
+    Subsingleton (OAI.ComparatorModel.Pureness.CStarAlgebraNorm (TensorProduct ℂ A B))
+@[reducible] def OAI.ComparatorModel.Pureness.TracialState.{u_1} : (A : Type u_1) →
+  [CStarAlgebra A] → [PartialOrder A] → Type u_1 :=
+OAI.Pureness.TracialState
+def OAI.ComparatorModel.CurrentMain.RealRankZero : (D : Type) → [CStarAlgebra D] → Prop :=
+fun D [CStarAlgebra D] =>
+  ∀ (a : D), IsSelfAdjoint a → ∀ (ε : ℝ), 0 < ε → ∃ b, IsSelfAdjoint b ∧ (spectrum ℂ b).Finite ∧ ‖a - b‖ < ε
+def OAI.ComparatorModel.CurrentMain.traceTwoNorm : {D : Type} →
+  [inst : CStarAlgebra D] → [inst_1 : PartialOrder D] → OAI.ComparatorModel.Pureness.TracialState D → D → ℝ :=
+fun {D} [CStarAlgebra D] [PartialOrder D] τ a => √(τ.functional (star a * a)).re
+@[reducible] def OAI.ComparatorModel.Pureness.ClosedStarIdeal.{u_1} : (D : Type u_1) → [CStarAlgebra D] → Type u_1 :=
+OAI.Pureness.ClosedStarIdeal
+@[reducible] def OAI.ComparatorModel.Pureness.ClosedStarIdeal.Quotient : {D : Type} →
+  [inst : CStarAlgebra D] → OAI.ComparatorModel.Pureness.ClosedStarIdeal D → Type :=
+fun {D} [CStarAlgebra D] J => J.ideal.ringCon.Quotient
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.quotientMap : {D : Type} →
+  [inst : CStarAlgebra D] → (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) → D →ₐ[ℂ] J.Quotient :=
+fun {D} [CStarAlgebra D] J => RingCon.mkₐ ℂ J.ideal.ringCon
+@[reducible] def OAI.ComparatorModel.Pureness.ClosedStarIdeal.idealSubmodule : {D : Type} →
+  [inst : CStarAlgebra D] → OAI.ComparatorModel.Pureness.ClosedStarIdeal D → Submodule ℂ D :=
+fun {D} [CStarAlgebra D] J => J.quotientMap.toLinearMap.ker
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.quotientLinearEquiv : {D : Type} →
+  [inst : CStarAlgebra D] →
+    (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) → (D ⧸ J.idealSubmodule) ≃ₗ[ℂ] J.Quotient :=
+fun {D} [CStarAlgebra D] J => J.quotientMap.toLinearMap.quotKerEquivOfSurjective ⋯
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.quotientNormEquiv : {D : Type} →
+  [inst : CStarAlgebra D] →
+    (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) → J.Quotient ≃ₗᵢ[ℂ] D ⧸ J.idealSubmodule :=
+fun {D} [CStarAlgebra D] J =>
+  let __spread.0 := J.quotientLinearEquiv.symm;
+  { toLinearEquiv := __spread.0, norm_map' := ⋯ }
+class OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction : Prop
+number of parameters: 0
+fields:
+  OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction.mul_le : ∀ {D : Type} [inst : CStarAlgebra D]
+      (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) (x y : J.Quotient), ‖x * y‖ ≤ ‖x‖ * ‖y‖
+  OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction.star_eq : ∀ {D : Type} [inst : CStarAlgebra D]
+      (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) (x : J.Quotient), ‖star x‖ = ‖x‖
+  OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction.square_le : ∀ {D : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D)
+      (x : J.Quotient), ‖x‖ * ‖x‖ ≤ ‖star x * x‖
+constructor:
+  OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction.mk
+    (mul_le :
+      ∀ {D : Type} [inst : CStarAlgebra D] (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) (x y : J.Quotient),
+        ‖x * y‖ ≤ ‖x‖ * ‖y‖)
+    (star_eq :
+      ∀ {D : Type} [inst : CStarAlgebra D] (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) (x : J.Quotient),
+        ‖star x‖ = ‖x‖)
+    (square_le :
+      ∀ {D : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) (x : J.Quotient), ‖x‖ * ‖x‖ ≤ ‖star x * x‖) :
+    OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction
+def OAI.ComparatorModel.CurrentMain.familyTwoNorm : {D I : Type} →
+  [inst : CStarAlgebra D] → [inst_1 : PartialOrder D] → (I → OAI.ComparatorModel.Pureness.TracialState D) → D → ℝ :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] τ a => ⨆ i, OAI.ComparatorModel.CurrentMain.traceTwoNorm (τ i) a
+def OAI.ComparatorModel.CurrentMain.IsFamilyNull : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] → (I → OAI.ComparatorModel.Pureness.TracialState D) → Filter X → (X → D) → Prop :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] τ F u =>
+  Filter.Tendsto (fun n => OAI.ComparatorModel.CurrentMain.familyTwoNorm τ (u n)) F (nhds 0)
+class OAI.ComparatorModel.CurrentMain.NullConstruction : Prop
+number of parameters: 0
+fields:
+  OAI.ComparatorModel.CurrentMain.NullConstruction.zero : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      (F : Filter X), OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun x => 0
+  OAI.ComparatorModel.CurrentMain.NullConstruction.add : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {F : Filter X} {u v : X → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F v →
+          OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n + v n
+  OAI.ComparatorModel.CurrentMain.NullConstruction.neg : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {F : Filter X} {u : X → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => -u n
+  OAI.ComparatorModel.CurrentMain.NullConstruction.star : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {F : Filter X} {u : X → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => star (u n)
+  OAI.ComparatorModel.CurrentMain.NullConstruction.mul_left : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {F : Filter X} {u v : X → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F v →
+        ∀ {M : ℝ}, (∀ (n : X), ‖u n‖ ≤ M) → OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n * v n
+  OAI.ComparatorModel.CurrentMain.NullConstruction.mul_right : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {F : Filter X} {u v : X → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+        ∀ {M : ℝ}, (∀ (n : X), ‖v n‖ ≤ M) → OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n * v n
+  OAI.ComparatorModel.CurrentMain.NullConstruction.closed : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      (F : Filter X), IsClosed {u | OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => ↑u n}
+constructor:
+  OAI.ComparatorModel.CurrentMain.NullConstruction.mk
+    (zero :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] (F : Filter X),
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun x => 0)
+    (add :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {F : Filter X} {u v : X → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F v →
+            OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n + v n)
+    (neg :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {F : Filter X} {u : X → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => -u n)
+    (star :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {F : Filter X} {u : X → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => star (u n))
+    (mul_left :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {F : Filter X} {u v : X → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F v →
+          ∀ {M : ℝ}, (∀ (n : X), ‖u n‖ ≤ M) → OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n * v n)
+    (mul_right :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {F : Filter X} {u v : X → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F u →
+          ∀ {M : ℝ}, (∀ (n : X), ‖v n‖ ≤ M) → OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => u n * v n)
+    (closed :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] (F : Filter X),
+        IsClosed {u | OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => ↑u n}) :
+    OAI.ComparatorModel.CurrentMain.NullConstruction
+def OAI.ComparatorModel.CurrentMain.familyNullTwoSided : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        (I → OAI.ComparatorModel.Pureness.TracialState D) →
+          [Nonempty I] →
+            [inst_4 : Nontrivial D] →
+              [OAI.ComparatorModel.CurrentMain.NullConstruction] → Filter X → TwoSidedIdeal ↥(lp (fun x => D) ⊤) :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] τ [Nonempty I] [Nontrivial D]
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] F =>
+  TwoSidedIdeal.mk' {u | OAI.ComparatorModel.CurrentMain.IsFamilyNull τ F fun n => ↑u n} ⋯ ⋯ ⋯ ⋯ ⋯
+def OAI.ComparatorModel.CurrentMain.familyNullIdeal : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        (I → OAI.ComparatorModel.Pureness.TracialState D) →
+          [Nonempty I] →
+            [inst_4 : Nontrivial D] →
+              [OAI.ComparatorModel.CurrentMain.NullConstruction] →
+                Filter X → OAI.ComparatorModel.Pureness.ClosedStarIdeal ↥(lp (fun x => D) ⊤) :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] τ [Nonempty I] [Nontrivial D]
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] F =>
+  { ideal := OAI.ComparatorModel.CurrentMain.familyNullTwoSided τ F, star_mem := ⋯, isClosed := ⋯ }
+def OAI.ComparatorModel.CurrentMain.IsFamilyCauchy : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] → (I → OAI.ComparatorModel.Pureness.TracialState D) → (ℕ → D) → Prop :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] τ u =>
+  OAI.ComparatorModel.CurrentMain.IsFamilyNull τ Filter.atTop fun p => u p.1 - u p.2
+class OAI.ComparatorModel.CurrentMain.CauchyConstruction : Prop
+number of parameters: 0
+fields:
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.const : ∀ {D I : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      (a : D), OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun x => a
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.add : ∀ {D I : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {u v : ℕ → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ v →
+          OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => u n + v n
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.star : ∀ {D I : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {u : ℕ → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => star (u n)
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.mul : ∀ {D I : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      {u v : ℕ → D},
+      OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ v →
+          ∀ {M N : ℝ},
+            (∀ (n : ℕ), ‖u n‖ ≤ M) →
+              (∀ (n : ℕ), ‖v n‖ ≤ N) → OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => u n * v n
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.closed : ∀ {D I : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I]
+      [inst_4 : Nontrivial D], IsClosed {u | OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => ↑u n}
+constructor:
+  OAI.ComparatorModel.CurrentMain.CauchyConstruction.mk
+    (const :
+      ∀ {D I : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] (a : D),
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun x => a)
+    (add :
+      ∀ {D I : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {u v : ℕ → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ v →
+            OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => u n + v n)
+    (star :
+      ∀ {D I : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {u : ℕ → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => star (u n))
+    (mul :
+      ∀ {D I : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] {u v : ℕ → D},
+        OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ u →
+          OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ v →
+            ∀ {M N : ℝ},
+              (∀ (n : ℕ), ‖u n‖ ≤ M) →
+                (∀ (n : ℕ), ‖v n‖ ≤ N) → OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => u n * v n)
+    (closed :
+      ∀ {D I : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] [inst_4 : Nontrivial D],
+        IsClosed {u | OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => ↑u n}) :
+    OAI.ComparatorModel.CurrentMain.CauchyConstruction
+def OAI.ComparatorModel.CurrentMain.familyCauchyAlgebra : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        (I → OAI.ComparatorModel.Pureness.TracialState D) →
+          [Nonempty I] →
+            [inst_4 : Nontrivial D] →
+              [OAI.ComparatorModel.CurrentMain.CauchyConstruction] → StarSubalgebra ℂ ↥(lp (fun x => D) ⊤) :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] τ [Nonempty I] [Nontrivial D]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] =>
+  { carrier := {u | OAI.ComparatorModel.CurrentMain.IsFamilyCauchy τ fun n => ↑u n}, mul_mem' := ⋯, one_mem' := ⋯,
+    add_mem' := ⋯, zero_mem' := ⋯, algebraMap_mem' := ⋯, star_mem' := ⋯ }
+def OAI.ComparatorModel.CurrentMain.familyCauchyNullIdeal : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        (τ : I → OAI.ComparatorModel.Pureness.TracialState D) →
+          [inst_3 : Nonempty I] →
+            [OAI.ComparatorModel.CurrentMain.NullConstruction] →
+              [inst_5 : Nontrivial D] →
+                [inst_6 : OAI.ComparatorModel.CurrentMain.CauchyConstruction] →
+                  OAI.ComparatorModel.Pureness.ClosedStarIdeal
+                    ↥(OAI.ComparatorModel.CurrentMain.familyCauchyAlgebra τ) :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] τ [Nonempty I]
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] [Nontrivial D]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] =>
+  {
+    ideal :=
+      (TwoSidedIdeal.comap (OAI.ComparatorModel.CurrentMain.familyCauchyAlgebra τ).val.toRingHom)
+        (OAI.ComparatorModel.CurrentMain.familyNullIdeal τ Filter.atTop).ideal,
+    star_mem := ⋯, isClosed := ⋯ }
+@[reducible] def OAI.ComparatorModel.CurrentMain.UniformTracialCompletion : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        (I → OAI.ComparatorModel.Pureness.TracialState D) →
+          [Nonempty I] →
+            [OAI.ComparatorModel.CurrentMain.NullConstruction] →
+              [Nontrivial D] → [OAI.ComparatorModel.CurrentMain.CauchyConstruction] → Type :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] τ [Nonempty I]
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] [Nontrivial D]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] =>
+  (OAI.ComparatorModel.CurrentMain.familyCauchyNullIdeal τ).Quotient
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.descendedValue : {D : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) →
+        (τ : OAI.ComparatorModel.Pureness.TracialState D) → (∀ a ∈ J.ideal, τ.functional a = 0) → J.Quotient → ℂ :=
+fun {D} [CStarAlgebra D] [PartialOrder D] J τ hτ => Quotient.lift ⇑τ.functional ⋯
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.descendedLinear : {D : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+          (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) →
+            (τ : OAI.ComparatorModel.Pureness.TracialState D) →
+              (∀ a ∈ J.ideal, τ.functional a = 0) → J.Quotient →ₗ[ℂ] ℂ :=
+fun {D} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D]
+    [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] J τ hτ =>
+  { toFun := J.descendedValue τ hτ, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ComparatorModel.Pureness.ClosedStarIdeal.descendedTrace : {D : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+          (J : OAI.ComparatorModel.Pureness.ClosedStarIdeal D) →
+            (τ : OAI.ComparatorModel.Pureness.TracialState D) →
+              (∀ a ∈ J.ideal, τ.functional a = 0) → OAI.ComparatorModel.Pureness.TracialState J.Quotient :=
+fun {D} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D]
+    [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] J τ hτ =>
+  {
+    functional :=
+      let __src := J.descendedLinear τ hτ;
+      { toLinearMap := __src, monotone' := ⋯ },
+    normalized := ⋯, tracial := ⋯ }
+def OAI.ComparatorModel.CurrentMain.ultraTraceValue : {D X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      (X → OAI.ComparatorModel.Pureness.TracialState D) → Ultrafilter X → ↥(lp (fun x => D) ⊤) → ℂ :=
+fun {D X} [CStarAlgebra D] [PartialOrder D] θ U u => (↑U).limUnder fun n => (θ n).functional (↑u n)
+class OAI.ComparatorModel.CurrentMain.LimitConstruction : Prop
+number of parameters: 0
+fields:
+  OAI.ComparatorModel.CurrentMain.LimitConstruction.tendsto : ∀ {D X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [StarOrderedRing D] (θ : X → OAI.ComparatorModel.Pureness.TracialState D)
+      (U : Ultrafilter X) (u : ↥(lp (fun x => D) ⊤)),
+      Filter.Tendsto (fun n => (θ n).functional (↑u n)) (↑U)
+        (nhds (OAI.ComparatorModel.CurrentMain.ultraTraceValue θ U u))
+constructor:
+  OAI.ComparatorModel.CurrentMain.LimitConstruction.mk
+    (tendsto :
+      ∀ {D X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [StarOrderedRing D]
+        (θ : X → OAI.ComparatorModel.Pureness.TracialState D) (U : Ultrafilter X) (u : ↥(lp (fun x => D) ⊤)),
+        Filter.Tendsto (fun n => (θ n).functional (↑u n)) (↑U)
+          (nhds (OAI.ComparatorModel.CurrentMain.ultraTraceValue θ U u))) :
+    OAI.ComparatorModel.CurrentMain.LimitConstruction
+def OAI.ComparatorModel.CurrentMain.ultraTraceLinear : {D X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        [Nontrivial D] →
+          (X → OAI.ComparatorModel.Pureness.TracialState D) →
+            Ultrafilter X → [OAI.ComparatorModel.CurrentMain.LimitConstruction] → ↥(lp (fun x => D) ⊤) →ₗ[ℂ] ℂ :=
+fun {D X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] θ U
+    [OAI.ComparatorModel.CurrentMain.LimitConstruction] =>
+  { toFun := OAI.ComparatorModel.CurrentMain.ultraTraceValue θ U, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.ComparatorModel.CurrentMain.boundedFamilyEval : {D X : Type} →
+  [inst : CStarAlgebra D] → [inst_1 : Nontrivial D] → X → ↥(lp (fun x => D) ⊤) →⋆ₐ[ℂ] D :=
+fun {D X} [CStarAlgebra D] [Nontrivial D] n =>
+  { toFun := fun u => ↑u n, map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯,
+    map_star' := ⋯ }
+def OAI.ComparatorModel.CurrentMain.ultraTrace : {D X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        [inst_3 : Nontrivial D] →
+          (X → OAI.ComparatorModel.Pureness.TracialState D) →
+            Ultrafilter X →
+              [OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+                OAI.ComparatorModel.Pureness.TracialState ↥(lp (fun x => D) ⊤) :=
+fun {D X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] θ U
+    [OAI.ComparatorModel.CurrentMain.LimitConstruction] =>
+  {
+    functional :=
+      let __src := OAI.ComparatorModel.CurrentMain.ultraTraceLinear θ U;
+      { toLinearMap := __src, monotone' := ⋯ },
+    normalized := ⋯, tracial := ⋯ }
+@[reducible] def OAI.ComparatorModel.CurrentMain.FamilyUltrapower : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        [Nontrivial D] →
+          (I → OAI.ComparatorModel.Pureness.TracialState D) →
+            [Nonempty I] → Ultrafilter X → [OAI.ComparatorModel.CurrentMain.NullConstruction] → Type :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] τ [Nonempty I] U
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] =>
+  (OAI.ComparatorModel.CurrentMain.familyNullIdeal τ ↑U).Quotient
+class OAI.ComparatorModel.CurrentMain.TraceConstruction [OAI.ComparatorModel.CurrentMain.LimitConstruction] : Prop
+number of parameters: 1
+fields:
+  OAI.ComparatorModel.CurrentMain.TraceConstruction.null : ∀ {D I X : Type} [inst : CStarAlgebra D]
+      [inst_1 : PartialOrder D] [inst_2 : StarOrderedRing D] [inst_3 : Nontrivial D]
+      (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] (U : Ultrafilter X) (s : X → I)
+      (u : ↥(lp (fun x => D) ⊤)),
+      (OAI.ComparatorModel.CurrentMain.IsFamilyNull τ ↑U fun n => ↑u n) →
+        (OAI.ComparatorModel.CurrentMain.ultraTrace (fun n => τ (s n)) U).functional u = 0
+constructor:
+  OAI.ComparatorModel.CurrentMain.TraceConstruction.mk [OAI.ComparatorModel.CurrentMain.LimitConstruction]
+    (null :
+      ∀ {D I X : Type} [inst : CStarAlgebra D] [inst_1 : PartialOrder D] [inst_2 : StarOrderedRing D]
+        [inst_3 : Nontrivial D] (τ : I → OAI.ComparatorModel.Pureness.TracialState D) [Nonempty I] (U : Ultrafilter X)
+        (s : X → I) (u : ↥(lp (fun x => D) ⊤)),
+        (OAI.ComparatorModel.CurrentMain.IsFamilyNull τ ↑U fun n => ↑u n) →
+          (OAI.ComparatorModel.CurrentMain.ultraTrace (fun n => τ (s n)) U).functional u = 0) :
+    OAI.ComparatorModel.CurrentMain.TraceConstruction
+def OAI.ComparatorModel.CurrentMain.familyLimitTrace : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : Nontrivial D] →
+          (τ : I → OAI.ComparatorModel.Pureness.TracialState D) →
+            [inst_4 : Nonempty I] →
+              (U : Ultrafilter X) →
+                [inst_5 : OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+                  [inst_6 : OAI.ComparatorModel.CurrentMain.NullConstruction] →
+                    [inst_7 : OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+                      [OAI.ComparatorModel.CurrentMain.TraceConstruction] →
+                        (X → I) →
+                          OAI.ComparatorModel.Pureness.TracialState
+                            (OAI.ComparatorModel.CurrentMain.FamilyUltrapower τ U) :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] τ [Nonempty I] U
+    [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] [OAI.ComparatorModel.CurrentMain.NullConstruction]
+    [OAI.ComparatorModel.CurrentMain.LimitConstruction] [OAI.ComparatorModel.CurrentMain.TraceConstruction] s =>
+  (OAI.ComparatorModel.CurrentMain.familyNullIdeal τ ↑U).descendedTrace
+    (OAI.ComparatorModel.CurrentMain.ultraTrace (fun n => τ (s n)) U) ⋯
+def OAI.ComparatorModel.CurrentMain.pullbackTrace : {D E : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [StarOrderedRing D] →
+        [inst_3 : CStarAlgebra E] →
+          [inst_4 : PartialOrder E] →
+            [StarOrderedRing E] →
+              OAI.ComparatorModel.Pureness.TracialState E →
+                (D →⋆ₐ[ℂ] E) → OAI.ComparatorModel.Pureness.TracialState D :=
+fun {D E} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [CStarAlgebra E] [PartialOrder E] [StarOrderedRing E] τ
+    ι =>
+  {
+    functional :=
+      let __src := τ.functional.toLinearMap ∘ₗ (↑ι).toLinearMap;
+      { toLinearMap := __src, monotone' := ⋯ },
+    normalized := ⋯, tracial := ⋯ }
+def OAI.ComparatorModel.CurrentMain.cauchyTrace : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : Nontrivial D] →
+          (τ : I → OAI.ComparatorModel.Pureness.TracialState D) →
+            [inst_4 : Nonempty I] →
+              [inst_5 : OAI.ComparatorModel.CurrentMain.CauchyConstruction] →
+                [OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+                  I →
+                    OAI.ComparatorModel.Pureness.TracialState
+                      ↥(OAI.ComparatorModel.CurrentMain.familyCauchyAlgebra τ) :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] τ [Nonempty I]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] [OAI.ComparatorModel.CurrentMain.LimitConstruction] i =>
+  OAI.ComparatorModel.CurrentMain.pullbackTrace
+    (OAI.ComparatorModel.CurrentMain.ultraTrace (fun x => τ i) (Ultrafilter.of Filter.atTop))
+    (OAI.ComparatorModel.CurrentMain.familyCauchyAlgebra τ).subtype
+def OAI.ComparatorModel.CurrentMain.completionTrace : {D I : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : Nontrivial D] →
+          (τ : I → OAI.ComparatorModel.Pureness.TracialState D) →
+            [inst_4 : Nonempty I] →
+              [inst_5 : OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+                [inst_6 : OAI.ComparatorModel.CurrentMain.NullConstruction] →
+                  [inst_7 : OAI.ComparatorModel.CurrentMain.CauchyConstruction] →
+                    [inst_8 : OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+                      [OAI.ComparatorModel.CurrentMain.TraceConstruction] →
+                        I →
+                          OAI.ComparatorModel.Pureness.TracialState
+                            (OAI.ComparatorModel.CurrentMain.UniformTracialCompletion τ) :=
+fun {D I} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] τ [Nonempty I]
+    [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] [OAI.ComparatorModel.CurrentMain.NullConstruction]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] [OAI.ComparatorModel.CurrentMain.LimitConstruction]
+    [OAI.ComparatorModel.CurrentMain.TraceConstruction] i =>
+  (OAI.ComparatorModel.CurrentMain.familyCauchyNullIdeal τ).descendedTrace
+    (OAI.ComparatorModel.CurrentMain.cauchyTrace τ i) ⋯
+def OAI.ComparatorModel.CurrentMain.boundedFamilyConstant : {D : Type} →
+  [inst : CStarAlgebra D] → {X : Type} → D → ↥(lp (fun x => D) ⊤) :=
+fun {D} [CStarAlgebra D] {X} a => ⟨fun x => a, ⋯⟩
+def OAI.ComparatorModel.CurrentMain.familyUltrapowerMap : {D I X : Type} →
+  [inst : CStarAlgebra D] →
+    [inst_1 : PartialOrder D] →
+      [inst_2 : StarOrderedRing D] →
+        [inst_3 : Nontrivial D] →
+          (τ : I → OAI.ComparatorModel.Pureness.TracialState D) →
+            [inst_4 : Nonempty I] →
+              (U : Ultrafilter X) →
+                [inst_5 : OAI.ComparatorModel.CurrentMain.NullConstruction] →
+                  D →⋆ₐ[ℂ] OAI.ComparatorModel.CurrentMain.FamilyUltrapower τ U :=
+fun {D I X} [CStarAlgebra D] [PartialOrder D] [StarOrderedRing D] [Nontrivial D] τ [Nonempty I] U
+    [OAI.ComparatorModel.CurrentMain.NullConstruction] =>
+  {
+    toFun := fun a =>
+      (OAI.ComparatorModel.CurrentMain.familyNullIdeal τ ↑U).quotientMap
+        (OAI.ComparatorModel.CurrentMain.boundedFamilyConstant a),
+    map_one' := ⋯, map_mul' := ⋯, map_zero' := ⋯, map_add' := ⋯, commutes' := ⋯, map_star' := ⋯ }
+def OAI.ComparatorModel.Pureness.TopologicallySimple.{uA} : (A : Type uA) → [NormedRing A] → Prop :=
+fun A [NormedRing A] => ∀ (I : TwoSidedIdeal A), IsClosed ↑I → I = ⊥ ∨ I = ⊤
+def OAI.ComparatorModel.CurrentMain.StablyFinite.{uA} : (A : Type uA) → [CStarAlgebra A] → Prop :=
+fun A [CStarAlgebra A] => ∀ (n : ℕ) (v : CStarMatrix (Fin n) (Fin n) A), star v * v = 1 → v * star v = 1
+def OAI.ComparatorModel.CurrentMain.UniformPropertyGammaAt : [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+  [OAI.ComparatorModel.CurrentMain.NullConstruction] →
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] →
+      [inst : OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+        [OAI.ComparatorModel.CurrentMain.TraceConstruction] →
+          (A : Type) →
+            [inst : CStarAlgebra A] →
+              [inst_1 : PartialOrder A] →
+                [StarOrderedRing A] →
+                  [Nontrivial A] → [Nonempty (OAI.ComparatorModel.Pureness.TracialState A)] → Ultrafilter ℕ → Prop :=
+fun [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] [OAI.ComparatorModel.CurrentMain.NullConstruction]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] [OAI.ComparatorModel.CurrentMain.LimitConstruction]
+    [OAI.ComparatorModel.CurrentMain.TraceConstruction] A [CStarAlgebra A] [PartialOrder A] [StarOrderedRing A]
+    [Nontrivial A] [Nonempty (OAI.ComparatorModel.Pureness.TracialState A)] U =>
+  ∃ p,
+    IsStarProjection p ∧
+      ∀ (x : OAI.ComparatorModel.CurrentMain.UniformTracialCompletion fun τ => τ),
+        p *
+              (OAI.ComparatorModel.CurrentMain.familyUltrapowerMap
+                  (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U)
+                x =
+            (OAI.ComparatorModel.CurrentMain.familyUltrapowerMap
+                  (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U)
+                x *
+              p ∧
+          ∀ (s : ℕ → OAI.ComparatorModel.Pureness.TracialState A),
+            (OAI.ComparatorModel.CurrentMain.familyLimitTrace
+                    (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U s).functional
+                (p *
+                  (OAI.ComparatorModel.CurrentMain.familyUltrapowerMap
+                      (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U)
+                    x) =
+              1 / 2 *
+                (OAI.ComparatorModel.CurrentMain.familyLimitTrace
+                      (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U s).functional
+                  ((OAI.ComparatorModel.CurrentMain.familyUltrapowerMap
+                      (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U)
+                    x)
+def OAI.ComparatorModel.CurrentMain.Statement.{uNuclear} : [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] →
+  [OAI.ComparatorModel.CurrentMain.NullConstruction] →
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] →
+      [inst : OAI.ComparatorModel.CurrentMain.LimitConstruction] →
+        [OAI.ComparatorModel.CurrentMain.TraceConstruction] → Prop :=
+fun [OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction] [OAI.ComparatorModel.CurrentMain.NullConstruction]
+    [OAI.ComparatorModel.CurrentMain.CauchyConstruction] [OAI.ComparatorModel.CurrentMain.LimitConstruction]
+    [OAI.ComparatorModel.CurrentMain.TraceConstruction] =>
+  ∀ {A : Type} [inst_5 : CStarAlgebra A] [inst_6 : PartialOrder A] [inst_7 : StarOrderedRing A] [inst_8 : Nontrivial A]
+    [TopologicalSpace.SeparableSpace A],
+    OAI.ComparatorModel.Pureness.TopologicallySimple A →
+      ¬FiniteDimensional ℂ A →
+        OAI.ComparatorModel.Pureness.IsNuclear A →
+          OAI.ComparatorModel.CurrentMain.StablyFinite A →
+            ∀ [inst_10 : Nonempty (OAI.ComparatorModel.Pureness.TracialState A)] (U : Ultrafilter ℕ),
+              ↑U ≤ Filter.atTop →
+                OAI.ComparatorModel.CurrentMain.RealRankZero
+                    (OAI.ComparatorModel.CurrentMain.FamilyUltrapower
+                      (OAI.ComparatorModel.CurrentMain.completionTrace fun τ => τ) U) →
+                  OAI.ComparatorModel.CurrentMain.UniformPropertyGammaAt A U
+def OAI.ComparatorModel.CurrentMain.MainClaim.{uNuclear} : Prop :=
+∃ (h0 : OAI.ComparatorModel.Pureness.ClosedStarIdeal.NormConstruction) (h1 :
+  OAI.ComparatorModel.CurrentMain.NullConstruction) (h2 : OAI.ComparatorModel.CurrentMain.CauchyConstruction) (h3 :
+  OAI.ComparatorModel.CurrentMain.LimitConstruction) (h4 : OAI.ComparatorModel.CurrentMain.TraceConstruction),
+  OAI.ComparatorModel.CurrentMain.Statement
