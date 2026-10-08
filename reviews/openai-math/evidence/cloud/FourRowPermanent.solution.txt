@@ -1,0 +1,31 @@
+OAI.FourRow.robust_permanent : ∃ p₀,
+  4 / 3 < p₀ ∧
+    p₀ < 2 ∧
+      ∃ ε,
+        0 < ε ∧
+          ∀ (ν : OAI.FourRow.Law),
+            OAI.FourRow.IsProbability ν →
+              OAI.FourRow.totalVariation ν < ε →
+                OAI.FourRow.UniformMarginals ν →
+                  ∀ (f : OAI.FourRow.Functions),
+                    (∀ (i j : OAI.FourRow.Site), 0 ≤ f i j) →
+                      OAI.FourRow.permanentExpectation ν f ≤ ∏ i, OAI.FourRow.lpNorm p₀ (f i)
+'OAI.FourRow.robust_permanent' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.FourRow.Site : Type :=
+Fin 4
+@[reducible] def OAI.FourRow.Perm : Type :=
+Equiv.Perm OAI.FourRow.Site
+@[reducible] def OAI.FourRow.Law : Type :=
+OAI.FourRow.Perm → ℝ
+@[reducible] def OAI.FourRow.Functions : Type :=
+OAI.FourRow.Site → OAI.FourRow.Site → ℝ
+def OAI.FourRow.IsProbability : OAI.FourRow.Law → Prop :=
+fun ν => (∀ (π : OAI.FourRow.Perm), 0 ≤ ν π) ∧ ∑ π, ν π = 1
+def OAI.FourRow.UniformMarginals : OAI.FourRow.Law → Prop :=
+fun ν => ∀ (i j : OAI.FourRow.Site), (∑ π, if π i = j then ν π else 0) = 1 / 4
+def OAI.FourRow.totalVariation : OAI.FourRow.Law → ℝ :=
+fun ν => (∑ π, |ν π - 1 / 24|) / 2
+def OAI.FourRow.lpNorm : ℝ → (OAI.FourRow.Site → ℝ) → ℝ :=
+fun p f => ((∑ j, f j ^ p) / 4) ^ (1 / p)
+def OAI.FourRow.permanentExpectation : OAI.FourRow.Law → OAI.FourRow.Functions → ℝ :=
+fun ν f => ∑ π, ν π * ∏ i, f i (π i)
