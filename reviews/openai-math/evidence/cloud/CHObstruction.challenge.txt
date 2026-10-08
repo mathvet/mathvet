@@ -1,0 +1,132 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_CHObstruction.lean:96:8: warning: declaration uses `sorry`
+OAI.CHObstruction.main : OAI.CHObstruction.CH →
+  ∃ L,
+    Countable ((n : ℕ) × L n) ∧
+      ∃ K,
+        K.IsAEC ∧
+          K.HasLSNumber Cardinal.aleph0 ∧
+            OAI.CHObstruction.endpoint = OAI.CHObstruction.hanf Cardinal.aleph0 ∧
+              K.TwoModels OAI.CHObstruction.endpoint ∧
+                ∀ (μ : Cardinal.{u_1}), OAI.CHObstruction.tailThreshold ≤ μ → K.Categorical μ
+structure OAI.CHObstruction.RelModel.{u} (L : ℕ → Type) : Type (u + 1)
+number of parameters: 1
+fields:
+  OAI.CHObstruction.RelModel.carrier : ZFSet.{u}
+  OAI.CHObstruction.RelModel.rel : (n : ℕ) → L n → (Fin n → ↥self.carrier) → Prop
+constructor:
+  OAI.CHObstruction.RelModel.mk.{u} {L : ℕ → Type} (carrier : ZFSet.{u})
+    (rel : (n : ℕ) → L n → (Fin n → ↥carrier) → Prop) : OAI.CHObstruction.RelModel L
+structure OAI.CHObstruction.RelModel.IsSubstructure.{u} {L : ℕ → Type} (M N : OAI.CHObstruction.RelModel L) : Prop
+number of parameters: 3
+fields:
+  OAI.CHObstruction.RelModel.IsSubstructure.subset : M.carrier ⊆ N.carrier
+  OAI.CHObstruction.RelModel.IsSubstructure.restrict : ∀ (n : ℕ) (r : L n) (a : Fin n → ↥M.carrier),
+      M.rel n r a ↔ N.rel n r fun i => ⟨↑(a i), ⋯⟩
+constructor:
+  OAI.CHObstruction.RelModel.IsSubstructure.mk.{u} {L : ℕ → Type} {M N : OAI.CHObstruction.RelModel L}
+    (subset : M.carrier ⊆ N.carrier)
+    (restrict : ∀ (n : ℕ) (r : L n) (a : Fin n → ↥M.carrier), M.rel n r a ↔ N.rel n r fun i => ⟨↑(a i), ⋯⟩) :
+    M.IsSubstructure N
+structure OAI.CHObstruction.RelModel.Iso.{u} {L : ℕ → Type} (M N : OAI.CHObstruction.RelModel L) : Type (u + 1)
+number of parameters: 3
+fields:
+  OAI.CHObstruction.RelModel.Iso.toEquiv : ↥M.carrier ≃ ↥N.carrier
+  OAI.CHObstruction.RelModel.Iso.map_rel : ∀ (n : ℕ) (r : L n) (a : Fin n → ↥M.carrier),
+      M.rel n r a ↔ N.rel n r (⇑self.toEquiv ∘ a)
+constructor:
+  OAI.CHObstruction.RelModel.Iso.mk.{u} {L : ℕ → Type} {M N : OAI.CHObstruction.RelModel L}
+    (toEquiv : ↥M.carrier ≃ ↥N.carrier)
+    (map_rel : ∀ (n : ℕ) (r : L n) (a : Fin n → ↥M.carrier), M.rel n r a ↔ N.rel n r (⇑toEquiv ∘ a)) : M.Iso N
+def OAI.CHObstruction.RelModel.IsUnion.{u} : {L : ℕ → Type} →
+  {ι : Type u} → (ι → OAI.CHObstruction.RelModel L) → OAI.CHObstruction.RelModel L → Prop :=
+fun {L} {ι} F U => (∀ (i : ι), (F i).IsSubstructure U) ∧ ∀ (x : ↥U.carrier), ∃ i, ↑x ∈ (F i).carrier
+structure OAI.CHObstruction.ClassData.{u} (L : ℕ → Type) : Type (u + 1)
+number of parameters: 1
+fields:
+  OAI.CHObstruction.ClassData.objects : OAI.CHObstruction.RelModel L → Prop
+  OAI.CHObstruction.ClassData.strong : OAI.CHObstruction.RelModel L → OAI.CHObstruction.RelModel L → Prop
+constructor:
+  OAI.CHObstruction.ClassData.mk.{u} {L : ℕ → Type} (objects : OAI.CHObstruction.RelModel L → Prop)
+    (strong : OAI.CHObstruction.RelModel L → OAI.CHObstruction.RelModel L → Prop) : OAI.CHObstruction.ClassData L
+def OAI.CHObstruction.ClassData.LSBound.{u} : {L : ℕ → Type} → OAI.CHObstruction.ClassData L → Cardinal.{u} → Prop :=
+fun {L} K θ =>
+  Cardinal.aleph0 ≤ θ ∧
+    Cardinal.lift.{u, 0} (Cardinal.mk ((n : ℕ) × L n)) ≤ θ ∧
+      ∀ (M : OAI.CHObstruction.RelModel L),
+        K.objects M → ∀ A ⊆ M.carrier, ∃ N, K.objects N ∧ K.strong N M ∧ A ⊆ N.carrier ∧ N.carrier.card ≤ A.card + θ
+def OAI.CHObstruction.ClassData.HasLSNumber.{u} : {L : ℕ → Type} →
+  OAI.CHObstruction.ClassData L → Cardinal.{u} → Prop :=
+fun {L} K θ => K.LSBound θ ∧ ∀ (θ' : Cardinal.{u}), K.LSBound θ' → θ ≤ θ'
+structure OAI.CHObstruction.ClassData.IsAEC.{u} {L : ℕ → Type} (K : OAI.CHObstruction.ClassData L) : Prop
+number of parameters: 2
+fields:
+  OAI.CHObstruction.ClassData.IsAEC.strong_objects : ∀ {M N : OAI.CHObstruction.RelModel L},
+      K.strong M N → K.objects M ∧ K.objects N
+  OAI.CHObstruction.ClassData.IsAEC.refl : ∀ {M : OAI.CHObstruction.RelModel L}, K.objects M → K.strong M M
+  OAI.CHObstruction.ClassData.IsAEC.antisymm : ∀ {M N : OAI.CHObstruction.RelModel L},
+      K.strong M N → K.strong N M → M = N
+  OAI.CHObstruction.ClassData.IsAEC.trans : ∀ {M N P : OAI.CHObstruction.RelModel L},
+      K.strong M N → K.strong N P → K.strong M P
+  OAI.CHObstruction.ClassData.IsAEC.substructure : ∀ {M N : OAI.CHObstruction.RelModel L},
+      K.strong M N → M.IsSubstructure N
+  OAI.CHObstruction.ClassData.IsAEC.iso_objects : ∀ {M N : OAI.CHObstruction.RelModel L},
+      K.objects M → Nonempty (M.Iso N) → K.objects N
+  OAI.CHObstruction.ClassData.IsAEC.iso_strong : ∀ {M N M' N' : OAI.CHObstruction.RelModel L} (h : K.strong M N)
+      (e : M.Iso M') (f : N.Iso N'), (∀ (x : ↥M.carrier), ↑(e.toEquiv x) = ↑(f.toEquiv ⟨↑x, ⋯⟩)) → K.strong M' N'
+  OAI.CHObstruction.ClassData.IsAEC.coherence : ∀ {M₀ M₁ M₂ : OAI.CHObstruction.RelModel L},
+      M₀.IsSubstructure M₁ → K.strong M₀ M₂ → K.strong M₁ M₂ → K.strong M₀ M₁
+  OAI.CHObstruction.ClassData.IsAEC.chain_union : ∀ (γ : Ordinal.{u}),
+      γ ≠ 0 →
+        ∀ (F : γ.ToType → OAI.CHObstruction.RelModel L),
+          (∀ (i : γ.ToType), K.objects (F i)) →
+            (∀ (i j : γ.ToType), i ≤ j → K.strong (F i) (F j)) →
+              ∃ U,
+                K.objects U ∧
+                  OAI.CHObstruction.RelModel.IsUnion F U ∧
+                    (∀ (i : γ.ToType), K.strong (F i) U) ∧
+                      ∀ (N : OAI.CHObstruction.RelModel L),
+                        K.objects N → (∀ (i : γ.ToType), K.strong (F i) N) → K.strong U N
+  OAI.CHObstruction.ClassData.IsAEC.downward : ∃ θ, K.LSBound θ
+constructor:
+  OAI.CHObstruction.ClassData.IsAEC.mk.{u} {L : ℕ → Type} {K : OAI.CHObstruction.ClassData L}
+    (strong_objects : ∀ {M N : OAI.CHObstruction.RelModel L}, K.strong M N → K.objects M ∧ K.objects N)
+    (refl : ∀ {M : OAI.CHObstruction.RelModel L}, K.objects M → K.strong M M)
+    (antisymm : ∀ {M N : OAI.CHObstruction.RelModel L}, K.strong M N → K.strong N M → M = N)
+    (trans : ∀ {M N P : OAI.CHObstruction.RelModel L}, K.strong M N → K.strong N P → K.strong M P)
+    (substructure : ∀ {M N : OAI.CHObstruction.RelModel L}, K.strong M N → M.IsSubstructure N)
+    (iso_objects : ∀ {M N : OAI.CHObstruction.RelModel L}, K.objects M → Nonempty (M.Iso N) → K.objects N)
+    (iso_strong :
+      ∀ {M N M' N' : OAI.CHObstruction.RelModel L} (h : K.strong M N) (e : M.Iso M') (f : N.Iso N'),
+        (∀ (x : ↥M.carrier), ↑(e.toEquiv x) = ↑(f.toEquiv ⟨↑x, ⋯⟩)) → K.strong M' N')
+    (coherence :
+      ∀ {M₀ M₁ M₂ : OAI.CHObstruction.RelModel L},
+        M₀.IsSubstructure M₁ → K.strong M₀ M₂ → K.strong M₁ M₂ → K.strong M₀ M₁)
+    (chain_union :
+      ∀ (γ : Ordinal.{u}),
+        γ ≠ 0 →
+          ∀ (F : γ.ToType → OAI.CHObstruction.RelModel L),
+            (∀ (i : γ.ToType), K.objects (F i)) →
+              (∀ (i j : γ.ToType), i ≤ j → K.strong (F i) (F j)) →
+                ∃ U,
+                  K.objects U ∧
+                    OAI.CHObstruction.RelModel.IsUnion F U ∧
+                      (∀ (i : γ.ToType), K.strong (F i) U) ∧
+                        ∀ (N : OAI.CHObstruction.RelModel L),
+                          K.objects N → (∀ (i : γ.ToType), K.strong (F i) N) → K.strong U N)
+    (downward : ∃ θ, K.LSBound θ) : K.IsAEC
+def OAI.CHObstruction.ClassData.Categorical.{u} : {L : ℕ → Type} →
+  OAI.CHObstruction.ClassData L → Cardinal.{u} → Prop :=
+fun {L} K μ =>
+  (∃ M, K.objects M ∧ M.carrier.card = μ) ∧
+    ∀ (M N : OAI.CHObstruction.RelModel L),
+      K.objects M → K.objects N → M.carrier.card = μ → N.carrier.card = μ → Nonempty (M.Iso N)
+def OAI.CHObstruction.ClassData.TwoModels.{u} : {L : ℕ → Type} → OAI.CHObstruction.ClassData L → Cardinal.{u} → Prop :=
+fun {L} K μ => ∃ M N, K.objects M ∧ K.objects N ∧ M.carrier.card = μ ∧ N.carrier.card = μ ∧ ¬Nonempty (M.Iso N)
+def OAI.CHObstruction.CH.{u} : Prop :=
+2 ^ Cardinal.aleph0 = Cardinal.aleph 1
+def OAI.CHObstruction.hanf.{u} : Cardinal.{u} → Cardinal.{u} :=
+fun κ => Cardinal.beth (Order.succ (2 ^ κ)).ord
+def OAI.CHObstruction.endpoint.{u} : Cardinal.{u} :=
+Cardinal.beth (Ordinal.omega 2)
+def OAI.CHObstruction.tailThreshold.{u} : Cardinal.{u} :=
+Cardinal.beth (Order.succ (2 ^ Cardinal.aleph 1)).ord
