@@ -1,0 +1,63 @@
+CMP OAI.LeanBlast.SecondKahnKalai.secondKahnKalaiBounds [thm] ok
+CMP OAI.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds._proof_3 [thm] ok
+CMP OAI.LeanBlast.SecondKahnKalai.edgeCount [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.logTwo [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.criticalThreshold._proof_1 [thm] ok
+CMP OAI.LeanBlast.SecondKahnKalai.expectationThreshold [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.expectedCopies [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.graphOfEdges [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.Edge [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.bernoulliExpectation [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.bernoulliWeight [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds._proof_2 [thm] ok
+CMP OAI.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds._proof_1 [thm] ok
+CMP OAI.LeanBlast.SecondKahnKalai.criticalThreshold [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.containmentProbability [def] ok
+CMP OAI.LeanBlast.SecondKahnKalai.bernoulliProbability [def] ok
+Chal.LeanBlast.SecondKahnKalai.secondKahnKalaiBounds : ∀ (n : ℕ) (V : Type u_1) [inst : Fintype V] (H : SimpleGraph V),
+  2 ≤ n →
+    Fintype.card V ≤ n →
+      1 ≤ Chal.LeanBlast.SecondKahnKalai.edgeCount H → Chal.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds n H
+def Chal.LeanBlast.SecondKahnKalai.bernoulliWeight.{u} : {X : Type u} →
+  [Fintype X] → [DecidableEq X] → ℝ → Finset X → ℝ :=
+fun {X} [Fintype X] [DecidableEq X] p W => ∏ x, if x ∈ W then p else 1 - p
+def Chal.LeanBlast.SecondKahnKalai.bernoulliExpectation.{u} : {X : Type u} →
+  [Fintype X] → [DecidableEq X] → ℝ → (Finset X → ℝ) → ℝ :=
+fun {X} [Fintype X] [DecidableEq X] p f => ∑ W, Chal.LeanBlast.SecondKahnKalai.bernoulliWeight p W * f W
+def Chal.LeanBlast.SecondKahnKalai.bernoulliProbability.{u} : {X : Type u} →
+  [Fintype X] → [DecidableEq X] → ℝ → (Finset X → Prop) → ℝ :=
+fun {X} [Fintype X] [DecidableEq X] p P => ∑ W, if P W then Chal.LeanBlast.SecondKahnKalai.bernoulliWeight p W else 0
+@[reducible] def Chal.LeanBlast.SecondKahnKalai.Edge : ℕ → Type :=
+fun n => { e // ¬e.IsDiag }
+def Chal.LeanBlast.SecondKahnKalai.graphOfEdges : {n : ℕ} →
+  Finset (Chal.LeanBlast.SecondKahnKalai.Edge n) → SimpleGraph (Fin n) :=
+fun {n} W => SimpleGraph.fromEdgeSet (Subtype.val '' ↑W)
+def Chal.LeanBlast.SecondKahnKalai.edgeCount.{u} : {V : Type u} → SimpleGraph V → ℕ :=
+fun {V} H => Nat.card ↑H.edgeSet
+def Chal.LeanBlast.SecondKahnKalai.expectedCopies.{u} : {V : Type u} → ℕ → ℝ → SimpleGraph V → ℝ :=
+fun {V} n p H =>
+  Chal.LeanBlast.SecondKahnKalai.bernoulliExpectation p fun W =>
+    ↑((Chal.LeanBlast.SecondKahnKalai.graphOfEdges W).copyCount H)
+def Chal.LeanBlast.SecondKahnKalai.containmentProbability.{u} : {V : Type u} → ℕ → ℝ → SimpleGraph V → ℝ :=
+fun {V} n p H =>
+  Chal.LeanBlast.SecondKahnKalai.bernoulliProbability p fun W =>
+    0 < (Chal.LeanBlast.SecondKahnKalai.graphOfEdges W).copyCount H
+def Chal.LeanBlast.SecondKahnKalai.criticalThreshold.{u} : {V : Type u} → ℕ → SimpleGraph V → ℝ :=
+fun {V} n H => sInf {p | p ∈ Set.Icc 0 1 ∧ 1 / 2 ≤ Chal.LeanBlast.SecondKahnKalai.containmentProbability n p H}
+def Chal.LeanBlast.SecondKahnKalai.expectationThreshold.{u} : {V : Type u} → ℕ → SimpleGraph V → ℝ :=
+fun {V} n H =>
+  sInf {p | p ∈ Set.Icc 0 1 ∧ ∀ (F : H.Subgraph), 1 / 2 ≤ Chal.LeanBlast.SecondKahnKalai.expectedCopies n p F.coe}
+def Chal.LeanBlast.SecondKahnKalai.logTwo : ℝ → ℝ :=
+fun x => Real.log x / Real.log 2
+def Chal.LeanBlast.SecondKahnKalai.SecondKahnKalaiBounds.{u} : {V : Type u} → ℕ → SimpleGraph V → Prop :=
+fun {V} n H =>
+  Chal.LeanBlast.SecondKahnKalai.criticalThreshold n H ≤
+      min 1
+        (2048 * Real.exp 50 * Chal.LeanBlast.SecondKahnKalai.expectationThreshold n H *
+          (1 + Chal.LeanBlast.SecondKahnKalai.logTwo ↑(Chal.LeanBlast.SecondKahnKalai.edgeCount H))) ∧
+    Chal.LeanBlast.SecondKahnKalai.criticalThreshold n H ≤
+      6144 * Real.exp 50 * Chal.LeanBlast.SecondKahnKalai.expectationThreshold n H *
+        Chal.LeanBlast.SecondKahnKalai.logTwo ↑n
+'OAI.LeanBlast.SecondKahnKalai.secondKahnKalaiBounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SecondKahnKalai comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
