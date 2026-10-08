@@ -1,0 +1,208 @@
+CMP OAI.WLIdentification.main [thm] ok
+CMP OAI.WLIdentification.dimensionLanguage [def] ok
+CMP OAI.WLIdentification.WLdim [def] ok
+CMP OAI.WLIdentification.Identifies [def] ok
+CMP OAI.WLIdentification.Isomorphic [def] ok
+CMP OAI.WLIdentification.Graph.edge [def] ok
+CMP OAI.WLIdentification.Graph [ind] ok
+CMP OAI.WLIdentification.Graph.mk [ctor] ok
+CMP OAI.WLIdentification.Graph.order [def] ok
+CMP OAI.WLIdentification.Equivalent [def] ok
+CMP OAI.WLIdentification.tupleHistogram [def] ok
+CMP OAI.WLIdentification.tupleColor [def] ok
+CMP OAI.WLIdentification.tupleColor._f [def] ok
+CMP OAI.WLIdentification.tupleColor.match_1 [def] ok
+CMP OAI.WLIdentification.TupleColor [def] ok
+CMP OAI.WLIdentification.TupleColor._f [def] ok
+CMP OAI.WLIdentification.NeighborColor.match_1 [def] ok
+CMP OAI.WLIdentification.neighborHistogram [def] ok
+CMP OAI.WLIdentification.neighborColor [def] ok
+CMP OAI.WLIdentification.neighborColor._f [def] ok
+CMP OAI.WLIdentification.neighborColor.match_1 [def] ok
+CMP OAI.WLIdentification.NeighborColor [def] ok
+CMP OAI.WLIdentification.NeighborColor._f [def] ok
+CMP OAI.WLIdentification.inputWord [def] ok
+CMP OAI.WLIdentification.matrixWord [def] ok
+CMP OAI.WLIdentification.Word [def] ok
+CMP OAI.WLIdentification.binaryValue [def] ok
+CMP OAI.WLIdentification.BinaryLanguage [def] ok
+CMP OAI.WLIdentification.EXPTIMEComplete [def] ok
+CMP OAI.WLIdentification.PolytimeManyOne [def] ok
+CMP OAI.WLIdentification.ComputesWithin [def] ok
+CMP OAI.WLIdentification.Output [def] ok
+CMP OAI.WLIdentification.inputSymbol._proof_1 [thm] ok
+CMP OAI.WLIdentification.Machine.extraSymbols [def] ok
+CMP OAI.WLIdentification.Machine [ind] ok
+CMP OAI.WLIdentification.Machine.mk [ctor] ok
+CMP OAI.WLIdentification.Move [ind] ok
+CMP OAI.WLIdentification.Move.right [ctor] ok
+CMP OAI.WLIdentification.Move.stay [ctor] ok
+CMP OAI.WLIdentification.Move.left [ctor] ok
+CMP OAI.WLIdentification.Output._proof_2 [thm] ok
+CMP OAI.WLIdentification.inputSymbol [def] ok
+CMP OAI.WLIdentification.Configuration.tape [def] ok
+CMP OAI.WLIdentification.Configuration [ind] ok
+CMP OAI.WLIdentification.Configuration.mk [ctor] ok
+CMP OAI.WLIdentification.Machine.extraStates [def] ok
+CMP OAI.WLIdentification.initial._proof_1 [thm] ok
+CMP OAI.WLIdentification.run [def] ok
+CMP OAI.WLIdentification.initial [def] ok
+CMP OAI.WLIdentification.step [def] ok
+CMP OAI.WLIdentification.Move.displacement [def] ok
+CMP OAI.WLIdentification.Move.displacement.match_1 [def] ok
+CMP OAI.WLIdentification.Move.casesOn [def] ok
+CMP OAI.WLIdentification.Move.rec [rec] ok
+CMP OAI.WLIdentification.Configuration.head [def] ok
+CMP OAI.WLIdentification.Machine.transition [def] ok
+CMP OAI.WLIdentification.Configuration.state [def] ok
+CMP OAI.WLIdentification.InEXPTIME [def] ok
+CMP OAI.WLIdentification.DecidesWithin [def] ok
+CMP OAI.WLIdentification.Halted [def] ok
+Chal.WLIdentification.main : Chal.WLIdentification.EXPTIMEComplete Chal.WLIdentification.dimensionLanguage
+structure Chal.WLIdentification.Graph : Type
+number of parameters: 0
+fields:
+  Chal.WLIdentification.Graph.order : ℕ
+  Chal.WLIdentification.Graph.edge : Fin self.order → Fin self.order → Bool
+  Chal.WLIdentification.Graph.symmetric : ∀ (u v : Fin self.order), self.edge u v = self.edge v u
+  Chal.WLIdentification.Graph.loopless : ∀ (u : Fin self.order), self.edge u u = false
+constructor:
+  Chal.WLIdentification.Graph.mk (order : ℕ) (edge : Fin order → Fin order → Bool)
+    (symmetric : ∀ (u v : Fin order), edge u v = edge v u) (loopless : ∀ (u : Fin order), edge u u = false) :
+    Chal.WLIdentification.Graph
+def Chal.WLIdentification.Isomorphic : Chal.WLIdentification.Graph → Chal.WLIdentification.Graph → Prop :=
+fun G H => ∃ e, ∀ (u v : Fin G.order), G.edge u v = H.edge (e u) (e v)
+def Chal.WLIdentification.NeighborColor : ℕ → Type :=
+fun x => Nat.brecOn x Chal.WLIdentification.NeighborColor._f
+def Chal.WLIdentification.neighborColor : (G : Chal.WLIdentification.Graph) →
+  (s : ℕ) → Fin G.order → Chal.WLIdentification.NeighborColor s :=
+fun G x x_1 =>
+  Nat.brecOn (motive := fun x => Fin G.order → Chal.WLIdentification.NeighborColor x) x
+    (Chal.WLIdentification.neighborColor._f G) x_1
+def Chal.WLIdentification.neighborHistogram : Chal.WLIdentification.Graph →
+  (s : ℕ) → Multiset (Chal.WLIdentification.NeighborColor s) :=
+fun G s => Multiset.map (Chal.WLIdentification.neighborColor G s) Finset.univ.val
+def Chal.WLIdentification.TupleColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (Chal.WLIdentification.TupleColor._f k)
+def Chal.WLIdentification.tupleColor : (G : Chal.WLIdentification.Graph) →
+  (k s : ℕ) → (Fin k → Fin G.order) → Chal.WLIdentification.TupleColor k s :=
+fun G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → Fin G.order) → Chal.WLIdentification.TupleColor k x) x
+    (Chal.WLIdentification.tupleColor._f G k) x_1
+def Chal.WLIdentification.tupleHistogram : Chal.WLIdentification.Graph →
+  (k s : ℕ) → Multiset (Chal.WLIdentification.TupleColor k s) :=
+fun G k s => Multiset.map (Chal.WLIdentification.tupleColor G k s) Finset.univ.val
+def Chal.WLIdentification.Equivalent : ℕ → Chal.WLIdentification.Graph → Chal.WLIdentification.Graph → Prop :=
+fun k G H =>
+  if k = 1 then ∀ (s : ℕ), Chal.WLIdentification.neighborHistogram G s = Chal.WLIdentification.neighborHistogram H s
+  else ∀ (s : ℕ), Chal.WLIdentification.tupleHistogram G k s = Chal.WLIdentification.tupleHistogram H k s
+def Chal.WLIdentification.Identifies : ℕ → Chal.WLIdentification.Graph → Prop :=
+fun k G =>
+  ∀ (H : Chal.WLIdentification.Graph), Chal.WLIdentification.Equivalent k G H → Chal.WLIdentification.Isomorphic G H
+def Chal.WLIdentification.WLdim : Chal.WLIdentification.Graph → ℕ :=
+fun G => sInf {k | 0 < k ∧ Chal.WLIdentification.Identifies k G}
+@[reducible] def Chal.WLIdentification.Word : Type :=
+List Bool
+@[reducible] def Chal.WLIdentification.BinaryLanguage : Type :=
+Set Chal.WLIdentification.Word
+def Chal.WLIdentification.binaryValue : Chal.WLIdentification.Word → ℕ :=
+fun bits => List.foldl (fun z b => 2 * z + if b = true then 1 else 0) 0 bits
+def Chal.WLIdentification.matrixWord : Chal.WLIdentification.Graph → Chal.WLIdentification.Word :=
+fun G => (List.ofFn fun i => List.ofFn (G.edge i)).flatten
+def Chal.WLIdentification.inputWord : Chal.WLIdentification.Graph →
+  Chal.WLIdentification.Word → Chal.WLIdentification.Word :=
+fun G bits => List.replicate G.order true ++ [false] ++ Chal.WLIdentification.matrixWord G ++ bits
+def Chal.WLIdentification.dimensionLanguage : Chal.WLIdentification.BinaryLanguage :=
+{w |
+  ∃ G bits,
+    0 < G.order ∧
+      (∃ tail, bits = true :: tail) ∧
+        0 < Chal.WLIdentification.binaryValue bits ∧
+          w = Chal.WLIdentification.inputWord G bits ∧
+            Chal.WLIdentification.WLdim G ≤ Chal.WLIdentification.binaryValue bits}
+inductive Chal.WLIdentification.Move : Type
+number of parameters: 0
+constructors:
+Chal.WLIdentification.Move.left : Chal.WLIdentification.Move
+Chal.WLIdentification.Move.stay : Chal.WLIdentification.Move
+Chal.WLIdentification.Move.right : Chal.WLIdentification.Move
+def Chal.WLIdentification.Move.displacement : Chal.WLIdentification.Move → ℤ :=
+fun x =>
+  match x with
+  | Chal.WLIdentification.Move.left => -1
+  | Chal.WLIdentification.Move.stay => 0
+  | Chal.WLIdentification.Move.right => 1
+structure Chal.WLIdentification.Machine : Type
+number of parameters: 0
+fields:
+  Chal.WLIdentification.Machine.extraSymbols : ℕ
+  Chal.WLIdentification.Machine.extraStates : ℕ
+  Chal.WLIdentification.Machine.transition : Fin (self.extraStates + 3) →
+      Fin (self.extraSymbols + 3) →
+        Fin (self.extraStates + 3) × Fin (self.extraSymbols + 3) × Chal.WLIdentification.Move
+constructor:
+  Chal.WLIdentification.Machine.mk (extraSymbols extraStates : ℕ)
+    (transition :
+      Fin (extraStates + 3) →
+        Fin (extraSymbols + 3) → Fin (extraStates + 3) × Fin (extraSymbols + 3) × Chal.WLIdentification.Move) :
+    Chal.WLIdentification.Machine
+structure Chal.WLIdentification.Configuration (M : Chal.WLIdentification.Machine) : Type
+number of parameters: 1
+fields:
+  Chal.WLIdentification.Configuration.state : Fin (M.extraStates + 3)
+  Chal.WLIdentification.Configuration.head : ℤ
+  Chal.WLIdentification.Configuration.tape : ℤ → Fin (M.extraSymbols + 3)
+constructor:
+  Chal.WLIdentification.Configuration.mk {M : Chal.WLIdentification.Machine} (state : Fin (M.extraStates + 3))
+    (head : ℤ) (tape : ℤ → Fin (M.extraSymbols + 3)) : Chal.WLIdentification.Configuration M
+def Chal.WLIdentification.inputSymbol : (M : Chal.WLIdentification.Machine) → Bool → Fin (M.extraSymbols + 3) :=
+fun M b => if b = true then 2 else 1
+def Chal.WLIdentification.initial : (M : Chal.WLIdentification.Machine) →
+  Chal.WLIdentification.Word → Chal.WLIdentification.Configuration M :=
+fun M w =>
+  { state := 0, head := 0,
+    tape := fun z => if 0 ≤ z then w[z.toNat]?.elim 0 (Chal.WLIdentification.inputSymbol M) else 0 }
+def Chal.WLIdentification.Halted : {M : Chal.WLIdentification.Machine} → Chal.WLIdentification.Configuration M → Prop :=
+fun {M} c => c.state = 1 ∨ c.state = 2
+def Chal.WLIdentification.step : (M : Chal.WLIdentification.Machine) →
+  Chal.WLIdentification.Configuration M → Chal.WLIdentification.Configuration M :=
+fun M c =>
+  if c.state = 1 ∨ c.state = 2 then c
+  else
+    have t := M.transition c.state (c.tape c.head);
+    { state := t.1, head := c.head + t.2.2.displacement, tape := Function.update c.tape c.head t.2.1 }
+def Chal.WLIdentification.run : (M : Chal.WLIdentification.Machine) →
+  Chal.WLIdentification.Word → ℕ → Chal.WLIdentification.Configuration M :=
+fun M w t => (Chal.WLIdentification.step M)^[t] (Chal.WLIdentification.initial M w)
+def Chal.WLIdentification.Output : {M : Chal.WLIdentification.Machine} →
+  Chal.WLIdentification.Configuration M → Chal.WLIdentification.Word → Prop :=
+fun {M} c w =>
+  (∀ (i : Fin (List.length w)), c.tape ↑↑i = Chal.WLIdentification.inputSymbol M w[i]) ∧ c.tape ↑(List.length w) = 0
+def Chal.WLIdentification.DecidesWithin : Chal.WLIdentification.Machine →
+  Chal.WLIdentification.BinaryLanguage → (ℕ → ℕ) → Prop :=
+fun M L bound =>
+  ∀ (w : Chal.WLIdentification.Word),
+    ∃ t ≤ bound (List.length w),
+      Chal.WLIdentification.Halted (Chal.WLIdentification.run M w t) ∧
+        ((Chal.WLIdentification.run M w t).state = 1 ↔ w ∈ L)
+def Chal.WLIdentification.InEXPTIME : Chal.WLIdentification.BinaryLanguage → Prop :=
+fun L => ∃ M C d, Chal.WLIdentification.DecidesWithin M L fun n => 2 ^ (C * (n + 1) ^ d)
+def Chal.WLIdentification.ComputesWithin : Chal.WLIdentification.Machine →
+  (Chal.WLIdentification.Word → Chal.WLIdentification.Word) → (ℕ → ℕ) → Prop :=
+fun M f bound =>
+  ∀ (w : Chal.WLIdentification.Word),
+    ∃ t ≤ bound (List.length w),
+      (Chal.WLIdentification.run M w t).state = 1 ∧ Chal.WLIdentification.Output (Chal.WLIdentification.run M w t) (f w)
+def Chal.WLIdentification.PolytimeManyOne : Chal.WLIdentification.BinaryLanguage →
+  Chal.WLIdentification.BinaryLanguage → Prop :=
+fun L S =>
+  ∃ f M C d,
+    (Chal.WLIdentification.ComputesWithin M f fun n => C * (n + 1) ^ d) ∧
+      ∀ (w : Chal.WLIdentification.Word), w ∈ L ↔ f w ∈ S
+def Chal.WLIdentification.EXPTIMEComplete : Chal.WLIdentification.BinaryLanguage → Prop :=
+fun S =>
+  Chal.WLIdentification.InEXPTIME S ∧
+    ∀ (L : Chal.WLIdentification.BinaryLanguage),
+      Chal.WLIdentification.InEXPTIME L → Chal.WLIdentification.PolytimeManyOne L S
+'OAI.WLIdentification.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== WLIdentification comparator-style: ok=60 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 

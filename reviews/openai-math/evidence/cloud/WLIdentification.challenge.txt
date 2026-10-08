@@ -1,0 +1,146 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_WLIdentification.lean:140:8: warning: declaration uses `sorry`
+OAI.WLIdentification.main : OAI.WLIdentification.EXPTIMEComplete OAI.WLIdentification.dimensionLanguage
+structure OAI.WLIdentification.Graph : Type
+number of parameters: 0
+fields:
+  OAI.WLIdentification.Graph.order : ℕ
+  OAI.WLIdentification.Graph.edge : Fin self.order → Fin self.order → Bool
+  OAI.WLIdentification.Graph.symmetric : ∀ (u v : Fin self.order), self.edge u v = self.edge v u
+  OAI.WLIdentification.Graph.loopless : ∀ (u : Fin self.order), self.edge u u = false
+constructor:
+  OAI.WLIdentification.Graph.mk (order : ℕ) (edge : Fin order → Fin order → Bool)
+    (symmetric : ∀ (u v : Fin order), edge u v = edge v u) (loopless : ∀ (u : Fin order), edge u u = false) :
+    OAI.WLIdentification.Graph
+def OAI.WLIdentification.Isomorphic : OAI.WLIdentification.Graph → OAI.WLIdentification.Graph → Prop :=
+fun G H => ∃ e, ∀ (u v : Fin G.order), G.edge u v = H.edge (e u) (e v)
+def OAI.WLIdentification.NeighborColor : ℕ → Type :=
+fun x => Nat.brecOn x OAI.WLIdentification.NeighborColor._f
+def OAI.WLIdentification.neighborColor : (G : OAI.WLIdentification.Graph) →
+  (s : ℕ) → Fin G.order → OAI.WLIdentification.NeighborColor s :=
+fun G x x_1 =>
+  Nat.brecOn (motive := fun x => Fin G.order → OAI.WLIdentification.NeighborColor x) x
+    (OAI.WLIdentification.neighborColor._f G) x_1
+def OAI.WLIdentification.neighborHistogram : OAI.WLIdentification.Graph →
+  (s : ℕ) → Multiset (OAI.WLIdentification.NeighborColor s) :=
+fun G s => Multiset.map (OAI.WLIdentification.neighborColor G s) Finset.univ.val
+def OAI.WLIdentification.TupleColor : ℕ → ℕ → Type :=
+fun k x => Nat.brecOn x (OAI.WLIdentification.TupleColor._f k)
+def OAI.WLIdentification.tupleColor : (G : OAI.WLIdentification.Graph) →
+  (k s : ℕ) → (Fin k → Fin G.order) → OAI.WLIdentification.TupleColor k s :=
+fun G k x x_1 =>
+  Nat.brecOn (motive := fun x => (Fin k → Fin G.order) → OAI.WLIdentification.TupleColor k x) x
+    (OAI.WLIdentification.tupleColor._f G k) x_1
+def OAI.WLIdentification.tupleHistogram : OAI.WLIdentification.Graph →
+  (k s : ℕ) → Multiset (OAI.WLIdentification.TupleColor k s) :=
+fun G k s => Multiset.map (OAI.WLIdentification.tupleColor G k s) Finset.univ.val
+def OAI.WLIdentification.Equivalent : ℕ → OAI.WLIdentification.Graph → OAI.WLIdentification.Graph → Prop :=
+fun k G H =>
+  if k = 1 then ∀ (s : ℕ), OAI.WLIdentification.neighborHistogram G s = OAI.WLIdentification.neighborHistogram H s
+  else ∀ (s : ℕ), OAI.WLIdentification.tupleHistogram G k s = OAI.WLIdentification.tupleHistogram H k s
+def OAI.WLIdentification.Identifies : ℕ → OAI.WLIdentification.Graph → Prop :=
+fun k G =>
+  ∀ (H : OAI.WLIdentification.Graph), OAI.WLIdentification.Equivalent k G H → OAI.WLIdentification.Isomorphic G H
+def OAI.WLIdentification.WLdim : OAI.WLIdentification.Graph → ℕ :=
+fun G => sInf {k | 0 < k ∧ OAI.WLIdentification.Identifies k G}
+@[reducible] def OAI.WLIdentification.Word : Type :=
+List Bool
+@[reducible] def OAI.WLIdentification.BinaryLanguage : Type :=
+Set OAI.WLIdentification.Word
+def OAI.WLIdentification.binaryValue : OAI.WLIdentification.Word → ℕ :=
+fun bits => List.foldl (fun z b => 2 * z + if b = true then 1 else 0) 0 bits
+def OAI.WLIdentification.matrixWord : OAI.WLIdentification.Graph → OAI.WLIdentification.Word :=
+fun G => (List.ofFn fun i => List.ofFn (G.edge i)).flatten
+def OAI.WLIdentification.inputWord : OAI.WLIdentification.Graph →
+  OAI.WLIdentification.Word → OAI.WLIdentification.Word :=
+fun G bits => List.replicate G.order true ++ [false] ++ OAI.WLIdentification.matrixWord G ++ bits
+def OAI.WLIdentification.dimensionLanguage : OAI.WLIdentification.BinaryLanguage :=
+{w |
+  ∃ G bits,
+    0 < G.order ∧
+      (∃ tail, bits = true :: tail) ∧
+        0 < OAI.WLIdentification.binaryValue bits ∧
+          w = OAI.WLIdentification.inputWord G bits ∧
+            OAI.WLIdentification.WLdim G ≤ OAI.WLIdentification.binaryValue bits}
+inductive OAI.WLIdentification.Move : Type
+number of parameters: 0
+constructors:
+OAI.WLIdentification.Move.left : OAI.WLIdentification.Move
+OAI.WLIdentification.Move.stay : OAI.WLIdentification.Move
+OAI.WLIdentification.Move.right : OAI.WLIdentification.Move
+def OAI.WLIdentification.Move.displacement : OAI.WLIdentification.Move → ℤ :=
+fun x =>
+  match x with
+  | OAI.WLIdentification.Move.left => -1
+  | OAI.WLIdentification.Move.stay => 0
+  | OAI.WLIdentification.Move.right => 1
+structure OAI.WLIdentification.Machine : Type
+number of parameters: 0
+fields:
+  OAI.WLIdentification.Machine.extraSymbols : ℕ
+  OAI.WLIdentification.Machine.extraStates : ℕ
+  OAI.WLIdentification.Machine.transition : Fin (self.extraStates + 3) →
+      Fin (self.extraSymbols + 3) → Fin (self.extraStates + 3) × Fin (self.extraSymbols + 3) × OAI.WLIdentification.Move
+constructor:
+  OAI.WLIdentification.Machine.mk (extraSymbols extraStates : ℕ)
+    (transition :
+      Fin (extraStates + 3) →
+        Fin (extraSymbols + 3) → Fin (extraStates + 3) × Fin (extraSymbols + 3) × OAI.WLIdentification.Move) :
+    OAI.WLIdentification.Machine
+structure OAI.WLIdentification.Configuration (M : OAI.WLIdentification.Machine) : Type
+number of parameters: 1
+fields:
+  OAI.WLIdentification.Configuration.state : Fin (M.extraStates + 3)
+  OAI.WLIdentification.Configuration.head : ℤ
+  OAI.WLIdentification.Configuration.tape : ℤ → Fin (M.extraSymbols + 3)
+constructor:
+  OAI.WLIdentification.Configuration.mk {M : OAI.WLIdentification.Machine} (state : Fin (M.extraStates + 3)) (head : ℤ)
+    (tape : ℤ → Fin (M.extraSymbols + 3)) : OAI.WLIdentification.Configuration M
+def OAI.WLIdentification.inputSymbol : (M : OAI.WLIdentification.Machine) → Bool → Fin (M.extraSymbols + 3) :=
+fun M b => if b = true then 2 else 1
+def OAI.WLIdentification.initial : (M : OAI.WLIdentification.Machine) →
+  OAI.WLIdentification.Word → OAI.WLIdentification.Configuration M :=
+fun M w =>
+  { state := 0, head := 0,
+    tape := fun z => if 0 ≤ z then w[z.toNat]?.elim 0 (OAI.WLIdentification.inputSymbol M) else 0 }
+def OAI.WLIdentification.Halted : {M : OAI.WLIdentification.Machine} → OAI.WLIdentification.Configuration M → Prop :=
+fun {M} c => c.state = 1 ∨ c.state = 2
+def OAI.WLIdentification.step : (M : OAI.WLIdentification.Machine) →
+  OAI.WLIdentification.Configuration M → OAI.WLIdentification.Configuration M :=
+fun M c =>
+  if c.state = 1 ∨ c.state = 2 then c
+  else
+    have t := M.transition c.state (c.tape c.head);
+    { state := t.1, head := c.head + t.2.2.displacement, tape := Function.update c.tape c.head t.2.1 }
+def OAI.WLIdentification.run : (M : OAI.WLIdentification.Machine) →
+  OAI.WLIdentification.Word → ℕ → OAI.WLIdentification.Configuration M :=
+fun M w t => (OAI.WLIdentification.step M)^[t] (OAI.WLIdentification.initial M w)
+def OAI.WLIdentification.Output : {M : OAI.WLIdentification.Machine} →
+  OAI.WLIdentification.Configuration M → OAI.WLIdentification.Word → Prop :=
+fun {M} c w =>
+  (∀ (i : Fin (List.length w)), c.tape ↑↑i = OAI.WLIdentification.inputSymbol M w[i]) ∧ c.tape ↑(List.length w) = 0
+def OAI.WLIdentification.DecidesWithin : OAI.WLIdentification.Machine →
+  OAI.WLIdentification.BinaryLanguage → (ℕ → ℕ) → Prop :=
+fun M L bound =>
+  ∀ (w : OAI.WLIdentification.Word),
+    ∃ t ≤ bound (List.length w),
+      OAI.WLIdentification.Halted (OAI.WLIdentification.run M w t) ∧
+        ((OAI.WLIdentification.run M w t).state = 1 ↔ w ∈ L)
+def OAI.WLIdentification.InEXPTIME : OAI.WLIdentification.BinaryLanguage → Prop :=
+fun L => ∃ M C d, OAI.WLIdentification.DecidesWithin M L fun n => 2 ^ (C * (n + 1) ^ d)
+def OAI.WLIdentification.ComputesWithin : OAI.WLIdentification.Machine →
+  (OAI.WLIdentification.Word → OAI.WLIdentification.Word) → (ℕ → ℕ) → Prop :=
+fun M f bound =>
+  ∀ (w : OAI.WLIdentification.Word),
+    ∃ t ≤ bound (List.length w),
+      (OAI.WLIdentification.run M w t).state = 1 ∧ OAI.WLIdentification.Output (OAI.WLIdentification.run M w t) (f w)
+def OAI.WLIdentification.PolytimeManyOne : OAI.WLIdentification.BinaryLanguage →
+  OAI.WLIdentification.BinaryLanguage → Prop :=
+fun L S =>
+  ∃ f M C d,
+    (OAI.WLIdentification.ComputesWithin M f fun n => C * (n + 1) ^ d) ∧
+      ∀ (w : OAI.WLIdentification.Word), w ∈ L ↔ f w ∈ S
+def OAI.WLIdentification.EXPTIMEComplete : OAI.WLIdentification.BinaryLanguage → Prop :=
+fun S =>
+  OAI.WLIdentification.InEXPTIME S ∧
+    ∀ (L : OAI.WLIdentification.BinaryLanguage),
+      OAI.WLIdentification.InEXPTIME L → OAI.WLIdentification.PolytimeManyOne L S
