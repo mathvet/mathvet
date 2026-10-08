@@ -1,0 +1,24 @@
+CMP OAI.EuclideanRamsey.CircleConsequence.at_most_five_circle_points_ramsey [thm] ok
+CMP OAI.EuclideanRamsey.Ramsey [def] ok
+CMP OAI.EuclideanRamsey.Congruent [def] ok
+CMP OAI.EuclideanRamsey.Space [def] ok
+@Chal.EuclideanRamsey.CircleConsequence.at_most_five_circle_points_ramsey : ∀ {s : ℕ}
+  (a : Fin s → Chal.EuclideanRamsey.Space 2),
+  0 < s → s ≤ 5 → Function.Injective a → (∃ c r, ∀ (i : Fin s), dist (a i) c = r) → Chal.EuclideanRamsey.Ramsey a
+@[reducible] def Chal.EuclideanRamsey.Space : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def Chal.EuclideanRamsey.Congruent : {s d D : ℕ} →
+  (Fin s → Chal.EuclideanRamsey.Space d) → (Fin s → Chal.EuclideanRamsey.Space D) → Prop :=
+fun {s d D} a b => ∀ (i j : Fin s), dist (b i) (b j) = dist (a i) (a j)
+def Chal.EuclideanRamsey.Ramsey : {s d : ℕ} → (Fin s → Chal.EuclideanRamsey.Space d) → Prop :=
+fun {s d} a =>
+  ∀ (r : ℕ),
+    2 ≤ r →
+      ∃ D,
+        1 ≤ D ∧
+          ∀ (c : Chal.EuclideanRamsey.Space D → Fin r),
+            ∃ b, Chal.EuclideanRamsey.Congruent a b ∧ ∃ k, ∀ (i : Fin s), c (b i) = k
+'OAI.EuclideanRamsey.CircleConsequence.at_most_five_circle_points_ramsey' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== EuclideanRamseyCircle comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, 
