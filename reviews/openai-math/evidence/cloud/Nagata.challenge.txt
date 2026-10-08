@@ -1,0 +1,172 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_Nagata.lean:174:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_Nagata.lean:352:8: warning: declaration uses `sorry`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_Nagata.lean:365:8: warning: declaration uses `sorry`
+OAI.Nagata.Workers.W30.exists_positive_degree_equation_of_homogeneous_cycle : ∀
+  (cycle : Ideal OAI.Nagata.Workers.W30.TernaryPolynomial →₀ ℕ),
+  cycle ≠ 0 →
+    (∀ ideal ∈ cycle.support,
+        ideal.IsPrime ∧
+          ideal ≠ ⊥ ∧
+            Submodule.IsPrincipal ideal ∧ Ideal.IsHomogeneous (MvPolynomial.homogeneousSubmodule (Fin 3) ℂ) ideal) →
+      ∃ polynomial,
+        polynomial ≠ 0 ∧
+          MvPolynomial.IsHomogeneous polynomial (MvPolynomial.totalDegree polynomial) ∧
+            0 < MvPolynomial.totalDegree polynomial ∧ OAI.Nagata.Workers.W30.equationIdealCycle polynomial = cycle
+OAI.Nagata.nagata_conjecture : ∀ (count : ℕ),
+  10 ≤ count →
+    ∃ exceptional,
+      (∀ (index : ℕ),
+          OAI.Nagata.ProjectiveGeometry.IsConfigurationZariskiClosed (exceptional index) ∧
+            exceptional index ≠ Set.univ) ∧
+        (∃ points, ∀ (index : ℕ), points ∉ exceptional index) ∧
+          ∀ (points : OAI.Nagata.ProjectiveGeometry.OrderedDistinctPoints count),
+            (∀ (index : ℕ), points ∉ exceptional index) →
+              ∀ (curve : OAI.Nagata.Workers.W10.EffectivePlaneCurve) (multiplicities : Fin count → ℕ),
+                (∀ (index : Fin count),
+                    multiplicities index ≤ OAI.Nagata.W15.curveOrdinaryMultiplicity curve (↑points index)) →
+                  ∑ index, ↑(multiplicities index) < ↑(OAI.Nagata.Workers.W10.curveDegree curve) * √↑count
+OAI.Nagata.nagata_conjecture_coordinates : OAI.Nagata.FullNagata
+def OAI.Nagata.AffineMultiplicity.pointIdeal.{u_1, u_2} : {σ : Type u_1} →
+  {K : Type u_2} → [inst : CommRing K] → (σ → K) → Ideal (MvPolynomial σ K) :=
+fun {σ} {K} [CommRing K] point => RingHom.ker (MvPolynomial.eval point)
+def OAI.Nagata.AffineMultiplicity.orderAtLeast.{u_1, u_2} : {σ : Type u_1} →
+  {K : Type u_2} → [inst : CommRing K] → (σ → K) → ℕ → MvPolynomial σ K → Prop :=
+fun {σ} {K} [CommRing K] point multiplicity polynomial =>
+  polynomial ∈ OAI.Nagata.AffineMultiplicity.pointIdeal point ^ multiplicity
+def OAI.Nagata.AffineMultiplicity.translateHom.{u_1, u_2} : {σ : Type u_1} →
+  {K : Type u_2} → [inst : CommRing K] → (σ → K) → MvPolynomial σ K →+* MvPolynomial σ K :=
+fun {σ} {K} [CommRing K] point =>
+  MvPolynomial.eval₂Hom MvPolynomial.C fun index => MvPolynomial.X index + MvPolynomial.C (point index)
+def OAI.Nagata.AffineMultiplicity.translateEquiv.{u_1, u_2} : {σ : Type u_1} →
+  {K : Type u_2} → [inst : CommRing K] → (σ → K) → MvPolynomial σ K ≃+* MvPolynomial σ K :=
+fun {σ} {K} [CommRing K] point =>
+  let __src := OAI.Nagata.AffineMultiplicity.translateHom point;
+  { toFun := (↑↑__src).toFun, invFun := ⇑(OAI.Nagata.AffineMultiplicity.translateHom (-point)), left_inv := ⋯,
+    right_inv := ⋯, map_mul' := ⋯, map_add' := ⋯ }
+def OAI.Nagata.AffineMultiplicity.ordinaryMultiplicity.{u_1, u_2} : {σ : Type u_1} →
+  {K : Type u_2} → [inst : CommRing K] → (σ → K) → (polynomial : MvPolynomial σ K) → polynomial ≠ 0 → ℕ :=
+fun {σ} {K} [CommRing K] point polynomial nonzero =>
+  ((OAI.Nagata.AffineMultiplicity.translateHom point) polynomial).support.inf' ⋯ ⇑Finsupp.degree
+@[reducible] def OAI.Nagata.ProjectiveGeometry.PlanePoint : Type :=
+Projectivization ℂ (Fin 3 → ℂ)
+@[reducible] def OAI.Nagata.ProjectiveGeometry.OrderedDistinctPoints : ℕ → Type :=
+fun count => { points // Function.Injective points }
+structure OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation (count : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation.polynomial : MvPolynomial (Fin count × Fin 3) ℂ
+  OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation.multidegree : Fin count → ℕ
+  OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation.homogeneous : ∀ exponent ∈ self.polynomial.support,
+      ∀ (index : Fin count), ∑ coordinate, exponent (index, coordinate) = self.multidegree index
+constructor:
+  OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation.mk {count : ℕ}
+    (polynomial : MvPolynomial (Fin count × Fin 3) ℂ) (multidegree : Fin count → ℕ)
+    (homogeneous :
+      ∀ exponent ∈ polynomial.support,
+        ∀ (index : Fin count), ∑ coordinate, exponent (index, coordinate) = multidegree index) :
+    OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation count
+def OAI.Nagata.ProjectiveGeometry.equationVanishes : {count : ℕ} →
+  OAI.Nagata.ProjectiveGeometry.MultihomogeneousEquation count →
+    (Fin count → OAI.Nagata.ProjectiveGeometry.PlanePoint) → Prop :=
+fun {count} equation points =>
+  ∀ (vectors : Fin count → Fin 3 → ℂ) (nonzero : ∀ (index : Fin count), vectors index ≠ 0),
+    (∀ (index : Fin count), Projectivization.mk ℂ (vectors index) ⋯ = points index) →
+      (MvPolynomial.eval fun index => vectors index.1 index.2) equation.polynomial = 0
+def OAI.Nagata.ProjectiveGeometry.IsProductZariskiClosed : {count : ℕ} →
+  Set (Fin count → OAI.Nagata.ProjectiveGeometry.PlanePoint) → Prop :=
+fun {count} locus =>
+  ∃ equations,
+    ∀ (points : Fin count → OAI.Nagata.ProjectiveGeometry.PlanePoint),
+      points ∈ locus ↔ ∀ equation ∈ equations, OAI.Nagata.ProjectiveGeometry.equationVanishes equation points
+def OAI.Nagata.ProjectiveGeometry.IsConfigurationZariskiClosed : {count : ℕ} →
+  Set (OAI.Nagata.ProjectiveGeometry.OrderedDistinctPoints count) → Prop :=
+fun {count} locus =>
+  ∃ ambient,
+    OAI.Nagata.ProjectiveGeometry.IsProductZariskiClosed ambient ∧
+      ∀ (points : OAI.Nagata.ProjectiveGeometry.OrderedDistinctPoints count), points ∈ locus ↔ ↑points ∈ ambient
+@[reducible] def OAI.Nagata.ProjectiveGeometry.ChartVariables : Fin 3 → Type :=
+fun chart => { coordinate // coordinate ≠ chart }
+def OAI.Nagata.ProjectiveGeometry.dehomogenize : (chart : Fin 3) →
+  MvPolynomial (Fin 3) ℂ → MvPolynomial (OAI.Nagata.ProjectiveGeometry.ChartVariables chart) ℂ :=
+fun chart polynomial =>
+  MvPolynomial.eval₂ MvPolynomial.C
+    (fun coordinate => if equal : coordinate = chart then 1 else MvPolynomial.X ⟨coordinate, equal⟩) polynomial
+def OAI.Nagata.ProjectiveGeometry.chartCoordinates : (chart : Fin 3) →
+  OAI.Nagata.ProjectiveGeometry.PlanePoint → OAI.Nagata.ProjectiveGeometry.ChartVariables chart → ℂ :=
+fun chart point coordinate => Projectivization.rep point ↑coordinate / Projectivization.rep point chart
+def OAI.Nagata.ProjectiveGeometry.multiplicityAtLeast : MvPolynomial (Fin 3) ℂ →
+  OAI.Nagata.ProjectiveGeometry.PlanePoint → ℕ → Prop :=
+fun polynomial point multiplicity =>
+  ∀ (chart : Fin 3),
+    Projectivization.rep point chart ≠ 0 →
+      OAI.Nagata.AffineMultiplicity.orderAtLeast (OAI.Nagata.ProjectiveGeometry.chartCoordinates chart point)
+        multiplicity (OAI.Nagata.ProjectiveGeometry.dehomogenize chart polynomial)
+@[reducible] def OAI.Nagata.Workers.W30.TernaryPolynomial : Type :=
+MvPolynomial (Fin 3) ℂ
+def OAI.Nagata.Workers.W30.equationMultiplicity : OAI.Nagata.Workers.W30.TernaryPolynomial →
+  Associates OAI.Nagata.Workers.W30.TernaryPolynomial →₀ ℕ :=
+fun polynomial => factorization (Associates.mk polynomial)
+def OAI.Nagata.Workers.W30.associatePrincipalIdeal : Associates OAI.Nagata.Workers.W30.TernaryPolynomial →
+  Ideal OAI.Nagata.Workers.W30.TernaryPolynomial :=
+fun associate => ↑((Ideal.associatesEquivIsPrincipal OAI.Nagata.Workers.W30.TernaryPolynomial) associate)
+def OAI.Nagata.Workers.W30.equationIdealCycle : OAI.Nagata.Workers.W30.TernaryPolynomial →
+  Ideal OAI.Nagata.Workers.W30.TernaryPolynomial →₀ ℕ :=
+fun polynomial =>
+  Finsupp.mapDomain OAI.Nagata.Workers.W30.associatePrincipalIdeal
+    (OAI.Nagata.Workers.W30.equationMultiplicity polynomial)
+@[reducible] def OAI.Nagata.W16.PlanePolynomial : Type :=
+MvPolynomial (Fin 3) ℂ
+structure OAI.Nagata.W16.NonzeroHomogeneousForm (degree : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Nagata.W16.NonzeroHomogeneousForm.polynomial : OAI.Nagata.W16.PlanePolynomial
+  OAI.Nagata.W16.NonzeroHomogeneousForm.homogeneous : MvPolynomial.IsHomogeneous self.polynomial degree
+  OAI.Nagata.W16.NonzeroHomogeneousForm.nonzero : self.polynomial ≠ 0
+constructor:
+  OAI.Nagata.W16.NonzeroHomogeneousForm.mk {degree : ℕ} (polynomial : OAI.Nagata.W16.PlanePolynomial)
+    (homogeneous : MvPolynomial.IsHomogeneous polynomial degree) (nonzero : polynomial ≠ 0) :
+    OAI.Nagata.W16.NonzeroHomogeneousForm degree
+def OAI.Nagata.Workers.W10.EffectivePlaneCurve : Type :=
+{ cycle //
+  cycle ≠ 0 ∧
+    ∀ ideal ∈ cycle.support,
+      ideal.IsPrime ∧
+        ideal ≠ ⊥ ∧
+          Submodule.IsPrincipal ideal ∧ Ideal.IsHomogeneous (MvPolynomial.homogeneousSubmodule (Fin 3) ℂ) ideal }
+def OAI.Nagata.Workers.W10.curveEquation : OAI.Nagata.Workers.W10.EffectivePlaneCurve →
+  OAI.Nagata.Workers.W30.TernaryPolynomial :=
+fun curve => Classical.choose ⋯
+def OAI.Nagata.Workers.W10.curveDegree : OAI.Nagata.Workers.W10.EffectivePlaneCurve → ℕ :=
+fun curve => MvPolynomial.totalDegree (OAI.Nagata.Workers.W10.curveEquation curve)
+def OAI.Nagata.Workers.W10.curveForm : (curve : OAI.Nagata.Workers.W10.EffectivePlaneCurve) →
+  OAI.Nagata.W16.NonzeroHomogeneousForm (OAI.Nagata.Workers.W10.curveDegree curve) :=
+fun curve => { polynomial := OAI.Nagata.Workers.W10.curveEquation curve, homogeneous := ⋯, nonzero := ⋯ }
+def OAI.Nagata.ProjectiveGeometry.formOrdinaryMultiplicity : {degree : ℕ} →
+  OAI.Nagata.W16.NonzeroHomogeneousForm degree → OAI.Nagata.ProjectiveGeometry.PlanePoint → ℕ :=
+fun {degree} form point =>
+  let chart := Classical.choose ⋯;
+  OAI.Nagata.AffineMultiplicity.ordinaryMultiplicity (OAI.Nagata.ProjectiveGeometry.chartCoordinates chart point)
+    (OAI.Nagata.ProjectiveGeometry.dehomogenize chart form.polynomial) ⋯
+def OAI.Nagata.W15.curveOrdinaryMultiplicity : OAI.Nagata.Workers.W10.EffectivePlaneCurve →
+  OAI.Nagata.ProjectiveGeometry.PlanePoint → ℕ :=
+fun curve point => OAI.Nagata.ProjectiveGeometry.formOrdinaryMultiplicity (OAI.Nagata.Workers.W10.curveForm curve) point
+def OAI.Nagata.FullNagata : Prop :=
+∀ (count : ℕ),
+  10 ≤ count →
+    ∃ exceptional,
+      (∀ (index : ℕ),
+          OAI.Nagata.ProjectiveGeometry.IsConfigurationZariskiClosed (exceptional index) ∧
+            exceptional index ≠ Set.univ) ∧
+        (∃ points, ∀ (index : ℕ), points ∉ exceptional index) ∧
+          ∀ (points : OAI.Nagata.ProjectiveGeometry.OrderedDistinctPoints count),
+            (∀ (index : ℕ), points ∉ exceptional index) →
+              ∀ (degree : ℕ),
+                1 ≤ degree →
+                  ∀ (polynomial : MvPolynomial (Fin 3) ℂ),
+                    polynomial ≠ 0 →
+                      polynomial.IsHomogeneous degree →
+                        ∀ (multiplicities : Fin count → ℕ),
+                          (∀ (index : Fin count),
+                              OAI.Nagata.ProjectiveGeometry.multiplicityAtLeast polynomial (↑points index)
+                                (multiplicities index)) →
+                            ∑ index, ↑(multiplicities index) < ↑degree * √↑count
