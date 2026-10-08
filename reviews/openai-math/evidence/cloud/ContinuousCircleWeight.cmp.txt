@@ -1,0 +1,79 @@
+CMP OAI.ContinuousCircleWeight.main_theorem [thm] ok
+CMP OAI.ContinuousCircleWeight.MainStatement [def] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation [def] ok
+CMP OAI.ContinuousCircleWeight.circleFunction [def] ok
+CMP OAI.ContinuousCircleWeight.circleFunction._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.circleIdentification [def] ok
+CMP OAI.ContinuousCircleWeight.circleIdentification._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.CircleX [def] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_7 [thm] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_6 [thm] ok
+CMP OAI.ContinuousCircleWeight.Operator._proof_2 [thm] ok
+CMP OAI.ContinuousCircleWeight.TracialHilbert._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.TracialHilbert [def] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_5 [thm] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_3 [thm] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_4 [thm] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_2 [thm] ok
+CMP OAI.ContinuousCircleWeight.weightedRotation._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.rotationAlgebra._proof_2 [thm] ok
+CMP OAI.ContinuousCircleWeight.Operator [def] ok
+CMP OAI.ContinuousCircleWeight.Operator._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.rotationAlgebra._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.rotationAlgebra [def] ok
+CMP OAI.ContinuousCircleWeight.negativeLog [def] ok
+CMP OAI.ContinuousCircleWeight.MainStatement._proof_1 [thm] ok
+CMP OAI.ContinuousCircleWeight.IsTracialRotation [ind] ok
+CMP OAI.ContinuousCircleWeight.IsTracialRotation.mk [ctor] ok
+Chal.ContinuousCircleWeight.main_theorem : Chal.ContinuousCircleWeight.MainStatement
+@[reducible] def Chal.ContinuousCircleWeight.CircleX : Type :=
+AddCircle 1
+@[reducible] def Chal.ContinuousCircleWeight.TracialHilbert : AddSubgroup (PreLp fun x => ℂ) :=
+lp (fun x => ℂ) 2
+@[reducible] def Chal.ContinuousCircleWeight.Operator : Type :=
+↥Chal.ContinuousCircleWeight.TracialHilbert →L[ℂ] ↥Chal.ContinuousCircleWeight.TracialHilbert
+def Chal.ContinuousCircleWeight.circleIdentification : Chal.ContinuousCircleWeight.CircleX ≃ₜ Circle :=
+AddCircle.homeomorphCircle Chal.ContinuousCircleWeight.circleIdentification._proof_1
+def Chal.ContinuousCircleWeight.circleFunction : C(Chal.ContinuousCircleWeight.CircleX, ℝ) → ℂ → ℂ :=
+fun f z => if hz : ‖z‖ = 1 then ↑(f (Chal.ContinuousCircleWeight.circleIdentification.symm ⟨z, ⋯⟩)) else 0
+def Chal.ContinuousCircleWeight.negativeLog : ℝ → ENNReal :=
+fun t => if t = 0 then ⊤ else ENNReal.ofReal (-Real.log t)
+structure Chal.ContinuousCircleWeight.IsTracialRotation (θ : ℝ) (U V : ↥(unitary Chal.ContinuousCircleWeight.Operator))
+  (e : ↥Chal.ContinuousCircleWeight.TracialHilbert) : Prop
+number of parameters: 4
+fields:
+  Chal.ContinuousCircleWeight.IsTracialRotation.relation : ↑V * ↑U =
+      Complex.exp (2 * ↑Real.pi * ↑θ * Complex.I) • (↑U * ↑V)
+  Chal.ContinuousCircleWeight.IsTracialRotation.moments : ∀ (m n : ℤ),
+      inner ℂ e (↑(U ^ m * V ^ n) e) = if m = 0 ∧ n = 0 then 1 else 0
+  Chal.ContinuousCircleWeight.IsTracialRotation.cyclic : (Submodule.span ℂ
+          (Set.range fun mn => ↑(U ^ mn.1 * V ^ mn.2) e)).topologicalClosure =
+      ⊤
+constructor:
+  Chal.ContinuousCircleWeight.IsTracialRotation.mk {θ : ℝ} {U V : ↥(unitary Chal.ContinuousCircleWeight.Operator)}
+    {e : ↥Chal.ContinuousCircleWeight.TracialHilbert}
+    (relation : ↑V * ↑U = Complex.exp (2 * ↑Real.pi * ↑θ * Complex.I) • (↑U * ↑V))
+    (moments : ∀ (m n : ℤ), inner ℂ e (↑(U ^ m * V ^ n) e) = if m = 0 ∧ n = 0 then 1 else 0)
+    (cyclic : (Submodule.span ℂ (Set.range fun mn => ↑(U ^ mn.1 * V ^ mn.2) e)).topologicalClosure = ⊤) :
+    Chal.ContinuousCircleWeight.IsTracialRotation θ U V e
+def Chal.ContinuousCircleWeight.rotationAlgebra : ↥(unitary Chal.ContinuousCircleWeight.Operator) →
+  ↥(unitary Chal.ContinuousCircleWeight.Operator) → Set Chal.ContinuousCircleWeight.Operator :=
+fun U V => {↑U, ↑V}.centralizer.centralizer
+def Chal.ContinuousCircleWeight.weightedRotation : ↥(unitary Chal.ContinuousCircleWeight.Operator) →
+  ↥(unitary Chal.ContinuousCircleWeight.Operator) →
+    C(Chal.ContinuousCircleWeight.CircleX, ℝ) → Chal.ContinuousCircleWeight.Operator :=
+fun U V f => ↑U * cfc (Chal.ContinuousCircleWeight.circleFunction f) ↑V
+def Chal.ContinuousCircleWeight.MainStatement : Prop :=
+∃ θ f U V e,
+  0 < θ ∧
+    θ < 1 ∧
+      Irrational θ ∧
+        Chal.ContinuousCircleWeight.IsTracialRotation θ U V e ∧
+          (∀ (x : Chal.ContinuousCircleWeight.CircleX), 0 ≤ f x ∧ f x ≤ 1) ∧
+            (∃ z, ∀ (x : Chal.ContinuousCircleWeight.CircleX), f x = 0 ↔ x = z) ∧
+              ∫⁻ (x : Chal.ContinuousCircleWeight.CircleX), Chal.ContinuousCircleWeight.negativeLog (f x) = ⊤ ∧
+                ∀ p ∈ Chal.ContinuousCircleWeight.rotationAlgebra U V,
+                  IsStarProjection p →
+                    (1 - p) * Chal.ContinuousCircleWeight.weightedRotation U V f * p = 0 → p = 0 ∨ p = 1
+'OAI.ContinuousCircleWeight.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ContinuousCircleWeight comparator-style: ok=27 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
