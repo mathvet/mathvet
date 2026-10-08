@@ -1,0 +1,43 @@
+OAI.SharpTerminalLeave.sharp_terminal_leave : Filter.Tendsto
+    (fun n =>
+      OAI.SharpTerminalLeave.expectation n fun G =>
+        (OAI.SharpTerminalLeave.normalizedLeave n G - OAI.SharpTerminalLeave.sharpConstant) ^ 2)
+    Filter.atTop (nhds 0) ∧
+  (∀ (ε : ℝ),
+      0 < ε →
+        Filter.Tendsto
+          (fun n =>
+            OAI.SharpTerminalLeave.probability n fun G =>
+              ε < |OAI.SharpTerminalLeave.normalizedLeave n G - OAI.SharpTerminalLeave.sharpConstant|)
+          Filter.atTop (nhds 0)) ∧
+    Filter.Tendsto
+      (fun n =>
+        (OAI.SharpTerminalLeave.expectation n fun G => ↑(Finset.card G)) / OAI.SharpTerminalLeave.normalization n)
+      Filter.atTop (nhds OAI.SharpTerminalLeave.sharpConstant)
+'OAI.SharpTerminalLeave.sharp_terminal_leave' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.SharpTerminalLeave.Graph : ℕ → Type :=
+fun n => Finset (Finset (Fin n))
+def OAI.SharpTerminalLeave.completeGraph : (n : ℕ) → OAI.SharpTerminalLeave.Graph n :=
+fun n => Finset.powersetCard 2 Finset.univ
+def OAI.SharpTerminalLeave.triangles : {n : ℕ} → OAI.SharpTerminalLeave.Graph n → Finset (Finset (Fin n)) :=
+fun {n} G => {t ∈ Finset.powersetCard 3 Finset.univ | Finset.powersetCard 2 t ⊆ G}
+def OAI.SharpTerminalLeave.step : {n : ℕ} → OAI.SharpTerminalLeave.Graph n → PMF (OAI.SharpTerminalLeave.Graph n) :=
+fun {n} G =>
+  if h : (OAI.SharpTerminalLeave.triangles G).Nonempty then
+    PMF.map (fun t => G \ Finset.powersetCard 2 t) (PMF.uniformOfFinset (OAI.SharpTerminalLeave.triangles G) h)
+  else PMF.pure G
+def OAI.SharpTerminalLeave.evolve : {n : ℕ} →
+  OAI.SharpTerminalLeave.Graph n → ℕ → PMF (OAI.SharpTerminalLeave.Graph n) :=
+fun {n} G x => Nat.brecOn x (OAI.SharpTerminalLeave.evolve._f G)
+def OAI.SharpTerminalLeave.terminalLaw : (n : ℕ) → PMF (OAI.SharpTerminalLeave.Graph n) :=
+fun n => OAI.SharpTerminalLeave.evolve (OAI.SharpTerminalLeave.completeGraph n) (n.choose 2)
+def OAI.SharpTerminalLeave.expectation : (n : ℕ) → (OAI.SharpTerminalLeave.Graph n → ℝ) → ℝ :=
+fun n f => ∑ G, ((OAI.SharpTerminalLeave.terminalLaw n) G).toReal * f G
+def OAI.SharpTerminalLeave.probability : (n : ℕ) → (OAI.SharpTerminalLeave.Graph n → Prop) → ℝ :=
+fun n P => OAI.SharpTerminalLeave.expectation n fun G => if P G then 1 else 0
+def OAI.SharpTerminalLeave.normalization : ℕ → ℝ :=
+fun n => ↑n ^ (3 / 2)
+def OAI.SharpTerminalLeave.normalizedLeave : (n : ℕ) → OAI.SharpTerminalLeave.Graph n → ℝ :=
+fun n G => ↑(Finset.card G) / OAI.SharpTerminalLeave.normalization n
+def OAI.SharpTerminalLeave.sharpConstant : ℝ :=
+1 / (2 * √2)

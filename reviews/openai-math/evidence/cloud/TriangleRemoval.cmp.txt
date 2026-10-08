@@ -1,0 +1,61 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_TriangleRemoval.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SharpTerminalLeave.sharp_terminal_leave [thm] ok
+CMP OAI.SharpTerminalLeave.normalization [def] ok
+CMP OAI.SharpTerminalLeave.normalization._proof_2 [thm] ok
+CMP OAI.SharpTerminalLeave.normalization._proof_1 [thm] ok
+CMP OAI.SharpTerminalLeave.probability [def] ok
+CMP OAI.SharpTerminalLeave.expectation [def] ok
+CMP OAI.SharpTerminalLeave.terminalLaw [def] ok
+CMP OAI.SharpTerminalLeave.completeGraph [def] ok
+CMP OAI.SharpTerminalLeave.Graph [def] ok
+CMP OAI.SharpTerminalLeave.evolve [def] ok
+CMP OAI.SharpTerminalLeave.evolve._f [def] ok
+CMP OAI.SharpTerminalLeave.step [def] ok
+CMP OAI.SharpTerminalLeave.triangles [def] ok
+CMP OAI.SharpTerminalLeave.evolve.match_1 [def] ok
+CMP OAI.SharpTerminalLeave.sharpConstant [def] ok
+CMP OAI.SharpTerminalLeave.normalizedLeave [def] ok
+Chal.SharpTerminalLeave.sharp_terminal_leave : Filter.Tendsto
+    (fun n =>
+      Chal.SharpTerminalLeave.expectation n fun G =>
+        (Chal.SharpTerminalLeave.normalizedLeave n G - Chal.SharpTerminalLeave.sharpConstant) ^ 2)
+    Filter.atTop (nhds 0) ∧
+  (∀ (ε : ℝ),
+      0 < ε →
+        Filter.Tendsto
+          (fun n =>
+            Chal.SharpTerminalLeave.probability n fun G =>
+              ε < |Chal.SharpTerminalLeave.normalizedLeave n G - Chal.SharpTerminalLeave.sharpConstant|)
+          Filter.atTop (nhds 0)) ∧
+    Filter.Tendsto
+      (fun n =>
+        (Chal.SharpTerminalLeave.expectation n fun G => ↑(Finset.card G)) / Chal.SharpTerminalLeave.normalization n)
+      Filter.atTop (nhds Chal.SharpTerminalLeave.sharpConstant)
+@[reducible] def Chal.SharpTerminalLeave.Graph : ℕ → Type :=
+fun n => Finset (Finset (Fin n))
+def Chal.SharpTerminalLeave.completeGraph : (n : ℕ) → Chal.SharpTerminalLeave.Graph n :=
+fun n => Finset.powersetCard 2 Finset.univ
+def Chal.SharpTerminalLeave.triangles : {n : ℕ} → Chal.SharpTerminalLeave.Graph n → Finset (Finset (Fin n)) :=
+fun {n} G => {t ∈ Finset.powersetCard 3 Finset.univ | Finset.powersetCard 2 t ⊆ G}
+def Chal.SharpTerminalLeave.step : {n : ℕ} → Chal.SharpTerminalLeave.Graph n → PMF (Chal.SharpTerminalLeave.Graph n) :=
+fun {n} G =>
+  if h : (Chal.SharpTerminalLeave.triangles G).Nonempty then
+    PMF.map (fun t => G \ Finset.powersetCard 2 t) (PMF.uniformOfFinset (Chal.SharpTerminalLeave.triangles G) h)
+  else PMF.pure G
+def Chal.SharpTerminalLeave.evolve : {n : ℕ} →
+  Chal.SharpTerminalLeave.Graph n → ℕ → PMF (Chal.SharpTerminalLeave.Graph n) :=
+fun {n} G x => Nat.brecOn x (Chal.SharpTerminalLeave.evolve._f G)
+def Chal.SharpTerminalLeave.terminalLaw : (n : ℕ) → PMF (Chal.SharpTerminalLeave.Graph n) :=
+fun n => Chal.SharpTerminalLeave.evolve (Chal.SharpTerminalLeave.completeGraph n) (n.choose 2)
+def Chal.SharpTerminalLeave.expectation : (n : ℕ) → (Chal.SharpTerminalLeave.Graph n → ℝ) → ℝ :=
+fun n f => ∑ G, ((Chal.SharpTerminalLeave.terminalLaw n) G).toReal * f G
+def Chal.SharpTerminalLeave.probability : (n : ℕ) → (Chal.SharpTerminalLeave.Graph n → Prop) → ℝ :=
+fun n P => Chal.SharpTerminalLeave.expectation n fun G => if P G then 1 else 0
+def Chal.SharpTerminalLeave.normalization : ℕ → ℝ :=
+fun n => ↑n ^ (3 / 2)
+def Chal.SharpTerminalLeave.normalizedLeave : (n : ℕ) → Chal.SharpTerminalLeave.Graph n → ℝ :=
+fun n G => ↑(Finset.card G) / Chal.SharpTerminalLeave.normalization n
+def Chal.SharpTerminalLeave.sharpConstant : ℝ :=
+1 / (2 * √2)
+'OAI.SharpTerminalLeave.sharp_terminal_leave' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TriangleRemoval comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
