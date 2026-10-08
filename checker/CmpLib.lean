@@ -36,6 +36,7 @@ def kindOf : ConstantInfo → String
   | .defnInfo _ => "def" | .thmInfo _ => "thm" | .inductInfo _ => "ind" | .ctorInfo _ => "ctor"
   | .axiomInfo _ => "axiom" | .opaqueInfo _ => "opaque" | .quotInfo _ => "quot" | .recInfo _ => "rec"
 
+/-- Structural verdict: alpha-equivalence of types (and values for definitions) after renaming `Chal.` to `OAI.`. -/
 def verdictOf (a b : ConstantInfo) : String :=
   let kk := kindOf a == kindOf b
   let kt := (renameConsts a.type).eqv b.type
@@ -52,6 +53,35 @@ def verdictOf (a b : ConstantInfo) : String :=
     | _, _ => false
   if !kk then "KIND_MISMATCH" else if !kt then "TYPE_MISMATCH" else if !kv then "VALUE_MISMATCH" else "ok"
 
+/-- Fallback for structural mismatches: are the two types (and definition values) definitionally equal, with the
+universe parameters identified positionally? Definitional equality absorbs differences that come from re-elaborating
+the challenge source in a richer environment: a different (but equal) instance path found by typeclass resolution,
+differently generated auxiliary proofs (proof irrelevance), or a tactic block that elaborated to another term for the
+same value. -/
+def defeqOf (a b : ConstantInfo) : MetaM (Bool × Bool) := do
+  if a.levelParams.length != b.levelParams.length then return (false, false)
+  let us ← a.levelParams.mapM fun _ => mkFreshLevelMVar
+  let inst (e : Expr) (ps : List Name) := e.instantiateLevelParams ps us
+  let tyOk ← try withTransparency .all <| isDefEq (inst (renameConsts a.type) a.levelParams) (inst b.type b.levelParams)
+    catch _ => pure false
+  let valOk ← match a, b with
+    | .defnInfo da, .defnInfo db =>
+        try withTransparency .all <| isDefEq (inst (renameConsts da.value) a.levelParams) (inst db.value b.levelParams)
+        catch _ => pure false
+    | _, _ => pure true
+  return (tyOk, valOk)
+
+/-- Auto-generated auxiliary declarations (`_proof_n`, `proof_n`, `_aux_n`, `match_n`, equation lemmas) are numbered per
+elaboration, so comparing them by name across two elaborations is meaningless; their content is compared through the
+value of the parent definition, which refers to them. -/
+def isAuxName (n : Name) : Bool :=
+  match n with
+  | .str _ s =>
+    let digitsAfter (p : String) := s.startsWith p && (s.drop p.length).length > 0 && (s.drop p.length).all Char.isDigit
+    digitsAfter "_proof_" || digitsAfter "proof_" || digitsAfter "_aux_" || digitsAfter "match_" || digitsAfter "eq_" || digitsAfter "_eq_"
+      || s == "_sunfold" || s.startsWith "_unsafe_rec"
+  | _ => false
+
 elab "#cmp_closure" roots:(ppSpace ident)* : command => do
   let env ← getEnv
   let rootNames : Array Name := roots.map fun r => r.getId
@@ -59,7 +89,16 @@ elab "#cmp_closure" roots:(ppSpace ident)* : command => do
   for n in names do
     let m := chalToOAI n
     match env.find? n, env.find? m with
-    | some a, some b => logInfo m!"CMP {m} [{kindOf a}] {verdictOf a b}"
+    | some a, some b =>
+      let v := verdictOf a b
+      if v == "ok" then logInfo m!"CMP {m} [{kindOf a}] ok"
+      else if isAuxName n then logInfo m!"CMP {m} [{kindOf a}] {v} (AUX: auto-generated auxiliary declaration, numbered per elaboration; compared through its parent's value)"
+      else
+        let (tyOk, valOk) ← liftTermElabM (defeqOf a b)
+        let note := if tyOk && valOk then " (DEFEQ: definitionally equal; structural difference only)"
+                    else if tyOk then " (types definitionally equal, values NOT)"
+                    else " (types NOT definitionally equal)"
+        logInfo m!"CMP {m} [{kindOf a}] {v}{note}"
     | some a, none => logInfo m!"CMP {m} [{kindOf a}] MISSING_IN_SOLUTION"
     | _, _ => logInfo m!"CMP {n} NOT_FOUND"
 

@@ -21,7 +21,8 @@ for line in src.splitlines():
     if m and ns and ns[-1]==m.group(1): ns.pop(); continue
     m=re.match(r'^\s*(?:private\s+|protected\s+|noncomputable\s+|@\[[^\]]*\]\s*)*(?:def|abbrev|structure|inductive|class|theorem|lemma)\s+([\w.«»]+)',line)
     if m:
-        full='.'.join(ns+[m.group(1)]) if ns else m.group(1)
+        name=m.group(1).rstrip('.')
+        full=name[len('_root_.'):] if name.startswith('_root_.') else ('.'.join(ns+[name]) if ns else name)
         kind='thm' if re.search(r'\b(theorem|lemma)\b',line) else 'def'
         decls.append((kind, full.replace('OAI.','Chal.',1) if full.startswith('OAI.') else 'Chal.'+full))
 out=[f"import {j['solution_module']}", "import Lean", meta, body, "", f"#cmp_closure {thms}"]
