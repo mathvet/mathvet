@@ -1,0 +1,26 @@
+== TriangularCovering  module=OAI.Geometry.TriangularCovering.Main  start=2026-10-08T10:59:24Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8932] Built OAI.Geometry.TriangularCovering.Basic (8.0s)
+✔ [8925/8932] Built OAI.Geometry.TriangularCovering.TriangleArea (11s)
+✔ [8926/8932] Built OAI.Geometry.TriangularCovering.CoordinateCover (16s)
+✔ [8927/8932] Built OAI.Geometry.TriangularCovering.Projection (9.9s)
+✔ [8928/8932] Built OAI.Geometry.TriangularCovering.Asymptotics (9.8s)
+✔ [8929/8932] Built OAI.Geometry.TriangularCovering.CylinderFamily (8.8s)
+✔ [8930/8932] Built OAI.Geometry.TriangularCovering.Tetrahedron (12s)
+✔ [8931/8932] Built OAI.Geometry.TriangularCovering.Shadows (11s)
+✔ [8932/8932] Built OAI.Geometry.TriangularCovering.Main (7.3s)
+Build completed successfully (8932 jobs).
+== build rc=0 seconds=79
+{"theorems": ["OAI.TriangularCovering.main"], "defs": ["OAI.TriangularCovering.Space", "OAI.TriangularCovering.H", "OAI.TriangularCovering.point", "OAI.TriangularCovering.K", "OAI.TriangularCovering.projection", "OAI.TriangularCovering.area", "OAI.TriangularCovering.shadowArea", "OAI.TriangularCovering.A_min", "OAI.TriangularCovering.TriCylinder", "OAI.TriangularCovering.TriCylinder.carrier", "OAI.TriangularCovering.Covers", "OAI.TriangularCovering.totalArea", "OAI.TriangularCovering.relativeCost", "OAI.TriangularCovering.n", "OAI.TriangularCovering.MainAsymptotic", "OAI.TriangularCovering.NormalizedCounterexample"], "json_theorems": ["OAI.TriangularCovering.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.TriangularCovering.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T11:01:06Z
