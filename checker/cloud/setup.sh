@@ -67,6 +67,15 @@ if command -v landrun >/dev/null; then
 fi
 echo "LANDRUN_STATUS=$LANDRUN_STATUS"
 
+log "nanoda (independent kernel, needed by challenges with enable_nanoda: true; built from ammkrn/nanoda_lib by .github/workflows/nanoda.yml)"
+if ! command -v nanoda_bin >/dev/null; then
+  nurl="https://github.com/mathvet/mathvet/releases/download/nanoda-3a24072"
+  if curl -fsSL -o /tmp/nanoda_bin "$nurl/nanoda_bin-x86_64-linux-gnu" && curl -fsSL -o /tmp/nanoda-build-info.txt "$nurl/nanoda-build-info.txt" \
+     && echo "b785c70b1dba6182ebbff09ee4dd6f4f310cbc537062b84514ac1627300737b1  /tmp/nanoda_bin" | sha256sum -c - >/dev/null; then
+    install -m755 /tmp/nanoda_bin "$HOME/.local/bin/nanoda_bin" && cp /tmp/nanoda-build-info.txt "$HOME/.local/bin/" && echo "nanoda_bin from $nurl ($(sed -n 1p /tmp/nanoda-build-info.txt))"
+  else echo "nanoda_bin not installed (download or checksum failed); challenges with enable_nanoda: true will be incomplete"; fi
+fi
+
 log "lean4export and comparator (pinned to the commits used on the maintainer's machine)"
 cd "$ROOT/tmp"
 [ -d lean4export ] || git clone -q https://github.com/leanprover/lean4export
