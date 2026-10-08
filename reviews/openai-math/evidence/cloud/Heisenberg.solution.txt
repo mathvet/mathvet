@@ -1,0 +1,134 @@
+OAI.Heisenberg.spontaneous_magnetization : ∀ (d ℓ : ℕ),
+  3 ≤ d →
+    1 ≤ ℓ →
+      OAI.Heisenberg.DynamicsConverges d ℓ ∧
+        ∃ β₀,
+          0 < β₀ ∧
+            ∀ (β : ℝ),
+              β₀ ≤ β →
+                ∃ ω,
+                  OAI.Heisenberg.TranslationInvariant ω ∧
+                    OAI.Heisenberg.IsKMS β ω ∧
+                      (ω.functional (OAI.Heisenberg.spinZ d ℓ 0)).im = 0 ∧
+                        ↑ℓ / 8 ≤ (ω.functional (OAI.Heisenberg.spinZ d ℓ 0)).re
+'OAI.Heisenberg.spontaneous_magnetization' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Heisenberg.L2.{u} : (ι : Type u) → AddSubgroup (PreLp fun x => ℂ) :=
+fun ι => lp (fun x => ℂ) 2
+def OAI.Heisenberg.l2Reindex.{u, v} : {ι : Type u} →
+  {κ : Type v} → ι ≃ κ → ↥(OAI.Heisenberg.L2 ι) ≃ₗᵢ[ℂ] ↥(OAI.Heisenberg.L2 κ) :=
+fun {ι} {κ} e =>
+  { toFun := fun f => ⟨fun j => ↑f (e.symm j), ⋯⟩, map_add' := ⋯, map_smul' := ⋯,
+    invFun := fun f => ⟨fun i => ↑f (e i), ⋯⟩, left_inv := ⋯, right_inv := ⋯, norm_map' := ⋯ }
+def OAI.Heisenberg.l2Projection.{u} : {ι : Type u} → (ι → Prop) → ↥(OAI.Heisenberg.L2 ι) →L[ℂ] ↥(OAI.Heisenberg.L2 ι) :=
+fun {ι} p =>
+  let f := { toFun := fun v => ⟨fun i => if p i then ↑v i else 0, ⋯⟩, map_add' := ⋯, map_smul' := ⋯ };
+  f.mkContinuous 1 ⋯
+@[reducible] def OAI.Heisenberg.Site : ℕ → Type :=
+fun d => Fin d → ℤ
+@[reducible] def OAI.Heisenberg.Level : ℕ → Type :=
+fun ℓ => Fin (ℓ + 1)
+@[reducible] def OAI.Heisenberg.Configuration : ℕ → ℕ → Type :=
+fun d ℓ => OAI.Heisenberg.Site d →₀ OAI.Heisenberg.Level ℓ
+@[reducible] def OAI.Heisenberg.SpinHilbert : (d ℓ : ℕ) → AddSubgroup (PreLp fun x => ℂ) :=
+fun d ℓ => OAI.Heisenberg.L2 (OAI.Heisenberg.Configuration d ℓ)
+@[reducible] def OAI.Heisenberg.SpinOperator : ℕ → ℕ → Type :=
+fun d ℓ => ↥(OAI.Heisenberg.SpinHilbert d ℓ) →L[ℂ] ↥(OAI.Heisenberg.SpinHilbert d ℓ)
+def OAI.Heisenberg.configPerm : (d ℓ : ℕ) →
+  OAI.Heisenberg.Site d → Equiv.Perm (OAI.Heisenberg.Level ℓ) → Equiv.Perm (OAI.Heisenberg.Configuration d ℓ) :=
+fun d ℓ x σ =>
+  { toFun := fun c => Finsupp.update c x (σ (c x)), invFun := fun c => Finsupp.update c x ((Equiv.symm σ) (c x)),
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.Heisenberg.matrixUnit : (d ℓ : ℕ) →
+  OAI.Heisenberg.Site d → OAI.Heisenberg.Level ℓ → OAI.Heisenberg.Level ℓ → OAI.Heisenberg.SpinOperator d ℓ :=
+fun d ℓ x a b =>
+  (OAI.Heisenberg.l2Projection fun c => c x = a) ∘SL
+    ↑↑(OAI.Heisenberg.l2Reindex (OAI.Heisenberg.configPerm d ℓ x (Equiv.swap a b)))
+def OAI.Heisenberg.operatorRelabel : (d ℓ : ℕ) →
+  Equiv.Perm (OAI.Heisenberg.Site d) → OAI.Heisenberg.SpinOperator d ℓ ≃⋆ₐ[ℂ] OAI.Heisenberg.SpinOperator d ℓ :=
+fun d ℓ e => (OAI.Heisenberg.l2Reindex (Finsupp.equivCongrLeft e)).conjStarAlgEquiv
+def OAI.Heisenberg.quasiLocalAlgebra : (d ℓ : ℕ) → StarSubalgebra ℂ (OAI.Heisenberg.SpinOperator d ℓ) :=
+fun d ℓ => (StarAlgebra.adjoin ℂ {A | ∃ x a b, A = OAI.Heisenberg.matrixUnit d ℓ x a b}).topologicalClosure
+@[reducible] def OAI.Heisenberg.QuasiLocal : (d ℓ : ℕ) → StarSubalgebra ℂ (OAI.Heisenberg.SpinOperator d ℓ) :=
+fun d ℓ => OAI.Heisenberg.quasiLocalAlgebra d ℓ
+def OAI.Heisenberg.localUnit : (d ℓ : ℕ) →
+  OAI.Heisenberg.Site d → OAI.Heisenberg.Level ℓ → OAI.Heisenberg.Level ℓ → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x a b => ⟨OAI.Heisenberg.matrixUnit d ℓ x a b, ⋯⟩
+def OAI.Heisenberg.translation : (d ℓ : ℕ) →
+  OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) →⋆ₐ[ℂ] ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x =>
+  have l2Reindex_apply := @OAI.Heisenberg.translation._proof_2;
+  have l2Projection_apply := @OAI.Heisenberg.translation._proof_4;
+  have matrixUnit_apply := ⋯;
+  have l2Reindex_symm_apply := @OAI.Heisenberg.translation._proof_6;
+  have relabel_matrixUnit := ⋯;
+  have relabel_mem := ⋯;
+  let f := (OAI.Heisenberg.operatorRelabel d ℓ (Equiv.addLeft x)).toStarAlgHom;
+  (f.comp (OAI.Heisenberg.quasiLocalAlgebra d ℓ).subtype).codRestrict (OAI.Heisenberg.quasiLocalAlgebra d ℓ) ⋯
+def OAI.Heisenberg.magneticLevel : (ℓ : ℕ) → OAI.Heisenberg.Level ℓ → ℝ :=
+fun ℓ k => ↑↑k - ↑ℓ / 2
+def OAI.Heisenberg.spinZ : (d ℓ : ℕ) → OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => ∑ k, ↑(OAI.Heisenberg.magneticLevel ℓ k) • OAI.Heisenberg.localUnit d ℓ x k k
+def OAI.Heisenberg.spinPlus : (d ℓ : ℕ) → OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x =>
+  ∑ k,
+    ↑√(↑ℓ / 2 * (↑ℓ / 2 + 1) -
+            OAI.Heisenberg.magneticLevel ℓ k.castSucc * (OAI.Heisenberg.magneticLevel ℓ k.castSucc + 1)) •
+      OAI.Heisenberg.localUnit d ℓ x k.succ k.castSucc
+def OAI.Heisenberg.spinMinus : (d ℓ : ℕ) → OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => star (OAI.Heisenberg.spinPlus d ℓ x)
+def OAI.Heisenberg.spinX : (d ℓ : ℕ) → OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => (1 / 2) • (OAI.Heisenberg.spinPlus d ℓ x + OAI.Heisenberg.spinMinus d ℓ x)
+def OAI.Heisenberg.spinY : (d ℓ : ℕ) → OAI.Heisenberg.Site d → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ x => (1 / (2 * Complex.I)) • (OAI.Heisenberg.spinPlus d ℓ x - OAI.Heisenberg.spinMinus d ℓ x)
+def OAI.Heisenberg.NearestNeighbor : {d : ℕ} → OAI.Heisenberg.Site d → OAI.Heisenberg.Site d → Prop :=
+fun {d} x y => ∑ i, |x i - y i| = 1
+def OAI.Heisenberg.volumeEdges : {d : ℕ} →
+  Finset (OAI.Heisenberg.Site d) → Finset (OAI.Heisenberg.Site d × OAI.Heisenberg.Site d) :=
+fun {d} Λ => {p ∈ Λ ×ˢ Λ | OAI.Heisenberg.NearestNeighbor p.1 p.2 ∧ WellOrderingRel p.1 p.2}
+def OAI.Heisenberg.hamiltonian : (d ℓ : ℕ) → Finset (OAI.Heisenberg.Site d) → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ Λ =>
+  -∑ e ∈ OAI.Heisenberg.volumeEdges Λ,
+      (OAI.Heisenberg.spinX d ℓ e.1 * OAI.Heisenberg.spinX d ℓ e.2 +
+          OAI.Heisenberg.spinY d ℓ e.1 * OAI.Heisenberg.spinY d ℓ e.2 +
+        OAI.Heisenberg.spinZ d ℓ e.1 * OAI.Heisenberg.spinZ d ℓ e.2)
+def OAI.Heisenberg.box : (d : ℕ) → ℕ → Finset (OAI.Heisenberg.Site d) :=
+fun d n => Fintype.piFinset fun x => Finset.Icc (-↑n) ↑n
+def OAI.Heisenberg.finiteDynamics : (d ℓ : ℕ) →
+  Finset (OAI.Heisenberg.Site d) → ℝ → ↥(OAI.Heisenberg.QuasiLocal d ℓ) → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ Λ t A =>
+  NormedSpace.exp ((Complex.I * ↑t) • OAI.Heisenberg.hamiltonian d ℓ Λ) * A *
+    NormedSpace.exp (-(Complex.I * ↑t) • OAI.Heisenberg.hamiltonian d ℓ Λ)
+def OAI.Heisenberg.dynamics : (d ℓ : ℕ) → ℝ → ↥(OAI.Heisenberg.QuasiLocal d ℓ) → ↥(OAI.Heisenberg.QuasiLocal d ℓ) :=
+fun d ℓ t A => Filter.atTop.limUnder fun n => OAI.Heisenberg.finiteDynamics d ℓ (OAI.Heisenberg.box d n) t A
+def OAI.Heisenberg.DynamicsConverges : ℕ → ℕ → Prop :=
+fun d ℓ =>
+  ∀ (t : ℝ) (A : ↥(OAI.Heisenberg.QuasiLocal d ℓ)),
+    Filter.Tendsto (fun n => OAI.Heisenberg.finiteDynamics d ℓ (OAI.Heisenberg.box d n) t A) Filter.atTop
+      (nhds (OAI.Heisenberg.dynamics d ℓ t A))
+structure OAI.Heisenberg.State (d ℓ : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.Heisenberg.State.functional : ↥(OAI.Heisenberg.QuasiLocal d ℓ) →L[ℂ] ℂ
+  OAI.Heisenberg.State.normalized : self.functional 1 = 1
+  OAI.Heisenberg.State.positive : ∀ (A : ↥(OAI.Heisenberg.QuasiLocal d ℓ)),
+      (self.functional (star A * A)).im = 0 ∧ 0 ≤ (self.functional (star A * A)).re
+constructor:
+  OAI.Heisenberg.State.mk {d ℓ : ℕ} (functional : ↥(OAI.Heisenberg.QuasiLocal d ℓ) →L[ℂ] ℂ)
+    (normalized : functional 1 = 1)
+    (positive :
+      ∀ (A : ↥(OAI.Heisenberg.QuasiLocal d ℓ)), (functional (star A * A)).im = 0 ∧ 0 ≤ (functional (star A * A)).re) :
+    OAI.Heisenberg.State d ℓ
+def OAI.Heisenberg.TranslationInvariant : {d ℓ : ℕ} → OAI.Heisenberg.State d ℓ → Prop :=
+fun {d ℓ} ω =>
+  ∀ (x : OAI.Heisenberg.Site d) (A : ↥(OAI.Heisenberg.QuasiLocal d ℓ)),
+    ω.functional ((OAI.Heisenberg.translation d ℓ x) A) = ω.functional A
+def OAI.Heisenberg.IsKMS : {d ℓ : ℕ} → ℝ → OAI.Heisenberg.State d ℓ → Prop :=
+fun {d ℓ} β ω =>
+  0 < β ∧
+    ∀ (A B : ↥(OAI.Heisenberg.QuasiLocal d ℓ)),
+      ∃ F,
+        ContinuousOn F {z | 0 ≤ z.im ∧ z.im ≤ β} ∧
+          DifferentiableOn ℂ F {z | 0 < z.im ∧ z.im < β} ∧
+            (∃ C, ∀ (z : ℂ), 0 ≤ z.im → z.im ≤ β → ‖F z‖ ≤ C) ∧
+              (∀ (t : ℝ), F ↑t = ω.functional (A * OAI.Heisenberg.dynamics d ℓ t B)) ∧
+                ∀ (t : ℝ), F (↑t + Complex.I * ↑β) = ω.functional (OAI.Heisenberg.dynamics d ℓ t B * A)
