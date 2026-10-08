@@ -1,0 +1,37 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_BalancedRyser.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Balanced.main_result [thm] ok
+CMP OAI.Balanced.MainResult [def] ok
+CMP OAI.Balanced.BalancedCounterexample [def] ok
+CMP OAI.Balanced.PartiteHypergraph.HasCoverNumber [def] ok
+CMP OAI.Balanced.PartiteHypergraph.Covers [def] ok
+CMP OAI.Balanced.PartiteHypergraph.edges [def] ok
+CMP OAI.Balanced.PartiteHypergraph [ind] ok
+CMP OAI.Balanced.PartiteHypergraph.mk [ctor] ok
+CMP OAI.Balanced.PartiteHypergraph.Vertex [def] ok
+CMP OAI.Balanced.PartiteHypergraph.Nonisolated [def] ok
+CMP OAI.Balanced.PartiteHypergraph.Intersecting [def] ok
+Chal.Balanced.main_result : Chal.Balanced.MainResult
+structure Chal.Balanced.PartiteHypergraph (r n : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.Balanced.PartiteHypergraph.edges : Finset (Fin r → Fin n)
+constructor:
+  Chal.Balanced.PartiteHypergraph.mk {r n : ℕ} (edges : Finset (Fin r → Fin n)) : Chal.Balanced.PartiteHypergraph r n
+@[reducible] def Chal.Balanced.PartiteHypergraph.Vertex : ℕ → ℕ → Type :=
+fun r n => Fin r × Fin n
+def Chal.Balanced.PartiteHypergraph.Covers : {r n : ℕ} →
+  Chal.Balanced.PartiteHypergraph r n → Finset (Chal.Balanced.PartiteHypergraph.Vertex r n) → Prop :=
+fun {r n} H C => ∀ e ∈ H.edges, ∃ i, (i, e i) ∈ C
+def Chal.Balanced.PartiteHypergraph.Intersecting : {r n : ℕ} → Chal.Balanced.PartiteHypergraph r n → Prop :=
+fun {r n} H => H.edges.Nonempty ∧ ∀ e ∈ H.edges, ∀ f ∈ H.edges, ∃ i, e i = f i
+def Chal.Balanced.PartiteHypergraph.Nonisolated : {r n : ℕ} → Chal.Balanced.PartiteHypergraph r n → Prop :=
+fun {r n} H => ∀ (i : Fin r) (v : Fin n), ∃ e ∈ H.edges, e i = v
+def Chal.Balanced.PartiteHypergraph.HasCoverNumber : {r n : ℕ} → Chal.Balanced.PartiteHypergraph r n → ℕ → Prop :=
+fun {r n} H k =>
+  (∃ C, H.Covers C ∧ C.card = k) ∧ ∀ (C : Finset (Chal.Balanced.PartiteHypergraph.Vertex r n)), H.Covers C → k ≤ C.card
+def Chal.Balanced.BalancedCounterexample : ℕ → Prop :=
+fun q => ∃ H, H.Intersecting ∧ H.Nonisolated ∧ H.HasCoverNumber (q + 1)
+def Chal.Balanced.MainResult : Prop :=
+∃ q₀, ∀ (q : ℕ), q₀ ≤ q → Nat.Prime q → Chal.Balanced.BalancedCounterexample q
+'OAI.Balanced.main_result' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BalancedRyser comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
