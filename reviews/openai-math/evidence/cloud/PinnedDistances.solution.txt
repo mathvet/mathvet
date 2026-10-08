@@ -1,0 +1,15 @@
+OAI.WeakPinned.main : ∀ (s : ℝ), 0 < s → Filter.Tendsto (fun n => OAI.WeakPinned.F n s) Filter.atTop (nhds 0)
+'OAI.WeakPinned.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.WeakPinned.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.WeakPinned.distanceFiber : Finset OAI.WeakPinned.Plane →
+  OAI.WeakPinned.Plane → OAI.WeakPinned.Plane → Finset OAI.WeakPinned.Plane :=
+fun P x y => {z ∈ P.erase x | dist z x = dist y x}
+def OAI.WeakPinned.k : Finset OAI.WeakPinned.Plane → OAI.WeakPinned.Plane → OAI.WeakPinned.Plane → ℕ :=
+fun P x y => (OAI.WeakPinned.distanceFiber P x y).card
+def OAI.WeakPinned.richPairs : Finset OAI.WeakPinned.Plane → ℝ → Finset (OAI.WeakPinned.Plane × OAI.WeakPinned.Plane) :=
+fun P s => {xy ∈ P ×ˢ P | xy.1 ≠ xy.2 ∧ ↑P.card ^ s ≤ ↑(OAI.WeakPinned.k P xy.1 xy.2)}
+def OAI.WeakPinned.pairFraction : Finset OAI.WeakPinned.Plane → ℝ → ℝ :=
+fun P s => ↑(OAI.WeakPinned.richPairs P s).card / (↑P.card * (↑P.card - 1))
+def OAI.WeakPinned.F : ℕ → ℝ → ℝ :=
+fun n s => if 2 ≤ n then sSup {a | ∃ P, P.card = n ∧ a = OAI.WeakPinned.pairFraction P s} else 0
