@@ -1,0 +1,39 @@
+CMP OAI.BoundedTreewidthL1.main_theorem [thm] ok
+CMP OAI.BoundedTreewidthL1.MainStatement [def] ok
+CMP OAI.BoundedTreewidthL1.HasL1Embedding [def] ok
+CMP OAI.BoundedTreewidthL1.shortestPathDistance [def] ok
+CMP OAI.BoundedTreewidthL1.walkLength [def] ok
+CMP OAI.BoundedTreewidthL1.walkLength._f [def] ok
+CMP OAI.BoundedTreewidthL1.walkLength.match_1 [def] ok
+CMP OAI.BoundedTreewidthL1.HasTreeDecomposition [def] ok
+Chal.BoundedTreewidthL1.main_theorem : Chal.BoundedTreewidthL1.MainStatement
+def Chal.BoundedTreewidthL1.walkLength.{u_1} : {V : Type u_1} →
+  (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → {u v : V} → G.Walk u v → ℝ :=
+fun {V} G ℓ x x_1 x_2 => SimpleGraph.Walk.brecOn x_2 (Chal.BoundedTreewidthL1.walkLength._f G ℓ)
+def Chal.BoundedTreewidthL1.shortestPathDistance.{u_1} : {V : Type u_1} →
+  (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → V → V → ℝ :=
+fun {V} G ℓ u v => sInf {r | ∃ p, p.IsPath ∧ Chal.BoundedTreewidthL1.walkLength G ℓ p = r}
+def Chal.BoundedTreewidthL1.HasTreeDecomposition.{u_1} : {V : Type u_1} → SimpleGraph V → [DecidableEq V] → ℕ → Prop :=
+fun {V} G [DecidableEq V] k =>
+  ∃ n T bag,
+    T.IsTree ∧
+      (∀ (v : V), ∃ t, v ∈ bag t) ∧
+        (∀ (u v : V), G.Adj u v → ∃ t, u ∈ bag t ∧ v ∈ bag t) ∧
+          (∀ (v : V), (SimpleGraph.induce {t | v ∈ bag t} T).Connected) ∧ ∀ (t : Fin n), (bag t).card ≤ k
+def Chal.BoundedTreewidthL1.HasL1Embedding.{u_1} : {V : Type u_1} → (G : SimpleGraph V) → (↑G.edgeSet → ℝ) → ℝ → Prop :=
+fun {V} G ℓ C =>
+  ∃ m F,
+    ∀ (u v : V),
+      Chal.BoundedTreewidthL1.shortestPathDistance G ℓ u v ≤ ‖F u - F v‖ ∧
+        ‖F u - F v‖ ≤ C * Chal.BoundedTreewidthL1.shortestPathDistance G ℓ u v
+def Chal.BoundedTreewidthL1.MainStatement : Prop :=
+∀ (k : ℕ),
+  2 ≤ k →
+    ∃ C,
+      1 ≤ C ∧
+        ∀ (V : Type) [Fintype V] [inst : DecidableEq V] [Nonempty V] (G : SimpleGraph V),
+          G.Connected →
+            Chal.BoundedTreewidthL1.HasTreeDecomposition G k →
+              ∀ (ℓ : ↑G.edgeSet → ℝ), (∀ (e : ↑G.edgeSet), 0 < ℓ e) → Chal.BoundedTreewidthL1.HasL1Embedding G ℓ C
+'OAI.BoundedTreewidthL1.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BoundedTreewidthL1 comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
