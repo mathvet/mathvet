@@ -12,18 +12,29 @@ log(){ echo "== $(date -u +%FT%TZ) $*"; }
 
 log "tools (apt: jq zstd)"; (apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq jq zstd >/dev/null 2>&1) || (sudo apt-get update -qq >/dev/null 2>&1 && sudo apt-get install -y -qq jq zstd >/dev/null 2>&1) || true
 command -v zstd >/dev/null || (pip install -q zstandard 2>/dev/null && echo "zstd: using python zstandard fallback")
+SETUP_OK=1
 log "elan (binary from GitHub releases; no toolchain yet)"
 if ! command -v elan >/dev/null; then curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none; fi
 # Toolchains: elan normally downloads from releases.lean-lang.org, which cloud environments do not allow by default; the same
 # archives are GitHub release assets (allowed), so fetch those and register them with `elan toolchain link`.
-link_toolchain() {  # $1 = version tag like v4.34.1
+link_toolchain() {  # $1 = version tag like v4.34.1; downloads the GitHub release asset, verifies bin/lean, registers with elan
   local v="$1" name="leanprover/lean4:$1" dir="$HOME/.elan/toolchains/leanprover--lean4---$1"
-  if elan toolchain list 2>/dev/null | grep -q "lean4---$v"; then echo "toolchain $v present"; return 0; fi
-  local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux;; aarch64|arm64) a=linux_aarch64;; esac   # release assets: lean-<v>-linux.tar.zst / -linux_aarch64
-  mkdir -p "$dir" && curl -fsSL -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst" || { echo "download failed for $v"; return 1; }
-  if command -v zstd >/dev/null; then tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1
-  else python3 -c "import zstandard,sys,tarfile; d=zstandard.ZstdDecompressor(); f=open(sys.argv[1],'rb'); tarfile.open(fileobj=d.stream_reader(f), mode='r|').extractall(sys.argv[2])" "/tmp/lean-$v.tar.zst" "/tmp/lean-$v-x" && mv "/tmp/lean-$v-x"/*/* "$dir"/; fi
-  rm -f "/tmp/lean-$v.tar.zst"; elan toolchain link "$name" "$dir" && echo "linked $name"
+  local arch; arch=$(uname -m); case "$arch" in x86_64) a=linux;; aarch64|arm64) a=linux_aarch64;; esac   # assets: lean-<v>-linux.tar.zst / -linux_aarch64
+  if [ ! -x "$dir/bin/lean" ]; then
+    for attempt in 1 2 3; do
+      rm -rf "$dir" "/tmp/lean-$v-x"; mkdir -p "$dir"
+      if curl -fsSL --retry 3 -o "/tmp/lean-$v.tar.zst" "https://github.com/leanprover/lean4/releases/download/$v/lean-${v#v}-$a.tar.zst"; then
+        if command -v zstd >/dev/null; then tar --zstd -xf "/tmp/lean-$v.tar.zst" -C "$dir" --strip-components=1 || true
+        else python3 -c "import zstandard,sys,tarfile; d=zstandard.ZstdDecompressor(); f=open(sys.argv[1],'rb'); tarfile.open(fileobj=d.stream_reader(f), mode='r|').extractall(sys.argv[2])" "/tmp/lean-$v.tar.zst" "/tmp/lean-$v-x" && mv "/tmp/lean-$v-x"/*/* "$dir"/ || true; fi
+      else echo "download attempt $attempt failed for $v"; fi
+      rm -f "/tmp/lean-$v.tar.zst"
+      [ -x "$dir/bin/lean" ] && break
+      echo "toolchain $v incomplete after attempt $attempt; retrying"; sleep 5
+    done
+  fi
+  [ -x "$dir/bin/lean" ] || { echo "SETUP_FAILED: toolchain $v not installed"; SETUP_OK=0; return 1; }
+  elan toolchain list 2>/dev/null | grep -q "lean4---${v}\b" || elan toolchain link "$name" "$dir" 2>&1 | grep -v -E "backtrace|already installed|^ *[0-9]+: |error_chain|elan_init|std::|^$" || true
+  echo "toolchain $name ready ($("$dir/bin/lean" --version | head -1))"
 }
 link_toolchain v4.34.1
 # make it the default too (only matters for commands run outside a directory that has a lean-toolchain file)
@@ -65,7 +76,6 @@ cd "$ROOT/tmp"
   echo "lean4export at $(git rev-parse --short HEAD), building with $(cat lean-toolchain)"; lake build 2>&1 | tail -2 )
 ( cd comparator && (git checkout -q ca04cfc 2>/dev/null || { git fetch -q --all; git checkout -q ca04cfc; })
   tc=$(sed 's/.*://' lean-toolchain); echo "comparator at $(git rev-parse --short HEAD), toolchain $tc"; link_toolchain "$tc"; lake build 2>&1 | tail -2 )
-SETUP_OK=1
 for b in "$ROOT/tmp/lean4export/.lake/build/bin/lean4export" "$ROOT/tmp/comparator/.lake/build/bin/comparator"; do
   if [ -x "$b" ]; then echo "OK $b"; else echo "SETUP_FAILED: missing $b"; SETUP_OK=0; fi
 done
