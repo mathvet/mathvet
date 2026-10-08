@@ -1,0 +1,166 @@
+CMP OAI.RVM.global_classical_solution [thm] ok
+CMP OAI.RVM.SameNonnegativeTime [def] ok
+CMP OAI.RVM.Solution.B [def] ok
+CMP OAI.RVM.Solution [ind] ok
+CMP OAI.RVM.Solution.mk [ctor] ok
+CMP OAI.RVM.Field [def] ok
+CMP OAI.RVM.Vec [def] ok
+CMP OAI.RVM.Particle [def] ok
+CMP OAI.RVM.Phase [def] ok
+CMP OAI.RVM.Solution.E [def] ok
+CMP OAI.RVM.Solution.f [def] ok
+CMP OAI.RVM.SmoothOnFiniteHorizons [def] ok
+CMP OAI.RVM.fieldSlab [def] ok
+CMP OAI.RVM.particleSlab [def] ok
+CMP OAI.RVM.Classical [def] ok
+CMP OAI.RVM.Datum.B₀ [def] ok
+CMP OAI.RVM.Datum [ind] ok
+CMP OAI.RVM.Datum.mk [ctor] ok
+CMP OAI.RVM.Datum.E₀ [def] ok
+CMP OAI.RVM.Datum.f₀ [def] ok
+CMP OAI.RVM.Equations [def] ok
+CMP OAI.RVM.rho [def] ok
+CMP OAI.RVM.rho._proof_2 [thm] ok
+CMP OAI.RVM.rho._proof_1 [thm] ok
+CMP OAI.RVM.divergence [def] ok
+CMP OAI.RVM.spatialPartial [def] ok
+CMP OAI.RVM.basis [def] ok
+CMP OAI.RVM.basis._proof_1 [thm] ok
+CMP OAI.RVM.current [def] ok
+CMP OAI.RVM.velocity [def] ok
+CMP OAI.RVM.q [def] ok
+CMP OAI.RVM.curl [def] ok
+CMP OAI.RVM.cross._proof_1 [thm] ok
+CMP OAI.RVM.cross [def] ok
+CMP OAI.RVM.CompactOnFiniteHorizons [def] ok
+CMP OAI.RVM.TimeContinuousL2 [def] ok
+CMP OAI.RVM.TimeContinuousL2._proof_2 [thm] ok
+CMP OAI.RVM.TimeContinuousL2._proof_1 [thm] ok
+CMP OAI.RVM.fieldHalfSpace [def] ok
+CMP OAI.RVM.particleHalfSpace [def] ok
+CMP OAI.RVM.Admissible [def] ok
+CMP OAI.RVM.BoundedSmooth [def] ok
+Chal.RVM.global_classical_solution : ∀ (d : Chal.RVM.Datum),
+  Chal.RVM.Admissible d →
+    ∃ s,
+      Chal.RVM.Classical d s ∧
+        Chal.RVM.SmoothOnFiniteHorizons s ∧
+          ∀ (s' : Chal.RVM.Solution), Chal.RVM.Classical d s' → Chal.RVM.SameNonnegativeTime s s'
+@[reducible] def Chal.RVM.Vec : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.RVM.Phase : Type :=
+Chal.RVM.Vec × Chal.RVM.Vec
+@[reducible] def Chal.RVM.Particle : Type :=
+ℝ × Chal.RVM.Phase → ℝ
+@[reducible] def Chal.RVM.Field : Type :=
+ℝ × Chal.RVM.Vec → Chal.RVM.Vec
+def Chal.RVM.q : Chal.RVM.Vec → ℝ :=
+fun v => √(1 + ‖v‖ ^ 2)
+def Chal.RVM.velocity : Chal.RVM.Vec → Chal.RVM.Vec :=
+fun v => (Chal.RVM.q v)⁻¹ • v
+def Chal.RVM.basis : Fin 3 → Chal.RVM.Vec :=
+fun i => WithLp.toLp 2 (Pi.single i 1)
+def Chal.RVM.dot : Chal.RVM.Vec → Chal.RVM.Vec → ℝ :=
+fun a b => ∑ i, a.ofLp i * b.ofLp i
+def Chal.RVM.cross : Chal.RVM.Vec → Chal.RVM.Vec → Chal.RVM.Vec :=
+fun a b =>
+  !₂[a.ofLp 1 * b.ofLp 2 - a.ofLp 2 * b.ofLp 1, a.ofLp 2 * b.ofLp 0 - a.ofLp 0 * b.ofLp 2,
+    a.ofLp 0 * b.ofLp 1 - a.ofLp 1 * b.ofLp 0]
+def Chal.RVM.spatialPartial : (Chal.RVM.Vec → ℝ) → Chal.RVM.Vec → Fin 3 → ℝ :=
+fun g x i => (fderiv ℝ g x) (Chal.RVM.basis i)
+def Chal.RVM.divergence : (Chal.RVM.Vec → Chal.RVM.Vec) → Chal.RVM.Vec → ℝ :=
+fun F x => ∑ i, Chal.RVM.spatialPartial (fun y => (F y).ofLp i) x i
+def Chal.RVM.curl : (Chal.RVM.Vec → Chal.RVM.Vec) → Chal.RVM.Vec → Chal.RVM.Vec :=
+fun F x =>
+  !₂[Chal.RVM.spatialPartial (fun y => (F y).ofLp 2) x 1 - Chal.RVM.spatialPartial (fun y => (F y).ofLp 1) x 2,
+    Chal.RVM.spatialPartial (fun y => (F y).ofLp 0) x 2 - Chal.RVM.spatialPartial (fun y => (F y).ofLp 2) x 0,
+    Chal.RVM.spatialPartial (fun y => (F y).ofLp 1) x 0 - Chal.RVM.spatialPartial (fun y => (F y).ofLp 0) x 1]
+def Chal.RVM.rho : (Chal.RVM.Phase → ℝ) → Chal.RVM.Vec → ℝ :=
+fun g x => ∫ (v : Chal.RVM.Vec), g (x, v)
+def Chal.RVM.current : (Chal.RVM.Phase → ℝ) → Chal.RVM.Vec → Chal.RVM.Vec :=
+fun g x => ∫ (v : Chal.RVM.Vec), g (x, v) • Chal.RVM.velocity v
+structure Chal.RVM.Datum : Type
+number of parameters: 0
+fields:
+  Chal.RVM.Datum.f₀ : Chal.RVM.Phase → ℝ
+  Chal.RVM.Datum.E₀ : Chal.RVM.Vec → Chal.RVM.Vec
+  Chal.RVM.Datum.B₀ : Chal.RVM.Vec → Chal.RVM.Vec
+constructor:
+  Chal.RVM.Datum.mk (f₀ : Chal.RVM.Phase → ℝ) (E₀ B₀ : Chal.RVM.Vec → Chal.RVM.Vec) : Chal.RVM.Datum
+def Chal.RVM.BoundedSmooth : (Chal.RVM.Vec → Chal.RVM.Vec) → Prop :=
+fun F => ContDiff ℝ (↑⊤) F ∧ ∀ (n : ℕ), ∃ C, ∀ (x : Chal.RVM.Vec), ‖iteratedFDeriv ℝ n F x‖ ≤ C
+def Chal.RVM.Admissible : Chal.RVM.Datum → Prop :=
+fun d =>
+  ContDiff ℝ (↑⊤) d.f₀ ∧
+    HasCompactSupport d.f₀ ∧
+      (∀ (z : Chal.RVM.Phase), 0 ≤ d.f₀ z) ∧
+        Chal.RVM.BoundedSmooth d.E₀ ∧
+          Chal.RVM.BoundedSmooth d.B₀ ∧
+            MeasureTheory.MemLp d.E₀ 2 MeasureTheory.volume ∧
+              MeasureTheory.MemLp d.B₀ 2 MeasureTheory.volume ∧
+                (∀ (x : Chal.RVM.Vec), Chal.RVM.divergence d.E₀ x = Chal.RVM.rho d.f₀ x) ∧
+                  ∀ (x : Chal.RVM.Vec), Chal.RVM.divergence d.B₀ x = 0
+structure Chal.RVM.Solution : Type
+number of parameters: 0
+fields:
+  Chal.RVM.Solution.f : Chal.RVM.Particle
+  Chal.RVM.Solution.E : Chal.RVM.Field
+  Chal.RVM.Solution.B : Chal.RVM.Field
+constructor:
+  Chal.RVM.Solution.mk (f : Chal.RVM.Particle) (E B : Chal.RVM.Field) : Chal.RVM.Solution
+def Chal.RVM.particleHalfSpace : Set (ℝ × Chal.RVM.Phase) :=
+{z | 0 ≤ z.1}
+def Chal.RVM.fieldHalfSpace : Set (ℝ × Chal.RVM.Vec) :=
+{z | 0 ≤ z.1}
+def Chal.RVM.particleSlab : ℝ → Set (ℝ × Chal.RVM.Phase) :=
+fun T => {z | z.1 ∈ Set.Icc 0 T}
+def Chal.RVM.fieldSlab : ℝ → Set (ℝ × Chal.RVM.Vec) :=
+fun T => {z | z.1 ∈ Set.Icc 0 T}
+def Chal.RVM.TimeContinuousL2 : Chal.RVM.Field → Prop :=
+fun F => ∃ F₂, ContinuousOn F₂ (Set.Ici 0) ∧ ∀ (t : ℝ), 0 ≤ t → ↑↑(F₂ t) =ᵐ[MeasureTheory.volume] fun x => F (t, x)
+def Chal.RVM.Equations : Chal.RVM.Solution → Prop :=
+fun s =>
+  ∀ (t : ℝ),
+    0 ≤ t →
+      (∀ (x v : Chal.RVM.Vec),
+          derivWithin (fun t' => s.f (t', x, v)) (Set.Ici 0) t +
+                ∑ i, (Chal.RVM.velocity v).ofLp i * Chal.RVM.spatialPartial (fun y => s.f (t, y, v)) x i +
+              ∑ i,
+                (s.E (t, x) + Chal.RVM.cross (Chal.RVM.velocity v) (s.B (t, x))).ofLp i *
+                  Chal.RVM.spatialPartial (fun v' => s.f (t, x, v')) v i =
+            0) ∧
+        (∀ (x : Chal.RVM.Vec),
+            derivWithin (fun t' => s.E (t', x)) (Set.Ici 0) t - Chal.RVM.curl (fun y => s.B (t, y)) x =
+              -Chal.RVM.current (fun z => s.f (t, z)) x) ∧
+          (∀ (x : Chal.RVM.Vec),
+              derivWithin (fun t' => s.B (t', x)) (Set.Ici 0) t + Chal.RVM.curl (fun y => s.E (t, y)) x = 0) ∧
+            (∀ (x : Chal.RVM.Vec), Chal.RVM.divergence (fun y => s.E (t, y)) x = Chal.RVM.rho (fun z => s.f (t, z)) x) ∧
+              ∀ (x : Chal.RVM.Vec), Chal.RVM.divergence (fun y => s.B (t, y)) x = 0
+def Chal.RVM.CompactOnFiniteHorizons : Chal.RVM.Solution → Prop :=
+fun s => ∀ (T : ℝ), 0 ≤ T → ∃ K, IsCompact K ∧ ∀ t ∈ Set.Icc 0 T, (tsupport fun z => s.f (t, z)) ⊆ K
+def Chal.RVM.Classical : Chal.RVM.Datum → Chal.RVM.Solution → Prop :=
+fun d s =>
+  ContDiffOn ℝ 1 s.f Chal.RVM.particleHalfSpace ∧
+    ContDiffOn ℝ 1 s.E Chal.RVM.fieldHalfSpace ∧
+      ContDiffOn ℝ 1 s.B Chal.RVM.fieldHalfSpace ∧
+        (∀ (t : ℝ), 0 ≤ t → ∀ (z : Chal.RVM.Phase), 0 ≤ s.f (t, z)) ∧
+          Chal.RVM.TimeContinuousL2 s.E ∧
+            Chal.RVM.TimeContinuousL2 s.B ∧
+              Chal.RVM.CompactOnFiniteHorizons s ∧
+                Chal.RVM.Equations s ∧
+                  (∀ (z : Chal.RVM.Phase), s.f (0, z) = d.f₀ z) ∧
+                    (∀ (x : Chal.RVM.Vec), s.E (0, x) = d.E₀ x) ∧ ∀ (x : Chal.RVM.Vec), s.B (0, x) = d.B₀ x
+def Chal.RVM.SmoothOnFiniteHorizons : Chal.RVM.Solution → Prop :=
+fun s =>
+  ∀ (T : ℝ),
+    0 ≤ T →
+      ContDiffOn ℝ (↑⊤) s.f (Chal.RVM.particleSlab T) ∧
+        ContDiffOn ℝ (↑⊤) s.E (Chal.RVM.fieldSlab T) ∧ ContDiffOn ℝ (↑⊤) s.B (Chal.RVM.fieldSlab T)
+def Chal.RVM.SameNonnegativeTime : Chal.RVM.Solution → Chal.RVM.Solution → Prop :=
+fun s s' =>
+  ∀ (t : ℝ),
+    0 ≤ t →
+      (∀ (z : Chal.RVM.Phase), s.f (t, z) = s'.f (t, z)) ∧
+        (∀ (x : Chal.RVM.Vec), s.E (t, x) = s'.E (t, x)) ∧ ∀ (x : Chal.RVM.Vec), s.B (t, x) = s'.B (t, x)
+'OAI.RVM.global_classical_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+== VlasovMaxwell comparator-style: ok=42 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
