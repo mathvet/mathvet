@@ -1,0 +1,11 @@
+CMP OAI.KaplanskyCounterexample.finitelyPresented_counterexample [thm] ok
+Chal.KaplanskyCounterexample.finitelyPresented_counterexample : ∃ K x x_1,
+  ∃ (_ : CharP K 2),
+    ∃ G x_3,
+      ∃ (_ : Group.IsFinitelyPresented G),
+        (∃ ℓ, ∃ (_ : Nat.Prime ℓ) (_ : Odd ℓ), ∃ g, orderOf g = ℓ) ∧
+          ∃ a_out b_out, a_out * b_out = 1 ∧ b_out * a_out ≠ 1
+'OAI.KaplanskyCounterexample.finitelyPresented_counterexample' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== KaplanskyFinitelyPresented comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, 
