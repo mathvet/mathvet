@@ -1,0 +1,18 @@
+CMP OAI.SeparableQuotient.negative_main [thm] ok
+CMP OAI.SeparableQuotient.SQ [def] ok
+CMP OAI.SeparableQuotient.HasSeparableQuotient [def] ok
+CMP OAI.SeparableQuotient.CH [def] ok
+Chal.SeparableQuotient.negative_main : Chal.SeparableQuotient.CH →
+  ¬Chal.SeparableQuotient.SQ ℝ ∧ ¬Chal.SeparableQuotient.SQ ℂ
+def Chal.SeparableQuotient.CH : Prop :=
+Cardinal.mk ℝ = Cardinal.aleph 1
+def Chal.SeparableQuotient.HasSeparableQuotient.{u} : (𝕜 : Type) →
+  [inst : RCLike 𝕜] → (X : Type u) → [inst_1 : NormedAddCommGroup X] → [NormedSpace 𝕜 X] → Prop :=
+fun 𝕜 [RCLike 𝕜] X [NormedAddCommGroup X] [NormedSpace 𝕜 X] =>
+  ∃ Y x x_1, CompleteSpace Y ∧ TopologicalSpace.SeparableSpace Y ∧ ¬FiniteDimensional 𝕜 Y ∧ ∃ T, Function.Surjective ⇑T
+def Chal.SeparableQuotient.SQ.{u} : (𝕜 : Type) → [RCLike 𝕜] → Prop :=
+fun 𝕜 [RCLike 𝕜] =>
+  ∀ (X : Type u) [inst_1 : NormedAddCommGroup X] [inst_2 : NormedSpace 𝕜 X] [CompleteSpace X],
+    ¬FiniteDimensional 𝕜 X → Chal.SeparableQuotient.HasSeparableQuotient 𝕜 X
+'OAI.SeparableQuotient.negative_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SeparableQuotientNegative comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
