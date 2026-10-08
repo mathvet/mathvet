@@ -1,0 +1,57 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserCovering.lean:82:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_RyserCovering.lean:131:22: error(lean.unknownIdentifier): Unknown constant `instDecidablePairwiseCoeFinsetOfDecidableEqOfDecidableRel`
+CMP OAI.RyserCoveringCounterexample.exists_prime_eventually_counterexampleRank [thm] ok
+CMP OAI.RyserCoveringCounterexample.CounterexampleRank [def] ok
+CMP OAI.RyserCoveringCounterexample.coverNumber [def] ok
+CMP OAI.RyserCoveringCounterexample.coverCardinalities [def] ok
+CMP OAI.RyserCoveringCounterexample.IsCover [def] ok
+CMP OAI.RyserCoveringCounterexample.Hypergraph [def] ok
+CMP OAI.RyserCoveringCounterexample.matchingNumber [def] ok
+CMP OAI.RyserCoveringCounterexample.matchings [def] ok
+CMP OAI.RyserCoveringCounterexample.Intersecting [def] ok
+CMP OAI.RyserCoveringCounterexample.RPartiteUniform [def] ok
+CMP OAI.RyserCoveringCounterexample.PartiteUniform [def] ok
+Chal.RyserCoveringCounterexample.exists_prime_eventually_counterexampleRank : ∃ p,
+  Nat.Prime p ∧
+    5 < p ∧
+      p % 3 = 2 ∧
+        ∃ N, ∀ (n : ℕ), N ≤ n → Nat.Prime n → 2 < n → Chal.RyserCoveringCounterexample.CounterexampleRank (p ^ n + 1)
+@[reducible] def Chal.RyserCoveringCounterexample.Hypergraph.{u_1} : Type u_1 → Type u_1 :=
+fun V => Finset (Finset V)
+def Chal.RyserCoveringCounterexample.IsCover.{u_1} : {V : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph V → Finset V → Prop :=
+fun {V} H C => ∀ e ∈ H, ∃ v ∈ C, v ∈ e
+def Chal.RyserCoveringCounterexample.Intersecting.{u_1} : {V : Type u_1} →
+  [DecidableEq V] → Chal.RyserCoveringCounterexample.Hypergraph V → Prop :=
+fun {V} [DecidableEq V] H => ∀ e ∈ H, ∀ f ∈ H, e ≠ f → (e ∩ f).Nonempty
+def Chal.RyserCoveringCounterexample.matchings.{u_1} : {V : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph V → Finset (Chal.RyserCoveringCounterexample.Hypergraph V) :=
+fun {V} H => {M ∈ Finset.powerset H | (↑M).Pairwise Disjoint}
+def Chal.RyserCoveringCounterexample.matchingNumber.{u_1} : {V : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph V → ℕ :=
+fun {V} H => (Chal.RyserCoveringCounterexample.matchings H).sup Finset.card
+def Chal.RyserCoveringCounterexample.coverCardinalities.{u_1} : {V : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph V → Set ℕ :=
+fun {V} H => {n | ∃ C, Chal.RyserCoveringCounterexample.IsCover H C ∧ C.card = n}
+def Chal.RyserCoveringCounterexample.coverNumber.{u_1} : {V : Type u_1} →
+  Chal.RyserCoveringCounterexample.Hypergraph V → ℕ :=
+fun {V} H => sInf (Chal.RyserCoveringCounterexample.coverCardinalities H)
+def Chal.RyserCoveringCounterexample.PartiteUniform.{u_1, u_2} : {V : Type u_1} →
+  {I : Type u_2} → (V → I) → Chal.RyserCoveringCounterexample.Hypergraph V → Prop :=
+fun {V} {I} part H => ∀ e ∈ H, ∀ (i : I), ∃! v, v ∈ e ∧ part v = i
+def Chal.RyserCoveringCounterexample.RPartiteUniform.{u_1} : {V : Type u_1} →
+  ℕ → Chal.RyserCoveringCounterexample.Hypergraph V → Prop :=
+fun {V} r H => ∃ part, Chal.RyserCoveringCounterexample.PartiteUniform part H
+def Chal.RyserCoveringCounterexample.CounterexampleRank : ℕ → Prop :=
+fun r =>
+  ∃ V fin dec H,
+    0 < r ∧
+      Finset.Nonempty H ∧
+        Chal.RyserCoveringCounterexample.RPartiteUniform r H ∧
+          Chal.RyserCoveringCounterexample.Intersecting H ∧
+            (∃ C, Chal.RyserCoveringCounterexample.IsCover H C) ∧
+              Chal.RyserCoveringCounterexample.matchingNumber H = 1 ∧ Chal.RyserCoveringCounterexample.coverNumber H = r
+'OAI.RyserCoveringCounterexample.exists_prime_eventually_counterexampleRank' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== RyserCovering comparator-style: ok=11 problems=0 errors=1 | SHADOW-DIFF(see RyserCovering.standalone.norm vs RyserCovering.insolution.norm) | [propext,  | defeq_only=0 aux_only=0
