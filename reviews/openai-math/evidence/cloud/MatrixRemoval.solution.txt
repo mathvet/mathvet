@@ -1,0 +1,44 @@
+OAI.Problem348.no_polynomial_removal_bound : ∀ (c C : ℝ),
+  0 < c →
+    0 < C →
+      ∃ n,
+        1 ≤ n ∧
+          ∃ ε,
+            0 < ε ∧
+              ε < 1 ∧
+                ∃ A,
+                  OAI.Problem348.fixedDistance A ≥ ε ∧
+                    ↑(OAI.Problem348.copyCount OAI.Problem348.fixedH A) < c * ε.rpow C * ↑n ^ 132
+'OAI.Problem348.no_polynomial_removal_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Problem348.BinaryMatrix : ℕ → Type :=
+fun n => Fin n → Fin n → Bool
+@[reducible] def OAI.Problem348.IncreasingMap : ℕ → ℕ → Type :=
+fun k n => { f // StrictMono f }
+def OAI.Problem348.orderedCopies : {k n : ℕ} →
+  OAI.Problem348.BinaryMatrix k →
+    OAI.Problem348.BinaryMatrix n → Finset (OAI.Problem348.IncreasingMap k n × OAI.Problem348.IncreasingMap k n) :=
+fun {k n} H A => {rc | ∀ (i j : Fin k), A (↑rc.1 i) (↑rc.2 j) = H i j}
+def OAI.Problem348.copyCount : {k n : ℕ} → OAI.Problem348.BinaryMatrix k → OAI.Problem348.BinaryMatrix n → ℕ :=
+fun {k n} H A => (OAI.Problem348.orderedCopies H A).card
+def OAI.Problem348.HFree : {k n : ℕ} → OAI.Problem348.BinaryMatrix k → OAI.Problem348.BinaryMatrix n → Prop :=
+fun {k n} H A => OAI.Problem348.copyCount H A = 0
+def OAI.Problem348.hammingDistance : {n : ℕ} → OAI.Problem348.BinaryMatrix n → OAI.Problem348.BinaryMatrix n → ℕ :=
+fun {n} A B => {rc | A rc.1 rc.2 ≠ B rc.1 rc.2}.card
+def OAI.Problem348.etaBit : ℕ → ℕ → Bool :=
+fun a b => decide (a / 2 ^ (5 - b) % 2 = 1)
+def OAI.Problem348.anchor64 : Fin 64 → Fin 64 → Bool :=
+fun u v => if 32 ≤ ↑u ∧ 59 ≤ ↑v then OAI.Problem348.etaBit (↑u - 32) (↑v - 58) else decide (↑u ≠ ↑v)
+def OAI.Problem348.fixedH : OAI.Problem348.BinaryMatrix 66 :=
+fun u v =>
+  if hu : ↑u < 64 then
+    if hv : ↑v < 64 then OAI.Problem348.anchor64 ⟨↑u, hu⟩ ⟨↑v, hv⟩ else decide (↑v = 64 ∧ ↑u = 0 ∨ ↑v = 65 ∧ ↑u = 1)
+  else if ↑v < 64 then decide (↑u = 64 ∧ ↑v = 0 ∨ ↑u = 65 ∧ ↑v = 1) else decide (↑u = 65 ∨ ↑v = 64)
+def OAI.Problem348.fixedMinEdits : {n : ℕ} → OAI.Problem348.BinaryMatrix n → ℕ :=
+fun {n} A =>
+  (Finset.image
+        (fun B =>
+          if OAI.Problem348.HFree OAI.Problem348.fixedH B then OAI.Problem348.hammingDistance A B else n * n + 1)
+        Finset.univ).min'
+    ⋯
+def OAI.Problem348.fixedDistance : {n : ℕ} → OAI.Problem348.BinaryMatrix n → ℝ :=
+fun {n} A => ↑(OAI.Problem348.fixedMinEdits A) / ↑n ^ 2

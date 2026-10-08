@@ -1,0 +1,58 @@
+CMP OAI.Problem348.no_polynomial_removal_bound [thm] ok
+CMP OAI.Problem348.fixedH [def] ok
+CMP OAI.Problem348.anchor64 [def] ok
+CMP OAI.Problem348.etaBit [def] ok
+CMP OAI.Problem348.BinaryMatrix [def] ok
+CMP OAI.Problem348.copyCount [def] ok
+CMP OAI.Problem348.orderedCopies [def] ok
+CMP OAI.Problem348.IncreasingMap [def] ok
+CMP OAI.Problem348.fixedDistance [def] ok
+CMP OAI.Problem348.fixedMinEdits [def] ok
+CMP OAI.Problem348.fixedMinEdits._proof_1 [thm] ok
+CMP OAI.Problem348.hammingDistance [def] ok
+CMP OAI.Problem348.HFree [def] ok
+Chal.Problem348.no_polynomial_removal_bound : ∀ (c C : ℝ),
+  0 < c →
+    0 < C →
+      ∃ n,
+        1 ≤ n ∧
+          ∃ ε,
+            0 < ε ∧
+              ε < 1 ∧
+                ∃ A,
+                  Chal.Problem348.fixedDistance A ≥ ε ∧
+                    ↑(Chal.Problem348.copyCount Chal.Problem348.fixedH A) < c * ε.rpow C * ↑n ^ 132
+@[reducible] def Chal.Problem348.BinaryMatrix : ℕ → Type :=
+fun n => Fin n → Fin n → Bool
+@[reducible] def Chal.Problem348.IncreasingMap : ℕ → ℕ → Type :=
+fun k n => { f // StrictMono f }
+def Chal.Problem348.orderedCopies : {k n : ℕ} →
+  Chal.Problem348.BinaryMatrix k →
+    Chal.Problem348.BinaryMatrix n → Finset (Chal.Problem348.IncreasingMap k n × Chal.Problem348.IncreasingMap k n) :=
+fun {k n} H A => {rc | ∀ (i j : Fin k), A (↑rc.1 i) (↑rc.2 j) = H i j}
+def Chal.Problem348.copyCount : {k n : ℕ} → Chal.Problem348.BinaryMatrix k → Chal.Problem348.BinaryMatrix n → ℕ :=
+fun {k n} H A => (Chal.Problem348.orderedCopies H A).card
+def Chal.Problem348.HFree : {k n : ℕ} → Chal.Problem348.BinaryMatrix k → Chal.Problem348.BinaryMatrix n → Prop :=
+fun {k n} H A => Chal.Problem348.copyCount H A = 0
+def Chal.Problem348.hammingDistance : {n : ℕ} → Chal.Problem348.BinaryMatrix n → Chal.Problem348.BinaryMatrix n → ℕ :=
+fun {n} A B => {rc | A rc.1 rc.2 ≠ B rc.1 rc.2}.card
+def Chal.Problem348.etaBit : ℕ → ℕ → Bool :=
+fun a b => decide (a / 2 ^ (5 - b) % 2 = 1)
+def Chal.Problem348.anchor64 : Fin 64 → Fin 64 → Bool :=
+fun u v => if 32 ≤ ↑u ∧ 59 ≤ ↑v then Chal.Problem348.etaBit (↑u - 32) (↑v - 58) else decide (↑u ≠ ↑v)
+def Chal.Problem348.fixedH : Chal.Problem348.BinaryMatrix 66 :=
+fun u v =>
+  if hu : ↑u < 64 then
+    if hv : ↑v < 64 then Chal.Problem348.anchor64 ⟨↑u, hu⟩ ⟨↑v, hv⟩ else decide (↑v = 64 ∧ ↑u = 0 ∨ ↑v = 65 ∧ ↑u = 1)
+  else if ↑v < 64 then decide (↑u = 64 ∧ ↑v = 0 ∨ ↑u = 65 ∧ ↑v = 1) else decide (↑u = 65 ∨ ↑v = 64)
+def Chal.Problem348.fixedMinEdits : {n : ℕ} → Chal.Problem348.BinaryMatrix n → ℕ :=
+fun {n} A =>
+  (Finset.image
+        (fun B =>
+          if Chal.Problem348.HFree Chal.Problem348.fixedH B then Chal.Problem348.hammingDistance A B else n * n + 1)
+        Finset.univ).min'
+    ⋯
+def Chal.Problem348.fixedDistance : {n : ℕ} → Chal.Problem348.BinaryMatrix n → ℝ :=
+fun {n} A => ↑(Chal.Problem348.fixedMinEdits A) / ↑n ^ 2
+'OAI.Problem348.no_polynomial_removal_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MatrixRemoval comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
