@@ -9,7 +9,14 @@ export PATH="$HOME/.elan/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
 cd "$L" || exit 1
 cp "Scratch/Cmp_$C.lean" "Scratch/Dbg_$C.lean"
 printf '\nset_option pp.universes true\nset_option pp.explicit true\nset_option pp.proofs true\nset_option pp.fullNames true\n' >> "Scratch/Dbg_$C.lean"
-for n in $(grep -oE 'CMP OAI\.[A-Za-z0-9_.]+ \[(def|thm|ind|ctor)\] [A-Z_]+MISMATCH' "$EV/$C.cmp.txt" | awk '{print $2}'); do
+NAMES=$(grep -oE 'CMP OAI\.[A-Za-z0-9_.]+ \[(def|thm|ind|ctor)\] [A-Z_]+MISMATCH' "$EV/$C.cmp.txt" | awk '{print $2}')
+for n in $NAMES; do
+  printf '#print %s\n#print %s\n' "${n/OAI./Chal.}" "$n" >> "Scratch/Dbg_$C.lean"
+done
+# second pass without notation: set-builder, filter and similar notations hide instance arguments (e.g. the Decidable
+# instance inside Finset.filter), which is exactly where two elaborations of a `classical` tactic block differ
+printf '\nset_option pp.notation false\nset_option pp.fieldNotation false\n' >> "Scratch/Dbg_$C.lean"
+for n in $NAMES; do
   printf '#print %s\n#print %s\n' "${n/OAI./Chal.}" "$n" >> "Scratch/Dbg_$C.lean"
 done
 { echo "== mismatch debug for $C $(date -u +%FT%TZ): the Chal.* constant is the challenge source re-elaborated inside the solution environment; OAI.* is the solution's"; lake env lean "Scratch/Dbg_$C.lean" 2>&1 | grep -v 'has local changes' | grep -v '^CMP '; } > "$EV/$C.mismatch-debug.txt"
