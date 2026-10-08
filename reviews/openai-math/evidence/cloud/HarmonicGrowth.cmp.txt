@@ -1,0 +1,129 @@
+CMP OAI.HarmonicCounterexample.main [thm] ok
+CMP OAI.HarmonicCounterexample.MainClaim [def] ok
+CMP OAI.HarmonicCounterexample.HarmonicGrowth [def] ok
+CMP OAI.HarmonicCounterexample.distance [def] ok
+CMP OAI.HarmonicCounterexample.pathLength [def] ok
+CMP OAI.HarmonicCounterexample.SmoothMetric.coeff [def] ok
+CMP OAI.HarmonicCounterexample.SmoothMetric [ind] ok
+CMP OAI.HarmonicCounterexample.SmoothMetric.mk [ctor] ok
+CMP OAI.HarmonicCounterexample.Mat [def] ok
+CMP OAI.HarmonicCounterexample.Space [def] ok
+CMP OAI.HarmonicCounterexample.laplaceBeltrami [def] ok
+CMP OAI.HarmonicCounterexample.christoffel [def] ok
+CMP OAI.HarmonicCounterexample.coordDeriv [def] ok
+CMP OAI.HarmonicCounterexample.christoffel._proof_1 [thm] ok
+CMP OAI.HarmonicCounterexample.euclideanDimension [def] ok
+CMP OAI.HarmonicCounterexample.PositiveSubunitAVR [def] ok
+CMP OAI.HarmonicCounterexample.omega [def] ok
+CMP OAI.HarmonicCounterexample.ballVolume [def] ok
+CMP OAI.HarmonicCounterexample.EuclideanNearOrigin [def] ok
+CMP OAI.HarmonicCounterexample.RicciNonnegative [def] ok
+CMP OAI.HarmonicCounterexample.ricci [def] ok
+CMP OAI.HarmonicCounterexample.Complete [def] ok
+Chal.HarmonicCounterexample.main : Chal.HarmonicCounterexample.MainClaim
+@[reducible] def Chal.HarmonicCounterexample.Space : ℕ → Type :=
+fun n => Fin n → ℝ
+@[reducible] def Chal.HarmonicCounterexample.Mat : ℕ → Type :=
+fun n => Matrix (Fin n) (Fin n) ℝ
+structure Chal.HarmonicCounterexample.SmoothMetric (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.HarmonicCounterexample.SmoothMetric.coeff : Chal.HarmonicCounterexample.Space n →
+      Chal.HarmonicCounterexample.Mat n
+  Chal.HarmonicCounterexample.SmoothMetric.smooth : ∀ (i j : Fin n), ContDiff ℝ ↑⊤ fun x => self.coeff x i j
+  Chal.HarmonicCounterexample.SmoothMetric.positive : ∀ (x : Chal.HarmonicCounterexample.Space n),
+      Matrix.PosDef (self.coeff x)
+constructor:
+  Chal.HarmonicCounterexample.SmoothMetric.mk {n : ℕ}
+    (coeff : Chal.HarmonicCounterexample.Space n → Chal.HarmonicCounterexample.Mat n)
+    (smooth : ∀ (i j : Fin n), ContDiff ℝ ↑⊤ fun x => coeff x i j)
+    (positive : ∀ (x : Chal.HarmonicCounterexample.Space n), Matrix.PosDef (coeff x)) :
+    Chal.HarmonicCounterexample.SmoothMetric n
+def Chal.HarmonicCounterexample.coordDeriv : {n : ℕ} →
+  Fin n → (Chal.HarmonicCounterexample.Space n → ℝ) → Chal.HarmonicCounterexample.Space n → ℝ :=
+fun {n} i f x => (fderiv ℝ f x) (Pi.single i 1)
+def Chal.HarmonicCounterexample.christoffel : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n → Chal.HarmonicCounterexample.Space n → Fin n → Fin n → Fin n → ℝ :=
+fun {n} g x k i j =>
+  1 / 2 *
+    ∑ l,
+      (g.coeff x)⁻¹ k l *
+        (Chal.HarmonicCounterexample.coordDeriv i (fun y => g.coeff y j l) x +
+            Chal.HarmonicCounterexample.coordDeriv j (fun y => g.coeff y i l) x -
+          Chal.HarmonicCounterexample.coordDeriv l (fun y => g.coeff y i j) x)
+def Chal.HarmonicCounterexample.ricci : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n → Chal.HarmonicCounterexample.Space n → Fin n → Fin n → ℝ :=
+fun {n} g x i j =>
+  ∑ k,
+      (Chal.HarmonicCounterexample.coordDeriv k (fun y => Chal.HarmonicCounterexample.christoffel g y k i j) x -
+        Chal.HarmonicCounterexample.coordDeriv j (fun y => Chal.HarmonicCounterexample.christoffel g y k i k) x) +
+    ∑ k,
+      ∑ l,
+        (Chal.HarmonicCounterexample.christoffel g x k i j * Chal.HarmonicCounterexample.christoffel g x l k l -
+          Chal.HarmonicCounterexample.christoffel g x l i k * Chal.HarmonicCounterexample.christoffel g x k j l)
+def Chal.HarmonicCounterexample.RicciNonnegative : {n : ℕ} → Chal.HarmonicCounterexample.SmoothMetric n → Prop :=
+fun {n} g =>
+  ∀ (x v : Chal.HarmonicCounterexample.Space n), 0 ≤ ∑ i, ∑ j, Chal.HarmonicCounterexample.ricci g x i j * v i * v j
+def Chal.HarmonicCounterexample.laplaceBeltrami : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n →
+    (Chal.HarmonicCounterexample.Space n → ℝ) → Chal.HarmonicCounterexample.Space n → ℝ :=
+fun {n} g u x =>
+  ∑ i,
+    ∑ j,
+      (g.coeff x)⁻¹ i j *
+        (Chal.HarmonicCounterexample.coordDeriv i (Chal.HarmonicCounterexample.coordDeriv j u) x -
+          ∑ k, Chal.HarmonicCounterexample.christoffel g x k i j * Chal.HarmonicCounterexample.coordDeriv k u x)
+def Chal.HarmonicCounterexample.pathLength : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n → (ℝ → Chal.HarmonicCounterexample.Space n) → ℝ :=
+fun {n} g γ => ∫ (t : ℝ) in 0..1, √(∑ i, ∑ j, g.coeff (γ t) i j * deriv γ t i * deriv γ t j)
+def Chal.HarmonicCounterexample.distance : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n →
+    Chal.HarmonicCounterexample.Space n → Chal.HarmonicCounterexample.Space n → ℝ :=
+fun {n} g x y => sInf {L | ∃ γ, ContDiff ℝ 1 γ ∧ γ 0 = x ∧ γ 1 = y ∧ L = Chal.HarmonicCounterexample.pathLength g γ}
+def Chal.HarmonicCounterexample.Complete : {n : ℕ} → Chal.HarmonicCounterexample.SmoothMetric n → Prop :=
+fun {n} g =>
+  ∀ (z : ℕ → Chal.HarmonicCounterexample.Space n),
+    (∀ (ε : ℝ), 0 < ε → ∃ N, ∀ p ≥ N, ∀ q ≥ N, Chal.HarmonicCounterexample.distance g (z p) (z q) < ε) →
+      ∃ x, ∀ (ε : ℝ), 0 < ε → ∃ N, ∀ p ≥ N, Chal.HarmonicCounterexample.distance g (z p) x < ε
+def Chal.HarmonicCounterexample.EuclideanNearOrigin : {n : ℕ} → Chal.HarmonicCounterexample.SmoothMetric n → Prop :=
+fun {n} g => ∃ ε, 0 < ε ∧ ∀ (x : Chal.HarmonicCounterexample.Space n), ∑ i, x i ^ 2 < ε ^ 2 → g.coeff x = 1
+def Chal.HarmonicCounterexample.ballVolume : {n : ℕ} → Chal.HarmonicCounterexample.SmoothMetric n → ℝ → ENNReal :=
+fun {n} g R =>
+  ∫⁻ (x : Chal.HarmonicCounterexample.Space n) in {x | Chal.HarmonicCounterexample.distance g 0 x < R},
+    ENNReal.ofReal √(Matrix.det (g.coeff x))
+def Chal.HarmonicCounterexample.omega : ℕ → ENNReal :=
+fun n => MeasureTheory.volume {x | ∑ i, x i ^ 2 < 1}
+def Chal.HarmonicCounterexample.PositiveSubunitAVR : {n : ℕ} → Chal.HarmonicCounterexample.SmoothMetric n → Prop :=
+fun {n} g =>
+  ∃ a,
+    0 < a ∧
+      a < 1 ∧
+        Filter.Tendsto
+          (fun R =>
+            Chal.HarmonicCounterexample.ballVolume g R / (Chal.HarmonicCounterexample.omega n * ENNReal.ofReal (R ^ n)))
+          Filter.atTop (nhds (ENNReal.ofReal a))
+def Chal.HarmonicCounterexample.HarmonicGrowth : {n : ℕ} →
+  Chal.HarmonicCounterexample.SmoothMetric n → ℕ → (Chal.HarmonicCounterexample.Space n → ℝ) → Prop :=
+fun {n} g k u =>
+  ContDiff ℝ (↑⊤) u ∧
+    (∀ (x : Chal.HarmonicCounterexample.Space n), Chal.HarmonicCounterexample.laplaceBeltrami g u x = 0) ∧
+      ∃ C,
+        0 ≤ C ∧
+          ∀ (x : Chal.HarmonicCounterexample.Space n), |u x| ≤ C * (1 + Chal.HarmonicCounterexample.distance g 0 x) ^ k
+def Chal.HarmonicCounterexample.euclideanDimension : ℕ → ℕ → ℕ :=
+fun n k => (n + k - 1).choose k + (n + k - 2).choose (k - 1)
+def Chal.HarmonicCounterexample.MainClaim : Prop :=
+∃ n k g,
+  Even n ∧
+    8 ≤ n ∧
+      2 ≤ k ∧
+        Chal.HarmonicCounterexample.Complete g ∧
+          Chal.HarmonicCounterexample.RicciNonnegative g ∧
+            Chal.HarmonicCounterexample.EuclideanNearOrigin g ∧
+              Chal.HarmonicCounterexample.PositiveSubunitAVR g ∧
+                ∃ u,
+                  LinearIndependent ℝ u ∧
+                    ∀ (i : Fin (Chal.HarmonicCounterexample.euclideanDimension n k + 1)),
+                      Chal.HarmonicCounterexample.HarmonicGrowth g k (u i)
+'OAI.HarmonicCounterexample.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HarmonicGrowth comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
