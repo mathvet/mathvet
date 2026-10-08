@@ -1,7 +1,7 @@
 CMP OAI.SpinAngle.TypeAngle.one_sided_type_angle [thm] ok
 CMP OAI.SpinAngle.TypeAngle.phi [def] ok
-CMP OAI.SpinAngle.missingInRow [def] TYPE_MISMATCH
-CMP OAI.SpinAngle.occupiedRow [def] TYPE_MISMATCH
+CMP OAI.SpinAngle.missingInRow [def] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.SpinAngle.occupiedRow [def] TYPE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
 CMP OAI.SpinAngle.missingCellProductFactor [def] ok
 CMP OAI.SpinAngle.missingCellFactor [def] ok
 CMP OAI.SpinAngle.TypeBlocks.dimension [def] ok
@@ -399,4 +399,4 @@ def Chal.SpinAngle.TypeAngle.phi.{u_1, u_2} : {R : Type u_1} →
 fun {R} {C} [Fintype R] [DecidableEq R] [Fintype C] [DecidableEq C] W =>
   Chal.SpinAngle.missingCellProductFactor (Fintype.card C) (Chal.SpinAngle.missingInRow W)
 'OAI.SpinAngle.TypeAngle.one_sided_type_angle' depends on axioms: [propext, Classical.choice, Quot.sound]
-== SpinAngle comparator-style: ok=109 problems=2 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== SpinAngle comparator-style: ok=109 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=2
