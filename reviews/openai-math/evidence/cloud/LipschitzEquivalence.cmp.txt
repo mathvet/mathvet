@@ -1,0 +1,48 @@
+CMP OAI.LipschitzCounterexample.main [thm] ok
+CMP OAI.LipschitzCounterexample.MainClaim [def] ok
+CMP OAI.LipschitzCounterexample.ContainsLinearCopy [def] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_7 [thm] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_5 [thm] ok
+CMP OAI.LipschitzCounterexample.RealL2._proof_1 [thm] ok
+CMP OAI.LipschitzCounterexample.RealL2 [def] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_6 [thm] ok
+CMP OAI.LipschitzCounterexample.C0L2 [def] ok
+CMP OAI.LipschitzCounterexample.SeparableRealBanach.normedSpace [def] ok
+CMP OAI.LipschitzCounterexample.SeparableRealBanach [ind] ok
+CMP OAI.LipschitzCounterexample.SeparableRealBanach.mk [ctor] ok
+CMP OAI.LipschitzCounterexample.SeparableRealBanach.normedAddCommGroup [def] ok
+CMP OAI.LipschitzCounterexample.SeparableRealBanach.Carrier [def] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_4 [thm] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_3 [thm] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_2 [thm] ok
+CMP OAI.LipschitzCounterexample.MainClaim._proof_1 [thm] ok
+Chal.LipschitzCounterexample.main : Chal.LipschitzCounterexample.MainClaim
+@[reducible] def Chal.LipschitzCounterexample.RealL2 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 2
+@[reducible] def Chal.LipschitzCounterexample.C0L2 : Type :=
+ZeroAtInftyContinuousMap ℕ ↥Chal.LipschitzCounterexample.RealL2
+structure Chal.LipschitzCounterexample.SeparableRealBanach : Type 1
+number of parameters: 0
+fields:
+  Chal.LipschitzCounterexample.SeparableRealBanach.Carrier : Type
+  Chal.LipschitzCounterexample.SeparableRealBanach.normedAddCommGroup : NormedAddCommGroup self.Carrier
+  Chal.LipschitzCounterexample.SeparableRealBanach.normedSpace : NormedSpace ℝ self.Carrier
+  Chal.LipschitzCounterexample.SeparableRealBanach.completeSpace : CompleteSpace self.Carrier
+  Chal.LipschitzCounterexample.SeparableRealBanach.separableSpace : TopologicalSpace.SeparableSpace self.Carrier
+constructor:
+  Chal.LipschitzCounterexample.SeparableRealBanach.mk (Carrier : Type) [normedAddCommGroup : NormedAddCommGroup Carrier]
+    [normedSpace : NormedSpace ℝ Carrier] [completeSpace : CompleteSpace Carrier]
+    [separableSpace : TopologicalSpace.SeparableSpace Carrier] : Chal.LipschitzCounterexample.SeparableRealBanach
+def Chal.LipschitzCounterexample.ContainsLinearCopy.{uE, uF} : (E : Type uE) →
+  (F : Type uF) →
+    [inst : NormedAddCommGroup E] → [NormedSpace ℝ E] → [inst : NormedAddCommGroup F] → [NormedSpace ℝ F] → Prop :=
+fun E F [NormedAddCommGroup E] [NormedSpace ℝ E] [NormedAddCommGroup F] [NormedSpace ℝ F] =>
+  ∃ T a, 0 < a ∧ ∀ (x : E), a * ‖x‖ ≤ ‖T x‖
+def Chal.LipschitzCounterexample.MainClaim : Prop :=
+∃ X Y Ψ,
+  (∀ (s t : X.Carrier), 4 / 21 * ‖s - t‖ ≤ ‖Ψ s - Ψ t‖ ∧ ‖Ψ s - Ψ t‖ ≤ 76 / 25 * ‖s - t‖) ∧
+    IsEmpty (X.Carrier ≃L[ℝ] Y.Carrier) ∧
+      Nonempty (Chal.LipschitzCounterexample.C0L2 →ₗᵢ[ℝ] X.Carrier) ∧
+        ¬Chal.LipschitzCounterexample.ContainsLinearCopy Chal.LipschitzCounterexample.C0L2 Y.Carrier
+'OAI.LipschitzCounterexample.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LipschitzEquivalence comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
