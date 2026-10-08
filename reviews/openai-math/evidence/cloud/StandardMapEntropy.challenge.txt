@@ -1,0 +1,39 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_StandardMapEntropy.lean:48:8: warning: declaration uses `sorry`
+OAI.StandardMapEntropy.main_entropy : OAI.StandardMapEntropy.MainObligation
+@[reducible] def OAI.StandardMapEntropy.Circle : Type :=
+AddCircle 1
+@[reducible] def OAI.StandardMapEntropy.Torus : Type :=
+OAI.StandardMapEntropy.Circle × OAI.StandardMapEntropy.Circle
+def OAI.StandardMapEntropy.sine : OAI.StandardMapEntropy.Circle → ℝ :=
+fun x => OAI.StandardMapEntropy.sine_periodic.lift x
+def OAI.StandardMapEntropy.standardMap : ℝ → OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus :=
+fun k z => (z.1 + z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1), z.2 + ↑(k * OAI.StandardMapEntropy.sine z.1))
+def OAI.StandardMapEntropy.area : MeasureTheory.Measure OAI.StandardMapEntropy.Torus :=
+MeasureTheory.volume.prod MeasureTheory.volume
+def OAI.StandardMapEntropy.FinitePartition : ℕ → Type :=
+fun r => { p // Measurable p }
+def OAI.StandardMapEntropy.blockAtom : {r : ℕ} →
+  (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) →
+    OAI.StandardMapEntropy.FinitePartition r → (n : ℕ) → (Fin n → Fin (r + 1)) → Set OAI.StandardMapEntropy.Torus :=
+fun {r} f p n w => {z | ∀ (i : Fin n), ↑p (f^[↑i] z) = w i}
+def OAI.StandardMapEntropy.blockEntropy : {r : ℕ} →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+    (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) → OAI.StandardMapEntropy.FinitePartition r → ℕ → ℝ :=
+fun {r} μ f p n =>
+  -∑ w,
+      (μ (OAI.StandardMapEntropy.blockAtom f p n w)).toReal *
+        Real.log (μ (OAI.StandardMapEntropy.blockAtom f p n w)).toReal
+def OAI.StandardMapEntropy.partitionEntropy : {r : ℕ} →
+  MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+    (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) →
+      OAI.StandardMapEntropy.FinitePartition r → ENNReal :=
+fun {r} μ f p => ⨅ n, ENNReal.ofReal (OAI.StandardMapEntropy.blockEntropy μ f p (n + 1) / (↑n + 1))
+def OAI.StandardMapEntropy.metricEntropy : MeasureTheory.Measure OAI.StandardMapEntropy.Torus →
+  (OAI.StandardMapEntropy.Torus → OAI.StandardMapEntropy.Torus) → ENNReal :=
+fun μ f => ⨆ r, ⨆ p, OAI.StandardMapEntropy.partitionEntropy μ f p
+def OAI.StandardMapEntropy.MainObligation : Prop :=
+∃ k₀,
+  0 < k₀ ∧
+    ∀ (k : ℝ),
+      k₀ ≤ k →
+        0 < OAI.StandardMapEntropy.metricEntropy OAI.StandardMapEntropy.area (OAI.StandardMapEntropy.standardMap k)

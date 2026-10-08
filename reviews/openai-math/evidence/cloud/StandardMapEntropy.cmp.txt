@@ -1,0 +1,56 @@
+CMP OAI.StandardMapEntropy.main_entropy [thm] ok
+CMP OAI.StandardMapEntropy.MainObligation [def] ok
+CMP OAI.StandardMapEntropy.standardMap [def] ok
+CMP OAI.StandardMapEntropy.sine [def] ok
+CMP OAI.StandardMapEntropy.sine_periodic [thm] ok
+CMP OAI.StandardMapEntropy.sine._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.Circle [def] ok
+CMP OAI.StandardMapEntropy.Torus [def] ok
+CMP OAI.StandardMapEntropy.area [def] ok
+CMP OAI.StandardMapEntropy.area._proof_1 [thm] ok
+CMP OAI.StandardMapEntropy.metricEntropy [def] ok
+CMP OAI.StandardMapEntropy.partitionEntropy [def] ok
+CMP OAI.StandardMapEntropy.blockEntropy [def] ok
+CMP OAI.StandardMapEntropy.blockAtom [def] ok
+CMP OAI.StandardMapEntropy.FinitePartition [def] ok
+Chal.StandardMapEntropy.main_entropy : Chal.StandardMapEntropy.MainObligation
+@[reducible] def Chal.StandardMapEntropy.Circle : Type :=
+AddCircle 1
+@[reducible] def Chal.StandardMapEntropy.Torus : Type :=
+Chal.StandardMapEntropy.Circle × Chal.StandardMapEntropy.Circle
+def Chal.StandardMapEntropy.sine : Chal.StandardMapEntropy.Circle → ℝ :=
+fun x => Chal.StandardMapEntropy.sine_periodic.lift x
+def Chal.StandardMapEntropy.standardMap : ℝ → Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus :=
+fun k z => (z.1 + z.2 + ↑(k * Chal.StandardMapEntropy.sine z.1), z.2 + ↑(k * Chal.StandardMapEntropy.sine z.1))
+def Chal.StandardMapEntropy.area : MeasureTheory.Measure Chal.StandardMapEntropy.Torus :=
+MeasureTheory.volume.prod MeasureTheory.volume
+def Chal.StandardMapEntropy.FinitePartition : ℕ → Type :=
+fun r => { p // Measurable p }
+def Chal.StandardMapEntropy.blockAtom : {r : ℕ} →
+  (Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus) →
+    Chal.StandardMapEntropy.FinitePartition r → (n : ℕ) → (Fin n → Fin (r + 1)) → Set Chal.StandardMapEntropy.Torus :=
+fun {r} f p n w => {z | ∀ (i : Fin n), ↑p (f^[↑i] z) = w i}
+def Chal.StandardMapEntropy.blockEntropy : {r : ℕ} →
+  MeasureTheory.Measure Chal.StandardMapEntropy.Torus →
+    (Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus) →
+      Chal.StandardMapEntropy.FinitePartition r → ℕ → ℝ :=
+fun {r} μ f p n =>
+  -∑ w,
+      (μ (Chal.StandardMapEntropy.blockAtom f p n w)).toReal *
+        Real.log (μ (Chal.StandardMapEntropy.blockAtom f p n w)).toReal
+def Chal.StandardMapEntropy.partitionEntropy : {r : ℕ} →
+  MeasureTheory.Measure Chal.StandardMapEntropy.Torus →
+    (Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus) →
+      Chal.StandardMapEntropy.FinitePartition r → ENNReal :=
+fun {r} μ f p => ⨅ n, ENNReal.ofReal (Chal.StandardMapEntropy.blockEntropy μ f p (n + 1) / (↑n + 1))
+def Chal.StandardMapEntropy.metricEntropy : MeasureTheory.Measure Chal.StandardMapEntropy.Torus →
+  (Chal.StandardMapEntropy.Torus → Chal.StandardMapEntropy.Torus) → ENNReal :=
+fun μ f => ⨆ r, ⨆ p, Chal.StandardMapEntropy.partitionEntropy μ f p
+def Chal.StandardMapEntropy.MainObligation : Prop :=
+∃ k₀,
+  0 < k₀ ∧
+    ∀ (k : ℝ),
+      k₀ ≤ k →
+        0 < Chal.StandardMapEntropy.metricEntropy Chal.StandardMapEntropy.area (Chal.StandardMapEntropy.standardMap k)
+'OAI.StandardMapEntropy.main_entropy' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StandardMapEntropy comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0
