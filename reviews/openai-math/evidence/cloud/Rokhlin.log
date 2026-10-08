@@ -1,0 +1,30 @@
+== Rokhlin  module=OAI.Dynamics.MultipleMixing.Main  start=2026-10-08T16:51:57Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [8924/8936] Built OAI.Dynamics.MultipleMixing.Foundations (15s)
+✔ [8925/8936] Built OAI.Dynamics.MultipleMixing.Entropy (9.7s)
+✔ [8926/8936] Built OAI.Dynamics.MultipleMixing.HilbertCodes (34s)
+✔ [8927/8936] Built OAI.Dynamics.MultipleMixing.Arrays (18s)
+✔ [8928/8936] Built OAI.Dynamics.MultipleMixing.Saturation (15s)
+✔ [8929/8936] Built OAI.Dynamics.MultipleMixing.Joinings (132s)
+✔ [8930/8936] Built OAI.Dynamics.MultipleMixing.Tensors (45s)
+✔ [8931/8936] Built OAI.Dynamics.MultipleMixing.ExactLines (43s)
+✔ [8932/8936] Built OAI.Dynamics.MultipleMixing.FibreMeasures (25s)
+✔ [8933/8936] Built OAI.Dynamics.MultipleMixing.OrbitCancellation (19s)
+✔ [8934/8936] Built OAI.Dynamics.MultipleMixing.WeakLimits (6.5s)
+✔ [8935/8936] Built OAI.Dynamics.MultipleMixing.Tail (6.6s)
+✔ [8936/8936] Built OAI.Dynamics.MultipleMixing.Main (5.6s)
+Build completed successfully (8936 jobs).
+== build rc=0 seconds=369
+{"theorems": ["OAI.Rokhlin.mixing_all_finite_orders"], "defs": ["OAI.Rokhlin.timeMap", "OAI.Rokhlin.IsMixing", "OAI.Rokhlin.layoutTime", "OAI.Rokhlin.MixingOfOrder"], "json_theorems": ["OAI.Rokhlin.mixing_all_finite_orders"], "missing_from_parse": []}
+AXIOMS: 'OAI.Rokhlin.mixing_all_finite_orders' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-08T16:58:21Z
