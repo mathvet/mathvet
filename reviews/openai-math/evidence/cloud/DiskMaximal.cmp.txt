@@ -1,0 +1,60 @@
+CMP OAI.CenteredDiskEndpoint.main_endpoint [thm] ok
+CMP OAI.CenteredDiskEndpoint.EndpointStatement [def] ok
+CMP OAI.CenteredDiskEndpoint.gradientNorm [def] ok
+CMP OAI.CenteredDiskEndpoint.absoluteDiskAverage._proof_2 [thm] ok
+CMP OAI.CenteredDiskEndpoint.absoluteDiskAverage._proof_1 [thm] ok
+CMP OAI.CenteredDiskEndpoint.Plane [def] ok
+CMP OAI.CenteredDiskEndpoint.InW11Loc [def] ok
+CMP OAI.CenteredDiskEndpoint.HasWeakGradient [def] ok
+CMP OAI.CenteredDiskEndpoint.testPartial [def] ok
+CMP OAI.CenteredDiskEndpoint.maximalReal [def] ok
+CMP OAI.CenteredDiskEndpoint.maximal [def] ok
+CMP OAI.CenteredDiskEndpoint.absoluteDiskAverage [def] ok
+CMP OAI.CenteredDiskEndpoint.EndpointStatement._proof_1 [thm] ok
+Chal.CenteredDiskEndpoint.main_endpoint : Chal.CenteredDiskEndpoint.EndpointStatement
+@[reducible] def Chal.CenteredDiskEndpoint.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.CenteredDiskEndpoint.absoluteDiskAverage : (Chal.CenteredDiskEndpoint.Plane → ℝ) →
+  Chal.CenteredDiskEndpoint.Plane → ℝ → ENNReal :=
+fun f x r =>
+  (∫⁻ (y : Chal.CenteredDiskEndpoint.Plane) in Metric.ball x r, ENNReal.ofReal |f y|) / ENNReal.ofReal (Real.pi * r ^ 2)
+def Chal.CenteredDiskEndpoint.maximal : (Chal.CenteredDiskEndpoint.Plane → ℝ) →
+  Chal.CenteredDiskEndpoint.Plane → ENNReal :=
+fun f x => ⨆ r, ⨆ (_ : 0 < r), Chal.CenteredDiskEndpoint.absoluteDiskAverage f x r
+def Chal.CenteredDiskEndpoint.maximalReal : (Chal.CenteredDiskEndpoint.Plane → ℝ) →
+  Chal.CenteredDiskEndpoint.Plane → ℝ :=
+fun f x => (Chal.CenteredDiskEndpoint.maximal f x).toReal
+def Chal.CenteredDiskEndpoint.testPartial : (Chal.CenteredDiskEndpoint.Plane → ℝ) →
+  Fin 2 → Chal.CenteredDiskEndpoint.Plane → ℝ :=
+fun φ i x => (fderiv ℝ φ x) (EuclideanSpace.single i 1)
+def Chal.CenteredDiskEndpoint.HasWeakGradient : (Chal.CenteredDiskEndpoint.Plane → ℝ) →
+  (Chal.CenteredDiskEndpoint.Plane → Chal.CenteredDiskEndpoint.Plane) → Prop :=
+fun f g =>
+  ∀ (φ : Chal.CenteredDiskEndpoint.Plane → ℝ),
+    ContDiff ℝ (↑⊤) φ →
+      HasCompactSupport φ →
+        ∀ (i : Fin 2),
+          ∫ (x : Chal.CenteredDiskEndpoint.Plane), f x * Chal.CenteredDiskEndpoint.testPartial φ i x =
+            -∫ (x : Chal.CenteredDiskEndpoint.Plane), (g x).ofLp i * φ x
+def Chal.CenteredDiskEndpoint.InW11Loc : (Chal.CenteredDiskEndpoint.Plane → ℝ) → Prop :=
+fun f =>
+  MeasureTheory.LocallyIntegrable f MeasureTheory.volume ∧
+    ∃ g, MeasureTheory.LocallyIntegrable g MeasureTheory.volume ∧ Chal.CenteredDiskEndpoint.HasWeakGradient f g
+def Chal.CenteredDiskEndpoint.gradientNorm : (Chal.CenteredDiskEndpoint.Plane → Chal.CenteredDiskEndpoint.Plane) → ℝ :=
+fun g => ∫ (x : Chal.CenteredDiskEndpoint.Plane), ‖g x‖
+def Chal.CenteredDiskEndpoint.EndpointStatement : Prop :=
+∃ C,
+  0 ≤ C ∧
+    ∀ (f : Chal.CenteredDiskEndpoint.Plane → ℝ) (g : Chal.CenteredDiskEndpoint.Plane → Chal.CenteredDiskEndpoint.Plane),
+      MeasureTheory.Integrable f MeasureTheory.volume →
+        MeasureTheory.Integrable g MeasureTheory.volume →
+          Chal.CenteredDiskEndpoint.HasWeakGradient f g →
+            (∀ᵐ (x : Chal.CenteredDiskEndpoint.Plane), Chal.CenteredDiskEndpoint.maximal f x ≠ ⊤) ∧
+              MeasureTheory.LocallyIntegrable (Chal.CenteredDiskEndpoint.maximalReal f) MeasureTheory.volume ∧
+                Chal.CenteredDiskEndpoint.InW11Loc (Chal.CenteredDiskEndpoint.maximalReal f) ∧
+                  ∃ G,
+                    MeasureTheory.Integrable G MeasureTheory.volume ∧
+                      Chal.CenteredDiskEndpoint.HasWeakGradient (Chal.CenteredDiskEndpoint.maximalReal f) G ∧
+                        Chal.CenteredDiskEndpoint.gradientNorm G ≤ C * Chal.CenteredDiskEndpoint.gradientNorm g
+'OAI.CenteredDiskEndpoint.main_endpoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DiskMaximal comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
