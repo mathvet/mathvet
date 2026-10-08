@@ -1,0 +1,194 @@
+CMP OAI.SplitTangent.integrability_main [thm] ok
+CMP OAI.SplitTangent.IntegrabilityStatement [def] ok
+CMP OAI.SplitTangent.TangentSplitting.second [def] ok
+CMP OAI.SplitTangent.TangentSplitting.projector [def] ok
+CMP OAI.SplitTangent.TangentSplitting [ind] ok
+CMP OAI.SplitTangent.TangentSplitting.mk [ctor] ok
+CMP OAI.SplitTangent.ComplexManifold.holomorphicAtlas [thm] ok
+CMP OAI.SplitTangent.ComplexManifold.charts [def] ok
+CMP OAI.SplitTangent.ComplexManifold [ind] ok
+CMP OAI.SplitTangent.ComplexManifold.mk [ctor] ok
+CMP OAI.SplitTangent.ComplexManifold.topology [def] ok
+CMP OAI.SplitTangent.ComplexManifold.Carrier [def] ok
+CMP OAI.SplitTangent.ComplexManifold.dim [def] ok
+CMP OAI.SplitTangent.ModelWithCorners [def] ok
+CMP OAI.SplitTangent.Model [def] ok
+CMP OAI.SplitTangent.Tangent [def] ok
+CMP OAI.SplitTangent.TangentSplitting.first [def] ok
+CMP OAI.SplitTangent.Integrable [def] ok
+CMP OAI.SplitTangent.HolomorphicSectionOn [def] ok
+CMP OAI.SplitTangent.HolomorphicSectionOn._proof_1 [thm] ok
+CMP OAI.SplitTangent.RationallyConnected [def] ok
+CMP OAI.SplitTangent.RationalCurve.value [def] ok
+CMP OAI.SplitTangent.RationalCurve.finite [def] ok
+CMP OAI.SplitTangent.RationalCurve [ind] ok
+CMP OAI.SplitTangent.RationalCurve.mk [ctor] ok
+CMP OAI.SplitTangent.RationalCurve.infinity [def] ok
+CMP OAI.SplitTangent.IsZariskiOpenPair [def] ok
+CMP OAI.SplitTangent.pairEval [def] ok
+CMP OAI.SplitTangent.ProjectiveEmbedding.map [def] ok
+CMP OAI.SplitTangent.ProjectiveEmbedding [ind] ok
+CMP OAI.SplitTangent.ProjectiveEmbedding.mk [ctor] ok
+CMP OAI.SplitTangent.projectiveCoordinates [def] ok
+CMP OAI.SplitTangent.ProjectiveSpace [def] ok
+CMP OAI.SplitTangent.ProjectiveEmbedding.N [def] ok
+CMP OAI.SplitTangent.Bihomogeneous._proof_1 [thm] ok
+CMP OAI.SplitTangent.PairPolynomial [def] ok
+CMP OAI.SplitTangent.Bihomogeneous [def] ok
+Chal.SplitTangent.integrability_main : Chal.SplitTangent.IntegrabilityStatement
+structure Chal.SplitTangent.ComplexManifold.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  Chal.SplitTangent.ComplexManifold.dim : ℕ
+  Chal.SplitTangent.ComplexManifold.Carrier : Type u
+  Chal.SplitTangent.ComplexManifold.topology : TopologicalSpace self.Carrier
+  Chal.SplitTangent.ComplexManifold.charts : ChartedSpace (Fin self.dim → ℂ) self.Carrier
+  Chal.SplitTangent.ComplexManifold.holomorphicAtlas : IsManifold (modelWithCornersSelf ℂ (Fin self.dim → ℂ)) ⊤
+      self.Carrier
+  Chal.SplitTangent.ComplexManifold.hausdorff : T2Space self.Carrier
+  Chal.SplitTangent.ComplexManifold.secondCountable : SecondCountableTopology self.Carrier
+constructor:
+  Chal.SplitTangent.ComplexManifold.mk.{u} (dim : ℕ) (Carrier : Type u) [topology : TopologicalSpace Carrier]
+    [charts : ChartedSpace (Fin dim → ℂ) Carrier]
+    [holomorphicAtlas : IsManifold (modelWithCornersSelf ℂ (Fin dim → ℂ)) ⊤ Carrier] [hausdorff : T2Space Carrier]
+    [secondCountable : SecondCountableTopology Carrier] : Chal.SplitTangent.ComplexManifold
+@[reducible] def Chal.SplitTangent.Model.{u} : Chal.SplitTangent.ComplexManifold → Type :=
+fun X => Fin X.dim → ℂ
+@[reducible] def Chal.SplitTangent.ModelWithCorners.{u} : (X : Chal.SplitTangent.ComplexManifold) →
+  ModelWithCorners ℂ (Chal.SplitTangent.Model X) (Chal.SplitTangent.Model X) :=
+fun X => modelWithCornersSelf ℂ (Chal.SplitTangent.Model X)
+@[reducible] def Chal.SplitTangent.Tangent.{u} : (X : Chal.SplitTangent.ComplexManifold) → X.Carrier → Type :=
+fun X x => TangentSpace (Chal.SplitTangent.ModelWithCorners X) x
+@[reducible] def Chal.SplitTangent.ProjectiveSpace : ℕ → Type :=
+fun N => Projectivization ℂ (Fin (N + 1) → ℂ)
+def Chal.SplitTangent.projectiveCoordinates : {N : ℕ} →
+  Fin (N + 1) → Chal.SplitTangent.ProjectiveSpace N → Fin (N + 1) → ℂ :=
+fun {N} i p j => (Projectivization.rep p i)⁻¹ * Projectivization.rep p j
+structure Chal.SplitTangent.ProjectiveEmbedding.{u} (X : Chal.SplitTangent.ComplexManifold) : Type u
+number of parameters: 1
+fields:
+  Chal.SplitTangent.ProjectiveEmbedding.N : ℕ
+  Chal.SplitTangent.ProjectiveEmbedding.map : X.Carrier → Chal.SplitTangent.ProjectiveSpace self.N
+  Chal.SplitTangent.ProjectiveEmbedding.injective : Function.Injective self.map
+  Chal.SplitTangent.ProjectiveEmbedding.open_patch : ∀ (i : Fin (self.N + 1)),
+      IsOpen {x | Projectivization.rep (self.map x) i ≠ 0}
+  Chal.SplitTangent.ProjectiveEmbedding.holomorphic : ∀ (i : Fin (self.N + 1)),
+      ContMDiffOn (Chal.SplitTangent.ModelWithCorners X) (modelWithCornersSelf ℂ (Fin (self.N + 1) → ℂ)) ⊤
+        (fun x => Chal.SplitTangent.projectiveCoordinates i (self.map x)) {x | Projectivization.rep (self.map x) i ≠ 0}
+  Chal.SplitTangent.ProjectiveEmbedding.immersion : ∀ (x : X.Carrier) (i : Fin (self.N + 1)),
+      Projectivization.rep (self.map x) i ≠ 0 →
+        Function.Injective ⇑((mfderiv% fun y => Chal.SplitTangent.projectiveCoordinates i (self.map y)) x)
+constructor:
+  Chal.SplitTangent.ProjectiveEmbedding.mk.{u} {X : Chal.SplitTangent.ComplexManifold} (N : ℕ)
+    (map : X.Carrier → Chal.SplitTangent.ProjectiveSpace N) (injective : Function.Injective map)
+    (open_patch : ∀ (i : Fin (N + 1)), IsOpen {x | Projectivization.rep (map x) i ≠ 0})
+    (holomorphic :
+      ∀ (i : Fin (N + 1)),
+        ContMDiffOn (Chal.SplitTangent.ModelWithCorners X) (modelWithCornersSelf ℂ (Fin (N + 1) → ℂ)) ⊤
+          (fun x => Chal.SplitTangent.projectiveCoordinates i (map x)) {x | Projectivization.rep (map x) i ≠ 0})
+    (immersion :
+      ∀ (x : X.Carrier) (i : Fin (N + 1)),
+        Projectivization.rep (map x) i ≠ 0 →
+          Function.Injective ⇑((mfderiv% fun y => Chal.SplitTangent.projectiveCoordinates i (map y)) x)) :
+    Chal.SplitTangent.ProjectiveEmbedding X
+structure Chal.SplitTangent.RationalCurve.{u} (X : Chal.SplitTangent.ComplexManifold) : Type u
+number of parameters: 1
+fields:
+  Chal.SplitTangent.RationalCurve.finite : ℂ → X.Carrier
+  Chal.SplitTangent.RationalCurve.infinity : ℂ → X.Carrier
+  Chal.SplitTangent.RationalCurve.finite_holomorphic : ContMDiff (modelWithCornersSelf ℂ ℂ)
+      (Chal.SplitTangent.ModelWithCorners X) ⊤ self.finite
+  Chal.SplitTangent.RationalCurve.infinity_holomorphic : ContMDiff (modelWithCornersSelf ℂ ℂ)
+      (Chal.SplitTangent.ModelWithCorners X) ⊤ self.infinity
+  Chal.SplitTangent.RationalCurve.overlap : ∀ (z : ℂ), z ≠ 0 → self.finite z = self.infinity z⁻¹
+constructor:
+  Chal.SplitTangent.RationalCurve.mk.{u} {X : Chal.SplitTangent.ComplexManifold} (finite infinity : ℂ → X.Carrier)
+    (finite_holomorphic : ContMDiff (modelWithCornersSelf ℂ ℂ) (Chal.SplitTangent.ModelWithCorners X) ⊤ finite)
+    (infinity_holomorphic : ContMDiff (modelWithCornersSelf ℂ ℂ) (Chal.SplitTangent.ModelWithCorners X) ⊤ infinity)
+    (overlap : ∀ (z : ℂ), z ≠ 0 → finite z = infinity z⁻¹) : Chal.SplitTangent.RationalCurve X
+def Chal.SplitTangent.RationalCurve.value.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  Chal.SplitTangent.RationalCurve X → OnePoint ℂ → X.Carrier :=
+fun {X} g z => z.elim (g.infinity 0) g.finite
+@[reducible] def Chal.SplitTangent.PairPolynomial : ℕ → Type :=
+fun N => MvPolynomial (Fin 2 × Fin (N + 1)) ℂ
+def Chal.SplitTangent.Bihomogeneous : {N : ℕ} → Chal.SplitTangent.PairPolynomial N → Prop :=
+fun {N} p => ∃ a b, ∀ m ∈ MvPolynomial.support p, ∑ i, m (0, i) = a ∧ ∑ i, m (1, i) = b
+def Chal.SplitTangent.pairEval.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  (e : Chal.SplitTangent.ProjectiveEmbedding X) → Chal.SplitTangent.PairPolynomial e.N → X.Carrier × X.Carrier → ℂ :=
+fun {X} e p xy =>
+  (MvPolynomial.eval fun k =>
+      if k.1 = 0 then Projectivization.rep (e.map xy.1) k.2 else Projectivization.rep (e.map xy.2) k.2)
+    p
+def Chal.SplitTangent.IsZariskiOpenPair.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  Chal.SplitTangent.ProjectiveEmbedding X → Set (X.Carrier × X.Carrier) → Prop :=
+fun {X} e U =>
+  ∃ equations,
+    (∀ p ∈ equations, Chal.SplitTangent.Bihomogeneous p) ∧
+      U = {xy | ∃ p ∈ equations, Chal.SplitTangent.pairEval e p xy ≠ 0}
+def Chal.SplitTangent.RationallyConnected.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  Chal.SplitTangent.ProjectiveEmbedding X → Prop :=
+fun {X} e =>
+  ∃ U,
+    Chal.SplitTangent.IsZariskiOpenPair e U ∧
+      U.Nonempty ∧ Dense U ∧ ∀ xy ∈ U, ∃ g a b, g.value a = xy.1 ∧ g.value b = xy.2
+structure Chal.SplitTangent.TangentSplitting.{u} (X : Chal.SplitTangent.ComplexManifold) : Type u
+number of parameters: 1
+fields:
+  Chal.SplitTangent.TangentSplitting.projector : (x : X.Carrier) →
+      Chal.SplitTangent.Tangent X x →L[ℂ] Chal.SplitTangent.Tangent X x
+  Chal.SplitTangent.TangentSplitting.idempotent : ∀ (x : X.Carrier) (v : Chal.SplitTangent.Tangent X x),
+      (self.projector x) ((self.projector x) v) = (self.projector x) v
+  Chal.SplitTangent.TangentSplitting.holomorphic : ContMDiff
+      ((Chal.SplitTangent.ModelWithCorners X).prod (modelWithCornersSelf ℂ (Chal.SplitTangent.Model X)))
+      ((Chal.SplitTangent.ModelWithCorners X).prod (modelWithCornersSelf ℂ (Chal.SplitTangent.Model X))) ⊤ fun v =>
+      ⟨v.proj, (self.projector v.proj) v.snd⟩
+  Chal.SplitTangent.TangentSplitting.first_positive : ∀ (x : X.Carrier),
+      0 < Module.finrank ℂ ↥(↑(self.projector x)).range
+  Chal.SplitTangent.TangentSplitting.second_positive : ∀ (x : X.Carrier),
+      0 < Module.finrank ℂ ↥(↑(self.projector x)).ker
+constructor:
+  Chal.SplitTangent.TangentSplitting.mk.{u} {X : Chal.SplitTangent.ComplexManifold}
+    (projector : (x : X.Carrier) → Chal.SplitTangent.Tangent X x →L[ℂ] Chal.SplitTangent.Tangent X x)
+    (idempotent :
+      ∀ (x : X.Carrier) (v : Chal.SplitTangent.Tangent X x), (projector x) ((projector x) v) = (projector x) v)
+    (holomorphic :
+      ContMDiff ((Chal.SplitTangent.ModelWithCorners X).prod (modelWithCornersSelf ℂ (Chal.SplitTangent.Model X)))
+        ((Chal.SplitTangent.ModelWithCorners X).prod (modelWithCornersSelf ℂ (Chal.SplitTangent.Model X))) ⊤ fun v =>
+        ⟨v.proj, (projector v.proj) v.snd⟩)
+    (first_positive : ∀ (x : X.Carrier), 0 < Module.finrank ℂ ↥(↑(projector x)).range)
+    (second_positive : ∀ (x : X.Carrier), 0 < Module.finrank ℂ ↥(↑(projector x)).ker) :
+    Chal.SplitTangent.TangentSplitting X
+def Chal.SplitTangent.TangentSplitting.first.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  Chal.SplitTangent.TangentSplitting X → (x : X.Carrier) → Submodule ℂ (Chal.SplitTangent.Tangent X x) :=
+fun {X} S x => (↑(S.projector x)).range
+def Chal.SplitTangent.TangentSplitting.second.{u} : {X : Chal.SplitTangent.ComplexManifold} →
+  Chal.SplitTangent.TangentSplitting X → (x : X.Carrier) → Submodule ℂ (Chal.SplitTangent.Tangent X x) :=
+fun {X} S x => (↑(S.projector x)).ker
+def Chal.SplitTangent.HolomorphicSectionOn.{u} : (X : Chal.SplitTangent.ComplexManifold) →
+  ((x : X.Carrier) → Chal.SplitTangent.Tangent X x) → Set X.Carrier → Prop :=
+fun X V U =>
+  ContMDiffOn (Chal.SplitTangent.ModelWithCorners X)
+    ((Chal.SplitTangent.ModelWithCorners X).prod (modelWithCornersSelf ℂ (Chal.SplitTangent.Model X))) ⊤
+    (fun x => ⟨x, V x⟩) U
+def Chal.SplitTangent.Integrable.{u} : (X : Chal.SplitTangent.ComplexManifold) →
+  ((x : X.Carrier) → Submodule ℂ (Chal.SplitTangent.Tangent X x)) → Prop :=
+fun X D =>
+  ∀ (U : Set X.Carrier),
+    IsOpen U →
+      ∀ (V W : (x : X.Carrier) → Chal.SplitTangent.Tangent X x),
+        Chal.SplitTangent.HolomorphicSectionOn X V U →
+          Chal.SplitTangent.HolomorphicSectionOn X W U →
+            (∀ x ∈ U, V x ∈ D x) →
+              (∀ x ∈ U, W x ∈ D x) →
+                ∀ x ∈ U, VectorField.mlieBracketWithin (Chal.SplitTangent.ModelWithCorners X) V W U x ∈ D x
+def Chal.SplitTangent.IntegrabilityStatement.{u} : Prop :=
+∀ (X : Chal.SplitTangent.ComplexManifold),
+  ConnectedSpace X.Carrier →
+    CompactSpace X.Carrier →
+      2 ≤ X.dim →
+        ∀ (e : Chal.SplitTangent.ProjectiveEmbedding X),
+          Chal.SplitTangent.RationallyConnected e →
+            ∀ (S : Chal.SplitTangent.TangentSplitting X),
+              Chal.SplitTangent.Integrable X S.first ∧ Chal.SplitTangent.Integrable X S.second
+'OAI.SplitTangent.integrability_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SplitTangentIntegrability comparator-style: ok=37 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
