@@ -1,0 +1,41 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_KaplanskyQuasitrace.lean:48:8: warning: declaration uses `sorry`
+OAI.Kaplansky.kaplansky_quasitrace_counterexample : OAI.Kaplansky.MainTarget
+structure OAI.Kaplansky.OneQuasitrace.{u_2} (A : Type u_2) [CStarAlgebra A] : Type u_2
+number of parameters: 2
+fields:
+  OAI.Kaplansky.OneQuasitrace.toFun : A → ℂ
+  OAI.Kaplansky.OneQuasitrace.square_nonneg : ∀ (x : A), 0 ≤ self.toFun (star x * x)
+  OAI.Kaplansky.OneQuasitrace.square_swap : ∀ (x : A), self.toFun (star x * x) = self.toFun (x * star x)
+  OAI.Kaplansky.OneQuasitrace.real_imag : ∀ (h k : A),
+      IsSelfAdjoint h → IsSelfAdjoint k → self.toFun (h + Complex.I • k) = self.toFun h + Complex.I * self.toFun k
+  OAI.Kaplansky.OneQuasitrace.abelian_linear : ∀ (S : NonUnitalStarSubalgebra ℂ A),
+      IsClosed ↑S → (∀ (x y : ↥S), x * y = y * x) → ∃ f, ∀ (x : ↥S), f x = self.toFun ↑x
+constructor:
+  OAI.Kaplansky.OneQuasitrace.mk.{u_2} {A : Type u_2} [CStarAlgebra A] (toFun : A → ℂ)
+    (square_nonneg : ∀ (x : A), 0 ≤ toFun (star x * x))
+    (square_swap : ∀ (x : A), toFun (star x * x) = toFun (x * star x))
+    (real_imag :
+      ∀ (h k : A), IsSelfAdjoint h → IsSelfAdjoint k → toFun (h + Complex.I • k) = toFun h + Complex.I * toFun k)
+    (abelian_linear :
+      ∀ (S : NonUnitalStarSubalgebra ℂ A),
+        IsClosed ↑S → (∀ (x y : ↥S), x * y = y * x) → ∃ f, ∀ (x : ↥S), f x = toFun ↑x) :
+    OAI.Kaplansky.OneQuasitrace A
+def OAI.Kaplansky.OneQuasitrace.Normalized.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → OAI.Kaplansky.OneQuasitrace A → Prop :=
+fun {A} [CStarAlgebra A] τ => τ.toFun 1 = 1
+def OAI.Kaplansky.upperLeft.{u_1} : {A : Type u_1} → [CStarAlgebra A] → A → CStarMatrix (Fin 2) (Fin 2) A :=
+fun {A} [CStarAlgebra A] a => CStarMatrix.ofMatrix fun i j => if i = 0 ∧ j = 0 then a else 0
+def OAI.Kaplansky.OneQuasitrace.IsTwo.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → OAI.Kaplansky.OneQuasitrace A → Prop :=
+fun {A} [CStarAlgebra A] τ => ∃ σ, ∀ (a : A), σ.toFun (OAI.Kaplansky.upperLeft a) = τ.toFun a
+def OAI.Kaplansky.PositiveContraction.{u_1} : {A : Type u_1} → [CStarAlgebra A] → A → Prop :=
+fun {A} [CStarAlgebra A] a => (∃ x, a = star x * x) ∧ ‖a‖ ≤ 1
+def OAI.Kaplansky.MainTarget : Prop :=
+∃ A inst,
+  TopologicalSpace.SeparableSpace A ∧
+    (∃ τ, τ.Normalized ∧ τ.IsTwo) ∧
+      ∃ a b,
+        OAI.Kaplansky.PositiveContraction a ∧
+          OAI.Kaplansky.PositiveContraction b ∧
+            ∀ (τ : OAI.Kaplansky.OneQuasitrace A),
+              τ.Normalized → τ.IsTwo → 1 / 144 ≤ (τ.toFun (a + b) - τ.toFun a - τ.toFun b).re
