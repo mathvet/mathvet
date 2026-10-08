@@ -1,0 +1,12 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_MahlerConjecture.lean:15:8: warning: declaration uses `sorry`
+@OAI.SymmetricMahler.symmetric_mahler : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ {K : Set (Fin n → ℝ)},
+      IsCompact K →
+        Convex ℝ K →
+          (∀ x ∈ K, -x ∈ K) →
+            (interior K).Nonempty →
+              4 ^ n / ↑n.factorial ≤
+                (MeasureTheory.volume K).toReal * (MeasureTheory.volume (OAI.SymmetricMahler.coordinatePolar K)).toReal
+def OAI.SymmetricMahler.coordinatePolar.{u_1} : {I : Type u_1} → [Fintype I] → Set (I → ℝ) → Set (I → ℝ) :=
+fun {I} [Fintype I] K => {p | ∀ v ∈ K, ∑ i, p i * v i ≤ 1}
