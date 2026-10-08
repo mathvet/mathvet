@@ -1,0 +1,70 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LaughlinPlanar.lean:76:8: warning: declaration uses `sorry`
+@OAI.Laughlin.planar_gap : ∀ {N : ℕ} (ψ : OAI.Laughlin.Planar.HomogeneousState N),
+  ENNReal.ofReal OAI.Laughlin.gammaStar * OAI.Laughlin.Planar.fullEnergy ψ ≤ OAI.Laughlin.Planar.fullSquareNorm ψ
+def OAI.Laughlin.gammaStar : ℝ :=
+4616733319001 / 10 ^ 14
+def OAI.Laughlin.pairLimitCoefficient : ℕ → ℕ → ℕ → ℝ :=
+fun p x y => if x + y = p + 1 then (↑x - ↑y) * √(↑p.factorial / (↑2 ^ p * ↑x.factorial * ↑y.factorial)) / √↑2 else 0
+@[reducible] def OAI.Laughlin.Fock.Orbital : ℕ → Type :=
+fun Q => Fin (Q + 1) → ℂ
+@[reducible] def OAI.Laughlin.Fock.Space : ℕ → Type :=
+fun Q => ExteriorAlgebra ℂ (OAI.Laughlin.Fock.Orbital Q)
+def OAI.Laughlin.Fock.annihilate : {Q : ℕ} → Fin (Q + 1) → Module.End ℂ (OAI.Laughlin.Fock.Space Q) :=
+fun {Q} i => CliffordAlgebra.contractLeft (LinearMap.proj i)
+def OAI.Laughlin.Fock.occupationBasis : (Q : ℕ) → Module.Basis (Finset (Fin (Q + 1))) ℂ (OAI.Laughlin.Fock.Space Q) :=
+fun Q => (Pi.basisFun ℂ (Fin (Q + 1))).ExteriorAlgebra
+def OAI.Laughlin.Fock.OccupationBidegree : (Q : ℕ) → ℕ → ℕ → OAI.Laughlin.Fock.Space Q → Prop :=
+fun Q n w x =>
+  ∀ (A : Finset (Fin (Q + 1))), A.card ≠ n ∨ ∑ i ∈ A, ↑i ≠ w → ((OAI.Laughlin.Fock.occupationBasis Q).repr x) A = 0
+@[reducible] def OAI.Laughlin.Planar.Occupations : ℕ → Type :=
+fun L => Finset (Fin (L + 1))
+def OAI.Laughlin.Planar.pairMatrix : (L : ℕ) →
+  (Fin (L + 1) → Fin (L + 1) → ℂ) → Matrix (OAI.Laughlin.Planar.Occupations L) (OAI.Laughlin.Planar.Occupations L) ℂ :=
+fun L c A B =>
+  ∑ i,
+    ∑ j,
+      c i j *
+        ((OAI.Laughlin.Fock.occupationBasis L).repr
+            ((OAI.Laughlin.Fock.annihilate j)
+              ((OAI.Laughlin.Fock.annihilate i) ((OAI.Laughlin.Fock.occupationBasis L) B))))
+          A
+def OAI.Laughlin.Planar.planarCoefficient : ℕ → ℕ → ℕ → ℂ :=
+fun p i j => ↑(OAI.Laughlin.pairLimitCoefficient p i j / √↑2)
+def OAI.Laughlin.Planar.planarPairMatrix : (L : ℕ) →
+  ℕ → Matrix (OAI.Laughlin.Planar.Occupations L) (OAI.Laughlin.Planar.Occupations L) ℂ :=
+fun L p => OAI.Laughlin.Planar.pairMatrix L fun i j => OAI.Laughlin.Planar.planarCoefficient p ↑i ↑j
+def OAI.Laughlin.Planar.planarHamiltonian : (L : ℕ) →
+  Matrix (OAI.Laughlin.Planar.Occupations L) (OAI.Laughlin.Planar.Occupations L) ℂ :=
+fun L =>
+  ∑ p ∈ Finset.range (2 * L + 1),
+    (OAI.Laughlin.Planar.planarPairMatrix L p).conjTranspose * OAI.Laughlin.Planar.planarPairMatrix L p
+def OAI.Laughlin.Planar.pairEnergy : (L : ℕ) →
+  (ℕ → Matrix (OAI.Laughlin.Planar.Occupations L) (OAI.Laughlin.Planar.Occupations L) ℂ) →
+    (OAI.Laughlin.Planar.Occupations L → ℂ) → ℝ :=
+fun L P x => ∑ p ∈ Finset.range (2 * L + 1), ∑ A, ‖(P p).mulVec x A‖ ^ 2
+def OAI.Laughlin.Planar.squareNorm : (L : ℕ) →
+  Matrix (OAI.Laughlin.Planar.Occupations L) (OAI.Laughlin.Planar.Occupations L) ℂ →
+    (OAI.Laughlin.Planar.Occupations L → ℂ) → ℝ :=
+fun L H x => ∑ A, ‖H.mulVec x A‖ ^ 2
+structure OAI.Laughlin.Planar.HomogeneousState (N : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Laughlin.Planar.HomogeneousState.block : (L : ℕ) → OAI.Laughlin.Fock.Space L
+  OAI.Laughlin.Planar.HomogeneousState.homogeneous : ∀ (L : ℕ),
+      OAI.Laughlin.Fock.OccupationBidegree L N L (self.block L)
+constructor:
+  OAI.Laughlin.Planar.HomogeneousState.mk {N : ℕ} (block : (L : ℕ) → OAI.Laughlin.Fock.Space L)
+    (homogeneous : ∀ (L : ℕ), OAI.Laughlin.Fock.OccupationBidegree L N L (block L)) :
+    OAI.Laughlin.Planar.HomogeneousState N
+def OAI.Laughlin.Planar.fullEnergy : {N : ℕ} → OAI.Laughlin.Planar.HomogeneousState N → ENNReal :=
+fun {N} ψ =>
+  ∑' (L : ℕ),
+    ENNReal.ofReal
+      (OAI.Laughlin.Planar.pairEnergy L (OAI.Laughlin.Planar.planarPairMatrix L) fun A =>
+        ((OAI.Laughlin.Fock.occupationBasis L).repr (ψ.block L)) A)
+def OAI.Laughlin.Planar.fullSquareNorm : {N : ℕ} → OAI.Laughlin.Planar.HomogeneousState N → ENNReal :=
+fun {N} ψ =>
+  ∑' (L : ℕ),
+    ENNReal.ofReal
+      (OAI.Laughlin.Planar.squareNorm L (OAI.Laughlin.Planar.planarHamiltonian L) fun A =>
+        ((OAI.Laughlin.Fock.occupationBasis L).repr (ψ.block L)) A)
