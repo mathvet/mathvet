@@ -30,9 +30,44 @@ The formalization transfers a weak Hessian upper bound to every prescribed minim
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Weak Hessian bounds along every geodesic in RCD spaces** — [`preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/paper.pdf); `theorem` `weight:every-geodesic` (Weak Hessian bounds along every geodesic) at [`build/sections/introduction.tex:52`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/build/sections/introduction.tex#L52):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 Gigli’s distributional curvature characterization of Alexandrov spaces — *not linked from the scope note*
+
+[`preprints/Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026)
+
+`theorem` `main:equivalence` (Gigli's characterization) at [`build/sections/introduction.tex:63`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026/build/sections/introduction.tex#L63):
+
+```latex
+\begin{theorem}[Gigli's characterization]
+\label{main:equivalence}
+Let \(n\ge2\) be an integer, let \(\kappa\in\R\), and let \((M,d)\)
+be a complete separable metric space. The following conditions are
+equivalent.
+\begin{enumerate}[label=\textup{(\Alph*)}]
+\item \((M,d)\) is an \(n\)-dimensional Alexandrov space with curvature
+bounded below by \(\kappa\).
+\item With \(m=\mathcal H^n_d\), the space \((M,d,m)\) has full support,
+is \(\RCD((n-1)\kappa,n)\), and satisfies
+\begin{equation}
+\label{eq:main-curvature}
+R(X,Y,Y,X)(f)\ge
+\kappa\int_M f\bigl(|X|^2|Y|^2-\langle X,Y\rangle^2\bigr)\dd m
+\end{equation}
+for every \(X,Y\in\TestV(M)\) and every nonnegative \(f\in\Test(M)\).
+\end{enumerate}
+The \(\RCD\) condition is unreduced, and the test classes and
+curvature sign are exactly those defined above.
+\end{theorem}
+```
+
+### 4.2 Weak Hessian bounds along every geodesic in RCD spaces — *linked from the scope note*
+
+[`preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026)
+
+`theorem` `weight:every-geodesic` (Weak Hessian bounds along every geodesic) at [`build/sections/introduction.tex:52`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/build/sections/introduction.tex#L52):
 
 ```latex
 \begin{theorem}[Weak Hessian bounds along every geodesic]
@@ -58,10 +93,6 @@ Then every constant-speed minimizing geodesic
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [Gigli’s distributional curvature characterization of Alexandrov spaces](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026); [Weak Hessian bounds along every geodesic in RCD spaces](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026)
-
 ## 5. Your classification
 
-Enter one line for family `356` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `356` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

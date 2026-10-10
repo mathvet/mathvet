@@ -32,9 +32,78 @@ The linked comparison results also prove Jiang–Su absorption and uniform prope
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Tracial projection methods and uniform property Gamma** — [`preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf); `theorem` `r:thm:main` (Real rank zero and uniform property $\Gamma$) at [`build/sections/01_introduction.tex:57`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L57):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 Equivariant Jiang–Su Stability for Amenable Actions in the Unital Stably Finite Case — *not linked from the scope note*
+
+[`preprints/Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:10`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026/build/sections/introduction.tex#L10):
+
+```latex
+\begin{theorem}\label{thm:main}
+Let \(A\) be a simple, separable, unital, infinite-dimensional, nuclear,
+stably finite complex \(\mathrm C^*\)-algebra satisfying
+\(A\cong A\otimes\Zalg\). Let \(G\) be a countable discrete amenable group
+and let \(\alpha:G\to\Aut(A)\) be any action. Put
+\[
+ B=A\otimes\Zalg,\qquad
+ \beta_g=\alpha_g\otimes\operatorname{id}_{\Zalg}.
+\]
+There are a unital \(*\)-isomorphism \(\Phi:A\to B\) and unitaries
+\(u_g\in B\), \(g\in G\), such that
+\begin{align}
+ u_e&=1,& u_{gh}&=u_g\beta_g(u_h),\label{eq:cocycle}\\
+ \Phi(\alpha_g(a))&=u_g\beta_g(\Phi(a))u_g^*
+ &&(g\in G,\ a\in A).\label{eq:conjugacy}
+\end{align}
+\end{theorem}
+```
+
+### 4.2 Cuntz comparison and Jiang–Su absorption — *not linked from the scope note*
+
+[`preprints/Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026)
+
+`theorem` `ext:thm:main` (Simple comparison and absorption) at [`build/sections/introduction.tex:61`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026/build/sections/introduction.tex#L61):
+
+```latex
+\begin{theorem}[Simple comparison and absorption]
+\label{ext:thm:main}
+Let $A$ be a separable simple nuclear non-elementary $C^*$-algebra.
+If $A$ has strict comparison in the sense of
+Equation~\eqref{ext:eq:comparison}, then $A\cong A\otimes_{\min}\Z$.
+\end{theorem}
+```
+
+### 4.3 Nuclear dimension and Jiang–Su stability without elementary subquotients — *not linked from the scope note*
+
+[`preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026)
+
+`theorem` `thm:main` (Nonsimple nuclear regularity) at [`build/sections/01_introduction.tex:24`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026/build/sections/01_introduction.tex#L24):
+
+```latex
+\begin{theorem}[Nonsimple nuclear regularity]
+\label{thm:main}
+\label{intro:regularity}
+Let $A$ be a separable nuclear complex $C^*$-algebra with no nonzero
+elementary ideal subquotients. The following conditions are equivalent:
+\begin{enumerate}
+\item $\nucdim(A)<\infty$;
+\item $A\cong A\otimes\Z$;
+\item $\nucdim(A)\le1$.
+\end{enumerate}
+\end{theorem}
+```
+
+Also located: `theorem` `intro:main` (Sharp bound after Jiang--Su absorption) at [`build/sections/01_introduction.tex:70`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026/build/sections/01_introduction.tex#L70).
+
+### 4.4 Tracial projection methods and uniform property Gamma — *linked from the scope note*
+
+[`preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026)
+
+`theorem` `r:thm:main` (Real rank zero and uniform property $\Gamma$) at [`build/sections/01_introduction.tex:57`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L57):
 
 ```latex
 \begin{theorem}[Real rank zero and uniform property $\Gamma$]
@@ -52,40 +121,10 @@ In particular, $A$ has uniform property $\Gamma$.
 \end{theorem}
 ```
 
-**Tracial projection methods and uniform property Gamma** — [`preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf); `theorem` `u:thm:main` (The direct unital comparison route) at [`build/sections/01_introduction.tex:207`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L207) (further candidate):
+Also located: `theorem` `u:thm:main` (The direct unital comparison route) at [`build/sections/01_introduction.tex:207`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L207).
 
-```latex
-\begin{theorem}[The direct unital comparison route]\label{u:thm:main}
-Let $A$ be a simple, separable, unital, infinite-dimensional nuclear
-$C^*$-algebra with strict comparison in the preceding sense.
-Then $A\cong A\otimes\Z$. When $T(A)\ne\varnothing$, the proof constructs
-uniform property $\Gamma$ directly.
-\end{theorem}
-```
-
-**Tracial projection methods and uniform property Gamma** — [`preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf); `theorem` `n:thm:main` (The direct stably projectionless route) at [`build/sections/01_introduction.tex:237`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L237) (further candidate):
-
-```latex
-\begin{theorem}[The direct stably projectionless route]\label{n:thm:main}
-Let $A$ be a nonzero simple, separable, nuclear $C^*$-algebra such that
-$A\otimes\K$ has no nonzero projections. Suppose that every trace in
-$T_{\mathrm{lsc}}(A)$ is bounded on the positive unit ball and that
-$T_1(A)$ is nonempty and weak-$*$ compact. Assume that, for
-$a,b\in(A\otimes\K)_+$ with $b\ne0$,
-\[
- d_\tau(a)<1\quad
- \text{for every }\tau\in T_{\mathrm{lsc}}(A)
- \text{ with }d_\tau(b)=1
- \quad\Longrightarrow\quad a\precsim b.
-\]
-Then $A$ has uniform property $\Gamma$ and $A\cong A\otimes\Z$.
-\end{theorem}
-```
-
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [Equivariant Jiang–Su Stability for Amenable Actions in the Unital Stably Finite Case](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026); [Cuntz comparison and Jiang–Su absorption](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026); [Nuclear dimension and Jiang–Su stability without elementary subquotients](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026); [Tracial projection methods and uniform property Gamma](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026)
+Also located: `theorem` `n:thm:main` (The direct stably projectionless route) at [`build/sections/01_introduction.tex:237`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/build/sections/01_introduction.tex#L237).
 
 ## 5. Your classification
 
-Enter one line for family `291` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `291` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

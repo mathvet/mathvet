@@ -54,9 +54,51 @@ The formalization also contains fixed-field transfer results, separate from the 
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**A Counterexample to the Group-Ring Determinant Conjecture** — [`preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/paper.pdf); `theorem` `thm:main` at [`build/main.tex:90`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/build/main.tex#L90):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 A Torsion-Free Group Algebra That Is Not Directly Finite — *not linked from the scope note*
+
+[`preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:13`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/build/sections/introduction.tex#L13):
+
+```latex
+\begin{theorem}\label{thm:main}
+There exist a finitely presented torsion-free group $G$ and elements
+$a,b,c\in\Ftwo[G]$ such that
+\[
+ ab=1,\qquad ac=0,\qquad c\ne0.
+\]
+Consequently $ba\ne1$. The group $G$ admits a finite two-dimensional
+classifying complex.
+\end{theorem}
+```
+
+### 4.2 A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two — *linked from the scope note*
+
+[`preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026)
+
+`theorem` `thm:main` at [`build/sections/01-introduction.tex:8`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/build/sections/01-introduction.tex#L8):
+
+```latex
+\begin{theorem}
+\label{thm:main}
+There exist a finite field $K$ of characteristic two, a finitely presented group $G$ containing an element of odd prime order, and elements $a_{\mathrm{out}},b_{\mathrm{out}}\in K[G]$ such that
+\[
+a_{\mathrm{out}}b_{\mathrm{out}}=1,
+\qquad b_{\mathrm{out}}a_{\mathrm{out}}\ne1.
+\]
+The field, group, and finite sums are specified by a terminating prescription involving finite sets and finite-field arithmetic.
+\end{theorem}
+```
+
+### 4.3 A Counterexample to the Group-Ring Determinant Conjecture — *linked from the scope note*
+
+[`preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026)
+
+`theorem` `thm:main` at [`build/main.tex:90`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026/build/main.tex#L90):
 
 ```latex
 \begin{theorem}\label{thm:main}
@@ -72,21 +114,11 @@ has a negative resolution.
 \end{theorem}
 ```
 
-**A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two** — [`preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/01-introduction.tex:8`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/build/sections/01-introduction.tex#L8) (further candidate):
+### 4.4 A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic — *linked from the scope note*
 
-```latex
-\begin{theorem}
-\label{thm:main}
-There exist a finite field $K$ of characteristic two, a finitely presented group $G$ containing an element of odd prime order, and elements $a_{\mathrm{out}},b_{\mathrm{out}}\in K[G]$ such that
-\[
-a_{\mathrm{out}}b_{\mathrm{out}}=1,
-\qquad b_{\mathrm{out}}a_{\mathrm{out}}\ne1.
-\]
-The field, group, and finite sums are specified by a terminating prescription involving finite sets and finite-field arithmetic.
-\end{theorem}
-```
+[`preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026)
 
-**A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic** — [`preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/paper.pdf); `theorem` `op:main` at [`build/sections/01-introduction.tex:13`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/build/sections/01-introduction.tex#L13) (further candidate):
+`theorem` `op:main` at [`build/sections/01-introduction.tex:13`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026/build/sections/01-introduction.tex#L13):
 
 ```latex
 \begin{theorem}\label{op:main}
@@ -101,10 +133,6 @@ finite sums $a,b\in K[G]$ satisfying $ab=1$ and $ba\ne1$.
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [A Torsion-Free Group Algebra That Is Not Directly Finite](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026); [A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026); [A Counterexample to the Group-Ring Determinant Conjecture](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026); [A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026)
-
 ## 5. Your classification
 
-Enter one line for family `197` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `197` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

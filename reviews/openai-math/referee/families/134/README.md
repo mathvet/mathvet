@@ -37,30 +37,15 @@ Generalized star height measures the nesting of Kleene stars in regular expressi
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Generalized Star Height at Most Three** — [`preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/introduction.tex:29`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/build/sections/introduction.tex#L29):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
 
-```latex
-\begin{theorem}\label{thm:main}
-For every finite alphabet $\Sigma$ and every regular language
-$L\subseteq\Sigma^*$,
-\[
-                            h_\Sigma(L)\le3.
-\]
-\end{theorem}
-```
+### 4.1 Finite Monoid Computations and a Uniform Generalized Star-Height Bound — *linked from the scope note*
 
-**Generalized Star Height at Most Four** — [`preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/01-introduction.tex:24`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/build/sections/01-introduction.tex#L24) (further candidate):
+[`preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026)
 
-```latex
-\begin{theorem}\label{thm:main}
-For every finite alphabet $\Sigma$ and every regular language
-$L\subseteq\Sigma^*$, one has $h_\Sigma(L)\le4$.
-\end{theorem}
-```
-
-**Finite Monoid Computations and a Uniform Generalized Star-Height Bound** — [`preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/introduction.tex:33`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/build/sections/introduction.tex#L33) (further candidate):
+`theorem` `thm:main` at [`build/sections/introduction.tex:33`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026/build/sections/introduction.tex#L33):
 
 ```latex
 \begin{theorem}\label{thm:main}
@@ -72,10 +57,35 @@ For every finite alphabet \(\Sigma\) and every regular language
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
+### 4.2 Generalized Star Height at Most Four — *linked from the scope note*
 
-Papers of this family: [Finite Monoid Computations and a Uniform Generalized Star-Height Bound](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026); [Generalized Star Height at Most Four](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026); [Generalized Star Height at Most Three](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026)
+[`preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026)
+
+`theorem` `thm:main` at [`build/sections/01-introduction.tex:24`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Four-September-25-2026/build/sections/01-introduction.tex#L24):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every finite alphabet $\Sigma$ and every regular language
+$L\subseteq\Sigma^*$, one has $h_\Sigma(L)\le4$.
+\end{theorem}
+```
+
+### 4.3 Generalized Star Height at Most Three — *linked from the scope note*
+
+[`preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:29`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Generalized-Star-Height-at-Most-Three-September-25-2026/build/sections/introduction.tex#L29):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every finite alphabet $\Sigma$ and every regular language
+$L\subseteq\Sigma^*$,
+\[
+                            h_\Sigma(L)\le3.
+\]
+\end{theorem}
+```
 
 ## 5. Your classification
 
-Enter one line for family `134` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `134` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

@@ -32,9 +32,15 @@ The later semi-model structure and full comparison with the homotopy theory of s
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**The Grothendieck homotopy hypothesis via elementary expansions** — [`preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/00-introduction.tex:50`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/build/sections/00-introduction.tex#L50):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 The Grothendieck homotopy hypothesis via elementary expansions — *linked from the scope note*
+
+[`preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026)
+
+`theorem` `thm:main` at [`build/sections/00-introduction.tex:50`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026/build/sections/00-introduction.tex#L50):
 
 ```latex
 \begin{theorem}\label{thm:main}
@@ -59,10 +65,6 @@ is a weak equivalence.
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [The Grothendieck homotopy hypothesis via elementary expansions](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026)
-
 ## 5. Your classification
 
-Enter one line for family `312` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `312` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

@@ -34,9 +34,34 @@ For torsion-free $G$, it identifies the trace on $K_0(\mathbb C[G])$ with the in
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture** — [`preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/paper.pdf); `theorem` `thm:bass` at [`build/sections/01-introduction.tex:45`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/01-introduction.tex#L45):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 The ℓ¹-Bass Conjecture for Discrete Groups — *not linked from the scope note*
+
+[`preprints/The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026)
+
+`theorem` `thm:main` at [`build/sections/01-introduction.tex:35`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026/build/sections/01-introduction.tex#L35):
+
+```latex
+\begin{theorem}\label{thm:main}
+Let $G$ be a discrete group, let $q\ge1$, and let
+$e\in M_q(\ell^1(G))$ be idempotent.
+There is a finite set $F\subset\mathcal C_{\rm fin}(G)$ such that
+$\tau_C(e)=0$ for every $C\notin F$. Equivalently,
+\[
+ \operatorname{HS}^1\bigl(K_0(\ell^1(G))\bigr)
+ \subseteq \bigoplus_{C\in\mathcal C_{\rm fin}(G)}\C[C].
+\]
+\end{theorem}
+```
+
+### 4.2 The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture — *linked from the scope note*
+
+[`preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026)
+
+`theorem` `thm:bass` at [`build/sections/01-introduction.tex:45`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/01-introduction.tex#L45):
 
 ```latex
 \begin{theorem}\label{thm:bass}
@@ -54,10 +79,6 @@ finite-order elements, then
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [The ℓ¹-Bass Conjecture for Discrete Groups](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026); [The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026)
-
 ## 5. Your classification
 
-Enter one line for family `207` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `207` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

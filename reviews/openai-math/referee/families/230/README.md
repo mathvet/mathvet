@@ -31,9 +31,34 @@ For $0<\kappa<8$, put $d=1+\kappa/8$. The formalization proves that every contin
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**An explicit exact Hausdorff gauge for SLE** — [`preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/paper.pdf); `theorem` `thm:main` at [`build/sections/introduction.tex:66`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/build/sections/introduction.tex#L66):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 An exact Hausdorff gauge for SLE — *linked from the scope note*
+
+[`preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026)
+
+`theorem` `thm:main` (An exact moment gauge) at [`build/sections/introduction.tex:38`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/build/sections/introduction.tex#L38):
+
+```latex
+\begin{theorem}[An exact moment gauge]\label{thm:main}
+Fix $0<\kappa<8$, and let $\gamma$ be chordal $\SLE_\kappa$ from
+$0$ to $\infty$ in the upper half-plane $\HH$, parametrized by half-plane capacity $2t$.
+There is a deterministic Hausdorff gauge $h_\kappa$, depending only on
+$\kappa$, such that almost surely, simultaneously for every real
+$0<s<t<\infty$,
+\[
+ 0<\Haus^{h_\kappa}(\gamma([s,t]))<\infty.
+\]
+\end{theorem}
+```
+
+### 4.2 An explicit exact Hausdorff gauge for SLE — *linked from the scope note*
+
+[`preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:66`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/build/sections/introduction.tex#L66):
 
 ```latex
 \begin{theorem}\label{thm:main}
@@ -58,25 +83,6 @@ In particular, on the same probability-one event,
 \end{theorem}
 ```
 
-**An exact Hausdorff gauge for SLE** — [`preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/paper.pdf); `theorem` `thm:main` (An exact moment gauge) at [`build/sections/introduction.tex:38`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026/build/sections/introduction.tex#L38) (further candidate):
-
-```latex
-\begin{theorem}[An exact moment gauge]\label{thm:main}
-Fix $0<\kappa<8$, and let $\gamma$ be chordal $\SLE_\kappa$ from
-$0$ to $\infty$ in the upper half-plane $\HH$, parametrized by half-plane capacity $2t$.
-There is a deterministic Hausdorff gauge $h_\kappa$, depending only on
-$\kappa$, such that almost surely, simultaneously for every real
-$0<s<t<\infty$,
-\[
- 0<\Haus^{h_\kappa}(\gamma([s,t]))<\infty.
-\]
-\end{theorem}
-```
-
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [An exact Hausdorff gauge for SLE](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-exact-Hausdorff-gauge-for-SLE-September-25-2026); [An explicit exact Hausdorff gauge for SLE](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026)
-
 ## 5. Your classification
 
-Enter one line for family `230` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `230` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

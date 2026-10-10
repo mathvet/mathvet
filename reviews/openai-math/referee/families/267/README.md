@@ -32,9 +32,102 @@ The bound covers every pure ground state, every mixed state supported on the gro
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Ground-state condensation in the dilute hard-sphere gas** — [`preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/paper.pdf); `theorem` `main:theorem` (Condensation in every ground state) at [`build/sections/introduction.tex:48`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/build/sections/introduction.tex#L48):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 Bose–Einstein condensation at positive temperature in the dilute hard-sphere gas — *not linked from the scope note*
+
+[`preprints/Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:41`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026/build/sections/introduction.tex#L41):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every $a>0$, there is $\rho_*(a)>0$ such that for each fixed
+$0<\rho<\rho_*(a)$ there is a fixed temperature $T=T(a,\rho)>0$ for which
+\[
+ \liminf_{\substack{L\to\infty\\N/L^3\to\rho}}
+ \frac{\langle u_{0,L},\gamma^{(1)}_{N,L,T}u_{0,L}\rangle}{N}>0.
+\]
+The exclusion distance, density, and temperature are held fixed in this
+limit.
+\end{theorem}
+```
+
+### 4.2 Quantum Depletion and Momentum Distribution in the Dilute Hard-Sphere Bose Gas — *not linked from the scope note*
+
+[`preprints/Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:66`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026/build/sections/introduction.tex#L66):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every $a>0$, every bounded continuous real function $f$ on $\R^3$,
+and every $\eps>0$, there is $\rho_0(a,f,\eps)>0$ with the following
+property. Fix $0<\rho<\rho_0$ and put $\eta=\rho a^3$. For every
+sequence $N_j,L_j\longrightarrow\infty$ with
+$N_j/L_j^3\longrightarrow\rho$,
+\begin{equation}\label{intro:main-limit}
+ \limsup_{j\to\infty}\ \sup_{\Gamma\in\mathcal G_{N_j,L_j,a}}
+ \left|
+ \frac{1}{N_j\sqrt\eta}
+ \sum_{\substack{k\in(2\pi/L_j)\Z^3\\k\ne0}}
+ f\!\left(\frac{k}{\sqrt{8\pi\rho a}}\right)n_{\Gamma,L_j}(k)
+       -\int_{\R^3}f\,\dd\nu_{\mathrm{Bog}}
+ \right|\le\eps.
+\end{equation}
+\end{theorem}
+```
+
+### 4.3 Quantum Depletion for Fixed Bounded Repulsive Potentials — *not linked from the scope note*
+
+[`preprints/Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026)
+
+`theorem` `thm:main` at [`build/source/sections/introduction.tex:41`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026/build/source/sections/introduction.tex#L41):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every potential $v$ satisfying the assumptions above and every
+$\epsilon>0$, there is $\rho_0(v,\epsilon)>0$ such that, for every fixed
+$0<\rho<\rho_0(v,\epsilon)$ and every sequence
+$N_k,L_k\to\infty$ with $N_k/L_k^3\to\rho$,
+\[
+ \limsup_{k\to\infty}\ \sup_{\Gamma\in\mathcal G^v_{N_k,L_k}}
+ \left|\frac{1-B_\Gamma}{\sqrt{\rho a_v^3}}
+                       -\frac8{3\sqrt\pi}\right|\le\epsilon.
+\]
+\end{theorem}
+```
+
+### 4.4 A density-uniform condensate bound for dilute Bose gases — *not linked from the scope note*
+
+[`preprints/A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026)
+
+`theorem` `thm:main` at [`build/sections/introduction.tex:25`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026/build/sections/introduction.tex#L25):
+
+```latex
+\begin{theorem}\label{thm:main}
+For every potential $v$ as above there are constants
+$\rho_*(v)>0$ and $c_*(v)>0$ with the following property.
+For every $0<\rho<\rho_*(v)$ there is $L_0(\rho,v)<\infty$ such that,
+for every $L\ge L_0(\rho,v)$, every integer $N\ge1$ satisfying
+$\rho/2\le N/L^3\le2\rho$, and every $0\le T\le\rho^2$,
+\[
+ \frac{\langle u_0,\gamma^{(1)}_{N,L,T}u_0\rangle}{N}
+ \ge c_*(v).
+\]
+Consequently, for each such fixed density $\rho$ and fixed
+$0\le T\le\rho^2$, every sequence with $L\to\infty$ and
+$N/L^3\to\rho$ has lower limiting condensate fraction at least $c_*(v)$.
+\end{theorem}
+```
+
+### 4.5 Ground-state condensation in the dilute hard-sphere gas — *linked from the scope note*
+
+[`preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026)
+
+`theorem` `main:theorem` (Condensation in every ground state) at [`build/sections/introduction.tex:48`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/build/sections/introduction.tex#L48):
 
 ```latex
 \begin{theorem}[Condensation in every ground state]\label{main:theorem}
@@ -53,10 +146,6 @@ eigenvectors $\Psi_k$ of the hard-sphere Hamiltonians,
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [Bose–Einstein condensation at positive temperature in the dilute hard-sphere gas](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026); [Quantum Depletion and Momentum Distribution in the Dilute Hard-Sphere Bose Gas](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026); [Quantum Depletion for Fixed Bounded Repulsive Potentials](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026); [A density-uniform condensate bound for dilute Bose gases](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026); [Ground-state condensation in the dilute hard-sphere gas](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026)
-
 ## 5. Your classification
 
-Enter one line for family `267` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `267` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

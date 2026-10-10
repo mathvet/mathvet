@@ -171,3 +171,13 @@ Split by `family` (never by challenge): siblings share summary, scope text and p
 - **Upstream content** (`lean_text`, `lean_targets`, `solution_*`, `nl_main_theorems[*].tex`, the abstracts, `family_summary`, `family_scope`, `challenge_result_labels`): extracted from `openai/math`, distributed under the Apache License 2.0 (`LICENSE` at the upstream root and in `lean/`); the manuscripts are credited to "OpenAI". Redistribution keeps the license and must say what was changed: here, 8 Lean files are truncated, TeX comments are removed from the blocks, cone numbers for three challenges are corrected, and all of it is reformatted as JSON. `source_url` and `lean_sha256` point back to the originals.
 - **Our additions** (`fidelity_*`, `nl_extraction_quality`, `nl_main_theorems[*].reason|match_score`, `one_to_one`, `check_*`, the family-level audit, `stats.json`, the builder): offered under Apache-2.0 as well, so the file has a single license. This is a default, not a decision recorded elsewhere in this repository: change it here before any public release if you want otherwise.
 - No warranty. The fidelity labels are an audit of statements against summaries, not a proof that any theorem is true or that any Lean definition is standard.
+
+## `paper_main_theorems.json` (added 2026-10-10)
+
+One entry per preprint directory at the reviewed commit (722 papers): the paper's main theorem as located by the same
+extractor that fills `nl_main_theorems` (the block with a main-theorem label or title, else the first theorem of the
+introduction, else the first theorem-like environment; up to three blocks per paper), with `tex_file` and `tex_line`
+relative to the paper directory and the TeX excerpt. The per-challenge `nl_main_theorems` field covers only the papers
+the lab's scope note links to the Lean; for 13 of the 40 referee-sample families the paper the headline is about is not
+among them, so the referee packet (`reviews/openai-math/referee/`) takes its section 4 from this file instead, listing
+every paper of the family in catalogue order. Built by the private `scripts/build_paper_theorems.py`.

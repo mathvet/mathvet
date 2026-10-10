@@ -41,9 +41,15 @@ The underlying estimate gives constants $0<\varepsilon<1/4$ and $C<\infty$ such 
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Brennan's conjecture and sharp inverse-square integral means** — [`preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/paper.pdf); `theorem` `thm:main` (Brennan's conjecture and inverse-square means) at [`build/sections/00-introduction.tex:52`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/build/sections/00-introduction.tex#L52):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 Brennan's conjecture and sharp inverse-square integral means — *linked from the scope note*
+
+[`preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026)
+
+`theorem` `thm:main` (Brennan's conjecture and inverse-square means) at [`build/sections/00-introduction.tex:52`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/build/sections/00-introduction.tex#L52):
 
 ```latex
 \begin{theorem}[Brennan's conjecture and inverse-square means]
@@ -70,7 +76,11 @@ Equivalently, every univalent map $f:\DD\to\CC$ satisfies
 \end{theorem}
 ```
 
-**A strict inverse-first-power bound for univalent functions** — [`preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/paper.pdf); `theorem` `thm:main` (Uniform inverse-first-power bound) at [`build/sections/00-introduction.tex:44`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/build/sections/00-introduction.tex#L44) (further candidate):
+### 4.2 A strict inverse-first-power bound for univalent functions — *linked from the scope note*
+
+[`preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026)
+
+`theorem` `thm:main` (Uniform inverse-first-power bound) at [`build/sections/00-introduction.tex:44`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026/build/sections/00-introduction.tex#L44):
 
 ```latex
 \begin{theorem}[Uniform inverse-first-power bound]\label{thm:main}
@@ -84,10 +94,6 @@ Consequently \(B_b(-1)<1/4\), and Kraetzer's conjectured identity
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [Brennan's conjecture and sharp inverse-square integral means](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026); [A strict inverse-first-power bound for univalent functions](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026)
-
 ## 5. Your classification
 
-Enter one line for family `072` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `072` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

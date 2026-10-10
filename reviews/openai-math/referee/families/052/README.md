@@ -37,9 +37,15 @@ The formalization proves integrability of both summands in a holomorphic splitti
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**Universal-cover splitting for compact Kähler manifolds** — [`preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/paper.pdf); `theorem` `thm:main` at [`build/intro.tex:100`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/build/intro.tex#L100):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 Universal-cover splitting for compact Kähler manifolds — *linked from the scope note*
+
+[`preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026)
+
+`theorem` `thm:main` at [`build/intro.tex:100`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026/build/intro.tex#L100):
 
 ```latex
 \begin{theorem}\label{thm:main}
@@ -61,7 +67,11 @@ In particular, $\dim_\C Y_i=r_i$.
 \end{theorem}
 ```
 
-**Integrability of split tangent bundles on rationally connected manifolds** — [`preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/paper.pdf); `theorem` `thm:main` (Automatic integrability) at [`build/sections/introduction.tex:21`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/build/sections/introduction.tex#L21) (further candidate):
+### 4.2 Integrability of split tangent bundles on rationally connected manifolds — *linked from the scope note*
+
+[`preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026)
+
+`theorem` `thm:main` (Automatic integrability) at [`build/sections/introduction.tex:21`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026/build/sections/introduction.tex#L21):
 
 ```latex
 \begin{theorem}[Automatic integrability]\label[theorem]{thm:main}
@@ -75,10 +85,6 @@ into subbundles of positive rank, both \(E_1\) and \(E_2\) are integrable.
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [Universal-cover splitting for compact Kähler manifolds](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026); [Integrability of split tangent bundles on rationally connected manifolds](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026)
-
 ## 5. Your classification
 
-Enter one line for family `052` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `052` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.

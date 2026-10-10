@@ -30,9 +30,15 @@ The formalized result constructs a nonempty contractible complex threefold with 
 
 The challenge file is the statement the solution must match; its proofs are `sorry` by design. The theorem names listed in the config are the ones the Comparator compares.
 
-## 4. The paper's main theorem (file and line, with the TeX excerpt)
+## 4. The papers of this family and their main theorems (file and line, TeX excerpt)
 
-**A negatively pinched Kähler threefold without bounded holomorphic coordinates** — [`preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf); `theorem` `main:theorem` at [`build/sections/01-introduction.tex:39`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/build/sections/01-introduction.tex#L39):
+Papers in the order of the catalogue entry. The headline's first-named claim may be stated in any of them; the scope note links the Lean to the paper(s) marked *linked from the scope note*. Each theorem below was located by a text heuristic: the block carrying a main-theorem label or title, else the first theorem of the introduction, else the first theorem-like environment. It is a pointer, not a judgment. If it is not the statement the headline refers to, or the headline refers to a different paper, read that paper's own statement and say so in your justification.
+
+### 4.1 A negatively pinched Kähler threefold without bounded holomorphic coordinates — *linked from the scope note*
+
+[`preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026)
+
+`theorem` `main:theorem` at [`build/sections/01-introduction.tex:39`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/build/sections/01-introduction.tex#L39):
 
 ```latex
 \begin{theorem}\label{main:theorem}
@@ -48,42 +54,27 @@ in $\C^3$.
 \end{theorem}
 ```
 
-**A negatively pinched Kähler threefold without bounded holomorphic coordinates** — [`preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/paper.pdf); `theorem` `density:main` (Uniform representing densities) at [`build/sections/04-densities-construction.tex:98`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/build/sections/04-densities-construction.tex#L98) (further candidate):
+Also located: `theorem` `density:main` (Uniform representing densities) at [`build/sections/04-densities-construction.tex:98`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026/build/sections/04-densities-construction.tex#L98).
+
+### 4.2 One-sided negative sectional curvature and the holomorphic Liouville property — *not linked from the scope note*
+
+[`preprints/One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026/paper.pdf`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026/paper.pdf) · [source](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026)
+
+`theorem` `thm:main` at [`build/01-introduction.tex:21`](https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026/build/01-introduction.tex#L21):
 
 ```latex
-\begin{theorem}[Uniform representing densities]\label{density:main}
-There is a constant $K_*>0$, depending only on the fixed profiles
-$f,b$ and $R_0$, with the following property.  For every fixed
-$D_0>\max\{1,2\sqrt{2R_0}\}$ there is an integer threshold $Q_0$
-such that, for every integer $Q\ge Q_0$ and every choice of the
-separated sets above, the recursion \eqref{density:recursion}
-has the following properties for all $j\ge1$:
-\begin{enumerate}
-\item $W_j$ is smooth and strictly positive, and $W_j\,d\sigma$
-represents holomorphic evaluation at zero.  In particular it is
-a probability measure.
-\item Under global phase rotation, $W_j$ has frequencies only
-between $-\ell_j$ and $\ell_j$, and its mean on every phase orbit
-is exactly one.
-\item At every point of $S$,
-\begin{equation}\label{density:uniform-bounds}
- \begin{gathered}
- c_0W_{j-1}\le W_j\le2W_{j-1},\\
- |ZW_j|\le K_*\sqrt{k_j}\,W_j,
- \qquad |TW_j|\le K_*k_jW_j
- \end{gathered}
-\end{equation}
-for every unit horizontal vector $Z$.
-\end{enumerate}
-The threshold $Q_0$ may also be enlarged to impose any fixed lower
-threshold on the degrees $k_j$.
+\begin{theorem}\label{thm:main}
+For some finite integer $m\ge2$ there is a domain
+$\mathcal T\subset\mathbb C^m$, diffeomorphic to $\mathbb R^{2m}$,
+with a complete K\"ahler metric $g$ such that
+\[
+ \operatorname{Sec}_g\le-1,
+ \qquad H^\infty(\mathcal T)=\mathbb C.
+\]
+The sectional curvatures of $g$ are unbounded below.
 \end{theorem}
 ```
 
-The theorem was located by a text heuristic (see `dataset/README.md`). If it is not the statement the headline refers to, read the paper's own statement and say so in your justification.
-
-Papers of this family: [A negatively pinched Kähler threefold without bounded holomorphic coordinates](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026); [One-sided negative sectional curvature and the holomorphic Liouville property](https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026)
-
 ## 5. Your classification
 
-Enter one line for family `359` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, and the minutes spent.
+Enter one line for family `359` in your copy of `form.csv`: the class (`full`, `partial`, `weaker-statement`, `supporting-only` or `none`, rubric in `README.md`), one sentence of justification naming the step or the gap, any non-standard definition you noticed, and the minutes spent.
