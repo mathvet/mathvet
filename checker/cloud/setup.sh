@@ -5,7 +5,9 @@
 # environment's allowed domains, or set MATHLIB_CACHE_GET_URL to a mirror). Writes a machine report to tmp/cloud-machine.txt.
 set -uo pipefail
 ROOT="${MATHVET_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
-UP="$ROOT/upstream/openai-math"; COMMIT=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+UP="$ROOT/upstream/openai-math"
+# the upstream commit the review currently describes (reviews/openai-math/source/index.json), unless UPSTREAM_COMMIT overrides it
+COMMIT="${UPSTREAM_COMMIT:-$(python3 -c "import json;print(json.load(open('$ROOT/reviews/openai-math/source/index.json'))['commit'])")}"
 export PATH="$HOME/.elan/bin:$HOME/.local/bin:$PATH" ELAN_NO_OVERRIDE_NOTICE=1
 mkdir -p "$ROOT/tmp" "$HOME/.local/bin"
 log(){ echo "== $(date -u +%FT%TZ) $*"; }
