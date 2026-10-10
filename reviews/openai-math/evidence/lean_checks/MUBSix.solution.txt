@@ -1,0 +1,41 @@
+OAI.MUB6.fourier_and_family_bound : (∀ (H : OAI.MUB6.CMatrix),
+    OAI.MUB6.IsHadamard H →
+      ¬OAI.MUB6.Equivalent H OAI.MUB6.tao →
+        ∀ (π : Equiv.Perm OAI.MUB6.Coord), OAI.MUB6.g H (OAI.MUB6.permuteCharge π OAI.MUB6.alpha) = 0) ∧
+  ∀ (n : ℕ), OAI.MUB6.Attainable n → n ≤ 5
+'OAI.MUB6.fourier_and_family_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.MUB6.Coord : Type :=
+Fin 6
+@[reducible] def OAI.MUB6.CMatrix : Type :=
+Matrix OAI.MUB6.Coord OAI.MUB6.Coord ℂ
+@[reducible] def OAI.MUB6.Charge : Type :=
+OAI.MUB6.Coord → ℤ
+def OAI.MUB6.IsHadamard : OAI.MUB6.CMatrix → Prop :=
+fun H => (∀ (i j : OAI.MUB6.Coord), Complex.normSq (H i j) = 1) ∧ Matrix.conjTranspose H * H = 6 • 1
+def OAI.MUB6.character : (OAI.MUB6.Coord → ℂ) → OAI.MUB6.Charge → ℂ :=
+fun x a => ∏ i, x i ^ a i
+def OAI.MUB6.g : OAI.MUB6.CMatrix → OAI.MUB6.Charge → ℂ :=
+fun H a => 6⁻¹ * ∑ k, OAI.MUB6.character (fun i => H i k) a
+def OAI.MUB6.alpha : OAI.MUB6.Charge :=
+![1, 1, 1, -1, -1, -1]
+def OAI.MUB6.permuteCharge : Equiv.Perm OAI.MUB6.Coord → OAI.MUB6.Charge → OAI.MUB6.Charge :=
+fun π a => a ∘ ⇑π
+def OAI.MUB6.Equivalent : OAI.MUB6.CMatrix → OAI.MUB6.CMatrix → Prop :=
+fun H K =>
+  ∃ r c u v,
+    (∀ (i : OAI.MUB6.Coord), Complex.normSq (u i) = 1) ∧
+      (∀ (j : OAI.MUB6.Coord), Complex.normSq (v j) = 1) ∧ ∀ (i j : OAI.MUB6.Coord), K i j = u i * H (r i) (c j) * v j
+def OAI.MUB6.omega : ℂ :=
+Complex.exp (2 * ↑Real.pi * Complex.I / 3)
+def OAI.MUB6.taoExponent : Matrix OAI.MUB6.Coord OAI.MUB6.Coord ℕ :=
+!![0, 0, 0, 0, 0, 0; 0, 0, 1, 2, 2, 1; 0, 1, 0, 1, 2, 2; 0, 2, 1, 0, 1, 2; 0, 2, 2, 1, 0, 1; 0, 1, 2, 2, 1, 0]
+def OAI.MUB6.tao : OAI.MUB6.CMatrix :=
+fun i j => OAI.MUB6.omega ^ OAI.MUB6.taoExponent i j
+@[reducible] def OAI.MUB6.Space : Type :=
+EuclideanSpace ℂ OAI.MUB6.Coord
+@[reducible] def OAI.MUB6.Basis : Type :=
+OrthonormalBasis OAI.MUB6.Coord ℂ OAI.MUB6.Space
+def OAI.MUB6.IsMUBFamily : {n : ℕ} → (Fin n → OAI.MUB6.Basis) → Prop :=
+fun {n} B => ∀ (r s : Fin n), r ≠ s → ∀ (i j : OAI.MUB6.Coord), Complex.normSq (inner ℂ ((B r) i) ((B s) j)) = 1 / 6
+def OAI.MUB6.Attainable : ℕ → Prop :=
+fun n => ∃ B, OAI.MUB6.IsMUBFamily B

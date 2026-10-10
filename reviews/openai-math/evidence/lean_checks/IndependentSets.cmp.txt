@@ -1,0 +1,116 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_IndependentSets.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LargeIndependentSets.mainTheoremReal [thm] ok
+CMP OAI.LargeIndependentSets.RealGraphReduction [ind] ok
+CMP OAI.LargeIndependentSets.RealGraphReduction.mk [ctor] ok
+CMP OAI.LargeIndependentSets.Graph.vertices [def] ok
+CMP OAI.LargeIndependentSets.Graph [ind] ok
+CMP OAI.LargeIndependentSets.Graph.mk [ctor] ok
+CMP OAI.LargeIndependentSets.Graph.independenceNumber [def] ok
+CMP OAI.LargeIndependentSets.instDecidableIndependent [def] ok
+CMP OAI.LargeIndependentSets.instDecidableIndependent._aux_1 [def] ok
+CMP OAI.LargeIndependentSets.Graph.adj [def] ok
+CMP OAI.LargeIndependentSets.Graph.Independent [def] ok
+CMP OAI.LargeIndependentSets.formulaBits [def] ok
+CMP OAI.LargeIndependentSets.clauseBits [def] ok
+CMP OAI.LargeIndependentSets.literalBits [def] ok
+CMP OAI.LargeIndependentSets.Literal.name [def] ok
+CMP OAI.LargeIndependentSets.Literal [ind] ok
+CMP OAI.LargeIndependentSets.Literal.mk [ctor] ok
+CMP OAI.LargeIndependentSets.nameBits [def] ok
+CMP OAI.LargeIndependentSets.frame [def] ok
+CMP OAI.LargeIndependentSets.frame._f [def] ok
+CMP OAI.LargeIndependentSets.frame.match_1 [def] ok
+CMP OAI.LargeIndependentSets.Literal.positive [def] ok
+CMP OAI.LargeIndependentSets.Formula.clauses [def] ok
+CMP OAI.LargeIndependentSets.Formula [ind] ok
+CMP OAI.LargeIndependentSets.Formula.mk [ctor] ok
+CMP OAI.LargeIndependentSets.Graph.ThreeColorable [def] ok
+CMP OAI.LargeIndependentSets.Formula.Satisfiable [def] ok
+CMP OAI.LargeIndependentSets.graphBits [def] ok
+Chal.LargeIndependentSets.mainTheoremReal : ∀ (δ : ℝ),
+  0 < δ → δ < 1 / 3 → Nonempty (Chal.LargeIndependentSets.RealGraphReduction δ)
+structure Chal.LargeIndependentSets.Literal : Type
+number of parameters: 0
+fields:
+  Chal.LargeIndependentSets.Literal.name : ℕ
+  Chal.LargeIndependentSets.Literal.positive : Bool
+constructor:
+  Chal.LargeIndependentSets.Literal.mk (name : ℕ) (positive : Bool) : Chal.LargeIndependentSets.Literal
+structure Chal.LargeIndependentSets.Formula : Type
+number of parameters: 0
+fields:
+  Chal.LargeIndependentSets.Formula.clauses : List (List Chal.LargeIndependentSets.Literal)
+  Chal.LargeIndependentSets.Formula.width : ∀ C ∈ self.clauses, C.length ≤ 3
+constructor:
+  Chal.LargeIndependentSets.Formula.mk (clauses : List (List Chal.LargeIndependentSets.Literal))
+    (width : ∀ C ∈ clauses, C.length ≤ 3) : Chal.LargeIndependentSets.Formula
+def Chal.LargeIndependentSets.Formula.Satisfiable : Chal.LargeIndependentSets.Formula → Prop :=
+fun φ => ∃ assignment, ∀ C ∈ φ.clauses, ∃ l ∈ C, assignment l.name = l.positive
+def Chal.LargeIndependentSets.frame : List Bool → List Bool :=
+fun x => List.brecOn x Chal.LargeIndependentSets.frame._f
+def Chal.LargeIndependentSets.nameBits : ℕ → List Bool :=
+fun n => Chal.LargeIndependentSets.frame n.bits
+def Chal.LargeIndependentSets.literalBits : Chal.LargeIndependentSets.Literal → List Bool :=
+fun l => l.positive :: Chal.LargeIndependentSets.nameBits l.name
+def Chal.LargeIndependentSets.clauseBits : List Chal.LargeIndependentSets.Literal → List Bool :=
+fun C => Chal.LargeIndependentSets.nameBits C.length ++ List.flatMap Chal.LargeIndependentSets.literalBits C
+def Chal.LargeIndependentSets.formulaBits : Chal.LargeIndependentSets.Formula → List Bool :=
+fun φ =>
+  Chal.LargeIndependentSets.nameBits φ.clauses.length ++ List.flatMap Chal.LargeIndependentSets.clauseBits φ.clauses
+structure Chal.LargeIndependentSets.Graph : Type
+number of parameters: 0
+fields:
+  Chal.LargeIndependentSets.Graph.vertices : ℕ
+  Chal.LargeIndependentSets.Graph.nonempty : 0 < self.vertices
+  Chal.LargeIndependentSets.Graph.adj : Fin self.vertices → Fin self.vertices → Bool
+  Chal.LargeIndependentSets.Graph.symm : ∀ (u v : Fin self.vertices), self.adj u v = self.adj v u
+  Chal.LargeIndependentSets.Graph.loopless : ∀ (u : Fin self.vertices), self.adj u u = false
+constructor:
+  Chal.LargeIndependentSets.Graph.mk (vertices : ℕ) (nonempty : 0 < vertices) (adj : Fin vertices → Fin vertices → Bool)
+    (symm : ∀ (u v : Fin vertices), adj u v = adj v u) (loopless : ∀ (u : Fin vertices), adj u u = false) :
+    Chal.LargeIndependentSets.Graph
+def Chal.LargeIndependentSets.Graph.Independent : (G : Chal.LargeIndependentSets.Graph) →
+  Finset (Fin G.vertices) → Prop :=
+fun G S => ∀ u ∈ S, ∀ v ∈ S, u ≠ v → G.adj u v = false
+def Chal.LargeIndependentSets.Graph.independenceNumber : Chal.LargeIndependentSets.Graph → ℕ :=
+fun G => (Finset.filter G.Independent Finset.univ.powerset).sup Finset.card
+def Chal.LargeIndependentSets.Graph.ThreeColorable : Chal.LargeIndependentSets.Graph → Prop :=
+fun G => ∃ color, ∀ (u v : Fin G.vertices), G.adj u v = true → color u ≠ color v
+def Chal.LargeIndependentSets.graphBits : Chal.LargeIndependentSets.Graph → List Bool :=
+fun G =>
+  Chal.LargeIndependentSets.nameBits G.vertices ++
+    List.flatMap (fun u => List.map (G.adj u) (List.finRange G.vertices)) (List.finRange G.vertices)
+structure Chal.LargeIndependentSets.RealGraphReduction (δ : ℝ) : Type 1
+number of parameters: 1
+fields:
+  Chal.LargeIndependentSets.RealGraphReduction.reduce : List Bool → Chal.LargeIndependentSets.Graph
+  Chal.LargeIndependentSets.RealGraphReduction.computation : Turing.TM2ComputableInPolyTime id
+      Chal.LargeIndependentSets.graphBits self.reduce
+  Chal.LargeIndependentSets.RealGraphReduction.finiteAlphabets : ∀ (k : self.computation.tm.K),
+      Finite (self.computation.tm.Γ k)
+  Chal.LargeIndependentSets.RealGraphReduction.outputBound : Polynomial ℕ
+  Chal.LargeIndependentSets.RealGraphReduction.outputSize : ∀ (b : List Bool),
+      (Chal.LargeIndependentSets.graphBits (self.reduce b)).length ≤ Polynomial.eval b.length self.outputBound
+  Chal.LargeIndependentSets.RealGraphReduction.completeness : ∀ (φ : Chal.LargeIndependentSets.Formula),
+      φ.Satisfiable → (self.reduce (Chal.LargeIndependentSets.formulaBits φ)).ThreeColorable
+  Chal.LargeIndependentSets.RealGraphReduction.soundness : ∀ (φ : Chal.LargeIndependentSets.Formula),
+      ¬φ.Satisfiable →
+        ↑(self.reduce (Chal.LargeIndependentSets.formulaBits φ)).independenceNumber <
+          δ * ↑(self.reduce (Chal.LargeIndependentSets.formulaBits φ)).vertices
+constructor:
+  Chal.LargeIndependentSets.RealGraphReduction.mk {δ : ℝ} (reduce : List Bool → Chal.LargeIndependentSets.Graph)
+    (computation : Turing.TM2ComputableInPolyTime id Chal.LargeIndependentSets.graphBits reduce)
+    (finiteAlphabets : ∀ (k : computation.tm.K), Finite (computation.tm.Γ k)) (outputBound : Polynomial ℕ)
+    (outputSize :
+      ∀ (b : List Bool), (Chal.LargeIndependentSets.graphBits (reduce b)).length ≤ Polynomial.eval b.length outputBound)
+    (completeness :
+      ∀ (φ : Chal.LargeIndependentSets.Formula),
+        φ.Satisfiable → (reduce (Chal.LargeIndependentSets.formulaBits φ)).ThreeColorable)
+    (soundness :
+      ∀ (φ : Chal.LargeIndependentSets.Formula),
+        ¬φ.Satisfiable →
+          ↑(reduce (Chal.LargeIndependentSets.formulaBits φ)).independenceNumber <
+            δ * ↑(reduce (Chal.LargeIndependentSets.formulaBits φ)).vertices) :
+    Chal.LargeIndependentSets.RealGraphReduction δ
+'OAI.LargeIndependentSets.mainTheoremReal' depends on axioms: [propext, Classical.choice, Quot.sound]
+== IndependentSets comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

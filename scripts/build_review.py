@@ -458,7 +458,7 @@ Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure compar
 
 
 # ----------------------------------------------------------------------------- site
-SITE_LIVE = 'https://mathvet.github.io/mathvet/'   # absolute site links in the Markdown become root-relative in the site
+SITE_LIVE = SITE + '/'   # absolute site links in the Markdown become root-relative in the site
 
 
 def md(text):
@@ -470,6 +470,7 @@ DOCS.mkdir(exist_ok=True)
 (DOCS / RELEASE).mkdir(exist_ok=True)
 (DOCS / 'style.css').write_text(CSS, encoding='utf-8')
 (DOCS / '.nojekyll').write_text('', encoding='utf-8')
+(DOCS / 'CNAME').write_text('math.vet\n', encoding='utf-8')   # GitHub Pages custom domain; kept with the generated site
 
 explainer = (ROOT / 'EXPLAINER.md').read_text(encoding='utf-8')
 protocol = (ROOT / 'PROTOCOL.md').read_text(encoding='utf-8')

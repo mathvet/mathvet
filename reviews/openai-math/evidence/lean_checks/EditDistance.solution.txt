@@ -1,0 +1,59 @@
+OAI.edit_distance_main : OAI.EditDistortion.MainClaim
+'OAI.edit_distance_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.EditDistortion.Step.{u} : Bool → {Alpha : Type u} → List Alpha → List Alpha → Prop
+number of parameters: 2
+constructors:
+OAI.EditDistortion.Step.insert : ∀ {substitutions : Bool} {Alpha : Type u} (p q : List Alpha) (a : Alpha),
+  OAI.EditDistortion.Step substitutions (p ++ q) (p ++ a :: q)
+OAI.EditDistortion.Step.delete : ∀ {substitutions : Bool} {Alpha : Type u} (p q : List Alpha) (a : Alpha),
+  OAI.EditDistortion.Step substitutions (p ++ a :: q) (p ++ q)
+OAI.EditDistortion.Step.substitute : ∀ {substitutions : Bool} {Alpha : Type u},
+  substitutions = true →
+    ∀ (p q : List Alpha) (a b : Alpha), OAI.EditDistortion.Step substitutions (p ++ a :: q) (p ++ b :: q)
+inductive OAI.EditDistortion.Script.{u} : Bool → {Alpha : Type u} → ℕ → List Alpha → List Alpha → Prop
+number of parameters: 2
+constructors:
+OAI.EditDistortion.Script.nil : ∀ {substitutions : Bool} {Alpha : Type u} (x : List Alpha),
+  OAI.EditDistortion.Script substitutions 0 x x
+OAI.EditDistortion.Script.cons : ∀ {substitutions : Bool} {Alpha : Type u} {n : ℕ} {x y z : List Alpha},
+  OAI.EditDistortion.Step substitutions x y →
+    OAI.EditDistortion.Script substitutions n y z → OAI.EditDistortion.Script substitutions (n + 1) x z
+def OAI.EditDistortion.edit.{u} : {Alpha : Type u} → List Alpha → List Alpha → ℕ :=
+fun {Alpha} x y => sInf {n | OAI.EditDistortion.Script true n x y}
+@[reducible] def OAI.EditDistortion.L1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+def OAI.EditDistortion.distortion.{u} : {X : Type u} → (X → X → ℝ) → (X ↪ ↥OAI.EditDistortion.L1) → ℝ :=
+fun {X} ρ f => sSup {r | ∃ x y, x ≠ y ∧ r = ‖f x - f y‖ / ρ x y} * sSup {r | ∃ x y, x ≠ y ∧ r = ρ x y / ‖f x - f y‖}
+def OAI.EditDistortion.leastDistortion.{u} : {X : Type u} → (X → X → ℝ) → ℝ :=
+fun {X} ρ => sInf (Set.range (OAI.EditDistortion.distortion ρ))
+@[reducible] def OAI.EditDistortion.Words.{u} : Type u → ℕ → Type (max 0 u) :=
+fun Alpha d => { x // x.length ≤ d }
+def OAI.EditDistortion.E.{u} : Type u → ℕ → ℝ :=
+fun Alpha d => OAI.EditDistortion.leastDistortion fun x y => ↑(OAI.EditDistortion.edit ↑x ↑y)
+def OAI.EditDistortion.exponentScale : ℝ → ℕ → ℝ :=
+fun c d => Real.exp (c * √(Real.log ↑d * Real.log (Real.log ↑d)))
+def OAI.EditDistortion.alphabetSup : ℕ → ℝ :=
+fun d => sSup {r | ∃ n, 2 ≤ n ∧ r = OAI.EditDistortion.E (Fin n) d}
+def OAI.EditDistortion.BinaryWitness : ℝ → ℕ → Prop :=
+fun c d =>
+  ∃ n ≤ d,
+    ∃ S,
+      S.Finite ∧
+        S.Nonempty ∧
+          (∀ w ∈ S, w.length = n) ∧
+            OAI.EditDistortion.exponentScale c d ≤
+              OAI.EditDistortion.leastDistortion fun x y => ↑(OAI.EditDistortion.edit ↑x ↑y)
+def OAI.EditDistortion.MainClaim.{u} : Prop :=
+∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∃ d₀,
+        ∀ (d : ℕ),
+          d₀ ≤ d →
+            (∀ (Alpha : Type u) [inst : Fintype Alpha],
+                2 ≤ Fintype.card Alpha →
+                  OAI.EditDistortion.exponentScale c d ≤ OAI.EditDistortion.E Alpha d ∧
+                    OAI.EditDistortion.E Alpha d ≤ OAI.EditDistortion.exponentScale C d) ∧
+              OAI.EditDistortion.BinaryWitness c d ∧
+                OAI.EditDistortion.exponentScale c d ≤ OAI.EditDistortion.alphabetSup d ∧
+                  OAI.EditDistortion.alphabetSup d ≤ OAI.EditDistortion.exponentScale C d

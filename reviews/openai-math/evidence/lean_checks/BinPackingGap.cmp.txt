@@ -1,0 +1,388 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_BinPackingGap.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.BinPackingGap.main_results [thm] ok
+CMP OAI.BinPackingGap.BinaryEncoding.decodeRawInstance [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseRawInstance [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseNat [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseName [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.bitsValue [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.bitsValue._f [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.bitsValue.match_1 [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseFrame.match_1 [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseFrame [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseFrame._f [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseFrame.match_3 [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.parseFrame._sparseCasesOn_3 [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parsePair [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parsePair.match_1 [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.Parser [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseList [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseListAux [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseListAux._f [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseListAux.match_1 [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.parseListAux.match_3 [def] ok
+CMP OAI.BinPackingGap.RawInstance [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.decode [def] ok
+CMP OAI.BinPackingGap.RawPacking.mk [ctor] ok
+CMP OAI.BinPackingGap.RawPacking [ind] ok
+CMP OAI.BinPackingGap.RawInstance.toInstance [def] ok
+CMP OAI.BinPackingGap.RawInstance.toInstance._proof_2 [thm] ok
+CMP OAI.BinPackingGap.RawInstance.Valid [def] ok
+CMP OAI.BinPackingGap.RawInstance.toInstance._proof_1 [thm] ok
+CMP OAI.BinPackingGap.RawInstance.ratValue [def] ok
+CMP OAI.BinPackingGap.Instance.mk [ctor] ok
+CMP OAI.BinPackingGap.Instance [ind] ok
+CMP OAI.BinPackingGap.RawPacking.bins [def] ok
+CMP OAI.BinPackingGap.RawPacking.Feasible [def] ok
+CMP OAI.BinPackingGap.RawPacking.load [def] ok
+CMP OAI.BinPackingGap.RawPacking.assignments [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.rawInstanceBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.natBits [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.nameBits [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.frame [def] ok
+CMP OAI.BinPackingCompleteness.BinaryEncoding.frame._f [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.pairBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.listBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.listBits._f [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.listBits.match_1 [def] ok
+CMP OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.run [def] ok
+CMP OAI.BinPackingGap.AbsoluteAdditiveAlgorithm [ind] ok
+CMP OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.mk [ctor] ok
+CMP OAI.BinPackingGap.opt [def] ok
+CMP OAI.BinPackingGap.exists_packing [thm] ok
+CMP OAI.BinPackingGap.HasPacking [def] ok
+CMP OAI.BinPackingGap.Packing [ind] ok
+CMP OAI.BinPackingGap.Packing.mk [ctor] ok
+CMP OAI.BinPackingGap.Instance.size [def] ok
+CMP OAI.BinPackingGap.Instance.n [def] ok
+CMP OAI.BinPackingGap.Instance.Item [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.packingResultBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.rawPackingBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.assignmentBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.optionBits [def] ok
+CMP OAI.BinPackingGap.BinaryEncoding.optionBits.match_1 [def] ok
+CMP OAI.BinPackingGap.PEqualsNP [def] ok
+CMP OAI.BinPackingGap.ClassNP [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.InNP [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.Accepts [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.verify [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier [ind] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.mk [ctor] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.pairBits [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.encodeWord [def] ok
+CMP OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.witnessBound [def] ok
+CMP OAI.BinPackingGap.BitLanguage [def] ok
+CMP OAI.BinPackingGap.ClassP [def] ok
+CMP OAI.BinPackingGap.InP [def] ok
+CMP OAI.BinPackingGap.PackingGapNPHard [def] ok
+CMP OAI.BinPackingGap.PackingGapReduction [ind] ok
+CMP OAI.BinPackingGap.PackingGapReduction.mk [ctor] ok
+CMP OAI.BinPackingGap.BinaryEncoding.rawReductionOutputBits [def] ok
+CMP OAI.BinPackingGap.RawReductionOutput [def] ok
+CMP OAI.BinPackingGap.typeLP [def] ok
+CMP OAI.BinPackingGap.NumericalSize.multiplicity [def] ok
+CMP OAI.BinPackingGap.NumericalSize [def] ok
+CMP OAI.BinPackingGap.typeMatrix [def] ok
+CMP OAI.BinPackingGap.instFintypeNumericalSize [def] ok
+CMP OAI.BinPackingGap.instFintypeNumericalSize._proof_3 [thm] ok
+CMP OAI.BinPackingGap.instFintypeNumericalSize._aux_1 [def] ok
+CMP OAI.BinPackingGap.TypeConfiguration [def] ok
+CMP OAI.BinPackingGap.TypeConfiguration.instFintype [def] ok
+CMP OAI.BinPackingGap.TypeConfiguration.instFinite [thm] ok
+CMP OAI.BinPackingGap.FractionalCover.value [def] ok
+CMP OAI.BinPackingGap.FractionalCover.objectiveSet [def] ok
+CMP OAI.BinPackingGap.FractionalCover.objective [def] ok
+CMP OAI.BinPackingGap.FractionalCover.Feasible [def] ok
+CMP OAI.BinPackingGap.individualLP [def] ok
+CMP OAI.BinPackingGap.individualMatrix [def] ok
+CMP OAI.BinPackingGap.IndividualConfiguration [def] ok
+CMP OAI.BinPackingGap.instFintypeIndividualConfiguration [def] ok
+CMP OAI.BinPackingGap.instFintypeIndividualConfiguration._proof_3 [thm] ok
+CMP OAI.BinPackingGap.instFintypeIndividualConfiguration._aux_1 [def] ok
+Chal.BinPackingGap.main_results : (∀ (c : ℕ),
+    ∃ I B,
+      I.n = 5 * B ∧
+        (∀ (i : Fin I.n), 1 / 6 < I.size i ∧ I.size i < 1) ∧
+          B + c < Chal.BinPackingGap.opt I ∧
+            Chal.BinPackingGap.individualLP I = ↑B ∧ Chal.BinPackingGap.typeLP I = ↑B) ∧
+  (∀ (c : ℕ), Chal.BinPackingGap.PackingGapNPHard c) ∧
+    ((∃ c, Nonempty (Chal.BinPackingGap.AbsoluteAdditiveAlgorithm c)) ↔ Chal.BinPackingGap.PEqualsNP) ∧
+      (Chal.BinPackingGap.PEqualsNP →
+        ∃ algorithm,
+          (∀ (items : Chal.BinPackingGap.RawInstance) (valid : items.Valid),
+              ∃ packing,
+                algorithm.run (Chal.BinPackingGap.BinaryEncoding.rawInstanceBits items) = some packing ∧
+                  Chal.BinPackingGap.RawPacking.Feasible items packing ∧
+                    packing.bins = Chal.BinPackingGap.opt (items.toInstance valid)) ∧
+            algorithm.run (Chal.BinPackingGap.BinaryEncoding.rawInstanceBits []) =
+                some { bins := 0, assignments := [] } ∧
+              (∀ (input : List Bool),
+                  Chal.BinPackingGap.BinaryEncoding.decodeRawInstance input = none → algorithm.run input = none) ∧
+                ∀ (items : Chal.BinPackingGap.RawInstance),
+                  ¬items.Valid → algorithm.run (Chal.BinPackingGap.BinaryEncoding.rawInstanceBits items) = none)
+def Chal.BinPackingGames.Foundations.Complexity.encodeWord : ℕ → List Bool :=
+fun n => List.replicate n true ++ [false]
+def Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet : Turing.FinTM2 → Prop :=
+fun M => ∀ (k : M.K), Finite (M.Γ k)
+def Chal.BinPackingGames.Foundations.Complexity.CookLevin.pairBits : List Bool × List Bool → List Bool :=
+fun input => Chal.BinPackingGames.Foundations.Complexity.encodeWord input.1.length ++ input.1 ++ input.2
+structure Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier : Type 1
+number of parameters: 0
+fields:
+  Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.witnessBound : Polynomial ℕ
+  Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.verify : List Bool × List Bool → Bool
+  Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.computation : Turing.TM2ComputableInPolyTime
+      Chal.BinPackingGames.Foundations.Complexity.CookLevin.pairBits (fun bit => [bit]) self.verify
+  Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.finiteAlphabet : (k : self.computation.tm.K) →
+      Fintype (self.computation.tm.Γ k)
+constructor:
+  Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.mk (witnessBound : Polynomial ℕ)
+    (verify : List Bool × List Bool → Bool)
+    (computation :
+      Turing.TM2ComputableInPolyTime Chal.BinPackingGames.Foundations.Complexity.CookLevin.pairBits (fun bit => [bit])
+        verify)
+    (finiteAlphabet : (k : computation.tm.K) → Fintype (computation.tm.Γ k)) :
+    Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier
+def Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.Accepts : Chal.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier →
+  List Bool → Prop :=
+fun verifier input =>
+  ∃ witness,
+    witness.length ≤ Polynomial.eval input.length verifier.witnessBound ∧ verifier.verify (input, witness) = true
+def Chal.BinPackingGames.Foundations.Complexity.CookLevin.InNP : (List Bool → Prop) → Prop :=
+fun language => ∃ verifier, ∀ (input : List Bool), language input ↔ verifier.Accepts input
+def Chal.BinPackingCompleteness.BinaryEncoding.bitsValue : List Bool → ℕ :=
+fun x => List.brecOn x Chal.BinPackingCompleteness.BinaryEncoding.bitsValue._f
+def Chal.BinPackingCompleteness.BinaryEncoding.frame : List Bool → List Bool :=
+fun x => List.brecOn x Chal.BinPackingCompleteness.BinaryEncoding.frame._f
+def Chal.BinPackingCompleteness.BinaryEncoding.parseFrame : List Bool → Option (List Bool × List Bool) :=
+fun x => List.brecOn x Chal.BinPackingCompleteness.BinaryEncoding.parseFrame._f
+def Chal.BinPackingCompleteness.BinaryEncoding.nameBits : ℕ → List Bool :=
+fun name => Chal.BinPackingCompleteness.BinaryEncoding.frame name.bits
+def Chal.BinPackingCompleteness.BinaryEncoding.parseName : List Bool → Option (ℕ × List Bool) :=
+fun input => do
+  let __x ← Chal.BinPackingCompleteness.BinaryEncoding.parseFrame input
+  match __x with
+    | (digits, rest) =>
+      have name := Chal.BinPackingCompleteness.BinaryEncoding.bitsValue digits;
+      if digits = name.bits then some (name, rest) else none
+structure Chal.BinPackingGap.Instance : Type
+number of parameters: 0
+fields:
+  Chal.BinPackingGap.Instance.n : ℕ
+  Chal.BinPackingGap.Instance.size : Fin self.n → ℚ
+  Chal.BinPackingGap.Instance.size_pos : ∀ (i : Fin self.n), 0 < self.size i
+  Chal.BinPackingGap.Instance.size_le_one : ∀ (i : Fin self.n), self.size i ≤ 1
+constructor:
+  Chal.BinPackingGap.Instance.mk (n : ℕ) (size : Fin n → ℚ) (size_pos : ∀ (i : Fin n), 0 < size i)
+    (size_le_one : ∀ (i : Fin n), size i ≤ 1) : Chal.BinPackingGap.Instance
+@[reducible] def Chal.BinPackingGap.Instance.Item : Chal.BinPackingGap.Instance → Type :=
+fun I => Fin I.n
+structure Chal.BinPackingGap.Packing (I : Chal.BinPackingGap.Instance) (b : ℕ) : Type
+number of parameters: 2
+fields:
+  Chal.BinPackingGap.Packing.assignment : I.Item → Fin b
+  Chal.BinPackingGap.Packing.capacity : ∀ (j : Fin b), (∑ i, if self.assignment i = j then I.size i else 0) ≤ 1
+constructor:
+  Chal.BinPackingGap.Packing.mk {I : Chal.BinPackingGap.Instance} {b : ℕ} (assignment : I.Item → Fin b)
+    (capacity : ∀ (j : Fin b), (∑ i, if assignment i = j then I.size i else 0) ≤ 1) : Chal.BinPackingGap.Packing I b
+def Chal.BinPackingGap.HasPacking : Chal.BinPackingGap.Instance → ℕ → Prop :=
+fun I b => Nonempty (Chal.BinPackingGap.Packing I b)
+def Chal.BinPackingGap.singletonPacking : (I : Chal.BinPackingGap.Instance) → Chal.BinPackingGap.Packing I I.n :=
+fun I => { assignment := fun i => i, capacity := ⋯ }
+def Chal.BinPackingGap.opt : Chal.BinPackingGap.Instance → ℕ :=
+fun I => Nat.find ⋯
+def Chal.BinPackingGap.IndividualConfiguration : Chal.BinPackingGap.Instance → Type :=
+fun I => { H // ∑ i ∈ H, I.size i ≤ 1 }
+def Chal.BinPackingGap.NumericalSize : Chal.BinPackingGap.Instance → Type :=
+fun I => ↥(Finset.image I.size Finset.univ)
+def Chal.BinPackingGap.NumericalSize.multiplicity : {I : Chal.BinPackingGap.Instance} →
+  Chal.BinPackingGap.NumericalSize I → ℕ :=
+fun {I} s => {i | I.size i = ↑s}.card
+def Chal.BinPackingGap.NumericalSize.capacityBound : {I : Chal.BinPackingGap.Instance} →
+  Chal.BinPackingGap.NumericalSize I → ℕ :=
+fun {I} s => Classical.choose ⋯
+def Chal.BinPackingGap.TypeConfiguration : Chal.BinPackingGap.Instance → Type :=
+fun I => { c // ∑ s, ↑s * ↑(c s) ≤ 1 }
+def Chal.BinPackingGap.TypeConfiguration.boundedCounts : {I : Chal.BinPackingGap.Instance} →
+  Chal.BinPackingGap.TypeConfiguration I → (s : Chal.BinPackingGap.NumericalSize I) → Fin s.capacityBound :=
+fun {I} c s => ⟨↑c s, ⋯⟩
+def Chal.BinPackingGap.FractionalCover.Feasible.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → (C → ℝ) → Prop :=
+fun {I} {C} [Fintype C] a d w => (∀ (c : C), 0 ≤ w c) ∧ ∀ (i : I), d i ≤ ∑ c, a c i * w c
+def Chal.BinPackingGap.FractionalCover.objective.{u_2} : {C : Type u_2} → [Fintype C] → (C → ℝ) → ℝ :=
+fun {C} [Fintype C] w => ∑ c, w c
+def Chal.BinPackingGap.FractionalCover.objectiveSet.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → Set ℝ :=
+fun {I} {C} [Fintype C] a d =>
+  {v | ∃ w, Chal.BinPackingGap.FractionalCover.Feasible a d w ∧ Chal.BinPackingGap.FractionalCover.objective w = v}
+def Chal.BinPackingGap.FractionalCover.value.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → ℝ :=
+fun {I} {C} [Fintype C] a d => sInf (Chal.BinPackingGap.FractionalCover.objectiveSet a d)
+def Chal.BinPackingGap.individualMatrix : (I : Chal.BinPackingGap.Instance) →
+  Chal.BinPackingGap.IndividualConfiguration I → I.Item → ℝ :=
+fun I H i => if i ∈ ↑H then 1 else 0
+def Chal.BinPackingGap.individualLP : Chal.BinPackingGap.Instance → ℝ :=
+fun I => Chal.BinPackingGap.FractionalCover.value (Chal.BinPackingGap.individualMatrix I) fun x => 1
+def Chal.BinPackingGap.typeMatrix : (I : Chal.BinPackingGap.Instance) →
+  Chal.BinPackingGap.TypeConfiguration I → Chal.BinPackingGap.NumericalSize I → ℝ :=
+fun I c s => ↑(↑c s)
+def Chal.BinPackingGap.typeLP : Chal.BinPackingGap.Instance → ℝ :=
+fun I => Chal.BinPackingGap.FractionalCover.value (Chal.BinPackingGap.typeMatrix I) fun s => ↑s.multiplicity
+@[reducible] def Chal.BinPackingGap.RawInstance : Type :=
+List (ℕ × ℕ)
+@[reducible] def Chal.BinPackingGap.RawReductionOutput : Type :=
+ℕ × Chal.BinPackingGap.RawInstance
+def Chal.BinPackingGap.RawInstance.Valid : Chal.BinPackingGap.RawInstance → Prop :=
+fun r => ∀ q ∈ r, 0 < q.1 ∧ q.1 ≤ q.2
+def Chal.BinPackingGap.RawInstance.ratValue : ℕ × ℕ → ℚ :=
+fun q => ↑q.1 / ↑q.2
+def Chal.BinPackingGap.RawInstance.toInstance : (r : Chal.BinPackingGap.RawInstance) →
+  r.Valid → Chal.BinPackingGap.Instance :=
+fun r hr =>
+  { n := List.length r, size := fun i => Chal.BinPackingGap.RawInstance.ratValue (List.get r i), size_pos := ⋯,
+    size_le_one := ⋯ }
+structure Chal.BinPackingGap.RawPacking : Type
+number of parameters: 0
+fields:
+  Chal.BinPackingGap.RawPacking.bins : ℕ
+  Chal.BinPackingGap.RawPacking.assignments : List ℕ
+constructor:
+  Chal.BinPackingGap.RawPacking.mk (bins : ℕ) (assignments : List ℕ) : Chal.BinPackingGap.RawPacking
+def Chal.BinPackingGap.RawPacking.load : Chal.BinPackingGap.RawInstance → List ℕ → ℕ → ℚ :=
+fun r a j =>
+  (List.map (fun qa => if qa.2 = j then Chal.BinPackingGap.RawInstance.ratValue qa.1 else 0) (List.zip r a)).sum
+def Chal.BinPackingGap.RawPacking.Feasible : Chal.BinPackingGap.RawInstance → Chal.BinPackingGap.RawPacking → Prop :=
+fun r p =>
+  p.assignments.length = List.length r ∧
+    (∀ j ∈ p.assignments, j < p.bins) ∧ ∀ j < p.bins, Chal.BinPackingGap.RawPacking.load r p.assignments j ≤ 1
+@[reducible] def Chal.BinPackingGap.BinaryEncoding.natBits : ℕ → List Bool :=
+Chal.BinPackingCompleteness.BinaryEncoding.nameBits
+@[reducible] def Chal.BinPackingGap.BinaryEncoding.parseNat : List Bool → Option (ℕ × List Bool) :=
+Chal.BinPackingCompleteness.BinaryEncoding.parseName
+def Chal.BinPackingGap.BinaryEncoding.listBits : {α : Type} → (α → List Bool) → List α → List Bool :=
+fun {α} encode x => List.brecOn x (Chal.BinPackingGap.BinaryEncoding.listBits._f encode)
+def Chal.BinPackingGap.BinaryEncoding.pairBits : {α β : Type} → (α → List Bool) → (β → List Bool) → α × β → List Bool :=
+fun {α β} ea eb p => ea p.1 ++ eb p.2
+def Chal.BinPackingGap.BinaryEncoding.optionBits : {α : Type} → (α → List Bool) → Option α → List Bool :=
+fun {α} encode x =>
+  match x with
+  | none => [false]
+  | some a => true :: encode a
+@[reducible] def Chal.BinPackingGap.BinaryEncoding.Parser : Type → Type :=
+fun α => List Bool → Option (α × List Bool)
+def Chal.BinPackingGap.BinaryEncoding.parsePair : {α β : Type} →
+  Chal.BinPackingGap.BinaryEncoding.Parser α →
+    Chal.BinPackingGap.BinaryEncoding.Parser β → Chal.BinPackingGap.BinaryEncoding.Parser (α × β) :=
+fun {α β} pa pb input => do
+  let __x ← pa input
+  match __x with
+    | (a, rest) => do
+      let __x ← pb rest
+      match __x with
+        | (b, suffix) => pure ((a, b), suffix)
+def Chal.BinPackingGap.BinaryEncoding.parseListAux : {α : Type} →
+  Chal.BinPackingGap.BinaryEncoding.Parser α → ℕ → Chal.BinPackingGap.BinaryEncoding.Parser (List α) :=
+fun {α} parse x x_1 =>
+  Nat.brecOn (motive := fun x => List Bool → Option (List α × List Bool)) x
+    (Chal.BinPackingGap.BinaryEncoding.parseListAux._f parse) x_1
+def Chal.BinPackingGap.BinaryEncoding.parseList : {α : Type} →
+  Chal.BinPackingGap.BinaryEncoding.Parser α → Chal.BinPackingGap.BinaryEncoding.Parser (List α) :=
+fun {α} parse input => Chal.BinPackingGap.BinaryEncoding.parseListAux parse input.length input
+def Chal.BinPackingGap.BinaryEncoding.decode : {α : Type} →
+  Chal.BinPackingGap.BinaryEncoding.Parser α → List Bool → Option α :=
+fun {α} parse input => do
+  let __x ← parse input
+  match __x with
+    | (a, rest) => if rest.isEmpty = true then some a else none
+def Chal.BinPackingGap.BinaryEncoding.rawInstanceBits : Chal.BinPackingGap.RawInstance → List Bool :=
+fun r =>
+  Chal.BinPackingGap.BinaryEncoding.listBits
+    (Chal.BinPackingGap.BinaryEncoding.pairBits Chal.BinPackingGap.BinaryEncoding.natBits
+      Chal.BinPackingGap.BinaryEncoding.natBits)
+    r
+def Chal.BinPackingGap.BinaryEncoding.assignmentBits : List ℕ → List Bool :=
+fun a => Chal.BinPackingGap.BinaryEncoding.listBits Chal.BinPackingGap.BinaryEncoding.natBits a
+def Chal.BinPackingGap.BinaryEncoding.rawPackingBits : Chal.BinPackingGap.RawPacking → List Bool :=
+fun p =>
+  Chal.BinPackingGap.BinaryEncoding.natBits p.bins ++ Chal.BinPackingGap.BinaryEncoding.assignmentBits p.assignments
+def Chal.BinPackingGap.BinaryEncoding.packingResultBits : Option Chal.BinPackingGap.RawPacking → List Bool :=
+fun p => Chal.BinPackingGap.BinaryEncoding.optionBits Chal.BinPackingGap.BinaryEncoding.rawPackingBits p
+def Chal.BinPackingGap.BinaryEncoding.rawReductionOutputBits : Chal.BinPackingGap.RawReductionOutput → List Bool :=
+fun out => Chal.BinPackingGap.BinaryEncoding.natBits out.1 ++ Chal.BinPackingGap.BinaryEncoding.rawInstanceBits out.2
+def Chal.BinPackingGap.BinaryEncoding.parseRawInstance : Chal.BinPackingGap.BinaryEncoding.Parser
+  Chal.BinPackingGap.RawInstance :=
+Chal.BinPackingGap.BinaryEncoding.parseList
+  (Chal.BinPackingGap.BinaryEncoding.parsePair Chal.BinPackingGap.BinaryEncoding.parseNat
+    Chal.BinPackingGap.BinaryEncoding.parseNat)
+def Chal.BinPackingGap.BinaryEncoding.decodeRawInstance : List Bool → Option Chal.BinPackingGap.RawInstance :=
+Chal.BinPackingGap.BinaryEncoding.decode Chal.BinPackingGap.BinaryEncoding.parseRawInstance
+@[reducible] def Chal.BinPackingGap.BitLanguage : Type :=
+List Bool → Prop
+def Chal.BinPackingGap.InP : Chal.BinPackingGap.BitLanguage → Prop :=
+fun L =>
+  ∃ decider computation,
+    Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm ∧
+      ∀ (x : List Bool), L x ↔ decider x = true
+def Chal.BinPackingGap.ClassP : Set Chal.BinPackingGap.BitLanguage :=
+{L | Chal.BinPackingGap.InP L}
+def Chal.BinPackingGap.ClassNP : Set Chal.BinPackingGap.BitLanguage :=
+{L | Chal.BinPackingGames.Foundations.Complexity.CookLevin.InNP L}
+def Chal.BinPackingGap.PEqualsNP : Prop :=
+Chal.BinPackingGap.ClassP = Chal.BinPackingGap.ClassNP
+structure Chal.BinPackingGap.AbsoluteAdditiveAlgorithm (c : ℕ) : Type 1
+number of parameters: 1
+fields:
+  Chal.BinPackingGap.AbsoluteAdditiveAlgorithm.run : List Bool → Option Chal.BinPackingGap.RawPacking
+  Chal.BinPackingGap.AbsoluteAdditiveAlgorithm.computation : Turing.TM2ComputableInPolyTime id
+      Chal.BinPackingGap.BinaryEncoding.packingResultBits self.run
+  Chal.BinPackingGap.AbsoluteAdditiveAlgorithm.finiteAlphabet : Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet
+      self.computation.tm
+  Chal.BinPackingGap.AbsoluteAdditiveAlgorithm.guarantee : ∀ (r : Chal.BinPackingGap.RawInstance) (hr : r.Valid),
+      ∃ p,
+        self.run (Chal.BinPackingGap.BinaryEncoding.rawInstanceBits r) = some p ∧
+          Chal.BinPackingGap.RawPacking.Feasible r p ∧ p.bins ≤ Chal.BinPackingGap.opt (r.toInstance hr) + c
+constructor:
+  Chal.BinPackingGap.AbsoluteAdditiveAlgorithm.mk {c : ℕ} (run : List Bool → Option Chal.BinPackingGap.RawPacking)
+    (computation : Turing.TM2ComputableInPolyTime id Chal.BinPackingGap.BinaryEncoding.packingResultBits run)
+    (finiteAlphabet : Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm)
+    (guarantee :
+      ∀ (r : Chal.BinPackingGap.RawInstance) (hr : r.Valid),
+        ∃ p,
+          run (Chal.BinPackingGap.BinaryEncoding.rawInstanceBits r) = some p ∧
+            Chal.BinPackingGap.RawPacking.Feasible r p ∧ p.bins ≤ Chal.BinPackingGap.opt (r.toInstance hr) + c) :
+    Chal.BinPackingGap.AbsoluteAdditiveAlgorithm c
+structure Chal.BinPackingGap.PackingGapReduction (c : ℕ) (L : Chal.BinPackingGap.BitLanguage) : Type 1
+number of parameters: 2
+fields:
+  Chal.BinPackingGap.PackingGapReduction.reduce : List Bool → Chal.BinPackingGap.RawReductionOutput
+  Chal.BinPackingGap.PackingGapReduction.computation : Turing.TM2ComputableInPolyTime id
+      Chal.BinPackingGap.BinaryEncoding.rawReductionOutputBits self.reduce
+  Chal.BinPackingGap.PackingGapReduction.finiteAlphabet : Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet
+      self.computation.tm
+  Chal.BinPackingGap.PackingGapReduction.valid : ∀ (x : List Bool), (self.reduce x).2.Valid
+  Chal.BinPackingGap.PackingGapReduction.itemCount : ∀ (x : List Bool),
+      List.length (self.reduce x).2 = 5 * (self.reduce x).1
+  Chal.BinPackingGap.PackingGapReduction.itemLower : ∀ (x : List Bool) (i : Fin ((self.reduce x).2.toInstance ⋯).n),
+      1 / 6 < ((self.reduce x).2.toInstance ⋯).size i
+  Chal.BinPackingGap.PackingGapReduction.completeness : ∀ (x : List Bool),
+      L x → Chal.BinPackingGap.HasPacking ((self.reduce x).2.toInstance ⋯) (self.reduce x).1
+  Chal.BinPackingGap.PackingGapReduction.soundness : ∀ (x : List Bool),
+      ¬L x → ¬Chal.BinPackingGap.HasPacking ((self.reduce x).2.toInstance ⋯) ((self.reduce x).1 + c)
+constructor:
+  Chal.BinPackingGap.PackingGapReduction.mk {c : ℕ} {L : Chal.BinPackingGap.BitLanguage}
+    (reduce : List Bool → Chal.BinPackingGap.RawReductionOutput)
+    (computation : Turing.TM2ComputableInPolyTime id Chal.BinPackingGap.BinaryEncoding.rawReductionOutputBits reduce)
+    (finiteAlphabet : Chal.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm)
+    (valid : ∀ (x : List Bool), (reduce x).2.Valid)
+    (itemCount : ∀ (x : List Bool), List.length (reduce x).2 = 5 * (reduce x).1)
+    (itemLower : ∀ (x : List Bool) (i : Fin ((reduce x).2.toInstance ⋯).n), 1 / 6 < ((reduce x).2.toInstance ⋯).size i)
+    (completeness : ∀ (x : List Bool), L x → Chal.BinPackingGap.HasPacking ((reduce x).2.toInstance ⋯) (reduce x).1)
+    (soundness :
+      ∀ (x : List Bool), ¬L x → ¬Chal.BinPackingGap.HasPacking ((reduce x).2.toInstance ⋯) ((reduce x).1 + c)) :
+    Chal.BinPackingGap.PackingGapReduction c L
+def Chal.BinPackingGap.PackingGapNPHard : ℕ → Prop :=
+fun c =>
+  ∀ (L : Chal.BinPackingGap.BitLanguage),
+    Chal.BinPackingGames.Foundations.Complexity.CookLevin.InNP L → Nonempty (Chal.BinPackingGap.PackingGapReduction c L)
+'OAI.BinPackingGap.main_results' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BinPackingGap comparator-style: ok=100 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

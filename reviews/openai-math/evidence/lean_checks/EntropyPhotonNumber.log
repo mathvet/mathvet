@@ -1,0 +1,62 @@
+== EntropyPhotonNumber  module=OAI.InformationTheory.PhotonNumber.Inequality  start=2026-10-09T14:41:36Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8949] Built OAI.InformationTheory.PhotonNumber.Basic (17s)
+✔ [8925/8949] Built OAI.InformationTheory.PhotonNumber.Functions (23s)
+✔ [8926/8949] Built OAI.Analysis.Herglotz (30s)
+✔ [8927/8949] Built OAI.MathematicalPhysics.Fock.Beam (28s)
+✔ [8928/8949] Built OAI.Analysis.DiagonalForms (23s)
+✔ [8929/8949] Built OAI.Analysis.TensorLp (48s)
+✔ [8930/8949] Built OAI.Analysis.QuantumTrace.Basic (50s)
+✔ [8931/8949] Built OAI.InformationTheory.PhotonNumber.Interpolation (12s)
+✔ [8932/8949] Built OAI.MathematicalPhysics.Fock.Operators (17s)
+✔ [8933/8949] Built OAI.InformationTheory.PhotonNumber.Gibbs (16s)
+✔ [8934/8949] Built OAI.InformationTheory.PhotonNumber.ThermalMetric (27s)
+✔ [8935/8949] Built OAI.InformationTheory.PhotonNumber.SpectralLog (24s)
+✔ [8936/8949] Built OAI.InformationTheory.PhotonNumber.BeamTrace (52s)
+✔ [8937/8949] Built OAI.InformationTheory.PhotonNumber.BeamForms (49s)
+✔ [8938/8949] Built OAI.InformationTheory.PhotonNumber.Continuity (49s)
+✔ [8939/8949] Built OAI.InformationTheory.PhotonNumber.Generator (16s)
+✔ [8940/8949] Built OAI.InformationTheory.PhotonNumber.SpectralForms (24s)
+✔ [8941/8949] Built OAI.InformationTheory.PhotonNumber.Entropy (31s)
+✔ [8942/8949] Built OAI.InformationTheory.PhotonNumber.GibbsVariational (17s)
+✔ [8943/8949] Built OAI.InformationTheory.PhotonNumber.Contraction (31s)
+✔ [8944/8949] Built OAI.InformationTheory.PhotonNumber.Duality (29s)
+✔ [8945/8949] Built OAI.InformationTheory.PhotonNumber.FiniteVariation (40s)
+✔ [8946/8949] Built OAI.InformationTheory.PhotonNumber.PhysicalMinimum (15s)
+✔ [8947/8949] Built OAI.InformationTheory.PhotonNumber.Minimum (40s)
+✔ [8948/8949] Built OAI.InformationTheory.PhotonNumber.ThermalLimit (8.4s)
+✔ [8949/8949] Built OAI.InformationTheory.PhotonNumber.Inequality (9.2s)
+Build completed successfully (8949 jobs).
+== build rc=0 seconds=380
+{"theorems": ["OAI.EntropyPhotonNumber.entropy_photon_number_inequality"], "defs": ["OAI.EntropyPhotonNumber.NumberIndex", "OAI.EntropyPhotonNumber.Fock", "OAI.EntropyPhotonNumber.numberKet", "OAI.EntropyPhotonNumber.entry", "OAI.EntropyPhotonNumber.State", "OAI.EntropyPhotonNumber.totalNumber", "OAI.EntropyPhotonNumber.FiniteEnergy", "OAI.EntropyPhotonNumber.entropy", "OAI.EntropyPhotonNumber.g", "OAI.EntropyPhotonNumber.gInv", "OAI.EntropyPhotonNumber.oneModeBeamCoefficient", "OAI.EntropyPhotonNumber.beamCoefficient", "OAI.EntropyPhotonNumber.SectorSplit", "OAI.EntropyPhotonNumber.splitLeft", "OAI.EntropyPhotonNumber.splitRight", "OAI.EntropyPhotonNumber.outputBlock", "OAI.EntropyPhotonNumber.IsBeamSplitterOutput"], "json_theorems": ["OAI.EntropyPhotonNumber.entropy_photon_number_inequality"], "missing_from_parse": []}
+TYPES/DEFS DIFFER EntropyPhotonNumber
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_EntropyPhotonNumber.lean:99:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.EntropyPhotonNumber.entropy_photon_number_inequality' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-09T14:48:18Z

@@ -1,0 +1,68 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_BassTorsionFree.lean:299:8: warning: declaration uses `sorry`
+OAI.TorsionFreeBass.torsion_free_corollary : ∀ (G : Type u_1) [inst : Group G],
+  OAI.TorsionFreeBass.TorsionFree G →
+    ((∀ (q : ℕ),
+          1 ≤ q →
+            ∀ (e : Matrix (Fin q) (Fin q) (MonoidAlgebra ℂ G)),
+              e ^ 2 = e → OAI.TorsionFreeBass.matrixTrace e = ↑(OAI.TorsionFreeBass.augmentedMatrix e).rank) ∧
+        OAI.TorsionFreeBass.traceK0 = (Int.castAddHom ℂ).comp OAI.TorsionFreeBass.augmentationRank ∧
+          Set.range ⇑OAI.TorsionFreeBass.traceK0 = Set.range fun z => ↑z) ∧
+      ∀ (R : Type u_2) [inst_1 : CommRing R] [IsDomain R] [CharZero R] (e : MonoidAlgebra R G),
+        e ^ 2 = e → e = 0 ∨ e = 1
+def OAI.BassTrace.classCoefficient.{u_1} : {G : Type u_1} → [Group G] → G → MonoidAlgebra ℂ G → ℂ :=
+fun {G} [Group G] g a => a.coeff.sum fun h z => if IsConj h g then z else 0
+structure OAI.BassTrace.K0.Idempotent.{u_1} (R : Type u_1) [Ring R] : Type u_1
+number of parameters: 2
+fields:
+  OAI.BassTrace.K0.Idempotent.size : ℕ
+  OAI.BassTrace.K0.Idempotent.matrix : Matrix (Fin self.size) (Fin self.size) R
+  OAI.BassTrace.K0.Idempotent.idem : self.matrix * self.matrix = self.matrix
+constructor:
+  OAI.BassTrace.K0.Idempotent.mk.{u_1} {R : Type u_1} [Ring R] (size : ℕ) (matrix : Matrix (Fin size) (Fin size) R)
+    (idem : matrix * matrix = matrix) : OAI.BassTrace.K0.Idempotent R
+def OAI.BassTrace.K0.directSum.{u_1} : {R : Type u_1} →
+  [inst : Ring R] → OAI.BassTrace.K0.Idempotent R → OAI.BassTrace.K0.Idempotent R → OAI.BassTrace.K0.Idempotent R :=
+fun {R} [Ring R] e f =>
+  { size := e.size + f.size,
+    matrix := (Matrix.reindexRingEquiv R finSumFinEquiv) (Matrix.fromBlocks e.matrix 0 0 f.matrix), idem := ⋯ }
+def OAI.BassTrace.K0.relationGenerators.{u_2} : (R : Type u_2) →
+  [inst : Ring R] → Set (FreeAbelianGroup (OAI.BassTrace.K0.Idempotent R)) :=
+fun R [Ring R] =>
+  {x |
+    (∃ e f a b, a * b = e.matrix ∧ b * a = f.matrix ∧ x = FreeAbelianGroup.of e - FreeAbelianGroup.of f) ∨
+      ∃ e f, x = FreeAbelianGroup.of (OAI.BassTrace.K0.directSum e f) - FreeAbelianGroup.of e - FreeAbelianGroup.of f}
+def OAI.BassTrace.K0.relations.{u_2} : (R : Type u_2) →
+  [inst : Ring R] → AddSubgroup (FreeAbelianGroup (OAI.BassTrace.K0.Idempotent R)) :=
+fun R [Ring R] => AddSubgroup.closure (OAI.BassTrace.K0.relationGenerators R)
+@[reducible] def OAI.BassTrace.K0.Group.{u_2} : (R : Type u_2) → [Ring R] → Type u_2 :=
+fun R [Ring R] => FreeAbelianGroup (OAI.BassTrace.K0.Idempotent R) ⧸ OAI.BassTrace.K0.relations R
+def OAI.BassTrace.K0.rawCoefficient.{u_2} : {G : Type u_2} →
+  [inst : Group G] → G → FreeAbelianGroup (OAI.BassTrace.K0.Idempotent (MonoidAlgebra ℂ G)) →+ ℂ :=
+fun {G} [Group G] g => FreeAbelianGroup.lift fun e => OAI.BassTrace.classCoefficient g e.matrix.trace
+def OAI.BassTrace.K0.hsCoefficient.{u_2} : {G : Type u_2} →
+  [inst : Group G] → G → OAI.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℂ :=
+fun {G} [Group G] g =>
+  QuotientAddGroup.lift (OAI.BassTrace.K0.relations (MonoidAlgebra ℂ G)) (OAI.BassTrace.K0.rawCoefficient g) ⋯
+def OAI.TorsionFreeBass.TorsionFree.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] => ∀ (g : G), IsOfFinOrder g → g = 1
+def OAI.TorsionFreeBass.augmentation.{u_1} : {G : Type u_1} → [inst : Group G] → MonoidAlgebra ℂ G →+* ℂ :=
+fun {G} [Group G] => ((MonoidAlgebra.lift ℂ ℂ G) 1).toRingHom
+def OAI.TorsionFreeBass.canonicalTrace.{u_1} : {G : Type u_1} → [Group G] → MonoidAlgebra ℂ G → ℂ :=
+fun {G} [Group G] a => a.coeff 1
+def OAI.TorsionFreeBass.matrixTrace.{u_1} : {G : Type u_1} →
+  [Group G] → {q : ℕ} → Matrix (Fin q) (Fin q) (MonoidAlgebra ℂ G) → ℂ :=
+fun {G} [Group G] {q} e => ∑ i, OAI.TorsionFreeBass.canonicalTrace (e i i)
+def OAI.TorsionFreeBass.augmentedMatrix.{u_1} : {G : Type u_1} →
+  [Group G] → {m n : ℕ} → Matrix (Fin m) (Fin n) (MonoidAlgebra ℂ G) → Matrix (Fin m) (Fin n) ℂ :=
+fun {G} [Group G] {m n} e => e.map ⇑OAI.TorsionFreeBass.augmentation
+def OAI.TorsionFreeBass.rawAugmentationRank.{u_1} : {G : Type u_1} →
+  [inst : Group G] → FreeAbelianGroup (OAI.BassTrace.K0.Idempotent (MonoidAlgebra ℂ G)) →+ ℤ :=
+fun {G} [Group G] => FreeAbelianGroup.lift fun e => ↑(OAI.TorsionFreeBass.augmentedMatrix e.matrix).rank
+def OAI.TorsionFreeBass.augmentationRank.{u_1} : {G : Type u_1} →
+  [inst : Group G] → OAI.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℤ :=
+fun {G} [Group G] =>
+  QuotientAddGroup.lift (OAI.BassTrace.K0.relations (MonoidAlgebra ℂ G)) OAI.TorsionFreeBass.rawAugmentationRank ⋯
+def OAI.TorsionFreeBass.traceK0.{u_1} : {G : Type u_1} →
+  [inst : Group G] → OAI.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℂ :=
+fun {G} [Group G] =>
+  QuotientAddGroup.lift (OAI.BassTrace.K0.relations (MonoidAlgebra ℂ G)) (OAI.BassTrace.K0.rawCoefficient 1) ⋯

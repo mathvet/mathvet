@@ -1,0 +1,37 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_BinaryEditLower.lean:51:8: warning: declaration uses `sorry`
+OAI.TreeEdit.binary_lower_bound : ∃ c,
+  0 < c ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∃ n,
+            1 ≤ n ∧
+              n ≤ d ∧
+                ∃ W, 2 ≤ W.card ∧ OAI.TreeEdit.BinaryLower.growth c d ≤ OAI.TreeEdit.BinaryLower.binarySetDistortion W
+inductive OAI.TreeEdit.EditStep.{u} : {α : Type u} → List α → List α → Prop
+number of parameters: 1
+constructors:
+OAI.TreeEdit.EditStep.insert : ∀ {α : Type u} (p q : List α) (a : α), OAI.TreeEdit.EditStep (p ++ q) (p ++ a :: q)
+OAI.TreeEdit.EditStep.delete : ∀ {α : Type u} (p q : List α) (a : α), OAI.TreeEdit.EditStep (p ++ a :: q) (p ++ q)
+OAI.TreeEdit.EditStep.substitute : ∀ {α : Type u} (p q : List α) (a b : α),
+  OAI.TreeEdit.EditStep (p ++ a :: q) (p ++ b :: q)
+inductive OAI.TreeEdit.EditScript.{u} : {α : Type u} → List α → List α → ℕ → Prop
+number of parameters: 1
+constructors:
+OAI.TreeEdit.EditScript.nil : ∀ {α : Type u} (x : List α), OAI.TreeEdit.EditScript x x 0
+OAI.TreeEdit.EditScript.cons : ∀ {α : Type u} {x y z : List α} {n : ℕ},
+  OAI.TreeEdit.EditStep x y → OAI.TreeEdit.EditScript y z n → OAI.TreeEdit.EditScript x z (n + 1)
+def OAI.TreeEdit.ed.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => sInf {n | OAI.TreeEdit.EditScript x y n}
+@[reducible] def OAI.TreeEdit.RealL1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+@[reducible] def OAI.TreeEdit.Word.{u} : Type u → ℕ → Type (max 0 u) :=
+fun α n => { x // x.length = n }
+def OAI.TreeEdit.BinaryLower.distortion.{u} : {X : Type u} → (X → X → ℝ) → (X → ↥OAI.TreeEdit.RealL1) → ℝ :=
+fun {X} ρ f => sSup {r | ∃ x y, x ≠ y ∧ r = ‖f x - f y‖ / ρ x y} * sSup {r | ∃ x y, x ≠ y ∧ r = ρ x y / ‖f x - f y‖}
+def OAI.TreeEdit.BinaryLower.c1.{u} : (X : Type u) → (X → X → ℝ) → ℝ :=
+fun X ρ => sInf {D | ∃ f, Function.Injective f ∧ D = OAI.TreeEdit.BinaryLower.distortion ρ f}
+def OAI.TreeEdit.BinaryLower.binarySetDistortion : {n : ℕ} → Finset (OAI.TreeEdit.Word Bool n) → ℝ :=
+fun {n} W => OAI.TreeEdit.BinaryLower.c1 ↥W fun x y => ↑(OAI.TreeEdit.ed ↑↑x ↑↑y)
+def OAI.TreeEdit.BinaryLower.growth : ℝ → ℕ → ℝ :=
+fun c d => Real.exp (c * √(Real.log ↑d * Real.log (Real.log ↑d)))

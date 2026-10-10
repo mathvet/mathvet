@@ -1,0 +1,79 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_TriangularEnergy.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.AtomicTriangular.universal_energy_minimum [thm] ok
+CMP OAI.AtomicTriangular.A [def] ok
+CMP OAI.AtomicTriangular.triangularPoint [def] ok
+CMP OAI.AtomicTriangular.b._proof_2 [thm] ok
+CMP OAI.AtomicTriangular.triangularPoint._proof_1 [thm] ok
+CMP OAI.AtomicTriangular.b [def] ok
+CMP OAI.AtomicTriangular.b._proof_1 [thm] ok
+CMP OAI.AtomicTriangular.Plane [def] ok
+CMP OAI.AtomicTriangular.energy [def] ok
+CMP OAI.TriangularUniversal.energy [def] ok
+CMP OAI.TriangularUniversal.diskEnergy [def] ok
+CMP OAI.TriangularUniversal.diskPoints [def] ok
+CMP OAI.TriangularUniversal.Plane [def] ok
+CMP OAI.TriangularUniversal.diskCount [def] ok
+CMP OAI.AtomicTriangular.latticeEnergy [def] ok
+CMP OAI.AtomicTriangular.DensityOne [def] ok
+CMP OAI.TriangularUniversal.DensityOne [def] ok
+CMP OAI.AtomicTriangular.LocallyFinite [def] ok
+CMP OAI.TriangularUniversal.LocallyFinite [def] ok
+CMP OAI.AtomicTriangular.AdmissiblePotential [def] ok
+CMP OAI.TriangularUniversal.AdmissiblePotential [def] ok
+Chal.AtomicTriangular.universal_energy_minimum : ∀ (g : ℝ → ℝ) (C : Set Chal.AtomicTriangular.Plane),
+  Chal.AtomicTriangular.AdmissiblePotential g →
+    Chal.AtomicTriangular.LocallyFinite C →
+      Chal.AtomicTriangular.DensityOne C →
+        Chal.AtomicTriangular.latticeEnergy g ≤ Chal.AtomicTriangular.energy g C ∧
+          Chal.AtomicTriangular.latticeEnergy g = Chal.AtomicTriangular.energy g Chal.AtomicTriangular.A
+@[reducible] def Chal.TriangularUniversal.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.TriangularUniversal.LocallyFinite : Set Chal.TriangularUniversal.Plane → Prop :=
+fun C => ∀ (R : ℝ), (C ∩ Metric.closedBall 0 R).Finite
+def Chal.TriangularUniversal.diskPoints : Set Chal.TriangularUniversal.Plane →
+  ℝ → Finset Chal.TriangularUniversal.Plane :=
+fun C R => if h : (C ∩ Metric.closedBall 0 R).Finite then h.toFinset else ∅
+def Chal.TriangularUniversal.diskCount : Set Chal.TriangularUniversal.Plane → ℝ → ℕ :=
+fun C R => (Chal.TriangularUniversal.diskPoints C R).card
+def Chal.TriangularUniversal.DensityOne : Set Chal.TriangularUniversal.Plane → Prop :=
+fun C => Filter.Tendsto (fun R => ↑(Chal.TriangularUniversal.diskCount C R) / (Real.pi * R ^ 2)) Filter.atTop (nhds 1)
+def Chal.TriangularUniversal.AdmissiblePotential : (ℝ → ℝ) → Prop :=
+fun g =>
+  ContDiffOn ℝ (↑⊤) g (Set.Ioi 0) ∧
+    (∀ (t : ℝ), 0 < t → 0 ≤ g t) ∧ ∀ (r : ℕ) (t : ℝ), 0 < t → 0 ≤ (-1) ^ r * iteratedDeriv r g t
+def Chal.TriangularUniversal.diskEnergy : (ℝ → ℝ) → Set Chal.TriangularUniversal.Plane → ℝ → ENNReal :=
+fun g C R =>
+  (↑(Chal.TriangularUniversal.diskCount C R))⁻¹ *
+    ∑ x ∈ Chal.TriangularUniversal.diskPoints C R,
+      ∑ y ∈ (Chal.TriangularUniversal.diskPoints C R).erase x, ENNReal.ofReal (g (‖x - y‖ ^ 2))
+def Chal.TriangularUniversal.energy : (ℝ → ℝ) → Set Chal.TriangularUniversal.Plane → ENNReal :=
+fun g C => Filter.liminf (Chal.TriangularUniversal.diskEnergy g C) Filter.atTop
+@[reducible] def Chal.AtomicTriangular.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.AtomicTriangular.b : ℝ :=
+√3 / 2
+def Chal.AtomicTriangular.triangularPoint : ℤ × ℤ → Chal.AtomicTriangular.Plane :=
+fun jk =>
+  (√Chal.AtomicTriangular.b)⁻¹ •
+    (EuclideanSpace.single 0 (↑jk.1 + ↑jk.2 / 2) + EuclideanSpace.single 1 (↑jk.2 * Chal.AtomicTriangular.b))
+def Chal.AtomicTriangular.A : Set Chal.AtomicTriangular.Plane :=
+Set.range Chal.AtomicTriangular.triangularPoint
+@[reducible] def Chal.AtomicTriangular.LocallyFinite : Set Chal.TriangularUniversal.Plane → Prop :=
+Chal.TriangularUniversal.LocallyFinite
+@[reducible] def Chal.AtomicTriangular.diskPoints : Set Chal.TriangularUniversal.Plane →
+  ℝ → Finset Chal.TriangularUniversal.Plane :=
+Chal.TriangularUniversal.diskPoints
+@[reducible] def Chal.AtomicTriangular.diskCount : Set Chal.TriangularUniversal.Plane → ℝ → ℕ :=
+Chal.TriangularUniversal.diskCount
+@[reducible] def Chal.AtomicTriangular.DensityOne : Set Chal.TriangularUniversal.Plane → Prop :=
+Chal.TriangularUniversal.DensityOne
+@[reducible] def Chal.AtomicTriangular.AdmissiblePotential : (ℝ → ℝ) → Prop :=
+Chal.TriangularUniversal.AdmissiblePotential
+@[reducible] def Chal.AtomicTriangular.diskEnergy : (ℝ → ℝ) → Set Chal.TriangularUniversal.Plane → ℝ → ENNReal :=
+Chal.TriangularUniversal.diskEnergy
+@[reducible] def Chal.AtomicTriangular.energy : (ℝ → ℝ) → Set Chal.TriangularUniversal.Plane → ENNReal :=
+Chal.TriangularUniversal.energy
+def Chal.AtomicTriangular.latticeEnergy : (ℝ → ℝ) → ENNReal :=
+fun g => ∑' (a : { x // x ∈ Chal.AtomicTriangular.A ∧ x ≠ 0 }), ENNReal.ofReal (g (‖↑a‖ ^ 2))
+'OAI.AtomicTriangular.universal_energy_minimum' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TriangularEnergy comparator-style: ok=21 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

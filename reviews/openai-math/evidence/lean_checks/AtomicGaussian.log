@@ -1,0 +1,37 @@
+== AtomicGaussian  module=OAI.Analysis.Triangular.Main  start=2026-10-09T17:10:24Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [9138/9138] Built OAI.Analysis.Triangular.Main (5.8s)
+Build completed successfully (9138 jobs).
+== build rc=0 seconds=14
+{"theorems": ["OAI.AtomicTriangular.sharp_gaussian_minorants_atomic"], "defs": ["OAI.AtomicTriangular.Plane", "OAI.AtomicTriangular.b", "OAI.AtomicTriangular.triangularPoint", "OAI.AtomicTriangular.A", "OAI.AtomicTriangular.dualA", "OAI.AtomicTriangular.gaussian", "OAI.AtomicTriangular.Radial", "OAI.AtomicTriangular.realFourier", "OAI.AtomicTriangular.Construction.b", "OAI.AtomicTriangular.Construction.h", "OAI.AtomicTriangular.Construction.H", "OAI.AtomicTriangular.Construction.eta", "OAI.AtomicTriangular.Construction.kappa", "OAI.AtomicTriangular.Construction.residues", "OAI.AtomicTriangular.Construction.residue", "OAI.AtomicTriangular.Construction.Node", "OAI.AtomicTriangular.Construction.FiniteNodes", "OAI.AtomicTriangular.Construction.sineFactor", "OAI.AtomicTriangular.Construction.P", "OAI.AtomicTriangular.Construction.dBasis", "OAI.AtomicTriangular.Construction.cBasis", "OAI.AtomicTriangular.Construction.finiteC", "OAI.AtomicTriangular.Construction.finiteD", "OAI.AtomicTriangular.Construction.phase", "OAI.AtomicTriangular.Construction.atomFactor", "OAI.AtomicTriangular.Construction.atomPolynomial", "OAI.AtomicTriangular.Construction.cAtomPolynomial", "OAI.AtomicTriangular.Construction.dAtomPolynomial", "OAI.AtomicTriangular.Construction.fourierCoeff", "OAI.AtomicTriangular.Construction.frequency", "OAI.AtomicTriangular.Construction.waveDerivative", "OAI.AtomicTriangular.Construction.Q", "OAI.AtomicTriangular.Construction.D", "OAI.AtomicTriangular.FiniteCertificate.cShiftPolynomial", "OAI.AtomicTriangular.FiniteCertificate.cCoefficient", "OAI.AtomicTriangular.FiniteCertificate.dCoefficient", "OAI.AtomicTriangular.Construction.Plane", "OAI.AtomicTriangular.Construction.radial", "OAI.AtomicTriangular.Construction.waveDen", "OAI.AtomicTriangular.Construction.Xwave", "OAI.AtomicTriangular.Construction.lambda", "OAI.AtomicTriangular.Construction.zeta", "OAI.AtomicTriangular.Construction.transformedWave", "OAI.AtomicTriangular.Construction.finiteColumn", "OAI.AtomicTriangular.Construction.finiteNode", "OAI.AtomicTriangular.Construction.jetMultiplier", "OAI.AtomicTriangular.Construction.jet", "OAI.AtomicTriangular.Construction.fullJetMatrix", "OAI.AtomicTriangular.Construction.R", "OAI.AtomicTriangular.Construction.R0", "OAI.AtomicTriangular.Construction.TailNode", "OAI.AtomicTriangular.Construction.InputCoefficients", "OAI.AtomicTriangular.Construction.tailInput", "OAI.AtomicTriangular.Construction.finiteInput", "OAI.AtomicTriangular.Construction.inputComplex", "OAI.AtomicTriangular.Construction.Z", "OAI.AtomicTriangular.Construction.targetCoefficient", "OAI.AtomicTriangular.Construction.Yf", "OAI.AtomicTriangular.Construction.gamma", "OAI.AtomicTriangular.Construction.Uplus", "OAI.AtomicTriangular.Construction.Uminus", "OAI.AtomicTriangular.Construction.finiteSolution", "OAI.AtomicTriangular.Construction.Acoefficient", "OAI.AtomicTriangular.Construction.gaussianZ", "OAI.AtomicTriangular.Construction.actualParameter", "OAI.AtomicTriangular.Construction.normalizingDen", "OAI.AtomicTriangular.Construction.finiteCoordinates", "OAI.AtomicTriangular.Construction.HasAtomicConstruction"], "json_theorems": ["OAI.AtomicTriangular.sharp_gaussian_minorants_atomic"], "missing_from_parse": []}
+TYPES/DEFS DIFFER AtomicGaussian
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_AtomicGaussian.lean:239:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.AtomicTriangular.sharp_gaussian_minorants_atomic' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-09T17:10:59Z

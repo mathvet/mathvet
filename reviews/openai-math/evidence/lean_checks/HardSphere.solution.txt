@@ -1,0 +1,174 @@
+OAI.HardSphere.condensation_with_mixed : ∃ ε₀ c₀,
+  0 < ε₀ ∧
+    0 < c₀ ∧
+      ∀ (a ρ : ℝ),
+        0 < a →
+          0 < ρ →
+            ρ * a ^ 3 < ε₀ →
+              ∀ (N : ℕ → ℕ) (L : ℕ → OAI.HardSphere.Length) (hN : ∀ (k : ℕ), 0 < N k),
+                Filter.Tendsto N Filter.atTop Filter.atTop →
+                  Filter.Tendsto (fun k => ↑(L k)) Filter.atTop Filter.atTop →
+                    Filter.Tendsto (fun k => ↑(N k) / ↑(L k) ^ 3) Filter.atTop (nhds ρ) →
+                      (∀ (Ψ : (k : ℕ) → OAI.HardSphere.Jet (N k) (L k)),
+                          (∀ (k : ℕ), OAI.HardSphere.IsGroundVector (N k) (L k) a (Ψ k)) →
+                            c₀ ≤ Filter.liminf (fun k => OAI.HardSphere.occupation ⋯ (Ψ k).1) Filter.atTop) ∧
+                        ∀ (T : (k : ℕ) → OAI.HardSphere.Density.Operator (OAI.HardSphere.ScalarL2 (N k) (L k))),
+                          (∀ (k : ℕ), OAI.HardSphere.GroundSupported a (T k)) →
+                            c₀ ≤ Filter.liminf (fun k => OAI.HardSphere.mixedOccupation ⋯ (T k)) Filter.atTop
+'OAI.HardSphere.condensation_with_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.HardSphere.Length : Type :=
+{ L // 0 < L }
+@[reducible] def OAI.HardSphere.Torus : OAI.HardSphere.Length → Type :=
+fun L => Fin 3 → AddCircle ↑L
+@[reducible] def OAI.HardSphere.Configuration : ℕ → OAI.HardSphere.Length → Type :=
+fun N L => Fin N → OAI.HardSphere.Torus L
+@[reducible] def OAI.HardSphere.LiftedConfiguration : ℕ → Type :=
+fun N => Fin N → Fin 3 → ℝ
+@[reducible] def OAI.HardSphere.Direction : ℕ → Type :=
+fun N => Fin N × Fin 3
+def OAI.HardSphere.torusDistance : (L : OAI.HardSphere.Length) → OAI.HardSphere.Torus L → OAI.HardSphere.Torus L → ℝ :=
+fun L x y => √(∑ j, dist (x j) (y j) ^ 2)
+def OAI.HardSphere.allowed : (N : ℕ) → (L : OAI.HardSphere.Length) → ℝ → Set (OAI.HardSphere.Configuration N L) :=
+fun N L a => {X | ∀ (i j : Fin N), i < j → a < OAI.HardSphere.torusDistance L (X i) (X j)}
+def OAI.HardSphere.project : (N : ℕ) →
+  (L : OAI.HardSphere.Length) → OAI.HardSphere.LiftedConfiguration N → OAI.HardSphere.Configuration N L :=
+fun N L X i j => ↑(X i j)
+def OAI.HardSphere.representative : (N : ℕ) →
+  (L : OAI.HardSphere.Length) → OAI.HardSphere.Configuration N L → OAI.HardSphere.LiftedConfiguration N :=
+fun N L X i j => ↑((AddCircle.equivIco (↑L) 0) (X i j))
+def OAI.HardSphere.coordDerivative : (N : ℕ) →
+  (L : OAI.HardSphere.Length) →
+    (OAI.HardSphere.Configuration N L → ℂ) → OAI.HardSphere.Direction N → OAI.HardSphere.Configuration N L → ℂ :=
+fun N L f p X =>
+  (fderiv ℝ (fun Y => f (OAI.HardSphere.project N L Y)) (OAI.HardSphere.representative N L X))
+    (Pi.single p.1 (Pi.single p.2 1))
+@[reducible] def OAI.HardSphere.ScalarL2 : ℕ → OAI.HardSphere.Length → Type :=
+fun N L => ↥(MeasureTheory.Lp ℂ 2 MeasureTheory.volume)
+@[reducible] def OAI.HardSphere.Jet : ℕ → OAI.HardSphere.Length → Type :=
+fun N L => OAI.HardSphere.ScalarL2 N L × (OAI.HardSphere.Direction N → OAI.HardSphere.ScalarL2 N L)
+structure OAI.HardSphere.SmoothTest (N : ℕ) (L : OAI.HardSphere.Length) (a : ℝ) : Type
+number of parameters: 3
+fields:
+  OAI.HardSphere.SmoothTest.toFun : OAI.HardSphere.Configuration N L → ℂ
+  OAI.HardSphere.SmoothTest.smooth : ContDiff ℝ ↑⊤ fun X => self.toFun (OAI.HardSphere.project N L X)
+  OAI.HardSphere.SmoothTest.compact : HasCompactSupport self.toFun
+  OAI.HardSphere.SmoothTest.support_allowed : tsupport self.toFun ⊆ OAI.HardSphere.allowed N L a
+  OAI.HardSphere.SmoothTest.memLp : MeasureTheory.MemLp self.toFun (↑2) MeasureTheory.volume
+  OAI.HardSphere.SmoothTest.partial_memLp : ∀ (p : OAI.HardSphere.Direction N),
+      MeasureTheory.MemLp (OAI.HardSphere.coordDerivative N L self.toFun p) (↑2) MeasureTheory.volume
+constructor:
+  OAI.HardSphere.SmoothTest.mk {N : ℕ} {L : OAI.HardSphere.Length} {a : ℝ}
+    (toFun : OAI.HardSphere.Configuration N L → ℂ)
+    (smooth : ContDiff ℝ ↑⊤ fun X => toFun (OAI.HardSphere.project N L X)) (compact : HasCompactSupport toFun)
+    (support_allowed : tsupport toFun ⊆ OAI.HardSphere.allowed N L a)
+    (memLp : MeasureTheory.MemLp toFun (↑2) MeasureTheory.volume)
+    (partial_memLp :
+      ∀ (p : OAI.HardSphere.Direction N),
+        MeasureTheory.MemLp (OAI.HardSphere.coordDerivative N L toFun p) (↑2) MeasureTheory.volume) :
+    OAI.HardSphere.SmoothTest N L a
+def OAI.HardSphere.SmoothTest.jet : {N : ℕ} →
+  {L : OAI.HardSphere.Length} → {a : ℝ} → OAI.HardSphere.SmoothTest N L a → OAI.HardSphere.Jet N L :=
+fun {N} {L} {a} f =>
+  (MeasureTheory.MemLp.toLp f.toFun ⋯, fun p =>
+    MeasureTheory.MemLp.toLp (OAI.HardSphere.coordDerivative N L f.toFun p) ⋯)
+def OAI.HardSphere.dirichletDomain : (N : ℕ) → (L : OAI.HardSphere.Length) → ℝ → Set (OAI.HardSphere.Jet N L) :=
+fun N L a => closure (Set.range OAI.HardSphere.SmoothTest.jet)
+def OAI.HardSphere.energy : {N : ℕ} → {L : OAI.HardSphere.Length} → OAI.HardSphere.Jet N L → ℝ :=
+fun {N} {L} u => ∑ p, ‖u.2 p‖ ^ 2
+def OAI.HardSphere.bosonic : {N : ℕ} → {L : OAI.HardSphere.Length} → OAI.HardSphere.ScalarL2 N L → Prop :=
+fun {N} {L} ψ => ∀ (σ : Equiv.Perm (Fin N)), (fun X => ↑↑ψ fun i => X (σ i)) =ᵐ[MeasureTheory.volume] ↑↑ψ
+def OAI.HardSphere.IsGroundVector : (N : ℕ) → (L : OAI.HardSphere.Length) → ℝ → OAI.HardSphere.Jet N L → Prop :=
+fun N L a u =>
+  u ∈ OAI.HardSphere.dirichletDomain N L a ∧
+    OAI.HardSphere.bosonic u.1 ∧
+      ‖u.1‖ = 1 ∧
+        ∀ v ∈ OAI.HardSphere.dirichletDomain N L a,
+          OAI.HardSphere.bosonic v.1 → ‖v.1‖ = 1 → OAI.HardSphere.energy u ≤ OAI.HardSphere.energy v
+def OAI.HardSphere.insertFirst : {N : ℕ} →
+  0 < N →
+    {L : OAI.HardSphere.Length} →
+      OAI.HardSphere.Torus L → OAI.HardSphere.Configuration (N - 1) L → OAI.HardSphere.Configuration N L :=
+fun {N} hN {L} x Y i => Fin.cons x Y (Fin.cast ⋯ i)
+def OAI.HardSphere.occupation : {N : ℕ} → 0 < N → {L : OAI.HardSphere.Length} → OAI.HardSphere.ScalarL2 N L → ℝ :=
+fun {N} hN {L} ψ =>
+  (↑L ^ 3)⁻¹ *
+    ∫ (Y : OAI.HardSphere.Configuration (N - 1) L),
+      ‖∫ (x : OAI.HardSphere.Torus L), ↑↑ψ (OAI.HardSphere.insertFirst hN x Y)‖ ^ 2
+def OAI.HardSphere.Density.basisSet.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → [CompleteSpace H] → Set H :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] => ⋯.choose
+def OAI.HardSphere.Density.basis.{u_1} : (H : Type u_1) →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → HilbertBasis ↑(OAI.HardSphere.Density.basisSet H) ℂ H :=
+fun H [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] => ⋯.choose
+structure OAI.HardSphere.Density.Operator.{u_1} (H : Type u_1) [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+  [CompleteSpace H] : Type u_1
+number of parameters: 4
+fields:
+  OAI.HardSphere.Density.Operator.toCLM : H →L[ℂ] H
+  OAI.HardSphere.Density.Operator.positive : 0 ≤ self.toCLM
+  OAI.HardSphere.Density.Operator.trace_one : HasSum
+      (fun i => (inner ℂ ((OAI.HardSphere.Density.basis H) i) (self.toCLM ((OAI.HardSphere.Density.basis H) i))).re) 1
+constructor:
+  OAI.HardSphere.Density.Operator.mk.{u_1} {H : Type u_1} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] (toCLM : H →L[ℂ] H) (positive : 0 ≤ toCLM)
+    (trace_one :
+      HasSum (fun i => (inner ℂ ((OAI.HardSphere.Density.basis H) i) (toCLM ((OAI.HardSphere.Density.basis H) i))).re)
+        1) :
+    OAI.HardSphere.Density.Operator H
+def OAI.HardSphere.Density.Operator.compressionTrace.{u_2, u_3} : {H : Type u_2} →
+  {K : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [inst_2 : CompleteSpace H] →
+          [inst_3 : NormedAddCommGroup K] →
+            [inst_4 : InnerProductSpace ℂ K] →
+              [CompleteSpace K] → OAI.HardSphere.Density.Operator H → (H →L[ℂ] K) → ℝ :=
+fun {H} {K} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] [NormedAddCommGroup K]
+    [InnerProductSpace ℂ K] [CompleteSpace K] T A =>
+  have adjoint := ContinuousLinearMap.adjoint A;
+  ∑' (j : ↑(OAI.HardSphere.Density.basisSet K)),
+    (inner ℂ (adjoint ((OAI.HardSphere.Density.basis K) j)) (T.toCLM (adjoint ((OAI.HardSphere.Density.basis K) j)))).re
+def OAI.HardSphere.Orbital.sliceIntegral : {N : ℕ} →
+  0 < N → {L : OAI.HardSphere.Length} → OAI.HardSphere.ScalarL2 N L → OAI.HardSphere.Configuration (N - 1) L → ℂ :=
+fun {N} hN {L} ψ Y => (√(↑L ^ 3))⁻¹ • ∫ (x : OAI.HardSphere.Torus L), ↑↑ψ (OAI.HardSphere.insertFirst hN x Y)
+def OAI.HardSphere.Orbital.map : {N : ℕ} →
+  0 < N → {L : OAI.HardSphere.Length} → OAI.HardSphere.ScalarL2 N L → OAI.HardSphere.ScalarL2 (N - 1) L :=
+fun {N} hN {L} ψ =>
+  have integral_mul_le_sqrt := @OAI.HardSphere.Orbital.map._proof_1;
+  have integral_norm_sq_le := ⋯;
+  have memLp_slices := @OAI.HardSphere.Orbital.map._proof_4;
+  have memLp_integral_norm := ⋯;
+  have cons_preserving := @OAI.HardSphere.Orbital.map._proof_6;
+  have insertFirst_preserving := ⋯;
+  have bathFirst_preserving := ⋯;
+  have ground_slice_memLp := ⋯;
+  have sliceIntegral_memLp := ⋯;
+  MeasureTheory.MemLp.toLp (OAI.HardSphere.Orbital.sliceIntegral hN ψ) ⋯
+def OAI.HardSphere.Orbital.continuous : {N : ℕ} →
+  0 < N → {L : OAI.HardSphere.Length} → OAI.HardSphere.ScalarL2 N L →L[ℂ] OAI.HardSphere.ScalarL2 (N - 1) L :=
+fun {N} hN {L} =>
+  have scalar_norm_sq_integral := @OAI.HardSphere.Orbital.continuous._proof_1;
+  have volume_torus := OAI.HardSphere.Orbital.continuous._proof_2;
+  have integral_mul_le_sqrt := @OAI.HardSphere.Orbital.map._proof_1;
+  have integral_norm_sq_le := ⋯;
+  have memLp_slices := @OAI.HardSphere.Orbital.map._proof_4;
+  have memLp_integral_norm := ⋯;
+  have cons_preserving := @OAI.HardSphere.Orbital.map._proof_6;
+  have insertFirst_preserving := ⋯;
+  have bathFirst_preserving := ⋯;
+  have ground_slice_memLp := ⋯;
+  have occupation_le_norm_sq := ⋯;
+  have map_ae := @OAI.HardSphere.Orbital.continuous._proof_5;
+  have map_add := ⋯;
+  have map_smul := ⋯;
+  have map_norm_sq := ⋯;
+  have map_norm_le := ⋯;
+  { toFun := OAI.HardSphere.Orbital.map hN, map_add' := ⋯, map_smul' := ⋯ }.mkContinuous 1 ⋯
+def OAI.HardSphere.GroundSupported : {N : ℕ} →
+  {L : OAI.HardSphere.Length} → ℝ → OAI.HardSphere.Density.Operator (OAI.HardSphere.ScalarL2 N L) → Prop :=
+fun {N} {L} a T => ∀ ψ ∈ (↑T.toCLM).kerᗮ, ‖ψ‖ = 1 → ∃ u, u.1 = ψ ∧ OAI.HardSphere.IsGroundVector N L a u
+def OAI.HardSphere.mixedOccupation : {N : ℕ} →
+  0 < N → {L : OAI.HardSphere.Length} → OAI.HardSphere.Density.Operator (OAI.HardSphere.ScalarL2 N L) → ℝ :=
+fun {N} hN {L} T => T.compressionTrace (OAI.HardSphere.Orbital.continuous hN)

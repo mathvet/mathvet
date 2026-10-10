@@ -1,0 +1,41 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_LogBrunnMinkowski.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LogBrunnMinkowski.main [thm] ok
+CMP OAI.LogBrunnMinkowski.logCombination [def] ok
+CMP OAI.LogBrunnMinkowski.support [def] ok
+CMP OAI.LogBrunnMinkowski.support._proof_1 [thm] ok
+CMP OAI.LogBrunnMinkowski.Space [def] ok
+CMP OAI.LogBrunnMinkowski.wulff [def] ok
+CMP OAI.LogBrunnMinkowski.OriginSymmetric [def] ok
+CMP OAI.LogBrunnMinkowski.IsConvexBody [def] ok
+Chal.LogBrunnMinkowski.main : ∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (K L : Set (Chal.LogBrunnMinkowski.Space n)),
+      Chal.LogBrunnMinkowski.IsConvexBody K →
+        Chal.LogBrunnMinkowski.IsConvexBody L →
+          Chal.LogBrunnMinkowski.OriginSymmetric K →
+            Chal.LogBrunnMinkowski.OriginSymmetric L →
+              ∀ (t : ℝ),
+                0 ≤ t →
+                  t ≤ 1 →
+                    MeasureTheory.volume K ^ (1 - t) * MeasureTheory.volume L ^ t ≤
+                      MeasureTheory.volume (Chal.LogBrunnMinkowski.logCombination K L t)
+@[reducible] def Chal.LogBrunnMinkowski.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.LogBrunnMinkowski.IsConvexBody : {n : ℕ} → Set (Chal.LogBrunnMinkowski.Space n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty
+def Chal.LogBrunnMinkowski.OriginSymmetric : {n : ℕ} → Set (Chal.LogBrunnMinkowski.Space n) → Prop :=
+fun {n} K => ∀ (x : Chal.LogBrunnMinkowski.Space n), x ∈ K ↔ -x ∈ K
+def Chal.LogBrunnMinkowski.support : {n : ℕ} →
+  Set (Chal.LogBrunnMinkowski.Space n) → Chal.LogBrunnMinkowski.Space n → ℝ :=
+fun {n} K u => sSup ((fun x => inner ℝ x u) '' K)
+def Chal.LogBrunnMinkowski.wulff : {n : ℕ} →
+  (Chal.LogBrunnMinkowski.Space n → ℝ) → Set (Chal.LogBrunnMinkowski.Space n) :=
+fun {n} f => {x | ∀ (u : Chal.LogBrunnMinkowski.Space n), ‖u‖ = 1 → inner ℝ x u ≤ f u}
+def Chal.LogBrunnMinkowski.logCombination : {n : ℕ} →
+  Set (Chal.LogBrunnMinkowski.Space n) →
+    Set (Chal.LogBrunnMinkowski.Space n) → ℝ → Set (Chal.LogBrunnMinkowski.Space n) :=
+fun {n} K L t =>
+  Chal.LogBrunnMinkowski.wulff fun u =>
+    Chal.LogBrunnMinkowski.support K u ^ (1 - t) * Chal.LogBrunnMinkowski.support L u ^ t
+'OAI.LogBrunnMinkowski.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LogBrunnMinkowski comparator-style: ok=8 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

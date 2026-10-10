@@ -1,0 +1,58 @@
+== NoiselessRegression  module=OAI.Probability.GaussianRegression.Main  start=2026-10-09T10:38:33Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8945] Built OAI.Probability.ProjectionMoments.Model (8.1s)
+✔ [8925/8945] Built OAI.Probability.GaussianRegression.Model (5.1s)
+✔ [8926/8945] Built OAI.Probability.GaussianRegression.Nets (8.2s)
+✔ [8927/8945] Built OAI.Probability.GaussianRegression.InverseMoments (8.1s)
+✔ [8928/8945] Built OAI.Probability.GaussianRegression.Gram (8.6s)
+✔ [8929/8945] Built OAI.Probability.GaussianRegression.AffineTubes (9.2s)
+✔ [8930/8945] Built OAI.Probability.GaussianRegression.GaussianKernel (8.8s)
+✔ [8931/8945] Built OAI.Probability.GaussianRegression.ReplicaMoments (9.3s)
+✔ [8932/8945] Built OAI.Probability.GaussianRegression.Sphere (11s)
+✔ [8933/8945] Built OAI.Probability.GaussianRegression.Smoothing (8.6s)
+✔ [8934/8945] Built OAI.Probability.GaussianRegression.Rotational (9.6s)
+✔ [8935/8945] Built OAI.Probability.GaussianRegression.Projection (7.6s)
+✔ [8936/8945] Built OAI.Probability.GaussianRegression.Support (6.8s)
+✔ [8937/8945] Built OAI.Probability.GaussianRegression.Blocks (7.2s)
+✔ [8938/8945] Built OAI.Probability.GaussianRegression.Observation (7.7s)
+✔ [8939/8945] Built OAI.Probability.GaussianRegression.Stream (8.1s)
+✔ [8940/8945] Built OAI.Probability.GaussianRegression.Execution (7.9s)
+✔ [8941/8945] Built OAI.Probability.GaussianRegression.Caps (8.2s)
+✔ [8942/8945] Built OAI.Probability.GaussianRegression.Transfer (6.5s)
+✔ [8943/8945] Built OAI.Probability.GaussianRegression.Success (6.2s)
+✔ [8944/8945] Built OAI.Probability.GaussianRegression.Precision (12s)
+✔ [8945/8945] Built OAI.Probability.GaussianRegression.Main (5.5s)
+Build completed successfully (8945 jobs).
+== build rc=0 seconds=124
+{"theorems": ["OAI.NoiselessRegression.main"], "defs": ["OAI.NoiselessRegression.Vector", "OAI.NoiselessRegression.UnitSphere", "OAI.NoiselessRegression.State", "OAI.NoiselessRegression.Samples", "OAI.NoiselessRegression.uniformSphere", "OAI.NoiselessRegression.sampleLaw", "OAI.NoiselessRegression.observationReference", "OAI.NoiselessRegression.Learner", "OAI.NoiselessRegression.Learner.RunStatus", "OAI.NoiselessRegression.Learner.start", "OAI.NoiselessRegression.Learner.run", "OAI.NoiselessRegression.Learner.terminal", "OAI.NoiselessRegression.Learner.estimate", "OAI.NoiselessRegression.Learner.Admissible", "OAI.NoiselessRegression.Learner.angularError", "OAI.NoiselessRegression.Learner.success", "OAI.NoiselessRegression.Learner.uniformSuccess", "OAI.NoiselessRegression.SubquadraticMemory", "OAI.NoiselessRegression.FixedQuadraticMemory"], "json_theorems": ["OAI.NoiselessRegression.main"], "missing_from_parse": []}
+TYPES/DEFS DIFFER NoiselessRegression
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_NoiselessRegression.lean:118:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.NoiselessRegression.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-09T10:40:57Z

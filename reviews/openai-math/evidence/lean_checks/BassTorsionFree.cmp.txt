@@ -1,0 +1,93 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_BassTorsionFree.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TorsionFreeBass.torsion_free_corollary [thm] ok
+CMP OAI.TorsionFreeBass.augmentationRank [def] ok
+CMP OAI.TorsionFreeBass.augmentationRank_relations [thm] ok
+CMP OAI.TorsionFreeBass.rawAugmentationRank [def] ok
+CMP OAI.BassTrace.K0.Idempotent.matrix [def] ok
+CMP OAI.BassTrace.K0.Idempotent [ind] ok
+CMP OAI.BassTrace.K0.Idempotent.mk [ctor] ok
+CMP OAI.BassTrace.K0.Idempotent.size [def] ok
+CMP OAI.TorsionFreeBass.augmentedMatrix [def] ok
+CMP OAI.TorsionFreeBass.augmentation [def] ok
+CMP OAI.BassTrace.K0.relations [def] ok
+CMP OAI.BassTrace.K0.relationGenerators [def] ok
+CMP OAI.BassTrace.K0.directSum [def] ok
+CMP OAI.BassTrace.K0.directSum._proof_1 [thm] ok
+CMP OAI.BassTrace.K0.groupRingRelations_normal [thm] ok
+CMP OAI.BassTrace.K0.Group [def] ok
+CMP OAI.TorsionFreeBass.traceK0 [def] ok
+CMP OAI.TorsionFreeBass.traceK0_relations [thm] ok
+CMP OAI.BassTrace.K0.rawCoefficient [def] ok
+CMP OAI.BassTrace.classCoefficient [def] ok
+CMP OAI.TorsionFreeBass.matrixTrace [def] ok
+CMP OAI.TorsionFreeBass.canonicalTrace [def] ok
+CMP OAI.TorsionFreeBass.TorsionFree [def] ok
+Chal.TorsionFreeBass.torsion_free_corollary : ∀ (G : Type u_1) [inst : Group G],
+  Chal.TorsionFreeBass.TorsionFree G →
+    ((∀ (q : ℕ),
+          1 ≤ q →
+            ∀ (e : Matrix (Fin q) (Fin q) (MonoidAlgebra ℂ G)),
+              e ^ 2 = e → Chal.TorsionFreeBass.matrixTrace e = ↑(Chal.TorsionFreeBass.augmentedMatrix e).rank) ∧
+        Chal.TorsionFreeBass.traceK0 = (Int.castAddHom ℂ).comp Chal.TorsionFreeBass.augmentationRank ∧
+          Set.range ⇑Chal.TorsionFreeBass.traceK0 = Set.range fun z => ↑z) ∧
+      ∀ (R : Type u_2) [inst_1 : CommRing R] [IsDomain R] [CharZero R] (e : MonoidAlgebra R G),
+        e ^ 2 = e → e = 0 ∨ e = 1
+def Chal.BassTrace.classCoefficient.{u_1} : {G : Type u_1} → [Group G] → G → MonoidAlgebra ℂ G → ℂ :=
+fun {G} [Group G] g a => a.coeff.sum fun h z => if IsConj h g then z else 0
+structure Chal.BassTrace.K0.Idempotent.{u_1} (R : Type u_1) [Ring R] : Type u_1
+number of parameters: 2
+fields:
+  Chal.BassTrace.K0.Idempotent.size : ℕ
+  Chal.BassTrace.K0.Idempotent.matrix : Matrix (Fin self.size) (Fin self.size) R
+  Chal.BassTrace.K0.Idempotent.idem : self.matrix * self.matrix = self.matrix
+constructor:
+  Chal.BassTrace.K0.Idempotent.mk.{u_1} {R : Type u_1} [Ring R] (size : ℕ) (matrix : Matrix (Fin size) (Fin size) R)
+    (idem : matrix * matrix = matrix) : Chal.BassTrace.K0.Idempotent R
+def Chal.BassTrace.K0.directSum.{u_1} : {R : Type u_1} →
+  [inst : Ring R] → Chal.BassTrace.K0.Idempotent R → Chal.BassTrace.K0.Idempotent R → Chal.BassTrace.K0.Idempotent R :=
+fun {R} [Ring R] e f =>
+  { size := e.size + f.size,
+    matrix := (Matrix.reindexRingEquiv R finSumFinEquiv) (Matrix.fromBlocks e.matrix 0 0 f.matrix), idem := ⋯ }
+def Chal.BassTrace.K0.relationGenerators.{u_2} : (R : Type u_2) →
+  [inst : Ring R] → Set (FreeAbelianGroup (Chal.BassTrace.K0.Idempotent R)) :=
+fun R [Ring R] =>
+  {x |
+    (∃ e f a b, a * b = e.matrix ∧ b * a = f.matrix ∧ x = FreeAbelianGroup.of e - FreeAbelianGroup.of f) ∨
+      ∃ e f, x = FreeAbelianGroup.of (Chal.BassTrace.K0.directSum e f) - FreeAbelianGroup.of e - FreeAbelianGroup.of f}
+def Chal.BassTrace.K0.relations.{u_2} : (R : Type u_2) →
+  [inst : Ring R] → AddSubgroup (FreeAbelianGroup (Chal.BassTrace.K0.Idempotent R)) :=
+fun R [Ring R] => AddSubgroup.closure (Chal.BassTrace.K0.relationGenerators R)
+@[reducible] def Chal.BassTrace.K0.Group.{u_2} : (R : Type u_2) → [Ring R] → Type u_2 :=
+fun R [Ring R] => FreeAbelianGroup (Chal.BassTrace.K0.Idempotent R) ⧸ Chal.BassTrace.K0.relations R
+def Chal.BassTrace.K0.rawCoefficient.{u_2} : {G : Type u_2} →
+  [inst : Group G] → G → FreeAbelianGroup (Chal.BassTrace.K0.Idempotent (MonoidAlgebra ℂ G)) →+ ℂ :=
+fun {G} [Group G] g => FreeAbelianGroup.lift fun e => Chal.BassTrace.classCoefficient g e.matrix.trace
+def Chal.BassTrace.K0.hsCoefficient.{u_2} : {G : Type u_2} →
+  [inst : Group G] → G → Chal.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℂ :=
+fun {G} [Group G] g =>
+  QuotientAddGroup.lift (Chal.BassTrace.K0.relations (MonoidAlgebra ℂ G)) (Chal.BassTrace.K0.rawCoefficient g) ⋯
+def Chal.TorsionFreeBass.TorsionFree.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] => ∀ (g : G), IsOfFinOrder g → g = 1
+def Chal.TorsionFreeBass.augmentation.{u_1} : {G : Type u_1} → [inst : Group G] → MonoidAlgebra ℂ G →+* ℂ :=
+fun {G} [Group G] => ((MonoidAlgebra.lift ℂ ℂ G) 1).toRingHom
+def Chal.TorsionFreeBass.canonicalTrace.{u_1} : {G : Type u_1} → [Group G] → MonoidAlgebra ℂ G → ℂ :=
+fun {G} [Group G] a => a.coeff 1
+def Chal.TorsionFreeBass.matrixTrace.{u_1} : {G : Type u_1} →
+  [Group G] → {q : ℕ} → Matrix (Fin q) (Fin q) (MonoidAlgebra ℂ G) → ℂ :=
+fun {G} [Group G] {q} e => ∑ i, Chal.TorsionFreeBass.canonicalTrace (e i i)
+def Chal.TorsionFreeBass.augmentedMatrix.{u_1} : {G : Type u_1} →
+  [Group G] → {m n : ℕ} → Matrix (Fin m) (Fin n) (MonoidAlgebra ℂ G) → Matrix (Fin m) (Fin n) ℂ :=
+fun {G} [Group G] {m n} e => e.map ⇑Chal.TorsionFreeBass.augmentation
+def Chal.TorsionFreeBass.rawAugmentationRank.{u_1} : {G : Type u_1} →
+  [inst : Group G] → FreeAbelianGroup (Chal.BassTrace.K0.Idempotent (MonoidAlgebra ℂ G)) →+ ℤ :=
+fun {G} [Group G] => FreeAbelianGroup.lift fun e => ↑(Chal.TorsionFreeBass.augmentedMatrix e.matrix).rank
+def Chal.TorsionFreeBass.augmentationRank.{u_1} : {G : Type u_1} →
+  [inst : Group G] → Chal.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℤ :=
+fun {G} [Group G] =>
+  QuotientAddGroup.lift (Chal.BassTrace.K0.relations (MonoidAlgebra ℂ G)) Chal.TorsionFreeBass.rawAugmentationRank ⋯
+def Chal.TorsionFreeBass.traceK0.{u_1} : {G : Type u_1} →
+  [inst : Group G] → Chal.BassTrace.K0.Group (MonoidAlgebra ℂ G) →+ ℂ :=
+fun {G} [Group G] =>
+  QuotientAddGroup.lift (Chal.BassTrace.K0.relations (MonoidAlgebra ℂ G)) (Chal.BassTrace.K0.rawCoefficient 1) ⋯
+'OAI.TorsionFreeBass.torsion_free_corollary' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BassTorsionFree comparator-style: ok=23 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

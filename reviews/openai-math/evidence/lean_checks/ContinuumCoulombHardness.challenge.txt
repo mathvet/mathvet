@@ -1,0 +1,570 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_ContinuumCoulombHardness.lean:546:8: warning: declaration uses `sorry`
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_ContinuumCoulombHardness.lean:549:8: warning: declaration uses `sorry`
+OAI.ContinuumCoulomb.unit_coulomb_qmaHard : OAI.ContinuumCoulomb.QMAHard OAI.ContinuumCoulomb.unitCoulombCodec.encode
+  OAI.ContinuumCoulomb.unitCoulombPromise
+OAI.ContinuumCoulomb.binary_coulomb_qmaHard : OAI.ContinuumCoulomb.QMAHard
+  OAI.ContinuumCoulomb.binaryCoulombCodec.encode OAI.ContinuumCoulomb.binaryCoulombPromise
+@[reducible] def OAI.ContinuumCoulomb.BinaryEncoding.BitString : Type :=
+List Bool
+structure OAI.ContinuumCoulomb.BinaryEncoding.Codec.{u_1} (α : Type u_1) : Type u_1
+number of parameters: 1
+fields:
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec.encode : α → OAI.ContinuumCoulomb.BinaryEncoding.BitString
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec.read : OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+      α × OAI.ContinuumCoulomb.BinaryEncoding.BitString
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec.read_encode : ∀ (x : α)
+      (tail : OAI.ContinuumCoulomb.BinaryEncoding.BitString), self.read (self.encode x ++ tail) = (x, tail)
+constructor:
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec.mk.{u_1} {α : Type u_1}
+    (encode : α → OAI.ContinuumCoulomb.BinaryEncoding.BitString)
+    (read : OAI.ContinuumCoulomb.BinaryEncoding.BitString → α × OAI.ContinuumCoulomb.BinaryEncoding.BitString)
+    (read_encode :
+      ∀ (x : α) (tail : OAI.ContinuumCoulomb.BinaryEncoding.BitString), read (encode x ++ tail) = (x, tail)) :
+    OAI.ContinuumCoulomb.BinaryEncoding.Codec α
+def OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits : OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+  OAI.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits._f
+def OAI.ContinuumCoulomb.BinaryEncoding.readDigits : OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+  OAI.ContinuumCoulomb.BinaryEncoding.BitString × OAI.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x OAI.ContinuumCoulomb.BinaryEncoding.readDigits._f
+def OAI.ContinuumCoulomb.BinaryEncoding.decodeDigits : OAI.ContinuumCoulomb.BinaryEncoding.BitString → ℕ :=
+fun x => List.brecOn x OAI.ContinuumCoulomb.BinaryEncoding.decodeDigits._f
+def OAI.ContinuumCoulomb.BinaryEncoding.natural : OAI.ContinuumCoulomb.BinaryEncoding.Codec ℕ :=
+{ encode := fun n => OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits n.bits,
+  read := fun s =>
+    match OAI.ContinuumCoulomb.BinaryEncoding.readDigits s with
+    | (digits, tail) => (OAI.ContinuumCoulomb.BinaryEncoding.decodeDigits digits, tail),
+  read_encode := OAI.ContinuumCoulomb.BinaryEncoding.natural._proof_1 }
+def OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary : ℕ → OAI.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => Nat.brecOn x OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary._f
+def OAI.ContinuumCoulomb.BinaryEncoding.readUnary : OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+  ℕ × OAI.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x OAI.ContinuumCoulomb.BinaryEncoding.readUnary._f
+def OAI.ContinuumCoulomb.BinaryEncoding.unary : OAI.ContinuumCoulomb.BinaryEncoding.Codec ℕ :=
+{ encode := OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary, read := OAI.ContinuumCoulomb.BinaryEncoding.readUnary,
+  read_encode := OAI.ContinuumCoulomb.BinaryEncoding.readUnary_encode }
+def OAI.ContinuumCoulomb.BinaryEncoding.integer : OAI.ContinuumCoulomb.BinaryEncoding.Codec ℤ :=
+{
+  encode := fun x =>
+    match x with
+    | Int.ofNat n => false :: OAI.ContinuumCoulomb.BinaryEncoding.natural.encode n
+    | Int.negSucc n => true :: OAI.ContinuumCoulomb.BinaryEncoding.natural.encode n,
+  read := fun x =>
+    match x with
+    | false :: s =>
+      match OAI.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, tail) => (Int.ofNat n, tail)
+    | true :: s =>
+      match OAI.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, tail) => (Int.negSucc n, tail)
+    | [] => (0, []),
+  read_encode := OAI.ContinuumCoulomb.BinaryEncoding.integer._proof_1 }
+def OAI.ContinuumCoulomb.BinaryEncoding.pair.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    OAI.ContinuumCoulomb.BinaryEncoding.Codec α →
+      OAI.ContinuumCoulomb.BinaryEncoding.Codec β → OAI.ContinuumCoulomb.BinaryEncoding.Codec (α × β) :=
+fun {α} {β} a b =>
+  { encode := fun x => a.encode x.1 ++ b.encode x.2,
+    read := fun s =>
+      match a.read s with
+      | (x, t) =>
+        match b.read t with
+        | (y, u) => ((x, y), u),
+    read_encode := ⋯ }
+def OAI.ContinuumCoulomb.BinaryEncoding.readCount.{u_1} : {α : Type u_1} →
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec α →
+    ℕ → OAI.ContinuumCoulomb.BinaryEncoding.BitString → List α × OAI.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun {α} a x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ContinuumCoulomb.BinaryEncoding.BitString → List α × OAI.ContinuumCoulomb.BinaryEncoding.BitString) x
+    (OAI.ContinuumCoulomb.BinaryEncoding.readCount._f a) x_1
+def OAI.ContinuumCoulomb.BinaryEncoding.list.{u_1} : {α : Type u_1} →
+  OAI.ContinuumCoulomb.BinaryEncoding.Codec α → OAI.ContinuumCoulomb.BinaryEncoding.Codec (List α) :=
+fun {α} a =>
+  { encode := fun xs => OAI.ContinuumCoulomb.BinaryEncoding.natural.encode xs.length ++ List.flatMap a.encode xs,
+    read := fun s =>
+      match OAI.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, t) => OAI.ContinuumCoulomb.BinaryEncoding.readCount a n t,
+    read_encode := ⋯ }
+def OAI.ContinuumCoulomb.BinaryEncoding.equiv.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} → OAI.ContinuumCoulomb.BinaryEncoding.Codec α → β ≃ α → OAI.ContinuumCoulomb.BinaryEncoding.Codec β :=
+fun {α} {β} a e =>
+  { encode := fun x => a.encode (e x),
+    read := fun s =>
+      match a.read s with
+      | (x, t) => (e.symm x, t),
+    read_encode := ⋯ }
+def OAI.ContinuumCoulomb.BinaryEncoding.sum.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    OAI.ContinuumCoulomb.BinaryEncoding.Codec α →
+      OAI.ContinuumCoulomb.BinaryEncoding.Codec β → OAI.ContinuumCoulomb.BinaryEncoding.Codec (α ⊕ β) :=
+fun {α} {β} a b =>
+  {
+    encode := fun x =>
+      match x with
+      | Sum.inl x => false :: a.encode x
+      | Sum.inr y => true :: b.encode y,
+    read := fun x =>
+      match x with
+      | false :: s =>
+        match a.read s with
+        | (x, t) => (Sum.inl x, t)
+      | true :: s =>
+        match b.read s with
+        | (y, t) => (Sum.inr y, t)
+      | [] =>
+        match a.read [] with
+        | (x, t) => (Sum.inl x, t),
+    read_encode := ⋯ }
+@[reducible] def OAI.Coulomb.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def OAI.Coulomb.Configuration : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n × Fin 3)
+@[reducible] def OAI.Coulomb.Spins : ℕ → Type :=
+fun n => Fin n → Fin 2
+structure OAI.Coulomb.Nuclei (M : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Coulomb.Nuclei.nonempty : 0 < M
+  OAI.Coulomb.Nuclei.position : Fin M → OAI.Coulomb.Space
+  OAI.Coulomb.Nuclei.distinct : Function.Injective self.position
+  OAI.Coulomb.Nuclei.charge : Fin M → ℝ
+  OAI.Coulomb.Nuclei.charge_ge_one : ∀ (j : Fin M), 1 ≤ self.charge j
+constructor:
+  OAI.Coulomb.Nuclei.mk {M : ℕ} (nonempty : 0 < M) (position : Fin M → OAI.Coulomb.Space)
+    (distinct : Function.Injective position) (charge : Fin M → ℝ) (charge_ge_one : ∀ (j : Fin M), 1 ≤ charge j) :
+    OAI.Coulomb.Nuclei M
+def OAI.Coulomb.position : {n : ℕ} → OAI.Coulomb.Configuration n → Fin n → OAI.Coulomb.Space :=
+fun {n} x i => WithLp.toLp 2 fun b => x.ofLp (i, b)
+def OAI.Coulomb.coulombKernel : OAI.Coulomb.Space → ℝ :=
+fun x => ‖x‖⁻¹
+def OAI.Coulomb.attraction : {M : ℕ} → OAI.Coulomb.Nuclei M → OAI.Coulomb.Space → ℝ :=
+fun {M} S x => ∑ j, S.charge j * OAI.Coulomb.coulombKernel (x - S.position j)
+def OAI.Coulomb.permute : {n : ℕ} → Equiv.Perm (Fin n) → OAI.Coulomb.Configuration n → OAI.Coulomb.Configuration n :=
+fun {n} p x => WithLp.toLp 2 fun ib => x.ofLp (p ib.1, ib.2)
+structure OAI.Coulomb.H1Vector (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.Coulomb.H1Vector.value : OAI.Coulomb.Spins n → OAI.Coulomb.Configuration n → ℂ
+  OAI.Coulomb.H1Vector.gradient : OAI.Coulomb.Spins n → Fin n × Fin 3 → OAI.Coulomb.Configuration n → ℂ
+  OAI.Coulomb.H1Vector.value_L2 : ∀ (s : OAI.Coulomb.Spins n), MeasureTheory.MemLp (self.value s) 2 MeasureTheory.volume
+  OAI.Coulomb.H1Vector.partial_L2 : ∀ (s : OAI.Coulomb.Spins n) (a : Fin n × Fin 3),
+      MeasureTheory.MemLp (self.gradient s a) 2 MeasureTheory.volume
+  OAI.Coulomb.H1Vector.weak_partial : ∀ (s : OAI.Coulomb.Spins n) (a : Fin n × Fin 3)
+      (φ : OAI.Coulomb.Configuration n → ℝ),
+      ContDiff ℝ (↑⊤) φ →
+        HasCompactSupport φ →
+          ∫ (x : OAI.Coulomb.Configuration n), self.value s x * ↑((fderiv ℝ φ x) (EuclideanSpace.single a 1)) =
+            -∫ (x : OAI.Coulomb.Configuration n), self.gradient s a x * ↑(φ x)
+constructor:
+  OAI.Coulomb.H1Vector.mk {n : ℕ} (value : OAI.Coulomb.Spins n → OAI.Coulomb.Configuration n → ℂ)
+    (gradient : OAI.Coulomb.Spins n → Fin n × Fin 3 → OAI.Coulomb.Configuration n → ℂ)
+    (value_L2 : ∀ (s : OAI.Coulomb.Spins n), MeasureTheory.MemLp (value s) 2 MeasureTheory.volume)
+    (partial_L2 :
+      ∀ (s : OAI.Coulomb.Spins n) (a : Fin n × Fin 3), MeasureTheory.MemLp (gradient s a) 2 MeasureTheory.volume)
+    (weak_partial :
+      ∀ (s : OAI.Coulomb.Spins n) (a : Fin n × Fin 3) (φ : OAI.Coulomb.Configuration n → ℝ),
+        ContDiff ℝ (↑⊤) φ →
+          HasCompactSupport φ →
+            ∫ (x : OAI.Coulomb.Configuration n), value s x * ↑((fderiv ℝ φ x) (EuclideanSpace.single a 1)) =
+              -∫ (x : OAI.Coulomb.Configuration n), gradient s a x * ↑(φ x)) :
+    OAI.Coulomb.H1Vector n
+def OAI.Coulomb.Antisymmetric : {n : ℕ} → OAI.Coulomb.H1Vector n → Prop :=
+fun {n} ψ =>
+  ∀ (p : Equiv.Perm (Fin n)) (s : OAI.Coulomb.Spins n),
+    ∀ᵐ (x : OAI.Coulomb.Configuration n),
+      ψ.value (s ∘ ⇑p) (OAI.Coulomb.permute p x) = ↑↑(Equiv.Perm.sign p) * ψ.value s x
+def OAI.Coulomb.mass : {n : ℕ} → OAI.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ => ∑ s, ∫ (x : OAI.Coulomb.Configuration n), ‖ψ.value s x‖ ^ 2
+def OAI.Coulomb.kinetic : {n : ℕ} → OAI.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ => 1 / 2 * ∑ s, ∑ a, ∫ (x : OAI.Coulomb.Configuration n), ‖ψ.gradient s a x‖ ^ 2
+def OAI.Coulomb.nuclearEnergy : {M n : ℕ} → OAI.Coulomb.Nuclei M → OAI.Coulomb.H1Vector n → ℝ :=
+fun {M n} S ψ =>
+  ∑ s,
+    ∫ (x : OAI.Coulomb.Configuration n), (∑ i, OAI.Coulomb.attraction S (OAI.Coulomb.position x i)) * ‖ψ.value s x‖ ^ 2
+def OAI.Coulomb.pairEnergy : {n : ℕ} → OAI.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ =>
+  ∑ s,
+    ∫ (x : OAI.Coulomb.Configuration n),
+      (∑ i, ∑ j, if i < j then OAI.Coulomb.coulombKernel (OAI.Coulomb.position x i - OAI.Coulomb.position x j) else 0) *
+        ‖ψ.value s x‖ ^ 2
+def OAI.Coulomb.form : {M n : ℕ} → OAI.Coulomb.Nuclei M → OAI.Coulomb.H1Vector n → ℝ :=
+fun {M n} S ψ => OAI.Coulomb.kinetic ψ - OAI.Coulomb.nuclearEnergy S ψ + OAI.Coulomb.pairEnergy ψ
+@[reducible] def OAI.ContinuumCoulomb.SourceSpinBasis : ℕ → Type :=
+fun n => Fin n → Fin 2
+def OAI.ContinuumCoulomb.sourceTensor : (n : ℕ) →
+  (Fin n → Matrix (Fin 2) (Fin 2) ℂ) →
+    Matrix (OAI.ContinuumCoulomb.SourceSpinBasis n) (OAI.ContinuumCoulomb.SourceSpinBasis n) ℂ :=
+fun n M s t => ∏ i, M i (s i) (t i)
+def OAI.ContinuumCoulomb.bellScale : ℂ :=
+↑√(1 / 2)
+inductive OAI.ContinuumCoulomb.QMAGate : Type
+number of parameters: 0
+constructors:
+OAI.ContinuumCoulomb.QMAGate.hadamard : ℕ → OAI.ContinuumCoulomb.QMAGate
+OAI.ContinuumCoulomb.QMAGate.phaseT : ℕ → OAI.ContinuumCoulomb.QMAGate
+OAI.ContinuumCoulomb.QMAGate.controlledNot : ℕ → ℕ → OAI.ContinuumCoulomb.QMAGate
+def OAI.ContinuumCoulomb.qmaGateEquiv : OAI.ContinuumCoulomb.QMAGate ≃ (ℕ ⊕ ℕ) ⊕ ℕ × ℕ :=
+{
+  toFun := fun x =>
+    match x with
+    | OAI.ContinuumCoulomb.QMAGate.hadamard i => Sum.inl (Sum.inl i)
+    | OAI.ContinuumCoulomb.QMAGate.phaseT i => Sum.inl (Sum.inr i)
+    | OAI.ContinuumCoulomb.QMAGate.controlledNot i j => Sum.inr (i, j),
+  invFun := fun x =>
+    match x with
+    | Sum.inl (Sum.inl i) => OAI.ContinuumCoulomb.QMAGate.hadamard i
+    | Sum.inl (Sum.inr i) => OAI.ContinuumCoulomb.QMAGate.phaseT i
+    | Sum.inr (i, j) => OAI.ContinuumCoulomb.QMAGate.controlledNot i j,
+  left_inv := OAI.ContinuumCoulomb.qmaGateEquiv._proof_1, right_inv := OAI.ContinuumCoulomb.qmaGateEquiv._proof_2 }
+def OAI.ContinuumCoulomb.qmaGateCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec OAI.ContinuumCoulomb.QMAGate :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.sum
+    (OAI.ContinuumCoulomb.BinaryEncoding.sum OAI.ContinuumCoulomb.BinaryEncoding.natural
+      OAI.ContinuumCoulomb.BinaryEncoding.natural)
+    (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.natural
+      OAI.ContinuumCoulomb.BinaryEncoding.natural))
+  OAI.ContinuumCoulomb.qmaGateEquiv
+structure OAI.ContinuumCoulomb.QMACircuit : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.QMACircuit.work : ℕ
+  OAI.ContinuumCoulomb.QMACircuit.witness : ℕ
+  OAI.ContinuumCoulomb.QMACircuit.gates : List OAI.ContinuumCoulomb.QMAGate
+constructor:
+  OAI.ContinuumCoulomb.QMACircuit.mk (work witness : ℕ) (gates : List OAI.ContinuumCoulomb.QMAGate) :
+    OAI.ContinuumCoulomb.QMACircuit
+def OAI.ContinuumCoulomb.qmaCircuitEquiv : OAI.ContinuumCoulomb.QMACircuit ≃
+  ℕ × ℕ × List OAI.ContinuumCoulomb.QMAGate :=
+{ toFun := fun c => (c.work, c.witness, c.gates), invFun := fun c => { work := c.1, witness := c.2.1, gates := c.2.2 },
+  left_inv := OAI.ContinuumCoulomb.qmaCircuitEquiv._proof_1,
+  right_inv := OAI.ContinuumCoulomb.qmaCircuitEquiv._proof_2 }
+def OAI.ContinuumCoulomb.qmaCircuitCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec OAI.ContinuumCoulomb.QMACircuit :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.natural
+    (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.natural
+      (OAI.ContinuumCoulomb.BinaryEncoding.list OAI.ContinuumCoulomb.qmaGateCodec)))
+  OAI.ContinuumCoulomb.qmaCircuitEquiv
+def OAI.ContinuumCoulomb.QMAGate.WellFormed : ℕ → OAI.ContinuumCoulomb.QMAGate → Prop :=
+fun n x =>
+  match x with
+  | OAI.ContinuumCoulomb.QMAGate.hadamard i => i < n
+  | OAI.ContinuumCoulomb.QMAGate.phaseT i => i < n
+  | OAI.ContinuumCoulomb.QMAGate.controlledNot i j => i < n ∧ j < n ∧ i ≠ j
+def OAI.ContinuumCoulomb.QMACircuit.WellFormed : OAI.ContinuumCoulomb.QMACircuit → Prop :=
+fun c => c.witness ≤ c.work ∧ ∀ g ∈ c.gates, OAI.ContinuumCoulomb.QMAGate.WellFormed (c.work + 1) g
+def OAI.ContinuumCoulomb.qmaHadamard : Matrix (Fin 2) (Fin 2) ℂ :=
+OAI.ContinuumCoulomb.bellScale • !![1, 1; 1, -1]
+def OAI.ContinuumCoulomb.qmaPhaseT : Matrix (Fin 2) (Fin 2) ℂ :=
+!![1, 0; 0, OAI.ContinuumCoulomb.bellScale * (1 + Complex.I)]
+def OAI.ContinuumCoulomb.qmaQubit : (work : ℕ) → ℕ → Fin (work + 1) :=
+fun work index => ⟨index % (work + 1), ⋯⟩
+def OAI.ContinuumCoulomb.qmaControlledNot : (work : ℕ) →
+  Fin (work + 1) →
+    Fin (work + 1) →
+      OAI.ContinuumCoulomb.SourceSpinBasis (work + 1) → OAI.ContinuumCoulomb.SourceSpinBasis (work + 1) :=
+fun work control target s i => if i = target ∧ s control = 1 then (Equiv.swap 0 1) (s i) else s i
+def OAI.ContinuumCoulomb.qmaGateMatrix : (work : ℕ) →
+  OAI.ContinuumCoulomb.QMAGate →
+    Matrix (OAI.ContinuumCoulomb.SourceSpinBasis (work + 1)) (OAI.ContinuumCoulomb.SourceSpinBasis (work + 1)) ℂ :=
+fun work x =>
+  match x with
+  | OAI.ContinuumCoulomb.QMAGate.hadamard i =>
+    OAI.ContinuumCoulomb.sourceTensor (work + 1) fun k =>
+      if k = OAI.ContinuumCoulomb.qmaQubit work i then OAI.ContinuumCoulomb.qmaHadamard else 1
+  | OAI.ContinuumCoulomb.QMAGate.phaseT i =>
+    OAI.ContinuumCoulomb.sourceTensor (work + 1) fun k =>
+      if k = OAI.ContinuumCoulomb.qmaQubit work i then OAI.ContinuumCoulomb.qmaPhaseT else 1
+  | OAI.ContinuumCoulomb.QMAGate.controlledNot i j => fun s t =>
+    if
+        s =
+          OAI.ContinuumCoulomb.qmaControlledNot work (OAI.ContinuumCoulomb.qmaQubit work i)
+            (OAI.ContinuumCoulomb.qmaQubit work j) t then
+      1
+    else 0
+def OAI.ContinuumCoulomb.qmaCircuitMatrix : (c : OAI.ContinuumCoulomb.QMACircuit) →
+  Matrix (OAI.ContinuumCoulomb.SourceSpinBasis (c.work + 1)) (OAI.ContinuumCoulomb.SourceSpinBasis (c.work + 1)) ℂ :=
+fun c => List.foldl (fun M g => OAI.ContinuumCoulomb.qmaGateMatrix c.work g * M) 1 c.gates
+def OAI.ContinuumCoulomb.qmaInitialState : (c : OAI.ContinuumCoulomb.QMACircuit) →
+  c.WellFormed →
+    EuclideanSpace ℂ (OAI.ContinuumCoulomb.SourceSpinBasis c.witness) →
+      OAI.ContinuumCoulomb.SourceSpinBasis (c.work + 1) → ℂ :=
+fun c hc psi s => if ∀ (i : Fin (c.work + 1)), c.witness ≤ ↑i → s i = 0 then psi.ofLp fun i => s ⟨↑i, ⋯⟩ else 0
+def OAI.ContinuumCoulomb.qmaAcceptance : (c : OAI.ContinuumCoulomb.QMACircuit) →
+  c.WellFormed → EuclideanSpace ℂ (OAI.ContinuumCoulomb.SourceSpinBasis c.witness) → ℝ :=
+fun c hc psi =>
+  ∑ s,
+    if s (Fin.last c.work) = 1 then
+      Complex.normSq
+        ((OAI.ContinuumCoulomb.qmaCircuitMatrix c).mulVec (OAI.ContinuumCoulomb.qmaInitialState c hc psi) s)
+    else 0
+structure OAI.ContinuumCoulomb.QuantumVerifier : Type 1
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.QuantumVerifier.generate : OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+      OAI.ContinuumCoulomb.QMACircuit
+  OAI.ContinuumCoulomb.QuantumVerifier.uniform : Turing.TM2ComputableInPolyTime id
+      OAI.ContinuumCoulomb.qmaCircuitCodec.encode self.generate
+  OAI.ContinuumCoulomb.QuantumVerifier.size : Polynomial ℕ
+  OAI.ContinuumCoulomb.QuantumVerifier.size_bound : ∀ (x : OAI.ContinuumCoulomb.BinaryEncoding.BitString),
+      (self.generate x).work + (self.generate x).gates.length ≤ Polynomial.eval (List.length x) self.size
+  OAI.ContinuumCoulomb.QuantumVerifier.wellFormed : ∀ (x : OAI.ContinuumCoulomb.BinaryEncoding.BitString),
+      (self.generate x).WellFormed
+constructor:
+  OAI.ContinuumCoulomb.QuantumVerifier.mk
+    (generate : OAI.ContinuumCoulomb.BinaryEncoding.BitString → OAI.ContinuumCoulomb.QMACircuit)
+    (uniform : Turing.TM2ComputableInPolyTime id OAI.ContinuumCoulomb.qmaCircuitCodec.encode generate)
+    (size : Polynomial ℕ)
+    (size_bound :
+      ∀ (x : OAI.ContinuumCoulomb.BinaryEncoding.BitString),
+        (generate x).work + (generate x).gates.length ≤ Polynomial.eval (List.length x) size)
+    (wellFormed : ∀ (x : OAI.ContinuumCoulomb.BinaryEncoding.BitString), (generate x).WellFormed) :
+    OAI.ContinuumCoulomb.QuantumVerifier
+structure OAI.ContinuumCoulomb.PromiseProblem (α : Type) : Type
+number of parameters: 1
+fields:
+  OAI.ContinuumCoulomb.PromiseProblem.yes : Set α
+  OAI.ContinuumCoulomb.PromiseProblem.no : Set α
+  OAI.ContinuumCoulomb.PromiseProblem.disjoint : Disjoint self.yes self.no
+constructor:
+  OAI.ContinuumCoulomb.PromiseProblem.mk {α : Type} (yes no : Set α) (disjoint : Disjoint yes no) :
+    OAI.ContinuumCoulomb.PromiseProblem α
+def OAI.ContinuumCoulomb.InQMA : OAI.ContinuumCoulomb.PromiseProblem OAI.ContinuumCoulomb.BinaryEncoding.BitString →
+  Prop :=
+fun P =>
+  ∃ V,
+    (∀ x ∈ P.yes, ∃ psi, ‖psi‖ = 1 ∧ 2 / 3 ≤ OAI.ContinuumCoulomb.qmaAcceptance (V.generate x) ⋯ psi) ∧
+      ∀ x ∈ P.no,
+        ∀ (psi : EuclideanSpace ℂ (OAI.ContinuumCoulomb.SourceSpinBasis (V.generate x).witness)),
+          ‖psi‖ = 1 → OAI.ContinuumCoulomb.qmaAcceptance (V.generate x) ⋯ psi ≤ 1 / 3
+structure OAI.ContinuumCoulomb.PolynomialManyOne {α β : Type} (ea : α → OAI.ContinuumCoulomb.BinaryEncoding.BitString)
+  (eb : β → OAI.ContinuumCoulomb.BinaryEncoding.BitString) (P : OAI.ContinuumCoulomb.PromiseProblem α)
+  (Q : OAI.ContinuumCoulomb.PromiseProblem β) : Type 1
+number of parameters: 6
+fields:
+  OAI.ContinuumCoulomb.PolynomialManyOne.map : α → β
+  OAI.ContinuumCoulomb.PolynomialManyOne.polynomialTime : Turing.TM2ComputableInPolyTime ea eb self.map
+  OAI.ContinuumCoulomb.PolynomialManyOne.maps_yes : ∀ x ∈ P.yes, self.map x ∈ Q.yes
+  OAI.ContinuumCoulomb.PolynomialManyOne.maps_no : ∀ x ∈ P.no, self.map x ∈ Q.no
+constructor:
+  OAI.ContinuumCoulomb.PolynomialManyOne.mk {α β : Type} {ea : α → OAI.ContinuumCoulomb.BinaryEncoding.BitString}
+    {eb : β → OAI.ContinuumCoulomb.BinaryEncoding.BitString} {P : OAI.ContinuumCoulomb.PromiseProblem α}
+    {Q : OAI.ContinuumCoulomb.PromiseProblem β} (map : α → β)
+    (polynomialTime : Turing.TM2ComputableInPolyTime ea eb map) (maps_yes : ∀ x ∈ P.yes, map x ∈ Q.yes)
+    (maps_no : ∀ x ∈ P.no, map x ∈ Q.no) : OAI.ContinuumCoulomb.PolynomialManyOne ea eb P Q
+def OAI.ContinuumCoulomb.QMAHard : {α : Type} →
+  (α → OAI.ContinuumCoulomb.BinaryEncoding.BitString) → OAI.ContinuumCoulomb.PromiseProblem α → Prop :=
+fun {α} encoding Q =>
+  ∀ (P : OAI.ContinuumCoulomb.PromiseProblem OAI.ContinuumCoulomb.BinaryEncoding.BitString),
+    OAI.ContinuumCoulomb.InQMA P → Nonempty (OAI.ContinuumCoulomb.PolynomialManyOne id encoding P Q)
+structure OAI.ContinuumCoulomb.BinaryRational : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.BinaryRational.numerator : ℤ
+  OAI.ContinuumCoulomb.BinaryRational.denominator : ℕ
+constructor:
+  OAI.ContinuumCoulomb.BinaryRational.mk (numerator : ℤ) (denominator : ℕ) : OAI.ContinuumCoulomb.BinaryRational
+def OAI.ContinuumCoulomb.BinaryRational.value : OAI.ContinuumCoulomb.BinaryRational → ℚ :=
+fun q => ↑q.numerator / ↑q.denominator
+def OAI.ContinuumCoulomb.binaryRationalEquiv : OAI.ContinuumCoulomb.BinaryRational ≃ ℤ × ℕ :=
+{ toFun := fun q => (q.numerator, q.denominator), invFun := fun q => { numerator := q.1, denominator := q.2 },
+  left_inv := OAI.ContinuumCoulomb.binaryRationalEquiv._proof_1,
+  right_inv := OAI.ContinuumCoulomb.binaryRationalEquiv._proof_2 }
+def OAI.ContinuumCoulomb.binaryRationalCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec
+  OAI.ContinuumCoulomb.BinaryRational :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.integer
+    OAI.ContinuumCoulomb.BinaryEncoding.natural)
+  OAI.ContinuumCoulomb.binaryRationalEquiv
+@[reducible] def OAI.ContinuumCoulomb.Position : Type :=
+OAI.Coulomb.Space
+@[reducible] def OAI.ContinuumCoulomb.Configuration : ℕ → Type :=
+OAI.Coulomb.Configuration
+@[reducible] def OAI.ContinuumCoulomb.SpinConfiguration : ℕ → Type :=
+OAI.Coulomb.Spins
+structure OAI.ContinuumCoulomb.NuclearData : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.NuclearData.nuclei : ℕ
+  OAI.ContinuumCoulomb.NuclearData.nuclei_pos : 0 < self.nuclei
+  OAI.ContinuumCoulomb.NuclearData.position : Fin self.nuclei → Fin 3 → ℚ
+  OAI.ContinuumCoulomb.NuclearData.distinct : Function.Injective self.position
+  OAI.ContinuumCoulomb.NuclearData.charge : Fin self.nuclei → ℕ
+  OAI.ContinuumCoulomb.NuclearData.charge_pos : ∀ (a : Fin self.nuclei), 0 < self.charge a
+  OAI.ContinuumCoulomb.NuclearData.electrons : ℕ
+  OAI.ContinuumCoulomb.NuclearData.electrons_pos : 0 < self.electrons
+constructor:
+  OAI.ContinuumCoulomb.NuclearData.mk (nuclei : ℕ) (nuclei_pos : 0 < nuclei) (position : Fin nuclei → Fin 3 → ℚ)
+    (distinct : Function.Injective position) (charge : Fin nuclei → ℕ) (charge_pos : ∀ (a : Fin nuclei), 0 < charge a)
+    (electrons : ℕ) (electrons_pos : 0 < electrons) : OAI.ContinuumCoulomb.NuclearData
+structure OAI.ContinuumCoulomb.UnitNuclearData : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.UnitNuclearData.nuclei : ℕ
+  OAI.ContinuumCoulomb.UnitNuclearData.nuclei_pos : 0 < self.nuclei
+  OAI.ContinuumCoulomb.UnitNuclearData.position : Fin self.nuclei → Fin 3 → ℚ
+  OAI.ContinuumCoulomb.UnitNuclearData.distinct : Function.Injective self.position
+  OAI.ContinuumCoulomb.UnitNuclearData.electrons : ℕ
+  OAI.ContinuumCoulomb.UnitNuclearData.electrons_pos : 0 < self.electrons
+constructor:
+  OAI.ContinuumCoulomb.UnitNuclearData.mk (nuclei : ℕ) (nuclei_pos : 0 < nuclei) (position : Fin nuclei → Fin 3 → ℚ)
+    (distinct : Function.Injective position) (electrons : ℕ) (electrons_pos : 0 < electrons) :
+    OAI.ContinuumCoulomb.UnitNuclearData
+def OAI.ContinuumCoulomb.UnitNuclearData.toNuclearData : OAI.ContinuumCoulomb.UnitNuclearData →
+  OAI.ContinuumCoulomb.NuclearData :=
+fun d =>
+  { nuclei := d.nuclei, nuclei_pos := ⋯, position := d.position, distinct := ⋯, charge := fun x => 1, charge_pos := ⋯,
+    electrons := d.electrons, electrons_pos := ⋯ }
+def OAI.ContinuumCoulomb.realPosition : (Fin 3 → ℚ) → OAI.ContinuumCoulomb.Position :=
+fun r => WithLp.toLp 2 fun a => ↑(r a)
+def OAI.ContinuumCoulomb.NuclearData.toNuclei : (d : OAI.ContinuumCoulomb.NuclearData) → OAI.Coulomb.Nuclei d.nuclei :=
+fun d =>
+  { nonempty := ⋯, position := fun a => OAI.ContinuumCoulomb.realPosition (d.position a), distinct := ⋯,
+    charge := fun a => ↑(d.charge a), charge_ge_one := ⋯ }
+@[reducible] def OAI.ContinuumCoulomb.FormState : ℕ → Type :=
+fun n => { state // OAI.Coulomb.Antisymmetric state }
+@[reducible] def OAI.ContinuumCoulomb.normSq : {n : ℕ} → OAI.ContinuumCoulomb.FormState n → ℝ :=
+fun {n} state => OAI.Coulomb.mass ↑state
+@[reducible] def OAI.ContinuumCoulomb.kineticEnergy : {n : ℕ} → OAI.ContinuumCoulomb.FormState n → ℝ :=
+fun {n} state => OAI.Coulomb.kinetic ↑state
+def OAI.ContinuumCoulomb.coulombForm : (d : OAI.ContinuumCoulomb.NuclearData) →
+  OAI.ContinuumCoulomb.FormState d.electrons → ℝ :=
+fun d state => OAI.Coulomb.form d.toNuclei ↑state
+def OAI.ContinuumCoulomb.unitCoulombForm : (d : OAI.ContinuumCoulomb.UnitNuclearData) →
+  OAI.ContinuumCoulomb.FormState d.electrons → ℝ :=
+fun d state => OAI.ContinuumCoulomb.coulombForm d.toNuclearData state
+def OAI.ContinuumCoulomb.groundEnergy : OAI.ContinuumCoulomb.NuclearData → EReal :=
+fun d => sInf {e | ∃ state, OAI.ContinuumCoulomb.normSq state = 1 ∧ e = ↑(OAI.ContinuumCoulomb.coulombForm d state)}
+def OAI.ContinuumCoulomb.unitGroundEnergy : OAI.ContinuumCoulomb.UnitNuclearData → EReal :=
+fun d => sInf {e | ∃ state, OAI.ContinuumCoulomb.normSq state = 1 ∧ e = ↑(OAI.ContinuumCoulomb.unitCoulombForm d state)}
+structure OAI.ContinuumCoulomb.BinaryPosition : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.BinaryPosition.x : OAI.ContinuumCoulomb.BinaryRational
+  OAI.ContinuumCoulomb.BinaryPosition.y : OAI.ContinuumCoulomb.BinaryRational
+  OAI.ContinuumCoulomb.BinaryPosition.z : OAI.ContinuumCoulomb.BinaryRational
+constructor:
+  OAI.ContinuumCoulomb.BinaryPosition.mk (x y z : OAI.ContinuumCoulomb.BinaryRational) :
+    OAI.ContinuumCoulomb.BinaryPosition
+def OAI.ContinuumCoulomb.BinaryPosition.value : OAI.ContinuumCoulomb.BinaryPosition → Fin 3 → ℚ :=
+fun p => ![p.x.value, p.y.value, p.z.value]
+def OAI.ContinuumCoulomb.BinaryPosition.Valid : OAI.ContinuumCoulomb.BinaryPosition → Prop :=
+fun p => 0 < p.x.denominator ∧ 0 < p.y.denominator ∧ 0 < p.z.denominator
+def OAI.ContinuumCoulomb.binaryPositionEquiv : OAI.ContinuumCoulomb.BinaryPosition ≃
+  OAI.ContinuumCoulomb.BinaryRational × OAI.ContinuumCoulomb.BinaryRational × OAI.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun p => (p.x, p.y, p.z), invFun := fun p => { x := p.1, y := p.2.1, z := p.2.2 },
+  left_inv := OAI.ContinuumCoulomb.binaryPositionEquiv._proof_1,
+  right_inv := OAI.ContinuumCoulomb.binaryPositionEquiv._proof_2 }
+def OAI.ContinuumCoulomb.binaryPositionCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec
+  OAI.ContinuumCoulomb.BinaryPosition :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.binaryRationalCodec
+    (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.binaryRationalCodec
+      OAI.ContinuumCoulomb.binaryRationalCodec))
+  OAI.ContinuumCoulomb.binaryPositionEquiv
+structure OAI.ContinuumCoulomb.BinaryCoulomb : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.BinaryCoulomb.nuclei : List (OAI.ContinuumCoulomb.BinaryPosition × ℕ)
+  OAI.ContinuumCoulomb.BinaryCoulomb.electrons : ℕ
+  OAI.ContinuumCoulomb.BinaryCoulomb.lower : OAI.ContinuumCoulomb.BinaryRational
+  OAI.ContinuumCoulomb.BinaryCoulomb.upper : OAI.ContinuumCoulomb.BinaryRational
+constructor:
+  OAI.ContinuumCoulomb.BinaryCoulomb.mk (nuclei : List (OAI.ContinuumCoulomb.BinaryPosition × ℕ)) (electrons : ℕ)
+    (lower upper : OAI.ContinuumCoulomb.BinaryRational) : OAI.ContinuumCoulomb.BinaryCoulomb
+def OAI.ContinuumCoulomb.binaryCoulombEquiv : OAI.ContinuumCoulomb.BinaryCoulomb ≃
+  List (OAI.ContinuumCoulomb.BinaryPosition × ℕ) ×
+    ℕ × OAI.ContinuumCoulomb.BinaryRational × OAI.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun d => (d.nuclei, d.electrons, d.lower, d.upper),
+  invFun := fun d => { nuclei := d.1, electrons := d.2.1, lower := d.2.2.1, upper := d.2.2.2 },
+  left_inv := OAI.ContinuumCoulomb.binaryCoulombEquiv._proof_1,
+  right_inv := OAI.ContinuumCoulomb.binaryCoulombEquiv._proof_2 }
+def OAI.ContinuumCoulomb.binaryCoulombCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec
+  OAI.ContinuumCoulomb.BinaryCoulomb :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.pair
+    (OAI.ContinuumCoulomb.BinaryEncoding.list
+      (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.binaryPositionCodec
+        OAI.ContinuumCoulomb.BinaryEncoding.natural))
+    (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.unary
+      (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.binaryRationalCodec
+        OAI.ContinuumCoulomb.binaryRationalCodec)))
+  OAI.ContinuumCoulomb.binaryCoulombEquiv
+structure OAI.ContinuumCoulomb.BinaryCoulomb.Valid (d : OAI.ContinuumCoulomb.BinaryCoulomb) : Prop
+number of parameters: 1
+fields:
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.nuclei_pos : 0 < d.nuclei.length
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.electrons_pos : 0 < d.electrons
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).1.Valid
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.distinct : Function.Injective fun a => (d.nuclei.get a).1.value
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.charge_pos : ∀ (a : Fin d.nuclei.length), 0 < (d.nuclei.get a).2
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.lower_denominator : 0 < d.lower.denominator
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.upper_denominator : 0 < d.upper.denominator
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.gap : 1 ≤ d.upper.value - d.lower.value
+constructor:
+  OAI.ContinuumCoulomb.BinaryCoulomb.Valid.mk {d : OAI.ContinuumCoulomb.BinaryCoulomb}
+    (nuclei_pos : 0 < d.nuclei.length) (electrons_pos : 0 < d.electrons)
+    (positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).1.Valid)
+    (distinct : Function.Injective fun a => (d.nuclei.get a).1.value)
+    (charge_pos : ∀ (a : Fin d.nuclei.length), 0 < (d.nuclei.get a).2) (lower_denominator : 0 < d.lower.denominator)
+    (upper_denominator : 0 < d.upper.denominator) (gap : 1 ≤ d.upper.value - d.lower.value) : d.Valid
+def OAI.ContinuumCoulomb.BinaryCoulomb.toData : (d : OAI.ContinuumCoulomb.BinaryCoulomb) →
+  d.Valid → OAI.ContinuumCoulomb.NuclearData :=
+fun d h =>
+  { nuclei := d.nuclei.length, nuclei_pos := ⋯, position := fun a => (d.nuclei.get a).1.value, distinct := ⋯,
+    charge := fun a => (d.nuclei.get a).2, charge_pos := ⋯, electrons := d.electrons, electrons_pos := ⋯ }
+structure OAI.ContinuumCoulomb.UnitCoulomb : Type
+number of parameters: 0
+fields:
+  OAI.ContinuumCoulomb.UnitCoulomb.nuclei : List OAI.ContinuumCoulomb.BinaryPosition
+  OAI.ContinuumCoulomb.UnitCoulomb.electrons : ℕ
+  OAI.ContinuumCoulomb.UnitCoulomb.lower : OAI.ContinuumCoulomb.BinaryRational
+  OAI.ContinuumCoulomb.UnitCoulomb.upper : OAI.ContinuumCoulomb.BinaryRational
+constructor:
+  OAI.ContinuumCoulomb.UnitCoulomb.mk (nuclei : List OAI.ContinuumCoulomb.BinaryPosition) (electrons : ℕ)
+    (lower upper : OAI.ContinuumCoulomb.BinaryRational) : OAI.ContinuumCoulomb.UnitCoulomb
+def OAI.ContinuumCoulomb.unitCoulombEquiv : OAI.ContinuumCoulomb.UnitCoulomb ≃
+  List OAI.ContinuumCoulomb.BinaryPosition ×
+    ℕ × OAI.ContinuumCoulomb.BinaryRational × OAI.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun d => (d.nuclei, d.electrons, d.lower, d.upper),
+  invFun := fun d => { nuclei := d.1, electrons := d.2.1, lower := d.2.2.1, upper := d.2.2.2 },
+  left_inv := OAI.ContinuumCoulomb.unitCoulombEquiv._proof_1,
+  right_inv := OAI.ContinuumCoulomb.unitCoulombEquiv._proof_2 }
+def OAI.ContinuumCoulomb.unitCoulombCodec : OAI.ContinuumCoulomb.BinaryEncoding.Codec
+  OAI.ContinuumCoulomb.UnitCoulomb :=
+OAI.ContinuumCoulomb.BinaryEncoding.equiv
+  (OAI.ContinuumCoulomb.BinaryEncoding.pair
+    (OAI.ContinuumCoulomb.BinaryEncoding.list OAI.ContinuumCoulomb.binaryPositionCodec)
+    (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.BinaryEncoding.unary
+      (OAI.ContinuumCoulomb.BinaryEncoding.pair OAI.ContinuumCoulomb.binaryRationalCodec
+        OAI.ContinuumCoulomb.binaryRationalCodec)))
+  OAI.ContinuumCoulomb.unitCoulombEquiv
+structure OAI.ContinuumCoulomb.UnitCoulomb.Valid (d : OAI.ContinuumCoulomb.UnitCoulomb) : Prop
+number of parameters: 1
+fields:
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.nuclei_pos : 0 < d.nuclei.length
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.electrons_pos : 0 < d.electrons
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).Valid
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.distinct : Function.Injective fun a => (d.nuclei.get a).value
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.lower_denominator : 0 < d.lower.denominator
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.upper_denominator : 0 < d.upper.denominator
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.gap : 1 ≤ d.upper.value - d.lower.value
+constructor:
+  OAI.ContinuumCoulomb.UnitCoulomb.Valid.mk {d : OAI.ContinuumCoulomb.UnitCoulomb} (nuclei_pos : 0 < d.nuclei.length)
+    (electrons_pos : 0 < d.electrons) (positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).Valid)
+    (distinct : Function.Injective fun a => (d.nuclei.get a).value) (lower_denominator : 0 < d.lower.denominator)
+    (upper_denominator : 0 < d.upper.denominator) (gap : 1 ≤ d.upper.value - d.lower.value) : d.Valid
+def OAI.ContinuumCoulomb.UnitCoulomb.toData : (d : OAI.ContinuumCoulomb.UnitCoulomb) →
+  d.Valid → OAI.ContinuumCoulomb.UnitNuclearData :=
+fun d h =>
+  { nuclei := d.nuclei.length, nuclei_pos := ⋯, position := fun a => (d.nuclei.get a).value, distinct := ⋯,
+    electrons := d.electrons, electrons_pos := ⋯ }
+def OAI.ContinuumCoulomb.binaryCoulombPromise : OAI.ContinuumCoulomb.PromiseProblem
+  OAI.ContinuumCoulomb.BinaryCoulomb :=
+{ yes := {d | ∃ (h : d.Valid), OAI.ContinuumCoulomb.groundEnergy (d.toData h) ≤ ↑↑d.lower.value},
+  no := {d | ∃ (h : d.Valid), ↑↑d.upper.value ≤ OAI.ContinuumCoulomb.groundEnergy (d.toData h)},
+  disjoint := OAI.ContinuumCoulomb.binaryCoulombPromise._proof_1 }
+def OAI.ContinuumCoulomb.unitCoulombPromise : OAI.ContinuumCoulomb.PromiseProblem OAI.ContinuumCoulomb.UnitCoulomb :=
+{ yes := {d | ∃ (h : d.Valid), OAI.ContinuumCoulomb.unitGroundEnergy (d.toData h) ≤ ↑↑d.lower.value},
+  no := {d | ∃ (h : d.Valid), ↑↑d.upper.value ≤ OAI.ContinuumCoulomb.unitGroundEnergy (d.toData h)},
+  disjoint := OAI.ContinuumCoulomb.unitCoulombPromise._proof_1 }

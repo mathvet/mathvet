@@ -1,0 +1,7 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_KaplanskyFinitelyPresented.lean:7:8: warning: declaration uses `sorry`
+OAI.KaplanskyCounterexample.finitelyPresented_counterexample : ∃ K x x_1,
+  ∃ (_ : CharP K 2),
+    ∃ G x_3,
+      ∃ (_ : Group.IsFinitelyPresented G),
+        (∃ ℓ, ∃ (_ : Nat.Prime ℓ) (_ : Odd ℓ), ∃ g, orderOf g = ℓ) ∧
+          ∃ a_out b_out, a_out * b_out = 1 ∧ b_out * a_out ≠ 1

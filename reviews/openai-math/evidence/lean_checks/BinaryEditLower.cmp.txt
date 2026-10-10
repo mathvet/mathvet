@@ -1,0 +1,54 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_BinaryEditLower.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TreeEdit.binary_lower_bound [thm] ok
+CMP OAI.TreeEdit.BinaryLower.binarySetDistortion [def] ok
+CMP OAI.TreeEdit.ed [def] ok
+CMP OAI.TreeEdit.EditScript [ind] ok
+CMP OAI.TreeEdit.EditScript.cons [ctor] ok
+CMP OAI.TreeEdit.EditStep [ind] ok
+CMP OAI.TreeEdit.EditStep.substitute [ctor] ok
+CMP OAI.TreeEdit.EditStep.delete [ctor] ok
+CMP OAI.TreeEdit.EditStep.insert [ctor] ok
+CMP OAI.TreeEdit.EditScript.nil [ctor] ok
+CMP OAI.TreeEdit.BinaryLower.c1 [def] ok
+CMP OAI.TreeEdit.BinaryLower.distortion [def] ok
+CMP OAI.TreeEdit.RealL1 [def] ok
+CMP OAI.TreeEdit.Word [def] ok
+CMP OAI.TreeEdit.BinaryLower.growth [def] ok
+Chal.TreeEdit.binary_lower_bound : ∃ c,
+  0 < c ∧
+    ∃ d₀,
+      ∀ (d : ℕ),
+        d₀ ≤ d →
+          ∃ n,
+            1 ≤ n ∧
+              n ≤ d ∧
+                ∃ W, 2 ≤ W.card ∧ Chal.TreeEdit.BinaryLower.growth c d ≤ Chal.TreeEdit.BinaryLower.binarySetDistortion W
+inductive Chal.TreeEdit.EditStep.{u} : {α : Type u} → List α → List α → Prop
+number of parameters: 1
+constructors:
+Chal.TreeEdit.EditStep.insert : ∀ {α : Type u} (p q : List α) (a : α), Chal.TreeEdit.EditStep (p ++ q) (p ++ a :: q)
+Chal.TreeEdit.EditStep.delete : ∀ {α : Type u} (p q : List α) (a : α), Chal.TreeEdit.EditStep (p ++ a :: q) (p ++ q)
+Chal.TreeEdit.EditStep.substitute : ∀ {α : Type u} (p q : List α) (a b : α),
+  Chal.TreeEdit.EditStep (p ++ a :: q) (p ++ b :: q)
+inductive Chal.TreeEdit.EditScript.{u} : {α : Type u} → List α → List α → ℕ → Prop
+number of parameters: 1
+constructors:
+Chal.TreeEdit.EditScript.nil : ∀ {α : Type u} (x : List α), Chal.TreeEdit.EditScript x x 0
+Chal.TreeEdit.EditScript.cons : ∀ {α : Type u} {x y z : List α} {n : ℕ},
+  Chal.TreeEdit.EditStep x y → Chal.TreeEdit.EditScript y z n → Chal.TreeEdit.EditScript x z (n + 1)
+def Chal.TreeEdit.ed.{u} : {α : Type u} → List α → List α → ℕ :=
+fun {α} x y => sInf {n | Chal.TreeEdit.EditScript x y n}
+@[reducible] def Chal.TreeEdit.RealL1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+@[reducible] def Chal.TreeEdit.Word.{u} : Type u → ℕ → Type (max 0 u) :=
+fun α n => { x // x.length = n }
+def Chal.TreeEdit.BinaryLower.distortion.{u} : {X : Type u} → (X → X → ℝ) → (X → ↥Chal.TreeEdit.RealL1) → ℝ :=
+fun {X} ρ f => sSup {r | ∃ x y, x ≠ y ∧ r = ‖f x - f y‖ / ρ x y} * sSup {r | ∃ x y, x ≠ y ∧ r = ρ x y / ‖f x - f y‖}
+def Chal.TreeEdit.BinaryLower.c1.{u} : (X : Type u) → (X → X → ℝ) → ℝ :=
+fun X ρ => sInf {D | ∃ f, Function.Injective f ∧ D = Chal.TreeEdit.BinaryLower.distortion ρ f}
+def Chal.TreeEdit.BinaryLower.binarySetDistortion : {n : ℕ} → Finset (Chal.TreeEdit.Word Bool n) → ℝ :=
+fun {n} W => Chal.TreeEdit.BinaryLower.c1 ↥W fun x y => ↑(Chal.TreeEdit.ed ↑↑x ↑↑y)
+def Chal.TreeEdit.BinaryLower.growth : ℝ → ℕ → ℝ :=
+fun c d => Real.exp (c * √(Real.log ↑d * Real.log (Real.log ↑d)))
+'OAI.TreeEdit.binary_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BinaryEditLower comparator-style: ok=15 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,0 +1,42 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_SymmetricMahlerEquality.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SymmetricMahler.symmetric_mahler_equality [thm] ok
+CMP OAI.SymmetricMahler.IsLinearHanner [def] ok
+CMP OAI.SymmetricMahler.IsHanner [ind] ok
+CMP OAI.SymmetricMahler.IsHanner.join [ctor] ok
+CMP OAI.SymmetricMahler.hannerJoin [def] ok
+CMP OAI.SymmetricMahler.IsHanner.product [ctor] ok
+CMP OAI.SymmetricMahler.hannerProduct [def] ok
+CMP OAI.SymmetricMahler.IsHanner.interval [ctor] ok
+CMP OAI.SymmetricMahler.coordinatePolar [def] ok
+@Chal.SymmetricMahler.symmetric_mahler_equality : ∀ {n : ℕ},
+  1 ≤ n →
+    ∀ {K : Set (Fin n → ℝ)},
+      IsCompact K →
+        Convex ℝ K →
+          (∀ x ∈ K, -x ∈ K) →
+            (interior K).Nonempty →
+              ((MeasureTheory.volume K).toReal *
+                    (MeasureTheory.volume (Chal.SymmetricMahler.coordinatePolar K)).toReal =
+                  4 ^ n / ↑n.factorial ↔
+                Chal.SymmetricMahler.IsLinearHanner K)
+def Chal.SymmetricMahler.coordinatePolar.{u_1} : {I : Type u_1} → [Fintype I] → Set (I → ℝ) → Set (I → ℝ) :=
+fun {I} [Fintype I] K => {p | ∀ v ∈ K, ∑ i, p i * v i ≤ 1}
+def Chal.SymmetricMahler.hannerProduct : {k l : ℕ} → Set (Fin k → ℝ) → Set (Fin l → ℝ) → Set (Fin (k + l) → ℝ) :=
+fun {k l} A B => {z | ∃ x ∈ A, ∃ y ∈ B, z = Fin.append x y}
+def Chal.SymmetricMahler.hannerJoin : {k l : ℕ} → Set (Fin k → ℝ) → Set (Fin l → ℝ) → Set (Fin (k + l) → ℝ) :=
+fun {k l} A B => (convexHull ℝ) ((fun x => Fin.append x 0) '' A ∪ (fun y => Fin.append 0 y) '' B)
+inductive Chal.SymmetricMahler.IsHanner : {n : ℕ} → Set (Fin n → ℝ) → Prop
+number of parameters: 0
+constructors:
+Chal.SymmetricMahler.IsHanner.interval : ∀ (a : ℝ),
+  0 < a → Chal.SymmetricMahler.IsHanner (Set.Icc (fun x => -a) fun x => a)
+Chal.SymmetricMahler.IsHanner.product : ∀ {k l : ℕ} {A : Set (Fin k → ℝ)} {B : Set (Fin l → ℝ)},
+  Chal.SymmetricMahler.IsHanner A →
+    Chal.SymmetricMahler.IsHanner B → Chal.SymmetricMahler.IsHanner (Chal.SymmetricMahler.hannerProduct A B)
+Chal.SymmetricMahler.IsHanner.join : ∀ {k l : ℕ} {A : Set (Fin k → ℝ)} {B : Set (Fin l → ℝ)},
+  Chal.SymmetricMahler.IsHanner A →
+    Chal.SymmetricMahler.IsHanner B → Chal.SymmetricMahler.IsHanner (Chal.SymmetricMahler.hannerJoin A B)
+def Chal.SymmetricMahler.IsLinearHanner : {n : ℕ} → Set (Fin n → ℝ) → Prop :=
+fun {n} K => ∃ H, Chal.SymmetricMahler.IsHanner H ∧ ∃ T, K = ⇑T '' H
+'OAI.SymmetricMahler.symmetric_mahler_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SymmetricMahlerEquality comparator-style: ok=9 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

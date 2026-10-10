@@ -1,0 +1,90 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_QACParity.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.QAC.parity_lower_bound [thm] ok
+CMP OAI.QAC.ParityStatement [def] ok
+CMP OAI.QAC.physicalCircuitMatrix [def] ok
+CMP OAI.QAC.physicalLayerMatrix [def] ok
+CMP OAI.QAC.PhysicalLayer.gates [def] ok
+CMP OAI.QAC.PhysicalLayer [ind] ok
+CMP OAI.QAC.PhysicalLayer.mk [ctor] ok
+CMP OAI.QAC.Gate.support [def] ok
+CMP OAI.QAC.Bit [def] ok
+CMP OAI.QAC.Gate.support.match_1 [def] ok
+CMP OAI.QAC.Gate.casesOn [def] ok
+CMP OAI.QAC.Gate.rec [rec] ok
+CMP OAI.QAC.Gate.toffoli [ctor] ok
+CMP OAI.QAC.Gate [ind] ok
+CMP OAI.QAC.Gate.local [ctor] ok
+CMP OAI.QAC.Gate.matrix [def] ok
+CMP OAI.QAC.Gate.toffoliWord [def] ok
+CMP OAI.QAC.Gate.toffoliWord._proof_1 [thm] ok
+CMP OAI.QAC.Word [def] ok
+CMP OAI.QAC.QubitOperator [def] ok
+CMP OAI.QAC.tensorMatrix [def] ok
+CMP OAI.QAC.Operator [def] ok
+CMP OAI.QAC.successProbability [def] ok
+CMP OAI.QAC.inputWord [def] ok
+CMP OAI.QAC.parity [def] ok
+CMP OAI.QAC.ParityStatement._proof_1 [thm] ok
+Chal.QAC.parity_lower_bound : Chal.QAC.ParityStatement
+@[reducible] def Chal.QAC.Bit : Type :=
+Fin 2
+@[reducible] def Chal.QAC.Word : ℕ → Type :=
+fun N => Fin N → Chal.QAC.Bit
+@[reducible] def Chal.QAC.Operator : ℕ → Type :=
+fun N => Matrix (Chal.QAC.Word N) (Chal.QAC.Word N) ℂ
+@[reducible] def Chal.QAC.QubitOperator : Type :=
+Matrix Chal.QAC.Bit Chal.QAC.Bit ℂ
+def Chal.QAC.tensorMatrix : {N : ℕ} → (Fin N → Chal.QAC.QubitOperator) → Chal.QAC.Operator N :=
+fun {N} a x y => ∏ i, a i (x i) (y i)
+inductive Chal.QAC.Gate : ℕ → Type
+number of parameters: 1
+constructors:
+Chal.QAC.Gate.local : {N : ℕ} → Fin N → ↥(Matrix.unitaryGroup Chal.QAC.Bit ℂ) → Chal.QAC.Gate N
+Chal.QAC.Gate.toffoli : {N : ℕ} → (controls : Finset (Fin N)) → (target : Fin N) → target ∉ controls → Chal.QAC.Gate N
+def Chal.QAC.Gate.support : {N : ℕ} → Chal.QAC.Gate N → Finset (Fin N) :=
+fun {N} x =>
+  match x with
+  | Chal.QAC.Gate.local q u => {q}
+  | Chal.QAC.Gate.toffoli c t hne => insert t c
+def Chal.QAC.Gate.toffoliWord : {N : ℕ} → Finset (Fin N) → Fin N → Chal.QAC.Word N → Chal.QAC.Word N :=
+fun {N} c t x => if ∀ i ∈ c, x i = 1 then Function.update x t (1 - x t) else x
+def Chal.QAC.Gate.matrix : {N : ℕ} → Chal.QAC.Gate N → Chal.QAC.Operator N :=
+fun {N} x =>
+  match x with
+  | Chal.QAC.Gate.local q u => Chal.QAC.tensorMatrix fun i => if i = q then ↑u else 1
+  | Chal.QAC.Gate.toffoli c t hne => fun x y => if x = Chal.QAC.Gate.toffoliWord c t y then 1 else 0
+structure Chal.QAC.PhysicalLayer (N : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.QAC.PhysicalLayer.gates : List (Chal.QAC.Gate N)
+  Chal.QAC.PhysicalLayer.disjoint : List.Pairwise (fun A B => Disjoint A.support B.support) self.gates
+constructor:
+  Chal.QAC.PhysicalLayer.mk {N : ℕ} (gates : List (Chal.QAC.Gate N))
+    (disjoint : List.Pairwise (fun A B => Disjoint A.support B.support) gates) : Chal.QAC.PhysicalLayer N
+def Chal.QAC.physicalLayerMatrix : {N : ℕ} → Chal.QAC.PhysicalLayer N → Chal.QAC.Operator N :=
+fun {N} L => (List.map Chal.QAC.Gate.matrix L.gates).prod
+def Chal.QAC.physicalCircuitMatrix : {N : ℕ} → List (Chal.QAC.PhysicalLayer N) → Chal.QAC.Operator N :=
+fun {N} layers => (List.map Chal.QAC.physicalLayerMatrix layers).reverse.prod
+def Chal.QAC.inputWord : {n N : ℕ} → Chal.QAC.Word n → Chal.QAC.Word N :=
+fun {n N} x i => if h : ↑i < n then x ⟨↑i, h⟩ else 0
+def Chal.QAC.parity : {n : ℕ} → Chal.QAC.Word n → Chal.QAC.Bit :=
+fun {n} x => ∑ i, x i
+def Chal.QAC.successProbability : {n N : ℕ} → Chal.QAC.Operator N → Fin N → Chal.QAC.Word n → ℝ :=
+fun {n N} W out x => ∑ y, if y out = Chal.QAC.parity x then Complex.normSq (W y (Chal.QAC.inputWord x)) else 0
+def Chal.QAC.ParityStatement : Prop :=
+∀ (d : ℕ) (c ε : ℝ),
+  1 ≤ c →
+    0 < ε →
+      ε ≤ 1 / 2 →
+        ∃ n₀,
+          ∀ n ≥ n₀,
+            ∀ (N : ℕ),
+              n ≤ N →
+                ↑N ≤ ↑n ^ c →
+                  ∀ (layers : List (Chal.QAC.PhysicalLayer N)),
+                    layers.length ≤ d →
+                      ∀ (out : Fin N),
+                        ¬∀ (x : Chal.QAC.Word n),
+                            1 / 2 + ε ≤ Chal.QAC.successProbability (Chal.QAC.physicalCircuitMatrix layers) out x
+'OAI.QAC.parity_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== QACParity comparator-style: ok=26 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

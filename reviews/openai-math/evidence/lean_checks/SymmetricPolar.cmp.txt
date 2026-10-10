@@ -1,0 +1,54 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_SymmetricPolar.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SymmetricPolar.symmetric_polar_main [thm] ok
+CMP OAI.SymmetricPolar.capacityBall [def] ok
+CMP OAI.SymmetricPolar.Position [def] ok
+CMP OAI.SymmetricPolar.Phase [def] ok
+CMP OAI.SymmetricPolar.HasSymplecticEmbedding [def] ok
+CMP OAI.SymmetricPolar.omega0 [def] ok
+CMP OAI.SymmetricPolar.polar._proof_1 [thm] ok
+CMP OAI.SymmetricPolar.polarProduct [def] ok
+CMP OAI.SymmetricPolar.polar [def] ok
+CMP OAI.SymmetricPolar.gromovWidth [def] ok
+CMP OAI.SymmetricPolar.IsSymmetricConvexBody [def] ok
+@Chal.SymmetricPolar.symmetric_polar_main : ∀ {n : ℕ},
+  2 ≤ n →
+    ∀ (K : Set (Chal.SymmetricPolar.Position n)),
+      Chal.SymmetricPolar.IsSymmetricConvexBody K →
+        Chal.SymmetricPolar.gromovWidth (Chal.SymmetricPolar.polarProduct K) = 4 ∧
+          ∀ (c : ℝ),
+            0 < c →
+              c < 4 →
+                Chal.SymmetricPolar.HasSymplecticEmbedding (Chal.SymmetricPolar.capacityBall n c)
+                  (Chal.SymmetricPolar.polarProduct K)
+@[reducible] def Chal.SymmetricPolar.Position : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+@[reducible] def Chal.SymmetricPolar.Phase : ℕ → Type :=
+fun n => Chal.SymmetricPolar.Position n × Chal.SymmetricPolar.Position n
+def Chal.SymmetricPolar.IsSymmetricConvexBody : {n : ℕ} → Set (Chal.SymmetricPolar.Position n) → Prop :=
+fun {n} K => IsCompact K ∧ Convex ℝ K ∧ (interior K).Nonempty ∧ ∀ (x : Chal.SymmetricPolar.Position n), x ∈ K ↔ -x ∈ K
+def Chal.SymmetricPolar.polar : {n : ℕ} → Set (Chal.SymmetricPolar.Position n) → Set (Chal.SymmetricPolar.Position n) :=
+fun {n} K => {p | ∀ q ∈ K, inner ℝ q p ≤ 1}
+def Chal.SymmetricPolar.polarProduct : {n : ℕ} →
+  Set (Chal.SymmetricPolar.Position n) → Set (Chal.SymmetricPolar.Phase n) :=
+fun {n} K => interior K ×ˢ interior (Chal.SymmetricPolar.polar K)
+def Chal.SymmetricPolar.capacityBall : (n : ℕ) → ℝ → Set (Chal.SymmetricPolar.Phase n) :=
+fun n c => {z | Real.pi * (‖z.1‖ ^ 2 + ‖z.2‖ ^ 2) < c}
+def Chal.SymmetricPolar.omega0 : {n : ℕ} → Chal.SymmetricPolar.Phase n → Chal.SymmetricPolar.Phase n → ℝ :=
+fun {n} v w => inner ℝ v.1 w.2 - inner ℝ w.1 v.2
+def Chal.SymmetricPolar.HasSymplecticEmbedding : {n : ℕ} →
+  Set (Chal.SymmetricPolar.Phase n) → Set (Chal.SymmetricPolar.Phase n) → Prop :=
+fun {n} U V =>
+  ∃ e,
+    ContDiffOn ℝ (↑⊤) e U ∧
+      (Topology.IsEmbedding fun z => e ↑z) ∧
+        Set.MapsTo e U V ∧
+          ∀ z ∈ U,
+            ∀ (v w : Chal.SymmetricPolar.Phase n),
+              Chal.SymmetricPolar.omega0 ((fderiv ℝ e z) v) ((fderiv ℝ e z) w) = Chal.SymmetricPolar.omega0 v w
+def Chal.SymmetricPolar.gromovWidth : {n : ℕ} → Set (Chal.SymmetricPolar.Phase n) → ENNReal :=
+fun {n} U =>
+  sSup
+    (ENNReal.ofReal ''
+      {c | 0 < c ∧ Chal.SymmetricPolar.HasSymplecticEmbedding (Chal.SymmetricPolar.capacityBall n c) U})
+'OAI.SymmetricPolar.symmetric_polar_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SymmetricPolar comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,0 +1,71 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_CriticalZ3.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CriticalZ3.critical_no_infinite [thm] ok
+CMP OAI.CriticalZ3.siteCritical [def] ok
+CMP OAI.CriticalZ3.siteInfiniteAt [def] ok
+CMP OAI.CriticalZ3.siteCluster [def] ok
+CMP OAI.CriticalZ3.SiteConnected [def] ok
+CMP OAI.CriticalZ3.SiteOpen [def] ok
+CMP OAI.CriticalZ3.NearestNeighbor [def] ok
+CMP OAI.CriticalZ3.step [def] ok
+CMP OAI.CriticalZ3.Vertex [def] ok
+CMP OAI.CriticalZ3.SiteConfig [def] ok
+CMP OAI.CriticalZ3.siteLaw [def] ok
+CMP OAI.CriticalZ3.parameter [def] ok
+CMP OAI.CriticalZ3.parameter._proof_1 [thm] ok
+CMP OAI.CriticalZ3.bondCritical [def] ok
+CMP OAI.CriticalZ3.bondInfiniteAt [def] ok
+CMP OAI.CriticalZ3.bondCluster [def] ok
+CMP OAI.CriticalZ3.BondConnected [def] ok
+CMP OAI.CriticalZ3.BondOpen [def] ok
+CMP OAI.CriticalZ3.BondConfig [def] ok
+CMP OAI.CriticalZ3.Bond [def] ok
+CMP OAI.CriticalZ3.bondLaw [def] ok
+Chal.CriticalZ3.critical_no_infinite : (∀ᵐ (ω :
+    Chal.CriticalZ3.BondConfig) ∂Chal.CriticalZ3.bondLaw Chal.CriticalZ3.bondCritical,
+    ∀ (x : Chal.CriticalZ3.Vertex), (Chal.CriticalZ3.bondCluster ω x).Finite) ∧
+  ∀ᵐ (ω : Chal.CriticalZ3.SiteConfig) ∂Chal.CriticalZ3.siteLaw Chal.CriticalZ3.siteCritical,
+    ∀ (x : Chal.CriticalZ3.Vertex), (Chal.CriticalZ3.siteCluster ω x).Finite
+@[reducible] def Chal.CriticalZ3.Vertex : Type :=
+Fin 3 → ℤ
+@[reducible] def Chal.CriticalZ3.Bond : Type :=
+Chal.CriticalZ3.Vertex × Fin 3
+@[reducible] def Chal.CriticalZ3.BondConfig : Type :=
+Chal.CriticalZ3.Bond → Bool
+@[reducible] def Chal.CriticalZ3.SiteConfig : Type :=
+Chal.CriticalZ3.Vertex → Bool
+def Chal.CriticalZ3.step : Chal.CriticalZ3.Vertex → Fin 3 → Chal.CriticalZ3.Vertex :=
+fun x i j => x j + if i = j then 1 else 0
+def Chal.CriticalZ3.NearestNeighbor : Chal.CriticalZ3.Vertex → Chal.CriticalZ3.Vertex → Prop :=
+fun x y => ∃ i, y = Chal.CriticalZ3.step x i ∨ x = Chal.CriticalZ3.step y i
+def Chal.CriticalZ3.BondOpen : Chal.CriticalZ3.BondConfig → Chal.CriticalZ3.Vertex → Chal.CriticalZ3.Vertex → Prop :=
+fun ω x y => (∃ i, y = Chal.CriticalZ3.step x i ∧ ω (x, i) = true) ∨ ∃ i, x = Chal.CriticalZ3.step y i ∧ ω (y, i) = true
+def Chal.CriticalZ3.SiteOpen : Chal.CriticalZ3.SiteConfig → Chal.CriticalZ3.Vertex → Chal.CriticalZ3.Vertex → Prop :=
+fun ω x y => Chal.CriticalZ3.NearestNeighbor x y ∧ ω x = true ∧ ω y = true
+def Chal.CriticalZ3.BondConnected : Chal.CriticalZ3.BondConfig →
+  Chal.CriticalZ3.Vertex → Chal.CriticalZ3.Vertex → Prop :=
+fun ω x y => Relation.ReflTransGen (Chal.CriticalZ3.BondOpen ω) x y
+def Chal.CriticalZ3.SiteConnected : Chal.CriticalZ3.SiteConfig →
+  Chal.CriticalZ3.Vertex → Chal.CriticalZ3.Vertex → Prop :=
+fun ω x y => ω x = true ∧ Relation.ReflTransGen (Chal.CriticalZ3.SiteOpen ω) x y
+def Chal.CriticalZ3.bondCluster : Chal.CriticalZ3.BondConfig → Chal.CriticalZ3.Vertex → Set Chal.CriticalZ3.Vertex :=
+fun ω x => {y | Chal.CriticalZ3.BondConnected ω x y}
+def Chal.CriticalZ3.siteCluster : Chal.CriticalZ3.SiteConfig → Chal.CriticalZ3.Vertex → Set Chal.CriticalZ3.Vertex :=
+fun ω x => {y | Chal.CriticalZ3.SiteConnected ω x y}
+def Chal.CriticalZ3.bondInfiniteAt : Chal.CriticalZ3.Vertex → Set Chal.CriticalZ3.BondConfig :=
+fun x => {ω | (Chal.CriticalZ3.bondCluster ω x).Infinite}
+def Chal.CriticalZ3.siteInfiniteAt : Chal.CriticalZ3.Vertex → Set Chal.CriticalZ3.SiteConfig :=
+fun x => {ω | (Chal.CriticalZ3.siteCluster ω x).Infinite}
+def Chal.CriticalZ3.parameter : ℝ → ↑(Set.Icc 0 1) :=
+fun p => ⟨max 0 (min 1 p), ⋯⟩
+def Chal.CriticalZ3.bondLaw : ℝ → MeasureTheory.Measure Chal.CriticalZ3.BondConfig :=
+fun p =>
+  MeasureTheory.Measure.infinitePi fun x => ProbabilityTheory.bernoulliMeasure true false (Chal.CriticalZ3.parameter p)
+def Chal.CriticalZ3.siteLaw : ℝ → MeasureTheory.Measure Chal.CriticalZ3.SiteConfig :=
+fun p =>
+  MeasureTheory.Measure.infinitePi fun x => ProbabilityTheory.bernoulliMeasure true false (Chal.CriticalZ3.parameter p)
+def Chal.CriticalZ3.bondCritical : ℝ :=
+sInf {p | p ∈ Set.Icc 0 1 ∧ 0 < (Chal.CriticalZ3.bondLaw p) (Chal.CriticalZ3.bondInfiniteAt 0)}
+def Chal.CriticalZ3.siteCritical : ℝ :=
+sInf {p | p ∈ Set.Icc 0 1 ∧ 0 < (Chal.CriticalZ3.siteLaw p) (Chal.CriticalZ3.siteInfiniteAt 0)}
+'OAI.CriticalZ3.critical_no_infinite' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CriticalZ3 comparator-style: ok=21 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

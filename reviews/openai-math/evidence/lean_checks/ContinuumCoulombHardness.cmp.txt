@@ -1,0 +1,788 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_ContinuumCoulombHardness.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ContinuumCoulomb.binary_coulomb_qmaHard [thm] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombPromise [def] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombPromise._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.upper [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb [ind] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.BinaryRational [ind] ok
+CMP OAI.ContinuumCoulomb.BinaryRational.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition [ind] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.lower [def] ok
+CMP OAI.ContinuumCoulomb.BinaryRational.value [def] ok
+CMP OAI.ContinuumCoulomb.BinaryRational.denominator [def] ok
+CMP OAI.ContinuumCoulomb.BinaryRational.numerator [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.toData [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid.electrons_pos [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.electrons [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid [ind] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.value [def] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.z [def] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.y [def] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.x [def] ok
+CMP OAI.ContinuumCoulomb.BinaryPosition.Valid [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.nuclei [def] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid.charge_pos [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid.distinct [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryCoulomb.Valid.nuclei_pos [thm] ok
+CMP OAI.ContinuumCoulomb.NuclearData.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.NuclearData [ind] ok
+CMP OAI.ContinuumCoulomb.groundEnergy [def] ok
+CMP OAI.ContinuumCoulomb.coulombForm [def] ok
+CMP OAI.Coulomb.Antisymmetric [def] ok
+CMP OAI.Coulomb.Antisymmetric._proof_3 [thm] ok
+CMP OAI.Coulomb.Antisymmetric._proof_2 [thm] ok
+CMP OAI.Coulomb.Antisymmetric._proof_1 [thm] ok
+CMP OAI.Coulomb.Configuration [def] ok
+CMP OAI.Coulomb.permute [def] ok
+CMP OAI.Coulomb.position._proof_1 [thm] ok
+CMP OAI.Coulomb.H1Vector.value [def] ok
+CMP OAI.Coulomb.H1Vector [ind] ok
+CMP OAI.Coulomb.H1Vector.mk [ctor] ok
+CMP OAI.Coulomb.Spins [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.toNuclei [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.toNuclei._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.NuclearData.charge [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.nuclei [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.toNuclei._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.NuclearData.position [def] ok
+CMP OAI.ContinuumCoulomb.realPosition [def] ok
+CMP OAI.ContinuumCoulomb.realPosition_atLeastTwo [thm] ok
+CMP OAI.ContinuumCoulomb.Position [def] ok
+CMP OAI.Coulomb.Space [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.nuclei_pos [thm] ok
+CMP OAI.Coulomb.Nuclei.mk [ctor] ok
+CMP OAI.Coulomb.Nuclei [ind] ok
+CMP OAI.Coulomb.form [def] ok
+CMP OAI.Coulomb.pairEnergy [def] ok
+CMP OAI.Coulomb.position [def] ok
+CMP OAI.Coulomb.coulombKernel [def] ok
+CMP OAI.Coulomb.nuclearEnergy [def] ok
+CMP OAI.Coulomb.attraction [def] ok
+CMP OAI.Coulomb.Nuclei.position [def] ok
+CMP OAI.Coulomb.Nuclei.charge [def] ok
+CMP OAI.Coulomb.kinetic [def] ok
+CMP OAI.Coulomb.H1Vector.gradient [def] ok
+CMP OAI.ContinuumCoulomb.NuclearData.electrons [def] ok
+CMP OAI.ContinuumCoulomb.FormState [def] ok
+CMP OAI.ContinuumCoulomb.normSq [def] ok
+CMP OAI.Coulomb.mass [def] ok
+CMP OAI.ContinuumCoulomb.PromiseProblem.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.PromiseProblem [ind] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombCodec [def] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombEquiv [def] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.binaryCoulombEquiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.binaryRationalCodec [def] ok
+CMP OAI.ContinuumCoulomb.binaryRationalEquiv [def] ok
+CMP OAI.ContinuumCoulomb.binaryRationalEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.binaryRationalEquiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.natural [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.natural._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.decodeDigits [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.decodeDigits._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.BitString [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeDigits._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readDigits [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readDigits._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readDigits.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readDigits.match_3 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readDigits._sparseCasesOn_3 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.Codec.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.Codec [ind] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.integer [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.integer._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.Codec.read [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readUnary.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.Codec.encode [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.integer.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.integer.match_3 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.pair [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.pair._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.pair.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.equiv [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.equiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.unary [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readUnary_encode [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.encodeUnary.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readUnary [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readUnary._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readUnary.match_3 [def] ok
+CMP OAI.ContinuumCoulomb.binaryPositionCodec [def] ok
+CMP OAI.ContinuumCoulomb.binaryPositionEquiv [def] ok
+CMP OAI.ContinuumCoulomb.binaryPositionEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.binaryPositionEquiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.list [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.list._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readCount [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readCount._f [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readCount.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.readCount.match_3 [def] ok
+CMP OAI.ContinuumCoulomb.QMAHard [def] ok
+CMP OAI.ContinuumCoulomb.PolynomialManyOne [ind] ok
+CMP OAI.ContinuumCoulomb.PolynomialManyOne.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.PromiseProblem.no [def] ok
+CMP OAI.ContinuumCoulomb.PromiseProblem.yes [def] ok
+CMP OAI.ContinuumCoulomb.InQMA [def] ok
+CMP OAI.ContinuumCoulomb.QuantumVerifier.wellFormed [thm] ok
+CMP OAI.ContinuumCoulomb.QuantumVerifier.generate [def] ok
+CMP OAI.ContinuumCoulomb.QuantumVerifier [ind] ok
+CMP OAI.ContinuumCoulomb.QuantumVerifier.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.QMACircuit.WellFormed [def] ok
+CMP OAI.ContinuumCoulomb.QMAGate.WellFormed [def] ok
+CMP OAI.ContinuumCoulomb.instReprQMAGate.repr.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.QMAGate.casesOn [def] ok
+CMP OAI.ContinuumCoulomb.QMAGate.rec [rec] ok
+CMP OAI.ContinuumCoulomb.QMAGate.controlledNot [ctor] ok
+CMP OAI.ContinuumCoulomb.QMAGate [ind] ok
+CMP OAI.ContinuumCoulomb.QMAGate.phaseT [ctor] ok
+CMP OAI.ContinuumCoulomb.QMAGate.hadamard [ctor] ok
+CMP OAI.ContinuumCoulomb.QMACircuit.gates [def] ok
+CMP OAI.ContinuumCoulomb.QMACircuit [ind] ok
+CMP OAI.ContinuumCoulomb.QMACircuit.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.QMACircuit.work [def] ok
+CMP OAI.ContinuumCoulomb.QMACircuit.witness [def] ok
+CMP OAI.ContinuumCoulomb.qmaCircuitCodec [def] ok
+CMP OAI.ContinuumCoulomb.qmaCircuitEquiv [def] ok
+CMP OAI.ContinuumCoulomb.qmaCircuitEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.qmaCircuitEquiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.qmaGateCodec [def] ok
+CMP OAI.ContinuumCoulomb.qmaGateEquiv [def] ok
+CMP OAI.ContinuumCoulomb.qmaGateEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.qmaGateEquiv.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.qmaGateEquiv._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.sum [def] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.sum._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.BinaryEncoding.sum.match_1 [def] ok
+CMP OAI.ContinuumCoulomb.qmaAcceptance [def] ok
+CMP OAI.ContinuumCoulomb.qmaInitialState [def] ok
+CMP OAI.ContinuumCoulomb.qmaInitialState._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.qmaControlledNot._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.SourceSpinBasis [def] ok
+CMP OAI.ContinuumCoulomb.qmaCircuitMatrix [def] ok
+CMP OAI.ContinuumCoulomb.qmaGateMatrix [def] ok
+CMP OAI.ContinuumCoulomb.qmaControlledNot [def] ok
+CMP OAI.ContinuumCoulomb.qmaPhaseT [def] ok
+CMP OAI.ContinuumCoulomb.bellScale [def] ok
+CMP OAI.ContinuumCoulomb.bellScale_atLeastTwo [thm] ok
+CMP OAI.ContinuumCoulomb.qmaHadamard [def] ok
+CMP OAI.ContinuumCoulomb.qmaQubit [def] ok
+CMP OAI.ContinuumCoulomb.qmaQubit._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.sourceTensor [def] ok
+CMP OAI.ContinuumCoulomb.inQMA_three_atLeastTwo [thm] ok
+CMP OAI.ContinuumCoulomb.inQMA_two_atLeastTwo [thm] ok
+CMP OAI.ContinuumCoulomb.unit_coulomb_qmaHard [thm] ok
+CMP OAI.ContinuumCoulomb.unitCoulombPromise [def] ok
+CMP OAI.ContinuumCoulomb.unitCoulombPromise._proof_1 [thm] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.upper [def] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb [ind] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.lower [def] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.toData [def] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.Valid.electrons_pos [thm] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.electrons [def] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.Valid [ind] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.Valid.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.nuclei [def] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.Valid.distinct [thm] ok
+CMP OAI.ContinuumCoulomb.UnitCoulomb.Valid.nuclei_pos [thm] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.mk [ctor] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData [ind] ok
+CMP OAI.ContinuumCoulomb.unitGroundEnergy [def] ok
+CMP OAI.ContinuumCoulomb.unitCoulombForm [def] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.toNuclearData [def] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.electrons_pos [thm] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.electrons [def] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.distinct [thm] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.position [def] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.nuclei [def] ok
+CMP OAI.ContinuumCoulomb.UnitNuclearData.nuclei_pos [thm] ok
+CMP OAI.ContinuumCoulomb.unitCoulombCodec [def] ok
+CMP OAI.ContinuumCoulomb.unitCoulombEquiv [def] ok
+CMP OAI.ContinuumCoulomb.unitCoulombEquiv._proof_2 [thm] ok
+CMP OAI.ContinuumCoulomb.unitCoulombEquiv._proof_1 [thm] ok
+Chal.ContinuumCoulomb.unit_coulomb_qmaHard : Chal.ContinuumCoulomb.QMAHard Chal.ContinuumCoulomb.unitCoulombCodec.encode
+  Chal.ContinuumCoulomb.unitCoulombPromise
+Chal.ContinuumCoulomb.binary_coulomb_qmaHard : Chal.ContinuumCoulomb.QMAHard
+  Chal.ContinuumCoulomb.binaryCoulombCodec.encode Chal.ContinuumCoulomb.binaryCoulombPromise
+@[reducible] def Chal.ContinuumCoulomb.BinaryEncoding.BitString : Type :=
+List Bool
+structure Chal.ContinuumCoulomb.BinaryEncoding.Codec.{u_1} (α : Type u_1) : Type u_1
+number of parameters: 1
+fields:
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec.encode : α → Chal.ContinuumCoulomb.BinaryEncoding.BitString
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec.read : Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+      α × Chal.ContinuumCoulomb.BinaryEncoding.BitString
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec.read_encode : ∀ (x : α)
+      (tail : Chal.ContinuumCoulomb.BinaryEncoding.BitString), self.read (self.encode x ++ tail) = (x, tail)
+constructor:
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec.mk.{u_1} {α : Type u_1}
+    (encode : α → Chal.ContinuumCoulomb.BinaryEncoding.BitString)
+    (read : Chal.ContinuumCoulomb.BinaryEncoding.BitString → α × Chal.ContinuumCoulomb.BinaryEncoding.BitString)
+    (read_encode :
+      ∀ (x : α) (tail : Chal.ContinuumCoulomb.BinaryEncoding.BitString), read (encode x ++ tail) = (x, tail)) :
+    Chal.ContinuumCoulomb.BinaryEncoding.Codec α
+def Chal.ContinuumCoulomb.BinaryEncoding.encodeDigits : Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+  Chal.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x Chal.ContinuumCoulomb.BinaryEncoding.encodeDigits._f
+def Chal.ContinuumCoulomb.BinaryEncoding.readDigits : Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+  Chal.ContinuumCoulomb.BinaryEncoding.BitString × Chal.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x Chal.ContinuumCoulomb.BinaryEncoding.readDigits._f
+def Chal.ContinuumCoulomb.BinaryEncoding.decodeDigits : Chal.ContinuumCoulomb.BinaryEncoding.BitString → ℕ :=
+fun x => List.brecOn x Chal.ContinuumCoulomb.BinaryEncoding.decodeDigits._f
+def Chal.ContinuumCoulomb.BinaryEncoding.natural : Chal.ContinuumCoulomb.BinaryEncoding.Codec ℕ :=
+{ encode := fun n => Chal.ContinuumCoulomb.BinaryEncoding.encodeDigits n.bits,
+  read := fun s =>
+    match Chal.ContinuumCoulomb.BinaryEncoding.readDigits s with
+    | (digits, tail) => (Chal.ContinuumCoulomb.BinaryEncoding.decodeDigits digits, tail),
+  read_encode := Chal.ContinuumCoulomb.BinaryEncoding.natural._proof_1 }
+def Chal.ContinuumCoulomb.BinaryEncoding.encodeUnary : ℕ → Chal.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => Nat.brecOn x Chal.ContinuumCoulomb.BinaryEncoding.encodeUnary._f
+def Chal.ContinuumCoulomb.BinaryEncoding.readUnary : Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+  ℕ × Chal.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun x => List.brecOn x Chal.ContinuumCoulomb.BinaryEncoding.readUnary._f
+def Chal.ContinuumCoulomb.BinaryEncoding.unary : Chal.ContinuumCoulomb.BinaryEncoding.Codec ℕ :=
+{ encode := Chal.ContinuumCoulomb.BinaryEncoding.encodeUnary, read := Chal.ContinuumCoulomb.BinaryEncoding.readUnary,
+  read_encode := Chal.ContinuumCoulomb.BinaryEncoding.readUnary_encode }
+def Chal.ContinuumCoulomb.BinaryEncoding.integer : Chal.ContinuumCoulomb.BinaryEncoding.Codec ℤ :=
+{
+  encode := fun x =>
+    match x with
+    | Int.ofNat n => false :: Chal.ContinuumCoulomb.BinaryEncoding.natural.encode n
+    | Int.negSucc n => true :: Chal.ContinuumCoulomb.BinaryEncoding.natural.encode n,
+  read := fun x =>
+    match x with
+    | false :: s =>
+      match Chal.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, tail) => (Int.ofNat n, tail)
+    | true :: s =>
+      match Chal.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, tail) => (Int.negSucc n, tail)
+    | [] => (0, []),
+  read_encode := Chal.ContinuumCoulomb.BinaryEncoding.integer._proof_1 }
+def Chal.ContinuumCoulomb.BinaryEncoding.pair.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    Chal.ContinuumCoulomb.BinaryEncoding.Codec α →
+      Chal.ContinuumCoulomb.BinaryEncoding.Codec β → Chal.ContinuumCoulomb.BinaryEncoding.Codec (α × β) :=
+fun {α} {β} a b =>
+  { encode := fun x => a.encode x.1 ++ b.encode x.2,
+    read := fun s =>
+      match a.read s with
+      | (x, t) =>
+        match b.read t with
+        | (y, u) => ((x, y), u),
+    read_encode := ⋯ }
+def Chal.ContinuumCoulomb.BinaryEncoding.readCount.{u_1} : {α : Type u_1} →
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec α →
+    ℕ → Chal.ContinuumCoulomb.BinaryEncoding.BitString → List α × Chal.ContinuumCoulomb.BinaryEncoding.BitString :=
+fun {α} a x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    Chal.ContinuumCoulomb.BinaryEncoding.BitString → List α × Chal.ContinuumCoulomb.BinaryEncoding.BitString) x
+    (Chal.ContinuumCoulomb.BinaryEncoding.readCount._f a) x_1
+def Chal.ContinuumCoulomb.BinaryEncoding.list.{u_1} : {α : Type u_1} →
+  Chal.ContinuumCoulomb.BinaryEncoding.Codec α → Chal.ContinuumCoulomb.BinaryEncoding.Codec (List α) :=
+fun {α} a =>
+  { encode := fun xs => Chal.ContinuumCoulomb.BinaryEncoding.natural.encode xs.length ++ List.flatMap a.encode xs,
+    read := fun s =>
+      match Chal.ContinuumCoulomb.BinaryEncoding.natural.read s with
+      | (n, t) => Chal.ContinuumCoulomb.BinaryEncoding.readCount a n t,
+    read_encode := ⋯ }
+def Chal.ContinuumCoulomb.BinaryEncoding.equiv.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    Chal.ContinuumCoulomb.BinaryEncoding.Codec α → β ≃ α → Chal.ContinuumCoulomb.BinaryEncoding.Codec β :=
+fun {α} {β} a e =>
+  { encode := fun x => a.encode (e x),
+    read := fun s =>
+      match a.read s with
+      | (x, t) => (e.symm x, t),
+    read_encode := ⋯ }
+def Chal.ContinuumCoulomb.BinaryEncoding.sum.{u_1, u_2} : {α : Type u_1} →
+  {β : Type u_2} →
+    Chal.ContinuumCoulomb.BinaryEncoding.Codec α →
+      Chal.ContinuumCoulomb.BinaryEncoding.Codec β → Chal.ContinuumCoulomb.BinaryEncoding.Codec (α ⊕ β) :=
+fun {α} {β} a b =>
+  {
+    encode := fun x =>
+      match x with
+      | Sum.inl x => false :: a.encode x
+      | Sum.inr y => true :: b.encode y,
+    read := fun x =>
+      match x with
+      | false :: s =>
+        match a.read s with
+        | (x, t) => (Sum.inl x, t)
+      | true :: s =>
+        match b.read s with
+        | (y, t) => (Sum.inr y, t)
+      | [] =>
+        match a.read [] with
+        | (x, t) => (Sum.inl x, t),
+    read_encode := ⋯ }
+@[reducible] def Chal.Coulomb.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.Coulomb.Configuration : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n × Fin 3)
+@[reducible] def Chal.Coulomb.Spins : ℕ → Type :=
+fun n => Fin n → Fin 2
+structure Chal.Coulomb.Nuclei (M : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.Coulomb.Nuclei.nonempty : 0 < M
+  Chal.Coulomb.Nuclei.position : Fin M → Chal.Coulomb.Space
+  Chal.Coulomb.Nuclei.distinct : Function.Injective self.position
+  Chal.Coulomb.Nuclei.charge : Fin M → ℝ
+  Chal.Coulomb.Nuclei.charge_ge_one : ∀ (j : Fin M), 1 ≤ self.charge j
+constructor:
+  Chal.Coulomb.Nuclei.mk {M : ℕ} (nonempty : 0 < M) (position : Fin M → Chal.Coulomb.Space)
+    (distinct : Function.Injective position) (charge : Fin M → ℝ) (charge_ge_one : ∀ (j : Fin M), 1 ≤ charge j) :
+    Chal.Coulomb.Nuclei M
+def Chal.Coulomb.position : {n : ℕ} → Chal.Coulomb.Configuration n → Fin n → Chal.Coulomb.Space :=
+fun {n} x i => WithLp.toLp 2 fun b => x.ofLp (i, b)
+def Chal.Coulomb.coulombKernel : Chal.Coulomb.Space → ℝ :=
+fun x => ‖x‖⁻¹
+def Chal.Coulomb.attraction : {M : ℕ} → Chal.Coulomb.Nuclei M → Chal.Coulomb.Space → ℝ :=
+fun {M} S x => ∑ j, S.charge j * Chal.Coulomb.coulombKernel (x - S.position j)
+def Chal.Coulomb.permute : {n : ℕ} → Equiv.Perm (Fin n) → Chal.Coulomb.Configuration n → Chal.Coulomb.Configuration n :=
+fun {n} p x => WithLp.toLp 2 fun ib => x.ofLp (p ib.1, ib.2)
+structure Chal.Coulomb.H1Vector (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.Coulomb.H1Vector.value : Chal.Coulomb.Spins n → Chal.Coulomb.Configuration n → ℂ
+  Chal.Coulomb.H1Vector.gradient : Chal.Coulomb.Spins n → Fin n × Fin 3 → Chal.Coulomb.Configuration n → ℂ
+  Chal.Coulomb.H1Vector.value_L2 : ∀ (s : Chal.Coulomb.Spins n),
+      MeasureTheory.MemLp (self.value s) 2 MeasureTheory.volume
+  Chal.Coulomb.H1Vector.partial_L2 : ∀ (s : Chal.Coulomb.Spins n) (a : Fin n × Fin 3),
+      MeasureTheory.MemLp (self.gradient s a) 2 MeasureTheory.volume
+  Chal.Coulomb.H1Vector.weak_partial : ∀ (s : Chal.Coulomb.Spins n) (a : Fin n × Fin 3)
+      (φ : Chal.Coulomb.Configuration n → ℝ),
+      ContDiff ℝ (↑⊤) φ →
+        HasCompactSupport φ →
+          ∫ (x : Chal.Coulomb.Configuration n), self.value s x * ↑((fderiv ℝ φ x) (EuclideanSpace.single a 1)) =
+            -∫ (x : Chal.Coulomb.Configuration n), self.gradient s a x * ↑(φ x)
+constructor:
+  Chal.Coulomb.H1Vector.mk {n : ℕ} (value : Chal.Coulomb.Spins n → Chal.Coulomb.Configuration n → ℂ)
+    (gradient : Chal.Coulomb.Spins n → Fin n × Fin 3 → Chal.Coulomb.Configuration n → ℂ)
+    (value_L2 : ∀ (s : Chal.Coulomb.Spins n), MeasureTheory.MemLp (value s) 2 MeasureTheory.volume)
+    (partial_L2 :
+      ∀ (s : Chal.Coulomb.Spins n) (a : Fin n × Fin 3), MeasureTheory.MemLp (gradient s a) 2 MeasureTheory.volume)
+    (weak_partial :
+      ∀ (s : Chal.Coulomb.Spins n) (a : Fin n × Fin 3) (φ : Chal.Coulomb.Configuration n → ℝ),
+        ContDiff ℝ (↑⊤) φ →
+          HasCompactSupport φ →
+            ∫ (x : Chal.Coulomb.Configuration n), value s x * ↑((fderiv ℝ φ x) (EuclideanSpace.single a 1)) =
+              -∫ (x : Chal.Coulomb.Configuration n), gradient s a x * ↑(φ x)) :
+    Chal.Coulomb.H1Vector n
+def Chal.Coulomb.Antisymmetric : {n : ℕ} → Chal.Coulomb.H1Vector n → Prop :=
+fun {n} ψ =>
+  ∀ (p : Equiv.Perm (Fin n)) (s : Chal.Coulomb.Spins n),
+    ∀ᵐ (x : Chal.Coulomb.Configuration n),
+      ψ.value (s ∘ ⇑p) (Chal.Coulomb.permute p x) = ↑↑(Equiv.Perm.sign p) * ψ.value s x
+def Chal.Coulomb.mass : {n : ℕ} → Chal.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ => ∑ s, ∫ (x : Chal.Coulomb.Configuration n), ‖ψ.value s x‖ ^ 2
+def Chal.Coulomb.kinetic : {n : ℕ} → Chal.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ => 1 / 2 * ∑ s, ∑ a, ∫ (x : Chal.Coulomb.Configuration n), ‖ψ.gradient s a x‖ ^ 2
+def Chal.Coulomb.nuclearEnergy : {M n : ℕ} → Chal.Coulomb.Nuclei M → Chal.Coulomb.H1Vector n → ℝ :=
+fun {M n} S ψ =>
+  ∑ s,
+    ∫ (x : Chal.Coulomb.Configuration n),
+      (∑ i, Chal.Coulomb.attraction S (Chal.Coulomb.position x i)) * ‖ψ.value s x‖ ^ 2
+def Chal.Coulomb.pairEnergy : {n : ℕ} → Chal.Coulomb.H1Vector n → ℝ :=
+fun {n} ψ =>
+  ∑ s,
+    ∫ (x : Chal.Coulomb.Configuration n),
+      (∑ i,
+          ∑ j,
+            if i < j then Chal.Coulomb.coulombKernel (Chal.Coulomb.position x i - Chal.Coulomb.position x j) else 0) *
+        ‖ψ.value s x‖ ^ 2
+def Chal.Coulomb.form : {M n : ℕ} → Chal.Coulomb.Nuclei M → Chal.Coulomb.H1Vector n → ℝ :=
+fun {M n} S ψ => Chal.Coulomb.kinetic ψ - Chal.Coulomb.nuclearEnergy S ψ + Chal.Coulomb.pairEnergy ψ
+@[reducible] def Chal.ContinuumCoulomb.SourceSpinBasis : ℕ → Type :=
+fun n => Fin n → Fin 2
+def Chal.ContinuumCoulomb.sourceTensor : (n : ℕ) →
+  (Fin n → Matrix (Fin 2) (Fin 2) ℂ) →
+    Matrix (Chal.ContinuumCoulomb.SourceSpinBasis n) (Chal.ContinuumCoulomb.SourceSpinBasis n) ℂ :=
+fun n M s t => ∏ i, M i (s i) (t i)
+def Chal.ContinuumCoulomb.bellScale : ℂ :=
+↑√(1 / 2)
+inductive Chal.ContinuumCoulomb.QMAGate : Type
+number of parameters: 0
+constructors:
+Chal.ContinuumCoulomb.QMAGate.hadamard : ℕ → Chal.ContinuumCoulomb.QMAGate
+Chal.ContinuumCoulomb.QMAGate.phaseT : ℕ → Chal.ContinuumCoulomb.QMAGate
+Chal.ContinuumCoulomb.QMAGate.controlledNot : ℕ → ℕ → Chal.ContinuumCoulomb.QMAGate
+def Chal.ContinuumCoulomb.qmaGateEquiv : Chal.ContinuumCoulomb.QMAGate ≃ (ℕ ⊕ ℕ) ⊕ ℕ × ℕ :=
+{
+  toFun := fun x =>
+    match x with
+    | Chal.ContinuumCoulomb.QMAGate.hadamard i => Sum.inl (Sum.inl i)
+    | Chal.ContinuumCoulomb.QMAGate.phaseT i => Sum.inl (Sum.inr i)
+    | Chal.ContinuumCoulomb.QMAGate.controlledNot i j => Sum.inr (i, j),
+  invFun := fun x =>
+    match x with
+    | Sum.inl (Sum.inl i) => Chal.ContinuumCoulomb.QMAGate.hadamard i
+    | Sum.inl (Sum.inr i) => Chal.ContinuumCoulomb.QMAGate.phaseT i
+    | Sum.inr (i, j) => Chal.ContinuumCoulomb.QMAGate.controlledNot i j,
+  left_inv := Chal.ContinuumCoulomb.qmaGateEquiv._proof_1, right_inv := Chal.ContinuumCoulomb.qmaGateEquiv._proof_2 }
+def Chal.ContinuumCoulomb.qmaGateCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec Chal.ContinuumCoulomb.QMAGate :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.sum
+    (Chal.ContinuumCoulomb.BinaryEncoding.sum Chal.ContinuumCoulomb.BinaryEncoding.natural
+      Chal.ContinuumCoulomb.BinaryEncoding.natural)
+    (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.natural
+      Chal.ContinuumCoulomb.BinaryEncoding.natural))
+  Chal.ContinuumCoulomb.qmaGateEquiv
+structure Chal.ContinuumCoulomb.QMACircuit : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.QMACircuit.work : ℕ
+  Chal.ContinuumCoulomb.QMACircuit.witness : ℕ
+  Chal.ContinuumCoulomb.QMACircuit.gates : List Chal.ContinuumCoulomb.QMAGate
+constructor:
+  Chal.ContinuumCoulomb.QMACircuit.mk (work witness : ℕ) (gates : List Chal.ContinuumCoulomb.QMAGate) :
+    Chal.ContinuumCoulomb.QMACircuit
+def Chal.ContinuumCoulomb.qmaCircuitEquiv : Chal.ContinuumCoulomb.QMACircuit ≃
+  ℕ × ℕ × List Chal.ContinuumCoulomb.QMAGate :=
+{ toFun := fun c => (c.work, c.witness, c.gates), invFun := fun c => { work := c.1, witness := c.2.1, gates := c.2.2 },
+  left_inv := Chal.ContinuumCoulomb.qmaCircuitEquiv._proof_1,
+  right_inv := Chal.ContinuumCoulomb.qmaCircuitEquiv._proof_2 }
+def Chal.ContinuumCoulomb.qmaCircuitCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec
+  Chal.ContinuumCoulomb.QMACircuit :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.natural
+    (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.natural
+      (Chal.ContinuumCoulomb.BinaryEncoding.list Chal.ContinuumCoulomb.qmaGateCodec)))
+  Chal.ContinuumCoulomb.qmaCircuitEquiv
+def Chal.ContinuumCoulomb.QMAGate.WellFormed : ℕ → Chal.ContinuumCoulomb.QMAGate → Prop :=
+fun n x =>
+  match x with
+  | Chal.ContinuumCoulomb.QMAGate.hadamard i => i < n
+  | Chal.ContinuumCoulomb.QMAGate.phaseT i => i < n
+  | Chal.ContinuumCoulomb.QMAGate.controlledNot i j => i < n ∧ j < n ∧ i ≠ j
+def Chal.ContinuumCoulomb.QMACircuit.WellFormed : Chal.ContinuumCoulomb.QMACircuit → Prop :=
+fun c => c.witness ≤ c.work ∧ ∀ g ∈ c.gates, Chal.ContinuumCoulomb.QMAGate.WellFormed (c.work + 1) g
+def Chal.ContinuumCoulomb.qmaHadamard : Matrix (Fin 2) (Fin 2) ℂ :=
+Chal.ContinuumCoulomb.bellScale • !![1, 1; 1, -1]
+def Chal.ContinuumCoulomb.qmaPhaseT : Matrix (Fin 2) (Fin 2) ℂ :=
+!![1, 0; 0, Chal.ContinuumCoulomb.bellScale * (1 + Complex.I)]
+def Chal.ContinuumCoulomb.qmaQubit : (work : ℕ) → ℕ → Fin (work + 1) :=
+fun work index => ⟨index % (work + 1), ⋯⟩
+def Chal.ContinuumCoulomb.qmaControlledNot : (work : ℕ) →
+  Fin (work + 1) →
+    Fin (work + 1) →
+      Chal.ContinuumCoulomb.SourceSpinBasis (work + 1) → Chal.ContinuumCoulomb.SourceSpinBasis (work + 1) :=
+fun work control target s i => if i = target ∧ s control = 1 then (Equiv.swap 0 1) (s i) else s i
+def Chal.ContinuumCoulomb.qmaGateMatrix : (work : ℕ) →
+  Chal.ContinuumCoulomb.QMAGate →
+    Matrix (Chal.ContinuumCoulomb.SourceSpinBasis (work + 1)) (Chal.ContinuumCoulomb.SourceSpinBasis (work + 1)) ℂ :=
+fun work x =>
+  match x with
+  | Chal.ContinuumCoulomb.QMAGate.hadamard i =>
+    Chal.ContinuumCoulomb.sourceTensor (work + 1) fun k =>
+      if k = Chal.ContinuumCoulomb.qmaQubit work i then Chal.ContinuumCoulomb.qmaHadamard else 1
+  | Chal.ContinuumCoulomb.QMAGate.phaseT i =>
+    Chal.ContinuumCoulomb.sourceTensor (work + 1) fun k =>
+      if k = Chal.ContinuumCoulomb.qmaQubit work i then Chal.ContinuumCoulomb.qmaPhaseT else 1
+  | Chal.ContinuumCoulomb.QMAGate.controlledNot i j => fun s t =>
+    if
+        s =
+          Chal.ContinuumCoulomb.qmaControlledNot work (Chal.ContinuumCoulomb.qmaQubit work i)
+            (Chal.ContinuumCoulomb.qmaQubit work j) t then
+      1
+    else 0
+def Chal.ContinuumCoulomb.qmaCircuitMatrix : (c : Chal.ContinuumCoulomb.QMACircuit) →
+  Matrix (Chal.ContinuumCoulomb.SourceSpinBasis (c.work + 1)) (Chal.ContinuumCoulomb.SourceSpinBasis (c.work + 1)) ℂ :=
+fun c => List.foldl (fun M g => Chal.ContinuumCoulomb.qmaGateMatrix c.work g * M) 1 c.gates
+def Chal.ContinuumCoulomb.qmaInitialState : (c : Chal.ContinuumCoulomb.QMACircuit) →
+  c.WellFormed →
+    EuclideanSpace ℂ (Chal.ContinuumCoulomb.SourceSpinBasis c.witness) →
+      Chal.ContinuumCoulomb.SourceSpinBasis (c.work + 1) → ℂ :=
+fun c hc psi s => if ∀ (i : Fin (c.work + 1)), c.witness ≤ ↑i → s i = 0 then psi.ofLp fun i => s ⟨↑i, ⋯⟩ else 0
+def Chal.ContinuumCoulomb.qmaAcceptance : (c : Chal.ContinuumCoulomb.QMACircuit) →
+  c.WellFormed → EuclideanSpace ℂ (Chal.ContinuumCoulomb.SourceSpinBasis c.witness) → ℝ :=
+fun c hc psi =>
+  ∑ s,
+    if s (Fin.last c.work) = 1 then
+      Complex.normSq
+        ((Chal.ContinuumCoulomb.qmaCircuitMatrix c).mulVec (Chal.ContinuumCoulomb.qmaInitialState c hc psi) s)
+    else 0
+structure Chal.ContinuumCoulomb.QuantumVerifier : Type 1
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.QuantumVerifier.generate : Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+      Chal.ContinuumCoulomb.QMACircuit
+  Chal.ContinuumCoulomb.QuantumVerifier.uniform : Turing.TM2ComputableInPolyTime id
+      Chal.ContinuumCoulomb.qmaCircuitCodec.encode self.generate
+  Chal.ContinuumCoulomb.QuantumVerifier.size : Polynomial ℕ
+  Chal.ContinuumCoulomb.QuantumVerifier.size_bound : ∀ (x : Chal.ContinuumCoulomb.BinaryEncoding.BitString),
+      (self.generate x).work + (self.generate x).gates.length ≤ Polynomial.eval (List.length x) self.size
+  Chal.ContinuumCoulomb.QuantumVerifier.wellFormed : ∀ (x : Chal.ContinuumCoulomb.BinaryEncoding.BitString),
+      (self.generate x).WellFormed
+constructor:
+  Chal.ContinuumCoulomb.QuantumVerifier.mk
+    (generate : Chal.ContinuumCoulomb.BinaryEncoding.BitString → Chal.ContinuumCoulomb.QMACircuit)
+    (uniform : Turing.TM2ComputableInPolyTime id Chal.ContinuumCoulomb.qmaCircuitCodec.encode generate)
+    (size : Polynomial ℕ)
+    (size_bound :
+      ∀ (x : Chal.ContinuumCoulomb.BinaryEncoding.BitString),
+        (generate x).work + (generate x).gates.length ≤ Polynomial.eval (List.length x) size)
+    (wellFormed : ∀ (x : Chal.ContinuumCoulomb.BinaryEncoding.BitString), (generate x).WellFormed) :
+    Chal.ContinuumCoulomb.QuantumVerifier
+structure Chal.ContinuumCoulomb.PromiseProblem (α : Type) : Type
+number of parameters: 1
+fields:
+  Chal.ContinuumCoulomb.PromiseProblem.yes : Set α
+  Chal.ContinuumCoulomb.PromiseProblem.no : Set α
+  Chal.ContinuumCoulomb.PromiseProblem.disjoint : Disjoint self.yes self.no
+constructor:
+  Chal.ContinuumCoulomb.PromiseProblem.mk {α : Type} (yes no : Set α) (disjoint : Disjoint yes no) :
+    Chal.ContinuumCoulomb.PromiseProblem α
+def Chal.ContinuumCoulomb.InQMA : Chal.ContinuumCoulomb.PromiseProblem Chal.ContinuumCoulomb.BinaryEncoding.BitString →
+  Prop :=
+fun P =>
+  ∃ V,
+    (∀ x ∈ P.yes, ∃ psi, ‖psi‖ = 1 ∧ 2 / 3 ≤ Chal.ContinuumCoulomb.qmaAcceptance (V.generate x) ⋯ psi) ∧
+      ∀ x ∈ P.no,
+        ∀ (psi : EuclideanSpace ℂ (Chal.ContinuumCoulomb.SourceSpinBasis (V.generate x).witness)),
+          ‖psi‖ = 1 → Chal.ContinuumCoulomb.qmaAcceptance (V.generate x) ⋯ psi ≤ 1 / 3
+structure Chal.ContinuumCoulomb.PolynomialManyOne {α β : Type} (ea : α → Chal.ContinuumCoulomb.BinaryEncoding.BitString)
+  (eb : β → Chal.ContinuumCoulomb.BinaryEncoding.BitString) (P : Chal.ContinuumCoulomb.PromiseProblem α)
+  (Q : Chal.ContinuumCoulomb.PromiseProblem β) : Type 1
+number of parameters: 6
+fields:
+  Chal.ContinuumCoulomb.PolynomialManyOne.map : α → β
+  Chal.ContinuumCoulomb.PolynomialManyOne.polynomialTime : Turing.TM2ComputableInPolyTime ea eb self.map
+  Chal.ContinuumCoulomb.PolynomialManyOne.maps_yes : ∀ x ∈ P.yes, self.map x ∈ Q.yes
+  Chal.ContinuumCoulomb.PolynomialManyOne.maps_no : ∀ x ∈ P.no, self.map x ∈ Q.no
+constructor:
+  Chal.ContinuumCoulomb.PolynomialManyOne.mk {α β : Type} {ea : α → Chal.ContinuumCoulomb.BinaryEncoding.BitString}
+    {eb : β → Chal.ContinuumCoulomb.BinaryEncoding.BitString} {P : Chal.ContinuumCoulomb.PromiseProblem α}
+    {Q : Chal.ContinuumCoulomb.PromiseProblem β} (map : α → β)
+    (polynomialTime : Turing.TM2ComputableInPolyTime ea eb map) (maps_yes : ∀ x ∈ P.yes, map x ∈ Q.yes)
+    (maps_no : ∀ x ∈ P.no, map x ∈ Q.no) : Chal.ContinuumCoulomb.PolynomialManyOne ea eb P Q
+def Chal.ContinuumCoulomb.QMAHard : {α : Type} →
+  (α → Chal.ContinuumCoulomb.BinaryEncoding.BitString) → Chal.ContinuumCoulomb.PromiseProblem α → Prop :=
+fun {α} encoding Q =>
+  ∀ (P : Chal.ContinuumCoulomb.PromiseProblem Chal.ContinuumCoulomb.BinaryEncoding.BitString),
+    Chal.ContinuumCoulomb.InQMA P → Nonempty (Chal.ContinuumCoulomb.PolynomialManyOne id encoding P Q)
+structure Chal.ContinuumCoulomb.BinaryRational : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.BinaryRational.numerator : ℤ
+  Chal.ContinuumCoulomb.BinaryRational.denominator : ℕ
+constructor:
+  Chal.ContinuumCoulomb.BinaryRational.mk (numerator : ℤ) (denominator : ℕ) : Chal.ContinuumCoulomb.BinaryRational
+def Chal.ContinuumCoulomb.BinaryRational.value : Chal.ContinuumCoulomb.BinaryRational → ℚ :=
+fun q => ↑q.numerator / ↑q.denominator
+def Chal.ContinuumCoulomb.binaryRationalEquiv : Chal.ContinuumCoulomb.BinaryRational ≃ ℤ × ℕ :=
+{ toFun := fun q => (q.numerator, q.denominator), invFun := fun q => { numerator := q.1, denominator := q.2 },
+  left_inv := Chal.ContinuumCoulomb.binaryRationalEquiv._proof_1,
+  right_inv := Chal.ContinuumCoulomb.binaryRationalEquiv._proof_2 }
+def Chal.ContinuumCoulomb.binaryRationalCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec
+  Chal.ContinuumCoulomb.BinaryRational :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.integer
+    Chal.ContinuumCoulomb.BinaryEncoding.natural)
+  Chal.ContinuumCoulomb.binaryRationalEquiv
+@[reducible] def Chal.ContinuumCoulomb.Position : Type :=
+Chal.Coulomb.Space
+@[reducible] def Chal.ContinuumCoulomb.Configuration : ℕ → Type :=
+Chal.Coulomb.Configuration
+@[reducible] def Chal.ContinuumCoulomb.SpinConfiguration : ℕ → Type :=
+Chal.Coulomb.Spins
+structure Chal.ContinuumCoulomb.NuclearData : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.NuclearData.nuclei : ℕ
+  Chal.ContinuumCoulomb.NuclearData.nuclei_pos : 0 < self.nuclei
+  Chal.ContinuumCoulomb.NuclearData.position : Fin self.nuclei → Fin 3 → ℚ
+  Chal.ContinuumCoulomb.NuclearData.distinct : Function.Injective self.position
+  Chal.ContinuumCoulomb.NuclearData.charge : Fin self.nuclei → ℕ
+  Chal.ContinuumCoulomb.NuclearData.charge_pos : ∀ (a : Fin self.nuclei), 0 < self.charge a
+  Chal.ContinuumCoulomb.NuclearData.electrons : ℕ
+  Chal.ContinuumCoulomb.NuclearData.electrons_pos : 0 < self.electrons
+constructor:
+  Chal.ContinuumCoulomb.NuclearData.mk (nuclei : ℕ) (nuclei_pos : 0 < nuclei) (position : Fin nuclei → Fin 3 → ℚ)
+    (distinct : Function.Injective position) (charge : Fin nuclei → ℕ) (charge_pos : ∀ (a : Fin nuclei), 0 < charge a)
+    (electrons : ℕ) (electrons_pos : 0 < electrons) : Chal.ContinuumCoulomb.NuclearData
+structure Chal.ContinuumCoulomb.UnitNuclearData : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.UnitNuclearData.nuclei : ℕ
+  Chal.ContinuumCoulomb.UnitNuclearData.nuclei_pos : 0 < self.nuclei
+  Chal.ContinuumCoulomb.UnitNuclearData.position : Fin self.nuclei → Fin 3 → ℚ
+  Chal.ContinuumCoulomb.UnitNuclearData.distinct : Function.Injective self.position
+  Chal.ContinuumCoulomb.UnitNuclearData.electrons : ℕ
+  Chal.ContinuumCoulomb.UnitNuclearData.electrons_pos : 0 < self.electrons
+constructor:
+  Chal.ContinuumCoulomb.UnitNuclearData.mk (nuclei : ℕ) (nuclei_pos : 0 < nuclei) (position : Fin nuclei → Fin 3 → ℚ)
+    (distinct : Function.Injective position) (electrons : ℕ) (electrons_pos : 0 < electrons) :
+    Chal.ContinuumCoulomb.UnitNuclearData
+def Chal.ContinuumCoulomb.UnitNuclearData.toNuclearData : Chal.ContinuumCoulomb.UnitNuclearData →
+  Chal.ContinuumCoulomb.NuclearData :=
+fun d =>
+  { nuclei := d.nuclei, nuclei_pos := ⋯, position := d.position, distinct := ⋯, charge := fun x => 1, charge_pos := ⋯,
+    electrons := d.electrons, electrons_pos := ⋯ }
+def Chal.ContinuumCoulomb.realPosition : (Fin 3 → ℚ) → Chal.ContinuumCoulomb.Position :=
+fun r => WithLp.toLp 2 fun a => ↑(r a)
+def Chal.ContinuumCoulomb.NuclearData.toNuclei : (d : Chal.ContinuumCoulomb.NuclearData) →
+  Chal.Coulomb.Nuclei d.nuclei :=
+fun d =>
+  { nonempty := ⋯, position := fun a => Chal.ContinuumCoulomb.realPosition (d.position a), distinct := ⋯,
+    charge := fun a => ↑(d.charge a), charge_ge_one := ⋯ }
+@[reducible] def Chal.ContinuumCoulomb.FormState : ℕ → Type :=
+fun n => { state // Chal.Coulomb.Antisymmetric state }
+@[reducible] def Chal.ContinuumCoulomb.normSq : {n : ℕ} → Chal.ContinuumCoulomb.FormState n → ℝ :=
+fun {n} state => Chal.Coulomb.mass ↑state
+@[reducible] def Chal.ContinuumCoulomb.kineticEnergy : {n : ℕ} → Chal.ContinuumCoulomb.FormState n → ℝ :=
+fun {n} state => Chal.Coulomb.kinetic ↑state
+def Chal.ContinuumCoulomb.coulombForm : (d : Chal.ContinuumCoulomb.NuclearData) →
+  Chal.ContinuumCoulomb.FormState d.electrons → ℝ :=
+fun d state => Chal.Coulomb.form d.toNuclei ↑state
+def Chal.ContinuumCoulomb.unitCoulombForm : (d : Chal.ContinuumCoulomb.UnitNuclearData) →
+  Chal.ContinuumCoulomb.FormState d.electrons → ℝ :=
+fun d state => Chal.ContinuumCoulomb.coulombForm d.toNuclearData state
+def Chal.ContinuumCoulomb.groundEnergy : Chal.ContinuumCoulomb.NuclearData → EReal :=
+fun d => sInf {e | ∃ state, Chal.ContinuumCoulomb.normSq state = 1 ∧ e = ↑(Chal.ContinuumCoulomb.coulombForm d state)}
+def Chal.ContinuumCoulomb.unitGroundEnergy : Chal.ContinuumCoulomb.UnitNuclearData → EReal :=
+fun d =>
+  sInf {e | ∃ state, Chal.ContinuumCoulomb.normSq state = 1 ∧ e = ↑(Chal.ContinuumCoulomb.unitCoulombForm d state)}
+structure Chal.ContinuumCoulomb.BinaryPosition : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.BinaryPosition.x : Chal.ContinuumCoulomb.BinaryRational
+  Chal.ContinuumCoulomb.BinaryPosition.y : Chal.ContinuumCoulomb.BinaryRational
+  Chal.ContinuumCoulomb.BinaryPosition.z : Chal.ContinuumCoulomb.BinaryRational
+constructor:
+  Chal.ContinuumCoulomb.BinaryPosition.mk (x y z : Chal.ContinuumCoulomb.BinaryRational) :
+    Chal.ContinuumCoulomb.BinaryPosition
+def Chal.ContinuumCoulomb.BinaryPosition.value : Chal.ContinuumCoulomb.BinaryPosition → Fin 3 → ℚ :=
+fun p => ![p.x.value, p.y.value, p.z.value]
+def Chal.ContinuumCoulomb.BinaryPosition.Valid : Chal.ContinuumCoulomb.BinaryPosition → Prop :=
+fun p => 0 < p.x.denominator ∧ 0 < p.y.denominator ∧ 0 < p.z.denominator
+def Chal.ContinuumCoulomb.binaryPositionEquiv : Chal.ContinuumCoulomb.BinaryPosition ≃
+  Chal.ContinuumCoulomb.BinaryRational × Chal.ContinuumCoulomb.BinaryRational × Chal.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun p => (p.x, p.y, p.z), invFun := fun p => { x := p.1, y := p.2.1, z := p.2.2 },
+  left_inv := Chal.ContinuumCoulomb.binaryPositionEquiv._proof_1,
+  right_inv := Chal.ContinuumCoulomb.binaryPositionEquiv._proof_2 }
+def Chal.ContinuumCoulomb.binaryPositionCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec
+  Chal.ContinuumCoulomb.BinaryPosition :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.binaryRationalCodec
+    (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.binaryRationalCodec
+      Chal.ContinuumCoulomb.binaryRationalCodec))
+  Chal.ContinuumCoulomb.binaryPositionEquiv
+structure Chal.ContinuumCoulomb.BinaryCoulomb : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.BinaryCoulomb.nuclei : List (Chal.ContinuumCoulomb.BinaryPosition × ℕ)
+  Chal.ContinuumCoulomb.BinaryCoulomb.electrons : ℕ
+  Chal.ContinuumCoulomb.BinaryCoulomb.lower : Chal.ContinuumCoulomb.BinaryRational
+  Chal.ContinuumCoulomb.BinaryCoulomb.upper : Chal.ContinuumCoulomb.BinaryRational
+constructor:
+  Chal.ContinuumCoulomb.BinaryCoulomb.mk (nuclei : List (Chal.ContinuumCoulomb.BinaryPosition × ℕ)) (electrons : ℕ)
+    (lower upper : Chal.ContinuumCoulomb.BinaryRational) : Chal.ContinuumCoulomb.BinaryCoulomb
+def Chal.ContinuumCoulomb.binaryCoulombEquiv : Chal.ContinuumCoulomb.BinaryCoulomb ≃
+  List (Chal.ContinuumCoulomb.BinaryPosition × ℕ) ×
+    ℕ × Chal.ContinuumCoulomb.BinaryRational × Chal.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun d => (d.nuclei, d.electrons, d.lower, d.upper),
+  invFun := fun d => { nuclei := d.1, electrons := d.2.1, lower := d.2.2.1, upper := d.2.2.2 },
+  left_inv := Chal.ContinuumCoulomb.binaryCoulombEquiv._proof_1,
+  right_inv := Chal.ContinuumCoulomb.binaryCoulombEquiv._proof_2 }
+def Chal.ContinuumCoulomb.binaryCoulombCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec
+  Chal.ContinuumCoulomb.BinaryCoulomb :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.pair
+    (Chal.ContinuumCoulomb.BinaryEncoding.list
+      (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.binaryPositionCodec
+        Chal.ContinuumCoulomb.BinaryEncoding.natural))
+    (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.unary
+      (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.binaryRationalCodec
+        Chal.ContinuumCoulomb.binaryRationalCodec)))
+  Chal.ContinuumCoulomb.binaryCoulombEquiv
+structure Chal.ContinuumCoulomb.BinaryCoulomb.Valid (d : Chal.ContinuumCoulomb.BinaryCoulomb) : Prop
+number of parameters: 1
+fields:
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.nuclei_pos : 0 < d.nuclei.length
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.electrons_pos : 0 < d.electrons
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).1.Valid
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.distinct : Function.Injective fun a => (d.nuclei.get a).1.value
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.charge_pos : ∀ (a : Fin d.nuclei.length), 0 < (d.nuclei.get a).2
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.lower_denominator : 0 < d.lower.denominator
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.upper_denominator : 0 < d.upper.denominator
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.gap : 1 ≤ d.upper.value - d.lower.value
+constructor:
+  Chal.ContinuumCoulomb.BinaryCoulomb.Valid.mk {d : Chal.ContinuumCoulomb.BinaryCoulomb}
+    (nuclei_pos : 0 < d.nuclei.length) (electrons_pos : 0 < d.electrons)
+    (positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).1.Valid)
+    (distinct : Function.Injective fun a => (d.nuclei.get a).1.value)
+    (charge_pos : ∀ (a : Fin d.nuclei.length), 0 < (d.nuclei.get a).2) (lower_denominator : 0 < d.lower.denominator)
+    (upper_denominator : 0 < d.upper.denominator) (gap : 1 ≤ d.upper.value - d.lower.value) : d.Valid
+def Chal.ContinuumCoulomb.BinaryCoulomb.toData : (d : Chal.ContinuumCoulomb.BinaryCoulomb) →
+  d.Valid → Chal.ContinuumCoulomb.NuclearData :=
+fun d h =>
+  { nuclei := d.nuclei.length, nuclei_pos := ⋯, position := fun a => (d.nuclei.get a).1.value, distinct := ⋯,
+    charge := fun a => (d.nuclei.get a).2, charge_pos := ⋯, electrons := d.electrons, electrons_pos := ⋯ }
+structure Chal.ContinuumCoulomb.UnitCoulomb : Type
+number of parameters: 0
+fields:
+  Chal.ContinuumCoulomb.UnitCoulomb.nuclei : List Chal.ContinuumCoulomb.BinaryPosition
+  Chal.ContinuumCoulomb.UnitCoulomb.electrons : ℕ
+  Chal.ContinuumCoulomb.UnitCoulomb.lower : Chal.ContinuumCoulomb.BinaryRational
+  Chal.ContinuumCoulomb.UnitCoulomb.upper : Chal.ContinuumCoulomb.BinaryRational
+constructor:
+  Chal.ContinuumCoulomb.UnitCoulomb.mk (nuclei : List Chal.ContinuumCoulomb.BinaryPosition) (electrons : ℕ)
+    (lower upper : Chal.ContinuumCoulomb.BinaryRational) : Chal.ContinuumCoulomb.UnitCoulomb
+def Chal.ContinuumCoulomb.unitCoulombEquiv : Chal.ContinuumCoulomb.UnitCoulomb ≃
+  List Chal.ContinuumCoulomb.BinaryPosition ×
+    ℕ × Chal.ContinuumCoulomb.BinaryRational × Chal.ContinuumCoulomb.BinaryRational :=
+{ toFun := fun d => (d.nuclei, d.electrons, d.lower, d.upper),
+  invFun := fun d => { nuclei := d.1, electrons := d.2.1, lower := d.2.2.1, upper := d.2.2.2 },
+  left_inv := Chal.ContinuumCoulomb.unitCoulombEquiv._proof_1,
+  right_inv := Chal.ContinuumCoulomb.unitCoulombEquiv._proof_2 }
+def Chal.ContinuumCoulomb.unitCoulombCodec : Chal.ContinuumCoulomb.BinaryEncoding.Codec
+  Chal.ContinuumCoulomb.UnitCoulomb :=
+Chal.ContinuumCoulomb.BinaryEncoding.equiv
+  (Chal.ContinuumCoulomb.BinaryEncoding.pair
+    (Chal.ContinuumCoulomb.BinaryEncoding.list Chal.ContinuumCoulomb.binaryPositionCodec)
+    (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.BinaryEncoding.unary
+      (Chal.ContinuumCoulomb.BinaryEncoding.pair Chal.ContinuumCoulomb.binaryRationalCodec
+        Chal.ContinuumCoulomb.binaryRationalCodec)))
+  Chal.ContinuumCoulomb.unitCoulombEquiv
+structure Chal.ContinuumCoulomb.UnitCoulomb.Valid (d : Chal.ContinuumCoulomb.UnitCoulomb) : Prop
+number of parameters: 1
+fields:
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.nuclei_pos : 0 < d.nuclei.length
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.electrons_pos : 0 < d.electrons
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).Valid
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.distinct : Function.Injective fun a => (d.nuclei.get a).value
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.lower_denominator : 0 < d.lower.denominator
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.upper_denominator : 0 < d.upper.denominator
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.gap : 1 ≤ d.upper.value - d.lower.value
+constructor:
+  Chal.ContinuumCoulomb.UnitCoulomb.Valid.mk {d : Chal.ContinuumCoulomb.UnitCoulomb} (nuclei_pos : 0 < d.nuclei.length)
+    (electrons_pos : 0 < d.electrons) (positions : ∀ (a : Fin d.nuclei.length), (d.nuclei.get a).Valid)
+    (distinct : Function.Injective fun a => (d.nuclei.get a).value) (lower_denominator : 0 < d.lower.denominator)
+    (upper_denominator : 0 < d.upper.denominator) (gap : 1 ≤ d.upper.value - d.lower.value) : d.Valid
+def Chal.ContinuumCoulomb.UnitCoulomb.toData : (d : Chal.ContinuumCoulomb.UnitCoulomb) →
+  d.Valid → Chal.ContinuumCoulomb.UnitNuclearData :=
+fun d h =>
+  { nuclei := d.nuclei.length, nuclei_pos := ⋯, position := fun a => (d.nuclei.get a).value, distinct := ⋯,
+    electrons := d.electrons, electrons_pos := ⋯ }
+def Chal.ContinuumCoulomb.binaryCoulombPromise : Chal.ContinuumCoulomb.PromiseProblem
+  Chal.ContinuumCoulomb.BinaryCoulomb :=
+{ yes := {d | ∃ (h : d.Valid), Chal.ContinuumCoulomb.groundEnergy (d.toData h) ≤ ↑↑d.lower.value},
+  no := {d | ∃ (h : d.Valid), ↑↑d.upper.value ≤ Chal.ContinuumCoulomb.groundEnergy (d.toData h)},
+  disjoint := Chal.ContinuumCoulomb.binaryCoulombPromise._proof_1 }
+def Chal.ContinuumCoulomb.unitCoulombPromise : Chal.ContinuumCoulomb.PromiseProblem Chal.ContinuumCoulomb.UnitCoulomb :=
+{ yes := {d | ∃ (h : d.Valid), Chal.ContinuumCoulomb.unitGroundEnergy (d.toData h) ≤ ↑↑d.lower.value},
+  no := {d | ∃ (h : d.Valid), ↑↑d.upper.value ≤ Chal.ContinuumCoulomb.unitGroundEnergy (d.toData h)},
+  disjoint := Chal.ContinuumCoulomb.unitCoulombPromise._proof_1 }
+'OAI.ContinuumCoulomb.unit_coulomb_qmaHard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.ContinuumCoulomb.binary_coulomb_qmaHard' depends on axioms: [propext, Classical.choice, Quot.sound]
+== ContinuumCoulombHardness comparator-style: ok=208 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

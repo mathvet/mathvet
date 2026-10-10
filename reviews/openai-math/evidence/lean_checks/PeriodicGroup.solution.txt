@@ -1,0 +1,47 @@
+OAI.SourceBurnside.thm_main : OAI.SourceBurnside.MainStatement ∧ OAI.SourceBurnside.BurnsideStatement
+'OAI.SourceBurnside.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.SourceBurnside.Root (n : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.SourceBurnside.Root.row : Fin n
+  OAI.SourceBurnside.Root.col : Fin n
+  OAI.SourceBurnside.Root.ne : self.row ≠ self.col
+constructor:
+  OAI.SourceBurnside.Root.mk {n : ℕ} (row col : Fin n) (ne : row ≠ col) : OAI.SourceBurnside.Root n
+@[reducible] def OAI.SourceBurnside.Generator.{u} : ℕ → Type u → Type (max 0 u) :=
+fun n R => OAI.SourceBurnside.Root n × R
+def OAI.SourceBurnside.bracket.{u} : {G : Type u} → [Group G] → G → G → G :=
+fun {G} [Group G] x y => x * y * x⁻¹ * y⁻¹
+def OAI.SourceBurnside.letter.{u} : {n : ℕ} →
+  {R : Type u} → OAI.SourceBurnside.Root n → R → FreeGroup (OAI.SourceBurnside.Generator n R) :=
+fun {n} {R} p a => FreeGroup.of (p, a)
+inductive OAI.SourceBurnside.SteinbergRel.{u} : (n : ℕ) →
+  (R : Type u) → [Ring R] → FreeGroup (OAI.SourceBurnside.Generator n R) → Prop
+number of parameters: 3
+constructors:
+OAI.SourceBurnside.SteinbergRel.add : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (p : OAI.SourceBurnside.Root n) (a b : R),
+  OAI.SourceBurnside.SteinbergRel n R
+    (OAI.SourceBurnside.letter p (a + b) * (OAI.SourceBurnside.letter p a * OAI.SourceBurnside.letter p b)⁻¹)
+OAI.SourceBurnside.SteinbergRel.commute : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (p q : OAI.SourceBurnside.Root n),
+  p.col ≠ q.row →
+    p.row ≠ q.col →
+      ∀ (a b : R),
+        OAI.SourceBurnside.SteinbergRel n R
+          (OAI.SourceBurnside.bracket (OAI.SourceBurnside.letter p a) (OAI.SourceBurnside.letter q b))
+OAI.SourceBurnside.SteinbergRel.mul : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (i j k : Fin n) (hij : i ≠ j) (hjk : j ≠ k)
+  (hik : i ≠ k) (a b : R),
+  OAI.SourceBurnside.SteinbergRel n R
+    (OAI.SourceBurnside.bracket (OAI.SourceBurnside.letter { row := i, col := j, ne := hij } a)
+        (OAI.SourceBurnside.letter { row := j, col := k, ne := hjk } b) *
+      (OAI.SourceBurnside.letter { row := i, col := k, ne := hik } (a * b))⁻¹)
+def OAI.SourceBurnside.Steinberg.{u} : ℕ → (R : Type u) → [Ring R] → Type u :=
+fun n R [Ring R] => PresentedGroup {r | OAI.SourceBurnside.SteinbergRel n R r}
+def OAI.SourceBurnside.Periodic.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] => ∀ (g : G), ∃ m, 0 < m ∧ g ^ m = 1
+def OAI.SourceBurnside.MainStatement : Prop :=
+∃ R x x_1,
+  Infinite (OAI.SourceBurnside.Steinberg 12 R) ∧
+    Group.IsFinitelyPresented (OAI.SourceBurnside.Steinberg 12 R) ∧
+      OAI.SourceBurnside.Periodic (OAI.SourceBurnside.Steinberg 12 R)
+def OAI.SourceBurnside.BurnsideStatement : Prop :=
+∃ G x, Infinite G ∧ Group.IsFinitelyPresented G ∧ OAI.SourceBurnside.Periodic G

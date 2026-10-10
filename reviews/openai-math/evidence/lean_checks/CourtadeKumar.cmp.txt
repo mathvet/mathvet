@@ -1,0 +1,87 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_CourtadeKumar.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LeanBlast.CourtadeKumar.courtadeKumarAndAttainment [thm] ok
+CMP OAI.LeanBlast.CourtadeKumar.FullStatement [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.DictatorAttainmentStatement [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.complementDictator [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.Cube [def] ok
+CMP OAI.LeanBlast.GotsmanLinial.Cube [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.binaryEntropy [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.ell [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.cubeAverage._proof_1 [thm] ok
+CMP OAI.LeanBlast.CourtadeKumar.xlogx [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.dictator [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.mutualInformation [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.observationMarginal [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.jointProbability [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.bitFlipKernel [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.cubeAverage [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.functionMarginal [def] ok
+CMP OAI.LeanBlast.CourtadeKumar.CourtadeKumarStatement [def] ok
+Chal.LeanBlast.CourtadeKumar.courtadeKumarAndAttainment : Chal.LeanBlast.CourtadeKumar.FullStatement
+@[reducible] def Chal.LeanBlast.GotsmanLinial.Cube : ℕ → Type :=
+fun n => Fin n → Bool
+@[reducible] def Chal.LeanBlast.CourtadeKumar.Cube : ℕ → Type :=
+fun n => Chal.LeanBlast.GotsmanLinial.Cube n
+def Chal.LeanBlast.CourtadeKumar.cubeAverage : {n : ℕ} → (Chal.LeanBlast.CourtadeKumar.Cube n → ℝ) → ℝ :=
+fun {n} g => (∑ x, g x) / 2 ^ n
+def Chal.LeanBlast.CourtadeKumar.ell : ℝ :=
+Real.log 2
+def Chal.LeanBlast.CourtadeKumar.bitFlipKernel : {n : ℕ} →
+  ℝ → Chal.LeanBlast.CourtadeKumar.Cube n → Chal.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε x y => ∏ i, if x i = y i then 1 - ε else ε
+def Chal.LeanBlast.CourtadeKumar.jointProbability : {n : ℕ} →
+  ℝ → (Chal.LeanBlast.CourtadeKumar.Cube n → Bool) → Bool → Chal.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε f b y =>
+  Chal.LeanBlast.CourtadeKumar.cubeAverage fun x =>
+    if f x = b then Chal.LeanBlast.CourtadeKumar.bitFlipKernel ε x y else 0
+def Chal.LeanBlast.CourtadeKumar.functionMarginal : {n : ℕ} →
+  ℝ → (Chal.LeanBlast.CourtadeKumar.Cube n → Bool) → Bool → ℝ :=
+fun {n} ε f b => ∑ y, Chal.LeanBlast.CourtadeKumar.jointProbability ε f b y
+def Chal.LeanBlast.CourtadeKumar.observationMarginal : {n : ℕ} →
+  ℝ → (Chal.LeanBlast.CourtadeKumar.Cube n → Bool) → Chal.LeanBlast.CourtadeKumar.Cube n → ℝ :=
+fun {n} ε f y => ∑ b, Chal.LeanBlast.CourtadeKumar.jointProbability ε f b y
+def Chal.LeanBlast.CourtadeKumar.xlogx : ℝ → ℝ :=
+fun t => t * Real.log t
+def Chal.LeanBlast.CourtadeKumar.binaryEntropy : ℝ → ℝ :=
+fun ε =>
+  -(Chal.LeanBlast.CourtadeKumar.xlogx ε + Chal.LeanBlast.CourtadeKumar.xlogx (1 - ε)) /
+    Chal.LeanBlast.CourtadeKumar.ell
+def Chal.LeanBlast.CourtadeKumar.mutualInformation : {n : ℕ} → ℝ → (Chal.LeanBlast.CourtadeKumar.Cube n → Bool) → ℝ :=
+fun {n} ε f =>
+  (∑ b,
+      ∑ y,
+        if 0 < Chal.LeanBlast.CourtadeKumar.jointProbability ε f b y then
+          Chal.LeanBlast.CourtadeKumar.jointProbability ε f b y *
+            Real.log
+              (Chal.LeanBlast.CourtadeKumar.jointProbability ε f b y /
+                (Chal.LeanBlast.CourtadeKumar.functionMarginal ε f b *
+                  Chal.LeanBlast.CourtadeKumar.observationMarginal ε f y))
+        else 0) /
+    Chal.LeanBlast.CourtadeKumar.ell
+def Chal.LeanBlast.CourtadeKumar.dictator : {n : ℕ} → Fin n → Chal.LeanBlast.CourtadeKumar.Cube n → Bool :=
+fun {n} i x => x i
+def Chal.LeanBlast.CourtadeKumar.complementDictator : {n : ℕ} → Fin n → Chal.LeanBlast.CourtadeKumar.Cube n → Bool :=
+fun {n} i x => !x i
+def Chal.LeanBlast.CourtadeKumar.CourtadeKumarStatement : Prop :=
+∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (ε : ℝ),
+      0 ≤ ε →
+        ε ≤ 1 / 2 →
+          ∀ (f : Chal.LeanBlast.CourtadeKumar.Cube n → Bool),
+            Chal.LeanBlast.CourtadeKumar.mutualInformation ε f ≤ 1 - Chal.LeanBlast.CourtadeKumar.binaryEntropy ε
+def Chal.LeanBlast.CourtadeKumar.DictatorAttainmentStatement : Prop :=
+∀ (n : ℕ),
+  1 ≤ n →
+    ∀ (ε : ℝ),
+      0 ≤ ε →
+        ε ≤ 1 / 2 →
+          ∀ (i : Fin n),
+            Chal.LeanBlast.CourtadeKumar.mutualInformation ε (Chal.LeanBlast.CourtadeKumar.dictator i) =
+                1 - Chal.LeanBlast.CourtadeKumar.binaryEntropy ε ∧
+              Chal.LeanBlast.CourtadeKumar.mutualInformation ε (Chal.LeanBlast.CourtadeKumar.complementDictator i) =
+                1 - Chal.LeanBlast.CourtadeKumar.binaryEntropy ε
+def Chal.LeanBlast.CourtadeKumar.FullStatement : Prop :=
+Chal.LeanBlast.CourtadeKumar.CourtadeKumarStatement ∧ Chal.LeanBlast.CourtadeKumar.DictatorAttainmentStatement
+'OAI.LeanBlast.CourtadeKumar.courtadeKumarAndAttainment' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CourtadeKumar comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

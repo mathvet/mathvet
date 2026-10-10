@@ -1,0 +1,119 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_CoulombIonization.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CoulombAtom.generalized_ionization [thm] ok
+CMP OAI.CoulombAtom.MainStatement [def] ok
+CMP OAI.CoulombAtom.IteratedLimits [def] ok
+CMP OAI.CoulombAtom.tfKinetic._proof_1 [thm] ok
+CMP OAI.CoulombAtom.TFCharacterization._proof_1 [thm] ok
+CMP OAI.CoulombAtom.ionization [def] ok
+CMP OAI.CoulombAtom.energy [def] ok
+CMP OAI.CoulombAtom.formEnergy [def] ok
+CMP OAI.CoulombAtom.FormVector.value [def] ok
+CMP OAI.CoulombAtom.FormVector [ind] ok
+CMP OAI.CoulombAtom.FormVector.mk [ctor] ok
+CMP OAI.CoulombAtom.Configuration [def] ok
+CMP OAI.CoulombAtom.Space [def] ok
+CMP OAI.CoulombAtom.Spins [def] ok
+CMP OAI.CoulombAtom.FormVector.gradient [def] ok
+CMP OAI.CoulombAtom.FormAdmissible._proof_3 [thm] ok
+CMP OAI.CoulombAtom.FormAdmissible._proof_2 [thm] ok
+CMP OAI.CoulombAtom.FormAdmissible._proof_1 [thm] ok
+CMP OAI.CoulombAtom.FormAdmissible [def] ok
+CMP OAI.CoulombAtom.FormAdmissible._proof_4 [thm] ok
+CMP OAI.CoulombAtom.direction [def] ok
+CMP OAI.CoulombAtom.JointLimit [def] ok
+CMP OAI.CoulombAtom.TFCharacterization [def] ok
+CMP OAI.CoulombAtom.tfIonization [def] ok
+CMP OAI.CoulombAtom.tfEnergy [def] ok
+CMP OAI.CoulombAtom.tfFunctional [def] ok
+CMP OAI.CoulombAtom.directIntegrand [def] ok
+CMP OAI.CoulombAtom.TFAdmissible._proof_2 [thm] ok
+CMP OAI.CoulombAtom.tfKinetic [def] ok
+CMP OAI.CoulombAtom.tfKinetic._proof_2 [thm] ok
+CMP OAI.CoulombAtom.TFAdmissible [def] ok
+CMP OAI.CoulombAtom.TFAdmissible._proof_1 [thm] ok
+Chal.CoulombAtom.generalized_ionization : Chal.CoulombAtom.MainStatement
+@[reducible] def Chal.CoulombAtom.Space : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.CoulombAtom.Configuration : ℕ → Type :=
+fun N => Fin N → Chal.CoulombAtom.Space
+@[reducible] def Chal.CoulombAtom.Spins : ℕ → Type :=
+fun N => Fin N → Fin 2
+structure Chal.CoulombAtom.FormVector (N : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.CoulombAtom.FormVector.value : Chal.CoulombAtom.Spins N → Chal.CoulombAtom.Configuration N → ℂ
+  Chal.CoulombAtom.FormVector.gradient : Chal.CoulombAtom.Spins N → Fin N → Fin 3 → Chal.CoulombAtom.Configuration N → ℂ
+constructor:
+  Chal.CoulombAtom.FormVector.mk {N : ℕ} (value : Chal.CoulombAtom.Spins N → Chal.CoulombAtom.Configuration N → ℂ)
+    (gradient : Chal.CoulombAtom.Spins N → Fin N → Fin 3 → Chal.CoulombAtom.Configuration N → ℂ) :
+    Chal.CoulombAtom.FormVector N
+def Chal.CoulombAtom.direction : {N : ℕ} → Fin N → Fin 3 → Chal.CoulombAtom.Configuration N :=
+fun {N} i a => Pi.single i (EuclideanSpace.single a 1)
+def Chal.CoulombAtom.FormAdmissible : {N : ℕ} → Chal.CoulombAtom.FormVector N → Prop :=
+fun {N} ψ =>
+  (∀ (s : Chal.CoulombAtom.Spins N), MeasureTheory.MemLp (ψ.value s) 2 MeasureTheory.volume) ∧
+    (∀ (s : Chal.CoulombAtom.Spins N) (i : Fin N) (a : Fin 3),
+        MeasureTheory.MemLp (ψ.gradient s i a) 2 MeasureTheory.volume) ∧
+      (∀ (s : Chal.CoulombAtom.Spins N) (i : Fin N) (a : Fin 3) (φ : Chal.CoulombAtom.Configuration N → ℝ),
+          ContDiff ℝ (↑⊤) φ →
+            HasCompactSupport φ →
+              ∫ (x : Chal.CoulombAtom.Configuration N),
+                  ψ.value s x * ↑(lineDeriv ℝ φ x (Chal.CoulombAtom.direction i a)) =
+                -∫ (x : Chal.CoulombAtom.Configuration N), ψ.gradient s i a x * ↑(φ x)) ∧
+        (∀ (π : Equiv.Perm (Fin N)) (s : Fin N → Fin 2),
+            ∀ᵐ (x : Fin N → Chal.CoulombAtom.Space), ψ.value (s ∘ ⇑π) (x ∘ ⇑π) = ↑↑(Equiv.Perm.sign π) * ψ.value s x) ∧
+          ∑ s, ∫ (x : Chal.CoulombAtom.Configuration N), ‖ψ.value s x‖ ^ 2 = 1 ∧
+            (∀ (s : Chal.CoulombAtom.Spins N) (i : Fin N),
+                MeasureTheory.Integrable (fun x => ‖ψ.value s x‖ ^ 2 / ‖x i‖) MeasureTheory.volume) ∧
+              ∀ (s : Chal.CoulombAtom.Spins N) (i j : Fin N),
+                i ≠ j → MeasureTheory.Integrable (fun x => ‖ψ.value s x‖ ^ 2 / ‖x i - x j‖) MeasureTheory.volume
+def Chal.CoulombAtom.formEnergy : {N : ℕ} → ℝ → Chal.CoulombAtom.FormVector N → ℝ :=
+fun {N} Z ψ =>
+  ((1 / 2 * ∑ s, ∑ i, ∑ a, ∫ (x : Chal.CoulombAtom.Configuration N), ‖ψ.gradient s i a x‖ ^ 2) -
+      Z * ∑ s, ∑ i, ∫ (x : Chal.CoulombAtom.Configuration N), ‖ψ.value s x‖ ^ 2 / ‖x i‖) +
+    ∑ s, ∑ i, ∑ j, if i < j then ∫ (x : Chal.CoulombAtom.Configuration N), ‖ψ.value s x‖ ^ 2 / ‖x i - x j‖ else 0
+def Chal.CoulombAtom.energy : ℝ → ℕ → ℝ :=
+fun Z N => if N = 0 then 0 else sInf {e | ∃ ψ, Chal.CoulombAtom.FormAdmissible ψ ∧ Chal.CoulombAtom.formEnergy Z ψ = e}
+def Chal.CoulombAtom.ionization : ℕ → ℕ → ℝ :=
+fun m Z => Chal.CoulombAtom.energy (↑Z) (Z - m) - Chal.CoulombAtom.energy (↑Z) Z
+def Chal.CoulombAtom.tfKinetic : ℝ :=
+3 / 10 * (3 * Real.pi ^ 2) ^ (2 / 3)
+def Chal.CoulombAtom.directIntegrand : (Chal.CoulombAtom.Space → ℝ) →
+  Chal.CoulombAtom.Space × Chal.CoulombAtom.Space → ℝ :=
+fun ρ p => ρ p.1 * ρ p.2 / ‖p.1 - p.2‖
+def Chal.CoulombAtom.TFAdmissible : ℝ → (Chal.CoulombAtom.Space → ℝ) → Prop :=
+fun M ρ =>
+  (∀ᵐ (x : Chal.CoulombAtom.Space), 0 ≤ ρ x) ∧
+    MeasureTheory.Integrable ρ MeasureTheory.volume ∧
+      ∫ (x : Chal.CoulombAtom.Space), ρ x = M ∧
+        MeasureTheory.Integrable (fun x => ρ x ^ (5 / 3)) MeasureTheory.volume ∧
+          MeasureTheory.Integrable (fun x => ρ x / ‖x‖) MeasureTheory.volume ∧
+            MeasureTheory.Integrable (Chal.CoulombAtom.directIntegrand ρ) MeasureTheory.volume
+def Chal.CoulombAtom.tfFunctional : ℝ → (Chal.CoulombAtom.Space → ℝ) → ℝ :=
+fun Z ρ =>
+  ((Chal.CoulombAtom.tfKinetic * ∫ (x : Chal.CoulombAtom.Space), ρ x ^ (5 / 3)) -
+      Z * ∫ (x : Chal.CoulombAtom.Space), ρ x / ‖x‖) +
+    1 / 2 * ∫ (p : Chal.CoulombAtom.Space × Chal.CoulombAtom.Space), Chal.CoulombAtom.directIntegrand ρ p
+def Chal.CoulombAtom.tfEnergy : ℝ → ℝ → ℝ :=
+fun Z M => sInf {e | ∃ ρ, Chal.CoulombAtom.TFAdmissible M ρ ∧ Chal.CoulombAtom.tfFunctional Z ρ = e}
+def Chal.CoulombAtom.tfIonization : ℝ → ℝ → ℝ :=
+fun m Z => Chal.CoulombAtom.tfEnergy Z (Z - m) - Chal.CoulombAtom.tfEnergy Z Z
+def Chal.CoulombAtom.TFCharacterization : ℝ → Prop :=
+fun a => ∀ (m : ℝ), 0 < m → Filter.Tendsto (Chal.CoulombAtom.tfIonization m) Filter.atTop (nhds (a * m ^ (7 / 3)))
+def Chal.CoulombAtom.JointLimit : ℝ → Prop :=
+fun a =>
+  ∀ (m Z : ℕ → ℕ),
+    (∀ (j : ℕ), 1 ≤ m j ∧ m j < Z j) →
+      Filter.Tendsto m Filter.atTop Filter.atTop →
+        Filter.Tendsto (fun j => ↑(Z j) / ↑(m j)) Filter.atTop Filter.atTop →
+          Filter.Tendsto (fun j => Chal.CoulombAtom.ionization (m j) (Z j) / ↑(m j) ^ (7 / 3)) Filter.atTop (nhds a)
+def Chal.CoulombAtom.IteratedLimits : ℝ → Prop :=
+fun a =>
+  Filter.Tendsto (fun m => Filter.limsup (Chal.CoulombAtom.ionization m) Filter.atTop / ↑m ^ (7 / 3)) Filter.atTop
+      (nhds a) ∧
+    Filter.Tendsto (fun m => Filter.liminf (Chal.CoulombAtom.ionization m) Filter.atTop / ↑m ^ (7 / 3)) Filter.atTop
+      (nhds a)
+def Chal.CoulombAtom.MainStatement : Prop :=
+∃ a, 0 < a ∧ Chal.CoulombAtom.TFCharacterization a ∧ Chal.CoulombAtom.JointLimit a ∧ Chal.CoulombAtom.IteratedLimits a
+'OAI.CoulombAtom.generalized_ionization' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CoulombIonization comparator-style: ok=32 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

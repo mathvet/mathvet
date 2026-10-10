@@ -1,0 +1,79 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_EditDistance.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.edit_distance_main [thm] ok
+CMP OAI.EditDistortion.MainClaim [def] ok
+CMP OAI.EditDistortion.alphabetSup [def] ok
+CMP OAI.EditDistortion.E [def] ok
+CMP OAI.EditDistortion.edit [def] ok
+CMP OAI.EditDistortion.Script [ind] ok
+CMP OAI.EditDistortion.Script.cons [ctor] ok
+CMP OAI.EditDistortion.Step [ind] ok
+CMP OAI.EditDistortion.Step.substitute [ctor] ok
+CMP OAI.EditDistortion.Step.delete [ctor] ok
+CMP OAI.EditDistortion.Step.insert [ctor] ok
+CMP OAI.EditDistortion.Script.nil [ctor] ok
+CMP OAI.EditDistortion.Words [def] ok
+CMP OAI.EditDistortion.leastDistortion [def] ok
+CMP OAI.EditDistortion.distortion [def] ok
+CMP OAI.EditDistortion.L1 [def] ok
+CMP OAI.EditDistortion.BinaryWitness [def] ok
+CMP OAI.EditDistortion.exponentScale [def] ok
+Chal.edit_distance_main : Chal.EditDistortion.MainClaim
+inductive Chal.EditDistortion.Step.{u} : Bool → {Alpha : Type u} → List Alpha → List Alpha → Prop
+number of parameters: 2
+constructors:
+Chal.EditDistortion.Step.insert : ∀ {substitutions : Bool} {Alpha : Type u} (p q : List Alpha) (a : Alpha),
+  Chal.EditDistortion.Step substitutions (p ++ q) (p ++ a :: q)
+Chal.EditDistortion.Step.delete : ∀ {substitutions : Bool} {Alpha : Type u} (p q : List Alpha) (a : Alpha),
+  Chal.EditDistortion.Step substitutions (p ++ a :: q) (p ++ q)
+Chal.EditDistortion.Step.substitute : ∀ {substitutions : Bool} {Alpha : Type u},
+  substitutions = true →
+    ∀ (p q : List Alpha) (a b : Alpha), Chal.EditDistortion.Step substitutions (p ++ a :: q) (p ++ b :: q)
+inductive Chal.EditDistortion.Script.{u} : Bool → {Alpha : Type u} → ℕ → List Alpha → List Alpha → Prop
+number of parameters: 2
+constructors:
+Chal.EditDistortion.Script.nil : ∀ {substitutions : Bool} {Alpha : Type u} (x : List Alpha),
+  Chal.EditDistortion.Script substitutions 0 x x
+Chal.EditDistortion.Script.cons : ∀ {substitutions : Bool} {Alpha : Type u} {n : ℕ} {x y z : List Alpha},
+  Chal.EditDistortion.Step substitutions x y →
+    Chal.EditDistortion.Script substitutions n y z → Chal.EditDistortion.Script substitutions (n + 1) x z
+def Chal.EditDistortion.edit.{u} : {Alpha : Type u} → List Alpha → List Alpha → ℕ :=
+fun {Alpha} x y => sInf {n | Chal.EditDistortion.Script true n x y}
+@[reducible] def Chal.EditDistortion.L1 : AddSubgroup (PreLp fun x => ℝ) :=
+lp (fun x => ℝ) 1
+def Chal.EditDistortion.distortion.{u} : {X : Type u} → (X → X → ℝ) → (X ↪ ↥Chal.EditDistortion.L1) → ℝ :=
+fun {X} ρ f => sSup {r | ∃ x y, x ≠ y ∧ r = ‖f x - f y‖ / ρ x y} * sSup {r | ∃ x y, x ≠ y ∧ r = ρ x y / ‖f x - f y‖}
+def Chal.EditDistortion.leastDistortion.{u} : {X : Type u} → (X → X → ℝ) → ℝ :=
+fun {X} ρ => sInf (Set.range (Chal.EditDistortion.distortion ρ))
+@[reducible] def Chal.EditDistortion.Words.{u} : Type u → ℕ → Type (max 0 u) :=
+fun Alpha d => { x // x.length ≤ d }
+def Chal.EditDistortion.E.{u} : Type u → ℕ → ℝ :=
+fun Alpha d => Chal.EditDistortion.leastDistortion fun x y => ↑(Chal.EditDistortion.edit ↑x ↑y)
+def Chal.EditDistortion.exponentScale : ℝ → ℕ → ℝ :=
+fun c d => Real.exp (c * √(Real.log ↑d * Real.log (Real.log ↑d)))
+def Chal.EditDistortion.alphabetSup : ℕ → ℝ :=
+fun d => sSup {r | ∃ n, 2 ≤ n ∧ r = Chal.EditDistortion.E (Fin n) d}
+def Chal.EditDistortion.BinaryWitness : ℝ → ℕ → Prop :=
+fun c d =>
+  ∃ n ≤ d,
+    ∃ S,
+      S.Finite ∧
+        S.Nonempty ∧
+          (∀ w ∈ S, w.length = n) ∧
+            Chal.EditDistortion.exponentScale c d ≤
+              Chal.EditDistortion.leastDistortion fun x y => ↑(Chal.EditDistortion.edit ↑x ↑y)
+def Chal.EditDistortion.MainClaim.{u} : Prop :=
+∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∃ d₀,
+        ∀ (d : ℕ),
+          d₀ ≤ d →
+            (∀ (Alpha : Type u) [inst : Fintype Alpha],
+                2 ≤ Fintype.card Alpha →
+                  Chal.EditDistortion.exponentScale c d ≤ Chal.EditDistortion.E Alpha d ∧
+                    Chal.EditDistortion.E Alpha d ≤ Chal.EditDistortion.exponentScale C d) ∧
+              Chal.EditDistortion.BinaryWitness c d ∧
+                Chal.EditDistortion.exponentScale c d ≤ Chal.EditDistortion.alphabetSup d ∧
+                  Chal.EditDistortion.alphabetSup d ≤ Chal.EditDistortion.exponentScale C d
+'OAI.edit_distance_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== EditDistance comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

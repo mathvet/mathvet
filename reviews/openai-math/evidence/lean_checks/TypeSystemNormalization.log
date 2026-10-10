@@ -1,0 +1,69 @@
+== TypeSystemNormalization  module=OAI.Computability.TypeSystem.Normalization  start=2026-10-09T17:20:35Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8956] Built OAI.Computability.TypeSystem.Basic (7.7s)
+✔ [8925/8956] Built OAI.Computability.TypeSystem.Spaces (8.1s)
+✔ [8926/8956] Built OAI.Computability.TypeSystem.Reduction (6.4s)
+✔ [8927/8956] Built OAI.Computability.TypeSystem.Typing (6.4s)
+✔ [8928/8956] Built OAI.Computability.TypeSystem.Restriction (11s)
+✔ [8929/8956] Built OAI.Computability.TypeSystem.Profiles (11s)
+✔ [8930/8956] Built OAI.Computability.TypeSystem.Contexts (11s)
+✔ [8931/8956] Built OAI.Computability.TypeSystem.Labelled (12s)
+✔ [8932/8956] Built OAI.Computability.TypeSystem.Candidates (12s)
+✔ [8933/8956] Built OAI.Computability.TypeSystem.Potential (12s)
+✔ [8934/8956] Built OAI.Computability.TypeSystem.Wrappers (12s)
+✔ [8935/8956] Built OAI.Computability.TypeSystem.Plain (11s)
+✔ [8936/8956] Built OAI.Computability.TypeSystem.Interface (11s)
+✔ [8937/8956] Built OAI.Computability.TypeSystem.Logic (18s)
+✔ [8938/8956] Built OAI.Computability.TypeSystem.Components (15s)
+✔ [8939/8956] Built OAI.Computability.TypeSystem.Signed (15s)
+✔ [8940/8956] Built OAI.Computability.TypeSystem.OneChild (16s)
+✔ [8941/8956] Built OAI.Computability.TypeSystem.Values (16s)
+✔ [8942/8956] Built OAI.Computability.TypeSystem.Evaluation (10s)
+✔ [8943/8956] Built OAI.Computability.TypeSystem.Channels (25s)
+✔ [8944/8956] Built OAI.Computability.TypeSystem.Bounds (11s)
+✔ [8945/8956] Built OAI.Computability.TypeSystem.Relations (11s)
+✔ [8946/8956] Built OAI.Computability.TypeSystem.Congruence (9.4s)
+✔ [8947/8956] Built OAI.Computability.TypeSystem.Substitution (11s)
+✔ [8948/8956] Built OAI.Computability.TypeSystem.ObservationReduction (15s)
+✔ [8949/8956] Built OAI.Computability.TypeSystem.Pairs (33s)
+✔ [8950/8956] Built OAI.Computability.TypeSystem.ObservationCandidates (9.7s)
+✔ [8951/8956] Built OAI.Computability.TypeSystem.Relational (18s)
+✔ [8952/8956] Built OAI.Computability.TypeSystem.Specialization (27s)
+✔ [8953/8956] Built OAI.Computability.TypeSystem.Equivalence (12s)
+✔ [8954/8956] Built OAI.Computability.TypeSystem.Response (6.9s)
+✔ [8955/8956] Built OAI.Computability.TypeSystem.Diagonal (9.2s)
+✔ [8956/8956] Built OAI.Computability.TypeSystem.Normalization (5.5s)
+Build completed successfully (8956 jobs).
+== build rc=0 seconds=222
+{"theorems": ["OAI.PureTypeSystem.weak_implies_strong"], "defs": ["OAI.PureTypeSystem.Expr", "OAI.PureTypeSystem.Expr.liftRen", "OAI.PureTypeSystem.Expr.rename", "OAI.PureTypeSystem.Expr.liftSub", "OAI.PureTypeSystem.Expr.subst", "OAI.PureTypeSystem.Expr.single", "OAI.PureTypeSystem.Expr.instantiate", "OAI.PureTypeSystem.Specification", "OAI.PureTypeSystem.Beta", "OAI.PureTypeSystem.Converts", "OAI.PureTypeSystem.Normal", "OAI.PureTypeSystem.WeaklyNormalizing", "OAI.PureTypeSystem.StronglyNormalizing", "OAI.PureTypeSystem.HasType", "OAI.PureTypeSystem.ValidContext", "OAI.PureTypeSystem.Legal", "OAI.PureTypeSystem.SystemWeaklyNormalizing", "OAI.PureTypeSystem.SystemStronglyNormalizing"], "json_theorems": ["OAI.PureTypeSystem.weak_implies_strong"], "missing_from_parse": []}
+TYPES/DEFS DIFFER TypeSystemNormalization
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_TypeSystemNormalization.lean:116:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.PureTypeSystem.weak_implies_strong' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-09T17:24:39Z

@@ -1,0 +1,140 @@
+OAI.ExactQuantumFactoring.exact_quantum_factoring : OAI.ExactQuantumFactoring.MainTheorem
+'OAI.ExactQuantumFactoring.exact_quantum_factoring' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.ExactQuantumFactoring.Primitive : Type
+number of parameters: 0
+constructors:
+OAI.ExactQuantumFactoring.Primitive.not : OAI.ExactQuantumFactoring.Primitive
+OAI.ExactQuantumFactoring.Primitive.cnot : OAI.ExactQuantumFactoring.Primitive
+OAI.ExactQuantumFactoring.Primitive.toffoli : OAI.ExactQuantumFactoring.Primitive
+OAI.ExactQuantumFactoring.Primitive.hadamard : OAI.ExactQuantumFactoring.Primitive
+OAI.ExactQuantumFactoring.Primitive.phase : OAI.ExactQuantumFactoring.Primitive
+def OAI.ExactQuantumFactoring.Primitive.arity : OAI.ExactQuantumFactoring.Primitive → ℕ :=
+fun x =>
+  match x with
+  | OAI.ExactQuantumFactoring.Primitive.not => 1
+  | OAI.ExactQuantumFactoring.Primitive.hadamard => 1
+  | OAI.ExactQuantumFactoring.Primitive.phase => 1
+  | OAI.ExactQuantumFactoring.Primitive.cnot => 2
+  | OAI.ExactQuantumFactoring.Primitive.toffoli => 3
+def OAI.ExactQuantumFactoring.Primitive.code : OAI.ExactQuantumFactoring.Primitive → ℕ :=
+fun x =>
+  match x with
+  | OAI.ExactQuantumFactoring.Primitive.not => 0
+  | OAI.ExactQuantumFactoring.Primitive.cnot => 1
+  | OAI.ExactQuantumFactoring.Primitive.toffoli => 2
+  | OAI.ExactQuantumFactoring.Primitive.hadamard => 3
+  | OAI.ExactQuantumFactoring.Primitive.phase => 4
+structure OAI.ExactQuantumFactoring.Gate : Type
+number of parameters: 0
+fields:
+  OAI.ExactQuantumFactoring.Gate.primitive : OAI.ExactQuantumFactoring.Primitive
+  OAI.ExactQuantumFactoring.Gate.inverse : Bool
+  OAI.ExactQuantumFactoring.Gate.controlled : Bool
+constructor:
+  OAI.ExactQuantumFactoring.Gate.mk (primitive : OAI.ExactQuantumFactoring.Primitive) (inverse controlled : Bool) :
+    OAI.ExactQuantumFactoring.Gate
+def OAI.ExactQuantumFactoring.Gate.arity : OAI.ExactQuantumFactoring.Gate → ℕ :=
+fun g => g.primitive.arity + if g.controlled = true then 1 else 0
+def OAI.ExactQuantumFactoring.Primitive.matrix : OAI.ExactQuantumFactoring.Primitive → List Bool → List Bool → ℂ :=
+fun x x_1 x_2 =>
+  match x, x_1, x_2 with
+  | OAI.ExactQuantumFactoring.Primitive.not, [a], [b] => if a = !b then 1 else 0
+  | OAI.ExactQuantumFactoring.Primitive.cnot, [a, b], [c, d] => if a = c ∧ b = (c ^^ d) then 1 else 0
+  | OAI.ExactQuantumFactoring.Primitive.toffoli, [a, b, c], [d, e, f] =>
+    if a = d ∧ b = e ∧ c = (f ^^ d && e) then 1 else 0
+  | OAI.ExactQuantumFactoring.Primitive.hadamard, [a], [b] => (if (a && b) = true then -1 else 1) / ↑√2
+  | OAI.ExactQuantumFactoring.Primitive.phase, [a], [b] => if a = b then if b = true then Complex.I else 1 else 0
+  | x, x_3, x_4 => 0
+def OAI.ExactQuantumFactoring.Gate.baseMatrix : OAI.ExactQuantumFactoring.Gate → List Bool → List Bool → ℂ :=
+fun g a b => if g.inverse = true then star (g.primitive.matrix b a) else g.primitive.matrix a b
+def OAI.ExactQuantumFactoring.Gate.matrix : OAI.ExactQuantumFactoring.Gate → List Bool → List Bool → ℂ :=
+fun g a b =>
+  if g.controlled = true then
+    match a, b with
+    | false :: a', false :: b' => if a' = b' then 1 else 0
+    | true :: a', true :: b' => g.baseMatrix a' b'
+    | x, x_1 => 0
+  else g.baseMatrix a b
+structure OAI.ExactQuantumFactoring.Instruction (q : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.ExactQuantumFactoring.Instruction.gate : OAI.ExactQuantumFactoring.Gate
+  OAI.ExactQuantumFactoring.Instruction.wire : Fin self.gate.arity → Fin q
+  OAI.ExactQuantumFactoring.Instruction.distinct : Function.Injective self.wire
+constructor:
+  OAI.ExactQuantumFactoring.Instruction.mk {q : ℕ} (gate : OAI.ExactQuantumFactoring.Gate)
+    (wire : Fin gate.arity → Fin q) (distinct : Function.Injective wire) : OAI.ExactQuantumFactoring.Instruction q
+@[reducible] def OAI.ExactQuantumFactoring.Basis : ℕ → Type :=
+fun q => Fin q → Bool
+@[reducible] def OAI.ExactQuantumFactoring.State : ℕ → Type :=
+fun q => OAI.ExactQuantumFactoring.Basis q → ℂ
+def OAI.ExactQuantumFactoring.Instruction.matrix : {q : ℕ} →
+  OAI.ExactQuantumFactoring.Instruction q →
+    Matrix (OAI.ExactQuantumFactoring.Basis q) (OAI.ExactQuantumFactoring.Basis q) ℂ :=
+fun {q} o a b =>
+  if ∀ (i : Fin q), (∀ (j : Fin o.gate.arity), o.wire j ≠ i) → a i = b i then
+    o.gate.matrix (List.ofFn (a ∘ o.wire)) (List.ofFn (b ∘ o.wire))
+  else 0
+structure OAI.ExactQuantumFactoring.Circuit : Type
+number of parameters: 0
+fields:
+  OAI.ExactQuantumFactoring.Circuit.qubits : ℕ
+  OAI.ExactQuantumFactoring.Circuit.instructions : List (OAI.ExactQuantumFactoring.Instruction self.qubits)
+constructor:
+  OAI.ExactQuantumFactoring.Circuit.mk (qubits : ℕ)
+    (instructions : List (OAI.ExactQuantumFactoring.Instruction qubits)) : OAI.ExactQuantumFactoring.Circuit
+def OAI.ExactQuantumFactoring.Circuit.apply : (c : OAI.ExactQuantumFactoring.Circuit) →
+  OAI.ExactQuantumFactoring.State c.qubits → OAI.ExactQuantumFactoring.State c.qubits :=
+fun c ψ => List.foldl (fun v o => o.matrix.mulVec v) ψ c.instructions
+def OAI.ExactQuantumFactoring.inputBasis : (q : ℕ) → ℕ → ℕ → OAI.ExactQuantumFactoring.Basis q :=
+fun q ℓ N i => if ↑i < ℓ then N.testBit ↑i else false
+def OAI.ExactQuantumFactoring.Circuit.outputState : (c : OAI.ExactQuantumFactoring.Circuit) →
+  ℕ → ℕ → OAI.ExactQuantumFactoring.State c.qubits :=
+fun c ℓ N => c.apply fun x => if x = OAI.ExactQuantumFactoring.inputBasis c.qubits ℓ N then 1 else 0
+def OAI.ExactQuantumFactoring.paddedLength : ℕ → ℕ :=
+fun ℓ => max 128 ℓ
+def OAI.ExactQuantumFactoring.readBit : {q : ℕ} → OAI.ExactQuantumFactoring.Basis q → ℕ → Bool :=
+fun {q} x i => if h : i < q then x ⟨i, h⟩ else false
+def OAI.ExactQuantumFactoring.outputList : {q : ℕ} → ℕ → OAI.ExactQuantumFactoring.Basis q → List ℕ :=
+fun {q} ℓ x =>
+  have n := OAI.ExactQuantumFactoring.paddedLength ℓ;
+  List.ofFn fun a =>
+    ∑ j ∈ Finset.range n, if OAI.ExactQuantumFactoring.readBit x (ℓ + ↑a * n + j) = true then 2 ^ j else 0
+def OAI.ExactQuantumFactoring.CorrectEncoding : ℕ → ℕ → List ℕ → Prop :=
+fun N n xs =>
+  ∃ ps,
+    (∀ p ∈ ps, Nat.Prime p) ∧
+      List.Pairwise (fun x1 x2 => x1 ≤ x2) ps ∧
+        ps.prod = N ∧ ps.length ≤ n ∧ xs = ps ++ List.replicate (n - ps.length) 0
+def OAI.ExactQuantumFactoring.Circuit.correctProbability : OAI.ExactQuantumFactoring.Circuit → ℕ → ℕ → ℝ :=
+fun c ℓ N =>
+  ∑ x,
+    if
+        OAI.ExactQuantumFactoring.CorrectEncoding N (OAI.ExactQuantumFactoring.paddedLength ℓ)
+          (OAI.ExactQuantumFactoring.outputList ℓ x) then
+      Complex.normSq (c.outputState ℓ N x)
+    else 0
+def OAI.ExactQuantumFactoring.natWord : ℕ → List Bool :=
+fun k => List.replicate k true ++ [false]
+def OAI.ExactQuantumFactoring.Instruction.encode : {q : ℕ} → OAI.ExactQuantumFactoring.Instruction q → List Bool :=
+fun {q} o =>
+  OAI.ExactQuantumFactoring.natWord o.gate.primitive.code ++ [o.gate.inverse, o.gate.controlled] ++
+    List.flatMap OAI.ExactQuantumFactoring.natWord (List.ofFn fun i => ↑(o.wire i))
+def OAI.ExactQuantumFactoring.Circuit.encode : OAI.ExactQuantumFactoring.Circuit → List Bool :=
+fun c =>
+  OAI.ExactQuantumFactoring.natWord c.qubits ++ OAI.ExactQuantumFactoring.natWord c.instructions.length ++
+    List.flatMap OAI.ExactQuantumFactoring.Instruction.encode c.instructions
+def OAI.ExactQuantumFactoring.Uniform : (ℕ → OAI.ExactQuantumFactoring.Circuit) → Prop :=
+fun family => ∃ generator, ∀ (k : generator.tm.K), Finite (generator.tm.Γ k)
+def OAI.ExactQuantumFactoring.PolynomialResources : (ℕ → OAI.ExactQuantumFactoring.Circuit) → Prop :=
+fun family =>
+  ∃ bound,
+    ∀ (ℓ : ℕ), (family ℓ).qubits ≤ Polynomial.eval ℓ bound ∧ (family ℓ).instructions.length ≤ Polynomial.eval ℓ bound
+def OAI.ExactQuantumFactoring.MainTheorem : Prop :=
+∃ family,
+  OAI.ExactQuantumFactoring.Uniform family ∧
+    OAI.ExactQuantumFactoring.PolynomialResources family ∧
+      ∀ (ℓ N : ℕ),
+        2 ≤ N →
+          N.size = ℓ →
+            ℓ + OAI.ExactQuantumFactoring.paddedLength ℓ ^ 2 ≤ (family ℓ).qubits ∧ (family ℓ).correctProbability ℓ N = 1

@@ -1,0 +1,83 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_PeriodicGroup.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.SourceBurnside.thm_main [thm] ok
+CMP OAI.SourceBurnside.BurnsideStatement [def] ok
+CMP OAI.SourceBurnside.Periodic [def] ok
+CMP OAI.SourceBurnside.MainStatement [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_22 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_21 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_12 [def] ok
+CMP OAI.SourceBurnside.SteinbergRel [ind] ok
+CMP OAI.SourceBurnside.SteinbergRel.mul [ctor] ok
+CMP OAI.SourceBurnside.Root.mk [ctor] ok
+CMP OAI.SourceBurnside.Root [ind] ok
+CMP OAI.SourceBurnside.letter [def] ok
+CMP OAI.SourceBurnside.Generator [def] ok
+CMP OAI.SourceBurnside.bracket [def] ok
+CMP OAI.SourceBurnside.SteinbergRel.commute [ctor] ok
+CMP OAI.SourceBurnside.Root.row [def] ok
+CMP OAI.SourceBurnside.Root.col [def] ok
+CMP OAI.SourceBurnside.SteinbergRel.add [ctor] ok
+CMP OAI.SourceBurnside.Steinberg [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_16 [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_20 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_11 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_3 [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_8 [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_10 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_1 [def] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_7 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_6 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_5 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_19 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._proof_18 [thm] ok
+CMP OAI.SourceBurnside.instGroupSteinberg._aux_14 [def] ok
+Chal.SourceBurnside.thm_main : Chal.SourceBurnside.MainStatement ∧ Chal.SourceBurnside.BurnsideStatement
+structure Chal.SourceBurnside.Root (n : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.SourceBurnside.Root.row : Fin n
+  Chal.SourceBurnside.Root.col : Fin n
+  Chal.SourceBurnside.Root.ne : self.row ≠ self.col
+constructor:
+  Chal.SourceBurnside.Root.mk {n : ℕ} (row col : Fin n) (ne : row ≠ col) : Chal.SourceBurnside.Root n
+@[reducible] def Chal.SourceBurnside.Generator.{u} : ℕ → Type u → Type (max 0 u) :=
+fun n R => Chal.SourceBurnside.Root n × R
+def Chal.SourceBurnside.bracket.{u} : {G : Type u} → [Group G] → G → G → G :=
+fun {G} [Group G] x y => x * y * x⁻¹ * y⁻¹
+def Chal.SourceBurnside.letter.{u} : {n : ℕ} →
+  {R : Type u} → Chal.SourceBurnside.Root n → R → FreeGroup (Chal.SourceBurnside.Generator n R) :=
+fun {n} {R} p a => FreeGroup.of (p, a)
+inductive Chal.SourceBurnside.SteinbergRel.{u} : (n : ℕ) →
+  (R : Type u) → [Ring R] → FreeGroup (Chal.SourceBurnside.Generator n R) → Prop
+number of parameters: 3
+constructors:
+Chal.SourceBurnside.SteinbergRel.add : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (p : Chal.SourceBurnside.Root n)
+  (a b : R),
+  Chal.SourceBurnside.SteinbergRel n R
+    (Chal.SourceBurnside.letter p (a + b) * (Chal.SourceBurnside.letter p a * Chal.SourceBurnside.letter p b)⁻¹)
+Chal.SourceBurnside.SteinbergRel.commute : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (p q : Chal.SourceBurnside.Root n),
+  p.col ≠ q.row →
+    p.row ≠ q.col →
+      ∀ (a b : R),
+        Chal.SourceBurnside.SteinbergRel n R
+          (Chal.SourceBurnside.bracket (Chal.SourceBurnside.letter p a) (Chal.SourceBurnside.letter q b))
+Chal.SourceBurnside.SteinbergRel.mul : ∀ {n : ℕ} {R : Type u} [inst : Ring R] (i j k : Fin n) (hij : i ≠ j)
+  (hjk : j ≠ k) (hik : i ≠ k) (a b : R),
+  Chal.SourceBurnside.SteinbergRel n R
+    (Chal.SourceBurnside.bracket (Chal.SourceBurnside.letter { row := i, col := j, ne := hij } a)
+        (Chal.SourceBurnside.letter { row := j, col := k, ne := hjk } b) *
+      (Chal.SourceBurnside.letter { row := i, col := k, ne := hik } (a * b))⁻¹)
+def Chal.SourceBurnside.Steinberg.{u} : ℕ → (R : Type u) → [Ring R] → Type u :=
+fun n R [Ring R] => PresentedGroup {r | Chal.SourceBurnside.SteinbergRel n R r}
+def Chal.SourceBurnside.Periodic.{u} : (G : Type u) → [Group G] → Prop :=
+fun G [Group G] => ∀ (g : G), ∃ m, 0 < m ∧ g ^ m = 1
+def Chal.SourceBurnside.MainStatement : Prop :=
+∃ R x x_1,
+  Infinite (Chal.SourceBurnside.Steinberg 12 R) ∧
+    Group.IsFinitelyPresented (Chal.SourceBurnside.Steinberg 12 R) ∧
+      Chal.SourceBurnside.Periodic (Chal.SourceBurnside.Steinberg 12 R)
+def Chal.SourceBurnside.BurnsideStatement : Prop :=
+∃ G x, Infinite G ∧ Group.IsFinitelyPresented G ∧ Chal.SourceBurnside.Periodic G
+'OAI.SourceBurnside.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PeriodicGroup comparator-style: ok=33 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

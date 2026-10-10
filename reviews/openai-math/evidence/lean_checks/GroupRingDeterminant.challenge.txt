@@ -1,0 +1,34 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_GroupRingDeterminant.lean:52:8: warning: declaration uses `sorry`
+OAI.GroupRingDeterminant.main : OAI.GroupRingDeterminant.MainStatement
+@[reducible] def OAI.GroupRingDeterminant.Hilbert : (G : Type) → (n : ℕ) → AddSubgroup (PreLp fun x => ℂ) :=
+fun G n => lp (fun x => ℂ) 2
+def OAI.GroupRingDeterminant.identityVector : {G : Type} →
+  [Group G] → {n : ℕ} → Fin n → ↥(OAI.GroupRingDeterminant.Hilbert G n) :=
+fun {G} [Group G] {n} i => lp.single 2 (i, 1) 1
+def OAI.GroupRingDeterminant.groupTrace : {G : Type} →
+  [Group G] → {n : ℕ} → (↥(OAI.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(OAI.GroupRingDeterminant.Hilbert G n)) → ℂ :=
+fun {G} [Group G] {n} T =>
+  ∑ i, inner ℂ (OAI.GroupRingDeterminant.identityVector i) (T (OAI.GroupRingDeterminant.identityVector i))
+def OAI.GroupRingDeterminant.fkDet : {G : Type} →
+  [Group G] → {n : ℕ} → (↥(OAI.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(OAI.GroupRingDeterminant.Hilbert G n)) → ℝ :=
+fun {G} [Group G] {n} T => Real.exp ((OAI.GroupRingDeterminant.groupTrace (CFC.log (star T * T))).re / 2)
+def OAI.GroupRingDeterminant.IsRegularOperator : {G : Type} →
+  [Group G] →
+    {n : ℕ} →
+      Matrix (Fin n) (Fin n) (MonoidAlgebra ℤ G) →
+        (↥(OAI.GroupRingDeterminant.Hilbert G n) →L[ℂ] ↥(OAI.GroupRingDeterminant.Hilbert G n)) → Prop :=
+fun {G} [Group G] {n} A T =>
+  ∀ (ξ : ↥(OAI.GroupRingDeterminant.Hilbert G n)) (i : Fin n) (h : G),
+    ↑(T ξ) (i, h) = ∑ j, (A i j).coeff.sum fun g z => ↑z * ↑ξ (j, g⁻¹ * h)
+def OAI.GroupRingDeterminant.rationalMatrix : {G : Type} →
+  [Group G] → {n : ℕ} → Matrix (Fin n) (Fin n) (MonoidAlgebra ℤ G) → Matrix (Fin n) (Fin n) (MonoidAlgebra ℚ G) :=
+fun {G} [Group G] {n} A => A.map ⇑(MonoidAlgebra.mapRingHom G (Int.castRingHom ℚ))
+def OAI.GroupRingDeterminant.MainStatement : Prop :=
+∃ G x,
+  ∃ (_ : Group.FG G),
+    ∃ n,
+      1 ≤ n ∧
+        ∃ A T,
+          IsUnit (OAI.GroupRingDeterminant.rationalMatrix A) ∧
+            OAI.GroupRingDeterminant.IsRegularOperator A T ∧
+              IsUnit T ∧ 0 < OAI.GroupRingDeterminant.fkDet T ∧ OAI.GroupRingDeterminant.fkDet T < 1

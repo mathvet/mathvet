@@ -1,0 +1,196 @@
+@OAI.Percolation.BenjaminiSchramm.full_main : ∀ {V : Type u_1} {E : Type u_2} [Infinite V]
+  (G : OAI.Percolation.BondGraph V E),
+  OAI.Percolation.Connected G →
+    OAI.Percolation.LocallyFinite G →
+      OAI.Percolation.QuasiTransitive G → 0 < OAI.Percolation.hV G → OAI.Percolation.MainConclusion G
+'OAI.Percolation.BenjaminiSchramm.full_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.Percolation.BenjaminiSchramm.cayley_main : ∀ {Λ : Type u_1} [inst : Group Λ] (S : Finset Λ),
+  (∀ s ∈ S, s⁻¹ ∈ S) →
+    1 ∉ S →
+      Subgroup.closure ↑S = ⊤ →
+        ¬OAI.Percolation.BenjaminiSchramm.FolnerAmenable Λ →
+          OAI.Percolation.OperatorBounded (OAI.Percolation.BenjaminiSchramm.cayleyBond S)
+              (OAI.Percolation.pc (OAI.Percolation.BenjaminiSchramm.cayleyBond S)) ∧
+            OAI.Percolation.MainConclusion (OAI.Percolation.BenjaminiSchramm.cayleyBond S) ∧
+              ∀ (p : ↑unitInterval),
+                OAI.Percolation.pc (OAI.Percolation.BenjaminiSchramm.cayleyBond S) < p →
+                  p < OAI.Percolation.pu (OAI.Percolation.BenjaminiSchramm.cayleyBond S) →
+                    ∀ᵐ (ω : Set ↑(OAI.Percolation.BenjaminiSchramm.CayleyEdge S)) ∂OAI.Percolation.law p,
+                      (OAI.Percolation.infiniteClusters (OAI.Percolation.BenjaminiSchramm.cayleyBond S) ω).Infinite
+'OAI.Percolation.BenjaminiSchramm.cayley_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.Percolation.BenjaminiSchramm.critical_laws : ∀ {V : Type u_1} {E : Type u_2} [Infinite V]
+  (G : OAI.Percolation.BondGraph V E),
+  OAI.Percolation.Connected G →
+    OAI.Percolation.LocallyFinite G →
+      OAI.Percolation.QuasiTransitive G →
+        0 < OAI.Percolation.hV G → OAI.Percolation.BenjaminiSchramm.CriticalLawsConclusion G
+'OAI.Percolation.BenjaminiSchramm.critical_laws' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Percolation.BondGraph.{u, v} : Type u → Type v → Type (max v u) :=
+fun V E => E → Sym2 V
+def OAI.Percolation.Adj.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → V → V → Prop :=
+fun {V} {E} G x y => ∃ e, G e = s(x, y)
+def OAI.Percolation.LocallyFinite.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G => ∀ (x : V), {e | x ∈ G e}.Finite
+def OAI.Percolation.Connected.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G => ∀ (x y : V), Relation.ReflTransGen (OAI.Percolation.Adj G) x y
+def OAI.Percolation.IsAut.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → V ≃ V → E ≃ E → Prop :=
+fun {V} {E} G a b => ∀ (e : E), G (b e) = Sym2.map (⇑a) (G e)
+def OAI.Percolation.QuasiTransitive.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G => ∃ representatives, ∀ (x : V), ∃ o ∈ representatives, ∃ a b, OAI.Percolation.IsAut G a b ∧ a o = x
+def OAI.Percolation.vertexBoundary.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Finset V → Set V :=
+fun {V} {E} G A => {y | y ∉ A ∧ ∃ x ∈ A, OAI.Percolation.Adj G x y}
+def OAI.Percolation.hV.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ℝ :=
+fun {V} {E} G => sInf {r | ∃ A, A.Nonempty ∧ r = ↑(OAI.Percolation.vertexBoundary G A).ncard / ↑A.card}
+def OAI.Percolation.Conn.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Set E → V → V → Prop :=
+fun {V} {E} G ω x y => Relation.ReflTransGen (fun a b => ∃ e ∈ ω, G e = s(a, b)) x y
+def OAI.Percolation.cluster.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Set E → V → Set V :=
+fun {V} {E} G ω x => {y | OAI.Percolation.Conn G ω x y}
+def OAI.Percolation.infiniteClusters.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Set E → Set (Set V) :=
+fun {V} {E} G ω => {C | C.Infinite ∧ ∃ x, C = OAI.Percolation.cluster G ω x}
+def OAI.Percolation.law.{v} : {E : Type v} → ↑unitInterval → MeasureTheory.Measure (Set E) :=
+fun {E} p => ProbabilityTheory.setBernoulli Set.univ p
+def OAI.Percolation.pc.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | 0 < (OAI.Percolation.law p) {ω | (OAI.Percolation.infiniteClusters G ω).Nonempty}}
+def OAI.Percolation.pu.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sInf {p | (OAI.Percolation.law p) {ω | ∃! C, C ∈ OAI.Percolation.infiniteClusters G ω} = 1}
+def OAI.Percolation.twoPoint.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → V → V → ℝ :=
+fun {V} {E} G p x y => ((OAI.Percolation.law p) {ω | OAI.Percolation.Conn G ω x y}).toReal
+@[reducible] def OAI.Percolation.Hilbert.{u} : (V : Type u) → AddSubgroup (PreLp fun x => ℂ) :=
+fun V => lp (fun x => ℂ) 2
+def OAI.Percolation.HasKernel.{u, v} : {V : Type u} →
+  {E : Type v} →
+    [DecidableEq V] →
+      OAI.Percolation.BondGraph V E →
+        ↑unitInterval → (↥(OAI.Percolation.Hilbert V) →L[ℂ] ↥(OAI.Percolation.Hilbert V)) → Prop :=
+fun {V} {E} [DecidableEq V] G p A => ∀ (x y : V), ↑(A (lp.single 2 y 1)) x = ↑(OAI.Percolation.twoPoint G p x y)
+def OAI.Percolation.OperatorBounded.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → Prop :=
+fun {V} {E} G p => ∃ A, OAI.Percolation.HasKernel G p A
+def OAI.Percolation.operatorNorm.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → ENNReal :=
+fun {V} {E} G p => sInf {r | ∃ A, OAI.Percolation.HasKernel G p A ∧ r = ENNReal.ofReal ‖A‖}
+def OAI.Percolation.ptwo.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sSup {p | OAI.Percolation.OperatorBounded G p}
+def OAI.Percolation.labelLaw.{v} : {E : Type v} → MeasureTheory.Measure (E → ↑unitInterval) :=
+fun {E} => MeasureTheory.Measure.infinitePi fun x => MeasureTheory.volume
+def OAI.Percolation.openEdges.{v} : {E : Type v} → (E → ↑unitInterval) → ↑unitInterval → Set E :=
+fun {E} labels p => {e | labels e ≤ p}
+def OAI.Percolation.MainConclusion.{u, v} : {V : Type u} → {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G =>
+  sSup {r | ∃ p < OAI.Percolation.pc G, r = OAI.Percolation.operatorNorm G p} =
+      OAI.Percolation.operatorNorm G (OAI.Percolation.pc G) ∧
+    OAI.Percolation.operatorNorm G (OAI.Percolation.pc G) < ⊤ ∧
+      OAI.Percolation.pc G < OAI.Percolation.ptwo G ∧
+        OAI.Percolation.ptwo G ≤ OAI.Percolation.pu G ∧
+          ∃ p₁ p₂,
+            OAI.Percolation.pc G < p₁ ∧
+              p₁ < p₂ ∧
+                p₂ < 1 ∧
+                  ∀ᵐ (labels : E → ↑unitInterval) ∂OAI.Percolation.labelLaw,
+                    ∀ p ∈ Set.Icc p₁ p₂,
+                      (OAI.Percolation.infiniteClusters G (OAI.Percolation.openEdges labels p)).Infinite
+def OAI.Percolation.openSimpleGraph.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Set E → SimpleGraph V :=
+fun {V} {E} G ω => { Adj := fun x y => x ≠ y ∧ ∃ e ∈ ω, G e = s(x, y), symm := ⋯, loopless := ⋯ }
+def OAI.Percolation.susceptibility.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → V → ℝ :=
+fun {V} {E} G p x => ∑' (y : V), OAI.Percolation.twoPoint G p x y
+def OAI.Percolation.BenjaminiSchramm.triangleDiagram.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → V → ENNReal :=
+fun {V} {E} G p x =>
+  ∑' (ab : V × V),
+    ENNReal.ofReal
+      (OAI.Percolation.twoPoint G p x ab.1 * OAI.Percolation.twoPoint G p ab.1 ab.2 *
+        OAI.Percolation.twoPoint G p ab.2 x)
+def OAI.Percolation.BenjaminiSchramm.graphDistance.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → V → V → ℕ :=
+fun {V} {E} G x y => (OAI.Percolation.openSimpleGraph G Set.univ).dist x y
+def OAI.Percolation.BenjaminiSchramm.ExponentialDecay.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → Prop :=
+fun {V} {E} G p =>
+  ∃ A a,
+    0 < A ∧
+      0 < a ∧
+        ∀ (x y : V),
+          OAI.Percolation.twoPoint G p x y ≤ A * Real.exp (-a * ↑(OAI.Percolation.BenjaminiSchramm.graphDistance G x y))
+def OAI.Percolation.BenjaminiSchramm.pexp.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval :=
+fun {V} {E} G => sSup {p | OAI.Percolation.BenjaminiSchramm.ExponentialDecay G p}
+def OAI.Percolation.BenjaminiSchramm.PowerTail : (ℕ → ℝ) → ℝ → Prop :=
+fun f exponent => ∃ c C, 0 < c ∧ 0 < C ∧ ∀ (n : ℕ), 0 < n → c * ↑n ^ (-exponent) ≤ f n ∧ f n ≤ C * ↑n ^ (-exponent)
+def OAI.Percolation.BenjaminiSchramm.volumeEvent.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → V → ℕ → Set (Set E) :=
+fun {V} {E} G x n => {ω | ↑n ≤ (OAI.Percolation.cluster G ω x).encard}
+def OAI.Percolation.BenjaminiSchramm.intrinsicRadiusEvent.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → V → ℕ → Set (Set E) :=
+fun {V} {E} G x n => {ω | ∃ y ∈ OAI.Percolation.cluster G ω x, n ≤ (OAI.Percolation.openSimpleGraph G ω).dist x y}
+def OAI.Percolation.BenjaminiSchramm.extrinsicRadiusEvent.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → V → ℕ → Set (Set E) :=
+fun {V} {E} G x n => {ω | ∃ y ∈ OAI.Percolation.cluster G ω x, n ≤ OAI.Percolation.BenjaminiSchramm.graphDistance G x y}
+def OAI.Percolation.BenjaminiSchramm.criticalTail.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → (V → ℕ → Set (Set E)) → V → ℕ → ℝ :=
+fun {V} {E} G A x n => ((OAI.Percolation.law (OAI.Percolation.pc G)) (A x n)).toReal
+def OAI.Percolation.BenjaminiSchramm.CriticalTailLaws.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G =>
+  ∀ (x : V),
+    OAI.Percolation.BenjaminiSchramm.PowerTail
+        (OAI.Percolation.BenjaminiSchramm.criticalTail G (OAI.Percolation.BenjaminiSchramm.volumeEvent G) x) (1 / 2) ∧
+      OAI.Percolation.BenjaminiSchramm.PowerTail
+          (OAI.Percolation.BenjaminiSchramm.criticalTail G (OAI.Percolation.BenjaminiSchramm.intrinsicRadiusEvent G) x)
+          1 ∧
+        OAI.Percolation.BenjaminiSchramm.PowerTail
+          (OAI.Percolation.BenjaminiSchramm.criticalTail G (OAI.Percolation.BenjaminiSchramm.extrinsicRadiusEvent G) x)
+          1
+def OAI.Percolation.BenjaminiSchramm.SusceptibilityLaw.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G =>
+  ∀ (x : V),
+    ∃ c C δ,
+      0 < c ∧
+        0 < C ∧
+          0 < δ ∧
+            ∀ p < OAI.Percolation.pc G,
+              ↑(OAI.Percolation.pc G) - ↑p < δ →
+                c / (↑(OAI.Percolation.pc G) - ↑p) ≤ OAI.Percolation.susceptibility G p x ∧
+                  OAI.Percolation.susceptibility G p x ≤ C / (↑(OAI.Percolation.pc G) - ↑p)
+def OAI.Percolation.BenjaminiSchramm.percolationProbability.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → ↑unitInterval → V → ℝ :=
+fun {V} {E} G p x => ((OAI.Percolation.law p) {ω | (OAI.Percolation.cluster G ω x).Infinite}).toReal
+def OAI.Percolation.BenjaminiSchramm.PercolationProbabilityLaw.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G =>
+  ∀ (x : V),
+    ∃ c C δ,
+      0 < c ∧
+        0 < C ∧
+          0 < δ ∧
+            ∀ (p : ↑unitInterval),
+              OAI.Percolation.pc G < p →
+                ↑p - ↑(OAI.Percolation.pc G) < δ →
+                  c * (↑p - ↑(OAI.Percolation.pc G)) ≤ OAI.Percolation.BenjaminiSchramm.percolationProbability G p x ∧
+                    OAI.Percolation.BenjaminiSchramm.percolationProbability G p x ≤ C * (↑p - ↑(OAI.Percolation.pc G))
+def OAI.Percolation.BenjaminiSchramm.CriticalLawsConclusion.{u, v} : {V : Type u} →
+  {E : Type v} → OAI.Percolation.BondGraph V E → Prop :=
+fun {V} {E} G =>
+  (∀ (x : V),
+      OAI.Percolation.BenjaminiSchramm.triangleDiagram G (OAI.Percolation.pc G) x ≤
+          OAI.Percolation.operatorNorm G (OAI.Percolation.pc G) ^ 3 ∧
+        OAI.Percolation.BenjaminiSchramm.triangleDiagram G (OAI.Percolation.pc G) x < ⊤) ∧
+    OAI.Percolation.BenjaminiSchramm.SusceptibilityLaw G ∧
+      OAI.Percolation.BenjaminiSchramm.PercolationProbabilityLaw G ∧
+        OAI.Percolation.BenjaminiSchramm.CriticalTailLaws G ∧
+          (OAI.Percolation.pc G < OAI.Percolation.ptwo G ∧
+              OAI.Percolation.ptwo G ≤ OAI.Percolation.BenjaminiSchramm.pexp G) ∧
+            ∀ p < OAI.Percolation.ptwo G, OAI.Percolation.BenjaminiSchramm.ExponentialDecay G p
+@[reducible] def OAI.Percolation.BenjaminiSchramm.CayleyEdge.{u} : {Λ : Type u} → [Group Λ] → Finset Λ → Set (Sym2 Λ) :=
+fun {Λ} [Group Λ] S => (SimpleGraph.mulCayley ↑S).edgeSet
+def OAI.Percolation.BenjaminiSchramm.cayleyBond.{u} : {Λ : Type u} →
+  [inst : Group Λ] → (S : Finset Λ) → OAI.Percolation.BondGraph Λ ↑(OAI.Percolation.BenjaminiSchramm.CayleyEdge S) :=
+fun {Λ} [Group Λ] S => Subtype.val
+def OAI.Percolation.BenjaminiSchramm.FolnerAmenable.{u} : (Λ : Type u) → [Group Λ] → Prop :=
+fun Λ [Group Λ] =>
+  ∀ (K : Finset Λ) (ε : ℝ), 0 < ε → ∃ A, A.Nonempty ∧ ∀ k ∈ K, ↑(Finset.image (fun x => x * k) A \ A).card < ε * ↑A.card

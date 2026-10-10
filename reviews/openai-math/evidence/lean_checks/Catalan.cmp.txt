@@ -1,0 +1,5 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_Catalan.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.InternalCatalan.catalan_irrational [thm] ok
+Chal.InternalCatalan.catalan_irrational : Irrational (∑' (j : ℕ), (-1) ^ j / ↑(2 * j + 1) ^ 2)
+'OAI.InternalCatalan.catalan_irrational' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Catalan comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

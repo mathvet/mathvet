@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-08T23:07:21Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T08:45:28Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,7 +2894,7 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 47 solutions built locally, 44 with a clean closure comparison and standard axioms, 362 accepted by
+    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 362 accepted by
     the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3012,7 +3012,7 @@ review:
   reviewers:
   - MathVet (github.com/mathvet); no author of the reviewed formalization took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-08.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-10.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -3059,7 +3059,8 @@ alignment:
     module: OAI.NumberTheory.Catalan.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Catalan.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 007 — Two-point Chowla and the corrected binary Elliott conjecture: Ordinary Elliott cancellation
       under uniform nonpretentiousness (the lab''s own result label); paper ''Ordinary two-point correlations of
       multiplicative functions'', theorem thm:q-affine (build/introduction.tex:20)'
@@ -3942,7 +3943,8 @@ alignment:
     module: OAI.LinearAlgebra.MatrixFields.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatrixFields.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 108 — A cubic permanent--determinant lower bound: Cubic lower bounds for permanent determinantal
       complexity (the lab''s own result label); paper ''A cubic lower bound for border determinantal complexity
       of the permanent'', theorem thm:main (build/source/sections/introduction.tex:41)'
@@ -4145,7 +4147,8 @@ alignment:
     module: OAI.Computability.BinPacking.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BinPackingGap.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 119 — The Courtade--Kumar and Hellinger conjectures: Courtade–Kumar inequality and attainment
       (the lab''s own result label); paper ''Sharp binary-information contraction on the discrete cube'', theorem
       main:soft (build/main.tex:72)'
@@ -4180,7 +4183,8 @@ alignment:
     module: OAI.Combinatorics.EditApproximation.Specification.RawBandMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EditApproximation.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 122 — Superpolynomial lower bounds and quasipolynomial reconstruction from deletion traces:
       Quantitative and superpolynomial sample lower bounds for trace reconstruction (the lab''s own result label);
       paper ''Quantitative lower bounds for trace reconstruction'', theorem thm:main (build/sections/introduction.tex:7)'
@@ -5554,7 +5558,8 @@ alignment:
     module: OAI.Probability.BenjaminiSchramm.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BenjaminiSchramm.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 214 — The Benjamini--Schramm nonuniqueness conjecture: Nonuniqueness for every nonamenable Cayley
       graph (the lab''s own result label); paper ''Nonuniqueness of percolation on nonamenable quasi-transitive
       graphs'', theorem thm:main (build/sections/introduction.tex:58)'
@@ -6520,7 +6525,8 @@ alignment:
     module: OAI.Analysis.MutuallyUnbiased.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MUBSix.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): weaker-statement.'
   - source: 'family 266 — headline claim as stated in the overview: Proves $N(6)=3$, resolving Zauner\textquotesingle
       s dimension-six mutually unbiased bases conjecture: three such bases exist in $\mathbb C^6$, but four cannot.
       The exclusion is a complete certified computation under the stated binary64 arithmetic and compiler conditions.
@@ -6707,7 +6713,8 @@ alignment:
     module: OAI.MathematicalPhysics.ContinuumCoulomb.Reduction.Hardness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/ContinuumCoulombHardness.json;
-      MathVet machine check: local build in progress. Family verdict (pre-referee): full.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): full.'
   - source: 'family 276 — The classical capacity of generalized amplitude damping: Additivity and capacity for generalized
       amplitude damping (the lab''s own result label); paper ''Classical capacity and entropy inequalities for generalized
       amplitude damping'', theorem thm:main (build/paper.tex:208)'
@@ -7823,7 +7830,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-08T23:07:21Z'
+    generated: '2026-10-10T08:45:28Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -7836,98 +7843,210 @@ mathvet:
       supporting-only: 12
     non_full: 91
     built_locally:
+    - AlgorithmicThinTrees
+    - AmplitudeDamping
     - AsymptoticallyMinimalLittlewood
+    - AtomicGaussian
+    - BassTorsionFree
+    - BassTrace
+    - BenjaminiSchramm
+    - BinPackingGap
+    - BinaryEditLower
     - BorsukNine
+    - BoundedTreewidthL1
     - CannonGeometricAction
+    - Catalan
     - CirculantHadamard
     - CoboundaryExpanders
+    - CommonBasesFPRAS
     - Conductivity
     - ContingencyTables
+    - ContinuumCoulombHardness
+    - CoordinateSweeps
+    - CoulombIonization
+    - CoulombRadii
+    - CourtadeKumar
+    - CoveringDensity
+    - CriticalPercolation
+    - CriticalZ3
+    - DilutedSpin
     - DimensionTenChannel
     - DimensionTenPair
     - DirichletSevenEighths
+    - EditApproximation
+    - EditDistance
     - ElasticityUniqueness
     - EntangledGames
+    - EntropyPhotonNumber
     - ErdosReciprocal
     - EuclideanFiveColor
     - EvenBarker
     - ExactFourier
+    - ExactQuantumFactoring
+    - FactorGeneration
+    - GeneralMahler
     - GeneralizedStarHeight
     - GotsmanLinial
+    - GroupRingDeterminant
+    - HardSphere
+    - HarmonicGrowth
+    - IndependentSets
     - InterpolatedFactors
+    - KMedianThreshold
     - KServer
+    - KaplanskyDirectFiniteness
+    - KaplanskyFinitelyPresented
+    - Laughlin
+    - LaughlinGap
+    - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
+    - LogBrunnMinkowski
+    - LogConcaveQuery
+    - MUBSix
     - MahlerConjecture
     - MassAction
     - MatchingAffineLift
     - MatchingFPRAS
     - MatchingPSD
+    - MatrixFields
     - MatrixMultiplication
+    - MetricKMedian
+    - NoiselessRegression
+    - OddKaplansky
     - OptimalMaxCut
     - PerfectCompleteness
+    - PeriodicGroup
     - PiExponent
+    - PlanarL1
     - PlaneColoring
+    - QACParity
     - QuasiRiemannHypothesis
     - RandomizedMeanPayoff
     - SKFullSupport
     - SKValue
+    - SensitivitySeparation
     - SidorenkoCounterexample
     - SiegelZeros
     - StrongThinTree
+    - SubpolynomialLp
     - Superstring
     - SwitchChain
+    - SymmetricMahlerEquality
+    - SymmetricPolar
     - ThompsonNonamenability
+    - ThorpRemaining
     - ThreeMachine
+    - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - TriangularEnergy
+    - TypeSystemNormalization
+    - UniformKServer
     - UniformSparsestCut
     - UniqueGamesTheorem
     - VlasovMaxwell
+    - WeisfeilerLeman
     closure_check_pass:
+    - AlgorithmicThinTrees
+    - AmplitudeDamping
     - AsymptoticallyMinimalLittlewood
+    - AtomicGaussian
+    - BassTorsionFree
+    - BassTrace
+    - BenjaminiSchramm
+    - BinPackingGap
+    - BinaryEditLower
     - BorsukNine
+    - BoundedTreewidthL1
     - CannonGeometricAction
+    - Catalan
     - CirculantHadamard
     - CoboundaryExpanders
+    - CommonBasesFPRAS
     - Conductivity
     - ContingencyTables
+    - ContinuumCoulombHardness
+    - CoordinateSweeps
+    - CoulombIonization
+    - CoulombRadii
+    - CourtadeKumar
+    - CoveringDensity
+    - CriticalPercolation
+    - CriticalZ3
+    - DilutedSpin
     - DimensionTenChannel
     - DimensionTenPair
     - DirichletSevenEighths
+    - EditApproximation
+    - EditDistance
     - ElasticityUniqueness
     - EntangledGames
+    - EntropyPhotonNumber
     - ErdosReciprocal
     - EuclideanFiveColor
     - EvenBarker
     - ExactFourier
+    - ExactQuantumFactoring
+    - FactorGeneration
+    - GeneralMahler
     - GeneralizedStarHeight
     - GotsmanLinial
+    - GroupRingDeterminant
+    - HardSphere
+    - HarmonicGrowth
+    - IndependentSets
     - InterpolatedFactors
+    - KMedianThreshold
     - KServer
+    - KaplanskyDirectFiniteness
+    - KaplanskyFinitelyPresented
+    - Laughlin
+    - LaughlinGap
+    - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
+    - LogBrunnMinkowski
+    - LogConcaveQuery
+    - MUBSix
     - MahlerConjecture
     - MassAction
     - MatchingAffineLift
     - MatchingFPRAS
     - MatchingPSD
+    - MatrixFields
     - MatrixMultiplication
+    - MetricKMedian
+    - NoiselessRegression
+    - OddKaplansky
+    - PeriodicGroup
     - PiExponent
+    - PlanarL1
     - PlaneColoring
+    - QACParity
     - QuasiRiemannHypothesis
     - RandomizedMeanPayoff
     - SKFullSupport
     - SKValue
+    - SensitivitySeparation
     - SidorenkoCounterexample
     - SiegelZeros
     - StrongThinTree
+    - SubpolynomialLp
     - Superstring
     - SwitchChain
+    - SymmetricMahlerEquality
+    - SymmetricPolar
     - ThompsonNonamenability
+    - ThorpRemaining
     - ThreeMachine
+    - TorsionFreeZeroDivisors
     - TraceReconstruction
+    - TriangularEnergy
+    - TypeSystemNormalization
+    - UniformKServer
     - UniformSparsestCut
     - VlasovMaxwell
+    - WeisfeilerLeman
     comparator_pass:
     - AbhyankarSathaye
     - AffineBernstein
@@ -8645,9 +8764,9 @@ mathvet:
     - WeisfeilerLeman
     - WitnessedChoice
     - YauCounterexample
-    comparator_running: []
-    build_in_progress:
-    - ContinuumCoulombHardness
+    comparator_running:
+    - BenjaminiSchramm
+    build_in_progress: []
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
     partial: only a special case, or only one of several co-equal headline claims
@@ -8690,7 +8809,7 @@ mathvet:
     external_packages:
     - PrimeNumberTheoremAnd
     cone_lines_max: 574902
-    machine_check: none
+    machine_check: closure-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/005.md
     audit_part: 1
   - family: '007'
@@ -9709,7 +9828,7 @@ mathvet:
       bounded below)'
     external_packages: []
     cone_lines_max: 158527
-    machine_check: none
+    machine_check: closure-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/118.md
     audit_part: 1
   - family: '119'
@@ -9750,7 +9869,7 @@ mathvet:
       on'
     external_packages: []
     cone_lines_max: 137267
-    machine_check: none
+    machine_check: closure-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/121.md
     audit_part: 1
   - family: '122'
@@ -12053,7 +12172,7 @@ mathvet:
     external_packages:
     - RellichKondrachov
     cone_lines_max: 222484
-    machine_check: build-in-progress
+    machine_check: closure-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/275.md
     audit_part: 2
   - family: '276'

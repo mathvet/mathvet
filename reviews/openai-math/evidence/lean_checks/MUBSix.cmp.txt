@@ -1,0 +1,63 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_MUBSix.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.MUB6.fourier_and_family_bound [thm] ok
+CMP OAI.MUB6.Attainable [def] ok
+CMP OAI.MUB6.IsMUBFamily [def] ok
+CMP OAI.MUB6.IsHadamard._proof_1 [thm] ok
+CMP OAI.MUB6.Space [def] ok
+CMP OAI.MUB6.Coord [def] ok
+CMP OAI.MUB6.Basis [def] ok
+CMP OAI.MUB6.alpha [def] ok
+CMP OAI.MUB6.Charge [def] ok
+CMP OAI.MUB6.permuteCharge [def] ok
+CMP OAI.MUB6.g [def] ok
+CMP OAI.MUB6.character [def] ok
+CMP OAI.MUB6.CMatrix [def] ok
+CMP OAI.MUB6.tao [def] ok
+CMP OAI.MUB6.taoExponent [def] ok
+CMP OAI.MUB6.omega [def] ok
+CMP OAI.MUB6.omega._proof_2 [thm] ok
+CMP OAI.MUB6.omega._proof_1 [thm] ok
+CMP OAI.MUB6.Equivalent [def] ok
+CMP OAI.MUB6.IsHadamard [def] ok
+Chal.MUB6.fourier_and_family_bound : (∀ (H : Chal.MUB6.CMatrix),
+    Chal.MUB6.IsHadamard H →
+      ¬Chal.MUB6.Equivalent H Chal.MUB6.tao →
+        ∀ (π : Equiv.Perm Chal.MUB6.Coord), Chal.MUB6.g H (Chal.MUB6.permuteCharge π Chal.MUB6.alpha) = 0) ∧
+  ∀ (n : ℕ), Chal.MUB6.Attainable n → n ≤ 5
+@[reducible] def Chal.MUB6.Coord : Type :=
+Fin 6
+@[reducible] def Chal.MUB6.CMatrix : Type :=
+Matrix Chal.MUB6.Coord Chal.MUB6.Coord ℂ
+@[reducible] def Chal.MUB6.Charge : Type :=
+Chal.MUB6.Coord → ℤ
+def Chal.MUB6.IsHadamard : Chal.MUB6.CMatrix → Prop :=
+fun H => (∀ (i j : Chal.MUB6.Coord), Complex.normSq (H i j) = 1) ∧ Matrix.conjTranspose H * H = 6 • 1
+def Chal.MUB6.character : (Chal.MUB6.Coord → ℂ) → Chal.MUB6.Charge → ℂ :=
+fun x a => ∏ i, x i ^ a i
+def Chal.MUB6.g : Chal.MUB6.CMatrix → Chal.MUB6.Charge → ℂ :=
+fun H a => 6⁻¹ * ∑ k, Chal.MUB6.character (fun i => H i k) a
+def Chal.MUB6.alpha : Chal.MUB6.Charge :=
+![1, 1, 1, -1, -1, -1]
+def Chal.MUB6.permuteCharge : Equiv.Perm Chal.MUB6.Coord → Chal.MUB6.Charge → Chal.MUB6.Charge :=
+fun π a => a ∘ ⇑π
+def Chal.MUB6.Equivalent : Chal.MUB6.CMatrix → Chal.MUB6.CMatrix → Prop :=
+fun H K =>
+  ∃ r c u v,
+    (∀ (i : Chal.MUB6.Coord), Complex.normSq (u i) = 1) ∧
+      (∀ (j : Chal.MUB6.Coord), Complex.normSq (v j) = 1) ∧ ∀ (i j : Chal.MUB6.Coord), K i j = u i * H (r i) (c j) * v j
+def Chal.MUB6.omega : ℂ :=
+Complex.exp (2 * ↑Real.pi * Complex.I / 3)
+def Chal.MUB6.taoExponent : Matrix Chal.MUB6.Coord Chal.MUB6.Coord ℕ :=
+!![0, 0, 0, 0, 0, 0; 0, 0, 1, 2, 2, 1; 0, 1, 0, 1, 2, 2; 0, 2, 1, 0, 1, 2; 0, 2, 2, 1, 0, 1; 0, 1, 2, 2, 1, 0]
+def Chal.MUB6.tao : Chal.MUB6.CMatrix :=
+fun i j => Chal.MUB6.omega ^ Chal.MUB6.taoExponent i j
+@[reducible] def Chal.MUB6.Space : Type :=
+EuclideanSpace ℂ Chal.MUB6.Coord
+@[reducible] def Chal.MUB6.Basis : Type :=
+OrthonormalBasis Chal.MUB6.Coord ℂ Chal.MUB6.Space
+def Chal.MUB6.IsMUBFamily : {n : ℕ} → (Fin n → Chal.MUB6.Basis) → Prop :=
+fun {n} B => ∀ (r s : Fin n), r ≠ s → ∀ (i j : Chal.MUB6.Coord), Complex.normSq (inner ℂ ((B r) i) ((B s) j)) = 1 / 6
+def Chal.MUB6.Attainable : ℕ → Prop :=
+fun n => ∃ B, Chal.MUB6.IsMUBFamily B
+'OAI.MUB6.fourier_and_family_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+== MUBSix comparator-style: ok=20 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

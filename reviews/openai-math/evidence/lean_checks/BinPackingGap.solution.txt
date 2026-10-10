@@ -1,0 +1,285 @@
+OAI.BinPackingGap.main_results : (∀ (c : ℕ),
+    ∃ I B,
+      I.n = 5 * B ∧
+        (∀ (i : Fin I.n), 1 / 6 < I.size i ∧ I.size i < 1) ∧
+          B + c < OAI.BinPackingGap.opt I ∧ OAI.BinPackingGap.individualLP I = ↑B ∧ OAI.BinPackingGap.typeLP I = ↑B) ∧
+  (∀ (c : ℕ), OAI.BinPackingGap.PackingGapNPHard c) ∧
+    ((∃ c, Nonempty (OAI.BinPackingGap.AbsoluteAdditiveAlgorithm c)) ↔ OAI.BinPackingGap.PEqualsNP) ∧
+      (OAI.BinPackingGap.PEqualsNP →
+        ∃ algorithm,
+          (∀ (items : OAI.BinPackingGap.RawInstance) (valid : items.Valid),
+              ∃ packing,
+                algorithm.run (OAI.BinPackingGap.BinaryEncoding.rawInstanceBits items) = some packing ∧
+                  OAI.BinPackingGap.RawPacking.Feasible items packing ∧
+                    packing.bins = OAI.BinPackingGap.opt (items.toInstance valid)) ∧
+            algorithm.run (OAI.BinPackingGap.BinaryEncoding.rawInstanceBits []) =
+                some { bins := 0, assignments := [] } ∧
+              (∀ (input : List Bool),
+                  OAI.BinPackingGap.BinaryEncoding.decodeRawInstance input = none → algorithm.run input = none) ∧
+                ∀ (items : OAI.BinPackingGap.RawInstance),
+                  ¬items.Valid → algorithm.run (OAI.BinPackingGap.BinaryEncoding.rawInstanceBits items) = none)
+'OAI.BinPackingGap.main_results' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.BinPackingGames.Foundations.Complexity.encodeWord : ℕ → List Bool :=
+fun n => List.replicate n true ++ [false]
+def OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet : Turing.FinTM2 → Prop :=
+fun M => ∀ (k : M.K), Finite (M.Γ k)
+def OAI.BinPackingGames.Foundations.Complexity.CookLevin.pairBits : List Bool × List Bool → List Bool :=
+fun input => OAI.BinPackingGames.Foundations.Complexity.encodeWord input.1.length ++ input.1 ++ input.2
+structure OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier : Type 1
+number of parameters: 0
+fields:
+  OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.witnessBound : Polynomial ℕ
+  OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.verify : List Bool × List Bool → Bool
+  OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.computation : Turing.TM2ComputableInPolyTime
+      OAI.BinPackingGames.Foundations.Complexity.CookLevin.pairBits (fun bit => [bit]) self.verify
+  OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.finiteAlphabet : (k : self.computation.tm.K) →
+      Fintype (self.computation.tm.Γ k)
+constructor:
+  OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.mk (witnessBound : Polynomial ℕ)
+    (verify : List Bool × List Bool → Bool)
+    (computation :
+      Turing.TM2ComputableInPolyTime OAI.BinPackingGames.Foundations.Complexity.CookLevin.pairBits (fun bit => [bit])
+        verify)
+    (finiteAlphabet : (k : computation.tm.K) → Fintype (computation.tm.Γ k)) :
+    OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier
+def OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier.Accepts : OAI.BinPackingGames.Foundations.Complexity.CookLevin.NPVerifier →
+  List Bool → Prop :=
+fun verifier input =>
+  ∃ witness,
+    witness.length ≤ Polynomial.eval input.length verifier.witnessBound ∧ verifier.verify (input, witness) = true
+def OAI.BinPackingGames.Foundations.Complexity.CookLevin.InNP : (List Bool → Prop) → Prop :=
+fun language => ∃ verifier, ∀ (input : List Bool), language input ↔ verifier.Accepts input
+def OAI.BinPackingCompleteness.BinaryEncoding.bitsValue : List Bool → ℕ :=
+fun x => List.brecOn x OAI.BinPackingCompleteness.BinaryEncoding.bitsValue._f
+def OAI.BinPackingCompleteness.BinaryEncoding.frame : List Bool → List Bool :=
+fun x => List.brecOn x OAI.BinPackingCompleteness.BinaryEncoding.frame._f
+def OAI.BinPackingCompleteness.BinaryEncoding.parseFrame : List Bool → Option (List Bool × List Bool) :=
+fun x => List.brecOn x OAI.BinPackingCompleteness.BinaryEncoding.parseFrame._f
+def OAI.BinPackingCompleteness.BinaryEncoding.nameBits : ℕ → List Bool :=
+fun name => OAI.BinPackingCompleteness.BinaryEncoding.frame name.bits
+def OAI.BinPackingCompleteness.BinaryEncoding.parseName : List Bool → Option (ℕ × List Bool) :=
+fun input => do
+  let __x ← OAI.BinPackingCompleteness.BinaryEncoding.parseFrame input
+  match __x with
+    | (digits, rest) =>
+      have name := OAI.BinPackingCompleteness.BinaryEncoding.bitsValue digits;
+      if digits = name.bits then some (name, rest) else none
+structure OAI.BinPackingGap.Instance : Type
+number of parameters: 0
+fields:
+  OAI.BinPackingGap.Instance.n : ℕ
+  OAI.BinPackingGap.Instance.size : Fin self.n → ℚ
+  OAI.BinPackingGap.Instance.size_pos : ∀ (i : Fin self.n), 0 < self.size i
+  OAI.BinPackingGap.Instance.size_le_one : ∀ (i : Fin self.n), self.size i ≤ 1
+constructor:
+  OAI.BinPackingGap.Instance.mk (n : ℕ) (size : Fin n → ℚ) (size_pos : ∀ (i : Fin n), 0 < size i)
+    (size_le_one : ∀ (i : Fin n), size i ≤ 1) : OAI.BinPackingGap.Instance
+@[reducible] def OAI.BinPackingGap.Instance.Item : OAI.BinPackingGap.Instance → Type :=
+fun I => Fin I.n
+structure OAI.BinPackingGap.Packing (I : OAI.BinPackingGap.Instance) (b : ℕ) : Type
+number of parameters: 2
+fields:
+  OAI.BinPackingGap.Packing.assignment : I.Item → Fin b
+  OAI.BinPackingGap.Packing.capacity : ∀ (j : Fin b), (∑ i, if self.assignment i = j then I.size i else 0) ≤ 1
+constructor:
+  OAI.BinPackingGap.Packing.mk {I : OAI.BinPackingGap.Instance} {b : ℕ} (assignment : I.Item → Fin b)
+    (capacity : ∀ (j : Fin b), (∑ i, if assignment i = j then I.size i else 0) ≤ 1) : OAI.BinPackingGap.Packing I b
+def OAI.BinPackingGap.HasPacking : OAI.BinPackingGap.Instance → ℕ → Prop :=
+fun I b => Nonempty (OAI.BinPackingGap.Packing I b)
+def OAI.BinPackingGap.singletonPacking : (I : OAI.BinPackingGap.Instance) → OAI.BinPackingGap.Packing I I.n :=
+fun I => { assignment := fun i => i, capacity := ⋯ }
+def OAI.BinPackingGap.opt : OAI.BinPackingGap.Instance → ℕ :=
+fun I => Nat.find ⋯
+def OAI.BinPackingGap.IndividualConfiguration : OAI.BinPackingGap.Instance → Type :=
+fun I => { H // ∑ i ∈ H, I.size i ≤ 1 }
+def OAI.BinPackingGap.NumericalSize : OAI.BinPackingGap.Instance → Type :=
+fun I => ↥(Finset.image I.size Finset.univ)
+def OAI.BinPackingGap.NumericalSize.multiplicity : {I : OAI.BinPackingGap.Instance} →
+  OAI.BinPackingGap.NumericalSize I → ℕ :=
+fun {I} s => {i | I.size i = ↑s}.card
+def OAI.BinPackingGap.NumericalSize.capacityBound : {I : OAI.BinPackingGap.Instance} →
+  OAI.BinPackingGap.NumericalSize I → ℕ :=
+fun {I} s => Classical.choose ⋯
+def OAI.BinPackingGap.TypeConfiguration : OAI.BinPackingGap.Instance → Type :=
+fun I => { c // ∑ s, ↑s * ↑(c s) ≤ 1 }
+def OAI.BinPackingGap.TypeConfiguration.boundedCounts : {I : OAI.BinPackingGap.Instance} →
+  OAI.BinPackingGap.TypeConfiguration I → (s : OAI.BinPackingGap.NumericalSize I) → Fin s.capacityBound :=
+fun {I} c s => ⟨↑c s, ⋯⟩
+def OAI.BinPackingGap.FractionalCover.Feasible.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → (C → ℝ) → Prop :=
+fun {I} {C} [Fintype C] a d w => (∀ (c : C), 0 ≤ w c) ∧ ∀ (i : I), d i ≤ ∑ c, a c i * w c
+def OAI.BinPackingGap.FractionalCover.objective.{u_2} : {C : Type u_2} → [Fintype C] → (C → ℝ) → ℝ :=
+fun {C} [Fintype C] w => ∑ c, w c
+def OAI.BinPackingGap.FractionalCover.objectiveSet.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → Set ℝ :=
+fun {I} {C} [Fintype C] a d =>
+  {v | ∃ w, OAI.BinPackingGap.FractionalCover.Feasible a d w ∧ OAI.BinPackingGap.FractionalCover.objective w = v}
+def OAI.BinPackingGap.FractionalCover.value.{u_1, u_2} : {I : Type u_1} →
+  {C : Type u_2} → [Fintype C] → (C → I → ℝ) → (I → ℝ) → ℝ :=
+fun {I} {C} [Fintype C] a d => sInf (OAI.BinPackingGap.FractionalCover.objectiveSet a d)
+def OAI.BinPackingGap.individualMatrix : (I : OAI.BinPackingGap.Instance) →
+  OAI.BinPackingGap.IndividualConfiguration I → I.Item → ℝ :=
+fun I H i => if i ∈ ↑H then 1 else 0
+def OAI.BinPackingGap.individualLP : OAI.BinPackingGap.Instance → ℝ :=
+fun I => OAI.BinPackingGap.FractionalCover.value (OAI.BinPackingGap.individualMatrix I) fun x => 1
+def OAI.BinPackingGap.typeMatrix : (I : OAI.BinPackingGap.Instance) →
+  OAI.BinPackingGap.TypeConfiguration I → OAI.BinPackingGap.NumericalSize I → ℝ :=
+fun I c s => ↑(↑c s)
+def OAI.BinPackingGap.typeLP : OAI.BinPackingGap.Instance → ℝ :=
+fun I => OAI.BinPackingGap.FractionalCover.value (OAI.BinPackingGap.typeMatrix I) fun s => ↑s.multiplicity
+@[reducible] def OAI.BinPackingGap.RawInstance : Type :=
+List (ℕ × ℕ)
+@[reducible] def OAI.BinPackingGap.RawReductionOutput : Type :=
+ℕ × OAI.BinPackingGap.RawInstance
+def OAI.BinPackingGap.RawInstance.Valid : OAI.BinPackingGap.RawInstance → Prop :=
+fun r => ∀ q ∈ r, 0 < q.1 ∧ q.1 ≤ q.2
+def OAI.BinPackingGap.RawInstance.ratValue : ℕ × ℕ → ℚ :=
+fun q => ↑q.1 / ↑q.2
+def OAI.BinPackingGap.RawInstance.toInstance : (r : OAI.BinPackingGap.RawInstance) →
+  r.Valid → OAI.BinPackingGap.Instance :=
+fun r hr =>
+  { n := List.length r, size := fun i => OAI.BinPackingGap.RawInstance.ratValue (List.get r i), size_pos := ⋯,
+    size_le_one := ⋯ }
+structure OAI.BinPackingGap.RawPacking : Type
+number of parameters: 0
+fields:
+  OAI.BinPackingGap.RawPacking.bins : ℕ
+  OAI.BinPackingGap.RawPacking.assignments : List ℕ
+constructor:
+  OAI.BinPackingGap.RawPacking.mk (bins : ℕ) (assignments : List ℕ) : OAI.BinPackingGap.RawPacking
+def OAI.BinPackingGap.RawPacking.load : OAI.BinPackingGap.RawInstance → List ℕ → ℕ → ℚ :=
+fun r a j =>
+  (List.map (fun qa => if qa.2 = j then OAI.BinPackingGap.RawInstance.ratValue qa.1 else 0) (List.zip r a)).sum
+def OAI.BinPackingGap.RawPacking.Feasible : OAI.BinPackingGap.RawInstance → OAI.BinPackingGap.RawPacking → Prop :=
+fun r p =>
+  p.assignments.length = List.length r ∧
+    (∀ j ∈ p.assignments, j < p.bins) ∧ ∀ j < p.bins, OAI.BinPackingGap.RawPacking.load r p.assignments j ≤ 1
+@[reducible] def OAI.BinPackingGap.BinaryEncoding.natBits : ℕ → List Bool :=
+OAI.BinPackingCompleteness.BinaryEncoding.nameBits
+@[reducible] def OAI.BinPackingGap.BinaryEncoding.parseNat : List Bool → Option (ℕ × List Bool) :=
+OAI.BinPackingCompleteness.BinaryEncoding.parseName
+def OAI.BinPackingGap.BinaryEncoding.listBits : {α : Type} → (α → List Bool) → List α → List Bool :=
+fun {α} encode x => List.brecOn x (OAI.BinPackingGap.BinaryEncoding.listBits._f encode)
+def OAI.BinPackingGap.BinaryEncoding.pairBits : {α β : Type} → (α → List Bool) → (β → List Bool) → α × β → List Bool :=
+fun {α β} ea eb p => ea p.1 ++ eb p.2
+def OAI.BinPackingGap.BinaryEncoding.optionBits : {α : Type} → (α → List Bool) → Option α → List Bool :=
+fun {α} encode x =>
+  match x with
+  | none => [false]
+  | some a => true :: encode a
+@[reducible] def OAI.BinPackingGap.BinaryEncoding.Parser : Type → Type :=
+fun α => List Bool → Option (α × List Bool)
+def OAI.BinPackingGap.BinaryEncoding.parsePair : {α β : Type} →
+  OAI.BinPackingGap.BinaryEncoding.Parser α →
+    OAI.BinPackingGap.BinaryEncoding.Parser β → OAI.BinPackingGap.BinaryEncoding.Parser (α × β) :=
+fun {α β} pa pb input => do
+  let __x ← pa input
+  match __x with
+    | (a, rest) => do
+      let __x ← pb rest
+      match __x with
+        | (b, suffix) => pure ((a, b), suffix)
+def OAI.BinPackingGap.BinaryEncoding.parseListAux : {α : Type} →
+  OAI.BinPackingGap.BinaryEncoding.Parser α → ℕ → OAI.BinPackingGap.BinaryEncoding.Parser (List α) :=
+fun {α} parse x x_1 =>
+  Nat.brecOn (motive := fun x => List Bool → Option (List α × List Bool)) x
+    (OAI.BinPackingGap.BinaryEncoding.parseListAux._f parse) x_1
+def OAI.BinPackingGap.BinaryEncoding.parseList : {α : Type} →
+  OAI.BinPackingGap.BinaryEncoding.Parser α → OAI.BinPackingGap.BinaryEncoding.Parser (List α) :=
+fun {α} parse input => OAI.BinPackingGap.BinaryEncoding.parseListAux parse input.length input
+def OAI.BinPackingGap.BinaryEncoding.decode : {α : Type} →
+  OAI.BinPackingGap.BinaryEncoding.Parser α → List Bool → Option α :=
+fun {α} parse input => do
+  let __x ← parse input
+  match __x with
+    | (a, rest) => if rest.isEmpty = true then some a else none
+def OAI.BinPackingGap.BinaryEncoding.rawInstanceBits : OAI.BinPackingGap.RawInstance → List Bool :=
+fun r =>
+  OAI.BinPackingGap.BinaryEncoding.listBits
+    (OAI.BinPackingGap.BinaryEncoding.pairBits OAI.BinPackingGap.BinaryEncoding.natBits
+      OAI.BinPackingGap.BinaryEncoding.natBits)
+    r
+def OAI.BinPackingGap.BinaryEncoding.assignmentBits : List ℕ → List Bool :=
+fun a => OAI.BinPackingGap.BinaryEncoding.listBits OAI.BinPackingGap.BinaryEncoding.natBits a
+def OAI.BinPackingGap.BinaryEncoding.rawPackingBits : OAI.BinPackingGap.RawPacking → List Bool :=
+fun p =>
+  OAI.BinPackingGap.BinaryEncoding.natBits p.bins ++ OAI.BinPackingGap.BinaryEncoding.assignmentBits p.assignments
+def OAI.BinPackingGap.BinaryEncoding.packingResultBits : Option OAI.BinPackingGap.RawPacking → List Bool :=
+fun p => OAI.BinPackingGap.BinaryEncoding.optionBits OAI.BinPackingGap.BinaryEncoding.rawPackingBits p
+def OAI.BinPackingGap.BinaryEncoding.rawReductionOutputBits : OAI.BinPackingGap.RawReductionOutput → List Bool :=
+fun out => OAI.BinPackingGap.BinaryEncoding.natBits out.1 ++ OAI.BinPackingGap.BinaryEncoding.rawInstanceBits out.2
+def OAI.BinPackingGap.BinaryEncoding.parseRawInstance : OAI.BinPackingGap.BinaryEncoding.Parser
+  OAI.BinPackingGap.RawInstance :=
+OAI.BinPackingGap.BinaryEncoding.parseList
+  (OAI.BinPackingGap.BinaryEncoding.parsePair OAI.BinPackingGap.BinaryEncoding.parseNat
+    OAI.BinPackingGap.BinaryEncoding.parseNat)
+def OAI.BinPackingGap.BinaryEncoding.decodeRawInstance : List Bool → Option OAI.BinPackingGap.RawInstance :=
+OAI.BinPackingGap.BinaryEncoding.decode OAI.BinPackingGap.BinaryEncoding.parseRawInstance
+@[reducible] def OAI.BinPackingGap.BitLanguage : Type :=
+List Bool → Prop
+def OAI.BinPackingGap.InP : OAI.BinPackingGap.BitLanguage → Prop :=
+fun L =>
+  ∃ decider computation,
+    OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm ∧
+      ∀ (x : List Bool), L x ↔ decider x = true
+def OAI.BinPackingGap.ClassP : Set OAI.BinPackingGap.BitLanguage :=
+{L | OAI.BinPackingGap.InP L}
+def OAI.BinPackingGap.ClassNP : Set OAI.BinPackingGap.BitLanguage :=
+{L | OAI.BinPackingGames.Foundations.Complexity.CookLevin.InNP L}
+def OAI.BinPackingGap.PEqualsNP : Prop :=
+OAI.BinPackingGap.ClassP = OAI.BinPackingGap.ClassNP
+structure OAI.BinPackingGap.AbsoluteAdditiveAlgorithm (c : ℕ) : Type 1
+number of parameters: 1
+fields:
+  OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.run : List Bool → Option OAI.BinPackingGap.RawPacking
+  OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.computation : Turing.TM2ComputableInPolyTime id
+      OAI.BinPackingGap.BinaryEncoding.packingResultBits self.run
+  OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.finiteAlphabet : OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet
+      self.computation.tm
+  OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.guarantee : ∀ (r : OAI.BinPackingGap.RawInstance) (hr : r.Valid),
+      ∃ p,
+        self.run (OAI.BinPackingGap.BinaryEncoding.rawInstanceBits r) = some p ∧
+          OAI.BinPackingGap.RawPacking.Feasible r p ∧ p.bins ≤ OAI.BinPackingGap.opt (r.toInstance hr) + c
+constructor:
+  OAI.BinPackingGap.AbsoluteAdditiveAlgorithm.mk {c : ℕ} (run : List Bool → Option OAI.BinPackingGap.RawPacking)
+    (computation : Turing.TM2ComputableInPolyTime id OAI.BinPackingGap.BinaryEncoding.packingResultBits run)
+    (finiteAlphabet : OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm)
+    (guarantee :
+      ∀ (r : OAI.BinPackingGap.RawInstance) (hr : r.Valid),
+        ∃ p,
+          run (OAI.BinPackingGap.BinaryEncoding.rawInstanceBits r) = some p ∧
+            OAI.BinPackingGap.RawPacking.Feasible r p ∧ p.bins ≤ OAI.BinPackingGap.opt (r.toInstance hr) + c) :
+    OAI.BinPackingGap.AbsoluteAdditiveAlgorithm c
+structure OAI.BinPackingGap.PackingGapReduction (c : ℕ) (L : OAI.BinPackingGap.BitLanguage) : Type 1
+number of parameters: 2
+fields:
+  OAI.BinPackingGap.PackingGapReduction.reduce : List Bool → OAI.BinPackingGap.RawReductionOutput
+  OAI.BinPackingGap.PackingGapReduction.computation : Turing.TM2ComputableInPolyTime id
+      OAI.BinPackingGap.BinaryEncoding.rawReductionOutputBits self.reduce
+  OAI.BinPackingGap.PackingGapReduction.finiteAlphabet : OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet
+      self.computation.tm
+  OAI.BinPackingGap.PackingGapReduction.valid : ∀ (x : List Bool), (self.reduce x).2.Valid
+  OAI.BinPackingGap.PackingGapReduction.itemCount : ∀ (x : List Bool),
+      List.length (self.reduce x).2 = 5 * (self.reduce x).1
+  OAI.BinPackingGap.PackingGapReduction.itemLower : ∀ (x : List Bool) (i : Fin ((self.reduce x).2.toInstance ⋯).n),
+      1 / 6 < ((self.reduce x).2.toInstance ⋯).size i
+  OAI.BinPackingGap.PackingGapReduction.completeness : ∀ (x : List Bool),
+      L x → OAI.BinPackingGap.HasPacking ((self.reduce x).2.toInstance ⋯) (self.reduce x).1
+  OAI.BinPackingGap.PackingGapReduction.soundness : ∀ (x : List Bool),
+      ¬L x → ¬OAI.BinPackingGap.HasPacking ((self.reduce x).2.toInstance ⋯) ((self.reduce x).1 + c)
+constructor:
+  OAI.BinPackingGap.PackingGapReduction.mk {c : ℕ} {L : OAI.BinPackingGap.BitLanguage}
+    (reduce : List Bool → OAI.BinPackingGap.RawReductionOutput)
+    (computation : Turing.TM2ComputableInPolyTime id OAI.BinPackingGap.BinaryEncoding.rawReductionOutputBits reduce)
+    (finiteAlphabet : OAI.BinPackingGames.Foundations.Complexity.MachineFiniteAlphabet.FiniteAlphabet computation.tm)
+    (valid : ∀ (x : List Bool), (reduce x).2.Valid)
+    (itemCount : ∀ (x : List Bool), List.length (reduce x).2 = 5 * (reduce x).1)
+    (itemLower : ∀ (x : List Bool) (i : Fin ((reduce x).2.toInstance ⋯).n), 1 / 6 < ((reduce x).2.toInstance ⋯).size i)
+    (completeness : ∀ (x : List Bool), L x → OAI.BinPackingGap.HasPacking ((reduce x).2.toInstance ⋯) (reduce x).1)
+    (soundness :
+      ∀ (x : List Bool), ¬L x → ¬OAI.BinPackingGap.HasPacking ((reduce x).2.toInstance ⋯) ((reduce x).1 + c)) :
+    OAI.BinPackingGap.PackingGapReduction c L
+def OAI.BinPackingGap.PackingGapNPHard : ℕ → Prop :=
+fun c =>
+  ∀ (L : OAI.BinPackingGap.BitLanguage),
+    OAI.BinPackingGames.Foundations.Complexity.CookLevin.InNP L → Nonempty (OAI.BinPackingGap.PackingGapReduction c L)

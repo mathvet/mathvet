@@ -1,0 +1,26 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_TorsionFreeZeroDivisors.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TorsionFreeZeroDivisors.main [thm] ok
+CMP OAI.TorsionFreeZeroDivisors.MainTheorem [def] ok
+CMP OAI.TorsionFreeZeroDivisors.HasFiniteTwoDimensionalClassifyingSpace [def] ok
+CMP OAI.TorsionFreeZeroDivisors.TorsionFree [def] ok
+Chal.TorsionFreeZeroDivisors.main : Chal.TorsionFreeZeroDivisors.MainTheorem
+def Chal.TorsionFreeZeroDivisors.TorsionFree : (G : Type) → [Group G] → Prop :=
+fun G [Group G] => ∀ (g : G) (n : ℕ), 0 < n → g ^ n = 1 → g = 1
+def Chal.TorsionFreeZeroDivisors.HasFiniteTwoDimensionalClassifyingSpace : (G : Type) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∃ X topX,
+    ∃ (_ : T2Space X) (_ : PathConnectedSpace X),
+      ∃ cw,
+        Topology.RelCWComplex.Finite Set.univ ∧
+          (∀ (n : ℕ), 2 < n → IsEmpty (Topology.CWComplex.cell Set.univ n)) ∧
+            Nonempty (Topology.CWComplex.cell Set.univ 2) ∧
+              ∃ x,
+                Nonempty (G ≃* FundamentalGroup X x) ∧
+                  ∃ E topE, ContractibleSpace E ∧ ∃ p, IsCoveringMap p ∧ Function.Surjective p
+def Chal.TorsionFreeZeroDivisors.MainTheorem : Prop :=
+∃ G inst,
+  Group.IsFinitelyPresented G ∧
+    Chal.TorsionFreeZeroDivisors.TorsionFree G ∧
+      Chal.TorsionFreeZeroDivisors.HasFiniteTwoDimensionalClassifyingSpace G ∧ ∃ α β, α ≠ 0 ∧ β ≠ 0 ∧ α * β = 0
+'OAI.TorsionFreeZeroDivisors.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TorsionFreeZeroDivisors comparator-style: ok=4 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
