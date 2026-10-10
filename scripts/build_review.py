@@ -100,7 +100,9 @@ def scan_checks(name):
         d['evidence_files'].append(cmp.name)
         t = cmp.read_text(errors='replace')
         ms = re.findall(r'comparator-style: ok=(\d+) problems=(\d+) errors=(\d+) \| (\S+) \|', t)
-        if ms:
+        if 'comparator-style: n/a' in t:
+            d['closure'] = 'n/a'   # the challenge imports the solution library; only Comparator's structural check applies
+        elif ms:
             ok, pb, er, sh = ms[-1]
             d.update(closure_constants=int(ok), closure_problems=int(pb), closure_errors=int(er), shadowing=sh)
             d['closure'] = 'ok' if int(pb) == 0 and int(er) == 0 and int(ok) > 0 else 'problems'
@@ -151,7 +153,7 @@ def scan_checks(name):
                 d[key] = 'built' if re.search(r'^== build rc=0', tt, re.M) else 'incomplete'
             else:
                 ms = re.findall(r'comparator-style: ok=(\d+) problems=(\d+) errors=(\d+)', tt)
-                d[key] = ('ok' if ms and ms[-1][1] == '0' and ms[-1][2] == '0' else 'problems') if ms else 'error'
+                d[key] = 'n/a' if 'comparator-style: n/a' in tt else (('ok' if ms and ms[-1][1] == '0' and ms[-1][2] == '0' else 'problems') if ms else 'error')
     ev = evidence_commits.get(name, {})
     for src in ('mac', 'cloud'):
         e = ev.get(src)

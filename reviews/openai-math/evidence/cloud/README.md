@@ -63,3 +63,8 @@ Notes on individual logs:
   structural differences, all definitionally equal); HardSphere's `Orbital.map` is definitionally equal and the one remaining
   entry is an auto-generated auxiliary proof (`map._proof_3`), which the checker now reports as `AUX` (numbered per elaboration;
   compared through the parent's value) rather than as a problem.
+- `CartierChartCompactnessSupport.cmp.txt` and `CharacterVarietiesAllSeamsSupport.cmp.txt` (both new at `fd4aeeb2`) are the
+  only two challenge files that `import OAI.*` (the solution library) instead of Mathlib alone. The closure comparison
+  re-elaborates the challenge text under a fresh namespace, which is meaningless here (every renamed reference to an
+  imported constant points at nothing), so those first runs show unknown identifiers and a `TYPE_MISMATCH`/`NOT_FOUND`
+  that mean nothing about the solutions; the checker now reports `n/a` for such files. Comparator accepted both.

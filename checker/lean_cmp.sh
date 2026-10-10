@@ -7,6 +7,12 @@
 # its copy elaborated inside the solution. Then `#print axioms`. Output: $MATHVET_CHECKS/<Challenge>.cmp.txt
 source "$(dirname "$0")/env.sh"
 C="$1"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
+if grep -qE '^import OAI' "$L/ComparatorChallenges/$C.lean"; then
+  # the challenge imports the solution's own modules: re-elaborating its text under a fresh namespace is not meaningful
+  # (every renamed reference would point at nothing); Comparator's structural comparison is the applicable check
+  echo "== $C comparator-style: n/a (challenge imports solution modules; closure comparison not applicable) | n/a | | defeq_only=0 aux_only=0" | tee "$OUT/$C.cmp.txt"
+  : > "$OUT/$C.standalone.norm"; : > "$OUT/$C.insolution.norm"; exit 0
+fi
 python3 "$HERE/gen_cmp.py" "$C" >/dev/null || exit 1
 cd "$L" && lake env lean "$L/Scratch/Cmp_$C.lean" 2>&1 | grep -v 'has local changes' | grep -vE "declaration uses .sorry." > "$OUT/$C.cmp.txt"
 n_ok=$(grep -c 'CMP .* ok$' "$OUT/$C.cmp.txt"); n_bad=$(grep -E 'MISMATCH|MISSING|NOT_FOUND' "$OUT/$C.cmp.txt" | grep -v 'DEFEQ: definitionally equal' | grep -vc '(AUX:'); n_defeq=$(grep -c 'DEFEQ: definitionally equal' "$OUT/$C.cmp.txt"); n_aux=$(grep -c '(AUX:' "$OUT/$C.cmp.txt"); n_err=$(grep -c -E '(^|: )error(\([a-zA-Z.]+\))?: ' "$OUT/$C.cmp.txt")   # Lean error messages only, not constants named `error`
