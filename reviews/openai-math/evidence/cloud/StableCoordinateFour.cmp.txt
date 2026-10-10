@@ -1,0 +1,52 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_StableCoordinateFour.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.StableCoordinate.principal_package [thm] ok
+CMP OAI.StableCoordinate.PrincipalPackage [def] ok
+CMP OAI.StableCoordinate.FiberPackage [def] ok
+CMP OAI.StableCoordinate.IsRectifiableFiber [def] ok
+CMP OAI.StableCoordinate.Q._proof_1 [thm] ok
+CMP OAI.StableCoordinate.fiberIdeal [def] ok
+CMP OAI.StableCoordinate.f [def] ok
+CMP OAI.StableCoordinate.Q [def] ok
+CMP OAI.StableCoordinate.R [def] ok
+CMP OAI.StableCoordinate.f._proof_1 [thm] ok
+CMP OAI.StableCoordinate.IsAffineThreeSpaceFiber [def] ok
+CMP OAI.StableCoordinate.FiberRing [def] ok
+CMP OAI.StableCoordinate.PolynomialPackage [def] ok
+CMP OAI.StableCoordinate.PolynomialPackage._proof_1 [thm] ok
+CMP OAI.StableCoordinate.IsCoordinate [def] ok
+CMP OAI.StableCoordinate.IsOneStableCoordinate [def] ok
+CMP OAI.StableCoordinate.IsOneStableCoordinate._proof_1 [thm] ok
+CMP OAI.StableCoordinate.stabilize [def] ok
+Chal.StableCoordinate.principal_package : Chal.StableCoordinate.PrincipalPackage
+@[reducible] def Chal.StableCoordinate.R : ℕ → Type :=
+fun n => MvPolynomial (Fin n) ℂ
+def Chal.StableCoordinate.Q : Chal.StableCoordinate.R 4 :=
+MvPolynomial.X 1 ^ 2 - MvPolynomial.X 3 ^ 2 + MvPolynomial.X 0 * MvPolynomial.X 2
+def Chal.StableCoordinate.f : Chal.StableCoordinate.R 4 :=
+MvPolynomial.X 0 -
+  2 * Chal.StableCoordinate.Q *
+    (Chal.StableCoordinate.Q * (MvPolynomial.X 1 + MvPolynomial.X 3) + MvPolynomial.X 0 * MvPolynomial.X 3)
+def Chal.StableCoordinate.IsCoordinate : {n : ℕ} → 0 < n → Chal.StableCoordinate.R n → Prop :=
+fun {n} hn g => ∃ φ, φ g = MvPolynomial.X ⟨0, hn⟩
+def Chal.StableCoordinate.stabilize : Chal.StableCoordinate.R 4 →ₐ[ℂ] Chal.StableCoordinate.R 5 :=
+MvPolynomial.rename Fin.castSucc
+def Chal.StableCoordinate.IsOneStableCoordinate : Chal.StableCoordinate.R 4 → Prop :=
+fun g => ∃ φ, φ (Chal.StableCoordinate.stabilize g) = MvPolynomial.X 0
+def Chal.StableCoordinate.fiberIdeal : ℂ → Ideal (Chal.StableCoordinate.R 4) :=
+fun t => Ideal.span {Chal.StableCoordinate.f - MvPolynomial.C t}
+@[reducible] def Chal.StableCoordinate.FiberRing : ℂ → Type :=
+fun t => Chal.StableCoordinate.R 4 ⧸ Chal.StableCoordinate.fiberIdeal t
+def Chal.StableCoordinate.IsAffineThreeSpaceFiber : ℂ → Prop :=
+fun t => Nonempty (Chal.StableCoordinate.FiberRing t ≃ₐ[ℂ] Chal.StableCoordinate.R 3)
+def Chal.StableCoordinate.IsRectifiableFiber : ℂ → Prop :=
+fun t => ∃ φ, Ideal.map φ.toRingEquiv.toRingHom (Chal.StableCoordinate.fiberIdeal t) = Ideal.span {MvPolynomial.X 0}
+def Chal.StableCoordinate.PolynomialPackage : Prop :=
+MvPolynomial.totalDegree Chal.StableCoordinate.f = 5 ∧
+  Chal.StableCoordinate.IsOneStableCoordinate Chal.StableCoordinate.f ∧
+    ¬Chal.StableCoordinate.IsCoordinate Chal.StableCoordinate.PolynomialPackage._proof_1 Chal.StableCoordinate.f
+def Chal.StableCoordinate.FiberPackage : Prop :=
+∀ (t : ℂ), Chal.StableCoordinate.IsAffineThreeSpaceFiber t ∧ ¬Chal.StableCoordinate.IsRectifiableFiber t
+def Chal.StableCoordinate.PrincipalPackage : Prop :=
+Chal.StableCoordinate.PolynomialPackage ∧ Chal.StableCoordinate.FiberPackage
+'OAI.StableCoordinate.principal_package' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StableCoordinateFour comparator-style: ok=18 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
