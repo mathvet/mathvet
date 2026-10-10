@@ -1,0 +1,469 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_UniformFourier.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.PowerSaving.convolution_main [thm] ok
+CMP OAI.PowerSaving.ConvGoal [def] ok
+CMP OAI.PowerSaving.TimeBounds [def] ok
+CMP OAI.PowerSaving.nlogn [def] ok
+CMP OAI.PowerSaving.decimalTime [def] ok
+CMP OAI.PowerSaving.decimalExponent [def] ok
+CMP OAI.PowerSaving.decimalExponent._proof_1 [thm] ok
+CMP OAI.PowerSaving.paperTime [def] ok
+CMP OAI.PowerSaving.paperTime._proof_1 [thm] ok
+CMP OAI.PowerSaving.theta [def] ok
+CMP OAI.PowerSaving.paperM [def] ok
+CMP OAI.PowerSaving.paperM._proof_1 [thm] ok
+CMP OAI.PowerSaving.paperMultiplier [def] ok
+CMP OAI.PowerSaving.paperW [def] ok
+CMP OAI.PowerSaving.paperDelta [def] ok
+CMP OAI.PowerSaving.paperDelta._proof_1 [thm] ok
+CMP OAI.PowerSaving.ConvProgram [def] ok
+CMP OAI.PowerSaving.conv [def] ok
+CMP OAI.PowerSaving.Vec [def] ok
+CMP OAI.PowerSaving.RAM.Bill.work [def] ok
+CMP OAI.PowerSaving.RAM.Bill [ind] ok
+CMP OAI.PowerSaving.RAM.Bill.mk [ctor] ok
+CMP OAI.PowerSaving.Tape.mk [ctor] ok
+CMP OAI.PowerSaving.Tape [ind] ok
+CMP OAI.PowerSaving.root [def] ok
+CMP OAI.ExactFourier.zeta [def] ok
+CMP OAI.ExactFourier.zeta._proof_1 [thm] ok
+CMP OAI.PowerSaving.RAM.Paint.right [ctor] ok
+CMP OAI.PowerSaving.RAM.Paint [ind] ok
+CMP OAI.PowerSaving.RAM.Paint.both [ctor] ok
+CMP OAI.PowerSaving.RAM.Paint.left [ctor] ok
+CMP OAI.PowerSaving.RAM.Paint.scalar [ctor] ok
+CMP OAI.PowerSaving.RAM.Ty.c [ctor] ok
+CMP OAI.PowerSaving.RAM.Ty [ind] ok
+CMP OAI.PowerSaving.RAM.Ty.a [ctor] ok
+CMP OAI.PowerSaving.RAM.Ty.p [ctor] ok
+CMP OAI.PowerSaving.RAM.Ty.w [ctor] ok
+CMP OAI.PowerSaving.RAM.sc [def] ok
+CMP OAI.PowerSaving.RAM.Bill.val [def] ok
+CMP OAI.PowerSaving.RAM.Bill.valid [def] ok
+CMP OAI.PowerSaving.RAM.Bill.peak [def] ok
+CMP OAI.PowerSaving.RAM.run [def] ok
+CMP OAI.PowerSaving.RAM.Code.run [def] ok
+CMP OAI.PowerSaving.RAM.Code.run._f [def] ok
+CMP OAI.PowerSaving.RAM.depthRun [def] ok
+CMP OAI.PowerSaving.RAM.depthRun._f [def] ok
+CMP OAI.PowerSaving.RAM.Bill.pay [def] ok
+CMP OAI.PowerSaving.RAM.depthRun.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Code.descend [ctor] ok
+CMP OAI.PowerSaving.RAM.Code [ind] ok
+CMP OAI.PowerSaving.RAM.Code.call [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.importClosed [ctor] ok
+CMP OAI.PowerSaving.RAM.Port [def] ok
+CMP OAI.PowerSaving.RAM.Code.sow [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.tab [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.loop [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.ifz [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.fork [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.comp [ctor] ok
+CMP OAI.PowerSaving.RAM.Code.atom [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom [ind] ok
+CMP OAI.PowerSaving.RAM.Atom.look [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.len [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.snd [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.fst [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.id [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.cross [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.inv [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.scale [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.sub [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.add [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.cone [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.cz [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.int [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp [ind] ok
+CMP OAI.PowerSaving.RAM.NOp.lt [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp.mod [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp.div [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp.mul [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp.sub [ctor] ok
+CMP OAI.PowerSaving.RAM.NOp.add [ctor] ok
+CMP OAI.PowerSaving.RAM.Atom.lit [ctor] ok
+CMP OAI.PowerSaving.RAM.Bill.sow [def] ok
+CMP OAI.PowerSaving.Tape.set [def] ok
+CMP OAI.PowerSaving.Tape.pos [def] ok
+CMP OAI.PowerSaving.Tape.len [def] ok
+CMP OAI.PowerSaving.RAM.Bill.one [def] ok
+CMP OAI.PowerSaving.RAM.Bill.pass [def] ok
+CMP OAI.PowerSaving.Tape.tab [def] ok
+CMP OAI.PowerSaving.RAM.Bill.steps [def] ok
+CMP OAI.PowerSaving.RAM.Bill.steps._f [def] ok
+CMP OAI.PowerSaving.Tape.sow.iter.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Ty.blank [def] ok
+CMP OAI.PowerSaving.RAM.Ty.blank._f [def] ok
+CMP OAI.PowerSaving.Tape.empty [def] ok
+CMP OAI.PowerSaving.RAM.Ty.T.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Ty.casesOn [def] ok
+CMP OAI.PowerSaving.RAM.Ty.rec [rec] ok
+CMP OAI.PowerSaving.RAM.Ty.T [def] ok
+CMP OAI.PowerSaving.RAM.Ty.T._f [def] ok
+CMP OAI.PowerSaving.RAM.Ty.below [def] ok
+CMP OAI.PowerSaving.RAM.Ty.brecOn [def] ok
+CMP OAI.PowerSaving.RAM.Ty.brecOn.go [def] ok
+CMP OAI.PowerSaving.RAM.Bill.tab [def] ok
+CMP OAI.PowerSaving.RAM.Atom.run [def] ok
+CMP OAI.PowerSaving.Tape.look [def] ok
+CMP OAI.PowerSaving.RAM.NOp.run [def] ok
+CMP OAI.PowerSaving.RAM.Bill.word [def] ok
+CMP OAI.PowerSaving.RAM.NOp.run.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.NOp.casesOn [def] ok
+CMP OAI.PowerSaving.RAM.NOp.rec [rec] ok
+CMP OAI.PowerSaving.RAM.Atom.run.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Atom.casesOn [def] ok
+CMP OAI.PowerSaving.RAM.Atom.rec [rec] ok
+CMP OAI.PowerSaving.RAM.Code.run.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Code.casesOn [def] ok
+CMP OAI.PowerSaving.RAM.Code.rec [rec] ok
+CMP OAI.PowerSaving.RAM.Handler [def] ok
+CMP OAI.PowerSaving.RAM.Handler.match_1 [def] ok
+CMP OAI.PowerSaving.RAM.Code.below [def] ok
+CMP OAI.PowerSaving.RAM.Code.brecOn [def] ok
+CMP OAI.PowerSaving.RAM.Code.brecOn.go [def] ok
+CMP OAI.PowerSaving.RAM.Prog [def] ok
+CMP OAI.PowerSaving.convOutKind [def] ok
+CMP OAI.PowerSaving.convInKind [def] ok
+CMP OAI.PowerSaving.transform_main [thm] ok
+CMP OAI.PowerSaving.DFTGoal [def] ok
+CMP OAI.PowerSaving.DFTProgram [def] ok
+CMP OAI.PowerSaving.dft [def] ok
+CMP OAI.PowerSaving.dftOutKind [def] ok
+CMP OAI.PowerSaving.dftInKind [def] ok
+Chal.PowerSaving.transform_main : Chal.PowerSaving.DFTGoal
+Chal.PowerSaving.convolution_main : Chal.PowerSaving.ConvGoal
+def Chal.ExactFourier.zeta : ℕ → ℂ :=
+fun n => Complex.exp (2 * ↑Real.pi * Complex.I / ↑n)
+structure Chal.PowerSaving.Tape.{u} (α : Type u) : Type u
+number of parameters: 1
+fields:
+  Chal.PowerSaving.Tape.len : ℕ
+  Chal.PowerSaving.Tape.pos : Fin self.len → α
+constructor:
+  Chal.PowerSaving.Tape.mk.{u} {α : Type u} (len : ℕ) (pos : Fin len → α) : Chal.PowerSaving.Tape α
+def Chal.PowerSaving.Tape.empty.{u} : (α : Type u) → Chal.PowerSaving.Tape α :=
+fun α => { len := 0, pos := Fin.elim0 }
+def Chal.PowerSaving.Tape.tab.{u} : {α : Type u} → ℕ → (ℕ → α) → Chal.PowerSaving.Tape α :=
+fun {α} n f => { len := n, pos := fun i => f ↑i }
+def Chal.PowerSaving.Tape.look.{u} : {α : Type u} → Chal.PowerSaving.Tape α → ℕ → α → α :=
+fun {α} v i z => if h : i < v.len then v.pos ⟨i, h⟩ else z
+def Chal.PowerSaving.Tape.set.{u} : {α : Type u} → Chal.PowerSaving.Tape α → ℕ → α → Chal.PowerSaving.Tape α :=
+fun {α} v i x => { len := v.len, pos := fun j => if ↑j = i then x else v.pos j }
+def Chal.PowerSaving.Tape.sow.{u} : {α : Type u} → ℕ → ℕ → α → (ℕ → ℕ × α) → Chal.PowerSaving.Tape α :=
+fun {α} len count z f => Chal.PowerSaving.Tape.sow.iter len z f count
+def Chal.PowerSaving.Tape.map.{u, v} : {α : Type u} →
+  {β : Type v} → (α → β) → Chal.PowerSaving.Tape α → Chal.PowerSaving.Tape β :=
+fun {α} {β} f v => { len := v.len, pos := fun i => f (v.pos i) }
+inductive Chal.PowerSaving.RAM.Paint : Type
+number of parameters: 0
+constructors:
+Chal.PowerSaving.RAM.Paint.scalar : Chal.PowerSaving.RAM.Paint
+Chal.PowerSaving.RAM.Paint.left : Chal.PowerSaving.RAM.Paint
+Chal.PowerSaving.RAM.Paint.right : Chal.PowerSaving.RAM.Paint
+Chal.PowerSaving.RAM.Paint.both : Chal.PowerSaving.RAM.Paint
+inductive Chal.PowerSaving.RAM.Ty : Type
+number of parameters: 0
+constructors:
+Chal.PowerSaving.RAM.Ty.w : Chal.PowerSaving.RAM.Ty
+Chal.PowerSaving.RAM.Ty.c : Chal.PowerSaving.RAM.Paint → Chal.PowerSaving.RAM.Ty
+Chal.PowerSaving.RAM.Ty.p : Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty
+Chal.PowerSaving.RAM.Ty.a : Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty
+@[reducible] def Chal.PowerSaving.RAM.sc : Chal.PowerSaving.RAM.Ty :=
+Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.scalar
+@[reducible] def Chal.PowerSaving.RAM.Ty.T : Chal.PowerSaving.RAM.Ty → Type :=
+fun x => Chal.PowerSaving.RAM.Ty.brecOn x Chal.PowerSaving.RAM.Ty.T._f
+def Chal.PowerSaving.RAM.Ty.blank : (t : Chal.PowerSaving.RAM.Ty) → t.T :=
+fun x => Chal.PowerSaving.RAM.Ty.brecOn x Chal.PowerSaving.RAM.Ty.blank._f
+structure Chal.PowerSaving.RAM.Bill.{u} (α : Type u) : Type u
+number of parameters: 1
+fields:
+  Chal.PowerSaving.RAM.Bill.val : α
+  Chal.PowerSaving.RAM.Bill.work : ℕ
+  Chal.PowerSaving.RAM.Bill.peak : ℕ
+  Chal.PowerSaving.RAM.Bill.valid : Prop
+constructor:
+  Chal.PowerSaving.RAM.Bill.mk.{u} {α : Type u} (val : α) (work peak : ℕ) (valid : Prop) : Chal.PowerSaving.RAM.Bill α
+def Chal.PowerSaving.RAM.Bill.pay.{u} : {α : Type u} →
+  Chal.PowerSaving.RAM.Bill α → ℕ → ℕ → Chal.PowerSaving.RAM.Bill α :=
+fun {α} b n m => { val := b.val, work := b.work + n, peak := max b.peak m, valid := b.valid }
+def Chal.PowerSaving.RAM.Bill.pass.{u, v} : {α : Type u} →
+  {β : Type v} → Chal.PowerSaving.RAM.Bill α → (α → Chal.PowerSaving.RAM.Bill β) → Chal.PowerSaving.RAM.Bill β :=
+fun {α} {β} b f =>
+  have d := f b.val;
+  { val := d.val, work := b.work + d.work, peak := max b.peak d.peak, valid := b.valid ∧ d.valid }
+def Chal.PowerSaving.RAM.Bill.one.{u} : {α : Type u} → α → Chal.PowerSaving.RAM.Bill α :=
+fun {α} x => { val := x, work := 1, peak := 0, valid := True }
+def Chal.PowerSaving.RAM.Bill.word : ℕ → Chal.PowerSaving.RAM.Bill ℕ :=
+fun x => { val := x, work := 1, peak := x, valid := True }
+def Chal.PowerSaving.RAM.Bill.steps.{u} : {α : Type u} →
+  α → (ℕ → α → Chal.PowerSaving.RAM.Bill α) → ℕ → Chal.PowerSaving.RAM.Bill α :=
+fun {α} init f x => Nat.brecOn x (Chal.PowerSaving.RAM.Bill.steps._f init f)
+def Chal.PowerSaving.RAM.Bill.sow.{u} : {α : Type u} →
+  ℕ → ℕ → α → (ℕ → Chal.PowerSaving.RAM.Bill (ℕ × α)) → Chal.PowerSaving.RAM.Bill (Chal.PowerSaving.Tape α) :=
+fun {α} len count z f =>
+  (Chal.PowerSaving.RAM.Bill.steps (Chal.PowerSaving.Tape.tab len fun x => z)
+        (fun i v => (f i).pass fun s => Chal.PowerSaving.RAM.Bill.one (v.set s.1 s.2)) count).pay
+    (1 + len) len
+def Chal.PowerSaving.RAM.Bill.tab.{u} : {α : Type u} →
+  ℕ → α → (ℕ → Chal.PowerSaving.RAM.Bill α) → Chal.PowerSaving.RAM.Bill (Chal.PowerSaving.Tape α) :=
+fun {α} len z f =>
+  Chal.PowerSaving.RAM.Bill.sow len len z fun i => (f i).pass fun y => Chal.PowerSaving.RAM.Bill.one (i, y)
+inductive Chal.PowerSaving.RAM.NOp : Type
+number of parameters: 0
+constructors:
+Chal.PowerSaving.RAM.NOp.add : Chal.PowerSaving.RAM.NOp
+Chal.PowerSaving.RAM.NOp.sub : Chal.PowerSaving.RAM.NOp
+Chal.PowerSaving.RAM.NOp.mul : Chal.PowerSaving.RAM.NOp
+Chal.PowerSaving.RAM.NOp.div : Chal.PowerSaving.RAM.NOp
+Chal.PowerSaving.RAM.NOp.mod : Chal.PowerSaving.RAM.NOp
+Chal.PowerSaving.RAM.NOp.lt : Chal.PowerSaving.RAM.NOp
+inductive Chal.PowerSaving.RAM.Atom : Bool → Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty → Type
+number of parameters: 1
+constructors:
+Chal.PowerSaving.RAM.Atom.lit : {allow : Bool} →
+  {a : Chal.PowerSaving.RAM.Ty} → ℕ → Chal.PowerSaving.RAM.Atom allow a Chal.PowerSaving.RAM.Ty.w
+Chal.PowerSaving.RAM.Atom.int : {allow : Bool} →
+  Chal.PowerSaving.RAM.NOp →
+    Chal.PowerSaving.RAM.Atom allow (Chal.PowerSaving.RAM.Ty.w.p Chal.PowerSaving.RAM.Ty.w) Chal.PowerSaving.RAM.Ty.w
+Chal.PowerSaving.RAM.Atom.cz : {allow : Bool} →
+  (t : Chal.PowerSaving.RAM.Paint) →
+    {a : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow a (Chal.PowerSaving.RAM.Ty.c t)
+Chal.PowerSaving.RAM.Atom.cone : {allow : Bool} →
+  {a : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow a Chal.PowerSaving.RAM.sc
+Chal.PowerSaving.RAM.Atom.add : {allow : Bool} →
+  (t : Chal.PowerSaving.RAM.Paint) →
+    Chal.PowerSaving.RAM.Atom allow ((Chal.PowerSaving.RAM.Ty.c t).p (Chal.PowerSaving.RAM.Ty.c t))
+      (Chal.PowerSaving.RAM.Ty.c t)
+Chal.PowerSaving.RAM.Atom.sub : {allow : Bool} →
+  (t : Chal.PowerSaving.RAM.Paint) →
+    Chal.PowerSaving.RAM.Atom allow ((Chal.PowerSaving.RAM.Ty.c t).p (Chal.PowerSaving.RAM.Ty.c t))
+      (Chal.PowerSaving.RAM.Ty.c t)
+Chal.PowerSaving.RAM.Atom.scale : {allow : Bool} →
+  (t : Chal.PowerSaving.RAM.Paint) →
+    Chal.PowerSaving.RAM.Atom allow (Chal.PowerSaving.RAM.sc.p (Chal.PowerSaving.RAM.Ty.c t))
+      (Chal.PowerSaving.RAM.Ty.c t)
+Chal.PowerSaving.RAM.Atom.inv : {allow : Bool} →
+  Chal.PowerSaving.RAM.Atom allow Chal.PowerSaving.RAM.sc Chal.PowerSaving.RAM.sc
+Chal.PowerSaving.RAM.Atom.cross : {allow : Bool} →
+  allow = true →
+    Chal.PowerSaving.RAM.Atom allow
+      ((Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.left).p
+        (Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.right))
+      (Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.both)
+Chal.PowerSaving.RAM.Atom.id : {allow : Bool} → {a : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow a a
+Chal.PowerSaving.RAM.Atom.fst : {allow : Bool} →
+  {a b : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow (a.p b) a
+Chal.PowerSaving.RAM.Atom.snd : {allow : Bool} →
+  {a b : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow (a.p b) b
+Chal.PowerSaving.RAM.Atom.len : {allow : Bool} →
+  {s : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow s.a Chal.PowerSaving.RAM.Ty.w
+Chal.PowerSaving.RAM.Atom.look : {allow : Bool} →
+  {s : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow (s.a.p Chal.PowerSaving.RAM.Ty.w) s
+def Chal.PowerSaving.RAM.NOp.run : Chal.PowerSaving.RAM.NOp → ℕ × ℕ → Chal.PowerSaving.RAM.Bill ℕ :=
+fun x x_1 =>
+  match x, x_1 with
+  | Chal.PowerSaving.RAM.NOp.add, (i, j) => Chal.PowerSaving.RAM.Bill.word (i + j)
+  | Chal.PowerSaving.RAM.NOp.sub, (i, j) => Chal.PowerSaving.RAM.Bill.word (i - j)
+  | Chal.PowerSaving.RAM.NOp.mul, (i, j) => Chal.PowerSaving.RAM.Bill.word (i * j)
+  | Chal.PowerSaving.RAM.NOp.div, (i, j) => Chal.PowerSaving.RAM.Bill.word (i / j)
+  | Chal.PowerSaving.RAM.NOp.mod, (i, j) => Chal.PowerSaving.RAM.Bill.word (i % j)
+  | Chal.PowerSaving.RAM.NOp.lt, (i, j) => Chal.PowerSaving.RAM.Bill.word (if i < j then 1 else 0)
+def Chal.PowerSaving.RAM.Atom.run : {allow : Bool} →
+  {a b : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow a b → a.T → Chal.PowerSaving.RAM.Bill b.T :=
+fun {allow} {a b} x x_1 =>
+  match a, b, x, x_1 with
+  | a, .(Chal.PowerSaving.RAM.Ty.w), Chal.PowerSaving.RAM.Atom.lit n, x => Chal.PowerSaving.RAM.Bill.word n
+  | .(Chal.PowerSaving.RAM.Ty.w.p Chal.PowerSaving.RAM.Ty.w), .(Chal.PowerSaving.RAM.Ty.w),
+    Chal.PowerSaving.RAM.Atom.int f, x => f.run x
+  | a, .(Chal.PowerSaving.RAM.Ty.c t), Chal.PowerSaving.RAM.Atom.cz t, x => Chal.PowerSaving.RAM.Bill.one 0
+  | a, .(Chal.PowerSaving.RAM.sc), Chal.PowerSaving.RAM.Atom.cone, x => Chal.PowerSaving.RAM.Bill.one 1
+  | .((Chal.PowerSaving.RAM.Ty.c t).p (Chal.PowerSaving.RAM.Ty.c t)), .(Chal.PowerSaving.RAM.Ty.c t),
+    Chal.PowerSaving.RAM.Atom.add t, (x, y) => Chal.PowerSaving.RAM.Bill.one (x + y)
+  | .((Chal.PowerSaving.RAM.Ty.c t).p (Chal.PowerSaving.RAM.Ty.c t)), .(Chal.PowerSaving.RAM.Ty.c t),
+    Chal.PowerSaving.RAM.Atom.sub t, (x, y) => Chal.PowerSaving.RAM.Bill.one (x - y)
+  | .(Chal.PowerSaving.RAM.sc.p (Chal.PowerSaving.RAM.Ty.c t)), .(Chal.PowerSaving.RAM.Ty.c t),
+    Chal.PowerSaving.RAM.Atom.scale t, (x, y) => Chal.PowerSaving.RAM.Bill.one (x * y)
+  | .(Chal.PowerSaving.RAM.sc), .(Chal.PowerSaving.RAM.sc), Chal.PowerSaving.RAM.Atom.inv, x =>
+    { val := x⁻¹, work := 1, peak := 0, valid := x ≠ 0 }
+  |
+  .((Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.left).p
+        (Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.right)),
+    .(Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.both), Chal.PowerSaving.RAM.Atom.cross h, (x, y) =>
+    Chal.PowerSaving.RAM.Bill.one (x * y)
+  | a, .(a), Chal.PowerSaving.RAM.Atom.id, x => Chal.PowerSaving.RAM.Bill.one x
+  | .(b.p b_1), b, Chal.PowerSaving.RAM.Atom.fst, x => Chal.PowerSaving.RAM.Bill.one x.1
+  | .(a.p b), b, Chal.PowerSaving.RAM.Atom.snd, x => Chal.PowerSaving.RAM.Bill.one x.2
+  | .(s.a), .(Chal.PowerSaving.RAM.Ty.w), Chal.PowerSaving.RAM.Atom.len, x => Chal.PowerSaving.RAM.Bill.word x.len
+  | .(s.a.p Chal.PowerSaving.RAM.Ty.w), s, Chal.PowerSaving.RAM.Atom.look, (x, i) =>
+    Chal.PowerSaving.RAM.Bill.one (Chal.PowerSaving.Tape.look x i s.blank)
+@[reducible] def Chal.PowerSaving.RAM.Port : Type :=
+Option (Chal.PowerSaving.RAM.Ty × Chal.PowerSaving.RAM.Ty)
+inductive Chal.PowerSaving.RAM.Code : Bool →
+  Chal.PowerSaving.RAM.Port → Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty → Type
+number of parameters: 1
+constructors:
+Chal.PowerSaving.RAM.Code.atom : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Atom allow s t → Chal.PowerSaving.RAM.Code allow r s t
+Chal.PowerSaving.RAM.Code.comp : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t u : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s t →
+        Chal.PowerSaving.RAM.Code allow r t u → Chal.PowerSaving.RAM.Code allow r s u
+Chal.PowerSaving.RAM.Code.fork : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t u : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s t →
+        Chal.PowerSaving.RAM.Code allow r s u → Chal.PowerSaving.RAM.Code allow r s (t.p u)
+Chal.PowerSaving.RAM.Code.ifz : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s Chal.PowerSaving.RAM.Ty.w →
+        Chal.PowerSaving.RAM.Code allow r s t →
+          Chal.PowerSaving.RAM.Code allow r s t → Chal.PowerSaving.RAM.Code allow r s t
+Chal.PowerSaving.RAM.Code.loop : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s Chal.PowerSaving.RAM.Ty.w →
+        Chal.PowerSaving.RAM.Code allow r s t →
+          Chal.PowerSaving.RAM.Code allow r (s.p (Chal.PowerSaving.RAM.Ty.w.p t)) t →
+            Chal.PowerSaving.RAM.Code allow r s t
+Chal.PowerSaving.RAM.Code.tab : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s Chal.PowerSaving.RAM.Ty.w →
+        Chal.PowerSaving.RAM.Code allow r (s.p Chal.PowerSaving.RAM.Ty.w) t → Chal.PowerSaving.RAM.Code allow r s t.a
+Chal.PowerSaving.RAM.Code.sow : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s Chal.PowerSaving.RAM.Ty.w →
+        Chal.PowerSaving.RAM.Code allow r s Chal.PowerSaving.RAM.Ty.w →
+          Chal.PowerSaving.RAM.Code allow r (s.p Chal.PowerSaving.RAM.Ty.w) (Chal.PowerSaving.RAM.Ty.w.p t) →
+            Chal.PowerSaving.RAM.Code allow r s t.a
+Chal.PowerSaving.RAM.Code.importClosed : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Code allow none s t → Chal.PowerSaving.RAM.Code allow r s t
+Chal.PowerSaving.RAM.Code.call : {allow : Bool} →
+  {s t : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Code allow (some (s, t)) s t
+Chal.PowerSaving.RAM.Code.descend : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow none s t →
+        Chal.PowerSaving.RAM.Code allow (some (s, t)) s t →
+          Chal.PowerSaving.RAM.Code allow r (Chal.PowerSaving.RAM.Ty.w.p s) t
+@[reducible] def Chal.PowerSaving.RAM.Handler : Chal.PowerSaving.RAM.Port → Type :=
+fun x =>
+  match x with
+  | none => Unit
+  | some (s, t) => s.T → Chal.PowerSaving.RAM.Bill t.T
+def Chal.PowerSaving.RAM.depthRun.{u, v} : {α : Type u} →
+  {β : Type v} →
+    (α → Chal.PowerSaving.RAM.Bill β) →
+      ((α → Chal.PowerSaving.RAM.Bill β) → α → Chal.PowerSaving.RAM.Bill β) → ℕ → α → Chal.PowerSaving.RAM.Bill β :=
+fun {α} {β} base step x x_1 =>
+  Nat.brecOn (motive := fun x => α → Chal.PowerSaving.RAM.Bill β) x (Chal.PowerSaving.RAM.depthRun._f base step) x_1
+def Chal.PowerSaving.RAM.Code.run : {allow : Bool} →
+  {r : Chal.PowerSaving.RAM.Port} →
+    {s t : Chal.PowerSaving.RAM.Ty} →
+      Chal.PowerSaving.RAM.Code allow r s t → Chal.PowerSaving.RAM.Handler r → s.T → Chal.PowerSaving.RAM.Bill t.T :=
+fun {allow} {r} {s t} x x_1 x_2 =>
+  Chal.PowerSaving.RAM.Code.brecOn (motive := fun {r} {s t} x =>
+    Chal.PowerSaving.RAM.Handler r → s.T → Chal.PowerSaving.RAM.Bill t.T) x (@Chal.PowerSaving.RAM.Code.run._f allow)
+    x_1 x_2
+@[reducible] def Chal.PowerSaving.RAM.Prog : Bool → Chal.PowerSaving.RAM.Ty → Chal.PowerSaving.RAM.Ty → Type :=
+fun allow s t => Chal.PowerSaving.RAM.Code allow none s t
+@[reducible] def Chal.PowerSaving.RAM.run : {allow : Bool} →
+  {s t : Chal.PowerSaving.RAM.Ty} → Chal.PowerSaving.RAM.Prog allow s t → s.T → Chal.PowerSaving.RAM.Bill t.T :=
+fun {allow} {s t} f x => Chal.PowerSaving.RAM.Code.run f () x
+def Chal.PowerSaving.paperM : ℝ :=
+1000000
+def Chal.PowerSaving.paperW : ℝ :=
+↑2 ^ 71
+def Chal.PowerSaving.paperDelta : ℝ :=
+6871402692000000
+def Chal.PowerSaving.paperMultiplier : ℝ :=
+Chal.PowerSaving.paperM - Chal.PowerSaving.paperDelta / Chal.PowerSaving.paperW
+def Chal.PowerSaving.theta : ℝ :=
+Real.log Chal.PowerSaving.paperMultiplier / Real.log Chal.PowerSaving.paperM
+def Chal.PowerSaving.decimalExponent : ℝ :=
+1 - 1 / 10 ^ 13
+def Chal.PowerSaving.paperTime : ℕ → ℝ :=
+fun n => ↑n * Real.log ↑n ^ Chal.PowerSaving.theta * Real.log (Real.log ↑n) ^ (4 - Chal.PowerSaving.theta)
+def Chal.PowerSaving.decimalTime : ℕ → ℝ :=
+fun n => ↑n * Real.log ↑n ^ Chal.PowerSaving.decimalExponent
+def Chal.PowerSaving.nlogn : ℕ → ℝ :=
+fun n => ↑n * Real.log ↑n
+@[reducible] def Chal.PowerSaving.root : ℕ → ℂ :=
+Chal.ExactFourier.zeta
+@[reducible] def Chal.PowerSaving.Vec : ℕ → Type :=
+fun n => Fin n → ℂ
+def Chal.PowerSaving.dft : (n : ℕ) → Chal.PowerSaving.Vec n → Chal.PowerSaving.Vec n :=
+fun n x j => ∑ k, Chal.PowerSaving.root n ^ (↑j * ↑k) * x k
+def Chal.PowerSaving.conv : (n : ℕ) →
+  Chal.PowerSaving.Vec n → Chal.PowerSaving.Vec n → Chal.PowerSaving.Vec (2 * n - 1) :=
+fun n x y k => ∑ r, ∑ s, if ↑r + ↑s = ↑k then x r * y s else 0
+@[reducible] def Chal.PowerSaving.dftInKind : Chal.PowerSaving.RAM.Ty :=
+Chal.PowerSaving.RAM.Ty.w.p (Chal.PowerSaving.RAM.sc.p (Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.left).a)
+@[reducible] def Chal.PowerSaving.dftOutKind : Chal.PowerSaving.RAM.Ty :=
+(Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.left).a
+@[reducible] def Chal.PowerSaving.convInKind : Chal.PowerSaving.RAM.Ty :=
+Chal.PowerSaving.RAM.Ty.w.p
+  (Chal.PowerSaving.RAM.sc.p
+    ((Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.left).a.p
+      (Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.right).a))
+@[reducible] def Chal.PowerSaving.convOutKind : Chal.PowerSaving.RAM.Ty :=
+(Chal.PowerSaving.RAM.Ty.c Chal.PowerSaving.RAM.Paint.both).a
+def Chal.PowerSaving.DFTProgram : Chal.PowerSaving.RAM.Prog false Chal.PowerSaving.RAM.Ty.w Chal.PowerSaving.RAM.Ty.w →
+  Chal.PowerSaving.RAM.Prog false Chal.PowerSaving.dftInKind Chal.PowerSaving.dftOutKind → (ℕ → ℕ) → Prop :=
+fun order solve W =>
+  ∃ cBound,
+    ∀ (n : ℕ),
+      0 < n →
+        have cap := (n + 2) ^ cBound;
+        have d := Chal.PowerSaving.RAM.run order n;
+        W n + 10 * (n + 2) ≤ cap ∧
+          d.peak ≤ cap ∧
+            d.valid ∧
+              0 < d.val ∧
+                d.val < 1024 * n ^ 3 ∧
+                  d.val ≤ cap ∧
+                    ∀ (x : Chal.PowerSaving.Vec n),
+                      have result :=
+                        Chal.PowerSaving.RAM.run solve (n, Chal.PowerSaving.root d.val, { len := n, pos := x });
+                      result.valid ∧
+                        result.peak ≤ cap ∧
+                          d.work + 1 + result.work ≤ W n ∧ result.val = { len := n, pos := Chal.PowerSaving.dft n x }
+def Chal.PowerSaving.ConvProgram : Chal.PowerSaving.RAM.Prog false Chal.PowerSaving.RAM.Ty.w Chal.PowerSaving.RAM.Ty.w →
+  Chal.PowerSaving.RAM.Prog true Chal.PowerSaving.convInKind Chal.PowerSaving.convOutKind → (ℕ → ℕ) → Prop :=
+fun order solve W =>
+  ∃ cBound,
+    ∀ (n : ℕ),
+      0 < n →
+        have cap := (n + 2) ^ cBound;
+        have d := Chal.PowerSaving.RAM.run order n;
+        W n + 10 * (n + 2) ≤ cap ∧
+          d.peak ≤ cap ∧
+            d.valid ∧
+              0 < d.val ∧
+                d.val < 1024 * (2 * n - 1) ^ 3 ∧
+                  d.val ≤ cap ∧
+                    ∀ (x y : Chal.PowerSaving.Vec n),
+                      have result :=
+                        Chal.PowerSaving.RAM.run solve
+                          (n, Chal.PowerSaving.root d.val, { len := n, pos := x }, { len := n, pos := y });
+                      result.valid ∧
+                        result.peak ≤ cap ∧
+                          d.work + 1 + result.work ≤ W n ∧
+                            result.val = { len := 2 * n - 1, pos := Chal.PowerSaving.conv n x y }
+def Chal.PowerSaving.TimeBounds : (ℕ → ℕ) → Prop :=
+fun W =>
+  have W' := fun n => ↑(W n);
+  W' =O[Filter.atTop] Chal.PowerSaving.paperTime ∧
+    W' =O[Filter.atTop] Chal.PowerSaving.decimalTime ∧ W' =o[Filter.atTop] Chal.PowerSaving.nlogn
+def Chal.PowerSaving.DFTGoal : Prop :=
+∃ order solve W, Chal.PowerSaving.DFTProgram order solve W ∧ Chal.PowerSaving.TimeBounds W
+def Chal.PowerSaving.ConvGoal : Prop :=
+∃ order solve W, Chal.PowerSaving.ConvProgram order solve W ∧ Chal.PowerSaving.TimeBounds W
+'OAI.PowerSaving.transform_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.PowerSaving.convolution_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== UniformFourier comparator-style: ok=131 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
