@@ -65,6 +65,10 @@ for p in sorted(SRC.glob('lean_scope_audit_part*.json')):
 audit = OrderedDict(sorted(audit.items()))
 assert len(audit) == 235, len(audit)
 
+DRIFT = REV / 'upstream-drift.json'   # written by the private pipeline when upstream has moved past the reviewed commit
+drift = json.load(open(DRIFT, encoding='utf-8')) if DRIFT.exists() else None
+drift_reasons = {r['family']: '; '.join(r['reasons']) for r in (drift or {}).get('reaudit', [])}
+
 rows = [json.loads(l) for l in open(DATASET, encoding='utf-8')]
 by_ch = {r['challenge']: r for r in rows}
 assert len(by_ch) == 405, len(by_ch)
@@ -210,6 +214,7 @@ for fam, a in audit.items():
         ('overview_entry', f'family {fam} in overview.pdf / CONTENTS.md'),
         ('papers', papers), ('audit_part', a['audit_part']),
         ('second_reader', ''), ('referee_verdict', ''),
+        ('upstream_changed', drift_reasons.get(fam, '')),
     ])
 
 counts = Counter(f['verdict'] for f in families.values())
@@ -237,6 +242,23 @@ status = OrderedDict([
     ('comparator_running', [c['challenge'] for c in comp_running]),
     ('build_in_progress', [c['challenge'] for c in build_running]),
 ])
+if drift:
+    status['upstream_drift'] = OrderedDict([
+        ('new_commit', drift['new_commit']), ('new_commit_date', drift['new_commit_date']), ('detected', drift['generated']),
+        ('families_new_with_lean', drift['families_new_with_lean']), ('families_gained_lean', drift.get('families_gained_lean', [])),
+        ('families_to_reread', [r['family'] for r in drift['reaudit']]),
+        ('challenges_new', drift['challenges_new']), ('challenges_modified', drift['challenges_modified']),
+        ('report', f"upstream-drift/{drift['new_commit'][:7]}.md"),
+    ])
+    drift_sentence = (f"Upstream has moved since the reviewed commit: `openai/math` @ `{drift['new_commit'][:8]}` ({drift['new_commit_date'][:10]}) "
+                      f"adds {len(drift['challenges_new'])} challenges, gives Lean to {len(drift['families_new_with_lean']) + len(drift.get('families_gained_lean', []))} "
+                      f"families that had none, modifies "
+                      f"{len(drift['challenges_modified'])} challenge statements and changes the scope note or catalogue entry of "
+                      f"{len([r for r in drift['reaudit'] if r['reviewed']])} reviewed families. None of this is reviewed yet; every verdict here "
+                      f"is about commit `{COMMIT[:8]}`. Changed families are marked in the table; the full list and diffs: "
+                      f"[upstream-drift/{drift['new_commit'][:7]}.md]({REPO_URL}/blob/main/reviews/{RELEASE}/upstream-drift/{drift['new_commit'][:7]}.md).")
+else:
+    drift_sentence = ''
 
 # ----------------------------------------------------------------------------- tables
 REV.mkdir(parents=True, exist_ok=True)
@@ -245,7 +267,7 @@ json.dump(dict(status=status, families=list(families.values())), open(REV / 'fid
 with open(REV / 'fidelity-table.csv', 'w', encoding='utf-8', newline='') as fh:
     w = csv.writer(fh)
     cols = ['family', 'title', 'subject', 'verdict', 'challenges', 'machine_check', 'external_packages', 'cone_lines_max',
-            'review_note', 'definitions_to_check', 'lab_scope_note', 'lab_docs_url', 'audit_part', 'second_reader', 'referee_verdict']
+            'review_note', 'definitions_to_check', 'lab_scope_note', 'lab_docs_url', 'audit_part', 'second_reader', 'referee_verdict', 'upstream_changed']
     w.writerow(cols)
     for f in families.values():
         w.writerow([f[c] if not isinstance(f[c], list) else ' ; '.join(map(str, f[c])) for c in cols])
@@ -395,6 +417,7 @@ review_doc = OrderedDict([
     ('alignment', OrderedDict([('namespace', 'OAI'), ('statements', alignment)])),
     ('mathvet', OrderedDict([
         ('schema', 1), ('site', SITE), ('repository', REPO_URL), ('status', status),
+        ('upstream_drift', nice(re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', drift_sentence)).replace('`', '') if drift else 'none detected'),
         ('verdict_scale', OrderedDict([
             ('full', 'the Comparator statement(s) state the family headline faithfully'),
             ('partial', 'only a special case, or only one of several co-equal headline claims'),
@@ -453,7 +476,11 @@ Comparator challenges: {len(challenges)}.
 - Comparator running: {md_list(status['comparator_running'])}; build in progress: {md_list(status['build_in_progress'])}
 
 Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator, laptop, development landrun shim); `evidence/cloud/<Challenge>.*` the same three from the sandboxed cloud runs (each `.comparator.txt` starts with a provenance header naming the machine, the sandbox and the session URL).
-"""
+""" + (f"""
+## Upstream drift
+
+{drift_sentence} Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-{drift['new_commit'][:7]}/`.
+""" if drift else '')
 (REV / 'STATUS.md').write_text(status_md, encoding='utf-8')
 
 
@@ -484,7 +511,7 @@ tiles = f"""
   <div class="tile"><div class="n">{len(comp_pass)}<span class="of">/{len(closure_ok)}</span></div><div class="l">Comparator accepted / closure-checked by us<br><small>{len(sandboxed)} sandboxed on an isolated Linux VM</small></div></div>
 </section>
 <p class="status-line">Review status: <strong>pre-referee</strong>. Upstream commit <code>{COMMIT[:8]}</code>. Generated {status['generated']}. <a href="{RELEASE}/">Open the table →</a></p>
-"""
+""" + (f'<div class="notice">{md(drift_sentence)}</div>' if drift else '')
 body = tiles + '<article class="prose">' + md(explainer) + '</article>'
 (DOCS / 'index.html').write_text(layout('MathVet — which AI-generated Lean statements say what the paper claims?', body, 'home',
                                         extra_head=KATEX_HEAD, generated=status['generated'], commit=COMMIT[:8]), encoding='utf-8')
@@ -493,7 +520,7 @@ body = tiles + '<article class="prose">' + md(explainer) + '</article>'
 
 fam_json = json.dumps([OrderedDict([(k, f[k]) for k in ('family', 'title', 'subject', 'headline', 'verdict', 'challenges', 'review_note',
                                                       'definitions_to_check', 'external_packages', 'cone_lines_max', 'machine_check',
-                                                      'lab_scope_note', 'lab_docs_url', 'papers')]) for f in families.values()],
+                                                      'lab_scope_note', 'lab_docs_url', 'papers', 'upstream_changed')]) for f in families.values()],
                       ensure_ascii=False).replace('</', '<\\/')
 ch_json = json.dumps([OrderedDict([(k, c[k]) for k in ('challenge', 'family', 'family_verdict', 'result_label', 'theorem_names',
                                                      'solution_module', 'cone_oai_lines', 'cone_external', 'machine_check', 'build',

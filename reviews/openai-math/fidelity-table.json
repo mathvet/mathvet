@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T08:45:28Z",
+  "generated": "2026-10-10T08:56:26Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -243,8 +243,10 @@
    "BarnetteHamiltonian",
    "BassTorsionFree",
    "BassTrace",
+   "BenjaminiSchramm",
    "BernoulliNonflatInSeven",
    "BiholderTransport",
+   "BinPackingGap",
    "BinaryEditLower",
    "BinaryMatching",
    "BinarySweep",
@@ -943,9 +945,53 @@
    "YauCounterexample"
   ],
   "comparator_running": [
-   "BenjaminiSchramm"
+   "Catalan"
   ],
-  "build_in_progress": []
+  "build_in_progress": [],
+  "upstream_drift": {
+   "new_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+   "new_commit_date": "2026-10-07T22:20:00-07:00",
+   "detected": "2026-10-10T08:56:24Z",
+   "families_new_with_lean": [],
+   "families_gained_lean": [
+    "027",
+    "066",
+    "075",
+    "103",
+    "137",
+    "195",
+    "301"
+   ],
+   "families_to_reread": [
+    "027",
+    "032",
+    "049",
+    "066",
+    "075",
+    "103",
+    "130",
+    "137",
+    "157",
+    "195",
+    "237",
+    "301"
+   ],
+   "challenges_new": [
+    "CartierChartCompactnessSupport",
+    "CharacterVarietiesAllSeamsSupport",
+    "FourierLLogL",
+    "HadwigerCounterexample",
+    "HoneycombBridgeMassSupport",
+    "LogspaceEquality",
+    "OneTapeSpace",
+    "StableCoordinateFour",
+    "SurfaceConeCandidateSupport",
+    "TraceIdealTransportSupport",
+    "UniformFourier"
+   ],
+   "challenges_modified": [],
+   "report": "upstream-drift/fd4aeeb.md"
+  }
  },
  "families": [
   {
@@ -987,7 +1033,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "005",
@@ -1017,7 +1064,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "007",
@@ -1051,7 +1099,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "008",
@@ -1081,7 +1130,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "009",
@@ -1111,7 +1161,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "012",
@@ -1144,7 +1195,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "013",
@@ -1177,7 +1229,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "015",
@@ -1209,7 +1262,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "017",
@@ -1237,7 +1291,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "020",
@@ -1265,7 +1320,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "021",
@@ -1298,7 +1354,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "023",
@@ -1332,7 +1389,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "024",
@@ -1365,7 +1423,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "025",
@@ -1394,7 +1453,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "026",
@@ -1424,7 +1484,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "028",
@@ -1452,7 +1513,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "033",
@@ -1482,7 +1544,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "039",
@@ -1518,7 +1581,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "047",
@@ -1546,7 +1610,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "049",
@@ -1575,7 +1640,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": "challenge StableCoordinateFour added; scope note changed; set of linked challenges changed"
   },
   {
    "family": "050",
@@ -1605,7 +1671,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "052",
@@ -1641,7 +1708,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "058",
@@ -1671,7 +1739,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "071",
@@ -1708,7 +1777,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "072",
@@ -1745,7 +1815,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "073",
@@ -1774,7 +1845,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "076",
@@ -1803,7 +1875,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "081",
@@ -1835,7 +1908,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "082",
@@ -1865,7 +1939,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "083",
@@ -1895,7 +1970,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "084",
@@ -1923,7 +1999,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "085",
@@ -1952,7 +2029,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "087",
@@ -1995,7 +2073,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "088",
@@ -2032,7 +2111,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "089",
@@ -2068,7 +2148,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "090",
@@ -2106,7 +2187,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "091",
@@ -2136,7 +2218,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "092",
@@ -2172,7 +2255,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "094",
@@ -2202,7 +2286,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "095",
@@ -2232,7 +2317,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "096",
@@ -2260,7 +2346,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "097",
@@ -2288,7 +2375,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "098",
@@ -2317,7 +2405,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "099",
@@ -2360,7 +2449,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "100",
@@ -2407,7 +2497,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "102",
@@ -2461,7 +2552,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "104",
@@ -2497,7 +2589,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "105",
@@ -2527,7 +2620,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "106",
@@ -2557,7 +2651,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "107",
@@ -2595,7 +2690,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "108",
@@ -2624,7 +2720,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "110",
@@ -2660,7 +2757,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "111",
@@ -2689,7 +2787,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "112",
@@ -2719,7 +2818,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "113",
@@ -2759,7 +2859,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "114",
@@ -2789,7 +2890,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "115",
@@ -2824,7 +2926,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "116",
@@ -2860,7 +2963,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "117",
@@ -2890,7 +2994,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "118",
@@ -2907,7 +3012,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 158527,
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "lab_scope_note": "The formalized results rule out a universal additive bound for the configuration linear program in bin packing. For every integer $c\\ge0$, there are an integer $B$ and a rational instance with $5B$ items whose individual-copy and size-type configuration-LP values both equal $B$, but whose integral optimum is greater than $B+c$. Distinguishing a packing in $B$ bins from the absence of one in $B+c$ bins is NP-hard for each fixed $c$. A deterministic polynomial-time algorithm with a fixed absolute additive allowance exists exactly when $P=NP$; under that equality, an optimal algorithm is constructed.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/118.md",
    "overview_entry": "family 118 in overview.pdf / CONTENTS.md",
@@ -2920,7 +3025,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "119",
@@ -2951,7 +3057,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "121",
@@ -2981,7 +3088,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "122",
@@ -3011,7 +3119,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "124",
@@ -3041,7 +3150,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "125",
@@ -3079,7 +3189,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "126",
@@ -3110,7 +3221,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "127",
@@ -3138,7 +3250,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "128",
@@ -3168,7 +3281,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "129",
@@ -3205,7 +3319,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "130",
@@ -3235,7 +3350,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": "challenge UniformFourier added; scope note changed; set of linked challenges changed"
   },
   {
    "family": "131",
@@ -3265,7 +3381,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "132",
@@ -3295,7 +3412,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "133",
@@ -3343,7 +3461,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "134",
@@ -3381,7 +3500,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "135",
@@ -3411,7 +3531,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "139",
@@ -3441,7 +3562,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "140",
@@ -3503,7 +3625,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "143",
@@ -3533,7 +3656,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "144",
@@ -3563,7 +3687,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "145",
@@ -3593,7 +3718,8 @@
    ],
    "audit_part": 1,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "146",
@@ -3626,7 +3752,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "148",
@@ -3658,7 +3785,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "149",
@@ -3688,7 +3816,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "150",
@@ -3718,7 +3847,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "151",
@@ -3748,7 +3878,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "152",
@@ -3779,7 +3910,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "155",
@@ -3809,7 +3941,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "156",
@@ -3837,7 +3970,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "157",
@@ -3868,7 +4002,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": "challenge HadwigerCounterexample added; scope note changed; set of linked challenges changed"
   },
   {
    "family": "158",
@@ -3897,7 +4032,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "159",
@@ -3925,7 +4061,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "160",
@@ -3953,7 +4090,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "161",
@@ -3983,7 +4121,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "162",
@@ -4021,7 +4160,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "165",
@@ -4057,7 +4197,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "167",
@@ -4091,7 +4232,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "168",
@@ -4121,7 +4263,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "169",
@@ -4149,7 +4292,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "170",
@@ -4183,7 +4327,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "172",
@@ -4217,7 +4362,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "173",
@@ -4245,7 +4391,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "174",
@@ -4281,7 +4428,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "175",
@@ -4315,7 +4463,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "176",
@@ -4343,7 +4492,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "177",
@@ -4371,7 +4521,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "179",
@@ -4400,7 +4551,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "180",
@@ -4428,7 +4580,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "181",
@@ -4456,7 +4609,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "182",
@@ -4484,7 +4638,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "183",
@@ -4512,7 +4667,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "184",
@@ -4540,7 +4696,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "185",
@@ -4569,7 +4726,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "186",
@@ -4597,7 +4755,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "187",
@@ -4629,7 +4788,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "188",
@@ -4657,7 +4817,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "189",
@@ -4685,7 +4846,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "190",
@@ -4713,7 +4875,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "191",
@@ -4741,7 +4904,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "192",
@@ -4769,7 +4933,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "194",
@@ -4797,7 +4962,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "196",
@@ -4825,7 +4991,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "197",
@@ -4868,7 +5035,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "198",
@@ -4897,7 +5065,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "199",
@@ -4931,7 +5100,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "205",
@@ -4967,7 +5137,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "206",
@@ -4995,7 +5166,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "207",
@@ -5026,7 +5198,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "210",
@@ -5056,7 +5229,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "211",
@@ -5086,7 +5260,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "212",
@@ -5115,7 +5290,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "213",
@@ -5149,7 +5325,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "214",
@@ -5180,7 +5357,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "215",
@@ -5208,7 +5386,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "218",
@@ -5236,7 +5415,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "220",
@@ -5271,7 +5451,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "221",
@@ -5301,7 +5482,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "222",
@@ -5338,7 +5520,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "227",
@@ -5387,7 +5570,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "228",
@@ -5424,7 +5608,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "229",
@@ -5453,7 +5638,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "230",
@@ -5488,7 +5674,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "231",
@@ -5517,7 +5704,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "234",
@@ -5547,7 +5735,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "235",
@@ -5588,7 +5777,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "236",
@@ -5616,7 +5806,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "237",
@@ -5658,7 +5849,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": "challenge HoneycombBridgeMassSupport added; scope note changed; set of linked challenges changed"
   },
   {
    "family": "238",
@@ -5745,7 +5937,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "240",
@@ -5775,7 +5968,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "241",
@@ -5803,7 +5997,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "242",
@@ -5831,7 +6026,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "243",
@@ -5867,7 +6063,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "244",
@@ -5898,7 +6095,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "245",
@@ -5926,7 +6124,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "246",
@@ -5956,7 +6155,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "247",
@@ -5986,7 +6186,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "248",
@@ -6016,7 +6217,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "249",
@@ -6044,7 +6246,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "250",
@@ -6084,7 +6287,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "251",
@@ -6115,7 +6319,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "252",
@@ -6145,7 +6350,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "253",
@@ -6175,7 +6381,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "254",
@@ -6217,7 +6424,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "255",
@@ -6249,7 +6457,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "256",
@@ -6277,7 +6486,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "257",
@@ -6307,7 +6517,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "260",
@@ -6337,7 +6548,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "261",
@@ -6365,7 +6577,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "262",
@@ -6395,7 +6608,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "263",
@@ -6431,7 +6645,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "266",
@@ -6465,7 +6680,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "267",
@@ -6495,7 +6711,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "269",
@@ -6533,7 +6750,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "271",
@@ -6563,7 +6781,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "272",
@@ -6592,7 +6811,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "273",
@@ -6622,7 +6842,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "274",
@@ -6656,7 +6877,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "275",
@@ -6693,7 +6915,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "276",
@@ -6723,7 +6946,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "277",
@@ -6751,7 +6975,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "279",
@@ -6781,7 +7006,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "280",
@@ -6811,7 +7037,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "281",
@@ -6847,7 +7074,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "287",
@@ -6877,7 +7105,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "288",
@@ -6906,7 +7135,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "289",
@@ -6934,7 +7164,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "290",
@@ -6964,7 +7195,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "291",
@@ -6994,7 +7226,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "292",
@@ -7024,7 +7257,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "293",
@@ -7064,7 +7298,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "294",
@@ -7095,7 +7330,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "295",
@@ -7123,7 +7359,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "296",
@@ -7154,7 +7391,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "297",
@@ -7184,7 +7422,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "298",
@@ -7214,7 +7453,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "299",
@@ -7244,7 +7484,8 @@
    ],
    "audit_part": 2,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "303",
@@ -7276,7 +7517,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "307",
@@ -7307,7 +7549,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "312",
@@ -7338,7 +7581,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "317",
@@ -7369,7 +7613,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "322",
@@ -7397,7 +7642,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "323",
@@ -7425,7 +7671,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "324",
@@ -7459,7 +7706,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "325",
@@ -7500,7 +7748,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "326",
@@ -7530,7 +7779,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "327",
@@ -7560,7 +7810,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "328",
@@ -7588,7 +7839,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "329",
@@ -7618,7 +7870,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "330",
@@ -7649,7 +7902,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "331",
@@ -7716,7 +7970,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "333",
@@ -7746,7 +8001,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "334",
@@ -7774,7 +8030,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "337",
@@ -7806,7 +8063,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "342",
@@ -7836,7 +8094,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "343",
@@ -7865,7 +8124,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "347",
@@ -7895,7 +8155,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "348",
@@ -7927,7 +8188,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "350",
@@ -7970,7 +8232,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "353",
@@ -8000,7 +8263,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "354",
@@ -8030,7 +8294,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "356",
@@ -8060,7 +8325,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "358",
@@ -8090,7 +8356,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "359",
@@ -8120,7 +8387,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "360",
@@ -8156,7 +8424,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "361",
@@ -8187,7 +8456,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "362",
@@ -8217,7 +8487,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "363",
@@ -8247,7 +8518,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "365",
@@ -8277,7 +8549,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "367",
@@ -8307,7 +8580,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "369",
@@ -8337,7 +8611,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "370",
@@ -8365,7 +8640,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "371",
@@ -8398,7 +8674,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "372",
@@ -8428,7 +8705,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "373",
@@ -8458,7 +8736,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "374",
@@ -8488,7 +8767,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   },
   {
    "family": "376",
@@ -8540,7 +8820,8 @@
    ],
    "audit_part": 3,
    "second_reader": "",
-   "referee_verdict": ""
+   "referee_verdict": "",
+   "upstream_changed": ""
   }
  ]
 }

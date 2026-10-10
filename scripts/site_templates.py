@@ -126,10 +126,11 @@ function detail(d){const cs=d.challenges.map(c=>`<a href="https://github.com/ope
  <div class="k">Definitions to check</div>${defs}
  <div class="k">Challenge statements</div><p>${cs}</p>
  <div class="k">Papers</div><p>${papers||'—'}</p>
- <div class="k">Machine check on our machine</div><p>${esc(MC[d.machine_check])} — see <a href="challenges.html#fam-${d.family}">challenge status</a></p></div>`}
+ <div class="k">Machine check on our machine</div><p>${esc(MC[d.machine_check])} — see <a href="challenges.html#fam-${d.family}">challenge status</a></p>
+ ${d.upstream_changed?'<div class="k">Changed upstream since the reviewed commit (not yet re-read)</div><p>'+esc(d.upstream_changed)+'</p>':''}</div>`}
 function render(){const r=rows();const tb=document.getElementById('tb');tb.innerHTML='';
  for(const d of r){const tr=document.createElement('tr');tr.className='row';tr.id='fam-'+d.family;
-  tr.innerHTML=`<td><code>${d.family}</code></td><td>${esc(d.title)}</td><td>${esc(d.subject)}</td><td><span class="badge ${d.verdict}">${d.verdict}</span></td><td>${d.challenges.map(c=>'<span class="chip">'+c+'</span>').join('')}</td><td>${d.cone_lines_max.toLocaleString()}</td><td><span class="mc ${d.machine_check}">${MC[d.machine_check]}</span></td>`;
+  tr.innerHTML=`<td><code>${d.family}</code>${d.upstream_changed?'<br><span class="chip" title="'+esc(d.upstream_changed)+'">changed upstream</span>':''}</td><td>${esc(d.title)}</td><td>${esc(d.subject)}</td><td><span class="badge ${d.verdict}">${d.verdict}</span></td><td>${d.challenges.map(c=>'<span class="chip">'+c+'</span>').join('')}</td><td>${d.cone_lines_max.toLocaleString()}</td><td><span class="mc ${d.machine_check}">${MC[d.machine_check]}</span></td>`;
   tr.onclick=()=>{if(open.has(d.family))open.delete(d.family);else open.add(d.family);render()};tb.appendChild(tr);
   if(open.has(d.family)){const td=document.createElement('tr');td.className='details';td.innerHTML=`<td colspan="7">${detail(d)}</td>`;tb.appendChild(td);if(window.renderMathInElement)renderMathInElement(td,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});}}
  const c={};for(const d of r)c[d.verdict]=(c[d.verdict]||0)+1;

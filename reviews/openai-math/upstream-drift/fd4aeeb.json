@@ -1,0 +1,223 @@
+{
+ "reviewed_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+ "new_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+ "new_commit_date": "2026-10-07T22:20:00-07:00",
+ "new_commit_subject": "Merge pull request #1 from openai/codex/update-10-7",
+ "generated": "2026-10-10T08:56:24Z",
+ "files": {
+  "added": 1135,
+  "deleted": 31,
+  "modified": 19,
+  "renamed": 0
+ },
+ "families_total_new": 372,
+ "families_new": [],
+ "families_new_with_lean": [],
+ "families_gained_lean": [
+  "027",
+  "066",
+  "075",
+  "103",
+  "137",
+  "195",
+  "301"
+ ],
+ "families_removed": [],
+ "families_catalogue_changed": [
+  "032"
+ ],
+ "families_docs_changed": [
+  "027",
+  "049",
+  "066",
+  "075",
+  "103",
+  "130",
+  "137",
+  "157",
+  "195",
+  "237",
+  "301"
+ ],
+ "families_links_changed": [
+  "027",
+  "049",
+  "066",
+  "075",
+  "103",
+  "130",
+  "137",
+  "157",
+  "195",
+  "237",
+  "301"
+ ],
+ "challenges_total_new": 416,
+ "challenges_new": [
+  "CartierChartCompactnessSupport",
+  "CharacterVarietiesAllSeamsSupport",
+  "FourierLLogL",
+  "HadwigerCounterexample",
+  "HoneycombBridgeMassSupport",
+  "LogspaceEquality",
+  "OneTapeSpace",
+  "StableCoordinateFour",
+  "SurfaceConeCandidateSupport",
+  "TraceIdealTransportSupport",
+  "UniformFourier"
+ ],
+ "challenges_modified": [],
+ "challenges_removed": [],
+ "solution_files_changed": 726,
+ "challenges_solution_file_changed": [],
+ "preprints_added": 27,
+ "preprints_modified": 3,
+ "build_config_changed": [],
+ "catalogue_files_changed": [
+  "CONTENTS.md",
+  "overview.tex"
+ ],
+ "reaudit": [
+  {
+   "family": "027",
+   "reasons": [
+    "challenge CharacterVarietiesAllSeamsSupport added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "032",
+   "reasons": [
+    "catalogue title/summary changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "049",
+   "reasons": [
+    "challenge StableCoordinateFour added",
+    "scope note changed",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": true
+  },
+  {
+   "family": "066",
+   "reasons": [
+    "challenge CartierChartCompactnessSupport added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "075",
+   "reasons": [
+    "challenge FourierLLogL added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "103",
+   "reasons": [
+    "challenge LogspaceEquality added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "130",
+   "reasons": [
+    "challenge UniformFourier added",
+    "scope note changed",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": true
+  },
+  {
+   "family": "137",
+   "reasons": [
+    "challenge OneTapeSpace added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "157",
+   "reasons": [
+    "challenge HadwigerCounterexample added",
+    "scope note changed",
+    "set of linked challenges changed"
+   ],
+   "in_sample": true,
+   "reviewed": true
+  },
+  {
+   "family": "195",
+   "reasons": [
+    "challenge SurfaceConeCandidateSupport added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "237",
+   "reasons": [
+    "challenge HoneycombBridgeMassSupport added",
+    "scope note changed",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": true
+  },
+  {
+   "family": "301",
+   "reasons": [
+    "challenge TraceIdealTransportSupport added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  }
+ ],
+ "rebuild": [
+  "CartierChartCompactnessSupport",
+  "CharacterVarietiesAllSeamsSupport",
+  "FourierLLogL",
+  "HadwigerCounterexample",
+  "HoneycombBridgeMassSupport",
+  "LogspaceEquality",
+  "OneTapeSpace",
+  "StableCoordinateFour",
+  "SurfaceConeCandidateSupport",
+  "TraceIdealTransportSupport",
+  "UniformFourier"
+ ],
+ "sample_affected": [
+  "157"
+ ]
+}

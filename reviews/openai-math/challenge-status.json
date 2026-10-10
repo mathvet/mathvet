@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T08:45:28Z",
+  "generated": "2026-10-10T08:56:26Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -243,8 +243,10 @@
    "BarnetteHamiltonian",
    "BassTorsionFree",
    "BassTrace",
+   "BenjaminiSchramm",
    "BernoulliNonflatInSeven",
    "BiholderTransport",
+   "BinPackingGap",
    "BinaryEditLower",
    "BinaryMatching",
    "BinarySweep",
@@ -943,9 +945,53 @@
    "YauCounterexample"
   ],
   "comparator_running": [
-   "BenjaminiSchramm"
+   "Catalan"
   ],
-  "build_in_progress": []
+  "build_in_progress": [],
+  "upstream_drift": {
+   "new_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+   "new_commit_date": "2026-10-07T22:20:00-07:00",
+   "detected": "2026-10-10T08:56:24Z",
+   "families_new_with_lean": [],
+   "families_gained_lean": [
+    "027",
+    "066",
+    "075",
+    "103",
+    "137",
+    "195",
+    "301"
+   ],
+   "families_to_reread": [
+    "027",
+    "032",
+    "049",
+    "066",
+    "075",
+    "103",
+    "130",
+    "137",
+    "157",
+    "195",
+    "237",
+    "301"
+   ],
+   "challenges_new": [
+    "CartierChartCompactnessSupport",
+    "CharacterVarietiesAllSeamsSupport",
+    "FourierLLogL",
+    "HadwigerCounterexample",
+    "HoneycombBridgeMassSupport",
+    "LogspaceEquality",
+    "OneTapeSpace",
+    "StableCoordinateFour",
+    "SurfaceConeCandidateSupport",
+    "TraceIdealTransportSupport",
+    "UniformFourier"
+   ],
+   "challenges_modified": [],
+   "report": "upstream-drift/fd4aeeb.md"
+  }
  },
  "challenges": [
   {
@@ -1965,7 +2011,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BenjaminiSchramm.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BenjaminiSchramm.json",
    "lean_sha256": "1751e2795328a58a27f29568bf993f63c29cfeb82d87a80d87038e2428a67a47",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "build": "built",
    "build_seconds": 1705,
    "closure": "ok",
@@ -1978,8 +2024,8 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "running",
-   "comparator_finished": null,
+   "comparator": "pass",
+   "comparator_finished": "2026-10-10T08:50:47Z",
    "evidence_files": [
     "BenjaminiSchramm.log",
     "BenjaminiSchramm.cmp.txt",
@@ -2118,7 +2164,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BinPackingGap.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BinPackingGap.json",
    "lean_sha256": "f72d9643f0dab3bdb18876f54b072f9720fc99491e3801f2a46214e90f7e2e50",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "build": "built",
    "build_seconds": 1437,
    "closure": "ok",
@@ -2131,11 +2177,12 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "none",
-   "comparator_finished": null,
+   "comparator": "pass",
+   "comparator_finished": "2026-10-10T08:53:18Z",
    "evidence_files": [
     "BinPackingGap.log",
     "BinPackingGap.cmp.txt",
+    "BinPackingGap.comparator.txt",
     "BinPackingGap.challenge.txt",
     "BinPackingGap.solution.txt"
    ],
@@ -3216,11 +3263,12 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "none",
+   "comparator": "running",
    "comparator_finished": null,
    "evidence_files": [
     "Catalan.log",
     "Catalan.cmp.txt",
+    "Catalan.comparator.txt",
     "Catalan.challenge.txt",
     "Catalan.solution.txt"
    ],

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T08:45:28Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T08:56:26Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,7 +2894,7 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 362 accepted by
+    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 364 accepted by
     the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -4147,8 +4147,8 @@ alignment:
     module: OAI.Computability.BinPacking.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BinPackingGap.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 119 — The Courtade--Kumar and Hellinger conjectures: Courtade–Kumar inequality and attainment
       (the lab''s own result label); paper ''Sharp binary-information contraction on the discrete cube'', theorem
       main:soft (build/main.tex:72)'
@@ -5558,8 +5558,8 @@ alignment:
     module: OAI.Probability.BenjaminiSchramm.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/BenjaminiSchramm.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 214 — The Benjamini--Schramm nonuniqueness conjecture: Nonuniqueness for every nonamenable Cayley
       graph (the lab''s own result label); paper ''Nonuniqueness of percolation on nonamenable quasi-transitive
       graphs'', theorem thm:main (build/sections/introduction.tex:58)'
@@ -7830,7 +7830,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-10T08:45:28Z'
+    generated: '2026-10-10T08:56:26Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -8067,8 +8067,10 @@ mathvet:
     - BarnetteHamiltonian
     - BassTorsionFree
     - BassTrace
+    - BenjaminiSchramm
     - BernoulliNonflatInSeven
     - BiholderTransport
+    - BinPackingGap
     - BinaryEditLower
     - BinaryMatching
     - BinarySweep
@@ -8765,8 +8767,52 @@ mathvet:
     - WitnessedChoice
     - YauCounterexample
     comparator_running:
-    - BenjaminiSchramm
+    - Catalan
     build_in_progress: []
+    upstream_drift:
+      new_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
+      new_commit_date: '2026-10-07T22:20:00-07:00'
+      detected: '2026-10-10T08:56:24Z'
+      families_new_with_lean: []
+      families_gained_lean:
+      - '027'
+      - '066'
+      - '075'
+      - '103'
+      - '137'
+      - '195'
+      - '301'
+      families_to_reread:
+      - '027'
+      - '032'
+      - 049
+      - '066'
+      - '075'
+      - '103'
+      - '130'
+      - '137'
+      - '157'
+      - '195'
+      - '237'
+      - '301'
+      challenges_new:
+      - CartierChartCompactnessSupport
+      - CharacterVarietiesAllSeamsSupport
+      - FourierLLogL
+      - HadwigerCounterexample
+      - HoneycombBridgeMassSupport
+      - LogspaceEquality
+      - OneTapeSpace
+      - StableCoordinateFour
+      - SurfaceConeCandidateSupport
+      - TraceIdealTransportSupport
+      - UniformFourier
+      challenges_modified: []
+      report: upstream-drift/fd4aeeb.md
+  upstream_drift: 'Upstream has moved since the reviewed commit: openai/math @ fd4aeeb2 (2026-10-07) adds 11 challenges,
+    gives Lean to 7 families that had none, modifies 0 challenge statements and changes the scope note or catalogue
+    entry of 4 reviewed families. None of this is reviewed yet; every verdict here is about commit adc7f124. Changed
+    families are marked in the table; the full list and diffs: upstream-drift/fd4aeeb.md.'
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
     partial: only a special case, or only one of several co-equal headline claims
@@ -9828,7 +9874,7 @@ mathvet:
       bounded below)'
     external_packages: []
     cone_lines_max: 158527
-    machine_check: closure-pass
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/118.md
     audit_part: 1
   - family: '119'
