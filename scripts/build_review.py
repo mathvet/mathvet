@@ -63,15 +63,17 @@ for p in sorted(SRC.glob('lean_scope_audit_part*.json')):
         r['audit_part'] = part
         audit[r['family']] = r
 audit = OrderedDict(sorted(audit.items()))
-assert len(audit) == 235, len(audit)
+assert len(audit) >= 200, len(audit)   # every family with a lean/docs page must have an audit row (checked below)
 
+EVID = REV / 'source' / 'evidence_commits.json'   # scripts/evidence_commits.py (private): commit of each log + whether the statement is unchanged since
+evidence_commits = json.load(open(EVID, encoding='utf-8'))['challenges'] if EVID.exists() else {}
 DRIFT = REV / 'upstream-drift.json'   # written by the private pipeline when upstream has moved past the reviewed commit
 drift = json.load(open(DRIFT, encoding='utf-8')) if DRIFT.exists() else None
 drift_reasons = {r['family']: '; '.join(r['reasons']) for r in (drift or {}).get('reaudit', [])}
 
 rows = [json.loads(l) for l in open(DATASET, encoding='utf-8')]
 by_ch = {r['challenge']: r for r in rows}
-assert len(by_ch) == 405, len(by_ch)
+assert len(by_ch) == len(ch_index), (len(by_ch), len(ch_index))   # the dataset covers every Comparator challenge of the reviewed commit
 
 
 # ----------------------------------------------------------------------------- machine-check logs
@@ -150,6 +152,11 @@ def scan_checks(name):
             else:
                 ms = re.findall(r'comparator-style: ok=(\d+) problems=(\d+) errors=(\d+)', tt)
                 d[key] = ('ok' if ms and ms[-1][1] == '0' and ms[-1][2] == '0' else 'problems') if ms else 'error'
+    ev = evidence_commits.get(name, {})
+    for src in ('mac', 'cloud'):
+        e = ev.get(src)
+        d[f'{src}_evidence_commit'] = e['commit'][:8] if e else None
+        d[f'{src}_statement_unchanged'] = e['statement_identical'] if e else None
     return d
 
 
@@ -449,6 +456,8 @@ with open(REV / 'formalization-review.yaml', 'w', encoding='utf-8') as fh:
     yaml.dump(review_doc, fh, allow_unicode=True, sort_keys=False, width=110, default_flow_style=False)
 
 
+older_evidence = sum(1 for c in challenges.values() for k in ('mac', 'cloud') if c.get(f'{k}_evidence_commit') and c[f'{k}_evidence_commit'] != COMMIT[:8])
+changed_evidence = sum(1 for c in challenges.values() for k in ('mac', 'cloud') if c.get(f'{k}_evidence_commit') and c[f'{k}_evidence_commit'] != COMMIT[:8] and c.get(f'{k}_statement_unchanged') is False)
 # ----------------------------------------------------------------------------- STATUS.md
 def md_list(xs):
     return ', '.join(f'`{x}`' for x in xs) if xs else 'none'
@@ -479,6 +488,8 @@ Comparator challenges: {len(challenges)}.
 
 Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator, laptop, development landrun shim); `evidence/cloud/<Challenge>.*` the same three from the sandboxed cloud runs (each `.comparator.txt` starts with a provenance header naming the machine, the sandbox and the session URL).
 """ + (f"""
+Machine checks obtained at an earlier upstream commit are labelled with that commit on the challenge page ({older_evidence} of them, `source/evidence_commits.json`); for every one of them the challenge statement (.lean and .json) is byte-identical at the reviewed commit{'' if not changed_evidence else f', except {changed_evidence} whose statement changed since and whose check therefore does not transfer'}. A check certifies the solution that existed at its own commit; solutions changed upstream since are not re-verified until rebuilt.
+""" if older_evidence else '') + (f"""
 ## Upstream drift
 
 {drift_sentence} Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-{drift['new_commit'][:7]}/`.
@@ -529,7 +540,8 @@ ch_json = json.dumps([OrderedDict([(k, c[k]) for k in ('challenge', 'family', 'f
                                                      'build_seconds', 'closure', 'closure_constants', 'closure_problems', 'shadowing',
                                                      'axioms', 'comparator', 'comparator_finished', 'cloud_comparator', 'cloud_sandbox',
                                                      'cloud_finished', 'cloud_files', 'paper_title', 'paper_theorem',
-                                                     'lean_url', 'config_url', 'paper_url', 'evidence_files')]) for c in challenges.values()],
+                                                     'lean_url', 'config_url', 'paper_url', 'evidence_files', 'mac_evidence_commit', 'mac_statement_unchanged',
+                                                     'cloud_evidence_commit', 'cloud_statement_unchanged')]) for c in challenges.values()],
                      ensure_ascii=False).replace('</', '<\\/')
 (DOCS / RELEASE / 'data.json').write_text(json.dumps(dict(status=status, families=list(families.values()), challenges=list(challenges.values())),
                                                      ensure_ascii=False), encoding='utf-8')

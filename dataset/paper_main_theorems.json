@@ -1,5 +1,5 @@
 {
- "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+ "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
  "builder": "scripts/build_paper_theorems.py, extractor analyze_paper from scripts/build_ml_pairs.py",
  "method": "per paper: the block with a main-theorem label or title, else the first theorem environment of the introduction, else the first theorem-like environment, else a fallback environment; up to three blocks, in that order of preference; tex_file and tex_line are relative to the paper directory at the upstream commit",
  "papers": {
@@ -1764,9 +1764,30 @@
     }
    ]
   },
-  "A-pointwise-2-converse-for-elliptic-curves-with-rational-two-torsion-September-24-2026": {
+  "A-pointwise-2-converse-for-elliptic-curves-with-rational-two-torsion-October-7-2026": {
    "title": "A pointwise 2-converse for elliptic curves with rational two-torsion",
    "family": "004",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 6,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "The rational-two-torsion $2$-converse",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 22,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The rational-two-torsion $2$-converse]\\label{thm:main}\nLet $E/\\Q$ be an elliptic curve with $E(\\Q)[2]\\ne0$ and\n$s_2(E)\\in\\{0,1\\}$. Then\n\\[\n\\ord_{s=1}L(E,s)=\\rank_{\\Z}E(\\Q)=s_2(E),\n\\qquad\n\\Sha(E/\\Q)\\text{ is finite}.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-pointwise-2-converse-for-elliptic-curves-with-rational-two-torsion-September-24-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 6,
    "error": null,
@@ -2436,9 +2457,42 @@
     }
    ]
   },
-  "Abelian-covers-Gale-correspondences-and-the-Hodge-conjecture-for-powers-September-30-2026": {
+  "Abelian-covers-Gale-correspondences-and-the-Hodge-conjecture-for-powers-October-6-2026": {
    "title": "Abelian covers, Gale correspondences, and the Hodge conjecture for powers",
    "family": "032",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Powers of diagonal complete intersections",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 146,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Powers of diagonal complete intersections]\n\\label{thm:main}\nFix \\(n\\geq2\\),\n\\(d\\geq0\\), \\(c\\in\\{0,1,2\\}\\), and put \\(m=d+c+1\\).\nOutside a countable union of proper closed algebraic subsets of\n\\(\\D_{c,m}\\), the rational Hodge conjecture holds in every codimension\non \\(X_A^u\\) for every \\(u\\geq1\\).  For \\(c\\leq1\\), or for \\(d=0\\),\nno exceptional subset is needed.\n\\end{theorem}"
+    },
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "p4:abelian-covers",
+     "title": "Powers of abelian-cover Jacobians",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 104,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Powers of abelian-cover Jacobians]\n\\label{p4:abelian-covers}\nFor each fixed connected topological abelian cover as above, every\n\\(s\\in\\mathcal T_\\phi^{\\mathrm{Hg}}\\), every complex CM abelian variety\n\\(M\\), and every integer \\(N\\geq1\\), the rational Hodge conjecture holds\nin every codimension of\n\\[\n \\bigl(\\Jac(C_s)\\times M\\bigr)^N.\n\\]\nIt also holds for \\(C_s^a\\times M^b\\) for all integers \\(a,b\\geq0\\),\nwhere a zeroth power means a point.  The point \\(s\\) is chosen before\n\\(M\\): the same Hodge-generic locus works for every CM companion.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Abelian-covers-Gale-correspondences-and-the-Hodge-conjecture-for-powers-September-30-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 3,
    "error": null,
@@ -2587,46 +2641,20 @@
    ]
   },
   "Algebraicity-of-Kuga-Satake-Correspondences-for-K3-Surfaces-October-3-2026": {
-   "title": "Algebraicity of Kuga–Satake Correspondences for K3 Surfaces",
-   "family": "032",
-   "tex_root": "build/manuscript.tex",
-   "n_theorem_blocks": 3,
-   "error": null,
-   "blocks": [
-    {
-     "reason": "main_label",
-     "env": "theorem",
-     "label": "thm:main",
-     "title": null,
-     "section": "Introduction",
-     "in_intro": true,
-     "tex_file": "build/manuscript.tex",
-     "tex_line": 109,
-     "tex_truncated": false,
-     "tex": "\\begin{theorem}\n\\label{thm:main}\nFor every smooth projective complex K3 surface $S$, and for every\nfixed set of standard Kuga--Satake construction data as above, there\nis a cycle\n\\[\n             \\Gamma_S\\in\\CH^2(S\\times A_S\\times A_S)_\\Q\n\\]\nsuch that $\\Gamma_{S*}|_{T(S)}=\\kappa_S$.\nThe same assertion holds for an isogenous Kuga--Satake model when\nthe prescribed map is transported by the corresponding rational\nHodge isomorphism.\n\\end{theorem}"
-    }
-   ]
+   "title": null,
+   "family": null,
+   "tex_root": null,
+   "n_theorem_blocks": 0,
+   "error": "no root tex",
+   "blocks": []
   },
   "Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026": {
-   "title": "Algebraicity of Weil classes on split abelian eightfolds",
-   "family": "032",
-   "tex_root": "build/paper.tex",
-   "n_theorem_blocks": 4,
-   "error": null,
-   "blocks": [
-    {
-     "reason": "main_label",
-     "env": "theorem",
-     "label": "intro:main",
-     "title": null,
-     "section": "Introduction",
-     "in_intro": true,
-     "tex_file": "build/sections/01-introduction.tex",
-     "tex_line": 51,
-     "tex_truncated": false,
-     "tex": "\\begin{theorem}\n\\label{intro:main}\nFor every split Weil-type tuple $(K,A,\\iota,\\lambda)$ as above,\n\\[\n W_K(A)\\subset\n \\im\\bigl(\\CH^4(A)\\otimes_\\Z\\Q\n                \\xrightarrow{\\ \\mathrm{cl}\\ }H^8(A,\\Q)\\bigr).\n\\]\nThe assertion holds for every imaginary quadratic field, every compatible\npolarization type, and every member of the split Weil-type families,\nincluding members with additional endomorphisms.\n\\end{theorem}"
-    }
-   ]
+   "title": null,
+   "family": null,
+   "tex_root": null,
+   "n_theorem_blocks": 0,
+   "error": "no root tex",
+   "blocks": []
   },
   "All-temperature-pressure-for-orthogonally-invariant-Ising-spin-glasses-September-25-2026": {
    "title": "All-temperature pressure for orthogonally invariant Ising spin glasses",
@@ -4516,6 +4544,39 @@
    ]
   },
   "Conditional-good-minimal-models-for-compact-Kahler-fourfolds-October-5-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 8,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Conditional good minimal models",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 32,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Conditional good minimal models]\\label{thm:main}\nAssume Assumptions~\\ref{hyp:campana}, \\ref{hyp:mmp}, and\n\\ref{hyp:effective-abundance}. Let \\(X\\) be a normal connected\ncompact K\\\"ahler fourfold, and let \\(B\\) be an effective rational\nWeil divisor. Suppose that \\((X,B)\\) is klt, that its actual adjoint\n\\(D=K_X+B\\) is \\(\\Q\\)-Cartier and analytically\npseudo-effective, and that \\(X\\) is globally strongly\n\\(\\Q\\)-factorial in the sense of Definition~\\ref{def:strong}.\n\nThen there are a normal connected globally strongly\n\\(\\Q\\)-factorial compact K\\\"ahler fourfold \\(Y\\) and a\nbimeromorphic map \\(\\phi:X\\dashrightarrow Y\\) such that:\n\\begin{enumerate}[label=\\textup{(\\roman*)}]\n\\item \\(\\phi\\) extracts no prime divisor, and\n      \\(B_Y=\\phi_*B\\);\n\\item \\((Y,B_Y)\\) is klt and its actual adjoint\n      \\(D_Y=K_Y+B_Y\\) is \\(\\Q\\)-Cartier and analytically nef;\n\\item \\(a(E;Y,B_Y)\\ge a(E;X,B)\\) for every prime divisor over\n      the models, with strict inequality for each prime on \\(X\\)\n      contracted by \\(\\phi\\);\n\\item for some \\(m>0\\), the Cartier line bundle\n      \\(\\OO_Y(mD_Y)\\) is globally generated.\n\\end{enumerate}\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "proj:thm:main",
+     "title": "Conditional log abundance",
+     "section": "Conditional projective log abundance",
+     "in_intro": false,
+     "tex_file": "build/appendices/projective_introduction.tex",
+     "tex_line": 55,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Conditional log abundance]\\label{proj:thm:main}\\label{proj:main}\\label{proj:conditional-log-abundance}\nAssume Assumption~\\ref{proj:asm:iitaka}. Let \\(k\\) be an algebraically closed\nfield of characteristic zero, and let \\((X,B)\\) be a normal projective log\ncanonical pair over \\(k\\), where \\(B\\) is an effective \\(\\Q\\)-divisor\nand \\(K_X+B\\) is \\(\\Q\\)-Cartier. If \\(K_X+B\\) is nef, then it is\nsemiample: for some integer \\(m>0\\), the divisor \\(m(K_X+B)\\) is\nCartier and \\(\\OO_X(m(K_X+B))\\) is generated by its global sections.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Conditional-good-minimal-models-for-compact-Kahler-fourfolds-October-6-2026": {
    "title": "Conditional good minimal models for compact Kähler fourfolds",
    "family": "034",
    "tex_root": "build/main.tex",
@@ -4530,7 +4591,7 @@
      "section": "Introduction",
      "in_intro": true,
      "tex_file": "build/sections/introduction.tex",
-     "tex_line": 32,
+     "tex_line": 35,
      "tex_truncated": false,
      "tex": "\\begin{theorem}[Conditional good minimal models]\\label{thm:main}\nAssume Assumptions~\\ref{hyp:campana}, \\ref{hyp:mmp}, and\n\\ref{hyp:effective-abundance}. Let \\(X\\) be a normal connected\ncompact K\\\"ahler fourfold, and let \\(B\\) be an effective rational\nWeil divisor. Suppose that \\((X,B)\\) is klt, that its actual adjoint\n\\(D=K_X+B\\) is \\(\\Q\\)-Cartier and analytically\npseudo-effective, and that \\(X\\) is globally strongly\n\\(\\Q\\)-factorial in the sense of Definition~\\ref{def:strong}.\n\nThen there are a normal connected globally strongly\n\\(\\Q\\)-factorial compact K\\\"ahler fourfold \\(Y\\) and a\nbimeromorphic map \\(\\phi:X\\dashrightarrow Y\\) such that:\n\\begin{enumerate}[label=\\textup{(\\roman*)}]\n\\item \\(\\phi\\) extracts no prime divisor, and\n      \\(B_Y=\\phi_*B\\);\n\\item \\((Y,B_Y)\\) is klt and its actual adjoint\n      \\(D_Y=K_Y+B_Y\\) is \\(\\Q\\)-Cartier and analytically nef;\n\\item \\(a(E;Y,B_Y)\\ge a(E;X,B)\\) for every prime divisor over\n      the models, with strict inequality for each prime on \\(X\\)\n      contracted by \\(\\phi\\);\n\\item for some \\(m>0\\), the Cartier line bundle\n      \\(\\OO_Y(mD_Y)\\) is globally generated.\n\\end{enumerate}\n\\end{theorem}"
     },
@@ -5214,9 +5275,30 @@
     }
    ]
   },
-  "Deforming-hypersymplectic-four-manifolds-to-hyperkahler-triples-September-23-2026": {
+  "Deforming-hypersymplectic-four-manifolds-to-hyperkahler-triples-October-7-2026": {
    "title": "Deforming hypersymplectic four-manifolds to hyperkähler triples",
    "family": "341",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 11,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $X$ be a closed connected oriented smooth four-manifold, and let\n$\\omega=(\\omega_1,\\omega_2,\\omega_3)$ be a smooth hypersymplectic structure\nnormalized by\n\\begin{equation}\\label{eq:intro-normalization}\n \\int_X\\omega_i\\wedge\\omega_j=\\delta_{ij}.\n\\end{equation}\nThere is a smooth family of hypersymplectic structures $\\omega(t)$,\n$0\\le t\\le1$, such that\n\\[\n \\omega(0)=\\omega,\\qquad [\\omega_i(t)]=[\\omega_i]\n \\quad (i=1,2,3),\n\\]\nand a positive volume form $\\mu_1$ with\n\\begin{equation}\\label{eq:intro-endpoint}\n \\omega_i(1)\\wedge\\omega_j(1)=2\\delta_{ij}\\mu_1.\n\\end{equation}\nThe endpoint forms are parallel and self-dual for a hyperk\\\"ahler metric.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Deforming-hypersymplectic-four-manifolds-to-hyperkahler-triples-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 7,
    "error": null,
@@ -5971,6 +6053,27 @@
    ]
   },
   "Exact-Birch-Swinnerton-Dyer-Formula-from-Low-Selmer-Corank-October-3-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 47,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $E/\\Q$ be an elliptic curve and let $q$ be any prime. If\n$s_q(E)\\in\\{0,1\\}$, then\n\\[\n r(E)=a(E)=s_q(E),\\qquad \\#\\Sha(E/\\Q)<\\infty,\n\\]\nand, with $r=r(E)$ and the preceding normalizations,\n\\begin{equation}\\label{eq:bsd-main}\n \\frac{L^{(r)}(E,1)}{r!}\n =\\frac{\\Omega_E\\Reg_E\\,\\#\\Sha(E/\\Q)\n                  \\prod_{\\ell\\text{ finite}}c_\\ell(E)}\n              {\\#E(\\Q)_{\\rm tors}^{2}}.\n\\end{equation}\nThere are no additional hypotheses on reduction, rational torsion,\nisogenies, complex multiplication, or residual Galois representations.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Exact-Birch-Swinnerton-Dyer-Formula-from-Low-Selmer-Corank-October-7-2026": {
    "title": "Exact Birch–Swinnerton-Dyer Formula from Low Selmer Corank",
    "family": "002",
    "tex_root": "build/main.tex",
@@ -6562,6 +6665,27 @@
    ]
   },
   "Finite-ordinary-minimal-model-programs-on-compact-Kahler-fourfolds-October-5-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 6,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:finite",
+     "title": "Termination of ordinary programs",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 84,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Termination of ordinary programs]\\label{thm:finite}\nLet $X$ be a normal globally Weil $\\Q$-factorial compact Kähler\nfourfold, with a canonical Weil divisor $K_X$, and let $\\Delta\\geq0$\nbe a rational divisor such that $(X,\\Delta)$ is klt. Then every maximal\nordinary negative-ray program starting on $(X,\\Delta)$ terminates.\nIts birational steps form a finite sequence\n\\[\n (X,\\Delta)=(X_0,\\Delta_0)\\dashrightarrow\\cdots\n \\dashrightarrow(X_n,\\Delta_n).\n\\]\nEvery $X_i$ is normal, compact Kähler and globally Weil\n$\\Q$-factorial; every $(X_i,\\Delta_i)$ is klt, and\n$D_i=K_{X_i}+\\Delta_i$ is $\\Q$-Cartier. The canonical divisors are\nthe transforms of the specified datum. The following alternatives hold.\n\\begin{enumerate}[label=\\textup{(\\roman*)}]\n\\item If $D=K_X+\\Delta$ is pseudo-effective, then $D_n$ is nef.\nThe composite $\\phi:X\\dashrightarrow X_n$ extracts no prime divisor,\nand\n\\[\n a(E;X,\\Delta)\\leq a(E;X_n,\\Delta_n)\n\\]\nfor every prime divisor over the two models, with strict inequality\nfor every prime on $X$ contracted by $\\phi$.\n\\item If $D$ is not pseudo-effective, there is a projective surjective\nmorphism $g:X_n\\to S$ with connected fibres, where $S$ is normal\ncompact Kähler, $\\dim S<4$, $\\rho(X_n/S)=1$, and $-D_n$ is\n$g$-ample.\n\\end{enumerate}\nFor each negative contraction, including $g$, the relative\nBott--Chern dimension is one. If $X$ is globally strongly\n$\\Q$-factorial, so is every $X_i$.\n\nThe same conclusions hold in the intrinsic formulation with the\ncanonical rational line bundle in place of a chosen canonical Weil\ndivisor. In either formulation the first model is exactly $X$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Finite-ordinary-minimal-model-programs-on-compact-Kahler-fourfolds-October-6-2026": {
    "title": "Finite ordinary minimal model programs on compact Kähler fourfolds",
    "family": "056",
    "tex_root": "build/main.tex",
@@ -6687,9 +6811,30 @@
     }
    ]
   },
-  "Fontaine-Mazur-modularity-at-the-prime-2-September-23-2026": {
+  "Fontaine-Mazur-modularity-at-the-prime-2-October-6-2026": {
    "title": "Fontaine–Mazur modularity at the prime 2",
    "family": "010",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 20,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet\n\\[\n r:G_{\\mathbb Q}\\longrightarrow\\GL_2(\\overline{\\mathbb Q}_2)\n\\]\nbe continuous and irreducible. Suppose that \\(r\\) is odd, is\nunramified outside finitely many primes, and is de Rham at \\(2\\)\nwith distinct Hodge--Tate weights. Then \\(r\\) is isomorphic to\na Tate twist of the \\(2\\)-adic Galois representation associated\nwith a classical cuspidal eigenform.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Fontaine-Mazur-modularity-at-the-prime-2-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 3,
    "error": null,
@@ -6897,9 +7042,30 @@
     }
    ]
   },
-  "Gaussian-free-field-limits-of-weighted-integer-Lipschitz-heights-September-25-2026": {
+  "Gaussian-free-field-limits-of-weighted-integer-Lipschitz-heights-October-6-2026": {
    "title": "Gaussian free-field limits of weighted integer Lipschitz heights",
    "family": "232",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 78,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every fixed $x\\in[1/\\sqrt2,1]$ there exists\n$\\sigma(x)\\in(0,\\infty)$, independent of $D$ and of the inside approximation\nin Definition~\\ref{def:approximation}, such that\n\\[\n \\frac{h_\\delta}{\\sigma(x)}\\ \\Longrightarrow\\ \\Phi_D\n \\qquad\\text{in }\\mathcal D'(D).\n\\]\nIn particular, the fields are tight as random distributions and, for every\n$k\\ge1$ and $f_1,\\ldots,f_k\\in C_c^\\infty(D)$, the vector\n$(h_\\delta(f_i)/\\sigma(x))_{i=1}^k$ converges to\n$(\\Phi_D(f_i))_{i=1}^k$.  All mixed moments of these vectors converge.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Gaussian-free-field-limits-of-weighted-integer-Lipschitz-heights-September-25-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 4,
    "error": null,
@@ -7245,9 +7411,42 @@
     }
    ]
   },
-  "Goldfelds-analytic-density-conjecture-and-the-2-converse-for-elliptic-curves-September-23-2026": {
+  "Goldfelds-analytic-density-conjecture-and-the-2-converse-for-elliptic-curves-October-7-2026": {
    "title": "Goldfeld's analytic density conjecture and the 2-converse for elliptic curves",
    "family": "006",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 12,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main-converse",
+     "title": "The $2$-converse",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 14,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The $2$-converse]\\label{thm:main-converse}\nFor every elliptic curve $E/\\Q$ with $c_2(E)\\in\\{0,1\\}$,\n\\[\n a(E)=r(E)=c_2(E),\\qquad \\Sha(E/\\Q)\\text{ is finite}.\n\\]\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main-density",
+     "title": "Goldfeld's analytic density conjecture",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 35,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Goldfeld's analytic density conjecture]\\label{thm:main-density}\nFor every elliptic curve $E/\\Q$ and each $j\\in\\{0,1\\}$,\n\\[\n \\lim_{X\\to\\infty}\n \\frac{\\#\\{d\\in\\mathcal D(X):a(E^{(d)})=j\\}}{\\#\\mathcal D(X)}\n =\\frac12.\n\\]\nConsequently the twists of analytic rank at least two have density zero.\nFor a density-one set of signed squarefree parameters $d$, the analytic\nand Mordell--Weil ranks of $E^{(d)}$ agree and its whole\nTate--Shafarevich group is finite.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Goldfelds-analytic-density-conjecture-and-the-2-converse-for-elliptic-curves-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 12,
    "error": null,
@@ -7446,9 +7645,30 @@
     }
    ]
   },
-  "Hilberts-tenth-problem-over-the-rational-numbers-September-24-2026": {
+  "Hilberts-tenth-problem-over-the-rational-numbers-October-6-2026": {
    "title": "Hilbert’s tenth problem over the rational numbers",
    "family": "004",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 7,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is no algorithm which, given a polynomial\n$f\\in\\Z[X_1,\\ldots,X_n]$, with $n$ part of the input, decides whether\n$f$ has a zero in $\\Q^n$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Hilberts-tenth-problem-over-the-rational-numbers-September-24-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 2,
    "error": null,
@@ -7509,9 +7729,30 @@
     }
    ]
   },
-  "Incompressible-Box-Transport-and-Finite-Computation-September-27-2026": {
+  "Incompressible-Box-Transport-and-Finite-Computation-October-6-2026": {
    "title": "Incompressible Box Transport and Finite Computation",
    "family": "376",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 31,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "first_theorem",
+     "env": "theorem",
+     "label": "lem:bb-balanced-box-routing",
+     "title": "Expansion, obstacle detours, and delivery",
+     "section": "Transporting complete boxes",
+     "in_intro": false,
+     "tex_file": "build/geometry.tex",
+     "tex_line": 254,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Expansion, obstacle detours, and delivery]\n\\label{lem:bb-balanced-box-routing}\nLet $Q_i=a_i+\\prod_{j=1}^3[-h_{ij},h_{ij}]$ and\n$Q_i'=b_i+\\prod_{j=1}^3[-k_{ij},k_{ij}]$ be rational solid boxes,\nwith positive half-widths, each family pairwise disjoint.  Suppose\n$s_{ij}=k_{ij}/h_{ij}$ and $\\prod_js_{ij}=1$.  An effective compactly\nsupported smooth solenoidal field, zero outside the time interval\n$[1/4,3/4]$, has time-one map\n\\[\n a_i+y\\longmapsto b_i+\\operatorname{diag}(s_{i1},s_{i2},s_{i3})y\n\\]\non a neighborhood of each $Q_i$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Incompressible-Box-Transport-and-Finite-Computation-September-27-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 31,
    "error": null,
@@ -7951,6 +8192,27 @@
    ]
   },
   "Log-abundance-for-compact-Kahler-spaces-under-logarithmic-Iitaka-subadditivity-October-4-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Log abundance for compact Kähler spaces",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 56,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Log abundance for compact Kähler spaces]\\label{thm:main}\nAssume Assumption~\\ref{asm:log-iitaka}. Let \\(X\\) be a normal irreducible\ncompact Kähler complex analytic space, and let \\(\\Delta\\geq0\\) be a rational\ndivisor such that \\((X,\\Delta)\\) is log canonical and \\(K_X+\\Delta\\) is\nrational Cartier. If \\(K_X+\\Delta\\) is analytically nef, then it is\nsemiample. Explicitly, there is an integer \\(m>0\\) such that\n\\(m(K_X+\\Delta)\\) is Cartier and\n\\[\n H^0\\bigl(X,\\OO_X(m(K_X+\\Delta))\\bigr)\\otimes_{\\C}\\OO_X\n \\longrightarrow \\OO_X(m(K_X+\\Delta))\n\\]\nis surjective at every point of \\(X\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "Log-abundance-for-compact-Kahler-spaces-under-logarithmic-Iitaka-subadditivity-October-6-2026": {
    "title": "Log abundance for compact Kähler spaces under logarithmic Iitaka subadditivity",
    "family": "034",
    "tex_root": "build/main.tex",
@@ -8382,9 +8644,30 @@
     }
    ]
   },
-  "Milnes-rationality-conjecture-for-abelian-varieties-September-23-2026": {
+  "Milnes-rationality-conjecture-for-abelian-varieties-October-7-2026": {
    "title": "Milne's rationality conjecture for abelian varieties",
    "family": "001",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00_intro.tex",
+     "tex_line": 29,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(A/\\Qbar\\) be an abelian variety of dimension \\(d\\) with good\nreduction \\(A_0/\\F\\) at \\(w\\). Let \\(0\\leq r\\leq d\\), and let\n\\[\n \\gamma\\in H^{2r}(A(\\C),\\Q(r))\n\\]\nbe a rational Hodge class. For every list of Cartier divisors\n\\(D_1,\\ldots,D_{d-r}\\) on \\(A_0\\), there is a number \\(q\\in\\Q\\)\nsuch that\n\\begin{align*}\n \\Tr_\\ell\\bigl(\\gamma_{0,\\ell}\n       c_{1,\\ell}(D_1)\\cdots c_{1,\\ell}(D_{d-r})\\bigr)&=q\n       &&\\text{in }\\Q_\\ell\\quad(\\ell\\ne p),\\\\\n \\Tr_p\\bigl(\\gamma_{0,p}\n       c_{1,\\mathrm{cris}}(D_1)\\cdots\n       c_{1,\\mathrm{cris}}(D_{d-r})\\bigr)&=q\n       &&\\text{in }\\Cw.\n\\end{align*}\nHere \\(\\gamma_{0,\\ell}\\) is the smooth proper specialization of the\n\\(\\ell\\)-adic realization, and \\(\\gamma_{0,p}\\) is the\nde Rham--crystalline specialization in\n\\[\n H^{2r}_{\\mathrm{cris}}(A_0/W(\\F))[1/p](r)\n       \\otimes_{\\Kzero}\\Cw.\n\\]\nThe traces use the top Tate twist and send the class of a zero-cycle to\nits degree. If \\(r=d\\), the divisor product is \\(1\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "Milnes-rationality-conjecture-for-abelian-varieties-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 2,
    "error": null,
@@ -8857,6 +9140,27 @@
    ]
   },
   "Numerical-semiampleness-of-nef-adjoint-classes-on-compact-Kahler-manifolds-October-4-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 19,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(X\\) be a smooth connected compact K\\\"ahler manifold, let\n\\(B\\geq0\\) be a rational simple normal crossing divisor whose\ncoefficients are strictly less than one, and let\n\\(M\\in\\Pic(X)\\otimes_{\\Z}\\Q\\).\nAssume that \\(K_X+B\\) is pseudo-effective, \\(M\\) is nef, and\n\\(D=K_X+B+M\\) is nef. Then there is a semiample rational line bundle\n\\(L\\) on \\(X\\) such that\n\\[\n c_1(L)=c_1(D)\\quad\\text{in }H^{1,1}_{\\mathrm{BC}}(X,\\R).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Numerical-semiampleness-of-nef-adjoint-classes-on-compact-Kahler-manifolds-October-6-2026": {
    "title": "Numerical semiampleness of nef adjoint classes on compact Kähler manifolds",
    "family": "036",
    "tex_root": "build/main.tex",
@@ -11889,9 +12193,30 @@
     }
    ]
   },
-  "Taming-implies-compatibility-on-four-manifolds-September-23-2026": {
+  "Taming-implies-compatibility-on-four-manifolds-October-6-2026": {
    "title": "Taming implies compatibility on four-manifolds",
    "family": "342",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 23,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nSuppose that a smooth almost complex structure \\(J\\) on a closed\nconnected smooth real four-manifold \\(X\\) is tamed by a symplectic\nform. Then there is a smooth symplectic form compatible with \\(J\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "Taming-implies-compatibility-on-four-manifolds-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 2,
    "error": null,
@@ -11995,6 +12320,27 @@
    ]
   },
   "Termination-of-generalized-canonical-flips-on-compact-Kahler-fourfolds-October-5-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:termination",
+     "title": null,
+     "section": "Introduction and the main theorem",
+     "in_intro": true,
+     "tex_file": "build/build/sections/01-introduction.tex",
+     "tex_line": 99,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:termination}\nLet $X_0$ be a normal irreducible globally Weil $\\Q$-factorial compact\nK\\\"ahler fourfold, and let $B_0\\geq0$ be a rational divisor with\ncoefficients in $[0,1)$. Fix compatible actual canonical divisors on\nthe birational models. Let $\\bM$ be the rational b-divisor represented\nby an analytically nef $\\Q$-Cartier divisor $M'$ on a projective\nbirational morphism $X'\\to X_0$ of normal compact K\\\"ahler spaces.\nAssume\n\\[\n \\begin{aligned}\n a(E;X_0,B_0+\\bM)&>0&&\\text{for every prime over $X_0$},\\\\\n a(E;X_0,B_0+\\bM)&\\geq1&&\\text{for every exceptional prime}.\n \\end{aligned}\n\\]\nConsider a sequence of normal globally Weil $\\Q$-factorial compact\nK\\\"ahler fourfolds\n\\[\n X_0\\dashrightarrow X_1\\dashrightarrow X_2\\dashrightarrow\\cdots .\n\\]\nOn $X_i$, let $B_i$ be the strict transform of $B_0$, let $M_i$ be\nthe trace of this same $\\bM$, and suppose\n$D_i=K_{X_i}+B_i+M_i$ is $\\Q$-Cartier. Suppose that every step is\ngiven by a diagram\n\\begin{equation}\\label{eq:step-diagram}\n X_i\\xrightarrow{\\ f_i\\ }Z_i\n       \\xleftarrow{\\ f_i^+\\ }X_{i+1}\n\\end{equation}\nof projective small bimeromorphic morphisms with connected fibres,\nwhere $Z_i$ is normal compact K\\\"ahler, both morphisms are\nnonisomorphisms, $-D_i$ is $f_i$-ample, and $D_{i+1}$ is\n$f_i^+$-ample. Then the sequence is finite.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Termination-of-generalized-canonical-flips-on-compact-Kahler-fourfolds-October-6-2026": {
    "title": "Termination of generalized-canonical flips on compact Kähler fourfolds",
    "family": "056",
    "tex_root": "build/build/paper.tex",
@@ -12016,6 +12362,27 @@
    ]
   },
   "Termination-of-generalized-log-canonical-flips-on-compact-Kahler-fourfolds-October-5-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 25,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(X_0\\) be a normal irreducible globally Weil \\(\\Q\\)-factorial compact K\\\"ahler fourfold. Let \\(B_0\\) be an effective rational Weil divisor of finite support with coefficients in \\([0,1]\\). Let \\(\\M\\) be represented by an analytically nef \\(\\Q\\)-Cartier divisor on a projective bimeromorphic normal compact K\\\"ahler model of \\(X_0\\). Fix compatible actual canonical divisor representatives on all birational models under consideration. Suppose that \\(D_0=K_{X_0}+B_0+M_{X_0}\\) is \\(\\Q\\)-Cartier and that \\((X_0,B_0+\\M)\\) is generalized log canonical.\n\nConsider a sequence of normal irreducible globally Weil \\(\\Q\\)-factorial compact K\\\"ahler fourfolds\n\\[\n X_0\\dashrightarrow X_1\\dashrightarrow X_2\\dashrightarrow\\cdots.\n\\]\nOn \\(X_i\\), let \\(B_i\\) be the strict transform of \\(B_0\\), let \\(M_i=M_{X_i}\\) be the trace of the same b-divisor, and assume that \\(D_i=K_{X_i}+B_i+M_i\\) is \\(\\Q\\)-Cartier. Transport the canonical representatives under the induced identifications of prime divisors. Suppose that every step is given by a diagram\n\\begin{equation}\\label{eq:flip-diagram}\n\\begin{tikzcd}[column sep=large]\n X_i \\arrow[r,\"f_i\"] & Z_i & X_{i+1}\\arrow[l,\"f_i^+\"']\n\\end{tikzcd}\n\\end{equation}\nwhere \\(Z_i\\) is normal compact K\\\"ahler, both maps are projective small bimeromorphic morphisms with connected fibers, neither is an isomorphism, and\n\\[\n -D_i\\text{ is }f_i\\text{-ample},\\qquad\n D_{i+1}\\text{ is }f_i^+\\text{-ample}.\n\\]\nHere \\emph{small} means that the exceptional locus contains no prime divisor. Then the sequence is finite.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Termination-of-generalized-log-canonical-flips-on-compact-Kahler-fourfolds-October-7-2026": {
    "title": "Termination of generalized log canonical flips on compact Kähler fourfolds",
    "family": "056",
    "tex_root": "build/main.tex",
@@ -12405,9 +12772,30 @@
     }
    ]
   },
-  "The-Gaussian-free-field-limit-of-integer-Lipschitz-heights-with-two-arc-boundary-data-September-25-2026": {
+  "The-Gaussian-free-field-limit-of-integer-Lipschitz-heights-with-two-arc-boundary-data-October-6-2026": {
    "title": "The Gaussian free field limit of integer Lipschitz heights with two-arc boundary data",
    "family": "232",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 47,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $D$ be a bounded smooth simply connected planar domain with two\ndistinct marked boundary points.  Let $D_\\delta$ be simply connected\ntriangular-lattice polygonal approximations with uniformly converging\nmarked boundary parametrizations and edge-midpoint marks, and let\n$h_\\delta$ have the uniform odd-height law \\eqref{eq:odd-model}.\nThere is a constant $\\sigma>0$, depending only on the unit triangular-lattice\nmodel, such that\n\\[\n h_\\delta\\ \\Longrightarrow\\ \\bar g+\\sigma\\Phi_D\n \\qquad\\text{in }\\mathcal D'(D).\n\\]\nFor every $f\\in C_c^\\infty(D)$, $\\EE h_\\delta(f)\\to\\int_D\\bar g f$.\nConsequently\n\\begin{equation}\\label{eq:main-centered}\n \\frac{h_\\delta-\\EE h_\\delta}{\\sigma}\n \\ \\Longrightarrow\\ \\Phi_D\n \\qquad\\text{in }\\mathcal D'(D).\n\\end{equation}\nAll finite vectors of test-function integrals converge jointly to the\ncorresponding Gaussian vectors, and all their mixed moments converge.\nThe constant is specified by the absolutely convergent finite-volume series\nin \\cref{prop:normalization-series}; in the spectral convention below,\n$\\sigma=4\\pi\\sqrt{c_*}$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Gaussian-free-field-limit-of-integer-Lipschitz-heights-with-two-arc-boundary-data-September-25-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 4,
    "error": null,
@@ -12924,9 +13312,30 @@
     }
    ]
   },
-  "The-Selmer-converse-for-elliptic-curves-at-every-prime-September-24-2026": {
+  "The-Selmer-converse-for-elliptic-curves-at-every-prime-October-7-2026": {
    "title": "The Selmer converse for elliptic curves at every prime",
    "family": "002",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "The unrestricted low-corank Selmer converse",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 25,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The unrestricted low-corank Selmer converse]\n\\label{thm:main}\nFor every elliptic curve $A_0/\\Q$, every prime $p$, and\n$r\\in\\{0,1\\}$,\n\\[\n s_p(A_0)=r\n \\quad\\Longrightarrow\\quad\n a(A_0)=\\rank_{\\Z}A_0(\\Q)=r,\n \\qquad \\#\\Sha(A_0/\\Q)<\\infty.\n\\]\nThere is no restriction on reduction type, complex multiplication,\nthe residual representation, rational torsion, or rational isogenies.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Selmer-converse-for-elliptic-curves-at-every-prime-September-24-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 4,
    "error": null,
@@ -13767,9 +14176,30 @@
     }
    ]
   },
-  "The-joint-scaling-limit-of-critical-Ashkin-Teller-currents-September-25-2026": {
+  "The-joint-scaling-limit-of-critical-Ashkin-Teller-currents-October-6-2026": {
    "title": "The joint scaling limit of critical Ashkin-Teller currents",
    "family": "233",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Joint critical-line limit",
+     "section": "The model and the limiting objects",
+     "in_intro": false,
+     "tex_file": "build/sections/02-model.tex",
+     "tex_line": 355,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Joint critical-line limit]\\label{thm:main}\nFor every fixed pair $J>0$, $U\\le J$ with $\\sinh(2J)=e^{-2U}$,\nevery bounded Jordan domain $D$, and every admissible polygonal\napproximation as defined in \\cref{sec:lattice-domains},\n\\[\n \\bigl(H_\\delta,\\cC_\\delta^{\\rm w},\\cC_\\delta^{\\rm f},\n                         C_{\\partial,\\delta}\\bigr)\n \\ \\xrightarrow[\\delta\\downarrow0]{\\mathrm{law}}\\\n \\left(\\frac{h}{\\pi\\sqrt g},\\cC^{\\rm w},\\cC^{\\rm f},\n                         \\TVS{a}{a}(h)\\right).\n\\]\nThe height converges in \\(H^s_{\\rm loc}(D)\\) for every \\(s<-1\\).\nEach cluster collection converges in the matching topology just\ndefined, and the distinguished component converges in Hausdorff\ntopology. The continuum collections are locally finite above every\npositive diameter. All convergences are joint, and the same GFF\ndetermines both continuum collections.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-joint-scaling-limit-of-critical-Ashkin-Teller-currents-September-25-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 2,
    "error": null,
@@ -13914,9 +14344,30 @@
     }
    ]
   },
-  "The-mean-analytic-rank-of-quadratic-twists-of-elliptic-curves-September-23-2026": {
+  "The-mean-analytic-rank-of-quadratic-twists-of-elliptic-curves-October-6-2026": {
    "title": "The mean analytic rank of quadratic twists of elliptic curves",
    "family": "006",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:mean",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 22,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:mean}\nFor every elliptic curve \\(E/\\Q\\),\n\\[\n \\lim_{Y\\to\\infty}\\frac{1}{\\#\\mathcal D(Y)}\n     \\sum_{d\\in\\mathcal D(Y)}a(E^{(d)})=\\frac12.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-mean-analytic-rank-of-quadratic-twists-of-elliptic-curves-September-23-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 2,
    "error": null,
@@ -14031,9 +14482,30 @@
     }
    ]
   },
-  "The-p-adic-section-conjecture-September-24-2026": {
+  "The-p-adic-section-conjecture-October-6-2026": {
    "title": "The p-adic section conjecture",
    "family": "019",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:section",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 31,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:section}\nFor every prime $p$, every finite extension $k/\\mathbb Q_p$, and every\nsmooth proper geometrically connected curve $X/k$ of genus at least two,\nthe map\n\\[\n X(k)\\longrightarrow\n \\left\\{\\begin{gathered}\n s:G_k\\to\\pi_1(X)\\text{ a continuous group homomorphism}\\\\\n \\text{such that }(\\pi_1(X)\\to G_k)\\circ s=\\mathrm{id}_{G_k}\n \\end{gathered}\\right\\}\\big/\\pi_1(X_{\\bar k})\n\\]\nis bijective. The quotient is by conjugation by the full geometric\n\\'etale fundamental group.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-p-adic-section-conjecture-September-24-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/main.tex",
    "n_theorem_blocks": 3,
    "error": null,
@@ -14073,7 +14545,7 @@
     }
    ]
   },
-  "The-rational-Hodge-conjecture-for-CM-abelian-varieties-September-30-2026": {
+  "The-rational-Hodge-conjecture-for-CM-abelian-varieties-October-6-2026": {
    "title": "The rational Hodge conjecture for CM abelian varieties",
    "family": "032",
    "tex_root": "build/main.tex",
@@ -14094,26 +14566,34 @@
     }
    ]
   },
-  "The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026": {
-   "title": "The rational Hodge conjecture for products of K3 surfaces",
-   "family": "032",
-   "tex_root": "build/manuscript/main.tex",
-   "n_theorem_blocks": 2,
+  "The-rational-Hodge-conjecture-for-CM-abelian-varieties-September-30-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
    "error": null,
    "blocks": [
     {
-     "reason": "main_label",
+     "reason": "intro_first",
      "env": "theorem",
-     "label": "thm:main",
+     "label": "thm:cm",
      "title": null,
      "section": "Introduction",
      "in_intro": true,
-     "tex_file": "build/manuscript/introduction.tex",
-     "tex_line": 14,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 17,
      "tex_truncated": false,
-     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(m\\ge1\\), and let \\(S_1,\\ldots,S_m\\) be any projective complex\nK3 surfaces.  For \\(X=S_1\\times\\cdots\\times S_m\\) and every\n\\(0\\le p\\le2m\\), the cycle-class map\n\\[\n \\cl:\\CH^p(X)_\\Q\\longrightarrow\\Hdg^p(X)\n\\]\nis surjective.\n\\end{theorem}"
+     "tex": "\\begin{theorem}\\label{thm:cm}\nLet \\(A\\) be a complex CM abelian variety.  For every integer\n\\(p\\geq0\\), the Betti cycle-class map\n\\[\n \\operatorname{cl}_B:\\CH^p(A)_{\\Q}\n \\longrightarrow H^{2p}(A,\\Q)\\cap H^{p,p}(A)\n\\]\nis surjective, where \\(\\CH^p(A)_{\\Q}=\\CH^p(A)\\otimes_{\\Z}\\Q\\) and\nthe intersection is taken in \\(H^{2p}(A,\\C)\\).  In particular, the\nrational Hodge conjecture holds in every codimension on every finite\nproduct of complex CM abelian varieties and on every power of such a\nproduct.\n\\end{theorem}"
     }
    ]
+  },
+  "The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": null,
+   "n_theorem_blocks": 0,
+   "error": "no root tex",
+   "blocks": []
   },
   "The-reverse-logarithmic-Kodaira-inequality-and-additivity-September-26-2026": {
    "title": "The reverse logarithmic Kodaira inequality and additivity",
@@ -14367,9 +14847,30 @@
     }
    ]
   },
-  "The-two-primary-Birch-Swinnerton-Dyer-formula-in-Selmer-corank-at-most-one-September-24-2026": {
+  "The-two-primary-Birch-Swinnerton-Dyer-formula-in-Selmer-corank-at-most-one-October-6-2026": {
    "title": "The two-primary Birch–Swinnerton-Dyer formula in Selmer corank at most one",
    "family": "002",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 54,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(E/\\mathbb Q\\) be any elliptic curve with \\(s_2(E)\\leq1\\).\nThen\n\\[\n r:=\\operatorname{rank}E(\\mathbb Q)\n   =\\operatorname{ord}_{s=1}L(E,s)=s_2(E),\n \\qquad \\#\\Sha(E/\\mathbb Q)<\\infty.\n\\]\nMoreover,\n\\[\n Q_E=\\frac{L^{(r)}(E,1)\\,(\\#T_E)^2}\n {r!\\,\\Omega_E\\Reg_E\\prod_{\\ell\\ \\mathrm{finite}}c_\\ell(E)}\n \\in\\mathbb Q_{>0},\n \\qquad\n v_2(Q_E)=v_2\\bigl(\\#\\Sha(E/\\mathbb Q)\\bigr).\n\\]\nThere is no restriction on \\(E[2]\\) or on the reduction of \\(E\\) at two.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-two-primary-Birch-Swinnerton-Dyer-formula-in-Selmer-corank-at-most-one-September-24-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 4,
    "error": null,
@@ -15129,9 +15630,30 @@
     }
    ]
   },
-  "Uniform-real-Lipschitz-surfaces-on-the-triangular-lattice-September-25-2026": {
+  "Uniform-real-Lipschitz-surfaces-on-the-triangular-lattice-October-6-2026": {
    "title": "Uniform real Lipschitz surfaces on the triangular lattice",
    "family": "232",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "The Model and the Theorem",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 101,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere are constants $A>0$, $\\sigma>0$, and $\\lambda\\in(0,1/2]$, independent\nof $D,a,b$, such that the model \\eqref{eq:model} has\n\\[\n \\gamma_\\delta\\Longrightarrow\\mathrm{SLE}_4(D;a,b),\\qquad\n \\frac{h_\\delta-\\E h_\\delta}{\\sigma}\n       \\Longrightarrow\\mathrm{GFF}_D\n\\]\nin the stated curve metric and as random distributions, respectively.\nThe constants and limiting mean are\n\\begin{align}\n v&=2/\\sqrt3,&\\sigma^2&=(vA)^{-1},&\n \\lambda^2&=\\frac{\\pi}{8vA},\\label{eq:target-constants}\\\\\n m_D(z)&=\\lambda\\bigl[\\omega_D(z,A_+)-\\omega_D(z,A_-)\\bigr].&&&\n \\label{eq:target-mean}\n\\end{align}\nHere $\\omega_D$ is harmonic measure and $A$ is the tangent-flux coefficient\ndefined in the cell construction. The stiffness is $vA$; no elementary\nclosed form for it is proposed.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Uniform-real-Lipschitz-surfaces-on-the-triangular-lattice-September-25-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 5,
    "error": null,
@@ -15319,6 +15841,27 @@
    ]
   },
   "Unrestricted-pro-modularity-at-the-prime-two-October-4-2026": {
+   "title": null,
+   "family": null,
+   "tex_root": "build/source/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "The full Hecke algebra and the theorem",
+     "in_intro": true,
+     "tex_file": "build/source/sections/introduction.tex",
+     "tex_line": 33,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $E/\\Q_2$ be finite, with ring of integers $\\OO_E$, and let\n$r:G_{\\Q}\\longrightarrow\\GL_2(E)$\nbe continuous and absolutely irreducible. Suppose that $r$ is\nunramified outside finitely many finite primes and is odd:\n$\\det r(c)=-1$ for complex conjugation $c$.\nThen there exist an odd positive integer $N$, divisible by every odd\nprime where $r$ ramifies, and a continuous $\\Z_2$-algebra homomorphism\n\\[\n \\lambda:\\mathbb T_2(N)\\longrightarrow\\OO_E\n\\]\nsuch that, for every prime $\\ell\\nmid2N$,\n\\[\n \\lambda(T_\\ell)=\\tr r(\\operatorname{Frob}_\\ell),\\qquad\n \\lambda(\\ell S_\\ell)=\\det r(\\operatorname{Frob}_\\ell).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Unrestricted-pro-modularity-at-the-prime-two-October-6-2026": {
    "title": "Unrestricted pro-modularity at the prime two",
    "family": "010",
    "tex_root": "build/source/main.tex",
@@ -15591,9 +16134,30 @@
     }
    ]
   },
-  "Weil-classes-and-Hodge-classes-on-abelian-powers-September-30-2026": {
+  "Weil-classes-and-Hodge-classes-on-abelian-powers-October-6-2026": {
    "title": "Weil classes and Hodge classes on abelian powers",
    "family": "032",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "p3ab:split-sixfolds",
+     "title": "Split Weil sixfolds",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 79,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Split Weil sixfolds]\n\\label{p3ab:split-sixfolds}\nLet \\(E\\) be an imaginary quadratic field and let \\(A\\) be a complex\nabelian sixfold with an \\(E\\)-action.  Suppose a compatible\npolarization has hyperbolic rational Hermitian form of signature\n\\((3,3)\\).  Then the rational Hodge conjecture holds in every\ncodimension on \\(A^m\\), for every \\(m\\geq1\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "Weil-classes-and-Hodge-classes-on-abelian-powers-September-30-2026": {
+   "title": null,
+   "family": null,
    "tex_root": "build/paper.tex",
    "n_theorem_blocks": 5,
    "error": null,

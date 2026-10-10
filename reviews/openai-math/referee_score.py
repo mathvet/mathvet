@@ -169,10 +169,14 @@ def main():
         return
     if not (args.a and args.b):
         ap.error('--a and --b are required (or --demo)')
-    mathvet = {}
-    for p in sorted((HERE / 'source').glob('lean_scope_audit_part*.json')):
-        for r in json.load(open(p, encoding='utf-8')):
-            mathvet[r['family']] = r['headline_formalized']
+    frozen = HERE / 'referee' / 'frozen' / 'verdicts.json'   # the verdicts at the frozen commit; the live review may have moved on
+    if frozen.exists():
+        mathvet = json.load(open(frozen, encoding='utf-8'))['verdicts']
+    else:
+        mathvet = {}
+        for p in sorted((HERE / 'source').glob('lean_scope_audit_part*.json')):
+            for r in json.load(open(p, encoding='utf-8')):
+                mathvet[r['family']] = r['headline_formalized']
     unknown = [f for f in sample if f not in mathvet]
     if unknown:
         sys.exit(f'families without a MathVet verdict (not in the audit): {unknown}')

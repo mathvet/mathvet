@@ -1,12 +1,12 @@
-# dataset/ — 405 Lean challenge statements from `openai/math` paired with their papers' main theorems
+# dataset/ — 416 Lean challenge statements from `openai/math` paired with their papers' main theorems
 
-One JSON object per Comparator challenge: the Lean challenge file, the natural-language main theorem(s) of the paper(s) it belongs to, the family's overview summary and the lab's own `lean/docs` scope text, structural metadata (import cone, external packages, local checker status) and **MathVet's fidelity label** (does the Lean state the family's headline?). 405 rows, 235 result families, built from the `openai/math` clone at commit `adc7f1241b42e322a6451854ab7e4b4c146bf78a` (2026-10-06, the only upstream commit at review time). The proof library itself (`lean/OAI`, 25.9M lines) stays upstream and is only pointed to (`solution_file`, `cone_*`).
+One JSON object per Comparator challenge: the Lean challenge file, the natural-language main theorem(s) of the paper(s) it belongs to, the family's overview summary and the lab's own `lean/docs` scope text, structural metadata (import cone, external packages, local checker status) and **MathVet's fidelity label** (does the Lean state the family's headline?). 405 rows, 235 result families, built from the `openai/math` clone at commit `adc7f1241b42e322a6451854ab7e4b4c146bf78a` (2026-10-06, the only upstream commit at review time). The proof library itself (`lean/OAI`, 25.9M lines) stays upstream and is only pointed to (`solution_file`, `cone_*`). Upstream commit `fd4aeeb2` (first version `adc7f124`, 405 rows).
 
 Purpose: evaluate whether a generated Lean statement states the paper's theorem. Labels and additions are Apache-2.0, the same license as the upstream corpus (see Licensing below). The labels are pre-referee (see `../PROTOCOL.md`).
 
 | file | what |
 | --- | --- |
-| `autoformalization_pairs.jsonl` | the dataset, UTF-8 JSON Lines, 405 rows (5.9 MB), ordered by family number, then by the family's challenge order in `index.json` |
+| `autoformalization_pairs.jsonl` | the dataset, UTF-8 JSON Lines, 416 rows (6.1 MB), ordered by family number, then by the family's challenge order in `index.json` |
 | `stats.json` | every count quoted below, build parameters, cone cross-check |
 | `README.md` | this file |
 
@@ -14,7 +14,7 @@ Rebuild (about one minute, deterministic apart from `built_at`; the script was w
 
 ```python
 import pandas as pd
-df = pd.read_json("ml/autoformalization_pairs.jsonl", lines=True)        # 405 rows x 48 columns
+df = pd.read_json("ml/autoformalization_pairs.jsonl", lines=True)        # 416 rows x 48 columns
 gold = df[df.one_to_one & (df.nl_extraction_quality == "good") & (df.fidelity_class == "full")]   # 81 rows
 ```
 
@@ -22,7 +22,7 @@ gold = df[df.one_to_one & (df.nl_extraction_quality == "good") & (df.fidelity_cl
 
 | | value |
 | --- | --- |
-| challenges / families / papers in those families | 405 / 235 / 467 (330 are linked from a `lean/docs` page, `lean_linked`) |
+| challenges / families / papers in those families | 416 / 242 / 477 (341 are linked from a `lean/docs` page, `lean_linked`) |
 | **fidelity, families** (full / partial / weaker-statement / supporting-only) | **144** / 60 / 19 / 12 (none: 0) |
 | **fidelity, challenges** (labels are inherited from the family) | **261** / 104 / 25 / 15 |
 | **NL extraction quality, challenges** (good / partial / none) | **399** / 6 / 0 |
@@ -32,7 +32,7 @@ gold = df[df.one_to_one & (df.nl_extraction_quality == "good") & (df.fidelity_cl
 | `one_to_one` (family has 1 challenge and 1 linked paper) | 140 |
 | good NL and `full` label | 255 |
 | **gold: `one_to_one` and good NL and `full`** | **81** |
-| Lean targets resolved | 507 theorems + 45 definitions (all 405 configs resolve) |
+| Lean targets resolved | 537 theorems + 65 definitions (all 416 configs resolve) |
 | Lean text truncated (> 1000 lines) | 8: EditApproximation, CoarseAssembly, CKSBondiPenrose, ThorpRouting, ThomasonModelStructures, CharacterCriterion, SnakyCertificate, NavierStokesVelocity |
 | challenges with a non-Mathlib package in the import cone | 23 (PrimeNumberTheoremAnd 14, StrongPNT 6, RellichKondrachov 6, FixedPointTheorems 3, AbsorptionCutoff 2, Schoenflies, BernoulliRegular, ClassFieldTheory, SphereEversion, Gromov 1 each) |
 | local checker status at build time | `check_cmp` pass 11, `check_comparator` pass 3, the rest `none` (solution module not built here) |
@@ -40,7 +40,7 @@ gold = df[df.one_to_one & (df.nl_extraction_quality == "good") & (df.fidelity_cl
 
 ## Read these before using the labels or the pairs
 
-1. **Fidelity labels are per family, not per pair.** The audit (`verification/lean_scope_audit_part{1,2,3}.{md,json}`) compares a family's *overview summary* (its headline, first-named claim) with *all* of the family's Comparator statements and gives one verdict. Every challenge inherits it (`family_challenges` lists the siblings). A `partial` family can contain a challenge that is a perfectly faithful formalization of the extracted paper theorem (example: `AbhyankarSathaye`, family 049: the Lean states the Sept-24 paper's zero-fibre counterexample for n >= 4; the family headline, the Oct-5 stable-coordinate result, has no statement). For classification use the family as the unit (235 items); the 405-row version is a noisy, inherited relabeling.
+1. **Fidelity labels are per family, not per pair.** The audit (`verification/lean_scope_audit_part*.{md,json}`) compares a family's *overview summary* (its headline, first-named claim) with *all* of the family's Comparator statements and gives one verdict. Every challenge inherits it (`family_challenges` lists the siblings). A `partial` family can contain a challenge that is a perfectly faithful formalization of the extracted paper theorem (example: `AbhyankarSathaye`, family 049: the Lean states the Sept-24 paper's zero-fibre counterexample for n >= 4; the family headline, the Oct-5 stable-coordinate result, has no statement). For classification use the family as the unit (235 items); the 405-row version is a noisy, inherited relabeling.
 2. **The NL side is the paper's main theorem(s), not a per-challenge alignment.** A family with several challenges formalizes several theorems, usually only one of which is the paper's `thm:main`. Papers are ranked per challenge by lexical similarity (`match_score`, a heuristic in [0, 1], not a calibrated probability), but exact pairs are only guaranteed when `one_to_one` is true (140 rows; 81 of them are also good and `full`). `challenge_result_labels` (the "Result" cell of the `lean/docs` table row for that challenge) is a short NL description of what the challenge states.
 3. **`nl_extraction_quality` rates the extraction, not the pairing.** `good`: the first block was selected by a main label/title/env or as the first theorem of the introduction, from a paper linked by the docs page. `partial`: only "first theorem anywhere" was available (a technical theorem outside the introduction). `none`: no theorem block (never happens).
 4. **The labels came from one model-assisted pass per family**, validated mechanically (schema, titles, challenge sets); there is no second annotator and no agreement statistic. The Lean checks (`check_cmp` pass for 11 rows, real Comparator for 3) only confirm that a challenge statement matches the constant the solution proves, not that it states the NL headline. Verdict policy (verbatim in the audit files): the verdict is about the summary's primary claim; `full` iff the Lean implies it after unpacking definitions or a named routine step; `weaker-statement` iff it does not imply it; a second co-equal headline claim with no statement makes the verdict `partial`; `supporting-only` is a lemma/auxiliary statement only. A `full` label does not say the mathematics is correct (the upstream README states that unformalized results could have issues) and not that every definition is standard (see `fidelity_suspicious_defs`).
@@ -78,7 +78,7 @@ Lean challenge
 | `lean_sha256` | str | sha256 of the full original file bytes (verifies untruncated rows; pins truncated ones) |
 | `lean_has_sorry`, `lean_has_axiom_decl` | bool | 404 rows have `sorry`; one has an `axiom` placeholder |
 | `lean_targets` | [obj] | one per config name: `name`, `role` (`theorem` / `definition`), `kind` (Lean keyword), `line_start`, `line_end` (1-based, **original file** numbering, docstring included), `statement` (declaration without the trailing `:= by sorry`), `text` (as in the file) |
-| `lean_targets_status` | str | `ok` when every config name resolved (all 405) |
+| `lean_targets_status` | str | `ok` when every config name resolved (all 416) |
 
 Import cone and checker status
 
@@ -154,7 +154,7 @@ Split by `family` (never by challenge): siblings share summary, scope text and p
 
 ### (b) Fidelity classification
 
-- **Item.** A family (235 items; the challenge-level 405-row version inherits family labels). **Input:** `family_summary` (optionally the extracted main theorem and abstract) and the Lean text of all the family's challenges (`lean_text`, or the targets plus the definitions they use). **Question:** does the Lean state this headline? **Label:** `fidelity_class` in {`full`, `partial`, `weaker`, `supporting`}.
+- **Item.** A family (242 items; the challenge-level 416-row version inherits family labels). **Input:** `family_summary` (optionally the extracted main theorem and abstract) and the Lean text of all the family's challenges (`lean_text`, or the targets plus the definitions they use). **Question:** does the Lean state this headline? **Label:** `fidelity_class` in {`full`, `partial`, `weaker`, `supporting`}.
 - **Label distribution (families).** full 144, partial 60, weaker 19, supporting 12; majority-class accuracy 61.3%. Report macro-F1 and a binary full-vs-not score (144 vs 91).
 - **Leakage.** Do not feed `family_scope` (the formalizers' scope statement often says what is not covered), `fidelity_gap_note`, `fidelity_suspicious_defs`, `check_*`. `challenge_result_labels` describe the Lean and are borderline; ablate them.
 - **Use of the notes.** `fidelity_gap_note` and `fidelity_suspicious_defs` are the rationale; use them to grade explanations or to train a rationale-then-label model, not as inputs.
@@ -185,6 +185,6 @@ every paper of the family in catalogue order. Built by the private `scripts/buil
 ## `baseline.md` (added 2026-10-10)
 
 Aggregates of a first automated baseline on this dataset: a single-shot Sonnet 5.5 judge (`claude -p`, JSON schema, no tools)
-classifying each of the 405 pairs under the PROTOCOL.md rubric, three samples per pair, compared with the MathVet verdicts.
+classifying each of the 405 pairs of the first dataset version (upstream commit `adc7f124`) under the PROTOCOL.md rubric, three samples per pair, compared with the MathVet verdicts of that version.
 Family-level agreement, confusion matrices, kappa, self-agreement and cost are given; no per-family or per-challenge class is
 published while the verdicts are pre-referee (rule T3). The runner is the private `scripts/benchmark_baseline.py`.

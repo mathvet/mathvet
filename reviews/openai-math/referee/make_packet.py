@@ -12,8 +12,9 @@ dirty upstream tree, checks that the challenge set equals the scope note's links
 into the packet, builds atomically, and writes a SHA-256 manifest of every file but itself.
 
 Usage: python3 reviews/openai-math/referee/make_packet.py [--upstream PATH] [--zip OUT.zip]
-  PATH: a checkout of github.com/openai/math at the reviewed commit (default: upstream/openai-math in this repository,
-  or $MATHVET_UPSTREAM). Outputs: families/NNN/{README.md,*.lean,*.json}, form.csv, manifest.sha256.
+  PATH: a checkout of github.com/openai/math at the PACKET commit (referee/COMMIT; default: upstream/openai-math in this
+  repository, or $MATHVET_UPSTREAM). The packet is frozen with the sample: its inputs are the copies under frozen/ even after
+  the review moves to a newer commit. Outputs: families/NNN/{README.md,*.lean,*.json}, form.csv, manifest.sha256.
 """
 import argparse, csv, hashlib, json, os, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
@@ -38,8 +39,10 @@ def git(*a):
     return subprocess.run(['git', '-C', str(UP), *a], capture_output=True, text=True, check=True).stdout
 
 
-index = json.load(open(REV / 'source' / 'index.json', encoding='utf-8'))
-COMMIT = index['commit']
+FROZEN = HERE / 'frozen'          # inputs captured at the frozen commit (the review itself may have moved on)
+COMMIT = (HERE / 'COMMIT').read_text().strip()
+index = json.load(open(FROZEN / 'index.json', encoding='utf-8'))
+assert index['commit'] == COMMIT, 'frozen/index.json is not at the packet commit'
 if git('rev-parse', 'HEAD').strip() != COMMIT:
     sys.exit(f'{UP} is not at the reviewed commit {COMMIT[:8]}')
 dirty = git('status', '--porcelain', '--', 'lean/docs', 'lean/ComparatorChallenges', 'preprints', 'overview.tex', 'CONTENTS.md').strip()
@@ -47,10 +50,10 @@ if dirty:
     sys.exit('upstream checkout has local changes in the files this packet copies; refusing:\n' + dirty)
 fams = index['families']
 manuscripts = {m['dir']: m for m in index['manuscripts']}
-paper_thms = json.load(open(ROOT / 'dataset' / 'paper_main_theorems.json', encoding='utf-8'))
-assert paper_thms['upstream_commit'] == COMMIT, 'dataset/paper_main_theorems.json is for another commit'
+paper_thms = json.load(open(FROZEN / 'paper_main_theorems.json', encoding='utf-8'))
+assert paper_thms['upstream_commit'] == COMMIT, 'frozen/paper_main_theorems.json is for another commit'
 PT = paper_thms['papers']
-rows = [json.loads(l) for l in open(ROOT / 'dataset' / 'autoformalization_pairs.jsonl', encoding='utf-8')]
+rows = [json.loads(l) for l in open(FROZEN / 'pairs.jsonl', encoding='utf-8')]
 by_ch = {r['challenge']: r for r in rows}
 linked_dirs = {r['family']: {p['dir'] for p in r['nl_papers'] if p.get('lean_linked')} for r in rows}
 for r in rows:
@@ -72,6 +75,7 @@ for f in ft['families']:
     if f['family'] in sample:
         review_text.append(f['review_note'])
         review_text += list(f.get('definitions_to_check') or [])
+review_text += json.load(open(FROZEN / 'review_text.json', encoding='utf-8'))   # the review's text at the frozen commit
 
 
 def blob(path, line=None):
@@ -183,7 +187,7 @@ with open(HERE / 'form.csv', 'w', encoding='utf-8', newline='') as fh:
 
 with open(HERE / 'manifest.sha256', 'w', encoding='utf-8') as fh:
     for p in sorted(HERE.rglob('*')):
-        if p.is_file() and p.name != 'manifest.sha256' and 'families.' not in p.parts[len(HERE.parts)]:
+        if p.is_file() and p.name != 'manifest.sha256' and 'families.' not in p.parts[len(HERE.parts)] and '__pycache__' not in p.parts:
             fh.write(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(HERE)}\n')
 n_files = sum(1 for p in out_dir.rglob('*') if p.is_file())
 print(f'packet: {len(written)} families, {n_files} files, commit {COMMIT[:8]}, no review text found in it')

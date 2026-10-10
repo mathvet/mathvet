@@ -1,9 +1,9 @@
 {
-  "built_at": "2026-10-07T18:45:29Z",
-  "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "jsonl_bytes": 5898530,
+  "built_at": "2026-10-10T19:15:19Z",
+  "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "jsonl_bytes": 6095739,
   "builder": "scripts/build_ml_pairs.py",
-  "builder_sha256": "c8ffe2d440194cf1c5d046edc00a5e5b659b24ff7dd283654961b9e020fca8de",
+  "builder_sha256": "711ee183b91808c55ed16e1928ae02d898609b1183420984df4c23cf64c9d71b",
   "params": {
     "max_full_lines": 1000,
     "keep_head_lines": 400,
@@ -11,11 +11,41 @@
     "max_block_chars": 12000
   },
   "index_json_manuscript_repairs": [
+    "A-pointwise-2-converse-for-elliptic-curves-with-rational-two-torsion-September-24-2026",
+    "Abelian-covers-Gale-correspondences-and-the-Hodge-conjecture-for-powers-September-30-2026",
+    "Algebraicity-of-Kuga-Satake-Correspondences-for-K3-Surfaces-October-3-2026",
+    "Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026",
     "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
-    "Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026"
+    "Conditional-good-minimal-models-for-compact-Kahler-fourfolds-October-5-2026",
+    "Deforming-hypersymplectic-four-manifolds-to-hyperkahler-triples-September-23-2026",
+    "Exact-Birch-Swinnerton-Dyer-Formula-from-Low-Selmer-Corank-October-3-2026",
+    "Finite-ordinary-minimal-model-programs-on-compact-Kahler-fourfolds-October-5-2026",
+    "Fontaine-Mazur-modularity-at-the-prime-2-September-23-2026",
+    "Gaussian-free-field-limits-of-weighted-integer-Lipschitz-heights-September-25-2026",
+    "Goldfelds-analytic-density-conjecture-and-the-2-converse-for-elliptic-curves-September-23-2026",
+    "Hilberts-tenth-problem-over-the-rational-numbers-September-24-2026",
+    "Incompressible-Box-Transport-and-Finite-Computation-September-27-2026",
+    "Log-abundance-for-compact-Kahler-spaces-under-logarithmic-Iitaka-subadditivity-October-4-2026",
+    "Milnes-rationality-conjecture-for-abelian-varieties-September-23-2026",
+    "Numerical-semiampleness-of-nef-adjoint-classes-on-compact-Kahler-manifolds-October-4-2026",
+    "Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026",
+    "Taming-implies-compatibility-on-four-manifolds-September-23-2026",
+    "Termination-of-generalized-canonical-flips-on-compact-Kahler-fourfolds-October-5-2026",
+    "Termination-of-generalized-log-canonical-flips-on-compact-Kahler-fourfolds-October-5-2026",
+    "The-Gaussian-free-field-limit-of-integer-Lipschitz-heights-with-two-arc-boundary-data-September-25-2026",
+    "The-Selmer-converse-for-elliptic-curves-at-every-prime-September-24-2026",
+    "The-joint-scaling-limit-of-critical-Ashkin-Teller-currents-September-25-2026",
+    "The-mean-analytic-rank-of-quadratic-twists-of-elliptic-curves-September-23-2026",
+    "The-p-adic-section-conjecture-September-24-2026",
+    "The-rational-Hodge-conjecture-for-CM-abelian-varieties-September-30-2026",
+    "The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026",
+    "The-two-primary-Birch-Swinnerton-Dyer-formula-in-Selmer-corank-at-most-one-September-24-2026",
+    "Uniform-real-Lipschitz-surfaces-on-the-triangular-lattice-September-25-2026",
+    "Unrestricted-pro-modularity-at-the-prime-two-October-4-2026",
+    "Weil-classes-and-Hodge-classes-on-abelian-powers-September-30-2026"
   ],
   "cone_check": {
-    "compared_with_import_cones_json": 405,
+    "compared_with_import_cones_json": 416,
     "differences": {
       "ArtinParabolicIntersections": {
         "import_cones_json": [
@@ -60,54 +90,54 @@
       ]
     }
   },
-  "n_challenges": 405,
-  "n_families": 235,
-  "n_papers_in_lean_families": 467,
-  "n_lean_linked_papers": 330,
+  "n_challenges": 416,
+  "n_families": 242,
+  "n_papers_in_lean_families": 477,
+  "n_lean_linked_papers": 341,
   "fidelity_label_challenges": {
-    "full": 261,
-    "partial": 104,
-    "supporting-only": 15,
-    "weaker-statement": 25
+    "full": 269,
+    "partial": 103,
+    "supporting-only": 20,
+    "weaker-statement": 24
   },
   "fidelity_label_families": {
-    "full": 144,
-    "partial": 60,
-    "supporting-only": 12,
-    "weaker-statement": 19
+    "full": 149,
+    "partial": 59,
+    "supporting-only": 16,
+    "weaker-statement": 18
   },
   "fidelity_class_challenges": {
-    "full": 261,
-    "partial": 104,
-    "supporting": 15,
-    "weaker": 25
+    "full": 269,
+    "partial": 103,
+    "supporting": 20,
+    "weaker": 24
   },
   "nl_extraction_quality_challenges": {
-    "good": 399,
-    "partial": 6
+    "good": 411,
+    "partial": 5
   },
   "nl_extraction_quality_families": {
-    "all_challenges_good": 231,
+    "all_challenges_good": 238,
     "any_challenge_partial": 4,
     "any_challenge_none": 0
   },
   "nl_first_block_reason": {
-    "first_theorem": 6,
-    "intro_first": 74,
-    "main_env": 1,
-    "main_label": 324
+    "first_theorem": 5,
+    "intro_first": 75,
+    "main_env": 2,
+    "main_label": 334
   },
   "nl_blocks_per_challenge": {
-    "1": 208,
-    "2": 102,
-    "3": 95
+    "1": 210,
+    "2": 110,
+    "3": 96
   },
-  "papers_with_any_block": 467,
-  "papers_with_main_label_block": 388,
-  "challenges_one_to_one": 140,
-  "challenges_one_to_one_good_full": 81,
-  "challenges_good_and_full": 255,
-  "challenges_in_multi_challenge_families": 260,
+  "papers_with_any_block": 477,
+  "papers_with_main_label_block": 397,
+  "challenges_one_to_one": 145,
+  "challenges_one_to_one_good_full": 84,
+  "challenges_good_and_full": 264,
+  "challenges_in_multi_challenge_families": 266,
   "lean_truncated_challenges": [
     "EditApproximation",
     "SnakyCertificate",
@@ -119,11 +149,11 @@
     "NavierStokesVelocity"
   ],
   "lean_targets_status": {
-    "ok": 405
+    "ok": 416
   },
   "lean_target_counts": {
-    "theorems": 507,
-    "definitions": 45
+    "theorems": 537,
+    "definitions": 65
   },
   "lean_without_sorry": [
     "HarmonicGrowth"
@@ -131,8 +161,8 @@
   "lean_with_axiom_decl": [
     "HarmonicGrowth"
   ],
-  "lean_total_lines": 89411,
-  "lean_total_bytes": 4383001,
+  "lean_total_lines": 90693,
+  "lean_total_bytes": 4427531,
   "cone_axiom_files_challenges": [],
   "cone_third_party_packages": {
     "AbsorptionCutoff": 2,
@@ -148,44 +178,46 @@
   },
   "challenges_with_third_party_cone_dependency": 23,
   "check_cmp": {
-    "none": 394,
-    "pass": 11
+    "fail": 3,
+    "none": 312,
+    "pass": 101
   },
   "check_comparator": {
-    "none": 402,
-    "pass": 3
+    "fail": 1,
+    "none": 364,
+    "pass": 51
   },
   "median_cone_oai_lines": 22691,
   "fidelity_class_by_nl_quality": {
     "full": {
-      "good": 255,
-      "partial": 6
+      "good": 264,
+      "partial": 5
     },
     "partial": {
-      "good": 104
+      "good": 103
     },
     "supporting": {
-      "good": 15
+      "good": 20
     },
     "weaker": {
-      "good": 25
+      "good": 24
     }
   },
   "fidelity_class_by_one_to_one": {
     "full": {
-      "one_to_one": 81,
-      "other": 180
+      "one_to_one": 84,
+      "other": 185
     },
     "partial": {
-      "one_to_one": 36,
+      "one_to_one": 35,
       "other": 68
     },
     "supporting": {
-      "one_to_one": 10,
-      "other": 5
+      "one_to_one": 14,
+      "other": 6
     },
     "weaker": {
-      "one_to_one": 13,
+      "one_to_one": 12,
       "other": 12
     }
   },
@@ -195,10 +227,10 @@
     "max": 19169
   },
   "challenges_by_family_size": {
-    "1": 145,
-    "2": 114,
+    "1": 150,
+    "2": 116,
     "3": 42,
-    "4": 36,
+    "4": 40,
     "5": 15,
     "6": 18,
     "7": 14,
@@ -206,8 +238,8 @@
     "13": 13
   },
   "subjects": {
-    "Algebra": 9,
-    "Algebraic and complex geometry": 7,
+    "Algebra": 10,
+    "Algebraic and complex geometry": 8,
     "Combinatorics": 33,
     "Convex and metric geometry": 13,
     "Differential geometry": 15,
@@ -216,12 +248,12 @@
     "Group theory": 12,
     "Mathematical logic": 6,
     "Mathematical physics": 17,
-    "Number theory": 16,
-    "Operator algebras": 14,
+    "Number theory": 17,
+    "Operator algebras": 15,
     "Partial differential equations": 11,
     "Probability and statistical mechanics": 19,
-    "Real and complex analysis": 9,
-    "Theoretical computer science": 32,
+    "Real and complex analysis": 10,
+    "Theoretical computer science": 34,
     "Topology": 3
   }
 }

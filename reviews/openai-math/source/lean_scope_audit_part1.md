@@ -198,13 +198,22 @@ The single statement is `veryGenerally_fiber_negative_branch`: for a `StratumSmo
 
 ## 049 - A stable-coordinate counterexample in four variables
 
-**Verdict: partial**
-
-The family title's claim (a polynomial in four variables that is not a coordinate but becomes one after adjoining a single variable, disproving the Stable Coordinate conjecture; the Oct-5 paper) has no statement at all. What is stated is the earlier paper's classical Abhyankar-Sathaye counterexample: `exists_noncoordinate_polynomial (n : ℕ) (hn : 4 ≤ n) : ∃ F, Nonempty ((MvPolynomial (Fin n) ℂ ⧸ Ideal.span {F}) ≃ₐ[ℂ] MvPolynomial (Fin (n - 1)) ℂ) ∧ ¬ ∃ (equiv) (index : Fin n), equiv (MvPolynomial.X index) = F` (zero fibre only), plus `commuting_derivations_with_ordinary_extras`, whose kernel clause `∀ g, (∀ i, d i g = 0) → ¬ ∃ e j, e (X j) = g` says the construction's F stays a non-coordinate in every ambient dimension n ≥ 4, i.e. it is not itself the stable coordinate. Docs: "The three-variable case is not covered."
-
-- Challenges: `AbhyankarSathaye`, `CommutingDerivations`
-- Cone (OAI lines): max 3240 (AbhyankarSathaye 1445, CommutingDerivations 3240); external: Mathlib
-- Suspicious definitions: none found
+- **Verdict:** `full`
+- **Challenges:** AbhyankarSathaye, CommutingDerivations, StableCoordinateFour
+- **Cone (OAI lines):** AbhyankarSathaye 1,445, CommutingDerivations 3,240, StableCoordinateFour 14,606 (max 14,606)
+- **External packages:** none beyond Mathlib/Lean core
+- **Note:** StableCoordinateFour.principal_package unfolds (PrincipalPackage = PolynomialPackage ∧ FiberPackage) to: the explicit f (same Q and f as the paper's Theorem thm:main) has totalDegree 5, is a coordinate of ℂ[x0..x4] after rename Fin.castSucc, and is not a coordinate of ℂ[x0..x3]; moreover every fibre f = t has coordinate ring ≅ ℂ[y1,y2,y3] and no automorphism carries (f − t) onto (x0). The only steps are definition unfolding (and f − C 0 = f for the Abhyankar–Sathaye reading at t = 0), so both the stable-coordinate claim and the fibre/Abhyankar–Sathaye claim are stated; AbhyankarSathaye (all n ≥ 4) and CommutingDerivations go beyond the headline.
+- **Suspicious/non-standard definitions:**
+  - IsCoordinate: ∃ ℂ-algebra automorphism φ of R n with φ g = X 0; equivalent to g being the image of a variable (or a member of a polynomial generating set), standard
+  - IsOneStableCoordinate: φ (stabilize g) = X 0 for an automorphism φ of R 5, with stabilize = rename Fin.castSucc; standard (adjoin one variable)
+  - IsAffineThreeSpaceFiber / FiberRing: the scheme-theoretic fibre ring R 4 ⧸ span {f − C t} is ℂ-algebra isomorphic to R 3; standard
+  - IsRectifiableFiber: some ℂ-automorphism φ of R 4 maps the ideal (f − C t) onto (X 0); standard rectifiability, equivalent to f − t being a coordinate up to a nonzero scalar (the paper's cor:fibers proof)
+  - StableCoordinateFour.PolynomialPackage includes f.totalDegree = 5 as an extra conjunct, matching the paper's 'explicit degree-five polynomial'
+  - CommutingDerivations.fourInclusion / extendedF / blocksToAmbient / blocksToOutput: index bookkeeping; unfolding Equiv.sumComm, finSumFinEquiv (castAdd / natAdd) and finCongr (value-preserving Fin.cast) shows that for i < n−4 derivation number 3+i must equal ∂/∂x_(4+i) (the ordinary extra partials); derivations 0, 1, 2 are constrained only by the other conjuncts (they are not required to ignore the added variables)
+  - CommutingDerivations.LocallyNilpotent: ∀ a, ∃ n, D^[n] a = 0; standard
+  - CommutingDerivations: LinearIndependent (MvPolynomial (Fin n) ℂ) d uses Mathlib's R-module structure on Derivation ℂ R R (Derivation.instModule), i.e. independence over the polynomial ring; standard
+  - CommutingDerivations S, P, h, u, v, w, x, y, s, p, F: the explicit F = h − P(x,y,s) − 1 of the September paper (matches eq:xyz and eq:F symbol by symbol); it is a different polynomial from StableCoordinateFour's degree-five f
+  - AbhyankarSathaye: no custom definitions; F is existentially quantified, not pinned to the explicit polynomial
 
 ## 050 - A counterexample to Griffiths' positivity conjecture
 
@@ -698,13 +707,21 @@ The challenge is `MeanPayoff.MainClaim : ∃ M : Machine, ∃ C > 0, ∀ G : Gam
 
 ## 130 - Fourier transforms below $n\log n$
 
-**Verdict: weaker-statement**
-
-`MainStatement : ∀ c > 0, ∀ N₀ ≥ 2, ∃ n ≥ N₀, ∃ C : Circuit n, C.Computes (fourierMatrix n) ∧ (C.size : ℝ) < c * n * Real.logb 2 n` (circuits over `add`/`sub`/`scale (c : ℂ)` gates, one gate each, free arbitrary complex constants, free fanout/permutations) is only a subsequential `o(n log n)` statement for SOME lengths n; docs: "The result is subsequential, with no all-length, bounded-coefficient, conditioning, or bit-complexity claim." The summary claims a deterministic algorithm with `O(n (log n)^{1-δ})` operations for EVERY n, explicit δ = 10^{-13}, counting scalar preparation and word indexing (index lists a second paper, 'An explicit power saving...', that is not linked).
-
-- Challenges: `ExactFourier`
-- Cone (OAI lines): max 19103 (ExactFourier 19103); external: Mathlib
-- Suspicious definitions: Non-uniform scalar-circuit model: `Gate := add | sub | scale (c : ℂ)` with arbitrary complex constants charged one gate each and no cost for creating `c` (e.g. roots of unity); outputs name existing wires (`outputs : Fin n → Fin (n + 1 + size)`); `fourierMatrix n j k := zeta n ^ (j*k)`
+- **Verdict:** `full`
+- **Challenges:** ExactFourier, UniformFourier
+- **Cone (OAI lines):** ExactFourier 19,103, UniformFourier 15,329 (max 19,103)
+- **External packages:** none beyond Mathlib/Lean core
+- **Note:** UniformFourier.transform_main (DFTGoal) states that one fixed pair of closed RAM programs (order, solve) outputs dft n x exactly for every n > 0 and every x, with total work including root-order selection (d.work) and scalar preparation at most W n, where W =O n(log n)^(1−10^-13) (also the paper's θ-bound and o(n log n)); unfolding DFTGoal, DFTProgram and TimeBounds is the only step, and convolution_main likewise states Corollary 1.3. ExactFourier is the separate subsequential circuit result (for each c and N₀ some n ≥ N₀ has an exact circuit with fewer than c n log₂ n gates), which is the other paper's theorem and not the headline claim.
+- **Suspicious/non-standard definitions:**
+  - UniformFourier RAM model (Tape, Bill, Atom, Code, Code.run, Prog, run): bespoke typed point-free RAM with unit-cost exact complex field operations and unit-cost word operations; the meaning of 'O(...)' rests entirely on its cost semantics. I found no undercharging: every Code node and Atom pays at least 1, tab/sow pay 1+len, loops and bounded descents pay per iteration/level, and arrays are never copied for free
+  - UniformFourier.DFTProgram / ConvProgram: the program itself selects the root order d = run order n (0 < d < 1024 n³, its work counted) and then receives root d := ExactFourier.zeta d for free; the target is dft n with ζ_n, and every scalar the program can form lies in ℚ(ζ_d), so d must give ζ_n ∈ ℚ(ζ_d) (n | d, or d odd and n | 2d); matches the paper's 'specified root ζ_{D_*}, D_* < 1024 n³'
+  - UniformFourier Atom set: the only complex constants are 0 (cz) and 1 (cone); every other scalar must be prepared from the supplied root by counted add/sub/scale/inv on scalar registers; data registers (Paint.left/right/both) cannot become scalars or integers, and ifz tests only integers, so control flow is data-independent; 'cross' (data × data) exists only when allow = true (convolution), and only left × right ↦ both
+  - UniformFourier Bill.valid (a Prop): the side condition that every inv has a nonzero argument on the executed path; DFTProgram and ConvProgram require d.valid and result.valid, so division by zero is excluded rather than tested
+  - UniformFourier cap := (n+2)^cBound with ∃ cBound: forces work, root order and every produced integer (peak) to be polynomial in n, i.e. O(log n)-bit words; this is the 'logarithmic-word indexing' of the summary
+  - UniformFourier TimeBounds: W =O paperTime ∧ W =O decimalTime ∧ W =o nlogn with natural logs; asymptotic only (finitely many n are constrained only by correctness and cap); paperTime uses the paper's constants m = 10^6, W_* = 2^71, Δ = 6871402692000000 and θ = log(m − Δ/W_*)/log m; decimalTime n = n (log n)^(1 − 10^-13)
+  - UniformFourier dft / conv: dft n x j = Σ_k ζ_n^(jk) x_k with ζ_n = exp(+2πi/n) (unnormalized, same sign convention as the paper's F_n); conv is the full linear convolution on Fin (2n−1)
+  - ExactFourier Gate / Program / Circuit: linear scalar DAG with n inputs, an extra constant 0, free reuse and fan-out, outputs naming any available value (permutations free), and scale (c : ℂ) with arbitrary complex c at cost one; coefficient generation is uncharged (nonuniform); standard for the paper's model
+  - ExactFourier MainStatement: subsequential (∃ n ≥ N₀ for each c and N₀), not an all-length bound; this is the intended statement of the finite-tensor paper's thm:main
 
 ## 131 - Polynomial mixing of graph switches with prescribed degrees
 

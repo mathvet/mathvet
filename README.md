@@ -2,12 +2,12 @@
 
 **Does the Lean statement say what the paper claims?** Lean checks proofs. MathVet reviews *statements* against the headlines they are said to establish, in the fields of the community's [formalization.yaml](https://github.com/mathlib-initiative/formalization.yaml) standard, independently of every lab, and publishes the error rate of its own verdicts.
 
-Site: **[math.vet](https://math.vet)** · First review: [`openai/math`](reviews/openai-math/) at commit `adc7f124` (released 2026-10-06, reviewed 2026-10-08) · Status: **pre-referee** (see [PROTOCOL.md](PROTOCOL.md)).
+Site: **[math.vet](https://math.vet)** · First review: [`openai/math`](reviews/openai-math/) at commit `fd4aeeb2` (release of 2026-10-06, updated upstream 2026-10-08; reviewed 2026-10-08, moved to the updated commit 2026-10-10) · Status: **pre-referee** (see [PROTOCOL.md](PROTOCOL.md)).
 
 | openai/math | families |
 |---|---|
 | in the release | 372 |
-| with Lean (Comparator challenges) | 235 |
+| with Lean (Comparator challenges) | 242 |
 | Lean states the headline in full | 144 |
 | Lean states something narrower (60 partial · 19 weaker-statement · 12 supporting-only) | 91 |
 | no Lean | 137 |
@@ -20,9 +20,9 @@ Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem i
 |---|---|
 | [`EXPLAINER.md`](EXPLAINER.md) | the 1,500-word account of the review and its limits |
 | [`PROTOCOL.md`](PROTOCOL.md) | the pre-registered referee protocol: frozen 40-family sample, rubric, decision lines, power |
-| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (235 families), `challenge-status.{csv,json}` (405 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
+| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (242 families), `challenge-status.{csv,json}` (405 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
 | [`checker/`](checker/) | the scripts that build a challenge's solution, run the closure comparison and run the real Comparator |
-| [`dataset/`](dataset/) | 405 challenge statements paired with their papers' main theorems, scope notes and fidelity labels (Apache-2.0) |
+| [`dataset/`](dataset/) | 416 challenge statements paired with their papers' main theorems, scope notes and fidelity labels (Apache-2.0) |
 | [`scripts/`](scripts/) | `build_review.py` regenerates every derived file and the site from the sources; `build_index.py`, `import_cones.py`, `build_ml_pairs.py` rebuild the sources from a clone |
 | [`docs/`](docs/) | the static site served at math.vet |
 
@@ -33,7 +33,7 @@ Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem i
 ## Reproduce
 
 ```sh
-git clone https://github.com/openai/math upstream/openai-math && git -C upstream/openai-math checkout adc7f1241b42e322a6451854ab7e4b4c146bf78a
+git clone https://github.com/openai/math upstream/openai-math && git -C upstream/openai-math checkout fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
 pip install pyyaml markdown
 python3 scripts/build_review.py            # tables, YAML, site from the committed sources and logs
 checker/run_queue.sh CirculantHadamard     # rebuild and re-check a challenge yourself (see checker/README.md)

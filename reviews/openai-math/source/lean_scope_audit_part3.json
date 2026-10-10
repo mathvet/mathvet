@@ -139,15 +139,22 @@
   "title": "Counterexamples to the Hadwiger and Colin de Verdi\\`ere conjectures",
   "headline_formalized": "partial",
   "challenges": [
+   "HadwigerCounterexample",
    "ListHadwiger"
   ],
-  "gap_note": "Only the third (positive) claim is stated: `∃ C ≥ 1, ∀ finite nonempty G, listChromaticNumber G ≤ C * hadwigerNumber G`. The headline counterexamples (graphs with α ≤ 2 and χ_f(G) > h(G); failure of χ_f ≤ μ(G)+1) have no statement at all, and docs/paper scope covers only the list-Hadwiger bound.",
+  "gap_note": "HadwigerCounterexample states, for every M, a graph on Fin m with m >= max M 5, indepNum <= 2 and h(G) < 26m/75+2/3 < m/2 <= chi(G); the first-named claim follows by the routine bound chi_f(G) >= |V(G)|/alpha(G) >= m/2 (sum the vertex constraints of a fractional colouring; the paper does exactly this at 01-introduction.tex:58-67), although chi_f itself is not defined in the Lean. The summary's co-equal second claim ('Also disproves' the fractional Colin de Verdiere bound chi_f(G) <= mu(G)+1, the subject of a separate paper with a separate matrix-rank argument) has no challenge statement: no mu, well-signed matrix or Strong Arnold Property appears in either file. The positive list-colouring claim is stated verbatim by ListHadwiger.",
   "suspicious_defs": [
-   "`Choosable G k := ∀ (Color : Type) (L : V → Finset Color), (∀ v, k ≤ (L v).card) → ListColorable G L` and `listChromaticNumber := sInf {k | Choosable G k}`: standard list-chromatic number (colors restricted to `Type`, harmless for finite graphs)",
-   "`HasCliqueMinor G t := ∃ B : Fin t → Set V, (∀ i, (G.induce (B i)).Connected) ∧ pairwise disjoint ∧ pairwise adjacent` and `hadwigerNumber := sSup {t | HasCliqueMinor G t}`: standard (Connected forces nonempty branch sets; set bounded by |V|)"
+   "HasCliqueMinor: t branch sets B : Fin t -> Set V, each nonempty and connected in G.induce (Mathlib's Connected includes Nonempty), pairwise disjoint and pairwise joined by an edge; the standard K_t-minor definition",
+   "hadwigerNumber: sSup {t | HasCliqueMinor G t}, the largest clique-minor order h(G); the set is bounded by |V| for the finite V used (Fin m, Fintype V), so sSup is a true max; standard",
+   "IsTouchingMatching / connectedMatchingNumber: sets of 2-element cliques (edges), pairwise disjoint and pairwise joined by an edge between their endpoint sets, maximised via sSup; the paper's 'connected matching' (cm), standard for this paper",
+   "listChromaticNumber: sInf {k | Choosable G k} with Choosable quantifying over every Color : Type and every list assignment of size >= k; the standard list chromatic number for finite G (set contains |V|, so sInf is the true minimum); junk value 0 for infinite G is excluded by [Fintype V] in MainStatement",
+   "MainStatement: a Prop-valued def, the type of main_theorem; exists C : N with 1 <= C chosen before V and G, so C is universal; [Fintype V] [Nonempty V] restrict to finite nonempty graphs as in the paper; standard",
+   "G.indepNum and G.chromaticNumber (Mathlib): standard; the statement adds chromaticNumber != top and chromaticNumber = ofNat(toNat) so the toNat casts are faithful",
+   "chi_f (fractional chromatic number): not defined anywhere in the Lean (Mathlib at the pinned revision has no such definition); the fractional form of the primary claim is recovered only outside Lean from alpha <= 2 and chi_f >= |V|/alpha"
   ],
   "external": [],
   "cone_lines": {
+   "HadwigerCounterexample": 39776,
    "ListHadwiger": 19965
   }
  },

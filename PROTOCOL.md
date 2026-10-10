@@ -2,6 +2,8 @@
 
 *Pre-registered 8 October 2026, before any family in the sample was re-read by a referee. The thresholds below are not revised after data.*
 
+*Note added 10 October 2026: the published review has moved to upstream commit `fd4aeeb2`; the sample, the referee packet and the population counts below remain at `adc7f124` as frozen. The thresholds are unchanged.*
+
 ## What is measured
 
 Each of the 235 families with Lean in `openai/math` (commit `adc7f124`) carries one MathVet verdict in {`full`, `partial`, `weaker-statement`, `supporting-only`} about whether its Comparator challenge statements state the family's headline claim (the overview summary). The verdicts came from one model-assisted pass per family. The quantity measured here is the **family-level error rate** of those verdicts: the fraction of families on which the adjudicated referee verdict differs from the MathVet verdict, estimated on a stratified sample and weighted to the population. A secondary number, the binary `full` versus not-`full` disagreement rate, is reported alongside.

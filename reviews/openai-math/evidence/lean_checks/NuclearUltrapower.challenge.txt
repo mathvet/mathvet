@@ -1,0 +1,118 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_NuclearUltrapower.lean:208:8: warning: declaration uses `sorry`
+OAI.NuclearUltrapower.main_no_embedding : OAI.NuclearUltrapower.MainStatementWithCuntzCorollary
+@[reducible] def OAI.NuclearUltrapower.Dyadic : Type :=
+Localization.Away 2
+@[reducible] def OAI.NuclearUltrapower.Vector3 : Type :=
+Fin 3 → OAI.NuclearUltrapower.Dyadic
+@[reducible] def OAI.NuclearUltrapower.SL3Z : Type :=
+Matrix.SpecialLinearGroup (Fin 3) ℤ
+def OAI.NuclearUltrapower.dyadicTwo : OAI.NuclearUltrapower.Dyadicˣ :=
+OAI.NuclearUltrapower.dyadicTwo._proof_1.unit
+def OAI.NuclearUltrapower.matrixAction : OAI.NuclearUltrapower.SL3Z →
+  OAI.NuclearUltrapower.Vector3 ≃ₗ[OAI.NuclearUltrapower.Dyadic] OAI.NuclearUltrapower.Vector3 :=
+fun M =>
+  Matrix.SpecialLinearGroup.toLin' ((Matrix.SpecialLinearGroup.map (Int.castRingHom OAI.NuclearUltrapower.Dyadic)) M)
+def OAI.NuclearUltrapower.dilationAction : OAI.NuclearUltrapower.SL3Z × Multiplicative ℤ →
+  OAI.NuclearUltrapower.Vector3 ≃ₗ[OAI.NuclearUltrapower.Dyadic] OAI.NuclearUltrapower.Vector3 :=
+fun g =>
+  (OAI.NuclearUltrapower.matrixAction g.1).trans
+    (LinearEquiv.smulOfUnit (OAI.NuclearUltrapower.dyadicTwo ^ Multiplicative.toAdd g.2))
+def OAI.NuclearUltrapower.groupAction : OAI.NuclearUltrapower.SL3Z × Multiplicative ℤ →*
+  MulAut (Multiplicative OAI.NuclearUltrapower.Vector3) :=
+{ toFun := fun g => AddEquiv.toMultiplicative (OAI.NuclearUltrapower.dilationAction g).toAddEquiv,
+  map_one' := OAI.NuclearUltrapower.groupAction._proof_1, map_mul' := OAI.NuclearUltrapower.groupAction._proof_2 }
+@[reducible] def OAI.NuclearUltrapower.G : Type :=
+Multiplicative OAI.NuclearUltrapower.Vector3 ⋊[OAI.NuclearUltrapower.groupAction]
+  OAI.NuclearUltrapower.SL3Z × Multiplicative ℤ
+@[reducible] def OAI.NuclearUltrapower.BoundedSeq.{u} : (B : Type u) → [CStarAlgebra B] → Type u :=
+fun B [CStarAlgebra B] => BoundedContinuousFunction ℕ B
+def OAI.NuclearUltrapower.ultraRel.{u} : (B : Type u) →
+  [inst : CStarAlgebra B] →
+    Ultrafilter ℕ → OAI.NuclearUltrapower.BoundedSeq B → OAI.NuclearUltrapower.BoundedSeq B → Prop :=
+fun B [CStarAlgebra B] ω x y => Filter.Tendsto (fun n => x n - y n) (↑ω) (nhds 0)
+def OAI.NuclearUltrapower.ultraCon.{u} : (B : Type u) →
+  [inst : CStarAlgebra B] → Ultrafilter ℕ → RingCon (OAI.NuclearUltrapower.BoundedSeq B) :=
+fun B [CStarAlgebra B] ω => { r := OAI.NuclearUltrapower.ultraRel B ω, iseqv := ⋯, mul' := ⋯, add' := ⋯ }
+@[reducible] def OAI.NuclearUltrapower.NormUltrapower.{u} : (B : Type u) → [CStarAlgebra B] → Ultrafilter ℕ → Type u :=
+fun B [CStarAlgebra B] ω => (OAI.NuclearUltrapower.ultraCon B ω).Quotient
+def OAI.NuclearUltrapower.IsFree : Ultrafilter ℕ → Prop :=
+fun ω => ∀ (F : Finset ℕ), ↑F ∉ ↑ω
+structure OAI.NuclearUltrapower.ComplexHilbert.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.NuclearUltrapower.ComplexHilbert.carrier : Type u
+  OAI.NuclearUltrapower.ComplexHilbert.normed : NormedAddCommGroup self.carrier
+  OAI.NuclearUltrapower.ComplexHilbert.inner : InnerProductSpace ℂ self.carrier
+  OAI.NuclearUltrapower.ComplexHilbert.complete : CompleteSpace self.carrier
+constructor:
+  OAI.NuclearUltrapower.ComplexHilbert.mk.{u} (carrier : Type u) [normed : NormedAddCommGroup carrier]
+    [inner : InnerProductSpace ℂ carrier] [complete : CompleteSpace carrier] : OAI.NuclearUltrapower.ComplexHilbert
+def OAI.NuclearUltrapower.spatialEval.{u, v, w} : {B : Type u} →
+  {C : Type v} →
+    [inst : NonUnitalCStarAlgebra B] →
+      [inst_1 : NonUnitalCStarAlgebra C] →
+        (H K : OAI.NuclearUltrapower.ComplexHilbert) →
+          (B →⋆ₙₐ[ℂ] H.carrier →L[ℂ] H.carrier) →
+            (C →⋆ₙₐ[ℂ] K.carrier →L[ℂ] K.carrier) →
+              TensorProduct ℂ B C →ₗ[ℂ] TensorProduct ℂ H.carrier K.carrier →L[ℂ] TensorProduct ℂ H.carrier K.carrier :=
+fun {B} {C} [NonUnitalCStarAlgebra B] [NonUnitalCStarAlgebra C] H K ρ σ =>
+  TensorProduct.lift (LinearMap.mk₂ ℂ (fun b c => TensorProduct.mapL (ρ b) (σ c)) ⋯ ⋯ ⋯ ⋯)
+def OAI.NuclearUltrapower.commutingEval.{u, v, w} : {B : Type u} →
+  {C : Type v} →
+    [inst : NonUnitalCStarAlgebra B] →
+      [inst_1 : NonUnitalCStarAlgebra C] →
+        (H : OAI.NuclearUltrapower.ComplexHilbert) →
+          (B →⋆ₙₐ[ℂ] H.carrier →L[ℂ] H.carrier) →
+            (C →⋆ₙₐ[ℂ] H.carrier →L[ℂ] H.carrier) → TensorProduct ℂ B C →ₗ[ℂ] H.carrier →L[ℂ] H.carrier :=
+fun {B} {C} [NonUnitalCStarAlgebra B] [NonUnitalCStarAlgebra C] H ρ σ =>
+  LinearMap.mul' ℂ (H.carrier →L[ℂ] H.carrier) ∘ₗ
+    TensorProduct.map
+      (have this := { toFun := ⇑ρ, map_add' := ⋯, map_smul' := ⋯ };
+      this)
+      (have this := { toFun := ⇑σ, map_add' := ⋯, map_smul' := ⋯ };
+      this)
+def OAI.NuclearUltrapower.minTensorNorm.{u, v, w} : {B : Type u} →
+  {C : Type v} → [inst : NonUnitalCStarAlgebra B] → [inst_1 : NonUnitalCStarAlgebra C] → TensorProduct ℂ B C → ℝ :=
+fun {B} {C} [NonUnitalCStarAlgebra B] [NonUnitalCStarAlgebra C] x =>
+  sSup {r | ∃ H K ρ σ, r = ‖(OAI.NuclearUltrapower.spatialEval H K ρ σ) x‖}
+def OAI.NuclearUltrapower.maxTensorNorm.{u, v, w} : {B : Type u} →
+  {C : Type v} → [inst : NonUnitalCStarAlgebra B] → [inst_1 : NonUnitalCStarAlgebra C] → TensorProduct ℂ B C → ℝ :=
+fun {B} {C} [NonUnitalCStarAlgebra B] [NonUnitalCStarAlgebra C] x =>
+  sSup {r | ∃ H ρ σ, (∀ (b : B) (c : C), Commute (ρ b) (σ c)) ∧ r = ‖(OAI.NuclearUltrapower.commutingEval H ρ σ) x‖}
+def OAI.NuclearUltrapower.IsNuclear.{u, v} : (B : Type u) → [NonUnitalCStarAlgebra B] → Prop :=
+fun B [NonUnitalCStarAlgebra B] =>
+  ∀ (C : Type v) [inst_1 : NonUnitalCStarAlgebra C] (x : TensorProduct ℂ B C),
+    OAI.NuclearUltrapower.minTensorNorm x = OAI.NuclearUltrapower.maxTensorNorm x
+structure OAI.NuclearUltrapower.UnitalCStar.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.NuclearUltrapower.UnitalCStar.carrier : Type u
+  OAI.NuclearUltrapower.UnitalCStar.cstar : CStarAlgebra self.carrier
+  OAI.NuclearUltrapower.UnitalCStar.nontrivial : Nontrivial self.carrier
+constructor:
+  OAI.NuclearUltrapower.UnitalCStar.mk.{u} (carrier : Type u) [cstar : CStarAlgebra carrier]
+    [nontrivial : Nontrivial carrier] : OAI.NuclearUltrapower.UnitalCStar
+def OAI.NuclearUltrapower.IsFullGroupAlgebra.{u} : (A : OAI.NuclearUltrapower.UnitalCStar) →
+  (OAI.NuclearUltrapower.G →* ↥(unitary A.carrier)) → Prop :=
+fun A ι =>
+  Dense ↑(Submodule.span ℂ (Set.range fun g => ↑(ι g))) ∧
+    ∀ (D : OAI.NuclearUltrapower.UnitalCStar) (ρ : OAI.NuclearUltrapower.G →* ↥(unitary D.carrier)),
+      ∃! φ, ∀ (g : OAI.NuclearUltrapower.G), φ ↑(ι g) = ↑(ρ g)
+def OAI.NuclearUltrapower.CuntzTwoRelations.{u} : {D : Type u} → [CStarAlgebra D] → (Fin 2 → D) → Prop :=
+fun {D} [CStarAlgebra D] s => (∀ (i : Fin 2), star (s i) * s i = 1) ∧ ∑ i, s i * star (s i) = 1
+def OAI.NuclearUltrapower.IsCuntzTwoAlgebra.{u} : (O : OAI.NuclearUltrapower.UnitalCStar) →
+  (Fin 2 → O.carrier) → Prop :=
+fun O s =>
+  OAI.NuclearUltrapower.CuntzTwoRelations s ∧
+    ∀ (D : OAI.NuclearUltrapower.UnitalCStar) (r : Fin 2 → D.carrier),
+      OAI.NuclearUltrapower.CuntzTwoRelations r → ∃! φ, ∀ (i : Fin 2), φ (s i) = r i
+def OAI.NuclearUltrapower.MainStatementWithCuntzCorollary.{u} : Prop :=
+∃ A ι,
+  OAI.NuclearUltrapower.IsFullGroupAlgebra A ι ∧
+    TopologicalSpace.SeparableSpace A.carrier ∧
+      (∀ (B : OAI.NuclearUltrapower.UnitalCStar),
+          OAI.NuclearUltrapower.IsNuclear B.carrier →
+            ∀ (ω : Ultrafilter ℕ), OAI.NuclearUltrapower.IsFree ω → ¬∃ φ, Function.Injective ⇑φ) ∧
+        ∃ O s,
+          OAI.NuclearUltrapower.IsCuntzTwoAlgebra O s ∧
+            ∀ (ω : Ultrafilter ℕ), OAI.NuclearUltrapower.IsFree ω → ¬∃ φ, Function.Injective ⇑φ

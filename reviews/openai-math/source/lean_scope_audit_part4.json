@@ -1,0 +1,156 @@
+[
+ {
+  "family": "027",
+  "title": "Integral density on curve character varieties",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "CharacterVarietiesAllSeamsSupport"
+  ],
+  "gap_note": "The Lean states only a compatibility lemma inside the paper's cutting construction: for a proper diagram with finitely many vertices, a seam q whose parent facet has maximal rank and positive genus, punctures P and a K-valued solution x (K any field), the generator values produced for the diagram cut along a nonseparating band satisfy the framed-flag equation at every seam of the cut diagram. It says nothing about integral points, Zariski density, number fields or rings of integers, SL_r character varieties, or quasi-unipotent boundary classes, so it is a supporting step of the proof and not the headline.",
+  "suspicious_defs": [
+   "Diagram F S V arity: solver-authored structure (Foundation/SurfacePresentation.lean:12-24) formalising the paper's surface diagram: PortAssembly (vertices of continuation/interchange/split-merge kinds wired to seams S with arities, facet colouring), rank, genus, boundary cycles; part of the statement because the challenge imports OAI",
+   "Diagram.Proper: all facet ranks positive and every seam has at least two children (Foundation/BoundaryCycles.lean:252-254); the paper's 'normalized' diagram",
+   "Diagram.Punctures R: a count and a unit of R per puncture per facet (SurfacePresentation.lean:62-64); quasi-unipotence is NOT imposed (docstring: imposed at the density stage), more general than the paper's roots-of-unity scalars",
+   "Diagram.Solution P K: subtype of invertible-matrix assignments to generators satisfying the surface relations, the seam framed-flag equations and VertexHolds (SurfacePresentation.lean:108-112, 618-627); K is an arbitrary field with Algebra R K, so this is a field-valued point, not an integral point",
+   "[Finite V]: only the vertex type is assumed finite; seams are in bijection with port endpoints (PortAssembly.attach) hence finite, facets F are not assumed finite",
+   "hmax and hg: the parent facet of seam q has maximal rank among all facets, and positive genus",
+   "ProducedMarkedSeamEquations (Seams/ProducedEquations.lean:25-30): for every seam s of the produced marked (cut) diagram C, SameFramedFlag (C.seamGrade s) of matrixUnitEquiv of the left and right seam words evaluated at the produced values; a Prop-valued def built from solver-authored producedMarkedDiagram and producedMarkedValues",
+   "cutGeneratorWitness (Frames/MarkedFrames.lean:18-24) is declared `opaque` (body: identifiedBand ...), so the produced diagram and values depend on this chosen simultaneous splitting and cannot be unfolded by rfl; not an axiom",
+   "SameFramedFlag / matrixUnitEquiv (Foundation/Flags.lean:155, 264): equality of two coordinate frames as filtered spaces together with the identified graded quotients; strictly stronger than equality of flags"
+  ],
+  "external": [],
+  "cone_lines": {
+   "CharacterVarietiesAllSeamsSupport": 27381
+  }
+ },
+ {
+  "family": "066",
+  "title": "Bounded klt complements for Fano contractions",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "CartierChartCompactnessSupport"
+  ],
+  "gap_note": "The Lean states only a topological compactness lemma: for k algebraically closed, a closed etale chart A with fraction field K (hypotheses in the variable block) and positive reals a_i, the monomial valuations K -> WithTop ℝ of weights w >= 0 with sum a_i w_i = 1 form a compact subset of K -> WithTop ℝ in the pointwise topology. It is an auxiliary step (cf. Lemma E.2 of the companion Uniform Cartier sections paper); nothing about klt complements, Fano type pairs or contractions, indices, or Shokurov's conjecture is stated, and the linked paper is the companion Cartier paper rather than the headline paper.",
+  "suspicious_defs": [
+   "closedChartFieldRetraction: solver-defined (OAI.CartierSections) AddValuation K (WithTop ℝ): v_w(a/b) = val_w(theta a) - val_w(theta b) for theta = closedChartExpansion : A ->alg[k] k[[x_sigma]] (formal coordinate expansion of the completed local ring, injective by faithful flatness) and val_w(f) = inf over the support of f of sum w_i d_i; zero weights allowed; part of the statement",
+   "normalizedWeights a: solver-defined set {w : sigma -> NNReal | sum a_i * w_i = 1}, a compact simplex when every a_i > 0",
+   "typeclass block on A: local Noetherian domain, essentially of finite type and formally unramified over R = k[x_sigma] localised at the origin ideal idealOfVars, formally etale over k[x_sigma], with K = Frac A, k algebraically closed and sigma a Fintype: encodes a 'closed etale chart'; appears satisfiable (e.g. A = R, a localisation of k[x_sigma] and hence formally etale over it), so the statement is not vacuous; note FormallyEtale, not Etale",
+   "topology: IsCompact in the Pi (pointwise-evaluation) topology on K -> WithTop ℝ, WithTop ℝ carrying the order topology (top = +infinity); standard Mathlib",
+   "local instance polynomialOrigin_isMaximal_topology: re-exports a proved fact that idealOfVars is a maximal ideal; no assumption",
+   "the challenge file imports OAI.AlgebraicGeometry.CartierSections.FieldTopology and FieldRetraction, so the definitions above are solver-authored rather than Mathlib-only"
+  ],
+  "external": [],
+  "cone_lines": {
+   "CartierChartCompactnessSupport": 1620
+  }
+ },
+ {
+  "family": "075",
+  "title": "The $L\\log L$ Fourier-convergence conjecture",
+  "headline_formalized": "full",
+  "challenges": [
+   "FourierLLogL"
+  ],
+  "gap_note": "The Lean theorem OAI.FourierLLogL.paperMain is the paper's Theorem 1.1 verbatim: for f on AddCircle (2*pi) with AEStronglyMeasurable and Integrable (||f|| * log(2+||f||)) w.r.t. the normalised Haar measure, there is a measurable null set E with S_N f x -> f x for x outside E along N : Nat. Only unpacking is needed: haarAddCircle is dx/(2pi), fourierCoeff/fourier are fhat(k) and e^{ikx}, and the Integrable hypothesis is the paper's definition of L log L (f is automatically in L^1, so fourierCoeff is the genuine integral).",
+  "suspicious_defs": [
+   "AddCircle (2 * Real.pi): standard Mathlib quotient R/(2 pi Z); the paper's T",
+   "AddCircle.haarAddCircle: standard Mathlib Haar measure normalised to total mass 1 (addHaarMeasure top, IsProbabilityMeasure), equal to dx/(2 pi) for period 2 pi; matches the paper's mu; standard",
+   "fourierCoeff: standard Mathlib n-th coefficient = integral of fourier (-n) t * f t d(haarAddCircle) = integral of f(x) e^{-inx} dx/(2 pi); Bochner integral so junk value 0 for non-integrable f, but the hypotheses force f in L^1 (||f|| log 2 <= ||f|| log(2+||f||)); standard",
+   "fourier k x: standard Mathlib exponential monomial toCircle(k . x) = exp(2 pi i k x / T) = e^{ikx} for T = 2 pi; standard",
+   "Finset.Icc (-(N:Z)) (N:Z) with Filter.atTop on N : Nat: the symmetric partial sum over |k| <= N along the full sequence; standard",
+   "Integrable (fun x => ||f x|| * Real.log (2 + ||f x||)) haarAddCircle: exactly the paper's L log L(T) class (introduction.tex:11-15); standard",
+   "circlePeriod_pos: local instance Fact (0 < 2*Real.pi) (proved by mul_pos and Real.pi_pos); needed for haarAddCircle/fourier, adds no hypothesis"
+  ],
+  "external": [],
+  "cone_lines": {
+   "FourierLLogL": 29665
+  }
+ },
+ {
+  "family": "103",
+  "title": "Derandomization of logarithmic space: $\\mathsf L=\\mathsf{RL}=\\mathsf{BPL}$",
+  "headline_formalized": "full",
+  "challenges": [
+   "LogspaceEquality"
+  ],
+  "gap_note": "Lean states `L = RL ∧ RL = BPL` for binary languages in an explicit multi-head, multi-tape logspace Turing-machine model (one fresh coin per step, polynomial clock on every coin tape, RL = 0 / >= 1/2, BPL = <= 1/3 / >= 2/3), which is the paper's Theorem (introduction.tex:28-32) after unfolding L, RL, BPL and chaining the two equalities; the binary-alphabet convention is the only routine step. The summary's second sentence (effective compiler with explicit polynomial running-time bounds, compiler.tex:8-19) has no Lean statement, as the scope note says.",
+  "suspicious_defs": [
+   "Word / Language: languages are sets of binary words (List Bool) only; the paper does not fix the alphabet in its Section 1, so the reduction from larger alphabets is a routine encoding step, not a restriction on the class.",
+   "Machine / Action / Configuration: finite transition-table machine with q+1 states, w two-way-infinite binary work tapes (blank = false) and h read-only two-way input heads, with q, w, h chosen existentially; standard, and matches the paper's 'finite control, endmarked read-only input, finitely many work tapes' model (introduction.tex:10-15).",
+   "Machine.step / run: one fresh coin bit per step (coins t used at step t+1), halting states are fixed points; matches 'fresh independent fair bits' and cannot reuse a past coin except via finite control.",
+   "Machine.LogSpace: space = number of distinct cells visited by each work head up to time t, summed over tapes, bounded by c * Nat.clog 2 (|x|+2) for every input, every coin tape and every time t; standard counted-cell convention (blank-cell visits count), same as the paper.",
+   "Machine.Decides: for every x some time t with all coin tapes halted with output b and (b = true <-> x in A); no explicit time bound is imposed on L-machines (polynomial time follows from the configuration count, as the paper notes at introduction.tex:20-22); standard.",
+   "Machine.HaltsBy: halting by the clock on EVERY coin tape (worst-case time), as the paper requires ('All randomized running-time bounds hold on every random tape'); standard.",
+   "Machine.acceptanceProbability: exact fraction of the 2^t coin strings of length t (padded with false) whose time-t state outputs true, with t = polynomialClock c k |x| = c*(|x|+2)^k; standard.",
+   "RL / BPL: thresholds are exactly 0 on no and >= 1/2 on yes (RL), <= 1/3 on no and >= 2/3 on yes (BPL), as in introduction.tex:22-26; standard."
+  ],
+  "external": [],
+  "cone_lines": {
+   "LogspaceEquality": 43045
+  }
+ },
+ {
+  "family": "137",
+  "title": "One-tape time simulation in two-fifths-power space",
+  "headline_formalized": "full",
+  "challenges": [
+   "OneTapeSpace"
+  ],
+  "gap_note": "Lean `capped` and `unknown` are the two clauses of the paper's single main theorem (introduction.tex:64-79) with `Single` = the fixed one-writable-tape machine, `Access` = the polylog-space accessor condition, `outcome` = (finite-control state, halted flag) with absorbing halting states, `Within` = work-space bits with no time bound, and `c*T^(2/5)*(log2(T+2))^e` = O~(T^{2/5}); no step beyond unfolding these definitions is needed. The summary's remark 'improving the square-root exponent' is a comparison with the classical bound, not a separate formal claim.",
+  "suspicious_defs": [
+   "Single.sensor: initial writable-tape contents (tag none) and the symbols read by each of the `heads` read-only heads (tag some i) are an arbitrary function List X -> Option (Fin heads) -> Z -> A, constrained only through the `Access` hypothesis; input symbols share the tape alphabet A. This is the paper's 'uniform interface' (introduction.tex:33-38), not a restriction. The tape contents sensor x none do not depend on T by construction.",
+   "Single.Access: the polylog-space accessor hypothesis is part of the statement (the theorem is conditional on it, per pair (x,T), as in the paper): a fixed uniform TM A, given x, the cap T, the tag, and the sign and magnitude of l in binary, outputs sensor x h l within p*(log2(T+2))^q work bits for every tag and every |l| <= T. In `unknown` it is required for every T >= 2.",
+   "TM / TM.Within / Window.bits: simulator and accessor model is a multi-tape machine (finite Q, finitely many work tapes with finite alphabets) with endmarked read-only heads on the public word and on each binary argument tape; space = sum over work tapes of (window span including the origin) * bit-width of the alphabet; input and cap tapes are not charged; NO time bound (matches 'simulation time is unrestricted'); standard counted-cell convention.",
+   "Single.move / Single.outcome: halted states are absorbing (state, tape symbol and head positions unchanged), and outcome x n = (state, halted flag) after exactly n steps, so it equals the 'finite-control and halting outcome by time n'.",
+   "[Fintype X]: the public alphabet is finite.",
+   "Cost.Log / Cost.exponent: Log T = Real.log (T+2) / Real.log 2 (binary log of T+2); exponent = 2/5 used as a real power; the log exponent e is a natural number and c a positive real, both existentially quantified before x and T (they may depend on M, A, p, q only), matching O~ with 'a fixed constant C'.",
+   "Mark.see / Mark.walk: read-only inputs are endmarked (0 = left marker, 1..len = symbols, len+1 = right marker) and heads are confined to [0, len+1]; standard."
+  ],
+  "external": [],
+  "cone_lines": {
+   "OneTapeSpace": 8328
+  }
+ },
+ {
+  "family": "195",
+  "title": "A counterexample to the small Cohen--Macaulay module conjecture",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "SurfaceConeCandidateSupport"
+  ],
+  "gap_note": "Lean states only that some C-algebra R is a three-dimensional, m-adically complete, Noetherian, integrally closed local domain with residue field C; it never mentions modules, depth or Cohen-Macaulayness, so the defining property of the headline (no nonzero finitely generated module of depth 3) and the essentially-finite-type corollary are not stated. As typed the existential is also satisfied by C[[x,y,z]] and does not name the surface cone, so it records only the ring-theoretic half of the construction.",
+  "suspicious_defs": [
+   "candidate_ring_properties (the statement itself): a bare existence claim over an unconstrained R; it is not tied to the paper's completed section ring R(X,H) (the proof uses ExplicitCone.completedRing, the statement does not mention it) and is satisfied by the regular ring C[[x,y,z]]; the key property (no nonzero finitely generated module of depth three) is absent.",
+   "IsIntegrallyClosed R: R is integrally closed in its fraction field (normal domain); standard.",
+   "IsAdicComplete (IsLocalRing.maximalIdeal R) R: R is Hausdorff and complete for the maximal-ideal-adic topology; standard.",
+   "ringKrullDim R = 3: Krull dimension 3 (value in WithBot N-infinity); standard.",
+   "Function.Bijective (algebraMap C (IsLocalRing.ResidueField R)): the structure map C -> R/m is bijective, i.e. residue field C; standard.",
+   "Algebra C R: the paper's 'containing C' is encoded as an algebra structure over C; standard."
+  ],
+  "external": [],
+  "cone_lines": {
+   "SurfaceConeCandidateSupport": 7844
+  }
+ },
+ {
+  "family": "301",
+  "title": "Classification by trace cones after Razak--Jacelon stabilization",
+  "headline_formalized": "supporting-only",
+  "challenges": [
+   "TraceIdealTransportSupport"
+  ],
+  "gap_note": "The challenge states only the cone/ideal layer: for arbitrary complex C*-algebras A, B and a TraceConeEquiv F (an additive, scale-preserving bijection of extended-trace cones preserving canonical convergence), the induced order isomorphism of closed ideals sends finIdeal τ and zeroIdeal τ to finIdeal (F τ) and zeroIdeal (F τ), together with the 0/∞ ideal weights, additive idempotents and the order criterion I ≤ J ↔ τ_I + τ_J = τ_I. It contains no tensor product, no W or K, no separability/nuclearity and no *-isomorphism of algebras, so the classification (thm:main) is not stated; the content matches only the supporting Proposition 'Transport of ideals' (st:ideals).",
+  "suspicious_defs": [
+   "ExtendedTrace: standard extended lower-semicontinuous tracial weight on A₊ (τ(0)=0, additive, τ(rx)=rτ(x) only for r>0, τ(x*x)=τ(xx*), lsc); no density or semifiniteness assumption, matching the paper",
+   "CanonicalConvergence / PreservesCanonicalConvergence / TraceConeEquiv: the cone topology is encoded as convergence of arbitrary filters (limsup of cuts ≤ σ ≤ liminf) instead of a TopologicalSpace, so 'homeomorphism' becomes 'bijection preserving this convergence in both directions'; matches the paper's net criterion but is a nonstandard encoding",
+   "zeroIdeal: defined as finIdeal of the 0/∞-valued supportWeight (closure of {x | τ(x*x)=0}) rather than directly as the kernel ideal; nonstandard presentation, equivalent after unfolding",
+   "[PartialOrder A] [StarOrderedRing A]: the C*-order is supplied by extra instance arguments instead of Mathlib's CStarAlgebra order; StarOrderedRing.le_iff forces the usual order (standard)",
+   "ClosedIdeal.weight: Classical.choose from closed_ideal_weight_exists; only its forced values (0 on the ideal, ∞ off it) matter (standard)",
+   "NonUnitalCStarAlgebra A: any complex C*-algebra, not nec. separable or nuclear; the supporting lemmas are more general than the paper's setting, which is harmless for a supporting result"
+  ],
+  "external": [],
+  "cone_lines": {
+   "TraceIdealTransportSupport": 1147
+  }
+ }
+]

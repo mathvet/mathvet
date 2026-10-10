@@ -53,3 +53,23 @@ warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lak
 ✔ [8952/8962] Built OAI.Analysis.NuclearUltrapower.Predecessors (7.9s)
 ✔ [8953/8962] Built OAI.Analysis.NuclearUltrapower.GroupObstruction (14s)
 ✔ [8954/8962] Built OAI.Analysis.NuclearUltrapower.SOSResidual (552s)
+✔ [8955/8962] Built OAI.Analysis.NuclearUltrapower.SOSSemantics (12593s)
+✔ [8956/8962] Built OAI.Analysis.NuclearUltrapower.IntegerMatrices (36s)
+✔ [8957/8962] Built OAI.Analysis.NuclearUltrapower.SOSGap (7.9s)
+✔ [8958/8962] Built OAI.Analysis.NuclearUltrapower.SOSCertificate (223s)
+✔ [8959/8962] Built OAI.Analysis.NuclearUltrapower.IntegralCertificate (27s)
+✔ [8960/8962] Built OAI.Analysis.NuclearUltrapower.Kazhdan (7.3s)
+✔ [8961/8962] Built OAI.Analysis.NuclearUltrapower.Obstruction (4.0s)
+✔ [8962/8962] Built OAI.Analysis.NuclearUltrapower.Main (4.7s)
+Build completed successfully (8962 jobs).
+== build rc=0 seconds=13457
+{"theorems": ["OAI.NuclearUltrapower.main_no_embedding"], "defs": ["OAI.NuclearUltrapower.Dyadic", "OAI.NuclearUltrapower.Vector3", "OAI.NuclearUltrapower.SL3Z", "OAI.NuclearUltrapower.dyadicTwo", "OAI.NuclearUltrapower.matrixAction", "OAI.NuclearUltrapower.dilationAction", "OAI.NuclearUltrapower.groupAction", "OAI.NuclearUltrapower.G", "OAI.NuclearUltrapower.BoundedSeq", "OAI.NuclearUltrapower.ultraRel", "OAI.NuclearUltrapower.ultraCon", "OAI.NuclearUltrapower.NormUltrapower", "OAI.NuclearUltrapower.IsFree", "OAI.NuclearUltrapower.ComplexHilbert", "OAI.NuclearUltrapower.spatialEval", "OAI.NuclearUltrapower.commutingEval", "OAI.NuclearUltrapower.minTensorNorm", "OAI.NuclearUltrapower.maxTensorNorm", "OAI.NuclearUltrapower.IsNuclear", "OAI.NuclearUltrapower.UnitalCStar", "OAI.NuclearUltrapower.IsFullGroupAlgebra", "OAI.NuclearUltrapower.CuntzTwoRelations", "OAI.NuclearUltrapower.IsCuntzTwoAlgebra", "OAI.NuclearUltrapower.MainStatementWithCuntzCorollary"], "json_theorems": ["OAI.NuclearUltrapower.main_no_embedding"], "missing_from_parse": []}
+TYPES/DEFS DIFFER NuclearUltrapower
+1,5d0
+< /Users/shannon/cc/math/math/lean/Scratch/Challenge_NuclearUltrapower.lean:208:8:
+< warning:
+< declaration
+< uses
+< `sorry`
+AXIOMS: 'OAI.NuclearUltrapower.main_no_embedding' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-10T17:27:53Z

@@ -1,0 +1,1792 @@
+{
+ "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+ "builder": "scripts/build_paper_theorems.py, extractor analyze_paper from scripts/build_ml_pairs.py",
+ "method": "per paper: the block with a main-theorem label or title, else the first theorem environment of the introduction, else the first theorem-like environment, else a fallback environment; up to three blocks, in that order of preference; tex_file and tex_line are relative to the paper directory at the upstream commit",
+ "papers": {
+  "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026": {
+   "title": "A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two",
+   "family": "197",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 8,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\n\\label{thm:main}\nThere exist a finite field $K$ of characteristic two, a finitely presented group $G$ containing an element of odd prime order, and elements $a_{\\mathrm{out}},b_{\\mathrm{out}}\\in K[G]$ such that\n\\[\na_{\\mathrm{out}}b_{\\mathrm{out}}=1,\n\\qquad b_{\\mathrm{out}}a_{\\mathrm{out}}\\ne1.\n\\]\nThe field, group, and finite sums are specified by a terminating prescription involving finite sets and finite-field arithmetic.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026": {
+   "title": "A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic",
+   "family": "197",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "op:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 13,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{op:main}\nPut\n\\[\n m=\\binom{1200}{600},\\qquad\n p=\\min\\{h\\in\\mathbb Z:h>1,\\ h\\mid(m!)^2+1\\}.\n\\]\nThen $p$ is an odd prime. There are a specified field $K$ of order $p^4$,\na specified finitely generated group $G$ containing torsion, and specified\nfinite sums $a,b\\in K[G]$ satisfying $ab=1$ and $ba\\ne1$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026": {
+   "title": "A Counterexample to the Group-Ring Determinant Conjecture",
+   "family": "197",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction and proof overview",
+     "in_intro": true,
+     "tex_file": "build/main.tex",
+     "tex_line": 90,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere are a finitely generated discrete group $G_D$, an integer\n$n\\ge1$, and $A\\in\\Mat_n(\\Z[G_D])$ invertible over $\\Q[G_D]$ such\nthat\n\\[\n 0<\\det_{\\N(G_D)}(T_A)<1.\n\\]\nThe integral in Equation~\\eqref{eq:conjecture} is finite and strictly\nnegative. Thus the unrestricted group-ring Determinant Conjecture\nhas a negative resolution.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026": {
+   "title": "A Torsion-Free Group Algebra That Is Not Directly Finite",
+   "family": "197",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 13,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exist a finitely presented torsion-free group $G$ and elements\n$a,b,c\\in\\Ftwo[G]$ such that\n\\[\n ab=1,\\qquad ac=0,\\qquad c\\ne0.\n\\]\nConsequently $ba\\ne1$. The group $G$ admits a finite two-dimensional\nclassifying complex.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-counterexample-to-Hadwigers-conjecture-September-23-2026": {
+   "title": "A counterexample to Hadwiger's conjecture",
+   "family": "157",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 20,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere are arbitrarily large integers \\(m\\) for which an \\(m\\)-vertex\nfinite simple graph \\(G\\) satisfies\n\\[\n             \\alpha(G)\\le2\n             \\qquad\\text{and}\\qquad\n             \\cm(G)<\\frac{m}{100}.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-counterexample-to-the-Colin-de-Verdiere-chromatic-conjecture-September-23-2026": {
+   "title": "A counterexample to the Colin de Verdière chromatic conjecture",
+   "family": "157",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 42,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere are finite graphs \\(G\\) of arbitrarily large order for which\n\\[\n \\alpha(G)\\le2,\\qquad\n \\mu(G)+1<\\frac{|V(G)|}{2}\\le\\chi(G).\n\\]\nIn particular, the Colin de Verdière chromatic conjecture is false.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-counterexample-to-the-coarse-Novikov-conjecture-September-23-2026": {
+   "title": "A counterexample to the coarse Novikov conjecture",
+   "family": "307",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 49,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is a uniformly discrete bounded-geometry metric space $X$, which is a\ncoarse disjoint union of finite connected graphs of uniformly bounded degree,\nand an infinite-order element $\\alpha\\in KX_1(X)$ such that\n\\[\n \\mu_X(\\alpha)=0\\quad\\text{in }K_1(C^*(X)).\n\\]\nConsequently, ordinary coarse assembly for $X$ fails to be injective both\nintegrally and after tensoring its domain and target with $\\Q$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-degenerate-counterexample-to-the-critical-number-Arnold-bound-September-23-2026": {
+   "title": "Three fixed points on the symplectic quadric threefold",
+   "family": "347",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:counterexample",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 56,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:counterexample}\nThere is a smooth Hamiltonian diffeomorphism $\\phi$ of the closed connected\nsymplectic six-manifold $Q^3$ such that\n\\begin{equation}\\label{eq:counterexample}\n \\#\\Fix(\\phi)=3<4=\\Crit(Q^3)\n                  =\\operatorname{cuplength}(Q^3;\\mathbb Q).\n\\end{equation}\nAt least one fixed point of $\\phi$ is degenerate.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-density-uniform-condensate-bound-for-dilute-Bose-gases-September-27-2026": {
+   "title": "A density-uniform condensate bound for dilute Bose gases",
+   "family": "267",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "The model and the uniform bound",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 25,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every potential $v$ as above there are constants\n$\\rho_*(v)>0$ and $c_*(v)>0$ with the following property.\nFor every $0<\\rho<\\rho_*(v)$ there is $L_0(\\rho,v)<\\infty$ such that,\nfor every $L\\ge L_0(\\rho,v)$, every integer $N\\ge1$ satisfying\n$\\rho/2\\le N/L^3\\le2\\rho$, and every $0\\le T\\le\\rho^2$,\n\\[\n \\frac{\\langle u_0,\\gamma^{(1)}_{N,L,T}u_0\\rangle}{N}\n \\ge c_*(v).\n\\]\nConsequently, for each such fixed density $\\rho$ and fixed\n$0\\le T\\le\\rho^2$, every sequence with $L\\to\\infty$ and\n$N/L^3\\to\\rho$ has lower limiting condensate fraction at least $c_*(v)$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-doubling-Hilbert-subset-with-no-finite-dimensional-bi-Lipschitz-embedding-September-25-2026": {
+   "title": "A doubling Hilbert subset with no finite-dimensional bi-Lipschitz embedding",
+   "family": "098",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/main.tex",
+     "tex_line": 47,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is a fixed subset $S$ of real $\\ell_2$, equipped with its induced Hilbert distance, whose doubling constant is at most $76800$ and which admits no bi-Lipschitz embedding into $\\R^k$ for any positive integer $k$, at any finite distortion.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-linear-list-coloring-bound-in-terms-of-the-Hadwiger-number-September-23-2026": {
+   "title": "A linear list-coloring bound in terms of the Hadwiger number",
+   "family": "157",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 25,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is an absolute integer $C\\ge1$ such that every finite nonempty\nsimple graph $G$ satisfies\n\\[\n \\ell(G)\\le C h(G).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-negatively-pinched-Kahler-threefold-without-bounded-holomorphic-coordinates-September-25-2026": {
+   "title": "A negatively pinched Kähler threefold without bounded holomorphic coordinates",
+   "family": "359",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:theorem",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 39,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{main:theorem}\nThere exist a contractible domain $M\\subset\\C^3$, a smooth complete\nK\\\"ahler metric $g$ on $M$, and finite constants $0<A\\le B$ such that\n\\[\n -B\\le K_g(\\sigma)\\le -A<0\n\\]\nfor every real two-plane $\\sigma\\subset T_pM$ and every $p\\in M$.\nNo bounded holomorphic map $F:M\\to\\C^3$ has a nowhere-vanishing Jacobian\ndeterminant. In particular, $M$ is not biholomorphic to a bounded domain\nin $\\C^3$.\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "density:main",
+     "title": "Uniform representing densities",
+     "section": "Positive representing densities",
+     "in_intro": false,
+     "tex_file": "build/sections/04-densities-construction.tex",
+     "tex_line": 98,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Uniform representing densities]\\label{density:main}\nThere is a constant $K_*>0$, depending only on the fixed profiles\n$f,b$ and $R_0$, with the following property.  For every fixed\n$D_0>\\max\\{1,2\\sqrt{2R_0}\\}$ there is an integer threshold $Q_0$\nsuch that, for every integer $Q\\ge Q_0$ and every choice of the\nseparated sets above, the recursion \\eqref{density:recursion}\nhas the following properties for all $j\\ge1$:\n\\begin{enumerate}\n\\item $W_j$ is smooth and strictly positive, and $W_j\\,d\\sigma$\nrepresents holomorphic evaluation at zero.  In particular it is\na probability measure.\n\\item Under global phase rotation, $W_j$ has frequencies only\nbetween $-\\ell_j$ and $\\ell_j$, and its mean on every phase orbit\nis exactly one.\n\\item At every point of $S$,\n\\begin{equation}\\label{density:uniform-bounds}\n \\begin{gathered}\n c_0W_{j-1}\\le W_j\\le2W_{j-1},\\\\\n |ZW_j|\\le K_*\\sqrt{k_j}\\,W_j,\n \\qquad |TW_j|\\le K_*k_jW_j\n \\end{gathered}\n\\end{equation}\nfor every unit horizontal vector $Z$.\n\\end{enumerate}\nThe threshold $Q_0$ may also be enlarged to impose any fixed lower\nthreshold on the degrees $k_j$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-nine-dimensional-counterexample-to-Borsuks-covering-assertion-September-23-2026": {
+   "title": "A nine-dimensional counterexample to Borsuk's covering assertion",
+   "family": "156",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 18,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThe compact set\n\\[\n X=\\{uu^{\\mathsf T}:u\\in\\mathbb R^4,\\ \\|u\\|=1\\}\n \\subset\\{A\\in\\operatorname{Sym}_4(\\mathbb R):\\operatorname{tr}A=1\\},\n\\]\nwith the Frobenius metric, has diameter $\\sqrt2$ and cannot be covered\nby ten subsets of diameter strictly less than $\\sqrt2$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-nondegenerate-counterexample-to-the-Morse-number-Arnold-bound-September-23-2026": {
+   "title": "A nondegenerate counterexample to the Morse-number Arnold bound",
+   "family": "347",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "The Morse-number question",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 32,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exist a closed connected symplectic manifold $(M,\\omega)$ of real\ndimension twelve and a smooth one-periodic Hamiltonian $H$ such that every\nfixed point of $\\phi_H^1$ is nondegenerate and\n\\[\n\\#\\Fix_0(\\phi_H^1;H)=\\#\\Fix(\\phi_H^1)\n                   =\\chi(M)+128<\\Morse(M).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-polynomial-time-algorithm-for-three-machine-unit-job-scheduling-September-24-2026": {
+   "title": "A Polynomial-Time Algorithm for Three-Machine Unit-Job Scheduling",
+   "family": "124",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 120,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet an explicitly listed finite directed acyclic graph specify the\nprecedence constraints on \\(n\\ge1\\) nonpreemptive unit-length jobs\non three identical machines. There is a uniform deterministic algorithm\nthat constructs a feasible schedule of minimum makespan.\nGiven also an integer deadline \\(1\\le T\\le n\\), it decides feasibility\nexactly and returns a schedule whenever the answer is affirmative.\nBoth tasks can be performed in\n\\(O((L+2)^{150020})\\) steps on a deterministic multitape Turing machine,\nwhere \\(L\\) is the total binary input length.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-power-saving-for-planar-halving-lines-September-25-2026": {
+   "title": "A power saving for planar halving lines",
+   "family": "183",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:halving-power",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 9,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:halving-power}\nThere exist absolute constants $\\varepsilon>0$, $C<\\infty$, and $n_0$\nsuch that, for every even $n\\ge n_0$ and every $n$-point set\n$P\\subset\\mathbb R^2$ with no three collinear,\n\\[\n h(P)\\le C n^{4/3-\\varepsilon}.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-power-saving-for-planar-unit-distances-September-23-2026": {
+   "title": "A power saving for planar unit distances",
+   "family": "167",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 12,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere are absolute constants \\(0<C<\\infty\\) and \\(1\\le\\beta<4/3\\) such that\n\\(u(n)\\le Cn^\\beta\\) for every nonnegative integer \\(n\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-product-counterexample-to-the-simplex-maximum-for-projection-body-volume-September-24-2026": {
+   "title": "A product counterexample to the simplex maximum for projection-body volume",
+   "family": "088",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:counterexample",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/main.tex",
+     "tex_line": 90,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:counterexample}\nLet \\(T_{10}=\\conv(0,e_1,\\ldots,e_{10})\\subset\\R^{10}\\), where the\n\\(e_i\\) are the coordinate unit vectors, and let\n\\(K=T_{10}\\times T_{10}\\subset\\R^{20}\\). Then\n\\[\n \\frac{R_{20}(K)}{c_{20}}\n =\\frac{121\\binom{20}{10}}{21\\cdot2^{20}}\n =\\frac{22\\,355\\,476}{22\\,020\\,096}>1.\n\\]\nThus \\(K\\) violates \\eqref{eq:proposed-bound} in dimension twenty.\n\\end{theorem}"
+    }
+   ]
+  },
+  "A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026": {
+   "title": "A strict inverse-first-power bound for univalent functions",
+   "family": "072",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Uniform inverse-first-power bound",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 44,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Uniform inverse-first-power bound]\\label{thm:main}\nThere exist constants \\(0<\\varepsilon<1/4\\) and \\(C<\\infty\\) such that\n\\begin{equation}\\label{eq:uniform}\n M_{-1}[f'](r)\\le C(1-r)^{-1/4+\\varepsilon}\n \\qquad\\text{for every }f\\in\\SSS\\text{ and every }1/2\\le r<1.\n\\end{equation}\nConsequently \\(B_b(-1)<1/4\\), and Kraetzer's conjectured identity\n\\eqref{eq:kraetzer} is false.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Absolutely-Continuous-Spectrum-for-Weak-Disorder-Anderson-Models-in-Dimensions-at-Least-Three-September-23-2026": {
+   "title": "Absolutely Continuous Spectrum for Weak-Disorder Anderson Models in Dimensions at Least Three",
+   "family": "261",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/01-introduction.tex",
+     "tex_line": 33,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is a fixed sufficiently small number $e_2\\in(0,1/100)$ such that,\nfor every fixed integer $d\\ge3$, there is a number $\\lambda_d>0$\nwith the following property. Set\n\\begin{equation}\\label{eq:energy-windows}\n I_d=\n \\begin{cases}\n   (-6+e_2/2,-6+e_2),&d=3,\\\\\n   -2d+(1/200,1/100),&d\\ge4.\n \\end{cases}\n\\end{equation}\nThen\nfor every fixed $0<\\lambda<\\lambda_d$, almost surely\n\\[\n I_d\\subset\\sigma(H_{\\lambda,\\omega}),\\qquad\n \\chi_{I_d}(H_{\\lambda,\\omega})\\ell^2(\\ZZ^d)\n       \\subset\\mathcal H_{\\mathrm{ac}}(H_{\\lambda,\\omega}).\n\\]\nIn particular, the spectral restriction to $I_d$ is purely absolutely\ncontinuous and $\\chi_{I_d}(H_{\\lambda,\\omega})\\ne0$.\nFor $d\\ge4$, one may take $\\lambda_d=\\sqrt3\\,2^{-n_*(d)}$, where the finite-matrix\nspecification of $n_*(d)$ is given in Definition~\\ref{def:threshold}.\nFor $d=3$, the proof supplies an existential positive threshold.\n\\end{theorem}"
+    }
+   ]
+  },
+  "An-exact-Hausdorff-gauge-for-SLE-September-25-2026": {
+   "title": "An exact Hausdorff gauge for SLE",
+   "family": "230",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "An exact moment gauge",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 38,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[An exact moment gauge]\\label{thm:main}\nFix $0<\\kappa<8$, and let $\\gamma$ be chordal $\\SLE_\\kappa$ from\n$0$ to $\\infty$ in the upper half-plane $\\HH$, parametrized by half-plane capacity $2t$.\nThere is a deterministic Hausdorff gauge $h_\\kappa$, depending only on\n$\\kappa$, such that almost surely, simultaneously for every real\n$0<s<t<\\infty$,\n\\[\n 0<\\Haus^{h_\\kappa}(\\gamma([s,t]))<\\infty.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026": {
+   "title": "An explicit exact Hausdorff gauge for SLE",
+   "family": "230",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 66,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $\\gamma$ be ordinary chordal $\\mathrm{SLE}_\\kappa$ from $0$ to\n$\\infty$ in $\\mathbb H$, parametrized by half-plane capacity $2t$,\nand set $\\Gamma=\\gamma([0,\\infty))$. For each fixed $0<\\kappa<8$,\non one event of probability one,\n\\[\n 0<\\mathcal H^h(\\gamma([s,t]))<\\infty\n \\qquad\\text{for every real }0<s<t<\\infty.\n\\]\nFor every deterministic $0<R<\\infty$,\n\\[\n \\mathbb E\\mathcal H^h(\\Gamma\\cap\\overline B(0,R))\n       \\le C_{\\kappa,R}<\\infty.\n\\]\nIn particular, on the same probability-one event,\n\\[\n \\mathcal H^h\\bigl(\\Gamma\\cap([-m,m]+i[0,m])\\bigr)<\\infty\n \\qquad(m=1,2,\\ldots).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "An-explicit-failure-of-complex-affine-space-cancellation-September-23-2026": {
+   "title": "An explicit failure of complex affine-space cancellation",
+   "family": "047",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 59,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\n\\label{thm:main}\nThe algebra $A$ in \\eqref{eq:example} is an integral complex algebra of\ndimension four. For an independent variable $w$,\n\\[\n A[w]\\simeq\\kk\\poly5,\n \\qquad\n A\\not\\simeq\\kk\\poly4.\n\\]\nConsequently the Zariski cancellation problem over the complex numbers has\na negative answer in dimension four.\n\\end{theorem}"
+    }
+   ]
+  },
+  "An-infinite-finitely-presented-periodic-group-September-23-2026": {
+   "title": "An infinite finitely presented periodic group",
+   "family": "247",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 88,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is an infinite periodic group with an ordinary finite\npresentation. More precisely, the construction below gives a unital\nassociative $\\F_2$-algebra $R$ for which $\\St_{12}(R)$ is infinite,\nfinitely presented, and periodic.\n\\end{theorem}"
+    }
+   ]
+  },
+  "An-infinite-finitely-presented-residually-finite-2-group-October-5-2026": {
+   "title": "An infinite finitely presented residually finite 2-group",
+   "family": "247",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 12,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exists an infinite residually finite group with an ordinary finite\npresentation in which every element has finite 2-power order.\n\\end{theorem}"
+    }
+   ]
+  },
+  "B-semiampleness-for-compact-log-smooth-Kahler-fibrations-September-10-2026": {
+   "title": "B-semiampleness for compact log-smooth Kähler fibrations",
+   "family": "033",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 83,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nUnder the assumptions above, \\(\\mathbf M\\) is b-semiample.\nMore explicitly, there is a smooth compact K\\\"ahler modification\n\\(\\mu_0:S\\to X\\) such that:\n\\begin{enumerate}[label=\\textup{(\\alph*)}]\n\\item for every smooth compact K\\\"ahler modification \\(\\nu:S_1\\to S\\),\n\\[\n M_{S_1}=\\nu^*M_S\\quad\\text{in }\\Pic(S_1)_{\\Q};\n\\]\n\\item for some positive integer \\(m\\), the actual line bundle\nrepresenting \\(mM_S\\) is generated by its global holomorphic sections.\n\\end{enumerate}\nThe theorem includes a point base and relative dimension zero.\nNo projectivity of \\(f\\), \\(X\\), or \\(Y\\) is assumed.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Bi-Lipschitz-Absorption-of-c0-Without-a-Linear-Copy-of-c0-September-26-2026": {
+   "title": "Bi-Lipschitz Absorption of c0 Without a Linear Copy of c0",
+   "family": "324",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 51,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is a separable real Banach space \\(Z\\) containing no closed linear\nsubspace isomorphic to \\(c_0\\), and an onto bi-Lipschitz map\n\\[\n                 F:Z\\oplus_\\infty c_0\\longrightarrow Z.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026": {
+   "title": "Bose–Einstein condensation at positive temperature in the dilute hard-sphere gas",
+   "family": "267",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 41,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every $a>0$, there is $\\rho_*(a)>0$ such that for each fixed\n$0<\\rho<\\rho_*(a)$ there is a fixed temperature $T=T(a,\\rho)>0$ for which\n\\[\n \\liminf_{\\substack{L\\to\\infty\\\\N/L^3\\to\\rho}}\n \\frac{\\langle u_{0,L},\\gamma^{(1)}_{N,L,T}u_{0,L}\\rangle}{N}>0.\n\\]\nThe exclusion distance, density, and temperature are held fixed in this\nlimit.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Bounded-degree-coboundary-expanders-in-every-dimension-September-24-2026": {
+   "title": "Bounded-degree coboundary expanders in every dimension",
+   "family": "177",
+   "tex_root": "build/source/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/source/sections/introduction.tex",
+     "tex_line": 40,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every integer $d\\ge3$, there exist constants $D<\\infty$, $\\eps>0$,\nand finite connected pure $d$-dimensional simplicial complexes $X_m$,\nwith $|X_m(0)|\\longrightarrow\\infty$, such that every vertex belongs to\nat most $D$ faces of dimension $d$ and, for every\n$f\\in C^i(X_m;\\F)$,\n\\begin{equation}\\label{eq:goal}\n \\norm{\\delta_i f}_{X_m,i+1}\n \\ge \\eps\\,\\dist_{X_m,i}(f,B^i(X_m))\n \\qquad(0\\le i<d).\n\\end{equation}\nThe constants are independent of $m$, $i$, and $f$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Boundedness-and-persistence-of-weakly-reversible-mass-action-systems-September-25-2026": {
+   "title": "Boundedness and persistence of weakly reversible mass-action systems",
+   "family": "149",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 40,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $d\\ge1$, let $\\mathcal C\\subset\\mathbb Z_{\\ge0}^d$ be finite, let $\\mathcal R$ be\nweakly reversible, and let all reaction rates be positive constants.\nFor every $x^0\\in\\R_{>0}^d$, the solution of \\eqref{eq:mass-action} with\n$x(0)=x^0$ exists for every $t\\ge0$. There is a number\n$\\varepsilon\\in(0,1)$, depending on the network, the rates, and $x^0$, such\nthat\n\\begin{equation}\\label{eq:main-bounds}\n \\varepsilon\\le x_i(t)\\le\\varepsilon^{-1}\n \\qquad(t\\ge0,\\ 1\\le i\\le d).\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026": {
+   "title": "Brennan's conjecture and sharp inverse-square integral means",
+   "family": "072",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Brennan's conjecture and inverse-square means",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 52,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Brennan's conjecture and inverse-square means]\n\\label{thm:main}\nFor every $\\varepsilon>0$ there is $C_\\varepsilon<\\infty$ such that\n\\begin{equation}\\label{eq:main-uniform}\n M_{-2}[f'](r)\\le C_\\varepsilon(1-r)^{-1-\\varepsilon}\n \\qquad\\left(f\\in\\SSS,\\ \\frac12\\le r<1\\right).\n\\end{equation}\nMoreover, $B_{\\SSS}(-2)=1$.\n\nLet $W\\subset\\CC$ be any simply connected domain whose boundary in\nthe Riemann sphere contains at least two points. Every conformal\nbijection $\\varphi:W\\to\\DD$ satisfies\n\\[\n \\int_W|\\varphi'(z)|^s\\dd A(z)<\\infty\n \\qquad\\left(\\frac43<s<4\\right).\n\\]\nEquivalently, every univalent map $f:\\DD\\to\\CC$ satisfies\n\\[\n \\int_{\\DD}|f'(w)|^t\\dd A(w)<\\infty\n \\qquad\\left(-2<t<\\frac23\\right).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Cuntz-comparison-and-Jiang-Su-absorption-September-23-2026": {
+   "title": "Cuntz comparison and Jiang–Su absorption",
+   "family": "291",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "ext:thm:main",
+     "title": "Simple comparison and absorption",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 61,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Simple comparison and absorption]\n\\label{ext:thm:main}\nLet $A$ be a separable simple nuclear non-elementary $C^*$-algebra.\nIf $A$ has strict comparison in the sense of\nEquation~\\eqref{ext:eq:comparison}, then $A\\cong A\\otimes_{\\min}\\Z$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Determination-of-a-metric-and-a-unitary-connection-from-one-boundary-patch-October-5-2026": {
+   "title": "Determination of a metric and a unitary connection from one boundary patch",
+   "family": "365",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 39,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $M$ and $\\Gamma$ be as above. For $j=1,2$, let $g_j$ be a smooth\nRiemannian metric on $M$ and let\n$A_j\\in C^\\infty(M;T^*M\\otimes\\mathfrak u(2))$. If\n\\[\n \\langle\\Lambda_{g_1,A_1,\\Gamma}f,h\\rangle\n =\\langle\\Lambda_{g_2,A_2,\\Gamma}f,h\\rangle\n \\quad\\text{for all }f,h\\in C_c^\\infty(\\Gamma;\\C^2),\n\\]\nthen there are a smooth diffeomorphism $\\Phi:M\\longrightarrow M$ and\na smooth map $U:M\\longrightarrow U(2)$ such that\n\\begin{equation}\\label{eq:main-conclusion}\n \\Phi|_\\Gamma=\\Id,\\qquad U|_\\Gamma=I,\\qquad\n g_2=\\Phi^*g_1,\\qquad\n A_2=U^{-1}(\\Phi^*A_1)U+U^{-1}dU.\n\\end{equation}\nHere $I$ denotes the $2\\times2$ identity matrix.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Equality-cases-in-the-sharp-one-dimensional-matrix-Lieb-Thirring-inequality-October-5-2026": {
+   "title": "Equality cases in the sharp one-dimensional matrix Lieb–Thirring inequality",
+   "family": "262",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Equality classification",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 34,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Equality classification]\\label{thm:main}\nFor every $W$ satisfying~\\eqref{intro:class},\n\\begin{equation}\\label{intro:sharp}\n \\Tr(H_W)_-^\\gamma\\le C_\\gamma\\int_\\R\\tr(W^p),\n \\qquad\n C_\\gamma=\\left(\\frac{\\gamma-1/2}{\\gamma+1/2}\\right)^{\\gamma-1/2}\n       \\frac{\\Gamma(\\gamma+1)}{\\sqrt\\pi\\,\\Gamma(\\gamma+3/2)}.\n\\end{equation}\nPut $r=(\\gamma-1/2)^{-1}$. Equality holds if and only if there are\n$k\\in\\{0,\\ldots,m\\}$, a constant unitary matrix $U$, positive numbers\n$a_1,\\ldots,a_k$, and real numbers $x_1,\\ldots,x_k$ such that almost\neverywhere\n\\begin{equation}\\label{intro:classification}\n W(x)=U\\diag\\bigl(w_1(x),\\ldots,w_k(x),0,\\ldots,0\\bigr)U^*,\n \\quad\n w_j(x)=(r+1)a_j^2\\sech^2\\!\\bigl(ra_j(x-x_j)\\bigr).\n\\end{equation}\nThe case $k=0$ means $W=0$. Each nonzero channel has exactly one negative\neigenvalue, $-a_j^2$, and therefore every extremal potential has at most\n$m$ negative eigenvalues, counted with multiplicity.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026": {
+   "title": "Equivariant Jiang–Su Stability for Amenable Actions in the Unital Stably Finite Case",
+   "family": "291",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 10,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet \\(A\\) be a simple, separable, unital, infinite-dimensional, nuclear,\nstably finite complex \\(\\mathrm C^*\\)-algebra satisfying\n\\(A\\cong A\\otimes\\Zalg\\). Let \\(G\\) be a countable discrete amenable group\nand let \\(\\alpha:G\\to\\Aut(A)\\) be any action. Put\n\\[\n B=A\\otimes\\Zalg,\\qquad\n \\beta_g=\\alpha_g\\otimes\\operatorname{id}_{\\Zalg}.\n\\]\nThere are a unital \\(*\\)-isomorphism \\(\\Phi:A\\to B\\) and unitaries\n\\(u_g\\in B\\), \\(g\\in G\\), such that\n\\begin{align}\n u_e&=1,& u_{gh}&=u_g\\beta_g(u_h),\\label{eq:cocycle}\\\\\n \\Phi(\\alpha_g(a))&=u_g\\beta_g(\\Phi(a))u_g^*\n &&(g\\in G,\\ a\\in A).\\label{eq:conjugacy}\n\\end{align}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Exact-Fourier-certificates-for-complex-Hadamard-matrices-of-order-six-September-24-2026": {
+   "title": "Exact Fourier certificates for complex Hadamard matrices of order six",
+   "family": "266",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "No complete family",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 142,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[No complete family]\\label{thm:main}\nThere do not exist seven orthonormal bases\n$B_r=(b_{r,0},\\ldots,b_{r,5})$ of $\\C^6$, $1\\le r\\le7$, such that\n\\[\n \\bigl|\\langle b_{r,i},b_{s,j}\\rangle\\bigr|^2=\\frac16\n \\qquad(r\\ne s,\\ 0\\le i,j\\le5).\n\\]\n\\end{theorem}"
+    },
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:fourier",
+     "title": "Fourier vanishing",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 65,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Fourier vanishing]\\label{thm:fourier}\nLet $H$ be a complex Hadamard matrix of order six. If $H$ is not equivalent\nto the cubic matrix $T$ in \\eqref{eq:cubic-matrix}, then\n\\[\n g_H(\\pi\\alpha)=0\\qquad\\text{for every coordinate permutation }\\pi.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Failure-of-rational-injectivity-for-maximal-coarse-assembly-October-5-2026": {
+   "title": "Failure of rational injectivity for maximal coarse assembly",
+   "family": "307",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 36,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exist finite connected graphs $(X_j)_{j\\geq1}$ with a common finite\nbound on vertex degree, a coarse disjoint union $X=\\bigsqcup_{j\\geq1}X_j$,\nand an infinite-order class $\\alpha\\in\\KX_1(X)$ such that\n\\[\n \\mu_X^{\\max}(\\alpha)=0.\n\\]\nConsequently, $\\mu_X^{\\max}\\otimes\\Q$ is not injective.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Finite-Monoid-Computations-and-a-Uniform-Generalized-Star-Height-Bound-September-25-2026": {
+   "title": "Finite Monoid Computations and a Uniform Generalized Star-Height Bound",
+   "family": "134",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 33,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every finite alphabet \\(\\Sigma\\) and every regular language\n\\(L\\subseteq\\Sigma^*\\),\n\\[\n                         h_\\Sigma(L)\\le 13.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Full-support-of-the-zero-temperature-Sherrington-Kirkpatrick-order-parameter-September-27-2026": {
+   "title": "Full support of the zero-temperature Sherrington-Kirkpatrick order parameter",
+   "family": "281",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:full-support",
+     "title": "Full support at zero temperature",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/main.tex",
+     "tex_line": 119,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Full support at zero temperature]\\label{thm:full-support}\nIf $\\gamma\\in\\mathcal U$ minimizes $\\mathcal P$, then\n\\[\n \\supp\\mu_\\gamma=[0,1).\n\\]\nIn particular $\\gamma(b)>\\gamma(a)$ whenever $0\\leq a<b<1$.\nFor the solution of~\\eqref{eq:model-diffusion},\n\\begin{equation}\\label{eq:main-consistency}\n \\E[u_\\gamma(t,X_t)^2]=t,\\qquad\n \\E[\\Phi_{\\gamma,xx}(t,X_t)^2]=1,\n \\qquad 0\\leq t<1.\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Generalized-Star-Height-at-Most-Four-September-25-2026": {
+   "title": "Generalized Star Height at Most Four",
+   "family": "134",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 24,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every finite alphabet $\\Sigma$ and every regular language\n$L\\subseteq\\Sigma^*$, one has $h_\\Sigma(L)\\le4$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Generalized-Star-Height-at-Most-Three-September-25-2026": {
+   "title": "Generalized Star Height at Most Three",
+   "family": "134",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 29,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every finite alphabet $\\Sigma$ and every regular language\n$L\\subseteq\\Sigma^*$,\n\\[\n                            h_\\Sigma(L)\\le3.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026": {
+   "title": "Gigli’s distributional curvature characterization of Alexandrov spaces",
+   "family": "356",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 6,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:equivalence",
+     "title": "Gigli's characterization",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 63,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Gigli's characterization]\n\\label{main:equivalence}\nLet \\(n\\ge2\\) be an integer, let \\(\\kappa\\in\\R\\), and let \\((M,d)\\)\nbe a complete separable metric space. The following conditions are\nequivalent.\n\\begin{enumerate}[label=\\textup{(\\Alph*)}]\n\\item \\((M,d)\\) is an \\(n\\)-dimensional Alexandrov space with curvature\nbounded below by \\(\\kappa\\).\n\\item With \\(m=\\mathcal H^n_d\\), the space \\((M,d,m)\\) has full support,\nis \\(\\RCD((n-1)\\kappa,n)\\), and satisfies\n\\begin{equation}\n\\label{eq:main-curvature}\nR(X,Y,Y,X)(f)\\ge\n\\kappa\\int_M f\\bigl(|X|^2|Y|^2-\\langle X,Y\\rangle^2\\bigr)\\dd m\n\\end{equation}\nfor every \\(X,Y\\in\\TestV(M)\\) and every nonnegative \\(f\\in\\Test(M)\\).\n\\end{enumerate}\nThe \\(\\RCD\\) condition is unreduced, and the test classes and\ncurvature sign are exactly those defined above.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Global-classical-solutions-of-the-three-dimensional-relativistic-Vlasov-Maxwell-system-September-23-2026": {
+   "title": "Global classical solutions of the three-dimensional relativistic Vlasov–Maxwell system",
+   "family": "362",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:global",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 42,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:global}\nEvery smooth admissible datum \\eqref{eq:data} generates a unique global\nclassical solution of \\eqref{eq:rvm}. For every finite $T$, this solution\nsatisfies\n\\[\n f\\in C^\\infty([0,T]\\times\\R^3_x\\times\\R^3_v),\\qquad\n E,B\\in C^\\infty([0,T]\\times\\R^3_x;\\R^3),\n\\]\nand $f$ has compact phase-space support on $[0,T]$.\nThe two divergence constraints hold for all time.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026": {
+   "title": "Ground-state condensation in the dilute hard-sphere gas",
+   "family": "267",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:theorem",
+     "title": "Condensation in every ground state",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 48,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Condensation in every ground state]\\label{main:theorem}\nThere are absolute constants $\\varepsilon_0,c_0>0$ with the following\nproperty. Fix $a,\\rho>0$ satisfying $\\rho a^3<\\varepsilon_0$.\nFor every sequence of particle numbers $N_k$ and lengths $L_k$ such that\n\\[\n N_k\\longrightarrow\\infty,\\qquad L_k\\longrightarrow\\infty,\n \\qquad \\frac{N_k}{L_k^3}\\longrightarrow\\rho,\n\\]\nand every choice of normalized, possibly complex, bosonic ground\neigenvectors $\\Psi_k$ of the hard-sphere Hamiltonians,\n\\begin{equation}\\label{main:limit}\n \\liminf_{k\\to\\infty} B(\\Psi_k)\\ge c_0.\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Hamiltonian-Fixed-Points-Below-the-Stable-Morse-Number-October-5-2026": {
+   "title": "Hamiltonian Fixed Points Below the Stable Morse Number",
+   "family": "347",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 26,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exist a simply connected closed Kähler manifold $(M,\\omega)$ and a smooth one-periodic Hamiltonian $H$ such that every fixed point of $\\phi_H^1$ is nondegenerate and\n\\[\n \\#\\Fix_0(\\phi_H^1;H)=\\#\\Fix(\\phi_H^1)=\\SM(M)-16.\n\\]\nOne may take $\\dim_{\\R}M=1412$, with $\\SM(M)=318968$ and $\\#\\Fix(\\phi_H^1)=318952$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Hamiltonian-Fixed-Points-Below-the-Stable-Morse-Number-in-Dimension-Twenty-Two-October-5-2026": {
+   "title": "Hamiltonian Fixed Points Below the Stable Morse Number in Dimension Twenty-Two",
+   "family": "347",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 37,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every integer $m\\geq1$, there exist a simply connected closed Kähler\nmanifold $(M_m,\\omega_m)$ of real dimension $22$ and a smooth one-periodic\nHamiltonian $H_m$ such that all fixed points of $\\phi_{H_m}^1$ are\nnondegenerate and\n\\begin{align*}\n \\SM(M_m)&=80+1968m,\\\\\n \\#\\Fix(\\phi_{H_m}^1)\n &=\\#\\Fix_0(\\phi_{H_m}^1;H_m)=80+1952m.\n\\end{align*}\nConsequently, with $\\delta=1/128$, for every $R>0$ some member of this\nfamily satisfies\n\\[\n \\SM(M_m)\\geq R,\\qquad\n \\#\\Fix(\\phi_{H_m}^1)\\leq(1-\\delta)\\SM(M_m).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Integrability-of-split-tangent-bundles-on-rationally-connected-manifolds-September-23-2026": {
+   "title": "Integrability of split tangent bundles on rationally connected manifolds",
+   "family": "052",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Automatic integrability",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 21,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Automatic integrability]\\label[theorem]{thm:main}\nLet \\(X\\) be a smooth connected projective complex manifold of dimension\nat least two. Suppose that two general points of \\(X\\) lie on the image\nof a morphism \\(\\PP^1\\to X\\). For every specified holomorphic decomposition\n\\[\nT_X=E_1\\oplus E_2\n\\]\ninto subbundles of positive rank, both \\(E_1\\) and \\(E_2\\) are integrable.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Lipschitz-Equivalent-Separable-Banach-Spaces-Need-Not-Be-Linearly-Isomorphic-September-24-2026": {
+   "title": "Lipschitz Equivalent Separable Banach Spaces Need Not Be Linearly Isomorphic",
+   "family": "324",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 21,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\n\\label{thm:main}\nThere are separable real Banach spaces \\(X,Y\\) and a bijection\n\\(\\Psi:X\\to Y\\) such that, for every \\(s,t\\in X\\),\n\\begin{equation}\n\\label{eq:main-bounds}\n \\frac4{21}\\|s-t\\|_X\n \\le \\|\\Psi(s)-\\Psi(t)\\|_Y\n \\le \\frac{76}{25}\\|s-t\\|_X.\n\\end{equation}\nThe space \\(X\\) contains a linearly isometric copy of \\(c_0(\\ell_2)\\), while\n\\(Y\\) contains no closed subspace linearly isomorphic to\n\\(c_0(\\ell_2)\\). In particular, \\(X\\) and \\(Y\\) are not linearly\nisomorphic.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Logarithmic-Kodaira-dimension-and-whole-fiber-variation-September-26-2026": {
+   "title": "Logarithmic Kodaira dimension and whole-fiber variation",
+   "family": "033",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Logarithmic variation",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 38,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Logarithmic variation]\\label{thm:main}\nLet $f:U\\to V$ be a projective surjective morphism with connected fibers\nbetween smooth connected quasi-projective complex varieties.\nAssume $\\kbar(V)\\geq0$, and let $F$ be its geometric generic fiber.\nThen\n\\begin{equation}\\label{eq:main}\n \\kbar(U)\\geq\\kappa(F)+\\max\\{\\kbar(V),\\Var(f)\\}.\n\\end{equation}\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "num:main",
+     "title": "The dimension retained by interpolation",
+     "section": "A numerical second Iitaka construction",
+     "in_intro": false,
+     "tex_file": "build/sections/08-numerical-extension.tex",
+     "tex_line": 20,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The dimension retained by interpolation]\n\\label{num:main}\nLet $g:W\\to Y$ and $h:W\\to Z$ be surjective morphisms with connected\nfibers between smooth projective complex varieties.  Let $B$ be an\neffective rational SNC boundary, and let $D_Y$ be a reduced SNC\ndivisor, with the zero divisor allowed. Assume\n\\[\n B\\geq(g^*D_Y)_{\\red},\\qquad\n \\kappa(Y,K_Y+D_Y)\\geq0.\n\\]\nLet $A$ be a nef rational divisor on $Z$ such that $K_Z+aA$ is big\nfor all sufficiently large rational $a$.  Put\n\\[\n M=h^*A,\\qquad L(c)=K_W+B+cM,\\qquad d=\\dim(W/Y),\n\\]\nand suppose $L(1)$ is big over $Y$.\nOn smooth birational models, with the boundary rule of\nLemma~\\ref{setup:log-modification}, there are morphisms\n\\[\n W\\xrightarrow{q}U\\xrightarrow{j}Z,\n \\qquad U\\xrightarrow{s}T_0,\\qquad S\\xrightarrow{p}T_0,\n \\qquad \\rho:S\\to Y\n\\]\nwith the following properties:\n\\begin{enumerate}\n\\item $h=jq$, and $q$ is the relative Iitaka fibration of $K_W+B$\nover $Z$.  Its geometric general fiber $G$ is integral and satisfies\n$\\kappa(G,K_G+B_G)=0$.\n\\item The map $g$ factors through $S$; $\\rho$ is birational, and\n$W\\to(S\\times_{T_0}U)_{\\mathrm{main}}$ is dominant and generically\nfinite.  The generic fibers of $S\\to T_0$ and $U\\to T_0$ are\ngeometrically integral. With $D_S=(\\rho^*D_Y)_{\\red}$ made SNC,\none has $\\kappa(S_t,K_{S_t}+D_S|_{S_t})=0$ for very general $t$.\n\\item One has\n\\begin{equation}\\label{num:dimension-conclusion}\n \\kappa(W,L(1))=\\dim U=d+\\dim T_0,\n \\qquad \\kappa(Y,K_Y+D_Y)\\leq\\dim T_0.\n\\end{equation}\n\\end{enumerate}\nRational linear equivalence in the definition of $M$ is sufficient.\nAll section comparisons are with the fixed initial source model.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Nonuniqueness-for-Bounded-Measurable-Scalar-Conductivities-in-Three-Dimensions-September-23-2026": {
+   "title": "Nonuniqueness for bounded measurable scalar conductivities in three dimensions",
+   "family": "365",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/paper.tex",
+     "tex_line": 79,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere exist real scalar functions $\\gamma_0,\\gamma_1\\in\nL^\\infty(B(0,3);\\R)$ and constants $0<c<C<\\infty$ such that\n\\begin{enumerate}[label=\\textup{(\\roman*)},itemsep=2pt]\n\\item $c\\leq\\gamma_j\\leq C$ almost everywhere, for $j=0,1$;\n\\item both conductivities equal $1$ in a neighborhood of the boundary;\n\\item $\\abs{\\{x:\\gamma_0(x)\\ne\\gamma_1(x)\\}}>0$;\n\\item $\\Lambda_{\\gamma_0}=\\Lambda_{\\gamma_1}$ as bounded operators\nfrom $H^{1/2}(\\partial B(0,3))$ to $H^{-1/2}(\\partial B(0,3))$.\n\\end{enumerate}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026": {
+   "title": "Nuclear dimension and Jiang–Su stability without elementary subquotients",
+   "family": "291",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Nonsimple nuclear regularity",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01_introduction.tex",
+     "tex_line": 24,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Nonsimple nuclear regularity]\n\\label{thm:main}\n\\label{intro:regularity}\nLet $A$ be a separable nuclear complex $C^*$-algebra with no nonzero\nelementary ideal subquotients. The following conditions are equivalent:\n\\begin{enumerate}\n\\item $\\nucdim(A)<\\infty$;\n\\item $A\\cong A\\otimes\\Z$;\n\\item $\\nucdim(A)\\le1$.\n\\end{enumerate}\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "intro:main",
+     "title": "Sharp bound after Jiang--Su absorption",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01_introduction.tex",
+     "tex_line": 70,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Sharp bound after Jiang--Su absorption]\n\\label{intro:main}\nFor every separable nuclear complex $C^*$-algebra $A_0$,\n\\[\n \\nucdim(A_0\\otimes\\Z)\\le1.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "One-sided-negative-sectional-curvature-and-the-holomorphic-Liouville-property-September-25-2026": {
+   "title": "One-sided negative sectional curvature and the holomorphic Liouville property",
+   "family": "359",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/01-introduction.tex",
+     "tex_line": 21,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor some finite integer $m\\ge2$ there is a domain\n$\\mathcal T\\subset\\mathbb C^m$, diffeomorphic to $\\mathbb R^{2m}$,\nwith a complete K\\\"ahler metric $g$ such that\n\\[\n \\operatorname{Sec}_g\\le-1,\n \\qquad H^\\infty(\\mathcal T)=\\mathbb C.\n\\]\nThe sectional curvatures of $g$ are unbounded below.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Orbifold-and-logarithmic-Iitaka-subadditivity-September-26-2026": {
+   "title": "Orbifold and logarithmic Iitaka subadditivity",
+   "family": "033",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:orbifold",
+     "title": "Orbifold subadditivity",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 135,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Orbifold subadditivity]\\label{main:orbifold}\nLet $X$ be a smooth compact connected complex manifold in Fujiki\nclass $\\mathcal C$, let $\\Delta$ be a rational SNC boundary, and\nlet $f:X\\to Y$ be a surjective holomorphic map with connected\nfibers onto a normal compact irreducible complex space.\nFor a very general smooth fiber $F$, put $\\Delta_F=\\Delta|_F$.\nThen\n\\begin{equation}\\label{main:inequality}\n \\kappa(X,K_X+\\Delta)\n \\geq\\kappa(F,K_F+\\Delta_F)+\\kappa(f\\mid\\Delta).\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Pettys-projection-volume-conjecture-in-dimensions-at-least-four-September-24-2026": {
+   "title": "Petty’s projection-volume conjecture in dimensions at least four",
+   "family": "088",
+   "tex_root": "build/latex/main.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/latex/sections/01_introduction.tex",
+     "tex_line": 36,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every integer $n\\ge4$ and every convex body $K\\subset\\R^n$,\n\\begin{equation}\\label{eq:main}\n \\frac{|\\Pi K|}{|K|^{n-1}}\n \\ge \\kappa_{n-1}^{\\,n}\\kappa_n^{\\,2-n}.\n\\end{equation}\nEquality holds if and only if $K=a+TB_2^n$ for some $a\\in\\R^n$ and some\ninvertible linear map $T$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Projective-Hodge-lines-and-ordinary-Iitaka-subadditivity-September-27-2026": {
+   "title": "Projective Hodge lines and ordinary Iitaka subadditivity",
+   "family": "033",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 8,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:ordinary",
+     "title": "Ordinary Iitaka subadditivity",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 48,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Ordinary Iitaka subadditivity]\\label{thm:ordinary}\\label{altord:ordinary-subadditivity}\nLet $k$ be an algebraically closed field of characteristic zero, and\nlet $f:X\\to Z$ be a surjective projective morphism with connected\nfibres between smooth connected projective $k$-varieties. If $F$ is\nits geometric generic fibre, then\n\\[\n                     \\kappa(X)\\geq\\kappa(F)+\\kappa(Z).\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Pure-Point-Spectrum-for-the-Two-Dimensional-Anderson-Model-at-Every-Positive-Disorder-September-23-2026": {
+   "title": "Pure-Point Spectrum for the Two-Dimensional Anderson Model at Every Positive Disorder",
+   "family": "261",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:theorem",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 19,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{main:theorem}\nFor each fixed $h>0$, almost surely $H_v$ has pure-point spectral type,\nadmits a complete orthonormal eigenbasis, and has spectrum\n\\[\n \\sigma(H_v)=[-4-h,4+h].\n\\]\nIts eigenvalues are dense in this interval. The probability-one event\nin this statement is allowed to depend on $h$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "QAOA-attains-the-SK-ground-state-energy-in-the-thermodynamic-first-limit-September-25-2026": {
+   "title": "QAOA attains the SK ground-state energy in the thermodynamic-first limit",
+   "family": "281",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction and statement of the result",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 111,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor the zero-field SK model~\\eqref{eq:sk-model},\n\\begin{equation}\\label{eq:main-result}\n \\lim_{p\\to\\infty}Q_p=\\Pstar.\n\\end{equation}\nEquivalently, for every $\\varepsilon>0$ there exist a finite integer $p$ and\ndeterministic real vectors $\\gamma,\\beta\\in\\R^p$, independent of $n$ and $J$,\nsuch that $v_p(\\gamma,\\beta)\\ge\\Pstar-\\varepsilon$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026": {
+   "title": "Quantum Depletion and Momentum Distribution in the Dilute Hard-Sphere Bose Gas",
+   "family": "267",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 66,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every $a>0$, every bounded continuous real function $f$ on $\\R^3$,\nand every $\\eps>0$, there is $\\rho_0(a,f,\\eps)>0$ with the following\nproperty. Fix $0<\\rho<\\rho_0$ and put $\\eta=\\rho a^3$. For every\nsequence $N_j,L_j\\longrightarrow\\infty$ with\n$N_j/L_j^3\\longrightarrow\\rho$,\n\\begin{equation}\\label{intro:main-limit}\n \\limsup_{j\\to\\infty}\\ \\sup_{\\Gamma\\in\\mathcal G_{N_j,L_j,a}}\n \\left|\n \\frac{1}{N_j\\sqrt\\eta}\n \\sum_{\\substack{k\\in(2\\pi/L_j)\\Z^3\\\\k\\ne0}}\n f\\!\\left(\\frac{k}{\\sqrt{8\\pi\\rho a}}\\right)n_{\\Gamma,L_j}(k)\n       -\\int_{\\R^3}f\\,\\dd\\nu_{\\mathrm{Bog}}\n \\right|\\le\\eps.\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026": {
+   "title": "Quantum Depletion for Fixed Bounded Repulsive Potentials",
+   "family": "267",
+   "tex_root": "build/source/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/source/sections/introduction.tex",
+     "tex_line": 41,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every potential $v$ satisfying the assumptions above and every\n$\\epsilon>0$, there is $\\rho_0(v,\\epsilon)>0$ such that, for every fixed\n$0<\\rho<\\rho_0(v,\\epsilon)$ and every sequence\n$N_k,L_k\\to\\infty$ with $N_k/L_k^3\\to\\rho$,\n\\[\n \\limsup_{k\\to\\infty}\\ \\sup_{\\Gamma\\in\\mathcal G^v_{N_k,L_k}}\n \\left|\\frac{1-B_\\Gamma}{\\sqrt{\\rho a_v^3}}\n                       -\\frac8{3\\sqrt\\pi}\\right|\\le\\epsilon.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "Quasipolynomial-Bounds-for-Arithmetic-Progressions-September-23-2026": {
+   "title": "Quasipolynomial Bounds for Arithmetic Progressions",
+   "family": "159",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "ap:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 13,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{ap:main}\nFor each fixed integer $k\\ge3$ there are constants\n$C_k,c_k,\\varepsilon_k>0$ such that, for every $N\\ge2$,\n\\begin{equation}\\label{ap:density-bound}\n r_k(N)\\le C_kN\\exp\\bigl(-c_k(\\log N)^{\\varepsilon_k}\\bigr).\n\\end{equation}\nEquivalently, there is $A_k\\ge1$ such that an $\\alpha$-dense subset\nof $[N]$ contains a nonconstant $k$-term progression whenever\n\\begin{equation}\\label{ap:threshold}\n \\log N\\ge A_k\\bigl(2+\\log(1/\\alpha)\\bigr)^{A_k},\n \\qquad 0<\\alpha\\le1.\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Relative-independence-of-the-separable-quotient-problem-September-23-2026": {
+   "title": "Relative independence of the separable quotient problem",
+   "family": "323",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 5,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "intro:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 34,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{intro:main}\nFor each $\\mathbb F\\in\\{\\R,\\C\\}$, ZFC proves the following implications.\n\\begin{enumerate}[label=\\textup{(\\roman*)}]\n \\item If $\\mathfrak c$ is real-valued measurable, then $\\SQ_{\\mathbb F}$\n holds.\n \\item If the continuum hypothesis holds, then $\\SQ_{\\mathbb F}$ fails.\n\\end{enumerate}\nConsequently, if ZFC with a measurable cardinal is consistent, then\n$\\SQ_{\\mathbb F}$ is independent of ZFC. Consistency of its failure\nrequires only consistency of ZFC.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Riesz-transforms-and-uniform-rectifiability-in-higher-codimension-September-24-2026": {
+   "title": "Riesz transforms and uniform rectifiability in higher codimension",
+   "family": "081",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "The quantitative theorem and normalized pairings",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 61,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $d\\ge4$ and $2\\le n\\le d-2$ be integers. Let $\\mu$ be an\n$n$-Ahlfors--David regular Radon measure on $\\R^d$ satisfying\n\\eqref{eq:riesz-bound}. Then $\\mu$ is uniformly $n$-rectifiable in the\nsense of Definition~\\ref{def:ur}. Its constants $\\theta$ and $M$ can\nbe chosen in terms of $d,n,C_{\\rm AD}$ and $C_{\\rm R}$ alone.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Rokhlins-multiple-mixing-problem-for-one-transformation-September-23-2026": {
+   "title": "Rokhlin's multiple-mixing problem for one transformation",
+   "family": "145",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 21,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\n\\label{thm:main}\nEvery invertible mixing probability-preserving transformation is mixing\nof every finite order. More explicitly, under the assumptions above, for\nevery $k\\ge3$ and every $A_1,\\ldots,A_k\\in\\mathcal F$,\n\\[\n \\mu\\bigl(A_1\\cap T^{-n_1}A_2\\cap\\cdots\\cap\n             T^{-(n_1+\\cdots+n_{k-1})}A_k\\bigr)\n \\longrightarrow\\prod_{i=1}^k\\mu(A_i)\n\\]\nas $\\min(n_1,\\ldots,n_{k-1})\\to\\infty$ through positive integers.\nNo standardness or countable-generation assumption is imposed on the\noriginal probability space.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026": {
+   "title": "Sharp one-dimensional Lieb–Thirring constants",
+   "family": "262",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 37,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every $1/2<\\gamma<3/2$ and every nonnegative\n$W\\in L^{\\gamma+1/2}(\\R)$,\n\\begin{equation}\\label{eq:main}\n \\Tr(H_{-W})_-^\\gamma\n \\le 2\\left(\\frac{\\gamma-1/2}{\\gamma+1/2}\\right)^{\\gamma-1/2}\n       L_{\\gamma,1}^{\\cl}\\int_\\R W^{\\gamma+1/2}.\n\\end{equation}\nThe constant is optimal and equals $L_{\\gamma,1}^{(1)}$.\nMore precisely, if $r=(\\gamma-1/2)^{-1}$, equality is attained by\n$W(x)=(r+1)\\sech^2(rx)$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Sharp-one-dimensional-Lieb-Thirring-inequalities-for-matrix-potentials-October-5-2026": {
+   "title": "Sharp one-dimensional Lieb–Thirring inequalities for matrix potentials",
+   "family": "262",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Sharp matrix inequality",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 28,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Sharp matrix inequality]\\label{thm:main}\nFor every $1/2<\\gamma<3/2$, every finite $m\\ge1$, and every $W$ satisfying\n\\eqref{eq:potential-class},\n\\begin{equation}\\label{eq:main-bound}\n \\Tr(H_W)_-^\\gamma\\le C_\\gamma\\int_\\R\\tr(W(x)^{\\gamma+1/2})\\,dx,\n \\qquad\n C_\\gamma=\n \\left(\\frac{\\gamma-1/2}{\\gamma+1/2}\\right)^{\\gamma-1/2}\n \\frac{\\Gamma(\\gamma+1)}{\\sqrt\\pi\\,\\Gamma(\\gamma+3/2)}.\n\\end{equation}\nThe constant is optimal in every matrix dimension. With\n$r=(\\gamma-1/2)^{-1}$, it is attained by\n\\begin{equation}\\label{eq:extremal-potential}\n W(x)=\\diag\\big((r+1)\\sech^2(rx),0,\\ldots,0\\big).\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Sharpness-of-the-Cyclic-Integral-Floer-Bound-Below-the-Stable-Morse-Number-October-5-2026": {
+   "title": "Sharpness of the Cyclic Integral Floer Bound Below the Stable Morse Number",
+   "family": "347",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 52,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\n\\label{thm:main}\nThere exist a simply connected closed K\\\"ahler manifold $(M,\\omega)$\nof complex dimension $1666$ and a smooth one-periodic Hamiltonian $H$\nsuch that\n\\[\n c_1(TM)(\\pi_2(M))=\\Z,\n\\]\nevery fixed point of $\\phi_H^1$ is nondegenerate, and\n\\begin{align*}\n \\#\\Fix(\\phi_H^1)\n &=\\#\\Fix_0(\\phi_H^1;H)\n  =\\beta_{\\Z}^{\\mathrm{cyc}}(M)=1\\,872\\,232,\\\\\n \\SM(M)&=\\beta_{\\Z}^{\\mathrm{cyc}}(M)+32=1\\,872\\,264.\n\\end{align*}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Smooth-Anisotropic-Uniqueness-in-the-Calderon-Problem-from-One-Boundary-Patch-September-24-2026": {
+   "title": "Smooth anisotropic uniqueness in the Calderón problem from one boundary patch",
+   "family": "365",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "main:patch",
+     "title": "Smooth anisotropic uniqueness from one patch",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 54,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Smooth anisotropic uniqueness from one patch]\n\\label{main:patch}\nLet $n\\ge3$. Let $M$ be a compact connected smooth $n$-manifold with\nnonempty smooth boundary, and let $\\Gamma\\subset\\partial M$ be nonempty,\nproper, and relatively open. If two smooth Riemannian metrics $g_1,g_2$\non $M$ satisfy\n\\[\n \\Lambda_{g_1,\\Gamma}=\\Lambda_{g_2,\\Gamma},\n\\]\nthen there is a smooth diffeomorphism $\\Phi:M\\to M$, smooth through\nthe boundary, such that\n\\[\n \\Phi|_\\Gamma=\\Id,\\qquad g_2=\\Phi^*g_1.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026": {
+   "title": "The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture",
+   "family": "207",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:bass",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 45,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:bass}\nLet $G$ be any discrete group. For every $x\\in K_0(\\C G)$ and every\ninfinite-order element $g\\in G$,\n\\[\n \\HS_G(x)([g]_G)=0.\n\\]\nEquivalently, if $\\con_{\\mathrm{fin}}(G)$ denotes the conjugacy classes of\nfinite-order elements, then\n\\[\n \\HS_G\\bigl(K_0(\\C G)\\bigr)\n \\subseteq\\bigoplus_{C\\in\\con_{\\mathrm{fin}}(G)}\\C C.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Gaussian-Propeller-Bound-in-Every-Dimension-September-24-2026": {
+   "title": "The Gaussian propeller bound in every dimension",
+   "family": "096",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 4,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/main.tex",
+     "tex_line": 81,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor all positive integers $d$ and $k$, every measurable partition\n$(A_1,\\ldots,A_k)$ of $\\mathbb R^d$ satisfies\n\\[\n \\sum_{i=1}^k\\left\\|\\int_{A_i}x\\,d\\gamma_d(x)\\right\\|^2\n \\le\\frac9{8\\pi}.\n\\]\nEmpty cells are allowed. The constant is sharp whenever $d\\ge2$ and\n$k\\ge3$: three planar sectors of angle $2\\pi/3$, multiplied by the\northogonal complement of their plane, attain equality, with any further\ncells empty.\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "kc:main",
+     "title": "Kernel-clustering hardness",
+     "section": "A kernel-clustering application",
+     "in_intro": false,
+     "tex_file": "build/sections/kernel-application.tex",
+     "tex_line": 53,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Kernel-clustering hardness]\\label{kc:main}\nFor each fixed \\(k\\ge3\\) and every fixed\n\\(1\\le\\alpha<\\alpha_k\\), it is NP-hard, given a rational symmetric\nmatrix \\(A\\succeq0\\) with \\(A\\one=0\\) and the identity-target\nobjective \\eqref{kc:value}, to find\n\\(\\sigma:[N]\\to[k]\\) such that\n\\[\n \\val_A(\\sigma)\\ge\\Clust(A\\mid I_k)/\\alpha.\n\\]\nIn particular, such a deterministic polynomial-time approximation\nwould imply \\(\\mathrm P=\\mathrm{NP}\\).\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Grothendieck-homotopy-hypothesis-via-elementary-expansions-September-24-2026": {
+   "title": "The Grothendieck homotopy hypothesis via elementary expansions",
+   "family": "312",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/00-introduction.tex",
+     "tex_line": 50,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFix any Grothendieck coherator \\(\\mathcal C\\).\nLet \\(X\\) be a cellular \\(\\mathcal C\\)-infinity-groupoid, let \\(n\\ge0\\),\nand let \\(a:D_n\\to X\\) be any cell.  In the pushout square\n\\[\n\\begin{tikzpicture}[baseline=(current bounding box.center),\n                   node distance=1.25cm and 2.2cm,>=Stealth]\n\\node (a) {\\(D_n\\)};\n\\node (b) [right=of a] {\\(D_{n+1}\\)};\n\\node (c) [below=of a] {\\(X\\)};\n\\node (d) at (b |- c) {\\(X^+\\)};\n\\draw[->] (a) -- node[above] {\\(s_n\\)} (b);\n\\draw[->] (a) -- node[left] {\\(a\\)} (c);\n\\draw[->] (b) -- (d);\n\\draw[->] (c) -- node[below] {\\(i\\)} (d);\n\\end{tikzpicture}\n\\]\nwhere \\(s_n\\) is the source inclusion, the map \\(i:X\\to X^+\\)\nis a weak equivalence.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Kirchberg-Rordam-character-criterion-September-25-2026": {
+   "title": "The Kirchberg–Rørdam character criterion",
+   "family": "299",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 37,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $A$ be a nonzero unital separable complex $C^*$-algebra, and let\n$\\omega$ be any free ultrafilter on $\\N$. Then\n\\[\n F_\\omega(A)\\text{ has no characters}\n \\quad\\Longleftrightarrow\\quad A\\cong A\\otmin\\Z.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026": {
+   "title": "The ℓ¹-Bass Conjecture for Discrete Groups",
+   "family": "207",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 35,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $G$ be a discrete group, let $q\\ge1$, and let\n$e\\in M_q(\\ell^1(G))$ be idempotent.\nThere is a finite set $F\\subset\\mathcal C_{\\rm fin}(G)$ such that\n$\\tau_C(e)=0$ for every $C\\notin F$. Equivalently,\n\\[\n \\operatorname{HS}^1\\bigl(K_0(\\ell^1(G))\\bigr)\n \\subseteq \\bigoplus_{C\\in\\mathcal C_{\\rm fin}(G)}\\C[C].\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-logarithmic-Brunn-Minkowski-conjecture-September-23-2026": {
+   "title": "The logarithmic Brunn–Minkowski conjecture",
+   "family": "091",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Even logarithmic Brunn--Minkowski inequality",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/introduction.tex",
+     "tex_line": 21,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Even logarithmic Brunn--Minkowski inequality]\n\\label{thm:main}\nLet $n\\ge1$ and let $K,L\\subset\\R^n$ be convex bodies satisfying\n$K=-K$ and $L=-L$. For every $0\\le\\lambda\\le1$,\n\\begin{equation}\\label{eq:main}\n \\left|\\mathcal W[h_K^{1-\\lambda}h_L^\\lambda]\\right|\n \\ge |K|^{1-\\lambda}|L|^\\lambda.\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026": {
+   "title": "The maximum number of mutually unbiased bases in dimension six",
+   "family": "266",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Computer-assisted",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 13,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Computer-assisted]\\label{thm:main}\nUnder the arithmetic and compiler conditions in\nAppendix~\\ref{sec:rounding}, the fresh complete execution documented in\nSection~\\ref{execute:observed} certifies that there are no four pairwise mutually unbiased orthonormal bases in\n$\\C^6$. Consequently, $N(6)=3$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-reverse-logarithmic-Kodaira-inequality-and-additivity-September-26-2026": {
+   "title": "The reverse logarithmic Kodaira inequality and additivity",
+   "family": "033",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:upper-bound",
+     "title": "Reverse logarithmic Kodaira inequality",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 30,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Reverse logarithmic Kodaira inequality]\\label{thm:upper-bound}\nUnder these hypotheses,\n\\begin{equation}\\label{eq:upper-bound}\n \\kappa(X,L_X)\\leq\\kappa(Y,L_Y)+\\kappa(F,L_F).\n\\end{equation}\nIf either term on the right is $-\\infty$, then\n$H^0(X,mL_X)=0$ for every $m>0$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-weak-pinned-planar-distance-theorem-September-23-2026": {
+   "title": "The weak pinned planar distance theorem",
+   "family": "167",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 30,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor every fixed $s>0$, one has $F_n(s)\\longrightarrow0$ as\n$n\\longrightarrow\\infty$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026": {
+   "title": "Tracial projection methods and uniform property Gamma",
+   "family": "291",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 8,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "r:thm:main",
+     "title": "Real rank zero and uniform property $\\Gamma$",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01_introduction.tex",
+     "tex_line": 57,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Real rank zero and uniform property $\\Gamma$]\n\\label{r:thm:main}\nLet $A$ be a unital, separable, simple, infinite-dimensional, nuclear,\nstably finite $C^*$-algebra with $T(A)\\ne\\varnothing$, and let\n$B=\\overline A^{T(A)}$. Fix any free ultrafilter $\\omega$ on $\\N$.\nIf $B^\\omega$ has real rank zero in its quotient $C^*$-norm, then there is\na projection $p\\in B^\\omega\\cap B'$ such that\n\\[\n \\lambda(px)=\\tfrac12\\lambda(x)\n \\qquad(x\\in B,\\ \\lambda\\in\\Lambda_\\omega).\n\\]\nIn particular, $A$ has uniform property $\\Gamma$.\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "u:thm:main",
+     "title": "The direct unital comparison route",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01_introduction.tex",
+     "tex_line": 207,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The direct unital comparison route]\\label{u:thm:main}\nLet $A$ be a simple, separable, unital, infinite-dimensional nuclear\n$C^*$-algebra with strict comparison in the preceding sense.\nThen $A\\cong A\\otimes\\Z$. When $T(A)\\ne\\varnothing$, the proof constructs\nuniform property $\\Gamma$ directly.\n\\end{theorem}"
+    },
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "n:thm:main",
+     "title": "The direct stably projectionless route",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01_introduction.tex",
+     "tex_line": 237,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[The direct stably projectionless route]\\label{n:thm:main}\nLet $A$ be a nonzero simple, separable, nuclear $C^*$-algebra such that\n$A\\otimes\\K$ has no nonzero projections. Suppose that every trace in\n$T_{\\mathrm{lsc}}(A)$ is bounded on the positive unit ball and that\n$T_1(A)$ is nonempty and weak-$*$ compact. Assume that, for\n$a,b\\in(A\\otimes\\K)_+$ with $b\\ne0$,\n\\[\n d_\\tau(a)<1\\quad\n \\text{for every }\\tau\\in T_{\\mathrm{lsc}}(A)\n \\text{ with }d_\\tau(b)=1\n \\quad\\Longrightarrow\\quad a\\precsim b.\n\\]\nThen $A$ has uniform property $\\Gamma$ and $A\\cong A\\otimes\\Z$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026": {
+   "title": "Uniform Permanence in Weakly Reversible Mass-Action Systems",
+   "family": "149",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 43,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $C\\subset\\Z_{\\geq0}^d$ be finite, let $R\\subset C\\times C$ be\nweakly reversible, and fix positive rate constants in\n\\eqref{eq:mass-action}. For every positive stoichiometric class $P$ there\nis a nonempty compact convex set $K_P\\subset P$ with the following\nproperties. Every initial point $x^0\\in P$ gives a unique global positive\nsolution, and there is a finite $T(x^0)\\geq0$ such that\n\\[\n  x(t)\\in K_P\\qquad(t\\geq T(x^0)).\n\\]\nMoreover, $K_P$ is forward invariant. In particular, there is\n$\\eps_P\\in(0,1)$, depending only on the network, the fixed rates, and\n$P$, such that every such solution satisfies\n\\begin{equation}\\label{eq:uniform-bounds}\n  \\eps_P\\leq x_i(t)\\leq\\eps_P^{-1}\n  \\qquad(1\\leq i\\leq d,\\ t\\geq T(x^0)).\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "Universal-cover-splitting-for-compact-Kahler-manifolds-September-23-2026": {
+   "title": "Universal-cover splitting for compact Kähler manifolds",
+   "family": "052",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 2,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/intro.tex",
+     "tex_line": 100,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nLet $X$ be a compact connected K\\\"ahler manifold of complex dimension\n$n\\geq2$, and let\n\\[\nT_X=E_1\\oplus E_2\n\\]\nbe a specified decomposition into integrable holomorphic subbundles of\npositive ranks $r_1,r_2$. If $\\pi:\\widetilde X\\to X$ is the ordinary\nuniversal covering map, there are connected simply connected complex\nmanifolds $Y_1,Y_2$ and a biholomorphism\n$\\Phi:\\widetilde X\\to Y_1\\times Y_2$ such that\n\\[\n\\dd\\Phi(\\pi^*E_i)=\\pr_i^*T_{Y_i}\\qquad(i=1,2),\n\\]\nwhere $\\dd\\pi$ identifies $T_{\\widetilde X}$ with $\\pi^*T_X$.\nIn particular, $\\dim_\\C Y_i=r_i$.\n\\end{theorem}"
+    }
+   ]
+  },
+  "Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026": {
+   "title": "Weak Hessian bounds along every geodesic in RCD spaces",
+   "family": "356",
+   "tex_root": "build/main.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "weight:every-geodesic",
+     "title": "Weak Hessian bounds along every geodesic",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 52,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Weak Hessian bounds along every geodesic]\n\\label{weight:every-geodesic}\nLet \\((M,d,m)\\) be a full-support \\(\\RCD(K,N)\\) space,\nwhere \\(K\\in\\mathbb R\\) and \\(1<N<\\infty\\). Let\n\\(F\\colon M\\to\\mathbb R\\) be bounded and globally Lipschitz,\nand let \\(G\\colon M\\to\\mathbb R\\) be bounded and continuous.\nSuppose that for every compactly supported \\(g\\in\\Test(M)\\)\nand every nonnegative \\(h\\in\\Lip_c(M)\\),\n\\begin{equation}\n\\label{weight:hessian-assumption}\nH_F(\\nabla g,\\nabla g)(h)\n\\le\\int_M hG\\Gamma(g)\\dd m.\n\\end{equation}\nThen every constant-speed minimizing geodesic\n\\(\\sigma\\colon[0,1]\\to M\\), of length \\(\\ell\\), satisfies\n\\begin{equation}\n\\label{weight:curve-hessian}\n(F\\circ\\sigma)''\\le\\ell^2G\\circ\\sigma\n\\qquad\\text{in distributions on }(0,1).\n\\end{equation}\n\\end{theorem}"
+    }
+   ]
+  },
+  "ample-rank-two-bundles-on-the-quadric-surface-without-griffiths-positive-metrics-September-24-2026": {
+   "title": "Ample rank-two bundles on the quadric surface without Griffiths-positive metrics",
+   "family": "050",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 1,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/01-introduction.tex",
+     "tex_line": 23,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nThere is an algebraic vector bundle $G$ of rank two on $S$ such that,\nfor every positive integer $m$, the bundle\n\\[\n E_m=f_m^*G\\otimes P\n\\]\nis ample. There is an integer $m_0$ such that $E_m$ admits no smooth\nHermitian metric with strictly Griffiths-positive Chern curvature\nfor every $m\\ge m_0$.\n\\end{theorem}"
+    }
+   ]
+  }
+ }
+}

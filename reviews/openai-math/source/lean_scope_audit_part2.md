@@ -476,12 +476,19 @@ Conventions: `external` lists packages in the import cone other than Mathlib, Le
 ## 237 - The three-quarter diameter exponent for honeycomb walks
 
 - **Verdict:** `supporting-only`
-- **Challenges:** CriticalStripMass, HoneycombBridgeFiniteness, HoneycombFreeEnergy
-- **Cone (OAI lines):** CriticalStripMass 62,844, HoneycombBridgeFiniteness 7,790, HoneycombFreeEnergy 985 (max 62,844)
+- **Challenges:** CriticalStripMass, HoneycombBridgeFiniteness, HoneycombBridgeMassSupport, HoneycombFreeEnergy
+- **Cone (OAI lines):** CriticalStripMass 62,844, HoneycombBridgeFiniteness 7,790, HoneycombBridgeMassSupport 63,223, HoneycombFreeEnergy 985 (max 63,223)
 - **External packages:** none beyond Mathlib/Lean core
-- **Note:** Only technical inputs are stated: `HoneycombBridgeFiniteness.finite_bridge_sums` (summability of bridge weights and first length moments, also in the corridor |x| ≤ h (log h)^2), `CriticalStripMass.critical_strip_mass` (`c * archMass N + bridgeMass N = 1`, `Comparable bridgeMass N^(-1/4)`, `Comparable moment N^(3/4)`, bridge mass monotone) and `HoneycombFreeEnergy.logPartition_tendsto` (existence of the free-energy limit). The summary's headline, that a uniform n-step honeycomb SAW has diameter n^{3/4+o(1)} (and local mass/covering numbers of exponent 4/3, with high polynomial probability), has no Lean statement (docs: 'supporting summability statements ... outside them'; 'does not state ... the 3/4 spatial and moment laws').
+- **Note:** The four challenges are analytic inputs, not the headline: finiteness of the critical bridge sums and first-length moments at every strip height (HoneycombBridgeFiniteness), the strip estimates B_N ≍ N^{-1/4}, arch moment ≍ N^{3/4}, c*A_N+B_N=1 (CriticalStripMass, with the bridge-mass bound restated for h>=0 in HoneycombBridgeMassSupport), and existence of the force-tilted free-energy limit (HoneycombFreeEnergy). None mentions the uniform measure on n-step self-avoiding walks, their diameter, local mass or covering numbers, or any probability bound, so the headline theorem (diameter between n^{3/4-delta} and n^{3/4+delta} with probability at least 1-C n^{-k}) is not stated.
 - **Suspicious/non-standard definitions:**
-  - `freeEnergy o e s := Filter.limUnder atTop (logPartition o e s)` in `HoneycombFreeEnergy` (the theorem `logPartition_tendsto` asserts the limit exists, which makes the junk-value risk moot); SAW partition functions are written with explicit `walkLists`/`saws` and critical activity `rho = 1/√(2+√2)`.
+  - rho / kappa / criticalActivity: the four files use 1/sqrt(2+sqrt 2), (2cos(pi/8))^-1, (2+sqrt 2)^(-1/2) and (sqrt(2+sqrt 2))^-1, all equal to the honeycomb critical activity x_c (2cos(pi/8) = sqrt(2+sqrt 2)); a fixed concrete constant, standard
+  - Triangle (CriticalStripMass) / Vertex (BridgeFiniteness, FreeEnergy) / Center (BridgeMassSupport): the honeycomb lattice realised as up/down triangles of the triangular tiling with the same three-neighbour adjacency up(i,j) ~ down(i,j), down(i,j-1), down(i-1,j); CriticalStripMass uses rows in N (half-plane with a bottom wall), the others rows in Z; concrete lattice, standard
+  - CriticalStripMass.moment: sum over k >= 1 of k*K(k), a one-sided first displacement moment of arches (the paper's m_N); an unnormalised sum over all path lengths, not the displacement of a fixed-length walk
+  - CriticalStripMass: lambda, d, C, eta are defined but unused by the statement; tsum is 0 for non-summable families, guarded by the explicit StripSumsFinite conjunct
+  - HoneycombBridgeFiniteness.InLogCorridor / ConfinedBridgePath: confinement |x| <= h*(log h)^2 restricts to a finite vertex set for each h, so the three confined summability conjuncts are automatic (log 1 = 0 forces x = 0 at h = 1, so no bridge is confined there); the paper's content for the corridor (exponents unchanged) is not stated
+  - HoneycombBridgeFiniteness.FiniteBridgeSums: purely qualitative summability for each h >= 1, no rates; the normalised conjuncts divide by bridgeMass h / confinedMass h (Lean x/0 = 0, harmless here)
+  - HoneycombBridgeMassSupport.bridgeMass: ENNReal-valued tsum with B_0 := 1 by an if; Port and Port.position are defined but unused; the theorem's docstring says 'Trusted reference hole only; missing necessary main obligation'
+  - HoneycombFreeEnergy.freeEnergy: limUnder atTop (logPartition ..), a junk-valued limit, so logPartition_tendsto is exactly 'the limit exists'; e : C is not required to be a unit vector and s : R may have either sign (more general than the paper's unit e, s >= 0)
 
 ## 238 - Optimal logarithmic mixing of the Thorp shuffle
 

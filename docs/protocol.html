@@ -27,6 +27,7 @@
 <main>
 <article class="prose"><h1 id="referee-protocol-error-rate-of-the-mathvet-verdicts-on-openaimath">Referee protocol — error rate of the MathVet verdicts on openai/math</h1>
 <p><em>Pre-registered 8 October 2026, before any family in the sample was re-read by a referee. The thresholds below are not revised after data.</em></p>
+<p><em>Note added 10 October 2026: the published review has moved to upstream commit <code>fd4aeeb2</code>; the sample, the referee packet and the population counts below remain at <code>adc7f124</code> as frozen. The thresholds are unchanged.</em></p>
 <h2 id="what-is-measured">What is measured</h2>
 <p>Each of the 235 families with Lean in <code>openai/math</code> (commit <code>adc7f124</code>) carries one MathVet verdict in {<code>full</code>, <code>partial</code>, <code>weaker-statement</code>, <code>supporting-only</code>} about whether its Comparator challenge statements state the family's headline claim (the overview summary). The verdicts came from one model-assisted pass per family. The quantity measured here is the <strong>family-level error rate</strong> of those verdicts: the fraction of families on which the adjudicated referee verdict differs from the MathVet verdict, estimated on a stratified sample and weighted to the population. A secondary number, the binary <code>full</code> versus not-<code>full</code> disagreement rate, is reported alongside.</p>
 <h2 id="the-sample-frozen">The sample (frozen)</h2>
@@ -82,7 +83,7 @@ for k in (2, 4, 6, 8, 10):
     print(k, '/40 -&gt;', wilson(k, 40))
 </code></pre></article>
 </main>
-<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>adc7f124</code>; generated 2026-10-10T17:20:48Z. Corrections: <a href="https://github.com/mathvet/mathvet/issues">open an issue</a>.</div></footer>
+<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>fd4aeeb2</code>; generated 2026-10-10T19:19:10Z. Corrections: <a href="https://github.com/mathvet/mathvet/issues">open an issue</a>.</div></footer>
 
 </body>
 </html>
