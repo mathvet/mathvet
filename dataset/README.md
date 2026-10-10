@@ -28,7 +28,7 @@ gold = df[df.one_to_one & (df.nl_extraction_quality == "good") & (df.fidelity_cl
 | **NL extraction quality, challenges** (good / partial / none) | **399** / 6 / 0 |
 | NL extraction quality, families (all challenges good / some partial) | 231 / 4 |
 | first NL block comes from | `thm:main`-style label 324, first theorem in the introduction 74, `maintheorem` env 1, first theorem anywhere 6 |
-| papers with at least one extracted block / with a main block (label, title or env) | 467 of 467 / 388 |
+| papers with at least one extracted block / with a main block (label, title or env) | 477 of 477 / 397 |
 | `one_to_one` (family has 1 challenge and 1 linked paper) | 140 |
 | good NL and `full` label | 255 |
 | **gold: `one_to_one` and good NL and `full`** | **81** |
