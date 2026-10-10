@@ -1,0 +1,1601 @@
+/Users/shannon/cc/math/math/lean/Scratch/Challenge_CoarseAssembly.lean:6629:8: warning: declaration uses `sorry`
+OAI.CoarseAssembly.bounded_geometry_graph_counterexample_unconditional : (∀ (j : ℕ),
+    Finite (OAI.CoarseAssembly.FiberVertex j) ∧
+      (OAI.CoarseAssembly.fiberedGraph OAI.CoarseAssembly.elementaryMoves
+          OAI.CoarseAssembly.Congruence.chosenHolonomyUnit j).Connected) ∧
+  (∃ D,
+      ∀ (j : ℕ) (x : OAI.CoarseAssembly.FiberVertex j),
+        Nat.card
+            { y //
+              (OAI.CoarseAssembly.fiberedGraph OAI.CoarseAssembly.elementaryMoves
+                    OAI.CoarseAssembly.Congruence.chosenHolonomyUnit j).Adj
+                x y } ≤
+          D) ∧
+    ProperSpace OAI.CoarseAssembly.VertexUnion ∧
+      OAI.CoarseAssembly.UniformFiniteBalls OAI.CoarseAssembly.VertexUnion ∧
+        (∀ (x y : OAI.CoarseAssembly.VertexUnion), x ≠ y → 1 ≤ dist x y) ∧
+          ∃ α,
+            (∀ (n : ℤ), n ≠ 0 → n • α ≠ 0) ∧
+              OAI.CoarseAssembly.constructedCoarseAssembly α = 0 ∧
+                1 ⊗ₜ[ℤ] α ≠ 0 ∧
+                  ¬Function.Injective ⇑OAI.CoarseAssembly.constructedCoarseAssembly ∧
+                    ¬Function.Injective
+                        ⇑(LinearMap.lTensor ℚ OAI.CoarseAssembly.constructedCoarseAssembly.toIntLinearMap)
+def OAI.CoarseAssembly.blockLinear.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {E : ι → Type u_2} →
+    {F : ι → Type u_3} →
+      [inst : (i : ι) → NormedAddCommGroup (E i)] →
+        [inst_1 : (i : ι) → NormedSpace ℂ (E i)] →
+          [inst_2 : (i : ι) → NormedAddCommGroup (F i)] →
+            [inst_3 : (i : ι) → NormedSpace ℂ (F i)] →
+              (A : (i : ι) → E i →L[ℂ] F i) → (C : ℝ) → 0 ≤ C → (∀ (i : ι), ‖A i‖ ≤ C) → ↥(lp E 2) →ₗ[ℂ] ↥(lp F 2) :=
+fun {ι} {E} {F} [(i : ι) → NormedAddCommGroup (E i)] [(i : ι) → NormedSpace ℂ (E i)]
+    [(i : ι) → NormedAddCommGroup (F i)] [(i : ι) → NormedSpace ℂ (F i)] A C _hC hA =>
+  { toFun := fun x => ⟨fun i => (A i) (↑x i), ⋯⟩, map_add' := ⋯, map_smul' := ⋯ }
+def OAI.CoarseAssembly.blockOperator.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {E : ι → Type u_2} →
+    {F : ι → Type u_3} →
+      [inst : (i : ι) → NormedAddCommGroup (E i)] →
+        [inst_1 : (i : ι) → NormedSpace ℂ (E i)] →
+          [inst_2 : (i : ι) → NormedAddCommGroup (F i)] →
+            [inst_3 : (i : ι) → NormedSpace ℂ (F i)] →
+              (A : (i : ι) → E i →L[ℂ] F i) → (C : ℝ) → 0 ≤ C → (∀ (i : ι), ‖A i‖ ≤ C) → ↥(lp E 2) →L[ℂ] ↥(lp F 2) :=
+fun {ι} {E} {F} [(i : ι) → NormedAddCommGroup (E i)] [(i : ι) → NormedSpace ℂ (E i)]
+    [(i : ι) → NormedAddCommGroup (F i)] [(i : ι) → NormedSpace ℂ (F i)] A C hC hA =>
+  (OAI.CoarseAssembly.blockLinear A C hC hA).mkContinuous C ⋯
+def OAI.CoarseAssembly.blockIsometry.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {E : ι → Type u_2} →
+    {F : ι → Type u_3} →
+      [inst : (i : ι) → NormedAddCommGroup (E i)] →
+        [inst_1 : (i : ι) → NormedSpace ℂ (E i)] →
+          [inst_2 : (i : ι) → NormedAddCommGroup (F i)] →
+            [inst_3 : (i : ι) → NormedSpace ℂ (F i)] → ((i : ι) → E i →ₗᵢ[ℂ] F i) → ↥(lp E 2) →ₗᵢ[ℂ] ↥(lp F 2) :=
+fun {ι} {E} {F} [(i : ι) → NormedAddCommGroup (E i)] [(i : ι) → NormedSpace ℂ (E i)]
+    [(i : ι) → NormedAddCommGroup (F i)] [(i : ι) → NormedSpace ℂ (F i)] V =>
+  let __LinearMap := ↑(OAI.CoarseAssembly.blockOperator (fun i => (V i).toContinuousLinearMap) 1 ⋯ ⋯);
+  { toLinearMap := __LinearMap, norm_map' := ⋯ }
+def OAI.CoarseAssembly.flattenVector.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {Q : ι → Type u_2} →
+    {H : Type u_3} → [inst : NormedAddCommGroup H] → ↥(lp (fun i => ↥(lp (fun x => H) 2)) 2) → ↥(lp (fun x => H) 2) :=
+fun {ι} {Q} {H} [NormedAddCommGroup H] x => ⟨fun q => ↑(↑x q.fst) q.snd, ⋯⟩
+def OAI.CoarseAssembly.rowVector.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {Q : ι → Type u_2} →
+    {H : Type u_3} → [inst : NormedAddCommGroup H] → ↥(lp (fun x => H) 2) → (i : ι) → ↥(lp (fun x => H) 2) :=
+fun {ι} {Q} {H} [NormedAddCommGroup H] x i => ⟨fun q => ↑x ⟨i, q⟩, ⋯⟩
+def OAI.CoarseAssembly.unflattenVector.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {Q : ι → Type u_2} →
+    {H : Type u_3} → [inst : NormedAddCommGroup H] → ↥(lp (fun x => H) 2) → ↥(lp (fun i => ↥(lp (fun x => H) 2)) 2) :=
+fun {ι} {Q} {H} [NormedAddCommGroup H] x => ⟨OAI.CoarseAssembly.rowVector x, ⋯⟩
+def OAI.CoarseAssembly.flattenEquiv.{u_1, u_2, u_3} : {ι : Type u_1} →
+  {Q : ι → Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup H] →
+        [inst_1 : NormedSpace ℂ H] → ↥(lp (fun i => ↥(lp (fun x => H) 2)) 2) ≃ₗᵢ[ℂ] ↥(lp (fun x => H) 2) :=
+fun {ι} {Q} {H} [NormedAddCommGroup H] [NormedSpace ℂ H] =>
+  have OAI.CoarseAssembly.flattenVector_norm := @OAI.CoarseAssembly.flattenEquiv._proof_1;
+  { toFun := OAI.CoarseAssembly.flattenVector, map_add' := ⋯, map_smul' := ⋯,
+    invFun := OAI.CoarseAssembly.unflattenVector, left_inv := ⋯, right_inv := ⋯, norm_map' := ⋯ }
+def OAI.CoarseAssembly.operatorConjugation.{u_1, u_2} : {E : Type u_1} →
+  {F : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : InnerProductSpace ℂ E] →
+        [CompleteSpace E] →
+          [inst_3 : NormedAddCommGroup F] →
+            [inst_4 : InnerProductSpace ℂ F] → [CompleteSpace F] → (E →ₗᵢ[ℂ] F) → (E →L[ℂ] E) → F →L[ℂ] F :=
+fun {E} {F} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup F]
+    [InnerProductSpace ℂ F] [CompleteSpace F] V T =>
+  V.toContinuousLinearMap ∘SL T ∘SL ContinuousLinearMap.adjoint V.toContinuousLinearMap
+def OAI.CoarseAssembly.operatorConjugationHom.{u_1, u_2} : {E : Type u_1} →
+  {F : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : InnerProductSpace ℂ E] →
+        [inst_2 : CompleteSpace E] →
+          [inst_3 : NormedAddCommGroup F] →
+            [inst_4 : InnerProductSpace ℂ F] →
+              [inst_5 : CompleteSpace F] → (E →ₗᵢ[ℂ] F) → (E →L[ℂ] E) →⋆ₙₐ[ℂ] F →L[ℂ] F :=
+fun {E} {F} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup F]
+    [InnerProductSpace ℂ F] [CompleteSpace F] V =>
+  have OAI.CoarseAssembly.operatorConjugation_mul := @OAI.CoarseAssembly.operatorConjugationHom._proof_1;
+  { toFun := OAI.CoarseAssembly.operatorConjugation V, map_smul' := ⋯, map_zero' := ⋯, map_add' := ⋯, map_mul' := ⋯,
+    map_star' := ⋯ }
+@[reducible] def OAI.CoarseAssembly.Congruence.ArithmeticGroup : Type :=
+Matrix.SpecialLinearGroup (Fin 3) ℤ
+@[reducible] def OAI.CoarseAssembly.Congruence.Quotient : ℕ → Type :=
+fun k => Matrix.SpecialLinearGroup (Fin 3) (ZMod (2 ^ k))
+def OAI.CoarseAssembly.Congruence.reduce : (k : ℕ) →
+  OAI.CoarseAssembly.Congruence.ArithmeticGroup →* OAI.CoarseAssembly.Congruence.Quotient k :=
+fun k => Matrix.SpecialLinearGroup.map (Int.castRingHom (ZMod (2 ^ k)))
+def OAI.CoarseAssembly.Congruence.diagonal.{u_1} : {R : Type u_1} →
+  [inst : CommRing R] → Rˣ → Matrix.SpecialLinearGroup (Fin 3) R :=
+fun {R} [CommRing R] t => ⟨Matrix.diagonal ![↑t, ↑t⁻¹, 1], ⋯⟩
+def OAI.CoarseAssembly.Congruence.holonomy : ℤ_[2]ˣ → (k : ℕ) → OAI.CoarseAssembly.Congruence.Quotient k :=
+fun t k => OAI.CoarseAssembly.Congruence.diagonal ((Units.map ↑(PadicInt.toZModPow k)) t)
+def OAI.CoarseAssembly.Congruence.residueMap : {l k : ℕ} → l ≤ k → ZMod (2 ^ k) →+* ZMod (2 ^ l) :=
+fun {l k} h => ZMod.castHom ⋯ (ZMod (2 ^ l))
+def OAI.CoarseAssembly.Congruence.quotientMap : {l k : ℕ} →
+  l ≤ k → OAI.CoarseAssembly.Congruence.Quotient k →* OAI.CoarseAssembly.Congruence.Quotient l :=
+fun {l k} h => Matrix.SpecialLinearGroup.map (OAI.CoarseAssembly.Congruence.residueMap h)
+def OAI.CoarseAssembly.flattenOperator.{u_1, u_2, u_3} : {I : Type u_1} →
+  {Q : I → Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup H] →
+        [inst_1 : NormedSpace ℂ H] →
+          (↥(lp (fun i => ↥(lp (fun x => H) 2)) 2) →L[ℂ] ↥(lp (fun i => ↥(lp (fun x => H) 2)) 2)) →
+            ↥(lp (fun x => H) 2) →L[ℂ] ↥(lp (fun x => H) 2) :=
+fun {I} {Q} {H} [NormedAddCommGroup H] [NormedSpace ℂ H] A =>
+  OAI.CoarseAssembly.flattenEquiv.toLinearIsometry.toContinuousLinearMap ∘SL
+    A ∘SL OAI.CoarseAssembly.flattenEquiv.symm.toLinearIsometry.toContinuousLinearMap
+@[instance_reducible] def OAI.CoarseAssembly.discreteGraphMetric.{u_1} : (V : Type u_1) → MetricSpace V :=
+fun V =>
+  { dist := fun x y => if x = y then 0 else 1, dist_self := ⋯, dist_comm := ⋯, dist_triangle := ⋯, edist_dist := ⋯,
+    uniformity_dist := ⋯, cobounded_sets := ⋯, eq_of_dist_eq_zero := ⋯ }
+@[instance_reducible] def OAI.CoarseAssembly.connectedGraphMetric.{u_1} : {V : Type u_1} →
+  (G : SimpleGraph V) → G.Connected → MetricSpace V :=
+fun {V} G hG =>
+  { dist := fun x y => ↑(G.dist x y), dist_self := ⋯, dist_comm := ⋯, dist_triangle := ⋯, edist_dist := ⋯,
+    uniformity_dist := ⋯, cobounded_sets := ⋯, eq_of_dist_eq_zero := ⋯ }
+@[instance_reducible] def OAI.CoarseAssembly.graphMetricOrDiscrete.{u_1} : {V : Type u_1} →
+  SimpleGraph V → MetricSpace V :=
+fun {V} G =>
+  if hG : G.Connected then OAI.CoarseAssembly.connectedGraphMetric G hG else OAI.CoarseAssembly.discreteGraphMetric V
+def OAI.CoarseAssembly.separatedDist.{u_1} : {V : ℕ → Type u_1} →
+  [(i : ℕ) → MetricSpace (V i)] → ((i : ℕ) → V i) → Sigma V → Sigma V → ℝ :=
+fun {V} [(i : ℕ) → MetricSpace (V i)] o x y =>
+  if h : x.fst = y.fst then dist (h ▸ x.snd) y.snd
+  else dist x.snd (o x.fst) + (↑x.fst + ↑y.fst + 2) + dist (o y.fst) y.snd
+@[instance_reducible] def OAI.CoarseAssembly.separatedMetric.{u_1} : {V : ℕ → Type u_1} →
+  [(i : ℕ) → MetricSpace (V i)] → ((i : ℕ) → V i) → MetricSpace (Sigma V) :=
+fun {V} [(i : ℕ) → MetricSpace (V i)] o =>
+  have OAI.CoarseAssembly.separatedDist_comm := @OAI.CoarseAssembly.separatedMetric._proof_1;
+  have OAI.CoarseAssembly.separatedDist_triangle := @OAI.CoarseAssembly.separatedMetric._proof_2;
+  { dist := OAI.CoarseAssembly.separatedDist o, dist_self := ⋯, dist_comm := ⋯, dist_triangle := ⋯, edist_dist := ⋯,
+    uniformity_dist := ⋯, cobounded_sets := ⋯, eq_of_dist_eq_zero := ⋯ }
+@[reducible] def OAI.CoarseAssembly.DiscreteRoe.Module.{u_4, u_5} : (X : Type u_4) →
+  (H : Type u_5) → [inst : NormedAddCommGroup H] → AddSubgroup (PreLp fun x => H) :=
+fun X H [NormedAddCommGroup H] => lp (fun x => H) 2
+@[reducible] def OAI.CoarseAssembly.DiscreteRoe.Operator.{u_4, u_5} : Type u_4 →
+  (H : Type u_5) → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Type (max u_4 u_5) :=
+fun X H [NormedAddCommGroup H] [InnerProductSpace ℂ H] =>
+  ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) →L[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H)
+def OAI.CoarseAssembly.DiscreteRoe.insert.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] → [DecidableEq X] → X → H →L[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] x =>
+  lp.singleContinuousLinearMap ℂ (fun x => H) 2 x
+def OAI.CoarseAssembly.DiscreteRoe.coordinate.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] → X → ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) →L[ℂ] H :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] x => lp.evalCLM ℂ (fun x => H) 2 x
+def OAI.CoarseAssembly.DiscreteRoe.entry.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [DecidableEq X] → OAI.CoarseAssembly.DiscreteRoe.Operator X H → X → X → H →L[ℂ] H :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] T x y =>
+  OAI.CoarseAssembly.DiscreteRoe.coordinate x ∘SL T ∘SL OAI.CoarseAssembly.DiscreteRoe.insert y
+def OAI.CoarseAssembly.DiscreteRoe.CompactEntries.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] → [DecidableEq X] → OAI.CoarseAssembly.DiscreteRoe.Operator X H → Prop :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] T =>
+  ∀ (x y : X), IsCompactOperator ⇑(OAI.CoarseAssembly.DiscreteRoe.entry T x y)
+def OAI.CoarseAssembly.DiscreteRoe.PropagationLE.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [DecidableEq X] → [PseudoMetricSpace X] → ℝ → OAI.CoarseAssembly.DiscreteRoe.Operator X H → Prop :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] [PseudoMetricSpace X] r T =>
+  ∀ (x y : X), r < dist x y → OAI.CoarseAssembly.DiscreteRoe.entry T x y = 0
+def OAI.CoarseAssembly.DiscreteRoe.Generator.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [DecidableEq X] →
+          [CompleteSpace H] → [PseudoMetricSpace X] → OAI.CoarseAssembly.DiscreteRoe.Operator X H → Prop :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] [CompleteSpace H] [PseudoMetricSpace X] T =>
+  (∃ r, 0 ≤ r ∧ OAI.CoarseAssembly.DiscreteRoe.PropagationLE r T) ∧
+    OAI.CoarseAssembly.DiscreteRoe.CompactEntries T ∧ OAI.CoarseAssembly.DiscreteRoe.CompactEntries (star T)
+def OAI.CoarseAssembly.DiscreteRoe.algebra.{u_1, u_3} : {X : Type u_1} →
+  {H : Type u_3} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        [DecidableEq X] →
+          [inst_3 : CompleteSpace H] →
+            [PseudoMetricSpace X] → NonUnitalStarSubalgebra ℂ (OAI.CoarseAssembly.DiscreteRoe.Operator X H) :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [DecidableEq X] [CompleteSpace H] [PseudoMetricSpace X] =>
+  (NonUnitalStarAlgebra.adjoin ℂ {T | OAI.CoarseAssembly.DiscreteRoe.Generator T}).topologicalClosure
+def OAI.CoarseAssembly.DiscreteRoe.MapsToRoe.{u_2, u_3, u_4} : {D : Type u_2} →
+  {X : Type u_3} →
+    {H : Type u_4} →
+      [DecidableEq D] →
+        [DecidableEq X] →
+          [PseudoMetricSpace D] →
+            [PseudoMetricSpace X] →
+              [inst : NormedAddCommGroup H] →
+                [inst_1 : InnerProductSpace ℂ H] →
+                  [CompleteSpace H] →
+                    (↥(OAI.CoarseAssembly.DiscreteRoe.Module D H) →ₗᵢ[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H)) →
+                      Prop :=
+fun {D} {X} {H} [DecidableEq D] [DecidableEq X] [PseudoMetricSpace D] [PseudoMetricSpace X] [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] V =>
+  ∀ T ∈ OAI.CoarseAssembly.DiscreteRoe.algebra,
+    OAI.CoarseAssembly.operatorConjugation V T ∈ OAI.CoarseAssembly.DiscreteRoe.algebra
+def OAI.CoarseAssembly.DiscreteRoe.conjugationHom.{u_2, u_3, u_4} : {D : Type u_2} →
+  {X : Type u_3} →
+    {H : Type u_4} →
+      [inst : DecidableEq D] →
+        [inst_1 : DecidableEq X] →
+          [inst_2 : PseudoMetricSpace D] →
+            [inst_3 : PseudoMetricSpace X] →
+              [inst_4 : NormedAddCommGroup H] →
+                [inst_5 : InnerProductSpace ℂ H] →
+                  [inst_6 : CompleteSpace H] →
+                    (V :
+                        ↥(OAI.CoarseAssembly.DiscreteRoe.Module D H) →ₗᵢ[ℂ]
+                          ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H)) →
+                      OAI.CoarseAssembly.DiscreteRoe.MapsToRoe V →
+                        ↥OAI.CoarseAssembly.DiscreteRoe.algebra →⋆ₙₐ[ℂ] ↥OAI.CoarseAssembly.DiscreteRoe.algebra :=
+fun {D} {X} {H} [DecidableEq D] [DecidableEq X] [PseudoMetricSpace D] [PseudoMetricSpace X] [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] V hV =>
+  ((OAI.CoarseAssembly.operatorConjugationHom V).comp
+        (NonUnitalStarSubalgebraClass.subtype OAI.CoarseAssembly.DiscreteRoe.algebra)).codRestrict
+    OAI.CoarseAssembly.DiscreteRoe.algebra ⋯
+def OAI.CoarseAssembly.UniformFiniteBalls.{u_2} : (D : Type u_2) → [PseudoMetricSpace D] → Prop :=
+fun D [PseudoMetricSpace D] => ∀ (R : ℝ), 0 ≤ R → ∃ N, ∀ (u : D), ∃ b, (∀ (v : D), v ∈ b ↔ dist u v ≤ R) ∧ b.card ≤ N
+@[reducible] def OAI.CoarseAssembly.LatticeVertex : Type :=
+ℤ × ℤ
+def OAI.CoarseAssembly.latticeRadius : OAI.CoarseAssembly.LatticeVertex → ℤ :=
+fun u => max (max |u.1| |u.2|) |u.1 + u.2|
+def OAI.CoarseAssembly.triangularGraph : SimpleGraph OAI.CoarseAssembly.LatticeVertex :=
+{ Adj := fun u v => |u.1 - v.1| ≤ 1 ∧ |u.2 - v.2| ≤ 1 ∧ |u.1 + u.2 - (v.1 + v.2)| ≤ 1 ∧ u ≠ v,
+  symm := OAI.CoarseAssembly.triangularGraph._proof_1, loopless := OAI.CoarseAssembly.triangularGraph._proof_2 }
+def OAI.CoarseAssembly.Disc : ℕ → Type :=
+fun j => { u // OAI.CoarseAssembly.latticeRadius u ≤ ↑j }
+def OAI.CoarseAssembly.discGraph : (j : ℕ) → SimpleGraph (OAI.CoarseAssembly.Disc j) :=
+fun j => { Adj := fun u v => OAI.CoarseAssembly.triangularGraph.Adj ↑u ↑v, symm := ⋯, loopless := ⋯ }
+def OAI.CoarseAssembly.discDepth : (j : ℕ) → OAI.CoarseAssembly.Disc j → ℕ :=
+fun j u => (↑j - OAI.CoarseAssembly.latticeRadius ↑u).toNat
+def OAI.CoarseAssembly.latticeCharge : OAI.CoarseAssembly.LatticeVertex → OAI.CoarseAssembly.LatticeVertex → ℤ :=
+fun u v => if u.2 < 0 ∧ v.2 = 0 ∧ 0 < v.1 then 1 else if v.2 < 0 ∧ u.2 = 0 ∧ 0 < u.1 then -1 else 0
+def OAI.CoarseAssembly.Congruence.chosenHolonomyUnit : ℤ_[2]ˣ :=
+have OAI.CoarseAssembly.exists_transcendental_principal_unit :=
+  @OAI.CoarseAssembly.Congruence.chosenHolonomyUnit._proof_1;
+⋯.choose
+def OAI.CoarseAssembly.symmetricMoves : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup :=
+fun S => insert 1 (S ∪ Finset.image Inv.inv S)
+@[reducible] def OAI.CoarseAssembly.FiberVertex : ℕ → Type :=
+fun j => (u : OAI.CoarseAssembly.Disc j) × OAI.CoarseAssembly.Congruence.Quotient (OAI.CoarseAssembly.discDepth j u)
+def OAI.CoarseAssembly.fiberCoordinate : {j l : ℕ} →
+  (x : OAI.CoarseAssembly.FiberVertex j) →
+    l ≤ OAI.CoarseAssembly.discDepth j x.fst → OAI.CoarseAssembly.Congruence.Quotient l :=
+fun {j l} x h => (OAI.CoarseAssembly.Congruence.quotientMap h) x.snd
+def OAI.CoarseAssembly.fiberCharge : {j : ℕ} →
+  OAI.CoarseAssembly.FiberVertex j → OAI.CoarseAssembly.FiberVertex j → ℤ :=
+fun {j} x y => OAI.CoarseAssembly.latticeCharge ↑x.fst ↑y.fst
+def OAI.CoarseAssembly.LiftStep : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  ℤ_[2]ˣ → {j : ℕ} → OAI.CoarseAssembly.FiberVertex j → OAI.CoarseAssembly.FiberVertex j → Prop :=
+fun S t {j} x y =>
+  ∃ s ∈ OAI.CoarseAssembly.symmetricMoves S,
+    (x.fst = y.fst ∨ (OAI.CoarseAssembly.discGraph j).Adj x.fst y.fst ∧ s = 1) ∧
+      ∀ (l : ℕ) (hx : l ≤ OAI.CoarseAssembly.discDepth j x.fst) (hy : l ≤ OAI.CoarseAssembly.discDepth j y.fst),
+        OAI.CoarseAssembly.fiberCoordinate y hy =
+          (OAI.CoarseAssembly.Congruence.reduce l) s * OAI.CoarseAssembly.fiberCoordinate x hx *
+            OAI.CoarseAssembly.Congruence.holonomy t l ^ OAI.CoarseAssembly.fiberCharge x y
+def OAI.CoarseAssembly.fiberedGraph : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  ℤ_[2]ˣ → (j : ℕ) → SimpleGraph (OAI.CoarseAssembly.FiberVertex j) :=
+fun S t j =>
+  have OAI.CoarseAssembly.liftStep_reverse := @OAI.CoarseAssembly.fiberedGraph._proof_1;
+  { Adj := fun x y => x ≠ y ∧ OAI.CoarseAssembly.LiftStep S t x y, symm := ⋯, loopless := ⋯ }
+def OAI.CoarseAssembly.discBoundaryBase : (j : ℕ) → OAI.CoarseAssembly.Disc j :=
+fun j => ⟨(↑j, 0), ⋯⟩
+def OAI.CoarseAssembly.fiberBoundaryBase : (j : ℕ) → OAI.CoarseAssembly.FiberVertex j :=
+fun j => ⟨OAI.CoarseAssembly.discBoundaryBase j, 1⟩
+@[reducible] def OAI.CoarseAssembly.BaseUnion : Type :=
+(j : ℕ) × OAI.CoarseAssembly.Disc j
+@[reducible] def OAI.CoarseAssembly.BaseFiber : OAI.CoarseAssembly.BaseUnion → Type :=
+fun u => OAI.CoarseAssembly.Congruence.Quotient (OAI.CoarseAssembly.discDepth u.fst u.snd)
+@[reducible] def OAI.CoarseAssembly.VertexUnion : Type :=
+Sigma OAI.CoarseAssembly.BaseFiber
+@[instance_reducible] def OAI.CoarseAssembly.componentMetric : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  ℤ_[2]ˣ → (j : ℕ) → MetricSpace (OAI.CoarseAssembly.FiberVertex j) :=
+fun S t j => OAI.CoarseAssembly.graphMetricOrDiscrete (OAI.CoarseAssembly.fiberedGraph S t j)
+@[instance_reducible] def OAI.CoarseAssembly.componentUnionMetric : Finset
+    OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  ℤ_[2]ˣ → MetricSpace ((j : ℕ) × OAI.CoarseAssembly.FiberVertex j) :=
+fun S t => OAI.CoarseAssembly.separatedMetric OAI.CoarseAssembly.fiberBoundaryBase
+@[instance_reducible] def OAI.CoarseAssembly.vertexUnionMetric : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup →
+  ℤ_[2]ˣ → MetricSpace OAI.CoarseAssembly.VertexUnion :=
+fun S t =>
+  (Equiv.sigmaAssoc fun j u => OAI.CoarseAssembly.Congruence.Quotient (OAI.CoarseAssembly.discDepth j u)).metricSpace
+def OAI.CoarseAssembly.positiveElementaryMove : Fin 3 × Fin 3 → OAI.CoarseAssembly.Congruence.ArithmeticGroup :=
+fun p => if h : p.1 ≠ p.2 then Matrix.SpecialLinearGroup.transvection h 1 else 1
+def OAI.CoarseAssembly.elementaryMoves : Finset OAI.CoarseAssembly.Congruence.ArithmeticGroup :=
+OAI.CoarseAssembly.symmetricMoves (Finset.image OAI.CoarseAssembly.positiveElementaryMove Finset.univ)
+@[reducible] def OAI.CoarseAssembly.AmpleSpace : AddSubgroup (PreLp fun x => ℂ) :=
+lp (fun x => ℂ) 2
+structure OAI.CoarseAssembly.Analytic.HilbertSpace.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.CoarseAssembly.Analytic.HilbertSpace.Carrier : Type u
+  OAI.CoarseAssembly.Analytic.HilbertSpace.normed : NormedAddCommGroup self.Carrier
+  OAI.CoarseAssembly.Analytic.HilbertSpace.inner : InnerProductSpace ℂ self.Carrier
+  OAI.CoarseAssembly.Analytic.HilbertSpace.complete : CompleteSpace self.Carrier
+  OAI.CoarseAssembly.Analytic.HilbertSpace.secondCountable : SecondCountableTopology self.Carrier
+constructor:
+  OAI.CoarseAssembly.Analytic.HilbertSpace.mk.{u} (Carrier : Type u) (normed : NormedAddCommGroup Carrier)
+    (inner : InnerProductSpace ℂ Carrier) (complete : CompleteSpace Carrier)
+    (secondCountable : SecondCountableTopology Carrier) : OAI.CoarseAssembly.Analytic.HilbertSpace
+@[reducible] def OAI.CoarseAssembly.Analytic.End.{u_1} : OAI.CoarseAssembly.Analytic.HilbertSpace → Type u_1 :=
+fun H => H.Carrier →L[ℂ] H.Carrier
+structure OAI.CoarseAssembly.Analytic.OddCycle.{u} (A : Type u) [NonUnitalCStarAlgebra A] : Type (u + 1)
+number of parameters: 2
+fields:
+  OAI.CoarseAssembly.Analytic.OddCycle.space : OAI.CoarseAssembly.Analytic.HilbertSpace
+  OAI.CoarseAssembly.Analytic.OddCycle.representation : A →⋆ₙₐ[ℂ] OAI.CoarseAssembly.Analytic.End self.space
+  OAI.CoarseAssembly.Analytic.OddCycle.operator : OAI.CoarseAssembly.Analytic.End self.space
+  OAI.CoarseAssembly.Analytic.OddCycle.commutator_compact : ∀ (a : A),
+      IsCompactOperator ⇑(self.operator * self.representation a - self.representation a * self.operator)
+  OAI.CoarseAssembly.Analytic.OddCycle.square_compact : ∀ (a : A),
+      IsCompactOperator ⇑((self.operator * self.operator - 1) * self.representation a)
+  OAI.CoarseAssembly.Analytic.OddCycle.adjoint_compact : ∀ (a : A),
+      IsCompactOperator ⇑((star self.operator - self.operator) * self.representation a)
+constructor:
+  OAI.CoarseAssembly.Analytic.OddCycle.mk.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+    (space : OAI.CoarseAssembly.Analytic.HilbertSpace)
+    (representation : A →⋆ₙₐ[ℂ] OAI.CoarseAssembly.Analytic.End space)
+    (operator : OAI.CoarseAssembly.Analytic.End space)
+    (commutator_compact : ∀ (a : A), IsCompactOperator ⇑(operator * representation a - representation a * operator))
+    (square_compact : ∀ (a : A), IsCompactOperator ⇑((operator * operator - 1) * representation a))
+    (adjoint_compact : ∀ (a : A), IsCompactOperator ⇑((star operator - operator) * representation a)) :
+    OAI.CoarseAssembly.Analytic.OddCycle A
+def OAI.CoarseAssembly.Analytic.OddCycle.Degenerate.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] → OAI.CoarseAssembly.Analytic.OddCycle A → Prop :=
+fun {A} [NonUnitalCStarAlgebra A] c =>
+  (∀ (a : A), c.operator * c.representation a - c.representation a * c.operator = 0) ∧
+    (∀ (a : A), (c.operator * c.operator - 1) * c.representation a = 0) ∧
+      ∀ (a : A), (star c.operator - c.operator) * c.representation a = 0
+def OAI.CoarseAssembly.Analytic.OddCycle.precomp.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        OAI.CoarseAssembly.Analytic.OddCycle A → (B →⋆ₙₐ[ℂ] A) → OAI.CoarseAssembly.Analytic.OddCycle B :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] c φ =>
+  { space := c.space, representation := c.representation.comp φ, operator := c.operator, commutator_compact := ⋯,
+    square_compact := ⋯, adjoint_compact := ⋯ }
+structure OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+  (c d : OAI.CoarseAssembly.Analytic.OddCycle A) : Type u
+number of parameters: 4
+fields:
+  OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.unitary : c.space.Carrier ≃ₗᵢ[ℂ] d.space.Carrier
+  OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.representation_eq : ∀ (a : A),
+      d.representation a = OAI.CoarseAssembly.operatorConjugation self.unitary.toLinearIsometry (c.representation a)
+  OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.operator_eq : d.operator =
+      OAI.CoarseAssembly.operatorConjugation self.unitary.toLinearIsometry c.operator
+constructor:
+  OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.mk.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+    {c d : OAI.CoarseAssembly.Analytic.OddCycle A} (unitary : c.space.Carrier ≃ₗᵢ[ℂ] d.space.Carrier)
+    (representation_eq :
+      ∀ (a : A),
+        d.representation a = OAI.CoarseAssembly.operatorConjugation unitary.toLinearIsometry (c.representation a))
+    (operator_eq : d.operator = OAI.CoarseAssembly.operatorConjugation unitary.toLinearIsometry c.operator) :
+    c.UnitaryEquivalent d
+def OAI.CoarseAssembly.Analytic.OddCycle.UnitaryEquivalent.precomp.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        {c d : OAI.CoarseAssembly.Analytic.OddCycle A} →
+          c.UnitaryEquivalent d → (φ : B →⋆ₙₐ[ℂ] A) → (c.precomp φ).UnitaryEquivalent (d.precomp φ) :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] {c d} e φ =>
+  { unitary := e.unitary, representation_eq := ⋯, operator_eq := ⋯ }
+structure OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+  (c d e : OAI.CoarseAssembly.Analytic.OddCycle A) : Type u
+number of parameters: 5
+fields:
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.left : c.space.Carrier →ₗᵢ[ℂ] e.space.Carrier
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.right : d.space.Carrier →ₗᵢ[ℂ] e.space.Carrier
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.orthogonal : ContinuousLinearMap.adjoint
+          self.left.toContinuousLinearMap ∘SL
+        self.right.toContinuousLinearMap =
+      0
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.exhaustive : self.left.toContinuousLinearMap ∘SL
+          ContinuousLinearMap.adjoint self.left.toContinuousLinearMap +
+        self.right.toContinuousLinearMap ∘SL ContinuousLinearMap.adjoint self.right.toContinuousLinearMap =
+      1
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.representation_eq : ∀ (a : A),
+      e.representation a =
+        OAI.CoarseAssembly.operatorConjugation self.left (c.representation a) +
+          OAI.CoarseAssembly.operatorConjugation self.right (d.representation a)
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.operator_eq : e.operator =
+      OAI.CoarseAssembly.operatorConjugation self.left c.operator +
+        OAI.CoarseAssembly.operatorConjugation self.right d.operator
+constructor:
+  OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.mk.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+    {c d e : OAI.CoarseAssembly.Analytic.OddCycle A} (left : c.space.Carrier →ₗᵢ[ℂ] e.space.Carrier)
+    (right : d.space.Carrier →ₗᵢ[ℂ] e.space.Carrier)
+    (orthogonal : ContinuousLinearMap.adjoint left.toContinuousLinearMap ∘SL right.toContinuousLinearMap = 0)
+    (exhaustive :
+      left.toContinuousLinearMap ∘SL ContinuousLinearMap.adjoint left.toContinuousLinearMap +
+          right.toContinuousLinearMap ∘SL ContinuousLinearMap.adjoint right.toContinuousLinearMap =
+        1)
+    (representation_eq :
+      ∀ (a : A),
+        e.representation a =
+          OAI.CoarseAssembly.operatorConjugation left (c.representation a) +
+            OAI.CoarseAssembly.operatorConjugation right (d.representation a))
+    (operator_eq :
+      e.operator =
+        OAI.CoarseAssembly.operatorConjugation left c.operator +
+          OAI.CoarseAssembly.operatorConjugation right d.operator) :
+    c.IsDirectSum d e
+def OAI.CoarseAssembly.Analytic.OddCycle.IsDirectSum.precomp.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        {c d e : OAI.CoarseAssembly.Analytic.OddCycle A} →
+          c.IsDirectSum d e → (φ : B →⋆ₙₐ[ℂ] A) → (c.precomp φ).IsDirectSum (d.precomp φ) (e.precomp φ) :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] {c d e} h φ =>
+  { left := h.left, right := h.right, orthogonal := ⋯, exhaustive := ⋯, representation_eq := ⋯, operator_eq := ⋯ }
+@[reducible] def OAI.CoarseAssembly.Analytic.Interval : Set ℝ :=
+Set.Icc 0 1
+def OAI.CoarseAssembly.Analytic.start : ↑OAI.CoarseAssembly.Analytic.Interval :=
+⟨0, OAI.CoarseAssembly.Analytic.start._proof_1⟩
+def OAI.CoarseAssembly.Analytic.finish : ↑OAI.CoarseAssembly.Analytic.Interval :=
+⟨1, OAI.CoarseAssembly.Analytic.finish._proof_1⟩
+structure OAI.CoarseAssembly.Analytic.OddHomotopy.{u} (A : Type u) [NonUnitalCStarAlgebra A] : Type (u + 1)
+number of parameters: 2
+fields:
+  OAI.CoarseAssembly.Analytic.OddHomotopy.space : OAI.CoarseAssembly.Analytic.HilbertSpace
+  OAI.CoarseAssembly.Analytic.OddHomotopy.representation : ↑OAI.CoarseAssembly.Analytic.Interval →
+      A →⋆ₙₐ[ℂ] OAI.CoarseAssembly.Analytic.End self.space
+  OAI.CoarseAssembly.Analytic.OddHomotopy.operator : ↑OAI.CoarseAssembly.Analytic.Interval →
+      OAI.CoarseAssembly.Analytic.End self.space
+  OAI.CoarseAssembly.Analytic.OddHomotopy.continuous_representation : ∀ (a : A),
+      Continuous fun t => (self.representation t) a
+  OAI.CoarseAssembly.Analytic.OddHomotopy.continuous_operator : Continuous self.operator
+  OAI.CoarseAssembly.Analytic.OddHomotopy.commutator_compact : ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+      IsCompactOperator ⇑(self.operator t * (self.representation t) a - (self.representation t) a * self.operator t)
+  OAI.CoarseAssembly.Analytic.OddHomotopy.square_compact : ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+      IsCompactOperator ⇑((self.operator t * self.operator t - 1) * (self.representation t) a)
+  OAI.CoarseAssembly.Analytic.OddHomotopy.adjoint_compact : ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+      IsCompactOperator ⇑((star (self.operator t) - self.operator t) * (self.representation t) a)
+constructor:
+  OAI.CoarseAssembly.Analytic.OddHomotopy.mk.{u} {A : Type u} [NonUnitalCStarAlgebra A]
+    (space : OAI.CoarseAssembly.Analytic.HilbertSpace)
+    (representation : ↑OAI.CoarseAssembly.Analytic.Interval → A →⋆ₙₐ[ℂ] OAI.CoarseAssembly.Analytic.End space)
+    (operator : ↑OAI.CoarseAssembly.Analytic.Interval → OAI.CoarseAssembly.Analytic.End space)
+    (continuous_representation : ∀ (a : A), Continuous fun t => (representation t) a)
+    (continuous_operator : Continuous operator)
+    (commutator_compact :
+      ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+        IsCompactOperator ⇑(operator t * (representation t) a - (representation t) a * operator t))
+    (square_compact :
+      ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+        IsCompactOperator ⇑((operator t * operator t - 1) * (representation t) a))
+    (adjoint_compact :
+      ∀ (t : ↑OAI.CoarseAssembly.Analytic.Interval) (a : A),
+        IsCompactOperator ⇑((star (operator t) - operator t) * (representation t) a)) :
+    OAI.CoarseAssembly.Analytic.OddHomotopy A
+def OAI.CoarseAssembly.Analytic.OddHomotopy.eval.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    OAI.CoarseAssembly.Analytic.OddHomotopy A →
+      ↑OAI.CoarseAssembly.Analytic.Interval → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [NonUnitalCStarAlgebra A] h t =>
+  { space := h.space, representation := h.representation t, operator := h.operator t, commutator_compact := ⋯,
+    square_compact := ⋯, adjoint_compact := ⋯ }
+def OAI.CoarseAssembly.Analytic.OddHomotopy.precomp.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        OAI.CoarseAssembly.Analytic.OddHomotopy A → (B →⋆ₙₐ[ℂ] A) → OAI.CoarseAssembly.Analytic.OddHomotopy B :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] h φ =>
+  { space := h.space, representation := fun t => (h.representation t).comp φ, operator := h.operator,
+    continuous_representation := ⋯, continuous_operator := ⋯, commutator_compact := ⋯, square_compact := ⋯,
+    adjoint_compact := ⋯ }
+inductive OAI.CoarseAssembly.Analytic.CycleRelation.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → FreeAbelianGroup (OAI.CoarseAssembly.Analytic.OddCycle A) → Prop
+number of parameters: 2
+constructors:
+OAI.CoarseAssembly.Analytic.CycleRelation.degenerate : ∀ {A : Type u} [inst : NonUnitalCStarAlgebra A]
+  (c : OAI.CoarseAssembly.Analytic.OddCycle A),
+  c.Degenerate → OAI.CoarseAssembly.Analytic.CycleRelation A (FreeAbelianGroup.of c)
+OAI.CoarseAssembly.Analytic.CycleRelation.unitary : ∀ {A : Type u} [inst : NonUnitalCStarAlgebra A]
+  (c d : OAI.CoarseAssembly.Analytic.OddCycle A) (h : c.UnitaryEquivalent d),
+  OAI.CoarseAssembly.Analytic.CycleRelation A (FreeAbelianGroup.of c - FreeAbelianGroup.of d)
+OAI.CoarseAssembly.Analytic.CycleRelation.directSum : ∀ {A : Type u} [inst : NonUnitalCStarAlgebra A]
+  (c d e : OAI.CoarseAssembly.Analytic.OddCycle A) (h : c.IsDirectSum d e),
+  OAI.CoarseAssembly.Analytic.CycleRelation A (FreeAbelianGroup.of e - (FreeAbelianGroup.of c + FreeAbelianGroup.of d))
+OAI.CoarseAssembly.Analytic.CycleRelation.homotopy : ∀ {A : Type u} [inst : NonUnitalCStarAlgebra A]
+  (h : OAI.CoarseAssembly.Analytic.OddHomotopy A),
+  OAI.CoarseAssembly.Analytic.CycleRelation A
+    (FreeAbelianGroup.of (h.eval OAI.CoarseAssembly.Analytic.start) -
+      FreeAbelianGroup.of (h.eval OAI.CoarseAssembly.Analytic.finish))
+def OAI.CoarseAssembly.Analytic.relations.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → AddSubgroup (FreeAbelianGroup (OAI.CoarseAssembly.Analytic.OddCycle A)) :=
+fun A [NonUnitalCStarAlgebra A] => AddSubgroup.closure {z | OAI.CoarseAssembly.Analytic.CycleRelation A z}
+@[reducible] def OAI.CoarseAssembly.Analytic.OddK.{u} : (A : Type u) → [NonUnitalCStarAlgebra A] → Type (u + 1) :=
+fun A [NonUnitalCStarAlgebra A] =>
+  FreeAbelianGroup (OAI.CoarseAssembly.Analytic.OddCycle A) ⧸ OAI.CoarseAssembly.Analytic.relations A
+def OAI.CoarseAssembly.Analytic.cycleClass.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → OAI.CoarseAssembly.Analytic.OddCycle A → OAI.CoarseAssembly.Analytic.OddK A :=
+fun A [NonUnitalCStarAlgebra A] c => ↑(FreeAbelianGroup.of c)
+def OAI.CoarseAssembly.Analytic.precompFree.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        (B →⋆ₙₐ[ℂ] A) →
+          FreeAbelianGroup (OAI.CoarseAssembly.Analytic.OddCycle A) →+ OAI.CoarseAssembly.Analytic.OddK B :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] φ =>
+  FreeAbelianGroup.lift fun c => OAI.CoarseAssembly.Analytic.cycleClass B (c.precomp φ)
+def OAI.CoarseAssembly.Analytic.precomp.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type u} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        (B →⋆ₙₐ[ℂ] A) → OAI.CoarseAssembly.Analytic.OddK A →+ OAI.CoarseAssembly.Analytic.OddK B :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] φ =>
+  have OAI.CoarseAssembly.Analytic.degenerate_zero := @OAI.CoarseAssembly.Analytic.precomp._proof_1;
+  have OAI.CoarseAssembly.Analytic.unitary_eq := @OAI.CoarseAssembly.Analytic.precomp._proof_2;
+  have OAI.CoarseAssembly.Analytic.directSum_eq := @OAI.CoarseAssembly.Analytic.precomp._proof_3;
+  have OAI.CoarseAssembly.Analytic.homotopy_eq := @OAI.CoarseAssembly.Analytic.precomp._proof_4;
+  have OAI.CoarseAssembly.Analytic.precompFree_relation := ⋯;
+  QuotientAddGroup.lift (OAI.CoarseAssembly.Analytic.relations A) (OAI.CoarseAssembly.Analytic.precompFree φ) ⋯
+def OAI.CoarseAssembly.Analytic.OddCycle.compactPerturb : {A : Type} →
+  [inst : NonUnitalCStarAlgebra A] →
+    (c : OAI.CoarseAssembly.Analytic.OddCycle A) →
+      (K : OAI.CoarseAssembly.Analytic.End c.space) →
+        IsCompactOperator ⇑K → IsCompactOperator ⇑(star K) → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [NonUnitalCStarAlgebra A] c K hK hKs =>
+  { space := c.space, representation := c.representation, operator := c.operator + K, commutator_compact := ⋯,
+    square_compact := ⋯, adjoint_compact := ⋯ }
+def OAI.CoarseAssembly.Analytic.OddCycle.localCompactPerturb : {A : Type} →
+  [inst : NonUnitalCStarAlgebra A] →
+    (c : OAI.CoarseAssembly.Analytic.OddCycle A) →
+      (K : OAI.CoarseAssembly.Analytic.End c.space) →
+        (∀ (a : A), IsCompactOperator ⇑(K * c.representation a)) →
+          (∀ (a : A), IsCompactOperator ⇑(c.representation a * K)) →
+            (∀ (a : A), IsCompactOperator ⇑(star K * c.representation a)) → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [NonUnitalCStarAlgebra A] c K hr hl hs =>
+  { space := c.space, representation := c.representation, operator := c.operator + K, commutator_compact := ⋯,
+    square_compact := ⋯, adjoint_compact := ⋯ }
+def OAI.CoarseAssembly.Analytic.symmetricCutDown.{u_1} : {H : OAI.CoarseAssembly.Analytic.HilbertSpace} →
+  OAI.CoarseAssembly.Analytic.End H → OAI.CoarseAssembly.Analytic.End H → OAI.CoarseAssembly.Analytic.End H :=
+fun {H} P F => (1 / 2) • (P * F * P + star (P * F * P)) + (1 - P)
+def OAI.CoarseAssembly.Analytic.OddCycle.scalarRestriction : {A : Type} →
+  [inst : CStarAlgebra A] → OAI.CoarseAssembly.Analytic.OddCycle A → OAI.CoarseAssembly.Analytic.OddCycle ℂ :=
+fun {A} [CStarAlgebra A] c => c.precomp (StarAlgHom.ofId ℂ A).toNonUnitalStarAlgHom
+def OAI.CoarseAssembly.Analytic.representedCorrection : {A : Type} →
+  [inst : CStarAlgebra A] → (c : OAI.CoarseAssembly.Analytic.OddCycle A) → OAI.CoarseAssembly.Analytic.End c.space :=
+fun {A} [CStarAlgebra A] c => OAI.CoarseAssembly.Analytic.symmetricCutDown (c.representation 1) c.operator - c.operator
+def OAI.CoarseAssembly.Analytic.OddCycle.cutDown : {A : Type} →
+  [inst : CStarAlgebra A] → OAI.CoarseAssembly.Analytic.OddCycle A → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [CStarAlgebra A] c =>
+  have OAI.CoarseAssembly.Analytic.scalarCutDown_compact := OAI.CoarseAssembly.Analytic.OddCycle.cutDown._proof_6;
+  have OAI.CoarseAssembly.Analytic.representedCutDown_compact := ⋯;
+  have OAI.CoarseAssembly.Analytic.representedCorrection_right := ⋯;
+  have OAI.CoarseAssembly.Analytic.representedCorrection_left := ⋯;
+  have OAI.CoarseAssembly.Analytic.representedCorrection_star := ⋯;
+  c.localCompactPerturb (OAI.CoarseAssembly.Analytic.representedCorrection c) ⋯ ⋯ ⋯
+def OAI.CoarseAssembly.Analytic.completedRepresentation : {A : Type} →
+  [inst : CStarAlgebra A] →
+    (c : OAI.CoarseAssembly.Analytic.OddCycle A) → (A →⋆ₐ[ℂ] ℂ) → A →⋆ₙₐ[ℂ] OAI.CoarseAssembly.Analytic.End c.space :=
+fun {A} [CStarAlgebra A] c χ =>
+  have OAI.CoarseAssembly.Analytic.representation_unit_projection :=
+    @OAI.CoarseAssembly.Analytic.completedRepresentation._proof_1;
+  { toFun := fun a => c.representation a + χ a • (1 - c.representation 1), map_smul' := ⋯, map_zero' := ⋯,
+    map_add' := ⋯, map_mul' := ⋯, map_star' := ⋯ }
+def OAI.CoarseAssembly.Analytic.OddCycle.characterExtension : {A : Type} →
+  [inst : CStarAlgebra A] →
+    (c : OAI.CoarseAssembly.Analytic.OddCycle A) →
+      (A →⋆ₐ[ℂ] ℂ) →
+        IsSelfAdjoint c.operator →
+          c.operator * (1 - c.representation 1) = 1 - c.representation 1 →
+            IsCompactOperator ⇑(c.operator * c.operator - 1) → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [CStarAlgebra A] c χ hF hQ hsq =>
+  { space := c.space, representation := OAI.CoarseAssembly.Analytic.completedRepresentation c χ, operator := c.operator,
+    commutator_compact := ⋯, square_compact := ⋯, adjoint_compact := ⋯ }
+@[reducible] def OAI.CoarseAssembly.Analytic.LocallyFiniteK1.{u} : (X : Type u) → [TopologicalSpace X] → Type (u + 1) :=
+fun X [TopologicalSpace X] => OAI.CoarseAssembly.Analytic.OddK (ZeroAtInftyContinuousMap X ℂ)
+def OAI.CoarseAssembly.Analytic.pullback.{u} : {X Y : Type u} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : TopologicalSpace Y] →
+      CocompactMap X Y → ZeroAtInftyContinuousMap Y ℂ →⋆ₙₐ[ℂ] ZeroAtInftyContinuousMap X ℂ :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] f =>
+  let __NonUnitalAlgHom := ZeroAtInftyContinuousMap.compNonUnitalAlgHom f;
+  { toNonUnitalAlgHom := __NonUnitalAlgHom, map_star' := ⋯ }
+def OAI.CoarseAssembly.Analytic.pushforward.{u} : {X Y : Type u} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : TopologicalSpace Y] →
+      CocompactMap X Y →
+        OAI.CoarseAssembly.Analytic.LocallyFiniteK1 X →+ OAI.CoarseAssembly.Analytic.LocallyFiniteK1 Y :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] f =>
+  OAI.CoarseAssembly.Analytic.precomp (OAI.CoarseAssembly.Analytic.pullback f)
+structure OAI.CoarseAssembly.Analytic.Coarsening.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.CoarseAssembly.Analytic.Coarsening.space : ℕ → Type u
+  OAI.CoarseAssembly.Analytic.Coarsening.topology : (n : ℕ) → TopologicalSpace (self.space n)
+  OAI.CoarseAssembly.Analytic.Coarsening.inclusion : (r s : ℕ) → r ≤ s → CocompactMap (self.space r) (self.space s)
+  OAI.CoarseAssembly.Analytic.Coarsening.inclusion_self : ∀ (r : ℕ) (h : r ≤ r),
+      self.inclusion r r h = CocompactMap.id (self.space r)
+  OAI.CoarseAssembly.Analytic.Coarsening.inclusion_comp : ∀ (r s t : ℕ) (hrs : r ≤ s) (hst : s ≤ t),
+      self.inclusion r t ⋯ = (self.inclusion s t hst).comp (self.inclusion r s hrs)
+constructor:
+  OAI.CoarseAssembly.Analytic.Coarsening.mk.{u} (space : ℕ → Type u) (topology : (n : ℕ) → TopologicalSpace (space n))
+    (inclusion : (r s : ℕ) → r ≤ s → CocompactMap (space r) (space s))
+    (inclusion_self : ∀ (r : ℕ) (h : r ≤ r), inclusion r r h = CocompactMap.id (space r))
+    (inclusion_comp :
+      ∀ (r s t : ℕ) (hrs : r ≤ s) (hst : s ≤ t), inclusion r t ⋯ = (inclusion s t hst).comp (inclusion r s hrs)) :
+    OAI.CoarseAssembly.Analytic.Coarsening
+def OAI.CoarseAssembly.Analytic.Coarsening.map.{u_1} : (C : OAI.CoarseAssembly.Analytic.Coarsening) →
+  (r s : ℕ) →
+    r ≤ s →
+      OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r) →+
+        OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space s) :=
+fun C r s h => OAI.CoarseAssembly.Analytic.pushforward (C.inclusion r s h)
+@[reducible] def OAI.CoarseAssembly.Analytic.Coarsening.Homology.{u_1} : OAI.CoarseAssembly.Analytic.Coarsening →
+  Type (u_1 + 1) :=
+fun C =>
+  AddCommGroup.DirectLimit (fun r => OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r)) fun r s h => C.map r s h
+structure OAI.CoarseAssembly.Rips.Point.{u_1} (X : Type u_1) [PseudoMetricSpace X] (r : ℝ) : Type u_1
+number of parameters: 3
+fields:
+  OAI.CoarseAssembly.Rips.Point.weight : X →₀ ℝ
+  OAI.CoarseAssembly.Rips.Point.nonneg : ∀ (x : X), 0 ≤ self.weight x
+  OAI.CoarseAssembly.Rips.Point.total : (self.weight.sum fun x t => t) = 1
+  OAI.CoarseAssembly.Rips.Point.diameter : ∀ x ∈ self.weight.support, ∀ y ∈ self.weight.support, dist x y ≤ r
+constructor:
+  OAI.CoarseAssembly.Rips.Point.mk.{u_1} {X : Type u_1} [PseudoMetricSpace X] {r : ℝ} (weight : X →₀ ℝ)
+    (nonneg : ∀ (x : X), 0 ≤ weight x) (total : (weight.sum fun x t => t) = 1)
+    (diameter : ∀ x ∈ weight.support, ∀ y ∈ weight.support, dist x y ≤ r) : OAI.CoarseAssembly.Rips.Point X r
+def OAI.CoarseAssembly.Rips.coordinates.{u_1} : {X : Type u_1} →
+  [inst : PseudoMetricSpace X] → {r : ℝ} → OAI.CoarseAssembly.Rips.Point X r → X → ℝ :=
+fun {X} [PseudoMetricSpace X] {r} p => ⇑p.weight
+def OAI.CoarseAssembly.Rips.coarsen.{u_1} : {X : Type u_1} →
+  [inst : PseudoMetricSpace X] →
+    {r s : ℝ} → r ≤ s → OAI.CoarseAssembly.Rips.Point X r → OAI.CoarseAssembly.Rips.Point X s :=
+fun {X} [PseudoMetricSpace X] {r s} h p => { weight := p.weight, nonneg := ⋯, total := ⋯, diameter := ⋯ }
+def OAI.CoarseAssembly.Rips.inclusion.{u_1} : {X : Type u_1} →
+  [inst : PseudoMetricSpace X] →
+    {r s : ℝ} → r ≤ s → CocompactMap (OAI.CoarseAssembly.Rips.Point X r) (OAI.CoarseAssembly.Rips.Point X s) :=
+fun {X} [PseudoMetricSpace X] {r s} h =>
+  have OAI.CoarseAssembly.Rips.coordinate_continuous := @OAI.CoarseAssembly.Rips.inclusion._proof_1;
+  have OAI.CoarseAssembly.Rips.coarsen_closedEmbedding := ⋯;
+  { toFun := OAI.CoarseAssembly.Rips.coarsen h, continuous_toFun := ⋯, cocompact_tendsto' := ⋯ }
+def OAI.CoarseAssembly.Rips.coarsening.{u_2} : (X : Type u_2) →
+  [PseudoMetricSpace X] → OAI.CoarseAssembly.Analytic.Coarsening :=
+fun X [PseudoMetricSpace X] =>
+  { space := fun n => OAI.CoarseAssembly.Rips.Point X ↑n, topology := fun x => inferInstance,
+    inclusion := fun x x_1 h => OAI.CoarseAssembly.Rips.inclusion ⋯, inclusion_self := ⋯, inclusion_comp := ⋯ }
+@[reducible] def OAI.CoarseAssembly.Rips.KX1.{u_2} : (X : Type u_2) → [PseudoMetricSpace X] → Type (u_2 + 1) :=
+fun X [PseudoMetricSpace X] => (OAI.CoarseAssembly.Rips.coarsening X).Homology
+def OAI.CoarseAssembly.Rips.vertex.{u_1} : {X : Type u_1} →
+  [inst : PseudoMetricSpace X] → {r : ℝ} → X → 0 ≤ r → OAI.CoarseAssembly.Rips.Point X r :=
+fun {X} [PseudoMetricSpace X] {r} x hr => { weight := fun₀ | x => 1, nonneg := ⋯, total := ⋯, diameter := ⋯ }
+def OAI.CoarseAssembly.Analytic.zeroExtension : {X Y : Type} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : TopologicalSpace Y] →
+      [CompactSpace X] →
+        [T2Space Y] →
+          (e : X ↪ Y) → Topology.IsOpenEmbedding ⇑e → ZeroAtInftyContinuousMap X ℂ → ZeroAtInftyContinuousMap Y ℂ :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] [CompactSpace X] [T2Space Y] e he f =>
+  { toFun := Function.extend (⇑e) (⇑f) 0, continuous_toFun := ⋯, zero_at_infty' := ⋯ }
+def OAI.CoarseAssembly.Analytic.zeroExtensionHom : {X Y : Type} →
+  [inst : TopologicalSpace X] →
+    [inst_1 : TopologicalSpace Y] →
+      [CompactSpace X] →
+        [T2Space Y] →
+          (e : X ↪ Y) →
+            Topology.IsOpenEmbedding ⇑e → ZeroAtInftyContinuousMap X ℂ →⋆ₙₐ[ℂ] ZeroAtInftyContinuousMap Y ℂ :=
+fun {X Y} [TopologicalSpace X] [TopologicalSpace Y] [CompactSpace X] [T2Space Y] e he =>
+  have extension_eval := ⋯;
+  { toFun := OAI.CoarseAssembly.Analytic.zeroExtension e he, map_smul' := ⋯, map_zero' := ⋯, map_add' := ⋯,
+    map_mul' := ⋯, map_star' := ⋯ }
+def OAI.CoarseAssembly.Analytic.cayleyDenominator.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (F : A) → IsSelfAdjoint F → Aˣ :=
+fun {A} [CStarAlgebra A] F hF => ⋯.unit
+def OAI.CoarseAssembly.Analytic.cayleyUnitary.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (F : A) → IsSelfAdjoint F → ↥(unitary A) :=
+fun {A} [CStarAlgebra A] F hF =>
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_val := @OAI.CoarseAssembly.Analytic.cayleyUnitary._proof_2;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_star := ⋯;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_normal := ⋯;
+  let b := OAI.CoarseAssembly.Analytic.cayleyDenominator F hF;
+  ⟨↑(star b * b⁻¹), ⋯⟩
+def OAI.CoarseAssembly.Analytic.rationalBoundaryUnitary.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (F : A) → IsSelfAdjoint F → ↥(unitary A) :=
+fun {A} [CStarAlgebra A] F hF =>
+  -(OAI.CoarseAssembly.Analytic.cayleyUnitary F hF * OAI.CoarseAssembly.Analytic.cayleyUnitary F hF)
+def OAI.CoarseAssembly.Analytic.boundedTransform.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (F : A) → IsSelfAdjoint F → A :=
+fun {A} [CStarAlgebra A] F hF =>
+  (Complex.I / 2) •
+    (↑(OAI.CoarseAssembly.Analytic.cayleyUnitary F hF) - star ↑(OAI.CoarseAssembly.Analytic.cayleyUnitary F hF))
+def OAI.CoarseAssembly.Analytic.OddCycle.bounded : {A : Type} →
+  [inst : CStarAlgebra A] →
+    (c : OAI.CoarseAssembly.Analytic.OddCycle A) →
+      c.representation 1 = 1 → IsSelfAdjoint c.operator → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [CStarAlgebra A] c hπ hs =>
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_val := @OAI.CoarseAssembly.Analytic.OddCycle.bounded._proof_2;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_star := ⋯;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_normSquare := ⋯;
+  have OAI.CoarseAssembly.Analytic.cayleyUnitary_mul_normSquare :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.bounded._proof_5;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_normal := ⋯;
+  have OAI.CoarseAssembly.Analytic.star_cayleyUnitary_mul_normSquare := ⋯;
+  have OAI.CoarseAssembly.Analytic.boundedTransform_mul_normSquare := ⋯;
+  have OAI.CoarseAssembly.Analytic.boundedTransform_sub_compact := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.boundedTransform_compact := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.boundedTransform_star_compact := ⋯;
+  { space := c.space, representation := c.representation,
+    operator := OAI.CoarseAssembly.Analytic.boundedTransform c.operator hs, commutator_compact := ⋯,
+    square_compact := ⋯, adjoint_compact := ⋯ }
+def OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint : {A : Type} →
+  [inst : CStarAlgebra A] →
+    OAI.CoarseAssembly.Analytic.OddCycle A → (A →⋆ₐ[ℂ] ℂ) → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [CStarAlgebra A] c χ =>
+  have OAI.CoarseAssembly.Analytic.cutDown_selfAdjoint :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_2;
+  have OAI.CoarseAssembly.Analytic.cutDown_complement :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_7;
+  have OAI.CoarseAssembly.Analytic.represented_square_compact :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_9;
+  have OAI.CoarseAssembly.Analytic.cutDown_square_compact := ⋯;
+  c.cutDown.characterExtension χ ⋯ ⋯ ⋯
+def OAI.CoarseAssembly.Analytic.OddCycle.regularize : {A : Type} →
+  [inst : CStarAlgebra A] →
+    OAI.CoarseAssembly.Analytic.OddCycle A → (A →⋆ₐ[ℂ] ℂ) → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [CStarAlgebra A] c χ =>
+  have OAI.CoarseAssembly.Analytic.cutDown_selfAdjoint :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_2;
+  have OAI.CoarseAssembly.Analytic.cutDown_complement :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_7;
+  have OAI.CoarseAssembly.Analytic.represented_square_compact :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_9;
+  have OAI.CoarseAssembly.Analytic.cutDown_square_compact := ⋯;
+  have OAI.CoarseAssembly.Analytic.completedRepresentation_one :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.regularize._proof_1;
+  have OAI.CoarseAssembly.Analytic.characterExtension_unital := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint_unital := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint_selfAdjoint := ⋯;
+  (c.unitalSelfAdjoint χ).bounded ⋯ ⋯
+def OAI.CoarseAssembly.Rips.sqrtCoordinate : {X : Type} →
+  [inst : PseudoMetricSpace X] → (r : ℝ) → X → C(OAI.CoarseAssembly.Rips.Point X r, ℂ) :=
+fun {X} [PseudoMetricSpace X] r x =>
+  have OAI.CoarseAssembly.Rips.coordinate_continuous := @OAI.CoarseAssembly.Rips.sqrtCoordinate._proof_1;
+  { toFun := fun p => ↑√(p.weight x), continuous_toFun := ⋯ }
+def OAI.CoarseAssembly.DiscreteRoe.partitionMap.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [Fintype X] →
+      [DecidableEq X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] → (X → H →L[ℂ] H) → H →L[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) :=
+fun {X} {H} [Fintype X] [DecidableEq X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] a =>
+  ∑ x, OAI.CoarseAssembly.DiscreteRoe.insert x ∘SL a x
+def OAI.CoarseAssembly.DiscreteRoe.partitionIsometry.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : Fintype X] →
+      [DecidableEq X] →
+        [inst_2 : NormedAddCommGroup H] →
+          [inst_3 : InnerProductSpace ℂ H] →
+            [inst_4 : CompleteSpace H] →
+              (a : X → H →L[ℂ] H) →
+                ∑ x, ContinuousLinearMap.adjoint (a x) ∘SL a x = 1 →
+                  H →ₗᵢ[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) :=
+fun {X} {H} [Fintype X] [DecidableEq X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] a hpart =>
+  have OAI.CoarseAssembly.DiscreteRoe.coordinate_partitionMap :=
+    @OAI.CoarseAssembly.DiscreteRoe.partitionIsometry._proof_2;
+  have OAI.CoarseAssembly.DiscreteRoe.partitionMap_adjoint :=
+    @OAI.CoarseAssembly.DiscreteRoe.partitionIsometry._proof_6;
+  have OAI.CoarseAssembly.DiscreteRoe.partitionMap_adjoint_comp := ⋯;
+  let __LinearMap := ↑(OAI.CoarseAssembly.DiscreteRoe.partitionMap a);
+  { toLinearMap := __LinearMap, norm_map' := ⋯ }
+def OAI.CoarseAssembly.DiscreteRoe.constantBlock.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → OAI.CoarseAssembly.DiscreteRoe.Operator X H :=
+fun {X} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] F => OAI.CoarseAssembly.blockOperator (fun x => F) ‖F‖ ⋯ ⋯
+def OAI.CoarseAssembly.DiscreteRoe.partitionCompression.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [Fintype X] →
+      [DecidableEq X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] → [CompleteSpace H] → (X → H →L[ℂ] H) → (H →L[ℂ] H) → H →L[ℂ] H :=
+fun {X} {H} [Fintype X] [DecidableEq X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] a F =>
+  ContinuousLinearMap.adjoint (OAI.CoarseAssembly.DiscreteRoe.partitionMap a) ∘SL
+    OAI.CoarseAssembly.DiscreteRoe.constantBlock F ∘SL OAI.CoarseAssembly.DiscreteRoe.partitionMap a
+def OAI.CoarseAssembly.isometricExtension.{u_1, u_2} : {E : Type u_1} →
+  {H : Type u_2} →
+    [inst : NormedAddCommGroup E] →
+      [inst_1 : InnerProductSpace ℂ E] →
+        [CompleteSpace E] →
+          [inst_3 : NormedAddCommGroup H] →
+            [inst_4 : InnerProductSpace ℂ H] → [CompleteSpace H] → (E →ₗᵢ[ℂ] H) → (E →L[ℂ] E) → H →L[ℂ] H :=
+fun {E} {H} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] V F =>
+  1 + (OAI.CoarseAssembly.operatorConjugationHom V) (F - 1)
+def OAI.CoarseAssembly.DiscreteRoe.algebraicRoe.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [DecidableEq X] →
+      [inst : PseudoMetricSpace X] →
+        [inst_1 : NormedAddCommGroup H] →
+          [inst_2 : InnerProductSpace ℂ H] →
+            [inst_3 : CompleteSpace H] →
+              (∀ (x : X) (r : ℝ), (Metric.closedBall x r).Finite) →
+                NonUnitalStarSubalgebra ℂ (OAI.CoarseAssembly.DiscreteRoe.Operator X H) :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    finiteBalls =>
+  have OAI.CoarseAssembly.DiscreteRoe.Generator.zero := @OAI.CoarseAssembly.DiscreteRoe.algebraicRoe._proof_1;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.add := @OAI.CoarseAssembly.DiscreteRoe.algebraicRoe._proof_2;
+  have OAI.CoarseAssembly.DiscreteRoe.Generator.add := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.smul := @OAI.CoarseAssembly.DiscreteRoe.algebraicRoe._proof_5;
+  have OAI.CoarseAssembly.DiscreteRoe.Generator.smul := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_star := @OAI.CoarseAssembly.DiscreteRoe.algebraicRoe._proof_7;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.star := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.Generator.star := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.vector_eq_sum := @OAI.CoarseAssembly.DiscreteRoe.algebraicRoe._proof_10;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_mul_of_finite_column := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.mul := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.CompactEntries.mul_left := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.Generator.mul := ⋯;
+  { carrier := {T | OAI.CoarseAssembly.DiscreteRoe.Generator T}, add_mem' := ⋯, zero_mem' := ⋯, mul_mem' := ⋯,
+    smul_mem' := ⋯, star_mem' := ⋯ }
+def OAI.CoarseAssembly.DiscreteRoe.RoeMultiplier.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [DecidableEq X] →
+      [PseudoMetricSpace X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] → [CompleteSpace H] → OAI.CoarseAssembly.DiscreteRoe.Operator X H → Prop :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] T =>
+  ∀ (S : ↥OAI.CoarseAssembly.DiscreteRoe.algebra),
+    T * ↑S ∈ OAI.CoarseAssembly.DiscreteRoe.algebra ∧ ↑S * T ∈ OAI.CoarseAssembly.DiscreteRoe.algebra
+def OAI.CoarseAssembly.DiscreteRoe.roeIdealizer.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [DecidableEq X] →
+      [PseudoMetricSpace X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] →
+            [inst_2 : CompleteSpace H] → NonUnitalStarSubalgebra ℂ (OAI.CoarseAssembly.DiscreteRoe.Operator X H) :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  { carrier := {T | OAI.CoarseAssembly.DiscreteRoe.RoeMultiplier T}, add_mem' := ⋯, zero_mem' := ⋯, mul_mem' := ⋯,
+    smul_mem' := ⋯, star_mem' := ⋯ }
+def OAI.CoarseAssembly.DiscreteRoe.localizedSpatialOperator.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : Fintype X] →
+      [DecidableEq X] →
+        [inst_2 : NormedAddCommGroup H] →
+          [inst_3 : InnerProductSpace ℂ H] →
+            [inst_4 : CompleteSpace H] →
+              (a : X → H →L[ℂ] H) →
+                ∑ x, ContinuousLinearMap.adjoint (a x) ∘SL a x = 1 →
+                  (H →L[ℂ] H) → OAI.CoarseAssembly.DiscreteRoe.Operator X H :=
+fun {X} {H} [Fintype X] [DecidableEq X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] a hpart F =>
+  OAI.CoarseAssembly.isometricExtension (OAI.CoarseAssembly.DiscreteRoe.partitionIsometry a hpart)
+    (OAI.CoarseAssembly.DiscreteRoe.partitionCompression a F)
+def OAI.CoarseAssembly.Rips.representedSqrt : {X : Type} →
+  [inst : PseudoMetricSpace X] →
+    [inst_1 : Fintype X] →
+      (r : ℝ) →
+        (c : OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point X r, ℂ)) →
+          X → OAI.CoarseAssembly.Analytic.End c.space :=
+fun {X} [PseudoMetricSpace X] [Fintype X] r c x => c.representation (OAI.CoarseAssembly.Rips.sqrtCoordinate r x)
+def OAI.CoarseAssembly.Rips.ripsSpatialOperator : {X : Type} →
+  [inst : PseudoMetricSpace X] →
+    [inst_1 : Fintype X] →
+      [DecidableEq X] →
+        (r : ℝ) →
+          (c : OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point X r, ℂ)) →
+            c.representation 1 = 1 → OAI.CoarseAssembly.DiscreteRoe.Operator X c.space.Carrier :=
+fun {X} [PseudoMetricSpace X] [Fintype X] [DecidableEq X] r c hπ =>
+  have OAI.CoarseAssembly.Rips.sqrtCoordinate_square_sum := @OAI.CoarseAssembly.Rips.ripsSpatialOperator._proof_2;
+  have OAI.CoarseAssembly.Rips.representedSqrt_adjoint := @OAI.CoarseAssembly.Rips.ripsSpatialOperator._proof_6;
+  have OAI.CoarseAssembly.Rips.representedSqrt_partition := ⋯;
+  OAI.CoarseAssembly.DiscreteRoe.localizedSpatialOperator (OAI.CoarseAssembly.Rips.representedSqrt r c) ⋯ c.operator
+def OAI.CoarseAssembly.extendedFunction.{u_1, u_2, u_3} : {X : Type u_1} →
+  {Y : Type u_2} → {H : Type u_3} → [inst : NormedAddCommGroup H] → (X ↪ Y) → ↥(lp (fun x => H) 2) → Y → H :=
+fun {X} {Y} {H} [NormedAddCommGroup H] e x => Function.extend (⇑e) (↑x) 0
+def OAI.CoarseAssembly.inclusionVector.{u_1, u_2, u_3} : {X : Type u_1} →
+  {Y : Type u_2} →
+    {H : Type u_3} → [inst : NormedAddCommGroup H] → (X ↪ Y) → ↥(lp (fun x => H) 2) → ↥(lp (fun x => H) 2) :=
+fun {X} {Y} {H} [NormedAddCommGroup H] e x =>
+  have OAI.CoarseAssembly.extendedFunction_hasSum := @OAI.CoarseAssembly.inclusionVector._proof_1;
+  ⟨OAI.CoarseAssembly.extendedFunction e x, ⋯⟩
+def OAI.CoarseAssembly.inclusionIsometry.{u_1, u_2, u_3} : {X : Type u_1} →
+  {Y : Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup H] →
+        [inst_1 : NormedSpace ℂ H] → (X ↪ Y) → ↥(lp (fun x => H) 2) →ₗᵢ[ℂ] ↥(lp (fun x => H) 2) :=
+fun {X} {Y} {H} [NormedAddCommGroup H] [NormedSpace ℂ H] e =>
+  have OAI.CoarseAssembly.extendedFunction_hasSum := @OAI.CoarseAssembly.inclusionVector._proof_1;
+  { toFun := OAI.CoarseAssembly.inclusionVector e, map_add' := ⋯, map_smul' := ⋯, norm_map' := ⋯ }
+def OAI.CoarseAssembly.Analytic.ampleIsometry.{u_1} : (H : OAI.CoarseAssembly.Analytic.HilbertSpace) →
+  H.Carrier →ₗᵢ[ℂ] ↥(lp (fun x => ℂ) 2) :=
+fun H =>
+  have OAI.CoarseAssembly.Analytic.exists_ampleIsometry := OAI.CoarseAssembly.Analytic.ampleIsometry._proof_2;
+  ⋯.some
+def OAI.CoarseAssembly.DiscreteRoe.coefficientIsometry.{u_1, u_2, u_3} : {X : Type u_1} →
+  {E : Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup E] →
+        [inst_1 : InnerProductSpace ℂ E] →
+          [inst_2 : NormedAddCommGroup H] →
+            [inst_3 : InnerProductSpace ℂ H] →
+              (E →ₗᵢ[ℂ] H) →
+                ↥(OAI.CoarseAssembly.DiscreteRoe.Module X E) →ₗᵢ[ℂ] ↥(OAI.CoarseAssembly.DiscreteRoe.Module X H) :=
+fun {X} {E} {H} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [NormedAddCommGroup H] [InnerProductSpace ℂ H] V =>
+  OAI.CoarseAssembly.blockIsometry fun x => V
+def OAI.CoarseAssembly.DiscreteRoe.coefficientExtension.{u_1, u_2, u_3} : {X : Type u_1} →
+  {E : Type u_2} →
+    {H : Type u_3} →
+      [inst : NormedAddCommGroup E] →
+        [inst_1 : InnerProductSpace ℂ E] →
+          [CompleteSpace E] →
+            [inst_3 : NormedAddCommGroup H] →
+              [inst_4 : InnerProductSpace ℂ H] →
+                [CompleteSpace H] →
+                  (E →ₗᵢ[ℂ] H) →
+                    OAI.CoarseAssembly.DiscreteRoe.Operator X E → OAI.CoarseAssembly.DiscreteRoe.Operator X H :=
+fun {X} {E} {H} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [CompleteSpace E] [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] V T =>
+  OAI.CoarseAssembly.isometricExtension (OAI.CoarseAssembly.DiscreteRoe.coefficientIsometry V) T
+def OAI.CoarseAssembly.DiscreteRoe.diagonalFamily.{u_1, u_2} : {V : ℕ → Type u_1} →
+  {H : Type u_2} →
+    [inst : NormedAddCommGroup H] →
+      [inst_1 : InnerProductSpace ℂ H] →
+        (A : (i : ℕ) → OAI.CoarseAssembly.DiscreteRoe.Operator (V i) H) →
+          (C : ℝ) → 0 ≤ C → (∀ (i : ℕ), ‖A i‖ ≤ C) → OAI.CoarseAssembly.DiscreteRoe.Operator (Sigma V) H :=
+fun {V} {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] A C hC hA =>
+  OAI.CoarseAssembly.flattenOperator (OAI.CoarseAssembly.blockOperator A C hC hA)
+def OAI.CoarseAssembly.Rips.mapPoint.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} →
+    [inst : PseudoMetricSpace X] →
+      [inst_1 : PseudoMetricSpace Y] →
+        {r : ℝ} →
+          (e : X ↪ Y) →
+            (∀ (x y : X), dist (e x) (e y) ≤ dist x y) →
+              OAI.CoarseAssembly.Rips.Point X r → OAI.CoarseAssembly.Rips.Point Y r :=
+fun {X} {Y} [PseudoMetricSpace X] [PseudoMetricSpace Y] {r} e he p =>
+  { weight := Finsupp.embDomain e p.weight, nonneg := ⋯, total := ⋯, diameter := ⋯ }
+def OAI.CoarseAssembly.Rips.unmapPoint.{u_1, u_2} : {X : Type u_1} →
+  {Y : Type u_2} →
+    [inst : PseudoMetricSpace X] →
+      [inst_1 : PseudoMetricSpace Y] →
+        {r : ℝ} →
+          (e : X ↪ Y) →
+            Isometry ⇑e →
+              (q : OAI.CoarseAssembly.Rips.Point Y r) →
+                ↑q.weight.support ⊆ Set.range ⇑e → OAI.CoarseAssembly.Rips.Point X r :=
+fun {X} {Y} [PseudoMetricSpace X] [PseudoMetricSpace Y] {r} e he q hq =>
+  { weight := Finsupp.comapDomain (⇑e) q.weight ⋯, nonneg := ⋯, total := ⋯, diameter := ⋯ }
+def OAI.CoarseAssembly.separatedComponent : {V : ℕ → Type} → (j : ℕ) → V j ↪ Sigma V :=
+fun {V} j => { toFun := Sigma.mk j, inj' := ⋯ }
+@[reducible] def OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix.{u} : (R : Type u) → [Ring R] → ℕ → Type u :=
+fun R [Ring R] n => (Matrix (Fin n) (Fin n) R)ˣ
+@[reducible] def OAI.CoarseAssembly.TopologicalK1.StableGL.{u} : (R : Type u) → [Ring R] → Type (max 0 u) :=
+fun R [Ring R] => (n : ℕ) × OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n
+def OAI.CoarseAssembly.TopologicalK1.IsStabilization.{u} : (R : Type u) →
+  [inst : Ring R] →
+    {n : ℕ} →
+      OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n →
+        OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R (n + 1) → Prop :=
+fun R [Ring R] {n} g h => (↑h).submatrix ⇑finSumFinEquiv ⇑finSumFinEquiv = Matrix.fromBlocks (↑g) 0 0 1
+inductive OAI.CoarseAssembly.TopologicalK1.Relation.{u} : (R : Type u) →
+  [inst : Ring R] → [TopologicalSpace R] → FreeAbelianGroup (OAI.CoarseAssembly.TopologicalK1.StableGL R) → Prop
+number of parameters: 3
+constructors:
+OAI.CoarseAssembly.TopologicalK1.Relation.mul : ∀ {R : Type u} [inst : Ring R] [inst_1 : TopologicalSpace R] {n : ℕ}
+  (g h : OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n),
+  OAI.CoarseAssembly.TopologicalK1.Relation R
+    (FreeAbelianGroup.of ⟨n, g * h⟩ - (FreeAbelianGroup.of ⟨n, g⟩ + FreeAbelianGroup.of ⟨n, h⟩))
+OAI.CoarseAssembly.TopologicalK1.Relation.stabilize : ∀ {R : Type u} [inst : Ring R] [inst_1 : TopologicalSpace R]
+  {n : ℕ} (g : OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n)
+  (h : OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R (n + 1)),
+  OAI.CoarseAssembly.TopologicalK1.IsStabilization R g h →
+    OAI.CoarseAssembly.TopologicalK1.Relation R (FreeAbelianGroup.of ⟨n, g⟩ - FreeAbelianGroup.of ⟨n + 1, h⟩)
+OAI.CoarseAssembly.TopologicalK1.Relation.homotopy : ∀ {R : Type u} [inst : Ring R] [inst_1 : TopologicalSpace R]
+  {n : ℕ} (c : ↑OAI.CoarseAssembly.Analytic.Interval → OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n),
+  Continuous c →
+    OAI.CoarseAssembly.TopologicalK1.Relation R
+      (FreeAbelianGroup.of ⟨n, c OAI.CoarseAssembly.Analytic.start⟩ -
+        FreeAbelianGroup.of ⟨n, c OAI.CoarseAssembly.Analytic.finish⟩)
+def OAI.CoarseAssembly.TopologicalK1.relations.{u} : (R : Type u) →
+  [inst : Ring R] →
+    [TopologicalSpace R] → AddSubgroup (FreeAbelianGroup (OAI.CoarseAssembly.TopologicalK1.StableGL R)) :=
+fun R [Ring R] [TopologicalSpace R] => AddSubgroup.closure {z | OAI.CoarseAssembly.TopologicalK1.Relation R z}
+@[reducible] def OAI.CoarseAssembly.TopologicalK1.Group.{u} : (R : Type u) → [Ring R] → [TopologicalSpace R] → Type u :=
+fun R [Ring R] [TopologicalSpace R] =>
+  FreeAbelianGroup (OAI.CoarseAssembly.TopologicalK1.StableGL R) ⧸ OAI.CoarseAssembly.TopologicalK1.relations R
+def OAI.CoarseAssembly.TopologicalK1.matrixClass.{u} : (R : Type u) →
+  [inst : Ring R] →
+    [inst_1 : TopologicalSpace R] →
+      {n : ℕ} → OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n → OAI.CoarseAssembly.TopologicalK1.Group R :=
+fun R [Ring R] [TopologicalSpace R] {n} g => ↑(FreeAbelianGroup.of ⟨n, g⟩)
+def OAI.CoarseAssembly.TopologicalK1.mapGL.{u, v} : {R : Type u} →
+  [inst : Ring R] →
+    {S : Type v} →
+      [inst_1 : Ring S] →
+        (R →+* S) →
+          (n : ℕ) →
+            OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix R n →*
+              OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix S n :=
+fun {R} [Ring R] {S} [Ring S] φ n => Units.map ↑φ.mapMatrix
+def OAI.CoarseAssembly.TopologicalK1.mapFree.{u, v} : {R : Type u} →
+  [inst : Ring R] →
+    {S : Type v} →
+      [inst_1 : Ring S] →
+        [inst_2 : TopologicalSpace S] →
+          (R →+* S) →
+            FreeAbelianGroup (OAI.CoarseAssembly.TopologicalK1.StableGL R) →+
+              OAI.CoarseAssembly.TopologicalK1.Group S :=
+fun {R} [Ring R] {S} [Ring S] [TopologicalSpace S] φ =>
+  FreeAbelianGroup.lift fun g =>
+    OAI.CoarseAssembly.TopologicalK1.matrixClass S ((OAI.CoarseAssembly.TopologicalK1.mapGL φ g.fst) g.snd)
+def OAI.CoarseAssembly.TopologicalK1.map.{u, v} : {R : Type u} →
+  [inst : Ring R] →
+    [inst_1 : TopologicalSpace R] →
+      {S : Type v} →
+        [inst_2 : Ring S] →
+          [inst_3 : TopologicalSpace S] →
+            (φ : R →+* S) →
+              Continuous ⇑φ → OAI.CoarseAssembly.TopologicalK1.Group R →+ OAI.CoarseAssembly.TopologicalK1.Group S :=
+fun {R} [Ring R] [TopologicalSpace R] {S} [Ring S] [TopologicalSpace S] φ hφ =>
+  have OAI.CoarseAssembly.TopologicalK1.matrixClass_mul := @OAI.CoarseAssembly.TopologicalK1.map._proof_1;
+  have OAI.CoarseAssembly.TopologicalK1.matrixClass_stabilize := @OAI.CoarseAssembly.TopologicalK1.map._proof_2;
+  have OAI.CoarseAssembly.TopologicalK1.matrixClass_homotopy := @OAI.CoarseAssembly.TopologicalK1.map._proof_3;
+  have OAI.CoarseAssembly.TopologicalK1.mapFree_relation := ⋯;
+  QuotientAddGroup.lift (OAI.CoarseAssembly.TopologicalK1.relations R) (OAI.CoarseAssembly.TopologicalK1.mapFree φ) ⋯
+def OAI.CoarseAssembly.OperatorKTheory.scalarMap.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] →
+    OAI.CoarseAssembly.TopologicalK1.Group (Unitization ℂ A) →+ OAI.CoarseAssembly.TopologicalK1.Group ℂ :=
+fun A [NonUnitalCStarAlgebra A] => OAI.CoarseAssembly.TopologicalK1.map (Unitization.fstHom ℂ A).toRingHom ⋯
+@[reducible] def OAI.CoarseAssembly.OperatorKTheory.K1.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → AddSubgroup (OAI.CoarseAssembly.TopologicalK1.Group (Unitization ℂ A)) :=
+fun A [NonUnitalCStarAlgebra A] => (OAI.CoarseAssembly.OperatorKTheory.scalarMap A).ker
+def OAI.CoarseAssembly.OperatorKTheory.unitizationMap.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type v} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        (A →⋆ₙₐ[ℂ] B) →
+          OAI.CoarseAssembly.TopologicalK1.Group (Unitization ℂ A) →+
+            OAI.CoarseAssembly.TopologicalK1.Group (Unitization ℂ B) :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] φ =>
+  OAI.CoarseAssembly.TopologicalK1.map (↑(Unitization.starMap φ)).toRingHom ⋯
+def OAI.CoarseAssembly.OperatorKTheory.map.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {B : Type v} →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        (A →⋆ₙₐ[ℂ] B) → ↥(OAI.CoarseAssembly.OperatorKTheory.K1 A) →+ ↥(OAI.CoarseAssembly.OperatorKTheory.K1 B) :=
+fun {A} [NonUnitalCStarAlgebra A] {B} [NonUnitalCStarAlgebra B] φ =>
+  { toFun := fun x => ⟨(OAI.CoarseAssembly.OperatorKTheory.unitizationMap φ) ↑x, ⋯⟩, map_zero' := ⋯, map_add' := ⋯ }
+def OAI.CoarseAssembly.OperatorKTheory.relativePart.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] → (S : NonUnitalStarSubalgebra ℂ A) → (u : ↥(unitary A)) → ↑u - 1 ∈ S → ↥S :=
+fun {A} [CStarAlgebra A] S u hu => ⟨↑u - 1, hu⟩
+def OAI.CoarseAssembly.OperatorKTheory.relativeUnitary.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] →
+    (S : NonUnitalStarSubalgebra ℂ A) → (u : ↥(unitary A)) → ↑u - 1 ∈ S → ↥(unitary (Unitization ℂ ↥S)) :=
+fun {A} [CStarAlgebra A] S u hu =>
+  let r := OAI.CoarseAssembly.OperatorKTheory.relativePart S u hu;
+  ⟨1 + ↑r, ⋯⟩
+def OAI.CoarseAssembly.OperatorKTheory.relativeMatrix.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] →
+    (S : NonUnitalStarSubalgebra ℂ A) →
+      (u : ↥(unitary A)) → ↑u - 1 ∈ S → OAI.CoarseAssembly.TopologicalK1.InvertibleMatrix (Unitization ℂ ↥S) 1 :=
+fun {A} [CStarAlgebra A] S u hu =>
+  (Units.map ↑(Matrix.scalar (Fin 1))) (Unitary.toUnits (OAI.CoarseAssembly.OperatorKTheory.relativeUnitary S u hu))
+def OAI.CoarseAssembly.OperatorKTheory.relativeClass.{u_1} : {A : Type u_1} →
+  [inst : CStarAlgebra A] →
+    (S : NonUnitalStarSubalgebra ℂ A) →
+      [hS : IsClosed ↑S] → (u : ↥(unitary A)) → ↑u - 1 ∈ S → ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥S) :=
+fun {A} [CStarAlgebra A] S [IsClosed ↑S] u hu =>
+  have OAI.CoarseAssembly.TopologicalK1.matrixClass_mul := @OAI.CoarseAssembly.OperatorKTheory.relativeClass._proof_1;
+  have OAI.CoarseAssembly.TopologicalK1.matrixClass_one := ⋯;
+  have OAI.CoarseAssembly.OperatorKTheory.scalarMap_matrixClass :=
+    @OAI.CoarseAssembly.OperatorKTheory.relativeClass._proof_4;
+  ⟨OAI.CoarseAssembly.TopologicalK1.matrixClass (Unitization ℂ ↥S)
+      (OAI.CoarseAssembly.OperatorKTheory.relativeMatrix S u hu),
+    ⋯⟩
+def OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [DecidableEq X] →
+      [PseudoMetricSpace X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] →
+            [inst_2 : CompleteSpace H] → StarSubalgebra ℂ (OAI.CoarseAssembly.DiscreteRoe.Operator X H) :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  { carrier := ↑OAI.CoarseAssembly.DiscreteRoe.roeIdealizer, mul_mem' := ⋯, one_mem' := ⋯, add_mem' := ⋯,
+    zero_mem' := ⋯, algebraMap_mem' := ⋯, star_mem' := ⋯ }
+def OAI.CoarseAssembly.DiscreteRoe.multiplierRoeIdeal.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : DecidableEq X] →
+      [inst_1 : PseudoMetricSpace X] →
+        [inst_2 : NormedAddCommGroup H] →
+          [inst_3 : InnerProductSpace ℂ H] →
+            [inst_4 : CompleteSpace H] → TwoSidedIdeal ↥OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] =>
+  TwoSidedIdeal.mk' {T | ↑T ∈ OAI.CoarseAssembly.DiscreteRoe.algebra} ⋯ ⋯ ⋯ ⋯ ⋯
+def OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryUnitary.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : DecidableEq X] →
+      [inst_1 : PseudoMetricSpace X] →
+        [inst_2 : NormedAddCommGroup H] →
+          [inst_3 : InnerProductSpace ℂ H] →
+            [inst_4 : CompleteSpace H] →
+              (F : ↥OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra) →
+                IsSelfAdjoint F → ↥(unitary (OAI.CoarseAssembly.DiscreteRoe.Operator X H)) :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] F
+    hF =>
+  (Unitary.map (StarMonoidHom.ofClass OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra.subtype))
+    (OAI.CoarseAssembly.Analytic.rationalBoundaryUnitary F hF)
+def OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryClass.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [inst : DecidableEq X] →
+      [inst_1 : PseudoMetricSpace X] →
+        [inst_2 : NormedAddCommGroup H] →
+          [inst_3 : InnerProductSpace ℂ H] →
+            [inst_4 : CompleteSpace H] →
+              (F : ↥OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra) →
+                IsSelfAdjoint F →
+                  ↑F ^ 2 - 1 ∈ OAI.CoarseAssembly.DiscreteRoe.algebra →
+                    ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {X} {H} [DecidableEq X] [PseudoMetricSpace X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] F hF
+    hdefect =>
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_val :=
+    @OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryClass._proof_2;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_star := ⋯;
+  have OAI.CoarseAssembly.Analytic.cayleyDenominator_normal := ⋯;
+  have OAI.CoarseAssembly.Analytic.rationalBoundaryUnitary_defect := ⋯;
+  have OAI.CoarseAssembly.Analytic.rationalBoundaryUnitary_sub_one_mem := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryUnitary_sub_one_mem := ⋯;
+  OAI.CoarseAssembly.OperatorKTheory.relativeClass OAI.CoarseAssembly.DiscreteRoe.algebra
+    (OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryUnitary F hF) ⋯
+def OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier.{u_1} : {V : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (V i)] →
+    [(i : ℕ) → Fintype (V i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (V i)] →
+        {H : Type u_1} →
+          [inst_3 : NormedAddCommGroup H] →
+            [inst_4 : InnerProductSpace ℂ H] →
+              [inst_5 : CompleteSpace H] →
+                (o : (i : ℕ) → V i) →
+                  (A : (i : ℕ) → OAI.CoarseAssembly.DiscreteRoe.Operator (V i) H) →
+                    (C : ℝ) →
+                      0 ≤ C →
+                        (∀ (i : ℕ), ‖A i‖ ≤ C) →
+                          (r : ℝ) →
+                            0 ≤ r →
+                              (∀ (i : ℕ), OAI.CoarseAssembly.DiscreteRoe.PropagationLE r (A i)) →
+                                ↥OAI.CoarseAssembly.DiscreteRoe.multiplierAlgebra :=
+fun {V} [(i : ℕ) → MetricSpace (V i)] [(i : ℕ) → Fintype (V i)] [(i : ℕ) → DecidableEq (V i)] {H} [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] o A C hC hA r hr hp =>
+  have OAI.CoarseAssembly.DiscreteRoe.entry_star := @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_4;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.star := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.vector_eq_sum :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_8;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_mul_of_finite_column := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.mul := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.CompactEntries.mul_left := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.CompactEntries.mul_right := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.finitePropagation_multiplier := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_diagonalFamily_same :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_18;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_diagonalFamily_ne :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_19;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_propagation := ⋯;
+  have OAI.CoarseAssembly.separatedDist_indices := @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_21;
+  have OAI.CoarseAssembly.separated_closedBall_finite := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.separatedMetric_closedBall_finite := ⋯;
+  have this := OAI.CoarseAssembly.separatedMetric o;
+  ⟨OAI.CoarseAssembly.DiscreteRoe.diagonalFamily A C hC hA, ⋯⟩
+def OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary.{u_1} : {V : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (V i)] →
+    [(i : ℕ) → Fintype (V i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (V i)] →
+        {H : Type u_1} →
+          [inst_3 : NormedAddCommGroup H] →
+            [inst_4 : InnerProductSpace ℂ H] →
+              [inst_5 : CompleteSpace H] →
+                (o : (i : ℕ) → V i) →
+                  (A : (i : ℕ) → OAI.CoarseAssembly.DiscreteRoe.Operator (V i) H) →
+                    (C : ℝ) →
+                      0 ≤ C →
+                        (∀ (i : ℕ), ‖A i‖ ≤ C) →
+                          (r : ℝ) →
+                            0 ≤ r →
+                              (∀ (i : ℕ), OAI.CoarseAssembly.DiscreteRoe.PropagationLE r (A i)) →
+                                (∀ (i : ℕ), IsSelfAdjoint (A i)) →
+                                  (∀ (i : ℕ), IsCompactOperator (↑(A i * A i - 1)).toFun) →
+                                    ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {V} [(i : ℕ) → MetricSpace (V i)] [(i : ℕ) → Fintype (V i)] [(i : ℕ) → DecidableEq (V i)] {H} [NormedAddCommGroup H]
+    [InnerProductSpace ℂ H] [CompleteSpace H] o A C hC hA r hr hp hself hsq =>
+  have OAI.CoarseAssembly.DiscreteRoe.vector_eq_sum :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_8;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_mul_of_finite_column := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.mul := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.add :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary._proof_6;
+  have OAI.CoarseAssembly.DiscreteRoe.PropagationLE.smul :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary._proof_8;
+  have OAI.CoarseAssembly.DiscreteRoe.propagationLE_one :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary._proof_9;
+  have OAI.CoarseAssembly.blockOperator_adjoint := @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary._proof_18;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_selfAdjoint := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_diagonalFamily_same :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_18;
+  have OAI.CoarseAssembly.DiscreteRoe.entry_diagonalFamily_ne :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_19;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_propagation := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_square_defect :=
+    @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary._proof_23;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_square_compactEntries := ⋯;
+  have OAI.CoarseAssembly.separatedDist_indices := @OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier._proof_21;
+  have OAI.CoarseAssembly.separated_closedBall_finite := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.separatedMetric_closedBall_finite := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.diagonalFamily_square_mem_roe := ⋯;
+  have OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier_selfAdjoint := ⋯;
+  have this := OAI.CoarseAssembly.separatedMetric o;
+  OAI.CoarseAssembly.DiscreteRoe.multiplierBoundaryClass
+    (OAI.CoarseAssembly.DiscreteRoe.separatedFamilyMultiplier o A C hC hA r hr hp) ⋯ ⋯
+def OAI.CoarseAssembly.DiscreteRoe.partitionConjugate.{u_1, u_2} : {X : Type u_1} →
+  {H : Type u_2} →
+    [Fintype X] →
+      [DecidableEq X] →
+        [inst : NormedAddCommGroup H] →
+          [inst_1 : InnerProductSpace ℂ H] →
+            [CompleteSpace H] → (X → H →L[ℂ] H) → (H →L[ℂ] H) → OAI.CoarseAssembly.DiscreteRoe.Operator X H :=
+fun {X} {H} [Fintype X] [DecidableEq X] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] a F =>
+  OAI.CoarseAssembly.DiscreteRoe.partitionMap a ∘SL
+    F ∘SL ContinuousLinearMap.adjoint (OAI.CoarseAssembly.DiscreteRoe.partitionMap a)
+def OAI.CoarseAssembly.Analytic.localizedOperator.{u_1} : {A : Type} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {ι : Type u_1} →
+      [Fintype ι] → (c : OAI.CoarseAssembly.Analytic.OddCycle A) → (ι → A) → OAI.CoarseAssembly.Analytic.End c.space :=
+fun {A} [NonUnitalCStarAlgebra A] {ι} [Fintype ι] c a =>
+  ∑ i, c.representation (a i) * c.operator * c.representation (a i)
+def OAI.CoarseAssembly.Analytic.localizedCycle.{u_1} : {A : Type} →
+  [inst : NonUnitalCStarAlgebra A] →
+    {ι : Type u_1} →
+      [inst_1 : Fintype ι] →
+        (c : OAI.CoarseAssembly.Analytic.OddCycle A) →
+          (a : ι → A) →
+            IsSelfAdjoint c.operator →
+              (∀ (i : ι), IsSelfAdjoint (a i)) →
+                ∑ i, c.representation (a i) * c.representation (a i) = 1 → OAI.CoarseAssembly.Analytic.OddCycle A :=
+fun {A} [NonUnitalCStarAlgebra A] {ι} [Fintype ι] c a hF ha hpart =>
+  have OAI.CoarseAssembly.Analytic.localizedOperator_sub_compact :=
+    @OAI.CoarseAssembly.Analytic.localizedCycle._proof_1;
+  c.compactPerturb (OAI.CoarseAssembly.Analytic.localizedOperator c a - c.operator) ⋯ ⋯
+def OAI.CoarseAssembly.Rips.ampleRipsOperator : {X : Type} →
+  [inst : PseudoMetricSpace X] →
+    [inst_1 : Fintype X] →
+      [DecidableEq X] →
+        (r : ℝ) →
+          (c : OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point X r, ℂ)) →
+            c.representation 1 = 1 → OAI.CoarseAssembly.DiscreteRoe.Operator X ↥(lp (fun x => ℂ) 2) :=
+fun {X} [PseudoMetricSpace X] [Fintype X] [DecidableEq X] r c hπ =>
+  OAI.CoarseAssembly.DiscreteRoe.coefficientExtension (OAI.CoarseAssembly.Analytic.ampleIsometry c.space)
+    (OAI.CoarseAssembly.Rips.ripsSpatialOperator r c hπ)
+def OAI.CoarseAssembly.Rips.ampleRipsFamilyBoundary : {V : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (V i)] →
+    [inst_1 : (i : ℕ) → Fintype (V i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (V i)] →
+        (o : (i : ℕ) → V i) →
+          (r : ℝ) →
+            0 ≤ r →
+              (c : (i : ℕ) → OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point (V i) r, ℂ)) →
+                (∀ (i : ℕ), (c i).representation 1 = 1) →
+                  (∀ (i : ℕ), IsSelfAdjoint (c i).operator) →
+                    (C : ℝ) →
+                      0 ≤ C →
+                        (∀ (i : ℕ), ‖(c i).operator‖ ≤ C) →
+                          ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {V} [(i : ℕ) → MetricSpace (V i)] [(i : ℕ) → Fintype (V i)] [(i : ℕ) → DecidableEq (V i)] o r hr c hπ hF C hC
+    hnorm =>
+  have extensionProperties := @OAI.CoarseAssembly.Rips.ampleRipsFamilyBoundary._proof_8;
+  have spatialProperties := ⋯;
+  let Good := fun i Z =>
+    ‖Z‖ ≤ ‖(c i).operator‖ + 4 ∧
+      IsSelfAdjoint Z ∧ OAI.CoarseAssembly.DiscreteRoe.PropagationLE (r + r) Z ∧ IsCompactOperator ⇑(Z * Z - 1);
+  have properties := ⋯;
+  OAI.CoarseAssembly.DiscreteRoe.separatedFamilyBoundary o
+    (fun i => OAI.CoarseAssembly.Rips.ampleRipsOperator r (c i) ⋯) (C + 4) ⋯ ⋯ (r + r) ⋯ ⋯ ⋯ ⋯
+def OAI.CoarseAssembly.DiscreteRoe.inclusionHom.{sourceUniverse, targetUniverse, coefficientUniverse} : {X :
+    Type sourceUniverse} →
+  {Y : Type targetUniverse} →
+    {H : Type coefficientUniverse} →
+      [sourceDecidable : DecidableEq X] →
+        [targetDecidable : DecidableEq Y] →
+          [coefficientNormed : NormedAddCommGroup H] →
+            [coefficientInner : InnerProductSpace ℂ H] →
+              [coefficientComplete : CompleteSpace H] →
+                [sourceMetric : PseudoMetricSpace X] →
+                  [targetMetric : PseudoMetricSpace Y] →
+                    (e : X ↪ Y) →
+                      (∀ (x y : X), dist (e x) (e y) ≤ dist x y) →
+                        ↥OAI.CoarseAssembly.DiscreteRoe.algebra →⋆ₙₐ[ℂ] ↥OAI.CoarseAssembly.DiscreteRoe.algebra :=
+fun {X} {Y} {H} [DecidableEq X] [DecidableEq Y] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
+    [PseudoMetricSpace X] [PseudoMetricSpace Y] e he =>
+  let V := OAI.CoarseAssembly.inclusionIsometry e;
+  let φ := OAI.CoarseAssembly.operatorConjugationHom V;
+  have vector_apply := ⋯;
+  have vector_zero := ⋯;
+  have isometry_single := ⋯;
+  have adjoint_apply := ⋯;
+  have entry_eq := ⋯;
+  have entry_row_zero := ⋯;
+  have entry_col_zero := ⋯;
+  have compact_congr := ⋯;
+  have compact := ⋯;
+  have propagation := ⋯;
+  have generator := ⋯;
+  have hφ := ⋯;
+  have hgen := ⋯;
+  OAI.CoarseAssembly.DiscreteRoe.conjugationHom V ⋯
+structure OAI.CoarseAssembly.Rips.ControlledCycleFamily (Q : ℕ → Type) [(i : ℕ) → MetricSpace (Q i)]
+  [(i : ℕ) → Fintype (Q i)] (r : ℝ) : Type 1
+number of parameters: 4
+fields:
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.cycle : (i : ℕ) →
+      OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ)
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.unital : ∀ (i : ℕ), (self.cycle i).representation 1 = 1
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.selfAdjoint : ∀ (i : ℕ), IsSelfAdjoint (self.cycle i).operator
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.bound : ℝ
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.bound_nonneg : 0 ≤ self.bound
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.norm_le : ∀ (i : ℕ), ‖(self.cycle i).operator‖ ≤ self.bound
+constructor:
+  OAI.CoarseAssembly.Rips.ControlledCycleFamily.mk {Q : ℕ → Type} [(i : ℕ) → MetricSpace (Q i)]
+    [(i : ℕ) → Fintype (Q i)] {r : ℝ}
+    (cycle : (i : ℕ) → OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ))
+    (unital : ∀ (i : ℕ), (cycle i).representation 1 = 1) (selfAdjoint : ∀ (i : ℕ), IsSelfAdjoint (cycle i).operator)
+    (bound : ℝ) (bound_nonneg : 0 ≤ bound) (norm_le : ∀ (i : ℕ), ‖(cycle i).operator‖ ≤ bound) :
+    OAI.CoarseAssembly.Rips.ControlledCycleFamily Q r
+def OAI.CoarseAssembly.Rips.ControlledCycleFamily.boundary : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [inst_1 : (i : ℕ) → Fintype (Q i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (Q i)] →
+        {r : ℝ} →
+          OAI.CoarseAssembly.Rips.ControlledCycleFamily Q r →
+            (o : (i : ℕ) → Q i) →
+              0 ≤ r → ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] [(i : ℕ) → DecidableEq (Q i)] {r} c o hr =>
+  OAI.CoarseAssembly.Rips.ampleRipsFamilyBoundary o r hr c.cycle ⋯ ⋯ c.bound ⋯ ⋯
+def OAI.CoarseAssembly.Rips.regularizedFamily : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [inst_1 : (i : ℕ) → Fintype (Q i)] →
+      {r : ℝ} →
+        ((i : ℕ) → OAI.CoarseAssembly.Analytic.OddCycle C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ)) →
+          ((i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₐ[ℂ] ℂ) →
+            OAI.CoarseAssembly.Rips.ControlledCycleFamily Q r :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] {r} c χ =>
+  have OAI.CoarseAssembly.Analytic.cutDown_selfAdjoint :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_2;
+  have OAI.CoarseAssembly.Analytic.cutDown_complement :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_7;
+  have OAI.CoarseAssembly.Analytic.represented_square_compact :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint._proof_9;
+  have OAI.CoarseAssembly.Analytic.cutDown_square_compact := ⋯;
+  have OAI.CoarseAssembly.Analytic.completedRepresentation_one :=
+    @OAI.CoarseAssembly.Analytic.OddCycle.regularize._proof_1;
+  have OAI.CoarseAssembly.Analytic.characterExtension_unital := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint_unital := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.regularize_unital := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.unitalSelfAdjoint_selfAdjoint := ⋯;
+  have OAI.CoarseAssembly.Analytic.OddCycle.regularize_selfAdjoint :=
+    @OAI.CoarseAssembly.Rips.regularizedFamily._proof_6;
+  have OAI.CoarseAssembly.Analytic.OddCycle.regularize_norm_le := @OAI.CoarseAssembly.Rips.regularizedFamily._proof_7;
+  { cycle := fun i => (c i).regularize (χ i), unital := ⋯, selfAdjoint := ⋯, bound := 1, bound_nonneg := ⋯,
+    norm_le := ⋯ }
+def OAI.CoarseAssembly.Rips.analyticFamilyIndexFree : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [(i : ℕ) → Fintype (Q i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (Q i)] →
+        {r : ℝ} →
+          {A : Type} →
+            [inst_3 : NonUnitalCStarAlgebra A] →
+              (o : (i : ℕ) → Q i) →
+                0 ≤ r →
+                  ((i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₐ[ℂ] ℂ) →
+                    ((i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₙₐ[ℂ] A) →
+                      FreeAbelianGroup (OAI.CoarseAssembly.Analytic.OddCycle A) →+
+                        ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] [(i : ℕ) → DecidableEq (Q i)] {r} {A}
+    [NonUnitalCStarAlgebra A] o hr χ η =>
+  FreeAbelianGroup.lift fun c => (OAI.CoarseAssembly.Rips.regularizedFamily (fun i => c.precomp (η i)) χ).boundary o hr
+def OAI.CoarseAssembly.Rips.analyticFamilyIndex : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [(i : ℕ) → Fintype (Q i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (Q i)] →
+        {r : ℝ} →
+          {A : Type} →
+            [inst_3 : NonUnitalCStarAlgebra A] →
+              (o : (i : ℕ) → Q i) →
+                0 ≤ r →
+                  ((i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₐ[ℂ] ℂ) →
+                    ((i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₙₐ[ℂ] A) →
+                      OAI.CoarseAssembly.Analytic.OddK A →+
+                        ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] [(i : ℕ) → DecidableEq (Q i)] {r} {A}
+    [NonUnitalCStarAlgebra A] o hr χ η =>
+  if h : OAI.CoarseAssembly.Analytic.relations A ≤ (OAI.CoarseAssembly.Rips.analyticFamilyIndexFree o hr χ η).ker then
+    QuotientAddGroup.lift (OAI.CoarseAssembly.Analytic.relations A)
+      (OAI.CoarseAssembly.Rips.analyticFamilyIndexFree o hr χ η) h
+  else 0
+def OAI.CoarseAssembly.separatedRipsMap : {V : ℕ → Type} →
+  [inst : (j : ℕ) → MetricSpace (V j)] →
+    (o : (j : ℕ) → V j) →
+      (r : ℝ) → (j : ℕ) → OAI.CoarseAssembly.Rips.Point (V j) r → OAI.CoarseAssembly.Rips.Point (Sigma V) r :=
+fun {V} [(j : ℕ) → MetricSpace (V j)] o r j =>
+  have OAI.CoarseAssembly.separatedComponent_isometry := @OAI.CoarseAssembly.separatedRipsMap._proof_1;
+  have this := OAI.CoarseAssembly.separatedMetric o;
+  OAI.CoarseAssembly.Rips.mapPoint (OAI.CoarseAssembly.separatedComponent j) ⋯
+def OAI.CoarseAssembly.separatedRipsEmbedding : {V : ℕ → Type} →
+  [inst : (j : ℕ) → MetricSpace (V j)] →
+    (o : (j : ℕ) → V j) →
+      (r : ℝ) → (j : ℕ) → OAI.CoarseAssembly.Rips.Point (V j) r ↪ OAI.CoarseAssembly.Rips.Point (Sigma V) r :=
+fun {V} [(j : ℕ) → MetricSpace (V j)] o r j =>
+  have OAI.CoarseAssembly.Rips.mapPoint_injective := @OAI.CoarseAssembly.separatedRipsEmbedding._proof_1;
+  have OAI.CoarseAssembly.separatedComponent_isometry := @OAI.CoarseAssembly.separatedRipsMap._proof_1;
+  have this := OAI.CoarseAssembly.separatedMetric o;
+  { toFun := OAI.CoarseAssembly.separatedRipsMap o r j, inj' := ⋯ }
+def OAI.CoarseAssembly.Analytic.compactFunctionLift : {X : Type} →
+  [inst : TopologicalSpace X] → [CompactSpace X] → C(X, ℂ) →⋆ₙₐ[ℂ] ZeroAtInftyContinuousMap X ℂ :=
+fun {X} [TopologicalSpace X] [CompactSpace X] =>
+  { toFun := ⇑ZeroAtInftyContinuousMap.ContinuousMap.liftZeroAtInfty, map_smul' := ⋯, map_zero' := ⋯, map_add' := ⋯,
+    map_mul' := ⋯, map_star' := ⋯ }
+def OAI.CoarseAssembly.Rips.lateRipsFunctionHom : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [(i : ℕ) → Fintype (Q i)] →
+      (o : (i : ℕ) → Q i) →
+        (r : ℝ) →
+          (i : ℕ) →
+            C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₙₐ[ℂ]
+              ZeroAtInftyContinuousMap (OAI.CoarseAssembly.Rips.Point (Sigma Q) r) ℂ :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] o r i =>
+  have OAI.CoarseAssembly.Rips.coordinate_continuous := @OAI.CoarseAssembly.Rips.sqrtCoordinate._proof_1;
+  have OAI.CoarseAssembly.Rips.mapPoint_range_open := ⋯;
+  have OAI.CoarseAssembly.Rips.mapPoint_continuous := ⋯;
+  have OAI.CoarseAssembly.Rips.mapPoint_injective := @OAI.CoarseAssembly.separatedRipsEmbedding._proof_1;
+  have OAI.CoarseAssembly.Rips.mapPoint_closedEmbedding := ⋯;
+  have OAI.CoarseAssembly.separatedComponent_isometry := @OAI.CoarseAssembly.separatedRipsMap._proof_1;
+  have OAI.CoarseAssembly.separatedComponent_separation := @OAI.CoarseAssembly.Rips.lateRipsFunctionHom._proof_5;
+  have OAI.CoarseAssembly.lateRipsComponent_openEmbedding := ⋯;
+  have OAI.CoarseAssembly.separatedRipsEmbedding_open := ⋯;
+  have this := OAI.CoarseAssembly.separatedMetric o;
+  if hi : r < ↑i then
+    (OAI.CoarseAssembly.Analytic.zeroExtensionHom (OAI.CoarseAssembly.separatedRipsEmbedding o r i) ⋯).comp
+      OAI.CoarseAssembly.Analytic.compactFunctionLift
+  else 0
+def OAI.CoarseAssembly.Rips.ripsPointCharacter : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    ((i : ℕ) → Q i) → (r : ℝ) → 0 ≤ r → (i : ℕ) → C(OAI.CoarseAssembly.Rips.Point (Q i) r, ℂ) →⋆ₐ[ℂ] ℂ :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] o r hr i =>
+  ContinuousMap.evalStarAlgHom ℂ ℂ (OAI.CoarseAssembly.Rips.vertex (o i) hr)
+def OAI.CoarseAssembly.Rips.separatedRipsIndex : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [(i : ℕ) → Fintype (Q i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (Q i)] →
+        (o : (i : ℕ) → Q i) →
+          (r : ℝ) →
+            0 ≤ r →
+              OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (OAI.CoarseAssembly.Rips.Point (Sigma Q) r) →+
+                ↥(OAI.CoarseAssembly.OperatorKTheory.K1 ↥OAI.CoarseAssembly.DiscreteRoe.algebra) :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] [(i : ℕ) → DecidableEq (Q i)] o r hr =>
+  OAI.CoarseAssembly.Rips.analyticFamilyIndex o hr (OAI.CoarseAssembly.Rips.ripsPointCharacter o r hr)
+    (OAI.CoarseAssembly.Rips.lateRipsFunctionHom o r)
+structure OAI.CoarseAssembly.Analytic.CoarseningMorphism.{u} (C D : OAI.CoarseAssembly.Analytic.Coarsening) : Type u
+number of parameters: 2
+fields:
+  OAI.CoarseAssembly.Analytic.CoarseningMorphism.atScale : (r : ℕ) → CocompactMap (C.space r) (D.space r)
+  OAI.CoarseAssembly.Analytic.CoarseningMorphism.compatible : ∀ (r s : ℕ) (h : r ≤ s),
+      (self.atScale s).comp (C.inclusion r s h) = (D.inclusion r s h).comp (self.atScale r)
+constructor:
+  OAI.CoarseAssembly.Analytic.CoarseningMorphism.mk.{u} {C D : OAI.CoarseAssembly.Analytic.Coarsening}
+    (atScale : (r : ℕ) → CocompactMap (C.space r) (D.space r))
+    (compatible :
+      ∀ (r s : ℕ) (h : r ≤ s), (atScale s).comp (C.inclusion r s h) = (D.inclusion r s h).comp (atScale r)) :
+    OAI.CoarseAssembly.Analytic.CoarseningMorphism C D
+structure OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.{u, v} (C : OAI.CoarseAssembly.Analytic.Coarsening)
+  (A : Type v) [NonUnitalCStarAlgebra A] : Type (max (u + 1) v)
+number of parameters: 3
+fields:
+  OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.atScale : (r : ℕ) →
+      OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r) →+ ↥(OAI.CoarseAssembly.OperatorKTheory.K1 A)
+  OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.compatible : ∀ (r s : ℕ) (h : r ≤ s)
+      (a : OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r)),
+      (self.atScale s) ((C.map r s h) a) = (self.atScale r) a
+constructor:
+  OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.mk.{u, v} {C : OAI.CoarseAssembly.Analytic.Coarsening} {A : Type v}
+    [NonUnitalCStarAlgebra A]
+    (atScale :
+      (r : ℕ) → OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r) →+ ↥(OAI.CoarseAssembly.OperatorKTheory.K1 A))
+    (compatible :
+      ∀ (r s : ℕ) (h : r ≤ s) (a : OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r)),
+        (atScale s) ((C.map r s h) a) = (atScale r) a) :
+    OAI.CoarseAssembly.Analytic.CompatibleIndexFamily C A
+def OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.assembly.{u, v} : {C : OAI.CoarseAssembly.Analytic.Coarsening} →
+  {A : Type v} →
+    [inst : NonUnitalCStarAlgebra A] →
+      OAI.CoarseAssembly.Analytic.CompatibleIndexFamily C A →
+        C.Homology →+ ↥(OAI.CoarseAssembly.OperatorKTheory.K1 A) :=
+fun {C} {A} [NonUnitalCStarAlgebra A] I =>
+  AddCommGroup.DirectLimit.lift (fun r => OAI.CoarseAssembly.Analytic.LocallyFiniteK1 (C.space r))
+    (fun r s h => C.map r s h) (↥(OAI.CoarseAssembly.OperatorKTheory.K1 A)) I.atScale ⋯
+def OAI.CoarseAssembly.Rips.separatedIndexFamily : {Q : ℕ → Type} →
+  [inst : (i : ℕ) → MetricSpace (Q i)] →
+    [(i : ℕ) → Fintype (Q i)] →
+      [inst_2 : (i : ℕ) → DecidableEq (Q i)] →
+        (o : (i : ℕ) → Q i) →
+          OAI.CoarseAssembly.Analytic.CompatibleIndexFamily (OAI.CoarseAssembly.Rips.coarsening (Sigma Q))
+            ↥OAI.CoarseAssembly.DiscreteRoe.algebra :=
+fun {Q} [(i : ℕ) → MetricSpace (Q i)] [(i : ℕ) → Fintype (Q i)] [(i : ℕ) → DecidableEq (Q i)] o =>
+  let this := OAI.CoarseAssembly.separatedMetric o;
+  let f := fun n => OAI.CoarseAssembly.Rips.separatedRipsIndex o ↑n ⋯;
+  if h :
+      ∀ (r s : ℕ) (h : r ≤ s)
+        (a : OAI.CoarseAssembly.Analytic.LocallyFiniteK1 ((OAI.CoarseAssembly.Rips.coarsening (Sigma Q)).space r)),
+        (f s) (((OAI.CoarseAssembly.Rips.coarsening (Sigma Q)).map r s h) a) = (f r) a then
+    { atScale := f, compatible := h }
+  else { atScale := fun x => 0, compatible := ⋯ }
+def OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.transport.{u, v} : {C D :
+    OAI.CoarseAssembly.Analytic.Coarsening} →
+  {A B : Type v} →
+    [inst : NonUnitalCStarAlgebra A] →
+      [inst_1 : NonUnitalCStarAlgebra B] →
+        OAI.CoarseAssembly.Analytic.CompatibleIndexFamily C A →
+          OAI.CoarseAssembly.Analytic.CoarseningMorphism D C →
+            (A →⋆ₙₐ[ℂ] B) → OAI.CoarseAssembly.Analytic.CompatibleIndexFamily D B :=
+fun {C D} {A B} [NonUnitalCStarAlgebra A] [NonUnitalCStarAlgebra B] I f φ =>
+  have OAI.CoarseAssembly.Analytic.pushforward_comp :=
+    @OAI.CoarseAssembly.Analytic.CompatibleIndexFamily.transport._proof_2;
+  have OAI.CoarseAssembly.Analytic.CoarseningMorphism.pushforward_compatible := ⋯;
+  {
+    atScale := fun r =>
+      (OAI.CoarseAssembly.OperatorKTheory.map φ).comp
+        ((I.atScale r).comp (OAI.CoarseAssembly.Analytic.pushforward (f.atScale r))),
+    compatible := ⋯ }
+def OAI.CoarseAssembly.Rips.embeddingMap.{u} : {X Y : Type u} →
+  [inst : PseudoMetricSpace X] →
+    [inst_1 : PseudoMetricSpace Y] →
+      (e : X ↪ Y) →
+        (∀ (x y : X), dist (e x) (e y) ≤ dist x y) →
+          (r : ℝ) → CocompactMap (OAI.CoarseAssembly.Rips.Point X r) (OAI.CoarseAssembly.Rips.Point Y r) :=
+fun {X Y} [PseudoMetricSpace X] [PseudoMetricSpace Y] e he r =>
+  have OAI.CoarseAssembly.Rips.coordinate_continuous := @OAI.CoarseAssembly.Rips.inclusion._proof_1;
+  have OAI.CoarseAssembly.Rips.mapPoint_continuous := ⋯;
+  have OAI.CoarseAssembly.Rips.mapPoint_injective := @OAI.CoarseAssembly.Rips.embeddingMap._proof_2;
+  have OAI.CoarseAssembly.Rips.mapPoint_embedding := ⋯;
+  have OAI.CoarseAssembly.Rips.range_mapPoint := @OAI.CoarseAssembly.Rips.embeddingMap._proof_4;
+  have OAI.CoarseAssembly.Rips.mapPoint_properEmbedding := ⋯;
+  { toFun := OAI.CoarseAssembly.Rips.mapPoint e he, continuous_toFun := ⋯, cocompact_tendsto' := ⋯ }
+def OAI.CoarseAssembly.Rips.embeddingCoarsening.{u} : {X Y : Type u} →
+  [inst : PseudoMetricSpace X] →
+    [inst_1 : PseudoMetricSpace Y] →
+      (e : X ↪ Y) →
+        (∀ (x y : X), dist (e x) (e y) ≤ dist x y) →
+          OAI.CoarseAssembly.Analytic.CoarseningMorphism (OAI.CoarseAssembly.Rips.coarsening X)
+            (OAI.CoarseAssembly.Rips.coarsening Y) :=
+fun {X Y} [PseudoMetricSpace X] [PseudoMetricSpace Y] e he =>
+  { atScale := fun r => OAI.CoarseAssembly.Rips.embeddingMap e he ↑r, compatible := ⋯ }
+def OAI.CoarseAssembly.TotalRoe : Type :=
+↥OAI.CoarseAssembly.DiscreteRoe.algebra
+@[reducible] def OAI.CoarseAssembly.FiberedUnion : Type :=
+(j : ℕ) × OAI.CoarseAssembly.FiberVertex j
+def OAI.CoarseAssembly.totalToFiber : OAI.CoarseAssembly.VertexUnion ≃ OAI.CoarseAssembly.FiberedUnion :=
+Equiv.sigmaAssoc fun j u => OAI.CoarseAssembly.Congruence.Quotient (OAI.CoarseAssembly.discDepth j u)
+def OAI.CoarseAssembly.totalToFiberCoarsening : OAI.CoarseAssembly.Analytic.CoarseningMorphism
+  (OAI.CoarseAssembly.Rips.coarsening OAI.CoarseAssembly.VertexUnion)
+  (OAI.CoarseAssembly.Rips.coarsening OAI.CoarseAssembly.FiberedUnion) :=
+OAI.CoarseAssembly.Rips.embeddingCoarsening OAI.CoarseAssembly.totalToFiber.toEmbedding
+  OAI.CoarseAssembly.totalToFiberCoarsening._proof_1
+def OAI.CoarseAssembly.fiberReindexRoeHom : ↥OAI.CoarseAssembly.DiscreteRoe.algebra →⋆ₙₐ[ℂ]
+  OAI.CoarseAssembly.TotalRoe :=
+let this := OAI.CoarseAssembly.separatedMetric OAI.CoarseAssembly.fiberBoundaryBase;
+OAI.CoarseAssembly.DiscreteRoe.inclusionHom OAI.CoarseAssembly.totalToFiber.symm.toEmbedding
+  OAI.CoarseAssembly.fiberReindexRoeHom._proof_1
+def OAI.CoarseAssembly.constructedTotalIndex : OAI.CoarseAssembly.Analytic.CompatibleIndexFamily
+  (OAI.CoarseAssembly.Rips.coarsening OAI.CoarseAssembly.VertexUnion) OAI.CoarseAssembly.TotalRoe :=
+(OAI.CoarseAssembly.Rips.separatedIndexFamily OAI.CoarseAssembly.fiberBoundaryBase).transport
+  OAI.CoarseAssembly.totalToFiberCoarsening OAI.CoarseAssembly.fiberReindexRoeHom
+def OAI.CoarseAssembly.constructedCoarseAssembly : OAI.CoarseAssembly.Rips.KX1 OAI.CoarseAssembly.VertexUnion →+
+  ↥(OAI.CoarseAssembly.OperatorKTheory.K1 OAI.CoarseAssembly.TotalRoe) :=
+OAI.CoarseAssembly.constructedTotalIndex.assembly

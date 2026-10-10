@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T19:19:10Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T21:41:41Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,7 +2984,7 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 104 solutions built locally, 101 with a clean closure comparison and standard axioms, 368 accepted by
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 368 accepted by
     the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -7316,7 +7316,8 @@ alignment:
     module: OAI.Topology.CoarseAssembly
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CoarseAssembly.json;
-      MathVet machine check: local build in progress. Family verdict (pre-referee): partial.'
+      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
+      Family verdict (pre-referee): partial.'
   - source: 'family 307 — headline claim as stated in the overview: Constructs a uniformly discrete bounded-geometry
       space whose maximal coarse assembly map is not rationally injective. The example is a coarse disjoint union
       of finite connected graphs of uniformly bounded degree, with an infinite-order kernel class. A companion gives
@@ -8060,7 +8061,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-10T19:19:10Z'
+    generated: '2026-10-10T21:41:41Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8087,6 +8088,7 @@ mathvet:
     - CannonGeometricAction
     - Catalan
     - CirculantHadamard
+    - CoarseAssembly
     - CoboundaryExpanders
     - CommonBasesFPRAS
     - Conductivity
@@ -8192,6 +8194,7 @@ mathvet:
     - CannonGeometricAction
     - Catalan
     - CirculantHadamard
+    - CoarseAssembly
     - CoboundaryExpanders
     - CommonBasesFPRAS
     - Conductivity
@@ -9003,8 +9006,7 @@ mathvet:
     - WitnessedChoice
     - YauCounterexample
     comparator_running: []
-    build_in_progress:
-    - CoarseAssembly
+    build_in_progress: []
   upstream_drift: none detected
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
@@ -13214,7 +13216,7 @@ mathvet:
       not independently re-derived. The statement does not itself say that the fibre metrics are the graph metrics.'
     external_packages: []
     cone_lines_max: 44622
-    machine_check: build-in-progress
+    machine_check: closure-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/307.md
     audit_part: 3
   - family: '312'

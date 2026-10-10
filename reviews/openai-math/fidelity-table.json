@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
-  "generated": "2026-10-10T19:19:10Z",
+  "generated": "2026-10-10T21:41:41Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 242,
@@ -31,6 +31,7 @@
    "CannonGeometricAction",
    "Catalan",
    "CirculantHadamard",
+   "CoarseAssembly",
    "CoboundaryExpanders",
    "CommonBasesFPRAS",
    "Conductivity",
@@ -137,6 +138,7 @@
    "CannonGeometricAction",
    "Catalan",
    "CirculantHadamard",
+   "CoarseAssembly",
    "CoboundaryExpanders",
    "CommonBasesFPRAS",
    "Conductivity",
@@ -951,9 +953,7 @@
    "YauCounterexample"
   ],
   "comparator_running": [],
-  "build_in_progress": [
-   "CoarseAssembly"
-  ]
+  "build_in_progress": []
  },
  "families": [
   {
@@ -7812,7 +7812,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 44622,
-   "machine_check": "build-in-progress",
+   "machine_check": "closure-pass",
    "lab_scope_note": "The coarse Novikov conjecture predicts rational injectivity of the ordinary coarse assembly map for uniformly discrete spaces of bounded geometry. The formalization constructs a counterexample from a coarse disjoint union of finite connected graphs with uniformly bounded degree. Its degree-one coarse $K$-homology contains an infinite-order class whose image under ordinary coarse assembly into the reduced locally compact Roe algebra vanishes. The class remains nonzero after tensoring with $\\mathbb Q$, so rational injectivity fails.",
    "lab_docs_url": "https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/307.md",
    "overview_entry": "family 307 in overview.pdf / CONTENTS.md",

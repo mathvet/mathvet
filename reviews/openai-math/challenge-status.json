@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
-  "generated": "2026-10-10T19:19:10Z",
+  "generated": "2026-10-10T21:41:41Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 242,
@@ -31,6 +31,7 @@
    "CannonGeometricAction",
    "Catalan",
    "CirculantHadamard",
+   "CoarseAssembly",
    "CoboundaryExpanders",
    "CommonBasesFPRAS",
    "Conductivity",
@@ -137,6 +138,7 @@
    "CannonGeometricAction",
    "Catalan",
    "CirculantHadamard",
+   "CoarseAssembly",
    "CoboundaryExpanders",
    "CommonBasesFPRAS",
    "Conductivity",
@@ -951,9 +953,7 @@
    "YauCounterexample"
   ],
   "comparator_running": [],
-  "build_in_progress": [
-   "CoarseAssembly"
-  ]
+  "build_in_progress": []
  },
  "challenges": [
   {
@@ -3869,19 +3869,27 @@
    "lean_url": "https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CoarseAssembly.lean",
    "config_url": "https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CoarseAssembly.json",
    "lean_sha256": "3bb933e58228d945cece0455156965d9f4c7c7beac013c15706f758922c87cfe",
-   "machine_check": "build-in-progress",
-   "build": "incomplete",
-   "build_seconds": null,
-   "closure": "none",
-   "closure_constants": null,
-   "closure_problems": null,
-   "closure_errors": null,
-   "shadowing": null,
-   "axioms": null,
-   "comparator": "none",
-   "comparator_finished": null,
+   "machine_check": "closure-pass",
+   "build": "built",
+   "build_seconds": 1593,
+   "closure": "ok",
+   "closure_constants": 842,
+   "closure_problems": 0,
+   "closure_errors": 0,
+   "shadowing": "no-shadowing",
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "comparator": "timeout",
+   "comparator_finished": "2026-10-10T21:39:23Z",
    "evidence_files": [
-    "CoarseAssembly.log"
+    "CoarseAssembly.log",
+    "CoarseAssembly.cmp.txt",
+    "CoarseAssembly.comparator.txt",
+    "CoarseAssembly.challenge.txt",
+    "CoarseAssembly.solution.txt"
    ],
    "cloud_comparator": "none",
    "cloud_sandbox": null,

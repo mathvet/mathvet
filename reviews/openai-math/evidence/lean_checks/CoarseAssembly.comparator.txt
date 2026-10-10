@@ -1,0 +1,13 @@
+== CoarseAssembly comparator start 2026-10-10T19:48:35Z
+Building ComparatorChallenges.CoarseAssembly
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.CoarseAssembly
+⚠ [8924/8924] Built ComparatorChallenges.CoarseAssembly (126s)
+warning: ComparatorChallenges/CoarseAssembly.lean:6629:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.CoarseAssembly -- Quot Quot.mk Quot.lift Quot.ind OAI.CoarseAssembly.bounded_geometry_graph_counterexample_unconditional propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.CoarseAssembly.bounded_geometry_graph_counterexample_unconditional, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.CoarseAssembly
+Building OAI.Topology.CoarseAssembly
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Topology.CoarseAssembly
+Build completed successfully (9270 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Topology.CoarseAssembly -- Quot Quot.mk Quot.lift Quot.ind OAI.CoarseAssembly.bounded_geometry_graph_counterexample_unconditional propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+== comparator exit=124 end 2026-10-10T21:39:23Z (killed: stopped after 2 h of swapping on the reviewer's 16 GB machine to keep it responsive; the 842-constant cone shares NuclearUltrapower's; to be run on a larger machine)
