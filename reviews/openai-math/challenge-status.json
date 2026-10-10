@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T13:17:46Z",
+  "generated": "2026-10-10T17:20:48Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -321,6 +321,7 @@
    "DoublingHilbert",
    "DuttaDomain",
    "DyadicAvoidance",
+   "EditApproximation",
    "EditDistance",
    "EgyptianFractions",
    "EilenbergGanea",
@@ -423,6 +424,7 @@
    "MatchingEntropyBounds",
    "MatchingFPRAS",
    "MatchingPSD",
+   "MatrixFields",
    "MatrixMultiplication",
    "MatrixRemoval",
    "MatroidProphet",
@@ -945,10 +947,10 @@
    "WitnessedChoice",
    "YauCounterexample"
   ],
-  "comparator_running": [
-   "EditApproximation"
+  "comparator_running": [],
+  "build_in_progress": [
+   "NuclearUltrapower"
   ],
-  "build_in_progress": [],
   "upstream_drift": {
    "new_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
    "new_commit_date": "2026-10-07T22:20:00-07:00",
@@ -6447,7 +6449,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EditApproximation.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EditApproximation.json",
    "lean_sha256": "1610096336cbaf94eebd8c6a9db75f209e42e441ca0eb14744b95b61d02aff2a",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "build": "built",
    "build_seconds": 4274,
    "closure": "ok",
@@ -6460,8 +6462,8 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "running",
-   "comparator_finished": null,
+   "comparator": "pass",
+   "comparator_finished": "2026-10-10T13:22:00Z",
    "evidence_files": [
     "EditApproximation.log",
     "EditApproximation.cmp.txt",
@@ -12488,7 +12490,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatrixFields.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatrixFields.json",
    "lean_sha256": "fe4f7ef409f69f7ef9542c6672e091c9cb6505e0d17c41cda01a2924c2729bc6",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "build": "built",
    "build_seconds": 2022,
    "closure": "ok",
@@ -12501,11 +12503,12 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "none",
-   "comparator_finished": null,
+   "comparator": "pass",
+   "comparator_finished": "2026-10-10T13:42:48Z",
    "evidence_files": [
     "MatrixFields.log",
     "MatrixFields.cmp.txt",
+    "MatrixFields.comparator.txt",
     "MatrixFields.challenge.txt",
     "MatrixFields.solution.txt"
    ],
@@ -13362,8 +13365,8 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/NuclearUltrapower.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/NuclearUltrapower.json",
    "lean_sha256": "8b9f2669322ca4de1a9977e701fc42fc0248511ad0a2998540da0c971d6d2107",
-   "machine_check": "none",
-   "build": "none",
+   "machine_check": "build-in-progress",
+   "build": "incomplete",
    "build_seconds": null,
    "closure": "none",
    "closure_constants": null,
@@ -13373,7 +13376,9 @@
    "axioms": null,
    "comparator": "none",
    "comparator_finished": null,
-   "evidence_files": [],
+   "evidence_files": [
+    "NuclearUltrapower.log"
+   ],
    "cloud_comparator": "none",
    "cloud_sandbox": null,
    "cloud_finished": null,

@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T13:17:46Z",
+  "generated": "2026-10-10T17:20:48Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -321,6 +321,7 @@
    "DoublingHilbert",
    "DuttaDomain",
    "DyadicAvoidance",
+   "EditApproximation",
    "EditDistance",
    "EgyptianFractions",
    "EilenbergGanea",
@@ -423,6 +424,7 @@
    "MatchingEntropyBounds",
    "MatchingFPRAS",
    "MatchingPSD",
+   "MatrixFields",
    "MatrixMultiplication",
    "MatrixRemoval",
    "MatroidProphet",
@@ -945,10 +947,10 @@
    "WitnessedChoice",
    "YauCounterexample"
   ],
-  "comparator_running": [
-   "EditApproximation"
+  "comparator_running": [],
+  "build_in_progress": [
+   "NuclearUltrapower"
   ],
-  "build_in_progress": [],
   "upstream_drift": {
    "new_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
    "new_commit_date": "2026-10-07T22:20:00-07:00",
@@ -3076,7 +3078,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 137267,
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "lab_scope_note": "The formalization gives a randomized $(1+\\varepsilon)$-approximation for unit-cost edit distance between explicitly stored integer strings, for every fixed rational $0<\\varepsilon<1$. Its estimate is at least the true distance and at most $(1+\\varepsilon)$ times it with probability at least $2/3$; equal strings return zero on every execution.\n\nFor total length at most $N$ and integer symbols bounded by a fixed polynomial in $N$, expected work is at most $(N+2)^{1+\\eta}$ for every fixed $\\eta>0$ and all sufficiently large $N$. Space is polynomially bounded on every execution.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/121.md",
    "overview_entry": "family 121 in overview.pdf / CONTENTS.md",
@@ -7245,7 +7247,7 @@
    ],
    "external_packages": [],
    "cone_lines_max": 18473,
-   "machine_check": "none",
+   "machine_check": "build-in-progress",
    "lab_scope_note": "Kirchberg's norm-ultrapower embedding problem asks whether separable $C^*$-algebras embed into norm ultrapowers of nuclear algebras. The formalization constructs an explicit separable unital full group $C^*$-algebra that has no unital embedding into $B^\\omega$ for any nonzero unital nuclear $C^*$-algebra $B$ and any free ultrafilter $\\omega$ on $\\mathbb N$. In particular, it does not embed unitally into an ultrapower of the Cuntz algebra $\\mathcal O_2$.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/292.md",
    "overview_entry": "family 292 in overview.pdf / CONTENTS.md",

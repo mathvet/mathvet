@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T13:17:46Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T17:20:48Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,7 +2894,7 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 365 accepted by
+    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 367 accepted by
     the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3943,8 +3943,8 @@ alignment:
     module: OAI.LinearAlgebra.MatrixFields.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/MatrixFields.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 108 — A cubic permanent--determinant lower bound: Cubic lower bounds for permanent determinantal
       complexity (the lab''s own result label); paper ''A cubic lower bound for border determinantal complexity
       of the permanent'', theorem thm:main (build/source/sections/introduction.tex:41)'
@@ -4183,8 +4183,8 @@ alignment:
     module: OAI.Combinatorics.EditApproximation.Specification.RawBandMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/EditApproximation.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 122 — Superpolynomial lower bounds and quasipolynomial reconstruction from deletion traces:
       Quantitative and superpolynomial sample lower bounds for trace reconstruction (the lab''s own result label);
       paper ''Quantitative lower bounds for trace reconstruction'', theorem thm:main (build/sections/introduction.tex:7)'
@@ -6921,7 +6921,7 @@ alignment:
     module: OAI.Analysis.NuclearUltrapower.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/NuclearUltrapower.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: local build in progress. Family verdict (pre-referee): full.'
   - source: 'family 293 — A counterexample to the hyperinvariant-subspace problem: Quasinilpotent operator with
       transitive commutant (the lab''s own result label); paper ''Backward intertwiners and a transitive commutant'',
       theorem thm:direct-model (build/sections/introduction.tex:35)'
@@ -7830,7 +7830,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-10T13:17:46Z'
+    generated: '2026-10-10T17:20:48Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -8145,6 +8145,7 @@ mathvet:
     - DoublingHilbert
     - DuttaDomain
     - DyadicAvoidance
+    - EditApproximation
     - EditDistance
     - EgyptianFractions
     - EilenbergGanea
@@ -8247,6 +8248,7 @@ mathvet:
     - MatchingEntropyBounds
     - MatchingFPRAS
     - MatchingPSD
+    - MatrixFields
     - MatrixMultiplication
     - MatrixRemoval
     - MatroidProphet
@@ -8767,9 +8769,9 @@ mathvet:
     - WeisfeilerLeman
     - WitnessedChoice
     - YauCounterexample
-    comparator_running:
-    - EditApproximation
-    build_in_progress: []
+    comparator_running: []
+    build_in_progress:
+    - NuclearUltrapower
     upstream_drift:
       new_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
       new_commit_date: '2026-10-07T22:20:00-07:00'
@@ -9916,7 +9918,7 @@ mathvet:
       on'
     external_packages: []
     cone_lines_max: 137267
-    machine_check: closure-pass
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/121.md
     audit_part: 1
   - family: '122'
@@ -12463,7 +12465,7 @@ mathvet:
       formulations, but none is a Mathlib notion, and the tensor-norm `sSup`s are real-valued.'
     external_packages: []
     cone_lines_max: 18473
-    machine_check: none
+    machine_check: build-in-progress
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/292.md
     audit_part: 2
   - family: '293'
