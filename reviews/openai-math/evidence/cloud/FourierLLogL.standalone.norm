@@ -1,0 +1,1 @@
+OAI.FourierLLogL.paperMain : ∀ (f : AddCircle (2 * Real.pi) → ℂ), AEStronglyMeasurable f AddCircle.haarAddCircle → Integrable (fun x => ‖f x‖ * Real.log (2 + ‖f x‖)) AddCircle.haarAddCircle → ∃ E, MeasurableSet E ∧ AddCircle.haarAddCircle E = 0 ∧ ∀ x ∉ E, Tendsto (fun N => ∑ k ∈ Finset.Icc (-↑N) ↑N, fourierCoeff f k * (fourier k) x) atTop (𝓝 (f x)) 

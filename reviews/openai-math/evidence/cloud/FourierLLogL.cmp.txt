@@ -1,0 +1,12 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_FourierLLogL.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.FourierLLogL.paperMain [thm] ok
+CMP OAI.FourierLLogL.circlePeriod_pos [thm] ok
+Chal.FourierLLogL.paperMain : ∀ (f : AddCircle (2 * Real.pi) → ℂ),
+  AEStronglyMeasurable f AddCircle.haarAddCircle →
+    Integrable (fun x => ‖f x‖ * Real.log (2 + ‖f x‖)) AddCircle.haarAddCircle →
+      ∃ E,
+        MeasurableSet E ∧
+          AddCircle.haarAddCircle E = 0 ∧
+            ∀ x ∉ E, Tendsto (fun N => ∑ k ∈ Finset.Icc (-↑N) ↑N, fourierCoeff f k * (fourier k) x) atTop (𝓝 (f x))
+'OAI.FourierLLogL.paperMain' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FourierLLogL comparator-style: ok=2 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
