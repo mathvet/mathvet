@@ -1,0 +1,6 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_SurfaceConeCandidateSupport.lean:8:8: warning: declaration uses `sorry`
+OAI.SmallCM.candidate_ring_properties : ∃ R x,
+  ∃ (_ : IsDomain R) (_ : IsNoetherianRing R) (_ : IsIntegrallyClosed R) (x_4 : IsLocalRing R),
+    ∃ x_5,
+      IsAdicComplete (IsLocalRing.maximalIdeal R) R ∧
+        ringKrullDim R = 3 ∧ Function.Bijective ⇑(algebraMap ℂ (IsLocalRing.ResidueField R))

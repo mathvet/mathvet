@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T22:45:46Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T23:50:43Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 375 accepted by
-    the real Comparator, of which 360 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 379 accepted by
+    the real Comparator, of which 364 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3331,7 +3331,8 @@ alignment:
     module: OAI.AlgebraicGeometry.CharacterVarieties.Seams.ProducedSolution
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CharacterVarietiesAllSeamsSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 027 — headline claim as stated in the overview: Resolves the determinant-one curve case of Litt''s
       integral-density question. For every smooth connected complex algebraic curve and every rank, integral points
       become Zariski dense in every component of its $\mathrm{SL}_r$ character variety over the full ring of integers
@@ -3504,7 +3505,8 @@ alignment:
     module: OAI.AlgebraicGeometry.CartierSections.ChartCompactness
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CartierChartCompactnessSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 066 — headline claim as stated in the overview: Proves the finite-rational-coefficient form
       of Shokurov’s bounded-klt-complement conjecture for $\epsilon$-lc complex Fano-type pairs with nef anti-log-canonical
       divisor. For $\epsilon$-lc Fano contractions over any algebraically closed characteristic-zero field, it gives
@@ -5457,7 +5459,8 @@ alignment:
     module: OAI.AlgebraicGeometry.SurfaceCones.CandidateRing
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/SurfaceConeCandidateSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 195 — headline claim as stated in the overview: Constructs a three-dimensional complete Noetherian
       normal local domain over $\mathbb C$ with no nonzero finitely generated maximal Cohen--Macaulay module. A
       three-dimensional local domain essentially of finite type over $\mathbb C$ has the same property, disproving
@@ -6171,7 +6174,8 @@ alignment:
     module: OAI.Combinatorics.HoneycombChords.BridgeMass
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/HoneycombBridgeMassSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 237 — The three-quarter diameter exponent for honeycomb walks: Existence of the honeycomb free-energy
       limit (the lab''s own result label); paper ''Polynomial vacuum representations and bridge mass for honeycomb
       walks'', theorem thm:pv:bridge (build/sections/introduction.tex:34)'
@@ -8068,7 +8072,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-10T22:45:46Z'
+    generated: '2026-10-10T23:50:43Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8332,9 +8336,11 @@ mathvet:
     - CHObstruction
     - CKSBondiPenrose
     - CannonGeometricAction
+    - CartierChartCompactnessSupport
     - Catalan
     - CayleyPercolation
     - CharacterCriterion
+    - CharacterVarietiesAllSeamsSupport
     - ChoicelessPolynomialTime
     - CirculantHadamard
     - ClassicalON
@@ -8446,6 +8452,7 @@ mathvet:
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
+    - HoneycombBridgeMassSupport
     - HoneycombFreeEnergy
     - HotSpots
     - HyperbolicCones
@@ -8613,6 +8620,7 @@ mathvet:
     - SubpolynomialLp
     - SubsphereCurrent
     - Superstring
+    - SurfaceConeCandidateSupport
     - SwitchChain
     - SymmetricDomains
     - SymmetricMahlerEquality
@@ -8706,8 +8714,10 @@ mathvet:
     - CHObstruction
     - CKSBondiPenrose
     - CannonGeometricAction
+    - CartierChartCompactnessSupport
     - CayleyPercolation
     - CharacterCriterion
+    - CharacterVarietiesAllSeamsSupport
     - ChoicelessPolynomialTime
     - CirculantHadamard
     - ClassicalON
@@ -8815,6 +8825,7 @@ mathvet:
     - HenonEmden
     - HilbertCrouzeix
     - HoneycombBridgeFiniteness
+    - HoneycombBridgeMassSupport
     - HoneycombFreeEnergy
     - HotSpots
     - HyperbolicCones
@@ -8975,6 +8986,7 @@ mathvet:
     - SubpolynomialLp
     - SubsphereCurrent
     - Superstring
+    - SurfaceConeCandidateSupport
     - SwitchChain
     - SymmetricDomains
     - SymmetricMahlerEquality
@@ -9335,7 +9347,7 @@ mathvet:
       spaces together with the identified graded quotients; strictly stronger than equality of flags'
     external_packages: []
     cone_lines_max: 27381
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/027.md
     audit_part: 4
   - family: 028
@@ -9539,7 +9551,7 @@ mathvet:
       definitions above are solver-authored rather than Mathlib-only
     external_packages: []
     cone_lines_max: 1620
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/066.md
     audit_part: 4
   - family: '071'
@@ -11472,7 +11484,7 @@ mathvet:
     - 'Algebra C R: the paper''s ''containing C'' is encoded as an algebra structure over C; standard.'
     external_packages: []
     cone_lines_max: 7844
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/195.md
     audit_part: 4
   - family: '196'
