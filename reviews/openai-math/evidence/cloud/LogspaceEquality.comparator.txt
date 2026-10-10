@@ -1,0 +1,22 @@
+== provenance: mathvet cloud run
+machine: Linux 6.18.44-fc-v114 x86_64, 4 vCPU, 15 GB RAM, Ubuntu 24.04
+kernel lsm: 
+sandbox: landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v7)
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+comparator: ca04cfc  lean4export: v4.34.0
+upstream: openai/math fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
+nanoda: b785c70b1dba6182 nanoda_lib commit 3a2407216ee84a75f9e1aead6803d0578be06ae7 
+session: https://claude.ai/code/session_01UgZ9U9Wp14TrBeMHWtFAju
+== LogspaceEquality comparator start 2026-10-10T21:57:00Z landrun=/root/.local/bin/landrun
+Building ComparatorChallenges.LogspaceEquality
+⚠ [8924/8924] Built ComparatorChallenges.LogspaceEquality (8.8s)
+warning: ComparatorChallenges/LogspaceEquality.lean:136:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.ExactDerandomization.exact_logarithmic_space_derandomization, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.ExactDerandomization.Word, OAI.ExactDerandomization.Language, OAI.ExactDerandomization.CoinTape, OAI.ExactDerandomization.Direction.move, OAI.ExactDerandomization.Direction.moveInput, OAI.ExactDerandomization.readInput, OAI.ExactDerandomization.Machine.initial, OAI.ExactDerandomization.Machine.step, OAI.ExactDerandomization.Machine.run, OAI.ExactDerandomization.Machine.spaceThrough, OAI.ExactDerandomization.Machine.LogSpace, OAI.ExactDerandomization.Machine.Deterministic, OAI.ExactDerandomization.Machine.HaltsBy, OAI.ExactDerandomization.Machine.Decides, OAI.ExactDerandomization.Machine.extendCoins, OAI.ExactDerandomization.Machine.acceptanceProbability, OAI.ExactDerandomization.polynomialClock, OAI.ExactDerandomization.L, OAI.ExactDerandomization.RL, OAI.ExactDerandomization.BPL] from ComparatorChallenges.LogspaceEquality
+Building OAI.Computability.Logspace.Equality
+Build completed successfully (8962 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.ExactDerandomization.exact_logarithmic_space_derandomization, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.ExactDerandomization.Word, OAI.ExactDerandomization.Language, OAI.ExactDerandomization.CoinTape, OAI.ExactDerandomization.Direction.move, OAI.ExactDerandomization.Direction.moveInput, OAI.ExactDerandomization.readInput, OAI.ExactDerandomization.Machine.initial, OAI.ExactDerandomization.Machine.step, OAI.ExactDerandomization.Machine.run, OAI.ExactDerandomization.Machine.spaceThrough, OAI.ExactDerandomization.Machine.LogSpace, OAI.ExactDerandomization.Machine.Deterministic, OAI.ExactDerandomization.Machine.HaltsBy, OAI.ExactDerandomization.Machine.Decides, OAI.ExactDerandomization.Machine.extendCoins, OAI.ExactDerandomization.Machine.acceptanceProbability, OAI.ExactDerandomization.polynomialClock, OAI.ExactDerandomization.L, OAI.ExactDerandomization.RL, OAI.ExactDerandomization.BPL] from OAI.Computability.Logspace.Equality
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-10T22:01:50Z
