@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T08:58:57Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, generated 2026-10-10T11:01:54Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2894,7 +2894,7 @@ status:
   scope: 'Review coverage: all 235 families of https://github.com/openai/math that have a lean/docs page and all
     405 Comparator challenges at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; 137 families have no Lean and
     are out of scope. Verdicts: full 144, partial 60, weaker-statement 19, supporting-only 12. Reviewer''s machine
-    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 364 accepted by
+    checks: 103 solutions built locally, 100 with a clean closure comparison and standard axioms, 365 accepted by
     the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3059,8 +3059,8 @@ alignment:
     module: OAI.NumberTheory.Catalan.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Catalan.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 007 — Two-point Chowla and the corrected binary Elliott conjecture: Ordinary Elliott cancellation
       under uniform nonpretentiousness (the lab''s own result label); paper ''Ordinary two-point correlations of
       multiplicative functions'', theorem thm:q-affine (build/introduction.tex:20)'
@@ -7830,7 +7830,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: adc7f1241b42e322a6451854ab7e4b4c146bf78a
-    generated: '2026-10-10T08:58:57Z'
+    generated: '2026-10-10T11:01:54Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 235
@@ -8090,6 +8090,7 @@ mathvet:
     - CHObstruction
     - CKSBondiPenrose
     - CannonGeometricAction
+    - Catalan
     - CayleyPercolation
     - CharacterCriterion
     - ChoicelessPolynomialTime
@@ -8767,7 +8768,7 @@ mathvet:
     - WitnessedChoice
     - YauCounterexample
     comparator_running:
-    - Catalan
+    - ContinuumCoulombHardness
     build_in_progress: []
     upstream_drift:
       new_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
@@ -8855,7 +8856,7 @@ mathvet:
     external_packages:
     - PrimeNumberTheoremAnd
     cone_lines_max: 574902
-    machine_check: closure-pass
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/005.md
     audit_part: 1
   - family: '007'

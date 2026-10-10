@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T08:58:57Z",
+  "generated": "2026-10-10T11:01:54Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -266,6 +266,7 @@
    "CHObstruction",
    "CKSBondiPenrose",
    "CannonGeometricAction",
+   "Catalan",
    "CayleyPercolation",
    "CharacterCriterion",
    "ChoicelessPolynomialTime",
@@ -945,7 +946,7 @@
    "YauCounterexample"
   ],
   "comparator_running": [
-   "Catalan"
+   "ContinuumCoulombHardness"
   ],
   "build_in_progress": [],
   "upstream_drift": {
@@ -1051,7 +1052,7 @@
     "PrimeNumberTheoremAnd"
    ],
    "cone_lines_max": 574902,
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "lab_scope_note": "The formalization proves that Catalan's constant $G=\\sum_{j=0}^{\\infty}(-1)^j/(2j+1)^2$ is irrational. This is the mathematical assertion in the paper's title.",
    "lab_docs_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/docs/005.md",
    "overview_entry": "family 005 in overview.pdf / CONTENTS.md",

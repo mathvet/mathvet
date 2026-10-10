@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T08:58:57Z",
+  "generated": "2026-10-10T11:01:54Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -266,6 +266,7 @@
    "CHObstruction",
    "CKSBondiPenrose",
    "CannonGeometricAction",
+   "Catalan",
    "CayleyPercolation",
    "CharacterCriterion",
    "ChoicelessPolynomialTime",
@@ -945,7 +946,7 @@
    "YauCounterexample"
   ],
   "comparator_running": [
-   "Catalan"
+   "ContinuumCoulombHardness"
   ],
   "build_in_progress": [],
   "upstream_drift": {
@@ -3250,7 +3251,7 @@
    "lean_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Catalan.lean",
    "config_url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/lean/ComparatorChallenges/Catalan.json",
    "lean_sha256": "9bf391e5c1a95dd82d78e53774b9f2223d8c0fae0396fc3ad59332f895de8561",
-   "machine_check": "closure-pass",
+   "machine_check": "comparator-pass",
    "build": "built",
    "build_seconds": 4648,
    "closure": "ok",
@@ -3263,8 +3264,8 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "running",
-   "comparator_finished": null,
+   "comparator": "pass",
+   "comparator_finished": "2026-10-10T09:15:36Z",
    "evidence_files": [
     "Catalan.log",
     "Catalan.cmp.txt",
@@ -4248,11 +4249,12 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "none",
+   "comparator": "running",
    "comparator_finished": null,
    "evidence_files": [
     "ContinuumCoulombHardness.log",
     "ContinuumCoulombHardness.cmp.txt",
+    "ContinuumCoulombHardness.comparator.txt",
     "ContinuumCoulombHardness.challenge.txt",
     "ContinuumCoulombHardness.solution.txt"
    ],
