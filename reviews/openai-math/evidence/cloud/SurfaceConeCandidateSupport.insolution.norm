@@ -1,0 +1,1 @@
+OAI.SmallCM.candidate_ring_properties : ∃ R x, ∃ (_ : IsDomain R) (_ : IsNoetherianRing R) (_ : IsIntegrallyClosed R) (x_4 : IsLocalRing R), ∃ x_5, IsAdicComplete (IsLocalRing.maximalIdeal R) R ∧ ringKrullDim R = 3 ∧ Function.Bijective ⇑(algebraMap ℂ (IsLocalRing.ResidueField R)) 
