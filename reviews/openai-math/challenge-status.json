@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
-  "generated": "2026-10-10T11:30:05Z",
+  "generated": "2026-10-10T13:17:46Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 372,
   "families_with_lean": 235,
@@ -946,7 +946,7 @@
    "YauCounterexample"
   ],
   "comparator_running": [
-   "ContinuumCoulombHardness"
+   "EditApproximation"
   ],
   "build_in_progress": [],
   "upstream_drift": {
@@ -4249,8 +4249,8 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "running",
-   "comparator_finished": null,
+   "comparator": "timeout",
+   "comparator_finished": "2026-10-10T13:17:46Z",
    "evidence_files": [
     "ContinuumCoulombHardness.log",
     "ContinuumCoulombHardness.cmp.txt",
@@ -6460,11 +6460,12 @@
     "Quot.sound",
     "propext"
    ],
-   "comparator": "none",
+   "comparator": "running",
    "comparator_finished": null,
    "evidence_files": [
     "EditApproximation.log",
     "EditApproximation.cmp.txt",
+    "EditApproximation.comparator.txt",
     "EditApproximation.challenge.txt",
     "EditApproximation.solution.txt"
    ],

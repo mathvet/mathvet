@@ -85,7 +85,7 @@ def scan_checks(name):
         t = log.read_text(errors='replace')
         m = re.search(r'^== build rc=(\d+) seconds=(\d+)', t, re.M)
         if m:
-            d['build'] = 'built' if m.group(1) == '0' else 'failed'
+            d['build'] = 'built' if m.group(1) == '0' else ('timeout' if 'killed:' in t else 'failed')
             d['build_seconds'] = int(m.group(2))
         elif 'Build completed successfully' in t or re.search(r'^AXIOMS:', t, re.M):
             d['build'] = 'built'
@@ -114,6 +114,8 @@ def scan_checks(name):
         t = comp.read_text(errors='replace')
         if 'Your solution is okay!' in t:
             d['comparator'] = 'pass'
+        elif 'killed:' in t:
+            d['comparator'] = 'timeout'   # stopped by the chain's time cap on the reviewer's machine (see the log's last line)
         elif re.search(r'== comparator exit=\d+', t) or 'exited with code' in t:
             d['comparator'] = 'fail'
         else:
@@ -162,7 +164,7 @@ def machine_level(ch):
         return 'built'
     if ch['build'] in ('incomplete',):
         return 'build-in-progress'
-    if ch['build'] == 'failed':
+    if ch['build'] in ('failed', 'timeout'):
         return 'build-failed'
     return 'none'
 
