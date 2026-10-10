@@ -1,0 +1,31 @@
+== HoneycombBridgeMassSupport  module=OAI.Combinatorics.HoneycombChords.BridgeMass  start=2026-10-10T22:42:07Z
+warning: belyi: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/home/user/mathvet/upstream/openai-math/lean/.lake/packages/iut' has local changes
+✔ [9008/9021] Built OAI.Combinatorics.HoneycombChords.YangBaxterPolynomialsPositive (168s)
+✔ [9009/9021] Built OAI.Combinatorics.HoneycombChords.YangBaxterPositive (376s)
+✔ [9010/9021] Built OAI.Combinatorics.HoneycombChords.YangBaxterNegative (380s)
+✔ [9011/9021] Built OAI.Combinatorics.HoneycombChords.YangBaxterZero (403s)
+✔ [9012/9021] Built OAI.Combinatorics.HoneycombChords.YangBaxter (3.8s)
+✔ [9013/9021] Built OAI.Combinatorics.HoneycombChords.SpectralCommutation (44s)
+✔ [9014/9021] Built OAI.Combinatorics.HoneycombChords.StripProjection (42s)
+✔ [9015/9021] Built OAI.Combinatorics.HoneycombChords.ClosedFusion (71s)
+✔ [9016/9021] Built OAI.Combinatorics.HoneycombChords.CommonEigenline (27s)
+✔ [9017/9021] Built OAI.Combinatorics.HoneycombChords.LaurentTransfer (37s)
+✔ [9018/9021] Built OAI.Combinatorics.HoneycombChords.ConfluentInterpolation (16s)
+✔ [9019/9021] Built OAI.Combinatorics.HoneycombChords.PhysicalFunctional (8.3s)
+✔ [9020/9021] Built OAI.Combinatorics.HoneycombChords.PhysicalMass (10s)
+✔ [9021/9021] Built OAI.Combinatorics.HoneycombChords.BridgeMass (8.4s)
+Build completed successfully (9021 jobs).
+== build rc=0 seconds=856
+{"theorems": ["OAI.CriticalHoneycomb.finiteBridgeMassEstimate"], "defs": ["OAI.CriticalHoneycomb.Center", "OAI.CriticalHoneycomb.up", "OAI.CriticalHoneycomb.down", "OAI.CriticalHoneycomb.Adj", "OAI.CriticalHoneycomb.rowSpacing", "OAI.CriticalHoneycomb.centerPosition", "OAI.CriticalHoneycomb.Port", "OAI.CriticalHoneycomb.Port.position", "OAI.CriticalHoneycomb.IsTrace", "OAI.CriticalHoneycomb.kappa", "OAI.CriticalHoneycomb.weight", "OAI.CriticalHoneycomb.strip", "OAI.CriticalHoneycomb.StrictBridge", "OAI.CriticalHoneycomb.bridgeMass", "OAI.CriticalHoneycomb.FiniteBridgeMassEstimate"], "json_theorems": ["OAI.CriticalHoneycomb.finiteBridgeMassEstimate"], "missing_from_parse": []}
+AXIOMS: 'OAI.CriticalHoneycomb.finiteBridgeMassEstimate' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-10-10T22:56:49Z

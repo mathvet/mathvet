@@ -1,0 +1,74 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_HoneycombBridgeMassSupport.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CriticalHoneycomb.finiteBridgeMassEstimate [thm] ok
+CMP OAI.CriticalHoneycomb.FiniteBridgeMassEstimate [def] ok
+CMP OAI.CriticalHoneycomb.bridgeMass [def] ok
+CMP OAI.CriticalHoneycomb.down [def] ok
+CMP OAI.CriticalHoneycomb.Center [def] ok
+CMP OAI.CriticalHoneycomb.up [def] ok
+CMP OAI.CriticalHoneycomb.strip [def] ok
+CMP OAI.CriticalHoneycomb.IsTrace [def] ok
+CMP OAI.CriticalHoneycomb.Adj [def] ok
+CMP OAI.CriticalHoneycomb.weight [def] ok
+CMP OAI.CriticalHoneycomb.kappa [def] ok
+CMP OAI.CriticalHoneycomb.rowSpacing._proof_2 [thm] ok
+CMP OAI.CriticalHoneycomb.StrictBridge [def] ok
+CMP OAI.CriticalHoneycomb.FiniteBridgeMassEstimate._proof_1 [thm] ok
+Chal.CriticalHoneycomb.finiteBridgeMassEstimate : Chal.CriticalHoneycomb.FiniteBridgeMassEstimate
+@[reducible] def Chal.CriticalHoneycomb.Center : Type :=
+ℤ × ℤ × Bool
+def Chal.CriticalHoneycomb.up : ℤ → ℤ → Chal.CriticalHoneycomb.Center :=
+fun i j => (i, j, true)
+def Chal.CriticalHoneycomb.down : ℤ → ℤ → Chal.CriticalHoneycomb.Center :=
+fun i j => (i, j, false)
+def Chal.CriticalHoneycomb.Adj : Chal.CriticalHoneycomb.Center → Chal.CriticalHoneycomb.Center → Prop :=
+fun v w =>
+  if v.2.2 = true then
+    w.2.2 = false ∧ (w.1 = v.1 ∧ w.2.1 = v.2.1 ∨ w.1 = v.1 ∧ w.2.1 = v.2.1 - 1 ∨ w.1 = v.1 - 1 ∧ w.2.1 = v.2.1)
+  else w.2.2 = true ∧ (w.1 = v.1 ∧ w.2.1 = v.2.1 ∨ w.1 = v.1 ∧ w.2.1 = v.2.1 + 1 ∨ w.1 = v.1 + 1 ∧ w.2.1 = v.2.1)
+def Chal.CriticalHoneycomb.rowSpacing : ℝ :=
+√3 / 2
+def Chal.CriticalHoneycomb.centerPosition : Chal.CriticalHoneycomb.Center → ℝ × ℝ :=
+fun v =>
+  if v.2.2 = true then (↑v.1 + ↑v.2.1 / 2 + 1 / 2, Chal.CriticalHoneycomb.rowSpacing * (↑v.2.1 + 1 / 3))
+  else (↑v.1 + ↑v.2.1 / 2 + 1, Chal.CriticalHoneycomb.rowSpacing * (↑v.2.1 + 2 / 3))
+structure Chal.CriticalHoneycomb.Port (D : Set Chal.CriticalHoneycomb.Center) : Type
+number of parameters: 1
+fields:
+  Chal.CriticalHoneycomb.Port.inside : Chal.CriticalHoneycomb.Center
+  Chal.CriticalHoneycomb.Port.outside : Chal.CriticalHoneycomb.Center
+  Chal.CriticalHoneycomb.Port.adjacent : Chal.CriticalHoneycomb.Adj self.inside self.outside
+  Chal.CriticalHoneycomb.Port.inside_mem : self.inside ∈ D
+  Chal.CriticalHoneycomb.Port.outside_not_mem : self.outside ∉ D
+constructor:
+  Chal.CriticalHoneycomb.Port.mk {D : Set Chal.CriticalHoneycomb.Center}
+    (inside outside : Chal.CriticalHoneycomb.Center) (adjacent : Chal.CriticalHoneycomb.Adj inside outside)
+    (inside_mem : inside ∈ D) (outside_not_mem : outside ∉ D) : Chal.CriticalHoneycomb.Port D
+def Chal.CriticalHoneycomb.Port.position : {D : Set Chal.CriticalHoneycomb.Center} →
+  Chal.CriticalHoneycomb.Port D → ℝ × ℝ :=
+fun {D} p =>
+  ((Chal.CriticalHoneycomb.centerPosition p.inside).1 / 2 + (Chal.CriticalHoneycomb.centerPosition p.outside).1 / 2,
+    (Chal.CriticalHoneycomb.centerPosition p.inside).2 / 2 + (Chal.CriticalHoneycomb.centerPosition p.outside).2 / 2)
+def Chal.CriticalHoneycomb.IsTrace : Set Chal.CriticalHoneycomb.Center → List Chal.CriticalHoneycomb.Center → Prop :=
+fun D p => p.Nodup ∧ List.IsChain Chal.CriticalHoneycomb.Adj p ∧ ∀ v ∈ p, v ∈ D
+def Chal.CriticalHoneycomb.kappa : ℝ :=
+(2 + √2) ^ (-1 / 2)
+def Chal.CriticalHoneycomb.weight : List Chal.CriticalHoneycomb.Center → ENNReal :=
+fun p => ENNReal.ofReal (Chal.CriticalHoneycomb.kappa ^ p.length)
+def Chal.CriticalHoneycomb.strip : ℕ → Set Chal.CriticalHoneycomb.Center :=
+fun h => {v | 0 ≤ v.2.1 ∧ v.2.1 < ↑h}
+def Chal.CriticalHoneycomb.StrictBridge : ℕ → Type :=
+fun h =>
+  { p //
+    Chal.CriticalHoneycomb.IsTrace (Chal.CriticalHoneycomb.strip h) p ∧
+      p.head? = some (Chal.CriticalHoneycomb.up 0 0) ∧ ∃ i, p.getLast? = some (Chal.CriticalHoneycomb.down i (↑h - 1)) }
+def Chal.CriticalHoneycomb.bridgeMass : ℕ → ENNReal :=
+fun h => if h = 0 then 1 else ∑' (p : Chal.CriticalHoneycomb.StrictBridge h), Chal.CriticalHoneycomb.weight ↑p
+def Chal.CriticalHoneycomb.FiniteBridgeMassEstimate : Prop :=
+∃ c C,
+  0 < c ∧
+    0 < C ∧
+      ∀ (h : ℕ),
+        ENNReal.ofReal (c * (1 + ↑h) ^ (-1 / 4)) ≤ Chal.CriticalHoneycomb.bridgeMass h ∧
+          Chal.CriticalHoneycomb.bridgeMass h ≤ ENNReal.ofReal (C * (1 + ↑h) ^ (-1 / 4))
+'OAI.CriticalHoneycomb.finiteBridgeMassEstimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HoneycombBridgeMassSupport comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
