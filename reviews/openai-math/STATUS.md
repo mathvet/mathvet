@@ -1,6 +1,6 @@
 # Status — review of openai/math @ `adc7f124`
 
-Generated 2026-10-10T11:01:54Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
+Generated 2026-10-10T11:30:05Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
 
 | | families |
 |---|---|
