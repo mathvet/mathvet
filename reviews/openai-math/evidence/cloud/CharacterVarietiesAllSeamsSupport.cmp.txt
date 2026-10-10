@@ -1,0 +1,15 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CharacterVarietiesAllSeamsSupport.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CharacterVarietiesAllSeamsSupport.lean:120:5: error: unknown namespace `OccurrenceIncidence`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CharacterVarietiesAllSeamsSupport.lean:122:9: error: Function expected at
+  Diagram
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  F
+CMP OAI.IntegralCharacterVarieties.SurfacePresentation.Diagram.producedMarkedValues_allSeams [thm] TYPE_MISMATCH (types NOT definitionally equal)
+Chal.IntegralCharacterVarieties.SurfacePresentation.Diagram.producedMarkedValues_allSeams : sorry
+'OAI.IntegralCharacterVarieties.SurfacePresentation.Diagram.producedMarkedValues_allSeams' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== CharacterVarietiesAllSeamsSupport comparator-style: ok=0 problems=1 errors=2 | SHADOW-DIFF(see CharacterVarietiesAllSeamsSupport.standalone.norm vs CharacterVarietiesAllSeamsSupport.insolution.norm) | [propext,  | defeq_only=0 aux_only=0
