@@ -1,0 +1,10 @@
+OAI.FourierLLogL.paperMain : ∀ (f : AddCircle (2 * Real.pi) → ℂ),
+  MeasureTheory.AEStronglyMeasurable f AddCircle.haarAddCircle →
+    MeasureTheory.Integrable (fun x => ‖f x‖ * Real.log (2 + ‖f x‖)) AddCircle.haarAddCircle →
+      ∃ E,
+        MeasurableSet E ∧
+          AddCircle.haarAddCircle E = 0 ∧
+            ∀ x ∉ E,
+              Filter.Tendsto (fun N => ∑ k ∈ Finset.Icc (-↑N) ↑N, fourierCoeff f k * (fourier k) x) Filter.atTop
+                (nhds (f x))
+'OAI.FourierLLogL.paperMain' depends on axioms: [propext, Classical.choice, Quot.sound]

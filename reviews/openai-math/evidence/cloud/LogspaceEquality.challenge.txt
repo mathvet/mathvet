@@ -1,0 +1,157 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Challenge_LogspaceEquality.lean:136:8: warning: declaration uses `sorry`
+OAI.ExactDerandomization.exact_logarithmic_space_derandomization : OAI.ExactDerandomization.L =
+    OAI.ExactDerandomization.RL ∧
+  OAI.ExactDerandomization.RL = OAI.ExactDerandomization.BPL
+@[reducible] def OAI.ExactDerandomization.Word : Type :=
+List Bool
+@[reducible] def OAI.ExactDerandomization.Language : Type :=
+Set OAI.ExactDerandomization.Word
+@[reducible] def OAI.ExactDerandomization.CoinTape : Type :=
+ℕ → Bool
+inductive OAI.ExactDerandomization.Direction : Type
+number of parameters: 0
+constructors:
+OAI.ExactDerandomization.Direction.left : OAI.ExactDerandomization.Direction
+OAI.ExactDerandomization.Direction.stay : OAI.ExactDerandomization.Direction
+OAI.ExactDerandomization.Direction.right : OAI.ExactDerandomization.Direction
+inductive OAI.ExactDerandomization.InputSymbol : Type
+number of parameters: 0
+constructors:
+OAI.ExactDerandomization.InputSymbol.leftMarker : OAI.ExactDerandomization.InputSymbol
+OAI.ExactDerandomization.InputSymbol.bit : Bool → OAI.ExactDerandomization.InputSymbol
+OAI.ExactDerandomization.InputSymbol.rightMarker : OAI.ExactDerandomization.InputSymbol
+def OAI.ExactDerandomization.Direction.move : OAI.ExactDerandomization.Direction → ℤ → ℤ :=
+fun d z =>
+  match d with
+  | OAI.ExactDerandomization.Direction.left => z - 1
+  | OAI.ExactDerandomization.Direction.stay => z
+  | OAI.ExactDerandomization.Direction.right => z + 1
+def OAI.ExactDerandomization.Direction.moveInput : OAI.ExactDerandomization.Direction →
+  {n : ℕ} → Fin (n + 2) → Fin (n + 2) :=
+fun d {n} i =>
+  match d with
+  | OAI.ExactDerandomization.Direction.left => ⟨↑i - 1, ⋯⟩
+  | OAI.ExactDerandomization.Direction.stay => i
+  | OAI.ExactDerandomization.Direction.right => ⟨min (↑i + 1) (n + 1), ⋯⟩
+def OAI.ExactDerandomization.readInput : (x : OAI.ExactDerandomization.Word) →
+  Fin (List.length x + 2) → OAI.ExactDerandomization.InputSymbol :=
+fun x i =>
+  if ↑i = 0 then OAI.ExactDerandomization.InputSymbol.leftMarker
+  else
+    match x[↑i - 1]? with
+    | some b => OAI.ExactDerandomization.InputSymbol.bit b
+    | none => OAI.ExactDerandomization.InputSymbol.rightMarker
+structure OAI.ExactDerandomization.Action (q w h : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.ExactDerandomization.Action.nextState : Fin (q + 1)
+  OAI.ExactDerandomization.Action.write : Fin w → Bool
+  OAI.ExactDerandomization.Action.workMove : Fin w → OAI.ExactDerandomization.Direction
+  OAI.ExactDerandomization.Action.inputMove : Fin h → OAI.ExactDerandomization.Direction
+constructor:
+  OAI.ExactDerandomization.Action.mk {q w h : ℕ} (nextState : Fin (q + 1)) (write : Fin w → Bool)
+    (workMove : Fin w → OAI.ExactDerandomization.Direction) (inputMove : Fin h → OAI.ExactDerandomization.Direction) :
+    OAI.ExactDerandomization.Action q w h
+structure OAI.ExactDerandomization.Machine (q w h : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.ExactDerandomization.Machine.initialState : Fin (q + 1)
+  OAI.ExactDerandomization.Machine.output : Fin (q + 1) → Option Bool
+  OAI.ExactDerandomization.Machine.transition : Fin (q + 1) →
+      (Fin h → OAI.ExactDerandomization.InputSymbol) → (Fin w → Bool) → Bool → OAI.ExactDerandomization.Action q w h
+constructor:
+  OAI.ExactDerandomization.Machine.mk {q w h : ℕ} (initialState : Fin (q + 1)) (output : Fin (q + 1) → Option Bool)
+    (transition :
+      Fin (q + 1) →
+        (Fin h → OAI.ExactDerandomization.InputSymbol) →
+          (Fin w → Bool) → Bool → OAI.ExactDerandomization.Action q w h) :
+    OAI.ExactDerandomization.Machine q w h
+structure OAI.ExactDerandomization.Configuration (q w h n : ℕ) : Type
+number of parameters: 4
+fields:
+  OAI.ExactDerandomization.Configuration.state : Fin (q + 1)
+  OAI.ExactDerandomization.Configuration.inputPos : Fin h → Fin (n + 2)
+  OAI.ExactDerandomization.Configuration.workPos : Fin w → ℤ
+  OAI.ExactDerandomization.Configuration.work : Fin w → ℤ → Bool
+constructor:
+  OAI.ExactDerandomization.Configuration.mk {q w h n : ℕ} (state : Fin (q + 1)) (inputPos : Fin h → Fin (n + 2))
+    (workPos : Fin w → ℤ) (work : Fin w → ℤ → Bool) : OAI.ExactDerandomization.Configuration q w h n
+def OAI.ExactDerandomization.Machine.initial : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h → (n : ℕ) → OAI.ExactDerandomization.Configuration q w h n :=
+fun {q w h} M n =>
+  { state := M.initialState, inputPos := fun x => ⟨0, ⋯⟩, workPos := fun x => 0, work := fun x x_1 => false }
+def OAI.ExactDerandomization.Machine.step : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h →
+    (x : OAI.ExactDerandomization.Word) →
+      Bool →
+        OAI.ExactDerandomization.Configuration q w h (List.length x) →
+          OAI.ExactDerandomization.Configuration q w h (List.length x) :=
+fun {q w h} M x b c =>
+  match M.output c.state with
+  | some val => c
+  | none =>
+    have a :=
+      M.transition c.state (fun j => OAI.ExactDerandomization.readInput x (c.inputPos j))
+        (fun k => c.work k (c.workPos k)) b;
+    { state := a.nextState, inputPos := fun j => (a.inputMove j).moveInput (c.inputPos j),
+      workPos := fun k => (a.workMove k).move (c.workPos k),
+      work := fun k => Function.update (c.work k) (c.workPos k) (a.write k) }
+def OAI.ExactDerandomization.Machine.run : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h →
+    (x : OAI.ExactDerandomization.Word) →
+      OAI.ExactDerandomization.CoinTape → ℕ → OAI.ExactDerandomization.Configuration q w h (List.length x) :=
+fun {q w h} M x coins x_1 => Nat.brecOn x_1 (OAI.ExactDerandomization.Machine.run._f M x coins)
+def OAI.ExactDerandomization.Machine.spaceThrough : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h → OAI.ExactDerandomization.Word → OAI.ExactDerandomization.CoinTape → ℕ → ℕ :=
+fun {q w h} M x coins t => ∑ k, (Finset.image (fun s => (M.run x coins s).workPos k) (Finset.range (t + 1))).card
+def OAI.ExactDerandomization.Machine.LogSpace : {q w h : ℕ} → OAI.ExactDerandomization.Machine q w h → Prop :=
+fun {q w h} M =>
+  ∃ c,
+    0 < c ∧
+      ∀ (x : OAI.ExactDerandomization.Word) (coins : OAI.ExactDerandomization.CoinTape) (t : ℕ),
+        M.spaceThrough x coins t ≤ c * Nat.clog 2 (List.length x + 2)
+def OAI.ExactDerandomization.Machine.Deterministic : {q w h : ℕ} → OAI.ExactDerandomization.Machine q w h → Prop :=
+fun {q w h} M =>
+  ∀ (s : Fin (q + 1)) (i : Fin h → OAI.ExactDerandomization.InputSymbol) (v : Fin w → Bool),
+    M.transition s i v false = M.transition s i v true
+def OAI.ExactDerandomization.Machine.HaltsBy : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h → OAI.ExactDerandomization.Word → ℕ → Prop :=
+fun {q w h} M x t => ∀ (coins : OAI.ExactDerandomization.CoinTape), ∃ b, M.output (M.run x coins t).state = some b
+def OAI.ExactDerandomization.Machine.Decides : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h → OAI.ExactDerandomization.Language → Prop :=
+fun {q w h} M A =>
+  ∀ (x : OAI.ExactDerandomization.Word),
+    ∃ t b, (b = true ↔ x ∈ A) ∧ ∀ (coins : OAI.ExactDerandomization.CoinTape), M.output (M.run x coins t).state = some b
+def OAI.ExactDerandomization.Machine.extendCoins : {t : ℕ} → (Fin t → Bool) → OAI.ExactDerandomization.CoinTape :=
+fun {t} bits s => if hs : s < t then bits ⟨s, hs⟩ else false
+def OAI.ExactDerandomization.Machine.acceptanceProbability : {q w h : ℕ} →
+  OAI.ExactDerandomization.Machine q w h → OAI.ExactDerandomization.Word → ℕ → ℚ :=
+fun {q w h} M x t =>
+  ↑{bits | M.output (M.run x (OAI.ExactDerandomization.Machine.extendCoins bits) t).state = some true}.card / 2 ^ t
+def OAI.ExactDerandomization.polynomialClock : ℕ → ℕ → ℕ → ℕ :=
+fun c k n => c * (n + 2) ^ k
+def OAI.ExactDerandomization.L : Set OAI.ExactDerandomization.Language :=
+{A | ∃ q w h M, M.Deterministic ∧ M.LogSpace ∧ M.Decides A}
+def OAI.ExactDerandomization.RL : Set OAI.ExactDerandomization.Language :=
+{A |
+  ∃ q w h M,
+    M.LogSpace ∧
+      ∃ c k,
+        0 < c ∧
+          ∀ (x : OAI.ExactDerandomization.Word),
+            M.HaltsBy x (OAI.ExactDerandomization.polynomialClock c k (List.length x)) ∧
+              (x ∈ A →
+                  1 / 2 ≤ M.acceptanceProbability x (OAI.ExactDerandomization.polynomialClock c k (List.length x))) ∧
+                (x ∉ A → M.acceptanceProbability x (OAI.ExactDerandomization.polynomialClock c k (List.length x)) = 0)}
+def OAI.ExactDerandomization.BPL : Set OAI.ExactDerandomization.Language :=
+{A |
+  ∃ q w h M,
+    M.LogSpace ∧
+      ∃ c k,
+        0 < c ∧
+          ∀ (x : OAI.ExactDerandomization.Word),
+            M.HaltsBy x (OAI.ExactDerandomization.polynomialClock c k (List.length x)) ∧
+              (x ∈ A →
+                  2 / 3 ≤ M.acceptanceProbability x (OAI.ExactDerandomization.polynomialClock c k (List.length x))) ∧
+                (x ∉ A →
+                  M.acceptanceProbability x (OAI.ExactDerandomization.polynomialClock c k (List.length x)) ≤ 1 / 3)}

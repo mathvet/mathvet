@@ -1,0 +1,276 @@
+@OAI.Fifths.Single.capped : ∀ {X : Type} (M : OAI.Fifths.Single X) [Fintype X] (A : M.Sym) (p q : ℝ),
+  1 ≤ p →
+    1 ≤ q →
+      ∃ N e c,
+        0 < c ∧
+          ∀ (x : List X) (T : ℕ),
+            2 ≤ T →
+              M.Access A p q x T →
+                ∃ b,
+                  N.Within (OAI.Fifths.binaryIn x fun x => T) (M.outcome x T) b ∧
+                    ↑b ≤ c * ↑T ^ OAI.Fifths.Cost.exponent * OAI.Fifths.Cost.Log T ^ e
+'OAI.Fifths.Single.capped' depends on axioms: [propext, Classical.choice, Quot.sound]
+@OAI.Fifths.Single.unknown : ∀ {X : Type} (M : OAI.Fifths.Single X) [Fintype X] (A : M.Sym) (p q : ℝ),
+  1 ≤ p →
+    1 ≤ q →
+      ∃ N e c,
+        0 < c ∧
+          ∀ (x : List X),
+            (∀ (T : ℕ), 2 ≤ T → M.Access A p q x T) →
+              ∀ (t : ℕ),
+                (M.outcome x t).2 = true →
+                  ∃ b,
+                    N.Within (OAI.Fifths.files x) (M.outcome x t) b ∧
+                      ↑b ≤ c * (↑t + 2) ^ OAI.Fifths.Cost.exponent * OAI.Fifths.Cost.Log t ^ e
+'OAI.Fifths.Single.unknown' depends on axioms: [propext, Classical.choice, Quot.sound]
+inductive OAI.Fifths.Dir : Type
+number of parameters: 0
+constructors:
+OAI.Fifths.Dir.L : OAI.Fifths.Dir
+OAI.Fifths.Dir.N : OAI.Fifths.Dir
+OAI.Fifths.Dir.R : OAI.Fifths.Dir
+def OAI.Fifths.Dir.delta : OAI.Fifths.Dir → ℤ :=
+fun x =>
+  match x with
+  | OAI.Fifths.Dir.L => -1
+  | OAI.Fifths.Dir.N => 0
+  | OAI.Fifths.Dir.R => 1
+inductive OAI.Fifths.Mark : Type → Type
+number of parameters: 1
+constructors:
+OAI.Fifths.Mark.left : {A : Type} → OAI.Fifths.Mark A
+OAI.Fifths.Mark.sym : {A : Type} → A → OAI.Fifths.Mark A
+OAI.Fifths.Mark.right : {A : Type} → OAI.Fifths.Mark A
+def OAI.Fifths.Mark.see : {A : Type} → List A → ℕ → OAI.Fifths.Mark A :=
+fun {A} w x =>
+  match x with
+  | 0 => OAI.Fifths.Mark.left
+  | p.succ =>
+    match w[p]? with
+    | some a => OAI.Fifths.Mark.sym a
+    | none => OAI.Fifths.Mark.right
+def OAI.Fifths.Mark.walk : {A : Type} → List A → ℕ → OAI.Fifths.Dir → ℕ :=
+fun {A} w p x =>
+  match x with
+  | OAI.Fifths.Dir.N => p
+  | OAI.Fifths.Dir.L => p - 1
+  | OAI.Fifths.Dir.R => if w.length < p then p else p + 1
+inductive OAI.Fifths.Runs : {σ Y : Type} → (σ → Y ⊕ σ) → (σ → Prop) → σ → σ → Y → Prop
+number of parameters: 4
+constructors:
+OAI.Fifths.Runs.stop : ∀ {σ Y : Type} {f : σ → Y ⊕ σ} {P : σ → Prop} {s : σ} {y : Y},
+  P s → f s = Sum.inl y → OAI.Fifths.Runs f P s s y
+OAI.Fifths.Runs.step : ∀ {σ Y : Type} {f : σ → Y ⊕ σ} {P : σ → Prop} {s s' t : σ} {y : Y},
+  P s → f s = Sum.inr s' → OAI.Fifths.Runs f P s' t y → OAI.Fifths.Runs f P s t y
+structure OAI.Fifths.Inputs (X J : Type) : Type
+number of parameters: 2
+fields:
+  OAI.Fifths.Inputs.publicWord : List X
+  OAI.Fifths.Inputs.arg : J → List Bool
+constructor:
+  OAI.Fifths.Inputs.mk {X J : Type} (publicWord : List X) (arg : J → List Bool) : OAI.Fifths.Inputs X J
+structure OAI.Fifths.Readers (J : Type) : Type
+number of parameters: 1
+fields:
+  OAI.Fifths.Readers.px : ℕ :=
+    0
+  OAI.Fifths.Readers.parg : J → ℕ :=
+    fun x => 0
+constructor:
+  OAI.Fifths.Readers.mk {J : Type} (px : ℕ) (parg : J → ℕ) : OAI.Fifths.Readers J
+structure OAI.Fifths.Reads (X J : Type) : Type
+number of parameters: 2
+fields:
+  OAI.Fifths.Reads.sx : OAI.Fifths.Mark X
+  OAI.Fifths.Reads.sarg : J → OAI.Fifths.Mark Bool
+constructor:
+  OAI.Fifths.Reads.mk {X J : Type} (sx : OAI.Fifths.Mark X) (sarg : J → OAI.Fifths.Mark Bool) : OAI.Fifths.Reads X J
+structure OAI.Fifths.Advances (J : Type) : Type
+number of parameters: 1
+fields:
+  OAI.Fifths.Advances.dx : OAI.Fifths.Dir :=
+    OAI.Fifths.Dir.N
+  OAI.Fifths.Advances.darg : J → OAI.Fifths.Dir :=
+    fun x => OAI.Fifths.Dir.N
+constructor:
+  OAI.Fifths.Advances.mk {J : Type} (dx : OAI.Fifths.Dir) (darg : J → OAI.Fifths.Dir) : OAI.Fifths.Advances J
+def OAI.Fifths.Readers.home : {J : Type} → OAI.Fifths.Readers J :=
+fun {J} => { }
+def OAI.Fifths.Readers.see : {X J : Type} → OAI.Fifths.Readers J → OAI.Fifths.Inputs X J → OAI.Fifths.Reads X J :=
+fun {X J} r i =>
+  { sx := OAI.Fifths.Mark.see i.publicWord r.px, sarg := fun j => OAI.Fifths.Mark.see (i.arg j) (r.parg j) }
+def OAI.Fifths.Readers.walk : {X J : Type} →
+  OAI.Fifths.Readers J → OAI.Fifths.Inputs X J → OAI.Fifths.Advances J → OAI.Fifths.Readers J :=
+fun {X J} r i a =>
+  { px := OAI.Fifths.Mark.walk i.publicWord r.px a.dx,
+    parg := fun j => OAI.Fifths.Mark.walk (i.arg j) (r.parg j) (a.darg j) }
+structure OAI.Fifths.Tape (A : Type) : Type
+number of parameters: 1
+fields:
+  OAI.Fifths.Tape.pos : ℤ
+  OAI.Fifths.Tape.sym : ℤ → A
+constructor:
+  OAI.Fifths.Tape.mk {A : Type} (pos : ℤ) (sym : ℤ → A) : OAI.Fifths.Tape A
+structure OAI.Fifths.WriteMove (A : Type) : Type
+number of parameters: 1
+fields:
+  OAI.Fifths.WriteMove.sym : A
+  OAI.Fifths.WriteMove.dir : OAI.Fifths.Dir
+constructor:
+  OAI.Fifths.WriteMove.mk {A : Type} (sym : A) (dir : OAI.Fifths.Dir) : OAI.Fifths.WriteMove A
+def OAI.Fifths.Tape.init : {A : Type} → A → OAI.Fifths.Tape A :=
+fun {A} a => { pos := 0, sym := fun x => a }
+def OAI.Fifths.Tape.see : {A : Type} → OAI.Fifths.Tape A → A :=
+fun {A} w => w.sym w.pos
+def OAI.Fifths.Tape.perform : {A : Type} → OAI.Fifths.Tape A → OAI.Fifths.WriteMove A → OAI.Fifths.Tape A :=
+fun {A} w m => { pos := w.pos + m.dir.delta, sym := Function.update w.sym w.pos m.sym }
+structure OAI.Fifths.TAction (Q J K : Type) (W : K → Type) : Type
+number of parameters: 4
+fields:
+  OAI.Fifths.TAction.next : Q
+  OAI.Fifths.TAction.advance : OAI.Fifths.Advances J
+  OAI.Fifths.TAction.moves : (k : K) → OAI.Fifths.WriteMove (W k)
+constructor:
+  OAI.Fifths.TAction.mk {Q J K : Type} {W : K → Type} (next : Q) (advance : OAI.Fifths.Advances J)
+    (moves : (k : K) → OAI.Fifths.WriteMove (W k)) : OAI.Fifths.TAction Q J K W
+structure OAI.Fifths.TM (X J Y : Type) : Type 1
+number of parameters: 3
+fields:
+  OAI.Fifths.TM.Q : Type
+  OAI.Fifths.TM.finiteQ : Finite self.Q
+  OAI.Fifths.TM.K : Type
+  OAI.Fifths.TM.tapes : Fintype self.K
+  OAI.Fifths.TM.W : self.K → Type
+  OAI.Fifths.TM.symbols : (k : self.K) → Fintype (self.W k)
+  OAI.Fifths.TM.blank : (k : self.K) → self.W k
+  OAI.Fifths.TM.start : self.Q
+  OAI.Fifths.TM.table : self.Q →
+      OAI.Fifths.Reads X J → ((k : self.K) → self.W k) → Y ⊕ OAI.Fifths.TAction self.Q J self.K self.W
+constructor:
+  OAI.Fifths.TM.mk {X J Y : Type} (Q : Type) [finiteQ : Finite Q] (K : Type) [tapes : Fintype K] (W : K → Type)
+    [symbols : (k : K) → Fintype (W k)] (blank : (k : K) → W k) (start : Q)
+    (table : Q → OAI.Fifths.Reads X J → ((k : K) → W k) → Y ⊕ OAI.Fifths.TAction Q J K W) : OAI.Fifths.TM X J Y
+structure OAI.Fifths.TM.Cfg {X J Y : Type} (M : OAI.Fifths.TM X J Y) : Type
+number of parameters: 4
+fields:
+  OAI.Fifths.TM.Cfg.state : M.Q
+  OAI.Fifths.TM.Cfg.ro : OAI.Fifths.Readers J
+  OAI.Fifths.TM.Cfg.work : (k : M.K) → OAI.Fifths.Tape (M.W k)
+constructor:
+  OAI.Fifths.TM.Cfg.mk {X J Y : Type} {M : OAI.Fifths.TM X J Y} (state : M.Q) (ro : OAI.Fifths.Readers J)
+    (work : (k : M.K) → OAI.Fifths.Tape (M.W k)) : M.Cfg
+def OAI.Fifths.TM.initial : {X J Y : Type} → (M : OAI.Fifths.TM X J Y) → M.Cfg :=
+fun {X J Y} M => { state := M.start, ro := OAI.Fifths.Readers.home, work := fun k => OAI.Fifths.Tape.init (M.blank k) }
+def OAI.Fifths.TM.step : {X J Y : Type} → (M : OAI.Fifths.TM X J Y) → OAI.Fifths.Inputs X J → M.Cfg → Y ⊕ M.Cfg :=
+fun {X J Y} M i s =>
+  match M.table s.state (s.ro.see i) fun k => (s.work k).see with
+  | Sum.inl y => Sum.inl y
+  | Sum.inr a =>
+    Sum.inr { state := a.next, ro := s.ro.walk i a.advance, work := fun k => (s.work k).perform (a.moves k) }
+structure OAI.Fifths.TM.Window {X J Y : Type} (M : OAI.Fifths.TM X J Y) : Type
+number of parameters: 4
+fields:
+  OAI.Fifths.TM.Window.l : M.K → ℕ
+  OAI.Fifths.TM.Window.h : M.K → ℕ
+constructor:
+  OAI.Fifths.TM.Window.mk {X J Y : Type} {M : OAI.Fifths.TM X J Y} (l h : M.K → ℕ) : M.Window
+def OAI.Fifths.TM.width : {X J Y : Type} → (M : OAI.Fifths.TM X J Y) → M.K → ℕ :=
+fun {X J Y} M k => max 1 (Fintype.card (M.W k) - 1).size
+def OAI.Fifths.TM.Window.ok : {X J Y : Type} → {M : OAI.Fifths.TM X J Y} → M.Window → M.Cfg → Prop :=
+fun {X J Y} {M} w s => ∀ (k : M.K), -↑(w.l k) ≤ (s.work k).pos ∧ (s.work k).pos ≤ ↑(w.h k)
+def OAI.Fifths.TM.Window.bits : {X J Y : Type} → {M : OAI.Fifths.TM X J Y} → M.Window → ℕ :=
+fun {X J Y} {M} w => ∑ k, (w.l k + w.h k + 1) * M.width k
+def OAI.Fifths.TM.Within : {X J Y : Type} → OAI.Fifths.TM X J Y → OAI.Fifths.Inputs X J → Y → ℕ → Prop :=
+fun {X J Y} M i y S => ∃ w, w.bits ≤ S ∧ ∃ t, OAI.Fifths.Runs (M.step i) w.ok M.initial t y
+structure OAI.Fifths.SingleAct (Q A : Type) (r : ℕ) : Type
+number of parameters: 3
+fields:
+  OAI.Fifths.SingleAct.out : Q
+  OAI.Fifths.SingleAct.write : OAI.Fifths.WriteMove A
+  OAI.Fifths.SingleAct.others : Fin r → OAI.Fifths.Dir
+constructor:
+  OAI.Fifths.SingleAct.mk {Q A : Type} {r : ℕ} (out : Q) (write : OAI.Fifths.WriteMove A)
+    (others : Fin r → OAI.Fifths.Dir) : OAI.Fifths.SingleAct Q A r
+structure OAI.Fifths.Single (X : Type) : Type 1
+number of parameters: 1
+fields:
+  OAI.Fifths.Single.Q : Type
+  OAI.Fifths.Single.states : Fintype self.Q
+  OAI.Fifths.Single.A : Type
+  OAI.Fifths.Single.symbols : Fintype self.A
+  OAI.Fifths.Single.beginState : self.Q
+  OAI.Fifths.Single.halted : self.Q → Bool
+  OAI.Fifths.Single.heads : ℕ
+  OAI.Fifths.Single.program : self.Q →
+      self.A → (Fin self.heads → self.A) → OAI.Fifths.SingleAct self.Q self.A self.heads
+  OAI.Fifths.Single.sensor : List X → Option (Fin self.heads) → ℤ → self.A
+constructor:
+  OAI.Fifths.Single.mk {X : Type} (Q : Type) [states : Fintype Q] (A : Type) [symbols : Fintype A] (beginState : Q)
+    (halted : Q → Bool) (heads : ℕ) (program : Q → A → (Fin heads → A) → OAI.Fifths.SingleAct Q A heads)
+    (sensor : List X → Option (Fin heads) → ℤ → A) : OAI.Fifths.Single X
+@[reducible] def OAI.Fifths.Single.Tag : {X : Type} → OAI.Fifths.Single X → Type :=
+fun {X} M => Option (Fin M.heads)
+structure OAI.Fifths.Single.At {X : Type} (M : OAI.Fifths.Single X) : Type
+number of parameters: 2
+fields:
+  OAI.Fifths.Single.At.state : M.Q
+  OAI.Fifths.Single.At.tape : OAI.Fifths.Tape M.A
+  OAI.Fifths.Single.At.ro : Fin M.heads → ℤ
+constructor:
+  OAI.Fifths.Single.At.mk {X : Type} {M : OAI.Fifths.Single X} (state : M.Q) (tape : OAI.Fifths.Tape M.A)
+    (ro : Fin M.heads → ℤ) : M.At
+def OAI.Fifths.Single.move : {X : Type} →
+  (M : OAI.Fifths.Single X) → M.Q → M.A → (Fin M.heads → M.A) → OAI.Fifths.SingleAct M.Q M.A M.heads :=
+fun {X} M q s r =>
+  if M.halted q = true then
+    { out := q, write := { sym := s, dir := OAI.Fifths.Dir.N }, others := fun x => OAI.Fifths.Dir.N }
+  else M.program q s r
+def OAI.Fifths.Single.initial : {X : Type} → (M : OAI.Fifths.Single X) → List X → M.At :=
+fun {X} M x => { state := M.beginState, tape := { pos := 0, sym := M.sensor x none }, ro := fun x => 0 }
+def OAI.Fifths.Single.next : {X : Type} → (M : OAI.Fifths.Single X) → List X → M.At → M.At :=
+fun {X} M x s =>
+  have t := M.move s.state s.tape.see fun i => M.sensor x (some i) (s.ro i);
+  { state := t.out, tape := s.tape.perform t.write, ro := fun i => s.ro i + (t.others i).delta }
+def OAI.Fifths.Single.atTime : {X : Type} → (M : OAI.Fifths.Single X) → List X → ℕ → M.At :=
+fun {X} M x t => Nat.rec (M.initial x) (fun x_1 s => M.next x s) t
+@[reducible] def OAI.Fifths.Single.Outcome : {X : Type} → OAI.Fifths.Single X → Type :=
+fun {X} M => M.Q × Bool
+def OAI.Fifths.Single.finish : {X : Type} → (M : OAI.Fifths.Single X) → M.Q → M.Outcome :=
+fun {X} M q => (q, M.halted q)
+def OAI.Fifths.Single.outcome : {X : Type} → (M : OAI.Fifths.Single X) → List X → ℕ → M.Outcome :=
+fun {X} M x n => M.finish (M.atTime x n).state
+def OAI.Fifths.Single.Inside : ℕ → ℤ → Prop :=
+fun t q => -↑t ≤ q ∧ q ≤ ↑t
+def OAI.Fifths.Entry.code : {A : Type} → [Fintype A] → A → ℕ :=
+fun {A} [Fintype A] a => ↑((Fintype.equivFin A) a)
+def OAI.Fifths.binaryIn : {X J : Type} → List X → (J → ℕ) → OAI.Fifths.Inputs X J :=
+fun {X J} pub f => { publicWord := pub, arg := fun j => (f j).bits }
+def OAI.Fifths.files : {X : Type} → List X → OAI.Fifths.Inputs X Empty :=
+fun {X} x => { publicWord := x, arg := Empty.elim }
+inductive OAI.Fifths.Single.Arg : Type
+number of parameters: 0
+constructors:
+OAI.Fifths.Single.Arg.cap : OAI.Fifths.Single.Arg
+OAI.Fifths.Single.Arg.tag : OAI.Fifths.Single.Arg
+OAI.Fifths.Single.Arg.minus : OAI.Fifths.Single.Arg
+OAI.Fifths.Single.Arg.magnitude : OAI.Fifths.Single.Arg
+@[reducible] def OAI.Fifths.Single.Sym : {X : Type} → OAI.Fifths.Single X → Type 1 :=
+fun {X} M => OAI.Fifths.TM X OAI.Fifths.Single.Arg M.A
+def OAI.Fifths.Single.arg : {X : Type} → (M : OAI.Fifths.Single X) → ℕ → M.Tag → ℤ → OAI.Fifths.Single.Arg → ℕ :=
+fun {X} M T h p x =>
+  match x with
+  | OAI.Fifths.Single.Arg.cap => T
+  | OAI.Fifths.Single.Arg.tag => OAI.Fifths.Entry.code h
+  | OAI.Fifths.Single.Arg.minus => (decide (p < 0)).toNat
+  | OAI.Fifths.Single.Arg.magnitude => p.natAbs
+def OAI.Fifths.Cost.Log : ℕ → ℝ :=
+fun T => Real.log (↑T + 2) / Real.log 2
+def OAI.Fifths.Cost.exponent : ℝ :=
+2 / 5
+def OAI.Fifths.Single.Access : {X : Type} → (M : OAI.Fifths.Single X) → M.Sym → ℝ → ℝ → List X → ℕ → Prop :=
+fun {X} M A p q x T =>
+  ∀ (h : M.Tag) (l : ℤ),
+    OAI.Fifths.Single.Inside T l →
+      ∃ s,
+        ↑s ≤ p * OAI.Fifths.Cost.Log T ^ q ∧
+          OAI.Fifths.TM.Within A (OAI.Fifths.binaryIn x (M.arg T h l)) (M.sensor x h l) s

@@ -1,0 +1,406 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_OneTapeSpace.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Fifths.Single.unknown [thm] ok
+CMP OAI.Fifths.Cost.Log [def] ok
+CMP OAI.Fifths.Cost.Log._proof_1 [thm] ok
+CMP OAI.Fifths.Cost.exponent [def] ok
+CMP OAI.Fifths.Cost.exponent._proof_1 [thm] ok
+CMP OAI.Fifths.files [def] ok
+CMP OAI.Fifths.Inputs.mk [ctor] ok
+CMP OAI.Fifths.Inputs [ind] ok
+CMP OAI.Fifths.TM.Within [def] ok
+CMP OAI.Fifths.TM.initial [def] ok
+CMP OAI.Fifths.TM.blank [def] ok
+CMP OAI.Fifths.TM [ind] ok
+CMP OAI.Fifths.TM.mk [ctor] ok
+CMP OAI.Fifths.TAction [ind] ok
+CMP OAI.Fifths.TAction.mk [ctor] ok
+CMP OAI.Fifths.WriteMove [ind] ok
+CMP OAI.Fifths.WriteMove.mk [ctor] ok
+CMP OAI.Fifths.Dir [ind] ok
+CMP OAI.Fifths.Dir.R [ctor] ok
+CMP OAI.Fifths.Dir.N [ctor] ok
+CMP OAI.Fifths.Dir.L [ctor] ok
+CMP OAI.Fifths.Advances [ind] ok
+CMP OAI.Fifths.Advances.mk [ctor] ok
+CMP OAI.Fifths.Reads [ind] ok
+CMP OAI.Fifths.Reads.mk [ctor] ok
+CMP OAI.Fifths.Mark [ind] ok
+CMP OAI.Fifths.Mark.right [ctor] ok
+CMP OAI.Fifths.Mark.sym [ctor] ok
+CMP OAI.Fifths.Mark.left [ctor] ok
+CMP OAI.Fifths.TM.W [def] ok
+CMP OAI.Fifths.TM.K [def] ok
+CMP OAI.Fifths.Tape.init [def] ok
+CMP OAI.Fifths.Tape.mk [ctor] ok
+CMP OAI.Fifths.Tape [ind] ok
+CMP OAI.Fifths.Readers.home [def] ok
+CMP OAI.Fifths.Readers.mk [ctor] ok
+CMP OAI.Fifths.Readers [ind] ok
+CMP OAI.Fifths.TM.start [def] ok
+CMP OAI.Fifths.TM.Q [def] ok
+CMP OAI.Fifths.TM.Cfg.mk [ctor] ok
+CMP OAI.Fifths.TM.Cfg [ind] ok
+CMP OAI.Fifths.TM.Window.ok [def] ok
+CMP OAI.Fifths.TM.Window.h [def] ok
+CMP OAI.Fifths.TM.Window [ind] ok
+CMP OAI.Fifths.TM.Window.mk [ctor] ok
+CMP OAI.Fifths.TM.Cfg.work [def] ok
+CMP OAI.Fifths.Tape.pos [def] ok
+CMP OAI.Fifths.TM.Window.l [def] ok
+CMP OAI.Fifths.TM.step [def] ok
+CMP OAI.Fifths.TAction.moves [def] ok
+CMP OAI.Fifths.Tape.perform [def] ok
+CMP OAI.Fifths.WriteMove.sym [def] ok
+CMP OAI.Fifths.Tape.sym [def] ok
+CMP OAI.Fifths.WriteMove.dir [def] ok
+CMP OAI.Fifths.Dir.delta [def] ok
+CMP OAI.Fifths.Dir.delta.match_1 [def] ok
+CMP OAI.Fifths.Dir.casesOn [def] ok
+CMP OAI.Fifths.Dir.rec [rec] ok
+CMP OAI.Fifths.TAction.advance [def] ok
+CMP OAI.Fifths.Readers.walk [def] ok
+CMP OAI.Fifths.Advances.darg [def] ok
+CMP OAI.Fifths.Readers.parg [def] ok
+CMP OAI.Fifths.Inputs.arg [def] ok
+CMP OAI.Fifths.Advances.dx [def] ok
+CMP OAI.Fifths.Readers.px [def] ok
+CMP OAI.Fifths.Inputs.publicWord [def] ok
+CMP OAI.Fifths.Mark.walk [def] ok
+CMP OAI.Fifths.Mark.walk.match_1 [def] ok
+CMP OAI.Fifths.TAction.next [def] ok
+CMP OAI.Fifths.Tape.see [def] ok
+CMP OAI.Fifths.TM.Cfg.ro [def] ok
+CMP OAI.Fifths.Readers.see [def] ok
+CMP OAI.Fifths.Mark.see [def] ok
+CMP OAI.Fifths.Mark.see.match_1 [def] ok
+CMP OAI.Fifths.Mark.see.match_3 [def] ok
+CMP OAI.Fifths.TM.Cfg.state [def] ok
+CMP OAI.Fifths.TM.table [def] ok
+CMP OAI.Fifths.TM.step.match_1 [def] ok
+CMP OAI.Fifths.Runs [ind] ok
+CMP OAI.Fifths.Runs.step [ctor] ok
+CMP OAI.Fifths.Runs.stop [ctor] ok
+CMP OAI.Fifths.TM.Window.bits [def] ok
+CMP OAI.Fifths.TM.width [def] ok
+CMP OAI.Fifths.TM.symbols [def] ok
+CMP OAI.Fifths.TM.tapes [def] ok
+CMP OAI.Fifths.Single.outcome [def] ok
+CMP OAI.Fifths.Single.atTime [def] ok
+CMP OAI.Fifths.Single.next [def] ok
+CMP OAI.Fifths.SingleAct.others [def] ok
+CMP OAI.Fifths.SingleAct [ind] ok
+CMP OAI.Fifths.SingleAct.mk [ctor] ok
+CMP OAI.Fifths.SingleAct.write [def] ok
+CMP OAI.Fifths.SingleAct.out [def] ok
+CMP OAI.Fifths.Single.At.mk [ctor] ok
+CMP OAI.Fifths.Single.At [ind] ok
+CMP OAI.Fifths.Single [ind] ok
+CMP OAI.Fifths.Single.mk [ctor] ok
+CMP OAI.Fifths.Single.heads [def] ok
+CMP OAI.Fifths.Single.A [def] ok
+CMP OAI.Fifths.Single.Q [def] ok
+CMP OAI.Fifths.Single.At.ro [def] ok
+CMP OAI.Fifths.Single.sensor [def] ok
+CMP OAI.Fifths.Single.At.tape [def] ok
+CMP OAI.Fifths.Single.At.state [def] ok
+CMP OAI.Fifths.Single.move [def] ok
+CMP OAI.Fifths.Single.program [def] ok
+CMP OAI.Fifths.Single.halted [def] ok
+CMP OAI.Fifths.Single.initial [def] ok
+CMP OAI.Fifths.Single.beginState [def] ok
+CMP OAI.Fifths.Single.finish [def] ok
+CMP OAI.Fifths.Single.Outcome [def] ok
+CMP OAI.Fifths.Single.Access [def] ok
+CMP OAI.Fifths.Single.arg [def] ok
+CMP OAI.Fifths.Entry.code [def] ok
+CMP OAI.Fifths.Single.arg.match_1 [def] ok
+CMP OAI.Fifths.Single.Arg.casesOn [def] ok
+CMP OAI.Fifths.Single.Arg.rec [rec] ok
+CMP OAI.Fifths.Single.Arg.magnitude [ctor] ok
+CMP OAI.Fifths.Single.Arg [ind] ok
+CMP OAI.Fifths.Single.Arg.minus [ctor] ok
+CMP OAI.Fifths.Single.Arg.tag [ctor] ok
+CMP OAI.Fifths.Single.Arg.cap [ctor] ok
+CMP OAI.Fifths.Single.Tag [def] ok
+CMP OAI.Fifths.binaryIn [def] ok
+CMP OAI.Fifths.Single.Inside [def] ok
+CMP OAI.Fifths.Single.Sym [def] ok
+CMP OAI.Fifths.Single.capped [thm] ok
+@Chal.Fifths.Single.capped : ∀ {X : Type} (M : Chal.Fifths.Single X) [Fintype X] (A : M.Sym) (p q : ℝ),
+  1 ≤ p →
+    1 ≤ q →
+      ∃ N e c,
+        0 < c ∧
+          ∀ (x : List X) (T : ℕ),
+            2 ≤ T →
+              M.Access A p q x T →
+                ∃ b,
+                  N.Within (Chal.Fifths.binaryIn x fun x => T) (M.outcome x T) b ∧
+                    ↑b ≤ c * ↑T ^ Chal.Fifths.Cost.exponent * Chal.Fifths.Cost.Log T ^ e
+@Chal.Fifths.Single.unknown : ∀ {X : Type} (M : Chal.Fifths.Single X) [Fintype X] (A : M.Sym) (p q : ℝ),
+  1 ≤ p →
+    1 ≤ q →
+      ∃ N e c,
+        0 < c ∧
+          ∀ (x : List X),
+            (∀ (T : ℕ), 2 ≤ T → M.Access A p q x T) →
+              ∀ (t : ℕ),
+                (M.outcome x t).2 = true →
+                  ∃ b,
+                    N.Within (Chal.Fifths.files x) (M.outcome x t) b ∧
+                      ↑b ≤ c * (↑t + 2) ^ Chal.Fifths.Cost.exponent * Chal.Fifths.Cost.Log t ^ e
+inductive Chal.Fifths.Dir : Type
+number of parameters: 0
+constructors:
+Chal.Fifths.Dir.L : Chal.Fifths.Dir
+Chal.Fifths.Dir.N : Chal.Fifths.Dir
+Chal.Fifths.Dir.R : Chal.Fifths.Dir
+def Chal.Fifths.Dir.delta : Chal.Fifths.Dir → ℤ :=
+fun x =>
+  match x with
+  | Chal.Fifths.Dir.L => -1
+  | Chal.Fifths.Dir.N => 0
+  | Chal.Fifths.Dir.R => 1
+inductive Chal.Fifths.Mark : Type → Type
+number of parameters: 1
+constructors:
+Chal.Fifths.Mark.left : {A : Type} → Chal.Fifths.Mark A
+Chal.Fifths.Mark.sym : {A : Type} → A → Chal.Fifths.Mark A
+Chal.Fifths.Mark.right : {A : Type} → Chal.Fifths.Mark A
+def Chal.Fifths.Mark.see : {A : Type} → List A → ℕ → Chal.Fifths.Mark A :=
+fun {A} w x =>
+  match x with
+  | 0 => Chal.Fifths.Mark.left
+  | p.succ =>
+    match w[p]? with
+    | some a => Chal.Fifths.Mark.sym a
+    | none => Chal.Fifths.Mark.right
+def Chal.Fifths.Mark.walk : {A : Type} → List A → ℕ → Chal.Fifths.Dir → ℕ :=
+fun {A} w p x =>
+  match x with
+  | Chal.Fifths.Dir.N => p
+  | Chal.Fifths.Dir.L => p - 1
+  | Chal.Fifths.Dir.R => if w.length < p then p else p + 1
+inductive Chal.Fifths.Runs : {σ Y : Type} → (σ → Y ⊕ σ) → (σ → Prop) → σ → σ → Y → Prop
+number of parameters: 4
+constructors:
+Chal.Fifths.Runs.stop : ∀ {σ Y : Type} {f : σ → Y ⊕ σ} {P : σ → Prop} {s : σ} {y : Y},
+  P s → f s = Sum.inl y → Chal.Fifths.Runs f P s s y
+Chal.Fifths.Runs.step : ∀ {σ Y : Type} {f : σ → Y ⊕ σ} {P : σ → Prop} {s s' t : σ} {y : Y},
+  P s → f s = Sum.inr s' → Chal.Fifths.Runs f P s' t y → Chal.Fifths.Runs f P s t y
+structure Chal.Fifths.Inputs (X J : Type) : Type
+number of parameters: 2
+fields:
+  Chal.Fifths.Inputs.publicWord : List X
+  Chal.Fifths.Inputs.arg : J → List Bool
+constructor:
+  Chal.Fifths.Inputs.mk {X J : Type} (publicWord : List X) (arg : J → List Bool) : Chal.Fifths.Inputs X J
+structure Chal.Fifths.Readers (J : Type) : Type
+number of parameters: 1
+fields:
+  Chal.Fifths.Readers.px : ℕ :=
+    0
+  Chal.Fifths.Readers.parg : J → ℕ :=
+    fun x => 0
+constructor:
+  Chal.Fifths.Readers.mk {J : Type} (px : ℕ) (parg : J → ℕ) : Chal.Fifths.Readers J
+structure Chal.Fifths.Reads (X J : Type) : Type
+number of parameters: 2
+fields:
+  Chal.Fifths.Reads.sx : Chal.Fifths.Mark X
+  Chal.Fifths.Reads.sarg : J → Chal.Fifths.Mark Bool
+constructor:
+  Chal.Fifths.Reads.mk {X J : Type} (sx : Chal.Fifths.Mark X) (sarg : J → Chal.Fifths.Mark Bool) : Chal.Fifths.Reads X J
+structure Chal.Fifths.Advances (J : Type) : Type
+number of parameters: 1
+fields:
+  Chal.Fifths.Advances.dx : Chal.Fifths.Dir :=
+    Chal.Fifths.Dir.N
+  Chal.Fifths.Advances.darg : J → Chal.Fifths.Dir :=
+    fun x => Chal.Fifths.Dir.N
+constructor:
+  Chal.Fifths.Advances.mk {J : Type} (dx : Chal.Fifths.Dir) (darg : J → Chal.Fifths.Dir) : Chal.Fifths.Advances J
+def Chal.Fifths.Readers.home : {J : Type} → Chal.Fifths.Readers J :=
+fun {J} => { }
+def Chal.Fifths.Readers.see : {X J : Type} → Chal.Fifths.Readers J → Chal.Fifths.Inputs X J → Chal.Fifths.Reads X J :=
+fun {X J} r i =>
+  { sx := Chal.Fifths.Mark.see i.publicWord r.px, sarg := fun j => Chal.Fifths.Mark.see (i.arg j) (r.parg j) }
+def Chal.Fifths.Readers.walk : {X J : Type} →
+  Chal.Fifths.Readers J → Chal.Fifths.Inputs X J → Chal.Fifths.Advances J → Chal.Fifths.Readers J :=
+fun {X J} r i a =>
+  { px := Chal.Fifths.Mark.walk i.publicWord r.px a.dx,
+    parg := fun j => Chal.Fifths.Mark.walk (i.arg j) (r.parg j) (a.darg j) }
+structure Chal.Fifths.Tape (A : Type) : Type
+number of parameters: 1
+fields:
+  Chal.Fifths.Tape.pos : ℤ
+  Chal.Fifths.Tape.sym : ℤ → A
+constructor:
+  Chal.Fifths.Tape.mk {A : Type} (pos : ℤ) (sym : ℤ → A) : Chal.Fifths.Tape A
+structure Chal.Fifths.WriteMove (A : Type) : Type
+number of parameters: 1
+fields:
+  Chal.Fifths.WriteMove.sym : A
+  Chal.Fifths.WriteMove.dir : Chal.Fifths.Dir
+constructor:
+  Chal.Fifths.WriteMove.mk {A : Type} (sym : A) (dir : Chal.Fifths.Dir) : Chal.Fifths.WriteMove A
+def Chal.Fifths.Tape.init : {A : Type} → A → Chal.Fifths.Tape A :=
+fun {A} a => { pos := 0, sym := fun x => a }
+def Chal.Fifths.Tape.see : {A : Type} → Chal.Fifths.Tape A → A :=
+fun {A} w => w.sym w.pos
+def Chal.Fifths.Tape.perform : {A : Type} → Chal.Fifths.Tape A → Chal.Fifths.WriteMove A → Chal.Fifths.Tape A :=
+fun {A} w m => { pos := w.pos + m.dir.delta, sym := Function.update w.sym w.pos m.sym }
+structure Chal.Fifths.TAction (Q J K : Type) (W : K → Type) : Type
+number of parameters: 4
+fields:
+  Chal.Fifths.TAction.next : Q
+  Chal.Fifths.TAction.advance : Chal.Fifths.Advances J
+  Chal.Fifths.TAction.moves : (k : K) → Chal.Fifths.WriteMove (W k)
+constructor:
+  Chal.Fifths.TAction.mk {Q J K : Type} {W : K → Type} (next : Q) (advance : Chal.Fifths.Advances J)
+    (moves : (k : K) → Chal.Fifths.WriteMove (W k)) : Chal.Fifths.TAction Q J K W
+structure Chal.Fifths.TM (X J Y : Type) : Type 1
+number of parameters: 3
+fields:
+  Chal.Fifths.TM.Q : Type
+  Chal.Fifths.TM.finiteQ : Finite self.Q
+  Chal.Fifths.TM.K : Type
+  Chal.Fifths.TM.tapes : Fintype self.K
+  Chal.Fifths.TM.W : self.K → Type
+  Chal.Fifths.TM.symbols : (k : self.K) → Fintype (self.W k)
+  Chal.Fifths.TM.blank : (k : self.K) → self.W k
+  Chal.Fifths.TM.start : self.Q
+  Chal.Fifths.TM.table : self.Q →
+      Chal.Fifths.Reads X J → ((k : self.K) → self.W k) → Y ⊕ Chal.Fifths.TAction self.Q J self.K self.W
+constructor:
+  Chal.Fifths.TM.mk {X J Y : Type} (Q : Type) [finiteQ : Finite Q] (K : Type) [tapes : Fintype K] (W : K → Type)
+    [symbols : (k : K) → Fintype (W k)] (blank : (k : K) → W k) (start : Q)
+    (table : Q → Chal.Fifths.Reads X J → ((k : K) → W k) → Y ⊕ Chal.Fifths.TAction Q J K W) : Chal.Fifths.TM X J Y
+structure Chal.Fifths.TM.Cfg {X J Y : Type} (M : Chal.Fifths.TM X J Y) : Type
+number of parameters: 4
+fields:
+  Chal.Fifths.TM.Cfg.state : M.Q
+  Chal.Fifths.TM.Cfg.ro : Chal.Fifths.Readers J
+  Chal.Fifths.TM.Cfg.work : (k : M.K) → Chal.Fifths.Tape (M.W k)
+constructor:
+  Chal.Fifths.TM.Cfg.mk {X J Y : Type} {M : Chal.Fifths.TM X J Y} (state : M.Q) (ro : Chal.Fifths.Readers J)
+    (work : (k : M.K) → Chal.Fifths.Tape (M.W k)) : M.Cfg
+def Chal.Fifths.TM.initial : {X J Y : Type} → (M : Chal.Fifths.TM X J Y) → M.Cfg :=
+fun {X J Y} M =>
+  { state := M.start, ro := Chal.Fifths.Readers.home, work := fun k => Chal.Fifths.Tape.init (M.blank k) }
+def Chal.Fifths.TM.step : {X J Y : Type} → (M : Chal.Fifths.TM X J Y) → Chal.Fifths.Inputs X J → M.Cfg → Y ⊕ M.Cfg :=
+fun {X J Y} M i s =>
+  match M.table s.state (s.ro.see i) fun k => (s.work k).see with
+  | Sum.inl y => Sum.inl y
+  | Sum.inr a =>
+    Sum.inr { state := a.next, ro := s.ro.walk i a.advance, work := fun k => (s.work k).perform (a.moves k) }
+structure Chal.Fifths.TM.Window {X J Y : Type} (M : Chal.Fifths.TM X J Y) : Type
+number of parameters: 4
+fields:
+  Chal.Fifths.TM.Window.l : M.K → ℕ
+  Chal.Fifths.TM.Window.h : M.K → ℕ
+constructor:
+  Chal.Fifths.TM.Window.mk {X J Y : Type} {M : Chal.Fifths.TM X J Y} (l h : M.K → ℕ) : M.Window
+def Chal.Fifths.TM.width : {X J Y : Type} → (M : Chal.Fifths.TM X J Y) → M.K → ℕ :=
+fun {X J Y} M k => max 1 (Fintype.card (M.W k) - 1).size
+def Chal.Fifths.TM.Window.ok : {X J Y : Type} → {M : Chal.Fifths.TM X J Y} → M.Window → M.Cfg → Prop :=
+fun {X J Y} {M} w s => ∀ (k : M.K), -↑(w.l k) ≤ (s.work k).pos ∧ (s.work k).pos ≤ ↑(w.h k)
+def Chal.Fifths.TM.Window.bits : {X J Y : Type} → {M : Chal.Fifths.TM X J Y} → M.Window → ℕ :=
+fun {X J Y} {M} w => ∑ k, (w.l k + w.h k + 1) * M.width k
+def Chal.Fifths.TM.Within : {X J Y : Type} → Chal.Fifths.TM X J Y → Chal.Fifths.Inputs X J → Y → ℕ → Prop :=
+fun {X J Y} M i y S => ∃ w, w.bits ≤ S ∧ ∃ t, Chal.Fifths.Runs (M.step i) w.ok M.initial t y
+structure Chal.Fifths.SingleAct (Q A : Type) (r : ℕ) : Type
+number of parameters: 3
+fields:
+  Chal.Fifths.SingleAct.out : Q
+  Chal.Fifths.SingleAct.write : Chal.Fifths.WriteMove A
+  Chal.Fifths.SingleAct.others : Fin r → Chal.Fifths.Dir
+constructor:
+  Chal.Fifths.SingleAct.mk {Q A : Type} {r : ℕ} (out : Q) (write : Chal.Fifths.WriteMove A)
+    (others : Fin r → Chal.Fifths.Dir) : Chal.Fifths.SingleAct Q A r
+structure Chal.Fifths.Single (X : Type) : Type 1
+number of parameters: 1
+fields:
+  Chal.Fifths.Single.Q : Type
+  Chal.Fifths.Single.states : Fintype self.Q
+  Chal.Fifths.Single.A : Type
+  Chal.Fifths.Single.symbols : Fintype self.A
+  Chal.Fifths.Single.beginState : self.Q
+  Chal.Fifths.Single.halted : self.Q → Bool
+  Chal.Fifths.Single.heads : ℕ
+  Chal.Fifths.Single.program : self.Q →
+      self.A → (Fin self.heads → self.A) → Chal.Fifths.SingleAct self.Q self.A self.heads
+  Chal.Fifths.Single.sensor : List X → Option (Fin self.heads) → ℤ → self.A
+constructor:
+  Chal.Fifths.Single.mk {X : Type} (Q : Type) [states : Fintype Q] (A : Type) [symbols : Fintype A] (beginState : Q)
+    (halted : Q → Bool) (heads : ℕ) (program : Q → A → (Fin heads → A) → Chal.Fifths.SingleAct Q A heads)
+    (sensor : List X → Option (Fin heads) → ℤ → A) : Chal.Fifths.Single X
+@[reducible] def Chal.Fifths.Single.Tag : {X : Type} → Chal.Fifths.Single X → Type :=
+fun {X} M => Option (Fin M.heads)
+structure Chal.Fifths.Single.At {X : Type} (M : Chal.Fifths.Single X) : Type
+number of parameters: 2
+fields:
+  Chal.Fifths.Single.At.state : M.Q
+  Chal.Fifths.Single.At.tape : Chal.Fifths.Tape M.A
+  Chal.Fifths.Single.At.ro : Fin M.heads → ℤ
+constructor:
+  Chal.Fifths.Single.At.mk {X : Type} {M : Chal.Fifths.Single X} (state : M.Q) (tape : Chal.Fifths.Tape M.A)
+    (ro : Fin M.heads → ℤ) : M.At
+def Chal.Fifths.Single.move : {X : Type} →
+  (M : Chal.Fifths.Single X) → M.Q → M.A → (Fin M.heads → M.A) → Chal.Fifths.SingleAct M.Q M.A M.heads :=
+fun {X} M q s r =>
+  if M.halted q = true then
+    { out := q, write := { sym := s, dir := Chal.Fifths.Dir.N }, others := fun x => Chal.Fifths.Dir.N }
+  else M.program q s r
+def Chal.Fifths.Single.initial : {X : Type} → (M : Chal.Fifths.Single X) → List X → M.At :=
+fun {X} M x => { state := M.beginState, tape := { pos := 0, sym := M.sensor x none }, ro := fun x => 0 }
+def Chal.Fifths.Single.next : {X : Type} → (M : Chal.Fifths.Single X) → List X → M.At → M.At :=
+fun {X} M x s =>
+  have t := M.move s.state s.tape.see fun i => M.sensor x (some i) (s.ro i);
+  { state := t.out, tape := s.tape.perform t.write, ro := fun i => s.ro i + (t.others i).delta }
+def Chal.Fifths.Single.atTime : {X : Type} → (M : Chal.Fifths.Single X) → List X → ℕ → M.At :=
+fun {X} M x t => Nat.rec (M.initial x) (fun x_1 s => M.next x s) t
+@[reducible] def Chal.Fifths.Single.Outcome : {X : Type} → Chal.Fifths.Single X → Type :=
+fun {X} M => M.Q × Bool
+def Chal.Fifths.Single.finish : {X : Type} → (M : Chal.Fifths.Single X) → M.Q → M.Outcome :=
+fun {X} M q => (q, M.halted q)
+def Chal.Fifths.Single.outcome : {X : Type} → (M : Chal.Fifths.Single X) → List X → ℕ → M.Outcome :=
+fun {X} M x n => M.finish (M.atTime x n).state
+def Chal.Fifths.Single.Inside : ℕ → ℤ → Prop :=
+fun t q => -↑t ≤ q ∧ q ≤ ↑t
+def Chal.Fifths.Entry.code : {A : Type} → [Fintype A] → A → ℕ :=
+fun {A} [Fintype A] a => ↑((Fintype.equivFin A) a)
+def Chal.Fifths.binaryIn : {X J : Type} → List X → (J → ℕ) → Chal.Fifths.Inputs X J :=
+fun {X J} pub f => { publicWord := pub, arg := fun j => (f j).bits }
+def Chal.Fifths.files : {X : Type} → List X → Chal.Fifths.Inputs X Empty :=
+fun {X} x => { publicWord := x, arg := Empty.elim }
+inductive Chal.Fifths.Single.Arg : Type
+number of parameters: 0
+constructors:
+Chal.Fifths.Single.Arg.cap : Chal.Fifths.Single.Arg
+Chal.Fifths.Single.Arg.tag : Chal.Fifths.Single.Arg
+Chal.Fifths.Single.Arg.minus : Chal.Fifths.Single.Arg
+Chal.Fifths.Single.Arg.magnitude : Chal.Fifths.Single.Arg
+@[reducible] def Chal.Fifths.Single.Sym : {X : Type} → Chal.Fifths.Single X → Type 1 :=
+fun {X} M => Chal.Fifths.TM X Chal.Fifths.Single.Arg M.A
+def Chal.Fifths.Single.arg : {X : Type} → (M : Chal.Fifths.Single X) → ℕ → M.Tag → ℤ → Chal.Fifths.Single.Arg → ℕ :=
+fun {X} M T h p x =>
+  match x with
+  | Chal.Fifths.Single.Arg.cap => T
+  | Chal.Fifths.Single.Arg.tag => Chal.Fifths.Entry.code h
+  | Chal.Fifths.Single.Arg.minus => (decide (p < 0)).toNat
+  | Chal.Fifths.Single.Arg.magnitude => p.natAbs
+def Chal.Fifths.Cost.Log : ℕ → ℝ :=
+fun T => Real.log (↑T + 2) / Real.log 2
+def Chal.Fifths.Cost.exponent : ℝ :=
+2 / 5
+def Chal.Fifths.Single.Access : {X : Type} → (M : Chal.Fifths.Single X) → M.Sym → ℝ → ℝ → List X → ℕ → Prop :=
+fun {X} M A p q x T =>
+  ∀ (h : M.Tag) (l : ℤ),
+    Chal.Fifths.Single.Inside T l →
+      ∃ s,
+        ↑s ≤ p * Chal.Fifths.Cost.Log T ^ q ∧
+          Chal.Fifths.TM.Within A (Chal.Fifths.binaryIn x (M.arg T h l)) (M.sensor x h l) s
+'OAI.Fifths.Single.capped' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Fifths.Single.unknown' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OneTapeSpace comparator-style: ok=127 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T21:41:41Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-10T22:45:46Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 368 accepted by
-    the real Comparator, of which 353 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 375 accepted by
+    the real Comparator, of which 360 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3448,7 +3448,8 @@ alignment:
     module: OAI.AlgebraicGeometry.StableCoordinate.Principal
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/StableCoordinateFour.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 050 — A counterexample to Griffiths'' positivity conjecture: Ample bundles without Griffiths-positive
       metrics (the lab''s own result label); paper ''Ample rank-two bundles on the quadric surface without Griffiths-positive
       metrics'', theorem thm:main (build/sections/01-introduction.tex:23)'
@@ -3575,7 +3576,8 @@ alignment:
     module: OAI.Analysis.FourierLLogL.PaperMain
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/FourierLLogL.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 076 — Ultraflat real Littlewood polynomials: Asymptotically minimal Littlewood maximum (the
       lab''s own result label); paper ''Asymptotically minimal maxima of real Littlewood polynomials'', theorem
       thm:main (build/introduction.tex:22)'
@@ -4025,7 +4027,8 @@ alignment:
     module: OAI.Computability.Logspace.Equality
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/LogspaceEquality.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 104 — Quasipolynomial algorithms for mean-payoff, stochastic and parity games: Finite counterexample
       to Truffet''s optimization procedure (the lab''s own result label); paper ''Deterministic quasipolynomial-time
       mean-payoff games'', theorem thm:main (build/source/sections/01-introduction.tex:34)'
@@ -4493,7 +4496,8 @@ alignment:
     module: OAI.Computability.FourierTransform.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/UniformFourier.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 131 — Polynomial mixing of graph switches with prescribed degrees: Polynomial mixing and connectivity
       for every graphical degree sequence (the lab''s own result label); paper ''Polynomial mixing of the switch
       chain for every graphical degree sequence'', theorem thm:main (build/sections/introduction.tex:32)'
@@ -4582,7 +4586,8 @@ alignment:
     module: OAI.Computability.SpaceSimulation.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/OneTapeSpace.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 139 — Subpolynomial queries for log-concave sampling: Subpolynomial query complexity for log-concave
       sampling (the lab''s own result label); paper ''Subpolynomial query complexity for well-conditioned log-concave
       sampling'', theorem thm:main (build/sections/introduction.tex:51)'
@@ -4847,7 +4852,8 @@ alignment:
     module: OAI.Combinatorics.HadwigerCounterexample.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/HadwigerCounterexample.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 157 — Counterexamples to the Hadwiger and Colin de Verdi\`ere conjectures: Linear list-coloring
       bound in the Hadwiger number (the lab''s own result label); paper ''A linear list-coloring bound in terms
       of the Hadwiger number'', theorem thm:main (build/sections/01-introduction.tex:25)'
@@ -7277,7 +7283,8 @@ alignment:
     module: OAI.Analysis.TraceCone.IdealTransport
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/TraceIdealTransportSupport.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): supporting-only.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): supporting-only.'
   - source: 'family 301 — headline claim as stated in the overview: Classifies separable nuclear complex $C^*$-algebras
       after tensoring with the Razak--Jacelon algebra and the compact operators, using their full topological cones
       of extended lower-semicontinuous tracial weights. This answers Robert’s trace-cone question, including algebras
@@ -8061,7 +8068,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-10T21:41:41Z'
+    generated: '2026-10-10T22:45:46Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8413,6 +8420,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FourierLLogL
     - FreeIsing
     - FreeUniformSpanningForest
     - GammaPassage
@@ -8428,6 +8436,7 @@ mathvet:
     - GrothendieckElementaryExpansion
     - GroupRingDeterminant
     - HadamardCubeFiber
+    - HadwigerCounterexample
     - HalvingLines
     - HardSphere
     - HarmonicArtin
@@ -8475,6 +8484,7 @@ mathvet:
     - LogBrunnMinkowski
     - LogConcaveQuery
     - LogKodairaFiberNegative
+    - LogspaceEquality
     - MahlerConjecture
     - MarkovType
     - MassAction
@@ -8502,6 +8512,7 @@ mathvet:
     - NuclearUltrapower
     - OccupiedOverlap
     - OddKaplansky
+    - OneTapeSpace
     - OneWayLiveness
     - OptimalMaxCut
     - OrdinaryElliott
@@ -8590,6 +8601,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StableCoordinateFour
     - StandardMapComponents
     - StandardMapEntropy
     - StandardMapLyapunov
@@ -8621,6 +8633,7 @@ mathvet:
     - TingleySphereIsometry
     - TorsionFreeHyperbolic
     - TorsionFreeZeroDivisors
+    - TraceIdealTransportSupport
     - TraceReconstruction
     - TreeEdit
     - TriangleFace
@@ -8634,6 +8647,7 @@ mathvet:
     - TwoWayDeterminization
     - TypeSystemNormalization
     - UniformCommutator
+    - UniformFourier
     - UniformGamma
     - UniformKServer
     - UniformSparsestCut
@@ -8775,6 +8789,7 @@ mathvet:
     - FormulaHitting
     - FoulkesHowe
     - FourRowPermanent
+    - FourierLLogL
     - FreeIsing
     - FreeUniformSpanningForest
     - GammaPassage
@@ -8790,6 +8805,7 @@ mathvet:
     - GrothendieckElementaryExpansion
     - GroupRingDeterminant
     - HadamardCubeFiber
+    - HadwigerCounterexample
     - HalvingLines
     - HardSphere
     - HarmonicArtin
@@ -8837,6 +8853,7 @@ mathvet:
     - LogBrunnMinkowski
     - LogConcaveQuery
     - LogKodairaFiberNegative
+    - LogspaceEquality
     - MahlerConjecture
     - MarkovType
     - MassAction
@@ -8861,6 +8878,7 @@ mathvet:
     - NoiselessRegression
     - OccupiedOverlap
     - OddKaplansky
+    - OneTapeSpace
     - OneWayLiveness
     - OrdinaryElliott
     - ParityLifts
@@ -8945,6 +8963,7 @@ mathvet:
     - SplitTangentIntegrability
     - SquareDifference
     - SquareRootDegree
+    - StableCoordinateFour
     - StandardMapComponents
     - StandardMapEntropy
     - StandardMapLyapunov
@@ -8976,6 +8995,7 @@ mathvet:
     - TingleySphereIsometry
     - TorsionFreeHyperbolic
     - TorsionFreeZeroDivisors
+    - TraceIdealTransportSupport
     - TraceReconstruction
     - TreeEdit
     - TriangleFace
@@ -8989,6 +9009,7 @@ mathvet:
     - TwoWayDeterminization
     - TypeSystemNormalization
     - UniformCommutator
+    - UniformFourier
     - UniformGamma
     - UniformKServer
     - UniformSparsestCut
@@ -9600,7 +9621,7 @@ mathvet:
       adds no hypothesis'
     external_packages: []
     cone_lines_max: 29665
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/075.md
     audit_part: 4
   - family: '076'
@@ -9985,7 +10006,7 @@ mathvet:
       in introduction.tex:22-26; standard.'
     external_packages: []
     cone_lines_max: 43045
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/103.md
     audit_part: 4
   - family: '104'
@@ -10571,7 +10592,7 @@ mathvet:
       and heads are confined to [0, len+1]; standard.'
     external_packages: []
     cone_lines_max: 8328
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/137.md
     audit_part: 4
   - family: '139'
@@ -13159,7 +13180,7 @@ mathvet:
       more general than the paper''s setting, which is harmless for a supporting result'
     external_packages: []
     cone_lines_max: 1147
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/301.md
     audit_part: 4
   - family: '303'

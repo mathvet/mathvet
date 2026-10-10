@@ -1,0 +1,36 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_HadwigerCounterexample.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.HadwigerCounterexample.not_hadwiger_conjecture [thm] ok
+CMP OAI.LinearListHadwiger.hadwigerNumber [def] ok
+CMP OAI.LinearListHadwiger.HasCliqueMinor [def] ok
+CMP OAI.HadwigerCounterexample.exists_counterexamples [thm] ok
+CMP OAI.HadwigerMatching.connectedMatchingNumber [def] ok
+CMP OAI.HadwigerMatching.IsTouchingMatching [def] ok
+Chal.HadwigerCounterexample.exists_counterexamples : ∀ (M : ℕ),
+  ∃ m,
+    max M 5 ≤ m ∧
+      ∃ G,
+        G.indepNum ≤ 2 ∧
+          ↑(Chal.HadwigerMatching.connectedMatchingNumber G) < ↑m / 100 ∧
+            ↑(Chal.LinearListHadwiger.hadwigerNumber G) < 26 * ↑m / 75 + 2 / 3 ∧
+              26 * ↑m / 75 + 2 / 3 < ↑m / 2 ∧
+                ↑m / 2 ≤ ↑G.chromaticNumber.toNat ∧
+                  Chal.LinearListHadwiger.hadwigerNumber G < G.chromaticNumber.toNat ∧
+                    G.chromaticNumber ≠ ⊤ ∧ G.chromaticNumber = ↑G.chromaticNumber.toNat
+Chal.HadwigerCounterexample.not_hadwiger_conjecture : ¬∀ (m : ℕ) (G : SimpleGraph (Fin m)),
+    G.chromaticNumber ≤ ↑(Chal.LinearListHadwiger.hadwigerNumber G)
+def Chal.HadwigerMatching.IsTouchingMatching.{u} : {V : Type u} → SimpleGraph V → Finset (Finset V) → Prop :=
+fun {V} G M =>
+  (∀ e ∈ M, e.card = 2 ∧ G.IsClique ↑e) ∧
+    (∀ e ∈ M, ∀ f ∈ M, e ≠ f → Disjoint e f) ∧ ∀ e ∈ M, ∀ f ∈ M, e ≠ f → ∃ v ∈ e, ∃ w ∈ f, G.Adj v w
+def Chal.HadwigerMatching.connectedMatchingNumber.{u} : {V : Type u} → SimpleGraph V → ℕ :=
+fun {V} G => sSup {n | ∃ M, Chal.HadwigerMatching.IsTouchingMatching G M ∧ M.card = n}
+def Chal.LinearListHadwiger.HasCliqueMinor : {V : Type} → SimpleGraph V → ℕ → Prop :=
+fun {V} G t =>
+  ∃ B,
+    (∀ (i : Fin t), (SimpleGraph.induce (B i) G).Connected) ∧
+      (∀ (i j : Fin t), i ≠ j → Disjoint (B i) (B j)) ∧ ∀ (i j : Fin t), i ≠ j → ∃ v ∈ B i, ∃ w ∈ B j, G.Adj v w
+def Chal.LinearListHadwiger.hadwigerNumber : {V : Type} → SimpleGraph V → ℕ :=
+fun {V} G => sSup {t | Chal.LinearListHadwiger.HasCliqueMinor G t}
+'OAI.HadwigerCounterexample.exists_counterexamples' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.HadwigerCounterexample.not_hadwiger_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+== HadwigerCounterexample comparator-style: ok=6 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

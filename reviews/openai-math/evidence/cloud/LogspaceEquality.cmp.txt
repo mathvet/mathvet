@@ -1,0 +1,218 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_LogspaceEquality.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ExactDerandomization.exact_logarithmic_space_derandomization [thm] ok
+CMP OAI.ExactDerandomization.BPL [def] ok
+CMP OAI.ExactDerandomization.Machine.acceptanceProbability [def] ok
+CMP OAI.ExactDerandomization.Machine.extendCoins [def] ok
+CMP OAI.ExactDerandomization.CoinTape [def] ok
+CMP OAI.ExactDerandomization.Machine.run [def] ok
+CMP OAI.ExactDerandomization.Machine.run._f [def] ok
+CMP OAI.ExactDerandomization.Machine.step [def] ok
+CMP OAI.ExactDerandomization.Action.write [def] ok
+CMP OAI.ExactDerandomization.Action [ind] ok
+CMP OAI.ExactDerandomization.Action.mk [ctor] ok
+CMP OAI.ExactDerandomization.Direction [ind] ok
+CMP OAI.ExactDerandomization.Direction.right [ctor] ok
+CMP OAI.ExactDerandomization.Direction.stay [ctor] ok
+CMP OAI.ExactDerandomization.Direction.left [ctor] ok
+CMP OAI.ExactDerandomization.Action.workMove [def] ok
+CMP OAI.ExactDerandomization.Direction.move [def] ok
+CMP OAI.ExactDerandomization.Direction.move.match_1 [def] ok
+CMP OAI.ExactDerandomization.Direction.casesOn [def] ok
+CMP OAI.ExactDerandomization.Direction.rec [rec] ok
+CMP OAI.ExactDerandomization.Action.inputMove [def] ok
+CMP OAI.ExactDerandomization.Direction.moveInput [def] ok
+CMP OAI.ExactDerandomization.Direction.moveInput._proof_3 [thm] ok
+CMP OAI.ExactDerandomization.Direction.moveInput._proof_2 [thm] ok
+CMP OAI.ExactDerandomization.Action.nextState [def] ok
+CMP OAI.ExactDerandomization.Configuration.mk [ctor] ok
+CMP OAI.ExactDerandomization.Configuration [ind] ok
+CMP OAI.ExactDerandomization.Configuration.workPos [def] ok
+CMP OAI.ExactDerandomization.Configuration.work [def] ok
+CMP OAI.ExactDerandomization.Configuration.inputPos [def] ok
+CMP OAI.ExactDerandomization.readInput [def] ok
+CMP OAI.ExactDerandomization.InputSymbol.rightMarker [ctor] ok
+CMP OAI.ExactDerandomization.InputSymbol [ind] ok
+CMP OAI.ExactDerandomization.InputSymbol.bit [ctor] ok
+CMP OAI.ExactDerandomization.InputSymbol.leftMarker [ctor] ok
+CMP OAI.ExactDerandomization.readInput.match_1 [def] ok
+CMP OAI.ExactDerandomization.Word [def] ok
+CMP OAI.ExactDerandomization.Machine.transition [def] ok
+CMP OAI.ExactDerandomization.Machine [ind] ok
+CMP OAI.ExactDerandomization.Machine.mk [ctor] ok
+CMP OAI.ExactDerandomization.Configuration.state [def] ok
+CMP OAI.ExactDerandomization.Machine.output [def] ok
+CMP OAI.ExactDerandomization.Machine.initial [def] ok
+CMP OAI.ExactDerandomization.Machine.initial._proof_2 [thm] ok
+CMP OAI.ExactDerandomization.Machine.initialState [def] ok
+CMP OAI.ExactDerandomization.Machine.run.match_1 [def] ok
+CMP OAI.ExactDerandomization.polynomialClock [def] ok
+CMP OAI.ExactDerandomization.Machine.HaltsBy [def] ok
+CMP OAI.ExactDerandomization.Machine.LogSpace [def] ok
+CMP OAI.ExactDerandomization.Machine.spaceThrough [def] ok
+CMP OAI.ExactDerandomization.Language [def] ok
+CMP OAI.ExactDerandomization.RL [def] ok
+CMP OAI.ExactDerandomization.L [def] ok
+CMP OAI.ExactDerandomization.Machine.Decides [def] ok
+CMP OAI.ExactDerandomization.Machine.Deterministic [def] ok
+Chal.ExactDerandomization.exact_logarithmic_space_derandomization : Chal.ExactDerandomization.L =
+    Chal.ExactDerandomization.RL ∧
+  Chal.ExactDerandomization.RL = Chal.ExactDerandomization.BPL
+@[reducible] def Chal.ExactDerandomization.Word : Type :=
+List Bool
+@[reducible] def Chal.ExactDerandomization.Language : Type :=
+Set Chal.ExactDerandomization.Word
+@[reducible] def Chal.ExactDerandomization.CoinTape : Type :=
+ℕ → Bool
+inductive Chal.ExactDerandomization.Direction : Type
+number of parameters: 0
+constructors:
+Chal.ExactDerandomization.Direction.left : Chal.ExactDerandomization.Direction
+Chal.ExactDerandomization.Direction.stay : Chal.ExactDerandomization.Direction
+Chal.ExactDerandomization.Direction.right : Chal.ExactDerandomization.Direction
+inductive Chal.ExactDerandomization.InputSymbol : Type
+number of parameters: 0
+constructors:
+Chal.ExactDerandomization.InputSymbol.leftMarker : Chal.ExactDerandomization.InputSymbol
+Chal.ExactDerandomization.InputSymbol.bit : Bool → Chal.ExactDerandomization.InputSymbol
+Chal.ExactDerandomization.InputSymbol.rightMarker : Chal.ExactDerandomization.InputSymbol
+def Chal.ExactDerandomization.Direction.move : Chal.ExactDerandomization.Direction → ℤ → ℤ :=
+fun d z =>
+  match d with
+  | Chal.ExactDerandomization.Direction.left => z - 1
+  | Chal.ExactDerandomization.Direction.stay => z
+  | Chal.ExactDerandomization.Direction.right => z + 1
+def Chal.ExactDerandomization.Direction.moveInput : Chal.ExactDerandomization.Direction →
+  {n : ℕ} → Fin (n + 2) → Fin (n + 2) :=
+fun d {n} i =>
+  match d with
+  | Chal.ExactDerandomization.Direction.left => ⟨↑i - 1, ⋯⟩
+  | Chal.ExactDerandomization.Direction.stay => i
+  | Chal.ExactDerandomization.Direction.right => ⟨min (↑i + 1) (n + 1), ⋯⟩
+def Chal.ExactDerandomization.readInput : (x : Chal.ExactDerandomization.Word) →
+  Fin (List.length x + 2) → Chal.ExactDerandomization.InputSymbol :=
+fun x i =>
+  if ↑i = 0 then Chal.ExactDerandomization.InputSymbol.leftMarker
+  else
+    match x[↑i - 1]? with
+    | some b => Chal.ExactDerandomization.InputSymbol.bit b
+    | none => Chal.ExactDerandomization.InputSymbol.rightMarker
+structure Chal.ExactDerandomization.Action (q w h : ℕ) : Type
+number of parameters: 3
+fields:
+  Chal.ExactDerandomization.Action.nextState : Fin (q + 1)
+  Chal.ExactDerandomization.Action.write : Fin w → Bool
+  Chal.ExactDerandomization.Action.workMove : Fin w → Chal.ExactDerandomization.Direction
+  Chal.ExactDerandomization.Action.inputMove : Fin h → Chal.ExactDerandomization.Direction
+constructor:
+  Chal.ExactDerandomization.Action.mk {q w h : ℕ} (nextState : Fin (q + 1)) (write : Fin w → Bool)
+    (workMove : Fin w → Chal.ExactDerandomization.Direction) (inputMove : Fin h → Chal.ExactDerandomization.Direction) :
+    Chal.ExactDerandomization.Action q w h
+structure Chal.ExactDerandomization.Machine (q w h : ℕ) : Type
+number of parameters: 3
+fields:
+  Chal.ExactDerandomization.Machine.initialState : Fin (q + 1)
+  Chal.ExactDerandomization.Machine.output : Fin (q + 1) → Option Bool
+  Chal.ExactDerandomization.Machine.transition : Fin (q + 1) →
+      (Fin h → Chal.ExactDerandomization.InputSymbol) → (Fin w → Bool) → Bool → Chal.ExactDerandomization.Action q w h
+constructor:
+  Chal.ExactDerandomization.Machine.mk {q w h : ℕ} (initialState : Fin (q + 1)) (output : Fin (q + 1) → Option Bool)
+    (transition :
+      Fin (q + 1) →
+        (Fin h → Chal.ExactDerandomization.InputSymbol) →
+          (Fin w → Bool) → Bool → Chal.ExactDerandomization.Action q w h) :
+    Chal.ExactDerandomization.Machine q w h
+structure Chal.ExactDerandomization.Configuration (q w h n : ℕ) : Type
+number of parameters: 4
+fields:
+  Chal.ExactDerandomization.Configuration.state : Fin (q + 1)
+  Chal.ExactDerandomization.Configuration.inputPos : Fin h → Fin (n + 2)
+  Chal.ExactDerandomization.Configuration.workPos : Fin w → ℤ
+  Chal.ExactDerandomization.Configuration.work : Fin w → ℤ → Bool
+constructor:
+  Chal.ExactDerandomization.Configuration.mk {q w h n : ℕ} (state : Fin (q + 1)) (inputPos : Fin h → Fin (n + 2))
+    (workPos : Fin w → ℤ) (work : Fin w → ℤ → Bool) : Chal.ExactDerandomization.Configuration q w h n
+def Chal.ExactDerandomization.Machine.initial : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h → (n : ℕ) → Chal.ExactDerandomization.Configuration q w h n :=
+fun {q w h} M n =>
+  { state := M.initialState, inputPos := fun x => ⟨0, ⋯⟩, workPos := fun x => 0, work := fun x x_1 => false }
+def Chal.ExactDerandomization.Machine.step : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h →
+    (x : Chal.ExactDerandomization.Word) →
+      Bool →
+        Chal.ExactDerandomization.Configuration q w h (List.length x) →
+          Chal.ExactDerandomization.Configuration q w h (List.length x) :=
+fun {q w h} M x b c =>
+  match M.output c.state with
+  | some val => c
+  | none =>
+    have a :=
+      M.transition c.state (fun j => Chal.ExactDerandomization.readInput x (c.inputPos j))
+        (fun k => c.work k (c.workPos k)) b;
+    { state := a.nextState, inputPos := fun j => (a.inputMove j).moveInput (c.inputPos j),
+      workPos := fun k => (a.workMove k).move (c.workPos k),
+      work := fun k => Function.update (c.work k) (c.workPos k) (a.write k) }
+def Chal.ExactDerandomization.Machine.run : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h →
+    (x : Chal.ExactDerandomization.Word) →
+      Chal.ExactDerandomization.CoinTape → ℕ → Chal.ExactDerandomization.Configuration q w h (List.length x) :=
+fun {q w h} M x coins x_1 => Nat.brecOn x_1 (Chal.ExactDerandomization.Machine.run._f M x coins)
+def Chal.ExactDerandomization.Machine.spaceThrough : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h →
+    Chal.ExactDerandomization.Word → Chal.ExactDerandomization.CoinTape → ℕ → ℕ :=
+fun {q w h} M x coins t => ∑ k, (Finset.image (fun s => (M.run x coins s).workPos k) (Finset.range (t + 1))).card
+def Chal.ExactDerandomization.Machine.LogSpace : {q w h : ℕ} → Chal.ExactDerandomization.Machine q w h → Prop :=
+fun {q w h} M =>
+  ∃ c,
+    0 < c ∧
+      ∀ (x : Chal.ExactDerandomization.Word) (coins : Chal.ExactDerandomization.CoinTape) (t : ℕ),
+        M.spaceThrough x coins t ≤ c * Nat.clog 2 (List.length x + 2)
+def Chal.ExactDerandomization.Machine.Deterministic : {q w h : ℕ} → Chal.ExactDerandomization.Machine q w h → Prop :=
+fun {q w h} M =>
+  ∀ (s : Fin (q + 1)) (i : Fin h → Chal.ExactDerandomization.InputSymbol) (v : Fin w → Bool),
+    M.transition s i v false = M.transition s i v true
+def Chal.ExactDerandomization.Machine.HaltsBy : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h → Chal.ExactDerandomization.Word → ℕ → Prop :=
+fun {q w h} M x t => ∀ (coins : Chal.ExactDerandomization.CoinTape), ∃ b, M.output (M.run x coins t).state = some b
+def Chal.ExactDerandomization.Machine.Decides : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h → Chal.ExactDerandomization.Language → Prop :=
+fun {q w h} M A =>
+  ∀ (x : Chal.ExactDerandomization.Word),
+    ∃ t b,
+      (b = true ↔ x ∈ A) ∧ ∀ (coins : Chal.ExactDerandomization.CoinTape), M.output (M.run x coins t).state = some b
+def Chal.ExactDerandomization.Machine.extendCoins : {t : ℕ} → (Fin t → Bool) → Chal.ExactDerandomization.CoinTape :=
+fun {t} bits s => if hs : s < t then bits ⟨s, hs⟩ else false
+def Chal.ExactDerandomization.Machine.acceptanceProbability : {q w h : ℕ} →
+  Chal.ExactDerandomization.Machine q w h → Chal.ExactDerandomization.Word → ℕ → ℚ :=
+fun {q w h} M x t =>
+  ↑{bits | M.output (M.run x (Chal.ExactDerandomization.Machine.extendCoins bits) t).state = some true}.card / 2 ^ t
+def Chal.ExactDerandomization.polynomialClock : ℕ → ℕ → ℕ → ℕ :=
+fun c k n => c * (n + 2) ^ k
+def Chal.ExactDerandomization.L : Set Chal.ExactDerandomization.Language :=
+{A | ∃ q w h M, M.Deterministic ∧ M.LogSpace ∧ M.Decides A}
+def Chal.ExactDerandomization.RL : Set Chal.ExactDerandomization.Language :=
+{A |
+  ∃ q w h M,
+    M.LogSpace ∧
+      ∃ c k,
+        0 < c ∧
+          ∀ (x : Chal.ExactDerandomization.Word),
+            M.HaltsBy x (Chal.ExactDerandomization.polynomialClock c k (List.length x)) ∧
+              (x ∈ A →
+                  1 / 2 ≤ M.acceptanceProbability x (Chal.ExactDerandomization.polynomialClock c k (List.length x))) ∧
+                (x ∉ A → M.acceptanceProbability x (Chal.ExactDerandomization.polynomialClock c k (List.length x)) = 0)}
+def Chal.ExactDerandomization.BPL : Set Chal.ExactDerandomization.Language :=
+{A |
+  ∃ q w h M,
+    M.LogSpace ∧
+      ∃ c k,
+        0 < c ∧
+          ∀ (x : Chal.ExactDerandomization.Word),
+            M.HaltsBy x (Chal.ExactDerandomization.polynomialClock c k (List.length x)) ∧
+              (x ∈ A →
+                  2 / 3 ≤ M.acceptanceProbability x (Chal.ExactDerandomization.polynomialClock c k (List.length x))) ∧
+                (x ∉ A →
+                  M.acceptanceProbability x (Chal.ExactDerandomization.polynomialClock c k (List.length x)) ≤ 1 / 3)}
+'OAI.ExactDerandomization.exact_logarithmic_space_derandomization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== LogspaceEquality comparator-style: ok=55 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0
