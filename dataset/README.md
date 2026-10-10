@@ -181,3 +181,10 @@ relative to the paper directory and the TeX excerpt. The per-challenge `nl_main_
 the lab's scope note links to the Lean; for 13 of the 40 referee-sample families the paper the headline is about is not
 among them, so the referee packet (`reviews/openai-math/referee/`) takes its section 4 from this file instead, listing
 every paper of the family in catalogue order. Built by the private `scripts/build_paper_theorems.py`.
+
+## `baseline.md` (added 2026-10-10)
+
+Aggregates of a first automated baseline on this dataset: a single-shot Sonnet 5.5 judge (`claude -p`, JSON schema, no tools)
+classifying each of the 405 pairs under the PROTOCOL.md rubric, three samples per pair, compared with the MathVet verdicts.
+Family-level agreement, confusion matrices, kappa, self-agreement and cost are given; no per-family or per-challenge class is
+published while the verdicts are pre-referee (rule T3). The runner is the private `scripts/benchmark_baseline.py`.
