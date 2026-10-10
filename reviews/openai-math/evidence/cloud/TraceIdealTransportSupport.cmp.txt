@@ -1,0 +1,468 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_TraceIdealTransportSupport.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TraceConeClassification.closedIdealEquivOfAdditive_weight [thm] ok
+CMP OAI.TraceConeClassification.closedIdealEquivOfAdditive [def] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv [def] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_6 [thm] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.IdempotentTrace [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.toFun [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace [ind] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.mk [ctor] ok
+CMP OAI.TraceConeClassification.Positive.mulStar [def] ok
+CMP OAI.TraceConeClassification.Positive.mulStar._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.Positive [def] ok
+CMP OAI.TraceConeClassification.Positive.starMul [def] ok
+CMP OAI.TraceConeClassification.Positive.starMul._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.Positive.scale [def] ok
+CMP OAI.TraceConeClassification.Positive.scale._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.Positive.add [def] ok
+CMP OAI.TraceConeClassification.Positive.add._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.Positive.zero [def] ok
+CMP OAI.TraceConeClassification.Positive.zero._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.idempotentTraceEquiv._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.closedIdealEquivIdempotent [def] ok
+CMP OAI.TraceConeClassification.closedIdealEquivIdempotent._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.closedIdealEquivIdempotent._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finIdeal [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finIdeal._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteIdeal [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteSquareAlgebra [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.star_mem_finiteSquareSet [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteSquareSet [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.smul_mem_finiteSquareSet [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteSquareSet_left [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero_mem_finiteSquareSet [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.add_mem_finiteSquareSet [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteIdeal._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteIdeal._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.finiteIdeal._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal [def] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.weight [def] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.weight._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.closedIdealEquivIdempotent._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.weight_idempotent [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.idempotent_eq_weight [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.le_iff_add_weight [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder [def] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._proof_8 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._proof_7 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._aux_1 [def] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._aux_3 [def] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._proof_6 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.instPartialOrder._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.ClosedIdeal.finiteIdeal_weight [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.lowerSemicontinuous_supportWeight [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_right [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_left [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.isClosed_finiteIdeal [thm] ok
+CMP OAI.TraceConeClassification.closed_ideal_weight_exists [thm] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_zeroIdeal [thm] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.toEquiv [def] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv [ind] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.mk [ctor] ok
+CMP OAI.TraceConeClassification.PreservesCanonicalConvergence [def] ok
+CMP OAI.TraceConeClassification.CanonicalConvergence [def] ok
+CMP OAI.TraceConeClassification.Positive.cut [def] ok
+CMP OAI.TraceConeClassification.Positive.cut._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.Positive.cut._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.Positive.cut._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.Positive.cut._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.Positive.cut._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.scale._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero._proof_5 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zero._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.zeroIdeal [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.supportWeight [def] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.supportWeight._proof_4 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.supportWeight._proof_3 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.supportWeight._proof_2 [thm] ok
+CMP OAI.TraceConeClassification.ExtendedTrace.supportWeight._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso [def] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.map_add [thm] ok
+CMP OAI.TraceConeClassification.closedIdealOrderEquivOfAdditive [def] ok
+CMP OAI.TraceConeClassification.closedIdealOrderEquivOfAdditive._proof_1 [thm] ok
+CMP OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_finIdeal [thm] ok
+@Chal.TraceConeClassification.TraceConeEquiv.idealOrderIso_finIdeal : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] {B : Type u_2} [inst_3 : NonUnitalCStarAlgebra B]
+  [inst_4 : PartialOrder B] [inst_5 : StarOrderedRing B] (F : Chal.TraceConeClassification.TraceConeEquiv A B)
+  (τ : Chal.TraceConeClassification.ExtendedTrace A), F.idealOrderIso τ.finIdeal = (F.toEquiv τ).finIdeal
+@Chal.TraceConeClassification.TraceConeEquiv.idealOrderIso_zeroIdeal : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] {B : Type u_2} [inst_3 : NonUnitalCStarAlgebra B]
+  [inst_4 : PartialOrder B] [inst_5 : StarOrderedRing B] (F : Chal.TraceConeClassification.TraceConeEquiv A B)
+  (τ : Chal.TraceConeClassification.ExtendedTrace A), F.idealOrderIso τ.zeroIdeal = (F.toEquiv τ).zeroIdeal
+@Chal.TraceConeClassification.closed_ideal_weight_exists : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (I : NonUnitalStarSubalgebra ℂ A),
+  IsClosed ↑I →
+    (∀ (x y : A), y ∈ I → x * y ∈ I) →
+      (∀ (x y : A), x ∈ I → x * y ∈ I) →
+        ∃ τ, ∀ (a : Chal.TraceConeClassification.Positive A), τ.toFun a = if ↑a ∈ I then 0 else ⊤
+@Chal.TraceConeClassification.ExtendedTrace.zero_mem_finiteSquareSet : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A),
+  0 ∈ τ.finiteSquareSet
+@Chal.TraceConeClassification.ExtendedTrace.star_mem_finiteSquareSet : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A) {x : A},
+  x ∈ τ.finiteSquareSet → star x ∈ τ.finiteSquareSet
+@Chal.TraceConeClassification.ExtendedTrace.smul_mem_finiteSquareSet : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A) (c : ℂ)
+  {x : A}, x ∈ τ.finiteSquareSet → c • x ∈ τ.finiteSquareSet
+@Chal.TraceConeClassification.ExtendedTrace.add_mem_finiteSquareSet : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A) {x y : A},
+  x ∈ τ.finiteSquareSet → y ∈ τ.finiteSquareSet → x + y ∈ τ.finiteSquareSet
+@Chal.TraceConeClassification.ExtendedTrace.mul_mem_finiteSquareSet_left : ∀ {A : Type u_1}
+  [inst : NonUnitalCStarAlgebra A] [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A]
+  (τ : Chal.TraceConeClassification.ExtendedTrace A) (x : A) {y : A}, y ∈ τ.finiteSquareSet → x * y ∈ τ.finiteSquareSet
+@Chal.TraceConeClassification.ExtendedTrace.isClosed_finiteIdeal : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A),
+  IsClosed ↑τ.finiteIdeal
+@Chal.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_left : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (τ : Chal.TraceConeClassification.ExtendedTrace A) (x : A)
+  {y : A}, y ∈ τ.finiteIdeal → x * y ∈ τ.finiteIdeal
+@Chal.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_right : ∀ {A : Type u_1}
+  [inst : NonUnitalCStarAlgebra A] [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A]
+  (τ : Chal.TraceConeClassification.ExtendedTrace A) {x : A}, x ∈ τ.finiteIdeal → ∀ (y : A), x * y ∈ τ.finiteIdeal
+@Chal.TraceConeClassification.ExtendedTrace.lowerSemicontinuous_supportWeight : ∀ {A : Type u_1}
+  [inst : NonUnitalCStarAlgebra A] [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A]
+  (τ : Chal.TraceConeClassification.ExtendedTrace A), LowerSemicontinuous fun a => if τ.toFun a = 0 then 0 else ⊤
+@Chal.TraceConeClassification.ClosedIdeal.weight_idempotent : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (I : Chal.TraceConeClassification.ClosedIdeal A),
+  I.weight.add I.weight = I.weight
+@Chal.TraceConeClassification.ClosedIdeal.finiteIdeal_weight : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (I : Chal.TraceConeClassification.ClosedIdeal A),
+  I.weight.finiteIdeal = ↑I
+@Chal.TraceConeClassification.ClosedIdeal.le_iff_add_weight : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] (I J : Chal.TraceConeClassification.ClosedIdeal A),
+  I ≤ J ↔ I.weight.add J.weight = I.weight
+@Chal.TraceConeClassification.ExtendedTrace.idempotent_eq_weight : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] {τ : Chal.TraceConeClassification.ExtendedTrace A},
+  τ.add τ = τ → τ.finIdeal.weight = τ
+@Chal.TraceConeClassification.closedIdealEquivOfAdditive_weight : ∀ {A : Type u_1} [inst : NonUnitalCStarAlgebra A]
+  [inst_1 : PartialOrder A] [inst_2 : StarOrderedRing A] {B : Type u_2} [inst_3 : NonUnitalCStarAlgebra B]
+  [inst_4 : PartialOrder B] [inst_5 : StarOrderedRing B]
+  (e : Chal.TraceConeClassification.ExtendedTrace A ≃ Chal.TraceConeClassification.ExtendedTrace B)
+  (he : ∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A), e (τ.add σ) = (e τ).add (e σ))
+  (I : Chal.TraceConeClassification.ClosedIdeal A),
+  ((Chal.TraceConeClassification.closedIdealEquivOfAdditive e he) I).weight = e I.weight
+@[reducible] def Chal.TraceConeClassification.Positive.{u_1} : (A : Type u_1) →
+  [NonUnitalCStarAlgebra A] → [PartialOrder A] → Type (max 0 u_1) :=
+fun A [NonUnitalCStarAlgebra A] [PartialOrder A] => { a // 0 ≤ a }
+def Chal.TraceConeClassification.Positive.zero.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] → [inst_1 : PartialOrder A] → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] => ⟨0, ⋯⟩
+def Chal.TraceConeClassification.Positive.add.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [StarOrderedRing A] →
+        Chal.TraceConeClassification.Positive A →
+          Chal.TraceConeClassification.Positive A → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] a b => ⟨↑a + ↑b, ⋯⟩
+def Chal.TraceConeClassification.Positive.scale.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [StarOrderedRing A] →
+        NNReal → Chal.TraceConeClassification.Positive A → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] r a => ⟨↑r • ↑a, ⋯⟩
+def Chal.TraceConeClassification.Positive.starMul.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] → [StarOrderedRing A] → A → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] x => ⟨star x * x, ⋯⟩
+def Chal.TraceConeClassification.Positive.mulStar.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] → [StarOrderedRing A] → A → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] x => ⟨x * star x, ⋯⟩
+def Chal.TraceConeClassification.Positive.cut.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [StarOrderedRing A] →
+        Chal.TraceConeClassification.Positive A → NNReal → Chal.TraceConeClassification.Positive A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] a ε => ⟨cfcₙ (fun t => max (t - ↑ε) 0) ↑a, ⋯⟩
+structure Chal.TraceConeClassification.ExtendedTrace.{u_1} (A : Type u_1) [NonUnitalCStarAlgebra A] [PartialOrder A]
+  [StarOrderedRing A] : Type u_1
+number of parameters: 4
+fields:
+  Chal.TraceConeClassification.ExtendedTrace.toFun : Chal.TraceConeClassification.Positive A → ENNReal
+  Chal.TraceConeClassification.ExtendedTrace.map_zero : self.toFun Chal.TraceConeClassification.Positive.zero = 0
+  Chal.TraceConeClassification.ExtendedTrace.map_add : ∀ (a b : Chal.TraceConeClassification.Positive A),
+      self.toFun (a.add b) = self.toFun a + self.toFun b
+  Chal.TraceConeClassification.ExtendedTrace.map_scale : ∀ (r : NNReal),
+      0 < r →
+        ∀ (a : Chal.TraceConeClassification.Positive A),
+          self.toFun (Chal.TraceConeClassification.Positive.scale r a) = ↑r * self.toFun a
+  Chal.TraceConeClassification.ExtendedTrace.tracial : ∀ (x : A),
+      self.toFun (Chal.TraceConeClassification.Positive.starMul x) =
+        self.toFun (Chal.TraceConeClassification.Positive.mulStar x)
+  Chal.TraceConeClassification.ExtendedTrace.lowerSemicontinuous : LowerSemicontinuous self.toFun
+constructor:
+  Chal.TraceConeClassification.ExtendedTrace.mk.{u_1} {A : Type u_1} [NonUnitalCStarAlgebra A] [PartialOrder A]
+    [StarOrderedRing A] (toFun : Chal.TraceConeClassification.Positive A → ENNReal)
+    (map_zero : toFun Chal.TraceConeClassification.Positive.zero = 0)
+    (map_add : ∀ (a b : Chal.TraceConeClassification.Positive A), toFun (a.add b) = toFun a + toFun b)
+    (map_scale :
+      ∀ (r : NNReal),
+        0 < r →
+          ∀ (a : Chal.TraceConeClassification.Positive A),
+            toFun (Chal.TraceConeClassification.Positive.scale r a) = ↑r * toFun a)
+    (tracial :
+      ∀ (x : A),
+        toFun (Chal.TraceConeClassification.Positive.starMul x) =
+          toFun (Chal.TraceConeClassification.Positive.mulStar x))
+    (lowerSemicontinuous : LowerSemicontinuous toFun) : Chal.TraceConeClassification.ExtendedTrace A
+def Chal.TraceConeClassification.CanonicalConvergence.{u_1, u_2} : (A : Type u_1) →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {ι : Type u_2} →
+          Filter ι →
+            (ι → Chal.TraceConeClassification.ExtendedTrace A) → Chal.TraceConeClassification.ExtendedTrace A → Prop :=
+fun A [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {ι} l τ σ =>
+  ∀ (a : Chal.TraceConeClassification.Positive A) (ε : NNReal),
+    0 < ε →
+      Filter.limsup (fun i => (τ i).toFun (a.cut ε)) l ≤ σ.toFun a ∧
+        σ.toFun a ≤ Filter.liminf (fun i => (τ i).toFun a) l
+def Chal.TraceConeClassification.ExtendedTrace.scale.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        NNReal → Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ExtendedTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] r τ =>
+  { toFun := fun a => ↑r * τ.toFun a, map_zero := ⋯, map_add := ⋯, map_scale := ⋯, tracial := ⋯,
+    lowerSemicontinuous := ⋯ }
+def Chal.TraceConeClassification.ExtendedTrace.finiteSquareSet.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] → [inst_2 : StarOrderedRing A] → Chal.TraceConeClassification.ExtendedTrace A → Set A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ =>
+  {x | τ.toFun (Chal.TraceConeClassification.Positive.starMul x) < ⊤}
+def Chal.TraceConeClassification.ExtendedTrace.finiteSquareAlgebra.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] → Chal.TraceConeClassification.ExtendedTrace A → NonUnitalStarSubalgebra ℂ A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ =>
+  { carrier := τ.finiteSquareSet, add_mem' := ⋯, zero_mem' := ⋯, mul_mem' := ⋯, smul_mem' := ⋯, star_mem' := ⋯ }
+def Chal.TraceConeClassification.ExtendedTrace.finiteIdeal.{u_1} : {A : Type u_1} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] → Chal.TraceConeClassification.ExtendedTrace A → NonUnitalStarSubalgebra ℂ A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ => τ.finiteSquareAlgebra.topologicalClosure
+def Chal.TraceConeClassification.ExtendedTrace.add.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ExtendedTrace A →
+          Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ExtendedTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ σ =>
+  { toFun := fun a => τ.toFun a + σ.toFun a, map_zero := ⋯, map_add := ⋯, map_scale := ⋯, tracial := ⋯,
+    lowerSemicontinuous := ⋯ }
+def Chal.TraceConeClassification.ExtendedTrace.zero.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] → [inst_2 : StarOrderedRing A] → Chal.TraceConeClassification.ExtendedTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] =>
+  { toFun := fun x => 0, map_zero := Chal.TraceConeClassification.ExtendedTrace.zero._proof_1, map_add := ⋯,
+    map_scale := ⋯, tracial := ⋯, lowerSemicontinuous := ⋯ }
+def Chal.TraceConeClassification.ClosedIdeal.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → [inst_1 : PartialOrder A] → [StarOrderedRing A] → Type (max 0 u) :=
+fun A [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] =>
+  { I // IsClosed ↑I ∧ (∀ (x y : A), y ∈ I → x * y ∈ I) ∧ ∀ (x y : A), x ∈ I → x * y ∈ I }
+def Chal.TraceConeClassification.ExtendedTrace.finIdeal.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ClosedIdeal A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ => ⟨τ.finiteIdeal, ⋯⟩
+def Chal.TraceConeClassification.ExtendedTrace.supportWeight.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ExtendedTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ =>
+  { toFun := fun a => if τ.toFun a = 0 then 0 else ⊤, map_zero := ⋯, map_add := ⋯, map_scale := ⋯, tracial := ⋯,
+    lowerSemicontinuous := ⋯ }
+def Chal.TraceConeClassification.ExtendedTrace.zeroIdeal.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ClosedIdeal A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] τ => τ.supportWeight.finIdeal
+def Chal.TraceConeClassification.ClosedIdeal.weight.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ClosedIdeal A → Chal.TraceConeClassification.ExtendedTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] I => ⋯.choose
+def Chal.TraceConeClassification.IdempotentTrace.{u} : (A : Type u) →
+  [inst : NonUnitalCStarAlgebra A] → [inst_1 : PartialOrder A] → [StarOrderedRing A] → Type (max 0 u) :=
+fun A [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] => { τ // τ.add τ = τ }
+def Chal.TraceConeClassification.closedIdealEquivIdempotent.{u} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        Chal.TraceConeClassification.ClosedIdeal A ≃ Chal.TraceConeClassification.IdempotentTrace A :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] =>
+  { toFun := fun I => ⟨I.weight, ⋯⟩, invFun := fun τ => (↑τ).finIdeal, left_inv := ⋯, right_inv := ⋯ }
+def Chal.TraceConeClassification.idempotentTraceEquiv.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {B : Type v} →
+          [inst_3 : NonUnitalCStarAlgebra B] →
+            [inst_4 : PartialOrder B] →
+              [inst_5 : StarOrderedRing B] →
+                (e : Chal.TraceConeClassification.ExtendedTrace A ≃ Chal.TraceConeClassification.ExtendedTrace B) →
+                  (∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A), e (τ.add σ) = (e τ).add (e σ)) →
+                    Chal.TraceConeClassification.IdempotentTrace A ≃ Chal.TraceConeClassification.IdempotentTrace B :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {B} [NonUnitalCStarAlgebra B] [PartialOrder B]
+    [StarOrderedRing B] e he =>
+  { toFun := fun τ => ⟨e ↑τ, ⋯⟩, invFun := fun σ => ⟨e.symm ↑σ, ⋯⟩, left_inv := ⋯, right_inv := ⋯ }
+def Chal.TraceConeClassification.closedIdealEquivOfAdditive.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {B : Type v} →
+          [inst_3 : NonUnitalCStarAlgebra B] →
+            [inst_4 : PartialOrder B] →
+              [inst_5 : StarOrderedRing B] →
+                (e : Chal.TraceConeClassification.ExtendedTrace A ≃ Chal.TraceConeClassification.ExtendedTrace B) →
+                  (∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A), e (τ.add σ) = (e τ).add (e σ)) →
+                    Chal.TraceConeClassification.ClosedIdeal A ≃ Chal.TraceConeClassification.ClosedIdeal B :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {B} [NonUnitalCStarAlgebra B] [PartialOrder B]
+    [StarOrderedRing B] e he =>
+  Chal.TraceConeClassification.closedIdealEquivIdempotent.trans
+    ((Chal.TraceConeClassification.idempotentTraceEquiv e he).trans
+      Chal.TraceConeClassification.closedIdealEquivIdempotent.symm)
+def Chal.TraceConeClassification.closedIdealOrderEquivOfAdditive.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {B : Type v} →
+          [inst_3 : NonUnitalCStarAlgebra B] →
+            [inst_4 : PartialOrder B] →
+              [inst_5 : StarOrderedRing B] →
+                (e : Chal.TraceConeClassification.ExtendedTrace A ≃ Chal.TraceConeClassification.ExtendedTrace B) →
+                  (∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A), e (τ.add σ) = (e τ).add (e σ)) →
+                    Chal.TraceConeClassification.ClosedIdeal A ≃o Chal.TraceConeClassification.ClosedIdeal B :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {B} [NonUnitalCStarAlgebra B] [PartialOrder B]
+    [StarOrderedRing B] e he =>
+  let __Equiv := Chal.TraceConeClassification.closedIdealEquivOfAdditive e he;
+  { toEquiv := __Equiv, map_rel_iff' := ⋯ }
+def Chal.TraceConeClassification.PreservesCanonicalConvergence.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {B : Type v} →
+          [inst_3 : NonUnitalCStarAlgebra B] →
+            [inst_4 : PartialOrder B] →
+              [inst_5 : StarOrderedRing B] →
+                (Chal.TraceConeClassification.ExtendedTrace A → Chal.TraceConeClassification.ExtendedTrace B) → Prop :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {B} [NonUnitalCStarAlgebra B] [PartialOrder B]
+    [StarOrderedRing B] f =>
+  ∀ (l : Filter (Chal.TraceConeClassification.ExtendedTrace A)) (σ : Chal.TraceConeClassification.ExtendedTrace A),
+    Chal.TraceConeClassification.CanonicalConvergence A l id σ →
+      Chal.TraceConeClassification.CanonicalConvergence B l f (f σ)
+structure Chal.TraceConeClassification.TraceConeEquiv.{u, v} (A : Type u) [NonUnitalCStarAlgebra A] [PartialOrder A]
+  [StarOrderedRing A] (B : Type v) [NonUnitalCStarAlgebra B] [PartialOrder B] [StarOrderedRing B] : Type (max u v)
+number of parameters: 8
+fields:
+  Chal.TraceConeClassification.TraceConeEquiv.toEquiv : Chal.TraceConeClassification.ExtendedTrace A ≃
+      Chal.TraceConeClassification.ExtendedTrace B
+  Chal.TraceConeClassification.TraceConeEquiv.map_add : ∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A),
+      self.toEquiv (τ.add σ) = (self.toEquiv τ).add (self.toEquiv σ)
+  Chal.TraceConeClassification.TraceConeEquiv.map_zero : self.toEquiv Chal.TraceConeClassification.ExtendedTrace.zero =
+      Chal.TraceConeClassification.ExtendedTrace.zero
+  Chal.TraceConeClassification.TraceConeEquiv.map_scale : ∀ (r : NNReal),
+      0 < r →
+        ∀ (τ : Chal.TraceConeClassification.ExtendedTrace A),
+          self.toEquiv (Chal.TraceConeClassification.ExtendedTrace.scale r τ) =
+            Chal.TraceConeClassification.ExtendedTrace.scale r (self.toEquiv τ)
+  Chal.TraceConeClassification.TraceConeEquiv.continuous_toFun : Chal.TraceConeClassification.PreservesCanonicalConvergence
+      ⇑self.toEquiv
+  Chal.TraceConeClassification.TraceConeEquiv.continuous_invFun : Chal.TraceConeClassification.PreservesCanonicalConvergence
+      ⇑self.toEquiv.symm
+constructor:
+  Chal.TraceConeClassification.TraceConeEquiv.mk.{u, v} {A : Type u} [NonUnitalCStarAlgebra A] [PartialOrder A]
+    [StarOrderedRing A] {B : Type v} [NonUnitalCStarAlgebra B] [PartialOrder B] [StarOrderedRing B]
+    (toEquiv : Chal.TraceConeClassification.ExtendedTrace A ≃ Chal.TraceConeClassification.ExtendedTrace B)
+    (map_add : ∀ (τ σ : Chal.TraceConeClassification.ExtendedTrace A), toEquiv (τ.add σ) = (toEquiv τ).add (toEquiv σ))
+    (map_zero :
+      toEquiv Chal.TraceConeClassification.ExtendedTrace.zero = Chal.TraceConeClassification.ExtendedTrace.zero)
+    (map_scale :
+      ∀ (r : NNReal),
+        0 < r →
+          ∀ (τ : Chal.TraceConeClassification.ExtendedTrace A),
+            toEquiv (Chal.TraceConeClassification.ExtendedTrace.scale r τ) =
+              Chal.TraceConeClassification.ExtendedTrace.scale r (toEquiv τ))
+    (continuous_toFun : Chal.TraceConeClassification.PreservesCanonicalConvergence ⇑toEquiv)
+    (continuous_invFun : Chal.TraceConeClassification.PreservesCanonicalConvergence ⇑toEquiv.symm) :
+    Chal.TraceConeClassification.TraceConeEquiv A B
+def Chal.TraceConeClassification.TraceConeEquiv.idealOrderIso.{u, v} : {A : Type u} →
+  [inst : NonUnitalCStarAlgebra A] →
+    [inst_1 : PartialOrder A] →
+      [inst_2 : StarOrderedRing A] →
+        {B : Type v} →
+          [inst_3 : NonUnitalCStarAlgebra B] →
+            [inst_4 : PartialOrder B] →
+              [inst_5 : StarOrderedRing B] →
+                Chal.TraceConeClassification.TraceConeEquiv A B →
+                  Chal.TraceConeClassification.ClosedIdeal A ≃o Chal.TraceConeClassification.ClosedIdeal B :=
+fun {A} [NonUnitalCStarAlgebra A] [PartialOrder A] [StarOrderedRing A] {B} [NonUnitalCStarAlgebra B] [PartialOrder B]
+    [StarOrderedRing B] F =>
+  Chal.TraceConeClassification.closedIdealOrderEquivOfAdditive F.toEquiv ⋯
+'OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_finIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_zeroIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.closed_ideal_weight_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.zero_mem_finiteSquareSet' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.star_mem_finiteSquareSet' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.smul_mem_finiteSquareSet' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.add_mem_finiteSquareSet' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteSquareSet_left' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.isClosed_finiteIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_left' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.mul_mem_finiteIdeal_right' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.lowerSemicontinuous_supportWeight' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.ClosedIdeal.weight_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceConeClassification.ClosedIdeal.finiteIdeal_weight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceConeClassification.ClosedIdeal.le_iff_add_weight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.TraceConeClassification.ExtendedTrace.idempotent_eq_weight' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.TraceConeClassification.closedIdealEquivOfAdditive_weight' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== TraceIdealTransportSupport comparator-style: ok=101 problems=0 errors=0 | no-shadowing | [propext, [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
