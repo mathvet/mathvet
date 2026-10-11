@@ -1,0 +1,24 @@
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:85:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:126:2: error(lean.unknownIdentifier): Unknown identifier `polynomialOrigin_isMaximal`
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:141:33: error: Invalid argument name `σ` for function
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:142:6: error: Function expected at
+  normalizedWeights
+but this term has type
+  ?m.55
+
+Note: Expected a function because this term is being applied to the argument
+  a
+
+Hint: The identifier `normalizedWeights` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:138:0: error: stuck at solving universe constraint
+  ?u.95 + 1 =?= imax (u + 1) ?u.101
+while trying to unify
+  (x : K) → ?m.69 x : Sort (imax (u + 1) ?u.101)
+with
+  (x : K) → ?m.69 x : Sort (imax (u + 1) ?u.101)
+CMP Chal.CartierSections.isCompact_closedChartFieldRetraction_cone NOT_FOUND
+/home/user/mathvet/upstream/openai-math/lean/Scratch/Cmp_CartierChartCompactnessSupport.lean:155:8: error(lean.unknownIdentifier): Unknown identifier `Chal.CartierSections.isCompact_closedChartFieldRetraction_cone`
+'OAI.CartierSections.isCompact_closedChartFieldRetraction_cone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== CartierChartCompactnessSupport comparator-style: ok=0 problems=1 errors=5 | SHADOW-DIFF(see CartierChartCompactnessSupport.standalone.norm vs CartierChartCompactnessSupport.insolution.norm) | [propext,  | defeq_only=0 aux_only=0
