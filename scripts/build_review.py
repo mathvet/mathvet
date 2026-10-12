@@ -377,8 +377,8 @@ review_doc = OrderedDict([
                         'standard. The formalization itself is OpenAI\'s; this file records the review and the reviewer\'s '
                         'own machine checks. Every verdict is pre-referee until the referee round described in PROTOCOL.md '
                         'has been published.'),
-        ('authors', ['MathVet (math.vet)']),
-        ('responsible_maintainers', ['MathVet maintainer, github.com/mathvet']),
+        ('authors', ['Tejpal Virk (independent; MathVet, math.vet)']),
+        ('responsible_maintainers', ['Tejpal Virk, github.com/mathvet']),
         ('license', 'Apache-2.0'),
     ])),
     ('repository', OrderedDict([
@@ -415,7 +415,7 @@ review_doc = OrderedDict([
     ('fidelity', OrderedDict([('divergences', divergences)])),
     ('review', OrderedDict([
         ('status', 'independent third-party review — pre-referee'),
-        ('reviewers', ['MathVet (github.com/mathvet); no author of the reviewed formalization took part']),
+        ('reviewers', ['Tejpal Virk (independent; MathVet, github.com/mathvet); no author of the reviewed formalization took part']),
         ('notes', 'Statement fidelity only: whether each Comparator challenge statement states its family\'s headline claim. '
                   'Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. '
                   f'Published {NOW.date().isoformat()}. Error-rate protocol: 40 families (12 documented divergences with '
