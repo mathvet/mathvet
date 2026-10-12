@@ -1,0 +1,115 @@
+OAI.MinUncut.main : Nonempty OAI.MinUncut.Reduction
+'OAI.MinUncut.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+structure OAI.MinUncutGames.BinaryFormula.Literal : Type
+number of parameters: 0
+fields:
+  OAI.MinUncutGames.BinaryFormula.Literal.name : ℕ
+  OAI.MinUncutGames.BinaryFormula.Literal.positive : Bool
+constructor:
+  OAI.MinUncutGames.BinaryFormula.Literal.mk (name : ℕ) (positive : Bool) : OAI.MinUncutGames.BinaryFormula.Literal
+def OAI.MinUncutGames.BinaryFormula.Literal.eval : OAI.MinUncutGames.BinaryFormula.Literal → (ℕ → Bool) → Bool :=
+fun literal assignment => if literal.positive = true then assignment literal.name else !assignment literal.name
+@[reducible] def OAI.MinUncutGames.BinaryFormula.Clause : Type :=
+Vector OAI.MinUncutGames.BinaryFormula.Literal 3
+def OAI.MinUncutGames.BinaryFormula.Clause.eval : OAI.MinUncutGames.BinaryFormula.Clause → (ℕ → Bool) → Bool :=
+fun clause assignment => clause[0].eval assignment || clause[1].eval assignment || clause[2].eval assignment
+structure OAI.MinUncutGames.BinaryFormula.Formula : Type
+number of parameters: 0
+fields:
+  OAI.MinUncutGames.BinaryFormula.Formula.clauses : List OAI.MinUncutGames.BinaryFormula.Clause
+constructor:
+  OAI.MinUncutGames.BinaryFormula.Formula.mk (clauses : List OAI.MinUncutGames.BinaryFormula.Clause) :
+    OAI.MinUncutGames.BinaryFormula.Formula
+def OAI.MinUncutGames.BinaryFormula.Formula.Satisfiable : OAI.MinUncutGames.BinaryFormula.Formula → Prop :=
+fun F => ∃ assignment, ∀ clause ∈ F.clauses, clause.eval assignment = true
+def OAI.MinUncutGames.BinaryEncoding.frame : List Bool → List Bool :=
+fun x => List.brecOn x OAI.MinUncutGames.BinaryEncoding.frame._f
+def OAI.MinUncutGames.BinaryEncoding.nameBits : ℕ → List Bool :=
+fun name => OAI.MinUncutGames.BinaryEncoding.frame name.bits
+def OAI.MinUncutGames.BinaryEncoding.literalBits : OAI.MinUncutGames.BinaryFormula.Literal → List Bool :=
+fun literal => literal.positive :: OAI.MinUncutGames.BinaryEncoding.nameBits literal.name
+def OAI.MinUncutGames.BinaryEncoding.clauseBits : OAI.MinUncutGames.BinaryFormula.Clause → List Bool :=
+fun clause =>
+  OAI.MinUncutGames.BinaryEncoding.literalBits clause[0] ++ OAI.MinUncutGames.BinaryEncoding.literalBits clause[1] ++
+    OAI.MinUncutGames.BinaryEncoding.literalBits clause[2]
+def OAI.MinUncutGames.BinaryEncoding.clausesBits : List OAI.MinUncutGames.BinaryFormula.Clause → List Bool :=
+fun x => List.brecOn x OAI.MinUncutGames.BinaryEncoding.clausesBits._f
+def OAI.MinUncutGames.BinaryEncoding.formulaBits : OAI.MinUncutGames.BinaryFormula.Formula → List Bool :=
+fun formula => OAI.MinUncutGames.BinaryEncoding.clausesBits formula.clauses
+structure OAI.MinUncut.Output : Type
+number of parameters: 0
+fields:
+  OAI.MinUncut.Output.vertices : ℕ
+  OAI.MinUncut.Output.adjacent : Fin self.vertices → Fin self.vertices → Bool
+  OAI.MinUncut.Output.symmetric : ∀ (u v : Fin self.vertices), self.adjacent u v = self.adjacent v u
+  OAI.MinUncut.Output.loopless : ∀ (u : Fin self.vertices), self.adjacent u u = false
+  OAI.MinUncut.Output.threshold : ℕ
+  OAI.MinUncut.Output.threshold_pos : 1 ≤ self.threshold
+constructor:
+  OAI.MinUncut.Output.mk (vertices : ℕ) (adjacent : Fin vertices → Fin vertices → Bool)
+    (symmetric : ∀ (u v : Fin vertices), adjacent u v = adjacent v u)
+    (loopless : ∀ (u : Fin vertices), adjacent u u = false) (threshold : ℕ) (threshold_pos : 1 ≤ threshold) :
+    OAI.MinUncut.Output
+def OAI.MinUncut.Output.uncut : (G : OAI.MinUncut.Output) → (Fin G.vertices → Bool) → ℕ :=
+fun G cut => {uv | uv.1 < uv.2 ∧ G.adjacent uv.1 uv.2 = true ∧ cut uv.1 = cut uv.2}.card
+def OAI.MinUncut.Output.opt : OAI.MinUncut.Output → ℕ :=
+fun G => (Finset.image G.uncut Finset.univ).min' ⋯
+def OAI.MinUncut.Output.bits : OAI.MinUncut.Output → List Bool :=
+fun G =>
+  OAI.MinUncutGames.BinaryEncoding.nameBits G.vertices ++
+      List.flatMap (fun u => List.map (fun v => G.adjacent u v) (List.finRange G.vertices))
+        (List.finRange G.vertices) ++
+    OAI.MinUncutGames.BinaryEncoding.nameBits G.threshold
+def OAI.MinUncut.inputBits : ℕ × OAI.MinUncutGames.BinaryFormula.Formula → List Bool :=
+fun input => OAI.MinUncutGames.BinaryEncoding.nameBits input.1 ++ OAI.MinUncutGames.BinaryEncoding.formulaBits input.2
+structure OAI.MinUncut.Reduction : Type 1
+number of parameters: 0
+fields:
+  OAI.MinUncut.Reduction.reduce : ℕ → OAI.MinUncutGames.BinaryFormula.Formula → OAI.MinUncut.Output
+  OAI.MinUncut.Reduction.machine : Turing.TM2Computable OAI.MinUncut.inputBits OAI.MinUncut.Output.bits fun p =>
+      self.reduce p.1 p.2
+  OAI.MinUncut.Reduction.finiteAlphabet : ∀ (k : self.machine.tm.K), Finite (self.machine.tm.Γ k)
+  OAI.MinUncut.Reduction.time : ℕ → Polynomial ℕ
+  OAI.MinUncut.Reduction.runtime : (K : ℕ) →
+      (φ : OAI.MinUncutGames.BinaryFormula.Formula) →
+        Turing.TM2OutputsInTime self.machine.tm
+          (List.map (⇑self.machine.inputAlphabet.symm) (OAI.MinUncut.inputBits (K, φ)))
+          (some (List.map (⇑self.machine.outputAlphabet.symm) (self.reduce K φ).bits))
+          (Polynomial.eval (OAI.MinUncutGames.BinaryEncoding.formulaBits φ).length (self.time K))
+  OAI.MinUncut.Reduction.size : ℕ → Polynomial ℕ
+  OAI.MinUncut.Reduction.output_size : ∀ (K : ℕ) (φ : OAI.MinUncutGames.BinaryFormula.Formula),
+      (self.reduce K φ).vertices + (self.reduce K φ).bits.length ≤
+        Polynomial.eval (OAI.MinUncutGames.BinaryEncoding.formulaBits φ).length (self.size K)
+  OAI.MinUncut.Reduction.yes : ∀ (K : ℕ),
+      2 ≤ K →
+        ∀ (φ : OAI.MinUncutGames.BinaryFormula.Formula),
+          φ.Satisfiable → (self.reduce K φ).opt ≤ (self.reduce K φ).threshold
+  OAI.MinUncut.Reduction.no : ∀ (K : ℕ),
+      2 ≤ K →
+        ∀ (φ : OAI.MinUncutGames.BinaryFormula.Formula),
+          ¬φ.Satisfiable → K * (self.reduce K φ).threshold < (self.reduce K φ).opt
+constructor:
+  OAI.MinUncut.Reduction.mk (reduce : ℕ → OAI.MinUncutGames.BinaryFormula.Formula → OAI.MinUncut.Output)
+    (machine : Turing.TM2Computable OAI.MinUncut.inputBits OAI.MinUncut.Output.bits fun p => reduce p.1 p.2)
+    (finiteAlphabet : ∀ (k : machine.tm.K), Finite (machine.tm.Γ k)) (time : ℕ → Polynomial ℕ)
+    (runtime :
+      (K : ℕ) →
+        (φ : OAI.MinUncutGames.BinaryFormula.Formula) →
+          Turing.TM2OutputsInTime machine.tm (List.map (⇑machine.inputAlphabet.symm) (OAI.MinUncut.inputBits (K, φ)))
+            (some (List.map (⇑machine.outputAlphabet.symm) (reduce K φ).bits))
+            (Polynomial.eval (OAI.MinUncutGames.BinaryEncoding.formulaBits φ).length (time K)))
+    (size : ℕ → Polynomial ℕ)
+    (output_size :
+      ∀ (K : ℕ) (φ : OAI.MinUncutGames.BinaryFormula.Formula),
+        (reduce K φ).vertices + (reduce K φ).bits.length ≤
+          Polynomial.eval (OAI.MinUncutGames.BinaryEncoding.formulaBits φ).length (size K))
+    (yes :
+      ∀ (K : ℕ),
+        2 ≤ K →
+          ∀ (φ : OAI.MinUncutGames.BinaryFormula.Formula), φ.Satisfiable → (reduce K φ).opt ≤ (reduce K φ).threshold)
+    (no :
+      ∀ (K : ℕ),
+        2 ≤ K →
+          ∀ (φ : OAI.MinUncutGames.BinaryFormula.Formula),
+            ¬φ.Satisfiable → K * (reduce K φ).threshold < (reduce K φ).opt) :
+    OAI.MinUncut.Reduction

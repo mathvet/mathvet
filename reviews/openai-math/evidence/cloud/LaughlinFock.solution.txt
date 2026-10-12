@@ -1,0 +1,41 @@
+OAI.LaughlinFock.thm_fock : ∀ (γ : ℝ),
+  0 < γ → γ < OAI.LaughlinFock.gammaStar → ∃ Qγ, 1 ≤ Qγ ∧ ∀ (Q : ℤ), Qγ ≤ Q → OAI.LaughlinFock.FockInequality Q.toNat γ
+'OAI.LaughlinFock.thm_fock' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Laughlin.pairCoefficient : (Q : ℕ) → ℕ → Fin (Q + 1) → Fin (Q + 1) → ℝ :=
+fun Q p x y =>
+  if ↑x + ↑y = p + 1 then
+    (↑↑x - ↑↑y) *
+        √(↑(Q.descFactorial ↑x) * ↑(Q.descFactorial ↑y) * ↑p.factorial /
+            (↑Q * ↑((2 * Q - 2).descFactorial p) * ↑(↑x).factorial * ↑(↑y).factorial)) /
+      √2
+  else 0
+@[reducible] def OAI.LaughlinFock.Orbital : ℕ → Type :=
+fun Q => Fin (Q + 1)
+@[reducible] def OAI.LaughlinFock.Occupation : ℕ → Type :=
+fun Q => Finset (OAI.LaughlinFock.Orbital Q)
+@[reducible] def OAI.LaughlinFock.FockMatrix : ℕ → Type :=
+fun Q => Matrix (OAI.LaughlinFock.Occupation Q) (OAI.LaughlinFock.Occupation Q) ℂ
+def OAI.LaughlinFock.tensorPairCoefficient : (Q : ℕ) →
+  ℕ → OAI.LaughlinFock.Orbital Q → OAI.LaughlinFock.Orbital Q → ℝ :=
+fun Q p i j => OAI.Laughlin.pairCoefficient Q p i j
+def OAI.LaughlinFock.pairCoefficient : (Q : ℕ) → ℕ → OAI.LaughlinFock.Orbital Q → OAI.LaughlinFock.Orbital Q → ℝ :=
+fun Q p i j => √2 * OAI.LaughlinFock.tensorPairCoefficient Q p i j
+def OAI.LaughlinFock.annihilator : (Q : ℕ) → OAI.LaughlinFock.Orbital Q → OAI.LaughlinFock.FockMatrix Q :=
+fun Q j A B => if j ∈ B ∧ A = Finset.erase B j then (-1) ^ {i ∈ B | i < j}.card else 0
+def OAI.LaughlinFock.pairAnnihilator : (Q : ℕ) → ℕ → OAI.LaughlinFock.FockMatrix Q :=
+fun Q p =>
+  ∑ i,
+    ∑ j,
+      if i < j then
+        ↑(OAI.LaughlinFock.pairCoefficient Q p i j) •
+          (OAI.LaughlinFock.annihilator Q j * OAI.LaughlinFock.annihilator Q i)
+      else 0
+def OAI.LaughlinFock.hamiltonian : (Q : ℕ) → OAI.LaughlinFock.FockMatrix Q :=
+fun Q =>
+  ∑ p ∈ Finset.range (2 * Q - 1),
+    Matrix.conjTranspose (OAI.LaughlinFock.pairAnnihilator Q p) * OAI.LaughlinFock.pairAnnihilator Q p
+def OAI.LaughlinFock.gammaStar : ℝ :=
+4616733319001 / 10 ^ 14
+def OAI.LaughlinFock.FockInequality : ℕ → ℝ → Prop :=
+fun Q γ =>
+  (OAI.LaughlinFock.hamiltonian Q * OAI.LaughlinFock.hamiltonian Q - γ • OAI.LaughlinFock.hamiltonian Q).PosSemidef

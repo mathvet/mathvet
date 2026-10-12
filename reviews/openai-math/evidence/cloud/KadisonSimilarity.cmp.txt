@@ -1,0 +1,152 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_KadisonSimilarity.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.KadisonSimilarity.similarityTheorem [thm] ok
+CMP OAI.KadisonSimilarity.SimilarityTheorem [def] ok
+CMP OAI.KadisonSimilarity.SimilarToStar [def] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom._proof_5 [thm] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom._proof_4 [thm] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom._proof_3 [thm] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom._proof_2 [thm] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.BoundedUnitalHom [def] ok
+CMP OAI.KadisonSimilarity.universalHyperreflexivity [thm] ok
+CMP OAI.KadisonSimilarity.universalConstant [def] ok
+CMP OAI.KadisonSimilarity.rowConstant._proof_2 [thm] ok
+CMP OAI.KadisonSimilarity.factorConstant [def] ok
+CMP OAI.KadisonSimilarity.rowConstant [def] ok
+CMP OAI.KadisonSimilarity.rowConstant._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.cornerConstant [def] ok
+CMP OAI.KadisonSimilarity.cyclicConstant [def] ok
+CMP OAI.KadisonSimilarity.cornerConstant._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.factorConstant._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.UniversalHyperreflexivity [def] ok
+CMP OAI.KadisonSimilarity.offDiagonalSeminorm [def] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_5 [thm] ok
+CMP OAI.KadisonSimilarity.CommutantProjection [def] ok
+CMP OAI.KadisonSimilarity.HilbertCopies._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_3 [thm] ok
+CMP OAI.KadisonSimilarity.universalCommutatorTheorem [thm] ok
+CMP OAI.KadisonSimilarity.UniversalCommutatorTheorem [def] ok
+CMP OAI.KadisonSimilarity.UniformCommutatorEstimate [def] ok
+CMP OAI.KadisonSimilarity.CommutatorEstimate [def] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm [def] ok
+CMP OAI.KadisonSimilarity.innerDerivation [def] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_19 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_4 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_18 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_17 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_16 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_15 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_13 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_12 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_11 [thm] ok
+CMP OAI.KadisonSimilarity.matrixOperator._proof_2 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_14 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_10 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_2 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_9 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_8 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_7 [thm] ok
+CMP OAI.KadisonSimilarity.innerDerivation._proof_6 [thm] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm._proof_5 [thm] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm._proof_4 [thm] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm._proof_3 [thm] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm._proof_2 [thm] ok
+CMP OAI.KadisonSimilarity.scalarCommutatorNorm._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.matrixOperator [def] ok
+CMP OAI.KadisonSimilarity.matrixOperator._proof_1 [thm] ok
+CMP OAI.KadisonSimilarity.HilbertCopies [def] ok
+CMP OAI.KadisonSimilarity.amplify [def] ok
+CMP OAI.KadisonSimilarity.commutator [def] ok
+Chal.KadisonSimilarity.universalCommutatorTheorem : Chal.KadisonSimilarity.UniversalCommutatorTheorem
+Chal.KadisonSimilarity.universalHyperreflexivity : Chal.KadisonSimilarity.UniversalHyperreflexivity
+  Chal.KadisonSimilarity.universalConstant
+Chal.KadisonSimilarity.similarityTheorem : Chal.KadisonSimilarity.SimilarityTheorem
+@[reducible] def Chal.KadisonSimilarity.BoundedUnitalHom.{u_1, u_2} : (A : Type u_1) →
+  (H : Type u_2) → [CStarAlgebra A] → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Type (max 0 u_1 u_2) :=
+fun A H [CStarAlgebra A] [NormedAddCommGroup H] [InnerProductSpace ℂ H] => { π // Continuous ⇑π }
+def Chal.KadisonSimilarity.SimilarToStar.{u_1, u_2} : (A : Type u_1) →
+  (H : Type u_2) →
+    [inst : CStarAlgebra A] →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] → [CompleteSpace H] → Chal.KadisonSimilarity.BoundedUnitalHom A H → Prop :=
+fun A H [CStarAlgebra A] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] π =>
+  ∃ S, ∀ (a : A), ↑S * ↑π (star a) * ↑S⁻¹ = star (↑S * ↑π a * ↑S⁻¹)
+def Chal.KadisonSimilarity.commutator.{u_1} : {R : Type u_1} → [NormedRing R] → R → R → R :=
+fun {R} [NormedRing R] S T => S * T - T * S
+@[reducible] def Chal.KadisonSimilarity.HilbertCopies.{u} : Type u → ℕ → Type u :=
+fun H n => PiLp 2 fun x => H
+def Chal.KadisonSimilarity.matrixOperator.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      {n : ℕ} →
+        Matrix (Fin n) (Fin n) (H →L[ℂ] H) →
+          Chal.KadisonSimilarity.HilbertCopies H n →L[ℂ] Chal.KadisonSimilarity.HilbertCopies H n :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] {n} X =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => H).symm ∘SL
+    ContinuousLinearMap.pi fun i => ∑ j, X i j ∘SL PiLp.proj 2 (fun x => H) j
+def Chal.KadisonSimilarity.amplify.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      (H →L[ℂ] H) → (n : ℕ) → Chal.KadisonSimilarity.HilbertCopies H n →L[ℂ] Chal.KadisonSimilarity.HilbertCopies H n :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] Y n =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => H).symm ∘SL ContinuousLinearMap.pi fun i => Y ∘SL PiLp.proj 2 (fun x => H) i
+def Chal.KadisonSimilarity.innerDerivation.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → (H →L[ℂ] H) →L[ℂ] H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] Y =>
+  (ContinuousLinearMap.mul ℂ (H →L[ℂ] H)) Y - (ContinuousLinearMap.mul ℂ (H →L[ℂ] H)).flip Y
+def Chal.KadisonSimilarity.scalarCommutatorNorm.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → (H →L[ℂ] H) → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] P Y =>
+  let this := inferInstance;
+  let this_1 := inferInstance;
+  ‖Chal.KadisonSimilarity.innerDerivation Y ∘SL (Subalgebra.toSubmodule P.toSubalgebra).subtypeL‖
+def Chal.KadisonSimilarity.CommutatorEstimate.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → ℝ → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] P C =>
+  ∀ (Y : H →L[ℂ] H) (n : ℕ) (X : Matrix (Fin n) (Fin n) (H →L[ℂ] H)),
+    (∀ (i j : Fin n), X i j ∈ P) →
+      ‖Chal.KadisonSimilarity.commutator (Chal.KadisonSimilarity.amplify Y n)
+            (Chal.KadisonSimilarity.matrixOperator X)‖ ≤
+        C * Chal.KadisonSimilarity.scalarCommutatorNorm P Y * ‖Chal.KadisonSimilarity.matrixOperator X‖
+def Chal.KadisonSimilarity.UniformCommutatorEstimate.{u} : ℝ → Prop :=
+fun C =>
+  ∀ (K : Type u) [inst : NormedAddCommGroup K] [inst_1 : InnerProductSpace ℂ K] [inst_2 : CompleteSpace K]
+    (P : VonNeumannAlgebra K), Chal.KadisonSimilarity.CommutatorEstimate P C
+def Chal.KadisonSimilarity.UniversalCommutatorTheorem.{u} : Prop :=
+∃ C, 0 ≤ C ∧ Chal.KadisonSimilarity.UniformCommutatorEstimate C
+def Chal.KadisonSimilarity.SimilarityTheorem.{u, v} : Prop :=
+∀ (A : Type u) [inst : CStarAlgebra A] (K : Type v) [inst_1 : NormedAddCommGroup K] [inst_2 : InnerProductSpace ℂ K]
+  [inst_3 : CompleteSpace K] (π : Chal.KadisonSimilarity.BoundedUnitalHom A K),
+  Chal.KadisonSimilarity.SimilarToStar A K π
+@[reducible] def Chal.KadisonSimilarity.CommutantProjection.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Type (max 0 u) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M =>
+  { e // e ∈ M.commutant ∧ star e = e ∧ e * e = e }
+def Chal.KadisonSimilarity.offDiagonalSeminorm.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → (H →L[ℂ] H) → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M T =>
+  sSup (Set.range fun e => ‖(1 - ↑e) * T * ↑e‖)
+def Chal.KadisonSimilarity.UniversalHyperreflexivity.{u} : ℝ → Prop :=
+fun C =>
+  ∀ (K : Type u) [inst : NormedAddCommGroup K] [inst_1 : InnerProductSpace ℂ K] [inst_2 : CompleteSpace K]
+    (M : VonNeumannAlgebra K) (T : K →L[ℂ] K),
+    Metric.infDist T ↑M ≤ 2 * C * Chal.KadisonSimilarity.offDiagonalSeminorm M T
+def Chal.KadisonSimilarity.rowConstant : ℝ :=
+4 * √2
+def Chal.KadisonSimilarity.cyclicConstant : ℝ :=
+(1 + 4 * Chal.KadisonSimilarity.rowConstant) ^ 2
+def Chal.KadisonSimilarity.cornerConstant : ℝ :=
+6 * Real.pi ^ 2 * (1 + 4 * Chal.KadisonSimilarity.cyclicConstant)
+def Chal.KadisonSimilarity.factorConstant : ℝ :=
+max (max (3 * Chal.KadisonSimilarity.cornerConstant + 2) (1 + 2 * Chal.KadisonSimilarity.rowConstant)) 2
+def Chal.KadisonSimilarity.universalConstant : ℝ :=
+3 * Chal.KadisonSimilarity.factorConstant + 2
+'OAI.KadisonSimilarity.universalCommutatorTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.KadisonSimilarity.universalHyperreflexivity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.KadisonSimilarity.similarityTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KadisonSimilarity comparator-style: ok=59 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

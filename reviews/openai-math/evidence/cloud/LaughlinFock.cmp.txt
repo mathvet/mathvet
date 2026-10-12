@@ -1,0 +1,60 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_LaughlinFock.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LaughlinFock.thm_fock [thm] ok
+CMP OAI.LaughlinFock.FockInequality [def] ok
+CMP OAI.LaughlinFock.hamiltonian [def] ok
+CMP OAI.LaughlinFock.pairAnnihilator [def] ok
+CMP OAI.LaughlinFock.annihilator [def] ok
+CMP OAI.LaughlinFock.Occupation [def] ok
+CMP OAI.LaughlinFock.Orbital [def] ok
+CMP OAI.LaughlinFock.FockMatrix [def] ok
+CMP OAI.LaughlinFock.pairCoefficient [def] ok
+CMP OAI.LaughlinFock.tensorPairCoefficient [def] ok
+CMP OAI.Laughlin.pairCoefficient [def] ok
+CMP OAI.Laughlin.pairCoefficient._proof_1 [thm] ok
+CMP OAI.LaughlinFock.pairCoefficient._proof_1 [thm] ok
+CMP OAI.LaughlinFock.gammaStar [def] ok
+CMP OAI.LaughlinFock.gammaStar._proof_2 [thm] ok
+CMP OAI.LaughlinFock.gammaStar._proof_1 [thm] ok
+Chal.LaughlinFock.thm_fock : ∀ (γ : ℝ),
+  0 < γ →
+    γ < Chal.LaughlinFock.gammaStar → ∃ Qγ, 1 ≤ Qγ ∧ ∀ (Q : ℤ), Qγ ≤ Q → Chal.LaughlinFock.FockInequality Q.toNat γ
+def Chal.Laughlin.pairCoefficient : (Q : ℕ) → ℕ → Fin (Q + 1) → Fin (Q + 1) → ℝ :=
+fun Q p x y =>
+  if ↑x + ↑y = p + 1 then
+    (↑↑x - ↑↑y) *
+        √(↑(Q.descFactorial ↑x) * ↑(Q.descFactorial ↑y) * ↑p.factorial /
+            (↑Q * ↑((2 * Q - 2).descFactorial p) * ↑(↑x).factorial * ↑(↑y).factorial)) /
+      √2
+  else 0
+@[reducible] def Chal.LaughlinFock.Orbital : ℕ → Type :=
+fun Q => Fin (Q + 1)
+@[reducible] def Chal.LaughlinFock.Occupation : ℕ → Type :=
+fun Q => Finset (Chal.LaughlinFock.Orbital Q)
+@[reducible] def Chal.LaughlinFock.FockMatrix : ℕ → Type :=
+fun Q => Matrix (Chal.LaughlinFock.Occupation Q) (Chal.LaughlinFock.Occupation Q) ℂ
+def Chal.LaughlinFock.tensorPairCoefficient : (Q : ℕ) →
+  ℕ → Chal.LaughlinFock.Orbital Q → Chal.LaughlinFock.Orbital Q → ℝ :=
+fun Q p i j => Chal.Laughlin.pairCoefficient Q p i j
+def Chal.LaughlinFock.pairCoefficient : (Q : ℕ) → ℕ → Chal.LaughlinFock.Orbital Q → Chal.LaughlinFock.Orbital Q → ℝ :=
+fun Q p i j => √2 * Chal.LaughlinFock.tensorPairCoefficient Q p i j
+def Chal.LaughlinFock.annihilator : (Q : ℕ) → Chal.LaughlinFock.Orbital Q → Chal.LaughlinFock.FockMatrix Q :=
+fun Q j A B => if j ∈ B ∧ A = Finset.erase B j then (-1) ^ {i ∈ B | i < j}.card else 0
+def Chal.LaughlinFock.pairAnnihilator : (Q : ℕ) → ℕ → Chal.LaughlinFock.FockMatrix Q :=
+fun Q p =>
+  ∑ i,
+    ∑ j,
+      if i < j then
+        ↑(Chal.LaughlinFock.pairCoefficient Q p i j) •
+          (Chal.LaughlinFock.annihilator Q j * Chal.LaughlinFock.annihilator Q i)
+      else 0
+def Chal.LaughlinFock.hamiltonian : (Q : ℕ) → Chal.LaughlinFock.FockMatrix Q :=
+fun Q =>
+  ∑ p ∈ Finset.range (2 * Q - 1),
+    Matrix.conjTranspose (Chal.LaughlinFock.pairAnnihilator Q p) * Chal.LaughlinFock.pairAnnihilator Q p
+def Chal.LaughlinFock.gammaStar : ℝ :=
+4616733319001 / 10 ^ 14
+def Chal.LaughlinFock.FockInequality : ℕ → ℝ → Prop :=
+fun Q γ =>
+  (Chal.LaughlinFock.hamiltonian Q * Chal.LaughlinFock.hamiltonian Q - γ • Chal.LaughlinFock.hamiltonian Q).PosSemidef
+'OAI.LaughlinFock.thm_fock' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LaughlinFock comparator-style: ok=16 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

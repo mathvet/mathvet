@@ -1,0 +1,89 @@
+OAI.KadisonSimilarity.universalCommutatorTheorem : OAI.KadisonSimilarity.UniversalCommutatorTheorem
+'OAI.KadisonSimilarity.universalCommutatorTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.KadisonSimilarity.universalHyperreflexivity : OAI.KadisonSimilarity.UniversalHyperreflexivity
+  OAI.KadisonSimilarity.universalConstant
+'OAI.KadisonSimilarity.universalHyperreflexivity' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.KadisonSimilarity.similarityTheorem : OAI.KadisonSimilarity.SimilarityTheorem
+'OAI.KadisonSimilarity.similarityTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.KadisonSimilarity.BoundedUnitalHom.{u_1, u_2} : (A : Type u_1) →
+  (H : Type u_2) → [CStarAlgebra A] → [inst : NormedAddCommGroup H] → [InnerProductSpace ℂ H] → Type (max 0 u_1 u_2) :=
+fun A H [CStarAlgebra A] [NormedAddCommGroup H] [InnerProductSpace ℂ H] => { π // Continuous ⇑π }
+def OAI.KadisonSimilarity.SimilarToStar.{u_1, u_2} : (A : Type u_1) →
+  (H : Type u_2) →
+    [inst : CStarAlgebra A] →
+      [inst_1 : NormedAddCommGroup H] →
+        [inst_2 : InnerProductSpace ℂ H] → [CompleteSpace H] → OAI.KadisonSimilarity.BoundedUnitalHom A H → Prop :=
+fun A H [CStarAlgebra A] [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] π =>
+  ∃ S, ∀ (a : A), ↑S * ↑π (star a) * ↑S⁻¹ = star (↑S * ↑π a * ↑S⁻¹)
+def OAI.KadisonSimilarity.commutator.{u_1} : {R : Type u_1} → [NormedRing R] → R → R → R :=
+fun {R} [NormedRing R] S T => S * T - T * S
+@[reducible] def OAI.KadisonSimilarity.HilbertCopies.{u} : Type u → ℕ → Type u :=
+fun H n => PiLp 2 fun x => H
+def OAI.KadisonSimilarity.matrixOperator.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      {n : ℕ} →
+        Matrix (Fin n) (Fin n) (H →L[ℂ] H) →
+          OAI.KadisonSimilarity.HilbertCopies H n →L[ℂ] OAI.KadisonSimilarity.HilbertCopies H n :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] {n} X =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => H).symm ∘SL
+    ContinuousLinearMap.pi fun i => ∑ j, X i j ∘SL PiLp.proj 2 (fun x => H) j
+def OAI.KadisonSimilarity.amplify.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      (H →L[ℂ] H) → (n : ℕ) → OAI.KadisonSimilarity.HilbertCopies H n →L[ℂ] OAI.KadisonSimilarity.HilbertCopies H n :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] Y n =>
+  ↑(PiLp.continuousLinearEquiv 2 ℂ fun x => H).symm ∘SL ContinuousLinearMap.pi fun i => Y ∘SL PiLp.proj 2 (fun x => H) i
+def OAI.KadisonSimilarity.innerDerivation.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] → [inst_1 : InnerProductSpace ℂ H] → (H →L[ℂ] H) → (H →L[ℂ] H) →L[ℂ] H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] Y =>
+  (ContinuousLinearMap.mul ℂ (H →L[ℂ] H)) Y - (ContinuousLinearMap.mul ℂ (H →L[ℂ] H)).flip Y
+def OAI.KadisonSimilarity.scalarCommutatorNorm.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → (H →L[ℂ] H) → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] P Y =>
+  let this := inferInstance;
+  let this_1 := inferInstance;
+  ‖OAI.KadisonSimilarity.innerDerivation Y ∘SL (Subalgebra.toSubmodule P.toSubalgebra).subtypeL‖
+def OAI.KadisonSimilarity.CommutatorEstimate.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → ℝ → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] P C =>
+  ∀ (Y : H →L[ℂ] H) (n : ℕ) (X : Matrix (Fin n) (Fin n) (H →L[ℂ] H)),
+    (∀ (i j : Fin n), X i j ∈ P) →
+      ‖OAI.KadisonSimilarity.commutator (OAI.KadisonSimilarity.amplify Y n) (OAI.KadisonSimilarity.matrixOperator X)‖ ≤
+        C * OAI.KadisonSimilarity.scalarCommutatorNorm P Y * ‖OAI.KadisonSimilarity.matrixOperator X‖
+def OAI.KadisonSimilarity.UniformCommutatorEstimate.{u} : ℝ → Prop :=
+fun C =>
+  ∀ (K : Type u) [inst : NormedAddCommGroup K] [inst_1 : InnerProductSpace ℂ K] [inst_2 : CompleteSpace K]
+    (P : VonNeumannAlgebra K), OAI.KadisonSimilarity.CommutatorEstimate P C
+def OAI.KadisonSimilarity.UniversalCommutatorTheorem.{u} : Prop :=
+∃ C, 0 ≤ C ∧ OAI.KadisonSimilarity.UniformCommutatorEstimate C
+def OAI.KadisonSimilarity.SimilarityTheorem.{u, v} : Prop :=
+∀ (A : Type u) [inst : CStarAlgebra A] (K : Type v) [inst_1 : NormedAddCommGroup K] [inst_2 : InnerProductSpace ℂ K]
+  [inst_3 : CompleteSpace K] (π : OAI.KadisonSimilarity.BoundedUnitalHom A K), OAI.KadisonSimilarity.SimilarToStar A K π
+@[reducible] def OAI.KadisonSimilarity.CommutantProjection.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Type (max 0 u) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M =>
+  { e // e ∈ M.commutant ∧ star e = e ∧ e * e = e }
+def OAI.KadisonSimilarity.offDiagonalSeminorm.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → (H →L[ℂ] H) → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M T =>
+  sSup (Set.range fun e => ‖(1 - ↑e) * T * ↑e‖)
+def OAI.KadisonSimilarity.UniversalHyperreflexivity.{u} : ℝ → Prop :=
+fun C =>
+  ∀ (K : Type u) [inst : NormedAddCommGroup K] [inst_1 : InnerProductSpace ℂ K] [inst_2 : CompleteSpace K]
+    (M : VonNeumannAlgebra K) (T : K →L[ℂ] K),
+    Metric.infDist T ↑M ≤ 2 * C * OAI.KadisonSimilarity.offDiagonalSeminorm M T
+def OAI.KadisonSimilarity.rowConstant : ℝ :=
+4 * √2
+def OAI.KadisonSimilarity.cyclicConstant : ℝ :=
+(1 + 4 * OAI.KadisonSimilarity.rowConstant) ^ 2
+def OAI.KadisonSimilarity.cornerConstant : ℝ :=
+6 * Real.pi ^ 2 * (1 + 4 * OAI.KadisonSimilarity.cyclicConstant)
+def OAI.KadisonSimilarity.factorConstant : ℝ :=
+max (max (3 * OAI.KadisonSimilarity.cornerConstant + 2) (1 + 2 * OAI.KadisonSimilarity.rowConstant)) 2
+def OAI.KadisonSimilarity.universalConstant : ℝ :=
+3 * OAI.KadisonSimilarity.factorConstant + 2
