@@ -1,6 +1,6 @@
 # Status — review of openai/math @ `fd4aeeb2`
 
-Generated 2026-10-12T05:17:41Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
+Generated 2026-10-12T08:22:12Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
 
 | | families |
 |---|---|
