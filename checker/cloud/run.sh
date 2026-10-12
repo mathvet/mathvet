@@ -17,7 +17,7 @@ else
 fi
 export MATHVET_CHECKS="$ROOT/reviews/openai-math/evidence/cloud"   # sandboxed Linux evidence, kept apart from the laptop runs
 OUT="$MATHVET_CHECKS"; mkdir -p "$OUT"
-SESSION="https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"
+SID="${CLAUDE_CODE_REMOTE_SESSION_ID:-}"; if [ -n "$SID" ]; then SESSION="https://claude.ai/code/${SID/#cse_/session_}"; else SESSION="(not a Claude Code session; host $(hostname))"; fi
 for C in "$@"; do
   echo "=== $(date -u +%FT%TZ) $C: build"
   "$ROOT/checker/lean_check.sh" "$C" | tail -3

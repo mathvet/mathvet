@@ -101,5 +101,5 @@ fi
 cd "$UP/lean" && lake exe cache get 2>&1 | tail -3
 
 log "machine report"
-{ echo "date=$(date -u +%FT%TZ)"; uname -a; nproc; free -g | head -2; df -h "$ROOT" | tail -1; cat /sys/kernel/security/lsm 2>/dev/null | sed 's/^/lsm=/'; echo "LANDRUN_STATUS=$LANDRUN_STATUS"; (cd "$UP/lean" && lean --version); echo "SETUP_OK=${SETUP_OK:-0}"; echo "session=https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID/#cse_/session_}"; } | tee "$ROOT/tmp/cloud-machine.txt"
+{ echo "date=$(date -u +%FT%TZ)"; uname -a; nproc; free -g | head -2; df -h "$ROOT" | tail -1; cat /sys/kernel/security/lsm 2>/dev/null | sed 's/^/lsm=/'; echo "LANDRUN_STATUS=$LANDRUN_STATUS"; (cd "$UP/lean" && lean --version); echo "SETUP_OK=${SETUP_OK:-0}"; echo "session=https://claude.ai/code/${CLAUDE_CODE_REMOTE_SESSION_ID:-none}"; } | tee "$ROOT/tmp/cloud-machine.txt"
 [ "${SETUP_OK:-0}" = 1 ] && log "setup done (SETUP_OK=1)" || log "setup finished with failures (SETUP_OK=0)"
