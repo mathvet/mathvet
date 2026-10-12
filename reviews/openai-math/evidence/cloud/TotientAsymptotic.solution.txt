@@ -1,0 +1,154 @@
+OAI.TotientAsymptotic.totient_asymptotic_formula : TendstoUniformlyOn (fun H => OAI.TotientAsymptotic.AH H fun x => 1)
+    (OAI.TotientAsymptotic.A fun x => 1) Filter.atTop (Set.Ico 0 1) ∧
+  (∃ cMinus cPlus,
+      0 < cMinus ∧
+        ∀ s ∈ Set.Ico 0 1,
+          cMinus ≤ OAI.TotientAsymptotic.A (fun x => 1) s ∧ OAI.TotientAsymptotic.A (fun x => 1) s ≤ cPlus) ∧
+    Filter.Tendsto (fun x => OAI.TotientAsymptotic.V x / OAI.TotientAsymptotic.mainTerm x) Filter.atTop (nhds 1) ∧
+      ∀ (c : ℝ),
+        0 < c →
+          Filter.Tendsto (fun x => OAI.TotientAsymptotic.V (c * x) / OAI.TotientAsymptotic.V x) Filter.atTop (nhds c)
+'OAI.TotientAsymptotic.totient_asymptotic_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.TotientAsymptotic.weighted_totient_asymptotic : ∀ (k : ℕ),
+  1 ≤ k →
+    TendstoUniformlyOn (fun H => OAI.TotientAsymptotic.AH H (OAI.TotientAsymptotic.fk k))
+        (OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k)) Filter.atTop (Set.Ico 0 1) ∧
+      Filter.Tendsto
+          (fun x =>
+            OAI.TotientAsymptotic.normalizedCount (OAI.TotientAsymptotic.N k) x -
+              OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) (OAI.TotientAsymptotic.theta x))
+          Filter.atTop (nhds 0) ∧
+        ((∃ d, OAI.TotientAsymptotic.IsTotient d ∧ k * d < OAI.TotientAsymptotic.ell d) →
+            ∃ cMinus cPlus,
+              0 < cMinus ∧
+                0 < cPlus ∧
+                  (∀ s ∈ Set.Ico 0 1,
+                      cMinus ≤ OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) s ∧
+                        OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) s ≤ cPlus) ∧
+                    Filter.Tendsto
+                        (fun x =>
+                          OAI.TotientAsymptotic.N k x /
+                            (OAI.TotientAsymptotic.tupleNormalization x *
+                              OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) (OAI.TotientAsymptotic.theta x)))
+                        Filter.atTop (nhds 1) ∧
+                      ∀ᶠ (x : ℝ) in Filter.atTop,
+                        cMinus / cPlus * OAI.TotientAsymptotic.V x ≤ OAI.TotientAsymptotic.N k x ∧
+                          OAI.TotientAsymptotic.N k x ≤ OAI.TotientAsymptotic.V x) ∧
+          ((¬∃ d, OAI.TotientAsymptotic.IsTotient d ∧ k * d < OAI.TotientAsymptotic.ell d) →
+            (∀ (x : ℝ), 0 < x → OAI.TotientAsymptotic.N k x = 0) ∧
+              ∀ s ∈ Set.Ico 0 1, OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) s = 0)
+'OAI.TotientAsymptotic.weighted_totient_asymptotic' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.TotientAsymptotic.weighted_totient_one_two : ∀ k ∈ {1, 2},
+  ∃ c, 0 < c ∧ ∀ s ∈ Set.Ico 0 1, c ≤ OAI.TotientAsymptotic.A (OAI.TotientAsymptotic.fk k) s
+'OAI.TotientAsymptotic.weighted_totient_one_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.TotientAsymptotic.coefficient_nonnegative : ∀ (H : ℕ) {s : ℝ},
+  s ∈ Set.Ico 0 1 → 0 ≤ OAI.TotientAsymptotic.AH H (fun x => 1) s
+'OAI.TotientAsymptotic.coefficient_nonnegative' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.TotientAsymptotic.IsTotient : ℕ → Prop :=
+fun v => ∃ n, 0 < n ∧ n.totient = v
+def OAI.TotientAsymptotic.V : ℝ → ℝ :=
+fun x => ↑(Finset.filter OAI.TotientAsymptotic.IsTotient (Finset.Icc 1 ⌊x⌋₊)).card
+def OAI.TotientAsymptotic.ell : ℕ → ℕ :=
+fun v => if h : OAI.TotientAsymptotic.IsTotient v then Nat.find h else 0
+def OAI.TotientAsymptotic.a : ℕ → ℝ :=
+fun j => (↑j + 1) * Real.log (↑j + 1) - ↑j * Real.log ↑j - 1
+def OAI.TotientAsymptotic.RenewalRootSet : Set ℝ :=
+{z | 0 < z ∧ z < 1 ∧ ∑' (j : ℕ), OAI.TotientAsymptotic.a (j + 1) * z ^ (j + 1) = 1}
+def OAI.TotientAsymptotic.rho : ℝ :=
+sInf OAI.TotientAsymptotic.RenewalRootSet
+def OAI.TotientAsymptotic.lam : ℝ :=
+Real.log (1 / OAI.TotientAsymptotic.rho)
+def OAI.TotientAsymptotic.gamma : ℝ :=
+(∑' (j : ℕ), (↑j + 1) * OAI.TotientAsymptotic.a (j + 1) * OAI.TotientAsymptotic.rho ^ (j + 1))⁻¹
+@[irreducible] def OAI.TotientAsymptotic.g : ℕ → ℝ :=
+WellFounded.Nat.fix (fun x => x) fun a a_1 =>
+  (match (motive := (x : ℕ) → ((y : ℕ) → InvImage (fun x1 x2 => x1 < x2) (fun x => x) y x → ℝ) → ℝ) a with
+    | 0 => fun x => 1
+    | n.succ => fun x => ∑ d ∈ Finset.range (n + 1), OAI.TotientAsymptotic.a (d + 1) * x (n - d) ⋯)
+    a_1
+def OAI.TotientAsymptotic.B : ℝ → ℝ :=
+fun x => Real.log (Real.log x)
+def OAI.TotientAsymptotic.psi : ℝ → ℝ :=
+fun b => (Real.log b - Real.log (Real.log b)) / OAI.TotientAsymptotic.lam
+def OAI.TotientAsymptotic.m : ℝ → ℕ :=
+fun x => ⌊OAI.TotientAsymptotic.psi (OAI.TotientAsymptotic.B x)⌋₊
+def OAI.TotientAsymptotic.theta : ℝ → ℝ :=
+fun x => OAI.TotientAsymptotic.psi (OAI.TotientAsymptotic.B x) - ↑(OAI.TotientAsymptotic.m x)
+def OAI.TotientAsymptotic.G : ℝ → ℕ → ℝ :=
+fun x j => OAI.TotientAsymptotic.B x ^ j / (↑j.factorial * ∏ i ∈ Finset.Icc 1 j, OAI.TotientAsymptotic.g i)
+def OAI.TotientAsymptotic.P : ℕ → ℕ :=
+fun H => ⌊Real.log (Real.log ↑H)⌋₊
+def OAI.TotientAsymptotic.alpha : ℝ → ℝ :=
+fun s => OAI.TotientAsymptotic.lam * Real.exp (OAI.TotientAsymptotic.lam * s)
+def OAI.TotientAsymptotic.largestPrimeFactor : ℕ → ℕ :=
+fun n => max 1 (n.primeFactors.sup id)
+structure OAI.TotientAsymptotic.TailDatum (H : ℕ) : Type
+number of parameters: 1
+fields:
+  OAI.TotientAsymptotic.TailDatum.Q : Fin H → ℕ
+  OAI.TotientAsymptotic.TailDatum.cofactor : ℕ
+constructor:
+  OAI.TotientAsymptotic.TailDatum.mk {H : ℕ} (Q : Fin H → ℕ) (cofactor : ℕ) : OAI.TotientAsymptotic.TailDatum H
+def OAI.TotientAsymptotic.tailPrime : {H : ℕ} → OAI.TotientAsymptotic.TailDatum H → ℕ → ℕ :=
+fun {H} η h => if hH : h < H then η.Q ⟨h, hH⟩ else 1
+def OAI.TotientAsymptotic.tailLog : {H : ℕ} → OAI.TotientAsymptotic.TailDatum H → ℕ → ℝ :=
+fun {H} η h => Real.log (Real.log ↑(OAI.TotientAsymptotic.tailPrime η h))
+def OAI.TotientAsymptotic.IsWitness : (H : ℕ) → ℝ → OAI.TotientAsymptotic.TailDatum H → Prop :=
+fun H s η =>
+  (∀ (h : Fin H), ↑h < OAI.TotientAsymptotic.P H → η.Q h = 1) ∧
+    0 < η.cofactor ∧
+      (∀ h ∈ Finset.Ico (OAI.TotientAsymptotic.P H) H,
+          Nat.Prime (OAI.TotientAsymptotic.tailPrime η h) ∧
+            9 / 10 * OAI.TotientAsymptotic.alpha s * ↑h * (OAI.TotientAsymptotic.rho ^ h)⁻¹ ≤
+                OAI.TotientAsymptotic.tailLog η h ∧
+              OAI.TotientAsymptotic.tailLog η h ≤
+                  11 / 10 * OAI.TotientAsymptotic.alpha s * ↑h * (OAI.TotientAsymptotic.rho ^ h)⁻¹ ∧
+                ∑ l ∈ Finset.Ico (OAI.TotientAsymptotic.P H) h,
+                    OAI.TotientAsymptotic.a (h - l) * OAI.TotientAsymptotic.tailLog η l ≤
+                  (1 + 1 / 10000 * Real.exp (-↑h / 40)) * OAI.TotientAsymptotic.tailLog η h) ∧
+        OAI.TotientAsymptotic.largestPrimeFactor η.cofactor ≤
+            OAI.TotientAsymptotic.tailPrime η (OAI.TotientAsymptotic.P H) ∧
+          Real.log ↑η.cofactor ≤
+            Real.exp
+              (2 * OAI.TotientAsymptotic.alpha s * ↑(OAI.TotientAsymptotic.P H) *
+                (OAI.TotientAsymptotic.rho ^ OAI.TotientAsymptotic.P H)⁻¹)
+def OAI.TotientAsymptotic.w : {H : ℕ} → OAI.TotientAsymptotic.TailDatum H → ℕ :=
+fun {H} η => η.cofactor * ∏ h ∈ Finset.Ico (OAI.TotientAsymptotic.P H) H, OAI.TotientAsymptotic.tailPrime η h
+def OAI.TotientAsymptotic.witnesses : (H : ℕ) → ℝ → ℕ → Set (OAI.TotientAsymptotic.TailDatum H) :=
+fun H s d => {η | OAI.TotientAsymptotic.IsWitness H s η ∧ (OAI.TotientAsymptotic.w η).totient = d}
+def OAI.TotientAsymptotic.D : {H : ℕ} → ℕ → OAI.TotientAsymptotic.TailDatum H → ℝ :=
+fun {H} h η =>
+  ∑ l ∈ Finset.Ico (OAI.TotientAsymptotic.P H) H, OAI.TotientAsymptotic.a (h - l) * OAI.TotientAsymptotic.tailLog η l
+def OAI.TotientAsymptotic.maxD : {H : ℕ} → ℕ → Finset (OAI.TotientAsymptotic.TailDatum H) → ℝ :=
+fun {H} h T => if ht : T.Nonempty then T.sup' ht (OAI.TotientAsymptotic.D h) else 0
+def OAI.TotientAsymptotic.AH : ℕ → (ℝ → ℝ) → ℝ → ℝ :=
+fun H f s =>
+  OAI.TotientAsymptotic.rho ^ (H * (H - 1) / 2) * (OAI.TotientAsymptotic.gamma / OAI.TotientAsymptotic.alpha s) ^ H *
+    ∑ᶠ (d : ℕ),
+      if OAI.TotientAsymptotic.IsTotient d then
+        f (↑(OAI.TotientAsymptotic.ell d) / ↑d) / ↑d *
+          ∑ᶠ (T : Finset (OAI.TotientAsymptotic.TailDatum H)),
+            if T.Nonempty ∧ ↑T ⊆ OAI.TotientAsymptotic.witnesses H s d then
+              (-1) ^ (T.card - 1) *
+                Real.exp
+                  (-(OAI.TotientAsymptotic.gamma / OAI.TotientAsymptotic.alpha s) *
+                    ∑' (n : ℕ), OAI.TotientAsymptotic.rho ^ (H + n) * OAI.TotientAsymptotic.maxD (H + n) T)
+            else 0
+      else 0
+def OAI.TotientAsymptotic.A : (ℝ → ℝ) → ℝ → ℝ :=
+fun f s => Filter.atTop.limUnder fun H => OAI.TotientAsymptotic.AH H f s
+def OAI.TotientAsymptotic.mainTerm : ℝ → ℝ :=
+fun x =>
+  x / Real.log x * OAI.TotientAsymptotic.G x (OAI.TotientAsymptotic.m x) *
+    OAI.TotientAsymptotic.A (fun x => 1) (OAI.TotientAsymptotic.theta x)
+def OAI.TotientAsymptotic.N : ℕ → ℝ → ℝ :=
+fun k x =>
+  ↑{v ∈ Finset.Icc 1 ⌊x⌋₊ |
+        OAI.TotientAsymptotic.IsTotient v ∧
+          ↑k * x < ↑(OAI.TotientAsymptotic.ell v) ∧ ↑(OAI.TotientAsymptotic.ell v) ≤ (↑k + 1) * x}.card
+def OAI.TotientAsymptotic.fk : ℕ → ℝ → ℝ :=
+fun k r => min 1 ((↑k + 1) / r) - min 1 (↑k / r)
+def OAI.TotientAsymptotic.normalizedCount : (ℝ → ℝ) → ℝ → ℝ :=
+fun F x => F x / (x / Real.log x * OAI.TotientAsymptotic.G x (OAI.TotientAsymptotic.m x))
+def OAI.TotientAsymptotic.tupleNormalization : ℝ → ℝ :=
+fun x => x / Real.log x * OAI.TotientAsymptotic.G x (OAI.TotientAsymptotic.m x)

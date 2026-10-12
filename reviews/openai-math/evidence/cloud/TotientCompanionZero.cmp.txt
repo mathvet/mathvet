@@ -1,0 +1,122 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_TotientCompanionZero.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.TotientAsymptotic.companion_zero_case [thm] ok
+CMP OAI.TotientAsymptotic.fk [def] ok
+CMP OAI.TotientAsymptotic.A [def] ok
+CMP OAI.TotientAsymptotic.AH [def] ok
+CMP OAI.TotientAsymptotic.maxD [def] ok
+CMP OAI.TotientAsymptotic.D [def] ok
+CMP OAI.TotientAsymptotic.tailLog [def] ok
+CMP OAI.TotientAsymptotic.tailPrime [def] ok
+CMP OAI.TotientAsymptotic.TailDatum.Q [def] ok
+CMP OAI.TotientAsymptotic.TailDatum [ind] ok
+CMP OAI.TotientAsymptotic.TailDatum.mk [ctor] ok
+CMP OAI.TotientAsymptotic.a [def] ok
+CMP OAI.TotientAsymptotic.P [def] ok
+CMP OAI.TotientAsymptotic.witnesses [def] ok
+CMP OAI.TotientAsymptotic.w [def] ok
+CMP OAI.TotientAsymptotic.TailDatum.cofactor [def] ok
+CMP OAI.TotientAsymptotic.IsWitness [def] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_6 [thm] ok
+CMP OAI.TotientAsymptotic.largestPrimeFactor [def] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_5 [thm] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_4 [thm] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_3 [thm] ok
+CMP OAI.TotientAsymptotic.rho [def] ok
+CMP OAI.TotientAsymptotic.RenewalRootSet [def] ok
+CMP OAI.TotientAsymptotic.alpha [def] ok
+CMP OAI.TotientAsymptotic.lam [def] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_2 [thm] ok
+CMP OAI.TotientAsymptotic.IsWitness._proof_1 [thm] ok
+CMP OAI.TotientAsymptotic.ell [def] ok
+CMP OAI.TotientAsymptotic.IsTotient [def] ok
+CMP OAI.TotientAsymptotic.gamma [def] ok
+CMP OAI.TotientAsymptotic.N [def] ok
+Chal.TotientAsymptotic.companion_zero_case : ∀ (k : ℕ),
+  0 < k →
+    (¬∃ d, Chal.TotientAsymptotic.IsTotient d ∧ k * d < Chal.TotientAsymptotic.ell d) →
+      (∀ (x : ℝ), 0 < x → Chal.TotientAsymptotic.N k x = 0) ∧
+        ∀ s ∈ Set.Ico 0 1, Chal.TotientAsymptotic.A (Chal.TotientAsymptotic.fk k) s = 0
+def Chal.TotientAsymptotic.IsTotient : ℕ → Prop :=
+fun v => ∃ n, 0 < n ∧ n.totient = v
+def Chal.TotientAsymptotic.ell : ℕ → ℕ :=
+fun v => if h : Chal.TotientAsymptotic.IsTotient v then Nat.find h else 0
+def Chal.TotientAsymptotic.a : ℕ → ℝ :=
+fun j => (↑j + 1) * Real.log (↑j + 1) - ↑j * Real.log ↑j - 1
+def Chal.TotientAsymptotic.RenewalRootSet : Set ℝ :=
+{z | 0 < z ∧ z < 1 ∧ ∑' (j : ℕ), Chal.TotientAsymptotic.a (j + 1) * z ^ (j + 1) = 1}
+def Chal.TotientAsymptotic.rho : ℝ :=
+sInf Chal.TotientAsymptotic.RenewalRootSet
+def Chal.TotientAsymptotic.lam : ℝ :=
+Real.log (1 / Chal.TotientAsymptotic.rho)
+def Chal.TotientAsymptotic.gamma : ℝ :=
+(∑' (j : ℕ), (↑j + 1) * Chal.TotientAsymptotic.a (j + 1) * Chal.TotientAsymptotic.rho ^ (j + 1))⁻¹
+def Chal.TotientAsymptotic.P : ℕ → ℕ :=
+fun H => ⌊Real.log (Real.log ↑H)⌋₊
+def Chal.TotientAsymptotic.alpha : ℝ → ℝ :=
+fun s => Chal.TotientAsymptotic.lam * Real.exp (Chal.TotientAsymptotic.lam * s)
+def Chal.TotientAsymptotic.largestPrimeFactor : ℕ → ℕ :=
+fun n => max 1 (n.primeFactors.sup id)
+structure Chal.TotientAsymptotic.TailDatum (H : ℕ) : Type
+number of parameters: 1
+fields:
+  Chal.TotientAsymptotic.TailDatum.Q : Fin H → ℕ
+  Chal.TotientAsymptotic.TailDatum.cofactor : ℕ
+constructor:
+  Chal.TotientAsymptotic.TailDatum.mk {H : ℕ} (Q : Fin H → ℕ) (cofactor : ℕ) : Chal.TotientAsymptotic.TailDatum H
+def Chal.TotientAsymptotic.tailPrime : {H : ℕ} → Chal.TotientAsymptotic.TailDatum H → ℕ → ℕ :=
+fun {H} η h => if hH : h < H then η.Q ⟨h, hH⟩ else 1
+def Chal.TotientAsymptotic.tailLog : {H : ℕ} → Chal.TotientAsymptotic.TailDatum H → ℕ → ℝ :=
+fun {H} η h => Real.log (Real.log ↑(Chal.TotientAsymptotic.tailPrime η h))
+def Chal.TotientAsymptotic.IsWitness : (H : ℕ) → ℝ → Chal.TotientAsymptotic.TailDatum H → Prop :=
+fun H s η =>
+  (∀ (h : Fin H), ↑h < Chal.TotientAsymptotic.P H → η.Q h = 1) ∧
+    0 < η.cofactor ∧
+      (∀ h ∈ Finset.Ico (Chal.TotientAsymptotic.P H) H,
+          Nat.Prime (Chal.TotientAsymptotic.tailPrime η h) ∧
+            9 / 10 * Chal.TotientAsymptotic.alpha s * ↑h * (Chal.TotientAsymptotic.rho ^ h)⁻¹ ≤
+                Chal.TotientAsymptotic.tailLog η h ∧
+              Chal.TotientAsymptotic.tailLog η h ≤
+                  11 / 10 * Chal.TotientAsymptotic.alpha s * ↑h * (Chal.TotientAsymptotic.rho ^ h)⁻¹ ∧
+                ∑ l ∈ Finset.Ico (Chal.TotientAsymptotic.P H) h,
+                    Chal.TotientAsymptotic.a (h - l) * Chal.TotientAsymptotic.tailLog η l ≤
+                  (1 + 1 / 10000 * Real.exp (-↑h / 40)) * Chal.TotientAsymptotic.tailLog η h) ∧
+        Chal.TotientAsymptotic.largestPrimeFactor η.cofactor ≤
+            Chal.TotientAsymptotic.tailPrime η (Chal.TotientAsymptotic.P H) ∧
+          Real.log ↑η.cofactor ≤
+            Real.exp
+              (2 * Chal.TotientAsymptotic.alpha s * ↑(Chal.TotientAsymptotic.P H) *
+                (Chal.TotientAsymptotic.rho ^ Chal.TotientAsymptotic.P H)⁻¹)
+def Chal.TotientAsymptotic.w : {H : ℕ} → Chal.TotientAsymptotic.TailDatum H → ℕ :=
+fun {H} η => η.cofactor * ∏ h ∈ Finset.Ico (Chal.TotientAsymptotic.P H) H, Chal.TotientAsymptotic.tailPrime η h
+def Chal.TotientAsymptotic.witnesses : (H : ℕ) → ℝ → ℕ → Set (Chal.TotientAsymptotic.TailDatum H) :=
+fun H s d => {η | Chal.TotientAsymptotic.IsWitness H s η ∧ (Chal.TotientAsymptotic.w η).totient = d}
+def Chal.TotientAsymptotic.D : {H : ℕ} → ℕ → Chal.TotientAsymptotic.TailDatum H → ℝ :=
+fun {H} h η =>
+  ∑ l ∈ Finset.Ico (Chal.TotientAsymptotic.P H) H, Chal.TotientAsymptotic.a (h - l) * Chal.TotientAsymptotic.tailLog η l
+def Chal.TotientAsymptotic.maxD : {H : ℕ} → ℕ → Finset (Chal.TotientAsymptotic.TailDatum H) → ℝ :=
+fun {H} h T => if ht : T.Nonempty then T.sup' ht (Chal.TotientAsymptotic.D h) else 0
+def Chal.TotientAsymptotic.AH : ℕ → (ℝ → ℝ) → ℝ → ℝ :=
+fun H f s =>
+  Chal.TotientAsymptotic.rho ^ (H * (H - 1) / 2) * (Chal.TotientAsymptotic.gamma / Chal.TotientAsymptotic.alpha s) ^ H *
+    ∑ᶠ (d : ℕ),
+      if Chal.TotientAsymptotic.IsTotient d then
+        f (↑(Chal.TotientAsymptotic.ell d) / ↑d) / ↑d *
+          ∑ᶠ (T : Finset (Chal.TotientAsymptotic.TailDatum H)),
+            if T.Nonempty ∧ ↑T ⊆ Chal.TotientAsymptotic.witnesses H s d then
+              (-1) ^ (T.card - 1) *
+                Real.exp
+                  (-(Chal.TotientAsymptotic.gamma / Chal.TotientAsymptotic.alpha s) *
+                    ∑' (n : ℕ), Chal.TotientAsymptotic.rho ^ (H + n) * Chal.TotientAsymptotic.maxD (H + n) T)
+            else 0
+      else 0
+def Chal.TotientAsymptotic.A : (ℝ → ℝ) → ℝ → ℝ :=
+fun f s => Filter.atTop.limUnder fun H => Chal.TotientAsymptotic.AH H f s
+def Chal.TotientAsymptotic.N : ℕ → ℝ → ℝ :=
+fun k x =>
+  ↑{v ∈ Finset.Icc 1 ⌊x⌋₊ |
+        Chal.TotientAsymptotic.IsTotient v ∧
+          ↑k * x < ↑(Chal.TotientAsymptotic.ell v) ∧ ↑(Chal.TotientAsymptotic.ell v) ≤ (↑k + 1) * x}.card
+def Chal.TotientAsymptotic.fk : ℕ → ℝ → ℝ :=
+fun k r => min 1 ((↑k + 1) / r) - min 1 (↑k / r)
+'OAI.TotientAsymptotic.companion_zero_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+== TotientCompanionZero comparator-style: ok=32 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
