@@ -1,6 +1,6 @@
 # Status — review of openai/math @ `fd4aeeb2`
 
-Generated 2026-10-12T15:16:58Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
+Generated 2026-10-13T11:31:31Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
 
 | | families |
 |---|---|
@@ -24,3 +24,7 @@ Comparator challenges: 416.
 Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator, laptop, development landrun shim); `evidence/cloud/<Challenge>.*` the same three from the sandboxed cloud runs (each `.comparator.txt` starts with a provenance header naming the machine, the sandbox and the session URL).
 
 Machine checks obtained at an earlier upstream commit are labelled with that commit on the challenge page (458 of them, `source/evidence_commits.json`); for every one of them the challenge statement (.lean and .json) is byte-identical at the reviewed commit. A check certifies the solution that existed at its own commit; solutions changed upstream since are not re-verified until rebuilt.
+
+## Upstream drift
+
+Upstream has moved since the reviewed commit: `openai/math` @ `1581d4cb` (2026-10-12) adds 0 challenges, gives Lean to 0 families that had none, modifies 0 challenge statements and changes the scope note or catalogue entry of 0 reviewed families. None of this is reviewed yet; every verdict here is about commit `fd4aeeb2`. Changed families are marked in the table; the full list and diffs: [upstream-drift/1581d4c.md](https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/upstream-drift/1581d4c.md). Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-1581d4c/`.

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-12T15:16:58Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-13T11:31:31Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -3105,7 +3105,7 @@ review:
   - Tejpal Virk (independent reviewer, Berkeley, CA; MathVet, github.com/mathvet); no author of the reviewed formalization
     took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-12.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-13.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -8080,7 +8080,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-12T15:16:58Z'
+    generated: '2026-10-13T11:31:31Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -9066,7 +9066,20 @@ mathvet:
     - YauCounterexample
     comparator_running: []
     build_in_progress: []
-  upstream_drift: none detected
+    upstream_drift:
+      new_commit: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+      new_commit_date: '2026-10-12T14:55:24-07:00'
+      detected: '2026-10-13T11:30:28Z'
+      families_new_with_lean: []
+      families_gained_lean: []
+      families_to_reread: []
+      challenges_new: []
+      challenges_modified: []
+      report: upstream-drift/1581d4c.md
+  upstream_drift: 'Upstream has moved since the reviewed commit: openai/math @ 1581d4cb (2026-10-12) adds 0 challenges,
+    gives Lean to 0 families that had none, modifies 0 challenge statements and changes the scope note or catalogue
+    entry of 0 reviewed families. None of this is reviewed yet; every verdict here is about commit fd4aeeb2. Changed
+    families are marked in the table; the full list and diffs: upstream-drift/1581d4c.md.'
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
     partial: only a special case, or only one of several co-equal headline claims
