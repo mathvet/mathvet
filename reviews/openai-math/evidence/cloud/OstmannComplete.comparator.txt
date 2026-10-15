@@ -1,0 +1,23 @@
+== provenance: mathvet cloud run
+machine: Linux 7.0.0-1014-gcp x86_64, 8 vCPU, 62 GB RAM, Ubuntu 24.04
+kernel lsm: lockdown,capability,landlock,yama,apparmor,ima,evm
+sandbox: landrun=real-best-effort landrun version 0.1.17 on kernel Landlock (Got Landlock ABI v8)
+lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+comparator: ca04cfc  lean4export: v4.34.0
+upstream: openai/math fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
+nanoda: b785c70b1dba6182 nanoda_lib commit 3a2407216ee84a75f9e1aead6803d0578be06ae7 
+session: (not a Claude Code session; host instance-20261012-022515.us-west1-b.c.mathvet.internal)
+== OstmannComplete comparator start 2026-10-15T10:22:08Z landrun=/home/mathvet-m1-ariose-2026-10/.local/bin/landrun
+Building ComparatorChallenges.OstmannComplete
+⚠ [8924/8924] Built ComparatorChallenges.OstmannComplete (3.8s)
+warning: ComparatorChallenges/OstmannComplete.lean:30:8: declaration uses `sorry`
+warning: ComparatorChallenges/OstmannComplete.lean:33:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Ostmann.inverseGoldbach, OAI.Ostmann.twoInfiniteSummandsImpossible, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.OstmannComplete
+Building OAI.NumberTheory.Ostmann.Complete
+Build completed successfully (12167 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Ostmann.inverseGoldbach, OAI.Ostmann.twoInfiniteSummandsImpossible, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.NumberTheory.Ostmann.Complete
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-15T10:27:44Z

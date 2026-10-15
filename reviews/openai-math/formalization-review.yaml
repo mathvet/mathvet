@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T06:52:28Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T10:54:44Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 406 accepted by
-    the real Comparator, of which 391 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 409 accepted by
+    the real Comparator, of which 394 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3217,7 +3217,8 @@ alignment:
     module: OAI.NumberTheory.Ostmann.Complete
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/OstmannComplete.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 013 — Ostmann''s inverse Goldbach conjecture: Additive indecomposability of the primes up to
       finite changes (the lab''s own result label); paper ''The additive indecomposability of the primes'', theorem
       thm:main (build/sections/02-preliminaries.tex:113)'
@@ -3536,7 +3537,8 @@ alignment:
     module: OAI.Analysis.CircleDomains.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/KoebeCircleDomains.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 072 — Brennan''s conjecture and a counterexample to Kraetzer''s prediction: Brennan and inverse-square
       integral-means bounds (the lab''s own result label); paper ''Brennan''s conjecture and sharp inverse-square
       integral means'', theorem thm:main (build/sections/00-introduction.tex:52)'
@@ -6408,7 +6410,8 @@ alignment:
     module: OAI.SetTheory.PartitionPrinciple.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/PartitionPrinciple.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 244 — headline claim as stated in the overview: Assuming ZF is consistent, constructs a model
       in which every surjective image of a set injects into that set, yet the axiom of choice fails. Choice for
       ordinal-indexed families still holds. From any countable transitive model of ZFC, a separate construction
@@ -8098,7 +8101,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-15T06:52:28Z'
+    generated: '2026-10-15T10:54:44Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8521,6 +8524,7 @@ mathvet:
     - KaplanskyQuasitrace
     - KaplanskyStableFiniteness
     - Kervaire
+    - KoebeCircleDomains
     - Laughlin
     - LaughlinFock
     - LaughlinGap
@@ -8568,9 +8572,11 @@ mathvet:
     - OptimalMaxCut
     - OrdinaryElliott
     - OrdinaryTwoPointCorrelations
+    - OstmannComplete
     - ParityLifts
     - PartialPermutation
     - PartitionConsistency
+    - PartitionPrinciple
     - PerceptronFreeEnergy
     - PerfectCompleteness
     - PeriodicGroup
@@ -8921,6 +8927,7 @@ mathvet:
     - KaplanskyQuasitrace
     - KaplanskyStableFiniteness
     - Kervaire
+    - KoebeCircleDomains
     - Laughlin
     - LaughlinFock
     - LaughlinGap
@@ -8964,9 +8971,11 @@ mathvet:
     - OneWayLiveness
     - OrdinaryElliott
     - OrdinaryTwoPointCorrelations
+    - OstmannComplete
     - ParityLifts
     - PartialPermutation
     - PartitionConsistency
+    - PartitionPrinciple
     - PerceptronFreeEnergy
     - PeriodicGroup
     - PeriodicTilingThree
@@ -9266,7 +9275,7 @@ mathvet:
     - PrimeNumberTheoremAnd
     - StrongPNT
     cone_lines_max: 364516
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/013.md
     audit_part: 1
   - family: '015'
@@ -9662,7 +9671,7 @@ mathvet:
     external_packages:
     - Schoenflies
     cone_lines_max: 272799
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/071.md
     audit_part: 1
   - family: '072'

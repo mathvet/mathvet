@@ -1,0 +1,325 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_PartitionPrinciple.lean:262:8: warning: declaration uses `sorry`
+OAI.PartitionPilot.Forcing.TransitiveGround.exists_model_partitionPrinciple_without_choice : ∀
+  (M : OAI.PartitionPilot.Forcing.TransitiveGround),
+  OAI.PartitionPilot.Forcing.SetFormula.Realize M.sets OAI.PartitionPilot.Forcing.SetFormula.pairing Fin.elim0 →
+    OAI.PartitionPilot.Forcing.SetFormula.Realize M.sets OAI.PartitionPilot.Forcing.SetFormula.union Fin.elim0 →
+      OAI.PartitionPilot.Forcing.SetFormula.Realize M.sets OAI.PartitionPilot.Forcing.SetFormula.powerSet Fin.elim0 →
+        OAI.PartitionPilot.Forcing.SetFormula.SeparationSchema M.sets →
+          OAI.PartitionPilot.Forcing.SetFormula.CollectionSchema M.sets →
+            OAI.PartitionPilot.Forcing.SetFormula.Realize M.sets OAI.PartitionPilot.Forcing.SetFormula.infinity
+                Fin.elim0 →
+              OAI.PartitionPilot.Forcing.SetFormula.Realize M.sets OAI.PartitionPilot.Forcing.SetFormula.choice
+                  Fin.elim0 →
+                M.sets.Countable →
+                  ∀ {K : ZFSet.{u_1}},
+                    K ∈ M.sets →
+                      OAI.PartitionPilot.Forcing.GroundStandardInaccessible M K →
+                        ∃ N,
+                          M.sets ⊆ N.sets ∧
+                            OAI.PartitionPilot.Forcing.SetFormula.ZFRealization N.sets ∧
+                              OAI.PartitionPilot.Forcing.SetFormula.Realize N.sets
+                                  OAI.PartitionPilot.Forcing.SetFormula.partitionPrinciple Fin.elim0 ∧
+                                ¬OAI.PartitionPilot.Forcing.SetFormula.Realize N.sets
+                                    OAI.PartitionPilot.Forcing.SetFormula.choice Fin.elim0
+inductive OAI.PartitionPilot.Forcing.SetFormula : ℕ → Type
+number of parameters: 0
+constructors:
+OAI.PartitionPilot.Forcing.SetFormula.equal : {n : ℕ} → Fin n → Fin n → OAI.PartitionPilot.Forcing.SetFormula n
+OAI.PartitionPilot.Forcing.SetFormula.mem : {n : ℕ} → Fin n → Fin n → OAI.PartitionPilot.Forcing.SetFormula n
+OAI.PartitionPilot.Forcing.SetFormula.neg : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula n → OAI.PartitionPilot.Forcing.SetFormula n
+OAI.PartitionPilot.Forcing.SetFormula.conj : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula n →
+    OAI.PartitionPilot.Forcing.SetFormula n → OAI.PartitionPilot.Forcing.SetFormula n
+OAI.PartitionPilot.Forcing.SetFormula.all : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula (n + 1) → OAI.PartitionPilot.Forcing.SetFormula n
+def OAI.PartitionPilot.Forcing.SetFormula.extend.{u} : {A : Type u} → {n : ℕ} → A → (Fin n → A) → Fin (n + 1) → A :=
+fun {A} {n} x env i => Fin.cases x env i
+def OAI.PartitionPilot.Forcing.SetFormula.Realize.{u} : Set ZFSet.{u} →
+  {n : ℕ} → OAI.PartitionPilot.Forcing.SetFormula n → (Fin n → ZFSet.{u}) → Prop :=
+fun U x x_1 x_2 =>
+  OAI.PartitionPilot.Forcing.SetFormula.brecOn (motive := fun x x_3 => (Fin x → ZFSet.{u}) → Prop) x_1
+    (OAI.PartitionPilot.Forcing.SetFormula.Realize._f U) x_2
+def OAI.PartitionPilot.Forcing.SetFormula.ex : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula (n + 1) → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} φ => φ.neg.all.neg
+def OAI.PartitionPilot.Forcing.SetFormula.disj : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula n →
+    OAI.PartitionPilot.Forcing.SetFormula n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} φ ψ => (φ.neg.conj ψ.neg).neg
+def OAI.PartitionPilot.Forcing.SetFormula.imp : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.SetFormula n →
+    OAI.PartitionPilot.Forcing.SetFormula n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} φ ψ => (φ.conj ψ.neg).neg
+inductive OAI.PartitionPilot.Forcing.BoundedFormula : ℕ → Type
+number of parameters: 0
+constructors:
+OAI.PartitionPilot.Forcing.BoundedFormula.equal : {n : ℕ} → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n
+OAI.PartitionPilot.Forcing.BoundedFormula.mem : {n : ℕ} → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n
+OAI.PartitionPilot.Forcing.BoundedFormula.neg : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.BoundedFormula n → OAI.PartitionPilot.Forcing.BoundedFormula n
+OAI.PartitionPilot.Forcing.BoundedFormula.conj : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.BoundedFormula n →
+    OAI.PartitionPilot.Forcing.BoundedFormula n → OAI.PartitionPilot.Forcing.BoundedFormula n
+OAI.PartitionPilot.Forcing.BoundedFormula.allMem : {n : ℕ} →
+  Fin n → OAI.PartitionPilot.Forcing.BoundedFormula (n + 1) → OAI.PartitionPilot.Forcing.BoundedFormula n
+def OAI.PartitionPilot.Forcing.BoundedFormula.imp : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.BoundedFormula n →
+    OAI.PartitionPilot.Forcing.BoundedFormula n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} φ ψ => (φ.conj ψ.neg).neg
+def OAI.PartitionPilot.Forcing.BoundedFormula.disj : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.BoundedFormula n →
+    OAI.PartitionPilot.Forcing.BoundedFormula n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} φ ψ => (φ.neg.conj ψ.neg).neg
+def OAI.PartitionPilot.Forcing.BoundedFormula.exMem : {n : ℕ} →
+  Fin n → OAI.PartitionPilot.Forcing.BoundedFormula (n + 1) → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} b φ => (OAI.PartitionPilot.Forcing.BoundedFormula.allMem b φ.neg).neg
+def OAI.PartitionPilot.Forcing.BoundedFormula.toFormula : {n : ℕ} →
+  OAI.PartitionPilot.Forcing.BoundedFormula n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun x x_1 => OAI.PartitionPilot.Forcing.BoundedFormula.brecOn x_1 OAI.PartitionPilot.Forcing.BoundedFormula.toFormula._f
+def OAI.PartitionPilot.Forcing.BoundedFormula.singletonFormula : {n : ℕ} →
+  Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} z x =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.mem x z).conj
+    (OAI.PartitionPilot.Forcing.BoundedFormula.allMem z (OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 x.succ))
+def OAI.PartitionPilot.Forcing.BoundedFormula.unorderedPairFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} z x y =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.mem x z).conj
+    ((OAI.PartitionPilot.Forcing.BoundedFormula.mem y z).conj
+      (OAI.PartitionPilot.Forcing.BoundedFormula.allMem z
+        ((OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 x.succ).disj
+          (OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 y.succ))))
+def OAI.PartitionPilot.Forcing.BoundedFormula.orderedPairFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} z x y =>
+  OAI.PartitionPilot.Forcing.BoundedFormula.exMem z
+    ((OAI.PartitionPilot.Forcing.BoundedFormula.singletonFormula 0 x.succ).conj
+      (OAI.PartitionPilot.Forcing.BoundedFormula.exMem z.succ
+        ((OAI.PartitionPilot.Forcing.BoundedFormula.unorderedPairFormula 0 x.succ.succ y.succ.succ).conj
+          (OAI.PartitionPilot.Forcing.BoundedFormula.unorderedPairFormula z.succ.succ 1 0))))
+def OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} x y r =>
+  OAI.PartitionPilot.Forcing.BoundedFormula.exMem r
+    (OAI.PartitionPilot.Forcing.BoundedFormula.orderedPairFormula 0 x.succ y.succ)
+def OAI.PartitionPilot.Forcing.BoundedFormula.relationBetweenFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} a b f =>
+  OAI.PartitionPilot.Forcing.BoundedFormula.allMem f
+    (OAI.PartitionPilot.Forcing.BoundedFormula.exMem a.succ
+      (OAI.PartitionPilot.Forcing.BoundedFormula.exMem b.succ.succ
+        (OAI.PartitionPilot.Forcing.BoundedFormula.orderedPairFormula 2 1 0)))
+def OAI.PartitionPilot.Forcing.BoundedFormula.functionFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} a b f =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.relationBetweenFormula a b f).conj
+    (OAI.PartitionPilot.Forcing.BoundedFormula.allMem a
+      (OAI.PartitionPilot.Forcing.BoundedFormula.exMem b.succ
+        ((OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 1 0 f.succ.succ).conj
+          (OAI.PartitionPilot.Forcing.BoundedFormula.allMem b.succ.succ
+            ((OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 2 0 f.succ.succ.succ).imp
+              (OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 1))))))
+def OAI.PartitionPilot.Forcing.BoundedFormula.nonemptyFormula : {n : ℕ} →
+  Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} x => OAI.PartitionPilot.Forcing.BoundedFormula.exMem x (OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 0)
+def OAI.PartitionPilot.Forcing.BoundedFormula.choiceFunctionFormula : {n : ℕ} →
+  Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} a f =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.allMem f
+        (OAI.PartitionPilot.Forcing.BoundedFormula.exMem a.succ
+          (OAI.PartitionPilot.Forcing.BoundedFormula.exMem 0
+            (OAI.PartitionPilot.Forcing.BoundedFormula.orderedPairFormula 2 1 0)))).conj
+    (OAI.PartitionPilot.Forcing.BoundedFormula.allMem a
+      (OAI.PartitionPilot.Forcing.BoundedFormula.exMem 0
+        ((OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 1 0 f.succ.succ).conj
+          (OAI.PartitionPilot.Forcing.BoundedFormula.allMem 1
+            ((OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 2 0 f.succ.succ.succ).imp
+              (OAI.PartitionPilot.Forcing.BoundedFormula.equal 0 1))))))
+structure OAI.PartitionPilot.Forcing.TransitiveGround.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.PartitionPilot.Forcing.TransitiveGround.sets : Set ZFSet.{u}
+  OAI.PartitionPilot.Forcing.TransitiveGround.transitive : ∀ {x y : ZFSet.{u}}, x ∈ self.sets → y ∈ x → y ∈ self.sets
+constructor:
+  OAI.PartitionPilot.Forcing.TransitiveGround.mk.{u} (sets : Set ZFSet.{u})
+    (transitive : ∀ {x y : ZFSet.{u}}, x ∈ sets → y ∈ x → y ∈ sets) : OAI.PartitionPilot.Forcing.TransitiveGround
+structure OAI.PartitionPilot.Forcing.InjectionCode.{u} (D N f : ZFSet.{u}) : Prop
+number of parameters: 3
+fields:
+  OAI.PartitionPilot.Forcing.InjectionCode.function : D.IsFunc N f
+  OAI.PartitionPilot.Forcing.InjectionCode.injective : ∀ (x y z : ZFSet.{u}), x.pair z ∈ f → y.pair z ∈ f → x = y
+constructor:
+  OAI.PartitionPilot.Forcing.InjectionCode.mk.{u} {D N f : ZFSet.{u}} (function : D.IsFunc N f)
+    (injective : ∀ (x y z : ZFSet.{u}), x.pair z ∈ f → y.pair z ∈ f → x = y) :
+    OAI.PartitionPilot.Forcing.InjectionCode D N f
+def OAI.PartitionPilot.Forcing.TransitiveGround.groundEmbeddable.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → ZFSet.{u} → Prop :=
+fun M D N => ∃ f ∈ M.sets, OAI.PartitionPilot.Forcing.InjectionCode D N f
+def OAI.PartitionPilot.Forcing.setTransitive.{u} : ZFSet.{u} → Prop :=
+fun x => ∀ y ∈ x, ∀ z ∈ y, z ∈ x
+def OAI.PartitionPilot.Forcing.ordinalSetProperty.{u} : ZFSet.{u} → Prop :=
+fun x => OAI.PartitionPilot.Forcing.setTransitive x ∧ ∀ y ∈ x, OAI.PartitionPilot.Forcing.setTransitive y
+def OAI.PartitionPilot.Forcing.TransitiveGround.groundPower.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → ZFSet.{u} :=
+fun M B => ZFSet.sep (fun p => p ∈ M.sets) B.powerset
+def OAI.PartitionPilot.Forcing.GroundBelow.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → ZFSet.{u} → Prop :=
+fun M A K => ∃ β ∈ K, M.groundEmbeddable A β
+def OAI.PartitionPilot.Forcing.GroundCardinal.{u} : OAI.PartitionPilot.Forcing.TransitiveGround → ZFSet.{u} → Prop :=
+fun M κ => OAI.PartitionPilot.Forcing.ordinalSetProperty κ ∧ ∀ β ∈ κ, ¬M.groundEmbeddable κ β
+def OAI.PartitionPilot.Forcing.CofinalFunctionCode.{u} : ZFSet.{u} → ZFSet.{u} → ZFSet.{u} → Prop :=
+fun α K f => α.IsFunc K f ∧ ∀ β ∈ K, ∃ x ∈ α, ∃ y ∈ K, x.pair y ∈ f ∧ (β = y ∨ β ∈ y)
+def OAI.PartitionPilot.Forcing.GroundCofinalRegular.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → Prop :=
+fun M K => ∀ α ∈ K, ∀ f ∈ M.sets, ¬OAI.PartitionPilot.Forcing.CofinalFunctionCode α K f
+def OAI.PartitionPilot.Forcing.GroundCardinalStrongLimit.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → Prop :=
+fun M K =>
+  ∀ κ ∈ K, OAI.PartitionPilot.Forcing.GroundCardinal M κ → OAI.PartitionPilot.Forcing.GroundBelow M (M.groundPower κ) K
+def OAI.PartitionPilot.Forcing.GroundStandardInaccessible.{u} : OAI.PartitionPilot.Forcing.TransitiveGround →
+  ZFSet.{u} → Prop :=
+fun M K =>
+  OAI.PartitionPilot.Forcing.GroundCardinal M K ∧
+    ¬M.groundEmbeddable K ZFSet.omega ∧
+      OAI.PartitionPilot.Forcing.GroundCofinalRegular M K ∧ OAI.PartitionPilot.Forcing.GroundCardinalStrongLimit M K
+def OAI.PartitionPilot.Forcing.SetFormula.extensionality : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+((((OAI.PartitionPilot.Forcing.SetFormula.mem 0 2).imp (OAI.PartitionPilot.Forcing.SetFormula.mem 0 1)).conj
+            ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+              (OAI.PartitionPilot.Forcing.SetFormula.mem 0 2))).all.imp
+      (OAI.PartitionPilot.Forcing.SetFormula.equal 1 0)).all.all
+def OAI.PartitionPilot.Forcing.SetFormula.foundation : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).ex.imp
+    ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).conj
+        ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 2).conj
+              (OAI.PartitionPilot.Forcing.SetFormula.mem 0 1)).neg.all).ex).all
+def OAI.PartitionPilot.Forcing.SetFormula.emptySet : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+(OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).neg.all.ex
+def OAI.PartitionPilot.Forcing.SetFormula.pairing : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+(((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+              ((OAI.PartitionPilot.Forcing.SetFormula.equal 0 3).disj
+                (OAI.PartitionPilot.Forcing.SetFormula.equal 0 2))).conj
+          (((OAI.PartitionPilot.Forcing.SetFormula.equal 0 3).disj
+                (OAI.PartitionPilot.Forcing.SetFormula.equal 0 2)).imp
+            (OAI.PartitionPilot.Forcing.SetFormula.mem 0 1))).all.ex.all.all
+def OAI.PartitionPilot.Forcing.SetFormula.union : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+(((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+            ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 3).conj
+                (OAI.PartitionPilot.Forcing.SetFormula.mem 1 0)).ex).conj
+        (((OAI.PartitionPilot.Forcing.SetFormula.mem 0 3).conj (OAI.PartitionPilot.Forcing.SetFormula.mem 1 0)).ex.imp
+          (OAI.PartitionPilot.Forcing.SetFormula.mem 0 1))).all.ex.all
+def OAI.PartitionPilot.Forcing.SetFormula.powerSet : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+(((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+            ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+                (OAI.PartitionPilot.Forcing.SetFormula.mem 0 3)).all).conj
+        (((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp (OAI.PartitionPilot.Forcing.SetFormula.mem 0 3)).all.imp
+          (OAI.PartitionPilot.Forcing.SetFormula.mem 0 1))).all.ex.all
+def OAI.PartitionPilot.Forcing.SetFormula.SeparationSchema.{u} : Set ZFSet.{u} → Prop :=
+fun U =>
+  ∀ {n : ℕ} (φ : OAI.PartitionPilot.Forcing.SetFormula (n + 1)) (params : Fin n → ZFSet.{u}),
+    (∀ (i : Fin n), params i ∈ U) →
+      ∀ x ∈ U,
+        ∃ y ∈ U,
+          ∀ z ∈ U,
+            z ∈ y ↔
+              z ∈ x ∧
+                OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                  (OAI.PartitionPilot.Forcing.SetFormula.extend z params)
+def OAI.PartitionPilot.Forcing.SetFormula.CollectionSchema.{u} : Set ZFSet.{u} → Prop :=
+fun U =>
+  ∀ {n : ℕ} (φ : OAI.PartitionPilot.Forcing.SetFormula (n + 2)) (params : Fin n → ZFSet.{u}),
+    (∀ (i : Fin n), params i ∈ U) →
+      ∀ a ∈ U,
+        (∀ x ∈ U,
+            x ∈ a →
+              ∃ y ∈ U,
+                OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                  (OAI.PartitionPilot.Forcing.SetFormula.extend x
+                    (OAI.PartitionPilot.Forcing.SetFormula.extend y params))) →
+          ∃ b ∈ U,
+            ∀ x ∈ U,
+              x ∈ a →
+                ∃ y ∈ U,
+                  y ∈ b ∧
+                    OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                      (OAI.PartitionPilot.Forcing.SetFormula.extend x
+                        (OAI.PartitionPilot.Forcing.SetFormula.extend y params))
+def OAI.PartitionPilot.Forcing.SetFormula.emptySetFormula : {n : ℕ} → Fin n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} x => (OAI.PartitionPilot.Forcing.SetFormula.mem 0 x.succ).neg.all
+def OAI.PartitionPilot.Forcing.SetFormula.successorFormula : {n : ℕ} →
+  Fin n → Fin n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} y x =>
+  (((OAI.PartitionPilot.Forcing.SetFormula.mem 0 y.succ).imp
+          ((OAI.PartitionPilot.Forcing.SetFormula.equal 0 x.succ).disj
+            (OAI.PartitionPilot.Forcing.SetFormula.mem 0 x.succ))).conj
+      (((OAI.PartitionPilot.Forcing.SetFormula.equal 0 x.succ).disj
+            (OAI.PartitionPilot.Forcing.SetFormula.mem 0 x.succ)).imp
+        (OAI.PartitionPilot.Forcing.SetFormula.mem 0 y.succ))).all
+def OAI.PartitionPilot.Forcing.SetFormula.infinity : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+(((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).conj
+          (OAI.PartitionPilot.Forcing.SetFormula.emptySetFormula 0)).ex.conj
+    ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 1).imp
+        ((OAI.PartitionPilot.Forcing.SetFormula.mem 0 2).conj
+            (OAI.PartitionPilot.Forcing.SetFormula.successorFormula 0 1)).ex).all).ex
+def OAI.PartitionPilot.Forcing.SetFormula.choice : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+((OAI.PartitionPilot.Forcing.BoundedFormula.allMem 0
+          (OAI.PartitionPilot.Forcing.BoundedFormula.nonemptyFormula 0)).toFormula.imp
+    (OAI.PartitionPilot.Forcing.BoundedFormula.choiceFunctionFormula 1 0).toFormula.ex).all
+def OAI.PartitionPilot.Forcing.SetFormula.ReplacementSchema.{u} : Set ZFSet.{u} → Prop :=
+fun U =>
+  ∀ {n : ℕ} (φ : OAI.PartitionPilot.Forcing.SetFormula (n + 2)) (params : Fin n → ZFSet.{u}),
+    (∀ (i : Fin n), params i ∈ U) →
+      ∀ A ∈ U,
+        (∀ x ∈ U,
+            x ∈ A →
+              ∃ y ∈ U,
+                OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                    (OAI.PartitionPilot.Forcing.SetFormula.extend x
+                      (OAI.PartitionPilot.Forcing.SetFormula.extend y params)) ∧
+                  ∀ z ∈ U,
+                    OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                        (OAI.PartitionPilot.Forcing.SetFormula.extend x
+                          (OAI.PartitionPilot.Forcing.SetFormula.extend z params)) →
+                      z = y) →
+          ∃ B ∈ U,
+            ∀ y ∈ U,
+              y ∈ B ↔
+                ∃ x ∈ U,
+                  x ∈ A ∧
+                    OAI.PartitionPilot.Forcing.SetFormula.Realize U φ
+                      (OAI.PartitionPilot.Forcing.SetFormula.extend x
+                        (OAI.PartitionPilot.Forcing.SetFormula.extend y params))
+def OAI.PartitionPilot.Forcing.SetFormula.finiteZFAxioms : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+OAI.PartitionPilot.Forcing.SetFormula.extensionality.conj
+  (OAI.PartitionPilot.Forcing.SetFormula.foundation.conj
+    (OAI.PartitionPilot.Forcing.SetFormula.emptySet.conj
+      (OAI.PartitionPilot.Forcing.SetFormula.pairing.conj
+        (OAI.PartitionPilot.Forcing.SetFormula.union.conj
+          (OAI.PartitionPilot.Forcing.SetFormula.powerSet.conj OAI.PartitionPilot.Forcing.SetFormula.infinity)))))
+def OAI.PartitionPilot.Forcing.SetFormula.ZFRealization.{u} : Set ZFSet.{u} → Prop :=
+fun U =>
+  OAI.PartitionPilot.Forcing.SetFormula.Realize U OAI.PartitionPilot.Forcing.SetFormula.finiteZFAxioms Fin.elim0 ∧
+    OAI.PartitionPilot.Forcing.SetFormula.SeparationSchema U ∧ OAI.PartitionPilot.Forcing.SetFormula.ReplacementSchema U
+def OAI.PartitionPilot.Forcing.BoundedFormula.injectionFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} d c f =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.functionFormula d c f).conj
+    (OAI.PartitionPilot.Forcing.BoundedFormula.allMem d
+      (OAI.PartitionPilot.Forcing.BoundedFormula.allMem d.succ
+        (OAI.PartitionPilot.Forcing.BoundedFormula.allMem c.succ.succ
+          (((OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 2 0 f.succ.succ.succ).conj
+                (OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 1 0 f.succ.succ.succ)).imp
+            (OAI.PartitionPilot.Forcing.BoundedFormula.equal 2 1)))))
+def OAI.PartitionPilot.Forcing.SetFormula.hasInjectionFormula : {n : ℕ} →
+  Fin n → Fin n → OAI.PartitionPilot.Forcing.SetFormula n :=
+fun {n} d c => (OAI.PartitionPilot.Forcing.BoundedFormula.injectionFormula d.succ c.succ 0).toFormula.ex
+def OAI.PartitionPilot.Forcing.BoundedFormula.surjectionFormula : {n : ℕ} →
+  Fin n → Fin n → Fin n → OAI.PartitionPilot.Forcing.BoundedFormula n :=
+fun {n} a b f =>
+  (OAI.PartitionPilot.Forcing.BoundedFormula.functionFormula a b f).conj
+    (OAI.PartitionPilot.Forcing.BoundedFormula.allMem b
+      (OAI.PartitionPilot.Forcing.BoundedFormula.exMem a.succ
+        (OAI.PartitionPilot.Forcing.BoundedFormula.pairMembershipFormula 0 1 f.succ.succ)))
+def OAI.PartitionPilot.Forcing.SetFormula.partitionPrinciple : OAI.PartitionPilot.Forcing.SetFormula 0 :=
+((OAI.PartitionPilot.Forcing.BoundedFormula.surjectionFormula 2 1 0).toFormula.imp
+        (OAI.PartitionPilot.Forcing.SetFormula.hasInjectionFormula 1 2)).all.all.all

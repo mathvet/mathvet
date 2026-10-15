@@ -1,0 +1,23 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_OstmannComplete.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Ostmann.twoInfiniteSummandsImpossible [thm] ok
+CMP OAI.Ostmann.TwoInfiniteSummandsImpossible [def] ok
+CMP OAI.Ostmann.EventuallyPrimeSumset [def] ok
+CMP OAI.Ostmann.sumset [def] ok
+CMP OAI.Ostmann.inverseGoldbach [thm] ok
+CMP OAI.Ostmann.InverseGoldbach [def] ok
+CMP OAI.Ostmann.primes [def] ok
+Chal.Ostmann.inverseGoldbach : Chal.Ostmann.InverseGoldbach
+Chal.Ostmann.twoInfiniteSummandsImpossible : Chal.Ostmann.TwoInfiniteSummandsImpossible
+def Chal.Ostmann.primes : Set ℕ :=
+{n | Nat.Prime n}
+@[reducible] def Chal.Ostmann.sumset : Set ℕ → Set ℕ → Set ℕ :=
+fun A B => A + B
+def Chal.Ostmann.EventuallyPrimeSumset : Set ℕ → Set ℕ → Prop :=
+fun A B => ∃ N, ∀ (n : ℕ), N ≤ n → (n ∈ Chal.Ostmann.sumset A B ↔ Nat.Prime n)
+def Chal.Ostmann.TwoInfiniteSummandsImpossible : Prop :=
+∀ (A B : Set ℕ), A.Infinite → B.Infinite → ¬Chal.Ostmann.EventuallyPrimeSumset A B
+def Chal.Ostmann.InverseGoldbach : Prop :=
+∀ (A B : Set ℕ), A.Nontrivial → B.Nontrivial → (symmDiff (Chal.Ostmann.sumset A B) Chal.Ostmann.primes).Infinite
+'OAI.Ostmann.inverseGoldbach' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Ostmann.twoInfiniteSummandsImpossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OstmannComplete comparator-style: ok=7 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

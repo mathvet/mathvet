@@ -1,0 +1,82 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_KoebeCircleDomains.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Problem047.removability_implies_rigidity [thm] ok
+CMP OAI.CircleDomainRigidity.Mobius [def] ok
+CMP OAI.CircleDomainRigidity.IsConformalEquivalence [def] ok
+CMP OAI.CircleDomainRigidity.IsConformalOn [def] ok
+CMP OAI.CircleDomainRigidity.IsConformalAt [def] ok
+CMP OAI.CircleDomainRigidity.chartSymm [def] ok
+CMP OAI.CircleDomainRigidity.sphereInv [def] ok
+CMP OAI.CircleDomainRigidity.Sphere [def] ok
+CMP OAI.CircleDomainRigidity.chart [def] ok
+CMP OAI.CircleDomainRigidity.finiteCoord [def] ok
+CMP OAI.CircleDomainRigidity.IsConformalAt._proof_1 [thm] ok
+CMP OAI.CircleDomainRigidity.IsConformallyRemovable [def] ok
+CMP OAI.CircleDomainRigidity.OrientationPreserving [def] ok
+CMP OAI.CircleDomainRigidity.OrientationPreserving._proof_1 [thm] ok
+CMP OAI.CircleDomainRigidity.IsCircleDomain [def] ok
+CMP OAI.CircleDomainRigidity.IsRoundClosedDisk [def] ok
+CMP OAI.Problem047.koebe_circle_domain [thm] ok
+Chal.Problem047.koebe_circle_domain : ∀ (U : Set Chal.CircleDomainRigidity.Sphere),
+  IsOpen U →
+    IsConnected U →
+      ∃ V f, Chal.CircleDomainRigidity.IsCircleDomain V ∧ Chal.CircleDomainRigidity.IsConformalEquivalence f U V
+Chal.Problem047.removability_implies_rigidity : ∀ (U V : Set Chal.CircleDomainRigidity.Sphere)
+  (f : Chal.CircleDomainRigidity.Sphere → Chal.CircleDomainRigidity.Sphere),
+  Chal.CircleDomainRigidity.IsCircleDomain U →
+    Chal.CircleDomainRigidity.IsCircleDomain V →
+      Chal.CircleDomainRigidity.IsConformallyRemovable (frontier U) →
+        Chal.CircleDomainRigidity.IsConformalEquivalence f U V → ∃ M, ∀ p ∈ U, f p = M • p
+@[reducible] def Chal.CircleDomainRigidity.Sphere : Type :=
+OnePoint ℂ
+@[reducible] def Chal.CircleDomainRigidity.Mobius : Type :=
+GL (Fin 2) ℂ
+def Chal.CircleDomainRigidity.sphereInv : Chal.CircleDomainRigidity.Sphere → Chal.CircleDomainRigidity.Sphere :=
+fun p => OnePoint.elim p ↑0 fun z => if z = 0 then OnePoint.infty else ↑z⁻¹
+def Chal.CircleDomainRigidity.finiteCoord : Chal.CircleDomainRigidity.Sphere → ℂ :=
+fun p => OnePoint.elim p 0 id
+def Chal.CircleDomainRigidity.chart : Chal.CircleDomainRigidity.Sphere → Chal.CircleDomainRigidity.Sphere → ℂ :=
+fun p q =>
+  if p = OnePoint.infty then Chal.CircleDomainRigidity.finiteCoord (Chal.CircleDomainRigidity.sphereInv q)
+  else Chal.CircleDomainRigidity.finiteCoord q
+def Chal.CircleDomainRigidity.chartSymm : Chal.CircleDomainRigidity.Sphere → ℂ → Chal.CircleDomainRigidity.Sphere :=
+fun p z => if p = OnePoint.infty then Chal.CircleDomainRigidity.sphereInv ↑z else ↑z
+def Chal.CircleDomainRigidity.IsConformalAt : (Chal.CircleDomainRigidity.Sphere → Chal.CircleDomainRigidity.Sphere) →
+  Chal.CircleDomainRigidity.Sphere → Prop :=
+fun f p =>
+  ContinuousAt f p ∧
+    ∃ d,
+      d ≠ 0 ∧
+        HasDerivAt (fun z => Chal.CircleDomainRigidity.chart (f p) (f (Chal.CircleDomainRigidity.chartSymm p z))) d
+          (Chal.CircleDomainRigidity.chart p p)
+def Chal.CircleDomainRigidity.IsConformalOn : (Chal.CircleDomainRigidity.Sphere → Chal.CircleDomainRigidity.Sphere) →
+  Set Chal.CircleDomainRigidity.Sphere → Prop :=
+fun f U => ∀ p ∈ U, Chal.CircleDomainRigidity.IsConformalAt f p
+def Chal.CircleDomainRigidity.IsConformalEquivalence : (Chal.CircleDomainRigidity.Sphere →
+    Chal.CircleDomainRigidity.Sphere) →
+  Set Chal.CircleDomainRigidity.Sphere → Set Chal.CircleDomainRigidity.Sphere → Prop :=
+fun f U V =>
+  Chal.CircleDomainRigidity.IsConformalOn f U ∧
+    Set.MapsTo f U V ∧
+      ∃ g,
+        Chal.CircleDomainRigidity.IsConformalOn g V ∧ Set.MapsTo g V U ∧ (∀ z ∈ U, g (f z) = z) ∧ ∀ w ∈ V, f (g w) = w
+def Chal.CircleDomainRigidity.IsRoundClosedDisk : Set Chal.CircleDomainRigidity.Sphere → Prop :=
+fun K => ∃ M, K = (fun p => M • p) '' OnePoint.some '' Metric.closedBall 0 1
+def Chal.CircleDomainRigidity.IsCircleDomain : Set Chal.CircleDomainRigidity.Sphere → Prop :=
+fun U =>
+  IsOpen U ∧
+    IsConnected U ∧
+      ∀ p ∈ Uᶜ,
+        (∃ q, connectedComponentIn Uᶜ p = {q}) ∨ Chal.CircleDomainRigidity.IsRoundClosedDisk (connectedComponentIn Uᶜ p)
+def Chal.CircleDomainRigidity.OrientationPreserving : Chal.CircleDomainRigidity.Sphere ≃ₜ
+    Chal.CircleDomainRigidity.Sphere →
+  Prop :=
+fun h => { toFun := ⇑h, continuous_toFun := ⋯ }.Homotopic (ContinuousMap.id Chal.CircleDomainRigidity.Sphere)
+def Chal.CircleDomainRigidity.IsConformallyRemovable : Set Chal.CircleDomainRigidity.Sphere → Prop :=
+fun E =>
+  IsCompact E ∧
+    ∀ (h : Chal.CircleDomainRigidity.Sphere ≃ₜ Chal.CircleDomainRigidity.Sphere),
+      Chal.CircleDomainRigidity.OrientationPreserving h →
+        Chal.CircleDomainRigidity.IsConformalOn (⇑h) Eᶜ → ∃ M, ∀ (p : Chal.CircleDomainRigidity.Sphere), h p = M • p
+'OAI.Problem047.koebe_circle_domain' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Problem047.removability_implies_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+== KoebeCircleDomains comparator-style: ok=17 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

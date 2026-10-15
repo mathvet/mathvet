@@ -1,0 +1,62 @@
+OAI.Problem047.koebe_circle_domain : ∀ (U : Set OAI.CircleDomainRigidity.Sphere),
+  IsOpen U →
+    IsConnected U →
+      ∃ V f, OAI.CircleDomainRigidity.IsCircleDomain V ∧ OAI.CircleDomainRigidity.IsConformalEquivalence f U V
+'OAI.Problem047.koebe_circle_domain' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem047.removability_implies_rigidity : ∀ (U V : Set OAI.CircleDomainRigidity.Sphere)
+  (f : OAI.CircleDomainRigidity.Sphere → OAI.CircleDomainRigidity.Sphere),
+  OAI.CircleDomainRigidity.IsCircleDomain U →
+    OAI.CircleDomainRigidity.IsCircleDomain V →
+      OAI.CircleDomainRigidity.IsConformallyRemovable (frontier U) →
+        OAI.CircleDomainRigidity.IsConformalEquivalence f U V → ∃ M, ∀ p ∈ U, f p = M • p
+'OAI.Problem047.removability_implies_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.CircleDomainRigidity.Sphere : Type :=
+OnePoint ℂ
+@[reducible] def OAI.CircleDomainRigidity.Mobius : Type :=
+GL (Fin 2) ℂ
+def OAI.CircleDomainRigidity.sphereInv : OAI.CircleDomainRigidity.Sphere → OAI.CircleDomainRigidity.Sphere :=
+fun p => OnePoint.elim p ↑0 fun z => if z = 0 then OnePoint.infty else ↑z⁻¹
+def OAI.CircleDomainRigidity.finiteCoord : OAI.CircleDomainRigidity.Sphere → ℂ :=
+fun p => OnePoint.elim p 0 id
+def OAI.CircleDomainRigidity.chart : OAI.CircleDomainRigidity.Sphere → OAI.CircleDomainRigidity.Sphere → ℂ :=
+fun p q =>
+  if p = OnePoint.infty then OAI.CircleDomainRigidity.finiteCoord (OAI.CircleDomainRigidity.sphereInv q)
+  else OAI.CircleDomainRigidity.finiteCoord q
+def OAI.CircleDomainRigidity.chartSymm : OAI.CircleDomainRigidity.Sphere → ℂ → OAI.CircleDomainRigidity.Sphere :=
+fun p z => if p = OnePoint.infty then OAI.CircleDomainRigidity.sphereInv ↑z else ↑z
+def OAI.CircleDomainRigidity.IsConformalAt : (OAI.CircleDomainRigidity.Sphere → OAI.CircleDomainRigidity.Sphere) →
+  OAI.CircleDomainRigidity.Sphere → Prop :=
+fun f p =>
+  ContinuousAt f p ∧
+    ∃ d,
+      d ≠ 0 ∧
+        HasDerivAt (fun z => OAI.CircleDomainRigidity.chart (f p) (f (OAI.CircleDomainRigidity.chartSymm p z))) d
+          (OAI.CircleDomainRigidity.chart p p)
+def OAI.CircleDomainRigidity.IsConformalOn : (OAI.CircleDomainRigidity.Sphere → OAI.CircleDomainRigidity.Sphere) →
+  Set OAI.CircleDomainRigidity.Sphere → Prop :=
+fun f U => ∀ p ∈ U, OAI.CircleDomainRigidity.IsConformalAt f p
+def OAI.CircleDomainRigidity.IsConformalEquivalence : (OAI.CircleDomainRigidity.Sphere →
+    OAI.CircleDomainRigidity.Sphere) →
+  Set OAI.CircleDomainRigidity.Sphere → Set OAI.CircleDomainRigidity.Sphere → Prop :=
+fun f U V =>
+  OAI.CircleDomainRigidity.IsConformalOn f U ∧
+    Set.MapsTo f U V ∧
+      ∃ g, OAI.CircleDomainRigidity.IsConformalOn g V ∧ Set.MapsTo g V U ∧ (∀ z ∈ U, g (f z) = z) ∧ ∀ w ∈ V, f (g w) = w
+def OAI.CircleDomainRigidity.IsRoundClosedDisk : Set OAI.CircleDomainRigidity.Sphere → Prop :=
+fun K => ∃ M, K = (fun p => M • p) '' OnePoint.some '' Metric.closedBall 0 1
+def OAI.CircleDomainRigidity.IsCircleDomain : Set OAI.CircleDomainRigidity.Sphere → Prop :=
+fun U =>
+  IsOpen U ∧
+    IsConnected U ∧
+      ∀ p ∈ Uᶜ,
+        (∃ q, connectedComponentIn Uᶜ p = {q}) ∨ OAI.CircleDomainRigidity.IsRoundClosedDisk (connectedComponentIn Uᶜ p)
+def OAI.CircleDomainRigidity.OrientationPreserving : OAI.CircleDomainRigidity.Sphere ≃ₜ
+    OAI.CircleDomainRigidity.Sphere →
+  Prop :=
+fun h => { toFun := ⇑h, continuous_toFun := ⋯ }.Homotopic (ContinuousMap.id OAI.CircleDomainRigidity.Sphere)
+def OAI.CircleDomainRigidity.IsConformallyRemovable : Set OAI.CircleDomainRigidity.Sphere → Prop :=
+fun E =>
+  IsCompact E ∧
+    ∀ (h : OAI.CircleDomainRigidity.Sphere ≃ₜ OAI.CircleDomainRigidity.Sphere),
+      OAI.CircleDomainRigidity.OrientationPreserving h →
+        OAI.CircleDomainRigidity.IsConformalOn (⇑h) Eᶜ → ∃ M, ∀ (p : OAI.CircleDomainRigidity.Sphere), h p = M • p
