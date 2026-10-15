@@ -14,6 +14,9 @@ if [ "$NOBUILD" != "--nobuild" ]; then
   T0=$(date +%s); lake build "$MOD" >> "$LOG" 2>&1; RC=$?; T1=$(date +%s)
   echo "== build rc=$RC seconds=$((T1-T0))" | tee -a "$LOG"
   [ $RC -ne 0 ] && { echo "BUILD FAILED $C"; exit 1; }
+  # Lake leaves a 6-8 MB <Module>.setup.json beside the IR of every module it compiles and never removes it (165 GB on a
+  # 193 GB VM, 175 GB on the laptop); a built module stays up to date without it, so drop them after each build.
+  find "$L/.lake/build/ir" -name '*.setup.json' -delete 2>/dev/null
 else
   echo "== $C recheck (no build) $(date -u +%FT%TZ)" | tee -a "$LOG"
 fi
