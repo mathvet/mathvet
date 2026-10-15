@@ -1,0 +1,418 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_BoltzmannNonuniqueness.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.BoltzmannNonuniqueness.nonuniqueness [thm] ok
+CMP OAI.BoltzmannNonuniqueness.Velocity [def] ok
+CMP OAI.BoltzmannNonuniqueness.Position [def] ok
+CMP OAI.BoltzmannNonuniqueness.Phase [def] ok
+CMP OAI.BoltzmannNonuniqueness.StrongEarly [ind] ok
+CMP OAI.BoltzmannNonuniqueness.StrongEarly.mk [ctor] ok
+CMP OAI.BoltzmannNonuniqueness.loss [def] ok
+CMP OAI.BoltzmannNonuniqueness.collisionKernel [def] ok
+CMP OAI.BoltzmannNonuniqueness.normalComponent [def] ok
+CMP OAI.BoltzmannNonuniqueness.normalComponent._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.sphereArea [def] ok
+CMP OAI.BoltzmannNonuniqueness.sphereArea._proof_2 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.sphereArea._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.Sphere [def] ok
+CMP OAI.BoltzmannNonuniqueness.Density [def] ok
+CMP OAI.BoltzmannNonuniqueness.boundedTimes [def] ok
+CMP OAI.BoltzmannNonuniqueness.SpaceTimePhase [def] ok
+CMP OAI.BoltzmannNonuniqueness.gain [def] ok
+CMP OAI.BoltzmannNonuniqueness.scatterRight [def] ok
+CMP OAI.BoltzmannNonuniqueness.scatterLeft [def] ok
+CMP OAI.BoltzmannNonuniqueness.Evolution [def] ok
+CMP OAI.BoltzmannNonuniqueness.AdmissibleGlobal [ind] ok
+CMP OAI.BoltzmannNonuniqueness.AdmissibleGlobal.mk [ctor] ok
+CMP OAI.BoltzmannNonuniqueness.entropyDissipation [def] ok
+CMP OAI.BoltzmannNonuniqueness.extendedEntropyProduction [def] ok
+CMP OAI.BoltzmannNonuniqueness.FiniteEntropyDatum._proof_3 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.FiniteEntropyDatum._proof_2 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.FiniteEntropyDatum._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.entropyDissipation._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.relativeEntropy [def] ok
+CMP OAI.BoltzmannNonuniqueness.maxwellian [def] ok
+CMP OAI.BoltzmannNonuniqueness.maxwellian._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.torusRepresentative._proof_1 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.energy [def] ok
+CMP OAI.BoltzmannNonuniqueness.momentum [def] ok
+CMP OAI.BoltzmannNonuniqueness.MassTest.toFun [def] ok
+CMP OAI.BoltzmannNonuniqueness.MassTest [ind] ok
+CMP OAI.BoltzmannNonuniqueness.MassTest.mk [ctor] ok
+CMP OAI.BoltzmannNonuniqueness.torusProjection [def] ok
+CMP OAI.BoltzmannNonuniqueness.MassTest.transportDerivative [def] ok
+CMP OAI.BoltzmannNonuniqueness.torusRepresentative [def] ok
+CMP OAI.BoltzmannNonuniqueness.torusRepresentative._proof_2 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.KineticTest.toFun [def] ok
+CMP OAI.BoltzmannNonuniqueness.KineticTest [ind] ok
+CMP OAI.BoltzmannNonuniqueness.KineticTest.mk [ctor] ok
+CMP OAI.BoltzmannNonuniqueness.LiftedSpaceTimePhase [def] ok
+CMP OAI.BoltzmannNonuniqueness.Renormalization.toFun [def] ok
+CMP OAI.BoltzmannNonuniqueness.Renormalization [ind] ok
+CMP OAI.BoltzmannNonuniqueness.Renormalization.mk [ctor] ok
+CMP OAI.BoltzmannNonuniqueness.renormalizedIntegrand [def] ok
+CMP OAI.BoltzmannNonuniqueness.collision [def] ok
+CMP OAI.BoltzmannNonuniqueness.KineticTest.transportDerivative [def] ok
+CMP OAI.BoltzmannNonuniqueness.relativeDensity [def] ok
+CMP OAI.BoltzmannNonuniqueness.entropyMoment [def] ok
+CMP OAI.BoltzmannNonuniqueness.nonnegativeTimes [def] ok
+CMP OAI.BoltzmannNonuniqueness.FiniteEntropyDatum [def] ok
+CMP OAI.BoltzmannNonuniqueness.FiniteEntropyDatum._proof_4 [thm] ok
+CMP OAI.BoltzmannNonuniqueness.BoundedVelocitySupport [def] ok
+Chal.BoltzmannNonuniqueness.nonuniqueness : ∃ f₀,
+  Chal.BoltzmannNonuniqueness.BoundedVelocitySupport f₀ ∧
+    ∃ F G T,
+      Chal.BoltzmannNonuniqueness.AdmissibleGlobal f₀ F ∧
+        Chal.BoltzmannNonuniqueness.AdmissibleGlobal f₀ G ∧
+          Chal.BoltzmannNonuniqueness.StrongEarly T F ∧
+            Chal.BoltzmannNonuniqueness.StrongEarly T G ∧ ∃ t ∈ Set.Icc 0 T, ¬F t =ᵐ[MeasureTheory.volume] G t
+@[reducible] def Chal.BoltzmannNonuniqueness.Velocity : Type :=
+EuclideanSpace ℝ (Fin 3)
+@[reducible] def Chal.BoltzmannNonuniqueness.Position : Type :=
+Fin 3 → AddCircle 1
+@[reducible] def Chal.BoltzmannNonuniqueness.Phase : Type :=
+Chal.BoltzmannNonuniqueness.Position × Chal.BoltzmannNonuniqueness.Velocity
+@[reducible] def Chal.BoltzmannNonuniqueness.Density : Type :=
+Chal.BoltzmannNonuniqueness.Phase → ℝ
+@[reducible] def Chal.BoltzmannNonuniqueness.Sphere : Set Chal.BoltzmannNonuniqueness.Velocity :=
+Metric.sphere 0 1
+def Chal.BoltzmannNonuniqueness.sphereArea : MeasureTheory.Measure ↑Chal.BoltzmannNonuniqueness.Sphere :=
+MeasureTheory.volume.toSphere
+def Chal.BoltzmannNonuniqueness.normalComponent : Chal.BoltzmannNonuniqueness.Velocity →
+  Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun v w ω => inner ℝ (v - w) ω
+def Chal.BoltzmannNonuniqueness.scatterLeft : Chal.BoltzmannNonuniqueness.Velocity →
+  Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity :=
+fun v w ω => v - Chal.BoltzmannNonuniqueness.normalComponent v w ω • ω
+def Chal.BoltzmannNonuniqueness.scatterRight : Chal.BoltzmannNonuniqueness.Velocity →
+  Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity :=
+fun v w ω => w + Chal.BoltzmannNonuniqueness.normalComponent v w ω • ω
+def Chal.BoltzmannNonuniqueness.collisionKernel : Chal.BoltzmannNonuniqueness.Velocity →
+  Chal.BoltzmannNonuniqueness.Velocity → Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun v w ω => |Chal.BoltzmannNonuniqueness.normalComponent v w ω|
+def Chal.BoltzmannNonuniqueness.gain : Chal.BoltzmannNonuniqueness.Density →
+  Chal.BoltzmannNonuniqueness.Position → Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun f x v =>
+  ∫ (p : Chal.BoltzmannNonuniqueness.Velocity × ↑Chal.BoltzmannNonuniqueness.Sphere),
+    Chal.BoltzmannNonuniqueness.collisionKernel v p.1 ↑p.2 * f (x, Chal.BoltzmannNonuniqueness.scatterLeft v p.1 ↑p.2) *
+      f
+        (x,
+          Chal.BoltzmannNonuniqueness.scatterRight v p.1
+            ↑p.2) ∂MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea
+def Chal.BoltzmannNonuniqueness.loss : Chal.BoltzmannNonuniqueness.Density →
+  Chal.BoltzmannNonuniqueness.Position → Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun f x v =>
+  ∫ (p : Chal.BoltzmannNonuniqueness.Velocity × ↑Chal.BoltzmannNonuniqueness.Sphere),
+    Chal.BoltzmannNonuniqueness.collisionKernel v p.1 ↑p.2 * f (x, v) *
+      f (x, p.1) ∂MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea
+def Chal.BoltzmannNonuniqueness.collision : Chal.BoltzmannNonuniqueness.Density →
+  Chal.BoltzmannNonuniqueness.Position → Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun f x v => Chal.BoltzmannNonuniqueness.gain f x v - Chal.BoltzmannNonuniqueness.loss f x v
+@[reducible] def Chal.BoltzmannNonuniqueness.Evolution : Type :=
+ℝ → Chal.BoltzmannNonuniqueness.Density
+@[reducible] def Chal.BoltzmannNonuniqueness.SpaceTimePhase : Type :=
+ℝ × Chal.BoltzmannNonuniqueness.Phase
+@[reducible] def Chal.BoltzmannNonuniqueness.LiftedSpaceTimePhase : Type :=
+ℝ × Chal.BoltzmannNonuniqueness.Velocity × Chal.BoltzmannNonuniqueness.Velocity
+def Chal.BoltzmannNonuniqueness.torusProjection : Chal.BoltzmannNonuniqueness.Velocity →
+  Chal.BoltzmannNonuniqueness.Position :=
+fun x i => ↑(x.ofLp i)
+def Chal.BoltzmannNonuniqueness.torusRepresentative : Chal.BoltzmannNonuniqueness.Position →
+  Chal.BoltzmannNonuniqueness.Velocity :=
+fun x => WithLp.toLp 2 fun i => ↑((AddCircle.equivIco 1 0) (x i))
+def Chal.BoltzmannNonuniqueness.maxwellian : Chal.BoltzmannNonuniqueness.Velocity → ℝ :=
+fun v => (2 * Real.pi) ^ (-(3 / 2)) * Real.exp (-‖v‖ ^ 2 / 2)
+def Chal.BoltzmannNonuniqueness.entropyMoment : Chal.BoltzmannNonuniqueness.Density →
+  Chal.BoltzmannNonuniqueness.Phase → ℝ :=
+fun f z => f z * (1 + ‖z.2‖ ^ 2 + |Real.log (f z)|)
+def Chal.BoltzmannNonuniqueness.FiniteEntropyDatum : Chal.BoltzmannNonuniqueness.Density → Prop :=
+fun f =>
+  (∀ᵐ (z : Chal.BoltzmannNonuniqueness.Phase), 0 ≤ f z) ∧
+    MeasureTheory.AEStronglyMeasurable f MeasureTheory.volume ∧
+      MeasureTheory.Integrable (Chal.BoltzmannNonuniqueness.entropyMoment f) MeasureTheory.volume
+def Chal.BoltzmannNonuniqueness.BoundedVelocitySupport : Chal.BoltzmannNonuniqueness.Density → Prop :=
+fun f => ∃ R, 0 < R ∧ ∀ᵐ (z : Chal.BoltzmannNonuniqueness.Phase), R < ‖z.2‖ → f z = 0
+def Chal.BoltzmannNonuniqueness.energy : Chal.BoltzmannNonuniqueness.Density → ℝ :=
+fun f => ∫ (z : Chal.BoltzmannNonuniqueness.Phase), ‖z.2‖ ^ 2 * f z
+def Chal.BoltzmannNonuniqueness.momentum : Chal.BoltzmannNonuniqueness.Density → Chal.BoltzmannNonuniqueness.Velocity :=
+fun f => ∫ (z : Chal.BoltzmannNonuniqueness.Phase), f z • z.2
+def Chal.BoltzmannNonuniqueness.relativeEntropy : Chal.BoltzmannNonuniqueness.Density → ℝ :=
+fun f =>
+  ∫ (z : Chal.BoltzmannNonuniqueness.Phase),
+    f z * Real.log (f z / Chal.BoltzmannNonuniqueness.maxwellian z.2) - f z + Chal.BoltzmannNonuniqueness.maxwellian z.2
+def Chal.BoltzmannNonuniqueness.extendedEntropyProduction : ℝ → ℝ → ENNReal :=
+fun A B => if A = 0 ∧ B = 0 then 0 else if 0 < A ∧ 0 < B then ENNReal.ofReal ((A - B) * Real.log (A / B)) else ⊤
+def Chal.BoltzmannNonuniqueness.entropyDissipation : Chal.BoltzmannNonuniqueness.Density → ENNReal :=
+fun f =>
+  4⁻¹ *
+    ∫⁻ (p :
+      Chal.BoltzmannNonuniqueness.Position ×
+        Chal.BoltzmannNonuniqueness.Velocity ×
+          Chal.BoltzmannNonuniqueness.Velocity × ↑Chal.BoltzmannNonuniqueness.Sphere),
+      ENNReal.ofReal (Chal.BoltzmannNonuniqueness.collisionKernel p.2.1 p.2.2.1 ↑p.2.2.2) *
+        Chal.BoltzmannNonuniqueness.extendedEntropyProduction
+          (f (p.1, Chal.BoltzmannNonuniqueness.scatterLeft p.2.1 p.2.2.1 ↑p.2.2.2) *
+            f (p.1, Chal.BoltzmannNonuniqueness.scatterRight p.2.1 p.2.2.1 ↑p.2.2.2))
+          (f (p.1, p.2.1) *
+            f
+              (p.1,
+                p.2.2.1)) ∂MeasureTheory.volume.prod
+        (MeasureTheory.volume.prod (MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea))
+structure Chal.BoltzmannNonuniqueness.Renormalization : Type
+number of parameters: 0
+fields:
+  Chal.BoltzmannNonuniqueness.Renormalization.toFun : ℝ → ℝ
+  Chal.BoltzmannNonuniqueness.Renormalization.regular : ContDiffOn ℝ 1 self.toFun (Set.Ici 0)
+  Chal.BoltzmannNonuniqueness.Renormalization.at_zero : self.toFun 0 = 0
+  Chal.BoltzmannNonuniqueness.Renormalization.derivative_bound : ∃ C,
+      0 ≤ C ∧ ∀ z ∈ Set.Ici 0, |derivWithin self.toFun (Set.Ici 0) z| ≤ C / (1 + z)
+constructor:
+  Chal.BoltzmannNonuniqueness.Renormalization.mk (toFun : ℝ → ℝ) (regular : ContDiffOn ℝ 1 toFun (Set.Ici 0))
+    (at_zero : toFun 0 = 0)
+    (derivative_bound : ∃ C, 0 ≤ C ∧ ∀ z ∈ Set.Ici 0, |derivWithin toFun (Set.Ici 0) z| ≤ C / (1 + z)) :
+    Chal.BoltzmannNonuniqueness.Renormalization
+structure Chal.BoltzmannNonuniqueness.KineticTest : Type
+number of parameters: 0
+fields:
+  Chal.BoltzmannNonuniqueness.KineticTest.toFun : ℝ →
+      Chal.BoltzmannNonuniqueness.Position → Chal.BoltzmannNonuniqueness.Velocity → ℝ
+  Chal.BoltzmannNonuniqueness.KineticTest.regular : ContDiff ℝ ↑⊤ fun p =>
+      self.toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2.1) p.2.2
+  Chal.BoltzmannNonuniqueness.KineticTest.compact_time_velocity : ∃ R,
+      0 < R ∧
+        ∀ (t : ℝ) (x : Chal.BoltzmannNonuniqueness.Position) (v : Chal.BoltzmannNonuniqueness.Velocity),
+          R < |t| ∨ R < ‖v‖ → self.toFun t x v = 0
+constructor:
+  Chal.BoltzmannNonuniqueness.KineticTest.mk
+    (toFun : ℝ → Chal.BoltzmannNonuniqueness.Position → Chal.BoltzmannNonuniqueness.Velocity → ℝ)
+    (regular : ContDiff ℝ ↑⊤ fun p => toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2.1) p.2.2)
+    (compact_time_velocity :
+      ∃ R,
+        0 < R ∧
+          ∀ (t : ℝ) (x : Chal.BoltzmannNonuniqueness.Position) (v : Chal.BoltzmannNonuniqueness.Velocity),
+            R < |t| ∨ R < ‖v‖ → toFun t x v = 0) :
+    Chal.BoltzmannNonuniqueness.KineticTest
+def Chal.BoltzmannNonuniqueness.KineticTest.transportDerivative : Chal.BoltzmannNonuniqueness.KineticTest →
+  ℝ → Chal.BoltzmannNonuniqueness.Phase → ℝ :=
+fun φ t z =>
+  (fderiv ℝ (fun p => φ.toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2.1) p.2.2)
+      (t, Chal.BoltzmannNonuniqueness.torusRepresentative z.1, z.2))
+    (1, z.2, 0)
+structure Chal.BoltzmannNonuniqueness.MassTest : Type
+number of parameters: 0
+fields:
+  Chal.BoltzmannNonuniqueness.MassTest.toFun : ℝ → Chal.BoltzmannNonuniqueness.Position → ℝ
+  Chal.BoltzmannNonuniqueness.MassTest.regular : ContDiff ℝ ↑⊤ fun p =>
+      self.toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2)
+  Chal.BoltzmannNonuniqueness.MassTest.compact_time : ∃ R,
+      0 < R ∧ ∀ (t : ℝ) (x : Chal.BoltzmannNonuniqueness.Position), R < |t| → self.toFun t x = 0
+constructor:
+  Chal.BoltzmannNonuniqueness.MassTest.mk (toFun : ℝ → Chal.BoltzmannNonuniqueness.Position → ℝ)
+    (regular : ContDiff ℝ ↑⊤ fun p => toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2))
+    (compact_time : ∃ R, 0 < R ∧ ∀ (t : ℝ) (x : Chal.BoltzmannNonuniqueness.Position), R < |t| → toFun t x = 0) :
+    Chal.BoltzmannNonuniqueness.MassTest
+def Chal.BoltzmannNonuniqueness.MassTest.transportDerivative : Chal.BoltzmannNonuniqueness.MassTest →
+  ℝ → Chal.BoltzmannNonuniqueness.Phase → ℝ :=
+fun φ t z =>
+  (fderiv ℝ (fun p => φ.toFun p.1 (Chal.BoltzmannNonuniqueness.torusProjection p.2))
+      (t, Chal.BoltzmannNonuniqueness.torusRepresentative z.1))
+    (1, z.2)
+def Chal.BoltzmannNonuniqueness.relativeDensity : Chal.BoltzmannNonuniqueness.Evolution →
+  ℝ → Chal.BoltzmannNonuniqueness.Phase → ℝ :=
+fun F t z => F t z / Chal.BoltzmannNonuniqueness.maxwellian z.2
+def Chal.BoltzmannNonuniqueness.renormalizedIntegrand : Chal.BoltzmannNonuniqueness.Evolution →
+  Chal.BoltzmannNonuniqueness.Renormalization →
+    Chal.BoltzmannNonuniqueness.KineticTest → Chal.BoltzmannNonuniqueness.SpaceTimePhase → ℝ :=
+fun F β φ p =>
+  Chal.BoltzmannNonuniqueness.maxwellian p.2.2 * β.toFun (Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2) *
+      φ.transportDerivative p.1 p.2 +
+    derivWithin β.toFun (Set.Ici 0) (Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2) *
+        Chal.BoltzmannNonuniqueness.collision (F p.1) p.2.1 p.2.2 *
+      φ.toFun p.1 p.2.1 p.2.2
+def Chal.BoltzmannNonuniqueness.nonnegativeTimes : Set Chal.BoltzmannNonuniqueness.SpaceTimePhase :=
+Set.Ici 0 ×ˢ Set.univ
+def Chal.BoltzmannNonuniqueness.boundedTimes : ℝ → Set Chal.BoltzmannNonuniqueness.SpaceTimePhase :=
+fun T => Set.Icc 0 T ×ˢ Set.univ
+structure Chal.BoltzmannNonuniqueness.AdmissibleGlobal (f₀ : Chal.BoltzmannNonuniqueness.Density)
+  (F : Chal.BoltzmannNonuniqueness.Evolution) : Prop
+number of parameters: 2
+fields:
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.datum : Chal.BoltzmannNonuniqueness.FiniteEntropyDatum f₀
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.spacetime_measurable : MeasureTheory.AEStronglyMeasurable
+      (fun p => F p.1 p.2) (MeasureTheory.volume.restrict Chal.BoltzmannNonuniqueness.nonnegativeTimes)
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.finite_each_time : ∀ t ∈ Set.Ici 0,
+      Chal.BoltzmannNonuniqueness.FiniteEntropyDatum (F t)
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.initial : F 0 =ᵐ[MeasureTheory.volume] f₀
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.weak_continuity : ∀ (ψ : Chal.BoltzmannNonuniqueness.Phase → ℝ),
+      Measurable ψ →
+        (∃ C, ∀ (z : Chal.BoltzmannNonuniqueness.Phase), |ψ z| ≤ C) →
+          ContinuousOn (fun t => ∫ (z : Chal.BoltzmannNonuniqueness.Phase), F t z * ψ z) (Set.Ici 0)
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.uniform_moment : ∀ (T : ℝ),
+      0 ≤ T →
+        ∃ C,
+          ∀ t ∈ Set.Icc 0 T,
+            ∫ (z : Chal.BoltzmannNonuniqueness.Phase), Chal.BoltzmannNonuniqueness.entropyMoment (F t) z ≤ C
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.collision_fibers : ∀ (T : ℝ),
+      0 ≤ T →
+        ∀ᵐ (p :
+          Chal.BoltzmannNonuniqueness.SpaceTimePhase) ∂MeasureTheory.volume.restrict
+            (Chal.BoltzmannNonuniqueness.boundedTimes T),
+          MeasureTheory.Integrable
+              (fun q =>
+                Chal.BoltzmannNonuniqueness.collisionKernel p.2.2 q.1 ↑q.2 *
+                    F p.1 (p.2.1, Chal.BoltzmannNonuniqueness.scatterLeft p.2.2 q.1 ↑q.2) *
+                  F p.1 (p.2.1, Chal.BoltzmannNonuniqueness.scatterRight p.2.2 q.1 ↑q.2))
+              (MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea) ∧
+            MeasureTheory.Integrable
+              (fun q => Chal.BoltzmannNonuniqueness.collisionKernel p.2.2 q.1 ↑q.2 * F p.1 p.2 * F p.1 (p.2.1, q.1))
+              (MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea)
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.gain_integrable : ∀ (T : ℝ),
+      0 ≤ T →
+        MeasureTheory.IntegrableOn
+          (fun p =>
+            Chal.BoltzmannNonuniqueness.gain (F p.1) p.2.1 p.2.2 /
+              (1 + Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2))
+          (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.loss_integrable : ∀ (T : ℝ),
+      0 ≤ T →
+        MeasureTheory.IntegrableOn
+          (fun p =>
+            Chal.BoltzmannNonuniqueness.loss (F p.1) p.2.1 p.2.2 /
+              (1 + Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2))
+          (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.renormalized_integrable : ∀
+      (β : Chal.BoltzmannNonuniqueness.Renormalization) (φ : Chal.BoltzmannNonuniqueness.KineticTest),
+      MeasureTheory.IntegrableOn (Chal.BoltzmannNonuniqueness.renormalizedIntegrand F β φ)
+        Chal.BoltzmannNonuniqueness.nonnegativeTimes MeasureTheory.volume
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.renormalized_equation : ∀
+      (β : Chal.BoltzmannNonuniqueness.Renormalization) (φ : Chal.BoltzmannNonuniqueness.KineticTest),
+      (∫ (p : Chal.BoltzmannNonuniqueness.SpaceTimePhase) in Chal.BoltzmannNonuniqueness.nonnegativeTimes,
+            Chal.BoltzmannNonuniqueness.renormalizedIntegrand F β φ p) +
+          ∫ (z : Chal.BoltzmannNonuniqueness.Phase),
+            Chal.BoltzmannNonuniqueness.maxwellian z.2 * β.toFun (f₀ z / Chal.BoltzmannNonuniqueness.maxwellian z.2) *
+              φ.toFun 0 z.1 z.2 =
+        0
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.local_mass_integrable : ∀ (φ : Chal.BoltzmannNonuniqueness.MassTest),
+      MeasureTheory.IntegrableOn (fun p => F p.1 p.2 * φ.transportDerivative p.1 p.2)
+        Chal.BoltzmannNonuniqueness.nonnegativeTimes MeasureTheory.volume
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.local_mass : ∀ (φ : Chal.BoltzmannNonuniqueness.MassTest),
+      (∫ (p : Chal.BoltzmannNonuniqueness.SpaceTimePhase) in Chal.BoltzmannNonuniqueness.nonnegativeTimes,
+            F p.1 p.2 * φ.transportDerivative p.1 p.2) +
+          ∫ (z : Chal.BoltzmannNonuniqueness.Phase), f₀ z * φ.toFun 0 z.1 =
+        0
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.momentum_conservation : ∀ t ∈ Set.Ici 0,
+      Chal.BoltzmannNonuniqueness.momentum (F t) = Chal.BoltzmannNonuniqueness.momentum f₀
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.energy_inequality : ∀ t ∈ Set.Ici 0,
+      Chal.BoltzmannNonuniqueness.energy (F t) ≤ Chal.BoltzmannNonuniqueness.energy f₀
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.entropy_inequality : ∀ t ∈ Set.Ici 0,
+      ENNReal.ofReal (Chal.BoltzmannNonuniqueness.relativeEntropy (F t)) +
+          ∫⁻ (s : ℝ) in Set.Icc 0 t, Chal.BoltzmannNonuniqueness.entropyDissipation (F s) ≤
+        ENNReal.ofReal (Chal.BoltzmannNonuniqueness.relativeEntropy f₀)
+constructor:
+  Chal.BoltzmannNonuniqueness.AdmissibleGlobal.mk {f₀ : Chal.BoltzmannNonuniqueness.Density}
+    {F : Chal.BoltzmannNonuniqueness.Evolution} (datum : Chal.BoltzmannNonuniqueness.FiniteEntropyDatum f₀)
+    (spacetime_measurable :
+      MeasureTheory.AEStronglyMeasurable (fun p => F p.1 p.2)
+        (MeasureTheory.volume.restrict Chal.BoltzmannNonuniqueness.nonnegativeTimes))
+    (finite_each_time : ∀ t ∈ Set.Ici 0, Chal.BoltzmannNonuniqueness.FiniteEntropyDatum (F t))
+    (initial : F 0 =ᵐ[MeasureTheory.volume] f₀)
+    (weak_continuity :
+      ∀ (ψ : Chal.BoltzmannNonuniqueness.Phase → ℝ),
+        Measurable ψ →
+          (∃ C, ∀ (z : Chal.BoltzmannNonuniqueness.Phase), |ψ z| ≤ C) →
+            ContinuousOn (fun t => ∫ (z : Chal.BoltzmannNonuniqueness.Phase), F t z * ψ z) (Set.Ici 0))
+    (uniform_moment :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          ∃ C,
+            ∀ t ∈ Set.Icc 0 T,
+              ∫ (z : Chal.BoltzmannNonuniqueness.Phase), Chal.BoltzmannNonuniqueness.entropyMoment (F t) z ≤ C)
+    (collision_fibers :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          ∀ᵐ (p :
+            Chal.BoltzmannNonuniqueness.SpaceTimePhase) ∂MeasureTheory.volume.restrict
+              (Chal.BoltzmannNonuniqueness.boundedTimes T),
+            MeasureTheory.Integrable
+                (fun q =>
+                  Chal.BoltzmannNonuniqueness.collisionKernel p.2.2 q.1 ↑q.2 *
+                      F p.1 (p.2.1, Chal.BoltzmannNonuniqueness.scatterLeft p.2.2 q.1 ↑q.2) *
+                    F p.1 (p.2.1, Chal.BoltzmannNonuniqueness.scatterRight p.2.2 q.1 ↑q.2))
+                (MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea) ∧
+              MeasureTheory.Integrable
+                (fun q => Chal.BoltzmannNonuniqueness.collisionKernel p.2.2 q.1 ↑q.2 * F p.1 p.2 * F p.1 (p.2.1, q.1))
+                (MeasureTheory.volume.prod Chal.BoltzmannNonuniqueness.sphereArea))
+    (gain_integrable :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          MeasureTheory.IntegrableOn
+            (fun p =>
+              Chal.BoltzmannNonuniqueness.gain (F p.1) p.2.1 p.2.2 /
+                (1 + Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2))
+            (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume)
+    (loss_integrable :
+      ∀ (T : ℝ),
+        0 ≤ T →
+          MeasureTheory.IntegrableOn
+            (fun p =>
+              Chal.BoltzmannNonuniqueness.loss (F p.1) p.2.1 p.2.2 /
+                (1 + Chal.BoltzmannNonuniqueness.relativeDensity F p.1 p.2))
+            (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume)
+    (renormalized_integrable :
+      ∀ (β : Chal.BoltzmannNonuniqueness.Renormalization) (φ : Chal.BoltzmannNonuniqueness.KineticTest),
+        MeasureTheory.IntegrableOn (Chal.BoltzmannNonuniqueness.renormalizedIntegrand F β φ)
+          Chal.BoltzmannNonuniqueness.nonnegativeTimes MeasureTheory.volume)
+    (renormalized_equation :
+      ∀ (β : Chal.BoltzmannNonuniqueness.Renormalization) (φ : Chal.BoltzmannNonuniqueness.KineticTest),
+        (∫ (p : Chal.BoltzmannNonuniqueness.SpaceTimePhase) in Chal.BoltzmannNonuniqueness.nonnegativeTimes,
+              Chal.BoltzmannNonuniqueness.renormalizedIntegrand F β φ p) +
+            ∫ (z : Chal.BoltzmannNonuniqueness.Phase),
+              Chal.BoltzmannNonuniqueness.maxwellian z.2 * β.toFun (f₀ z / Chal.BoltzmannNonuniqueness.maxwellian z.2) *
+                φ.toFun 0 z.1 z.2 =
+          0)
+    (local_mass_integrable :
+      ∀ (φ : Chal.BoltzmannNonuniqueness.MassTest),
+        MeasureTheory.IntegrableOn (fun p => F p.1 p.2 * φ.transportDerivative p.1 p.2)
+          Chal.BoltzmannNonuniqueness.nonnegativeTimes MeasureTheory.volume)
+    (local_mass :
+      ∀ (φ : Chal.BoltzmannNonuniqueness.MassTest),
+        (∫ (p : Chal.BoltzmannNonuniqueness.SpaceTimePhase) in Chal.BoltzmannNonuniqueness.nonnegativeTimes,
+              F p.1 p.2 * φ.transportDerivative p.1 p.2) +
+            ∫ (z : Chal.BoltzmannNonuniqueness.Phase), f₀ z * φ.toFun 0 z.1 =
+          0)
+    (momentum_conservation :
+      ∀ t ∈ Set.Ici 0, Chal.BoltzmannNonuniqueness.momentum (F t) = Chal.BoltzmannNonuniqueness.momentum f₀)
+    (energy_inequality :
+      ∀ t ∈ Set.Ici 0, Chal.BoltzmannNonuniqueness.energy (F t) ≤ Chal.BoltzmannNonuniqueness.energy f₀)
+    (entropy_inequality :
+      ∀ t ∈ Set.Ici 0,
+        ENNReal.ofReal (Chal.BoltzmannNonuniqueness.relativeEntropy (F t)) +
+            ∫⁻ (s : ℝ) in Set.Icc 0 t, Chal.BoltzmannNonuniqueness.entropyDissipation (F s) ≤
+          ENNReal.ofReal (Chal.BoltzmannNonuniqueness.relativeEntropy f₀)) :
+    Chal.BoltzmannNonuniqueness.AdmissibleGlobal f₀ F
+structure Chal.BoltzmannNonuniqueness.StrongEarly (T : ℝ) (F : Chal.BoltzmannNonuniqueness.Evolution) : Prop
+number of parameters: 2
+fields:
+  Chal.BoltzmannNonuniqueness.StrongEarly.positive_time : 0 < T
+  Chal.BoltzmannNonuniqueness.StrongEarly.strong_continuity : ∀ t ∈ Set.Icc 0 T,
+      Filter.Tendsto (fun s => MeasureTheory.eLpNorm (fun z => F s z - F t z) 1 MeasureTheory.volume)
+        (nhdsWithin t (Set.Icc 0 T)) (nhds 0)
+  Chal.BoltzmannNonuniqueness.StrongEarly.gain_integrable : MeasureTheory.IntegrableOn
+      (fun p => Chal.BoltzmannNonuniqueness.gain (F p.1) p.2.1 p.2.2) (Chal.BoltzmannNonuniqueness.boundedTimes T)
+      MeasureTheory.volume
+  Chal.BoltzmannNonuniqueness.StrongEarly.loss_integrable : MeasureTheory.IntegrableOn
+      (fun p => Chal.BoltzmannNonuniqueness.loss (F p.1) p.2.1 p.2.2) (Chal.BoltzmannNonuniqueness.boundedTimes T)
+      MeasureTheory.volume
+constructor:
+  Chal.BoltzmannNonuniqueness.StrongEarly.mk {T : ℝ} {F : Chal.BoltzmannNonuniqueness.Evolution} (positive_time : 0 < T)
+    (strong_continuity :
+      ∀ t ∈ Set.Icc 0 T,
+        Filter.Tendsto (fun s => MeasureTheory.eLpNorm (fun z => F s z - F t z) 1 MeasureTheory.volume)
+          (nhdsWithin t (Set.Icc 0 T)) (nhds 0))
+    (gain_integrable :
+      MeasureTheory.IntegrableOn (fun p => Chal.BoltzmannNonuniqueness.gain (F p.1) p.2.1 p.2.2)
+        (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume)
+    (loss_integrable :
+      MeasureTheory.IntegrableOn (fun p => Chal.BoltzmannNonuniqueness.loss (F p.1) p.2.1 p.2.2)
+        (Chal.BoltzmannNonuniqueness.boundedTimes T) MeasureTheory.volume) :
+    Chal.BoltzmannNonuniqueness.StrongEarly T F
+'OAI.BoltzmannNonuniqueness.nonuniqueness' depends on axioms: [propext, Classical.choice, Quot.sound]
+== BoltzmannNonuniqueness comparator-style: ok=58 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

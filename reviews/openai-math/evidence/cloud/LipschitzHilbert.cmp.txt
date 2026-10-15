@@ -1,0 +1,103 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_LipschitzHilbert.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.LipschitzHilbert.uniform_truncation [thm] ok
+CMP OAI.LipschitzHilbert.shortTransform [def] ok
+CMP OAI.LipschitzHilbert.sample [def] ok
+CMP OAI.LipschitzHilbert.DirectionPlane [def] ok
+CMP OAI.LipschitzHilbert.Plane [def] ok
+CMP OAI.LipschitzHilbert.main [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion [def] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_12 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_2 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_1 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_11 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_10 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_9 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_8 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_7 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_6 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_4 [thm] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_5 [thm] ok
+CMP OAI.LipschitzHilbert.smoothPrincipalValue [def] ok
+CMP OAI.LipschitzHilbert.ShortHilbertConclusion._proof_3 [thm] ok
+CMP OAI.LipschitzHilbert.twoSidedTruncation [def] ok
+CMP OAI.LipschitzHilbert.directionalKernel [def] ok
+Chal.LipschitzHilbert.main : ∃ a ∈ Set.Ioo 0 (1 / 2), ∃ C, 0 < C ∧ Chal.LipschitzHilbert.ShortHilbertConclusion a C
+Chal.LipschitzHilbert.uniform_truncation : ∃ C,
+  0 < C ∧
+    ∀ (K : NNReal),
+      0 < K →
+        ∀ (epsilon R : ℝ),
+          0 < epsilon →
+            epsilon ≤ R →
+              R ≤ 1 / (1000000 * ↑K) →
+                ∀ (v : Chal.LipschitzHilbert.Plane → Chal.LipschitzHilbert.Plane),
+                  LipschitzWith K v →
+                    (∀ (x : Chal.LipschitzHilbert.Plane), ‖v x‖ = 1) →
+                      ∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ),
+                        MeasureTheory.eLpNorm (Chal.LipschitzHilbert.shortTransform v epsilon R ⇑f) 2
+                            MeasureTheory.volume ≤
+                          ENNReal.ofReal (C * ‖f.toLp 2 MeasureTheory.volume‖)
+@[reducible] def Chal.LipschitzHilbert.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.LipschitzHilbert.DirectionPlane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.LipschitzHilbert.sample : (Chal.LipschitzHilbert.DirectionPlane → Chal.LipschitzHilbert.DirectionPlane) →
+  ℝ → Chal.LipschitzHilbert.DirectionPlane → Chal.LipschitzHilbert.DirectionPlane :=
+fun v t x => x - t • v x
+def Chal.LipschitzHilbert.shortTransform : (Chal.LipschitzHilbert.DirectionPlane →
+    Chal.LipschitzHilbert.DirectionPlane) →
+  ℝ → ℝ → (Chal.LipschitzHilbert.DirectionPlane → ℂ) → Chal.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v ε a f x =>
+  ∫ (t : ℝ) in ε..a, t⁻¹ • (f (Chal.LipschitzHilbert.sample v t x) - f (Chal.LipschitzHilbert.sample v (-t) x))
+def Chal.LipschitzHilbert.directionalKernel : (Chal.LipschitzHilbert.DirectionPlane →
+    Chal.LipschitzHilbert.DirectionPlane) →
+  (Chal.LipschitzHilbert.DirectionPlane → ℂ) → Chal.LipschitzHilbert.DirectionPlane → ℝ → ℂ :=
+fun v f x t => t⁻¹ • f (Chal.LipschitzHilbert.sample v t x)
+def Chal.LipschitzHilbert.twoSidedTruncation : (Chal.LipschitzHilbert.DirectionPlane →
+    Chal.LipschitzHilbert.DirectionPlane) →
+  ℝ → ℝ → (Chal.LipschitzHilbert.DirectionPlane → ℂ) → Chal.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v ε a f x =>
+  (∫ (t : ℝ) in -a..-ε, Chal.LipschitzHilbert.directionalKernel v f x t) +
+    ∫ (t : ℝ) in ε..a, Chal.LipschitzHilbert.directionalKernel v f x t
+def Chal.LipschitzHilbert.smoothPrincipalValue : (Chal.LipschitzHilbert.DirectionPlane →
+    Chal.LipschitzHilbert.DirectionPlane) →
+  ℝ → (Chal.LipschitzHilbert.DirectionPlane → ℂ) → Chal.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v a f x =>
+  have g := fun t => f (Chal.LipschitzHilbert.sample v t x) - f (Chal.LipschitzHilbert.sample v (-t) x);
+  ∫ (t : ℝ) in 0..a, Function.update (fun t => t⁻¹ • g t) 0 (deriv g 0) t
+def Chal.LipschitzHilbert.ShortHilbertConclusion : ℝ → NNReal → Prop :=
+fun a C =>
+  ∀ (v : Chal.LipschitzHilbert.Plane → Chal.LipschitzHilbert.Plane),
+    LipschitzWith 1 v →
+      (∀ (x : Chal.LipschitzHilbert.Plane), ‖v x‖ = 1) →
+        (∀ (epsilon : ℝ),
+            0 < epsilon →
+              epsilon < a →
+                ∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ),
+                  MeasureTheory.eLpNorm (Chal.LipschitzHilbert.twoSidedTruncation v epsilon a ⇑f) 2
+                      MeasureTheory.volume ≤
+                    ↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ∧
+          (∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ),
+              MeasureTheory.eLpNorm (Chal.LipschitzHilbert.smoothPrincipalValue v a ⇑f) 2 MeasureTheory.volume ≤
+                ↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ∧
+            (∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ) (level : ENNReal),
+                level ≠ 0 →
+                  level ≠ ⊤ →
+                    MeasureTheory.volume {x | level < ‖Chal.LipschitzHilbert.smoothPrincipalValue v a (⇑f) x‖ₑ} ≤
+                      level⁻¹ ^ 2 * (↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ^ 2) ∧
+              (∀ (epsilon : ℝ),
+                  0 < epsilon →
+                    epsilon < a →
+                      ∃ T,
+                        ‖T‖ ≤ ↑C ∧
+                          ∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ),
+                            ↑↑(T (f.toLp 2 MeasureTheory.volume)) =ᵐ[MeasureTheory.volume]
+                              Chal.LipschitzHilbert.twoSidedTruncation v epsilon a ⇑f) ∧
+                ∃ T,
+                  ‖T‖ ≤ ↑C ∧
+                    ∀ (f : SchwartzMap Chal.LipschitzHilbert.Plane ℂ),
+                      ↑↑(T (f.toLp 2 MeasureTheory.volume)) =ᵐ[MeasureTheory.volume]
+                        Chal.LipschitzHilbert.smoothPrincipalValue v a ⇑f
+'OAI.LipschitzHilbert.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.LipschitzHilbert.uniform_truncation' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LipschitzHilbert comparator-style: ok=22 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

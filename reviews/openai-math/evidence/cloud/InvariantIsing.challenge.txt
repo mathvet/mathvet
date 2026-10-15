@@ -1,0 +1,554 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:282:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:300:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:322:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:339:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:357:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:377:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:402:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:421:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:443:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:457:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_InvariantIsing.lean:471:8: warning: declaration uses `sorry`
+@OAI.InvariantIsing.limiting_pressure_of_extreme_limits_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(OAI.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        IsCompact (↑ν).support →
+          (↑ν).support ⊆ Set.Icc a b →
+            a ∈ (↑ν).support →
+              b ∈ (↑ν).support →
+                Filter.Tendsto (fun k => OAI.InvariantIsing.spectralMinimum (eig (k + 1))) Filter.atTop (nhds a) →
+                  Filter.Tendsto (fun k => OAI.InvariantIsing.spectralMaximum (eig (k + 1))) Filter.atTop (nhds b) →
+                    Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      Filter.Tendsto
+                          (fun N =>
+                            ∫ (ω : Ω),
+                              OAI.InvariantIsing.rotatedPressure (eig N) (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹)
+                                fun x => 0 ∂P)
+                          Filter.atTop
+                          (nhds
+                            (OAI.InvariantIsing.variationalFunctional (OAI.InvariantIsing.measureR (↑ν) b)).toReal) ∧
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              OAI.InvariantIsing.rotatedPressure (eig N) (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹)
+                                fun x => 0)
+                            Filter.atTop
+                            (nhds
+                              (OAI.InvariantIsing.variationalFunctional (OAI.InvariantIsing.measureR (↑ν) b)).toReal)
+@OAI.InvariantIsing.limiting_wasserstein_field_pressure_of_extreme_limits_unconditional : ∀ {Ω : Type u_1}
+  [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(OAI.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        IsCompact (↑ν).support →
+          (↑ν).support ⊆ Set.Icc a b →
+            a ∈ (↑ν).support →
+              b ∈ (↑ν).support →
+                Filter.Tendsto (fun k => OAI.InvariantIsing.spectralMinimum (eig (k + 1))) Filter.atTop (nhds a) →
+                  Filter.Tendsto (fun k => OAI.InvariantIsing.spectralMaximum (eig (k + 1))) Filter.atTop (nhds b) →
+                    Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      ∀ (field : (N : ℕ) → Fin N → ℝ) (ξ : MeasureTheory.ProbabilityMeasure ℝ),
+                        MeasureTheory.Integrable (fun x => x) ↑ξ →
+                          Filter.Tendsto
+                              (fun k =>
+                                OAI.InvariantIsing.fieldWassersteinOne
+                                  (OAI.InvariantIsing.empiricalSpectralLaw ⋯ (field (k + 1))) ξ)
+                              Filter.atTop (nhds 0) →
+                            Filter.Tendsto
+                                (fun N =>
+                                  ∫ (ω : Ω),
+                                    OAI.InvariantIsing.rotatedPressure (eig N)
+                                      (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹) (field N) ∂P)
+                                Filter.atTop (nhds (OAI.InvariantIsing.magneticFieldFunctional (↑ν) b ξ)) ∧
+                              ∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto
+                                  (fun N =>
+                                    OAI.InvariantIsing.rotatedPressure (eig N)
+                                      (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹) (field N))
+                                  Filter.atTop (nhds (OAI.InvariantIsing.magneticFieldFunctional (↑ν) b ξ))
+@OAI.InvariantIsing.positive_temperature_pressure_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(OAI.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        (↑ν).support ⊆ Set.Icc a b →
+          a ∈ (↑ν).support →
+            b ∈ (↑ν).support →
+              (∀ (ε : ℝ), 0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N i ∧ eig N i ≤ b + ε) →
+                ∀ (β : ℝ),
+                  0 < β →
+                    Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      Filter.Tendsto
+                          (fun N =>
+                            ∫ (ω : Ω),
+                              OAI.InvariantIsing.rotatedPressure (fun i => β * eig N i)
+                                (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹) fun x => 0 ∂P)
+                          Filter.atTop
+                          (nhds
+                            (OAI.InvariantIsing.variationalFunctional
+                                (OAI.InvariantIsing.measureR (↑(OAI.InvariantIsing.scaledSpectralLaw ν β))
+                                  (β * b))).toReal) ∧
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              OAI.InvariantIsing.rotatedPressure (fun i => β * eig N i)
+                                (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹) fun x => 0)
+                            Filter.atTop
+                            (nhds
+                              (OAI.InvariantIsing.variationalFunctional
+                                  (OAI.InvariantIsing.measureR (↑(OAI.InvariantIsing.scaledSpectralLaw ν β))
+                                    (β * b))).toReal)
+@OAI.InvariantIsing.ground_state_limit_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(OAI.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        (↑ν).support ⊆ Set.Icc a b →
+          a ∈ (↑ν).support →
+            b ∈ (↑ν).support →
+              (∀ (ε : ℝ), 0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N i ∧ eig N i ≤ b + ε) →
+                Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                    (nhds ν) →
+                  ∃ M,
+                    Filter.Tendsto
+                        (fun N =>
+                          ∫ (ω : Ω),
+                            OAI.InvariantIsing.groundStateEnergy (eig N)
+                              (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹) ∂P)
+                        Filter.atTop (nhds M) ∧
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              OAI.InvariantIsing.groundStateEnergy (eig N)
+                                (OAI.InvariantIsing.matrixRotation (U N ω)⁻¹))
+                            Filter.atTop (nhds M)) ∧
+                        Filter.Tendsto (OAI.InvariantIsing.thermalVariationalValue ν b) Filter.atTop (nhds M)
+@OAI.InvariantIsing.random_pressure_tendsto_in_measure_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(OAI.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), OAI.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (MeasureTheory.TendstoInMeasure P
+                        (fun k ω =>
+                          MeasureTheory.LevyProkhorov.ofMeasure
+                            (OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω)))
+                        Filter.atTop fun x => MeasureTheory.LevyProkhorov.ofMeasure ν) →
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω => OAI.InvariantIsing.spectralExcess (eig (k + 1) ω) a b) Filter.atTop fun x => 0) →
+                        MeasureTheory.TendstoInMeasure P (fun k => Y (k + 1)) Filter.atTop fun x =>
+                          (OAI.InvariantIsing.variationalFunctional (OAI.InvariantIsing.measureR (↑ν) b)).toReal
+@OAI.InvariantIsing.random_pressure_limit_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(OAI.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), OAI.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (MeasureTheory.TendstoInMeasure P
+                        (fun k ω =>
+                          MeasureTheory.LevyProkhorov.ofMeasure
+                            (OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω)))
+                        Filter.atTop fun x => MeasureTheory.LevyProkhorov.ofMeasure ν) →
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω => OAI.InvariantIsing.spectralExcess (eig (k + 1) ω) a b) Filter.atTop fun x => 0) →
+                        MeasureTheory.UniformIntegrable (fun k => Y (k + 1)) 1 P →
+                          (MeasureTheory.TendstoInMeasure P (fun k => Y (k + 1)) Filter.atTop fun x =>
+                              (OAI.InvariantIsing.variationalFunctional (OAI.InvariantIsing.measureR (↑ν) b)).toReal) ∧
+                            Filter.Tendsto
+                                (fun k =>
+                                  MeasureTheory.eLpNorm
+                                    (fun ω =>
+                                      Y (k + 1) ω -
+                                        (OAI.InvariantIsing.variationalFunctional
+                                            (OAI.InvariantIsing.measureR (↑ν) b)).toReal)
+                                    1 P)
+                                Filter.atTop (nhds 0) ∧
+                              Filter.Tendsto (fun k => ∫ (ω : Ω), Y (k + 1) ω ∂P) Filter.atTop
+                                (nhds
+                                  (OAI.InvariantIsing.variationalFunctional
+                                      (OAI.InvariantIsing.measureR (↑ν) b)).toReal)
+@OAI.InvariantIsing.random_pressure_tendsto_ae_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(OAI.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), OAI.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (∀ᵐ (ω : Ω) ∂P,
+                        ∀ (ε : ℝ),
+                          0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N ω i ∧ eig N ω i ≤ b + ε) →
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω))
+                            Filter.atTop (nhds ν)) →
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun N => Y N ω) Filter.atTop
+                            (nhds
+                              (OAI.InvariantIsing.variationalFunctional (OAI.InvariantIsing.measureR (↑ν) b)).toReal)
+@OAI.InvariantIsing.random_field_pressure_tendsto_ae_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (d : (N : ℕ) → Ω → OAI.InvariantIsing.FieldSpectralData N) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (d N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(OAI.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), OAI.InvariantIsing.ConditionalFieldOrbitLaw P (d N) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (∀ᵐ (ω : Ω) ∂P,
+                        ∀ (ε : ℝ),
+                          0 < ε →
+                            ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ (d N ω).1 i ∧ (d N ω).1 i ≤ b + ε) →
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun k => OAI.InvariantIsing.empiricalSpectralLaw ⋯ (d (k + 1) ω).1)
+                            Filter.atTop (nhds ν)) →
+                        ∀ (ξ : MeasureTheory.ProbabilityMeasure ℝ),
+                          MeasureTheory.Integrable (fun x => x) ↑ξ →
+                            (∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto
+                                  (fun k =>
+                                    OAI.InvariantIsing.fieldWassersteinOne
+                                      (OAI.InvariantIsing.empiricalSpectralLaw ⋯ (d (k + 1) ω).2) ξ)
+                                  Filter.atTop (nhds 0)) →
+                              ∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto (fun N => Y N ω) Filter.atTop
+                                  (nhds (OAI.InvariantIsing.magneticFieldFunctional (↑ν) b ξ))
+OAI.InvariantIsing.gaussianPattern_pressure_limit_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∀ (c : ℝ),
+            (MeasureTheory.TendstoInMeasure P (fun k ω => OAI.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω))
+                Filter.atTop fun x => OAI.InvariantIsing.gaussianPatternLimit α c) ∧
+              Filter.Tendsto
+                  (fun k =>
+                    MeasureTheory.eLpNorm
+                      (fun ω =>
+                        OAI.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω) -
+                          OAI.InvariantIsing.gaussianPatternLimit α c)
+                      1 P)
+                  Filter.atTop (nhds 0) ∧
+                Filter.Tendsto (fun k => ∫ (ω : Ω), OAI.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω) ∂P)
+                  Filter.atTop (nhds (OAI.InvariantIsing.gaussianPatternLimit α c))
+OAI.InvariantIsing.gaussianPattern_ground_limit_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∀ (ε : ℝ),
+            ∃ e,
+              (MeasureTheory.TendstoInMeasure P
+                  (fun k ω => OAI.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω)) Filter.atTop fun x => e) ∧
+                Filter.Tendsto
+                    (fun k =>
+                      MeasureTheory.eLpNorm
+                        (fun ω => OAI.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω) - e) 1 P)
+                    Filter.atTop (nhds 0) ∧
+                  Filter.Tendsto (fun k => ∫ (ω : Ω), OAI.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω) ∂P)
+                      Filter.atTop (nhds e) ∧
+                    Filter.Tendsto (fun β => OAI.InvariantIsing.gaussianPatternLimit α (ε * β) / β) Filter.atTop
+                      (nhds e)
+OAI.InvariantIsing.gaussianPattern_norm_limits_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (OAI.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∃ eplus eminus,
+            0 ≤ eplus ∧
+              eminus ≤ 0 ∧
+                Filter.Tendsto (fun β => OAI.InvariantIsing.gaussianPatternLimit α β / β) Filter.atTop (nhds eplus) ∧
+                  Filter.Tendsto (fun β => OAI.InvariantIsing.gaussianPatternLimit α (-β) / β) Filter.atTop
+                      (nhds eminus) ∧
+                    ((MeasureTheory.TendstoInMeasure P
+                          (fun k ω => ‖OAI.InvariantIsing.gaussianPatternOperator (Z (k + 1) ω)‖ / (↑k + 1))
+                          Filter.atTop fun x => √(2 * eplus)) ∧
+                        Filter.Tendsto
+                          (fun k =>
+                            MeasureTheory.eLpNorm
+                              (fun ω =>
+                                ‖OAI.InvariantIsing.gaussianPatternOperator (Z (k + 1) ω)‖ / (↑k + 1) - √(2 * eplus))
+                              1 P)
+                          Filter.atTop (nhds 0)) ∧
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω =>
+                            (Finset.univ.inf' ⋯ fun σ => ‖OAI.InvariantIsing.gaussianPatternSum (Z (k + 1) ω) σ‖) /
+                              (↑k + 1))
+                          Filter.atTop fun x => √(-2 * eminus)) ∧
+                        Filter.Tendsto
+                          (fun k =>
+                            MeasureTheory.eLpNorm
+                              (fun ω =>
+                                (Finset.univ.inf' ⋯ fun σ => ‖OAI.InvariantIsing.gaussianPatternSum (Z (k + 1) ω) σ‖) /
+                                    (↑k + 1) -
+                                  √(-2 * eminus))
+                              1 P)
+                          Filter.atTop (nhds 0)
+@[reducible] def OAI.InvariantIsing.Spin : ℕ → Type :=
+fun N => Fin N → Bool
+def OAI.InvariantIsing.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def OAI.InvariantIsing.logPartition.{u_1} : {X : Type u_1} → [Fintype X] → (X → ℝ) → ℝ :=
+fun {X} [Fintype X] H => Real.log ((↑(Fintype.card X))⁻¹ * ∑ x, Real.exp (H x))
+def OAI.InvariantIsing.fieldEnergy : {N : ℕ} → (Fin N → ℝ) → OAI.InvariantIsing.Spin N → ℝ :=
+fun {N} c σ => ∑ i, c i * OAI.InvariantIsing.spinValue (σ i)
+@[reducible] def OAI.InvariantIsing.Rotation : ℕ → Type :=
+fun N => EuclideanSpace ℝ (Fin N) ≃ₗᵢ[ℝ] EuclideanSpace ℝ (Fin N)
+@[reducible] def OAI.InvariantIsing.Orthogonal : (N : ℕ) → Submonoid (Matrix (Fin N) (Fin N) ℝ) :=
+fun N => Matrix.orthogonalGroup (Fin N) ℝ
+def OAI.InvariantIsing.spinVector : {N : ℕ} → OAI.InvariantIsing.Spin N → EuclideanSpace ℝ (Fin N) :=
+fun {N} σ => WithLp.toLp 2 fun i => OAI.InvariantIsing.spinValue (σ i)
+def OAI.InvariantIsing.rotatedEnergy : {N : ℕ} →
+  (Fin N → ℝ) → OAI.InvariantIsing.Rotation N → OAI.InvariantIsing.Spin N → ℝ :=
+fun {N} eig U σ => 1 / 2 * ∑ i, eig i * (U (OAI.InvariantIsing.spinVector σ)).ofLp i ^ 2
+def OAI.InvariantIsing.rotatedPressure : {N : ℕ} → (Fin N → ℝ) → OAI.InvariantIsing.Rotation N → (Fin N → ℝ) → ℝ :=
+fun {N} eig U c =>
+  (↑N)⁻¹ *
+    OAI.InvariantIsing.logPartition fun σ =>
+      OAI.InvariantIsing.rotatedEnergy eig U σ + OAI.InvariantIsing.fieldEnergy c σ
+def OAI.InvariantIsing.matrixRotation : {N : ℕ} → ↥(OAI.InvariantIsing.Orthogonal N) → OAI.InvariantIsing.Rotation N :=
+fun {N} U =>
+  let __src :=
+    ((WithLp.linearEquiv 2 ℝ (Fin N → ℝ)).trans (Matrix.UnitaryGroup.toLinearEquiv U)).trans
+      (WithLp.linearEquiv 2 ℝ (Fin N → ℝ)).symm;
+  { toLinearEquiv := __src, norm_map' := ⋯ }
+structure OAI.InvariantIsing.OverlapPath : Type
+number of parameters: 0
+fields:
+  OAI.InvariantIsing.OverlapPath.val : ℝ → ℝ
+  OAI.InvariantIsing.OverlapPath.monotone : Monotone self.val
+  OAI.InvariantIsing.OverlapPath.nonneg : ∀ (s : ℝ), 0 ≤ self.val s
+  OAI.InvariantIsing.OverlapPath.le_one : ∀ (s : ℝ), self.val s ≤ 1
+constructor:
+  OAI.InvariantIsing.OverlapPath.mk (val : ℝ → ℝ) (monotone : Monotone val) (nonneg : ∀ (s : ℝ), 0 ≤ val s)
+    (le_one : ∀ (s : ℝ), val s ≤ 1) : OAI.InvariantIsing.OverlapPath
+def OAI.InvariantIsing.pathMeasure : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Ioo 0 1)
+def OAI.InvariantIsing.deficit : OAI.InvariantIsing.OverlapPath → ℝ → ℝ :=
+fun p r => 1 - r - ∫ (s : ℝ), max (p.val s - r) 0 ∂OAI.InvariantIsing.pathMeasure
+def OAI.InvariantIsing.gaussianOperator : ℝ → ℝ → (ℝ → ℝ) → ℝ → ℝ :=
+fun a v f z =>
+  if a = 0 then ∫ (g : ℝ), f (z + √v * g) ∂ProbabilityTheory.gaussianReal 0 1
+  else a⁻¹ * Real.log (∫ (g : ℝ), Real.exp (a * f (z + √v * g)) ∂ProbabilityTheory.gaussianReal 0 1)
+structure OAI.InvariantIsing.FieldStep : Type
+number of parameters: 0
+fields:
+  OAI.InvariantIsing.FieldStep.depth : ℕ
+  OAI.InvariantIsing.FieldStep.cut : Fin (self.depth + 2) → ℝ
+  OAI.InvariantIsing.FieldStep.ordered_cut : StrictMono self.cut
+  OAI.InvariantIsing.FieldStep.first : self.cut 0 = 0
+  OAI.InvariantIsing.FieldStep.last : self.cut (Fin.last (self.depth + 1)) = 1
+  OAI.InvariantIsing.FieldStep.height : Fin (self.depth + 1) → ℝ
+  OAI.InvariantIsing.FieldStep.nonneg : ∀ (i : Fin (self.depth + 1)), 0 ≤ self.height i
+  OAI.InvariantIsing.FieldStep.ordered_height : Monotone self.height
+constructor:
+  OAI.InvariantIsing.FieldStep.mk (depth : ℕ) (cut : Fin (depth + 2) → ℝ) (ordered_cut : StrictMono cut)
+    (first : cut 0 = 0) (last : cut (Fin.last (depth + 1)) = 1) (height : Fin (depth + 1) → ℝ)
+    (nonneg : ∀ (i : Fin (depth + 1)), 0 ≤ height i) (ordered_height : Monotone height) : OAI.InvariantIsing.FieldStep
+def OAI.InvariantIsing.fieldFunction : OAI.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h s => ∑ i, if h.cut i.castSucc < s ∧ s < h.cut i.succ then h.height i else 0
+def OAI.InvariantIsing.fieldIncrement : (h : OAI.InvariantIsing.FieldStep) → Fin (h.depth + 1) → ℝ × ℝ :=
+fun h i => (h.cut i.castSucc, h.height i - if hi : ↑i = 0 then 0 else h.height ⟨↑i - 1, ⋯⟩)
+def OAI.InvariantIsing.fieldValue : OAI.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h b =>
+  List.foldr (fun av f => OAI.InvariantIsing.gaussianOperator av.1 av.2 f) (fun z => Real.log (Real.cosh z))
+      (List.ofFn (OAI.InvariantIsing.fieldIncrement h)) b -
+    h.height (Fin.last h.depth) / 2
+def OAI.InvariantIsing.fieldPairing : OAI.InvariantIsing.OverlapPath → OAI.InvariantIsing.FieldStep → ℝ :=
+fun p h => ∫ (s : ℝ), p.val s * OAI.InvariantIsing.fieldFunction h s ∂OAI.InvariantIsing.pathMeasure
+def OAI.InvariantIsing.entropyFunctional : OAI.InvariantIsing.OverlapPath → EReal :=
+fun p => ⨆ h, ↑(OAI.InvariantIsing.fieldValue h 0 + OAI.InvariantIsing.fieldPairing p h / 2)
+def OAI.InvariantIsing.spectralFunctional : (ℝ → ℝ) → OAI.InvariantIsing.OverlapPath → ℝ :=
+fun R p => 1 / 2 * ∫ (r : ℝ), R (OAI.InvariantIsing.deficit p r) ∂OAI.InvariantIsing.pathMeasure
+def OAI.InvariantIsing.variationalFunctional : (ℝ → ℝ) → EReal :=
+fun R => ⨅ p, OAI.InvariantIsing.entropyFunctional p + ↑(OAI.InvariantIsing.spectralFunctional R p)
+def OAI.InvariantIsing.measureResolvent : MeasureTheory.Measure ℝ → ℝ → ℝ :=
+fun μ b => ∫ (y : ℝ), 1 / (b - y) ∂μ
+def OAI.InvariantIsing.measureInverse : MeasureTheory.Measure ℝ → ℝ → ℝ → ℝ :=
+fun μ e x => if h : ∃ b, e < b ∧ OAI.InvariantIsing.measureResolvent μ b = x then h.choose else e
+def OAI.InvariantIsing.measureR : MeasureTheory.Measure ℝ → ℝ → ℝ → ℝ :=
+fun μ e x => if 0 < x then OAI.InvariantIsing.measureInverse μ e x - 1 / x else ∫ (y : ℝ), y ∂μ
+def OAI.InvariantIsing.finiteSpectralMeasure.{u_1} : {ι : Type u_1} → (ι → ℝ) → (ι → ℝ) → MeasureTheory.Measure ℝ :=
+fun {ι} ρ eig => MeasureTheory.Measure.sum fun a => ENNReal.ofReal (ρ a) • MeasureTheory.Measure.dirac (eig a)
+def OAI.InvariantIsing.empiricalSpectralLaw : {N : ℕ} → 0 < N → (Fin N → ℝ) → MeasureTheory.ProbabilityMeasure ℝ :=
+fun {N} hN eig => ⟨OAI.InvariantIsing.finiteSpectralMeasure (fun x => 1 / ↑N) eig, ⋯⟩
+def OAI.InvariantIsing.spectralMinimum : {n : ℕ} → (Fin (n + 1) → ℝ) → ℝ :=
+fun {n} eig => (Finset.image eig Finset.univ).min' ⋯
+def OAI.InvariantIsing.spectralMaximum : {n : ℕ} → (Fin (n + 1) → ℝ) → ℝ :=
+fun {n} eig => (Finset.image eig Finset.univ).max' ⋯
+def OAI.InvariantIsing.magneticBiasObjective : OAI.InvariantIsing.FieldStep → ℝ → ℝ → ℝ :=
+fun h s b => OAI.InvariantIsing.fieldValue h b - b * s
+def OAI.InvariantIsing.constrainedFieldValue : OAI.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h s => sInf (Set.range (OAI.InvariantIsing.magneticBiasObjective h s))
+def OAI.InvariantIsing.magneticGroupValue.{u_1} : {A : Type u_1} →
+  [Fintype A] → (A → ℝ) → (A → ℝ) → OAI.InvariantIsing.FieldStep → ℝ :=
+fun {A} [Fintype A] γ m h => ∑ a, γ a * OAI.InvariantIsing.constrainedFieldValue h (m a)
+def OAI.InvariantIsing.magneticEntropyFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (A → ℝ) → (A → ℝ) → OAI.InvariantIsing.OverlapPath → EReal :=
+fun {A} [Fintype A] γ m p =>
+  ⨆ h, ↑(OAI.InvariantIsing.magneticGroupValue γ m h + OAI.InvariantIsing.fieldPairing p h / 2)
+def OAI.InvariantIsing.magneticVariationalFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (ℝ → ℝ) → (A → ℝ) → (A → ℝ) → EReal :=
+fun {A} [Fintype A] R γ m =>
+  ⨅ p, OAI.InvariantIsing.magneticEntropyFunctional γ m p + ↑(OAI.InvariantIsing.spectralFunctional R p)
+def OAI.InvariantIsing.RationalMagnetization.{u_1} : Type u_1 → Type (max 0 u_1) :=
+fun A => { m // ∀ (a : A), |↑(m a)| < 1 }
+def OAI.InvariantIsing.finiteMagneticFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (ℝ → ℝ) → (A → ℝ) → (A → ℝ) → EReal :=
+fun {A} [Fintype A] R γ c =>
+  ⨆ m, ↑(∑ a, γ a * c a * ↑(↑m a)) + OAI.InvariantIsing.magneticVariationalFunctional R γ fun a => ↑(↑m a)
+def OAI.InvariantIsing.finiteIndexWeight.{u_1, u_2} : {Ω : Type u_1} →
+  {A : Type u_2} → [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (Ω → A) → A → ℝ :=
+fun {Ω} {A} [MeasurableSpace Ω] P g a => P.real (g ⁻¹' {a})
+def OAI.InvariantIsing.simpleFieldIndex.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → (s : MeasureTheory.SimpleFunc Ω ℝ) → Ω → ↥s.range :=
+fun {Ω} [MeasurableSpace Ω] s x => ⟨s x, ⋯⟩
+def OAI.InvariantIsing.simpleFieldWeight.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (s : MeasureTheory.SimpleFunc Ω ℝ) → ↥s.range → ℝ :=
+fun {Ω} [MeasurableSpace Ω] P s => OAI.InvariantIsing.finiteIndexWeight P (OAI.InvariantIsing.simpleFieldIndex s)
+@[reducible] def OAI.InvariantIsing.SimpleFieldPositive.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → MeasureTheory.SimpleFunc Ω ℝ → Type :=
+fun {Ω} [MeasurableSpace Ω] P s => { i // 0 < OAI.InvariantIsing.simpleFieldWeight P s i }
+def OAI.InvariantIsing.simpleFieldValue.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    (P : MeasureTheory.Measure Ω) →
+      [MeasureTheory.IsProbabilityMeasure P] → MeasureTheory.SimpleFunc Ω ℝ → (ℝ → ℝ) → ℝ :=
+fun {Ω} [MeasurableSpace Ω] P [MeasureTheory.IsProbabilityMeasure P] s R =>
+  (OAI.InvariantIsing.finiteMagneticFunctional R (fun i => OAI.InvariantIsing.simpleFieldWeight P s ↑i) fun i =>
+      ↑↑i).toReal
+def OAI.InvariantIsing.fieldSimpleApproximation : ℕ → MeasureTheory.SimpleFunc ℝ ℝ :=
+fun n =>
+  MeasureTheory.SimpleFunc.approxOn id ⋯ (Set.range id ∪ {0}) 0 OAI.InvariantIsing.fieldSimpleApproximation._proof_2 n
+def OAI.InvariantIsing.magneticFieldFunctional : MeasureTheory.Measure ℝ → ℝ → MeasureTheory.ProbabilityMeasure ℝ → ℝ :=
+fun spectral edge field =>
+  Filter.atTop.limUnder fun n =>
+    OAI.InvariantIsing.simpleFieldValue (↑field) (OAI.InvariantIsing.fieldSimpleApproximation n)
+      (OAI.InvariantIsing.measureR spectral edge)
+structure OAI.InvariantIsing.FieldLawCoupling (μ ν : MeasureTheory.ProbabilityMeasure ℝ) : Type
+number of parameters: 2
+fields:
+  OAI.InvariantIsing.FieldLawCoupling.law : MeasureTheory.ProbabilityMeasure (ℝ × ℝ)
+  OAI.InvariantIsing.FieldLawCoupling.fst : MeasureTheory.Measure.map Prod.fst ↑self.law = ↑μ
+  OAI.InvariantIsing.FieldLawCoupling.snd : MeasureTheory.Measure.map Prod.snd ↑self.law = ↑ν
+constructor:
+  OAI.InvariantIsing.FieldLawCoupling.mk {μ ν : MeasureTheory.ProbabilityMeasure ℝ}
+    (law : MeasureTheory.ProbabilityMeasure (ℝ × ℝ)) (fst : MeasureTheory.Measure.map Prod.fst ↑law = ↑μ)
+    (snd : MeasureTheory.Measure.map Prod.snd ↑law = ↑ν) : OAI.InvariantIsing.FieldLawCoupling μ ν
+def OAI.InvariantIsing.FieldLawCoupling.cost : {μ ν : MeasureTheory.ProbabilityMeasure ℝ} →
+  OAI.InvariantIsing.FieldLawCoupling μ ν → ENNReal :=
+fun {μ ν} p => ∫⁻ (xy : ℝ × ℝ), ENNReal.ofReal |xy.1 - xy.2| ∂↑p.law
+def OAI.InvariantIsing.fieldWassersteinOne : MeasureTheory.ProbabilityMeasure ℝ →
+  MeasureTheory.ProbabilityMeasure ℝ → ENNReal :=
+fun μ ν => ⨅ p, p.cost
+def OAI.InvariantIsing.scaledSpectralLaw : MeasureTheory.ProbabilityMeasure ℝ →
+  ℝ → MeasureTheory.ProbabilityMeasure ℝ :=
+fun ν β => ν.map fun x => β * x
+def OAI.InvariantIsing.groundStateEnergy : {N : ℕ} → (Fin N → ℝ) → OAI.InvariantIsing.Rotation N → ℝ :=
+fun {N} eig U => (↑N)⁻¹ * Finset.univ.sup' ⋯ (OAI.InvariantIsing.rotatedEnergy eig U)
+def OAI.InvariantIsing.thermalVariationalValue : MeasureTheory.ProbabilityMeasure ℝ → ℝ → ℝ → ℝ :=
+fun ν b β =>
+  (OAI.InvariantIsing.variationalFunctional
+        (OAI.InvariantIsing.measureR (↑(OAI.InvariantIsing.scaledSpectralLaw ν β)) (β * b))).toReal /
+    β
+@[reducible] def OAI.InvariantIsing.FieldSpectralData : ℕ → Type :=
+fun N => (Fin N → ℝ) × (Fin N → ℝ)
+def OAI.InvariantIsing.dataPhysicalPressure : {N : ℕ} →
+  OAI.InvariantIsing.FieldSpectralData N → ↥(OAI.InvariantIsing.Orthogonal N) → ℝ :=
+fun {N} d U => OAI.InvariantIsing.rotatedPressure d.1 (OAI.InvariantIsing.matrixRotation U⁻¹) d.2
+def OAI.InvariantIsing.ConditionalFieldOrbitLaw.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {N : ℕ} →
+      MeasureTheory.Measure Ω →
+        (Ω → OAI.InvariantIsing.FieldSpectralData N) →
+          (Ω → ℝ) → MeasureTheory.Measure ↥(OAI.InvariantIsing.Orthogonal N) → Prop :=
+fun {Ω} [MeasurableSpace Ω] {N} P d pressure H =>
+  MeasureTheory.Measure.map (fun ω => (d ω, pressure ω)) P =
+    MeasureTheory.Measure.map (fun z => (z.1, OAI.InvariantIsing.dataPhysicalPressure z.1 z.2))
+      ((MeasureTheory.Measure.map d P).prod H)
+def OAI.InvariantIsing.spectralExcess : {N : ℕ} → (Fin N → ℝ) → ℝ → ℝ → ℝ :=
+fun {N} eig a b => (insert 0 (Finset.image (fun i => max (a - eig i) (eig i - b)) Finset.univ)).max' ⋯
+@[irreducible] def OAI.InvariantIsing.gaussianPatternCount : ℝ → ℕ → ℕ :=
+fun α N => ⌊α * ↑N⌋₊
+def OAI.InvariantIsing.marchenkoPasturA : ℝ → ℝ :=
+fun α => (1 - √α) ^ 2
+def OAI.InvariantIsing.marchenkoPasturB : ℝ → ℝ :=
+fun α => (1 + √α) ^ 2
+def OAI.InvariantIsing.marchenkoPasturLower : ℝ → ℝ :=
+fun α => if α ≤ 1 then 0 else OAI.InvariantIsing.marchenkoPasturA α
+def OAI.InvariantIsing.marchenkoPasturMeasure : ℝ → MeasureTheory.Measure ℝ :=
+fun α =>
+  ENNReal.ofReal (max (1 - α) 0) • MeasureTheory.Measure.dirac 0 +
+    MeasureTheory.volume.withDensity
+      ((Set.Icc (OAI.InvariantIsing.marchenkoPasturA α) (OAI.InvariantIsing.marchenkoPasturB α)).indicator fun x =>
+        ENNReal.ofReal
+          (√((OAI.InvariantIsing.marchenkoPasturB α - x) * (x - OAI.InvariantIsing.marchenkoPasturA α)) /
+            (2 * Real.pi * x)))
+def OAI.InvariantIsing.gaussianPatternLimit : ℝ → ℝ → ℝ :=
+fun α c =>
+  (OAI.InvariantIsing.variationalFunctional
+      (OAI.InvariantIsing.measureR
+        (MeasureTheory.Measure.map (fun x => c * x) (OAI.InvariantIsing.marchenkoPasturMeasure α))
+        (max (c * OAI.InvariantIsing.marchenkoPasturLower α) (c * OAI.InvariantIsing.marchenkoPasturB α)))).toReal
+def OAI.InvariantIsing.gaussianPatternArray : {N m : ℕ} → EuclideanSpace ℝ (Fin N × Fin m) → Matrix (Fin N) (Fin m) ℝ :=
+fun {N m} z i j => z.ofLp (i, j)
+def OAI.InvariantIsing.gaussianPatternSum : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → OAI.InvariantIsing.Spin N → EuclideanSpace ℝ (Fin m) :=
+fun {N m} z σ =>
+  WithLp.toLp 2
+    ((OAI.InvariantIsing.gaussianPatternArray z).transpose.mulVec fun i => OAI.InvariantIsing.spinValue (σ i))
+def OAI.InvariantIsing.gaussianPatternPressure : {N m : ℕ} → ℝ → EuclideanSpace ℝ (Fin N × Fin m) → ℝ :=
+fun {N m} c z =>
+  (↑N)⁻¹ * OAI.InvariantIsing.logPartition fun σ => c / (2 * ↑N) * ‖OAI.InvariantIsing.gaussianPatternSum z σ‖ ^ 2
+def OAI.InvariantIsing.gaussianPatternGroundEnergy : {N m : ℕ} → ℝ → EuclideanSpace ℝ (Fin N × Fin m) → ℝ :=
+fun {N m} ε z => (↑N)⁻¹ * Finset.univ.sup' ⋯ fun σ => ε / (2 * ↑N) * ‖OAI.InvariantIsing.gaussianPatternSum z σ‖ ^ 2
+def OAI.InvariantIsing.gaussianPatternColumn : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → Fin N → EuclideanSpace ℝ (Fin m) :=
+fun {N m} z i => WithLp.toLp 2 fun j => z.ofLp (i, j)
+def OAI.InvariantIsing.gaussianPatternOperator : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → (Fin N → ℝ) →L[ℝ] EuclideanSpace ℝ (Fin m) :=
+fun {N m} z =>
+  ↑(PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm ∘SL
+    LinearMap.toContinuousLinearMap (OAI.InvariantIsing.gaussianPatternArray z).transpose.mulVecLin

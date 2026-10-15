@@ -1,0 +1,275 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_DefocusingNLS.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.DefocusingNLS.gaussian_not_almost_sure_global [thm] ok
+CMP OAI.DefocusingNLS.weightedGaussianLaw [def] ok
+CMP OAI.DefocusingNLS.fourierGaussianLaw [def] ok
+CMP OAI.DefocusingNLS.fourierGaussianLaw._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.complexGaussian [def] ok
+CMP OAI.DefocusingNLS.frequencyLattice [def] ok
+CMP OAI.DefocusingNLS.weightedGaussianVector [def] ok
+CMP OAI.DefocusingNLS.weightedGaussianCoefficient [def] ok
+CMP OAI.DefocusingNLS.sobolevVariance [def] ok
+CMP OAI.DefocusingNLS.FourierL2._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.weightedGaussianVector._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.FourierL2 [def] ok
+CMP OAI.DefocusingNLS.instMeasurableSpaceSubtypePreLpEuclideanSpaceRealFinOfNatNatMemSubmoduleIntFrequencyLatticeComplexAddSubgroupFourierL2 [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevInteractionDomain [def] ok
+CMP OAI.DefocusingNLS.SobolevInteractionPatch.right [def] ok
+CMP OAI.DefocusingNLS.SobolevInteractionPatch [ind] ok
+CMP OAI.DefocusingNLS.SobolevInteractionPatch.mk [ctor] ok
+CMP OAI.DefocusingNLS.schrodingerInteractionField [def] ok
+CMP OAI.DefocusingNLS.sobolevOddPower [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.DefocusingNLS.sobolevOddPower._f [def] ok
+CMP OAI.DefocusingNLS.fourierConjugate [def] ok
+CMP OAI.DefocusingNLS.fourierConjugate._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.fourierConjugate._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevProduct [def] VALUE_MISMATCH (DEFEQ: definitionally equal; structural difference only)
+CMP OAI.DefocusingNLS.sobolevProductCoefficient [def] ok
+CMP OAI.DefocusingNLS.sobolevProductCoefficient._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevFourierCoefficient [def] ok
+CMP OAI.DefocusingNLS.sobolevProductWeight [def] ok
+CMP OAI.DefocusingNLS.sobolevProductWeight._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevProduct._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevOddPower.match_1 [def] ok
+CMP OAI.DefocusingNLS.sobolevOddPower._proof_1 [thm] MISSING_IN_SOLUTION
+CMP OAI.DefocusingNLS.schrodingerFlow [def] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_8 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_7 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_4 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerMultiplier [def] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_6 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_5 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_3 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerFlow._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerInteractionField._proof_3 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerInteractionField._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.schrodingerInteractionField._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.SobolevInteractionPatch.left [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevInteractionDomain._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.gaussian_blowup [thm] ok
+CMP OAI.DefocusingNLS.HasFiniteTimeSelfSimilarBlowup [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevSchrodingerFlow [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevInteractionFlow [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevInteractionFlow._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.SobolevInteractionPatch.curve [def] ok
+CMP OAI.DefocusingNLS.maximalSobolevSchrodingerFlow._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.maximalSobolevSchrodingerFlow._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevTorusFunction [def] ok
+CMP OAI.DefocusingNLS.sobolevTorusTerm [def] ok
+CMP OAI.DefocusingNLS.torusCharacter [def] ok
+CMP OAI.DefocusingNLS.torusCharacter._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.frequencyCoordinates [def] ok
+CMP OAI.DefocusingNLS.frequencyCoordinates._proof_3 [thm] ok
+CMP OAI.DefocusingNLS.frequencyCoordinates._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.frequencyCoordinates._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.SchrodingerTorus._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.SchrodingerTorus [def] ok
+CMP OAI.DefocusingNLS.sobolevTorusTerm._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.sobolevTorusFunction._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.HasFiniteTimeSelfSimilarBlowup._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow [def] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_7 [thm] ok
+CMP OAI.DefocusingNLS.lowerSobolevGenerator [def] ok
+CMP OAI.DefocusingNLS.lowerSobolevGenerator._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction [def] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_8 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_7 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_4 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_6 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_5 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_3 [thm] ok
+CMP OAI.DefocusingNLS.fourierContraction._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_6 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_5 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_4 [thm] ok
+CMP OAI.DefocusingNLS.lowerSobolevInclusion [def] ok
+CMP OAI.DefocusingNLS.lowerSobolevInclusion._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_3 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_2 [thm] ok
+CMP OAI.DefocusingNLS.IsClassicalDefocusingFlow._proof_1 [thm] ok
+CMP OAI.DefocusingNLS.stable_blowup [thm] ok
+Chal.DefocusingNLS.stable_blowup : ∀ (p₀ : ℕ),
+  ∃ p k,
+    p₀ ≤ p ∧
+      Odd p ∧
+        3 ≤ p ∧
+          ∃ (hk : 8 < ↑k),
+            ∃ U,
+              U.Nonempty ∧
+                IsOpen U ∧
+                  ∀ f ∈ U,
+                    Chal.DefocusingNLS.IsClassicalDefocusingFlow ↑k ⋯ ((p - 1) / 2) f ∧
+                      Chal.DefocusingNLS.HasFiniteTimeSelfSimilarBlowup ↑k ⋯ ((p - 1) / 2) (1 / (↑p - 1)) f
+Chal.DefocusingNLS.gaussian_blowup : ∀ (p₀ : ℕ),
+  ∃ p k,
+    p₀ ≤ p ∧
+      Odd p ∧
+        3 ≤ p ∧
+          ∃ (hk : 8 < ↑k),
+            ∃ U,
+              U.Nonempty ∧
+                IsOpen U ∧
+                  (∀ f ∈ U,
+                      Chal.DefocusingNLS.IsClassicalDefocusingFlow ↑k ⋯ ((p - 1) / 2) f ∧
+                        Chal.DefocusingNLS.HasFiniteTimeSelfSimilarBlowup ↑k ⋯ ((p - 1) / 2) (1 / (↑p - 1)) f) ∧
+                    ∀ (α : ℝ),
+                      ↑k + 6 < α →
+                        (∀ᵐ (g : ↥Chal.DefocusingNLS.frequencyLattice → ℂ) ∂Chal.DefocusingNLS.fourierGaussianLaw,
+                            Memℓp (Chal.DefocusingNLS.weightedGaussianCoefficient (↑k) α g) 2) ∧
+                          (∀ᵐ (g : ↥Chal.DefocusingNLS.frequencyLattice → ℂ) ∂Chal.DefocusingNLS.fourierGaussianLaw,
+                              ∀ (n : ↥Chal.DefocusingNLS.frequencyLattice),
+                                Chal.DefocusingNLS.sobolevFourierCoefficient (↑k)
+                                    (Chal.DefocusingNLS.weightedGaussianVector (↑k) α g) n =
+                                  (1 + ‖n‖ ^ 2) ^ (-α / 2) • g n) ∧
+                            0 < (Chal.DefocusingNLS.weightedGaussianLaw (↑k) α) U
+Chal.DefocusingNLS.gaussian_not_almost_sure_global : ∀ (p₀ : ℕ),
+  ∃ p k,
+    p₀ ≤ p ∧
+      Odd p ∧
+        3 ≤ p ∧
+          ∃ (hk : 8 < ↑k),
+            ∀ (α : ℝ),
+              ↑k + 6 < α →
+                ¬∀ᵐ (f : ↥Chal.DefocusingNLS.FourierL2) ∂Chal.DefocusingNLS.weightedGaussianLaw (↑k) α,
+                    Chal.DefocusingNLS.maximalSobolevInteractionDomain ↑k ⋯ ((p - 1) / 2) f = Set.univ
+def Chal.DefocusingNLS.frequencyLattice : Submodule ℤ (EuclideanSpace ℝ (Fin 12)) :=
+Submodule.span ℤ (Set.range ⇑(EuclideanSpace.basisFun (Fin 12) ℝ).toBasis)
+def Chal.DefocusingNLS.complexGaussian : NNReal → MeasureTheory.Measure ℂ :=
+fun v =>
+  MeasureTheory.Measure.map (⇑Complex.equivRealProdCLM.symm)
+    ((ProbabilityTheory.gaussianReal 0 v).prod (ProbabilityTheory.gaussianReal 0 v))
+def Chal.DefocusingNLS.fourierGaussianLaw : MeasureTheory.Measure (↥Chal.DefocusingNLS.frequencyLattice → ℂ) :=
+MeasureTheory.Measure.infinitePi fun x => Chal.DefocusingNLS.complexGaussian (1 / 2)
+def Chal.DefocusingNLS.sobolevVariance : ℝ → ℝ → ↥Chal.DefocusingNLS.frequencyLattice → ℝ :=
+fun k α n => (1 + ‖n‖ ^ 2) ^ (k - α)
+def Chal.DefocusingNLS.weightedGaussianCoefficient : ℝ →
+  ℝ → (↥Chal.DefocusingNLS.frequencyLattice → ℂ) → ↥Chal.DefocusingNLS.frequencyLattice → ℂ :=
+fun k α g n => √(Chal.DefocusingNLS.sobolevVariance k α n) • g n
+@[reducible] def Chal.DefocusingNLS.FourierL2 : AddSubgroup (PreLp fun x => ℂ) :=
+lp (fun x => ℂ) 2
+def Chal.DefocusingNLS.weightedGaussianVector : ℝ →
+  ℝ → (↥Chal.DefocusingNLS.frequencyLattice → ℂ) → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k α g =>
+  ∑' (n : ↥Chal.DefocusingNLS.frequencyLattice), lp.single 2 n (Chal.DefocusingNLS.weightedGaussianCoefficient k α g n)
+def Chal.DefocusingNLS.sobolevFourierCoefficient : ℝ →
+  ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.frequencyLattice → ℂ :=
+fun k f n => (1 + ‖n‖ ^ 2) ^ (-k / 2) • ↑f n
+def Chal.DefocusingNLS.weightedGaussianLaw : ℝ → ℝ → MeasureTheory.Measure ↥Chal.DefocusingNLS.FourierL2 :=
+fun k α =>
+  MeasureTheory.Measure.map (Chal.DefocusingNLS.weightedGaussianVector k α) Chal.DefocusingNLS.fourierGaussianLaw
+@[reducible] def Chal.DefocusingNLS.SchrodingerTorus : Type :=
+Fin 12 → AddCircle (2 * Real.pi)
+def Chal.DefocusingNLS.frequencyCoordinates : ↥Chal.DefocusingNLS.frequencyLattice → Fin 12 → ℤ :=
+fun n => ⇑((Module.Basis.restrictScalars ℤ (EuclideanSpace.basisFun (Fin 12) ℝ).toBasis).repr n)
+def Chal.DefocusingNLS.torusCharacter : ↥Chal.DefocusingNLS.frequencyLattice →
+  C(Chal.DefocusingNLS.SchrodingerTorus, ℂ) :=
+fun n => { toFun := fun x => ∏ j, (fourier (Chal.DefocusingNLS.frequencyCoordinates n j)) (x j), continuous_toFun := ⋯ }
+def Chal.DefocusingNLS.sobolevTorusTerm : ℝ →
+  ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.frequencyLattice → C(Chal.DefocusingNLS.SchrodingerTorus, ℂ) :=
+fun k f n => Chal.DefocusingNLS.sobolevFourierCoefficient k f n • Chal.DefocusingNLS.torusCharacter n
+def Chal.DefocusingNLS.sobolevTorusFunction : ℝ →
+  ↥Chal.DefocusingNLS.FourierL2 → C(Chal.DefocusingNLS.SchrodingerTorus, ℂ) :=
+fun k f => ∑' (n : ↥Chal.DefocusingNLS.frequencyLattice), Chal.DefocusingNLS.sobolevTorusTerm k f n
+def Chal.DefocusingNLS.sobolevProductWeight : ℝ → ↥Chal.DefocusingNLS.frequencyLattice → ℝ :=
+fun k n => (1 + ‖n‖ ^ 2) ^ (k / 2)
+def Chal.DefocusingNLS.sobolevProductCoefficient : ℝ →
+  ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.frequencyLattice → ℂ :=
+fun k f g n =>
+  ∑' (m : ↥Chal.DefocusingNLS.frequencyLattice),
+    Chal.DefocusingNLS.sobolevFourierCoefficient k f m * Chal.DefocusingNLS.sobolevFourierCoefficient k g (n - m)
+def Chal.DefocusingNLS.sobolevProduct : (k : ℝ) →
+  6 < k → ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k _hk f g =>
+  ⟨fun n => ↑(Chal.DefocusingNLS.sobolevProductWeight k n) * Chal.DefocusingNLS.sobolevProductCoefficient k f g n, ⋯⟩
+def Chal.DefocusingNLS.fourierConjugate : ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 :=
+fun f => ⟨fun n => (starRingEnd ((fun x => ℂ) n)) (↑f (-n)), ⋯⟩
+def Chal.DefocusingNLS.sobolevOddPower : (k : ℝ) →
+  6 < k → ℕ → ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k hk x x_1 =>
+  Nat.brecOn (motive := fun x => ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2) x
+    (Chal.DefocusingNLS.sobolevOddPower._f k hk) x_1
+def Chal.DefocusingNLS.schrodingerMultiplier : ℝ → ↥Chal.DefocusingNLS.frequencyLattice → ℂ :=
+fun t n => Complex.exp (-Complex.I * ↑(t * ‖n‖ ^ 2))
+def Chal.DefocusingNLS.schrodingerFlow : ℝ → ↥Chal.DefocusingNLS.FourierL2 →ₗᵢ[ℂ] ↥Chal.DefocusingNLS.FourierL2 :=
+fun t =>
+  { toFun := fun f => ⟨fun n => Chal.DefocusingNLS.schrodingerMultiplier t n * ↑f n, ⋯⟩, map_add' := ⋯, map_smul' := ⋯,
+    norm_map' := ⋯ }
+def Chal.DefocusingNLS.fourierContraction : (m : ↥Chal.DefocusingNLS.frequencyLattice → ℂ) →
+  (∀ (n : ↥Chal.DefocusingNLS.frequencyLattice), ‖m n‖ ≤ 1) →
+    ↥Chal.DefocusingNLS.FourierL2 →L[ℂ] ↥Chal.DefocusingNLS.FourierL2 :=
+fun m hm => { toFun := fun f => ⟨fun n => m n * ↑f n, ⋯⟩, map_add' := ⋯, map_smul' := ⋯ }.mkContinuous 1 ⋯
+def Chal.DefocusingNLS.lowerSobolevInclusion : ↥Chal.DefocusingNLS.FourierL2 →L[ℂ] ↥Chal.DefocusingNLS.FourierL2 :=
+Chal.DefocusingNLS.fourierContraction (fun n => ↑(1 + ‖n‖ ^ 2)⁻¹) Chal.DefocusingNLS.lowerSobolevInclusion._proof_1
+def Chal.DefocusingNLS.lowerSobolevGenerator : ↥Chal.DefocusingNLS.FourierL2 →L[ℂ] ↥Chal.DefocusingNLS.FourierL2 :=
+Chal.DefocusingNLS.fourierContraction (fun n => -Complex.I * ↑(‖n‖ ^ 2 / (1 + ‖n‖ ^ 2)))
+  Chal.DefocusingNLS.lowerSobolevGenerator._proof_1
+def Chal.DefocusingNLS.schrodingerInteractionField : (k : ℝ) →
+  6 < k → ℕ → ℝ → ↥Chal.DefocusingNLS.FourierL2 → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k hk m t f =>
+  -Complex.I •
+    (Chal.DefocusingNLS.schrodingerFlow (-t))
+      (Chal.DefocusingNLS.sobolevOddPower k hk m ((Chal.DefocusingNLS.schrodingerFlow t) f))
+structure Chal.DefocusingNLS.SobolevInteractionPatch (k : ℝ) (hk : 6 < k) (m : ℕ) (f₀ : ↥Chal.DefocusingNLS.FourierL2) :
+  Type
+number of parameters: 4
+fields:
+  Chal.DefocusingNLS.SobolevInteractionPatch.left : ℝ
+  Chal.DefocusingNLS.SobolevInteractionPatch.right : ℝ
+  Chal.DefocusingNLS.SobolevInteractionPatch.left_neg : self.left < 0
+  Chal.DefocusingNLS.SobolevInteractionPatch.right_pos : 0 < self.right
+  Chal.DefocusingNLS.SobolevInteractionPatch.curve : ℝ → ↥Chal.DefocusingNLS.FourierL2
+  Chal.DefocusingNLS.SobolevInteractionPatch.initial : self.curve 0 = f₀
+  Chal.DefocusingNLS.SobolevInteractionPatch.solves : ∀ t ∈ Set.Ioo self.left self.right,
+      HasDerivAt self.curve (Chal.DefocusingNLS.schrodingerInteractionField k hk m t (self.curve t)) t
+constructor:
+  Chal.DefocusingNLS.SobolevInteractionPatch.mk {k : ℝ} {hk : 6 < k} {m : ℕ} {f₀ : ↥Chal.DefocusingNLS.FourierL2}
+    (left right : ℝ) (left_neg : left < 0) (right_pos : 0 < right) (curve : ℝ → ↥Chal.DefocusingNLS.FourierL2)
+    (initial : curve 0 = f₀)
+    (solves :
+      ∀ t ∈ Set.Ioo left right,
+        HasDerivAt curve (Chal.DefocusingNLS.schrodingerInteractionField k hk m t (curve t)) t) :
+    Chal.DefocusingNLS.SobolevInteractionPatch k hk m f₀
+def Chal.DefocusingNLS.maximalSobolevInteractionDomain : (k : ℝ) → 6 < k → ℕ → ↥Chal.DefocusingNLS.FourierL2 → Set ℝ :=
+fun k hk m f₀ => ⋃ P, Set.Ioo P.left P.right
+def Chal.DefocusingNLS.maximalSobolevInteractionFlow : (k : ℝ) →
+  6 < k → ℕ → ↥Chal.DefocusingNLS.FourierL2 → ℝ → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k hk m f₀ t =>
+  if ht : t ∈ Chal.DefocusingNLS.maximalSobolevInteractionDomain k hk m f₀ then (Classical.choose ⋯).curve t else 0
+def Chal.DefocusingNLS.maximalSobolevSchrodingerFlow : (k : ℝ) →
+  6 < k → ℕ → ↥Chal.DefocusingNLS.FourierL2 → ℝ → ↥Chal.DefocusingNLS.FourierL2 :=
+fun k hk m f₀ t => (Chal.DefocusingNLS.schrodingerFlow t) (Chal.DefocusingNLS.maximalSobolevInteractionFlow k hk m f₀ t)
+def Chal.DefocusingNLS.IsClassicalDefocusingFlow : (k : ℝ) → 6 < k → ℕ → ↥Chal.DefocusingNLS.FourierL2 → Prop :=
+fun k hk m f =>
+  have u := Chal.DefocusingNLS.maximalSobolevSchrodingerFlow k hk m f;
+  have D := Chal.DefocusingNLS.maximalSobolevInteractionDomain k hk m f;
+  u 0 = f ∧
+    ContinuousOn u D ∧
+      ContDiffOn ℝ 1 (fun t => Chal.DefocusingNLS.lowerSobolevInclusion (u t)) D ∧
+        ∀ t ∈ D,
+          HasDerivAt (fun s => Chal.DefocusingNLS.lowerSobolevInclusion (u s))
+            (Chal.DefocusingNLS.lowerSobolevGenerator (u t) -
+              Complex.I • Chal.DefocusingNLS.lowerSobolevInclusion (Chal.DefocusingNLS.sobolevOddPower k hk m (u t)))
+            t
+def Chal.DefocusingNLS.HasFiniteTimeSelfSimilarBlowup : (k : ℝ) →
+  6 < k → ℕ → ℝ → ↥Chal.DefocusingNLS.FourierL2 → Prop :=
+fun k hk m a f =>
+  ∃ T,
+    0 < T ∧
+      ∃ x c,
+        0 < c ∧
+          Set.Ico 0 T ⊆ Chal.DefocusingNLS.maximalSobolevInteractionDomain k hk m f ∧
+            BddAbove (Chal.DefocusingNLS.maximalSobolevInteractionDomain k hk m f) ∧
+              sSup (Chal.DefocusingNLS.maximalSobolevInteractionDomain k hk m f) = T ∧
+                Filter.Tendsto
+                    (fun t =>
+                      (T - t) ^ a *
+                        ‖(Chal.DefocusingNLS.sobolevTorusFunction k
+                              (Chal.DefocusingNLS.maximalSobolevSchrodingerFlow k hk m f t))
+                            x‖)
+                    (nhdsWithin T (Set.Iio T)) (nhds c) ∧
+                  ¬ContinuousWithinAt (Chal.DefocusingNLS.maximalSobolevSchrodingerFlow k hk m f) (Set.Iio T) T
+'OAI.DefocusingNLS.stable_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.DefocusingNLS.gaussian_blowup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.DefocusingNLS.gaussian_not_almost_sure_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DefocusingNLS comparator-style: ok=87 problems=1 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=2 aux_only=0

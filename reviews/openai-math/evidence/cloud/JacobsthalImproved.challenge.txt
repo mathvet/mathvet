@@ -1,0 +1,12 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_JacobsthalImproved.lean:22:8: warning: declaration uses `sorry`
+OAI.Erdos970.Erdos970Final.erdos_970_iterated_log : OAI.Erdos970.NumberTheoryLean.Targets.JacobsthalIteratedLog
+def OAI.Erdos970.NumberTheoryLean.Targets.IsJacobsthalBound : ℕ → ℕ → Prop :=
+fun k m => ∀ (n : ℕ), 0 < n → n.primeFactors.card ≤ k → ∀ (a : ℤ), ∃ i < m, (a + ↑i).natAbs.Coprime n
+def OAI.Erdos970.NumberTheoryLean.Targets.JacobsthalIteratedLog : Prop :=
+∃ C,
+  0 < C ∧
+    ∀ (k : ℕ),
+      0 < k →
+        ∃ m,
+          OAI.Erdos970.NumberTheoryLean.Targets.IsJacobsthalBound k m ∧
+            ↑m ≤ C * ↑k ^ 2 / Real.log (Real.log (3 * ↑k)) ^ 2

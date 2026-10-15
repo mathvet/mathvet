@@ -1,0 +1,78 @@
+OAI.LipschitzHilbert.main : ∃ a ∈ Set.Ioo 0 (1 / 2), ∃ C, 0 < C ∧ OAI.LipschitzHilbert.ShortHilbertConclusion a C
+'OAI.LipschitzHilbert.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.LipschitzHilbert.uniform_truncation : ∃ C,
+  0 < C ∧
+    ∀ (K : NNReal),
+      0 < K →
+        ∀ (epsilon R : ℝ),
+          0 < epsilon →
+            epsilon ≤ R →
+              R ≤ 1 / (1000000 * ↑K) →
+                ∀ (v : OAI.LipschitzHilbert.Plane → OAI.LipschitzHilbert.Plane),
+                  LipschitzWith K v →
+                    (∀ (x : OAI.LipschitzHilbert.Plane), ‖v x‖ = 1) →
+                      ∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ),
+                        MeasureTheory.eLpNorm (OAI.LipschitzHilbert.shortTransform v epsilon R ⇑f) 2
+                            MeasureTheory.volume ≤
+                          ENNReal.ofReal (C * ‖f.toLp 2 MeasureTheory.volume‖)
+'OAI.LipschitzHilbert.uniform_truncation' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.LipschitzHilbert.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def OAI.LipschitzHilbert.DirectionPlane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.LipschitzHilbert.sample : (OAI.LipschitzHilbert.DirectionPlane → OAI.LipschitzHilbert.DirectionPlane) →
+  ℝ → OAI.LipschitzHilbert.DirectionPlane → OAI.LipschitzHilbert.DirectionPlane :=
+fun v t x => x - t • v x
+def OAI.LipschitzHilbert.shortTransform : (OAI.LipschitzHilbert.DirectionPlane → OAI.LipschitzHilbert.DirectionPlane) →
+  ℝ → ℝ → (OAI.LipschitzHilbert.DirectionPlane → ℂ) → OAI.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v ε a f x =>
+  ∫ (t : ℝ) in ε..a, t⁻¹ • (f (OAI.LipschitzHilbert.sample v t x) - f (OAI.LipschitzHilbert.sample v (-t) x))
+def OAI.LipschitzHilbert.directionalKernel : (OAI.LipschitzHilbert.DirectionPlane →
+    OAI.LipschitzHilbert.DirectionPlane) →
+  (OAI.LipschitzHilbert.DirectionPlane → ℂ) → OAI.LipschitzHilbert.DirectionPlane → ℝ → ℂ :=
+fun v f x t => t⁻¹ • f (OAI.LipschitzHilbert.sample v t x)
+def OAI.LipschitzHilbert.twoSidedTruncation : (OAI.LipschitzHilbert.DirectionPlane →
+    OAI.LipschitzHilbert.DirectionPlane) →
+  ℝ → ℝ → (OAI.LipschitzHilbert.DirectionPlane → ℂ) → OAI.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v ε a f x =>
+  (∫ (t : ℝ) in -a..-ε, OAI.LipschitzHilbert.directionalKernel v f x t) +
+    ∫ (t : ℝ) in ε..a, OAI.LipschitzHilbert.directionalKernel v f x t
+def OAI.LipschitzHilbert.smoothPrincipalValue : (OAI.LipschitzHilbert.DirectionPlane →
+    OAI.LipschitzHilbert.DirectionPlane) →
+  ℝ → (OAI.LipschitzHilbert.DirectionPlane → ℂ) → OAI.LipschitzHilbert.DirectionPlane → ℂ :=
+fun v a f x =>
+  have g := fun t => f (OAI.LipschitzHilbert.sample v t x) - f (OAI.LipschitzHilbert.sample v (-t) x);
+  ∫ (t : ℝ) in 0..a, Function.update (fun t => t⁻¹ • g t) 0 (deriv g 0) t
+def OAI.LipschitzHilbert.ShortHilbertConclusion : ℝ → NNReal → Prop :=
+fun a C =>
+  ∀ (v : OAI.LipschitzHilbert.Plane → OAI.LipschitzHilbert.Plane),
+    LipschitzWith 1 v →
+      (∀ (x : OAI.LipschitzHilbert.Plane), ‖v x‖ = 1) →
+        (∀ (epsilon : ℝ),
+            0 < epsilon →
+              epsilon < a →
+                ∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ),
+                  MeasureTheory.eLpNorm (OAI.LipschitzHilbert.twoSidedTruncation v epsilon a ⇑f) 2
+                      MeasureTheory.volume ≤
+                    ↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ∧
+          (∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ),
+              MeasureTheory.eLpNorm (OAI.LipschitzHilbert.smoothPrincipalValue v a ⇑f) 2 MeasureTheory.volume ≤
+                ↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ∧
+            (∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ) (level : ENNReal),
+                level ≠ 0 →
+                  level ≠ ⊤ →
+                    MeasureTheory.volume {x | level < ‖OAI.LipschitzHilbert.smoothPrincipalValue v a (⇑f) x‖ₑ} ≤
+                      level⁻¹ ^ 2 * (↑C * MeasureTheory.eLpNorm (⇑f) 2 MeasureTheory.volume) ^ 2) ∧
+              (∀ (epsilon : ℝ),
+                  0 < epsilon →
+                    epsilon < a →
+                      ∃ T,
+                        ‖T‖ ≤ ↑C ∧
+                          ∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ),
+                            ↑↑(T (f.toLp 2 MeasureTheory.volume)) =ᵐ[MeasureTheory.volume]
+                              OAI.LipschitzHilbert.twoSidedTruncation v epsilon a ⇑f) ∧
+                ∃ T,
+                  ‖T‖ ≤ ↑C ∧
+                    ∀ (f : SchwartzMap OAI.LipschitzHilbert.Plane ℂ),
+                      ↑↑(T (f.toLp 2 MeasureTheory.volume)) =ᵐ[MeasureTheory.volume]
+                        OAI.LipschitzHilbert.smoothPrincipalValue v a ⇑f

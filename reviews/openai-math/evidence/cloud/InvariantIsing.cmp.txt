@@ -1,0 +1,694 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_InvariantIsing.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.InvariantIsing.gaussianPattern_norm_limits_unconditional [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternSum [def] ok
+CMP OAI.InvariantIsing.spinValue [def] ok
+CMP OAI.InvariantIsing.gaussianPatternArray [def] ok
+CMP OAI.InvariantIsing.gaussianPatternSum._proof_1 [thm] ok
+CMP OAI.InvariantIsing.Spin [def] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator [def] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_9 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_8 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_7 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_6 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_5 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_4 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_3 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_2 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternOperator._proof_1 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternColumn._proof_1 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternLimit [def] ok
+CMP OAI.InvariantIsing.marchenkoPasturB [def] ok
+CMP OAI.InvariantIsing.marchenkoPasturLower [def] ok
+CMP OAI.InvariantIsing.marchenkoPasturA [def] ok
+CMP OAI.InvariantIsing.marchenkoPasturMeasure [def] ok
+CMP OAI.InvariantIsing.marchenkoPasturMeasure._proof_2 [thm] ok
+CMP OAI.InvariantIsing.marchenkoPasturMeasure._proof_1 [thm] ok
+CMP OAI.InvariantIsing.measureR [def] ok
+CMP OAI.InvariantIsing.measureInverse [def] ok
+CMP OAI.InvariantIsing.measureResolvent [def] ok
+CMP OAI.InvariantIsing.variationalFunctional [def] ok
+CMP OAI.InvariantIsing.spectralFunctional [def] ok
+CMP OAI.InvariantIsing.deficit [def] ok
+CMP OAI.InvariantIsing.OverlapPath.val [def] ok
+CMP OAI.InvariantIsing.OverlapPath [ind] ok
+CMP OAI.InvariantIsing.OverlapPath.mk [ctor] ok
+CMP OAI.InvariantIsing.pathMeasure [def] ok
+CMP OAI.InvariantIsing.fieldValue._proof_1 [thm] ok
+CMP OAI.InvariantIsing.entropyFunctional [def] ok
+CMP OAI.InvariantIsing.fieldPairing [def] ok
+CMP OAI.InvariantIsing.fieldFunction [def] ok
+CMP OAI.InvariantIsing.FieldStep.height [def] ok
+CMP OAI.InvariantIsing.FieldStep [ind] ok
+CMP OAI.InvariantIsing.FieldStep.mk [ctor] ok
+CMP OAI.InvariantIsing.FieldStep.depth [def] ok
+CMP OAI.InvariantIsing.FieldStep.cut [def] ok
+CMP OAI.InvariantIsing.fieldValue [def] ok
+CMP OAI.InvariantIsing.fieldIncrement [def] ok
+CMP OAI.InvariantIsing.fieldIncrement._proof_2 [thm] ok
+CMP OAI.InvariantIsing.gaussianOperator [def] ok
+CMP OAI.InvariantIsing.gaussianPatternCount [def] ok
+CMP OAI.InvariantIsing.gaussianPattern_ground_limit_unconditional [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternGroundEnergy [def] ok
+CMP OAI.InvariantIsing.gaussianPatternGroundEnergy._proof_2 [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternGroundEnergy._proof_1 [thm] ok
+CMP OAI.InvariantIsing.gaussianPattern_pressure_limit_unconditional [thm] ok
+CMP OAI.InvariantIsing.gaussianPatternPressure [def] ok
+CMP OAI.InvariantIsing.logPartition [def] ok
+CMP OAI.InvariantIsing.random_field_pressure_tendsto_ae_unconditional [thm] ok
+CMP OAI.InvariantIsing.magneticFieldFunctional [def] ok
+CMP OAI.InvariantIsing.fieldSimpleApproximation [def] ok
+CMP OAI.InvariantIsing.fieldSimpleApproximation._proof_3 [thm] ok
+CMP OAI.InvariantIsing.fieldSimpleApproximation._proof_2 [thm] ok
+CMP OAI.InvariantIsing.fieldSimpleApproximation._proof_1 [thm] ok
+CMP OAI.InvariantIsing.simpleFieldValue [def] ok
+CMP OAI.InvariantIsing.simpleFieldWeight [def] ok
+CMP OAI.InvariantIsing.simpleFieldIndex [def] ok
+CMP OAI.InvariantIsing.finiteIndexWeight [def] ok
+CMP OAI.InvariantIsing.SimpleFieldPositive [def] ok
+CMP OAI.InvariantIsing.finiteMagneticFunctional [def] ok
+CMP OAI.InvariantIsing.magneticVariationalFunctional [def] ok
+CMP OAI.InvariantIsing.magneticEntropyFunctional [def] ok
+CMP OAI.InvariantIsing.magneticEntropyFunctional._proof_1 [thm] ok
+CMP OAI.InvariantIsing.magneticGroupValue [def] ok
+CMP OAI.InvariantIsing.constrainedFieldValue [def] ok
+CMP OAI.InvariantIsing.magneticBiasObjective [def] ok
+CMP OAI.InvariantIsing.RationalMagnetization [def] ok
+CMP OAI.InvariantIsing.fieldWassersteinOne [def] ok
+CMP OAI.InvariantIsing.FieldLawCoupling.cost [def] ok
+CMP OAI.InvariantIsing.FieldLawCoupling.law [def] ok
+CMP OAI.InvariantIsing.FieldLawCoupling [ind] ok
+CMP OAI.InvariantIsing.FieldLawCoupling.mk [ctor] ok
+CMP OAI.InvariantIsing.empiricalSpectralLaw [def] ok
+CMP OAI.InvariantIsing.empiricalSpectralLaw._proof_1 [thm] ok
+CMP OAI.InvariantIsing.finiteSpectralMeasure [def] ok
+CMP OAI.InvariantIsing.finiteSpectralMeasure._proof_1 [thm] ok
+CMP OAI.InvariantIsing.ConditionalFieldOrbitLaw [def] ok
+CMP OAI.InvariantIsing.dataPhysicalPressure [def] ok
+CMP OAI.InvariantIsing.matrixRotation [def] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_6 [thm] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_5 [thm] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_4 [thm] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_3 [thm] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_2 [thm] ok
+CMP OAI.InvariantIsing.matrixRotation._proof_1 [thm] ok
+CMP OAI.InvariantIsing.Orthogonal [def] ok
+CMP OAI.InvariantIsing.Rotation [def] ok
+CMP OAI.InvariantIsing.rotatedPressure [def] ok
+CMP OAI.InvariantIsing.fieldEnergy [def] ok
+CMP OAI.InvariantIsing.rotatedEnergy [def] ok
+CMP OAI.InvariantIsing.spinVector [def] ok
+CMP OAI.InvariantIsing.spinVector._proof_1 [thm] ok
+CMP OAI.InvariantIsing.FieldSpectralData [def] ok
+CMP OAI.InvariantIsing.random_pressure_tendsto_ae_unconditional [thm] ok
+CMP OAI.InvariantIsing.random_pressure_limit_unconditional [thm] ok
+CMP OAI.InvariantIsing.spectralExcess [def] ok
+CMP OAI.InvariantIsing.spectralExcess._proof_1 [thm] ok
+CMP OAI.InvariantIsing.random_pressure_tendsto_in_measure_unconditional [thm] ok
+CMP OAI.InvariantIsing.ground_state_limit_unconditional [thm] ok
+CMP OAI.InvariantIsing.thermalVariationalValue [def] ok
+CMP OAI.InvariantIsing.scaledSpectralLaw [def] ok
+CMP OAI.InvariantIsing.groundStateEnergy [def] ok
+CMP OAI.InvariantIsing.groundStateEnergy._proof_1 [thm] ok
+CMP OAI.InvariantIsing.positive_temperature_pressure_unconditional [thm] ok
+CMP OAI.InvariantIsing.limiting_wasserstein_field_pressure_of_extreme_limits_unconditional [thm] ok
+CMP OAI.InvariantIsing.spectralMaximum [def] ok
+CMP OAI.InvariantIsing.spectralMinimum._proof_1 [thm] ok
+CMP OAI.InvariantIsing.spectralMinimum [def] ok
+CMP OAI.InvariantIsing.limiting_pressure_of_extreme_limits_unconditional [thm] ok
+@Chal.InvariantIsing.limiting_pressure_of_extreme_limits_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(Chal.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        IsCompact (↑ν).support →
+          (↑ν).support ⊆ Set.Icc a b →
+            a ∈ (↑ν).support →
+              b ∈ (↑ν).support →
+                Filter.Tendsto (fun k => Chal.InvariantIsing.spectralMinimum (eig (k + 1))) Filter.atTop (nhds a) →
+                  Filter.Tendsto (fun k => Chal.InvariantIsing.spectralMaximum (eig (k + 1))) Filter.atTop (nhds b) →
+                    Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      Filter.Tendsto
+                          (fun N =>
+                            ∫ (ω : Ω),
+                              Chal.InvariantIsing.rotatedPressure (eig N) (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹)
+                                fun x => 0 ∂P)
+                          Filter.atTop
+                          (nhds
+                            (Chal.InvariantIsing.variationalFunctional (Chal.InvariantIsing.measureR (↑ν) b)).toReal) ∧
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              Chal.InvariantIsing.rotatedPressure (eig N) (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹)
+                                fun x => 0)
+                            Filter.atTop
+                            (nhds
+                              (Chal.InvariantIsing.variationalFunctional (Chal.InvariantIsing.measureR (↑ν) b)).toReal)
+@Chal.InvariantIsing.limiting_wasserstein_field_pressure_of_extreme_limits_unconditional : ∀ {Ω : Type u_1}
+  [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(Chal.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        IsCompact (↑ν).support →
+          (↑ν).support ⊆ Set.Icc a b →
+            a ∈ (↑ν).support →
+              b ∈ (↑ν).support →
+                Filter.Tendsto (fun k => Chal.InvariantIsing.spectralMinimum (eig (k + 1))) Filter.atTop (nhds a) →
+                  Filter.Tendsto (fun k => Chal.InvariantIsing.spectralMaximum (eig (k + 1))) Filter.atTop (nhds b) →
+                    Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      ∀ (field : (N : ℕ) → Fin N → ℝ) (ξ : MeasureTheory.ProbabilityMeasure ℝ),
+                        MeasureTheory.Integrable (fun x => x) ↑ξ →
+                          Filter.Tendsto
+                              (fun k =>
+                                Chal.InvariantIsing.fieldWassersteinOne
+                                  (Chal.InvariantIsing.empiricalSpectralLaw ⋯ (field (k + 1))) ξ)
+                              Filter.atTop (nhds 0) →
+                            Filter.Tendsto
+                                (fun N =>
+                                  ∫ (ω : Ω),
+                                    Chal.InvariantIsing.rotatedPressure (eig N)
+                                      (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹) (field N) ∂P)
+                                Filter.atTop (nhds (Chal.InvariantIsing.magneticFieldFunctional (↑ν) b ξ)) ∧
+                              ∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto
+                                  (fun N =>
+                                    Chal.InvariantIsing.rotatedPressure (eig N)
+                                      (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹) (field N))
+                                  Filter.atTop (nhds (Chal.InvariantIsing.magneticFieldFunctional (↑ν) b ξ))
+@Chal.InvariantIsing.positive_temperature_pressure_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(Chal.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        (↑ν).support ⊆ Set.Icc a b →
+          a ∈ (↑ν).support →
+            b ∈ (↑ν).support →
+              (∀ (ε : ℝ), 0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N i ∧ eig N i ≤ b + ε) →
+                ∀ (β : ℝ),
+                  0 < β →
+                    Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                        (nhds ν) →
+                      Filter.Tendsto
+                          (fun N =>
+                            ∫ (ω : Ω),
+                              Chal.InvariantIsing.rotatedPressure (fun i => β * eig N i)
+                                (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹) fun x => 0 ∂P)
+                          Filter.atTop
+                          (nhds
+                            (Chal.InvariantIsing.variationalFunctional
+                                (Chal.InvariantIsing.measureR (↑(Chal.InvariantIsing.scaledSpectralLaw ν β))
+                                  (β * b))).toReal) ∧
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              Chal.InvariantIsing.rotatedPressure (fun i => β * eig N i)
+                                (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹) fun x => 0)
+                            Filter.atTop
+                            (nhds
+                              (Chal.InvariantIsing.variationalFunctional
+                                  (Chal.InvariantIsing.measureR (↑(Chal.InvariantIsing.scaledSpectralLaw ν β))
+                                    (β * b))).toReal)
+@Chal.InvariantIsing.ground_state_limit_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (U : (N : ℕ) → Ω → ↥(Chal.InvariantIsing.Orthogonal N)),
+  (∀ (N : ℕ), Measurable (U N)) →
+    (∀ (N : ℕ), (MeasureTheory.Measure.map (U N) P).IsMulRightInvariant) →
+      ∀ (eig : (N : ℕ) → Fin N → ℝ) (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+        (↑ν).support ⊆ Set.Icc a b →
+          a ∈ (↑ν).support →
+            b ∈ (↑ν).support →
+              (∀ (ε : ℝ), 0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N i ∧ eig N i ≤ b + ε) →
+                Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1))) Filter.atTop
+                    (nhds ν) →
+                  ∃ M,
+                    Filter.Tendsto
+                        (fun N =>
+                          ∫ (ω : Ω),
+                            Chal.InvariantIsing.groundStateEnergy (eig N)
+                              (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹) ∂P)
+                        Filter.atTop (nhds M) ∧
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto
+                            (fun N =>
+                              Chal.InvariantIsing.groundStateEnergy (eig N)
+                                (Chal.InvariantIsing.matrixRotation (U N ω)⁻¹))
+                            Filter.atTop (nhds M)) ∧
+                        Filter.Tendsto (Chal.InvariantIsing.thermalVariationalValue ν b) Filter.atTop (nhds M)
+@Chal.InvariantIsing.random_pressure_tendsto_in_measure_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(Chal.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), Chal.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (MeasureTheory.TendstoInMeasure P
+                        (fun k ω =>
+                          MeasureTheory.LevyProkhorov.ofMeasure
+                            (Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω)))
+                        Filter.atTop fun x => MeasureTheory.LevyProkhorov.ofMeasure ν) →
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω => Chal.InvariantIsing.spectralExcess (eig (k + 1) ω) a b) Filter.atTop fun x => 0) →
+                        MeasureTheory.TendstoInMeasure P (fun k => Y (k + 1)) Filter.atTop fun x =>
+                          (Chal.InvariantIsing.variationalFunctional (Chal.InvariantIsing.measureR (↑ν) b)).toReal
+@Chal.InvariantIsing.random_pressure_limit_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(Chal.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), Chal.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (MeasureTheory.TendstoInMeasure P
+                        (fun k ω =>
+                          MeasureTheory.LevyProkhorov.ofMeasure
+                            (Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω)))
+                        Filter.atTop fun x => MeasureTheory.LevyProkhorov.ofMeasure ν) →
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω => Chal.InvariantIsing.spectralExcess (eig (k + 1) ω) a b) Filter.atTop fun x => 0) →
+                        MeasureTheory.UniformIntegrable (fun k => Y (k + 1)) 1 P →
+                          (MeasureTheory.TendstoInMeasure P (fun k => Y (k + 1)) Filter.atTop fun x =>
+                              (Chal.InvariantIsing.variationalFunctional
+                                  (Chal.InvariantIsing.measureR (↑ν) b)).toReal) ∧
+                            Filter.Tendsto
+                                (fun k =>
+                                  MeasureTheory.eLpNorm
+                                    (fun ω =>
+                                      Y (k + 1) ω -
+                                        (Chal.InvariantIsing.variationalFunctional
+                                            (Chal.InvariantIsing.measureR (↑ν) b)).toReal)
+                                    1 P)
+                                Filter.atTop (nhds 0) ∧
+                              Filter.Tendsto (fun k => ∫ (ω : Ω), Y (k + 1) ω ∂P) Filter.atTop
+                                (nhds
+                                  (Chal.InvariantIsing.variationalFunctional
+                                      (Chal.InvariantIsing.measureR (↑ν) b)).toReal)
+@Chal.InvariantIsing.random_pressure_tendsto_ae_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P] (eig : (N : ℕ) → Ω → Fin N → ℝ) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (eig N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(Chal.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), Chal.InvariantIsing.ConditionalFieldOrbitLaw P (fun ω => (eig N ω, fun x => 0)) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (∀ᵐ (ω : Ω) ∂P,
+                        ∀ (ε : ℝ),
+                          0 < ε → ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ eig N ω i ∧ eig N ω i ≤ b + ε) →
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (eig (k + 1) ω))
+                            Filter.atTop (nhds ν)) →
+                        ∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun N => Y N ω) Filter.atTop
+                            (nhds
+                              (Chal.InvariantIsing.variationalFunctional (Chal.InvariantIsing.measureR (↑ν) b)).toReal)
+@Chal.InvariantIsing.random_field_pressure_tendsto_ae_unconditional : ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω]
+  (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+  (d : (N : ℕ) → Ω → Chal.InvariantIsing.FieldSpectralData N) (Y : ℕ → Ω → ℝ),
+  (∀ (N : ℕ), Measurable (d N)) →
+    (∀ (N : ℕ), Measurable (Y N)) →
+      ∀ (H : (N : ℕ) → MeasureTheory.Measure ↥(Chal.InvariantIsing.Orthogonal N))
+        [∀ (N : ℕ), MeasureTheory.IsProbabilityMeasure (H N)] [∀ (N : ℕ), (H N).IsMulRightInvariant],
+        (∀ (N : ℕ), Chal.InvariantIsing.ConditionalFieldOrbitLaw P (d N) (Y N) (H N)) →
+          ∀ (ν : MeasureTheory.ProbabilityMeasure ℝ) (a b : ℝ),
+            IsCompact (↑ν).support →
+              (↑ν).support ⊆ Set.Icc a b →
+                a ∈ (↑ν).support →
+                  b ∈ (↑ν).support →
+                    (∀ᵐ (ω : Ω) ∂P,
+                        ∀ (ε : ℝ),
+                          0 < ε →
+                            ∀ᶠ (N : ℕ) in Filter.atTop, ∀ (i : Fin N), a - ε ≤ (d N ω).1 i ∧ (d N ω).1 i ≤ b + ε) →
+                      (∀ᵐ (ω : Ω) ∂P,
+                          Filter.Tendsto (fun k => Chal.InvariantIsing.empiricalSpectralLaw ⋯ (d (k + 1) ω).1)
+                            Filter.atTop (nhds ν)) →
+                        ∀ (ξ : MeasureTheory.ProbabilityMeasure ℝ),
+                          MeasureTheory.Integrable (fun x => x) ↑ξ →
+                            (∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto
+                                  (fun k =>
+                                    Chal.InvariantIsing.fieldWassersteinOne
+                                      (Chal.InvariantIsing.empiricalSpectralLaw ⋯ (d (k + 1) ω).2) ξ)
+                                  Filter.atTop (nhds 0)) →
+                              ∀ᵐ (ω : Ω) ∂P,
+                                Filter.Tendsto (fun N => Y N ω) Filter.atTop
+                                  (nhds (Chal.InvariantIsing.magneticFieldFunctional (↑ν) b ξ))
+Chal.InvariantIsing.gaussianPattern_pressure_limit_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∀ (c : ℝ),
+            (MeasureTheory.TendstoInMeasure P (fun k ω => Chal.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω))
+                Filter.atTop fun x => Chal.InvariantIsing.gaussianPatternLimit α c) ∧
+              Filter.Tendsto
+                  (fun k =>
+                    MeasureTheory.eLpNorm
+                      (fun ω =>
+                        Chal.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω) -
+                          Chal.InvariantIsing.gaussianPatternLimit α c)
+                      1 P)
+                  Filter.atTop (nhds 0) ∧
+                Filter.Tendsto (fun k => ∫ (ω : Ω), Chal.InvariantIsing.gaussianPatternPressure c (Z (k + 1) ω) ∂P)
+                  Filter.atTop (nhds (Chal.InvariantIsing.gaussianPatternLimit α c))
+Chal.InvariantIsing.gaussianPattern_ground_limit_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∀ (ε : ℝ),
+            ∃ e,
+              (MeasureTheory.TendstoInMeasure P
+                  (fun k ω => Chal.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω)) Filter.atTop fun x =>
+                  e) ∧
+                Filter.Tendsto
+                    (fun k =>
+                      MeasureTheory.eLpNorm
+                        (fun ω => Chal.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω) - e) 1 P)
+                    Filter.atTop (nhds 0) ∧
+                  Filter.Tendsto
+                      (fun k => ∫ (ω : Ω), Chal.InvariantIsing.gaussianPatternGroundEnergy ε (Z (k + 1) ω) ∂P)
+                      Filter.atTop (nhds e) ∧
+                    Filter.Tendsto (fun β => Chal.InvariantIsing.gaussianPatternLimit α (ε * β) / β) Filter.atTop
+                      (nhds e)
+Chal.InvariantIsing.gaussianPattern_norm_limits_unconditional : ∀ (α : ℝ),
+  0 < α →
+    ∀ {Ω : Type u_1} [inst : MeasurableSpace Ω] (P : MeasureTheory.Measure Ω) [MeasureTheory.IsProbabilityMeasure P]
+      (Z : (N : ℕ) → Ω → EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))),
+      (∀ (N : ℕ), Measurable (Z N)) →
+        (∀ (N : ℕ),
+            ProbabilityTheory.HasLaw (Z N)
+              (ProbabilityTheory.stdGaussian
+                (EuclideanSpace ℝ (Fin N × Fin (Chal.InvariantIsing.gaussianPatternCount α N))))
+              P) →
+          ∃ eplus eminus,
+            0 ≤ eplus ∧
+              eminus ≤ 0 ∧
+                Filter.Tendsto (fun β => Chal.InvariantIsing.gaussianPatternLimit α β / β) Filter.atTop (nhds eplus) ∧
+                  Filter.Tendsto (fun β => Chal.InvariantIsing.gaussianPatternLimit α (-β) / β) Filter.atTop
+                      (nhds eminus) ∧
+                    ((MeasureTheory.TendstoInMeasure P
+                          (fun k ω => ‖Chal.InvariantIsing.gaussianPatternOperator (Z (k + 1) ω)‖ / (↑k + 1))
+                          Filter.atTop fun x => √(2 * eplus)) ∧
+                        Filter.Tendsto
+                          (fun k =>
+                            MeasureTheory.eLpNorm
+                              (fun ω =>
+                                ‖Chal.InvariantIsing.gaussianPatternOperator (Z (k + 1) ω)‖ / (↑k + 1) - √(2 * eplus))
+                              1 P)
+                          Filter.atTop (nhds 0)) ∧
+                      (MeasureTheory.TendstoInMeasure P
+                          (fun k ω =>
+                            (Finset.univ.inf' ⋯ fun σ => ‖Chal.InvariantIsing.gaussianPatternSum (Z (k + 1) ω) σ‖) /
+                              (↑k + 1))
+                          Filter.atTop fun x => √(-2 * eminus)) ∧
+                        Filter.Tendsto
+                          (fun k =>
+                            MeasureTheory.eLpNorm
+                              (fun ω =>
+                                (Finset.univ.inf' ⋯ fun σ => ‖Chal.InvariantIsing.gaussianPatternSum (Z (k + 1) ω) σ‖) /
+                                    (↑k + 1) -
+                                  √(-2 * eminus))
+                              1 P)
+                          Filter.atTop (nhds 0)
+@[reducible] def Chal.InvariantIsing.Spin : ℕ → Type :=
+fun N => Fin N → Bool
+def Chal.InvariantIsing.spinValue : Bool → ℝ :=
+fun b => if b = true then 1 else -1
+def Chal.InvariantIsing.logPartition.{u_1} : {X : Type u_1} → [Fintype X] → (X → ℝ) → ℝ :=
+fun {X} [Fintype X] H => Real.log ((↑(Fintype.card X))⁻¹ * ∑ x, Real.exp (H x))
+def Chal.InvariantIsing.fieldEnergy : {N : ℕ} → (Fin N → ℝ) → Chal.InvariantIsing.Spin N → ℝ :=
+fun {N} c σ => ∑ i, c i * Chal.InvariantIsing.spinValue (σ i)
+@[reducible] def Chal.InvariantIsing.Rotation : ℕ → Type :=
+fun N => EuclideanSpace ℝ (Fin N) ≃ₗᵢ[ℝ] EuclideanSpace ℝ (Fin N)
+@[reducible] def Chal.InvariantIsing.Orthogonal : (N : ℕ) → Submonoid (Matrix (Fin N) (Fin N) ℝ) :=
+fun N => Matrix.orthogonalGroup (Fin N) ℝ
+def Chal.InvariantIsing.spinVector : {N : ℕ} → Chal.InvariantIsing.Spin N → EuclideanSpace ℝ (Fin N) :=
+fun {N} σ => WithLp.toLp 2 fun i => Chal.InvariantIsing.spinValue (σ i)
+def Chal.InvariantIsing.rotatedEnergy : {N : ℕ} →
+  (Fin N → ℝ) → Chal.InvariantIsing.Rotation N → Chal.InvariantIsing.Spin N → ℝ :=
+fun {N} eig U σ => 1 / 2 * ∑ i, eig i * (U (Chal.InvariantIsing.spinVector σ)).ofLp i ^ 2
+def Chal.InvariantIsing.rotatedPressure : {N : ℕ} → (Fin N → ℝ) → Chal.InvariantIsing.Rotation N → (Fin N → ℝ) → ℝ :=
+fun {N} eig U c =>
+  (↑N)⁻¹ *
+    Chal.InvariantIsing.logPartition fun σ =>
+      Chal.InvariantIsing.rotatedEnergy eig U σ + Chal.InvariantIsing.fieldEnergy c σ
+def Chal.InvariantIsing.matrixRotation : {N : ℕ} →
+  ↥(Chal.InvariantIsing.Orthogonal N) → Chal.InvariantIsing.Rotation N :=
+fun {N} U =>
+  let __src :=
+    ((WithLp.linearEquiv 2 ℝ (Fin N → ℝ)).trans (Matrix.UnitaryGroup.toLinearEquiv U)).trans
+      (WithLp.linearEquiv 2 ℝ (Fin N → ℝ)).symm;
+  { toLinearEquiv := __src, norm_map' := ⋯ }
+structure Chal.InvariantIsing.OverlapPath : Type
+number of parameters: 0
+fields:
+  Chal.InvariantIsing.OverlapPath.val : ℝ → ℝ
+  Chal.InvariantIsing.OverlapPath.monotone : Monotone self.val
+  Chal.InvariantIsing.OverlapPath.nonneg : ∀ (s : ℝ), 0 ≤ self.val s
+  Chal.InvariantIsing.OverlapPath.le_one : ∀ (s : ℝ), self.val s ≤ 1
+constructor:
+  Chal.InvariantIsing.OverlapPath.mk (val : ℝ → ℝ) (monotone : Monotone val) (nonneg : ∀ (s : ℝ), 0 ≤ val s)
+    (le_one : ∀ (s : ℝ), val s ≤ 1) : Chal.InvariantIsing.OverlapPath
+def Chal.InvariantIsing.pathMeasure : MeasureTheory.Measure ℝ :=
+MeasureTheory.volume.restrict (Set.Ioo 0 1)
+def Chal.InvariantIsing.deficit : Chal.InvariantIsing.OverlapPath → ℝ → ℝ :=
+fun p r => 1 - r - ∫ (s : ℝ), max (p.val s - r) 0 ∂Chal.InvariantIsing.pathMeasure
+def Chal.InvariantIsing.gaussianOperator : ℝ → ℝ → (ℝ → ℝ) → ℝ → ℝ :=
+fun a v f z =>
+  if a = 0 then ∫ (g : ℝ), f (z + √v * g) ∂ProbabilityTheory.gaussianReal 0 1
+  else a⁻¹ * Real.log (∫ (g : ℝ), Real.exp (a * f (z + √v * g)) ∂ProbabilityTheory.gaussianReal 0 1)
+structure Chal.InvariantIsing.FieldStep : Type
+number of parameters: 0
+fields:
+  Chal.InvariantIsing.FieldStep.depth : ℕ
+  Chal.InvariantIsing.FieldStep.cut : Fin (self.depth + 2) → ℝ
+  Chal.InvariantIsing.FieldStep.ordered_cut : StrictMono self.cut
+  Chal.InvariantIsing.FieldStep.first : self.cut 0 = 0
+  Chal.InvariantIsing.FieldStep.last : self.cut (Fin.last (self.depth + 1)) = 1
+  Chal.InvariantIsing.FieldStep.height : Fin (self.depth + 1) → ℝ
+  Chal.InvariantIsing.FieldStep.nonneg : ∀ (i : Fin (self.depth + 1)), 0 ≤ self.height i
+  Chal.InvariantIsing.FieldStep.ordered_height : Monotone self.height
+constructor:
+  Chal.InvariantIsing.FieldStep.mk (depth : ℕ) (cut : Fin (depth + 2) → ℝ) (ordered_cut : StrictMono cut)
+    (first : cut 0 = 0) (last : cut (Fin.last (depth + 1)) = 1) (height : Fin (depth + 1) → ℝ)
+    (nonneg : ∀ (i : Fin (depth + 1)), 0 ≤ height i) (ordered_height : Monotone height) : Chal.InvariantIsing.FieldStep
+def Chal.InvariantIsing.fieldFunction : Chal.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h s => ∑ i, if h.cut i.castSucc < s ∧ s < h.cut i.succ then h.height i else 0
+def Chal.InvariantIsing.fieldIncrement : (h : Chal.InvariantIsing.FieldStep) → Fin (h.depth + 1) → ℝ × ℝ :=
+fun h i => (h.cut i.castSucc, h.height i - if hi : ↑i = 0 then 0 else h.height ⟨↑i - 1, ⋯⟩)
+def Chal.InvariantIsing.fieldValue : Chal.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h b =>
+  List.foldr (fun av f => Chal.InvariantIsing.gaussianOperator av.1 av.2 f) (fun z => Real.log (Real.cosh z))
+      (List.ofFn (Chal.InvariantIsing.fieldIncrement h)) b -
+    h.height (Fin.last h.depth) / 2
+def Chal.InvariantIsing.fieldPairing : Chal.InvariantIsing.OverlapPath → Chal.InvariantIsing.FieldStep → ℝ :=
+fun p h => ∫ (s : ℝ), p.val s * Chal.InvariantIsing.fieldFunction h s ∂Chal.InvariantIsing.pathMeasure
+def Chal.InvariantIsing.entropyFunctional : Chal.InvariantIsing.OverlapPath → EReal :=
+fun p => ⨆ h, ↑(Chal.InvariantIsing.fieldValue h 0 + Chal.InvariantIsing.fieldPairing p h / 2)
+def Chal.InvariantIsing.spectralFunctional : (ℝ → ℝ) → Chal.InvariantIsing.OverlapPath → ℝ :=
+fun R p => 1 / 2 * ∫ (r : ℝ), R (Chal.InvariantIsing.deficit p r) ∂Chal.InvariantIsing.pathMeasure
+def Chal.InvariantIsing.variationalFunctional : (ℝ → ℝ) → EReal :=
+fun R => ⨅ p, Chal.InvariantIsing.entropyFunctional p + ↑(Chal.InvariantIsing.spectralFunctional R p)
+def Chal.InvariantIsing.measureResolvent : MeasureTheory.Measure ℝ → ℝ → ℝ :=
+fun μ b => ∫ (y : ℝ), 1 / (b - y) ∂μ
+def Chal.InvariantIsing.measureInverse : MeasureTheory.Measure ℝ → ℝ → ℝ → ℝ :=
+fun μ e x => if h : ∃ b, e < b ∧ Chal.InvariantIsing.measureResolvent μ b = x then h.choose else e
+def Chal.InvariantIsing.measureR : MeasureTheory.Measure ℝ → ℝ → ℝ → ℝ :=
+fun μ e x => if 0 < x then Chal.InvariantIsing.measureInverse μ e x - 1 / x else ∫ (y : ℝ), y ∂μ
+def Chal.InvariantIsing.finiteSpectralMeasure.{u_1} : {ι : Type u_1} → (ι → ℝ) → (ι → ℝ) → MeasureTheory.Measure ℝ :=
+fun {ι} ρ eig => MeasureTheory.Measure.sum fun a => ENNReal.ofReal (ρ a) • MeasureTheory.Measure.dirac (eig a)
+def Chal.InvariantIsing.empiricalSpectralLaw : {N : ℕ} → 0 < N → (Fin N → ℝ) → MeasureTheory.ProbabilityMeasure ℝ :=
+fun {N} hN eig => ⟨Chal.InvariantIsing.finiteSpectralMeasure (fun x => 1 / ↑N) eig, ⋯⟩
+def Chal.InvariantIsing.spectralMinimum : {n : ℕ} → (Fin (n + 1) → ℝ) → ℝ :=
+fun {n} eig => (Finset.image eig Finset.univ).min' ⋯
+def Chal.InvariantIsing.spectralMaximum : {n : ℕ} → (Fin (n + 1) → ℝ) → ℝ :=
+fun {n} eig => (Finset.image eig Finset.univ).max' ⋯
+def Chal.InvariantIsing.magneticBiasObjective : Chal.InvariantIsing.FieldStep → ℝ → ℝ → ℝ :=
+fun h s b => Chal.InvariantIsing.fieldValue h b - b * s
+def Chal.InvariantIsing.constrainedFieldValue : Chal.InvariantIsing.FieldStep → ℝ → ℝ :=
+fun h s => sInf (Set.range (Chal.InvariantIsing.magneticBiasObjective h s))
+def Chal.InvariantIsing.magneticGroupValue.{u_1} : {A : Type u_1} →
+  [Fintype A] → (A → ℝ) → (A → ℝ) → Chal.InvariantIsing.FieldStep → ℝ :=
+fun {A} [Fintype A] γ m h => ∑ a, γ a * Chal.InvariantIsing.constrainedFieldValue h (m a)
+def Chal.InvariantIsing.magneticEntropyFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (A → ℝ) → (A → ℝ) → Chal.InvariantIsing.OverlapPath → EReal :=
+fun {A} [Fintype A] γ m p =>
+  ⨆ h, ↑(Chal.InvariantIsing.magneticGroupValue γ m h + Chal.InvariantIsing.fieldPairing p h / 2)
+def Chal.InvariantIsing.magneticVariationalFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (ℝ → ℝ) → (A → ℝ) → (A → ℝ) → EReal :=
+fun {A} [Fintype A] R γ m =>
+  ⨅ p, Chal.InvariantIsing.magneticEntropyFunctional γ m p + ↑(Chal.InvariantIsing.spectralFunctional R p)
+def Chal.InvariantIsing.RationalMagnetization.{u_1} : Type u_1 → Type (max 0 u_1) :=
+fun A => { m // ∀ (a : A), |↑(m a)| < 1 }
+def Chal.InvariantIsing.finiteMagneticFunctional.{u_1} : {A : Type u_1} →
+  [Fintype A] → (ℝ → ℝ) → (A → ℝ) → (A → ℝ) → EReal :=
+fun {A} [Fintype A] R γ c =>
+  ⨆ m, ↑(∑ a, γ a * c a * ↑(↑m a)) + Chal.InvariantIsing.magneticVariationalFunctional R γ fun a => ↑(↑m a)
+def Chal.InvariantIsing.finiteIndexWeight.{u_1, u_2} : {Ω : Type u_1} →
+  {A : Type u_2} → [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (Ω → A) → A → ℝ :=
+fun {Ω} {A} [MeasurableSpace Ω] P g a => P.real (g ⁻¹' {a})
+def Chal.InvariantIsing.simpleFieldIndex.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → (s : MeasureTheory.SimpleFunc Ω ℝ) → Ω → ↥s.range :=
+fun {Ω} [MeasurableSpace Ω] s x => ⟨s x, ⋯⟩
+def Chal.InvariantIsing.simpleFieldWeight.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → (s : MeasureTheory.SimpleFunc Ω ℝ) → ↥s.range → ℝ :=
+fun {Ω} [MeasurableSpace Ω] P s => Chal.InvariantIsing.finiteIndexWeight P (Chal.InvariantIsing.simpleFieldIndex s)
+@[reducible] def Chal.InvariantIsing.SimpleFieldPositive.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] → MeasureTheory.Measure Ω → MeasureTheory.SimpleFunc Ω ℝ → Type :=
+fun {Ω} [MeasurableSpace Ω] P s => { i // 0 < Chal.InvariantIsing.simpleFieldWeight P s i }
+def Chal.InvariantIsing.simpleFieldValue.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    (P : MeasureTheory.Measure Ω) →
+      [MeasureTheory.IsProbabilityMeasure P] → MeasureTheory.SimpleFunc Ω ℝ → (ℝ → ℝ) → ℝ :=
+fun {Ω} [MeasurableSpace Ω] P [MeasureTheory.IsProbabilityMeasure P] s R =>
+  (Chal.InvariantIsing.finiteMagneticFunctional R (fun i => Chal.InvariantIsing.simpleFieldWeight P s ↑i) fun i =>
+      ↑↑i).toReal
+def Chal.InvariantIsing.fieldSimpleApproximation : ℕ → MeasureTheory.SimpleFunc ℝ ℝ :=
+fun n =>
+  MeasureTheory.SimpleFunc.approxOn id ⋯ (Set.range id ∪ {0}) 0 Chal.InvariantIsing.fieldSimpleApproximation._proof_2 n
+def Chal.InvariantIsing.magneticFieldFunctional : MeasureTheory.Measure ℝ →
+  ℝ → MeasureTheory.ProbabilityMeasure ℝ → ℝ :=
+fun spectral edge field =>
+  Filter.atTop.limUnder fun n =>
+    Chal.InvariantIsing.simpleFieldValue (↑field) (Chal.InvariantIsing.fieldSimpleApproximation n)
+      (Chal.InvariantIsing.measureR spectral edge)
+structure Chal.InvariantIsing.FieldLawCoupling (μ ν : MeasureTheory.ProbabilityMeasure ℝ) : Type
+number of parameters: 2
+fields:
+  Chal.InvariantIsing.FieldLawCoupling.law : MeasureTheory.ProbabilityMeasure (ℝ × ℝ)
+  Chal.InvariantIsing.FieldLawCoupling.fst : MeasureTheory.Measure.map Prod.fst ↑self.law = ↑μ
+  Chal.InvariantIsing.FieldLawCoupling.snd : MeasureTheory.Measure.map Prod.snd ↑self.law = ↑ν
+constructor:
+  Chal.InvariantIsing.FieldLawCoupling.mk {μ ν : MeasureTheory.ProbabilityMeasure ℝ}
+    (law : MeasureTheory.ProbabilityMeasure (ℝ × ℝ)) (fst : MeasureTheory.Measure.map Prod.fst ↑law = ↑μ)
+    (snd : MeasureTheory.Measure.map Prod.snd ↑law = ↑ν) : Chal.InvariantIsing.FieldLawCoupling μ ν
+def Chal.InvariantIsing.FieldLawCoupling.cost : {μ ν : MeasureTheory.ProbabilityMeasure ℝ} →
+  Chal.InvariantIsing.FieldLawCoupling μ ν → ENNReal :=
+fun {μ ν} p => ∫⁻ (xy : ℝ × ℝ), ENNReal.ofReal |xy.1 - xy.2| ∂↑p.law
+def Chal.InvariantIsing.fieldWassersteinOne : MeasureTheory.ProbabilityMeasure ℝ →
+  MeasureTheory.ProbabilityMeasure ℝ → ENNReal :=
+fun μ ν => ⨅ p, p.cost
+def Chal.InvariantIsing.scaledSpectralLaw : MeasureTheory.ProbabilityMeasure ℝ →
+  ℝ → MeasureTheory.ProbabilityMeasure ℝ :=
+fun ν β => ν.map fun x => β * x
+def Chal.InvariantIsing.groundStateEnergy : {N : ℕ} → (Fin N → ℝ) → Chal.InvariantIsing.Rotation N → ℝ :=
+fun {N} eig U => (↑N)⁻¹ * Finset.univ.sup' ⋯ (Chal.InvariantIsing.rotatedEnergy eig U)
+def Chal.InvariantIsing.thermalVariationalValue : MeasureTheory.ProbabilityMeasure ℝ → ℝ → ℝ → ℝ :=
+fun ν b β =>
+  (Chal.InvariantIsing.variationalFunctional
+        (Chal.InvariantIsing.measureR (↑(Chal.InvariantIsing.scaledSpectralLaw ν β)) (β * b))).toReal /
+    β
+@[reducible] def Chal.InvariantIsing.FieldSpectralData : ℕ → Type :=
+fun N => (Fin N → ℝ) × (Fin N → ℝ)
+def Chal.InvariantIsing.dataPhysicalPressure : {N : ℕ} →
+  Chal.InvariantIsing.FieldSpectralData N → ↥(Chal.InvariantIsing.Orthogonal N) → ℝ :=
+fun {N} d U => Chal.InvariantIsing.rotatedPressure d.1 (Chal.InvariantIsing.matrixRotation U⁻¹) d.2
+def Chal.InvariantIsing.ConditionalFieldOrbitLaw.{u_1} : {Ω : Type u_1} →
+  [inst : MeasurableSpace Ω] →
+    {N : ℕ} →
+      MeasureTheory.Measure Ω →
+        (Ω → Chal.InvariantIsing.FieldSpectralData N) →
+          (Ω → ℝ) → MeasureTheory.Measure ↥(Chal.InvariantIsing.Orthogonal N) → Prop :=
+fun {Ω} [MeasurableSpace Ω] {N} P d pressure H =>
+  MeasureTheory.Measure.map (fun ω => (d ω, pressure ω)) P =
+    MeasureTheory.Measure.map (fun z => (z.1, Chal.InvariantIsing.dataPhysicalPressure z.1 z.2))
+      ((MeasureTheory.Measure.map d P).prod H)
+def Chal.InvariantIsing.spectralExcess : {N : ℕ} → (Fin N → ℝ) → ℝ → ℝ → ℝ :=
+fun {N} eig a b => (insert 0 (Finset.image (fun i => max (a - eig i) (eig i - b)) Finset.univ)).max' ⋯
+@[irreducible] def Chal.InvariantIsing.gaussianPatternCount : ℝ → ℕ → ℕ :=
+fun α N => ⌊α * ↑N⌋₊
+def Chal.InvariantIsing.marchenkoPasturA : ℝ → ℝ :=
+fun α => (1 - √α) ^ 2
+def Chal.InvariantIsing.marchenkoPasturB : ℝ → ℝ :=
+fun α => (1 + √α) ^ 2
+def Chal.InvariantIsing.marchenkoPasturLower : ℝ → ℝ :=
+fun α => if α ≤ 1 then 0 else Chal.InvariantIsing.marchenkoPasturA α
+def Chal.InvariantIsing.marchenkoPasturMeasure : ℝ → MeasureTheory.Measure ℝ :=
+fun α =>
+  ENNReal.ofReal (max (1 - α) 0) • MeasureTheory.Measure.dirac 0 +
+    MeasureTheory.volume.withDensity
+      ((Set.Icc (Chal.InvariantIsing.marchenkoPasturA α) (Chal.InvariantIsing.marchenkoPasturB α)).indicator fun x =>
+        ENNReal.ofReal
+          (√((Chal.InvariantIsing.marchenkoPasturB α - x) * (x - Chal.InvariantIsing.marchenkoPasturA α)) /
+            (2 * Real.pi * x)))
+def Chal.InvariantIsing.gaussianPatternLimit : ℝ → ℝ → ℝ :=
+fun α c =>
+  (Chal.InvariantIsing.variationalFunctional
+      (Chal.InvariantIsing.measureR
+        (MeasureTheory.Measure.map (fun x => c * x) (Chal.InvariantIsing.marchenkoPasturMeasure α))
+        (max (c * Chal.InvariantIsing.marchenkoPasturLower α) (c * Chal.InvariantIsing.marchenkoPasturB α)))).toReal
+def Chal.InvariantIsing.gaussianPatternArray : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → Matrix (Fin N) (Fin m) ℝ :=
+fun {N m} z i j => z.ofLp (i, j)
+def Chal.InvariantIsing.gaussianPatternSum : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → Chal.InvariantIsing.Spin N → EuclideanSpace ℝ (Fin m) :=
+fun {N m} z σ =>
+  WithLp.toLp 2
+    ((Chal.InvariantIsing.gaussianPatternArray z).transpose.mulVec fun i => Chal.InvariantIsing.spinValue (σ i))
+def Chal.InvariantIsing.gaussianPatternPressure : {N m : ℕ} → ℝ → EuclideanSpace ℝ (Fin N × Fin m) → ℝ :=
+fun {N m} c z =>
+  (↑N)⁻¹ * Chal.InvariantIsing.logPartition fun σ => c / (2 * ↑N) * ‖Chal.InvariantIsing.gaussianPatternSum z σ‖ ^ 2
+def Chal.InvariantIsing.gaussianPatternGroundEnergy : {N m : ℕ} → ℝ → EuclideanSpace ℝ (Fin N × Fin m) → ℝ :=
+fun {N m} ε z => (↑N)⁻¹ * Finset.univ.sup' ⋯ fun σ => ε / (2 * ↑N) * ‖Chal.InvariantIsing.gaussianPatternSum z σ‖ ^ 2
+def Chal.InvariantIsing.gaussianPatternColumn : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → Fin N → EuclideanSpace ℝ (Fin m) :=
+fun {N m} z i => WithLp.toLp 2 fun j => z.ofLp (i, j)
+def Chal.InvariantIsing.gaussianPatternOperator : {N m : ℕ} →
+  EuclideanSpace ℝ (Fin N × Fin m) → (Fin N → ℝ) →L[ℝ] EuclideanSpace ℝ (Fin m) :=
+fun {N m} z =>
+  ↑(PiLp.continuousLinearEquiv 2 ℝ fun x => ℝ).symm ∘SL
+    LinearMap.toContinuousLinearMap (Chal.InvariantIsing.gaussianPatternArray z).transpose.mulVecLin
+'OAI.InvariantIsing.limiting_pressure_of_extreme_limits_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.limiting_wasserstein_field_pressure_of_extreme_limits_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.positive_temperature_pressure_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.ground_state_limit_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.InvariantIsing.random_pressure_tendsto_in_measure_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.random_pressure_limit_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.InvariantIsing.random_pressure_tendsto_ae_unconditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.InvariantIsing.random_field_pressure_tendsto_ae_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.gaussianPattern_pressure_limit_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.gaussianPattern_ground_limit_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.InvariantIsing.gaussianPattern_norm_limits_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== InvariantIsing comparator-style: ok=116 problems=0 errors=0 | no-shadowing | [propext, [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,0 +1,5 @@
+OAI.Falconer.falconer_distance_conjecture : ∀ (d : ℕ),
+  2 ≤ d →
+    ∀ (E : Set (EuclideanSpace ℝ (Fin d))),
+      IsCompact E → ↑d / 2 < dimH E → 0 < MeasureTheory.volume {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}
+'OAI.Falconer.falconer_distance_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]

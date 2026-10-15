@@ -1,0 +1,277 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_EinsteinFour.lean:190:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_EinsteinFour.lean:202:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_EinsteinFour.lean:208:8: warning: declaration uses `sorry`
+OAI.PositiveEinsteinFour.orientedClassification : ∀ (X : OAI.PositiveEinsteinFour.ClosedOrientedMetricFour),
+  OAI.EinsteinFour.IsEinstein X.metric →
+    OAI.EinsteinFour.HasPositiveSectionalCurvature X.metric →
+      ∃ a,
+        0 < a ∧
+          (OAI.EinsteinFour.ScaledIsometricTo X.metric a OAI.EinsteinFour.roundDistance ∨
+            OAI.EinsteinFour.ScaledIsometricTo X.metric a OAI.EinsteinFour.fubiniStudyDistance)
+OAI.PositiveEinsteinFour.classificationOn : ∀ (M : Type u_1) [inst : TopologicalSpace M]
+  [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+  [inst_3 : T2Space M] [inst_4 : SecondCountableTopology M] [inst_5 : CompactSpace M] [inst_6 : ConnectedSpace M],
+  OAI.PositiveEinsteinFour.ClassificationOn M
+OAI.PositiveEinsteinFour.classification : ∀ (M : Type u_1) [inst : TopologicalSpace M]
+  [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] [T2Space M]
+  [SecondCountableTopology M] [CompactSpace M] [ConnectedSpace M] (g : OAI.EinsteinFour.SmoothMetric M),
+  OAI.EinsteinFour.IsEinstein g →
+    OAI.EinsteinFour.HasPositiveSectionalCurvature g →
+      ∃ a,
+        0 < a ∧
+          (OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.roundDistance ∨
+            OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.fubiniStudyDistance ∨
+              OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.realProjectiveDistance)
+@[reducible] def OAI.EinsteinFour.FourSpace : Type :=
+EuclideanSpace ℝ (Fin 4)
+@[reducible] def OAI.EinsteinFour.I4 : ModelWithCorners ℝ OAI.EinsteinFour.FourSpace OAI.EinsteinFour.FourSpace :=
+modelWithCornersSelf ℝ OAI.EinsteinFour.FourSpace
+def OAI.EinsteinFour.coordinateVector : Fin 4 → OAI.EinsteinFour.FourSpace :=
+fun i => EuclideanSpace.single i 1
+@[reducible] def OAI.EinsteinFour.RoundSphere4 : Type :=
+{ x // ‖x‖ = 1 }
+@[reducible] def OAI.EinsteinFour.ComplexProjective2 : Type :=
+Projectivization ℂ (EuclideanSpace ℂ (Fin 3))
+@[reducible] def OAI.EinsteinFour.RealProjective4 : Type :=
+Projectivization ℝ (EuclideanSpace ℝ (Fin 5))
+def OAI.EinsteinFour.roundDistance : OAI.EinsteinFour.RoundSphere4 → OAI.EinsteinFour.RoundSphere4 → ℝ :=
+fun p q => Real.arccos (inner ℝ ↑p ↑q)
+def OAI.EinsteinFour.fubiniStudyDistance : OAI.EinsteinFour.ComplexProjective2 →
+  OAI.EinsteinFour.ComplexProjective2 → ℝ :=
+fun p q =>
+  Real.arccos
+    (‖inner ℂ (Projectivization.rep p) (Projectivization.rep q)‖ /
+      (‖Projectivization.rep p‖ * ‖Projectivization.rep q‖))
+def OAI.EinsteinFour.realProjectiveDistance : OAI.EinsteinFour.RealProjective4 → OAI.EinsteinFour.RealProjective4 → ℝ :=
+fun p q =>
+  Real.arccos
+    (‖inner ℝ (Projectivization.rep p) (Projectivization.rep q)‖ /
+      (‖Projectivization.rep p‖ * ‖Projectivization.rep q‖))
+@[reducible] def OAI.EinsteinFour.SmoothMetric.{u_1} : (M : Type u_1) →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] → [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] → Type (max u_1 0) :=
+fun M [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] =>
+  Bundle.ContMDiffRiemannianMetric OAI.EinsteinFour.I4 (↑⊤) OAI.EinsteinFour.FourSpace
+    (TangentSpace OAI.EinsteinFour.I4)
+def OAI.EinsteinFour.metricInChart.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M → M → OAI.EinsteinFour.FourSpace → Matrix (Fin 4) (Fin 4) ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c
+    z =>
+  have e := chartAt OAI.EinsteinFour.FourSpace c;
+  have d := mfderiv% ↑e.symm z;
+  fun i j => ((g.inner (↑e.symm z)) (d (OAI.EinsteinFour.coordinateVector i))) (d (OAI.EinsteinFour.coordinateVector j))
+def OAI.EinsteinFour.partialDeriv : (OAI.EinsteinFour.FourSpace → ℝ) → Fin 4 → OAI.EinsteinFour.FourSpace → ℝ :=
+fun f i z => (fderiv ℝ f z) (OAI.EinsteinFour.coordinateVector i)
+def OAI.EinsteinFour.christoffel.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M → M → OAI.EinsteinFour.FourSpace → Fin 4 → Fin 4 → Fin 4 → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c z k
+    i j =>
+  1 / 2 *
+    ∑ l,
+      (OAI.EinsteinFour.metricInChart g c z)⁻¹ k l *
+        (OAI.EinsteinFour.partialDeriv (fun w => OAI.EinsteinFour.metricInChart g c w j l) i z +
+            OAI.EinsteinFour.partialDeriv (fun w => OAI.EinsteinFour.metricInChart g c w i l) j z -
+          OAI.EinsteinFour.partialDeriv (fun w => OAI.EinsteinFour.metricInChart g c w i j) l z)
+def OAI.EinsteinFour.curvatureComponent.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M → M → OAI.EinsteinFour.FourSpace → Fin 4 → Fin 4 → Fin 4 → Fin 4 → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c z l
+    i j k =>
+  OAI.EinsteinFour.partialDeriv (fun w => OAI.EinsteinFour.christoffel g c w l j k) i z -
+      OAI.EinsteinFour.partialDeriv (fun w => OAI.EinsteinFour.christoffel g c w l i k) j z +
+    ∑ p,
+      (OAI.EinsteinFour.christoffel g c z l i p * OAI.EinsteinFour.christoffel g c z p j k -
+        OAI.EinsteinFour.christoffel g c z l j p * OAI.EinsteinFour.christoffel g c z p i k)
+def OAI.EinsteinFour.ricciInChart.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M → M → OAI.EinsteinFour.FourSpace → Fin 4 → Fin 4 → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c z i
+    j =>
+  ∑ k, OAI.EinsteinFour.curvatureComponent g c z k k i j
+def OAI.EinsteinFour.sectionalNumerator.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M →
+          M → OAI.EinsteinFour.FourSpace → OAI.EinsteinFour.FourSpace → OAI.EinsteinFour.FourSpace → ℝ :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c z u
+    v =>
+  ∑ l,
+    ∑ m,
+      ∑ i,
+        ∑ j,
+          ∑ k,
+            OAI.EinsteinFour.metricInChart g c z l m * OAI.EinsteinFour.curvatureComponent g c z l i j k * u.ofLp i *
+                  v.ofLp j *
+                v.ofLp k *
+              u.ofLp m
+def OAI.EinsteinFour.IsEinstein.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] → OAI.EinsteinFour.SmoothMetric M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g =>
+  ∃ lam,
+    ∀ (c : M) (i j : Fin 4),
+      OAI.EinsteinFour.ricciInChart g c (↑(chartAt OAI.EinsteinFour.FourSpace c) c) i j =
+        lam * OAI.EinsteinFour.metricInChart g c (↑(chartAt OAI.EinsteinFour.FourSpace c) c) i j
+def OAI.EinsteinFour.HasPositiveSectionalCurvature.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] → OAI.EinsteinFour.SmoothMetric M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g =>
+  ∀ (c : M) (u v : OAI.EinsteinFour.FourSpace),
+    LinearIndependent ℝ ![u, v] →
+      0 < OAI.EinsteinFour.sectionalNumerator g c (↑(chartAt OAI.EinsteinFour.FourSpace c) c) u v
+def OAI.EinsteinFour.scaledEDistance.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] → OAI.EinsteinFour.SmoothMetric M → ℝ → M → M → ENNReal :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g a x
+    y =>
+  ENNReal.ofReal √a * Manifold.riemannianEDist OAI.EinsteinFour.I4 x y
+def OAI.EinsteinFour.ScaledIsometricTo.{u_1, u_2} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        {N : Type u_2} → OAI.EinsteinFour.SmoothMetric M → ℝ → (N → N → ℝ) → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] {N} g a
+    modelDistance =>
+  ∃ f, ∀ (x y : M), ENNReal.ofReal (modelDistance (f x) (f y)) = OAI.EinsteinFour.scaledEDistance g a x y
+@[reducible] def OAI.PositiveEinsteinFour.Geometry.Mat4 : Type :=
+Matrix (Fin 4) (Fin 4) ℝ
+def OAI.PositiveEinsteinFour.Geometry.chartMetric.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        OAI.EinsteinFour.SmoothMetric M → M → OAI.PositiveEinsteinFour.Geometry.Mat4 :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g c =>
+  OAI.EinsteinFour.metricInChart g c (↑(chartAt OAI.EinsteinFour.FourSpace c) c)
+structure OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.{u_1} {M : Type u_1} [TopologicalSpace M]
+  [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+  (g : OAI.EinsteinFour.SmoothMetric M) (c : M) : Type
+number of parameters: 6
+fields:
+  OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.matrix : OAI.PositiveEinsteinFour.Geometry.Mat4
+  OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.orthonormal : Matrix.transpose self.matrix *
+          OAI.PositiveEinsteinFour.Geometry.chartMetric g c *
+        self.matrix =
+      1
+constructor:
+  OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.mk.{u_1} {M : Type u_1} [TopologicalSpace M]
+    [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+    {g : OAI.EinsteinFour.SmoothMetric M} {c : M} (matrix : OAI.PositiveEinsteinFour.Geometry.Mat4)
+    (orthonormal : Matrix.transpose matrix * OAI.PositiveEinsteinFour.Geometry.chartMetric g c * matrix = 1) :
+    OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g c
+def OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.map.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        {g : OAI.EinsteinFour.SmoothMetric M} →
+          {c : M} →
+            OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g c →
+              OAI.EinsteinFour.FourSpace →ₗ[ℝ] OAI.EinsteinFour.FourSpace :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] {g} {c}
+    e =>
+  ↑(WithLp.linearEquiv 2 ℝ (Fin 4 → ℝ)).symm ∘ₗ Matrix.mulVecLin e.matrix ∘ₗ ↑(WithLp.linearEquiv 2 ℝ (Fin 4 → ℝ))
+def OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame.vector.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        {g : OAI.EinsteinFour.SmoothMetric M} →
+          {c : M} → OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g c → Fin 4 → OAI.EinsteinFour.FourSpace :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] {g} {c}
+    e i =>
+  WithLp.toLp 2 fun a => e.matrix a i
+structure OAI.PositiveEinsteinFour.Geometry.FrameBundle.{u_1} {M : Type u_1} [TopologicalSpace M]
+  [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+  (g : OAI.EinsteinFour.SmoothMetric M) : Type u_1
+number of parameters: 5
+fields:
+  OAI.PositiveEinsteinFour.Geometry.FrameBundle.base : M
+  OAI.PositiveEinsteinFour.Geometry.FrameBundle.frame : OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g self.base
+constructor:
+  OAI.PositiveEinsteinFour.Geometry.FrameBundle.mk.{u_1} {M : Type u_1} [TopologicalSpace M]
+    [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+    {g : OAI.EinsteinFour.SmoothMetric M} (base : M)
+    (frame : OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g base) :
+    OAI.PositiveEinsteinFour.Geometry.FrameBundle g
+def OAI.PositiveEinsteinFour.Geometry.frameRealization.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        {g : OAI.EinsteinFour.SmoothMetric M} →
+          OAI.PositiveEinsteinFour.Geometry.FrameBundle g → M × (Fin 4 → TangentBundle OAI.EinsteinFour.I4 M) :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] {g}
+    e =>
+  (e.base, fun i => ⟨e.base, e.frame.vector i⟩)
+structure OAI.PositiveEinsteinFour.Geometry.FrameOrientation.{u_1} {M : Type u_1} [TopologicalSpace M]
+  [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+  (g : OAI.EinsteinFour.SmoothMetric M) : Type u_1
+number of parameters: 5
+fields:
+  OAI.PositiveEinsteinFour.Geometry.FrameOrientation.positive : Set (OAI.PositiveEinsteinFour.Geometry.FrameBundle g)
+  OAI.PositiveEinsteinFour.Geometry.FrameOrientation.clopen : IsClopen self.positive
+  OAI.PositiveEinsteinFour.Geometry.FrameOrientation.nonempty_fiber : ∀ (c : M),
+      ∃ e, { base := c, frame := e } ∈ self.positive
+  OAI.PositiveEinsteinFour.Geometry.FrameOrientation.compatible : ∀ (c : M)
+      (e f : OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g c),
+      { base := c, frame := e } ∈ self.positive →
+        ({ base := c, frame := f } ∈ self.positive ↔ 0 < Matrix.det e.matrix * Matrix.det f.matrix)
+constructor:
+  OAI.PositiveEinsteinFour.Geometry.FrameOrientation.mk.{u_1} {M : Type u_1} [TopologicalSpace M]
+    [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+    {g : OAI.EinsteinFour.SmoothMetric M} (positive : Set (OAI.PositiveEinsteinFour.Geometry.FrameBundle g))
+    (clopen : IsClopen positive) (nonempty_fiber : ∀ (c : M), ∃ e, { base := c, frame := e } ∈ positive)
+    (compatible :
+      ∀ (c : M) (e f : OAI.PositiveEinsteinFour.Geometry.OrthonormalFrame g c),
+        { base := c, frame := e } ∈ positive →
+          ({ base := c, frame := f } ∈ positive ↔ 0 < Matrix.det e.matrix * Matrix.det f.matrix)) :
+    OAI.PositiveEinsteinFour.Geometry.FrameOrientation g
+structure OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.{u} : Type (u + 1)
+number of parameters: 0
+fields:
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.manifold : OAI.EinsteinFour.I4.MfldCat ↑⊤
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.regular : T3Space ↑self.manifold
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.secondCountable : SecondCountableTopology ↑self.manifold
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.compact : CompactSpace ↑self.manifold
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.connected : ConnectedSpace ↑self.manifold
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.metric : OAI.EinsteinFour.SmoothMetric ↑self.manifold
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.orientation : OAI.PositiveEinsteinFour.Geometry.FrameOrientation
+      self.metric
+constructor:
+  OAI.PositiveEinsteinFour.ClosedOrientedMetricFour.mk.{u} (manifold : OAI.EinsteinFour.I4.MfldCat ↑⊤)
+    [regular : T3Space ↑manifold] [secondCountable : SecondCountableTopology ↑manifold]
+    [compact : CompactSpace ↑manifold] [connected : ConnectedSpace ↑manifold]
+    (metric : OAI.EinsteinFour.SmoothMetric ↑manifold)
+    (orientation : OAI.PositiveEinsteinFour.Geometry.FrameOrientation metric) :
+    OAI.PositiveEinsteinFour.ClosedOrientedMetricFour
+def OAI.PositiveEinsteinFour.Classified.{u_1} : {M : Type u_1} →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [inst_2 : IsManifold OAI.EinsteinFour.I4 (↑⊤) M] → OAI.EinsteinFour.SmoothMetric M → Prop :=
+fun {M} [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] g =>
+  ∃ a,
+    0 < a ∧
+      (OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.roundDistance ∨
+        OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.fubiniStudyDistance ∨
+          OAI.EinsteinFour.ScaledIsometricTo g a OAI.EinsteinFour.realProjectiveDistance)
+def OAI.PositiveEinsteinFour.ClassificationOn.{u_2} : (M : Type u_2) →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace OAI.EinsteinFour.FourSpace M] →
+      [IsManifold OAI.EinsteinFour.I4 (↑⊤) M] →
+        [T2Space M] → [SecondCountableTopology M] → [CompactSpace M] → [ConnectedSpace M] → Prop :=
+fun M [TopologicalSpace M] [ChartedSpace OAI.EinsteinFour.FourSpace M] [IsManifold OAI.EinsteinFour.I4 (↑⊤) M]
+    [T2Space M] [SecondCountableTopology M] [CompactSpace M] [ConnectedSpace M] =>
+  ∀ (g : OAI.EinsteinFour.SmoothMetric M),
+    OAI.EinsteinFour.IsEinstein g →
+      OAI.EinsteinFour.HasPositiveSectionalCurvature g → OAI.PositiveEinsteinFour.Classified g

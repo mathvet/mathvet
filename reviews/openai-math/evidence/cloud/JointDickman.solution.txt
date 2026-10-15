@@ -1,0 +1,28 @@
+OAI.JointDickmanPaper.joint_law : ∀ (a b : ℝ),
+  0 < a →
+    a < 1 →
+      0 < b →
+        b < 1 →
+          Filter.Tendsto (OAI.JointDickman.realDensity fun n => ↑n.maxPrimeFac ≤ ↑n ^ a ∧ ↑(n + 1).maxPrimeFac ≤ ↑n ^ b)
+            Filter.atTop
+            (nhds
+              (OAI.Erdos970.NumberTheoryLean.Dickman.rho (1 / a) * OAI.Erdos970.NumberTheoryLean.Dickman.rho (1 / b)))
+'OAI.JointDickmanPaper.joint_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.JointDickmanPaper.increasing_order : Filter.Tendsto
+  (OAI.JointDickman.realDensity fun n => n.maxPrimeFac < (n + 1).maxPrimeFac) Filter.atTop (nhds (1 / 2))
+'OAI.JointDickmanPaper.increasing_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.JointDickmanPaper.decreasing_order : Filter.Tendsto
+  (OAI.JointDickman.realDensity fun n => (n + 1).maxPrimeFac < n.maxPrimeFac) Filter.atTop (nhds (1 / 2))
+'OAI.JointDickmanPaper.decreasing_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.Erdos970.NumberTheoryLean.DelayConstruction.kernel : (ℝ → ℝ) → ℝ → ℝ :=
+fun f t => f (t - 1) / max 1 t
+def OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox : ℝ → ℕ → ℝ → ℝ :=
+fun σ x => Nat.brecOn (motive := fun x => ℝ → ℝ) x (OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox._f σ)
+def OAI.Erdos970.NumberTheoryLean.DelayConstruction.delay : ℝ → ℝ → ℝ :=
+fun σ u => OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox σ ⌈u⌉₊ u
+def OAI.Erdos970.NumberTheoryLean.Dickman.rho : ℝ → ℝ :=
+OAI.Erdos970.NumberTheoryLean.DelayConstruction.delay (-1)
+def OAI.JointDickman.empiricalCount : (ℕ → Prop) → ℕ → ℕ :=
+fun P N => (Finset.filter P (Finset.Icc 2 N)).card
+def OAI.JointDickman.realDensity : (ℕ → Prop) → ℝ → ℝ :=
+fun P X => ↑(OAI.JointDickman.empiricalCount P ⌊X⌋₊) / X

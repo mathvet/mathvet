@@ -1,0 +1,5 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_FalconerAllDimensions.lean:11:8: warning: declaration uses `sorry`
+OAI.Falconer.falconer_distance_conjecture : ∀ (d : ℕ),
+  2 ≤ d →
+    ∀ (E : Set (EuclideanSpace ℝ (Fin d))),
+      IsCompact E → ↑d / 2 < dimH E → 0 < MeasureTheory.volume {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}

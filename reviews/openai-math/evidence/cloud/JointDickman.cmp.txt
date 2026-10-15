@@ -1,0 +1,42 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_JointDickman.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.JointDickmanPaper.decreasing_order [thm] ok
+CMP OAI.JointDickman.realDensity [def] ok
+CMP OAI.JointDickman.empiricalCount [def] ok
+CMP OAI.JointDickmanPaper.increasing_order [thm] ok
+CMP OAI.JointDickmanPaper.joint_law [thm] ok
+CMP OAI.Erdos970.NumberTheoryLean.Dickman.rho [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.DelayConstruction.delay [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox._f [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.DelayConstruction.kernel [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox.match_1 [def] ok
+Chal.JointDickmanPaper.joint_law : ∀ (a b : ℝ),
+  0 < a →
+    a < 1 →
+      0 < b →
+        b < 1 →
+          Filter.Tendsto
+            (Chal.JointDickman.realDensity fun n => ↑n.maxPrimeFac ≤ ↑n ^ a ∧ ↑(n + 1).maxPrimeFac ≤ ↑n ^ b)
+            Filter.atTop
+            (nhds
+              (Chal.Erdos970.NumberTheoryLean.Dickman.rho (1 / a) * Chal.Erdos970.NumberTheoryLean.Dickman.rho (1 / b)))
+Chal.JointDickmanPaper.increasing_order : Filter.Tendsto
+  (Chal.JointDickman.realDensity fun n => n.maxPrimeFac < (n + 1).maxPrimeFac) Filter.atTop (nhds (1 / 2))
+Chal.JointDickmanPaper.decreasing_order : Filter.Tendsto
+  (Chal.JointDickman.realDensity fun n => (n + 1).maxPrimeFac < n.maxPrimeFac) Filter.atTop (nhds (1 / 2))
+def Chal.Erdos970.NumberTheoryLean.DelayConstruction.kernel : (ℝ → ℝ) → ℝ → ℝ :=
+fun f t => f (t - 1) / max 1 t
+def Chal.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox : ℝ → ℕ → ℝ → ℝ :=
+fun σ x => Nat.brecOn (motive := fun x => ℝ → ℝ) x (Chal.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox._f σ)
+def Chal.Erdos970.NumberTheoryLean.DelayConstruction.delay : ℝ → ℝ → ℝ :=
+fun σ u => Chal.Erdos970.NumberTheoryLean.DelayConstruction.stepApprox σ ⌈u⌉₊ u
+def Chal.Erdos970.NumberTheoryLean.Dickman.rho : ℝ → ℝ :=
+Chal.Erdos970.NumberTheoryLean.DelayConstruction.delay (-1)
+def Chal.JointDickman.empiricalCount : (ℕ → Prop) → ℕ → ℕ :=
+fun P N => (Finset.filter P (Finset.Icc 2 N)).card
+def Chal.JointDickman.realDensity : (ℕ → Prop) → ℝ → ℝ :=
+fun P X => ↑(Chal.JointDickman.empiricalCount P ⌊X⌋₊) / X
+'OAI.JointDickmanPaper.joint_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.JointDickmanPaper.increasing_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.JointDickmanPaper.decreasing_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+== JointDickman comparator-style: ok=11 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

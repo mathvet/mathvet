@@ -1,0 +1,8 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_FalconerAllDimensions.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Falconer.falconer_distance_conjecture [thm] ok
+Chal.Falconer.falconer_distance_conjecture : ∀ (d : ℕ),
+  2 ≤ d →
+    ∀ (E : Set (EuclideanSpace ℝ (Fin d))),
+      IsCompact E → ↑d / 2 < dimH E → 0 < MeasureTheory.volume {r | ∃ x ∈ E, ∃ y ∈ E, dist x y = r}
+'OAI.Falconer.falconer_distance_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+== FalconerAllDimensions comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

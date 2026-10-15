@@ -1,0 +1,51 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_SurfaceImmersion.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.ClosedSurfaceR4.FiniteOrderSmoothing.smooth_isometric_immersion [thm] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion [def] ok
+CMP OAI.ClosedSurfaceR4.SmoothMetric._proof_2 [thm] ok
+CMP OAI.ClosedSurfaceR4.SmoothMetric._proof_1 [thm] ok
+CMP OAI.ClosedSurfaceR4.planeModel [def] ok
+CMP OAI.ClosedSurfaceR4.Plane [def] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion._proof_5 [thm] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion._proof_4 [thm] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion._proof_3 [thm] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion._proof_2 [thm] ok
+CMP OAI.ClosedSurfaceR4.spaceModel [def] ok
+CMP OAI.ClosedSurfaceR4.Space [def] ok
+CMP OAI.ClosedSurfaceR4.IsSmoothIsometricImmersion._proof_1 [thm] ok
+CMP OAI.ClosedSurfaceR4.SmoothMetric [def] ok
+@Chal.ClosedSurfaceR4.FiniteOrderSmoothing.smooth_isometric_immersion : ∀ {M : Type u_1} [inst : TopologicalSpace M]
+  [inst_1 : ChartedSpace Chal.ClosedSurfaceR4.Plane M] [inst_2 : IsManifold Chal.ClosedSurfaceR4.planeModel (↑⊤) M]
+  [CompactSpace M] [T2Space M] [SecondCountableTopology M] (g : Chal.ClosedSurfaceR4.SmoothMetric M),
+  ∃ F, Chal.ClosedSurfaceR4.IsSmoothIsometricImmersion M g F
+@[reducible] def Chal.ClosedSurfaceR4.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+@[reducible] def Chal.ClosedSurfaceR4.Space : Type :=
+EuclideanSpace ℝ (Fin 4)
+@[reducible] def Chal.ClosedSurfaceR4.planeModel : ModelWithCorners ℝ Chal.ClosedSurfaceR4.Plane
+  Chal.ClosedSurfaceR4.Plane :=
+modelWithCornersSelf ℝ Chal.ClosedSurfaceR4.Plane
+@[reducible] def Chal.ClosedSurfaceR4.spaceModel : ModelWithCorners ℝ Chal.ClosedSurfaceR4.Space
+  Chal.ClosedSurfaceR4.Space :=
+modelWithCornersSelf ℝ Chal.ClosedSurfaceR4.Space
+@[reducible] def Chal.ClosedSurfaceR4.SmoothMetric.{u_1} : (M : Type u_1) →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ClosedSurfaceR4.Plane M] →
+      [IsManifold Chal.ClosedSurfaceR4.planeModel (↑⊤) M] → Type (max u_1 0) :=
+fun M [TopologicalSpace M] [ChartedSpace Chal.ClosedSurfaceR4.Plane M]
+    [IsManifold Chal.ClosedSurfaceR4.planeModel (↑⊤) M] =>
+  Bundle.ContMDiffRiemannianMetric Chal.ClosedSurfaceR4.planeModel (↑⊤) Chal.ClosedSurfaceR4.Plane fun p =>
+    TangentSpace Chal.ClosedSurfaceR4.planeModel p
+def Chal.ClosedSurfaceR4.IsSmoothIsometricImmersion.{u_1} : (M : Type u_1) →
+  [inst : TopologicalSpace M] →
+    [inst_1 : ChartedSpace Chal.ClosedSurfaceR4.Plane M] →
+      [inst_2 : IsManifold Chal.ClosedSurfaceR4.planeModel (↑⊤) M] →
+        Chal.ClosedSurfaceR4.SmoothMetric M → (M → Chal.ClosedSurfaceR4.Space) → Prop :=
+fun M [TopologicalSpace M] [ChartedSpace Chal.ClosedSurfaceR4.Plane M]
+    [IsManifold Chal.ClosedSurfaceR4.planeModel (↑⊤) M] g F =>
+  ContMDiff Chal.ClosedSurfaceR4.planeModel Chal.ClosedSurfaceR4.spaceModel (↑⊤) F ∧
+    ∀ (p : M) (v w : TangentSpace Chal.ClosedSurfaceR4.planeModel p),
+      inner ℝ ((mfderiv% F p) v) ((mfderiv% F p) w) = ((g.inner p) v) w
+'OAI.ClosedSurfaceR4.FiniteOrderSmoothing.smooth_isometric_immersion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+== SurfaceImmersion comparator-style: ok=14 problems=0 errors=0 | no-shadowing | [propext,  | defeq_only=0 aux_only=0

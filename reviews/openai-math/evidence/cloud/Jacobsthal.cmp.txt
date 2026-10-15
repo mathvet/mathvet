@@ -1,0 +1,11 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_Jacobsthal.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Erdos970.Erdos970Final.erdos_970_quadratic [thm] ok
+CMP OAI.Erdos970.NumberTheoryLean.Targets.JacobsthalQuadratic [def] ok
+CMP OAI.Erdos970.NumberTheoryLean.Targets.IsJacobsthalBound [def] ok
+Chal.Erdos970.Erdos970Final.erdos_970_quadratic : Chal.Erdos970.NumberTheoryLean.Targets.JacobsthalQuadratic
+def Chal.Erdos970.NumberTheoryLean.Targets.IsJacobsthalBound : ℕ → ℕ → Prop :=
+fun k m => ∀ (n : ℕ), 0 < n → n.primeFactors.card ≤ k → ∀ (a : ℤ), ∃ i < m, (a + ↑i).natAbs.Coprime n
+def Chal.Erdos970.NumberTheoryLean.Targets.JacobsthalQuadratic : Prop :=
+∃ C, 0 < C ∧ ∀ (k : ℕ), 0 < k → ∃ m, Chal.Erdos970.NumberTheoryLean.Targets.IsJacobsthalBound k m ∧ ↑m ≤ C * ↑k ^ 2
+'OAI.Erdos970.Erdos970Final.erdos_970_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Jacobsthal comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

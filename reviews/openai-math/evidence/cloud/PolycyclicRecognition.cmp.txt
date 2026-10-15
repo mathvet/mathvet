@@ -1,0 +1,272 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_PolycyclicRecognition.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.PolycyclicRecognition.lattice_recognition [thm] ok
+CMP OAI.PolycyclicRecognition.IsUniformLattice [def] ok
+CMP OAI.PolycyclicRecognition.GroupCoarseEquivalence [ind] ok
+CMP OAI.PolycyclicRecognition.GroupCoarseEquivalence.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.GroupBornologous [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.topologicalSpace [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel [ind] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.carrier [def] ok
+CMP OAI.PolycyclicRecognition.IsFiniteCovolumeLattice [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.group [def] ok
+CMP OAI.PolycyclicRecognition.main_uniform_bounded_height [thm] ok
+CMP OAI.PolycyclicRecognition.SelfQuasiIsometry.toFun [def] ok
+CMP OAI.PolycyclicRecognition.SelfQuasiIsometry [ind] ok
+CMP OAI.PolycyclicRecognition.SelfQuasiIsometry.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.ProperChainMetric.compatibleMetric [def] ok
+CMP OAI.PolycyclicRecognition.ProperChainMetric.compatibleMetric._proof_1 [thm] ok
+CMP OAI.PolycyclicRecognition.ProperChainMetric.metric [def] ok
+CMP OAI.PolycyclicRecognition.ProperChainMetric [ind] ok
+CMP OAI.PolycyclicRecognition.ProperChainMetric.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.LinearMetricChains [ind] ok
+CMP OAI.PolycyclicRecognition.LinearMetricChains.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.heightProjection [def] ok
+CMP OAI.PolycyclicRecognition.heightKernel [def] ok
+CMP OAI.PolycyclicRecognition.HeightSpace [def] ok
+CMP OAI.PolycyclicRecognition.IsGroupExponential [ind] ok
+CMP OAI.PolycyclicRecognition.IsGroupExponential.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint.character [def] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint.character._proof_2 [thm] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint.basis [def] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint [ind] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint.mk [ctor] ok
+CMP OAI.PolycyclicRecognition.TriangularAdjoint.character._proof_1 [thm] ok
+CMP OAI.PolycyclicRecognition.ModelIsUnimodular [def] ok
+CMP OAI.PolycyclicRecognition.ModelIsUnimodular._proof_3 [thm] ok
+CMP OAI.PolycyclicRecognition.ModelIsUnimodular._proof_2 [thm] ok
+CMP OAI.PolycyclicRecognition.ModelIsUnimodular._proof_1 [thm] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.finiteDimensional [thm] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.normedSpace [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.normedAddCommGroup [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.modelSpace [def] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.lieGroup [thm] ok
+CMP OAI.PolycyclicRecognition.SimplyConnectedSolvableLieModel.chartedSpace [def] ok
+CMP OAI.PolycyclicRecognition.group_recognition [thm] ok
+CMP OAI.PolycyclicRecognition.IsVirtuallyPolycyclic [def] ok
+CMP OAI.PolycyclicRecognition.IsPolycyclic [def] ok
+CMP OAI.ChromaticCyclic.CyclicSeries [ind] ok
+CMP OAI.ChromaticCyclic.CyclicSeries.mk [ctor] ok
+CMP OAI.ChromaticCyclic.CyclicStep [ind] ok
+CMP OAI.ChromaticCyclic.CyclicStep.mk [ctor] ok
+@Chal.PolycyclicRecognition.group_recognition : ∀ {P J : Type} [inst : Group P] [inst_1 : Group J] [Group.FG P]
+  [Group.FG J] (e : Chal.PolycyclicRecognition.GroupCoarseEquivalence P J),
+  Chal.PolycyclicRecognition.IsVirtuallyPolycyclic P →
+    Chal.PolycyclicRecognition.IsVirtuallyPolycyclic J ∧
+      ∃ Γ, Γ.FiniteIndex ∧ ∃ S Λ, Chal.PolycyclicRecognition.IsUniformLattice Λ ∧ Nonempty (↥Γ ≃* ↥Λ)
+Chal.PolycyclicRecognition.main_uniform_bounded_height : ∀
+  (R : Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel)
+  (d : Chal.PolycyclicRecognition.ProperChainMetric R.carrier) {a : ℕ}
+  (T :
+    Chal.PolycyclicRecognition.TriangularAdjoint (GroupLieAlgebra (modelWithCornersSelf ℝ R.modelSpace) R.carrier) a),
+  Chal.PolycyclicRecognition.ModelIsUnimodular R →
+    ∀ {W : Type} [inst : NormedAddCommGroup W] [inst_1 : NormedSpace ℝ W] [FiniteDimensional ℝ W]
+      (q : Chal.PolycyclicRecognition.HeightSpace T.character ≃ₗ[ℝ] W)
+      (Exp : GroupLieAlgebra (modelWithCornersSelf ℝ R.modelSpace) R.carrier → R.carrier),
+      Chal.PolycyclicRecognition.IsGroupExponential Exp →
+        ∀ (π : R.carrier →* Multiplicative W),
+          (∀ (x : GroupLieAlgebra (modelWithCornersSelf ℝ R.modelSpace) R.carrier),
+              Multiplicative.toAdd (π (Exp x)) = q ((Chal.PolycyclicRecognition.heightProjection T.character) x)) →
+            ∃ A,
+              (↑A).Finite ∧
+                ∀ (K C : ℝ),
+                  1 ≤ K →
+                    0 ≤ C →
+                      ∃ B,
+                        0 ≤ B ∧
+                          ∀ (F : Chal.PolycyclicRecognition.SelfQuasiIsometry R.carrier K C),
+                            ∃ AF,
+                              ∀ (g : R.carrier),
+                                ‖Multiplicative.toAdd (π (F.toFun g)) -
+                                      (Multiplicative.toAdd (π (F.toFun 1)) + ↑AF (Multiplicative.toAdd (π g)))‖ ≤
+                                  B
+Chal.PolycyclicRecognition.lattice_recognition : ∀ (S : Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel)
+  (Λ : Subgroup S.carrier),
+  Chal.PolycyclicRecognition.IsFiniteCovolumeLattice Λ →
+    ∀ {J : Type} [inst : Group J] [Group.FG J] (e : Chal.PolycyclicRecognition.GroupCoarseEquivalence (↥Λ) J),
+      ∃ Γ, Γ.FiniteIndex ∧ ∃ R Δ, Chal.PolycyclicRecognition.IsUniformLattice Δ ∧ Nonempty (↥Γ ≃* ↥Δ)
+structure Chal.ChromaticCyclic.CyclicStep.{u_1} {G : Type u_1} [Group G] (H K : Subgroup G) : Prop
+number of parameters: 4
+fields:
+  Chal.ChromaticCyclic.CyclicStep.le : H ≤ K
+  Chal.ChromaticCyclic.CyclicStep.normal : (H.subgroupOf K).Normal
+  Chal.ChromaticCyclic.CyclicStep.cyclic : IsCyclic (↥K ⧸ H.subgroupOf K)
+constructor:
+  Chal.ChromaticCyclic.CyclicStep.mk.{u_1} {G : Type u_1} [Group G] {H K : Subgroup G} (le : H ≤ K)
+    (normal : (H.subgroupOf K).Normal) (cyclic : IsCyclic (↥K ⧸ H.subgroupOf K)) : Chal.ChromaticCyclic.CyclicStep H K
+structure Chal.ChromaticCyclic.CyclicSeries.{u_1} {G : Type u_1} [Group G] (H K : Subgroup G) (n : ℕ) : Type u_1
+number of parameters: 5
+fields:
+  Chal.ChromaticCyclic.CyclicSeries.group : ℕ → Subgroup G
+  Chal.ChromaticCyclic.CyclicSeries.first : self.group 0 = H
+  Chal.ChromaticCyclic.CyclicSeries.last : self.group n = K
+  Chal.ChromaticCyclic.CyclicSeries.step : ∀ i < n, Chal.ChromaticCyclic.CyclicStep (self.group i) (self.group (i + 1))
+constructor:
+  Chal.ChromaticCyclic.CyclicSeries.mk.{u_1} {G : Type u_1} [Group G] {H K : Subgroup G} {n : ℕ}
+    (group : ℕ → Subgroup G) (first : group 0 = H) (last : group n = K)
+    (step : ∀ i < n, Chal.ChromaticCyclic.CyclicStep (group i) (group (i + 1))) :
+    Chal.ChromaticCyclic.CyclicSeries H K n
+def Chal.PolycyclicRecognition.GroupBornologous.{u_1, u_2} : {G : Type u_1} →
+  {H : Type u_2} → [Group G] → [Group H] → (G → H) → Prop :=
+fun {G} {H} [Group G] [Group H] f =>
+  ∀ (S : Set G), S.Finite → ∃ T, T.Finite ∧ ∀ (x y : G), x⁻¹ * y ∈ S → (f x)⁻¹ * f y ∈ T
+structure Chal.PolycyclicRecognition.GroupCoarseEquivalence.{u_4, u_5} (G : Type u_4) (H : Type u_5) [Group G]
+  [Group H] : Type (max u_4 u_5)
+number of parameters: 4
+fields:
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.toFun : G → H
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.invFun : H → G
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.bornologous_toFun : Chal.PolycyclicRecognition.GroupBornologous
+      self.toFun
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.bornologous_invFun : Chal.PolycyclicRecognition.GroupBornologous
+      self.invFun
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.left_error : (Set.range fun x =>
+        x⁻¹ * self.invFun (self.toFun x)).Finite
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.right_error : (Set.range fun y =>
+        y⁻¹ * self.toFun (self.invFun y)).Finite
+constructor:
+  Chal.PolycyclicRecognition.GroupCoarseEquivalence.mk.{u_4, u_5} {G : Type u_4} {H : Type u_5} [Group G] [Group H]
+    (toFun : G → H) (invFun : H → G) (bornologous_toFun : Chal.PolycyclicRecognition.GroupBornologous toFun)
+    (bornologous_invFun : Chal.PolycyclicRecognition.GroupBornologous invFun)
+    (left_error : (Set.range fun x => x⁻¹ * invFun (toFun x)).Finite)
+    (right_error : (Set.range fun y => y⁻¹ * toFun (invFun y)).Finite) :
+    Chal.PolycyclicRecognition.GroupCoarseEquivalence G H
+def Chal.PolycyclicRecognition.IsPolycyclic.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] => ∃ n, Nonempty (Chal.ChromaticCyclic.CyclicSeries ⊥ ⊤ n)
+def Chal.PolycyclicRecognition.IsVirtuallyPolycyclic.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] => ∃ H, H.FiniteIndex ∧ Chal.PolycyclicRecognition.IsPolycyclic ↥H
+def Chal.PolycyclicRecognition.IsUniformLattice.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [TopologicalSpace G] → Subgroup G → Prop :=
+fun {G} [Group G] [TopologicalSpace G] Λ => DiscreteTopology ↥Λ ∧ ∃ K, IsCompact K ∧ ∀ (g : G), ∃ γ, ∃ k ∈ K, ↑γ * k = g
+structure Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel : Type 1
+number of parameters: 0
+fields:
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.modelSpace : Type
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.normedAddCommGroup : NormedAddCommGroup self.modelSpace
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.normedSpace : NormedSpace ℝ self.modelSpace
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.finiteDimensional : FiniteDimensional ℝ self.modelSpace
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.carrier : Type
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.topologicalSpace : TopologicalSpace self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.chartedSpace : ChartedSpace self.modelSpace self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.group : Group self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.lieGroup : LieGroup
+      (modelWithCornersSelf ℝ self.modelSpace) ⊤ self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.t2Space : T2Space self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.secondCountableTopology : SecondCountableTopology
+      self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.simplyConnectedSpace : SimplyConnectedSpace self.carrier
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.solvable : Group.IsSolvable self.carrier
+constructor:
+  Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel.mk (modelSpace : Type)
+    [normedAddCommGroup : NormedAddCommGroup modelSpace] [normedSpace : NormedSpace ℝ modelSpace]
+    [finiteDimensional : FiniteDimensional ℝ modelSpace] (carrier : Type) [topologicalSpace : TopologicalSpace carrier]
+    [chartedSpace : ChartedSpace modelSpace carrier] [group : Group carrier]
+    [lieGroup : LieGroup (modelWithCornersSelf ℝ modelSpace) ⊤ carrier] [t2Space : T2Space carrier]
+    [secondCountableTopology : SecondCountableTopology carrier] [simplyConnectedSpace : SimplyConnectedSpace carrier]
+    [solvable : Group.IsSolvable carrier] : Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel
+def Chal.PolycyclicRecognition.IsFiniteCovolumeLattice : {G : Type} →
+  [inst : Group G] → [TopologicalSpace G] → Subgroup G → Prop :=
+fun {G} [Group G] [TopologicalSpace G] Λ =>
+  DiscreteTopology ↥Λ ∧ ∃ μ, MeasureTheory.IsProbabilityMeasure μ ∧ MeasureTheory.SMulInvariantMeasure G (G ⧸ Λ) μ
+structure Chal.PolycyclicRecognition.LinearMetricChains.{u_1} (X : Type u_1) [PseudoMetricSpace X] : Type
+number of parameters: 2
+fields:
+  Chal.PolycyclicRecognition.LinearMetricChains.step : ℝ
+  Chal.PolycyclicRecognition.LinearMetricChains.step_pos : 0 < self.step
+  Chal.PolycyclicRecognition.LinearMetricChains.slope : ℝ
+  Chal.PolycyclicRecognition.LinearMetricChains.slope_nonneg : 0 ≤ self.slope
+  Chal.PolycyclicRecognition.LinearMetricChains.error : ℝ
+  Chal.PolycyclicRecognition.LinearMetricChains.error_nonneg : 0 ≤ self.error
+  Chal.PolycyclicRecognition.LinearMetricChains.chain : ∀ (x y : X),
+      ∃ n p, p 0 = x ∧ p n = y ∧ ↑n ≤ self.slope * dist x y + self.error ∧ ∀ i < n, dist (p i) (p (i + 1)) ≤ self.step
+constructor:
+  Chal.PolycyclicRecognition.LinearMetricChains.mk.{u_1} {X : Type u_1} [PseudoMetricSpace X] (step : ℝ)
+    (step_pos : 0 < step) (slope : ℝ) (slope_nonneg : 0 ≤ slope) (error : ℝ) (error_nonneg : 0 ≤ error)
+    (chain :
+      ∀ (x y : X), ∃ n p, p 0 = x ∧ p n = y ∧ ↑n ≤ slope * dist x y + error ∧ ∀ i < n, dist (p i) (p (i + 1)) ≤ step) :
+    Chal.PolycyclicRecognition.LinearMetricChains X
+structure Chal.PolycyclicRecognition.ProperChainMetric.{u_1} (G : Type u_1) [Group G] [TopologicalSpace G] : Type u_1
+number of parameters: 3
+fields:
+  Chal.PolycyclicRecognition.ProperChainMetric.metric : MetricSpace G
+  Chal.PolycyclicRecognition.ProperChainMetric.topology_eq : PseudoMetricSpace.toUniformSpace.toTopologicalSpace = inst✝
+  Chal.PolycyclicRecognition.ProperChainMetric.proper : ProperSpace G
+  Chal.PolycyclicRecognition.ProperChainMetric.leftInvariant : IsIsometricSMul G G
+  Chal.PolycyclicRecognition.ProperChainMetric.chains : Chal.PolycyclicRecognition.LinearMetricChains G
+constructor:
+  Chal.PolycyclicRecognition.ProperChainMetric.mk.{u_1} {G : Type u_1} [Group G] [TopologicalSpace G]
+    (metric : MetricSpace G) (topology_eq : PseudoMetricSpace.toUniformSpace.toTopologicalSpace = inst✝)
+    (proper : ProperSpace G) (leftInvariant : IsIsometricSMul G G)
+    (chains : Chal.PolycyclicRecognition.LinearMetricChains G) : Chal.PolycyclicRecognition.ProperChainMetric G
+@[reducible] def Chal.PolycyclicRecognition.ProperChainMetric.compatibleMetric.{u_1} : {G : Type u_1} →
+  [inst : Group G] → [inst_1 : TopologicalSpace G] → Chal.PolycyclicRecognition.ProperChainMetric G → MetricSpace G :=
+fun {G} [Group G] [TopologicalSpace G] d => d.metric.replaceTopology ⋯
+def Chal.PolycyclicRecognition.heightKernel.{u_1, u_2} : {L : Type u_1} →
+  {I : Type u_2} → [inst : AddCommGroup L] → [inst_1 : Module ℝ L] → (I → L →ₗ[ℝ] ℝ) → Submodule ℝ L :=
+fun {L} {I} [AddCommGroup L] [Module ℝ L] χ => ⨅ i, (χ i).ker
+@[reducible] def Chal.PolycyclicRecognition.HeightSpace.{u_1, u_2} : {L : Type u_1} →
+  {I : Type u_2} → [inst : AddCommGroup L] → [inst_1 : Module ℝ L] → (I → L →ₗ[ℝ] ℝ) → Type u_1 :=
+fun {L} {I} [AddCommGroup L] [Module ℝ L] χ => L ⧸ Chal.PolycyclicRecognition.heightKernel χ
+def Chal.PolycyclicRecognition.heightProjection.{u_1, u_2} : {L : Type u_1} →
+  {I : Type u_2} →
+    [inst : AddCommGroup L] →
+      [inst_1 : Module ℝ L] → (χ : I → L →ₗ[ℝ] ℝ) → L →ₗ[ℝ] Chal.PolycyclicRecognition.HeightSpace χ :=
+fun {L} {I} [AddCommGroup L] [Module ℝ L] χ => (Chal.PolycyclicRecognition.heightKernel χ).mkQ
+structure Chal.PolycyclicRecognition.TriangularAdjoint.{u_1} (L : Type u_1) [LieRing L] [LieAlgebra ℝ L] (n : ℕ) :
+  Type u_1
+number of parameters: 4
+fields:
+  Chal.PolycyclicRecognition.TriangularAdjoint.basis : Module.Basis (Fin n) ℝ L
+  Chal.PolycyclicRecognition.TriangularAdjoint.upper : ∀ (x : L),
+      ((LinearMap.toMatrix self.basis self.basis) ((LieAlgebra.ad ℝ L) x)).IsUpperTriangular
+constructor:
+  Chal.PolycyclicRecognition.TriangularAdjoint.mk.{u_1} {L : Type u_1} [LieRing L] [LieAlgebra ℝ L] {n : ℕ}
+    (basis : Module.Basis (Fin n) ℝ L)
+    (upper : ∀ (x : L), ((LinearMap.toMatrix basis basis) ((LieAlgebra.ad ℝ L) x)).IsUpperTriangular) :
+    Chal.PolycyclicRecognition.TriangularAdjoint L n
+def Chal.PolycyclicRecognition.TriangularAdjoint.character.{u_1} : {L : Type u_1} →
+  [inst : LieRing L] →
+    [inst_1 : LieAlgebra ℝ L] → {n : ℕ} → Chal.PolycyclicRecognition.TriangularAdjoint L n → Fin n → L →ₗ[ℝ] ℝ :=
+fun {L} [LieRing L] [LieAlgebra ℝ L] {n} T i =>
+  { toFun := fun x => (T.basis.repr ⁅x, T.basis i⁆) i, map_add' := ⋯, map_smul' := ⋯ }
+structure Chal.PolycyclicRecognition.IsGroupExponential.{u_1, u_2} {E : Type u_1} {G : Type u_2} [NormedAddCommGroup E]
+  [NormedSpace ℝ E] [TopologicalSpace G] [ChartedSpace E G] [Group G]
+  (Exp : GroupLieAlgebra (modelWithCornersSelf ℝ E) G → G) : Prop
+number of parameters: 8
+fields:
+  Chal.PolycyclicRecognition.IsGroupExponential.map_zero : Exp 0 = 1
+  Chal.PolycyclicRecognition.IsGroupExponential.map_add_smul : ∀ (v : GroupLieAlgebra (modelWithCornersSelf ℝ E) G)
+      (s t : ℝ), Exp ((s + t) • v) = Exp (s • v) * Exp (t • v)
+  Chal.PolycyclicRecognition.IsGroupExponential.hasMFDerivAt_zero : ∀
+      (v : GroupLieAlgebra (modelWithCornersSelf ℝ E) G),
+      HasMFDerivAt% (fun t => Exp (t • v)) 0 ((ContinuousLinearMap.id ℝ ℝ).smulRight v)
+constructor:
+  Chal.PolycyclicRecognition.IsGroupExponential.mk.{u_1, u_2} {E : Type u_1} {G : Type u_2} [NormedAddCommGroup E]
+    [NormedSpace ℝ E] [TopologicalSpace G] [ChartedSpace E G] [Group G]
+    {Exp : GroupLieAlgebra (modelWithCornersSelf ℝ E) G → G} (map_zero : Exp 0 = 1)
+    (map_add_smul :
+      ∀ (v : GroupLieAlgebra (modelWithCornersSelf ℝ E) G) (s t : ℝ), Exp ((s + t) • v) = Exp (s • v) * Exp (t • v))
+    (hasMFDerivAt_zero :
+      ∀ (v : GroupLieAlgebra (modelWithCornersSelf ℝ E) G),
+        HasMFDerivAt% (fun t => Exp (t • v)) 0 ((ContinuousLinearMap.id ℝ ℝ).smulRight v)) :
+    Chal.PolycyclicRecognition.IsGroupExponential Exp
+def Chal.PolycyclicRecognition.ModelIsUnimodular : Chal.PolycyclicRecognition.SimplyConnectedSolvableLieModel → Prop :=
+fun R => MeasureTheory.Measure.haar.IsMulRightInvariant
+structure Chal.PolycyclicRecognition.SelfQuasiIsometry.{u_1} (G : Type u_1) [PseudoMetricSpace G] (K C : ℝ) : Type u_1
+number of parameters: 4
+fields:
+  Chal.PolycyclicRecognition.SelfQuasiIsometry.toFun : G → G
+  Chal.PolycyclicRecognition.SelfQuasiIsometry.upper : ∀ (x y : G),
+      dist (self.toFun x) (self.toFun y) ≤ K * dist x y + C
+  Chal.PolycyclicRecognition.SelfQuasiIsometry.lower : ∀ (x y : G),
+      dist x y ≤ K * dist (self.toFun x) (self.toFun y) + K * C
+  Chal.PolycyclicRecognition.SelfQuasiIsometry.surjective : ∀ (y : G), ∃ x, dist y (self.toFun x) ≤ C
+constructor:
+  Chal.PolycyclicRecognition.SelfQuasiIsometry.mk.{u_1} {G : Type u_1} [PseudoMetricSpace G] {K C : ℝ} (toFun : G → G)
+    (upper : ∀ (x y : G), dist (toFun x) (toFun y) ≤ K * dist x y + C)
+    (lower : ∀ (x y : G), dist x y ≤ K * dist (toFun x) (toFun y) + K * C)
+    (surjective : ∀ (y : G), ∃ x, dist y (toFun x) ≤ C) : Chal.PolycyclicRecognition.SelfQuasiIsometry G K C
+'OAI.PolycyclicRecognition.group_recognition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.PolycyclicRecognition.main_uniform_bounded_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.PolycyclicRecognition.lattice_recognition' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PolycyclicRecognition comparator-style: ok=50 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

@@ -1,0 +1,1660 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_ThorpRouting.lean:2567:8: warning: declaration uses `sorry`
+OAI.ThorpNine.main : OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.MainStatement ∧
+  OAI.ThorpNine.Casimir.Thorp.CasimirBounds.MainStatement ∧
+    OAI.ThorpNine.Dense.Thorp.DenseTruncation.MainStatement ∧
+      OAI.ThorpNine.Contact.Thorp.SparseContact.MainStatement ∧
+        OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.MainStatement ∧
+          OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.MainStatement ∧
+            OAI.ThorpNine.Tail.Thorp.StrongTail.MainStatement ∧
+              OAI.ThorpNine.HighTail.Thorp.HighHeight.MainStatement ∧
+                OAI.ThorpNine.SparseSaving.Thorp.SparseRegime.MainStatement
+@[reducible] def OAI.ThorpNine.Adaptive.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Adaptive.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Adaptive.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Adaptive.Thorp.Card (d + 1) → OAI.ThorpNine.Adaptive.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Adaptive.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Adaptive.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Adaptive.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Adaptive.Thorp.switchFun ξ,
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Adaptive.Thorp.Butterfly._f
+def OAI.ThorpNine.Adaptive.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Adaptive.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.Adaptive.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Card x)) x
+    OAI.ThorpNine.Adaptive.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Adaptive.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Adaptive.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Adaptive.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Adaptive.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Adaptive.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Adaptive.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Adaptive.Thorp.Butterfly x) x
+    OAI.ThorpNine.Adaptive.Thorp.decodeButterfly._f x_1
+@[reducible] def OAI.ThorpNine.Adaptive.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.Adaptive.Thorp.Specht.row : {μ : YoungDiagram} → OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.Adaptive.Thorp.Specht.col : {μ : YoungDiagram} → OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.Adaptive.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.Adaptive.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.Adaptive.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.Adaptive.Thorp.Specht.baseTabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.Adaptive.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ) →
+    Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.Adaptive.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.Adaptive.Thorp.Specht.col (p x) = OAI.ThorpNine.Adaptive.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.Adaptive.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.Adaptive.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.Adaptive.Thorp.Specht.polytabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.Adaptive.Thorp.Specht.alternator (OAI.ThorpNine.Adaptive.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.Adaptive.Thorp.Specht.delta (OAI.ThorpNine.Adaptive.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.Adaptive.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidRep μ) p) (OAI.ThorpNine.Adaptive.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.Adaptive.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.Adaptive.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.Adaptive.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.Adaptive.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.Adaptive.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) → [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.Adaptive.Thorp.PermutationHilbert.H (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Adaptive.Thorp.PermutationHilbert.H (OAI.ThorpNine.Adaptive.Thorp.Specht.Tabloid μ)) :=
+fun μ =>
+  Submodule.map (↑(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertEquiv μ)) (OAI.ThorpNine.Adaptive.Thorp.Specht.space μ)
+def OAI.ThorpNine.Adaptive.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Adaptive.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.Adaptive.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.Adaptive.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) :=
+fun μ => (OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertEquiv μ).submoduleMap (OAI.ThorpNine.Adaptive.Thorp.Specht.space μ)
+def OAI.ThorpNine.Adaptive.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.Adaptive.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.Adaptive.Thorp.Specht.representation μ)
+def OAI.ThorpNine.Adaptive.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e => MonoidHom.comp (OAI.ThorpNine.Adaptive.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.Adaptive.Thorp.SparseContact.sweepOperator : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Adaptive.Thorp.Card d ≃ OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+          ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e reverse =>
+  OAI.ThorpNine.Adaptive.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Adaptive.Thorp.Specht.relabelledUnitary μ e)
+    fun ω =>
+    if reverse = true then
+      (OAI.ThorpNine.Adaptive.Thorp.butterflyPerm d (OAI.ThorpNine.Adaptive.Thorp.decodeButterfly d ω))⁻¹
+    else OAI.ThorpNine.Adaptive.Thorp.butterflyPerm d (OAI.ThorpNine.Adaptive.Thorp.decodeButterfly d ω)
+def OAI.ThorpNine.Adaptive.Thorp.Casimir.levelScale : ℕ → ℕ → ℝ :=
+fun n k => ↑k * (1 + Real.log (↑n / ↑k))
+def OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.positiveSquare.{u_1} : {V : Type u_1} →
+  [inst : NormedAddCommGroup V] →
+    [inst_1 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → (V →L[ℂ] V) → V →L[ℂ] V :=
+fun {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] T => T * ContinuousLinearMap.adjoint T
+def OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.F : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Adaptive.Thorp.Card d ≃ OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+          ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e rev =>
+  OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.positiveSquare
+    (OAI.ThorpNine.Adaptive.Thorp.SparseContact.sweepOperator d μ e rev)
+def OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.fourthTrace : (d : ℕ) →
+  (μ : YoungDiagram) → OAI.ThorpNine.Adaptive.Thorp.Card d ≃ OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ → Bool → ℝ :=
+fun d μ e rev =>
+  ((LinearMap.trace ℂ ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.hilbertSpace μ))
+      ↑(OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.F d μ e rev ^ 4)).re
+def OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.MainStatement : Prop :=
+∃ c c' C c₀,
+  0 < c ∧
+    0 < c' ∧
+      0 < C ∧
+        0 < c₀ ∧
+          ∀ (d : ℕ) (μ : YoungDiagram)
+            (e : OAI.ThorpNine.Adaptive.Thorp.Card d ≃ OAI.ThorpNine.Adaptive.Thorp.Specht.Cell μ) (rev : Bool),
+            have h := OAI.ThorpNine.Adaptive.Thorp.Casimir.levelScale (2 ^ d) (μ.card - μ.rowLen 0);
+            have D := ↑(Module.finrank ℂ ↥(OAI.ThorpNine.Adaptive.Thorp.Specht.space μ));
+            ‖OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.F d μ e rev‖ ≤ Real.exp (-c * h) ∧
+              OAI.ThorpNine.Adaptive.Thorp.AdaptiveBounds.fourthTrace d μ e rev ≤ Real.exp (-c' * Real.log D + C * h) ∧
+                ‖OAI.ThorpNine.Adaptive.Thorp.SparseContact.sweepOperator d μ e rev‖ ≤ Real.exp (-c₀ * (Real.log D + h))
+@[reducible] def OAI.ThorpNine.Casimir.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Casimir.Thorp.Coins : ℕ → Type :=
+fun x =>
+  match x with
+  | 0 => Unit
+  | d.succ => OAI.ThorpNine.Casimir.Thorp.Card d → Bool
+def OAI.ThorpNine.Casimir.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Casimir.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Casimir.Thorp.Card (d + 1) → OAI.ThorpNine.Casimir.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Casimir.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Casimir.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Casimir.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Casimir.Thorp.switchFun ξ, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.rotate : (d : ℕ) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) :=
+fun d =>
+  { toFun := fun x i => x ((finRotate d) i), invFun := fun x i => x ((Equiv.symm (finRotate d)) i), left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.step : (d : ℕ) →
+  OAI.ThorpNine.Casimir.Thorp.Coins d → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) :=
+fun x x_1 =>
+  match x, x_1 with
+  | 0, x => 1
+  | d.succ, ξ => OAI.ThorpNine.Casimir.Thorp.rotate (d + 1) * OAI.ThorpNine.Casimir.Thorp.pairSwitch ξ
+def OAI.ThorpNine.Casimir.Thorp.run : (d t : ℕ) →
+  (Fin t → OAI.ThorpNine.Casimir.Thorp.Coins d) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) :=
+fun d x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (Fin x → OAI.ThorpNine.Casimir.Thorp.Coins d) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d)) x
+    (OAI.ThorpNine.Casimir.Thorp.run._f d) x_1
+def OAI.ThorpNine.Casimir.Thorp.law : (d : ℕ) → ℕ → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) → ℝ :=
+fun d t g =>
+  ↑(Fintype.card { ω // OAI.ThorpNine.Casimir.Thorp.run d t ω = g }) /
+    ↑(Fintype.card (Fin t → OAI.ThorpNine.Casimir.Thorp.Coins d))
+def OAI.ThorpNine.Casimir.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Casimir.Thorp.Butterfly._f
+def OAI.ThorpNine.Casimir.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Casimir.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.Casimir.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card x)) x
+    OAI.ThorpNine.Casimir.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Casimir.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.Casimir.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Casimir.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Casimir.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Casimir.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Casimir.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Casimir.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Casimir.Thorp.Butterfly x) x
+    OAI.ThorpNine.Casimir.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.Casimir.Thorp.PairRouting.tupleProbability.{u_1, u_3, u_4} : {ι : Type u_1} →
+  [Fintype ι] →
+    {Ω : Type u_3} → {β : Type u_4} → [Fintype Ω] → [DecidableEq β] → (Ω → Equiv.Perm β) → (ι → β) → (ι → β) → ℝ :=
+fun {ι} [Fintype ι] {Ω} {β} [Fintype Ω] [DecidableEq β] P x y =>
+  OAI.ThorpNine.Casimir.Thorp.finiteMean fun ω => if ∀ (i : ι), (P ω) (x i) = y i then 1 else 0
+@[reducible] def OAI.ThorpNine.Casimir.Thorp.BenesCoins : ℕ → Type :=
+fun d => (OAI.ThorpNine.Casimir.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.Casimir.Thorp.SwitchIndex d → Bool)
+def OAI.ThorpNine.Casimir.Thorp.palindromePerm : (d : ℕ) →
+  OAI.ThorpNine.Casimir.Thorp.BenesCoins d → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) :=
+fun d ω =>
+  OAI.ThorpNine.Casimir.Thorp.butterflyPerm d (OAI.ThorpNine.Casimir.Thorp.decodeButterfly d ω.1) *
+    Equiv.symm (OAI.ThorpNine.Casimir.Thorp.butterflyPerm d (OAI.ThorpNine.Casimir.Thorp.decodeButterfly d ω.2))
+def OAI.ThorpNine.Casimir.Thorp.palindromeRowMoment.{u_1} : (d : ℕ) →
+  {ι : Type u_1} → [Fintype ι] → (ι ↪ OAI.ThorpNine.Casimir.Thorp.Card d) → ℝ → ℝ :=
+fun d {ι} [Fintype ι] e a =>
+  OAI.ThorpNine.Casimir.Thorp.finiteMean fun f =>
+    (↑(Fintype.card (ι ↪ OAI.ThorpNine.Casimir.Thorp.Card d)) *
+        OAI.ThorpNine.Casimir.Thorp.PairRouting.tupleProbability (OAI.ThorpNine.Casimir.Thorp.palindromePerm d) ⇑e ⇑f) ^
+      (1 + a)
+@[reducible] def OAI.ThorpNine.Casimir.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.Casimir.Thorp.Specht.row : {μ : YoungDiagram} → OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.Casimir.Thorp.Specht.col : {μ : YoungDiagram} → OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.Casimir.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.Casimir.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.Casimir.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.Casimir.Thorp.Specht.baseTabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.Casimir.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.Casimir.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.Casimir.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.Casimir.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.Casimir.Thorp.Specht.col (p x) = OAI.ThorpNine.Casimir.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.Casimir.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.Casimir.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.Casimir.Thorp.Specht.polytabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.Casimir.Thorp.Specht.alternator (OAI.ThorpNine.Casimir.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.Casimir.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.Casimir.Thorp.Specht.delta (OAI.ThorpNine.Casimir.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.Casimir.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.Casimir.Thorp.Specht.tabloidRep μ) p) (OAI.ThorpNine.Casimir.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.Casimir.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.Casimir.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.Casimir.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Casimir.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.Casimir.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.Casimir.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) → [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.Casimir.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.Casimir.Thorp.PermutationHilbert.H (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Casimir.Thorp.PermutationHilbert.H (OAI.ThorpNine.Casimir.Thorp.Specht.Tabloid μ)) :=
+fun μ =>
+  Submodule.map (↑(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertEquiv μ)) (OAI.ThorpNine.Casimir.Thorp.Specht.space μ)
+def OAI.ThorpNine.Casimir.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Casimir.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.Casimir.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.Casimir.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.Casimir.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ) :=
+fun μ => (OAI.ThorpNine.Casimir.Thorp.Specht.hilbertEquiv μ).submoduleMap (OAI.ThorpNine.Casimir.Thorp.Specht.space μ)
+def OAI.ThorpNine.Casimir.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.Casimir.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.Casimir.Thorp.Specht.representation μ)
+def OAI.ThorpNine.Casimir.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e => MonoidHom.comp (OAI.ThorpNine.Casimir.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.Casimir.Thorp.CasimirBounds.levelScale : ℕ → ℕ → ℝ :=
+fun n k => ↑k * (1 + Real.log (↑n / ↑k))
+def OAI.ThorpNine.Casimir.Thorp.CasimirBounds.K : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Casimir.Thorp.Card d ≃ OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ →
+      ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ) →L[ℂ] ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e =>
+  OAI.ThorpNine.Casimir.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Casimir.Thorp.Specht.relabelledUnitary μ e)
+    (OAI.ThorpNine.Casimir.Thorp.palindromePerm d)
+def OAI.ThorpNine.Casimir.Thorp.CasimirBounds.traceMoment : (d : ℕ) →
+  (μ : YoungDiagram) → OAI.ThorpNine.Casimir.Thorp.Card d ≃ OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ → ℕ → ℝ :=
+fun d μ e r =>
+  ((LinearMap.trace ℂ ↥(OAI.ThorpNine.Casimir.Thorp.Specht.hilbertSpace μ))
+      ↑(OAI.ThorpNine.Casimir.Thorp.CasimirBounds.K d μ e ^ r)).re
+def OAI.ThorpNine.Casimir.Thorp.CasimirBounds.fromDistance : (d : ℕ) →
+  ℕ → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d) → ℝ :=
+fun d t σ => 1 / 2 * ∑ g, |OAI.ThorpNine.Casimir.Thorp.law d t (g * σ⁻¹) - 1 / ↑(2 ^ d).factorial|
+def OAI.ThorpNine.Casimir.Thorp.CasimirBounds.MainStatement : Prop :=
+∃ a C,
+  0 < a ∧
+    0 < C ∧
+      (∀ (d k : ℕ),
+          1 ≤ k →
+            k ≤ 2 ^ d →
+              ∀ (x : Fin k ↪ OAI.ThorpNine.Casimir.Thorp.Card d),
+                OAI.ThorpNine.Casimir.Thorp.palindromeRowMoment d x (1 / 64) ^ (64 / 65) ≤
+                  Real.exp (C * OAI.ThorpNine.Casimir.Thorp.CasimirBounds.levelScale (2 ^ d) k)) ∧
+        (∀ (d : ℕ) (μ : YoungDiagram)
+            (e : OAI.ThorpNine.Casimir.Thorp.Card d ≃ OAI.ThorpNine.Casimir.Thorp.Specht.Cell μ),
+            0 < μ.card - μ.rowLen 0 →
+              ‖OAI.ThorpNine.Casimir.Thorp.CasimirBounds.K d μ e‖ ≤
+                  Real.exp (-a * OAI.ThorpNine.Casimir.Thorp.CasimirBounds.levelScale (2 ^ d) (μ.card - μ.rowLen 0)) ∧
+                ↑(Module.finrank ℂ ↥(OAI.ThorpNine.Casimir.Thorp.Specht.space μ)) *
+                    OAI.ThorpNine.Casimir.Thorp.CasimirBounds.traceMoment d μ e 65 ≤
+                  Real.exp (C * OAI.ThorpNine.Casimir.Thorp.CasimirBounds.levelScale (2 ^ d) (μ.card - μ.rowLen 0))) ∧
+          ∃ l,
+            0 < l ∧
+              ∀ (starts : (d : ℕ) → Equiv.Perm (OAI.ThorpNine.Casimir.Thorp.Card d)),
+                Filter.Tendsto (fun d => OAI.ThorpNine.Casimir.Thorp.CasimirBounds.fromDistance d (l * d) (starts d))
+                  Filter.atTop (nhds 0)
+@[reducible] def OAI.ThorpNine.Dense.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Dense.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Dense.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Dense.Thorp.Card (d + 1) → OAI.ThorpNine.Dense.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Dense.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Dense.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Dense.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Dense.Thorp.switchFun ξ, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Dense.Thorp.Butterfly._f
+def OAI.ThorpNine.Dense.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Dense.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.ThorpNine.Dense.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card x))
+    x OAI.ThorpNine.Dense.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Dense.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.Dense.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Dense.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Dense.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Dense.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Dense.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Dense.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Dense.Thorp.Butterfly x) x
+    OAI.ThorpNine.Dense.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.Dense.Thorp.orbitSet.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → α → Finset α :=
+fun {α} [Fintype α] [DecidableEq α] p x => Finset.filter (p.SameCycle x) Finset.univ
+@[reducible] def OAI.ThorpNine.Dense.Thorp.RoutingNetwork.SelectedCycle.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → Finset α → Type (max 0 u_1) :=
+fun {α} [Fintype α] [DecidableEq α] p S => { C // (∃ x, C = OAI.ThorpNine.Dense.Thorp.orbitSet p x) ∧ C ⊆ S }
+def OAI.ThorpNine.Dense.Thorp.pairLayer.{u_1} : {β : Type u_1} → (β → Bool) → Equiv.Perm (Bool × β) :=
+fun {β} ξ =>
+  { toFun := fun x => (x.1 ^^ ξ x.2, x.2), invFun := fun x => (x.1 ^^ ξ x.2, x.2), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.coinStepEquiv : (d : ℕ) →
+  (OAI.ThorpNine.Dense.Thorp.SwitchIndex (d + 1) → Bool) ≃
+    ((OAI.ThorpNine.Dense.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.Dense.Thorp.SwitchIndex d → Bool)) ×
+      (OAI.ThorpNine.Dense.Thorp.Card d → Bool) :=
+fun d =>
+  { toFun := fun ω => ((fun i => ω (Sum.inr (false, i)), fun i => ω (Sum.inr (true, i))), fun x => ω (Sum.inl x)),
+    invFun := fun ω => Sum.elim ω.2 fun bi => if bi.1 = true then ω.1.2 bi.2 else ω.1.1 bi.2, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.headTailEquiv : (d : ℕ) →
+  OAI.ThorpNine.Dense.Thorp.Card (d + 1) ≃ Bool × OAI.ThorpNine.Dense.Thorp.Card d :=
+fun d => (Fin.consEquiv fun x => Bool).symm
+def OAI.ThorpNine.Dense.Thorp.CycleColoring.alternatingPerm.{u_1} : {α : Type u_1} →
+  Equiv.Perm α → Equiv.Perm (Bool × α) :=
+fun {α} p =>
+  { toFun := fun x => if x.1 = true then (false, p x.2) else (true, x.2),
+    invFun := fun x => if x.1 = true then (false, x.2) else (true, (Equiv.symm p) x.2), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.PairRouting.required.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (ι → Bool) → ι → Bool :=
+fun {ι} {α} x c i => (x i).1 ^^ c i
+def OAI.ThorpNine.Dense.Thorp.PairRouting.Compatible.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (ι → Bool) → Prop :=
+fun {ι} {α} x c =>
+  ∀ (i j : ι),
+    (x i).2 = (x j).2 →
+      OAI.ThorpNine.Dense.Thorp.PairRouting.required x c i = OAI.ThorpNine.Dense.Thorp.PairRouting.required x c j
+def OAI.ThorpNine.Dense.Thorp.PairRouting.colors.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (α → Bool) → ι → Bool :=
+fun {ι} {α} x ξ i => (x i).1 ^^ ξ (x i).2
+def OAI.ThorpNine.Dense.Thorp.PairRouting.childEmbedding.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} →
+    (x : ι ↪ Bool × α) →
+      (c : ι → Bool) → OAI.ThorpNine.Dense.Thorp.PairRouting.Compatible (⇑x) c → (b : Bool) → { i // c i = b } ↪ α :=
+fun {ι} {α} x c hc b => { toFun := fun i => (x ↑i).2, inj' := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.PairRouting.labelSet.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → [Fintype ι] → [DecidableEq α] → (ι ↪ Bool × α) → Finset (Bool × α) :=
+fun {ι} {α} [Fintype ι] [DecidableEq α] e => Finset.image (⇑e) Finset.univ
+def OAI.ThorpNine.Dense.Thorp.PairRouting.alternatingProjection.{u_2} : {α : Type u_2} →
+  (Bool → Equiv.Perm α) → Equiv.Perm α :=
+fun {α} p => Equiv.symm (p false) * p true
+def OAI.ThorpNine.Dense.Thorp.PairRouting.alternatingCycles.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → [Fintype ι] → [Fintype α] → [DecidableEq α] → (ι ↪ Bool × α) → (Bool → Equiv.Perm α) → ℕ :=
+fun {ι} {α} [Fintype ι] [Fintype α] [DecidableEq α] e p =>
+  Fintype.card
+    (OAI.ThorpNine.Dense.Thorp.RoutingNetwork.SelectedCycle
+      (OAI.ThorpNine.Dense.Thorp.CycleColoring.alternatingPerm
+        (OAI.ThorpNine.Dense.Thorp.PairRouting.alternatingProjection p))
+      (OAI.ThorpNine.Dense.Thorp.PairRouting.labelSet e))
+def OAI.ThorpNine.Dense.Thorp.PairRouting.switchedEmbedding.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι ↪ Bool × α) → (α → Bool) → ι ↪ Bool × α :=
+fun {ι} {α} e ξ => e.trans (Equiv.toEmbedding (OAI.ThorpNine.Dense.Thorp.pairLayer ξ))
+@[reducible] def OAI.ThorpNine.Dense.Thorp.BenesCoins : ℕ → Type :=
+fun d => (OAI.ThorpNine.Dense.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.Dense.Thorp.SwitchIndex d → Bool)
+def OAI.ThorpNine.Dense.Thorp.palindromePerm : (d : ℕ) →
+  OAI.ThorpNine.Dense.Thorp.BenesCoins d → Equiv.Perm (OAI.ThorpNine.Dense.Thorp.Card d) :=
+fun d ω =>
+  OAI.ThorpNine.Dense.Thorp.butterflyPerm d (OAI.ThorpNine.Dense.Thorp.decodeButterfly d ω.1) *
+    Equiv.symm (OAI.ThorpNine.Dense.Thorp.butterflyPerm d (OAI.ThorpNine.Dense.Thorp.decodeButterfly d ω.2))
+def OAI.ThorpNine.Dense.Thorp.sandwichShuffle.{u_1, u_2, u_3, u_4, u_5, u_6} : {A : Type u_1} →
+  {B : Type u_2} →
+    {C : Type u_3} →
+      {D : Type u_4} → {E : Type u_5} → {F : Type u_6} → ((A × B) × C) × (D × E) × F ≃ ((A × D) × B × E) × F × C :=
+fun {A} {B} {C} {D} {E} {F} =>
+  { toFun := fun x => (((x.1.1.1, x.2.1.1), x.1.1.2, x.2.1.2), x.2.2, x.1.2),
+    invFun := fun x => (((x.1.1.1, x.1.2.1), x.2.2), (x.1.1.2, x.1.2.2), x.2.1), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Dense.Thorp.benesStepEquiv : (d : ℕ) →
+  OAI.ThorpNine.Dense.Thorp.BenesCoins (d + 1) ≃
+    (OAI.ThorpNine.Dense.Thorp.BenesCoins d × OAI.ThorpNine.Dense.Thorp.BenesCoins d) ×
+      (OAI.ThorpNine.Dense.Thorp.Card d → Bool) × (OAI.ThorpNine.Dense.Thorp.Card d → Bool) :=
+fun d =>
+  ((OAI.ThorpNine.Dense.Thorp.coinStepEquiv d).prodCongr (OAI.ThorpNine.Dense.Thorp.coinStepEquiv d)).trans
+    OAI.ThorpNine.Dense.Thorp.sandwichShuffle
+def OAI.ThorpNine.Dense.Thorp.palindromeCost.{u_1} : (d : ℕ) →
+  {ι : Type u_1} → [Fintype ι] → (ι ↪ OAI.ThorpNine.Dense.Thorp.Card d) → OAI.ThorpNine.Dense.Thorp.BenesCoins d → ℕ :=
+fun x x_1 x_2 x_3 x_4 =>
+  Nat.brecOn (motive := fun x =>
+    (x_5 : Type u_1) →
+      Fintype x_5 → (x_5 ↪ OAI.ThorpNine.Dense.Thorp.Card x) → OAI.ThorpNine.Dense.Thorp.BenesCoins x → ℕ)
+    x OAI.ThorpNine.Dense.Thorp.palindromeCost._f x_1 x_2 x_3 x_4
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.AdmissibleCycleLaw : ℕ → (ℕ → ℝ) → Prop :=
+fun j p => (∀ (l : ℕ), 0 ≤ p l) ∧ HasSum p 1 ∧ ∀ (l : ℕ), p l ≤ ↑(l + 1) / 2 ^ (j - 1)
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.h : ℕ → ℝ :=
+fun j =>
+  sSup {z | ∃ p, OAI.ThorpNine.Dense.Thorp.DenseTruncation.AdmissibleCycleLaw j p ∧ z = ∑' (l : ℕ), p l / ↑(l + 1)}
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.AdmissibleAllocation : ℝ → (ℕ → ℝ) → Prop :=
+fun ρ x => (∀ (j : ℕ), 0 ≤ x j ∧ x j ≤ 1) ∧ ∑' (j : ℕ), x j / 2 ^ (j + 1) ≤ ρ
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.H : ℝ → ℝ :=
+fun ρ =>
+  sSup
+    {z |
+      ∃ x,
+        OAI.ThorpNine.Dense.Thorp.DenseTruncation.AdmissibleAllocation ρ x ∧
+          z = 1 / 2 * ∑' (j : ℕ), OAI.ThorpNine.Dense.Thorp.DenseTruncation.h (j + 1) * x j}
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.entropyCorrection : ℝ → ℝ :=
+fun ρ => (-ρ - (1 - ρ) * Real.log (1 - ρ)) / (ρ * Real.log 2)
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.densityExponent : (d r : ℕ) →
+  (Fin r ↪ OAI.ThorpNine.Dense.Thorp.Card d) → OAI.ThorpNine.Dense.Thorp.BenesCoins d → ℝ :=
+fun d r x ω =>
+  ↑(OAI.ThorpNine.Dense.Thorp.palindromeCost d x ω) + Real.log (↑((2 ^ d).descFactorial r) / (2 ^ d) ^ r) / Real.log 2
+def OAI.ThorpNine.Dense.Thorp.DenseTruncation.MainStatement : Prop :=
+∀ (ρ : ℝ),
+  0 < ρ →
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ c,
+          0 < c ∧
+            ∀ (d r : ℕ),
+              1 ≤ d →
+                1 ≤ r →
+                  ↑r / 2 ^ d = ρ →
+                    ∀ (x : Fin r ↪ OAI.ThorpNine.Dense.Thorp.Card d),
+                      (OAI.ThorpNine.Dense.Thorp.finiteMean fun ω =>
+                          if
+                              ↑r *
+                                  (OAI.ThorpNine.Dense.Thorp.DenseTruncation.H ρ +
+                                      OAI.ThorpNine.Dense.Thorp.DenseTruncation.entropyCorrection ρ +
+                                    ε) <
+                                OAI.ThorpNine.Dense.Thorp.DenseTruncation.densityExponent d r x ω then
+                            1
+                          else 0) ≤
+                        Real.exp (-c * ↑r)
+@[reducible] def OAI.ThorpNine.Contact.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Contact.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Contact.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Contact.Thorp.Card (d + 1) → OAI.ThorpNine.Contact.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Contact.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Contact.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Contact.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Contact.Thorp.switchFun ξ, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Contact.Thorp.Butterfly._f
+def OAI.ThorpNine.Contact.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Contact.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.Contact.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Card x)) x
+    OAI.ThorpNine.Contact.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Contact.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Contact.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Contact.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Contact.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Contact.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Contact.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Contact.Thorp.Butterfly x) x
+    OAI.ThorpNine.Contact.Thorp.decodeButterfly._f x_1
+@[reducible] def OAI.ThorpNine.Contact.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.Contact.Thorp.Specht.row : {μ : YoungDiagram} → OAI.ThorpNine.Contact.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.Contact.Thorp.Specht.col : {μ : YoungDiagram} → OAI.ThorpNine.Contact.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.Contact.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.Contact.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.Contact.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.Contact.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.Contact.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.Contact.Thorp.Specht.baseTabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.Contact.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.Contact.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Cell μ) → Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.Contact.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.Contact.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.Contact.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.Contact.Thorp.Specht.col (p x) = OAI.ThorpNine.Contact.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.Contact.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.Contact.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.Contact.Thorp.Specht.polytabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.Contact.Thorp.Specht.alternator (OAI.ThorpNine.Contact.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.Contact.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.Contact.Thorp.Specht.delta (OAI.ThorpNine.Contact.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.Contact.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.Contact.Thorp.Specht.tabloidRep μ) p) (OAI.ThorpNine.Contact.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.Contact.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.Contact.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.Contact.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Contact.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.Contact.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.Contact.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) → [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.Contact.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.Contact.Thorp.PermutationHilbert.H (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Contact.Thorp.PermutationHilbert.H (OAI.ThorpNine.Contact.Thorp.Specht.Tabloid μ)) :=
+fun μ =>
+  Submodule.map (↑(OAI.ThorpNine.Contact.Thorp.Specht.hilbertEquiv μ)) (OAI.ThorpNine.Contact.Thorp.Specht.space μ)
+def OAI.ThorpNine.Contact.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Contact.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.Contact.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.Contact.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.Contact.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace μ) :=
+fun μ => (OAI.ThorpNine.Contact.Thorp.Specht.hilbertEquiv μ).submoduleMap (OAI.ThorpNine.Contact.Thorp.Specht.space μ)
+def OAI.ThorpNine.Contact.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Contact.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.Contact.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.Contact.Thorp.Specht.representation μ)
+def OAI.ThorpNine.Contact.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.Contact.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e => MonoidHom.comp (OAI.ThorpNine.Contact.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.Contact.Thorp.SparseContact.sweepOperator : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Contact.Thorp.Card d ≃ OAI.ThorpNine.Contact.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+          ↥(OAI.ThorpNine.Contact.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e reverse =>
+  OAI.ThorpNine.Contact.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Contact.Thorp.Specht.relabelledUnitary μ e)
+    fun ω =>
+    if reverse = true then
+      (OAI.ThorpNine.Contact.Thorp.butterflyPerm d (OAI.ThorpNine.Contact.Thorp.decodeButterfly d ω))⁻¹
+    else OAI.ThorpNine.Contact.Thorp.butterflyPerm d (OAI.ThorpNine.Contact.Thorp.decodeButterfly d ω)
+def OAI.ThorpNine.Contact.Thorp.SparseContact.MainStatement : Prop :=
+∃ Cstar C,
+  0 < Cstar ∧
+    0 < C ∧
+      ∀ (d : ℕ),
+        1 ≤ d →
+          ∀ (μ : YoungDiagram) (e : OAI.ThorpNine.Contact.Thorp.Card d ≃ OAI.ThorpNine.Contact.Thorp.Specht.Cell μ),
+            have k := μ.card - μ.rowLen 0;
+            1 ≤ k →
+              k < 2 ^ d →
+                ∀ (reverse : Bool),
+                  ‖OAI.ThorpNine.Contact.Thorp.SparseContact.sweepOperator d μ e reverse‖ ^ 2 ≤
+                      min 1 ((Cstar * ↑d * ↑k / 2 ^ d) ^ (↑k / 2)) ∧
+                    (k = 1 → OAI.ThorpNine.Contact.Thorp.SparseContact.sweepOperator d μ e reverse = 0) ∧
+                      ‖OAI.ThorpNine.Contact.Thorp.SparseContact.sweepOperator d μ e reverse‖ ^ 2 ≤
+                        C ^ k * (1 + ↑d) ^ (C * ↑k) * (↑k / 2 ^ d) ^ (↑k / 2)
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Harmonic.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Harmonic.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Harmonic.Thorp.Card (d + 1) → OAI.ThorpNine.Harmonic.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Harmonic.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Harmonic.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Harmonic.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Harmonic.Thorp.switchFun ξ,
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Harmonic.Thorp.Butterfly._f
+def OAI.ThorpNine.Harmonic.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Harmonic.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.Harmonic.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card x)) x
+    OAI.ThorpNine.Harmonic.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Harmonic.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.Harmonic.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Harmonic.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Harmonic.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Harmonic.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Harmonic.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Harmonic.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Harmonic.Thorp.Butterfly x) x
+    OAI.ThorpNine.Harmonic.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.Harmonic.Thorp.PairRouting.tupleProbability.{u_1, u_3, u_4} : {ι : Type u_1} →
+  [Fintype ι] →
+    {Ω : Type u_3} → {β : Type u_4} → [Fintype Ω] → [DecidableEq β] → (Ω → Equiv.Perm β) → (ι → β) → (ι → β) → ℝ :=
+fun {ι} [Fintype ι] {Ω} {β} [Fintype Ω] [DecidableEq β] P x y =>
+  OAI.ThorpNine.Harmonic.Thorp.finiteMean fun ω => if ∀ (i : ι), (P ω) (x i) = y i then 1 else 0
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.BenesCoins : ℕ → Type :=
+fun d => (OAI.ThorpNine.Harmonic.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.Harmonic.Thorp.SwitchIndex d → Bool)
+def OAI.ThorpNine.Harmonic.Thorp.palindromePerm : (d : ℕ) →
+  OAI.ThorpNine.Harmonic.Thorp.BenesCoins d → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card d) :=
+fun d ω =>
+  OAI.ThorpNine.Harmonic.Thorp.butterflyPerm d (OAI.ThorpNine.Harmonic.Thorp.decodeButterfly d ω.1) *
+    Equiv.symm (OAI.ThorpNine.Harmonic.Thorp.butterflyPerm d (OAI.ThorpNine.Harmonic.Thorp.decodeButterfly d ω.2))
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.Harmonic.Thorp.Specht.row : {μ : YoungDiagram} → OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.Harmonic.Thorp.Specht.col : {μ : YoungDiagram} → OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.Harmonic.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.Harmonic.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.Harmonic.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.Harmonic.Thorp.Specht.baseTabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.Harmonic.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ) →
+    Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.Harmonic.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.Harmonic.Thorp.Specht.col (p x) = OAI.ThorpNine.Harmonic.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.Harmonic.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.Harmonic.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.Harmonic.Thorp.Specht.polytabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.Harmonic.Thorp.Specht.alternator (OAI.ThorpNine.Harmonic.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.Harmonic.Thorp.Specht.delta (OAI.ThorpNine.Harmonic.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.Harmonic.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidRep μ) p) (OAI.ThorpNine.Harmonic.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.Harmonic.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.Harmonic.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.Harmonic.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.Harmonic.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) → [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.Harmonic.Thorp.PermutationHilbert.H (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Harmonic.Thorp.PermutationHilbert.H (OAI.ThorpNine.Harmonic.Thorp.Specht.Tabloid μ)) :=
+fun μ =>
+  Submodule.map (↑(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertEquiv μ)) (OAI.ThorpNine.Harmonic.Thorp.Specht.space μ)
+def OAI.ThorpNine.Harmonic.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.Harmonic.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.Harmonic.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) :=
+fun μ => (OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertEquiv μ).submoduleMap (OAI.ThorpNine.Harmonic.Thorp.Specht.space μ)
+def OAI.ThorpNine.Harmonic.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.Harmonic.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.Harmonic.Thorp.Specht.representation μ)
+def OAI.ThorpNine.Harmonic.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e => MonoidHom.comp (OAI.ThorpNine.Harmonic.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.Harmonic.Thorp.SparseContact.sweepOperator : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Harmonic.Thorp.Card d ≃ OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+          ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e reverse =>
+  OAI.ThorpNine.Harmonic.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Harmonic.Thorp.Specht.relabelledUnitary μ e)
+    fun ω =>
+    if reverse = true then
+      (OAI.ThorpNine.Harmonic.Thorp.butterflyPerm d (OAI.ThorpNine.Harmonic.Thorp.decodeButterfly d ω))⁻¹
+    else OAI.ThorpNine.Harmonic.Thorp.butterflyPerm d (OAI.ThorpNine.Harmonic.Thorp.decodeButterfly d ω)
+def OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.coordinateRelabel : (d : ℕ) →
+  Equiv.Perm (Fin d) → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card d) :=
+fun d order =>
+  { toFun := fun x i => x ((Equiv.symm order) i), invFun := fun x i => x (order i), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.sweep : (d : ℕ) →
+  Equiv.Perm (Fin d) →
+    (OAI.ThorpNine.Harmonic.Thorp.SwitchIndex d → Bool) → Equiv.Perm (OAI.ThorpNine.Harmonic.Thorp.Card d) :=
+fun d order ω =>
+  OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.coordinateRelabel d order *
+      OAI.ThorpNine.Harmonic.Thorp.butterflyPerm d (OAI.ThorpNine.Harmonic.Thorp.decodeButterfly d ω) *
+    (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.coordinateRelabel d order)⁻¹
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples : ℕ → ℕ → Type :=
+fun d l => Fin l ↪ OAI.ThorpNine.Harmonic.Thorp.Card d
+def OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.sweepKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Matrix (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d l)
+      (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d l) ℝ :=
+fun d l order x y =>
+  OAI.ThorpNine.Harmonic.Thorp.PairRouting.tupleProbability (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.sweep d order)
+    ⇑x ⇑y
+def OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.reflectedKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Bool →
+      Matrix (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d l)
+        (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d l) ℝ :=
+fun d l order orientation =>
+  have A := OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.sweepKernel d l order;
+  if orientation = true then A * A.transpose else A.transpose * A
+def OAI.ThorpNine.Harmonic.Thorp.StrongTail.tailDiagram : YoungDiagram → YoungDiagram :=
+fun μ => YoungDiagram.ofRowLens μ.rowLens.tail ⋯
+def OAI.ThorpNine.Harmonic.Thorp.Casimir.levelScale : ℕ → ℕ → ℝ :=
+fun n k => ↑k * (1 + Real.log (↑n / ↑k))
+def OAI.ThorpNine.Harmonic.Thorp.Casimir.K : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Harmonic.Thorp.Card d ≃ OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ →
+      ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+        ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e =>
+  OAI.ThorpNine.Harmonic.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Harmonic.Thorp.Specht.relabelledUnitary μ e)
+    (OAI.ThorpNine.Harmonic.Thorp.palindromePerm d)
+@[reducible] def OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.tail : YoungDiagram → YoungDiagram :=
+fun μ => OAI.ThorpNine.Harmonic.Thorp.StrongTail.tailDiagram μ
+def OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.W : (d : ℕ) →
+  (μ : YoungDiagram) → OAI.ThorpNine.Harmonic.Thorp.Card d ≃ OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ → ℝ :=
+fun d μ e => ‖OAI.ThorpNine.Harmonic.Thorp.Casimir.K d μ e‖
+def OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.tupleTrace : (d : ℕ) → ℕ → Equiv.Perm (Fin d) → Bool → ℕ → ℝ :=
+fun d k order rev p => (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.reflectedKernel d k order rev ^ p).trace
+def OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.MainStatement : Prop :=
+∃ c C ζ δ cTail c₁ c₂ p₀,
+  0 < c ∧
+    0 < C ∧
+      0 < ζ ∧
+        0 < δ ∧
+          δ < 1 ∧
+            0 < cTail ∧
+              0 < c₁ ∧
+                0 < c₂ ∧
+                  0 < p₀ ∧
+                    (∀ (d : ℕ) (μ : YoungDiagram)
+                        (e : OAI.ThorpNine.Harmonic.Thorp.Card d ≃ OAI.ThorpNine.Harmonic.Thorp.Specht.Cell μ),
+                        0 < μ.card - μ.rowLen 0 →
+                          have L := OAI.ThorpNine.Harmonic.Thorp.Casimir.levelScale (2 ^ d) (μ.card - μ.rowLen 0);
+                          have f :=
+                            ↑(Module.finrank ℂ
+                                ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.space
+                                    (OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.tail μ)));
+                          have D := ↑(Module.finrank ℂ ↥(OAI.ThorpNine.Harmonic.Thorp.Specht.space μ));
+                          OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.W d μ e ≤ Real.exp (-c * L) ∧
+                            OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.W d μ e ≤ Real.exp (C * L) * f ^ (-ζ) ∧
+                              (∀ (rev : Bool),
+                                  ‖OAI.ThorpNine.Harmonic.Thorp.SparseContact.sweepOperator d μ e rev‖ ≤
+                                    Real.exp (-cTail * (L + Real.log f))) ∧
+                                OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.W d μ e ≤ Real.exp (-c₁ * L) * D ^ (-c₂)) ∧
+                      ∀ (d k : ℕ),
+                        1 ≤ k →
+                          k ≤ 2 ^ d →
+                            ∀ (order : Equiv.Perm (Fin d)) (rev : Bool),
+                              (∀ (x : OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d k),
+                                  (OAI.ThorpNine.Harmonic.Thorp.finiteMean fun y =>
+                                      (↑(Fintype.card (OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.Tuples d k)) *
+                                          OAI.ThorpNine.Harmonic.Thorp.StrongSmoothing.reflectedKernel d k order rev x
+                                            y) ^
+                                        (1 + δ)) ≤
+                                    Real.exp (C * OAI.ThorpNine.Harmonic.Thorp.Casimir.levelScale (2 ^ d) k)) ∧
+                                OAI.ThorpNine.Harmonic.Thorp.HarmonicBounds.tupleTrace d k order rev p₀ ≤
+                                  Real.exp (C * OAI.ThorpNine.Harmonic.Thorp.Casimir.levelScale (2 ^ d) k)
+@[reducible] def OAI.ThorpNine.Smoothing.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Smoothing.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Smoothing.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Smoothing.Thorp.Card (d + 1) → OAI.ThorpNine.Smoothing.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Smoothing.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Smoothing.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Smoothing.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Smoothing.Thorp.switchFun ξ,
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Smoothing.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Smoothing.Thorp.Butterfly._f
+def OAI.ThorpNine.Smoothing.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card d)) →
+    Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Smoothing.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Smoothing.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.Smoothing.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card x)) x
+    OAI.ThorpNine.Smoothing.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Smoothing.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.Smoothing.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Smoothing.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Smoothing.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Smoothing.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Smoothing.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.Smoothing.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Smoothing.Thorp.Butterfly x) x
+    OAI.ThorpNine.Smoothing.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.Smoothing.Thorp.PairRouting.tupleProbability.{u_1, u_3, u_4} : {ι : Type u_1} →
+  [Fintype ι] →
+    {Ω : Type u_3} → {β : Type u_4} → [Fintype Ω] → [DecidableEq β] → (Ω → Equiv.Perm β) → (ι → β) → (ι → β) → ℝ :=
+fun {ι} [Fintype ι] {Ω} {β} [Fintype Ω] [DecidableEq β] P x y =>
+  OAI.ThorpNine.Smoothing.Thorp.finiteMean fun ω => if ∀ (i : ι), (P ω) (x i) = y i then 1 else 0
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.coordinateRelabel : (d : ℕ) →
+  Equiv.Perm (Fin d) → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card d) :=
+fun d order =>
+  { toFun := fun x i => x ((Equiv.symm order) i), invFun := fun x i => x (order i), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.sweep : (d : ℕ) →
+  Equiv.Perm (Fin d) →
+    (OAI.ThorpNine.Smoothing.Thorp.SwitchIndex d → Bool) → Equiv.Perm (OAI.ThorpNine.Smoothing.Thorp.Card d) :=
+fun d order ω =>
+  OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.coordinateRelabel d order *
+      OAI.ThorpNine.Smoothing.Thorp.butterflyPerm d (OAI.ThorpNine.Smoothing.Thorp.decodeButterfly d ω) *
+    (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.coordinateRelabel d order)⁻¹
+@[reducible] def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples : ℕ → ℕ → Type :=
+fun d l => Fin l ↪ OAI.ThorpNine.Smoothing.Thorp.Card d
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.sweepKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Matrix (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples d l)
+      (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples d l) ℝ :=
+fun d l order x y =>
+  OAI.ThorpNine.Smoothing.Thorp.PairRouting.tupleProbability
+    (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.sweep d order) ⇑x ⇑y
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.reflectedKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Bool →
+      Matrix (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples d l)
+        (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples d l) ℝ :=
+fun d l order orientation =>
+  have A := OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.sweepKernel d l order;
+  if orientation = true then A * A.transpose else A.transpose * A
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.regularAbsoluteEvenTrace : (d : ℕ) → Equiv.Perm (Fin d) → ℕ → ℝ :=
+fun d order u => (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.reflectedKernel d (2 ^ d) order false ^ u).trace
+def OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.MainStatement : Prop :=
+∃ u,
+  1 ≤ u ∧
+    ∃ C,
+      (∀ (d l : ℕ),
+          l ≤ 2 ^ d →
+            ∀ (order : Equiv.Perm (Fin d)) (orientation : Bool)
+              (x y : OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.Tuples d l),
+              (OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.reflectedKernel d l order orientation ^ u) x y ≤
+                Real.exp (C * ↑l) / ↑((2 ^ d).descFactorial l)) ∧
+        ∀ (d : ℕ) (order : Equiv.Perm (Fin d)),
+          OAI.ThorpNine.Smoothing.Thorp.StrongSmoothing.regularAbsoluteEvenTrace d order u ≤ Real.exp (C * 2 ^ d)
+@[reducible] def OAI.ThorpNine.Tail.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.Tail.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.Tail.Thorp.Card d → Bool) →
+    OAI.ThorpNine.Tail.Thorp.Card (d + 1) → OAI.ThorpNine.Tail.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.Tail.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.Tail.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.Tail.Thorp.switchFun ξ, invFun := OAI.ThorpNine.Tail.Thorp.switchFun ξ, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Tail.Thorp.Butterfly._f
+def OAI.ThorpNine.Tail.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.Tail.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => OAI.ThorpNine.Tail.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card x)) x
+    OAI.ThorpNine.Tail.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.Tail.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.Tail.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.Tail.Thorp.SwitchIndex._f
+def OAI.ThorpNine.Tail.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.Tail.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.Tail.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x => (OAI.ThorpNine.Tail.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.Tail.Thorp.Butterfly x)
+    x OAI.ThorpNine.Tail.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.Tail.Thorp.PairRouting.tupleProbability.{u_1, u_3, u_4} : {ι : Type u_1} →
+  [Fintype ι] →
+    {Ω : Type u_3} → {β : Type u_4} → [Fintype Ω] → [DecidableEq β] → (Ω → Equiv.Perm β) → (ι → β) → (ι → β) → ℝ :=
+fun {ι} [Fintype ι] {Ω} {β} [Fintype Ω] [DecidableEq β] P x y =>
+  OAI.ThorpNine.Tail.Thorp.finiteMean fun ω => if ∀ (i : ι), (P ω) (x i) = y i then 1 else 0
+@[reducible] def OAI.ThorpNine.Tail.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.Tail.Thorp.Specht.row : {μ : YoungDiagram} → OAI.ThorpNine.Tail.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.Tail.Thorp.Specht.col : {μ : YoungDiagram} → OAI.ThorpNine.Tail.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.Tail.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.Tail.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.Tail.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.Tail.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.Tail.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.Tail.Thorp.Specht.baseTabloid : (μ : YoungDiagram) → OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.Tail.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.Tail.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Cell μ) → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.Tail.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯, map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.Tail.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.Tail.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.Tail.Thorp.Specht.col (p x) = OAI.ThorpNine.Tail.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.Tail.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.Tail.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.Tail.Thorp.Specht.polytabloid : (μ : YoungDiagram) → OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.Tail.Thorp.Specht.alternator (OAI.ThorpNine.Tail.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.Tail.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.Tail.Thorp.Specht.delta (OAI.ThorpNine.Tail.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.Tail.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.Tail.Thorp.Specht.tabloidRep μ) p) (OAI.ThorpNine.Tail.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.Tail.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.Tail.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.Tail.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Cell μ)) ↥(OAI.ThorpNine.Tail.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.Tail.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.Tail.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) → [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.Tail.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.Tail.Thorp.PermutationHilbert.H (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.Tail.Thorp.PermutationHilbert.H (OAI.ThorpNine.Tail.Thorp.Specht.Tabloid μ)) :=
+fun μ => Submodule.map (↑(OAI.ThorpNine.Tail.Thorp.Specht.hilbertEquiv μ)) (OAI.ThorpNine.Tail.Thorp.Specht.space μ)
+def OAI.ThorpNine.Tail.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.Tail.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.Tail.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.Tail.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace μ) :=
+fun μ => (OAI.ThorpNine.Tail.Thorp.Specht.hilbertEquiv μ).submoduleMap (OAI.ThorpNine.Tail.Thorp.Specht.space μ)
+def OAI.ThorpNine.Tail.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.Tail.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.Tail.Thorp.Specht.representation μ)
+def OAI.ThorpNine.Tail.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.Tail.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e => MonoidHom.comp (OAI.ThorpNine.Tail.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.Tail.Thorp.SparseContact.sweepOperator : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.Tail.Thorp.Card d ≃ OAI.ThorpNine.Tail.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace μ) →L[ℂ] ↥(OAI.ThorpNine.Tail.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e reverse =>
+  OAI.ThorpNine.Tail.Thorp.UnitaryFinite.sampleOperator (OAI.ThorpNine.Tail.Thorp.Specht.relabelledUnitary μ e) fun ω =>
+    if reverse = true then (OAI.ThorpNine.Tail.Thorp.butterflyPerm d (OAI.ThorpNine.Tail.Thorp.decodeButterfly d ω))⁻¹
+    else OAI.ThorpNine.Tail.Thorp.butterflyPerm d (OAI.ThorpNine.Tail.Thorp.decodeButterfly d ω)
+def OAI.ThorpNine.Tail.Thorp.StrongSmoothing.coordinateRelabel : (d : ℕ) →
+  Equiv.Perm (Fin d) → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card d) :=
+fun d order =>
+  { toFun := fun x i => x ((Equiv.symm order) i), invFun := fun x i => x (order i), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.Tail.Thorp.StrongSmoothing.sweep : (d : ℕ) →
+  Equiv.Perm (Fin d) → (OAI.ThorpNine.Tail.Thorp.SwitchIndex d → Bool) → Equiv.Perm (OAI.ThorpNine.Tail.Thorp.Card d) :=
+fun d order ω =>
+  OAI.ThorpNine.Tail.Thorp.StrongSmoothing.coordinateRelabel d order *
+      OAI.ThorpNine.Tail.Thorp.butterflyPerm d (OAI.ThorpNine.Tail.Thorp.decodeButterfly d ω) *
+    (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.coordinateRelabel d order)⁻¹
+@[reducible] def OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples : ℕ → ℕ → Type :=
+fun d l => Fin l ↪ OAI.ThorpNine.Tail.Thorp.Card d
+def OAI.ThorpNine.Tail.Thorp.StrongSmoothing.sweepKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Matrix (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l) (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l)
+      ℝ :=
+fun d l order x y =>
+  OAI.ThorpNine.Tail.Thorp.PairRouting.tupleProbability (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.sweep d order) ⇑x ⇑y
+def OAI.ThorpNine.Tail.Thorp.StrongSmoothing.reflectedKernel : (d l : ℕ) →
+  Equiv.Perm (Fin d) →
+    Bool →
+      Matrix (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l) (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l)
+        ℝ :=
+fun d l order orientation =>
+  have A := OAI.ThorpNine.Tail.Thorp.StrongSmoothing.sweepKernel d l order;
+  if orientation = true then A * A.transpose else A.transpose * A
+def OAI.ThorpNine.Tail.Thorp.StrongTail.tailDiagram : YoungDiagram → YoungDiagram :=
+fun μ => YoungDiagram.ofRowLens μ.rowLens.tail ⋯
+def OAI.ThorpNine.Tail.Thorp.StrongTail.DensityAt : ℝ → ℝ → Prop :=
+fun p C =>
+  ∀ (d l : ℕ),
+    l ≤ 2 ^ d →
+      ∀ (order : Equiv.Perm (Fin d)) (rev : Bool) (x : OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l),
+        have H := OAI.ThorpNine.Tail.Thorp.StrongSmoothing.reflectedKernel d l order rev;
+        (OAI.ThorpNine.Tail.Thorp.finiteMean fun y =>
+              (↑(Fintype.card (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l)) * H x y) ^ p) ≤
+            Real.exp (C * ↑l) ∧
+          (OAI.ThorpNine.Tail.Thorp.finiteMean fun y =>
+                (↑(Fintype.card (OAI.ThorpNine.Tail.Thorp.StrongSmoothing.Tuples d l)) * H y x) ^ p) ≤
+              Real.exp (C * ↑l) ∧
+            ((2 ^ d) ^ l)⁻¹ * ∑ y, ((2 ^ d) ^ l * H x y) ^ p ≤ Real.exp (C * ↑l) ∧
+              ((2 ^ d) ^ l)⁻¹ * ∑ y, ((2 ^ d) ^ l * H y x) ^ p ≤ Real.exp (C * ↑l)
+def OAI.ThorpNine.Tail.Thorp.StrongTail.MainStatement : Prop :=
+∃ p Cdensity C,
+  1 < p ∧
+    p ≤ 2 ∧
+      OAI.ThorpNine.Tail.Thorp.StrongTail.DensityAt p Cdensity ∧
+        ∀ (d : ℕ) (μ : YoungDiagram) (e : OAI.ThorpNine.Tail.Thorp.Card d ≃ OAI.ThorpNine.Tail.Thorp.Specht.Cell μ)
+          (rev : Bool),
+          ‖OAI.ThorpNine.Tail.Thorp.SparseContact.sweepOperator d μ e rev‖ ^ 2 ≤
+            Real.exp (C * ↑(μ.card - μ.rowLen 0)) *
+              ↑(Module.finrank ℂ
+                    ↥(OAI.ThorpNine.Tail.Thorp.Specht.space (OAI.ThorpNine.Tail.Thorp.StrongTail.tailDiagram μ))) ^
+                (-((p - 1) / p))
+@[reducible] def OAI.ThorpNine.HighTail.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.HighTail.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.HighTail.Thorp.Card d → Bool) →
+    OAI.ThorpNine.HighTail.Thorp.Card (d + 1) → OAI.ThorpNine.HighTail.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.HighTail.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.HighTail.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.HighTail.Thorp.switchFun ξ, invFun := OAI.ThorpNine.HighTail.Thorp.switchFun ξ,
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.HighTail.Thorp.Butterfly._f
+def OAI.ThorpNine.HighTail.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card d)) → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.HighTail.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.HighTail.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card x)) x
+    OAI.ThorpNine.HighTail.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.HighTail.Thorp.finiteMean.{u_1} : {Ω : Type u_1} → [Fintype Ω] → (Ω → ℝ) → ℝ :=
+fun {Ω} [Fintype Ω] f => (∑ ω, f ω) / ↑(Fintype.card Ω)
+def OAI.ThorpNine.HighTail.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.HighTail.Thorp.SwitchIndex._f
+def OAI.ThorpNine.HighTail.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.HighTail.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.HighTail.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.HighTail.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.HighTail.Thorp.Butterfly x) x
+    OAI.ThorpNine.HighTail.Thorp.decodeButterfly._f x_1
+def OAI.ThorpNine.HighTail.Thorp.orbitSet.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → α → Finset α :=
+fun {α} [Fintype α] [DecidableEq α] p x => Finset.filter (p.SameCycle x) Finset.univ
+@[reducible] def OAI.ThorpNine.HighTail.Thorp.RoutingNetwork.SelectedCycle.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → Finset α → Type (max 0 u_1) :=
+fun {α} [Fintype α] [DecidableEq α] p S => { C // (∃ x, C = OAI.ThorpNine.HighTail.Thorp.orbitSet p x) ∧ C ⊆ S }
+def OAI.ThorpNine.HighTail.Thorp.cardSplit : (r s : ℕ) →
+  OAI.ThorpNine.HighTail.Thorp.Card (s + r) ≃
+    OAI.ThorpNine.HighTail.Thorp.Card r × OAI.ThorpNine.HighTail.Thorp.Card s :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (x_2 : ℕ) →
+      OAI.ThorpNine.HighTail.Thorp.Card (x_2 + x) ≃
+        OAI.ThorpNine.HighTail.Thorp.Card x × OAI.ThorpNine.HighTail.Thorp.Card x_2)
+    x OAI.ThorpNine.HighTail.Thorp.cardSplit._f x_1
+def OAI.ThorpNine.HighTail.Thorp.assembleBits : (r s : ℕ) →
+  (OAI.ThorpNine.HighTail.Thorp.Card r × OAI.ThorpNine.HighTail.Thorp.SwitchIndex s → Bool) →
+    (OAI.ThorpNine.HighTail.Thorp.Card s × OAI.ThorpNine.HighTail.Thorp.SwitchIndex r → Bool) →
+      OAI.ThorpNine.HighTail.Thorp.SwitchIndex (s + r) → Bool :=
+fun x x_1 x_2 x_3 x_4 =>
+  Nat.brecOn (motive := fun x =>
+    (x_5 : ℕ) →
+      (OAI.ThorpNine.HighTail.Thorp.Card x × OAI.ThorpNine.HighTail.Thorp.SwitchIndex x_5 → Bool) →
+        (OAI.ThorpNine.HighTail.Thorp.Card x_5 × OAI.ThorpNine.HighTail.Thorp.SwitchIndex x → Bool) →
+          OAI.ThorpNine.HighTail.Thorp.SwitchIndex (x_5 + x) → Bool)
+    x OAI.ThorpNine.HighTail.Thorp.assembleBits._f x_1 x_2 x_3 x_4
+def OAI.ThorpNine.HighTail.Thorp.pairLayer.{u_1} : {β : Type u_1} → (β → Bool) → Equiv.Perm (Bool × β) :=
+fun {β} ξ =>
+  { toFun := fun x => (x.1 ^^ ξ x.2, x.2), invFun := fun x => (x.1 ^^ ξ x.2, x.2), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.coinStepEquiv : (d : ℕ) →
+  (OAI.ThorpNine.HighTail.Thorp.SwitchIndex (d + 1) → Bool) ≃
+    ((OAI.ThorpNine.HighTail.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.HighTail.Thorp.SwitchIndex d → Bool)) ×
+      (OAI.ThorpNine.HighTail.Thorp.Card d → Bool) :=
+fun d =>
+  { toFun := fun ω => ((fun i => ω (Sum.inr (false, i)), fun i => ω (Sum.inr (true, i))), fun x => ω (Sum.inl x)),
+    invFun := fun ω => Sum.elim ω.2 fun bi => if bi.1 = true then ω.1.2 bi.2 else ω.1.1 bi.2, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.headTailEquiv : (d : ℕ) →
+  OAI.ThorpNine.HighTail.Thorp.Card (d + 1) ≃ Bool × OAI.ThorpNine.HighTail.Thorp.Card d :=
+fun d => (Fin.consEquiv fun x => Bool).symm
+def OAI.ThorpNine.HighTail.Thorp.CycleColoring.alternatingPerm.{u_1} : {α : Type u_1} →
+  Equiv.Perm α → Equiv.Perm (Bool × α) :=
+fun {α} p =>
+  { toFun := fun x => if x.1 = true then (false, p x.2) else (true, x.2),
+    invFun := fun x => if x.1 = true then (false, x.2) else (true, (Equiv.symm p) x.2), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.required.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (ι → Bool) → ι → Bool :=
+fun {ι} {α} x c i => (x i).1 ^^ c i
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.Compatible.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (ι → Bool) → Prop :=
+fun {ι} {α} x c =>
+  ∀ (i j : ι),
+    (x i).2 = (x j).2 →
+      OAI.ThorpNine.HighTail.Thorp.PairRouting.required x c i = OAI.ThorpNine.HighTail.Thorp.PairRouting.required x c j
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.colors.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι → Bool × α) → (α → Bool) → ι → Bool :=
+fun {ι} {α} x ξ i => (x i).1 ^^ ξ (x i).2
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.childEmbedding.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} →
+    (x : ι ↪ Bool × α) →
+      (c : ι → Bool) → OAI.ThorpNine.HighTail.Thorp.PairRouting.Compatible (⇑x) c → (b : Bool) → { i // c i = b } ↪ α :=
+fun {ι} {α} x c hc b => { toFun := fun i => (x ↑i).2, inj' := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.labelSet.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → [Fintype ι] → [DecidableEq α] → (ι ↪ Bool × α) → Finset (Bool × α) :=
+fun {ι} {α} [Fintype ι] [DecidableEq α] e => Finset.image (⇑e) Finset.univ
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.alternatingProjection.{u_2} : {α : Type u_2} →
+  (Bool → Equiv.Perm α) → Equiv.Perm α :=
+fun {α} p => Equiv.symm (p false) * p true
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.alternatingCycles.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → [Fintype ι] → [Fintype α] → [DecidableEq α] → (ι ↪ Bool × α) → (Bool → Equiv.Perm α) → ℕ :=
+fun {ι} {α} [Fintype ι] [Fintype α] [DecidableEq α] e p =>
+  Fintype.card
+    (OAI.ThorpNine.HighTail.Thorp.RoutingNetwork.SelectedCycle
+      (OAI.ThorpNine.HighTail.Thorp.CycleColoring.alternatingPerm
+        (OAI.ThorpNine.HighTail.Thorp.PairRouting.alternatingProjection p))
+      (OAI.ThorpNine.HighTail.Thorp.PairRouting.labelSet e))
+def OAI.ThorpNine.HighTail.Thorp.PairRouting.switchedEmbedding.{u_1, u_2} : {ι : Type u_1} →
+  {α : Type u_2} → (ι ↪ Bool × α) → (α → Bool) → ι ↪ Bool × α :=
+fun {ι} {α} e ξ => e.trans (Equiv.toEmbedding (OAI.ThorpNine.HighTail.Thorp.pairLayer ξ))
+@[reducible] def OAI.ThorpNine.HighTail.Thorp.BenesCoins : ℕ → Type :=
+fun d => (OAI.ThorpNine.HighTail.Thorp.SwitchIndex d → Bool) × (OAI.ThorpNine.HighTail.Thorp.SwitchIndex d → Bool)
+def OAI.ThorpNine.HighTail.Thorp.palindromePerm : (d : ℕ) →
+  OAI.ThorpNine.HighTail.Thorp.BenesCoins d → Equiv.Perm (OAI.ThorpNine.HighTail.Thorp.Card d) :=
+fun d ω =>
+  OAI.ThorpNine.HighTail.Thorp.butterflyPerm d (OAI.ThorpNine.HighTail.Thorp.decodeButterfly d ω.1) *
+    Equiv.symm (OAI.ThorpNine.HighTail.Thorp.butterflyPerm d (OAI.ThorpNine.HighTail.Thorp.decodeButterfly d ω.2))
+def OAI.ThorpNine.HighTail.Thorp.sandwichShuffle.{u_1, u_2, u_3, u_4, u_5, u_6} : {A : Type u_1} →
+  {B : Type u_2} →
+    {C : Type u_3} →
+      {D : Type u_4} → {E : Type u_5} → {F : Type u_6} → ((A × B) × C) × (D × E) × F ≃ ((A × D) × B × E) × F × C :=
+fun {A} {B} {C} {D} {E} {F} =>
+  { toFun := fun x => (((x.1.1.1, x.2.1.1), x.1.1.2, x.2.1.2), x.2.2, x.1.2),
+    invFun := fun x => (((x.1.1.1, x.1.2.1), x.2.2), (x.1.1.2, x.1.2.2), x.2.1), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.HighTail.Thorp.benesStepEquiv : (d : ℕ) →
+  OAI.ThorpNine.HighTail.Thorp.BenesCoins (d + 1) ≃
+    (OAI.ThorpNine.HighTail.Thorp.BenesCoins d × OAI.ThorpNine.HighTail.Thorp.BenesCoins d) ×
+      (OAI.ThorpNine.HighTail.Thorp.Card d → Bool) × (OAI.ThorpNine.HighTail.Thorp.Card d → Bool) :=
+fun d =>
+  ((OAI.ThorpNine.HighTail.Thorp.coinStepEquiv d).prodCongr (OAI.ThorpNine.HighTail.Thorp.coinStepEquiv d)).trans
+    OAI.ThorpNine.HighTail.Thorp.sandwichShuffle
+def OAI.ThorpNine.HighTail.Thorp.palindromeCost.{u_1} : (d : ℕ) →
+  {ι : Type u_1} →
+    [Fintype ι] → (ι ↪ OAI.ThorpNine.HighTail.Thorp.Card d) → OAI.ThorpNine.HighTail.Thorp.BenesCoins d → ℕ :=
+fun x x_1 x_2 x_3 x_4 =>
+  Nat.brecOn (motive := fun x =>
+    (x_5 : Type u_1) →
+      Fintype x_5 → (x_5 ↪ OAI.ThorpNine.HighTail.Thorp.Card x) → OAI.ThorpNine.HighTail.Thorp.BenesCoins x → ℕ)
+    x OAI.ThorpNine.HighTail.Thorp.palindromeCost._f x_1 x_2 x_3 x_4
+def OAI.ThorpNine.HighTail.Thorp.palindromeLowCost.{u_1} : ℕ →
+  (d : ℕ) →
+    {ι : Type u_1} →
+      [Fintype ι] → (ι ↪ OAI.ThorpNine.HighTail.Thorp.Card d) → OAI.ThorpNine.HighTail.Thorp.BenesCoins d → ℕ :=
+fun H x x_1 x_2 x_3 x_4 =>
+  Nat.brecOn (motive := fun x =>
+    (x_5 : Type u_1) →
+      Fintype x_5 → (x_5 ↪ OAI.ThorpNine.HighTail.Thorp.Card x) → OAI.ThorpNine.HighTail.Thorp.BenesCoins x → ℕ)
+    x (OAI.ThorpNine.HighTail.Thorp.palindromeLowCost._f H) x_1 x_2 x_3 x_4
+def OAI.ThorpNine.HighTail.Thorp.HighHeight.highCost.{u_1} : ℕ →
+  (d : ℕ) →
+    {ι : Type u_1} →
+      [Fintype ι] → (ι ↪ OAI.ThorpNine.HighTail.Thorp.Card d) → OAI.ThorpNine.HighTail.Thorp.BenesCoins d → ℕ :=
+fun J d {ι} [Fintype ι] x ω =>
+  OAI.ThorpNine.HighTail.Thorp.palindromeCost d x ω - OAI.ThorpNine.HighTail.Thorp.palindromeLowCost (J - 1) d x ω
+def OAI.ThorpNine.HighTail.Thorp.HighHeight.MainStatement : Prop :=
+∃ b δ C,
+  0 < b ∧
+    0 < δ ∧
+      0 < C ∧
+        ∃ J₀,
+          1 ≤ J₀ ∧
+            (∀ (d k : ℕ) (x : Fin k ↪ OAI.ThorpNine.HighTail.Thorp.Card d) (J : ℕ),
+                J₀ ≤ J →
+                  Real.log
+                        (OAI.ThorpNine.HighTail.Thorp.finiteMean fun ω =>
+                          (2 ^ b) ^ OAI.ThorpNine.HighTail.Thorp.HighHeight.highCost J d x ω) /
+                      Real.log 2 ≤
+                    C * ↑k * 2 ^ (-b * ↑J)) ∧
+              (∀ (d k : ℕ) (x : Fin k ↪ OAI.ThorpNine.HighTail.Thorp.Card d),
+                  Real.log
+                        (OAI.ThorpNine.HighTail.Thorp.finiteMean fun ω =>
+                          (2 ^ b) ^ OAI.ThorpNine.HighTail.Thorp.palindromeCost d x ω) /
+                      Real.log 2 ≤
+                    C * ↑k * (↑k / 2 ^ d) ^ δ) ∧
+                ∀ (r s k : ℕ) (x : Fin k ↪ OAI.ThorpNine.HighTail.Thorp.Card (s + r)) (J : ℕ),
+                  J₀ ≤ J →
+                    2 * s < J →
+                      ∀ (X : OAI.ThorpNine.HighTail.Thorp.SwitchIndex (s + r) → Bool)
+                        (lo : OAI.ThorpNine.HighTail.Thorp.Card r × OAI.ThorpNine.HighTail.Thorp.SwitchIndex s → Bool),
+                        Real.log
+                              (OAI.ThorpNine.HighTail.Thorp.finiteMean fun hi =>
+                                (2 ^ b) ^
+                                  OAI.ThorpNine.HighTail.Thorp.HighHeight.highCost J (s + r) x
+                                    (OAI.ThorpNine.HighTail.Thorp.assembleBits r s lo hi, X)) /
+                            Real.log 2 ≤
+                          C * ↑k * 2 ^ (-b * ↑J)
+@[reducible] def OAI.ThorpNine.SparseSaving.Thorp.Card : ℕ → Type :=
+fun d => Fin d → Bool
+def OAI.ThorpNine.SparseSaving.Thorp.switchFun : {d : ℕ} →
+  (OAI.ThorpNine.SparseSaving.Thorp.Card d → Bool) →
+    OAI.ThorpNine.SparseSaving.Thorp.Card (d + 1) → OAI.ThorpNine.SparseSaving.Thorp.Card (d + 1) :=
+fun {d} ξ x => Fin.cons (x 0 ^^ ξ (Fin.tail x)) (Fin.tail x)
+def OAI.ThorpNine.SparseSaving.Thorp.pairSwitch : {d : ℕ} →
+  (OAI.ThorpNine.SparseSaving.Thorp.Card d → Bool) → Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Card (d + 1)) :=
+fun {d} ξ =>
+  { toFun := OAI.ThorpNine.SparseSaving.Thorp.switchFun ξ, invFun := OAI.ThorpNine.SparseSaving.Thorp.switchFun ξ,
+    left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.Butterfly : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.SparseSaving.Thorp.Butterfly._f
+def OAI.ThorpNine.SparseSaving.Thorp.childLift : {d : ℕ} →
+  (Bool → Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Card d)) →
+    Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Card (d + 1)) :=
+fun {d} p =>
+  { toFun := fun x => Fin.cons (x 0) ((p (x 0)) (Fin.tail x)),
+    invFun := fun x => Fin.cons (x 0) ((Equiv.symm (p (x 0))) (Fin.tail x)), left_inv := ⋯, right_inv := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.butterflyPerm : (d : ℕ) →
+  OAI.ThorpNine.SparseSaving.Thorp.Butterfly d → Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Card d) :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    OAI.ThorpNine.SparseSaving.Thorp.Butterfly x → Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Card x)) x
+    OAI.ThorpNine.SparseSaving.Thorp.butterflyPerm._f x_1
+def OAI.ThorpNine.SparseSaving.Thorp.SwitchIndex : ℕ → Type :=
+fun x => Nat.brecOn x OAI.ThorpNine.SparseSaving.Thorp.SwitchIndex._f
+def OAI.ThorpNine.SparseSaving.Thorp.decodeButterfly : (d : ℕ) →
+  (OAI.ThorpNine.SparseSaving.Thorp.SwitchIndex d → Bool) → OAI.ThorpNine.SparseSaving.Thorp.Butterfly d :=
+fun x x_1 =>
+  Nat.brecOn (motive := fun x =>
+    (OAI.ThorpNine.SparseSaving.Thorp.SwitchIndex x → Bool) → OAI.ThorpNine.SparseSaving.Thorp.Butterfly x) x
+    OAI.ThorpNine.SparseSaving.Thorp.decodeButterfly._f x_1
+@[reducible] def OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell : YoungDiagram → Type :=
+fun μ => ↥μ.cells
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.row : {μ : YoungDiagram} →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).1
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.col : {μ : YoungDiagram} →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ → ℕ :=
+fun {μ} x => (↑x).2
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.rowIndex : {μ : YoungDiagram} →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ → Fin (μ.colLen 0) :=
+fun {μ} x => ⟨OAI.ThorpNine.SparseSaving.Thorp.Specht.row x, ⋯⟩
+@[reducible] def OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid : YoungDiagram → Type :=
+fun μ => { f // ∃ p, f = OAI.ThorpNine.SparseSaving.Thorp.Specht.rowIndex ∘ ⇑p }
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.baseTabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ :=
+fun μ => ⟨OAI.ThorpNine.SparseSaving.Thorp.Specht.rowIndex, ⋯⟩
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidAct : {μ : YoungDiagram} →
+  Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ) →
+    Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ) :=
+fun {μ} p =>
+  { toFun := fun f => ⟨fun x => ↑f (p⁻¹ x), ⋯⟩, invFun := fun f => ⟨fun x => ↑f (p x), ⋯⟩, left_inv := ⋯,
+    right_inv := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidRep : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ))
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  {
+    toFun := fun p =>
+      { toFun := fun v f => v ((OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidAct p⁻¹) f), map_add' := ⋯,
+        map_smul' := ⋯ },
+    map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.delta : {μ : YoungDiagram} →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ :=
+fun {μ} f g => if g = f then 1 else 0
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.colGroup : (μ : YoungDiagram) →
+  Subgroup (Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ)) :=
+fun μ =>
+  {
+    carrier :=
+      {p |
+        ∀ (x : OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ),
+          OAI.ThorpNine.SparseSaving.Thorp.Specht.col (p x) = OAI.ThorpNine.SparseSaving.Thorp.Specht.col x},
+    mul_mem' := ⋯, one_mem' := ⋯, inv_mem' := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.permSign.{u_1} : {α : Type u_1} →
+  [Fintype α] → [DecidableEq α] → Equiv.Perm α → ℂ :=
+fun {α} [Fintype α] [DecidableEq α] p => ↑↑(Equiv.Perm.sign p)
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.alternator.{u_1, u_2} : {α : Type u_1} →
+  {V : Type u_2} →
+    [Fintype α] →
+      [DecidableEq α] →
+        [inst : AddCommGroup V] →
+          [inst_1 : Module ℂ V] → Subgroup (Equiv.Perm α) → Representation ℂ (Equiv.Perm α) V → Module.End ℂ V :=
+fun {α} {V} [Fintype α] [DecidableEq α] [AddCommGroup V] [Module ℂ V] C ρ =>
+  ∑ c, OAI.ThorpNine.SparseSaving.Thorp.Specht.permSign ↑c • ρ ↑c
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.polytabloid : (μ : YoungDiagram) →
+  OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ :=
+fun μ =>
+  (OAI.ThorpNine.SparseSaving.Thorp.Specht.alternator (OAI.ThorpNine.SparseSaving.Thorp.Specht.colGroup μ)
+      (OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidRep μ))
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.delta (OAI.ThorpNine.SparseSaving.Thorp.Specht.baseTabloid μ))
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.space : (μ : YoungDiagram) →
+  Submodule ℂ (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ) :=
+fun μ =>
+  Submodule.span ℂ
+    (Set.range fun p =>
+      ((OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidRep μ) p)
+        (OAI.ThorpNine.SparseSaving.Thorp.Specht.polytabloid μ))
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.subrepresentation : (μ : YoungDiagram) →
+  Subrepresentation (OAI.ThorpNine.SparseSaving.Thorp.Specht.tabloidRep μ) :=
+fun μ => { toSubmodule := OAI.ThorpNine.SparseSaving.Thorp.Specht.space μ, apply_mem_toSubmodule := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.representation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.space μ) :=
+fun μ => (OAI.ThorpNine.SparseSaving.Thorp.Specht.subrepresentation μ).toRepresentation
+@[reducible] def OAI.ThorpNine.SparseSaving.Thorp.PermutationHilbert.H.{u_2} : (X : Type u_2) →
+  [Fintype X] → Type u_2 :=
+fun X [Fintype X] => EuclideanSpace ℂ X
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertEquiv : (μ : YoungDiagram) →
+  (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ) ≃ₗ[ℂ]
+    OAI.ThorpNine.SparseSaving.Thorp.PermutationHilbert.H (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ) :=
+fun μ => (WithLp.linearEquiv 2 ℂ (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ → ℂ)).symm
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace : (μ : YoungDiagram) →
+  Submodule ℂ
+    (OAI.ThorpNine.SparseSaving.Thorp.PermutationHilbert.H (OAI.ThorpNine.SparseSaving.Thorp.Specht.Tabloid μ)) :=
+fun μ =>
+  Submodule.map (↑(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertEquiv μ))
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.space μ)
+def OAI.ThorpNine.SparseSaving.Thorp.UnitaryFinite.continuousRepresentation.{u_1, u_2} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] → [FiniteDimensional ℂ V] → Representation ℂ G V → G →* V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] ρ =>
+  { toFun := fun g => LinearMap.toContinuousLinearMap (ρ g), map_one' := ⋯, map_mul' := ⋯ }
+def OAI.ThorpNine.SparseSaving.Thorp.UnitaryFinite.sampleOperator.{u_1, u_2, u_3} : {G : Type u_1} →
+  [inst : Group G] →
+    {V : Type u_2} →
+      [inst_1 : NormedAddCommGroup V] →
+        [inst_2 : InnerProductSpace ℂ V] →
+          [FiniteDimensional ℂ V] → {Ω : Type u_3} → [Fintype Ω] → Representation ℂ G V → (Ω → G) → V →L[ℂ] V :=
+fun {G} [Group G] {V} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V] {Ω} [Fintype Ω] ρ P =>
+  (↑(Fintype.card Ω))⁻¹ • ∑ ω, (OAI.ThorpNine.SparseSaving.Thorp.UnitaryFinite.continuousRepresentation ρ) (P ω)
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.spaceHilbertEquiv : (μ : YoungDiagram) →
+  ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.space μ) ≃ₗ[ℂ] ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertEquiv μ).submoduleMap
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.space μ)
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.unitaryRepresentation : (μ : YoungDiagram) →
+  Representation ℂ (Equiv.Perm (OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ))
+    ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace μ) :=
+fun μ =>
+  (LinearEquiv.conjAlgEquiv ℂ (OAI.ThorpNine.SparseSaving.Thorp.Specht.spaceHilbertEquiv μ)).toMulEquiv.toMonoidHom.comp
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.representation μ)
+def OAI.ThorpNine.SparseSaving.Thorp.Specht.relabelledUnitary.{u_1} : {α : Type u_1} →
+  (μ : YoungDiagram) →
+    α ≃ OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ →
+      Representation ℂ (Equiv.Perm α) ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace μ) :=
+fun {α} μ e =>
+  MonoidHom.comp (OAI.ThorpNine.SparseSaving.Thorp.Specht.unitaryRepresentation μ) e.permCongrHom.toMonoidHom
+def OAI.ThorpNine.SparseSaving.Thorp.SparseContact.sweepOperator : (d : ℕ) →
+  (μ : YoungDiagram) →
+    OAI.ThorpNine.SparseSaving.Thorp.Card d ≃ OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ →
+      Bool →
+        ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace μ) →L[ℂ]
+          ↥(OAI.ThorpNine.SparseSaving.Thorp.Specht.hilbertSpace μ) :=
+fun d μ e reverse =>
+  OAI.ThorpNine.SparseSaving.Thorp.UnitaryFinite.sampleOperator
+    (OAI.ThorpNine.SparseSaving.Thorp.Specht.relabelledUnitary μ e) fun ω =>
+    if reverse = true then
+      (OAI.ThorpNine.SparseSaving.Thorp.butterflyPerm d (OAI.ThorpNine.SparseSaving.Thorp.decodeButterfly d ω))⁻¹
+    else OAI.ThorpNine.SparseSaving.Thorp.butterflyPerm d (OAI.ThorpNine.SparseSaving.Thorp.decodeButterfly d ω)
+def OAI.ThorpNine.SparseSaving.Thorp.SparseRegime.MainStatement : Prop :=
+∃ C d₀,
+  0 < C ∧
+    0 < d₀ ∧
+      ∀ (d : ℕ) (μ : YoungDiagram)
+        (e : OAI.ThorpNine.SparseSaving.Thorp.Card d ≃ OAI.ThorpNine.SparseSaving.Thorp.Specht.Cell μ),
+        have k := μ.card - μ.rowLen 0;
+        1 ≤ k →
+          k < 2 ^ d →
+            ↑d ^ (3 / 4) ≤ Real.log (2 ^ d / ↑k) →
+              ∀ (rev : Bool),
+                ‖OAI.ThorpNine.SparseSaving.Thorp.SparseContact.sweepOperator d μ e rev‖ ^ 2 ≤
+                    Real.exp (C * ↑k) * (↑k / 2 ^ d) ^ (↑k / 4) ∧
+                  (d₀ ≤ d →
+                    ‖OAI.ThorpNine.SparseSaving.Thorp.SparseContact.sweepOperator d μ e rev‖ ^ 2 ≤
+                      (↑k / 2 ^ d) ^ (↑k / 4))

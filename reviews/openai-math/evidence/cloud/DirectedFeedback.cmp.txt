@@ -1,0 +1,111 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_DirectedFeedback.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.DirectedFeedback.main [thm] ok
+CMP OAI.DirectedFeedback.MainStatement [def] ok
+CMP OAI.DirectedFeedback.GapReduction [ind] ok
+CMP OAI.DirectedFeedback.GapReduction.mk [ctor] ok
+CMP OAI.DirectedFeedback.GapInstance.k [def] ok
+CMP OAI.DirectedFeedback.GapInstance [ind] ok
+CMP OAI.DirectedFeedback.GapInstance.mk [ctor] ok
+CMP OAI.DirectedFeedback.Digraph [ind] ok
+CMP OAI.DirectedFeedback.Digraph.mk [ctor] ok
+CMP OAI.DirectedFeedback.GapInstance.graph [def] ok
+CMP OAI.DirectedFeedback.Digraph.dfvs [def] ok
+CMP OAI.DirectedFeedback.Digraph.dfvs._proof_1 [thm] ok
+CMP OAI.DirectedFeedback.Digraph.Feedback [def] ok
+CMP OAI.DirectedFeedback.Digraph.IsCycle [def] ok
+CMP OAI.DirectedFeedback.Digraph.IsCycle._proof_1 [thm] ok
+CMP OAI.DirectedFeedback.Digraph.arcs [def] ok
+CMP OAI.DirectedFeedback.Digraph.n [def] ok
+CMP OAI.DirectedFeedback.FiniteAlphabet [def] ok
+CMP OAI.DirectedFeedback.GapInstance.bits [def] ok
+CMP OAI.DirectedFeedback.Digraph.bits [def] ok
+CMP OAI.DirectedFeedback.natBits [def] ok
+CMP OAI.DirectedFeedback.InNP [def] ok
+CMP OAI.DirectedFeedback.NPVerifier.Accepts [def] ok
+CMP OAI.DirectedFeedback.NPVerifier.verify [def] ok
+CMP OAI.DirectedFeedback.NPVerifier [ind] ok
+CMP OAI.DirectedFeedback.NPVerifier.mk [ctor] ok
+CMP OAI.DirectedFeedback.pairBits [def] ok
+CMP OAI.DirectedFeedback.NPVerifier.witnessBound [def] ok
+Chal.DirectedFeedback.main : Chal.DirectedFeedback.MainStatement
+def Chal.DirectedFeedback.natBits : ℕ → List Bool :=
+fun n => List.replicate n true ++ [false]
+def Chal.DirectedFeedback.pairBits : List Bool × List Bool → List Bool :=
+fun p => Chal.DirectedFeedback.natBits p.1.length ++ p.1 ++ p.2
+def Chal.DirectedFeedback.FiniteAlphabet : Turing.FinTM2 → Prop :=
+fun M => ∀ (k : M.K), Finite (M.Γ k)
+structure Chal.DirectedFeedback.NPVerifier : Type 1
+number of parameters: 0
+fields:
+  Chal.DirectedFeedback.NPVerifier.witnessBound : Polynomial ℕ
+  Chal.DirectedFeedback.NPVerifier.verify : List Bool × List Bool → Bool
+  Chal.DirectedFeedback.NPVerifier.computation : Turing.TM2ComputableInPolyTime Chal.DirectedFeedback.pairBits
+      (fun b => [b]) self.verify
+  Chal.DirectedFeedback.NPVerifier.finiteAlphabet : Chal.DirectedFeedback.FiniteAlphabet self.computation.tm
+constructor:
+  Chal.DirectedFeedback.NPVerifier.mk (witnessBound : Polynomial ℕ) (verify : List Bool × List Bool → Bool)
+    (computation : Turing.TM2ComputableInPolyTime Chal.DirectedFeedback.pairBits (fun b => [b]) verify)
+    (finiteAlphabet : Chal.DirectedFeedback.FiniteAlphabet computation.tm) : Chal.DirectedFeedback.NPVerifier
+def Chal.DirectedFeedback.NPVerifier.Accepts : Chal.DirectedFeedback.NPVerifier → List Bool → Prop :=
+fun V input =>
+  ∃ witness, witness.length ≤ Polynomial.eval input.length V.witnessBound ∧ V.verify (input, witness) = true
+def Chal.DirectedFeedback.InNP : (List Bool → Prop) → Prop :=
+fun language => ∃ V, ∀ (input : List Bool), language input ↔ V.Accepts input
+structure Chal.DirectedFeedback.Digraph : Type
+number of parameters: 0
+fields:
+  Chal.DirectedFeedback.Digraph.n : ℕ
+  Chal.DirectedFeedback.Digraph.arcs : List (Fin self.n × Fin self.n)
+  Chal.DirectedFeedback.Digraph.loopless : ∀ e ∈ self.arcs, e.1 ≠ e.2
+  Chal.DirectedFeedback.Digraph.nodup : self.arcs.Nodup
+constructor:
+  Chal.DirectedFeedback.Digraph.mk (n : ℕ) (arcs : List (Fin n × Fin n)) (loopless : ∀ e ∈ arcs, e.1 ≠ e.2)
+    (nodup : arcs.Nodup) : Chal.DirectedFeedback.Digraph
+def Chal.DirectedFeedback.Digraph.IsCycle : (G : Chal.DirectedFeedback.Digraph) →
+  {r : ℕ} → (Fin (r + 1) → Fin G.n) → Prop :=
+fun G {r} c => Function.Injective c ∧ ∀ (i : Fin (r + 1)), (c i, c (i + 1)) ∈ G.arcs
+def Chal.DirectedFeedback.Digraph.Feedback : (G : Chal.DirectedFeedback.Digraph) → Finset (Fin G.n) → Prop :=
+fun G F => ∀ (r : ℕ) (c : Fin (r + 1) → Fin G.n), G.IsCycle c → ∃ i, c i ∈ F
+def Chal.DirectedFeedback.Digraph.dfvs : Chal.DirectedFeedback.Digraph → ℕ :=
+fun G => Nat.find ⋯
+def Chal.DirectedFeedback.Digraph.bits : Chal.DirectedFeedback.Digraph → List Bool :=
+fun G =>
+  List.flatMap Chal.DirectedFeedback.natBits
+    ([G.n] ++ List.range G.n ++ [G.arcs.length] ++ List.flatMap (fun e => [↑e.1, ↑e.2]) G.arcs)
+structure Chal.DirectedFeedback.GapInstance : Type
+number of parameters: 0
+fields:
+  Chal.DirectedFeedback.GapInstance.graph : Chal.DirectedFeedback.Digraph
+  Chal.DirectedFeedback.GapInstance.k : ℕ
+  Chal.DirectedFeedback.GapInstance.k_pos : 0 < self.k
+constructor:
+  Chal.DirectedFeedback.GapInstance.mk (graph : Chal.DirectedFeedback.Digraph) (k : ℕ) (k_pos : 0 < k) :
+    Chal.DirectedFeedback.GapInstance
+def Chal.DirectedFeedback.GapInstance.bits : Chal.DirectedFeedback.GapInstance → List Bool :=
+fun I => Chal.DirectedFeedback.natBits I.k ++ I.graph.bits
+structure Chal.DirectedFeedback.GapReduction (A : ℝ) (language : List Bool → Prop) : Type 1
+number of parameters: 2
+fields:
+  Chal.DirectedFeedback.GapReduction.construct : List Bool → Chal.DirectedFeedback.GapInstance
+  Chal.DirectedFeedback.GapReduction.computation : Turing.TM2ComputableInPolyTime id
+      Chal.DirectedFeedback.GapInstance.bits self.construct
+  Chal.DirectedFeedback.GapReduction.finiteAlphabet : Chal.DirectedFeedback.FiniteAlphabet self.computation.tm
+  Chal.DirectedFeedback.GapReduction.completeness : ∀ (input : List Bool),
+      language input → (self.construct input).graph.dfvs ≤ (self.construct input).k
+  Chal.DirectedFeedback.GapReduction.soundness : ∀ (input : List Bool),
+      ¬language input → A * ↑(self.construct input).k < ↑(self.construct input).graph.dfvs
+constructor:
+  Chal.DirectedFeedback.GapReduction.mk {A : ℝ} {language : List Bool → Prop}
+    (construct : List Bool → Chal.DirectedFeedback.GapInstance)
+    (computation : Turing.TM2ComputableInPolyTime id Chal.DirectedFeedback.GapInstance.bits construct)
+    (finiteAlphabet : Chal.DirectedFeedback.FiniteAlphabet computation.tm)
+    (completeness : ∀ (input : List Bool), language input → (construct input).graph.dfvs ≤ (construct input).k)
+    (soundness : ∀ (input : List Bool), ¬language input → A * ↑(construct input).k < ↑(construct input).graph.dfvs) :
+    Chal.DirectedFeedback.GapReduction A language
+def Chal.DirectedFeedback.MainStatement : Prop :=
+∀ (A : ℝ),
+  1 ≤ A →
+    ∀ (language : List Bool → Prop),
+      Chal.DirectedFeedback.InNP language → Nonempty (Chal.DirectedFeedback.GapReduction A language)
+'OAI.DirectedFeedback.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== DirectedFeedback comparator-style: ok=28 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
