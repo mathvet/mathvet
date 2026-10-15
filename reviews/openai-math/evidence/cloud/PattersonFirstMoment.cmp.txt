@@ -1,0 +1,115 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_PattersonFirstMoment.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CubicFirstMoment.patterson_angularCancellation [thm] ok
+CMP OAI.CubicFirstMoment.AngularCancellationStatement [def] ok
+CMP OAI.CubicFirstMoment.firstMomentScale [def] ok
+CMP OAI.CubicFirstMoment.firstMomentScale._proof_2 [thm] ok
+CMP OAI.CubicFirstMoment.firstMomentScale._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.gaussAtPrime [def] ok
+CMP OAI.CubicFirstMoment.additivePhase [def] ok
+CMP OAI.CubicFirstMoment.omega._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.Eisenstein [def] ok
+CMP OAI.CubicFirstMoment.eisensteinRing [def] ok
+CMP OAI.CubicFirstMoment.omega [def] ok
+CMP OAI.CubicFirstMoment.omega._proof_2 [thm] ok
+CMP OAI.CubicFirstMoment.residueRepresentative [def] ok
+CMP OAI.CubicFirstMoment.residueRepresentative._proof_2 [thm] ok
+CMP OAI.CubicFirstMoment.residueRepresentative._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.modulus [def] ok
+CMP OAI.CubicFirstMoment.Residues [def] ok
+CMP OAI.CubicFirstMoment.cubicSymbolAtPrime [def] ok
+CMP OAI.CubicFirstMoment.omegaE [def] ok
+CMP OAI.CubicFirstMoment.omegaE._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.normNat [def] ok
+CMP OAI.CubicFirstMoment.norm [def] ok
+CMP OAI.CubicFirstMoment.cubicSymbolAtPrime._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.theta [def] ok
+CMP OAI.CubicFirstMoment.primeCutoffSum [def] ok
+CMP OAI.CubicFirstMoment.primaryPrime [def] ok
+CMP OAI.CubicFirstMoment.primary [def] ok
+CMP OAI.CubicFirstMoment.primary._proof_3 [thm] ok
+CMP OAI.CubicFirstMoment.primary._proof_2 [thm] ok
+CMP OAI.CubicFirstMoment.primary._proof_1 [thm] ok
+CMP OAI.CubicFirstMoment.patterson_angularComparison [thm] ok
+CMP OAI.CubicFirstMoment.AngularComparisonStatement [def] ok
+CMP OAI.CubicFirstMoment.cStar [def] ok
+CMP OAI.CubicFirstMoment.patterson_firstMoment [thm] ok
+CMP OAI.CubicFirstMoment.FirstMomentStatement [def] ok
+Chal.CubicFirstMoment.patterson_firstMoment : Chal.CubicFirstMoment.FirstMomentStatement
+Chal.CubicFirstMoment.patterson_angularComparison : Chal.CubicFirstMoment.AngularComparisonStatement
+Chal.CubicFirstMoment.patterson_angularCancellation : Chal.CubicFirstMoment.AngularCancellationStatement
+def Chal.CubicFirstMoment.omega : ℂ :=
+Complex.exp (2 * ↑Real.pi * Complex.I / 3)
+def Chal.CubicFirstMoment.eisensteinRing : Subalgebra ℤ ℂ :=
+ℤ[Chal.CubicFirstMoment.omega]
+@[reducible] def Chal.CubicFirstMoment.Eisenstein : Subalgebra ℤ ℂ :=
+Chal.CubicFirstMoment.eisensteinRing
+def Chal.CubicFirstMoment.omegaE : ↥Chal.CubicFirstMoment.Eisenstein :=
+⟨Chal.CubicFirstMoment.omega, Chal.CubicFirstMoment.omegaE._proof_1⟩
+def Chal.CubicFirstMoment.norm : ↥Chal.CubicFirstMoment.Eisenstein → ℝ :=
+fun a => Complex.normSq ↑a
+def Chal.CubicFirstMoment.normNat : ↥Chal.CubicFirstMoment.Eisenstein → ℕ :=
+fun a => ⌊Chal.CubicFirstMoment.norm a⌋₊
+def Chal.CubicFirstMoment.primary : ↥Chal.CubicFirstMoment.Eisenstein → Prop :=
+fun a => 3 ∣ a - 1
+def Chal.CubicFirstMoment.primaryPrime : ↥Chal.CubicFirstMoment.Eisenstein → Prop :=
+fun a => Chal.CubicFirstMoment.primary a ∧ Prime a
+def Chal.CubicFirstMoment.modulus : ↥Chal.CubicFirstMoment.Eisenstein → Ideal ↥Chal.CubicFirstMoment.Eisenstein :=
+fun a => Ideal.span {a}
+@[reducible] def Chal.CubicFirstMoment.Residues : ↥Chal.CubicFirstMoment.Eisenstein → Type :=
+fun a => ↥Chal.CubicFirstMoment.Eisenstein ⧸ Chal.CubicFirstMoment.modulus a
+def Chal.CubicFirstMoment.residueRepresentative : (a : ↥Chal.CubicFirstMoment.Eisenstein) →
+  Chal.CubicFirstMoment.Residues a → ↥Chal.CubicFirstMoment.Eisenstein :=
+fun a v => Classical.choose ⋯
+def Chal.CubicFirstMoment.cubicSymbolAtPrime : ↥Chal.CubicFirstMoment.Eisenstein →
+  ↥Chal.CubicFirstMoment.Eisenstein → ℂ :=
+fun p v =>
+  if IsUnit ((Ideal.Quotient.mk (Chal.CubicFirstMoment.modulus p)) v) then
+    if h :
+        ∃ j,
+          (Ideal.Quotient.mk (Chal.CubicFirstMoment.modulus p)) (v ^ ((Chal.CubicFirstMoment.normNat p - 1) / 3)) =
+            (Ideal.Quotient.mk (Chal.CubicFirstMoment.modulus p)) (Chal.CubicFirstMoment.omegaE ^ ↑j) then
+      Chal.CubicFirstMoment.omega ^ ↑(Classical.choose h)
+    else 0
+  else 0
+def Chal.CubicFirstMoment.additivePhase : ↥Chal.CubicFirstMoment.Eisenstein → ↥Chal.CubicFirstMoment.Eisenstein → ℂ :=
+fun p v =>
+  have z := ↑v / ↑p;
+  Complex.exp (2 * ↑Real.pi * Complex.I * (z + star z))
+def Chal.CubicFirstMoment.gaussAtPrime : ↥Chal.CubicFirstMoment.Eisenstein → ℂ :=
+fun p =>
+  (↑√(Chal.CubicFirstMoment.norm p))⁻¹ *
+    ∑' (v : Chal.CubicFirstMoment.Residues p),
+      Chal.CubicFirstMoment.cubicSymbolAtPrime p (Chal.CubicFirstMoment.residueRepresentative p v) *
+        Chal.CubicFirstMoment.additivePhase p (Chal.CubicFirstMoment.residueRepresentative p v)
+def Chal.CubicFirstMoment.cStar : ℝ :=
+(2 * Real.pi) ^ (2 / 3) / (3 * Real.Gamma (2 / 3))
+def Chal.CubicFirstMoment.primeCutoffSum : (↥Chal.CubicFirstMoment.Eisenstein → ℂ) → ℝ → ℂ :=
+fun f X =>
+  ∑' (p : ↥Chal.CubicFirstMoment.Eisenstein),
+    if Chal.CubicFirstMoment.primaryPrime p ∧ Chal.CubicFirstMoment.norm p ≤ X then f p else 0
+def Chal.CubicFirstMoment.firstMomentScale : ℝ → ℝ :=
+fun X => X ^ (5 / 6) / Real.log X
+def Chal.CubicFirstMoment.FirstMomentStatement : Prop :=
+(fun X =>
+    Chal.CubicFirstMoment.primeCutoffSum Chal.CubicFirstMoment.gaussAtPrime X -
+      ↑(6 / 5 * Chal.CubicFirstMoment.cStar * Chal.CubicFirstMoment.firstMomentScale X)) =o[Filter.atTop]
+  Chal.CubicFirstMoment.firstMomentScale
+def Chal.CubicFirstMoment.theta : ℤ → ↥Chal.CubicFirstMoment.Eisenstein → ℂ :=
+fun ℓ a => (↑a / ↑‖↑a‖) ^ ℓ
+def Chal.CubicFirstMoment.AngularComparisonStatement : Prop :=
+∀ (ℓ : ℤ),
+  (Chal.CubicFirstMoment.primeCutoffSum fun p =>
+      Chal.CubicFirstMoment.theta ℓ p *
+        (Chal.CubicFirstMoment.gaussAtPrime p -
+          ↑(Chal.CubicFirstMoment.cStar * Chal.CubicFirstMoment.norm p ^ (-1 / 6)))) =o[Filter.atTop]
+    Chal.CubicFirstMoment.firstMomentScale
+def Chal.CubicFirstMoment.AngularCancellationStatement : Prop :=
+∀ (ℓ : ℤ),
+  ℓ ≠ 0 →
+    (Chal.CubicFirstMoment.primeCutoffSum fun p =>
+        Chal.CubicFirstMoment.theta ℓ p * Chal.CubicFirstMoment.gaussAtPrime p) =o[Filter.atTop]
+      Chal.CubicFirstMoment.firstMomentScale
+'OAI.CubicFirstMoment.patterson_firstMoment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CubicFirstMoment.patterson_angularComparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.CubicFirstMoment.patterson_angularCancellation' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PattersonFirstMoment comparator-style: ok=35 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

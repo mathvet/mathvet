@@ -1,0 +1,46 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_StrongKadisonKastler.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.KadisonKastler.universal_strong_stability [thm] ok
+CMP OAI.KadisonKastler.UniversalStrongStability [def] ok
+CMP OAI.KadisonKastler.NearConjugacy [def] ok
+CMP OAI.KadisonKastler.NearConjugacy._proof_1 [thm] ok
+CMP OAI.KadisonKastler.Conjugates [def] ok
+CMP OAI.KadisonKastler.unitaryConj [def] ok
+CMP OAI.KadisonKastler.unitaryConj._proof_1 [thm] ok
+CMP OAI.KadisonKastler.kkDistance [def] ok
+CMP OAI.KadisonKastler.unitBall [def] ok
+CMP OAI.KadisonKastler.kkDistance._proof_1 [thm] ok
+Chal.KadisonKastler.universal_strong_stability : Chal.KadisonKastler.UniversalStrongStability
+def Chal.KadisonKastler.unitBall.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Set (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M => {x | x ∈ M ∧ ‖x‖ ≤ 1}
+def Chal.KadisonKastler.kkDistance.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → VonNeumannAlgebra H → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M N =>
+  Metric.hausdorffDist (Chal.KadisonKastler.unitBall M) (Chal.KadisonKastler.unitBall N)
+def Chal.KadisonKastler.unitaryConj.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → ↥(unitary (H →L[ℂ] H)) → (H →L[ℂ] H) → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] v x => ↑v * x * star ↑v
+def Chal.KadisonKastler.Conjugates.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → ↥(unitary (H →L[ℂ] H)) → VonNeumannAlgebra H → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] v M N =>
+  Chal.KadisonKastler.unitaryConj v '' ↑M = ↑N
+def Chal.KadisonKastler.NearConjugacy.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → VonNeumannAlgebra H → ℝ → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M N ε =>
+  ∃ v, Chal.KadisonKastler.Conjugates v M N ∧ ‖↑v - 1‖ < ε
+def Chal.KadisonKastler.UniversalStrongStability.{u} : Prop :=
+∀ (ε : ℝ),
+  0 < ε →
+    ∃ δ,
+      0 < δ ∧
+        ∀ (H : Type u) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H] [inst_2 : CompleteSpace H]
+          (M N : VonNeumannAlgebra H), Chal.KadisonKastler.kkDistance M N < δ → Chal.KadisonKastler.NearConjugacy M N ε
+'OAI.KadisonKastler.universal_strong_stability' depends on axioms: [propext, Classical.choice, Quot.sound]
+== StrongKadisonKastler comparator-style: ok=10 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

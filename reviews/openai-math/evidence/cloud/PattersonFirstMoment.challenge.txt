@@ -1,0 +1,77 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_PattersonFirstMoment.lean:84:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_PattersonFirstMoment.lean:88:8: warning: declaration uses `sorry`
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_PattersonFirstMoment.lean:92:8: warning: declaration uses `sorry`
+OAI.CubicFirstMoment.patterson_firstMoment : OAI.CubicFirstMoment.FirstMomentStatement
+OAI.CubicFirstMoment.patterson_angularComparison : OAI.CubicFirstMoment.AngularComparisonStatement
+OAI.CubicFirstMoment.patterson_angularCancellation : OAI.CubicFirstMoment.AngularCancellationStatement
+def OAI.CubicFirstMoment.omega : ℂ :=
+Complex.exp (2 * ↑Real.pi * Complex.I / 3)
+def OAI.CubicFirstMoment.eisensteinRing : Subalgebra ℤ ℂ :=
+ℤ[OAI.CubicFirstMoment.omega]
+@[reducible] def OAI.CubicFirstMoment.Eisenstein : Subalgebra ℤ ℂ :=
+OAI.CubicFirstMoment.eisensteinRing
+def OAI.CubicFirstMoment.omegaE : ↥OAI.CubicFirstMoment.Eisenstein :=
+⟨OAI.CubicFirstMoment.omega, OAI.CubicFirstMoment.omegaE._proof_1⟩
+def OAI.CubicFirstMoment.norm : ↥OAI.CubicFirstMoment.Eisenstein → ℝ :=
+fun a => Complex.normSq ↑a
+def OAI.CubicFirstMoment.normNat : ↥OAI.CubicFirstMoment.Eisenstein → ℕ :=
+fun a => ⌊OAI.CubicFirstMoment.norm a⌋₊
+def OAI.CubicFirstMoment.primary : ↥OAI.CubicFirstMoment.Eisenstein → Prop :=
+fun a => 3 ∣ a - 1
+def OAI.CubicFirstMoment.primaryPrime : ↥OAI.CubicFirstMoment.Eisenstein → Prop :=
+fun a => OAI.CubicFirstMoment.primary a ∧ Prime a
+def OAI.CubicFirstMoment.modulus : ↥OAI.CubicFirstMoment.Eisenstein → Ideal ↥OAI.CubicFirstMoment.Eisenstein :=
+fun a => Ideal.span {a}
+@[reducible] def OAI.CubicFirstMoment.Residues : ↥OAI.CubicFirstMoment.Eisenstein → Type :=
+fun a => ↥OAI.CubicFirstMoment.Eisenstein ⧸ OAI.CubicFirstMoment.modulus a
+def OAI.CubicFirstMoment.residueRepresentative : (a : ↥OAI.CubicFirstMoment.Eisenstein) →
+  OAI.CubicFirstMoment.Residues a → ↥OAI.CubicFirstMoment.Eisenstein :=
+fun a v => Classical.choose ⋯
+def OAI.CubicFirstMoment.cubicSymbolAtPrime : ↥OAI.CubicFirstMoment.Eisenstein → ↥OAI.CubicFirstMoment.Eisenstein → ℂ :=
+fun p v =>
+  if IsUnit ((Ideal.Quotient.mk (OAI.CubicFirstMoment.modulus p)) v) then
+    if h :
+        ∃ j,
+          (Ideal.Quotient.mk (OAI.CubicFirstMoment.modulus p)) (v ^ ((OAI.CubicFirstMoment.normNat p - 1) / 3)) =
+            (Ideal.Quotient.mk (OAI.CubicFirstMoment.modulus p)) (OAI.CubicFirstMoment.omegaE ^ ↑j) then
+      OAI.CubicFirstMoment.omega ^ ↑(Classical.choose h)
+    else 0
+  else 0
+def OAI.CubicFirstMoment.additivePhase : ↥OAI.CubicFirstMoment.Eisenstein → ↥OAI.CubicFirstMoment.Eisenstein → ℂ :=
+fun p v =>
+  have z := ↑v / ↑p;
+  Complex.exp (2 * ↑Real.pi * Complex.I * (z + star z))
+def OAI.CubicFirstMoment.gaussAtPrime : ↥OAI.CubicFirstMoment.Eisenstein → ℂ :=
+fun p =>
+  (↑√(OAI.CubicFirstMoment.norm p))⁻¹ *
+    ∑' (v : OAI.CubicFirstMoment.Residues p),
+      OAI.CubicFirstMoment.cubicSymbolAtPrime p (OAI.CubicFirstMoment.residueRepresentative p v) *
+        OAI.CubicFirstMoment.additivePhase p (OAI.CubicFirstMoment.residueRepresentative p v)
+def OAI.CubicFirstMoment.cStar : ℝ :=
+(2 * Real.pi) ^ (2 / 3) / (3 * Real.Gamma (2 / 3))
+def OAI.CubicFirstMoment.primeCutoffSum : (↥OAI.CubicFirstMoment.Eisenstein → ℂ) → ℝ → ℂ :=
+fun f X =>
+  ∑' (p : ↥OAI.CubicFirstMoment.Eisenstein),
+    if OAI.CubicFirstMoment.primaryPrime p ∧ OAI.CubicFirstMoment.norm p ≤ X then f p else 0
+def OAI.CubicFirstMoment.firstMomentScale : ℝ → ℝ :=
+fun X => X ^ (5 / 6) / Real.log X
+def OAI.CubicFirstMoment.FirstMomentStatement : Prop :=
+(fun X =>
+    OAI.CubicFirstMoment.primeCutoffSum OAI.CubicFirstMoment.gaussAtPrime X -
+      ↑(6 / 5 * OAI.CubicFirstMoment.cStar * OAI.CubicFirstMoment.firstMomentScale X)) =o[Filter.atTop]
+  OAI.CubicFirstMoment.firstMomentScale
+def OAI.CubicFirstMoment.theta : ℤ → ↥OAI.CubicFirstMoment.Eisenstein → ℂ :=
+fun ℓ a => (↑a / ↑‖↑a‖) ^ ℓ
+def OAI.CubicFirstMoment.AngularComparisonStatement : Prop :=
+∀ (ℓ : ℤ),
+  (OAI.CubicFirstMoment.primeCutoffSum fun p =>
+      OAI.CubicFirstMoment.theta ℓ p *
+        (OAI.CubicFirstMoment.gaussAtPrime p -
+          ↑(OAI.CubicFirstMoment.cStar * OAI.CubicFirstMoment.norm p ^ (-1 / 6)))) =o[Filter.atTop]
+    OAI.CubicFirstMoment.firstMomentScale
+def OAI.CubicFirstMoment.AngularCancellationStatement : Prop :=
+∀ (ℓ : ℤ),
+  ℓ ≠ 0 →
+    (OAI.CubicFirstMoment.primeCutoffSum fun p =>
+        OAI.CubicFirstMoment.theta ℓ p * OAI.CubicFirstMoment.gaussAtPrime p) =o[Filter.atTop]
+      OAI.CubicFirstMoment.firstMomentScale

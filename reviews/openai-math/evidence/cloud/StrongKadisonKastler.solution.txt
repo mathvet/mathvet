@@ -1,0 +1,34 @@
+OAI.KadisonKastler.universal_strong_stability : OAI.KadisonKastler.UniversalStrongStability
+'OAI.KadisonKastler.universal_strong_stability' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.KadisonKastler.unitBall.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → Set (H →L[ℂ] H) :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M => {x | x ∈ M ∧ ‖x‖ ≤ 1}
+def OAI.KadisonKastler.kkDistance.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → VonNeumannAlgebra H → ℝ :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M N =>
+  Metric.hausdorffDist (OAI.KadisonKastler.unitBall M) (OAI.KadisonKastler.unitBall N)
+def OAI.KadisonKastler.unitaryConj.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] → [inst_2 : CompleteSpace H] → ↥(unitary (H →L[ℂ] H)) → (H →L[ℂ] H) → H →L[ℂ] H :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] v x => ↑v * x * star ↑v
+def OAI.KadisonKastler.Conjugates.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → ↥(unitary (H →L[ℂ] H)) → VonNeumannAlgebra H → VonNeumannAlgebra H → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] v M N =>
+  OAI.KadisonKastler.unitaryConj v '' ↑M = ↑N
+def OAI.KadisonKastler.NearConjugacy.{u} : {H : Type u} →
+  [inst : NormedAddCommGroup H] →
+    [inst_1 : InnerProductSpace ℂ H] →
+      [inst_2 : CompleteSpace H] → VonNeumannAlgebra H → VonNeumannAlgebra H → ℝ → Prop :=
+fun {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] M N ε =>
+  ∃ v, OAI.KadisonKastler.Conjugates v M N ∧ ‖↑v - 1‖ < ε
+def OAI.KadisonKastler.UniversalStrongStability.{u} : Prop :=
+∀ (ε : ℝ),
+  0 < ε →
+    ∃ δ,
+      0 < δ ∧
+        ∀ (H : Type u) [inst : NormedAddCommGroup H] [inst_1 : InnerProductSpace ℂ H] [inst_2 : CompleteSpace H]
+          (M N : VonNeumannAlgebra H), OAI.KadisonKastler.kkDistance M N < δ → OAI.KadisonKastler.NearConjugacy M N ε

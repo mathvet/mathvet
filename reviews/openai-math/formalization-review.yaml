@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T11:30:58Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T13:54:32Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 409 accepted by
-    the real Comparator, of which 394 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 411 accepted by
+    the real Comparator, of which 396 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3287,7 +3287,8 @@ alignment:
     module: OAI.NumberTheory.CubicMoment.Theta.CubicThetaMains
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/PattersonFirstMoment.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 024 — An asymptotic formula for the number of totients: Totient-count asymptotics and regular
       variation (the lab''s own result label); paper ''An asymptotic formula for the number of totients'', theorem
       thm:main (build/source/statements.tex:45)'
@@ -7082,7 +7083,8 @@ alignment:
     module: OAI.Analysis.KadisonKastler.StrongStability
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/StrongKadisonKastler.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 289 — headline claim as stated in the overview: Proves that sufficiently close unital von Neumann
       algebras on the same Hilbert space are conjugate by a unitary arbitrarily close to the identity, with a universal
       tolerance in the operator-norm distance between unit balls. Counterexamples show that near-identity conjugacy
@@ -8101,7 +8103,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-15T11:30:58Z'
+    generated: '2026-10-15T13:54:32Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8577,6 +8579,7 @@ mathvet:
     - PartialPermutation
     - PartitionConsistency
     - PartitionPrinciple
+    - PattersonFirstMoment
     - PerceptronFreeEnergy
     - PerfectCompleteness
     - PeriodicGroup
@@ -8668,6 +8671,7 @@ mathvet:
     - StandardMapLyapunov
     - SteinitzBergstrom
     - StrictMeans
+    - StrongKadisonKastler
     - StrongThinTree
     - StronglyRayleighDPP
     - StructuralCrouzeix
@@ -8976,6 +8980,7 @@ mathvet:
     - PartialPermutation
     - PartitionConsistency
     - PartitionPrinciple
+    - PattersonFirstMoment
     - PerceptronFreeEnergy
     - PeriodicGroup
     - PeriodicTilingThree
@@ -9064,6 +9069,7 @@ mathvet:
     - StandardMapLyapunov
     - SteinitzBergstrom
     - StrictMeans
+    - StrongKadisonKastler
     - StrongThinTree
     - StronglyRayleighDPP
     - StructuralCrouzeix
@@ -9358,7 +9364,7 @@ mathvet:
     - RellichKondrachov
     - StrongPNT
     cone_lines_max: 306361
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/023.md
     audit_part: 1
   - family: '024'
@@ -13025,7 +13031,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 326060
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/289.md
     audit_part: 2
   - family: '290'
