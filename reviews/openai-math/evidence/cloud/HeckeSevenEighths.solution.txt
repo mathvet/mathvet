@@ -1,0 +1,83 @@
+OAI.SevenEighths.HeckeFamily.LFunction_ne_zero_of_seven_eighths_lt_re : ∀ (χ : OAI.SevenEighths.HeckeFamily.Character)
+  {s : ℂ}, 7 / 8 < s.re → ¬(χ.residue = 1 ∧ s = 1) → OAI.SevenEighths.HeckeFamily.LFunction χ s ≠ 0
+'OAI.SevenEighths.HeckeFamily.LFunction_ne_zero_of_seven_eighths_lt_re' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+def OAI.SevenEighths.ThetaProduct.product : (P Q : WeakFEPair ℂ) →
+  ContinuousOn P.f (Set.Ioi 0) →
+    ContinuousOn P.g (Set.Ioi 0) → ContinuousOn Q.f (Set.Ioi 0) → ContinuousOn Q.g (Set.Ioi 0) → WeakFEPair ℂ :=
+fun P Q hPf hPg hQf hQg =>
+  { f := fun x => P.f x * Q.f x, g := fun x => P.g x * Q.g x, k := P.k + Q.k, ε := P.ε * Q.ε, f₀ := P.f₀ * Q.f₀,
+    g₀ := P.g₀ * Q.g₀, hf_int := ⋯, hg_int := ⋯, hk := ⋯, hε := ⋯, h_feq := ⋯, hf_top := ⋯, hg_top := ⋯ }
+def OAI.SevenEighths.ThetaProduct.rescale : (P : WeakFEPair ℂ) →
+  ContinuousOn P.f (Set.Ioi 0) → ContinuousOn P.g (Set.Ioi 0) → (u : ℝ) → 0 < u → WeakFEPair ℂ :=
+fun P hPf hPg u hu =>
+  { f := fun x => P.f (u * x), g := fun x => P.g (u⁻¹ * x), k := P.k, ε := P.ε * ↑(u ^ (-P.k)), f₀ := P.f₀, g₀ := P.g₀,
+    hf_int := ⋯, hg_int := ⋯, hk := ⋯, hε := ⋯, h_feq := ⋯, hf_top := ⋯, hg_top := ⋯ }
+def OAI.SevenEighths.ThetaProduct.shiftedPair : UnitAddCircle → UnitAddCircle → WeakFEPair ℂ :=
+fun a b =>
+  OAI.SevenEighths.ThetaProduct.product (HurwitzZeta.hurwitzEvenFEPair a) (HurwitzZeta.hurwitzEvenFEPair b) ⋯ ⋯ ⋯ ⋯
+def OAI.SevenEighths.ThetaProduct.scaledEvenPair : UnitAddCircle → (u : ℝ) → 0 < u → WeakFEPair ℂ :=
+fun a u hu => OAI.SevenEighths.ThetaProduct.rescale (HurwitzZeta.hurwitzEvenFEPair a) ⋯ ⋯ u hu
+def OAI.SevenEighths.ThetaProduct.rectangularPair : UnitAddCircle →
+  UnitAddCircle → (u v : ℝ) → 0 < u → 0 < v → WeakFEPair ℂ :=
+fun a b u v hu hv =>
+  OAI.SevenEighths.ThetaProduct.product (OAI.SevenEighths.ThetaProduct.scaledEvenPair a u hu)
+    (OAI.SevenEighths.ThetaProduct.scaledEvenPair b v hv) ⋯ ⋯ ⋯ ⋯
+def OAI.SevenEighths.EisensteinTheta.xShift : ℝ → ℝ → ℝ → Fin 2 → ℝ :=
+fun a b L e => (2 * a - b - L * ↑↑e) / (2 * L)
+def OAI.SevenEighths.EisensteinTheta.yShift : ℝ → ℝ → Fin 2 → ℝ :=
+fun b L e => (b + L * ↑↑e) / (2 * L)
+def OAI.SevenEighths.EisensteinTheta.parityPair : ℝ → ℝ → (L : ℝ) → 0 < L → Fin 2 → WeakFEPair ℂ :=
+fun a b L hL e =>
+  OAI.SevenEighths.ThetaProduct.rectangularPair (↑(OAI.SevenEighths.EisensteinTheta.xShift a b L e))
+    (↑(OAI.SevenEighths.EisensteinTheta.yShift b L e)) (L ^ 2) (3 * L ^ 2) ⋯ ⋯
+def OAI.SevenEighths.HeckeTheta.finitePair.{u_1} : {ι : Type u_1} →
+  [Fintype ι] → (P : ι → WeakFEPair ℂ) → (∀ (i : ι), (P i).k = 1) → (ι → ℂ) → WeakFEPair ℂ :=
+fun {ι} [Fintype ι] P hk w =>
+  { f := ∑ i, w i • (P i).f, g := ∑ i, (w i * (P i).ε) • (P i).g, k := 1, ε := 1, f₀ := ∑ i, w i * (P i).f₀,
+    g₀ := ∑ i, w i * (P i).ε * (P i).g₀, hf_int := ⋯, hg_int := ⋯,
+    hk := OAI.SevenEighths.HeckeTheta.finitePair._proof_3, hε := OAI.SevenEighths.HeckeTheta.finitePair._proof_4,
+    h_feq := ⋯, hf_top := ⋯, hg_top := ⋯ }
+def OAI.SevenEighths.HeckeTheta.pair : {N : ℕ} → [NeZero N] → (Fin N × Fin N → ℂ) → WeakFEPair ℂ :=
+fun {N} [NeZero N] w =>
+  OAI.SevenEighths.HeckeTheta.finitePair (fun p => OAI.SevenEighths.EisensteinTheta.parityPair ↑↑p.1.1 ↑↑p.1.2 ↑N ⋯ p.2)
+    ⋯ fun p => w p.1
+def OAI.SevenEighths.HeckeTheta.completed : {N : ℕ} → [NeZero N] → (Fin N × Fin N → ℂ) → ℂ → ℂ :=
+fun {N} [NeZero N] w => (OAI.SevenEighths.HeckeTheta.pair w).Λ
+def OAI.SevenEighths.HeckeTheta.latticeL : {N : ℕ} → [NeZero N] → (Fin N × Fin N → ℂ) → ℂ → ℂ :=
+fun {N} [NeZero N] w s => ↑Real.pi ^ s * (Complex.Gamma s)⁻¹ * OAI.SevenEighths.HeckeTheta.completed w s
+@[reducible] def OAI.SevenEighths.HeckeFamily.K : Type :=
+CyclotomicField 3 ℚ
+@[reducible] def OAI.SevenEighths.HeckeFamily.O : Type :=
+NumberField.RingOfIntegers OAI.SevenEighths.HeckeFamily.K
+def OAI.SevenEighths.HeckeFamily.omega : OAI.SevenEighths.HeckeFamily.O :=
+OAI.SevenEighths.HeckeFamily.omega._proof_3.toInteger
+def OAI.SevenEighths.HeckeFamily.coordinateElement : ℤ → ℤ → OAI.SevenEighths.HeckeFamily.O :=
+fun x y => ↑x + ↑y * OAI.SevenEighths.HeckeFamily.omega
+structure OAI.SevenEighths.HeckeFamily.Character : Type
+number of parameters: 0
+fields:
+  OAI.SevenEighths.HeckeFamily.Character.modulus : Ideal OAI.SevenEighths.HeckeFamily.O
+  OAI.SevenEighths.HeckeFamily.Character.modulus_ne_bot : self.modulus ≠ ⊥
+  OAI.SevenEighths.HeckeFamily.Character.residue : MulChar (OAI.SevenEighths.HeckeFamily.O ⧸ self.modulus) ℂ
+  OAI.SevenEighths.HeckeFamily.Character.unit_trivial : ∀ (u : OAI.SevenEighths.HeckeFamily.Oˣ),
+      self.residue ((Ideal.Quotient.mk self.modulus) ↑u) = 1
+  OAI.SevenEighths.HeckeFamily.Character.period : ℕ
+  OAI.SevenEighths.HeckeFamily.Character.period_pos : 0 < self.period
+  OAI.SevenEighths.HeckeFamily.Character.period_mem : ↑self.period ∈ self.modulus
+constructor:
+  OAI.SevenEighths.HeckeFamily.Character.mk (modulus : Ideal OAI.SevenEighths.HeckeFamily.O)
+    (modulus_ne_bot : modulus ≠ ⊥) (residue : MulChar (OAI.SevenEighths.HeckeFamily.O ⧸ modulus) ℂ)
+    (unit_trivial : ∀ (u : OAI.SevenEighths.HeckeFamily.Oˣ), residue ((Ideal.Quotient.mk modulus) ↑u) = 1) (period : ℕ)
+    (period_pos : 0 < period) (period_mem : ↑period ∈ modulus) : OAI.SevenEighths.HeckeFamily.Character
+def OAI.SevenEighths.HeckeFamily.elementCoeff : OAI.SevenEighths.HeckeFamily.Character →
+  OAI.SevenEighths.HeckeFamily.O → ℂ :=
+fun χ z => χ.residue ((Ideal.Quotient.mk χ.modulus) z)
+def OAI.SevenEighths.HeckeFamily.coefficients : (χ : OAI.SevenEighths.HeckeFamily.Character) →
+  Fin χ.period × Fin χ.period → ℂ :=
+fun χ a => OAI.SevenEighths.HeckeFamily.elementCoeff χ (OAI.SevenEighths.HeckeFamily.coordinateElement ↑↑a.1 ↑↑a.2)
+def OAI.SevenEighths.HeckeFamily.continuedLattice : OAI.SevenEighths.HeckeFamily.Character → ℂ → ℂ :=
+fun χ => OAI.SevenEighths.HeckeTheta.latticeL (OAI.SevenEighths.HeckeFamily.coefficients χ)
+def OAI.SevenEighths.HeckeFamily.LFunction : OAI.SevenEighths.HeckeFamily.Character → ℂ → ℂ :=
+fun χ s => OAI.SevenEighths.HeckeFamily.continuedLattice χ s / 6

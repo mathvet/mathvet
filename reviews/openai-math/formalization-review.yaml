@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T13:54:32Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T22:23:26Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 411 accepted by
-    the real Comparator, of which 396 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 413 accepted by
+    the real Comparator, of which 398 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3137,7 +3137,8 @@ alignment:
     module: OAI.NumberTheory.DirichletL.Hecke.Nonvanishing
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/HeckeSevenEighths.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 003 — The quasi-Riemann hypothesis: Uniform real-zero gap (the lab''s own result label); paper
       ''Uniform exclusion of Landau–Siegel zeros'', theorem thm:main (build/paper.tex:66)'
     lean: OAI.SiegelZeros.WeightedTorusJets.exists_absolute_real_zero_gap, OAI.SiegelZeros.WeightedTorusJets.dirichletRealZeroBound_proof
@@ -3226,7 +3227,8 @@ alignment:
     module: OAI.NumberTheory.Ostmann.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/OstmannPrimes.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 015 — Torus-packet equidistribution in prime, quartic, and sextic degrees: Equidistribution
       of prime-degree torus packets (the lab''s own result label); paper ''Equidistribution of Prime-Degree Torus
       Packets with Arbitrary Local Type'', theorem thm:main (build/paper.tex:103)'
@@ -8103,7 +8105,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-15T13:54:32Z'
+    generated: '2026-10-15T22:23:26Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8488,6 +8490,7 @@ mathvet:
     - HardSphere
     - HarmonicArtin
     - HarmonicGrowth
+    - HeckeSevenEighths
     - HeilbronnTriangle
     - Heisenberg
     - HenonEmden
@@ -8575,6 +8578,7 @@ mathvet:
     - OrdinaryElliott
     - OrdinaryTwoPointCorrelations
     - OstmannComplete
+    - OstmannPrimes
     - ParityLifts
     - PartialPermutation
     - PartitionConsistency
@@ -8893,6 +8897,7 @@ mathvet:
     - HardSphere
     - HarmonicArtin
     - HarmonicGrowth
+    - HeckeSevenEighths
     - HeilbronnTriangle
     - Heisenberg
     - HenonEmden
@@ -8976,6 +8981,7 @@ mathvet:
     - OrdinaryElliott
     - OrdinaryTwoPointCorrelations
     - OstmannComplete
+    - OstmannPrimes
     - ParityLifts
     - PartialPermutation
     - PartitionConsistency
@@ -9177,7 +9183,7 @@ mathvet:
     - PrimeNumberTheoremAnd
     - RellichKondrachov
     cone_lines_max: 486525
-    machine_check: comparator-pass
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/003.md
     audit_part: 1
   - family: '005'

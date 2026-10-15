@@ -1,0 +1,5 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_OstmannPrimes.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Ostmann.main [thm] ok
+Chal.Ostmann.main : ∀ (A B : Set ℕ), A.Nontrivial → B.Nontrivial → (symmDiff (A + B) {n | Nat.Prime n}).Infinite
+'OAI.Ostmann.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== OstmannPrimes comparator-style: ok=1 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
