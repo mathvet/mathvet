@@ -1,0 +1,27 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_PlanarPacking.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.sharp_fourier_certificate [thm] ok
+CMP OAI.SharpPlanar.SharpCertificate [def] ok
+CMP OAI.SharpPlanar.SharpCertificate._proof_1 [thm] ok
+CMP OAI.SharpPlanar.fourier._proof_3 [thm] ok
+CMP OAI.SharpPlanar.fourier [def] ok
+CMP OAI.SharpPlanar.fourier._proof_2 [thm] ok
+CMP OAI.SharpPlanar.fourier._proof_1 [thm] ok
+CMP OAI.SharpPlanar.Plane [def] ok
+CMP OAI.SharpPlanar.Radial [def] ok
+Chal.sharp_fourier_certificate : ∃ f, Chal.SharpPlanar.SharpCertificate f
+@[reducible] def Chal.SharpPlanar.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def Chal.SharpPlanar.Radial : (Chal.SharpPlanar.Plane → ℝ) → Prop :=
+fun f => ∀ (x y : Chal.SharpPlanar.Plane), ‖x‖ = ‖y‖ → f x = f y
+def Chal.SharpPlanar.fourier : (Chal.SharpPlanar.Plane → ℝ) → Chal.SharpPlanar.Plane → ℂ :=
+fun f ξ => ∫ (x : Chal.SharpPlanar.Plane), ↑(f x) * Complex.exp (↑(-2 * Real.pi * inner ℝ x ξ) * Complex.I)
+def Chal.SharpPlanar.SharpCertificate : SchwartzMap Chal.SharpPlanar.Plane ℝ → Prop :=
+fun f =>
+  Chal.SharpPlanar.Radial ⇑f ∧
+    Chal.SharpPlanar.fourier (⇑f) 0 = 1 ∧
+      f 0 = 2 / √3 ∧
+        (∀ (ξ : Chal.SharpPlanar.Plane),
+            (Chal.SharpPlanar.fourier (⇑f) ξ).im = 0 ∧ 0 ≤ (Chal.SharpPlanar.fourier (⇑f) ξ).re) ∧
+          ∀ (x : Chal.SharpPlanar.Plane), 1 ≤ ‖x‖ → f x ≤ 0
+'OAI.sharp_fourier_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+== PlanarPacking comparator-style: ok=9 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

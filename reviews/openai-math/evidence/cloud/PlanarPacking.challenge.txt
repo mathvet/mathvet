@@ -1,0 +1,16 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Challenge_PlanarPacking.lean:36:8: warning: declaration uses `sorry`
+OAI.sharp_fourier_certificate : ∃ f, OAI.SharpPlanar.SharpCertificate f
+@[reducible] def OAI.SharpPlanar.Plane : Type :=
+EuclideanSpace ℝ (Fin 2)
+def OAI.SharpPlanar.Radial : (OAI.SharpPlanar.Plane → ℝ) → Prop :=
+fun f => ∀ (x y : OAI.SharpPlanar.Plane), ‖x‖ = ‖y‖ → f x = f y
+def OAI.SharpPlanar.fourier : (OAI.SharpPlanar.Plane → ℝ) → OAI.SharpPlanar.Plane → ℂ :=
+fun f ξ => ∫ (x : OAI.SharpPlanar.Plane), ↑(f x) * Complex.exp (↑(-2 * Real.pi * inner ℝ x ξ) * Complex.I)
+def OAI.SharpPlanar.SharpCertificate : SchwartzMap OAI.SharpPlanar.Plane ℝ → Prop :=
+fun f =>
+  OAI.SharpPlanar.Radial ⇑f ∧
+    OAI.SharpPlanar.fourier (⇑f) 0 = 1 ∧
+      f 0 = 2 / √3 ∧
+        (∀ (ξ : OAI.SharpPlanar.Plane),
+            (OAI.SharpPlanar.fourier (⇑f) ξ).im = 0 ∧ 0 ≤ (OAI.SharpPlanar.fourier (⇑f) ξ).re) ∧
+          ∀ (x : OAI.SharpPlanar.Plane), 1 ≤ ‖x‖ → f x ≤ 0

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-15T22:23:26Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-16T07:51:03Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 413 accepted by
-    the real Comparator, of which 398 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 414 accepted by
+    the real Comparator, of which 399 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3105,7 +3105,7 @@ review:
   - Tejpal Virk (independent reviewer, Berkeley, CA; MathVet, github.com/mathvet); no author of the reviewed formalization
     took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-15.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-16.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -3819,7 +3819,8 @@ alignment:
     module: OAI.Analysis.PlanarPacking.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/PlanarPacking.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): partial.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): partial.'
   - source: 'family 090 — headline claim as stated in the overview: Proves that the triangular lattice minimizes
       the lower limit of energy per particle for every nonnegative completely monotone potential of squared distance
       among locally finite planar configurations of centered-disk density one. It also minimizes unit-background
@@ -8105,7 +8106,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-15T22:23:26Z'
+    generated: '2026-10-16T07:51:03Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8597,6 +8598,7 @@ mathvet:
     - PlanarFalconer
     - PlanarFirstPassage
     - PlanarL1
+    - PlanarPacking
     - PlanarUnitDistances
     - PlaneColoring
     - PolycyclicRecognition
@@ -8999,6 +9001,7 @@ mathvet:
     - PlanarFalconer
     - PlanarFirstPassage
     - PlanarL1
+    - PlanarPacking
     - PlanarUnitDistances
     - PlaneColoring
     - PolycyclicRecognition
