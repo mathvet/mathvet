@@ -125,6 +125,7 @@ footer .in{max-width:62rem;margin:0 auto;padding:1.1rem 1rem 2rem}
 .notice{border-left:3px solid var(--v-weaker);padding:.1rem 0 .1rem 1rem;margin:.4rem 0 1.2rem;color:var(--ink-2);font-size:.95rem;max-width:52rem}
 .badge{display:inline-block;font-family:var(--sans);font-size:.8rem;font-weight:500;white-space:nowrap;color:var(--ink);background:color-mix(in oklab,var(--c) 22%,var(--paper));border-left:5px solid var(--c);border-radius:2px;padding:.12rem .6rem .12rem .5rem;line-height:1.35}
 .badge.full{--c:var(--v-full)}.badge.partial{--c:var(--v-partial)}.badge.weaker-statement{--c:var(--v-weaker)}.badge.supporting-only{--c:var(--v-supporting)}.badge.none{--c:var(--v-none)}
+.badge.full,.badge.supporting-only{background:var(--c);color:#fff}
 .chip{display:inline-block;background:var(--field);border-radius:2px;padding:.05rem .4rem;font-family:var(--sans);font-size:.78rem;margin:.1rem .25rem .1rem 0}
 .mc{font-family:var(--sans);font-size:.8rem;white-space:nowrap}
 .mc.comparator-pass,.mc.comparator-sandboxed-pass,.mc.closure-pass{color:var(--v-full);font-weight:500}
