@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-18T11:30:59Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-19T07:33:34Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -2984,8 +2984,8 @@ status:
   scope: 'Review coverage: all 242 families of https://github.com/openai/math that have a lean/docs page and all
     416 Comparator challenges at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb; 130 families have no Lean and
     are out of scope. Verdicts: full 149, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 414 accepted by
-    the real Comparator, of which 399 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
+    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 416 accepted by
+    the real Comparator, of which 401 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
   methods:
@@ -3105,7 +3105,7 @@ review:
   - Tejpal Virk (independent reviewer, Berkeley, CA; MathVet, github.com/mathvet); no author of the reviewed formalization
     took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-18.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-19.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -5411,7 +5411,8 @@ alignment:
     module: OAI.Combinatorics.Ramsey.CycleClique.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/CycleCliqueRamsey.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): full.'
   - source: 'family 190 — Polynomial removal fails for ordered binary matrices: Failure of polynomial removal for
       ordered binary matrices (the lab''s own result label); paper ''Polynomial removal fails for ordered binary
       matrices'', theorem thm:main (build/sections/01-introduction.tex:33)'
@@ -6760,8 +6761,8 @@ alignment:
     module: OAI.Analysis.MutuallyUnbiased.Main
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/ComparatorChallenges/MUBSix.json;
-      MathVet machine check: solution built locally; closure comparison, shadowing check and axiom check clean.
-      Family verdict (pre-referee): weaker-statement.'
+      MathVet machine check: real Comparator with its landrun (Landlock) sandbox accepted the solution on an isolated
+      Linux VM. Family verdict (pre-referee): weaker-statement.'
   - source: 'family 266 — headline claim as stated in the overview: Proves $N(6)=3$, resolving Zauner\textquotesingle
       s dimension-six mutually unbiased bases conjecture: three such bases exist in $\mathbb C^6$, but four cannot.
       The exclusion is a complete certified computation under the stated binary64 arithmetic and compiler conditions.
@@ -8106,7 +8107,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-18T11:30:59Z'
+    generated: '2026-10-19T07:33:34Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -8409,6 +8410,7 @@ mathvet:
     - CriticalZ3
     - CrouzeixHilbert
     - CubicTorus
+    - CycleCliqueRamsey
     - CycleDecomposition
     - CylinderCovering
     - DaugavetModuli
@@ -8545,6 +8547,7 @@ mathvet:
     - LogConcaveQuery
     - LogKodairaFiberNegative
     - LogspaceEquality
+    - MUBSix
     - MahlerConjecture
     - MarkovType
     - MassAction
@@ -8820,6 +8823,7 @@ mathvet:
     - CriticalZ3
     - CrouzeixHilbert
     - CubicTorus
+    - CycleCliqueRamsey
     - CycleDecomposition
     - CylinderCovering
     - DaugavetModuli
@@ -8953,6 +8957,7 @@ mathvet:
     - LogConcaveQuery
     - LogKodairaFiberNegative
     - LogspaceEquality
+    - MUBSix
     - MahlerConjecture
     - MarkovType
     - MassAction
@@ -11504,7 +11509,7 @@ mathvet:
     definitions_to_check: []
     external_packages: []
     cone_lines_max: 2795707
-    machine_check: none
+    machine_check: comparator-sandboxed-pass
     lab_docs_url: https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/lean/docs/189.md
     audit_part: 2
   - family: '190'

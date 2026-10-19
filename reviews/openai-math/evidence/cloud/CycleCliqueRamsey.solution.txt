@@ -1,0 +1,8 @@
+OAI.CycleClique.thm_main : (∀ (m n : ℤ),
+    n ≤ m → 3 ≤ n → (m, n) ≠ (3, 3) → ↑(OAI.CycleClique.cycleCliqueRamsey m.toNat n.toNat) = (m - 1) * (n - 1) + 1) ∧
+  OAI.CycleClique.cycleCliqueRamsey 3 3 = 6
+'OAI.CycleClique.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+def OAI.CycleClique.RamseyProperty : ℕ → ℕ → ℕ → Prop :=
+fun m n N => ∀ (G : SimpleGraph (Fin N)), (SimpleGraph.cycleGraph m).IsContained G ∨ ⊤.IsContained Gᶜ
+def OAI.CycleClique.cycleCliqueRamsey : ℕ → ℕ → ℕ :=
+fun m n => sInf {N | OAI.CycleClique.RamseyProperty m n N}

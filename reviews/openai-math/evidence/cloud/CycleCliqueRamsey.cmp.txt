@@ -1,0 +1,13 @@
+/home/mathvet-m1-ariose-2026-10/mathvet/upstream/openai-math/lean/Scratch/Cmp_CycleCliqueRamsey.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.CycleClique.thm_main [thm] ok
+CMP OAI.CycleClique.cycleCliqueRamsey [def] ok
+CMP OAI.CycleClique.RamseyProperty [def] ok
+Chal.CycleClique.thm_main : (∀ (m n : ℤ),
+    n ≤ m → 3 ≤ n → (m, n) ≠ (3, 3) → ↑(Chal.CycleClique.cycleCliqueRamsey m.toNat n.toNat) = (m - 1) * (n - 1) + 1) ∧
+  Chal.CycleClique.cycleCliqueRamsey 3 3 = 6
+def Chal.CycleClique.RamseyProperty : ℕ → ℕ → ℕ → Prop :=
+fun m n N => ∀ (G : SimpleGraph (Fin N)), (SimpleGraph.cycleGraph m).IsContained G ∨ ⊤.IsContained Gᶜ
+def Chal.CycleClique.cycleCliqueRamsey : ℕ → ℕ → ℕ :=
+fun m n => sInf {N | Chal.CycleClique.RamseyProperty m n N}
+'OAI.CycleClique.thm_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+== CycleCliqueRamsey comparator-style: ok=3 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0
