@@ -123,8 +123,7 @@ footer .in{max-width:62rem;margin:0 auto;padding:1.1rem 1rem 2rem}
 .page-head{padding:2.2rem 0 .4rem}
 .page-head h1{font-size:2rem;max-width:none;margin-bottom:.4rem}
 .notice{border-left:3px solid var(--v-weaker);padding:.1rem 0 .1rem 1rem;margin:.4rem 0 1.2rem;color:var(--ink-2);font-size:.95rem;max-width:52rem}
-.badge{display:inline-block;font-family:var(--sans);font-size:.8rem;font-weight:500;white-space:nowrap;color:var(--ink)}
-.badge::before{content:"";display:inline-block;width:.62rem;height:.62rem;border-radius:1px;background:var(--c);margin-right:.38rem;vertical-align:-1px}
+.badge{display:inline-block;font-family:var(--sans);font-size:.8rem;font-weight:500;white-space:nowrap;color:var(--ink);background:color-mix(in oklab,var(--c) 22%,var(--paper));border-left:5px solid var(--c);border-radius:2px;padding:.12rem .6rem .12rem .5rem;line-height:1.35}
 .badge.full{--c:var(--v-full)}.badge.partial{--c:var(--v-partial)}.badge.weaker-statement{--c:var(--v-weaker)}.badge.supporting-only{--c:var(--v-supporting)}.badge.none{--c:var(--v-none)}
 .chip{display:inline-block;background:var(--field);border-radius:2px;padding:.05rem .4rem;font-family:var(--sans);font-size:.78rem;margin:.1rem .25rem .1rem 0}
 .mc{font-family:var(--sans);font-size:.8rem;white-space:nowrap}
@@ -168,9 +167,9 @@ LAYOUT = """<!doctype html>
 </head>
 <body>
 <header class="top"><div class="in">
-  <a class="brand" href="{root}">MathVet<span>independent reviews of AI-generated formal mathematics</span></a>
+  <a class="brand" href="{home_href}">MathVet<span>independent reviews of AI-generated formal mathematics</span></a>
   <nav>
-    <a href="{root}" class="{home}">Review of openai/math</a>
+    <a href="{home_href}" class="{home}">Review of openai/math</a>
     <a href="{root}openai-math/" class="{table}">Fidelity table</a>
     <a href="{root}openai-math/challenges.html" class="{challenges}">Challenges</a>
     <a href="{root}protocol.html" class="{protocol}">Referee protocol</a>
@@ -191,7 +190,7 @@ LAYOUT = """<!doctype html>
 def layout(title, body, active, extra_head='', extra_js='', generated='', commit=''):
     root = '../' if active in ('table', 'challenges') else ''
     cls = {k: ('active' if k == active else '') for k in ('home', 'table', 'challenges', 'protocol')}
-    return LAYOUT.format(title=title, body=body, root=root, extra_head=extra_head, extra_js=extra_js, fonts=FONTS_HEAD,
+    return LAYOUT.format(title=title, body=body, root=root, home_href=root or './', extra_head=extra_head, extra_js=extra_js, fonts=FONTS_HEAD,
                          tip_js=TIP_JS, generated=generated, commit=commit, **cls)
 
 
