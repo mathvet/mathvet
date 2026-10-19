@@ -516,19 +516,12 @@ DOCS.mkdir(exist_ok=True)
 
 explainer = (ROOT / 'EXPLAINER.md').read_text(encoding='utf-8')
 protocol = (ROOT / 'PROTOCOL.md').read_text(encoding='utf-8')
-tiles = f"""
-<section class="tiles" aria-label="headline numbers">
-  <div class="tile"><div class="n">{n_total}</div><div class="l">result families in the release</div></div>
-  <div class="tile"><div class="n">{n_lean}</div><div class="l">families with Lean</div></div>
-  <div class="tile full"><div class="n">{counts['full']}</div><div class="l">Lean states the headline in full</div></div>
-  <div class="tile narrower"><div class="n">{status['non_full']}</div><div class="l">Lean states something narrower<br><small>{counts['partial']} partial · {counts['weaker-statement']} weaker · {counts['supporting-only']} supporting-only</small></div></div>
-  <div class="tile none"><div class="n">{n_none}</div><div class="l">no Lean at all</div></div>
-  <div class="tile"><div class="n">{len(comp_pass)}<span class="of">/{len(closure_ok)}</span></div><div class="l">Comparator accepted / closure-checked by us<br><small>{len(sandboxed)} sandboxed on an isolated Linux VM</small></div></div>
-</section>
-<p class="status-line">Review status: <strong>pre-referee</strong>. Upstream commit <code>{COMMIT[:8]}</code>. Generated {status['generated']}. <a href="{RELEASE}/">Open the table →</a></p>
-""" + (f'<div class="notice">{md(drift_sentence)}</div>' if drift else '')
-body = tiles + '<article class="prose">' + md(explainer) + '</article>'
-(DOCS / 'index.html').write_text(layout('MathVet — which AI-generated Lean statements say what the paper claims?', body, 'home',
+from site_home import home_body  # noqa: E402
+baseline_path = ROOT / 'dataset' / 'baseline.md'
+baseline_md = baseline_path.read_text(encoding='utf-8') if baseline_path.exists() else ''
+body = home_body(status, counts, list(families.values()), list(challenges.values()), explainer, md, baseline_md,
+                 drift_sentence if drift else '', COMMIT, RELEASE)
+(DOCS / 'index.html').write_text(layout('MathVet: which AI-generated Lean statements say what the paper claims?', body, 'home',
                                         extra_head=KATEX_HEAD, generated=status['generated'], commit=COMMIT[:8]), encoding='utf-8')
 (DOCS / 'protocol.html').write_text(layout('MathVet — referee protocol', '<article class="prose">' + md(protocol) + '</article>', 'protocol',
                                            extra_head=KATEX_HEAD, generated=status['generated'], commit=COMMIT[:8]), encoding='utf-8')

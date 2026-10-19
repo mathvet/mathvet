@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MathVet — referee protocol</title>
 <meta name="description" content="MathVet: independent, pre-referee fidelity reviews of AI-generated Lean formalizations. Does the Lean statement say what the paper claims?">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -15,9 +20,9 @@
 </head>
 <body>
 <header class="top"><div class="in">
-  <a class="brand" href="">MathVet<span>does the Lean statement say what the paper claims?</span></a>
+  <a class="brand" href="">MathVet<span>independent reviews of AI-generated formal mathematics</span></a>
   <nav>
-    <a href="" class="">Review: openai/math</a>
+    <a href="" class="">Review of openai/math</a>
     <a href="openai-math/" class="">Fidelity table</a>
     <a href="openai-math/challenges.html" class="">Challenges</a>
     <a href="protocol.html" class="active">Referee protocol</a>
@@ -83,7 +88,14 @@ for k in (2, 4, 6, 8, 10):
     print(k, '/40 -&gt;', wilson(k, 40))
 </code></pre></article>
 </main>
-<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>fd4aeeb2</code>; generated 2026-10-19T11:30:56Z. Corrections: <a href="https://github.com/mathvet/mathvet/issues">open an issue</a>.</div></footer>
+<footer><div class="in">MathVet reviews are independent of every lab whose work they cover and are published under Apache-2.0; the reviewed artefacts are their authors'. Every verdict is pre-referee until the error rate in the <a href="protocol.html">protocol</a> has been published. Upstream commit <code>fd4aeeb2</code>; generated 2026-10-19T17:02:38Z. Corrections: <a href="https://github.com/mathvet/mathvet/issues">open an issue</a>.</div></footer>
+<script>(function(){var t=document.createElement('div');t.className='tip';t.hidden=true;document.body.appendChild(t);var cur=null;
+function place(x,y){t.style.left=Math.max(4,Math.min(x+14,window.innerWidth-t.offsetWidth-8))+'px';t.style.top=(y+16)+'px'}
+document.addEventListener('mouseover',function(e){var el=e.target.closest?e.target.closest('[data-tip]'):null;if(!el)return;cur=el;t.textContent=el.getAttribute('data-tip');t.hidden=false;place(e.clientX,e.clientY)});
+document.addEventListener('mousemove',function(e){if(!t.hidden)place(e.clientX,e.clientY)});
+document.addEventListener('mouseout',function(e){if(cur&&!(e.relatedTarget&&cur.contains(e.relatedTarget))){t.hidden=true;cur=null}});
+document.addEventListener('focusin',function(e){var el=e.target.closest?e.target.closest('[data-tip]'):null;if(!el)return;var r=el.getBoundingClientRect();t.textContent=el.getAttribute('data-tip');t.hidden=false;t.style.left=r.left+'px';t.style.top=(r.bottom+6)+'px'});
+document.addEventListener('focusout',function(){t.hidden=true});})();</script>
 
 </body>
 </html>

@@ -8,9 +8,9 @@ Site: **[math.vet](https://math.vet)** · First review: [`openai/math`](reviews/
 |---|---|
 | in the release | 372 |
 | with Lean (Comparator challenges) | 242 |
-| Lean states the headline in full | 144 |
-| Lean states something narrower (60 partial · 19 weaker-statement · 12 supporting-only) | 91 |
-| no Lean | 137 |
+| Lean states the headline in full | 149 |
+| Lean states something narrower (59 partial, 18 weaker-statement, 16 supporting-only) | 93 |
+| no Lean | 130 |
 
 Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem is false; the review says what was machine-checked as stated, what was checked in a narrower form, and what was not checked at all.
 
@@ -20,7 +20,7 @@ Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem i
 |---|---|
 | [`EXPLAINER.md`](EXPLAINER.md) | the 1,500-word account of the review and its limits |
 | [`PROTOCOL.md`](PROTOCOL.md) | the pre-registered referee protocol: frozen 40-family sample, rubric, decision lines, power |
-| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (242 families), `challenge-status.{csv,json}` (405 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
+| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (242 families), `challenge-status.{csv,json}` (416 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
 | [`checker/`](checker/) | the scripts that build a challenge's solution, run the closure comparison and run the real Comparator |
 | [`dataset/`](dataset/) | 416 challenge statements paired with their papers' main theorems, scope notes and fidelity labels (Apache-2.0) |
 | [`scripts/`](scripts/) | `build_review.py` regenerates every derived file and the site from the sources; `build_index.py`, `import_cones.py`, `build_ml_pairs.py` rebuild the sources from a clone |
