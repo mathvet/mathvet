@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-19T07:33:34Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-19T11:30:56Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -8107,7 +8107,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-19T07:33:34Z'
+    generated: '2026-10-19T11:30:56Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
