@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-26T11:30:26Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, generated 2026-10-27T11:31:04Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -3105,7 +3105,7 @@ review:
   - Tejpal Virk (independent reviewer, Berkeley, CA; MathVet, github.com/mathvet); no author of the reviewed formalization
     took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-26.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-27.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -8107,7 +8107,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
-    generated: '2026-10-26T11:30:26Z'
+    generated: '2026-10-27T11:31:04Z'
     review_status: independent third-party review, pre-referee
     families_total: 372
     families_with_lean: 242
@@ -9150,19 +9150,257 @@ mathvet:
     comparator_running: []
     build_in_progress: []
     upstream_drift:
-      new_commit: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
-      new_commit_date: '2026-10-12T14:55:24-07:00'
-      detected: '2026-10-13T11:30:28Z'
-      families_new_with_lean: []
-      families_gained_lean: []
-      families_to_reread: []
-      challenges_new: []
-      challenges_modified: []
-      report: upstream-drift/1581d4c.md
-  upstream_drift: 'Upstream has moved since the reviewed commit: openai/math @ 1581d4cb (2026-10-12) adds 0 challenges,
-    gives Lean to 0 families that had none, modifies 0 challenge statements and changes the scope note or catalogue
-    entry of 0 reviewed families. None of this is reviewed yet; every verdict here is about commit fd4aeeb2. Changed
-    families are marked in the table; the full list and diffs: upstream-drift/1581d4c.md.'
+      new_commit: 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
+      new_commit_date: '2026-10-26T14:18:03-07:00'
+      detected: '2026-10-27T11:30:31Z'
+      families_new_with_lean:
+      - '378'
+      families_gained_lean:
+      - 079
+      families_to_reread:
+      - '027'
+      - '032'
+      - '066'
+      - 079
+      - '103'
+      - '110'
+      - '145'
+      - '158'
+      - '169'
+      - '195'
+      - '237'
+      - '238'
+      - '297'
+      - '301'
+      - '361'
+      - '371'
+      - '374'
+      - '378'
+      challenges_new:
+      - Affine
+      - AffineIteration
+      - AffineMesh
+      - AffinePrism
+      - AffineRelativeDimension
+      - AffineRelativeMesh
+      - AffineScheme
+      - AffineSmall
+      - AffineSmallPrism
+      - AffineSpace
+      - AffineSupport
+      - AmbientInjectiveResolution
+      - AnalyticDifferentialForms
+      - AnalyticLeftInverse
+      - AnalyticMap
+      - AnalyticSheaf
+      - Analytification
+      - BarycentricAllDegrees
+      - BarycentricChains
+      - BarycentricHomotopy
+      - BarycentricOuterFaces
+      - Basic
+      - CM
+      - CatenaryDimension
+      - CenteredComplexOrientation
+      - Chain
+      - ChainComplexSplit
+      - ChainStalk
+      - Challenge
+      - ChartFundamentalClass
+      - ChartFundamentalClassGenerator
+      - ChartFundamentalClassInvariance
+      - ChartedSpaceParacompact
+      - ClosedFiltration
+      - ClosedImmersion
+      - ClosedPointDimension
+      - ClosedSubset
+      - Cochain
+      - CochainDescent
+      - CochainFlasque
+      - CochainOpenCone
+      - CochainOpenConeNaturality
+      - CochainOpenRestriction
+      - CochainOpenSections
+      - CochainResolution
+      - CochainRestriction
+      - CoclassOverlap
+      - CoclassSection
+      - Cohomology
+      - CohomologyFlasqueModel
+      - CohomologyInjectiveModel
+      - CohomologySection
+      - CohomologySheaf
+      - CohomologyStalkVanishing
+      - ComplexClass
+      - ComplexClassDifferentiableInvariance
+      - ComplexClassLinearInvariance
+      - ComplexOrientation
+      - Constant
+      - Contractible
+      - CoverSmall
+      - CoverSmallProjective
+      - CoverSmallQuasiIso
+      - Defs
+      - DerivedSections
+      - DerivedSectionsLocalization
+      - DerivedSectionsNaturality
+      - DerivedSectionsShift
+      - Dimension
+      - DimensionFormula
+      - Equidimensional
+      - Etale
+      - Euclidean
+      - EuclideanVanishing
+      - ExactWedge
+      - Field
+      - FieldToComplex
+      - Filtration
+      - FiniteFiltrationVanishing
+      - FlasqueAcyclic
+      - FlasqueBoundedBelow
+      - FlasqueCokernel
+      - FlasqueComparison
+      - FlasqueExtendNat
+      - FlasqueLowerVanishing
+      - FlasqueLowestCohomology
+      - FlasqueQuasiIso
+      - FlasqueSections
+      - FlattenedSupport
+      - FundamentalClass
+      - FundamentalClassGenerator
+      - GenericPoint
+      - GlobalRestriction
+      - GlobalSections
+      - HodgeStructure
+      - HolomorphicCharts
+      - HolomorphicDeRham
+      - HolomorphicNormalTransition
+      - HolomorphicPoincare
+      - HomComplexPrecomp
+      - HomComplexSingle
+      - HomologySection
+      - HomologyZeroNaturality
+      - InjectiveFlasque
+      - IsOpenUnits
+      - KInjectiveHom
+      - KernelAcyclic
+      - KernelCompositionShortExact
+      - KrullDimension
+      - Lebesgue
+      - LiftToInjective
+      - LinearDual
+      - LinearDualNaturality
+      - LocalGenerator
+      - LocalHomology
+      - LocalHomologyVanishing
+      - LocalSmoothing
+      - LocalSupportVanishing
+      - Localization
+      - Locus
+      - Manifold
+      - MapExtend
+      - MapExtendNaturality
+      - MapOfLocalStalks
+      - MappingCoconeShortExact
+      - MappingCoconeShortExactNaturality
+      - MappingConeMapNaturality
+      - MappingConeQuasiIso
+      - NeighborhoodPairImage
+      - NestedLocalization
+      - NestedOnOpen
+      - NormalCoordinates
+      - NormalGeometry
+      - NormalProjectionCoclass
+      - NormalProjectionOverlap
+      - NormalSlicePurity
+      - Notation
+      - Open
+      - OpenCover
+      - OpenInjectiveResolution
+      - OpenRestrictedLowestCohomology
+      - OpenRestrictedVanishing
+      - OpenRestriction
+      - OpenSheafification
+      - OpenTransport
+      - Pair
+      - Poincare
+      - PointwiseDimension
+      - PolynomialCatenary
+      - Projective
+      - ProjectiveCompact
+      - ProjectiveHausdorff
+      - ProjectiveParacompact
+      - ProjectiveSpace
+      - PuncturedEuclidean
+      - Purity
+      - RelativeCochainCone
+      - RelativeCochainConeNaturality
+      - RelativeCohomologyOpenTransport
+      - RelativeCohomologySheaf
+      - RelativeHomotopyInvariance
+      - RelativePairExcision
+      - ResidueField
+      - RightDerivedFunctorPlusNaturality
+      - RightDerivedFunctorPlusShift
+      - RightDerivedFunctorPlusShiftNaturality
+      - SectionRestrictionCone
+      - SectionRestrictionConeNaturality
+      - SheafCohomology
+      - ShortExactQuasiIso
+      - SingularClosedFiltration
+      - SingularCohomologySheafComparison
+      - SingularComparison
+      - SingularFlasqueModel
+      - SingularLocusDimension
+      - SingularSectionCohomology
+      - SingularSectionNaturality
+      - SingularSheafComparison
+      - SmoothClosedLift
+      - SmoothCoordinates
+      - SmoothKrullDimension
+      - SmoothSupportCoclassSection
+      - SmoothSupportPurity
+      - Solution
+      - SourceOpen
+      - SphereAffineBoundary
+      - SphereSimplicialHomology
+      - SplitDerivativeNormalChart
+      - StalkExact
+      - StandardEtale
+      - StandardSimplexCone
+      - Statement
+      - StdSimplexMetric
+      - StupidTruncation
+      - SubdivisionCochain
+      - SubexponentialSAT
+      - SubsetChains
+      - Support
+      - SupportExtension
+      - SupportSingularGlobal
+      - SupportedSingularModel
+      - TopPair
+      - TranscendenceDegreeKrullDimension
+      - Variants
+      - WedgeCovectors
+      - WithSupport
+      - main
+      challenges_modified:
+      - Brenier
+      - DefocusingNLS
+      - ElementaryPositivity
+      - EuclideanFiveColor
+      - HarmonicGrowth
+      - KServer
+      - LogspaceEquality
+      - Naimark
+      - OccupiedOverlap
+      - Rokhlin
+      - SpinAngle
+      report: upstream-drift/7ef5c0c.md
+  upstream_drift: 'Upstream has moved since the reviewed commit: openai/math @ 7ef5c0cc (2026-10-26) adds 207 challenges,
+    gives Lean to 2 families that had none, modifies 11 challenge statements and changes the scope note or catalogue
+    entry of 15 reviewed families. None of this is reviewed yet; every verdict here is about commit fd4aeeb2. Changed
+    families are marked in the table; the full list and diffs: upstream-drift/7ef5c0c.md.'
   verdict_scale:
     full: the Comparator statement(s) state the family headline faithfully
     partial: only a special case, or only one of several co-equal headline claims
