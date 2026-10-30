@@ -6,8 +6,17 @@ after renaming the Chal prefix. Also prints axioms of each theorem."""
 import re, sys, json
 import os; L=os.environ.get('OPENAI_MATH_LEAN') or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'upstream','openai-math','lean')
 C=sys.argv[1]
-j=json.load(open(f'{L}/ComparatorChallenges/{C}.json'))
-src=open(f'{L}/ComparatorChallenges/{C}.lean',encoding='utf-8').read()
+def chal_paths(L, C):
+    """Config and statement paths for a challenge: <Name>.json + <Name>.lean, or a directory with main.json + Challenge.lean."""
+    import os as _os
+    if _os.path.exists(f'{L}/ComparatorChallenges/{C}.json'):
+        return f'{L}/ComparatorChallenges/{C}.json', f'{L}/ComparatorChallenges/{C}.lean'
+    cfg = f'{L}/ComparatorChallenges/{C}/main.json'
+    mod = json.load(open(cfg)).get('challenge_module') or f'ComparatorChallenges.{C}.Challenge'
+    return cfg, f'{L}/' + mod.replace('.', '/') + '.lean'
+_cfg,_src=chal_paths(L,C)
+j=json.load(open(_cfg))
+src=open(_src,encoding='utf-8').read()
 body=re.sub(r'^import .*$','',src,flags=re.M).replace('namespace OAI','namespace Chal').replace('end OAI','end Chal')
 body=re.sub(r'\bOAI\.','Chal.',body)
 thms=' '.join(t.replace('OAI.','Chal.',1) for t in j['theorem_names'])

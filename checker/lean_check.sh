@@ -6,7 +6,7 @@
 set -u
 source "$(dirname "$0")/env.sh"
 C="$1"; NOBUILD="${2:-}"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
-J="$L/ComparatorChallenges/$C.json"; MOD=$(jq -r .solution_module "$J")
+chal_paths "$C" || exit 1; MOD=$(jq -r .solution_module "$J")
 LOG="$OUT/$C.log"
 cd "$L"
 if [ "$NOBUILD" != "--nobuild" ]; then

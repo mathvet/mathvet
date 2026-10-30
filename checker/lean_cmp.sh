@@ -7,7 +7,8 @@
 # its copy elaborated inside the solution. Then `#print axioms`. Output: $MATHVET_CHECKS/<Challenge>.cmp.txt
 source "$(dirname "$0")/env.sh"
 C="$1"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
-if grep -qE '^import OAI' "$L/ComparatorChallenges/$C.lean"; then
+chal_paths "$C" || exit 1
+if grep -qE '^import (OAI|ComparatorChallenges)' "$SRC"; then
   # the challenge imports the solution's own modules: re-elaborating its text under a fresh namespace is not meaningful
   # (every renamed reference would point at nothing); Comparator's structural comparison is the applicable check
   echo "== $C comparator-style: n/a (challenge imports solution modules; closure comparison not applicable) | n/a | | defeq_only=0 aux_only=0" | tee "$OUT/$C.cmp.txt"

@@ -5,5 +5,6 @@
 # env.sh falls back to fake-landrun.sh, which runs the same pipeline WITHOUT a sandbox — say so when you cite the result).
 source "$(dirname "$0")/env.sh"
 C="$1"; L="$OPENAI_MATH_LEAN"; OUT="$MATHVET_CHECKS"
-cd "$L" && { echo "== $C comparator start $(date -u +%FT%TZ) landrun=$COMPARATOR_LANDRUN"; lake env "$COMPARATOR_BIN" "ComparatorChallenges/$C.json" 2>&1 | grep -v 'has local changes'; echo "== comparator exit=${PIPESTATUS[0]} end $(date -u +%FT%TZ)"; } > "$OUT/$C.comparator.txt"
+chal_paths "$C" || exit 1
+cd "$L" && { echo "== $C comparator start $(date -u +%FT%TZ) landrun=$COMPARATOR_LANDRUN"; lake env "$COMPARATOR_BIN" "$JREL" 2>&1 | grep -v 'has local changes'; echo "== comparator exit=${PIPESTATUS[0]} end $(date -u +%FT%TZ)"; } > "$OUT/$C.comparator.txt"
 grep -E 'okay|accepts|exit=|rror|FAIL|not' "$OUT/$C.comparator.txt" | tail -4
