@@ -1,5 +1,5 @@
 {
- "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+ "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
  "builder": "scripts/build_paper_theorems.py, extractor analyze_paper from scripts/build_ml_pairs.py",
  "method": "per paper: the block with a main-theorem label or title, else the first theorem environment of the introduction, else the first theorem-like environment, else a fallback environment; up to three blocks, in that order of preference; tex_file and tex_line are relative to the paper directory at the upstream commit",
  "papers": {
@@ -8170,6 +8170,39 @@
     }
    ]
   },
+  "Local-smoothing-for-the-Euclidean-wave-equation-October-25-2026": {
+   "title": "Local smoothing for the Euclidean wave equation",
+   "family": "079",
+   "tex_root": "build/paper.tex",
+   "n_theorem_blocks": 7,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": "Critical annular estimate",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 97,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Critical annular estimate]\\label{thm:main}\nLet \\(n\\ge2\\), \\(p=\\pc\\), and \\(\\varphi\\in C_c^\\infty(\\RR^n\\setminus\\{0\\})\\).\nFor \\(N\\ge2\\) set \\(P_N=\\varphi(D/N)\\). Then\n\\begin{equation}\\label{eq:main}\n \\|U(T)P_N f\\|_{L^p(\\RR^n\\times I)}\n       \\le C_{n,\\varphi}[\\log(2+N)]^{2/p}\\|f\\|_{L^p(\\RR^n)} .\n\\end{equation}\n\\end{theorem}"
+    },
+    {
+     "reason": "intro_first",
+     "env": "theorem",
+     "label": "thm:local-smoothing",
+     "title": "Euclidean local smoothing",
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/sections/introduction.tex",
+     "tex_line": 16,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}[Euclidean local smoothing]\\label{thm:local-smoothing}\nFor \\(n\\ge2\\), \\(2\\le p<\\infty\\) and \\(\\varepsilon>0\\),\n\\begin{equation}\\label{eq:sogge}\n \\|U(T)f\\|_{L^p(\\RR^n\\times I)}\n     \\le C_{n,p,\\varepsilon}\\|J^{s_+(p)+\\varepsilon} f\\|_{L^p(\\RR^n)} .\n\\end{equation}\nAt \\(p=2\\) one can take \\(\\varepsilon=0\\).\n\\end{theorem}"
+    }
+   ]
+  },
   "Localization-costs-and-information-growth-for-exact-Gaussian-observations-September-27-2026": {
    "title": "Localization costs and information growth for exact Gaussian observations",
    "family": "140",
@@ -12694,6 +12727,27 @@
      "tex_line": 62,
      "tex_truncated": false,
      "tex": "\\begin{theorem}\\label{thm:main}\nThe Euclidean plane has no proper five-coloring, even when arbitrary\ncolor classes are allowed. Consequently,\n\\[\n  6\\le \\chi(\\R^2)\\le 7.\n\\]\n\\end{theorem}"
+    }
+   ]
+  },
+  "The-Exponential-Time-Hypothesis-is-False-October-25-2026": {
+   "title": "The Exponential Time Hypothesis is False",
+   "family": "378",
+   "tex_root": "build/main_full_version.tex",
+   "n_theorem_blocks": 3,
+   "error": null,
+   "blocks": [
+    {
+     "reason": "main_label",
+     "env": "theorem",
+     "label": "thm:main",
+     "title": null,
+     "section": "Introduction",
+     "in_intro": true,
+     "tex_file": "build/main_full_version.tex",
+     "tex_line": 73,
+     "tex_truncated": false,
+     "tex": "\\begin{theorem}\\label{thm:main}\nFor each fixed $k\\ge2$, there exists a deterministic algorithm that,\ngiven a $k$-CNF $F$ on $n\\ge20$ declared variables with $m$ clauses,\ncomputes $\\#F$ as defined in \\eqref{eq:solution-count} in\n\\[\n (n+m)^{O_k(1)}2^{O_k(n\\log\\log n/\\sqrt{\\log n})}\n\\]\nbit operations and $(n+m)^{O_k(1)}$ bits of space.\nFor each fixed $D>0$, its running time on inputs with $m\\le Dn$ is\n\\[\n (n+m)^{O_{k,D}(1)}2^{O_{k,D}(n/\\sqrt{\\log n})}.\n\\]\n\\end{theorem}"
     }
    ]
   },

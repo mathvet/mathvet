@@ -2,7 +2,7 @@
 
 *Pre-registered 8 October 2026, before any family in the sample was re-read by a referee. The thresholds below are not revised after data.*
 
-*Note added 30 October 2026: the pre-registered target date for publishing the error rate (29 October 2026) has passed without a referee round. No referee has been invited yet; recruitment is the maintainer's task and has not started. The sample, the packet, the rubric and the decision lines are unchanged and stay frozen. A new target date will be set and recorded here when the first referee has consented; until then the review keeps its pre-referee label and this note.*
+*Note added 30 October 2026: the pre-registered target date for publishing the error rate (29 October 2026) has passed without a referee round. No referee has been invited yet; recruitment is the maintainer's task and has not started. The sample, the packet, the rubric and the decision lines are unchanged and stay frozen. A new target date will be set and recorded here when the first referee has consented; until then the review keeps its pre-referee label and this note. The published review moved to upstream commit `4eaee87` on 30 October; the sample, the packet and the population counts below remain at `adc7f124` as frozen.*
 
 *Note added 10 October 2026: the published review has moved to upstream commit `fd4aeeb2`; the sample, the referee packet and the population counts below remain at `adc7f124` as frozen. The thresholds are unchanged.*
 

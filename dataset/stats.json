@@ -1,9 +1,9 @@
 {
-  "built_at": "2026-10-10T19:15:19Z",
-  "upstream_commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
-  "jsonl_bytes": 6095739,
+  "built_at": "2026-10-31T00:10:38Z",
+  "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+  "jsonl_bytes": 6127223,
   "builder": "scripts/build_ml_pairs.py",
-  "builder_sha256": "711ee183b91808c55ed16e1928ae02d898609b1183420984df4c23cf64c9d71b",
+  "builder_sha256": "f3a344c47de183937ddc6f8d8947ee5ebeeda4eaa1615ea7f91233c5007fdcfa",
   "params": {
     "max_full_lines": 1000,
     "keep_head_lines": 400,
@@ -45,98 +45,57 @@
     "Weil-classes-and-Hodge-classes-on-abelian-powers-September-30-2026"
   ],
   "cone_check": {
-    "compared_with_import_cones_json": 416,
-    "differences": {
-      "ArtinParabolicIntersections": {
-        "import_cones_json": [
-          781,
-          73065
-        ],
-        "recomputed": [
-          782,
-          73097
-        ]
-      },
-      "HarmonicArtin": {
-        "import_cones_json": [
-          659,
-          62869
-        ],
-        "recomputed": [
-          660,
-          62901
-        ]
-      },
-      "WeakHessian": {
-        "import_cones_json": [
-          530,
-          64010
-        ],
-        "recomputed": [
-          542,
-          65542
-        ]
-      }
-    },
-    "axiom_files_flagged_in_json": {
-      "OccupiedOverlap": [
-        "OAI.RepresentationTheory.RowColumn.HookModel"
-      ],
-      "OptimalMaxCut": [
-        "OAI.Computability.MaxCut.Machines.Printer"
-      ],
-      "PartitionConsistency": [
-        "OAI.SetTheory.PartitionConsistency.Models.LocalRecords"
-      ]
-    }
+    "compared_with_import_cones_json": 419,
+    "differences": {},
+    "axiom_files_flagged_in_json": {}
   },
-  "n_challenges": 416,
-  "n_families": 242,
-  "n_papers_in_lean_families": 477,
-  "n_lean_linked_papers": 341,
+  "n_challenges": 419,
+  "n_families": 245,
+  "n_papers_in_lean_families": 485,
+  "n_lean_linked_papers": 345,
   "fidelity_label_challenges": {
-    "full": 269,
+    "full": 272,
     "partial": 103,
     "supporting-only": 20,
     "weaker-statement": 24
   },
   "fidelity_label_families": {
-    "full": 149,
+    "full": 152,
     "partial": 59,
     "supporting-only": 16,
     "weaker-statement": 18
   },
   "fidelity_class_challenges": {
-    "full": 269,
+    "full": 272,
     "partial": 103,
     "supporting": 20,
     "weaker": 24
   },
   "nl_extraction_quality_challenges": {
-    "good": 411,
+    "good": 414,
     "partial": 5
   },
   "nl_extraction_quality_families": {
-    "all_challenges_good": 238,
+    "all_challenges_good": 241,
     "any_challenge_partial": 4,
     "any_challenge_none": 0
   },
   "nl_first_block_reason": {
     "first_theorem": 5,
-    "intro_first": 75,
+    "intro_first": 76,
     "main_env": 2,
-    "main_label": 334
+    "main_label": 336
   },
   "nl_blocks_per_challenge": {
-    "1": 210,
+    "1": 212,
     "2": 110,
-    "3": 96
+    "3": 97
   },
-  "papers_with_any_block": 477,
-  "papers_with_main_label_block": 397,
-  "challenges_one_to_one": 145,
-  "challenges_one_to_one_good_full": 84,
-  "challenges_good_and_full": 264,
+  "papers_with_any_block": 485,
+  "papers_with_main_label_block": 403,
+  "challenges_one_to_one": 147,
+  "challenges_one_to_one_good_full": 86,
+  "challenges_good_and_full": 267,
   "challenges_in_multi_challenge_families": 266,
   "lean_truncated_challenges": [
     "EditApproximation",
@@ -149,20 +108,16 @@
     "NavierStokesVelocity"
   ],
   "lean_targets_status": {
-    "ok": 416
+    "ok": 419
   },
   "lean_target_counts": {
-    "theorems": 537,
-    "definitions": 65
+    "theorems": 546,
+    "definitions": 1
   },
-  "lean_without_sorry": [
-    "HarmonicGrowth"
-  ],
-  "lean_with_axiom_decl": [
-    "HarmonicGrowth"
-  ],
-  "lean_total_lines": 90693,
-  "lean_total_bytes": 4427531,
+  "lean_without_sorry": [],
+  "lean_with_axiom_decl": [],
+  "lean_total_lines": 91113,
+  "lean_total_bytes": 4443894,
   "cone_axiom_files_challenges": [],
   "cone_third_party_packages": {
     "AbsorptionCutoff": 2,
@@ -179,18 +134,18 @@
   "challenges_with_third_party_cone_dependency": 23,
   "check_cmp": {
     "fail": 3,
-    "none": 312,
-    "pass": 101
+    "none": 314,
+    "pass": 102
   },
   "check_comparator": {
-    "fail": 1,
-    "none": 364,
+    "fail": 2,
+    "none": 366,
     "pass": 51
   },
-  "median_cone_oai_lines": 22691,
+  "median_cone_oai_lines": 22878,
   "fidelity_class_by_nl_quality": {
     "full": {
-      "good": 264,
+      "good": 267,
       "partial": 5
     },
     "partial": {
@@ -205,8 +160,8 @@
   },
   "fidelity_class_by_one_to_one": {
     "full": {
-      "one_to_one": 84,
-      "other": 185
+      "one_to_one": 86,
+      "other": 186
     },
     "partial": {
       "one_to_one": 35,
@@ -227,7 +182,7 @@
     "max": 19169
   },
   "challenges_by_family_size": {
-    "1": 150,
+    "1": 153,
     "2": 116,
     "3": 42,
     "4": 40,
@@ -239,7 +194,7 @@
   },
   "subjects": {
     "Algebra": 10,
-    "Algebraic and complex geometry": 8,
+    "Algebraic and complex geometry": 9,
     "Combinatorics": 33,
     "Convex and metric geometry": 13,
     "Differential geometry": 15,
@@ -252,8 +207,8 @@
     "Operator algebras": 15,
     "Partial differential equations": 11,
     "Probability and statistical mechanics": 19,
-    "Real and complex analysis": 10,
-    "Theoretical computer science": 34,
+    "Real and complex analysis": 11,
+    "Theoretical computer science": 35,
     "Topology": 3
   }
 }

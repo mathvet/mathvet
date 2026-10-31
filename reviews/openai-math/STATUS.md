@@ -1,18 +1,18 @@
-# Status — review of openai/math @ `fd4aeeb2`
+# Status — review of openai/math @ `4eaee875`
 
-Generated 2026-10-30T11:31:02Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
+Generated 2026-10-31T00:11:15Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
 
 | | families |
 |---|---|
-| in the release | 372 |
-| with Lean (lean/docs page + Comparator challenges) | 242 |
-| `full` — Lean states the headline claim | 149 |
+| in the release | 373 |
+| with Lean (lean/docs page + Comparator challenges) | 245 |
+| `full` — Lean states the headline claim | 152 |
 | `partial` — one of several claims, or a special case | 59 |
 | `weaker-statement` — a nontrivially weaker statement | 18 |
 | `supporting-only` — a lemma or auxiliary statement | 16 |
-| without Lean | 130 |
+| without Lean | 128 |
 
-Comparator challenges: 416.
+Comparator challenges: 419.
 
 ## Machine checks on the reviewer's machine (M1 laptop)
 - Solutions built: 105 — `AlgorithmicThinTrees`, `AmplitudeDamping`, `AsymptoticallyMinimalLittlewood`, `AtomicGaussian`, `BassTorsionFree`, `BassTrace`, `BenjaminiSchramm`, `BinPackingGap`, `BinaryEditLower`, `BorsukNine`, `BoundedTreewidthL1`, `CannonGeometricAction`, `Catalan`, `CirculantHadamard`, `CoarseAssembly`, `CoboundaryExpanders`, `CommonBasesFPRAS`, `Conductivity`, `ContingencyTables`, `ContinuumCoulombHardness`, `CoordinateSweeps`, `CoulombIonization`, `CoulombRadii`, `CourtadeKumar`, `CoveringDensity`, `CriticalPercolation`, `CriticalZ3`, `DilutedSpin`, `DimensionTenChannel`, `DimensionTenPair`, `DirichletSevenEighths`, `EditApproximation`, `EditDistance`, `ElasticityUniqueness`, `EntangledGames`, `EntropyPhotonNumber`, `ErdosReciprocal`, `EuclideanFiveColor`, `EvenBarker`, `ExactFourier`, `ExactQuantumFactoring`, `FactorGeneration`, `GeneralMahler`, `GeneralizedStarHeight`, `GotsmanLinial`, `GroupRingDeterminant`, `HardSphere`, `HarmonicGrowth`, `IndependentSets`, `InterpolatedFactors`, `KMedianThreshold`, `KServer`, `KaplanskyDirectFiniteness`, `KaplanskyFinitelyPresented`, `Laughlin`, `LaughlinGap`, `LiebThirring`, `ListHadwiger`, `LittlewoodFiniteFlatness`, `LogBrunnMinkowski`, `LogConcaveQuery`, `MUBSix`, `MahlerConjecture`, `MassAction`, `MatchingAffineLift`, `MatchingFPRAS`, `MatchingPSD`, `MatrixFields`, `MatrixMultiplication`, `MetricKMedian`, `NoiselessRegression`, `NuclearUltrapower`, `OddKaplansky`, `OptimalMaxCut`, `PerfectCompleteness`, `PeriodicGroup`, `PiExponent`, `PlanarL1`, `PlaneColoring`, `QACParity`, `QuasiRiemannHypothesis`, `RandomizedMeanPayoff`, `SKFullSupport`, `SKValue`, `SensitivitySeparation`, `SidorenkoCounterexample`, `SiegelZeros`, `StrongThinTree`, `SubpolynomialLp`, `Superstring`, `SwitchChain`, `SymmetricMahlerEquality`, `SymmetricPolar`, `ThompsonNonamenability`, `ThorpRemaining`, `ThreeMachine`, `TorsionFreeZeroDivisors`, `TraceReconstruction`, `TriangularEnergy`, `TypeSystemNormalization`, `UniformKServer`, `UniformSparsestCut`, `UniqueGamesTheorem`, `VlasovMaxwell`, `WeisfeilerLeman`
@@ -23,8 +23,4 @@ Comparator challenges: 416.
 
 Logs: `evidence/lean_checks/<Challenge>.log` (build), `.cmp.txt` (closure comparison), `.comparator.txt` (Comparator, laptop, development landrun shim); `evidence/cloud/<Challenge>.*` the same three from the sandboxed cloud runs (each `.comparator.txt` starts with a provenance header naming the machine, the sandbox and the session URL).
 
-Machine checks obtained at an earlier upstream commit are labelled with that commit on the challenge page (458 of them, `source/evidence_commits.json`); for every one of them the challenge statement (.lean and .json) is byte-identical at the reviewed commit. A check certifies the solution that existed at its own commit; solutions changed upstream since are not re-verified until rebuilt.
-
-## Upstream drift
-
-Upstream has moved since the reviewed commit: `openai/math` @ `4eaee875` (2026-10-29) adds 207 challenges, gives Lean to 2 families that had none, modifies 11 challenge statements and changes the scope note or catalogue entry of 15 reviewed families. None of this is reviewed yet; every verdict here is about commit `fd4aeeb2`. Changed families are marked in the table; the full list and diffs: [upstream-drift/4eaee87.md](https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/upstream-drift/4eaee87.md). Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-4eaee87/`.
+Machine checks obtained at an earlier upstream commit are labelled with that commit on the challenge page (506 of them, `source/evidence_commits.json`); for every one of them the challenge statement (.lean and .json) is byte-identical at the reviewed commit, except 14 whose statement changed since and whose check therefore does not transfer. A check certifies the solution that existed at its own commit; solutions changed upstream since are not re-verified until rebuilt.

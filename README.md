@@ -2,15 +2,15 @@
 
 **Does the Lean statement say what the paper claims?** Lean checks proofs. MathVet reviews *statements* against the headlines they are said to establish, in the fields of the community's [formalization.yaml](https://github.com/mathlib-initiative/formalization.yaml) standard, independently of every lab, and publishes the error rate of its own verdicts.
 
-Site: **[math.vet](https://math.vet)** · First review: [`openai/math`](reviews/openai-math/) at commit `fd4aeeb2` (release of 2026-10-06, updated upstream 2026-10-08; reviewed 2026-10-08, moved to the updated commit 2026-10-10) · Status: **pre-referee** (see [PROTOCOL.md](PROTOCOL.md)).
+Site: **[math.vet](https://math.vet)** · First review: [`openai/math`](reviews/openai-math/) at commit `4eaee87` (release of 2026-10-06; reviewed 2026-10-08 at `adc7f124`, moved to `fd4aeeb2` on 2026-10-10 and to `4eaee87` on 2026-10-30 as upstream updated) · Status: **pre-referee** (see [PROTOCOL.md](PROTOCOL.md)).
 
 | openai/math | families |
 |---|---|
-| in the release | 372 |
-| with Lean (Comparator challenges) | 242 |
-| Lean states the headline in full | 149 |
+| in the release | 373 |
+| with Lean (Comparator challenges) | 245 |
+| Lean states the headline in full | 152 |
 | Lean states something narrower (59 partial, 18 weaker-statement, 16 supporting-only) | 93 |
-| no Lean | 130 |
+| no Lean | 128 |
 
 Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem is false; the review says what was machine-checked as stated, what was checked in a narrower form, and what was not checked at all.
 
@@ -20,9 +20,9 @@ Read the [explainer](EXPLAINER.md) first. Nothing here claims that any theorem i
 |---|---|
 | [`EXPLAINER.md`](EXPLAINER.md) | the 1,500-word account of the review and its limits |
 | [`PROTOCOL.md`](PROTOCOL.md) | the pre-registered referee protocol: frozen 40-family sample, rubric, decision lines, power |
-| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (242 families), `challenge-status.{csv,json}` (416 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
+| [`reviews/openai-math/`](reviews/openai-math/) | the review: `fidelity-table.{csv,json}` (245 families), `challenge-status.{csv,json}` (419 challenges), `formalization-review.yaml` (the review in the standard's shape), `STATUS.md`, `sample.txt` + `sample.sha256`, the audit source files under `source/`, every build / closure / Comparator log under `evidence/` |
 | [`checker/`](checker/) | the scripts that build a challenge's solution, run the closure comparison and run the real Comparator |
-| [`dataset/`](dataset/) | 416 challenge statements paired with their papers' main theorems, scope notes and fidelity labels (Apache-2.0) |
+| [`dataset/`](dataset/) | 419 challenge statements paired with their papers' main theorems, scope notes and fidelity labels (Apache-2.0) |
 | [`scripts/`](scripts/) | `build_review.py` regenerates every derived file and the site from the sources; `build_index.py`, `import_cones.py`, `build_ml_pairs.py` rebuild the sources from a clone |
 | [`docs/`](docs/) | the static site served at math.vet |
 

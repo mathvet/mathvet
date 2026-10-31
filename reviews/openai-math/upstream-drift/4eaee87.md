@@ -1,15 +1,15 @@
 # Upstream drift: openai/math `fd4aeeb2` (reviewed) → `4eaee875`
 
-New commit: `4eaee87548250b2682affda7d05d947c05554bae`, 2026-10-29T17:35:35-07:00, "Merge pull request #4 from openai/codex/update-10-29". Report generated 2026-10-30T11:30:28Z by `scripts/upstream_drift.py`. Files: 40569 added, 0 deleted, 46 modified.
+New commit: `4eaee87548250b2682affda7d05d947c05554bae`, 2026-10-29T17:35:35-07:00, "Merge pull request #4 from openai/codex/update-10-29". Report generated 2026-10-30T23:35:34Z by `scripts/upstream_drift.py`. Files: 40569 added, 0 deleted, 46 modified.
 
 The published review describes the reviewed commit; nothing below changes a verdict. Families listed under "to re-read" have had a verdict input changed (headline, scope note, challenge set or statement) and are queued for a new reading; challenges under "to rebuild" are built and checked on the new commit by the pipeline.
 
 ## Summary
 
-- Families: 373 now (372 reviewed); new 1 (378), of which with Lean 1 (378); removed none; families that gained Lean (no formalization in the reviewed release): 1 (079).
+- Families: 373 now (372 reviewed); new 1 (378), of which with Lean 1 (378); removed none; families that gained Lean (no formalization in the reviewed release): 2 (032, 079).
 - Catalogue title or summary changed for 1 families: 079.
 - Scope notes (lean/docs): 027 (M), 032 (A), 066 (M), 079 (A), 195 (M), 237 (M), 301 (M), 378 (A).
-- Comparator challenges: 418 now; new 207, modified 11, removed 0.
+- Comparator challenges: 419 now; new 3, modified 11, removed 0.
 - Solution files changed under lean/OAI: 39975; challenges whose own solution file changed: ElementaryPositivity (changes deeper in a cone are found only by rebuilding).
 - Preprints: 2 directories added, 1 modified.
 - Build configuration (lake-manifest, toolchain, lakefile, patches): lean/lakefile.lean — **manual step: the pipeline does not run `lake update`; rebuilds on the new commit are deferred**.
@@ -18,7 +18,7 @@ The published review describes the reviewed commit; nothing below changes a verd
 ## To re-read (18 families)
 
 - `027` Integral density on curve character varieties — scope note changed
-- `032` The rational Hodge conjecture for CM abelian varieties — new scope note — *not in the reviewed release*
+- `032` The rational Hodge conjecture for CM abelian varieties — challenge HodgeConjectureCMAbelianVarieties added; family gained Lean (first formalization of this family; not among the 235 reviewed); new scope note; set of linked challenges changed — *not in the reviewed release*
 - `066` Bounded klt complements for Fano contractions — scope note changed
 - `079` Local smoothing for the Euclidean wave equation — catalogue title/summary changed; challenge LocalSmoothing added; family gained Lean (first formalization of this family; not among the 235 reviewed); new scope note; set of linked challenges changed — *not in the reviewed release*
 - `103` Derandomization of logarithmic space: $\mathsf L=\mathsf{RL}=\mathsf{BPL}$ — challenge LogspaceEquality modified
@@ -36,9 +36,9 @@ The published review describes the reviewed commit; nothing below changes a verd
 - `374` Sharp one-third stability of optimal transport maps — challenge Brenier modified
 - `378` Disproof of the Exponential Time Hypothesis — challenge SubexponentialSAT added; new family with Lean (not in the reviewed release); new scope note — *not in the reviewed release*
 
-## To rebuild and check on the new commit (218 challenges)
+## To rebuild and check on the new commit (14 challenges)
 
-`Affine`, `AffineIteration`, `AffineMesh`, `AffinePrism`, `AffineRelativeDimension`, `AffineRelativeMesh`, `AffineScheme`, `AffineSmall`, `AffineSmallPrism`, `AffineSpace`, `AffineSupport`, `AmbientInjectiveResolution`, `AnalyticDifferentialForms`, `AnalyticLeftInverse`, `AnalyticMap`, `AnalyticSheaf`, `Analytification`, `BarycentricAllDegrees`, `BarycentricChains`, `BarycentricHomotopy`, `BarycentricOuterFaces`, `Basic`, `Brenier`, `CM`, `CatenaryDimension`, `CenteredComplexOrientation`, `Chain`, `ChainComplexSplit`, `ChainStalk`, `Challenge`, `ChartFundamentalClass`, `ChartFundamentalClassGenerator`, `ChartFundamentalClassInvariance`, `ChartedSpaceParacompact`, `ClosedFiltration`, `ClosedImmersion`, `ClosedPointDimension`, `ClosedSubset`, `Cochain`, `CochainDescent`, `CochainFlasque`, `CochainOpenCone`, `CochainOpenConeNaturality`, `CochainOpenRestriction`, `CochainOpenSections`, `CochainResolution`, `CochainRestriction`, `CoclassOverlap`, `CoclassSection`, `Cohomology`, `CohomologyFlasqueModel`, `CohomologyInjectiveModel`, `CohomologySection`, `CohomologySheaf`, `CohomologyStalkVanishing`, `ComplexClass`, `ComplexClassDifferentiableInvariance`, `ComplexClassLinearInvariance`, `ComplexOrientation`, `Constant`, `Contractible`, `CoverSmall`, `CoverSmallProjective`, `CoverSmallQuasiIso`, `DefocusingNLS`, `Defs`, `DerivedSections`, `DerivedSectionsLocalization`, `DerivedSectionsNaturality`, `DerivedSectionsShift`, `Dimension`, `DimensionFormula`, `ElementaryPositivity`, `Equidimensional`, `Etale`, `Euclidean`, `EuclideanFiveColor`, `EuclideanVanishing`, `ExactWedge`, `Field`, `FieldToComplex`, `Filtration`, `FiniteFiltrationVanishing`, `FlasqueAcyclic`, `FlasqueBoundedBelow`, `FlasqueCokernel`, `FlasqueComparison`, `FlasqueExtendNat`, `FlasqueLowerVanishing`, `FlasqueLowestCohomology`, `FlasqueQuasiIso`, `FlasqueSections`, `FlattenedSupport`, `FundamentalClass`, `FundamentalClassGenerator`, `GenericPoint`, `GlobalRestriction`, `GlobalSections`, `HarmonicGrowth`, `HodgeStructure`, `HolomorphicCharts`, `HolomorphicDeRham`, `HolomorphicNormalTransition`, `HolomorphicPoincare`, `HomComplexPrecomp`, `HomComplexSingle`, `HomologySection`, `HomologyZeroNaturality`, `InjectiveFlasque`, `IsOpenUnits`, `KInjectiveHom`, `KServer`, `KernelAcyclic`, `KernelCompositionShortExact`, `KrullDimension`, `Lebesgue`, `LiftToInjective`, `LinearDual`, `LinearDualNaturality`, `LocalGenerator`, `LocalHomology`, `LocalHomologyVanishing`, `LocalSmoothing`, `LocalSupportVanishing`, `Localization`, `Locus`, `LogspaceEquality`, `Manifold`, `MapExtend`, `MapExtendNaturality`, `MapOfLocalStalks`, `MappingCoconeShortExact`, `MappingCoconeShortExactNaturality`, `MappingConeMapNaturality`, `MappingConeQuasiIso`, `Naimark`, `NeighborhoodPairImage`, `NestedLocalization`, `NestedOnOpen`, `NormalCoordinates`, `NormalGeometry`, `NormalProjectionCoclass`, `NormalProjectionOverlap`, `NormalSlicePurity`, `Notation`, `OccupiedOverlap`, `Open`, `OpenCover`, `OpenInjectiveResolution`, `OpenRestrictedLowestCohomology`, `OpenRestrictedVanishing`, `OpenRestriction`, `OpenSheafification`, `OpenTransport`, `Pair`, `Poincare`, `PointwiseDimension`, `PolynomialCatenary`, `Projective`, `ProjectiveCompact`, `ProjectiveHausdorff`, `ProjectiveParacompact`, `ProjectiveSpace`, `PuncturedEuclidean`, `Purity`, `RelativeCochainCone`, `RelativeCochainConeNaturality`, `RelativeCohomologyOpenTransport`, `RelativeCohomologySheaf`, `RelativeHomotopyInvariance`, `RelativePairExcision`, `ResidueField`, `RightDerivedFunctorPlusNaturality`, `RightDerivedFunctorPlusShift`, `RightDerivedFunctorPlusShiftNaturality`, `Rokhlin`, `SectionRestrictionCone`, `SectionRestrictionConeNaturality`, `SheafCohomology`, `ShortExactQuasiIso`, `SingularClosedFiltration`, `SingularCohomologySheafComparison`, `SingularComparison`, `SingularFlasqueModel`, `SingularLocusDimension`, `SingularSectionCohomology`, `SingularSectionNaturality`, `SingularSheafComparison`, `SmoothClosedLift`, `SmoothCoordinates`, `SmoothKrullDimension`, `SmoothSupportCoclassSection`, `SmoothSupportPurity`, `Solution`, `SourceOpen`, `SphereAffineBoundary`, `SphereSimplicialHomology`, `SpinAngle`, `SplitDerivativeNormalChart`, `StalkExact`, `StandardEtale`, `StandardSimplexCone`, `Statement`, `StdSimplexMetric`, `StupidTruncation`, `SubdivisionCochain`, `SubexponentialSAT`, `SubsetChains`, `Support`, `SupportExtension`, `SupportSingularGlobal`, `SupportedSingularModel`, `TopPair`, `TranscendenceDegreeKrullDimension`, `Variants`, `WedgeCovectors`, `WithSupport`, `main`
+`Brenier`, `DefocusingNLS`, `ElementaryPositivity`, `EuclideanFiveColor`, `HarmonicGrowth`, `HodgeConjectureCMAbelianVarieties`, `KServer`, `LocalSmoothing`, `LogspaceEquality`, `Naimark`, `OccupiedOverlap`, `Rokhlin`, `SpinAngle`, `SubexponentialSAT`
 
 ## Catalogue changes (overview summary, old → new)
 
@@ -415,213 +415,9 @@ The published review describes the reviewed commit; nothing below changes a verd
 
 ## New challenges
 
-- `Affine` (family ?): module `None`, theorems 
-- `AffineIteration` (family ?): module `None`, theorems 
-- `AffineMesh` (family ?): module `None`, theorems 
-- `AffinePrism` (family ?): module `None`, theorems 
-- `AffineRelativeDimension` (family ?): module `None`, theorems 
-- `AffineRelativeMesh` (family ?): module `None`, theorems 
-- `AffineScheme` (family ?): module `None`, theorems 
-- `AffineSmall` (family ?): module `None`, theorems 
-- `AffineSmallPrism` (family ?): module `None`, theorems 
-- `AffineSpace` (family ?): module `None`, theorems 
-- `AffineSupport` (family ?): module `None`, theorems 
-- `AmbientInjectiveResolution` (family ?): module `None`, theorems 
-- `AnalyticDifferentialForms` (family ?): module `None`, theorems 
-- `AnalyticLeftInverse` (family ?): module `None`, theorems 
-- `AnalyticMap` (family ?): module `None`, theorems 
-- `AnalyticSheaf` (family ?): module `None`, theorems 
-- `Analytification` (family ?): module `None`, theorems 
-- `BarycentricAllDegrees` (family ?): module `None`, theorems 
-- `BarycentricChains` (family ?): module `None`, theorems 
-- `BarycentricHomotopy` (family ?): module `None`, theorems 
-- `BarycentricOuterFaces` (family ?): module `None`, theorems 
-- `Basic` (family ?): module `None`, theorems 
-- `CM` (family ?): module `None`, theorems 
-- `CatenaryDimension` (family ?): module `None`, theorems 
-- `CenteredComplexOrientation` (family ?): module `None`, theorems 
-- `Chain` (family ?): module `None`, theorems 
-- `ChainComplexSplit` (family ?): module `None`, theorems 
-- `ChainStalk` (family ?): module `None`, theorems 
-- `Challenge` (family ?): module `None`, theorems 
-- `ChartFundamentalClass` (family ?): module `None`, theorems 
-- `ChartFundamentalClassGenerator` (family ?): module `None`, theorems 
-- `ChartFundamentalClassInvariance` (family ?): module `None`, theorems 
-- `ChartedSpaceParacompact` (family ?): module `None`, theorems 
-- `ClosedFiltration` (family ?): module `None`, theorems 
-- `ClosedImmersion` (family ?): module `None`, theorems 
-- `ClosedPointDimension` (family ?): module `None`, theorems 
-- `ClosedSubset` (family ?): module `None`, theorems 
-- `Cochain` (family ?): module `None`, theorems 
-- `CochainDescent` (family ?): module `None`, theorems 
-- `CochainFlasque` (family ?): module `None`, theorems 
-- `CochainOpenCone` (family ?): module `None`, theorems 
-- `CochainOpenConeNaturality` (family ?): module `None`, theorems 
-- `CochainOpenRestriction` (family ?): module `None`, theorems 
-- `CochainOpenSections` (family ?): module `None`, theorems 
-- `CochainResolution` (family ?): module `None`, theorems 
-- `CochainRestriction` (family ?): module `None`, theorems 
-- `CoclassOverlap` (family ?): module `None`, theorems 
-- `CoclassSection` (family ?): module `None`, theorems 
-- `Cohomology` (family ?): module `None`, theorems 
-- `CohomologyFlasqueModel` (family ?): module `None`, theorems 
-- `CohomologyInjectiveModel` (family ?): module `None`, theorems 
-- `CohomologySection` (family ?): module `None`, theorems 
-- `CohomologySheaf` (family ?): module `None`, theorems 
-- `CohomologyStalkVanishing` (family ?): module `None`, theorems 
-- `ComplexClass` (family ?): module `None`, theorems 
-- `ComplexClassDifferentiableInvariance` (family ?): module `None`, theorems 
-- `ComplexClassLinearInvariance` (family ?): module `None`, theorems 
-- `ComplexOrientation` (family ?): module `None`, theorems 
-- `Constant` (family ?): module `None`, theorems 
-- `Contractible` (family ?): module `None`, theorems 
-- `CoverSmall` (family ?): module `None`, theorems 
-- `CoverSmallProjective` (family ?): module `None`, theorems 
-- `CoverSmallQuasiIso` (family ?): module `None`, theorems 
-- `Defs` (family ?): module `None`, theorems 
-- `DerivedSections` (family ?): module `None`, theorems 
-- `DerivedSectionsLocalization` (family ?): module `None`, theorems 
-- `DerivedSectionsNaturality` (family ?): module `None`, theorems 
-- `DerivedSectionsShift` (family ?): module `None`, theorems 
-- `Dimension` (family ?): module `None`, theorems 
-- `DimensionFormula` (family ?): module `None`, theorems 
-- `Equidimensional` (family ?): module `None`, theorems 
-- `Etale` (family ?): module `None`, theorems 
-- `Euclidean` (family ?): module `None`, theorems 
-- `EuclideanVanishing` (family ?): module `None`, theorems 
-- `ExactWedge` (family ?): module `None`, theorems 
-- `Field` (family ?): module `None`, theorems 
-- `FieldToComplex` (family ?): module `None`, theorems 
-- `Filtration` (family ?): module `None`, theorems 
-- `FiniteFiltrationVanishing` (family ?): module `None`, theorems 
-- `FlasqueAcyclic` (family ?): module `None`, theorems 
-- `FlasqueBoundedBelow` (family ?): module `None`, theorems 
-- `FlasqueCokernel` (family ?): module `None`, theorems 
-- `FlasqueComparison` (family ?): module `None`, theorems 
-- `FlasqueExtendNat` (family ?): module `None`, theorems 
-- `FlasqueLowerVanishing` (family ?): module `None`, theorems 
-- `FlasqueLowestCohomology` (family ?): module `None`, theorems 
-- `FlasqueQuasiIso` (family ?): module `None`, theorems 
-- `FlasqueSections` (family ?): module `None`, theorems 
-- `FlattenedSupport` (family ?): module `None`, theorems 
-- `FundamentalClass` (family ?): module `None`, theorems 
-- `FundamentalClassGenerator` (family ?): module `None`, theorems 
-- `GenericPoint` (family ?): module `None`, theorems 
-- `GlobalRestriction` (family ?): module `None`, theorems 
-- `GlobalSections` (family ?): module `None`, theorems 
-- `HodgeStructure` (family ?): module `None`, theorems 
-- `HolomorphicCharts` (family ?): module `None`, theorems 
-- `HolomorphicDeRham` (family ?): module `None`, theorems 
-- `HolomorphicNormalTransition` (family ?): module `None`, theorems 
-- `HolomorphicPoincare` (family ?): module `None`, theorems 
-- `HomComplexPrecomp` (family ?): module `None`, theorems 
-- `HomComplexSingle` (family ?): module `None`, theorems 
-- `HomologySection` (family ?): module `None`, theorems 
-- `HomologyZeroNaturality` (family ?): module `None`, theorems 
-- `InjectiveFlasque` (family ?): module `None`, theorems 
-- `IsOpenUnits` (family ?): module `None`, theorems 
-- `KInjectiveHom` (family ?): module `None`, theorems 
-- `KernelAcyclic` (family ?): module `None`, theorems 
-- `KernelCompositionShortExact` (family ?): module `None`, theorems 
-- `KrullDimension` (family ?): module `None`, theorems 
-- `Lebesgue` (family ?): module `None`, theorems 
-- `LiftToInjective` (family ?): module `None`, theorems 
-- `LinearDual` (family ?): module `None`, theorems 
-- `LinearDualNaturality` (family ?): module `None`, theorems 
-- `LocalGenerator` (family ?): module `None`, theorems 
-- `LocalHomology` (family ?): module `None`, theorems 
-- `LocalHomologyVanishing` (family ?): module `None`, theorems 
+- `HodgeConjectureCMAbelianVarieties` (family 032): module `ComparatorChallenges.HodgeConjectureCMAbelianVarieties.Solution`, theorems `HodgeCM.hodge_conjecture_for_cm_abelian_varieties`
 - `LocalSmoothing` (family 079): module `OAI.Analysis.Fourier.LocalSmoothing.Comparator`, theorems `OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing`, `OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz`, `OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction`, `OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal`, `OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya`, `OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square`
-- `LocalSupportVanishing` (family ?): module `None`, theorems 
-- `Localization` (family ?): module `None`, theorems 
-- `Locus` (family ?): module `None`, theorems 
-- `Manifold` (family ?): module `None`, theorems 
-- `MapExtend` (family ?): module `None`, theorems 
-- `MapExtendNaturality` (family ?): module `None`, theorems 
-- `MapOfLocalStalks` (family ?): module `None`, theorems 
-- `MappingCoconeShortExact` (family ?): module `None`, theorems 
-- `MappingCoconeShortExactNaturality` (family ?): module `None`, theorems 
-- `MappingConeMapNaturality` (family ?): module `None`, theorems 
-- `MappingConeQuasiIso` (family ?): module `None`, theorems 
-- `NeighborhoodPairImage` (family ?): module `None`, theorems 
-- `NestedLocalization` (family ?): module `None`, theorems 
-- `NestedOnOpen` (family ?): module `None`, theorems 
-- `NormalCoordinates` (family ?): module `None`, theorems 
-- `NormalGeometry` (family ?): module `None`, theorems 
-- `NormalProjectionCoclass` (family ?): module `None`, theorems 
-- `NormalProjectionOverlap` (family ?): module `None`, theorems 
-- `NormalSlicePurity` (family ?): module `None`, theorems 
-- `Notation` (family ?): module `None`, theorems 
-- `Open` (family ?): module `None`, theorems 
-- `OpenCover` (family ?): module `None`, theorems 
-- `OpenInjectiveResolution` (family ?): module `None`, theorems 
-- `OpenRestrictedLowestCohomology` (family ?): module `None`, theorems 
-- `OpenRestrictedVanishing` (family ?): module `None`, theorems 
-- `OpenRestriction` (family ?): module `None`, theorems 
-- `OpenSheafification` (family ?): module `None`, theorems 
-- `OpenTransport` (family ?): module `None`, theorems 
-- `Pair` (family ?): module `None`, theorems 
-- `Poincare` (family ?): module `None`, theorems 
-- `PointwiseDimension` (family ?): module `None`, theorems 
-- `PolynomialCatenary` (family ?): module `None`, theorems 
-- `Projective` (family ?): module `None`, theorems 
-- `ProjectiveCompact` (family ?): module `None`, theorems 
-- `ProjectiveHausdorff` (family ?): module `None`, theorems 
-- `ProjectiveParacompact` (family ?): module `None`, theorems 
-- `ProjectiveSpace` (family ?): module `None`, theorems 
-- `PuncturedEuclidean` (family ?): module `None`, theorems 
-- `Purity` (family ?): module `None`, theorems 
-- `RelativeCochainCone` (family ?): module `None`, theorems 
-- `RelativeCochainConeNaturality` (family ?): module `None`, theorems 
-- `RelativeCohomologyOpenTransport` (family ?): module `None`, theorems 
-- `RelativeCohomologySheaf` (family ?): module `None`, theorems 
-- `RelativeHomotopyInvariance` (family ?): module `None`, theorems 
-- `RelativePairExcision` (family ?): module `None`, theorems 
-- `ResidueField` (family ?): module `None`, theorems 
-- `RightDerivedFunctorPlusNaturality` (family ?): module `None`, theorems 
-- `RightDerivedFunctorPlusShift` (family ?): module `None`, theorems 
-- `RightDerivedFunctorPlusShiftNaturality` (family ?): module `None`, theorems 
-- `SectionRestrictionCone` (family ?): module `None`, theorems 
-- `SectionRestrictionConeNaturality` (family ?): module `None`, theorems 
-- `SheafCohomology` (family ?): module `None`, theorems 
-- `ShortExactQuasiIso` (family ?): module `None`, theorems 
-- `SingularClosedFiltration` (family ?): module `None`, theorems 
-- `SingularCohomologySheafComparison` (family ?): module `None`, theorems 
-- `SingularComparison` (family ?): module `None`, theorems 
-- `SingularFlasqueModel` (family ?): module `None`, theorems 
-- `SingularLocusDimension` (family ?): module `None`, theorems 
-- `SingularSectionCohomology` (family ?): module `None`, theorems 
-- `SingularSectionNaturality` (family ?): module `None`, theorems 
-- `SingularSheafComparison` (family ?): module `None`, theorems 
-- `SmoothClosedLift` (family ?): module `None`, theorems 
-- `SmoothCoordinates` (family ?): module `None`, theorems 
-- `SmoothKrullDimension` (family ?): module `None`, theorems 
-- `SmoothSupportCoclassSection` (family ?): module `None`, theorems 
-- `SmoothSupportPurity` (family ?): module `None`, theorems 
-- `Solution` (family ?): module `None`, theorems 
-- `SourceOpen` (family ?): module `None`, theorems 
-- `SphereAffineBoundary` (family ?): module `None`, theorems 
-- `SphereSimplicialHomology` (family ?): module `None`, theorems 
-- `SplitDerivativeNormalChart` (family ?): module `None`, theorems 
-- `StalkExact` (family ?): module `None`, theorems 
-- `StandardEtale` (family ?): module `None`, theorems 
-- `StandardSimplexCone` (family ?): module `None`, theorems 
-- `Statement` (family ?): module `None`, theorems 
-- `StdSimplexMetric` (family ?): module `None`, theorems 
-- `StupidTruncation` (family ?): module `None`, theorems 
-- `SubdivisionCochain` (family ?): module `None`, theorems 
 - `SubexponentialSAT` (family 378): module `OAI.Algorithms.SubexponentialSAT.Main`, theorems `OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat`
-- `SubsetChains` (family ?): module `None`, theorems 
-- `Support` (family ?): module `None`, theorems 
-- `SupportExtension` (family ?): module `None`, theorems 
-- `SupportSingularGlobal` (family ?): module `None`, theorems 
-- `SupportedSingularModel` (family ?): module `None`, theorems 
-- `TopPair` (family ?): module `None`, theorems 
-- `TranscendenceDegreeKrullDimension` (family ?): module `None`, theorems 
-- `Variants` (family ?): module `None`, theorems 
-- `WedgeCovectors` (family ?): module `None`, theorems 
-- `WithSupport` (family ?): module `None`, theorems 
-- `main` (family ?): module `None`, theorems 
 
 ## New preprints
 

@@ -78,12 +78,12 @@ def home_body(status, counts, families, challenges, explainer_md, md, baseline_m
 
     # --- hero
     hero_aside = (
-        f'<p class="k">Review of</p><p><a href="https://github.com/openai/math">openai/math</a> at commit <a href="{UP}{commit}"><code>{c8}</code></a>, the release of 6 October 2026 as updated on 8 October.</p>'
+        f'<p class="k">Review of</p><p><a href="https://github.com/openai/math">openai/math</a> at commit <a href="{UP}{commit}"><code>{c8}</code></a>, the release of 6 October 2026 with the upstream updates through 29 October.</p>'
         f'<p class="k">Status</p><p>Pre-referee. The referee round is <a href="protocol.html">pre-registered</a>; its error rate will be published whatever it shows.</p>'
         f'<p class="k">Reviewer</p><p>Tejpal Virk, Berkeley, CA. MathVet takes no funding from, and has no affiliation with, any lab whose work it reviews.</p>'
         f'<p class="k">Regenerated</p><p>{gen_date}, from the committed sources and logs by <a href="{GH}scripts/build_review.py">build_review.py</a>.</p>')
     hero = (
-        '<h1>Which of OpenAI\'s 372 mathematical results are machine-checked as stated?</h1>'
+        f'<h1>Which of OpenAI\'s {n_total} mathematical results are machine-checked as stated?</h1>'
         + md(intro_md.strip())
     )
     out = [row(hero, hero_aside, 'hero')]
