@@ -1,3 +1,4 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_KServer.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
 CMP OAI.KServer.main_theorem [thm] ok
 CMP OAI.KServer.MainStatement [def] ok
 CMP OAI.KServer.optimalCost [def] ok
@@ -54,4 +55,4 @@ def Chal.KServer.MainStatement.{u} : Prop :=
                       Chal.KServer.expectedCost A s requests ≤
                         C * Real.log (↑k + 1) ^ 2 * Chal.KServer.optimalCost s requests + B
 'OAI.KServer.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
-== KServer comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound] 
+== KServer comparator-style: ok=13 problems=0 errors=0 | no-shadowing | [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

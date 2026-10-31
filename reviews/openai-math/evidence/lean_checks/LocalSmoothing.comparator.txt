@@ -1,0 +1,22 @@
+== LocalSmoothing comparator start 2026-10-31T21:19:56Z landrun=/Users/shannon/cc/math/tmp/comparator/scripts/fake-landrun.sh
+Building ComparatorChallenges.LocalSmoothing
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.LocalSmoothing
+⚠ [8924/8924] Built ComparatorChallenges.LocalSmoothing (22s)
+warning: ComparatorChallenges/LocalSmoothing.lean:84:8: declaration uses `sorry`
+warning: ComparatorChallenges/LocalSmoothing.lean:99:8: declaration uses `sorry`
+warning: ComparatorChallenges/LocalSmoothing.lean:109:8: declaration uses `sorry`
+warning: ComparatorChallenges/LocalSmoothing.lean:120:8: declaration uses `sorry`
+warning: ComparatorChallenges/LocalSmoothing.lean:129:8: declaration uses `sorry`
+warning: ComparatorChallenges/LocalSmoothing.lean:134:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.LocalSmoothing -- Quot Quot.mk Quot.lift Quot.ind OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing, OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz, OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction, OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal, OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya, OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.LocalSmoothing
+Building OAI.Analysis.Fourier.LocalSmoothing.Comparator
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Analysis.Fourier.LocalSmoothing.Comparator
+Build completed successfully (11184 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Analysis.Fourier.LocalSmoothing.Comparator -- Quot Quot.mk Quot.lift Quot.ind OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing, OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz, OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction, OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal, OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya, OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Analysis.Fourier.LocalSmoothing.Comparator
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-31T21:46:52Z

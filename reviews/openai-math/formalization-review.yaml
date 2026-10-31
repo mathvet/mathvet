@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit 4eaee87548250b2682affda7d05d947c05554bae, generated 2026-10-31T00:11:15Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit 4eaee87548250b2682affda7d05d947c05554bae, generated 2026-10-31T21:47:22Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -3011,7 +3011,7 @@ status:
   scope: 'Review coverage: all 245 families of https://github.com/openai/math that have a lean/docs page and all
     419 Comparator challenges at commit 4eaee87548250b2682affda7d05d947c05554bae; 128 families have no Lean and
     are out of scope. Verdicts: full 152, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 105 solutions built locally, 102 with a clean closure comparison and standard axioms, 416 accepted by
+    checks: 109 solutions built locally, 105 with a clean closure comparison and standard axioms, 417 accepted by
     the real Comparator, of which 401 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3678,7 +3678,8 @@ alignment:
     module: OAI.Analysis.Fourier.LocalSmoothing.Comparator
     status: proved
     note: 'proof status per the lab''s Comparator configuration https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/ComparatorChallenges/LocalSmoothing.json;
-      MathVet machine check: not built by the reviewer. Family verdict (pre-referee): full.'
+      MathVet machine check: real Comparator accepted the solution on the reviewer''s machine. Family verdict (pre-referee):
+      full.'
   - source: 'family 081 — The David--Semmes Riesz-transform problem in higher codimension: Quantitative higher-codimension
       Riesz rectifiability (the lab''s own result label); paper ''Riesz transforms and uniform rectifiability in
       higher codimension'', theorem thm:main (build/sections/00-introduction.tex:61)'
@@ -8169,7 +8170,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: 4eaee87548250b2682affda7d05d947c05554bae
-    generated: '2026-10-31T00:11:15Z'
+    generated: '2026-10-31T21:47:22Z'
     review_status: independent third-party review, pre-referee
     families_total: 373
     families_with_lean: 245
@@ -8193,6 +8194,7 @@ mathvet:
     - BinaryEditLower
     - BorsukNine
     - BoundedTreewidthL1
+    - Brenier
     - CannonGeometricAction
     - Catalan
     - CirculantHadamard
@@ -8209,6 +8211,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalZ3
+    - DefocusingNLS
     - DilutedSpin
     - DimensionTenChannel
     - DimensionTenPair
@@ -8216,6 +8219,7 @@ mathvet:
     - EditApproximation
     - EditDistance
     - ElasticityUniqueness
+    - ElementaryPositivity
     - EntangledGames
     - EntropyPhotonNumber
     - ErdosReciprocal
@@ -8241,6 +8245,7 @@ mathvet:
     - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
+    - LocalSmoothing
     - LogBrunnMinkowski
     - LogConcaveQuery
     - MUBSix
@@ -8299,6 +8304,7 @@ mathvet:
     - BinaryEditLower
     - BorsukNine
     - BoundedTreewidthL1
+    - Brenier
     - CannonGeometricAction
     - Catalan
     - CirculantHadamard
@@ -8315,6 +8321,7 @@ mathvet:
     - CoveringDensity
     - CriticalPercolation
     - CriticalZ3
+    - DefocusingNLS
     - DilutedSpin
     - DimensionTenChannel
     - DimensionTenPair
@@ -8347,6 +8354,7 @@ mathvet:
     - LiebThirring
     - ListHadwiger
     - LittlewoodFiniteFlatness
+    - LocalSmoothing
     - LogBrunnMinkowski
     - LogConcaveQuery
     - MUBSix
@@ -8605,6 +8613,7 @@ mathvet:
     - ListHadwiger
     - LittleFinitistic
     - LittlewoodFiniteFlatness
+    - LocalSmoothing
     - LogBrunnMinkowski
     - LogConcaveQuery
     - LogKodairaFiberNegative
@@ -9930,7 +9939,7 @@ mathvet:
       (LpSeminorm/Defs.lean:87-153), so each MemLp conjunct also asserts measurability.'
     external_packages: []
     cone_lines_max: 190467
-    machine_check: none
+    machine_check: comparator-pass
     lab_docs_url: https://github.com/openai/math/blob/4eaee87548250b2682affda7d05d947c05554bae/lean/docs/079.md
     audit_part: 5
   - family: 081

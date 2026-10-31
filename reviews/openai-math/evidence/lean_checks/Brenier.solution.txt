@@ -1,0 +1,98 @@
+OAI.Problem358.one_third_stability : ∀ (d : ℕ) (K Y : Set (OAI.Problem358.E d)),
+  2 ≤ d →
+    IsCompact K →
+      Convex ℝ K →
+        (interior K).Nonempty →
+          IsCompact Y →
+            Y.Nonempty →
+              ∃ C,
+                0 ≤ C ∧
+                  ∀ (μ ν : MeasureTheory.Measure (OAI.Problem358.E d)),
+                    MeasureTheory.IsProbabilityMeasure μ →
+                      MeasureTheory.IsProbabilityMeasure ν →
+                        OAI.Problem358.IsSupported μ Y →
+                          OAI.Problem358.IsSupported ν Y →
+                            ∃ Tμ Tν,
+                              OAI.Problem358.IsUniqueQuadraticOptimalMap (OAI.Problem358.uniformMeasure K) μ Tμ ∧
+                                OAI.Problem358.IsUniqueQuadraticOptimalMap (OAI.Problem358.uniformMeasure K) ν Tν ∧
+                                  OAI.Problem358.mapL2Dist (OAI.Problem358.uniformMeasure K) Tμ Tν ≤
+                                    C * (OAI.Problem358.wasserstein2 μ ν).rpow (1 / 3)
+'OAI.Problem358.one_third_stability' depends on axioms: [propext, Classical.choice, Quot.sound]
+OAI.Problem358.one_third_exponent_is_sharp : ∀ (d : ℕ),
+  2 ≤ d →
+    ∀ (α : ℝ),
+      1 / 3 < α →
+        ∀ (C : ℝ),
+          0 < C →
+            ∃ μ ν Tμ Tν,
+              MeasureTheory.IsProbabilityMeasure μ ∧
+                MeasureTheory.IsProbabilityMeasure ν ∧
+                  OAI.Problem358.IsSupported μ (OAI.Problem358.cube d) ∧
+                    OAI.Problem358.IsSupported ν (OAI.Problem358.cube d) ∧
+                      OAI.Problem358.HasExactlyThreeAtoms μ (OAI.Problem358.cube d) ∧
+                        OAI.Problem358.HasExactlyThreeAtoms ν (OAI.Problem358.cube d) ∧
+                          μ ≠ ν ∧
+                            OAI.Problem358.IsUniqueQuadraticOptimalMap
+                                (OAI.Problem358.uniformMeasure (OAI.Problem358.cube d)) μ Tμ ∧
+                              OAI.Problem358.IsUniqueQuadraticOptimalMap
+                                  (OAI.Problem358.uniformMeasure (OAI.Problem358.cube d)) ν Tν ∧
+                                0 < OAI.Problem358.wasserstein2 μ ν ∧
+                                  C * (OAI.Problem358.wasserstein2 μ ν).rpow α <
+                                    OAI.Problem358.mapL2Dist (OAI.Problem358.uniformMeasure (OAI.Problem358.cube d)) Tμ
+                                      Tν
+'OAI.Problem358.one_third_exponent_is_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+@[reducible] def OAI.Problem358.E : ℕ → Type :=
+fun d => EuclideanSpace ℝ (Fin d)
+def OAI.Problem358.uniformMeasure : {d : ℕ} → Set (OAI.Problem358.E d) → MeasureTheory.Measure (OAI.Problem358.E d) :=
+fun {d} K => (MeasureTheory.volume K)⁻¹ • MeasureTheory.volume.restrict K
+def OAI.Problem358.IsSupported : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) → Set (OAI.Problem358.E d) → Prop :=
+fun {d} μ Y => μ Yᶜ = 0
+def OAI.Problem358.IsCoupling : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) →
+    MeasureTheory.Measure (OAI.Problem358.E d) →
+      MeasureTheory.Measure (OAI.Problem358.E d × OAI.Problem358.E d) → Prop :=
+fun {d} μ ν π =>
+  MeasureTheory.IsProbabilityMeasure π ∧
+    MeasureTheory.Measure.map Prod.fst π = μ ∧ MeasureTheory.Measure.map Prod.snd π = ν
+def OAI.Problem358.quadraticPlanCost : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d × OAI.Problem358.E d) → ENNReal :=
+fun {d} π => ∫⁻ (p : OAI.Problem358.E d × OAI.Problem358.E d), ENNReal.ofReal (‖p.1 - p.2‖ ^ 2) ∂π
+def OAI.Problem358.wasserstein2 : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) → MeasureTheory.Measure (OAI.Problem358.E d) → ℝ :=
+fun {d} μ ν => √(sInf {r | ∃ π, OAI.Problem358.IsCoupling μ ν π ∧ OAI.Problem358.quadraticPlanCost π = r}).toReal
+def OAI.Problem358.graphPlan : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) →
+    (OAI.Problem358.E d → OAI.Problem358.E d) → MeasureTheory.Measure (OAI.Problem358.E d × OAI.Problem358.E d) :=
+fun {d} ρ T => MeasureTheory.Measure.map (fun x => (x, T x)) ρ
+def OAI.Problem358.IsQuadraticOptimalMap : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) →
+    MeasureTheory.Measure (OAI.Problem358.E d) → (OAI.Problem358.E d → OAI.Problem358.E d) → Prop :=
+fun {d} ρ μ T =>
+  Measurable T ∧
+    MeasureTheory.Measure.map T ρ = μ ∧
+      ∀ (π : MeasureTheory.Measure (OAI.Problem358.E d × OAI.Problem358.E d)),
+        OAI.Problem358.IsCoupling ρ μ π →
+          OAI.Problem358.quadraticPlanCost (OAI.Problem358.graphPlan ρ T) ≤ OAI.Problem358.quadraticPlanCost π
+def OAI.Problem358.IsUniqueQuadraticOptimalMap : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) →
+    MeasureTheory.Measure (OAI.Problem358.E d) → (OAI.Problem358.E d → OAI.Problem358.E d) → Prop :=
+fun {d} ρ μ T =>
+  OAI.Problem358.IsQuadraticOptimalMap ρ μ T ∧
+    ∀ (π : MeasureTheory.Measure (OAI.Problem358.E d × OAI.Problem358.E d)),
+      OAI.Problem358.IsCoupling ρ μ π →
+        OAI.Problem358.quadraticPlanCost π ≤ OAI.Problem358.quadraticPlanCost (OAI.Problem358.graphPlan ρ T) →
+          π = OAI.Problem358.graphPlan ρ T
+def OAI.Problem358.mapL2Dist : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) →
+    (OAI.Problem358.E d → OAI.Problem358.E d) → (OAI.Problem358.E d → OAI.Problem358.E d) → ℝ :=
+fun {d} ρ T S => √(∫ (x : OAI.Problem358.E d), ‖T x - S x‖ ^ 2 ∂ρ)
+def OAI.Problem358.cube : (d : ℕ) → Set (OAI.Problem358.E d) :=
+fun d => {x | ∀ (i : Fin d), |x.ofLp i| ≤ 1}
+def OAI.Problem358.HasExactlyThreeAtoms : {d : ℕ} →
+  MeasureTheory.Measure (OAI.Problem358.E d) → Set (OAI.Problem358.E d) → Prop :=
+fun {d} μ Y =>
+  ∃ y,
+    Function.Injective y ∧
+      (∀ (i : Fin 3), y i ∈ Y) ∧
+        ∃ w, (∀ (i : Fin 3), 0 < w i) ∧ ∑ i, w i = 1 ∧ μ = ∑ i, w i • MeasureTheory.Measure.dirac (y i)

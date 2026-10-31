@@ -1,0 +1,215 @@
+/Users/shannon/cc/math/math/lean/Scratch/Cmp_LocalSmoothing.lean:84:72: warning: `String.Slice.length` has been deprecated: There is no constant-time length function on slices. Use `s.positions.length` instead, or `isEmpty` if you only need to know whether the slice is empty.
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Stein.literalSteinSquareFunction [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier._proof_3 [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRiesz [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier._proof_2 [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier._proof_1 [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Space [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRieszSymbol [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.angularInverse [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.IsKakeyaSet [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.unitSegment [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.kakeyaMaximal [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.tube [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphericalExtension [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.Implications.conjugateExponent [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing [thm] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.observationMeasure [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.halfWaveIntegral [def] ok
+CMP OAI.Analysis.Fourier.LocalSmoothing.Comparator.besselPotential [def] ok
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (p ε : ℝ),
+      2 ≤ p →
+        0 < ε ∨ p = 2 ∧ ε = 0 →
+          ∃ C,
+            0 < C ∧
+              ∀ (f : SchwartzMap (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) ℂ),
+                MemLp
+                    (Chal.Analysis.Fourier.LocalSmoothing.Comparator.besselPotential (max 0 ((↑n - 1) / 2 - ↑n / p) + ε)
+                      ⇑f)
+                    (ENNReal.ofReal p) volume ∧
+                  MemLp (fun z => Chal.Analysis.Fourier.LocalSmoothing.Comparator.halfWaveIntegral z.2 (⇑f) z.1)
+                      (ENNReal.ofReal p) (Chal.Analysis.Fourier.LocalSmoothing.Comparator.observationMeasure n) ∧
+                    eLpNorm (fun z => Chal.Analysis.Fourier.LocalSmoothing.Comparator.halfWaveIntegral z.2 (⇑f) z.1)
+                        (ENNReal.ofReal p) (Chal.Analysis.Fourier.LocalSmoothing.Comparator.observationMeasure n) ≤
+                      ENNReal.ofReal C *
+                        eLpNorm
+                          (Chal.Analysis.Fourier.LocalSmoothing.Comparator.besselPotential
+                            (max 0 ((↑n - 1) / 2 - ↑n / p) + ε) ⇑f)
+                          (ENNReal.ofReal p) volume
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (p : ℝ≥0∞),
+      1 ≤ p →
+        ∀ (δ : ℝ),
+          max (↑n * |p⁻¹.toReal - 1 / 2| - 1 / 2) 0 < δ →
+            ∃ C,
+              0 < C ∧
+                ∀ (R : ℝ),
+                  0 < R →
+                    ∀ (f : SchwartzMap (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) ℂ),
+                      MemLp (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRiesz δ R ⇑f) p
+                          volume ∧
+                        eLpNorm (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRiesz δ R ⇑f) p
+                            volume ≤
+                          ENNReal.ofReal C * eLpNorm (⇑f) p volume
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (a : ℝ≥0∞),
+      1 < a →
+        ∀ (b : ℝ),
+          2 * ↑n / (↑n - 1) < b →
+            (↑n + 1) / (↑n - 1) * Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.conjugateExponent a < b →
+              ∃ C,
+                0 < C ∧
+                  ∀ (g : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ),
+                    MemLp g a (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure n) →
+                      MemLp (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphericalExtension g)
+                          (ENNReal.ofReal b) volume ∧
+                        eLpNorm (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphericalExtension g)
+                            (ENNReal.ofReal b) volume ≤
+                          ENNReal.ofReal C *
+                            eLpNorm g a (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure n)
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (ε : ℝ),
+      0 < ε →
+        ∃ C,
+          0 < C ∧
+            ∀ (δ : ℝ),
+              0 < δ →
+                δ ≤ 1 →
+                  ∀ (f : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ),
+                    MemLp f (↑n) volume →
+                      MemLp (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.kakeyaMaximal δ f) (↑n)
+                          (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure n) ∧
+                        eLpNorm (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.kakeyaMaximal δ f) (↑n)
+                            (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure n) ≤
+                          ENNReal.ofReal (C * δ ^ (-ε)) * eLpNorm f (↑n) volume
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.kakeya : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (F : Set (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n)),
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.IsKakeyaSet F → dimH F = ↑n
+Chal.Analysis.Fourier.LocalSmoothing.Comparator.stein_square : ∀ (n : ℕ),
+  2 ≤ n →
+    ∀ (p α : ℝ),
+      2 ≤ p →
+        max (1 / 2) (↑n * (1 / 2 - 1 / p)) < α →
+          ∃ C,
+            0 < C ∧
+              ∀ (f : SchwartzMap (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) ℂ),
+                MemLp (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Stein.literalSteinSquareFunction α ⇑f)
+                    (ENNReal.ofReal p) volume ∧
+                  eLpNorm (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Stein.literalSteinSquareFunction α ⇑f)
+                      (ENNReal.ofReal p) volume ≤
+                    ENNReal.ofReal C * eLpNorm (⇑f) (ENNReal.ofReal p) volume
+@[reducible] def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space : ℕ → Type :=
+fun n => EuclideanSpace ℝ (Fin n)
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier : {n : ℕ} →
+  (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} f ξ => ∫ (x : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n), Complex.exp (-Complex.I * ↑⟪x, ξ⟫) * f x
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularInverse : {n : ℕ} →
+  (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} g x =>
+  ((2 * Real.pi) ^ n)⁻¹ •
+    ∫ (ξ : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n), Complex.exp (Complex.I * ↑⟪x, ξ⟫) * g ξ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.halfWaveIntegral : {n : ℕ} →
+  ℝ →
+    (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} t f =>
+  Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularInverse fun ξ =>
+    Complex.exp (-Complex.I * ↑(t * ‖ξ‖)) * Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier f ξ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.besselPotential : {n : ℕ} →
+  ℝ →
+    (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} s f =>
+  Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularInverse fun ξ =>
+    (1 + ‖ξ‖ ^ 2) ^ (s / 2) • Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier f ξ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.observationMeasure : (n : ℕ) →
+  Measure (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n × ℝ) :=
+fun n => volume.prod (volume.restrict (Set.Icc 1 2))
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure : (n : ℕ) →
+  Measure (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) :=
+fun n => Measure.map Subtype.val volume.toSphere
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphericalExtension : {n : ℕ} →
+  (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} g x =>
+  ∫ (ω : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n),
+    Complex.exp (Complex.I * ↑⟪x, ω⟫) *
+      g ω ∂Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.sphereMeasure n
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.conjugateExponent : ℝ≥0∞ → ℝ :=
+fun a => if a = ∞ then 1 else a.toReal / (a.toReal - 1)
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRieszSymbol : {n : ℕ} →
+  ℝ → ℝ → Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℝ :=
+fun {n} δ R ξ => max (1 - (‖ξ‖ / R) ^ 2) 0 ^ δ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRiesz : {n : ℕ} →
+  ℝ →
+    ℝ →
+      (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+        Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ :=
+fun {n} δ R f =>
+  Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularInverse fun ξ =>
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRieszSymbol δ R ξ •
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.angularFourier f ξ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.unitSegment : {n : ℕ} →
+  Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n →
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n →
+      Set (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) :=
+fun {n} ω x => {y | ∃ t ∈ Set.Icc (-(1 / 2)) (1 / 2), y = x + t • ω}
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.tube : {n : ℕ} →
+  ℝ →
+    Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n →
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n →
+        Set (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) :=
+fun {n} δ ω x => ⋃ t ∈ Set.Icc (-(1 / 2)) (1 / 2), Metric.ball (x + t • ω) δ
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.kakeyaMaximal : {n : ℕ} →
+  ℝ →
+    (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℝ≥0∞ :=
+fun {n} δ f ω =>
+  ⨆ x,
+    (∫⁻ (y : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) in
+        Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.tube δ ω x, ‖f y‖ₑ) /
+      volume (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.tube δ ω x)
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.IsKakeyaSet : {n : ℕ} →
+  Set (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n) → Prop :=
+fun {n} F =>
+  ∀ (ω : Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n),
+    ‖ω‖ = 1 → ∃ x, Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.unitSegment ω x ⊆ F
+def Chal.Analysis.Fourier.LocalSmoothing.Comparator.Stein.literalSteinSquareFunction : {n : ℕ} →
+  ℝ →
+    (Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℂ) →
+      Chal.Analysis.Fourier.LocalSmoothing.Comparator.Space n → ℝ≥0∞ :=
+fun {n} α f x =>
+  (∫⁻ (r : ℝ) in Set.Ioi 0,
+      ‖r • deriv (fun s => Chal.Analysis.Fourier.LocalSmoothing.Comparator.Implications.bochnerRiesz α s f x) r‖ₑ ^ 2 /
+        ENNReal.ofReal r) ^
+    (1 / 2)
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.euclidean_local_smoothing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.bochner_riesz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.spherical_restriction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya_maximal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.kakeya' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Analysis.Fourier.LocalSmoothing.Comparator.stein_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+== LocalSmoothing comparator-style: ok=25 problems=0 errors=0 | no-shadowing | [propext, [propext, Classical.choice, Quot.sound]  | defeq_only=0 aux_only=0

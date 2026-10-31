@@ -1,0 +1,18 @@
+== Brenier comparator start 2026-10-31T11:56:02Z landrun=/Users/shannon/cc/math/tmp/comparator/scripts/fake-landrun.sh
+Building ComparatorChallenges.Brenier
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.Brenier
+⚠ [8924/8924] Built ComparatorChallenges.Brenier (44s)
+warning: ComparatorChallenges/Brenier.lean:73:8: declaration uses `sorry`
+warning: ComparatorChallenges/Brenier.lean:88:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.Brenier -- Quot Quot.mk Quot.lift Quot.ind OAI.Problem358.one_third_stability OAI.Problem358.one_third_exponent_is_sharp propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem358.one_third_stability, OAI.Problem358.one_third_exponent_is_sharp, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.Brenier
+Building OAI.Analysis.Brenier.Stability
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Analysis.Brenier.Stability
+Build completed successfully (9012 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Analysis.Brenier.Stability -- Quot Quot.mk Quot.lift Quot.ind OAI.Problem358.one_third_stability OAI.Problem358.one_third_exponent_is_sharp propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Problem358.one_third_stability, OAI.Problem358.one_third_exponent_is_sharp, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Analysis.Brenier.Stability
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-10-31T11:59:43Z
