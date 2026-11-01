@@ -1,0 +1,17 @@
+== Naimark comparator start 2026-11-01T13:08:21Z landrun=/Users/shannon/cc/math/tmp/comparator/scripts/fake-landrun.sh
+Building ComparatorChallenges.Naimark
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.Naimark
+⚠ [8924/8924] Built ComparatorChallenges.Naimark (26s)
+warning: ComparatorChallenges/Naimark.lean:44:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.Naimark -- Quot Quot.mk Quot.lift Quot.ind OAI.NaimarkZFC.main propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.NaimarkZFC.main, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.Naimark
+Building OAI.Analysis.Naimark.Tracial
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Analysis.Naimark.Tracial
+Build completed successfully (8939 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Analysis.Naimark.Tracial -- Quot Quot.mk Quot.lift Quot.ind OAI.NaimarkZFC.main propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.NaimarkZFC.main, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Analysis.Naimark.Tracial
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-11-01T13:12:11Z

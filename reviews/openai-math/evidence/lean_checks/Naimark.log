@@ -1,0 +1,45 @@
+== Naimark  module=OAI.Analysis.Naimark.Tracial  start=2026-11-01T12:39:08Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8939] Built OAI.Analysis.Naimark.DirectLimit (42s)
+✔ [8925/8939] Built OAI.Analysis.Naimark.Basic (46s)
+✔ [8926/8939] Built OAI.Analysis.Naimark.States (11s)
+✔ [8927/8939] Built OAI.Analysis.Naimark.Representations (22s)
+✔ [8928/8939] Built OAI.Analysis.Naimark.Amalgamation (1079s)
+✔ [8929/8939] Built OAI.Analysis.Naimark.Peaking (42s)
+✔ [8930/8939] Built OAI.Analysis.Naimark.HNN (371s)
+✔ [8931/8939] Built OAI.Analysis.Naimark.Extension (14s)
+✔ [8932/8939] Built OAI.Analysis.Naimark.CAR (10s)
+✔ [8933/8939] Built OAI.Analysis.Naimark.Dependencies (11s)
+✔ [8934/8939] Built OAI.Analysis.Naimark.Stages (16s)
+✔ [8935/8939] Built OAI.Analysis.Naimark.Homogeneity (11s)
+✔ [8936/8939] Built OAI.Analysis.Naimark.Omission (14s)
+✔ [8937/8939] Built OAI.Analysis.Naimark.Operators (17s)
+✔ [8938/8939] Built OAI.Analysis.Naimark.Recursion (18s)
+✔ [8939/8939] Built OAI.Analysis.Naimark.Tracial (7.3s)
+Build completed successfully (8939 jobs).
+== build rc=0 seconds=1688
+{"theorems": ["OAI.NaimarkZFC.main"], "defs": ["OAI.NaimarkZFC.IsSimpleCStar", "OAI.NaimarkZFC.IsState", "OAI.NaimarkZFC.IsFaithfulTracialState", "OAI.NaimarkZFC.IsIrreducible", "OAI.NaimarkZFC.UnitarilyEquivalent", "OAI.NaimarkZFC.HasUniqueIrreducibleRepresentation", "OAI.NaimarkZFC.IsIsomorphicToCompacts"], "json_theorems": ["OAI.NaimarkZFC.main"], "missing_from_parse": []}
+AXIOMS: 'OAI.NaimarkZFC.main' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-11-01T13:07:45Z

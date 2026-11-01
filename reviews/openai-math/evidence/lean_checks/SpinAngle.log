@@ -1,0 +1,32 @@
+== SpinAngle  module=OAI.RepresentationTheory.SpinAngle.TypeAngle  start=2026-11-01T13:31:16Z
+warning: PrimeNumberTheoremAnd: repository '/Users/shannon/cc/math/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes
+warning: belyi: repository '/Users/shannon/cc/math/math/lean/.lake/packages/belyi' has local changes
+warning: formal-schemes: repository '/Users/shannon/cc/math/math/lean/.lake/packages/formal-schemes' has local changes
+warning: elliptic-curves: repository '/Users/shannon/cc/math/math/lean/.lake/packages/elliptic-curves' has local changes
+warning: tempered-fundamental-groups: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tempered-fundamental-groups' has local changes
+warning: oka: repository '/Users/shannon/cc/math/math/lean/.lake/packages/oka' has local changes
+warning: orbicurve-cores: repository '/Users/shannon/cc/math/math/lean/.lake/packages/orbicurve-cores' has local changes
+warning: pi1: repository '/Users/shannon/cc/math/math/lean/.lake/packages/pi1' has local changes
+warning: heights: repository '/Users/shannon/cc/math/math/lean/.lake/packages/heights' has local changes
+warning: genl: repository '/Users/shannon/cc/math/math/lean/.lake/packages/genl' has local changes
+warning: tate-curves-theta: repository '/Users/shannon/cc/math/math/lean/.lake/packages/tate-curves-theta' has local changes
+warning: iut: repository '/Users/shannon/cc/math/math/lean/.lake/packages/iut' has local changes
+warning: gromov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/gromov' has local changes
+warning: SphereEversion: repository '/Users/shannon/cc/math/math/lean/.lake/packages/SphereEversion' has local changes
+warning: schoenflies-lean: repository '/Users/shannon/cc/math/math/lean/.lake/packages/schoenflies-lean' has local changes
+warning: ClassFieldTheory: repository '/Users/shannon/cc/math/math/lean/.lake/packages/ClassFieldTheory' has local changes
+warning: AINTLIB: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AINTLIB' has local changes
+warning: AbsorptionCutoff: repository '/Users/shannon/cc/math/math/lean/.lake/packages/AbsorptionCutoff' has local changes
+warning: StrongPNT: repository '/Users/shannon/cc/math/math/lean/.lake/packages/StrongPNT' has local changes
+warning: carleson: repository '/Users/shannon/cc/math/math/lean/.lake/packages/carleson' has local changes
+warning: rellich-kondrachov: repository '/Users/shannon/cc/math/math/lean/.lake/packages/rellich-kondrachov' has local changes
+warning: Zeta3Irrational: repository '/Users/shannon/cc/math/math/lean/.lake/packages/Zeta3Irrational' has local changes
+warning: fixed-point-theorems: repository '/Users/shannon/cc/math/math/lean/.lake/packages/fixed-point-theorems' has local changes
+✔ [8924/8926] Built OAI.RepresentationTheory.SpinAngle.Core (63s)
+✔ [8925/8926] Built OAI.RepresentationTheory.SpinAngle.Compression (5.8s)
+✔ [8926/8926] Built OAI.RepresentationTheory.SpinAngle.TypeAngle (5.2s)
+Build completed successfully (8926 jobs).
+== build rc=0 seconds=84
+{"theorems": ["OAI.SpinAngle.TensorRep.tensor_mul", "OAI.SpinAngle.TensorRep.tensor_one", "OAI.SpinAngle.TensorRep.toEuclideanLin_mul", "OAI.SpinAngle.TensorRep.toEuclideanLin_one", "OAI.SpinAngle.TensorRep.tensor_reindex", "OAI.SpinAngle.Specht.PermutationSpace.alternator_apply", "OAI.SpinAngle.Specht.PermutationSpace.rep_alternator", "OAI.SpinAngle.Specht.complexSign_inv", "OAI.SpinAngle.PolynomialCarrier.action_site_commute", "OAI.SpinAngle.PolynomialCarrier.highest_mem", "OAI.SpinAngle.SignedTensor.block_star", "OAI.SpinAngle.TypeAngle.one_sided_type_angle"], "defs": ["OAI.SpinAngle.Specht.cyclic", "OAI.SpinAngle.TensorRep.tensor", "OAI.SpinAngle.TensorRep.action", "OAI.SpinAngle.TensorRep.rep", "OAI.SpinAngle.Specht.PermutationSpace.rep", "OAI.SpinAngle.Specht.PermutationSpace.alternator", "OAI.SpinAngle.Specht.complexSign", "OAI.SpinAngle.Young.Cells", "OAI.SpinAngle.PolynomialCarrier.reindex", "OAI.SpinAngle.PolynomialCarrier.columnGroup", "OAI.SpinAngle.PolynomialCarrier.TensorSpace", "OAI.SpinAngle.PolynomialCarrier.alternating", "OAI.SpinAngle.PolynomialCarrier.rowColor", "OAI.SpinAngle.PolynomialCarrier.highest", "OAI.SpinAngle.PolynomialCarrier.ordinary", "OAI.SpinAngle.PolynomialCarrier.Carrier", "OAI.SpinAngle.ExternalTensor.rep", "OAI.SpinAngle.SignedTensor.Spin", "OAI.SpinAngle.SignedTensor.Mat", "OAI.SpinAngle.SignedTensor.Group", "OAI.SpinAngle.SignedTensor.block", "OAI.SpinAngle.SignedTensor.blockGroup", "OAI.SpinAngle.SignedTensor.Raw", "OAI.SpinAngle.SignedTensor.rep", "OAI.SpinAngle.EntropyMonomial.entropy", "OAI.SpinAngle.Isotypic.space", "OAI.SpinAngle.Isotypic.projection", "OAI.SpinAngle.SignedCarrier.Carrier", "OAI.SpinAngle.SignedCarrier.rep", "OAI.SpinAngle.SignedCarrier.parts", "OAI.SpinAngle.SignedCarrier.entropy", "OAI.SpinAngle.SignedCarrier.dimension", "OAI.SpinAngle.SignedCarrier.typeProjection", "OAI.SpinAngle.SignedCarrier.matrixProjection", "OAI.SpinAngle.missingCellFactor", "OAI.SpinAngle.missingCellProductFactor", "OAI.SpinAngle.occupiedRow", "OAI.SpinAngle.missingInRow", "OAI.SpinAngle.DependentTensor.Mat", "OAI.SpinAngle.DependentTensor.tensor", "OAI.SpinAngle.BlockTensor.Fiber", "OAI.SpinAngle.BlockTensor.splitEquiv", "OAI.SpinAngle.BlockTensor.tensor", "OAI.SpinAngle.MatrixAnalysis.Mat", "OAI.SpinAngle.TypeLabel", "OAI.SpinAngle.TypeLabel.size", "OAI.SpinAngle.TypeLabel.entropy", "OAI.SpinAngle.TypeLabel.dimension", "OAI.SpinAngle.TypeLabel.projection", "OAI.SpinAngle.TypeBlocks.Fiber", "OAI.SpinAngle.TypeBlocks.projection", "OAI.SpinAngle.TypeBlocks.entropy", "OAI.SpinAngle.TypeBlocks.dimension", "OAI.SpinAngle.TypeAngle.row", "OAI.SpinAngle.TypeAngle.column", "OAI.SpinAngle.TypeAngle.phi"], "json_theorems": ["OAI.SpinAngle.TypeAngle.one_sided_type_angle"], "missing_from_parse": []}
+AXIOMS: 'OAI.SpinAngle.TypeAngle.one_sided_type_angle' depends on axioms: [propext, Classical.choice, Quot.sound] 
+== end=2026-11-01T13:33:07Z

@@ -1,0 +1,17 @@
+== Rokhlin comparator start 2026-11-01T13:27:33Z landrun=/Users/shannon/cc/math/tmp/comparator/scripts/fake-landrun.sh
+Building ComparatorChallenges.Rokhlin
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build ComparatorChallenges.Rokhlin
+⚠ [8924/8924] Built ComparatorChallenges.Rokhlin (23s)
+warning: ComparatorChallenges/Rokhlin.lean:30:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export ComparatorChallenges.Rokhlin -- Quot Quot.mk Quot.lift Quot.ind OAI.Rokhlin.mixing_all_finite_orders propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Rokhlin.mixing_all_finite_orders, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.Rokhlin
+Building OAI.Dynamics.MultipleMixing.Main
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build OAI.Dynamics.MultipleMixing.Main
+Build completed successfully (8936 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec /Users/shannon/cc/math/tmp/lean4export/.lake/build/bin/lean4export OAI.Dynamics.MultipleMixing.Main -- Quot Quot.mk Quot.lift Quot.ind OAI.Rokhlin.mixing_all_finite_orders propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Rokhlin.mixing_all_finite_orders, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Dynamics.MultipleMixing.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== comparator exit=0 end 2026-11-01T13:31:16Z

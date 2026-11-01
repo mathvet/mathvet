@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# MathVet review of https://github.com/openai/math at commit 4eaee87548250b2682affda7d05d947c05554bae, generated 2026-10-31T21:47:22Z by scripts/build_review.py.
+# MathVet review of https://github.com/openai/math at commit 4eaee87548250b2682affda7d05d947c05554bae, generated 2026-11-01T13:36:51Z by scripts/build_review.py.
 # This file uses the formalization.yaml v0.4 standard as a review layer: `repository` points at the reviewed formalization,
 # `alignment.statements` lists every Comparator challenge (status `proved`, per the lab's configuration) and, for every
 # family whose Lean does not state the headline in full, the headline itself (status `not-formalized` or
@@ -3011,7 +3011,7 @@ status:
   scope: 'Review coverage: all 245 families of https://github.com/openai/math that have a lean/docs page and all
     419 Comparator challenges at commit 4eaee87548250b2682affda7d05d947c05554bae; 128 families have no Lean and
     are out of scope. Verdicts: full 152, partial 59, weaker-statement 18, supporting-only 16. Reviewer''s machine
-    checks: 109 solutions built locally, 105 with a clean closure comparison and standard axioms, 417 accepted by
+    checks: 114 solutions built locally, 110 with a clean closure comparison and standard axioms, 417 accepted by
     the real Comparator, of which 401 on an isolated Linux VM with the real landrun (Landlock) sandbox. This repository
     proves nothing itself.'
 automation:
@@ -3132,7 +3132,7 @@ review:
   - Tejpal Virk (independent reviewer, Berkeley, CA; MathVet, github.com/mathvet); no author of the reviewed formalization
     took part
   notes: 'Statement fidelity only: whether each Comparator challenge statement states its family''s headline claim.
-    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-10-31.
+    Proof correctness is left to Lean/Comparator; the truth of unformalized claims is not assessed. Published 2026-11-01.
     Error-rate protocol: 40 families (12 documented divergences with certainty, 14 drawn from the other non-full
     families, 14 drawn from the full families; seeded draw, sample.txt and its SHA-256 committed before any re-reading),
     two named referees who read Lean classify independently under the same rubric, a third adjudicates; the stratum-weighted
@@ -8170,7 +8170,7 @@ mathvet:
     release: openai-math
     upstream_repo: https://github.com/openai/math
     upstream_commit: 4eaee87548250b2682affda7d05d947c05554bae
-    generated: '2026-10-31T21:47:22Z'
+    generated: '2026-11-01T13:36:51Z'
     review_status: independent third-party review, pre-referee
     families_total: 373
     families_with_lean: 245
@@ -8248,6 +8248,7 @@ mathvet:
     - LocalSmoothing
     - LogBrunnMinkowski
     - LogConcaveQuery
+    - LogspaceEquality
     - MUBSix
     - MahlerConjecture
     - MassAction
@@ -8257,8 +8258,10 @@ mathvet:
     - MatrixFields
     - MatrixMultiplication
     - MetricKMedian
+    - Naimark
     - NoiselessRegression
     - NuclearUltrapower
+    - OccupiedOverlap
     - OddKaplansky
     - OptimalMaxCut
     - PerfectCompleteness
@@ -8269,11 +8272,13 @@ mathvet:
     - QACParity
     - QuasiRiemannHypothesis
     - RandomizedMeanPayoff
+    - Rokhlin
     - SKFullSupport
     - SKValue
     - SensitivitySeparation
     - SidorenkoCounterexample
     - SiegelZeros
+    - SpinAngle
     - StrongThinTree
     - SubpolynomialLp
     - Superstring
@@ -8357,6 +8362,7 @@ mathvet:
     - LocalSmoothing
     - LogBrunnMinkowski
     - LogConcaveQuery
+    - LogspaceEquality
     - MUBSix
     - MahlerConjecture
     - MassAction
@@ -8366,8 +8372,10 @@ mathvet:
     - MatrixFields
     - MatrixMultiplication
     - MetricKMedian
+    - Naimark
     - NoiselessRegression
     - NuclearUltrapower
+    - OccupiedOverlap
     - OddKaplansky
     - PeriodicGroup
     - PiExponent
@@ -8376,11 +8384,13 @@ mathvet:
     - QACParity
     - QuasiRiemannHypothesis
     - RandomizedMeanPayoff
+    - Rokhlin
     - SKFullSupport
     - SKValue
     - SensitivitySeparation
     - SidorenkoCounterexample
     - SiegelZeros
+    - SpinAngle
     - StrongThinTree
     - SubpolynomialLp
     - Superstring
