@@ -3,7 +3,7 @@
   "release": "openai-math",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_commit": "4eaee87548250b2682affda7d05d947c05554bae",
-  "generated": "2026-11-24T12:31:04Z",
+  "generated": "2026-11-25T12:31:11Z",
   "review_status": "independent third-party review, pre-referee",
   "families_total": 373,
   "families_with_lean": 245,
@@ -1069,21 +1069,37 @@
   "comparator_running": [],
   "build_in_progress": [],
   "upstream_drift": {
-   "new_commit": "f5702854040e97fa7675c21ba37a9608f5f92dd3",
-   "new_commit_date": "2026-11-23T17:30:37-08:00",
-   "detected": "2026-11-24T12:30:30Z",
+   "new_commit": "3344da59991ed94f9ba711217b29c1d760badfa6",
+   "new_commit_date": "2026-11-24T16:18:47-08:00",
+   "detected": "2026-11-25T12:30:32Z",
    "families_new_with_lean": [
-    "379"
+    "379",
+    "380"
    ],
-   "families_gained_lean": [],
+   "families_gained_lean": [
+    "109"
+   ],
    "families_to_reread": [
-    "379"
+    "107",
+    "109",
+    "130",
+    "379",
+    "380"
    ],
    "challenges_new": [
+    "ArithmeticHierarchy",
+    "Hirsch",
+    "LinearProgramming",
+    "MatrixExponent",
+    "MultitapeWeakETH",
+    "NearSquareRootMultiplication",
+    "Sunflower",
     "VPVNP"
    ],
-   "challenges_modified": [],
-   "report": "upstream-drift/f570285.md"
+   "challenges_modified": [
+    "ExactFourier"
+   ],
+   "report": "upstream-drift/3344da5.md"
   }
  },
  "challenges": [

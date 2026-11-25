@@ -1,6 +1,6 @@
 # Status — review of openai/math @ `4eaee875`
 
-Generated 2026-11-24T12:31:04Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
+Generated 2026-11-25T12:31:11Z by `scripts/build_review.py`. Review status: **independent third-party review, pre-referee**.
 
 | | families |
 |---|---|
@@ -27,4 +27,4 @@ Machine checks obtained at an earlier upstream commit are labelled with that com
 
 ## Upstream drift
 
-Upstream has moved since the reviewed commit: `openai/math` @ `f5702854` (2026-11-23) adds 1 challenges, gives Lean to 1 families that had none, modifies 0 challenge statements and changes the scope note or catalogue entry of 0 reviewed families. None of this is reviewed yet; every verdict here is about commit `4eaee875`. Changed families are marked in the table; the full list and diffs: [upstream-drift/f570285.md](https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/upstream-drift/f570285.md). Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-f570285/`.
+Upstream has moved since the reviewed commit: `openai/math` @ `3344da59` (2026-11-24) adds 8 challenges, gives Lean to 3 families that had none, modifies 1 challenge statements and changes the scope note or catalogue entry of 2 reviewed families. None of this is reviewed yet; every verdict here is about commit `4eaee875`. Changed families are marked in the table; the full list and diffs: [upstream-drift/3344da5.md](https://github.com/mathvet/mathvet/blob/main/reviews/openai-math/upstream-drift/3344da5.md). Checks of the new or changed challenges on the new commit, when run, are in `evidence/upstream-3344da5/`.

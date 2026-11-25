@@ -1,0 +1,140 @@
+{
+ "reviewed_commit": "4eaee87548250b2682affda7d05d947c05554bae",
+ "new_commit": "3344da59991ed94f9ba711217b29c1d760badfa6",
+ "new_commit_date": "2026-11-24T16:18:47-08:00",
+ "new_commit_subject": "Merge pull request #6 from openai/codex/update-11-24",
+ "generated": "2026-11-25T12:30:32Z",
+ "files": {
+  "added": 26439,
+  "deleted": 2,
+  "modified": 14,
+  "renamed": 0
+ },
+ "families_total_new": 375,
+ "families_new": [
+  "379",
+  "380"
+ ],
+ "families_new_with_lean": [
+  "379",
+  "380"
+ ],
+ "families_gained_lean": [
+  "109"
+ ],
+ "families_removed": [],
+ "families_catalogue_changed": [],
+ "families_docs_changed": [
+  "107",
+  "109",
+  "130",
+  "379",
+  "380"
+ ],
+ "families_links_changed": [
+  "107",
+  "109"
+ ],
+ "challenges_total_new": 426,
+ "challenges_new": [
+  "ArithmeticHierarchy",
+  "Hirsch",
+  "LinearProgramming",
+  "MatrixExponent",
+  "MultitapeWeakETH",
+  "NearSquareRootMultiplication",
+  "Sunflower",
+  "VPVNP"
+ ],
+ "challenges_modified": [
+  "ExactFourier"
+ ],
+ "challenges_removed": [
+  "MatrixMultiplication"
+ ],
+ "solution_files_changed": 26208,
+ "challenges_solution_file_changed": [],
+ "preprints_added": 10,
+ "preprints_modified": 0,
+ "build_config_changed": [
+  "lean/lake-manifest.json",
+  "lean/lakefile.lean",
+  "lean/patches/HexBareiss-lean4341.patch",
+  "lean/patches/complexitylib-lean4341.patch",
+  "lean/patches/cslib-lean4341.patch",
+  "lean/patches/lemmata-lean4341.patch"
+ ],
+ "catalogue_files_changed": [
+  "CONTENTS.md",
+  "overview.tex"
+ ],
+ "reaudit": [
+  {
+   "family": "107",
+   "reasons": [
+    "challenge MatrixExponent added",
+    "challenge MatrixMultiplication removed",
+    "scope note changed",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": true
+  },
+  {
+   "family": "109",
+   "reasons": [
+    "challenge MultitapeWeakETH added",
+    "challenge NearSquareRootMultiplication added",
+    "family gained Lean (first formalization of this family; not among the 235 reviewed)",
+    "new scope note",
+    "set of linked challenges changed"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "130",
+   "reasons": [
+    "challenge ExactFourier modified",
+    "scope note changed"
+   ],
+   "in_sample": false,
+   "reviewed": true
+  },
+  {
+   "family": "379",
+   "reasons": [
+    "challenge ArithmeticHierarchy added",
+    "challenge Sunflower added",
+    "challenge VPVNP added",
+    "new family with Lean (not in the reviewed release)",
+    "new scope note"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  },
+  {
+   "family": "380",
+   "reasons": [
+    "challenge Hirsch added",
+    "challenge LinearProgramming added",
+    "new family with Lean (not in the reviewed release)",
+    "new scope note"
+   ],
+   "in_sample": false,
+   "reviewed": false
+  }
+ ],
+ "rebuild": [
+  "ArithmeticHierarchy",
+  "ExactFourier",
+  "Hirsch",
+  "LinearProgramming",
+  "MatrixExponent",
+  "MultitapeWeakETH",
+  "NearSquareRootMultiplication",
+  "Sunflower",
+  "VPVNP"
+ ],
+ "sample_affected": []
+}
